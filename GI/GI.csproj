@@ -63,7 +63,6 @@
     <Compile Include="InfoType.cs" />
     <Compile Include="InterfaceInfo.cs" />
     <Compile Include="InvokeError.cs" />
-    <Compile Include="MappedFile.cs" />
     <Compile Include="ObjectInfo.cs" />
     <Compile Include="ObjectInfoGetValueFunction.cs" />
     <Compile Include="ObjectInfoRefFunction.cs" />
@@ -83,7 +82,6 @@
     <Compile Include="Transfer.cs" />
     <Compile Include="TypeInfo.cs" />
     <Compile Include="TypeTag.cs" />
-    <Compile Include="Typelib.cs" />
     <Compile Include="UnionInfo.cs" />
     <Compile Include="UnresolvedInfo.cs" />
     <Compile Include="VFuncInfo.cs" />

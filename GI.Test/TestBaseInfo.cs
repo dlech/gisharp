@@ -53,12 +53,6 @@ namespace GI
         }
 
         [Test ()]
-        public void TestGetTypelib ()
-        {
-            Assert.That (infos.First ().Typelib, Is.Not.Null);
-        }
-
-        [Test ()]
         public void TestGetNameSpace ()
         {
             Assert.That (infos.First ().Namespace, Is.EqualTo ("GLib"));

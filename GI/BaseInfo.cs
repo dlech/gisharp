@@ -211,17 +211,6 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_get_typelib (IntPtr raw);
-
-        public GI.Typelib Typelib {
-            get {
-                IntPtr raw_ret = g_base_info_get_typelib (Handle);
-                GI.Typelib ret = raw_ret == IntPtr.Zero ? null : (GI.Typelib)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.Typelib), false);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_is_deprecated (IntPtr raw);
 
         public bool IsDeprecated {

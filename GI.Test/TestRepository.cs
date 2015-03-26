@@ -7,13 +7,11 @@ namespace GI
     [TestFixture ()]
     public class TestRepository
     {
-        Typelib GioTypeLib;
-
         [TestFixtureSetUp ()]
         public void TestGetDefault ()
         {
             // Many test require that a namespace is already loaded.
-            GioTypeLib = Repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
+            Repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
         }
 
         [Test ()]
@@ -71,14 +69,6 @@ namespace GI
             Repository.PrependSearchPath ("dummy");
             var endPath = Repository.SearchPath;
             Assert.That (endPath, Contains.Item ("dummy"));
-        }
-
-        [Test ()]
-        public void TestLoadTypelib ()
-        {
-            var name = Repository.LoadTypelib (GioTypeLib, (RepositoryLoadFlags)0);
-            Assert.That (name, Is.EqualTo ("Gio"));
-            // TODO: create our own typelib and load it.
         }
 
         [Test ()]

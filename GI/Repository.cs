@@ -232,19 +232,6 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_irepository_load_typelib (IntPtr raw, IntPtr typelib, int flags, out IntPtr error);
-
-        public static string LoadTypelib (GI.Typelib typelib, GI.RepositoryLoadFlags flags)
-        {
-            IntPtr error = IntPtr.Zero;
-            IntPtr raw_ret = g_irepository_load_typelib (IntPtr.Zero, typelib == null ? IntPtr.Zero : typelib.Handle, (int)flags, out error);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
-            return ret;
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_library_path (IntPtr directory);
 
         public static void PrependLibraryPath (string directory)
@@ -267,37 +254,35 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require (IntPtr raw, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
-        public static GI.Typelib Require (string @namespace, string version, GI.RepositoryLoadFlags flags)
+        public static void Require (string @namespace, string version, GI.RepositoryLoadFlags flags)
         {
             IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
             IntPtr native_version = GLib.Marshaller.StringToPtrGStrdup (version);
             IntPtr error = IntPtr.Zero;
-            IntPtr raw_ret = g_irepository_require (IntPtr.Zero, native_namespace_, native_version, (int)flags, out error);
-            GI.Typelib ret = raw_ret == IntPtr.Zero ? null : (GI.Typelib)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.Typelib), false);
+            g_irepository_require (IntPtr.Zero, native_namespace_, native_version, (int)flags, out error);
             GLib.Marshaller.Free (native_namespace_);
             GLib.Marshaller.Free (native_version);
-            if (error != IntPtr.Zero)
+            if (error != IntPtr.Zero) {
                 throw new GLib.GException (error);
-            return ret;
+            }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require_private (IntPtr raw, IntPtr typelibDir, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
-        public static GI.Typelib RequirePrivate (string typelibDir, string @namespace, string version, GI.RepositoryLoadFlags flags)
+        public static void RequirePrivate (string typelibDir, string @namespace, string version, GI.RepositoryLoadFlags flags)
         {
             IntPtr native_typelib_dir = GLib.Marshaller.StringToPtrGStrdup (typelibDir);
             IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
             IntPtr native_version = GLib.Marshaller.StringToPtrGStrdup (version);
             IntPtr error = IntPtr.Zero;
-            IntPtr raw_ret = g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace_, native_version, (int)flags, out error);
-            GI.Typelib ret = raw_ret == IntPtr.Zero ? null : (GI.Typelib)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.Typelib), false);
+            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace_, native_version, (int)flags, out error);
             GLib.Marshaller.Free (native_typelib_dir);
             GLib.Marshaller.Free (native_namespace_);
             GLib.Marshaller.Free (native_version);
-            if (error != IntPtr.Zero)
+            if (error != IntPtr.Zero) {
                 throw new GLib.GException (error);
-            return ret;
+            }
         }
     }
 }
