@@ -1,0 +1,7 @@
+bin/
+obj/
+Generated/
+packages/
+*.userprefs
+*.orig
+*~

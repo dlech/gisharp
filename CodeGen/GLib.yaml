@@ -1,0 +1,3403 @@
+﻿---
+###########################################
+# Group related stuff into static classes #
+###########################################
+
+# GLib.Idle
+
+GLib.Function.idle_add:
+    class: GLib.StaticClass.Idle
+GLib.Function.idle_remove_by_data:
+    class: GLib.StaticClass.Idle
+GLib.Function.idle_source_new:
+    class: GLib.StaticClass.Idle
+
+# GLib.Log
+
+GLib.Constant.LOG_DOMAIN:
+    class: GLib.StaticClass.Log
+GLib.Constant.LOG_FATAL_MASK:
+    class: GLib.StaticClass.Log
+GLib.Constant.LOG_LEVEL_USER_SHIFT:
+    class: GLib.StaticClass.Log
+GLib.Function.log_default_handler:
+    class: GLib.StaticClass.Log
+GLib.Function.log_remove_handler:
+    class: GLib.StaticClass.Log
+GLib.Function.log_set_always_fatal:
+    class: GLib.StaticClass.Log
+GLib.Function.log_set_fatal_mask:
+    class: GLib.StaticClass.Log
+
+# GLib.Priority
+
+GLib.Constant.PRIORITY_DEFAULT:
+    class: GLib.StaticClass.Priority
+GLib.Constant.PRIORITY_DEFAULT_IDLE:
+    class: GLib.StaticClass.Priority
+GLib.Constant.PRIORITY_HIGH:
+    class: GLib.StaticClass.Priority
+GLib.Constant.PRIORITY_HIGH_IDLE:
+    class: GLib.StaticClass.Priority
+GLib.Constant.PRIORITY_LOW:
+    class: GLib.StaticClass.Priority
+
+# GLib.Quark
+
+GLib.Function.quark_from_static_string:
+    class: GLib.StaticClass.Quark
+GLib.Function.quark_from_string:
+    class: GLib.StaticClass.Quark
+GLib.Function.quark_to_string:
+    class: GLib.StaticClass.Quark
+GLib.Function.quark_try_string:
+    class: GLib.StaticClass.Quark
+GLib.Function.intern_string:
+    class: GLib.StaticClass.Quark
+GLib.Function.intern_static_string:
+    class: GLib.StaticClass.Quark
+
+# GLib.Timeout
+
+GLib.Function.timeout_add:
+    class: GLib.StaticClass.Timeout
+GLib.Function.timeout_add_seconds:
+    class: GLib.StaticClass.Timeout
+GLib.Function.timeout_source_new:
+    class: GLib.StaticClass.Timeout
+GLib.Function.timeout_source_new_seconds:
+    class: GLib.StaticClass.Timeout
+
+# GLib.Version
+
+GLib.Constant.VERSION_MIN_REQUIRED:
+    class: GLib.StaticClass.Version
+GLib.Constant.VERSION_MAX_ALLOWED:
+    class: GLib.StaticClass.Version
+GLib.Constant.MAJOR_VERSION:
+    class: GLib.StaticClass.Version
+GLib.Constant.MINOR_VERSION:
+    class: GLib.StaticClass.Version
+GLib.Constant.MICRO_VERSION:
+    class: GLib.StaticClass.Version
+GLib.Function.check_version:
+    class: GLib.StaticClass.Version
+
+#######################
+# Fixup other classes #
+#######################
+
+# GLib.Bytes - hidden below, leaving this in case it is needed
+
+GLib.Struct.Bytes.Function.new:
+    static_constructor: # to avoid conflict with new_take
+GLib.Struct.Bytes.Function.new_take:
+    static_constructor: # to avoid conflict with new
+
+# GLib.Error
+
+GLib.Struct.Error:
+    opaque:
+GLib.Function.set_error_literal:
+    class: GLib.Struct.Error
+GLib.Function.propagate_error:
+    class: GLib.Struct.Error
+GLib.Function.clear_error:
+    class: GLib.Struct.Error
+GLib.Function.prefix_error:
+    class: GLib.Struct.Error
+GLib.Function.propagate_prefixed_error:
+    class: GLib.Struct.Error
+
+# GLib.MainContext
+
+GLib.Struct.MainContext.Function.wait:
+    hidden: # requires GLib threading which is disabled below
+GLib.Struct.MainContext.Function.prepare:
+    hidden: # has incorrect metadata for priority parameter
+
+# GLib.MainLoop
+
+GLib.Function.main_depth:
+    class: GLib.Struct.MainLoop
+GLib.Function.main_current_source:
+    class: GLib.Struct.MainLoop
+GLib.Function.child_watch_source_new:
+    class: GLib.Struct.MainLoop
+GLib.Function.child_watch_add:
+    class: GLib.Struct.MainLoop
+GLib.Function.poll:
+    class: GLib.Struct.MainLoop
+
+# GLib.PollFD
+
+GLib.Constant.POLLFD_FORMAT:
+    class: GLib.Struct.PollFD
+
+# GLib.Source
+
+GLib.Constant.SOURCE_CONTINUE:
+    class: GLib.Struct.Source
+GLib.Constant.SOURCE_REMOVE:
+    class: GLib.Struct.Source
+GLib.Struct.Source:
+    opaque:
+GLib.Struct.Source.Function.get_current_time:
+    hidden: # obsolete and uses GLib.TimeVal
+GLib.Struct.Source.Function.modify_unix_fd:
+    hidden: # uses GLib.IOCondition
+GLib.Struct.Source.Function.query_unix_fd:
+    hidden: # uses GLib.IOCondition
+
+# GLib.Variant - hidden below, keeping this in case it is needed
+
+GLib.Function.variant_get_gtype:
+    class: GLib.Struct.Variant
+GLib.Struct.Variant.Function.get_type:
+    name: GetVariantType # conflicts with built-in method of System.Object
+GLib.Struct.Variant.Function.get_data_as_bytes:
+    hidden: # GLib.Bytes is not used
+# GLib.Variant has too many constructors
+GLib.Struct.Variant.Function.new_array:
+    static_constructor:
+GLib.Struct.Variant.Function.new_boolean:
+    static_constructor:
+GLib.Struct.Variant.Function.new_byte:
+    static_constructor:
+GLib.Struct.Variant.Function.new_bytestring:
+    static_constructor:
+GLib.Struct.Variant.Function.new_bytestring_array:
+    static_constructor:
+GLib.Struct.Variant.Function.new_dict_entry:
+    static_constructor:
+GLib.Struct.Variant.Function.new_double:
+    static_constructor:
+GLib.Struct.Variant.Function.new_fixed_array:
+    static_constructor:
+GLib.Struct.Variant.Function.new_from_bytes:
+    hidden: # GLib.Bytes is not used
+    static_constructor:
+GLib.Struct.Variant.Function.new_from_data:
+    static_constructor:
+GLib.Struct.Variant.Function.new_handle:
+    static_constructor:
+GLib.Struct.Variant.Function.new_int16:
+    static_constructor:
+GLib.Struct.Variant.Function.new_int32:
+    static_constructor:
+GLib.Struct.Variant.Function.new_int64:
+    static_constructor:
+GLib.Struct.Variant.Function.new_maybe:
+    static_constructor:
+GLib.Struct.Variant.Function.new_object_path:
+    static_constructor:
+GLib.Struct.Variant.Function.new_objv:
+    static_constructor:
+GLib.Struct.Variant.Function.new_signature:
+    static_constructor:
+GLib.Struct.Variant.Function.new_string:
+    static_constructor:
+GLib.Struct.Variant.Function.new_strv:
+    static_constructor:
+GLib.Struct.Variant.Function.new_tuple:
+    static_constructor:
+GLib.Struct.Variant.Function.new_uint16:
+    static_constructor:
+GLib.Struct.Variant.Function.new_uint32:
+    static_constructor:
+GLib.Struct.Variant.Function.new_uint64:
+    static_constructor:
+GLib.Struct.Variant.Function.new_variant:
+    static_constructor:
+
+GLib.Struct.VariantBuilder:
+    opaque:
+
+GLib.Struct.VariantDict:
+    opaque:
+
+GLib.Struct.VariantType.Function.new:
+    static_constructor:
+GLib.Struct.VariantType.Function.new_array:
+    static_constructor:
+GLib.Struct.VariantType.Function.new_dict_entry:
+    static_constructor:
+GLib.Struct.VariantType.Function.new_maybe:
+    static_constructor:
+GLib.Struct.VariantType.Function.new_tuple:
+    static_constructor:
+
+#########################
+# Fix rename collisions #
+#########################
+
+GLib.Constant.HAVE___INLINE:
+    hidden: # Duplicate of HAVE_INLINE
+GLib.Constant.HAVE___INLINE__:
+    hidden: # Duplicate of HAVE_INLINE
+
+##########################
+# Hide GObject functions #
+##########################
+
+GLib.Function.strv_get_type:
+    hidden: # member of GBoxedType
+
+#######################
+# Hide internal stuff #
+#######################
+
+GLib.Struct.SourcePrivate:
+    hidden:
+
+
+
+################################################################################
+# Ignoring large chunks of things .NET can do...                               #
+# If anything below this line is to be uningnored, delete it or move it above  #
+################################################################################
+
+################################################################################
+# GLib Fundamentals                                                            #
+#   https://developer.gnome.org/glib/stable/glib-fundamentals.html             #
+################################################################################
+
+# Basic Types
+
+GLib.Constant.MININT:
+    hidden:
+GLib.Constant.MAXINT:
+    hidden:
+GLib.Constant.MAXUINT:
+    hidden:
+GLib.Constant.MINSHORT:
+    hidden:
+GLib.Constant.MAXSHORT:
+    hidden:
+GLib.Constant.MAXUSHORT:
+    hidden:
+GLib.Constant.MINLONG:
+    hidden:
+GLib.Constant.MAXLONG:
+    hidden:
+GLib.Constant.MAXULONG:
+    hidden:
+GLib.Constant.MININT8:
+    hidden:
+GLib.Constant.MAXINT8:
+    hidden:
+GLib.Constant.MAXUINT8:
+    hidden:
+GLib.Constant.MININT16:
+    hidden:
+GLib.Constant.MAXINT16:
+    hidden:
+GLib.Constant.GINT16_MODIFIER:
+    hidden:
+GLib.Constant.GINT16_FORMAT:
+    hidden:
+GLib.Constant.MAXUINT16:
+    hidden:
+GLib.Constant.GUINT16_FORMAT:
+    hidden:
+GLib.Constant.MININT32:
+    hidden:
+GLib.Constant.MAXINT32:
+    hidden:
+GLib.Constant.GINT32_MODIFIER:
+    hidden:
+GLib.Constant.GINT32_FORMAT:
+    hidden:
+GLib.Constant.MAXUINT32:
+    hidden:
+GLib.Constant.GUINT32_FORMAT:
+    hidden:
+GLib.Constant.MININT64:
+    hidden:
+GLib.Constant.MAXINT64:
+    hidden:
+GLib.Constant.GINT64_MODIFIER:
+    hidden:
+GLib.Constant.GINT64_FORMAT:
+    hidden:
+GLib.Constant.MAXUINT64:
+    hidden:
+GLib.Constant.GUINT64_FORMAT:
+    hidden:
+GLib.Constant.MINFLOAT:
+    hidden:
+GLib.Constant.MAXFLOAT:
+    hidden:
+GLib.Constant.MINDOUBLE:
+    hidden:
+GLib.Constant.MAXDOUBLE:
+    hidden:
+GLib.Constant.MAXSIZE:
+    hidden:
+GLib.Constant.GSIZE_MODIFIER:
+    hidden:
+GLib.Constant.GSIZE_FORMAT:
+    hidden:
+GLib.Constant.MINSSIZE:
+    hidden:
+GLib.Constant.MAXSSIZE:
+    hidden:
+GLib.Constant.GSSIZE_MODIFIER:
+    hidden:
+GLib.Constant.GSSIZE_FORMAT:
+    hidden:
+GLib.Constant.MINOFFSET:
+    hidden:
+GLib.Constant.MAXOFFSET:
+    hidden:
+GLib.Constant.GOFFSET_MODIFIER:
+    hidden:
+GLib.Constant.GOFFSET_FORMAT:
+    hidden:
+GLib.Constant.GINTPTR_MODIFIER:
+    hidden:
+GLib.Constant.GINTPTR_FORMAT:
+    hidden:
+GLib.Constant.GUINTPTR_FORMAT:
+    hidden:
+
+# Standard Macros
+
+GLib.Constant.OS_WIN32:
+    hidden:
+GLib.Constant.OS_UNIX:
+    hidden:
+GLib.Constant.DIR_SEPARATOR:
+    hidden:
+GLib.Constant.DIR_SEPARATOR_S:
+    hidden:
+GLib.Constant.SEARCHPATH_SEPARATOR:
+    hidden:
+GLib.Constant.SEARCHPATH_SEPARATOR_S:
+    hidden:
+GLib.Constant.MEM_ALIGN:
+    hidden:
+GLib.Constant.CONST_RETURN:
+    hidden:
+
+# Numerical Definitions
+
+GLib.Constant.IEEE754_FLOAT_BIAS:
+    hidden:
+GLib.Constant.IEEE754_DOUBLE_BIAS:
+    hidden:
+GLib.Union.FloatIEEE754:
+    hidden:
+GLib.Union.DoubleIEEE754:
+    hidden:
+GLib.Constant.E:
+    hidden:
+GLib.Constant.LN2:
+    hidden:
+GLib.Constant.LN10:
+    hidden:
+GLib.Constant.PI:
+    hidden:
+GLib.Constant.PI_2:
+    hidden:
+GLib.Constant.PI_4:
+    hidden:
+GLib.Constant.SQRT2:
+    hidden:
+GLib.Constant.LOG_2_BASE_10:
+    hidden:
+
+# Miscellaneous Macros
+
+GLib.Constant.INLINE_FUNC:
+    hidden:
+GLib.Constant.autofree:
+    hidden:
+GLib.Constant.STMT_START:
+    hidden:
+GLib.Constant.STMT_END:
+    hidden:
+GLib.Constant.BEGIN_DECLS:
+    hidden:
+GLib.Constant.END_DECLS:
+    hidden:
+GLib.Constant.GNUC_EXTENSION:
+    hidden:
+GLib.Constant.GNUC_CONST:
+    hidden:
+GLib.Constant.GNUC_PURE:
+    hidden:
+GLib.Constant.GNUC_MALLOC:
+    hidden:
+GLib.Constant.GNUC_DEPRECATED:
+    hidden:
+GLib.Constant.GNUC_BEGIN_IGNORE_DEPRECATIONS:
+    hidden:
+GLib.Constant.GNUC_END_IGNORE_DEPRECATIONS:
+    hidden:
+GLib.Constant.GNUC_NORETURN:
+    hidden:
+GLib.Constant.GNUC_UNUSED:
+    hidden:
+GLib.Constant.GNUC_NULL_TERMINATED:
+    hidden:
+GLib.Constant.GNUC_WARN_UNUSED_RESULT:
+    hidden:
+GLib.Constant.GNUC_FUNCTION:
+    hidden:
+GLib.Constant.GNUC_PRETTY_FUNCTION:
+    hidden:
+GLib.Constant.GNUC_NO_INSTRUMENT:
+    hidden:
+GLib.Constant.HAVE_GNUC_VISIBILITY:
+    hidden:
+GLib.Constant.GNUC_INTERNAL:
+    hidden:
+GLib.Constant.GNUC_MAY_ALIAS:
+    hidden:
+GLib.Constant.DEPRECATED:
+    hidden:
+GLib.Constant.STRLOC:
+    hidden:
+
+# Atomic Operations
+
+GLib.Function.atomic_int_get:
+    hidden:
+GLib.Function.atomic_int_set:
+    hidden:
+GLib.Function.atomic_int_inc:
+    hidden:
+GLib.Function.atomic_int_dec_and_test:
+    hidden:
+GLib.Function.atomic_int_compare_and_exchange:
+    hidden:
+GLib.Function.atomic_int_add:
+    hidden:
+GLib.Function.atomic_int_and:
+    hidden:
+GLib.Function.atomic_int_or:
+    hidden:
+GLib.Function.atomic_int_xor:
+    hidden:
+GLib.Function.atomic_pointer_get:
+    hidden:
+GLib.Function.atomic_pointer_set:
+    hidden:
+GLib.Function.atomic_pointer_compare_and_exchange:
+    hidden:
+GLib.Function.atomic_pointer_add:
+    hidden:
+GLib.Function.atomic_pointer_and:
+    hidden:
+GLib.Function.atomic_pointer_or:
+    hidden:
+GLib.Function.atomic_pointer_xor:
+    hidden:
+GLib.Function.atomic_int_exchange_and_add:
+    hidden:
+GLib.Constant.ATOMIC_LOCK_FREE:
+    hidden:
+
+################################################################################
+# GLib Core Application Support                                                #
+#   https://developer.gnome.org/glib/stable/glib-core.html                     #
+################################################################################
+
+# Threads
+
+GLib.Callback.ThreadFunc:
+    hidden:
+GLib.Function.thread_new:
+    hidden:
+GLib.Function.thread_try_new:
+    hidden:
+GLib.Function.thread_ref:
+    hidden:
+GLib.Function.thread_unref:
+    hidden:
+GLib.Function.thread_join:
+    hidden:
+GLib.Function.thread_yield:
+    hidden:
+GLib.Function.thread_exit:
+    hidden:
+GLib.Function.thread_self:
+    hidden:
+GLib.Function.mutex_init:
+    hidden:
+GLib.Function.mutex_clear:
+    hidden:
+GLib.Function.mutex_lock:
+    hidden:
+GLib.Function.mutex_trylock:
+    hidden:
+GLib.Function.mutex_unlock:
+    hidden:
+GLib.Function.mutex_locker_new:
+    hidden:
+GLib.Function.mutex_locker_free:
+    hidden:
+GLib.Function.LOCK_DEFINE:
+    hidden:
+GLib.Function.LOCK_DEFINE_STATIC:
+    hidden:
+GLib.Function.LOCK_EXTERN:
+    hidden:
+GLib.Function.LOCK:
+    hidden:
+GLib.Function.TRYLOCK:
+    hidden:
+GLib.Function.UNLOCK:
+    hidden:
+GLib.Function.rec_mutex_init:
+    hidden:
+GLib.Function.rec_mutex_clear:
+    hidden:
+GLib.Function.rec_mutex_lock:
+    hidden:
+GLib.Function.rec_mutex_trylock:
+    hidden:
+GLib.Function.rec_mutex_unlock:
+    hidden:
+GLib.Function.rw_lock_init:
+    hidden:
+GLib.Function.rw_lock_clear:
+    hidden:
+GLib.Function.rw_lock_writer_lock:
+    hidden:
+GLib.Function.rw_lock_writer_trylock:
+    hidden:
+GLib.Function.rw_lock_writer_unlock:
+    hidden:
+GLib.Function.rw_lock_reader_lock:
+    hidden:
+GLib.Function.rw_lock_reader_trylock:
+    hidden:
+GLib.Function.rw_lock_reader_unlock:
+    hidden:
+GLib.Function.cond_init:
+    hidden:
+GLib.Function.cond_clear:
+    hidden:
+GLib.Function.cond_wait:
+    hidden:
+GLib.Function.cond_timed_wait:
+    hidden:
+GLib.Function.cond_wait_until:
+    hidden:
+GLib.Function.cond_signal:
+    hidden:
+GLib.Function.cond_broadcast:
+    hidden:
+GLib.Function.PRIVATE_INIT:
+    hidden:
+GLib.Function.private_get:
+    hidden:
+GLib.Function.private_set:
+    hidden:
+GLib.Function.private_replace:
+    hidden:
+GLib.Function.once:
+    hidden:
+GLib.Function.once_init_enter:
+    hidden:
+GLib.Function.once_init_leave:
+    hidden:
+GLib.Function.bit_lock:
+    hidden:
+GLib.Function.bit_trylock:
+    hidden:
+GLib.Function.bit_unlock:
+    hidden:
+GLib.Function.pointer_bit_lock:
+    hidden:
+GLib.Function.pointer_bit_trylock:
+    hidden:
+GLib.Function.pointer_bit_unlock:
+    hidden:
+GLib.Function.get_num_processors:
+    hidden:
+GLib.Function.thread_error_quark:
+    hidden:
+GLib.Enum.ThreadError:
+    hidden:
+GLib.Struct.Thread:
+    hidden:
+GLib.Union.Mutex:
+    hidden:
+GLib.Struct.MutexLocker:
+    hidden:
+GLib.Struct.RecMutex:
+    hidden:
+GLib.Struct.RWLock:
+    hidden:
+GLib.Struct.Cond:
+    hidden:
+GLib.Struct.Private:
+    hidden:
+GLib.Struct.Once:
+    hidden:
+GLib.Enum.OnceStatus:
+    hidden:
+GLib.Constant.ONCE_INIT:
+    hidden:
+
+# Thread Pools
+
+GLib.Function.thread_pool_new:
+    hidden:
+GLib.Function.thread_pool_push:
+    hidden:
+GLib.Function.thread_pool_set_max_threads:
+    hidden:
+GLib.Function.thread_pool_get_max_threads:
+    hidden:
+GLib.Function.thread_pool_get_num_threads:
+    hidden:
+GLib.Function.thread_pool_unprocessed:
+    hidden:
+GLib.Function.thread_pool_free:
+    hidden:
+GLib.Function.thread_pool_set_max_unused_threads:
+    hidden:
+GLib.Function.thread_pool_get_max_unused_threads:
+    hidden:
+GLib.Function.thread_pool_get_num_unused_threads:
+    hidden:
+GLib.Function.thread_pool_stop_unused_threads:
+    hidden:
+GLib.Function.thread_pool_set_sort_function:
+    hidden:
+GLib.Function.thread_pool_set_max_idle_time:
+    hidden:
+GLib.Function.thread_pool_get_max_idle_time:
+    hidden:
+GLib.Struct.ThreadPool:
+    hidden:
+
+# Asynchronous Queues
+
+GLib.Struct.AsyncQueue:
+    hidden: # .NET handles threading
+
+# Dynamic Loading of Modules
+
+GLib.Function.module_supported:
+    hidden:
+GLib.Function.module_build_path:
+    hidden:
+GLib.Function.module_open:
+    hidden:
+GLib.Function.module_symbol:
+    hidden:
+GLib.Function.module_name:
+    hidden:
+GLib.Function.module_make_resident:
+    hidden:
+GLib.Function.module_close:
+    hidden:
+GLib.Function.module_error:
+    hidden:
+GLib.Callback.ModuleCheckInit:
+    hidden:
+GLib.Callback.ModuleUnload:
+    hidden:
+GLib.Struct.Module:
+    hidden:
+GLib.Flags.ModuleFlags:
+    hidden:
+GLib.Constant.MODULE_SUFFIX:
+    hidden:
+GLib.Constant.MODULE_EXPORT:
+    hidden:
+GLib.Constant.MODULE_IMPORT:
+    hidden:
+
+# Memory Allocation
+
+GLib.Function.new:
+    hidden:
+GLib.Function.new0:
+    hidden:
+GLib.Function.renew:
+    hidden:
+GLib.Function.try_new:
+    hidden:
+GLib.Function.try_new0:
+    hidden:
+GLib.Function.try_renew:
+    hidden:
+GLib.Function.malloc:
+    hidden:
+GLib.Function.malloc0:
+    hidden:
+GLib.Function.realloc:
+    hidden:
+GLib.Function.try_malloc:
+    hidden:
+GLib.Function.try_malloc0:
+    hidden:
+GLib.Function.try_realloc:
+    hidden:
+GLib.Function.malloc_n:
+    hidden:
+GLib.Function.malloc0_n:
+    hidden:
+GLib.Function.realloc_n:
+    hidden:
+GLib.Function.try_malloc_n:
+    hidden:
+GLib.Function.try_malloc0_n:
+    hidden:
+GLib.Function.try_realloc_n:
+    hidden:
+GLib.Function.free:
+    hidden:
+GLib.Function.clear_pointer:
+    hidden:
+GLib.Function.steal_pointer:
+    hidden:
+GLib.Function.alloca:
+    hidden:
+GLib.Function.newa:
+    hidden:
+GLib.Function.memmove:
+    hidden:
+GLib.Function.memdup:
+    hidden:
+GLib.Function.mem_set_vtable:
+    hidden:
+GLib.Function.mem_is_system_malloc:
+    hidden:
+GLib.Function.mem_profile:
+    hidden:
+GLib.Struct.MemVTable:
+    hidden:
+
+# Memory Slices
+
+GLib.Function.slice_alloc:
+    hidden:
+GLib.Function.slice_alloc0:
+    hidden:
+GLib.Function.slice_copy:
+    hidden:
+GLib.Function.slice_free1:
+    hidden:
+GLib.Function.slice_free_chain_with_offset:
+    hidden:
+GLib.Function.slice_new:
+    hidden:
+GLib.Function.slice_new0:
+    hidden:
+GLib.Function.slice_dup:
+    hidden:
+GLib.Function.slice_free:
+    hidden:
+GLib.Function.slice_free_chain:
+    hidden:
+GLib.Function.slice_get_config:
+    hidden:
+GLib.Function.slice_get_config_state:
+    hidden:
+GLib.Function.slice_set_config:
+    hidden:
+GLib.Enum.SliceConfig:
+    hidden:
+
+# IO Channels
+
+GLib.Function.io_channel_unix_new:
+    hidden:
+GLib.Function.io_channel_unix_get_fd:
+    hidden:
+GLib.Function.io_channel_win32_new_fd:
+    hidden:
+GLib.Function.io_channel_win32_new_socket:
+    hidden:
+GLib.Function.io_channel_win32_new_messages:
+    hidden:
+GLib.Function.io_channel_init:
+    hidden:
+GLib.Function.io_channel_new_file:
+    hidden:
+GLib.Function.io_channel_read_chars:
+    hidden:
+GLib.Function.io_channel_read_unichar:
+    hidden:
+GLib.Function.io_channel_read_line:
+    hidden:
+GLib.Function.io_channel_read_line_string:
+    hidden:
+GLib.Function.io_channel_read_to_end:
+    hidden:
+GLib.Function.io_channel_write_chars:
+    hidden:
+GLib.Function.io_channel_write_unichar:
+    hidden:
+GLib.Function.io_channel_flush:
+    hidden:
+GLib.Function.io_channel_seek_position:
+    hidden:
+GLib.Function.io_channel_shutdown:
+    hidden:
+GLib.Function.io_channel_error_from_errno:
+    hidden:
+GLib.Function.io_channel_ref:
+    hidden:
+GLib.Function.io_channel_unref:
+    hidden:
+GLib.Function.io_create_watch:
+    hidden:
+GLib.Function.io_add_watch:
+    hidden:
+GLib.Function.io_add_watch_full:
+    hidden:
+GLib.Callback.IOFunc:
+    hidden:
+GLib.Function.io_channel_get_buffer_size:
+    hidden:
+GLib.Function.io_channel_set_buffer_size:
+    hidden:
+GLib.Function.io_channel_get_buffer_condition:
+    hidden:
+GLib.Function.io_channel_get_flags:
+    hidden:
+GLib.Function.io_channel_set_flags:
+    hidden:
+GLib.Function.io_channel_get_line_term:
+    hidden:
+GLib.Function.io_channel_set_line_term:
+    hidden:
+GLib.Function.io_channel_get_buffered:
+    hidden:
+GLib.Function.io_channel_set_buffered:
+    hidden:
+GLib.Function.io_channel_get_encoding:
+    hidden:
+GLib.Function.io_channel_set_encoding:
+    hidden:
+GLib.Function.io_channel_get_close_on_unref:
+    hidden:
+GLib.Function.io_channel_set_close_on_unref:
+    hidden:
+GLib.Function.io_channel_read:
+    hidden:
+GLib.Function.io_channel_write:
+    hidden:
+GLib.Function.io_channel_seek:
+    hidden:
+GLib.Function.io_channel_close:
+    hidden:
+GLib.Struct.IOChannel:
+    hidden:
+GLib.Enum.SeekType:
+    hidden:
+GLib.Enum.IOStatus:
+    hidden:
+GLib.Enum.IOChannelError:
+    hidden:
+GLib.Function.io_channel_error_quark:
+    hidden:
+GLib.Flags.IOCondition:
+    hidden:
+GLib.Struct.IOFuncs:
+    hidden:
+GLib.Flags.IOFlags:
+    hidden:
+GLib.Enum.IOError:
+    hidden:
+
+# Message Output and Debugging Functions
+
+GLib.Function.print:
+    hidden:
+GLib.Function.set_print_handler:
+    hidden:
+GLib.Callback.PrintFunc:
+    hidden:
+GLib.Function.printerr:
+    hidden:
+GLib.Function.set_printerr_handler:
+    hidden:
+GLib.Function.return_if_fail:
+    hidden:
+GLib.Function.return_if_fail_warning:
+    hidden:
+GLib.Function.return_val_if_fail:
+    hidden:
+GLib.Function.return_if_reach:
+    hidden:
+GLib.Function.return_val_if_reached:
+    hidden:
+GLib.Function.warn_if_fail:
+    hidden:
+GLib.Function.warn_if_reach:
+    hidden:
+GLib.Function.on_error_query:
+    hidden:
+GLib.Function.on_error_stack_trace:
+    hidden:
+GLib.Constant.BREAKPOINT:
+    hidden:
+
+# undocumented macro implementation functions
+
+GLib.Function.assertion_message:
+    hidden:
+GLib.Function.assertion_message_cmpstr:
+    hidden:
+GLib.Function.assertion_message_error:
+    hidden:
+GLib.Function.assertion_message_expr:
+    hidden:
+GLib.Function.warn_message:
+    hidden:
+
+################################################################################
+# Utility functions - comes from:                                              #
+#   https://developer.gnome.org/glib/stable/glib-utilities.html                #
+################################################################################
+
+# String Utility Functions
+
+GLib.Function.strdup:
+    hidden:
+GLib.Function.strndup:
+    hidden:
+GLib.Function.strdupv:
+    hidden:
+GLib.Function.strnfill:
+    hidden:
+GLib.Function.stpcpy:
+    hidden:
+GLib.Function.strstr_len:
+    hidden:
+GLib.Function.strrstr:
+    hidden:
+GLib.Function.strrstr_len:
+    hidden:
+GLib.Function.str_has_prefix:
+    hidden:
+GLib.Function.str_has_suffix:
+    hidden:
+GLib.Function.strcmp0:
+    hidden:
+GLib.Function.str_to_ascii:
+    hidden:
+GLib.Function.str_tokenize_and_fold:
+    hidden:
+GLib.Function.str_match_string:
+    hidden:
+GLib.Function.strlcpy:
+    hidden:
+GLib.Function.strlcat:
+    hidden:
+GLib.Function.strdup_printf:
+    hidden:
+GLib.Function.strdup_vprintf:
+    hidden:
+GLib.Function.printf:
+    hidden:
+GLib.Function.vprintf:
+    hidden:
+GLib.Function.fprintf:
+    hidden:
+GLib.Function.vfprintf:
+    hidden:
+GLib.Function.sprintf:
+    hidden:
+GLib.Function.vsprintf:
+    hidden:
+GLib.Function.snprintf:
+    hidden:
+GLib.Function.vsnprintf:
+    hidden:
+GLib.Function.vasprintf:
+    hidden:
+GLib.Function.printf_string_upper_bound:
+    hidden:
+GLib.Function.str_is_ascii:
+    hidden:
+GLib.Function.ascii_isalnum:
+    hidden:
+GLib.Function.ascii_isalpha:
+    hidden:
+GLib.Function.ascii_iscntrl:
+    hidden:
+GLib.Function.ascii_isdigit:
+    hidden:
+GLib.Function.ascii_isgraph:
+    hidden:
+GLib.Function.ascii_islower:
+    hidden:
+GLib.Function.ascii_isprint:
+    hidden:
+GLib.Function.ascii_ispunct:
+    hidden:
+GLib.Function.ascii_isspace:
+    hidden:
+GLib.Function.ascii_isupper:
+    hidden:
+GLib.Function.ascii_isxdigit:
+    hidden:
+GLib.Function.ascii_digit_value:
+    hidden:
+GLib.Function.ascii_xdigit_value:
+    hidden:
+GLib.Function.ascii_strcasecmp:
+    hidden:
+GLib.Function.ascii_strncasecmp:
+    hidden:
+GLib.Function.ascii_strup:
+    hidden:
+GLib.Function.ascii_strdown:
+    hidden:
+GLib.Function.ascii_tolower:
+    hidden:
+GLib.Function.ascii_toupper:
+    hidden:
+GLib.Function.string_ascii_up:
+    hidden:
+GLib.Function.string_ascii_down:
+    hidden:
+GLib.Function.strup:
+    hidden:
+GLib.Function.strdown:
+    hidden:
+GLib.Function.strcasecmp:
+    hidden:
+GLib.Function.strncasecmp:
+    hidden:
+GLib.Function.strreverse:
+    hidden:
+GLib.Function.ascii_strtoll:
+    hidden:
+GLib.Function.ascii_strtoull:
+    hidden:
+GLib.Function.ASCII_DTOSTR_BUF_SIZE:
+    hidden:
+GLib.Function.ascii_strtod:
+    hidden:
+GLib.Function.ascii_dtostr:
+    hidden:
+GLib.Function.ascii_formatd:
+    hidden:
+GLib.Function.strtod:
+    hidden:
+GLib.Function.strchug:
+    hidden:
+GLib.Function.strchomp:
+    hidden:
+GLib.Function.strstri:
+    hidden:
+GLib.Function.strdelimit:
+    hidden:
+GLib.Function.strescape:
+    hidden:
+GLib.Function.strcompress:
+    hidden:
+GLib.Function.strcanon:
+    hidden:
+GLib.Function.strsplit:
+    hidden:
+GLib.Function.strsplit_set:
+    hidden:
+GLib.Function.strfreev:
+    hidden:
+GLib.Function.strconcat:
+    hidden:
+GLib.Function.strjoin:
+    hidden:
+GLib.Function.strjoinv:
+    hidden:
+GLib.Function.strv_length:
+    hidden:
+GLib.Function.strv_contains:
+    hidden:
+GLib.Function.strerror:
+    hidden:
+GLib.Function.strsignal:
+    hidden:
+
+# Character Set Conversion
+
+GLib.Function.convert:
+    hidden:
+GLib.Function.convert_with_fallback:
+    hidden:
+GLib.Function.convert_with_iconv:
+    hidden:
+GLib.Function.iconv_open:
+    hidden:
+GLib.Function.iconv:
+    hidden:
+GLib.Function.iconv_close:
+    hidden:
+GLib.Function.locale_to_utf8:
+    hidden:
+GLib.Function.filename_to_utf8:
+    hidden:
+GLib.Function.filename_from_utf8:
+    hidden:
+GLib.Function.get_filename_charsets:
+    hidden:
+GLib.Function.filename_display_name:
+    hidden:
+GLib.Function.filename_display_basename:
+    hidden:
+GLib.Function.locale_from_utf8:
+    hidden:
+GLib.Function.get_charset:
+    hidden:
+GLib.Function.get_codeset:
+    hidden:
+GLib.Struct.IConv:
+    hidden:
+GLib.Function.convert_error_quark:
+    hidden:
+GLib.Enum.ConvertError:
+    hidden:
+
+# Unicode Manipulation
+
+GLib.Function.unichar_validate:
+    hidden:
+GLib.Function.unichar_isalnum:
+    hidden:
+GLib.Function.unichar_isalpha:
+    hidden:
+GLib.Function.unichar_iscntrl:
+    hidden:
+GLib.Function.unichar_isdefined:
+    hidden:
+GLib.Function.unichar_isdigit:
+    hidden:
+GLib.Function.unichar_isgraph:
+    hidden:
+GLib.Function.unichar_islower:
+    hidden:
+GLib.Function.unichar_ismark:
+    hidden:
+GLib.Function.unichar_isprint:
+    hidden:
+GLib.Function.unichar_ispunct:
+    hidden:
+GLib.Function.unichar_isspace:
+    hidden:
+GLib.Function.unichar_istitle:
+    hidden:
+GLib.Function.unichar_isupper:
+    hidden:
+GLib.Function.unichar_isxdigit:
+    hidden:
+GLib.Function.unichar_iswide:
+    hidden:
+GLib.Function.unichar_iswide_cjk:
+    hidden:
+GLib.Function.unichar_iszerowidth:
+    hidden:
+GLib.Function.unichar_toupper:
+    hidden:
+GLib.Function.unichar_tolower:
+    hidden:
+GLib.Function.unichar_totitle:
+    hidden:
+GLib.Function.unichar_digit_value:
+    hidden:
+GLib.Function.unichar_xdigit_value:
+    hidden:
+GLib.Function.unichar_compose:
+    hidden:
+GLib.Function.unichar_decompose:
+    hidden:
+GLib.Function.unichar_fully_decompose:
+    hidden:
+GLib.Function.unichar_type:
+    hidden:
+GLib.Function.unichar_break_type:
+    hidden:
+GLib.Function.unichar_combining_class:
+    hidden:
+GLib.Function.unicode_canonical_ordering:
+    hidden:
+GLib.Function.unicode_canonical_decomposition:
+    hidden:
+GLib.Function.unichar_get_mirror_char:
+    hidden:
+GLib.Function.unichar_get_script:
+    hidden:
+GLib.Function.unicode_script_from_iso15924:
+    hidden:
+GLib.Function.unicode_script_to_iso15924:
+    hidden:
+GLib.Function.utf8_next_char:
+    hidden:
+GLib.Function.utf8_get_char:
+    hidden:
+GLib.Function.utf8_get_char_validated:
+    hidden:
+GLib.Function.utf8_offset_to_pointer:
+    hidden:
+GLib.Function.utf8_pointer_to_offset:
+    hidden:
+GLib.Function.utf8_prev_char:
+    hidden:
+GLib.Function.utf8_find_next_char:
+    hidden:
+GLib.Function.utf8_find_prev_char:
+    hidden:
+GLib.Function.utf8_strlen:
+    hidden:
+GLib.Function.utf8_strncpy:
+    hidden:
+GLib.Function.utf8_strchr:
+    hidden:
+GLib.Function.utf8_strrchr:
+    hidden:
+GLib.Function.utf8_strreverse:
+    hidden:
+GLib.Function.utf8_substring:
+    hidden:
+GLib.Function.utf8_validate:
+    hidden:
+GLib.Function.utf8_strup:
+    hidden:
+GLib.Function.utf8_strdown:
+    hidden:
+GLib.Function.utf8_casefold:
+    hidden:
+GLib.Function.utf8_normalize:
+    hidden:
+GLib.Function.utf8_collate:
+    hidden:
+GLib.Function.utf8_collate_key:
+    hidden:
+GLib.Function.utf8_collate_key_for_filename:
+    hidden:
+GLib.Function.utf8_to_utf16:
+    hidden:
+GLib.Function.utf8_to_ucs4:
+    hidden:
+GLib.Function.utf8_to_ucs4_fast:
+    hidden:
+GLib.Function.utf16_to_ucs4:
+    hidden:
+GLib.Function.utf16_to_utf8:
+    hidden:
+GLib.Function.ucs4_to_utf16:
+    hidden:
+GLib.Function.ucs4_to_utf8:
+    hidden:
+GLib.Function.unichar_to_utf8:
+    hidden:
+GLib.Constant.UNICHAR_MAX_DECOMPOSITION_LENGTH:
+    hidden:
+GLib.Enum.UnicodeType:
+    hidden:
+GLib.Constant.UNICODE_COMBINING_MARK:
+    hidden:
+GLib.Enum.UnicodeBreakType:
+    hidden:
+GLib.Enum.UnicodeScript:
+    hidden:
+GLib.Enum.NormalizeMode:
+    hidden:
+
+# Base64 Encoding
+
+GLib.Function.base64_encode_step:
+    hidden:
+GLib.Function.base64_encode_close:
+    hidden:
+GLib.Function.base64_encode:
+    hidden:
+GLib.Function.base64_decode_step:
+    hidden:
+GLib.Function.base64_decode:
+    hidden:
+GLib.Function.base64_decode_inplace:
+    hidden:
+
+# Data Checksums
+
+GLib.Function.checksum_type_get_length:
+    hidden:
+GLib.Function.checksum_new:
+    hidden:
+GLib.Function.checksum_copy:
+    hidden:
+GLib.Function.checksum_free:
+    hidden:
+GLib.Function.checksum_reset:
+    hidden:
+GLib.Function.checksum_update:
+    hidden:
+GLib.Function.checksum_get_string:
+    hidden:
+GLib.Function.checksum_get_digest:
+    hidden:
+GLib.Function.compute_checksum_for_data:
+    hidden:
+GLib.Function.compute_checksum_for_string:
+    hidden:
+GLib.Function.compute_checksum_for_bytes:
+    hidden:
+GLib.Enum.ChecksumType:
+    hidden:
+GLib.Struct.Checksum:
+    hidden:
+
+# Secure HMAC Digests
+
+GLib.Function.hmac_new:
+    hidden:
+GLib.Function.hmac_copy:
+    hidden:
+GLib.Function.hmac_ref:
+    hidden:
+GLib.Function.hmac_unref:
+    hidden:
+GLib.Function.hmac_update:
+    hidden:
+GLib.Function.hmac_get_string:
+    hidden:
+GLib.Function.hmac_get_digest:
+    hidden:
+GLib.Function.compute_hmac_for_data:
+    hidden:
+GLib.Function.compute_hmac_for_string:
+    hidden:
+GLib.Struct.Hmac:
+    hidden:
+
+# Internationalization
+
+GLib.Function.dgettext:
+    hidden:
+GLib.Function.dcgettext:
+    hidden:
+GLib.Function.dngettext:
+    hidden:
+GLib.Function.dpgettext:
+    hidden:
+GLib.Function.dpgettext2:
+    hidden:
+GLib.Function.strip_context:
+    hidden:
+GLib.Function.get_language_names:
+    hidden:
+GLib.Function.get_locale_variants:
+    hidden:
+
+# Date and Time Functions
+
+GLib.Function.get_current_time:
+    hidden:
+GLib.Function.usleep:
+    hidden:
+GLib.Function.time_val_add:
+    hidden:
+GLib.Function.time_val_from_iso8601:
+    hidden:
+GLib.Function.time_val_to_iso8601:
+    hidden:
+GLib.Function.get_monotonic_time:
+    hidden:
+GLib.Function.get_real_time:
+    hidden:
+GLib.Function.date_new:
+    hidden:
+GLib.Function.date_new_dmy:
+    hidden:
+GLib.Function.date_new_julian:
+    hidden:
+GLib.Function.date_clear:
+    hidden:
+GLib.Function.date_free:
+    hidden:
+GLib.Function.date_set_day:
+    hidden:
+GLib.Function.date_set_month:
+    hidden:
+GLib.Function.date_set_year:
+    hidden:
+GLib.Function.date_set_dmy:
+    hidden:
+GLib.Function.date_set_julian:
+    hidden:
+GLib.Function.date_set_time:
+    hidden:
+GLib.Function.date_set_time_t:
+    hidden:
+GLib.Function.date_set_time_val:
+    hidden:
+GLib.Function.date_set_parse:
+    hidden:
+GLib.Function.date_add_days:
+    hidden:
+GLib.Function.date_subtract_days:
+    hidden:
+GLib.Function.date_add_months:
+    hidden:
+GLib.Function.date_subtract_months:
+    hidden:
+GLib.Function.date_add_years:
+    hidden:
+GLib.Function.date_subtract_years:
+    hidden:
+GLib.Function.date_days_between:
+    hidden:
+GLib.Function.date_compare:
+    hidden:
+GLib.Function.date_clamp:
+    hidden:
+GLib.Function.date_order:
+    hidden:
+GLib.Function.date_get_day:
+    hidden:
+GLib.Function.date_get_month:
+    hidden:
+GLib.Function.date_get_year:
+    hidden:
+GLib.Function.date_get_julian:
+    hidden:
+GLib.Function.date_get_weekday:
+    hidden:
+GLib.Function.date_get_day_of_year:
+    hidden:
+GLib.Function.date_get_days_in_month:
+    hidden:
+GLib.Function.date_is_first_of_month:
+    hidden:
+GLib.Function.date_is_last_of_month:
+    hidden:
+GLib.Function.date_is_leap_year:
+    hidden:
+GLib.Function.date_get_monday_week_of_year:
+    hidden:
+GLib.Function.date_get_monday_weeks_in_year:
+    hidden:
+GLib.Function.date_get_sunday_week_of_year:
+    hidden:
+GLib.Function.date_get_sunday_weeks_in_year:
+    hidden:
+GLib.Function.date_get_iso8601_week_of_year:
+    hidden:
+GLib.Function.date_strftime:
+    hidden:
+GLib.Function.date_to_struct_tm:
+    hidden:
+GLib.Function.date_valid:
+    hidden:
+GLib.Function.date_valid_day:
+    hidden:
+GLib.Function.date_valid_month:
+    hidden:
+GLib.Function.date_valid_year:
+    hidden:
+GLib.Function.date_valid_dmy:
+    hidden:
+GLib.Function.date_valid_julian:
+    hidden:
+GLib.Function.date_valid_weekday:
+    hidden:
+GLib.Constant.USEC_PER_SEC:
+    hidden:
+GLib.Struct.TimeVal:
+    hidden:
+GLib.Struct.Date:
+    hidden:
+GLib.Struct.Time:
+    hidden:
+GLib.Enum.DateDMY:
+    hidden:
+GLib.Struct.DateDay:
+    hidden:
+GLib.Enum.DateMonth:
+    hidden:
+GLib.Struct.DateYear:
+    hidden:
+GLib.Enum.DateWeekday:
+    hidden:
+GLib.Constant.DATE_BAD_DAY:
+    hidden:
+GLib.Constant.DATE_BAD_JULIAN:
+    hidden:
+GLib.Constant.DATE_BAD_YEAR:
+    hidden:
+
+# GTimeZone
+
+GLib.Function.time_zone_unref:
+    hidden:
+GLib.Function.time_zone_ref:
+    hidden:
+GLib.Function.time_zone_new:
+    hidden:
+GLib.Function.time_zone_new_local:
+    hidden:
+GLib.Function.time_zone_new_utc:
+    hidden:
+GLib.Function.time_zone_find_interval:
+    hidden:
+GLib.Function.time_zone_adjust_time:
+    hidden:
+GLib.Function.time_zone_get_abbreviation:
+    hidden:
+GLib.Function.time_zone_get_offset:
+    hidden:
+GLib.Function.time_zone_is_dst:
+    hidden:
+GLib.Struct.TimeZone:
+    hidden:
+GLib.Enum.TimeType:
+    hidden:
+
+# GDateTime
+
+GLib.Constant.TIME_SPAN_DAY:
+    hidden:
+GLib.Constant.TIME_SPAN_HOUR:
+    hidden:
+GLib.Constant.TIME_SPAN_MINUTE:
+    hidden:
+GLib.Constant.TIME_SPAN_SECOND:
+    hidden:
+GLib.Constant.TIME_SPAN_MILLISECOND:
+    hidden:
+GLib.Function.date_time_unref:
+    hidden:
+GLib.Function.date_time_ref:
+    hidden:
+GLib.Function.date_time_new_now:
+    hidden:
+GLib.Function.date_time_new_now_local:
+    hidden:
+GLib.Function.date_time_new_now_utc:
+    hidden:
+GLib.Function.date_time_new_from_unix_local:
+    hidden:
+GLib.Function.date_time_new_from_unix_utc:
+    hidden:
+GLib.Function.date_time_new_from_timeval_local:
+    hidden:
+GLib.Function.date_time_new_from_timeval_utc:
+    hidden:
+GLib.Function.date_time_new:
+    hidden:
+GLib.Function.date_time_new_local:
+    hidden:
+GLib.Function.date_time_new_utc:
+    hidden:
+GLib.Function.date_time_add:
+    hidden:
+GLib.Function.date_time_add_years:
+    hidden:
+GLib.Function.date_time_add_months:
+    hidden:
+GLib.Function.date_time_add_weeks:
+    hidden:
+GLib.Function.date_time_add_days:
+    hidden:
+GLib.Function.date_time_add_hours:
+    hidden:
+GLib.Function.date_time_add_minutes:
+    hidden:
+GLib.Function.date_time_add_seconds:
+    hidden:
+GLib.Function.date_time_add_full:
+    hidden:
+GLib.Function.date_time_compare:
+    hidden:
+GLib.Function.date_time_difference:
+    hidden:
+GLib.Function.date_time_hash:
+    hidden:
+GLib.Function.date_time_equal:
+    hidden:
+GLib.Function.date_time_get_ymd:
+    hidden:
+GLib.Function.date_time_get_year:
+    hidden:
+GLib.Function.date_time_get_month:
+    hidden:
+GLib.Function.date_time_get_day_of_month:
+    hidden:
+GLib.Function.date_time_get_week_numbering_year:
+    hidden:
+GLib.Function.date_time_get_week_of_year:
+    hidden:
+GLib.Function.date_time_get_day_of_week:
+    hidden:
+GLib.Function.date_time_get_day_of_year:
+    hidden:
+GLib.Function.date_time_get_hour:
+    hidden:
+GLib.Function.date_time_get_minute:
+    hidden:
+GLib.Function.date_time_get_second:
+    hidden:
+GLib.Function.date_time_get_microsecond:
+    hidden:
+GLib.Function.date_time_get_seconds:
+    hidden:
+GLib.Function.date_time_to_unix:
+    hidden:
+GLib.Function.date_time_to_timeval:
+    hidden:
+GLib.Function.date_time_get_utc_offset:
+    hidden:
+GLib.Function.date_time_get_timezone_abbreviation:
+    hidden:
+GLib.Function.date_time_is_daylight_savings:
+    hidden:
+GLib.Function.date_time_to_timezone:
+    hidden:
+GLib.Function.date_time_to_local:
+    hidden:
+GLib.Function.date_time_to_utc:
+    hidden:
+GLib.Function.date_time_format:
+    hidden:
+GLib.Struct.TimeSpan:
+    hidden:
+GLib.Struct.DateTime:
+    hidden:
+
+# Random Numbers
+
+GLib.Function.rand_new_with_seed:
+    hidden:
+GLib.Function.rand_new_with_seed_array:
+    hidden:
+GLib.Function.rand_new:
+    hidden:
+GLib.Function.rand_copy:
+    hidden:
+GLib.Function.rand_free:
+    hidden:
+GLib.Function.rand_set_seed:
+    hidden:
+GLib.Function.rand_set_seed_array:
+    hidden:
+GLib.Function.rand_boolea:
+    hidden:
+GLib.Function.rand_int:
+    hidden:
+GLib.Function.rand_int_range:
+    hidden:
+GLib.Function.rand_double:
+    hidden:
+GLib.Function.rand_double_range:
+    hidden:
+GLib.Function.random_set_seed:
+    hidden:
+GLib.Function.random_bool:
+    hidden:
+GLib.Function.random_int:
+    hidden:
+GLib.Function.random_int_range:
+    hidden:
+GLib.Function.random_double:
+    hidden:
+GLib.Function.random_double_range:
+    hidden:
+GLib.Struct.Rand:
+    hidden:
+
+# Hook Functions
+
+GLib.Callback.HookFinalizeFunc:
+    hidden:
+GLib.Callback.HookFunc:
+    hidden:
+GLib.Callback.HookCheckFunc:
+    hidden:
+GLib.Function.hook_list_init:
+    hidden:
+GLib.Function.hook_list_invoke:
+    hidden:
+GLib.Function.hook_list_invoke_check:
+    hidden:
+GLib.Function.hook_list_marshal:
+    hidden:
+GLib.Callback.HookMarshaller:
+    hidden:
+GLib.Function.hook_list_marshal_check:
+    hidden:
+GLib.Callback.HookCheckMarshaller:
+    hidden:
+GLib.Function.hook_list_clear:
+    hidden:
+GLib.Function.hook_alloc:
+    hidden:
+GLib.Function.hook_appen:
+    hidden:
+GLib.Function.hook_prepend:
+    hidden:
+GLib.Function.hook_insert_before:
+    hidden:
+GLib.Function.hook_insert_sorted:
+    hidden:
+GLib.Callback.HookCompareFunc:
+    hidden:
+GLib.Function.hook_compare_ids:
+    hidden:
+GLib.Function.hook_get:
+    hidden:
+GLib.Function.hook_find:
+    hidden:
+GLib.Callback.HookFindFunc:
+    hidden:
+GLib.Function.hook_find_data:
+    hidden:
+GLib.Function.hook_find_func:
+    hidden:
+GLib.Function.hook_find_func_data:
+    hidden:
+GLib.Function.hook_first_valid:
+    hidden:
+GLib.Function.hook_next_valid:
+    hidden:
+GLib.Function.HOOK_FLAG:
+    hidden:
+GLib.Function.HOO:
+    hidden:
+GLib.Function.HOOK_IS_VALI:
+    hidden:
+GLib.Function.HOOK_ACTIV:
+    hidden:
+GLib.Function.HOOK_IN_CAL:
+    hidden:
+GLib.Function.HOOK_IS_UNLINKE:
+    hidden:
+GLib.Function.hook_ref:
+    hidden:
+GLib.Function.hook_unref:
+    hidden:
+GLib.Function.hook_free:
+    hidden:
+GLib.Function.hook_destroy:
+    hidden:
+GLib.Function.hook_destroy_link:
+    hidden:
+GLib.Struct.HookList:
+    hidden:
+GLib.Struct.Hook:
+    hidden:
+GLib.Enum.HookFlagMask:
+    hidden:
+GLib.Constant.HOOK_FLAG_USER_SHIFT:
+    hidden:
+
+# Miscellaneous Utility Functions
+
+GLib.Function.get_application_name:
+    hidden:
+GLib.Function.set_application_name:
+    hidden:
+GLib.Function.get_prgname:
+    hidden:
+GLib.Function.set_prgname:
+    hidden:
+GLib.Function.get_environ:
+    hidden:
+GLib.Function.environ_getenv:
+    hidden:
+GLib.Function.environ_setenv:
+    hidden:
+GLib.Function.environ_unsetenv:
+    hidden:
+GLib.Function.getenv:
+    hidden:
+GLib.Function.setenv:
+    hidden:
+GLib.Function.unsetenv:
+    hidden:
+GLib.Function.listenv:
+    hidden:
+GLib.Function.get_user_name:
+    hidden:
+GLib.Function.get_real_name:
+    hidden:
+GLib.Function.get_user_cache_dir:
+    hidden:
+GLib.Function.get_user_data_dir:
+    hidden:
+GLib.Function.get_user_config_dir:
+    hidden:
+GLib.Function.get_user_runtime_dir:
+    hidden:
+GLib.Function.get_user_special_dir:
+    hidden:
+GLib.Function.get_system_data_dirs:
+    hidden:
+GLib.Function.get_system_config_dirs:
+    hidden:
+GLib.Function.reload_user_special_dirs_cache:
+    hidden:
+GLib.Function.get_host_name:
+    hidden:
+GLib.Function.get_home_dir:
+    hidden:
+GLib.Function.get_tmp_dir:
+    hidden:
+GLib.Function.get_current_dir:
+    hidden:
+GLib.Function.basename:
+    hidden:
+GLib.Function.path_is_absolute:
+    hidden:
+GLib.Function.path_skip_root:
+    hidden:
+GLib.Function.path_get_basename:
+    hidden:
+GLib.Function.path_get_dirname:
+    hidden:
+GLib.Function.build_filename:
+    hidden:
+GLib.Function.build_filenamev:
+    hidden:
+GLib.Function.build_path:
+    hidden:
+GLib.Function.build_pathv:
+    hidden:
+GLib.Function.format_size:
+    hidden:
+GLib.Function.format_size_full:
+    hidden:
+GLib.Function.format_size_for_display:
+    hidden:
+GLib.Function.find_program_in_path:
+    hidden:
+GLib.Function.bit_nth_lsf:
+    hidden:
+GLib.Function.bit_nth_msf:
+    hidden:
+GLib.Function.bit_storage:
+    hidden:
+GLib.Function.spaced_primes_closest:
+    hidden:
+GLib.Function.atexit:
+    hidden:
+GLib.Function.parse_debug_string:
+    hidden:
+GLib.Callback.VoidFunc:
+    hidden:
+GLib.Callback.FreeFunc:
+    hidden:
+GLib.Function.qsort_with_data:
+    hidden:
+GLib.Function.nullify_pointer:
+    hidden:
+GLib.Enum.UserDirectory:
+    hidden:
+GLib.Flags.FormatSizeFlags:
+    hidden:
+GLib.Struct.DebugKey:
+    hidden:
+
+# Lexical Scanner
+
+GLib.Function.scanner_new:
+    hidden:
+GLib.Function.scanner_destroy:
+    hidden:
+GLib.Function.scanner_input_file:
+    hidden:
+GLib.Function.scanner_sync_file_offset:
+    hidden:
+GLib.Function.scanner_input_text:
+    hidden:
+GLib.Function.scanner_peek_next_token:
+    hidden:
+GLib.Function.scanner_get_next_token:
+    hidden:
+GLib.Function.scanner_eof:
+    hidden:
+GLib.Function.scanner_cur_line:
+    hidden:
+GLib.Function.scanner_cur_position:
+    hidden:
+GLib.Function.scanner_cur_token:
+    hidden:
+GLib.Function.scanner_cur_value:
+    hidden:
+GLib.Function.scanner_set_scope:
+    hidden:
+GLib.Function.scanner_scope_add_symbol:
+    hidden:
+GLib.Function.scanner_scope_foreach_symbol:
+    hidden:
+GLib.Function.scanner_scope_lookup_symbol:
+    hidden:
+GLib.Function.scanner_scope_remove_symbol:
+    hidden:
+GLib.Function.scanner_add_symbo:
+    hidden:
+GLib.Function.scanner_remove_symbo:
+    hidden:
+GLib.Function.scanner_foreach_symbo:
+    hidden:
+GLib.Function.scanner_freeze_symbol_tabl:
+    hidden:
+GLib.Function.scanner_thaw_symbol_tabl:
+    hidden:
+GLib.Function.scanner_lookup_symbol:
+    hidden:
+GLib.Function.scanner_warn:
+    hidden:
+GLib.Function.scanner_error:
+    hidden:
+GLib.Function.scanner_unexp_token:
+    hidden:
+GLib.Callback.ScannerMsgFunc:
+    hidden:
+GLib.Struct.Scanner:
+    hidden:
+GLib.Struct.ScannerConfig:
+    hidden:
+GLib.Constant.CSET_a_2_z:
+    hidden:
+GLib.Constant.CSET_A_2_Z:
+    hidden:
+GLib.Constant.CSET_DIGITS:
+    hidden:
+GLib.Constant.CSET_LATINC:
+    hidden:
+GLib.Constant.CSET_LATINS:
+    hidden:
+GLib.Enum.TokenType:
+    hidden:
+GLib.Union.TokenValue:
+    hidden:
+GLib.Enum.ErrorType:
+    hidden:
+
+# Timers
+
+GLib.Function.timer_new:
+    hidden:
+GLib.Function.timer_start:
+    hidden:
+GLib.Function.timer_stop:
+    hidden:
+GLib.Function.timer_continue:
+    hidden:
+GLib.Function.timer_elapsed:
+    hidden:
+GLib.Function.timer_reset:
+    hidden:
+GLib.Function.timer_destroy:
+    hidden:
+GLib.Struct.Timer:
+    hidden:
+
+# Spawning Processes
+
+GLib.Callback.SpawnChildSetupFunc:
+    hidden:
+GLib.Function.spawn_async_with_pipes:
+    hidden:
+GLib.Function.spawn_async:
+    hidden:
+GLib.Function.spawn_sync:
+    hidden:
+GLib.Function.spawn_check_exit_status:
+    hidden:
+GLib.Function.spawn_command_line_async:
+    hidden:
+GLib.Function.spawn_command_line_sync:
+    hidden:
+GLib.Function.spawn_close_pid:
+    hidden:
+GLib.Enum.SpawnError:
+    hidden:
+GLib.Function.spawn_error_quark:
+    hidden:
+GLib.Flags.SpawnFlags:
+    hidden:
+GLib.Function.spawn_exit_error_quark:
+    hidden:
+
+# File Utilities
+
+GLib.Function.file_error_from_errno:
+    hidden:
+GLib.Function.file_get_contents:
+    hidden:
+GLib.Function.file_set_contents:
+    hidden:
+GLib.Function.file_test:
+    hidden:
+GLib.Function.mkstemp:
+    hidden:
+GLib.Function.mkstemp_full:
+    hidden:
+GLib.Function.file_open_tmp:
+    hidden:
+GLib.Function.file_read_link:
+    hidden:
+GLib.Function.mkdir_with_parents:
+    hidden:
+GLib.Function.mkdtemp:
+    hidden:
+GLib.Function.mkdtemp_full:
+    hidden:
+GLib.Function.dir_make_tmp:
+    hidden:
+GLib.Function.dir_open:
+    hidden:
+GLib.Function.dir_read_name:
+    hidden:
+GLib.Function.dir_rewind:
+    hidden:
+GLib.Function.dir_close:
+    hidden:
+GLib.Function.mapped_file_new:
+    hidden:
+GLib.Function.mapped_file_new_from_fd:
+    hidden:
+GLib.Function.mapped_file_ref:
+    hidden:
+GLib.Function.mapped_file_unref:
+    hidden:
+GLib.Function.mapped_file_free:
+    hidden:
+GLib.Function.mapped_file_get_length:
+    hidden:
+GLib.Function.mapped_file_get_contents:
+    hidden:
+GLib.Function.mapped_file_get_bytes:
+    hidden:
+GLib.Function.open:
+    hidden:
+GLib.Function.rename:
+    hidden:
+GLib.Function.mkdir:
+    hidden:
+GLib.Function.stat:
+    hidden:
+GLib.Function.lstat:
+    hidden:
+GLib.Function.unlink:
+    hidden:
+GLib.Function.remove:
+    hidden:
+GLib.Function.rmdir:
+    hidden:
+GLib.Function.fopen:
+    hidden:
+GLib.Function.freopen:
+    hidden:
+GLib.Function.chmod:
+    hidden:
+GLib.Function.access:
+    hidden:
+GLib.Function.creat:
+    hidden:
+GLib.Function.chdir:
+    hidden:
+GLib.Function.utime:
+    hidden:
+GLib.Function.close:
+    hidden:
+GLib.Enum.FileError:
+    hidden:
+GLib.Flags.FileTest:
+    hidden:
+GLib.Struct.Dir:
+    hidden:
+GLib.Struct.MappedFile:
+    hidden:
+GLib.Struct.StatBuf:
+    hidden:
+GLib.Function.file_error_quark:
+    hidden:
+
+# URI Functions
+
+GLib.Function.uri_parse_scheme:
+    hidden:
+GLib.Function.uri_escape_string:
+    hidden:
+GLib.Function.uri_unescape_string:
+    hidden:
+GLib.Function.uri_unescape_segment:
+    hidden:
+GLib.Function.uri_list_extract_uris:
+    hidden:
+GLib.Function.filename_from_uri:
+    hidden:
+GLib.Function.filename_to_uri:
+    hidden:
+GLib.Constant.URI_RESERVED_CHARS_ALLOWED_IN_PATH:
+    hidden:
+GLib.Constant.URI_RESERVED_CHARS_ALLOWED_IN_PATH_ELEMENT:
+    hidden:
+GLib.Constant.URI_RESERVED_CHARS_ALLOWED_IN_USERINFO:
+    hidden:
+GLib.Constant.URI_RESERVED_CHARS_GENERIC_DELIMITERS:
+    hidden:
+GLib.Constant.URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS:
+    hidden:
+
+# Hostname Utilities
+
+GLib.Function.hostname_to_ascii:
+    hidden:
+GLib.Function.hostname_to_unicode:
+    hidden:
+GLib.Function.hostname_is_non_ascii:
+    hidden:
+GLib.Function.hostname_is_ascii_encoded:
+    hidden:
+GLib.Function.hostname_is_ip_address:
+    hidden:
+
+# Shell-related Utilities
+
+GLib.Function.shell_parse_argv:
+    hidden:
+GLib.Function.shell_quote:
+    hidden:
+GLib.Function.shell_unquote:
+    hidden:
+GLib.Enum.ShellError:
+    hidden:
+GLib.Function.shell_error_quark:
+    hidden:
+
+# Commandline option parser
+
+GLib.Function.option_error_quark:
+    hidden:
+GLib.Callback.OptionArgFunc:
+    hidden:
+GLib.Function.option_context_new:
+    hidden:
+GLib.Function.option_context_set_summary:
+    hidden:
+GLib.Function.option_context_get_summary:
+    hidden:
+GLib.Function.option_context_set_description:
+    hidden:
+GLib.Function.option_context_get_description:
+    hidden:
+GLib.Callback.TranslateFunc:
+    hidden:
+GLib.Function.option_context_set_translate_func:
+    hidden:
+GLib.Function.option_context_set_translation_domain:
+    hidden:
+GLib.Function.option_context_free:
+    hidden:
+GLib.Function.option_context_parse:
+    hidden:
+GLib.Function.option_context_parse_strv:
+    hidden:
+GLib.Function.option_context_set_help_enabled:
+    hidden:
+GLib.Function.option_context_get_help_enabled:
+    hidden:
+GLib.Function.option_context_set_ignore_unknown_options:
+    hidden:
+GLib.Function.option_context_get_ignore_unknown_options:
+    hidden:
+GLib.Function.option_context_get_help:
+    hidden:
+GLib.Function.option_context_get_strict_posix:
+    hidden:
+GLib.Function.option_context_set_strict_posix:
+    hidden:
+GLib.Function.option_context_add_main_entries:
+    hidden:
+GLib.Function.option_context_add_group:
+    hidden:
+GLib.Function.option_context_set_main_group:
+    hidden:
+GLib.Function.option_context_get_main_group:
+    hidden:
+GLib.Function.option_group_new:
+    hidden:
+GLib.Function.option_group_ref:
+    hidden:
+GLib.Function.option_group_unref:
+    hidden:
+GLib.Function.option_group_free:
+    hidden:
+GLib.Function.option_group_add_entries:
+    hidden:
+GLib.Callback.OptionParseFunc:
+    hidden:
+GLib.Function.option_group_set_parse_hooks:
+    hidden:
+GLib.Callback.OptionErrorFunc:
+    hidden:
+GLib.Function.option_group_set_error_hook:
+    hidden:
+GLib.Function.option_group_set_translate_func:
+    hidden:
+GLib.Function.option_group_set_translation_domain:
+    hidden:
+GLib.Enum.OptionError:
+    hidden:
+GLib.Struct.OptionContext:
+    hidden:
+GLib.Enum.OptionArg:
+    hidden:
+GLib.Flags.OptionFlags:
+    hidden:
+GLib.Constant.OPTION_REMAINING:
+    hidden:
+GLib.Struct.OptionEntry:
+    hidden:
+GLib.Struct.OptionGroup:
+    hidden:
+
+# Glob-style pattern matching
+
+GLib.Function.pattern_spec_new:
+    hidden:
+GLib.Function.pattern_spec_free:
+    hidden:
+GLib.Function.pattern_spec_equal:
+    hidden:
+GLib.Function.pattern_match:
+    hidden:
+GLib.Function.pattern_match_string:
+    hidden:
+GLib.Function.pattern_match_simple:
+    hidden:
+GLib.Struct.PatternSpec:
+    hidden:
+
+# Perl-compatible regular expressions
+
+GLib.Callback.RegexEvalCallback:
+    hidden:
+GLib.Function.regex_new:
+    hidden:
+GLib.Function.regex_ref:
+    hidden:
+GLib.Function.regex_unref:
+    hidden:
+GLib.Function.regex_get_pattern:
+    hidden:
+GLib.Function.regex_get_max_backref:
+    hidden:
+GLib.Function.regex_get_capture_count:
+    hidden:
+GLib.Function.regex_get_has_cr_or_lf:
+    hidden:
+GLib.Function.regex_get_max_lookbehind:
+    hidden:
+GLib.Function.regex_get_string_number:
+    hidden:
+GLib.Function.regex_get_compile_flags:
+    hidden:
+GLib.Function.regex_get_match_flags:
+    hidden:
+GLib.Function.regex_escape_string:
+    hidden:
+GLib.Function.regex_escape_nul:
+    hidden:
+GLib.Function.regex_match_simple:
+    hidden:
+GLib.Function.regex_match:
+    hidden:
+GLib.Function.regex_match_full:
+    hidden:
+GLib.Function.regex_match_all:
+    hidden:
+GLib.Function.regex_match_all_full:
+    hidden:
+GLib.Function.regex_split_simple:
+    hidden:
+GLib.Function.regex_split:
+    hidden:
+GLib.Function.regex_split_full:
+    hidden:
+GLib.Function.regex_replace:
+    hidden:
+GLib.Function.regex_replace_literal:
+    hidden:
+GLib.Function.regex_replace_eval:
+    hidden:
+GLib.Function.regex_check_replacement:
+    hidden:
+GLib.Function.match_info_get_regex:
+    hidden:
+GLib.Function.match_info_get_string:
+    hidden:
+GLib.Function.match_info_ref:
+    hidden:
+GLib.Function.match_info_unref:
+    hidden:
+GLib.Function.match_info_free:
+    hidden:
+GLib.Function.match_info_matches:
+    hidden:
+GLib.Function.match_info_next:
+    hidden:
+GLib.Function.match_info_get_match_count:
+    hidden:
+GLib.Function.match_info_is_partial_match:
+    hidden:
+GLib.Function.match_info_expand_references:
+    hidden:
+GLib.Function.match_info_fetch:
+    hidden:
+GLib.Function.match_info_fetch_pos:
+    hidden:
+GLib.Function.match_info_fetch_named:
+    hidden:
+GLib.Function.match_info_fetch_named_pos:
+    hidden:
+GLib.Function.match_info_fetch_all:
+    hidden:
+GLib.Enum.RegexError:
+    hidden:
+GLib.Function.regex_error_quark:
+    hidden:
+GLib.Flags.RegexCompileFlags:
+    hidden:
+GLib.Flags.RegexMatchFlags:
+    hidden:
+GLib.Struct.Regex:
+    hidden:
+GLib.Struct.MatchInfo:
+    hidden:
+GLib.Flags.AsciiType:
+    hidden:
+
+# Simple XML Subset Parser
+
+GLib.Function.markup_escape_text:
+    hidden:
+GLib.Function.markup_printf_escaped:
+    hidden:
+GLib.Function.markup_vprintf_escaped:
+    hidden:
+GLib.Function.markup_parse_context_new:
+    hidden:
+GLib.Function.markup_parse_context_parse:
+    hidden:
+GLib.Function.markup_parse_context_end_parse:
+    hidden:
+GLib.Function.markup_parse_context_free:
+    hidden:
+GLib.Function.markup_parse_context_get_position:
+    hidden:
+GLib.Function.markup_parse_context_get_element:
+    hidden:
+GLib.Function.markup_parse_context_get_element_stack:
+    hidden:
+GLib.Function.markup_parse_context_get_user_data:
+    hidden:
+GLib.Function.markup_parse_context_push:
+    hidden:
+GLib.Function.markup_parse_context_pop:
+    hidden:
+GLib.Function.markup_parse_context_ref:
+    hidden:
+GLib.Function.markup_parse_context_unref:
+    hidden:
+GLib.Function.markup_collect_attributes:
+    hidden:
+GLib.Enum.MarkupError:
+    hidden:
+GLib.Function.markup_error_quark:
+    hidden:
+GLib.Flags.MarkupParseFlags:
+    hidden:
+GLib.Struct.MarkupParseContext:
+    hidden:
+GLib.Struct.MarkupParser:
+    hidden:
+GLib.Flags.MarkupCollectType:
+    hidden:
+
+# Key-value file parser
+
+GLib.Function.key_file_new:
+    hidden:
+GLib.Function.key_file_free:
+    hidden:
+GLib.Function.key_file_ref:
+    hidden:
+GLib.Function.key_file_unref:
+    hidden:
+GLib.Function.key_file_set_list_separator:
+    hidden:
+GLib.Function.key_file_load_from_file:
+    hidden:
+GLib.Function.key_file_load_from_data:
+    hidden:
+GLib.Function.key_file_load_from_data_dirs:
+    hidden:
+GLib.Function.key_file_load_from_dirs:
+    hidden:
+GLib.Function.key_file_to_data:
+    hidden:
+GLib.Function.key_file_save_to_file:
+    hidden:
+GLib.Function.key_file_get_start_group:
+    hidden:
+GLib.Function.key_file_get_groups:
+    hidden:
+GLib.Function.key_file_get_keys:
+    hidden:
+GLib.Function.key_file_has_group:
+    hidden:
+GLib.Function.key_file_has_key:
+    hidden:
+GLib.Function.key_file_get_value:
+    hidden:
+GLib.Function.key_file_get_string:
+    hidden:
+GLib.Function.key_file_get_locale_string:
+    hidden:
+GLib.Function.key_file_get_boolean:
+    hidden:
+GLib.Function.key_file_get_integer:
+    hidden:
+GLib.Function.key_file_get_int64:
+    hidden:
+GLib.Function.key_file_get_uint64:
+    hidden:
+GLib.Function.key_file_get_double:
+    hidden:
+GLib.Function.key_file_get_string_list:
+    hidden:
+GLib.Function.key_file_get_locale_string_list:
+    hidden:
+GLib.Function.key_file_get_boolean_list:
+    hidden:
+GLib.Function.key_file_get_integer_list:
+    hidden:
+GLib.Function.key_file_get_double_list:
+    hidden:
+GLib.Function.key_file_get_comment:
+    hidden:
+GLib.Function.key_file_set_value:
+    hidden:
+GLib.Function.key_file_set_string:
+    hidden:
+GLib.Function.key_file_set_locale_string:
+    hidden:
+GLib.Function.key_file_set_boolean:
+    hidden:
+GLib.Function.key_file_set_integer:
+    hidden:
+GLib.Function.key_file_set_int64:
+    hidden:
+GLib.Function.key_file_set_uint64:
+    hidden:
+GLib.Function.key_file_set_double:
+    hidden:
+GLib.Function.key_file_set_string_list:
+    hidden:
+GLib.Function.key_file_set_locale_string_list:
+    hidden:
+GLib.Function.key_file_set_boolean_list:
+    hidden:
+GLib.Function.key_file_set_integer_list:
+    hidden:
+GLib.Function.key_file_set_double_list:
+    hidden:
+GLib.Function.key_file_set_comment:
+    hidden:
+GLib.Function.key_file_remove_group:
+    hidden:
+GLib.Function.key_file_remove_key:
+    hidden:
+GLib.Function.key_file_remove_comment:
+    hidden:
+GLib.Struct.KeyFile:
+    hidden:
+GLib.Function.key_file_error_quark:
+    hidden:
+GLib.Enum.KeyFileError:
+    hidden:
+GLib.Flags.KeyFileFlags:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_GROUP:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_TYPE:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_VERSION:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_NAME:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_GENERIC_NAME:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_NO_DISPLAY:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_COMMENT:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_ICON:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_HIDDEN:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_ONLY_SHOW_IN:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_NOT_SHOW_IN:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_TRY_EXEC:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_EXEC:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_PATH:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_TERMINAL:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_MIME_TYPE:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_CATEGORIES:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_STARTUP_NOTIFY:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_STARTUP_WM_CLASS:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_URL:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_ACTIONS:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_DBUS_ACTIVATABLE:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_TYPE_APPLICATION:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_TYPE_LINK:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_TYPE_DIRECTORY:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_FULLNAME:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_GETTEXT_DOMAIN:
+    hidden:
+GLib.Constant.KEY_FILE_DESKTOP_KEY_KEYWORDS:
+    hidden:
+
+# Bookmark file parser
+
+GLib.Function.bookmark_file_new:
+    hidden:
+GLib.Function.bookmark_file_free:
+    hidden:
+GLib.Function.bookmark_file_load_from_file:
+    hidden:
+GLib.Function.bookmark_file_load_from_data:
+    hidden:
+GLib.Function.bookmark_file_load_from_data_dirs:
+    hidden:
+GLib.Function.bookmark_file_to_data:
+    hidden:
+GLib.Function.bookmark_file_to_file:
+    hidden:
+GLib.Function.bookmark_file_has_item:
+    hidden:
+GLib.Function.bookmark_file_has_group:
+    hidden:
+GLib.Function.bookmark_file_has_application:
+    hidden:
+GLib.Function.bookmark_file_get_size:
+    hidden:
+GLib.Function.bookmark_file_get_uris:
+    hidden:
+GLib.Function.bookmark_file_get_title:
+    hidden:
+GLib.Function.bookmark_file_get_description:
+    hidden:
+GLib.Function.bookmark_file_get_mime_type:
+    hidden:
+GLib.Function.bookmark_file_get_is_private:
+    hidden:
+GLib.Function.bookmark_file_get_icon:
+    hidden:
+GLib.Function.bookmark_file_get_added:
+    hidden:
+GLib.Function.bookmark_file_get_modified:
+    hidden:
+GLib.Function.bookmark_file_get_visited:
+    hidden:
+GLib.Function.bookmark_file_get_groups:
+    hidden:
+GLib.Function.bookmark_file_get_applications:
+    hidden:
+GLib.Function.bookmark_file_get_app_info:
+    hidden:
+GLib.Function.bookmark_file_set_title:
+    hidden:
+GLib.Function.bookmark_file_set_description:
+    hidden:
+GLib.Function.bookmark_file_set_mime_type:
+    hidden:
+GLib.Function.bookmark_file_set_is_private:
+    hidden:
+GLib.Function.bookmark_file_set_icon:
+    hidden:
+GLib.Function.bookmark_file_set_added:
+    hidden:
+GLib.Function.bookmark_file_set_groups:
+    hidden:
+GLib.Function.bookmark_file_set_modified:
+    hidden:
+GLib.Function.bookmark_file_set_visited:
+    hidden:
+GLib.Function.bookmark_file_set_app_info:
+    hidden:
+GLib.Function.bookmark_file_add_group:
+    hidden:
+GLib.Function.bookmark_file_add_application:
+    hidden:
+GLib.Function.bookmark_file_remove_group:
+    hidden:
+GLib.Function.bookmark_file_remove_application:
+    hidden:
+GLib.Function.bookmark_file_remove_item:
+    hidden:
+GLib.Function.bookmark_file_move_item:
+    hidden:
+GLib.Struct.BookmarkFile:
+    hidden:
+GLib.Function.bookmark_file_error_quark:
+    hidden:
+GLib.Enum.BookmarkFileError:
+    hidden:
+
+# Testing
+
+GLib.Function.test_minimized_result:
+    hidden:
+GLib.Function.test_maximized_result:
+    hidden:
+GLib.Function.test_init:
+    hidden:
+GLib.Function.test_initialized:
+    hidden:
+GLib.Function.test_quick:
+    hidden:
+GLib.Function.test_slow:
+    hidden:
+GLib.Function.test_thorough:
+    hidden:
+GLib.Function.test_perf:
+    hidden:
+GLib.Function.test_verbose:
+    hidden:
+GLib.Function.test_undefined:
+    hidden:
+GLib.Function.test_quit:
+    hidden:
+GLib.Function.test_subprocess:
+    hidden:
+GLib.Function.test_run:
+    hidden:
+GLib.Callback.TestFunc:
+    hidden:
+GLib.Function.test_add_func:
+    hidden:
+GLib.Callback.TestDataFunc:
+    hidden:
+GLib.Function.test_add_data_func:
+    hidden:
+GLib.Function.test_add_data_func_full:
+    hidden:
+GLib.Function.test_add:
+    hidden:
+GLib.Function.test_build_filename:
+    hidden:
+GLib.Function.test_get_filename:
+    hidden:
+GLib.Function.test_get_dir:
+    hidden:
+GLib.Function.test_fail:
+    hidden:
+GLib.Function.test_skip:
+    hidden:
+GLib.Function.test_incomplete:
+    hidden:
+GLib.Function.test_failed:
+    hidden:
+GLib.Function.test_message:
+    hidden:
+GLib.Function.test_bug_base:
+    hidden:
+GLib.Function.test_bug:
+    hidden:
+GLib.Callback.TestLogFatalFunc:
+    hidden:
+GLib.Function.test_log_set_fatal_handler:
+    hidden:
+GLib.Function.test_log_type_name:
+    hidden:
+GLib.Function.test_timer_start:
+    hidden:
+GLib.Function.test_timer_elapsed:
+    hidden:
+GLib.Function.test_timer_last:
+    hidden:
+GLib.Function.test_queue_free:
+    hidden:
+GLib.Function.test_queue_destroy:
+    hidden:
+GLib.Function.test_queue_unref:
+    hidden:
+GLib.Function.test_expect_message:
+    hidden:
+GLib.Function.test_assert_expected_messages_internal:
+    hidden:
+GLib.Function.test_trap_assertions:
+    hidden:
+GLib.Function.test_trap_subprocess:
+    hidden:
+GLib.Function.test_trap_has_passed:
+    hidden:
+GLib.Function.test_trap_reached_timeout:
+    hidden:
+GLib.Function.test_trap_assert_pass:
+    hidden:
+GLib.Function.test_trap_assert_fail:
+    hidden:
+GLib.Function.test_trap_assert_stdout:
+    hidden:
+GLib.Function.test_trap_assert_stdout_unmatched:
+    hidden:
+GLib.Function.test_trap_assert_stderr:
+    hidden:
+GLib.Function.test_trap_assert_stderr_unmatched:
+    hidden:
+GLib.Function.test_trap_fork:
+    hidden:
+GLib.Function.test_rand_bit:
+    hidden:
+GLib.Function.test_rand_int:
+    hidden:
+GLib.Function.test_rand_int_range:
+    hidden:
+GLib.Function.test_rand_double:
+    hidden:
+GLib.Function.test_rand_double_range:
+    hidden:
+GLib.Function.assert:
+    hidden:
+GLib.Function.assert_not_reaced:
+    hidden:
+GLib.Function.assert_cmpstr:
+    hidden:
+GLib.Function.assert_cmpint:
+    hidden:
+GLib.Function.assert_cmpuint:
+    hidden:
+GLib.Function.assert_cmphex:
+    hidden:
+GLib.Function.assert_cmpfloat:
+    hidden:
+GLib.Function.assert_no_error:
+    hidden:
+GLib.Function.assert_error:
+    hidden:
+GLib.Function.assert_true:
+    hidden:
+GLib.Function.assert_false:
+    hidden:
+GLib.Function.assert_null:
+    hidden:
+GLib.Function.assert_nonnull:
+    hidden:
+GLib.Function.assert_warning:
+    hidden: 
+GLib.Function.test_set_nonfatal_assertions:
+    hidden:
+GLib.Callback.TestFixtureFunc:
+    hidden:
+GLib.Function.test_create_case:
+    hidden:
+GLib.Function.test_create_suite:
+    hidden:
+GLib.Function.test_get_root:
+    hidden:
+GLib.Function.test_suite_add:
+    hidden:
+GLib.Function.test_suite_add_suite:
+    hidden:
+GLib.Function.test_run_suite:
+    hidden:
+GLib.Enum.TestFileType:
+    hidden:
+GLib.Flags.TestTrapFlags:
+    hidden:
+GLib.Flags.TestSubprocessFlags:
+    hidden:
+GLib.Struct.TestCase:
+    hidden:
+GLib.Struct.TestSuite:
+    hidden:
+GLib.Struct.TestLogBuffer:
+    hidden:
+GLib.Struct.TestLogMsg:
+    hidden:
+GLib.Enum.TestLogType:
+    hidden:
+GLib.Struct.TestConfig:
+    hidden:
+
+# UNIX-specific utilities and integration
+
+GLib.Function.unix_error_quark:
+    hidden:
+GLib.Function.unix_open_pipe:
+    hidden:
+GLib.Function.unix_set_fd_nonblocking:
+    hidden:
+GLib.Function.unix_signal_add:
+    hidden:
+GLib.Function.unix_signal_add_full:
+    hidden:
+GLib.Function.unix_signal_source_new:
+    hidden:
+GLib.Callback.UnixFDSourceFunc:
+    hidden:
+GLib.Function.unix_fd_add:
+    hidden:
+GLib.Function.unix_fd_add_full:
+    hidden:
+GLib.Function.unix_fd_source_new:
+    hidden:
+
+# Windows Compatibility Functions
+
+GLib.Function.win32_check_windows_version:
+    hidden:
+GLib.Function.win32_get_command_line:
+    hidden:
+GLib.Function.win32_error_message:
+    hidden:
+GLib.Function.win32_getlocale:
+    hidden:
+GLib.Function.win32_get_package_installation_directory:
+    hidden:
+GLib.Function.win32_get_package_installation_directory_of_module:
+    hidden:
+GLib.Function.win32_get_package_installation_subdirectory:
+    hidden:
+GLib.Function.win32_get_windows_version:
+    hidden:
+GLib.Function.win32_locale_filename_from_utf8:
+    hidden:
+GLib.Constant.WIN32_HAVE_WIDECHAR_API:
+    hidden:
+GLib.Constant.IN32_IS_NT_BASED:
+    hidden:
+GLib.Constant.WIN32_MSG_HANDLE:
+    hidden:
+
+################################################################################
+# GLib Data Types                                                              #
+#   https://developer.gnome.org/glib/stable/glib-data-types.html               #
+################################################################################
+
+# Doubly-Linked Lists
+
+GLib.Callback.CompareFunc:
+    hidden:
+GLib.Callback.CompareDataFunc:
+    hidden:
+GLib.Callback.Func:
+    hidden:
+GLib.Struct.List:
+    hidden:
+
+# Singly-Linked Lists
+
+GLib.Struct.SList:
+    hidden:
+
+# Double-ended Queues
+
+GLib.Struct.Queue:
+    hidden:
+
+# Sequences
+
+GLib.Callback.SequenceIterCompareFunc:
+    hidden:
+GLib.Function.sequence_new:
+    hidden:
+GLib.Function.sequence_free:
+    hidden:
+GLib.Function.sequence_get_length:
+    hidden:
+GLib.Function.sequence_foreach:
+    hidden:
+GLib.Function.sequence_foreach_range:
+    hidden:
+GLib.Function.sequence_sort:
+    hidden:
+GLib.Function.sequence_sort_iter:
+    hidden:
+GLib.Function.sequence_get_begin_iter:
+    hidden:
+GLib.Function.sequence_get_end_iter:
+    hidden:
+GLib.Function.sequence_get_iter_at_pos:
+    hidden:
+GLib.Function.sequence_append:
+    hidden:
+GLib.Function.sequence_prepend:
+    hidden:
+GLib.Function.sequence_insert_before:
+    hidden:
+GLib.Function.sequence_move:
+    hidden:
+GLib.Function.sequence_swap:
+    hidden:
+GLib.Function.sequence_insert_sorted:
+    hidden:
+GLib.Function.sequence_insert_sorted_iter:
+    hidden:
+GLib.Function.sequence_sort_changed:
+    hidden:
+GLib.Function.sequence_sort_changed_iter:
+    hidden:
+GLib.Function.sequence_remove:
+    hidden:
+GLib.Function.sequence_remove_range:
+    hidden:
+GLib.Function.sequence_move_range:
+    hidden:
+GLib.Function.sequence_search:
+    hidden:
+GLib.Function.sequence_search_iter:
+    hidden:
+GLib.Function.sequence_lookup:
+    hidden:
+GLib.Function.sequence_lookup_iter:
+    hidden:
+GLib.Function.sequence_get:
+    hidden:
+GLib.Function.sequence_set:
+    hidden:
+GLib.Function.sequence_iter_is_begin:
+    hidden:
+GLib.Function.sequence_iter_is_end:
+    hidden:
+GLib.Function.sequence_iter_next:
+    hidden:
+GLib.Function.sequence_iter_prev:
+    hidden:
+GLib.Function.sequence_iter_get_position:
+    hidden:
+GLib.Function.sequence_iter_move:
+    hidden:
+GLib.Function.sequence_iter_get_sequence:
+    hidden:
+GLib.Function.sequence_iter_compare:
+    hidden:
+GLib.Function.sequence_range_get_midpoint:
+    hidden:
+GLib.Struct.Sequence:
+    hidden:
+GLib.Struct.SequenceIter:
+    hidden:
+
+# Trash Stacks
+
+GLib.Function.trash_stack_push:
+    hidden:
+GLib.Function.trash_stack_pop:
+    hidden:
+GLib.Function.trash_stack_peek:
+    hidden:
+GLib.Function.trash_stack_height:
+    hidden:
+GLib.Struct.TrashStack:
+    hidden:
+
+# Hash Tables
+
+GLib.Function.hash_table_new:
+    hidden:
+GLib.Function.hash_table_new_full:
+    hidden:
+GLib.Callback.HashFunc:
+    hidden:
+GLib.Callback.EqualFunc:
+    hidden:
+GLib.Function.hash_table_insert:
+    hidden:
+GLib.Function.hash_table_replace:
+    hidden:
+GLib.Function.hash_table_add:
+    hidden:
+GLib.Function.hash_table_contains:
+    hidden:
+GLib.Function.hash_table_size:
+    hidden:
+GLib.Function.hash_table_lookup:
+    hidden:
+GLib.Function.hash_table_lookup_extended:
+    hidden:
+GLib.Function.hash_table_foreach:
+    hidden:
+GLib.Function.hash_table_find:
+    hidden:
+GLib.Callback.HFunc:
+    hidden:
+GLib.Function.hash_table_remove:
+    hidden:
+GLib.Function.hash_table_steal:
+    hidden:
+GLib.Function.hash_table_foreach_remove:
+    hidden:
+GLib.Function.hash_table_foreach_steal:
+    hidden:
+GLib.Function.hash_table_remove_all:
+    hidden:
+GLib.Function.hash_table_steal_all:
+    hidden:
+GLib.Function.hash_table_get_keys:
+    hidden:
+GLib.Function.hash_table_get_values:
+    hidden:
+GLib.Function.hash_table_get_keys_as_array:
+    hidden:
+GLib.Callback.HRFunc:
+    hidden:
+GLib.Function.hash_table_freez:
+    hidden:
+GLib.Function.hash_table_tha:
+    hidden:
+GLib.Function.hash_table_destroy:
+    hidden:
+GLib.Function.hash_table_ref:
+    hidden:
+GLib.Function.hash_table_unref:
+    hidden:
+GLib.Function.hash_table_iter_init:
+    hidden:
+GLib.Function.hash_table_iter_next:
+    hidden:
+GLib.Function.hash_table_iter_get_hash_table:
+    hidden:
+GLib.Function.hash_table_iter_replace:
+    hidden:
+GLib.Function.hash_table_iter_remove:
+    hidden:
+GLib.Function.hash_table_iter_steal:
+    hidden:
+GLib.Function.direct_equal:
+    hidden:
+GLib.Function.direct_hash:
+    hidden:
+GLib.Function.int_equal:
+    hidden:
+GLib.Function.int_hash:
+    hidden:
+GLib.Function.int64_equal:
+    hidden:
+GLib.Function.int64_hash:
+    hidden:
+GLib.Function.double_equal:
+    hidden:
+GLib.Function.double_hash:
+    hidden:
+GLib.Function.str_equal:
+    hidden:
+GLib.Function.str_hash:
+    hidden:
+GLib.Struct.HashTable:
+    hidden:
+GLib.Struct.HashTableIter:
+    hidden:
+
+# Strings
+
+GLib.Function.string_new:
+    hidden:
+GLib.Function.string_new_len:
+    hidden:
+GLib.Function.string_sized_new:
+    hidden:
+GLib.Function.string_assign:
+    hidden:
+GLib.Function.string_vprintf:
+    hidden:
+GLib.Function.string_append_vprintf:
+    hidden:
+GLib.Function.string_printf:
+    hidden:
+GLib.Function.string_append_printf:
+    hidden:
+GLib.Function.string_append:
+    hidden:
+GLib.Function.string_append_c:
+    hidden:
+GLib.Function.string_append_unichar:
+    hidden:
+GLib.Function.string_append_len:
+    hidden:
+GLib.Function.string_append_uri_escaped:
+    hidden:
+GLib.Function.string_prepend:
+    hidden:
+GLib.Function.string_prepend_c:
+    hidden:
+GLib.Function.string_prepend_unichar:
+    hidden:
+GLib.Function.string_prepend_len:
+    hidden:
+GLib.Function.string_insert:
+    hidden:
+GLib.Function.string_insert_c:
+    hidden:
+GLib.Function.string_insert_unichar:
+    hidden:
+GLib.Function.string_insert_len:
+    hidden:
+GLib.Function.string_overwrite:
+    hidden:
+GLib.Function.string_overwrite_len:
+    hidden:
+GLib.Function.string_erase:
+    hidden:
+GLib.Function.string_truncate:
+    hidden:
+GLib.Function.string_set_size:
+    hidden:
+GLib.Function.string_free:
+    hidden:
+GLib.Function.string_free_to_bytes:
+    hidden:
+GLib.Function.string_up:
+    hidden:
+GLib.Function.string_down:
+    hidden:
+GLib.Function.string_hash:
+    hidden:
+GLib.Function.string_equal:
+    hidden:
+GLib.Struct.String:
+    hidden:
+
+# String Chunks
+
+GLib.Struct.StringChunk:
+    hidden:
+
+# Arrays
+
+GLib.Struct.Array:
+    hidden:
+
+# Pointer Arrays
+
+GLib.Struct.PtrArray:
+    hidden:
+
+# Byte Arrays
+
+GLib.Function.byte_array_new:
+    hidden:
+GLib.Function.byte_array_new_take:
+    hidden:
+GLib.Function.byte_array_sized_new:
+    hidden:
+GLib.Function.byte_array_ref:
+    hidden:
+GLib.Function.byte_array_unref:
+    hidden:
+GLib.Function.byte_array_append:
+    hidden:
+GLib.Function.byte_array_prepend:
+    hidden:
+GLib.Function.byte_array_remove_index:
+    hidden:
+GLib.Function.byte_array_remove_index_fast:
+    hidden:
+GLib.Function.byte_array_remove_range:
+    hidden:
+GLib.Function.byte_array_sort:
+    hidden:
+GLib.Function.byte_array_sort_with_data:
+    hidden:
+GLib.Function.byte_array_set_size:
+    hidden:
+GLib.Function.byte_array_free:
+    hidden:
+GLib.Function.byte_array_free_to_bytes:
+    hidden:
+GLib.Function.bytes_new:
+    hidden:
+GLib.Function.bytes_new_take:
+    hidden:
+GLib.Function.bytes_new_static:
+    hidden:
+GLib.Function.bytes_new_with_free_func:
+    hidden:
+GLib.Function.bytes_new_from_bytes:
+    hidden:
+GLib.Function.bytes_get_data:
+    hidden:
+GLib.Function.bytes_get_size:
+    hidden:
+GLib.Function.bytes_hash:
+    hidden:
+GLib.Function.bytes_equal:
+    hidden:
+GLib.Function.bytes_compare:
+    hidden:
+GLib.Function.bytes_ref:
+    hidden:
+GLib.Function.bytes_unref:
+    hidden:
+GLib.Function.bytes_unref_to_data:
+    hidden:
+GLib.Function.bytes_unref_to_array:
+    hidden:
+GLib.Struct.ByteArray:
+    hidden:
+GLib.Struct.Bytes:
+    hidden:
+
+# Balanced Binary Trees
+
+GLib.Struct.Tree:
+    hidden:
+
+# N-ary Trees
+
+GLib.Callback.CopyFunc:
+    hidden:
+GLib.Callback.NodeForeachFunc:
+    hidden:
+GLib.Callback.NodeTraverseFunc:
+    hidden:
+GLib.Callback.TraverseFunc:
+    hidden:
+GLib.Struct.Node:
+    hidden:
+GLib.Enum.TraverseType:
+    hidden:
+GLib.Flags.TraverseFlags:
+    hidden:
+
+# Keyed Data Lists
+
+GLib.Function.datalist_init:
+    hidden:
+GLib.Function.datalist_id_set_dat:
+    hidden:
+GLib.Function.datalist_id_set_data_full:
+    hidden:
+GLib.Function.datalist_id_get_data:
+    hidden:
+GLib.Function.datalist_id_remove_dat:
+    hidden:
+GLib.Function.datalist_id_remove_no_notify:
+    hidden:
+GLib.Callback.DuplicateFunc:
+    hidden:
+GLib.Function.datalist_id_dup_data:
+    hidden:
+GLib.Function.datalist_id_replace_data:
+    hidden:
+GLib.Function.datalist_set_dat:
+    hidden:
+GLib.Function.datalist_set_data_ful:
+    hidden:
+GLib.Function.datalist_get_data:
+    hidden:
+GLib.Function.datalist_remove_dat:
+    hidden:
+GLib.Function.datalist_remove_no_notif:
+    hidden:
+GLib.Function.datalist_foreach:
+    hidden:
+GLib.Function.datalist_clear:
+    hidden:
+GLib.Function.datalist_set_flags:
+    hidden:
+GLib.Function.datalist_unset_flags:
+    hidden:
+GLib.Function.datalist_get_flags:
+    hidden:
+GLib.Struct.Data:
+    hidden:
+GLib.Constant.DATALIST_FLAGS_MASK:
+    hidden:
+
+# Datasets
+
+GLib.Function.dataset_id_set_data:
+    hidden:
+GLib.Function.dataset_id_set_data_full:
+    hidden:
+#GLib.Callback.DestroyNotify:
+#    hidden:
+GLib.Function.dataset_id_get_data:
+    hidden:
+GLib.Function.dataset_id_remove_data:
+    hidden:
+GLib.Function.dataset_id_remove_no_notify:
+    hidden:
+GLib.Function.dataset_set_data:
+    hidden:
+GLib.Function.dataset_set_data_full:
+    hidden:
+GLib.Function.dataset_get_data:
+    hidden:
+GLib.Function.dataset_remove_data:
+    hidden:
+GLib.Function.dataset_remove_no_notify:
+    hidden:
+GLib.Function.dataset_foreach:
+    hidden:
+GLib.Callback.DataForeachFunc:
+    hidden:
+GLib.Function.dataset_destroy:
+    hidden:
+
+# GVariantType
+
+GLib.Function.variant_type_checked_:
+    hidden:
+GLib.Function.variant_type_string_is_valid:
+    hidden:
+GLib.Function.variant_type_string_scan:
+    hidden:
+GLib.Struct.VariantType:
+    hidden:
+
+
+# GVariant
+
+GLib.Function.variant_get_gtype:
+    hidden:
+GLib.Function.variant_is_object_path:
+    hidden:
+GLib.Function.variant_is_signature:
+    hidden:
+GLib.Function.variant_parse:
+    hidden:
+GLib.Function.variant_parse_error_print_context:
+    hidden:
+GLib.Function.variant_parse_error_quark:
+    hidden:
+GLib.Function.variant_parser_get_error_quark:
+    hidden:
+GLib.Struct.Variant:
+    hidden:
+GLib.Enum.VariantClass:
+    hidden:
+GLib.Struct.VariantIter:
+    hidden:
+GLib.Struct.VariantBuilder:
+    hidden:
+GLib.Struct.VariantDict:
+    hidden:
+GLib.Enum.VariantParseError:
+    hidden:
