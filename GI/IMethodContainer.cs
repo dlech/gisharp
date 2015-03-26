@@ -2,9 +2,8 @@
 
 namespace GI
 {
-  public interface IMethodContainer
-  {
-    InfoCollection<FunctionInfo> Methods { get; }
-  }
+    public interface IMethodContainer
+    {
+        InfoCollection<FunctionInfo> Methods { get; }
+    }
 }
-

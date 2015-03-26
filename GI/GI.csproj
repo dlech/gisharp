@@ -37,25 +37,69 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="..\Generated\*.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="BaseInfo.cs" />
-    <Compile Include="MappedFile.cs" />
-    <Compile Include="ObjectInfo.cs" />
-    <Compile Include="Argument.cs" />
     <Compile Include="InfoCollection.cs" />
     <Compile Include="Namespace.cs" />
     <Compile Include="NamespaceCollection.cs" />
-    <Compile Include="EnumInfo.cs" />
-    <Compile Include="StructInfo.cs" />
-    <Compile Include="CallableInfo.cs" />
-    <Compile Include="FunctionInfo.cs" />
-    <Compile Include="UnionInfo.cs" />
     <Compile Include="IMethodContainer.cs" />
+    <Compile Include="ArgInfo.cs" />
+    <Compile Include="Argument.cs" />
+    <Compile Include="ArrayType.cs" />
+    <Compile Include="AttributeIter.cs" />
+    <Compile Include="BaseInfo.cs" />
+    <Compile Include="CallableInfo.cs" />
+    <Compile Include="CallbackInfo.cs" />
+    <Compile Include="ConstantInfo.cs" />
+    <Compile Include="Direction.cs" />
+    <Compile Include="EnumInfo.cs" />
+    <Compile Include="FieldInfo.cs" />
+    <Compile Include="FieldInfoFlags.cs" />
+    <Compile Include="FunctionInfo.cs" />
+    <Compile Include="FunctionInfoFlags.cs" />
+    <Compile Include="GISharp.ObjectInfoGetValueFunctionNative.cs" />
+    <Compile Include="GISharp.ObjectInfoRefFunctionNative.cs" />
+    <Compile Include="GISharp.ObjectInfoSetValueFunctionNative.cs" />
+    <Compile Include="GISharp.ObjectInfoUnrefFunctionNative.cs" />
+    <Compile Include="Global.cs" />
+    <Compile Include="InfoType.cs" />
+    <Compile Include="InterfaceInfo.cs" />
+    <Compile Include="InvokeError.cs" />
+    <Compile Include="MappedFile.cs" />
+    <Compile Include="ObjectInfo.cs" />
+    <Compile Include="ObjectInfoGetValueFunction.cs" />
+    <Compile Include="ObjectInfoRefFunction.cs" />
+    <Compile Include="ObjectInfoSetValueFunction.cs" />
+    <Compile Include="ObjectInfoUnrefFunction.cs" />
+    <Compile Include="ObjectManager.cs" />
+    <Compile Include="OptionGroup.cs" />
+    <Compile Include="ParamFlags.cs" />
+    <Compile Include="PropertyInfo.cs" />
+    <Compile Include="RegisteredTypeInfo.cs" />
+    <Compile Include="Repository.cs" />
+    <Compile Include="RepositoryError.cs" />
+    <Compile Include="RepositoryLoadFlags.cs" />
+    <Compile Include="ScopeType.cs" />
+    <Compile Include="SignalFlags.cs" />
+    <Compile Include="SignalInfo.cs" />
+    <Compile Include="StructInfo.cs" />
+    <Compile Include="Transfer.cs" />
+    <Compile Include="TypeInfo.cs" />
     <Compile Include="TypeTag.cs" />
+    <Compile Include="Typelib.cs" />
+    <Compile Include="UnionInfo.cs" />
+    <Compile Include="UnresolvedInfo.cs" />
+    <Compile Include="VFuncInfo.cs" />
+    <Compile Include="VFuncInfoFlags.cs" />
+    <Compile Include="ValueInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="..\Generated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="bin\Debug\girepository.dll" />
+    <None Include="bin\Debug\girepository.dll.mdb" />
+    <None Include="obj\Debug\GI.csproj.FilesWrittenAbsolute.txt" />
+    <None Include="obj\Debug\girepository.dll" />
+    <None Include="obj\Debug\girepository.dll.mdb" />
   </ItemGroup>
 </Project>
