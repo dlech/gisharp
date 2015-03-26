@@ -82,14 +82,14 @@ namespace GI
             }
         }
 
-        [Test (), Ignore]
+        [Test ()]
         public void TestGetContainer ()
         {
-            // TODO: it seems nothing in GLib has a Container
-            var container = infos.First (i => i.Container != null).Container;
-            // making sure that it is marshalled as an acutal type and not base
-            Assert.That (container, Is.TypeOf<BaseInfo> ());
-            Assert.That (container.GetType (), Is.Not.EqualTo (typeof(BaseInfo)));
+            var function = infos
+                .First (i => i.InfoType == InfoType.Function && (i as FunctionInfo).Args.Count > 0) as FunctionInfo;
+            var arg = function.Args.First ();
+            var container = arg.Container;
+            Assert.That (container, Is.EqualTo (function));
         }
 
         [Test ()]
