@@ -65,7 +65,7 @@ namespace GI
         public GI.TypeInfo TypeInfo {
             get {
                 IntPtr raw_ret = g_field_info_get_type (Handle);
-                GI.TypeInfo ret = raw_ret == IntPtr.Zero ? null : (GI.TypeInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.TypeInfo), false);
+                GI.TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
                 return ret;
             }
         }

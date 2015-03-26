@@ -19,7 +19,7 @@ namespace GI
         public GI.VFuncInfo ClassClosure {
             get {
                 IntPtr raw_ret = g_signal_info_get_class_closure (Handle);
-                GI.VFuncInfo ret = raw_ret == IntPtr.Zero ? null : (GI.VFuncInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.VFuncInfo), false);
+                GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
                 return ret;
             }
         }

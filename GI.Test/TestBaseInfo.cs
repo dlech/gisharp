@@ -92,7 +92,7 @@ namespace GI
         public void TestGetContainer ()
         {
             // TODO: it seems nothing in GLib has a Container
-            var container = infos.Where (i => i.Container != null).First ().Container;
+            var container = infos.First (i => i.Container != null).Container;
             // making sure that it is marshalled as an acutal type and not base
             Assert.That (container, Is.TypeOf<BaseInfo> ());
             Assert.That (container.GetType (), Is.Not.EqualTo (typeof(BaseInfo)));
@@ -101,7 +101,7 @@ namespace GI
         [Test ()]
         public void TestIsDeprecated ()
         {
-            var count = infos.Where (i => i.IsDeprecated == true).Count ();
+            var count = infos.Count (i => i.IsDeprecated == true);
             Assert.That (count, Is.GreaterThan (0));
         }
     }

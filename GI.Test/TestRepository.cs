@@ -144,8 +144,9 @@ namespace GI
         [Test ()]
         public void TestFindByGType ()
         {
-            var info = Repository.FindByGType (GLib.GType.Object);
-            Assert.That (info, Is.TypeOf<ObjectInfo> ());
+            using (var info = Repository.FindByGType (GLib.GType.Object)) {
+                Assert.That (info, Is.TypeOf<ObjectInfo> ());
+            }
         }
 
         [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
@@ -154,15 +155,17 @@ namespace GI
         [Test ()]
         public void TestFindByErrorDomain ()
         {
-            var info = Repository.FindByErrorDomain (g_io_error_quark ());
-            Assert.That (info, Is.TypeOf<EnumInfo> ());
+            using (var info = Repository.FindByErrorDomain (g_io_error_quark ())) {
+                Assert.That (info, Is.TypeOf<EnumInfo> ());
+            }
         }
 
         [Test ()]
         public void TestFindByName ()
         {
-            var info = Repository.Namespaces ["Gio"].FindByName ("IOErrorEnum");
-            Assert.That (info, Is.TypeOf<EnumInfo> ());
+            using (var info = Repository.Namespaces ["Gio"].FindByName ("IOErrorEnum")) {
+                Assert.That (info, Is.TypeOf<EnumInfo> ());
+            }
         }
 
         [Test ()]
@@ -170,8 +173,8 @@ namespace GI
         {
             TestDelegate dump = () => Repository.Dump ("NonExistentFile");
             Assert.That (dump, Throws.Exception.TypeOf<GLib.GException> ()
-        .With.Property ("Domain").EqualTo (g_io_error_quark ())
-        .And.Property ("Code").EqualTo ((int)GLib.IOErrorEnum.NotFound));
+                .With.Property ("Domain").EqualTo (g_io_error_quark ())
+                .And.Property ("Code").EqualTo ((int)GLib.IOErrorEnum.NotFound));
         }
     }
 }

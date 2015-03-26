@@ -72,7 +72,7 @@ namespace GI
         public static GI.EnumInfo FindByErrorDomain (int domain)
         {
             IntPtr raw_ret = g_irepository_find_by_error_domain (IntPtr.Zero, domain);
-            GI.EnumInfo ret = raw_ret == IntPtr.Zero ? null : (GI.EnumInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.EnumInfo), false);
+            GI.EnumInfo ret = BaseInfo.MarshalPtr<EnumInfo> (raw_ret);
             return ret;
         }
 
@@ -82,7 +82,7 @@ namespace GI
         public static GI.BaseInfo FindByGType (GLib.GType gtype)
         {
             IntPtr raw_ret = g_irepository_find_by_gtype (IntPtr.Zero, gtype.Val);
-            GI.BaseInfo ret = GI.BaseInfo.MarshalPtr (raw_ret);
+            GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             return ret;
         }
 
@@ -94,7 +94,7 @@ namespace GI
             IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace_, native_name);
-            GI.BaseInfo ret = GI.BaseInfo.MarshalPtr (raw_ret);
+            GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             GLib.Marshaller.Free (native_namespace_);
             GLib.Marshaller.Free (native_name);
             return ret;
@@ -131,7 +131,7 @@ namespace GI
         {
             IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
             IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace_, index);
-            GI.BaseInfo ret = GI.BaseInfo.MarshalPtr (raw_ret);
+            GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             GLib.Marshaller.Free (native_namespace_);
             return ret;
         }

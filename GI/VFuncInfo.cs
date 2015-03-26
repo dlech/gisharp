@@ -43,7 +43,7 @@ namespace GI
         public GI.FunctionInfo Invoker {
             get {
                 IntPtr raw_ret = g_vfunc_info_get_invoker (Handle);
-                GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+                GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
                 return ret;
             }
         }
@@ -65,7 +65,7 @@ namespace GI
         public GI.SignalInfo Signal {
             get {
                 IntPtr raw_ret = g_vfunc_info_get_signal (Handle);
-                GI.SignalInfo ret = raw_ret == IntPtr.Zero ? null : (GI.SignalInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.SignalInfo), false);
+                GI.SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
                 return ret;
             }
         }

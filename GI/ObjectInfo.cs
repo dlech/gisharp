@@ -97,7 +97,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_object_info_find_method (Handle, native_name);
-            GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+            GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -109,7 +109,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_object_info_find_method_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
-            GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+            GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -121,7 +121,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_object_info_find_signal (Handle, native_name);
-            GI.SignalInfo ret = raw_ret == IntPtr.Zero ? null : (GI.SignalInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.SignalInfo), false);
+            GI.SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -133,7 +133,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_object_info_find_vfunc (Handle, native_name);
-            GI.VFuncInfo ret = raw_ret == IntPtr.Zero ? null : (GI.VFuncInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.VFuncInfo), false);
+            GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -145,7 +145,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_object_info_find_vfunc_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
-            GI.VFuncInfo ret = raw_ret == IntPtr.Zero ? null : (GI.VFuncInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.VFuncInfo), false);
+            GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -167,7 +167,7 @@ namespace GI
         public GI.StructInfo ClassStruct {
             get {
                 IntPtr raw_ret = g_object_info_get_class_struct (Handle);
-                GI.StructInfo ret = raw_ret == IntPtr.Zero ? null : (GI.StructInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.StructInfo), false);
+                GI.StructInfo ret = MarshalPtr<StructInfo> (raw_ret);
                 return ret;
             }
         }
@@ -178,7 +178,7 @@ namespace GI
         protected GI.ConstantInfo GetConstant (int index)
         {
             IntPtr raw_ret = g_object_info_get_constant (Handle, index);
-            GI.ConstantInfo ret = raw_ret == IntPtr.Zero ? null : (GI.ConstantInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.ConstantInfo), false);
+            GI.ConstantInfo ret = MarshalPtr<ConstantInfo> (raw_ret);
             return ret;
         }
 
@@ -188,7 +188,7 @@ namespace GI
         protected GI.FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_object_info_get_field (Handle, index);
-            GI.FieldInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FieldInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FieldInfo), false);
+            GI.FieldInfo ret = MarshalPtr<FieldInfo> (raw_ret);
             return ret;
         }
 
@@ -231,7 +231,7 @@ namespace GI
         protected GI.InterfaceInfo GetInterface (int index)
         {
             IntPtr raw_ret = g_object_info_get_interface (Handle, index);
-            GI.InterfaceInfo ret = raw_ret == IntPtr.Zero ? null : (GI.InterfaceInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.InterfaceInfo), false);
+            GI.InterfaceInfo ret = MarshalPtr<InterfaceInfo> (raw_ret);
             return ret;
         }
 
@@ -241,7 +241,7 @@ namespace GI
         protected GI.FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_object_info_get_method (Handle, index);
-            GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+            GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             return ret;
         }
 
@@ -328,7 +328,7 @@ namespace GI
         public GI.ObjectInfo Parent {
             get {
                 IntPtr raw_ret = g_object_info_get_parent (Handle);
-                GI.ObjectInfo ret = raw_ret == IntPtr.Zero ? null : (GI.ObjectInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.ObjectInfo), false);
+                GI.ObjectInfo ret = MarshalPtr<ObjectInfo> (raw_ret);
                 return ret;
             }
         }
@@ -339,7 +339,7 @@ namespace GI
         protected GI.PropertyInfo GetProperty (int index)
         {
             IntPtr raw_ret = g_object_info_get_property (Handle, index);
-            GI.PropertyInfo ret = raw_ret == IntPtr.Zero ? null : (GI.PropertyInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.PropertyInfo), false);
+            GI.PropertyInfo ret = MarshalPtr<PropertyInfo> (raw_ret);
             return ret;
         }
 
@@ -393,7 +393,7 @@ namespace GI
         protected GI.SignalInfo GetSignal (int index)
         {
             IntPtr raw_ret = g_object_info_get_signal (Handle, index);
-            GI.SignalInfo ret = raw_ret == IntPtr.Zero ? null : (GI.SignalInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.SignalInfo), false);
+            GI.SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
             return ret;
         }
 
@@ -447,7 +447,7 @@ namespace GI
         protected GI.VFuncInfo GetVFunc (int index)
         {
             IntPtr raw_ret = g_object_info_get_vfunc (Handle, index);
-            GI.VFuncInfo ret = raw_ret == IntPtr.Zero ? null : (GI.VFuncInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.VFuncInfo), false);
+            GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
             return ret;
         }
 

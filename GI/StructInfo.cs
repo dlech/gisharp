@@ -42,7 +42,7 @@ namespace GI
         {
             IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
             IntPtr raw_ret = g_struct_info_find_method (Handle, native_name);
-            GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+            GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             GLib.Marshaller.Free (native_name);
             return ret;
         }
@@ -64,7 +64,7 @@ namespace GI
         public GI.FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_struct_info_get_field (Handle, index);
-            GI.FieldInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FieldInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FieldInfo), false);
+            GI.FieldInfo ret = MarshalPtr<FieldInfo> (raw_ret);
             return ret;
         }
 
@@ -74,7 +74,7 @@ namespace GI
         public GI.FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_struct_info_get_method (Handle, index);
-            GI.FunctionInfo ret = raw_ret == IntPtr.Zero ? null : (GI.FunctionInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.FunctionInfo), false);
+            GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             return ret;
         }
 

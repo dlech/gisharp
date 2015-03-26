@@ -60,7 +60,7 @@ namespace GI
         public GI.PropertyInfo Property {
             get {
                 IntPtr raw_ret = g_function_info_get_property (Handle);
-                GI.PropertyInfo ret = raw_ret == IntPtr.Zero ? null : (GI.PropertyInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.PropertyInfo), false);
+                GI.PropertyInfo ret = MarshalPtr<PropertyInfo> (raw_ret);
                 return ret;
             }
         }
@@ -82,7 +82,7 @@ namespace GI
         public GI.VFuncInfo VFunc {
             get {
                 IntPtr raw_ret = g_function_info_get_vfunc (Handle);
-                GI.VFuncInfo ret = raw_ret == IntPtr.Zero ? null : (GI.VFuncInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.VFuncInfo), false);
+                GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
                 return ret;
             }
         }

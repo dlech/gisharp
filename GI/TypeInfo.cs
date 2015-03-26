@@ -52,7 +52,7 @@ namespace GI
         public GI.BaseInfo Interface {
             get {
                 IntPtr raw_ret = g_type_info_get_interface (Handle);
-                GI.BaseInfo ret = GI.BaseInfo.MarshalPtr (raw_ret);
+                GI.BaseInfo ret = MarshalPtr<BaseInfo> (raw_ret);
                 return ret;
             }
         }
@@ -63,7 +63,7 @@ namespace GI
         public GI.TypeInfo GetParamType (int index)
         {
             IntPtr raw_ret = g_type_info_get_param_type (Handle, index);
-            GI.TypeInfo ret = raw_ret == IntPtr.Zero ? null : (GI.TypeInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.TypeInfo), false);
+            GI.TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
             return ret;
         }
 

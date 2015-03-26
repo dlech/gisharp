@@ -41,7 +41,7 @@ namespace GI
         protected GI.ArgInfo GetArg (int index)
         {
             IntPtr raw_ret = g_callable_info_get_arg (Handle, index);
-            GI.ArgInfo ret = raw_ret == IntPtr.Zero ? null : (GI.ArgInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.ArgInfo), false);
+            GI.ArgInfo ret = MarshalPtr<ArgInfo> (raw_ret);
             return ret;
         }
 
@@ -96,7 +96,7 @@ namespace GI
         public GI.TypeInfo ReturnTypeInfo {
             get {
                 IntPtr raw_ret = g_callable_info_get_return_type (Handle);
-                GI.TypeInfo ret = raw_ret == IntPtr.Zero ? null : (GI.TypeInfo)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.TypeInfo), false);
+                GI.TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
                 return ret;
             }
         }
