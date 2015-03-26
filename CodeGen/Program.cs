@@ -35,9 +35,8 @@ namespace GICodeGen
             foreach (var file in Directory.EnumerateFiles (Environment.CurrentDirectory, "*.cs")) {
                 File.Delete (file);
             }
-            var repo = Repository.Default;
-            repo.Require (namespaceName, null, (RepositoryLoadFlags)0);
-            var @namespace = repo.Namespaces [namespaceName];
+            Repository.Require (namespaceName, null, (RepositoryLoadFlags)0);
+            var @namespace = Repository.Namespaces [namespaceName];
 
             // infoPool starts with copy of all infos. As we generate code for each item
             // the item will be removed from the pool.

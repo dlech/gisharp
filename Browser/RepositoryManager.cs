@@ -6,15 +6,9 @@ namespace GI.Browser
 {
   public class RepositoryManager
   {
-    static Repository repo;
-
-    static RepositoryManager () {
-      repo = Repository.Default;
-    }
-      
     public IEnumerable<string[]> Namespaces {
       get {
-        return repo.Namespaces.Select ((n) => new [] { n.Name, n.Version });
+        return Repository.Namespaces.Select ((n) => new [] { n.Name, n.Version });
       }
     }
 
@@ -26,13 +20,13 @@ namespace GI.Browser
     }
 
     public void LoadTypelib (string @namespace, string version) {
-      repo.Require (@namespace, version, (RepositoryLoadFlags)0);
+      Repository.Require (@namespace, version, (RepositoryLoadFlags)0);
       if (TypelibLoaded != null)
         TypelibLoaded (this, new EventArgs ());
     }
 
     public IEnumerable<string[]> GetInfos (string @namespace, InfoType infoType) {
-      return repo.Namespaces [@namespace].Infos
+      return Repository.Namespaces [@namespace].Infos
         .Where ((i) => i.InfoType == infoType)
         .Select ((i) => new [] { i.Name });
     }

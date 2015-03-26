@@ -11,12 +11,10 @@ namespace GI.Browser
   public class GITreeModelImplmentor : GLib.Object, ITreeModelImplementor
 	{
     static int nextStamp = 0;
-    static Repository repository;
 
     static GITreeModelImplmentor () {
-      repository = Repository.Default;
-      repository.Require ("GLib", "2.0", (RepositoryLoadFlags)0);
-      repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
+      Repository.Require ("GLib", "2.0", (RepositoryLoadFlags)0);
+      Repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
     }
 
     Dictionary<int, Namespace> stampToNamespaceMap;
@@ -66,7 +64,7 @@ namespace GI.Browser
     public bool GetIter (out TreeIter iter, TreePath path)
     {
       try {
-        var @namespace = repository.Namespaces [path.Indices [0]];
+        var @namespace = Repository.Namespaces [path.Indices [0]];
         iter = EnsureNamespaceIter (@namespace);
         stampToPathMap[iter.Stamp] = path.Copy ();
         // first level is namespaces, everything else is infos.
@@ -118,15 +116,15 @@ namespace GI.Browser
       path.Next ();
       var nextIndex = path.Indices.Last ();
       if (stampToNamespaceMap.ContainsKey (iter.Stamp)) {
-        if (nextIndex < repository.LoadedNamespaces.Length) {
-          iter = EnsureNamespaceIter (repository.Namespaces [nextIndex]);
+        if (nextIndex < Repository.LoadedNamespaces.Length) {
+          iter = EnsureNamespaceIter (Repository.Namespaces [nextIndex]);
           stampToPathMap[iter.Stamp] = path;
           return true;
         }
       }
       if (stampToInfoMap.ContainsKey (iter.Stamp)) {
         var info = stampToInfoMap [iter.Stamp];
-        var @namespace = repository.Namespaces [info.Namespace];
+        var @namespace = Repository.Namespaces [info.Namespace];
         if (nextIndex < @namespace.Infos.Count) {
           iter = EnsureInfoIter (@namespace.Infos [nextIndex]);
           stampToPathMap[iter.Stamp] = path;
@@ -143,14 +141,14 @@ namespace GI.Browser
       var prevIndex = path.Indices.Last ();
       if (stampToNamespaceMap.ContainsKey (iter.Stamp)) {
         if (prevIndex >= 0) {
-          iter = EnsureNamespaceIter (repository.Namespaces [prevIndex]);
+          iter = EnsureNamespaceIter (Repository.Namespaces [prevIndex]);
           stampToPathMap[iter.Stamp] = path;
           return true;
         }
       }
       if (stampToInfoMap.ContainsKey (iter.Stamp)) {
         var info = stampToInfoMap [iter.Stamp];
-        var @namespace = repository.Namespaces [info.Namespace];
+        var @namespace = Repository.Namespaces [info.Namespace];
         if (prevIndex >= 0) {
           iter = EnsureInfoIter (@namespace.Infos [prevIndex]);
           stampToPathMap[iter.Stamp] = path;
@@ -209,7 +207,7 @@ namespace GI.Browser
       if (stampToInfoMap.ContainsKey (child.Stamp)) {
         var info = stampToInfoMap [child.Stamp];
         if (info.Container == null) {
-          iter = EnsureNamespaceIter (repository.Namespaces [info.Namespace]);
+          iter = EnsureNamespaceIter (Repository.Namespaces [info.Namespace]);
           return true;
         }
         iter = EnsureInfoIter (info.Container);

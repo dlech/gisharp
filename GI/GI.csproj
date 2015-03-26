@@ -69,7 +69,6 @@
     <Compile Include="ObjectInfoRefFunction.cs" />
     <Compile Include="ObjectInfoSetValueFunction.cs" />
     <Compile Include="ObjectInfoUnrefFunction.cs" />
-    <Compile Include="ObjectManager.cs" />
     <Compile Include="OptionGroup.cs" />
     <Compile Include="ParamFlags.cs" />
     <Compile Include="PropertyInfo.cs" />

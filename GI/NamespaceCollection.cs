@@ -7,28 +7,23 @@ namespace GI
     public class NamespaceCollection : IEnumerable<Namespace>
     {
         Dictionary<string, Namespace> namespaceMap;
-        Repository repository;
 
-        internal NamespaceCollection (Repository repository)
+        internal NamespaceCollection ()
         {
-            if (repository == null)
-                throw new ArgumentNullException ("repository");
-
             namespaceMap = new Dictionary<string, Namespace> ();
-            this.repository = repository;
         }
 
         Namespace EnsureNamespace (string @namespace)
         {
             if (!namespaceMap.ContainsKey (@namespace)) {
-                namespaceMap [@namespace] = new Namespace (repository, @namespace);
+                namespaceMap [@namespace] = new Namespace (@namespace);
             }
             return namespaceMap [@namespace];
         }
 
         public Namespace this [int index] {
             get {
-                return EnsureNamespace (repository.LoadedNamespaces [index]);
+                return EnsureNamespace (Repository.LoadedNamespaces [index]);
             }
         }
 
@@ -42,7 +37,7 @@ namespace GI
 
         public IEnumerator<Namespace> GetEnumerator ()
         {
-            foreach (var @namespace in repository.LoadedNamespaces) {
+            foreach (var @namespace in Repository.LoadedNamespaces) {
                 yield return EnsureNamespace (@namespace);
             }
         }

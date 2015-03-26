@@ -5,25 +5,21 @@ namespace GI
 {
     public class Namespace
     {
-        Repository repository;
         string @namespace;
 
-        internal Namespace (Repository repository, string @namespace)
+        internal Namespace (string @namespace)
         {
-            if (repository == null)
-                throw new ArgumentNullException ("repository");
             if (@namespace == null)
                 throw new ArgumentNullException ("@namespace");
-            if (!repository.LoadedNamespaces.Contains (@namespace))
+            if (!Repository.LoadedNamespaces.Contains (@namespace))
                 throw new ArgumentOutOfRangeException ("@namespace");
 
-            this.repository = repository;
             this.@namespace = @namespace;
         }
 
         public BaseInfo FindByName (string name)
         {
-            return repository.FindByName (@namespace, name);
+            return Repository.FindByName (@namespace, name);
         }
 
         public string Name {
@@ -34,44 +30,44 @@ namespace GI
 
         public string CPrefix {
             get {
-                return repository.GetCPrefix (@namespace);
+                return Repository.GetCPrefix (@namespace);
             }
         }
 
         public string[] Dependencies {
             get {
-                return repository.GetDependencies (@namespace);
+                return Repository.GetDependencies (@namespace);
             }
         }
 
         public InfoCollection<BaseInfo> Infos {
             get {
-                return repository.GetInfos (@namespace);
+                return Repository.GetInfos (@namespace);
             }
         }
 
         public string[] SharedLibraries {
             get {
-                return repository.GetSharedLibrary (@namespace).Split (new [] { ',' },
+                return Repository.GetSharedLibrary (@namespace).Split (new [] { ',' },
                     StringSplitOptions.RemoveEmptyEntries);
             }
         }
 
         public string TypelibPath {
             get {
-                return repository.GetTypelibPath (@namespace);
+                return Repository.GetTypelibPath (@namespace);
             }
         }
 
         public string Version {
             get {
-                return repository.GetVersion (@namespace);
+                return Repository.GetVersion (@namespace);
             }
         }
 
         public string[] Versions {
             get {
-                return repository.GetVersions (@namespace);
+                return Repository.GetVersions (@namespace);
             }
         }
     }
