@@ -41,13 +41,6 @@ namespace GI
         }
 
         [Test ()]
-        public void TestGetOptionGroup ()
-        {
-            var group = Repository.OptionGroup;
-            Assert.That (group, Is.Not.Null);
-        }
-
-        [Test ()]
         public void TestEnumerateVersions ()
         {
             var versions = Repository.Namespaces ["Gio"].Versions;

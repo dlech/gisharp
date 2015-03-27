@@ -160,17 +160,6 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_irepository_get_option_group ();
-
-        public static GI.OptionGroup OptionGroup {
-            get {
-                IntPtr raw_ret = g_irepository_get_option_group ();
-                GI.OptionGroup ret = raw_ret == IntPtr.Zero ? null : (GI.OptionGroup)GLib.Opaque.GetOpaque (raw_ret, typeof(GI.OptionGroup), false);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_search_path ();
 
         public static string[] SearchPath {
