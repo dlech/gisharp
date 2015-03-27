@@ -102,18 +102,14 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe bool g_callable_info_invoke (IntPtr raw, IntPtr function, GI.Argument[] in_args, int n_in_args, GI.Argument[] out_args, int n_out_args, IntPtr return_value, bool is_method, bool throws, out IntPtr error);
+        static extern unsafe bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] in_args, int n_in_args, Argument[] out_args, int n_out_args, out Argument return_value, bool is_method, bool throws, out IntPtr error);
 
-        public unsafe bool Invoke (IntPtr function, GI.Argument[] in_args, GI.Argument[] out_args, out GI.Argument return_value, bool is_method, bool throws)
+        public unsafe bool Invoke (IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
-            IntPtr native_return_value = Marshal.AllocHGlobal (Marshal.SizeOf (typeof(GI.Argument)));
-            IntPtr error = IntPtr.Zero;
-            bool raw_ret = g_callable_info_invoke (Handle, function, in_args, (in_args == null ? 0 : in_args.Length), out_args, (out_args == null ? 0 : out_args.Length), native_return_value, is_method, throws, out error);
-            bool ret = raw_ret;
-            return_value = GI.Argument.New (native_return_value);
-            Marshal.FreeHGlobal (native_return_value);
+            IntPtr error;
+            bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error);
             if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             return ret;
         }
 

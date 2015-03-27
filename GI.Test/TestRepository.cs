@@ -88,7 +88,7 @@ namespace GI
             // so let's just test that it fails.
             TestDelegate require = () =>
                 Repository.Require ("DoesNotExist", "9.9", (RepositoryLoadFlags)0);
-            Assert.That (require, Throws.Exception.TypeOf<GLib.GException> ()
+            Assert.That (require, Throws.Exception.TypeOf<GErrorException> ()
                 .With.Property ("Domain").EqualTo (Repository.ErrorDomain)
                 .And.Property ("Code").EqualTo ((int)RepositoryError.TypelibNotFound));
         }
@@ -98,7 +98,7 @@ namespace GI
         {
             TestDelegate require = () =>
                 Repository.RequirePrivate ("NonExistentDir", "DoesNotExist", "9.9", (RepositoryLoadFlags)0);
-            Assert.That (require, Throws.Exception.TypeOf<GLib.GException> ()
+            Assert.That (require, Throws.Exception.TypeOf<GErrorException> ()
                 .With.Property ("Domain").EqualTo (Repository.ErrorDomain)
                 .And.Property ("Code").EqualTo ((int)RepositoryError.TypelibNotFound));
         }
@@ -155,7 +155,7 @@ namespace GI
         public void TestDump ()
         {
             TestDelegate dump = () => Repository.Dump ("NonExistentFile");
-            Assert.That (dump, Throws.Exception.TypeOf<GLib.GException> ()
+            Assert.That (dump, Throws.Exception.TypeOf<GErrorException> ()
                 .With.Property ("Domain").EqualTo (g_io_error_quark ())
                 .And.Property ("Code").EqualTo ((int)GLib.IOErrorEnum.NotFound));
         }

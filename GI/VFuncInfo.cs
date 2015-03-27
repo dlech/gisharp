@@ -22,7 +22,7 @@ namespace GI
             IntPtr raw_ret = g_vfunc_info_get_address (Handle, implementorGType.Val, out error);
             IntPtr ret = raw_ret;
             if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             return ret;
         }
 
@@ -82,7 +82,7 @@ namespace GI
             return_value = GI.Argument.New (native_return_value);
             Marshal.FreeHGlobal (native_return_value);
             if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             return ret;
         }
 

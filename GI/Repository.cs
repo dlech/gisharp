@@ -39,7 +39,7 @@ namespace GI
             bool ret = raw_ret;
             MarshalG.Free (native_arg);
             if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             return ret;
         }
 
@@ -252,7 +252,7 @@ namespace GI
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             }
         }
 
@@ -270,7 +270,7 @@ namespace GI
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             }
         }
     }

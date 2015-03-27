@@ -78,6 +78,7 @@
     <Compile Include="VFuncInfoFlags.cs" />
     <Compile Include="ValueInfo.cs" />
     <Compile Include="MarshalG.cs" />
+    <Compile Include="GErrorException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

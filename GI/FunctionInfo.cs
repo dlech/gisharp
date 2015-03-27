@@ -99,7 +99,7 @@ namespace GI
             return_value = GI.Argument.New (native_return_value);
             Marshal.FreeHGlobal (native_return_value);
             if (error != IntPtr.Zero)
-                throw new GLib.GException (error);
+                throw new GErrorException (error);
             return ret;
         }
 
