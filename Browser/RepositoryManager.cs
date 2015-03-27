@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GI.Browser
+using GISharp.GI;
+
+namespace GISharp.Browser
 {
   public class RepositoryManager
   {

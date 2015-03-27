@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-
+using System.Linq
+;
+using GISharp.GI;
 using Gtk;
 
-namespace GI.Browser
+namespace GISharp.Browser
 {
   public class Program
   {

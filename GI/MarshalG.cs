@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace GI
+namespace GISharp.GI
 {
     /// <summary>
     /// Helper functions for marshaling GLib data structures.

@@ -2,11 +2,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
+using GISharp.GI;
 using Gtk;
 
-using GI;
-
-namespace GI.Browser
+namespace GISharp.Browser
 {
   public class GITreeModelImplmentor : GLib.Object, ITreeModelImplementor
 	{

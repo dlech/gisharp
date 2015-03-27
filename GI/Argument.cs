@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GI
+namespace GISharp.GI
 {
     /// <summary>
     /// Stores an argument of varying type.
@@ -110,13 +110,13 @@ namespace GI
             set { _v_pointer = value; }
         }
 
-        public static GI.Argument Zero = new GI.Argument ();
+        public static GISharp.GI.Argument Zero = new GISharp.GI.Argument ();
 
-        public static GI.Argument New (IntPtr raw)
+        public static GISharp.GI.Argument New (IntPtr raw)
         {
             if (raw == IntPtr.Zero)
-                return GI.Argument.Zero;
-            return (GI.Argument)Marshal.PtrToStructure (raw, typeof(GI.Argument));
+                return GISharp.GI.Argument.Zero;
+            return (GISharp.GI.Argument)Marshal.PtrToStructure (raw, typeof(GISharp.GI.Argument));
         }
 
         public bool Equals (Argument other)

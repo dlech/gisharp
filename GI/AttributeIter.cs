@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GI
+namespace GISharp.GI
 {
     [StructLayout (LayoutKind.Sequential)]
     struct AttributeIter : IEquatable<AttributeIter>
@@ -14,13 +14,13 @@ namespace GI
         private IntPtr _data3;
         private IntPtr _data4;
 
-        public static GI.AttributeIter Zero = new GI.AttributeIter ();
+        public static GISharp.GI.AttributeIter Zero = new GISharp.GI.AttributeIter ();
 
-        public static GI.AttributeIter New (IntPtr raw)
+        public static GISharp.GI.AttributeIter New (IntPtr raw)
         {
             if (raw == IntPtr.Zero)
-                return GI.AttributeIter.Zero;
-            return (GI.AttributeIter)Marshal.PtrToStructure (raw, typeof(GI.AttributeIter));
+                return GISharp.GI.AttributeIter.Zero;
+            return (GISharp.GI.AttributeIter)Marshal.PtrToStructure (raw, typeof(GISharp.GI.AttributeIter));
         }
 
         public bool Equals (AttributeIter other)

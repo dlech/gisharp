@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GICodeGen</RootNamespace>
+    <RootNamespace>GISharp.CodeGen</RootNamespace>
     <AssemblyName>GICodeGen</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>

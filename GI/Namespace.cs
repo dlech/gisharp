@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-namespace GI
+namespace GISharp.GI
 {
     public class Namespace
     {

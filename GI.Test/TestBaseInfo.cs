@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-namespace GI
+namespace GISharp.GI.Test
 {
     [TestFixture ()]
     public class TestBaseInfo

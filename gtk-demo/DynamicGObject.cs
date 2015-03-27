@@ -3,7 +3,7 @@ using System.Dynamic;
 using System.Reflection;
 using System.Linq;
 
-using GI;
+using GISharp.GI;
 
 namespace gtkdemo
 {

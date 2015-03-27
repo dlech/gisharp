@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 using Gtk;
-using GI;
+using GISharp.GI;
 
 
 namespace gtkdemo

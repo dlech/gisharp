@@ -1,5 +1,5 @@
 
-namespace GI.Browser
+namespace GISharp.GI
 {
 	public partial class MainWindow
 	{

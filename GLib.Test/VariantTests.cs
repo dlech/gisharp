@@ -1,8 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
-using GI.GLib;
+using GISharp.GLib;
 
-namespace GI.GLib.Test
+namespace GISharp.GI
 {
   [TestFixture ()]
   public class ErrorTests

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace GI
+namespace GISharp.GI
 {
     public class InfoCollection<T> : IEnumerable<T> where T : BaseInfo
     {

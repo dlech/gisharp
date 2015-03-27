@@ -2,7 +2,7 @@
 using System;
 using System.Linq;
 
-namespace GI
+namespace GISharp.GI.Test
 {
     [TestFixture ()]
     public class TestRepository

@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace GI
+namespace GISharp.GI
 {
     public class NamespaceCollection : IEnumerable<Namespace>
     {

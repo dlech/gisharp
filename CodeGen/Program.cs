@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Text.RegularExpressions;
 
-using GI;
+using GISharp.GI;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
@@ -14,7 +14,7 @@ using YamlDotNet.Serialization.NamingConventions;
 using FixupDictionary = System.Collections.Generic.Dictionary<string,
 System.Collections.Generic.Dictionary<string, string>>;
 
-namespace GICodeGen
+namespace GISharp.CodeGen
 {
     class MainClass
     {
@@ -239,7 +239,7 @@ namespace GICodeGen
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, callbacks.First ().Namespace);
+            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, callbacks[0].Namespace);
             writer.WriteLine ("{");
             foreach (var callback in callbacks) {
                 writer.WriteCallback (callback);
@@ -344,7 +344,7 @@ namespace GICodeGen
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, constants.First ().Namespace);
+            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, constants[0].Namespace);
             writer.WriteLine ("{");
             writer.WriteLine ("\tpublic static class Constants");
             writer.WriteLine ("\t{");
@@ -447,7 +447,7 @@ namespace GICodeGen
             }
         }
 
-        public static void WriteType (this TextWriter writer, GI.TypeInfo type, bool forPinvoke = false)
+        public static void WriteType (this TextWriter writer, GISharp.GI.TypeInfo type, bool forPinvoke = false)
         {
             if (type.IsPointer && type.Tag.IsBasicValueType () && type.Tag != TypeTag.Void) {
                 var x = 0;
@@ -463,7 +463,7 @@ namespace GICodeGen
             }
         }
 
-        public static void WriteField (this TextWriter writer, GI.FieldInfo field)
+        public static void WriteField (this TextWriter writer, GISharp.GI.FieldInfo field)
         {
             writer.WriteLine ("\t\t[FieldOffset({0})]", field.Offset);
             if (field.IsDeprecated) {

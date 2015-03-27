@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GI
+namespace GISharp.GI
 {
     /// <summary>
     /// Flags that control how a typelib is loaded.

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GI
+namespace GISharp.GI
 {
     public interface IMethodContainer
     {
