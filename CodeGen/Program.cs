@@ -534,7 +534,7 @@ namespace GISharp.CodeGen
 
         public static void WritePInvoke (this TextWriter writer, FunctionInfo function)
         {
-            writer.WriteLine ("\t\t[DllImport ({0}.{1}.Constants.ExternDllName)]", MainClass.parentNamespace, function.Namespace);
+            writer.WriteLine ("\t\t[DllImport ({0}.{1}.Constants.ExternDllName, CallingConvention = CallingConvention.Cdecl)]", MainClass.parentNamespace, function.Namespace);
             writer.Write ("\t\tstatic extern ");
             writer.WriteType (function.ReturnTypeInfo, true);
             writer.Write (" {0} (", function.Symbol);
