@@ -43,10 +43,6 @@ namespace GI
             return this.GetType ().FullName.GetHashCode () ^ _data.GetHashCode () ^ _data2.GetHashCode () ^ _data3.GetHashCode () ^ _data4.GetHashCode ();
         }
 
-        private static GLib.GType GType {
-            get { return GLib.GType.Pointer; }
-        }
-
 #endregion
     }
 }

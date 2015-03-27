@@ -124,14 +124,6 @@ namespace GI
             Assert.That (version, Is.EqualTo ("2.0"));
         }
 
-        [Test ()]
-        public void TestFindByGType ()
-        {
-            using (var info = Repository.FindByGType (GLib.GType.Object)) {
-                Assert.That (info, Is.TypeOf<ObjectInfo> ());
-            }
-        }
-
         [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
         static extern int g_io_error_quark ();
 

@@ -77,16 +77,6 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_irepository_find_by_gtype (IntPtr raw, IntPtr gtype);
-
-        public static GI.BaseInfo FindByGType (GLib.GType gtype)
-        {
-            IntPtr raw_ret = g_irepository_find_by_gtype (IntPtr.Zero, gtype.Val);
-            GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            return ret;
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
         internal static GI.BaseInfo FindByName (string @namespace, string name)

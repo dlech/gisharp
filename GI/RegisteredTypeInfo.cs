@@ -14,17 +14,6 @@ namespace GI
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_registered_type_info_get_g_type (IntPtr raw);
-
-        public GLib.GType GType {
-            get {
-                IntPtr raw_ret = g_registered_type_info_get_g_type (Handle);
-                GLib.GType ret = new GLib.GType (raw_ret);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_init (IntPtr raw);
 
         public string TypeInit {
