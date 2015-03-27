@@ -73,12 +73,16 @@
     <Compile Include="VFuncInfo.cs" />
     <Compile Include="VFuncInfoFlags.cs" />
     <Compile Include="ValueInfo.cs" />
-    <Compile Include="MarshalG.cs" />
-    <Compile Include="GErrorException.cs" />
     <Compile Include="AttributeIter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="..\Generated\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

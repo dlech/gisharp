@@ -3,12 +3,12 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace GISharp.GI
+namespace GISharp.Core
 {
     /// <summary>
     /// Helper functions for marshaling GLib data structures.
     /// </summary>
-    static class MarshalG
+    public static class MarshalG
     {
         /// <summary>
         /// Marshals a GLib UTF8 char* to a managed string.
@@ -164,7 +164,5 @@ namespace GISharp.GI
         {
             g_free (ptr);
         }
-
     }
 }
-

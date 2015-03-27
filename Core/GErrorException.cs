@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GI
+namespace GISharp.Core
 {
     public class GErrorException : Exception
     {

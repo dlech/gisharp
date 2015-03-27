@@ -4,6 +4,8 @@
 using System;
 using System.Runtime.InteropServices;
 
+using GISharp.Core;
+
 namespace GISharp.GI
 {
     /// <summary>
