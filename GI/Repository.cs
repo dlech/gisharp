@@ -33,11 +33,11 @@ namespace GI
 
         public static bool Dump (string arg)
         {
-            IntPtr native_arg = GLib.Marshaller.StringToPtrGStrdup (arg);
+            IntPtr native_arg = MarshalG.StringToUtf8Ptr (arg);
             IntPtr error = IntPtr.Zero;
             bool raw_ret = g_irepository_dump (native_arg, out error);
             bool ret = raw_ret;
-            GLib.Marshaller.Free (native_arg);
+            MarshalG.Free (native_arg);
             if (error != IntPtr.Zero)
                 throw new GLib.GException (error);
             return ret;
@@ -48,10 +48,10 @@ namespace GI
 
         internal static string[] GetVersions (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_enumerate_versions (IntPtr.Zero, native_namespace_);
-            string[] ret = (string[])GLib.Marshaller.ListPtrToArray (raw_ret, typeof(GLib.List), false, false, typeof(string));
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_enumerate_versions (IntPtr.Zero, native_namespace);
+            var ret = MarshalG.GListToStringArray (raw_ret, freePtr: true);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -91,12 +91,12 @@ namespace GI
 
         internal static GI.BaseInfo FindByName (string @namespace, string name)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
-            IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace_, native_name);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace, native_name);
             GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_namespace);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -105,10 +105,10 @@ namespace GI
 
         internal static string GetCPrefix (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_c_prefix (IntPtr.Zero, native_namespace_);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_c_prefix (IntPtr.Zero, native_namespace);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -117,10 +117,10 @@ namespace GI
 
         internal static string[] GetDependencies (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace_);
-            string[] ret = GLib.Marshaller.NullTermPtrToStringArray (raw_ret, false);
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
+            string[] ret = MarshalG.NullTermPtrToStringArray (raw_ret, false);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -129,10 +129,10 @@ namespace GI
 
         internal static GI.BaseInfo GetInfo (string @namespace, int index)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace_, index);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace, index);
             GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -142,7 +142,7 @@ namespace GI
         public static string[] LoadedNamespaces {
             get {
                 IntPtr raw_ret = g_irepository_get_loaded_namespaces (IntPtr.Zero);
-                string[] ret = GLib.Marshaller.NullTermPtrToStringArray (raw_ret, false);
+                string[] ret = MarshalG.NullTermPtrToStringArray (raw_ret, false);
                 return ret;
             }
         }
@@ -152,10 +152,10 @@ namespace GI
 
         static int GetNInfos (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            int raw_ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            int raw_ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace);
             int ret = raw_ret;
-            GLib.Marshaller.Free (native_namespace_);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -165,7 +165,7 @@ namespace GI
         public static string[] SearchPath {
             get {
                 IntPtr raw_ret = g_irepository_get_search_path ();
-                string[] ret = (string[])GLib.Marshaller.ListPtrToArray (raw_ret, typeof(GLib.SList), false, false, typeof(string));
+                var ret = MarshalG.GSListToStringArray (raw_ret);
                 return ret;
             }
         }
@@ -175,10 +175,10 @@ namespace GI
 
         internal static string GetSharedLibrary (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_shared_library (IntPtr.Zero, native_namespace_);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_shared_library (IntPtr.Zero, native_namespace);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -187,10 +187,10 @@ namespace GI
 
         internal static string GetTypelibPath (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_typelib_path (IntPtr.Zero, native_namespace_);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_typelib_path (IntPtr.Zero, native_namespace);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -199,10 +199,10 @@ namespace GI
 
         internal static string GetVersion (string @namespace)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr raw_ret = g_irepository_get_version (IntPtr.Zero, native_namespace_);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_namespace_);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr raw_ret = g_irepository_get_version (IntPtr.Zero, native_namespace);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_namespace);
             return ret;
         }
 
@@ -211,12 +211,12 @@ namespace GI
 
         public static bool IsRegistered (string @namespace, string version)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr native_version = GLib.Marshaller.StringToPtrGStrdup (version);
-            bool raw_ret = g_irepository_is_registered (IntPtr.Zero, native_namespace_, native_version);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
+            bool raw_ret = g_irepository_is_registered (IntPtr.Zero, native_namespace, native_version);
             bool ret = raw_ret;
-            GLib.Marshaller.Free (native_namespace_);
-            GLib.Marshaller.Free (native_version);
+            MarshalG.Free (native_namespace);
+            MarshalG.Free (native_version);
             return ret;
         }
 
@@ -225,9 +225,9 @@ namespace GI
 
         public static void PrependLibraryPath (string directory)
         {
-            IntPtr native_directory = GLib.Marshaller.StringToPtrGStrdup (directory);
+            IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
             g_irepository_prepend_library_path (native_directory);
-            GLib.Marshaller.Free (native_directory);
+            MarshalG.Free (native_directory);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -235,9 +235,9 @@ namespace GI
 
         public static void PrependSearchPath (string directory)
         {
-            IntPtr native_directory = GLib.Marshaller.StringToPtrGStrdup (directory);
+            IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
             g_irepository_prepend_search_path (native_directory);
-            GLib.Marshaller.Free (native_directory);
+            MarshalG.Free (native_directory);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -245,12 +245,12 @@ namespace GI
 
         public static void Require (string @namespace, string version, GI.RepositoryLoadFlags flags)
         {
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr native_version = GLib.Marshaller.StringToPtrGStrdup (version);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
             IntPtr error = IntPtr.Zero;
-            g_irepository_require (IntPtr.Zero, native_namespace_, native_version, (int)flags, out error);
-            GLib.Marshaller.Free (native_namespace_);
-            GLib.Marshaller.Free (native_version);
+            g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error);
+            MarshalG.Free (native_namespace);
+            MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
                 throw new GLib.GException (error);
             }
@@ -261,14 +261,14 @@ namespace GI
 
         public static void RequirePrivate (string typelibDir, string @namespace, string version, GI.RepositoryLoadFlags flags)
         {
-            IntPtr native_typelib_dir = GLib.Marshaller.StringToPtrGStrdup (typelibDir);
-            IntPtr native_namespace_ = GLib.Marshaller.StringToPtrGStrdup (@namespace);
-            IntPtr native_version = GLib.Marshaller.StringToPtrGStrdup (version);
+            IntPtr native_typelib_dir = MarshalG.StringToUtf8Ptr (typelibDir);
+            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
             IntPtr error = IntPtr.Zero;
-            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace_, native_version, (int)flags, out error);
-            GLib.Marshaller.Free (native_typelib_dir);
-            GLib.Marshaller.Free (native_namespace_);
-            GLib.Marshaller.Free (native_version);
+            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error);
+            MarshalG.Free (native_typelib_dir);
+            MarshalG.Free (native_namespace);
+            MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
                 throw new GLib.GException (error);
             }

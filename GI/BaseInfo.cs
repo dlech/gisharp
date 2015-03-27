@@ -159,10 +159,10 @@ namespace GI
 
         public string GetAttribute (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_base_info_get_attribute (Handle, native_name);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -183,7 +183,7 @@ namespace GI
         protected string NameInternal {
             get {
                 IntPtr raw_ret = g_base_info_get_name (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -194,7 +194,7 @@ namespace GI
         public string Namespace {
             get {
                 IntPtr raw_ret = g_base_info_get_namespace (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -222,19 +222,15 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_base_info_iterate_attributes (IntPtr raw, IntPtr iterator, out IntPtr name, out IntPtr value);
+        static extern bool g_base_info_iterate_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
         protected bool IterateAttributes (ref GI.AttributeIter iterator, out string name, out string value)
         {
-            IntPtr native_iterator = GLib.Marshaller.StructureToPtrAlloc (iterator);
             IntPtr native_name;
             IntPtr native_value;
-            bool raw_ret = g_base_info_iterate_attributes (Handle, native_iterator, out native_name, out native_value);
-            bool ret = raw_ret;
-            iterator = GI.AttributeIter.New (native_iterator);
-            Marshal.FreeHGlobal (native_iterator);
-            name = GLib.Marshaller.PtrToStringGFree (native_name);
-            value = GLib.Marshaller.PtrToStringGFree (native_value);
+            bool ret = g_base_info_iterate_attributes (Handle, ref iterator, out native_name, out native_value);
+            name = MarshalG.Utf8PtrToString (native_name, freePtr: true);
+            value = MarshalG.Utf8PtrToString (native_value, freePtr: true);
             return ret;
         }
 

@@ -59,7 +59,6 @@
     <Compile Include="GISharp.ObjectInfoRefFunctionNative.cs" />
     <Compile Include="GISharp.ObjectInfoSetValueFunctionNative.cs" />
     <Compile Include="GISharp.ObjectInfoUnrefFunctionNative.cs" />
-    <Compile Include="Global.cs" />
     <Compile Include="InfoType.cs" />
     <Compile Include="InterfaceInfo.cs" />
     <Compile Include="InvokeError.cs" />
@@ -68,7 +67,6 @@
     <Compile Include="ObjectInfoRefFunction.cs" />
     <Compile Include="ObjectInfoSetValueFunction.cs" />
     <Compile Include="ObjectInfoUnrefFunction.cs" />
-    <Compile Include="OptionGroup.cs" />
     <Compile Include="ParamFlags.cs" />
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="RegisteredTypeInfo.cs" />
@@ -87,16 +85,10 @@
     <Compile Include="VFuncInfo.cs" />
     <Compile Include="VFuncInfoFlags.cs" />
     <Compile Include="ValueInfo.cs" />
+    <Compile Include="MarshalG.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="..\Generated\" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="bin\Debug\girepository.dll" />
-    <None Include="bin\Debug\girepository.dll.mdb" />
-    <None Include="obj\Debug\GI.csproj.FilesWrittenAbsolute.txt" />
-    <None Include="obj\Debug\girepository.dll" />
-    <None Include="obj\Debug\girepository.dll.mdb" />
   </ItemGroup>
 </Project>

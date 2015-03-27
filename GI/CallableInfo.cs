@@ -83,10 +83,10 @@ namespace GI
 
         public string GetReturnAttribute (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_callable_info_get_return_attribute (Handle, native_name);
-            string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            string ret = MarshalG.Utf8PtrToString (raw_ret);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -129,15 +129,15 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_iterate_return_attributes (IntPtr raw, IntPtr iterator, IntPtr name, IntPtr value);
+        static extern bool g_callable_info_iterate_return_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
-        public bool IterateReturnAttributes (GI.AttributeIter iterator, string name, string value)
+        public bool IterateReturnAttributes (ref GI.AttributeIter iterator, out string name, out string value)
         {
-            IntPtr native_iterator = GLib.Marshaller.StructureToPtrAlloc (iterator);
-            bool raw_ret = g_callable_info_iterate_return_attributes (Handle, native_iterator, GLib.Marshaller.StringToPtrGStrdup (name), GLib.Marshaller.StringToPtrGStrdup (value));
-            bool ret = raw_ret;
-            iterator = GI.AttributeIter.New (native_iterator);
-            Marshal.FreeHGlobal (native_iterator);
+            IntPtr namePtr;
+            IntPtr valuePtr;
+            var ret = g_callable_info_iterate_return_attributes (Handle, ref iterator, out namePtr, out valuePtr);
+            name = MarshalG.Utf8PtrToString (namePtr, freePtr: true);
+            value = MarshalG.Utf8PtrToString (valuePtr, freePtr: true);
             return ret;
         }
 

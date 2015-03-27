@@ -95,10 +95,10 @@ namespace GI
 
         public GI.FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_method (Handle, native_name);
             GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -107,10 +107,10 @@ namespace GI
 
         public GI.FunctionInfo FindMethodUsingInterfaces (string name, GI.ObjectInfo implementor)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_method_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
             GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -119,10 +119,10 @@ namespace GI
 
         public GI.SignalInfo FindSignal (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_signal (Handle, native_name);
             GI.SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -131,10 +131,10 @@ namespace GI
 
         public GI.VFuncInfo FindVFunc (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_vfunc (Handle, native_name);
             GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -143,10 +143,10 @@ namespace GI
 
         public GI.VFuncInfo FindVFuncUsingInterfaces (string name, GI.ObjectInfo implementor)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_vfunc_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
             GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -209,18 +209,18 @@ namespace GI
         public string GetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_get_value_function (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GISharp.ObjectInfoGetValueFunctionNative g_object_info_get_get_value_function_pointer (IntPtr raw);
+        static extern GI.ObjectInfoGetValueFunctionNative g_object_info_get_get_value_function_pointer (IntPtr raw);
 
         public GI.ObjectInfoGetValueFunction GetValueFunction {
             get {
-                GISharp.ObjectInfoGetValueFunctionNative raw_ret = g_object_info_get_get_value_function_pointer (Handle);
-                GI.ObjectInfoGetValueFunction ret = GISharp.ObjectInfoGetValueFunctionWrapper.GetManagedDelegate (raw_ret);
+                GI.ObjectInfoGetValueFunctionNative raw_ret = g_object_info_get_get_value_function_pointer (Handle);
+                GI.ObjectInfoGetValueFunction ret = GI.ObjectInfoGetValueFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }
@@ -349,18 +349,18 @@ namespace GI
         public string RefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_ref_function (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GISharp.ObjectInfoRefFunctionNative g_object_info_get_ref_function_pointer (IntPtr raw);
+        static extern GI.ObjectInfoRefFunctionNative g_object_info_get_ref_function_pointer (IntPtr raw);
 
         public GI.ObjectInfoRefFunction RefFunction {
             get {
-                GISharp.ObjectInfoRefFunctionNative raw_ret = g_object_info_get_ref_function_pointer (Handle);
-                GI.ObjectInfoRefFunction ret = GISharp.ObjectInfoRefFunctionWrapper.GetManagedDelegate (raw_ret);
+                GI.ObjectInfoRefFunctionNative raw_ret = g_object_info_get_ref_function_pointer (Handle);
+                GI.ObjectInfoRefFunction ret = GI.ObjectInfoRefFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }
@@ -371,18 +371,18 @@ namespace GI
         public string SetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_set_value_function (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GISharp.ObjectInfoSetValueFunctionNative g_object_info_get_set_value_function_pointer (IntPtr raw);
+        static extern GI.ObjectInfoSetValueFunctionNative g_object_info_get_set_value_function_pointer (IntPtr raw);
 
         public GI.ObjectInfoSetValueFunction SetValueFunction {
             get {
-                GISharp.ObjectInfoSetValueFunctionNative raw_ret = g_object_info_get_set_value_function_pointer (Handle);
-                GI.ObjectInfoSetValueFunction ret = GISharp.ObjectInfoSetValueFunctionWrapper.GetManagedDelegate (raw_ret);
+                GI.ObjectInfoSetValueFunctionNative raw_ret = g_object_info_get_set_value_function_pointer (Handle);
+                GI.ObjectInfoSetValueFunction ret = GI.ObjectInfoSetValueFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }
@@ -403,7 +403,7 @@ namespace GI
         public new string TypeInit {
             get {
                 IntPtr raw_ret = g_object_info_get_type_init (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -414,7 +414,7 @@ namespace GI
         public new string TypeName {
             get {
                 IntPtr raw_ret = g_object_info_get_type_name (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -425,18 +425,18 @@ namespace GI
         public string UnrefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_unref_function (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GISharp.ObjectInfoUnrefFunctionNative g_object_info_get_unref_function_pointer (IntPtr raw);
+        static extern GI.ObjectInfoUnrefFunctionNative g_object_info_get_unref_function_pointer (IntPtr raw);
 
         public GI.ObjectInfoUnrefFunction UnrefFunction {
             get {
-                GISharp.ObjectInfoUnrefFunctionNative raw_ret = g_object_info_get_unref_function_pointer (Handle);
-                GI.ObjectInfoUnrefFunction ret = GISharp.ObjectInfoUnrefFunctionWrapper.GetManagedDelegate (raw_ret);
+                GI.ObjectInfoUnrefFunctionNative raw_ret = g_object_info_get_unref_function_pointer (Handle);
+                GI.ObjectInfoUnrefFunction ret = GI.ObjectInfoUnrefFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }

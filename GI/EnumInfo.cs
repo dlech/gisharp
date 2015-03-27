@@ -40,7 +40,7 @@ namespace GI
         public string ErrorDomain {
             get {
                 IntPtr raw_ret = g_enum_info_get_error_domain (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }

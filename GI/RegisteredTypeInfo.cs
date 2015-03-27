@@ -30,7 +30,7 @@ namespace GI
         public string TypeInit {
             get {
                 IntPtr raw_ret = g_registered_type_info_get_type_init (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -41,7 +41,7 @@ namespace GI
         public string TypeName {
             get {
                 IntPtr raw_ret = g_registered_type_info_get_type_name (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }

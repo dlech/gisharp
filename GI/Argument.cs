@@ -95,12 +95,12 @@ namespace GI
 
         public string String {
             get {
-                return GLib.Marshaller.Utf8PtrToString (_v_string);
+                return MarshalG.Utf8PtrToString (_v_string);
             }
             set {
                 var oldString = _v_string;
-                _v_string = GLib.Marshaller.StringToPtrGStrdup (value);
-                GLib.Marshaller.Free (oldString);
+                _v_string = MarshalG.StringToUtf8Ptr (value);
+                MarshalG.Free (oldString);
             }
         }
 

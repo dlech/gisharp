@@ -286,8 +286,8 @@ namespace GICodeGen
             }
             writer.Write ("\t\tpublic const {0} {1} = ",
                 constant.TypeInfo.Tag.ToManagedType (constant.TypeInfo.IsPointer), constantName);
-            var arg = new Argument ();
-            constant.GetValue (ref arg);
+            Argument arg;
+            constant.GetValue (out arg);
             switch (constant.TypeInfo.Tag) {
             case TypeTag.Boolean:
                 writer.Write ("{0}", arg.Boolean ? "true" : "false");

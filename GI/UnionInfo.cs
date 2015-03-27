@@ -40,10 +40,10 @@ namespace GI
 
         public GI.FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_union_info_find_method (Handle, native_name);
             GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 

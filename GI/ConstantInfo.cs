@@ -14,14 +14,11 @@ namespace GI
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_constant_info_free_value (IntPtr raw, IntPtr value);
+        static extern void g_constant_info_free_value (IntPtr raw, ref Argument value);
 
         public void FreeValue (ref GI.Argument value)
         {
-            IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
-            g_constant_info_free_value (Handle, native_value);
-            value = GI.Argument.New (native_value);
-            Marshal.FreeHGlobal (native_value);
+            g_constant_info_free_value (Handle, ref value);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -36,16 +33,12 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_constant_info_get_value (IntPtr raw, IntPtr value);
+        static extern int g_constant_info_get_value (IntPtr raw, out Argument value);
 
-        public int GetValue (ref GI.Argument value)
+        public int GetValue (out GI.Argument value)
         {
-            IntPtr native_value = GLib.Marshaller.StructureToPtrAlloc (value);
-            int raw_ret = g_constant_info_get_value (Handle, native_value);
-            int ret = raw_ret;
-            value = GI.Argument.New (native_value);
-            Marshal.FreeHGlobal (native_value);
-            return ret;
+            value = new Argument ();
+            return g_constant_info_get_value (Handle, out value);
         }
 
         public ConstantInfo (IntPtr raw) : base (raw)

@@ -71,7 +71,7 @@ namespace GI
         public string Symbol {
             get {
                 IntPtr raw_ret = g_function_info_get_symbol (Handle);
-                string ret = GLib.Marshaller.Utf8PtrToString (raw_ret);
+                string ret = MarshalG.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }

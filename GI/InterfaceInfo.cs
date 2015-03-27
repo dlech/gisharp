@@ -18,10 +18,10 @@ namespace GI
 
         public GI.FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_method (Handle, native_name);
             GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -30,10 +30,10 @@ namespace GI
 
         public GI.SignalInfo FindSignal (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_signal (Handle, native_name);
             GI.SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
@@ -42,10 +42,10 @@ namespace GI
 
         public GI.VFuncInfo FindVFunc (string name)
         {
-            IntPtr native_name = GLib.Marshaller.StringToPtrGStrdup (name);
+            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_vfunc (Handle, native_name);
             GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GLib.Marshaller.Free (native_name);
+            MarshalG.Free (native_name);
             return ret;
         }
 
