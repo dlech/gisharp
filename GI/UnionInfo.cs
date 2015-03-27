@@ -10,9 +10,8 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class UnionInfo : GISharp.GI.RegisteredTypeInfo, IMethodContainer
+    public class UnionInfo : RegisteredTypeInfo, IMethodContainer
     {
-
         InfoCollection<FieldInfo> fields;
 
         public InfoCollection<FieldInfo> Fields {
@@ -38,11 +37,11 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_find_method (IntPtr raw, IntPtr name);
 
-        public GISharp.GI.FunctionInfo FindMethod (string name)
+        public FunctionInfo FindMethod (string name)
         {
             IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_union_info_find_method (Handle, native_name);
-            GISharp.GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
+            FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
             MarshalG.Free (native_name);
             return ret;
         }
@@ -52,20 +51,17 @@ namespace GISharp.GI
 
         public ulong Alignment {
             get {
-                UIntPtr raw_ret = g_union_info_get_alignment (Handle);
-                ulong ret = (ulong)raw_ret;
-                return ret;
+                return (ulong)g_union_info_get_alignment (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_discriminator (IntPtr raw, int index);
 
-        public GISharp.GI.ConstantInfo GetDiscriminator (int index)
+        public ConstantInfo GetDiscriminator (int index)
         {
             IntPtr raw_ret = g_union_info_get_discriminator (Handle, index);
-            GISharp.GI.ConstantInfo ret = MarshalPtr<ConstantInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<ConstantInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -82,10 +78,10 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_discriminator_type (IntPtr raw);
 
-        public GISharp.GI.TypeInfo DiscriminatorType {
+        public TypeInfo DiscriminatorType {
             get {
                 IntPtr raw_ret = g_union_info_get_discriminator_type (Handle);
-                GISharp.GI.TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
+                TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
                 return ret;
             }
         }
@@ -93,21 +89,19 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_field (IntPtr raw, int index);
 
-        public GISharp.GI.FieldInfo GetField (int index)
+        public FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_union_info_get_field (Handle, index);
-            GISharp.GI.FieldInfo ret = MarshalPtr<FieldInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<FieldInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_method (IntPtr raw, int index);
 
-        public GISharp.GI.FunctionInfo GetMethod (int index)
+        public FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_union_info_get_method (Handle, index);
-            GISharp.GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

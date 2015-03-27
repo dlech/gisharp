@@ -10,9 +10,8 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public partial class CallableInfo : GISharp.GI.BaseInfo
+    public class CallableInfo : BaseInfo
     {
-
         InfoCollection<ArgInfo> args;
 
         public InfoCollection<ArgInfo> Args {
@@ -29,41 +28,34 @@ namespace GISharp.GI
 
         public bool CanThrowGError {
             get {
-                bool raw_ret = g_callable_info_can_throw_gerror (Handle);
-                bool ret = raw_ret;
-                return ret;
+                return g_callable_info_can_throw_gerror (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_callable_info_get_arg (IntPtr raw, int index);
 
-        protected GISharp.GI.ArgInfo GetArg (int index)
+        protected ArgInfo GetArg (int index)
         {
             IntPtr raw_ret = g_callable_info_get_arg (Handle, index);
-            GISharp.GI.ArgInfo ret = MarshalPtr<ArgInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<ArgInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_callable_info_get_caller_owns (IntPtr raw);
+        static extern Transfer g_callable_info_get_caller_owns (IntPtr raw);
 
-        public GISharp.GI.Transfer CallerOwns {
+        public Transfer CallerOwns {
             get {
-                int raw_ret = g_callable_info_get_caller_owns (Handle);
-                GISharp.GI.Transfer ret = (GISharp.GI.Transfer)raw_ret;
-                return ret;
+                return g_callable_info_get_caller_owns (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_callable_info_get_instance_ownership_transfer (IntPtr raw);
+        static extern Transfer g_callable_info_get_instance_ownership_transfer (IntPtr raw);
 
-        public GISharp.GI.Transfer InstanceOwnershipTransfer {
+        public Transfer InstanceOwnershipTransfer {
             get {
-                int raw_ret = g_callable_info_get_instance_ownership_transfer (Handle);
-                GISharp.GI.Transfer ret = (GISharp.GI.Transfer)raw_ret;
-                return ret;
+                return g_callable_info_get_instance_ownership_transfer (Handle);
             }
         }
 
@@ -72,9 +64,7 @@ namespace GISharp.GI
 
         protected int NArgs {
             get {
-                int raw_ret = g_callable_info_get_n_args (Handle);
-                int ret = raw_ret;
-                return ret;
+                return g_callable_info_get_n_args (Handle);
             }
         }
 
@@ -93,16 +83,15 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_callable_info_get_return_type (IntPtr raw);
 
-        public GISharp.GI.TypeInfo ReturnTypeInfo {
+        public TypeInfo ReturnTypeInfo {
             get {
                 IntPtr raw_ret = g_callable_info_get_return_type (Handle);
-                GISharp.GI.TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
-                return ret;
+                return MarshalPtr<TypeInfo> (raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] in_args, int n_in_args, Argument[] out_args, int n_out_args, out Argument return_value, bool is_method, bool throws, out IntPtr error);
+        static extern unsafe bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] inArgs, int nInArgs, Argument[] outArgs, int nOutArgs, out Argument returnValue, bool isMethod, bool throws, out IntPtr error);
 
         public unsafe bool Invoke (IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
@@ -118,9 +107,7 @@ namespace GISharp.GI
 
         public bool IsMethod {
             get {
-                bool raw_ret = g_callable_info_is_method (Handle);
-                bool ret = raw_ret;
-                return ret;
+                return g_callable_info_is_method (Handle);
             }
         }
 
@@ -132,15 +119,15 @@ namespace GISharp.GI
             IntPtr namePtr;
             IntPtr valuePtr;
             var ret = g_callable_info_iterate_return_attributes (Handle, ref iterator, out namePtr, out valuePtr);
-            name = MarshalG.Utf8PtrToString (namePtr, freePtr: true);
-            value = MarshalG.Utf8PtrToString (valuePtr, freePtr: true);
+            name = MarshalG.Utf8PtrToString (namePtr);
+            value = MarshalG.Utf8PtrToString (valuePtr);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_callable_info_load_arg (IntPtr raw, int n, IntPtr arg);
 
-        public void LoadArg (int n, GISharp.GI.ArgInfo arg)
+        public void LoadArg (int n, ArgInfo arg)
         {
             g_callable_info_load_arg (Handle, n, arg == null ? IntPtr.Zero : arg.Handle);
         }
@@ -148,7 +135,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_callable_info_load_return_type (IntPtr raw, IntPtr type);
 
-        public void LoadReturnType (GISharp.GI.TypeInfo type)
+        public void LoadReturnType (TypeInfo type)
         {
             g_callable_info_load_return_type (Handle, type == null ? IntPtr.Zero : type.Handle);
         }
@@ -158,9 +145,7 @@ namespace GISharp.GI
 
         public bool MayReturnNull {
             get {
-                bool raw_ret = g_callable_info_may_return_null (Handle);
-                bool ret = raw_ret;
-                return ret;
+                return g_callable_info_may_return_null (Handle);
             }
         }
 
@@ -169,9 +154,7 @@ namespace GISharp.GI
 
         public bool SkipReturn {
             get {
-                bool raw_ret = g_callable_info_skip_return (Handle);
-                bool ret = raw_ret;
-                return ret;
+                return g_callable_info_skip_return (Handle);
             }
         }
 

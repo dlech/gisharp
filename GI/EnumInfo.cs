@@ -10,7 +10,7 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class EnumInfo : GISharp.GI.RegisteredTypeInfo, IMethodContainer
+    public class EnumInfo : RegisteredTypeInfo, IMethodContainer
     {
         InfoCollection<ValueInfo> values;
 
@@ -40,19 +40,17 @@ namespace GISharp.GI
         public string ErrorDomain {
             get {
                 IntPtr raw_ret = g_enum_info_get_error_domain (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
+                return MarshalG.Utf8PtrToString (raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_method (IntPtr raw, int index);
 
-        public GISharp.GI.FunctionInfo GetMethod (int index)
+        public FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_enum_info_get_method (Handle, index);
-            GISharp.GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -60,9 +58,7 @@ namespace GISharp.GI
 
         protected int NMethods {
             get {
-                int raw_ret = g_enum_info_get_n_methods (Handle);
-                int ret = raw_ret;
-                return ret;
+                return g_enum_info_get_n_methods (Handle);
             }
         }
 
@@ -71,31 +67,26 @@ namespace GISharp.GI
 
         protected int NValues {
             get {
-                int raw_ret = g_enum_info_get_n_values (Handle);
-                int ret = raw_ret;
-                return ret;
+                return g_enum_info_get_n_values (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_enum_info_get_storage_type (IntPtr raw);
+        static extern TypeTag g_enum_info_get_storage_type (IntPtr raw);
 
-        public GISharp.GI.TypeTag StorageType {
+        public TypeTag StorageType {
             get {
-                int raw_ret = g_enum_info_get_storage_type (Handle);
-                GISharp.GI.TypeTag ret = (GISharp.GI.TypeTag)raw_ret;
-                return ret;
+                return g_enum_info_get_storage_type (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_value (IntPtr raw, int index);
 
-        public GISharp.GI.ValueInfo GetValue (int index)
+        public ValueInfo GetValue (int index)
         {
             IntPtr raw_ret = g_enum_info_get_value (Handle, index);
-            GISharp.GI.ValueInfo ret = MarshalPtr<ValueInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<ValueInfo> (raw_ret);
         }
 
         public EnumInfo (IntPtr raw) : base (raw)

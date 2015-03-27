@@ -10,9 +10,8 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class FunctionInfo : GISharp.GI.CallableInfo
+    public class FunctionInfo : CallableInfo
     {
-
         public bool IsConstructor {
             get {
                 return Flags.HasFlag (FunctionInfoFlags.IsConstructor);
@@ -44,24 +43,21 @@ namespace GISharp.GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_function_info_get_flags (IntPtr raw);
+        static extern FunctionInfoFlags g_function_info_get_flags (IntPtr raw);
 
-        public GISharp.GI.FunctionInfoFlags Flags {
+        public FunctionInfoFlags Flags {
             get {
-                int raw_ret = g_function_info_get_flags (Handle);
-                GISharp.GI.FunctionInfoFlags ret = (GISharp.GI.FunctionInfoFlags)raw_ret;
-                return ret;
+                return g_function_info_get_flags (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_function_info_get_property (IntPtr raw);
 
-        public GISharp.GI.PropertyInfo Property {
+        public PropertyInfo Property {
             get {
                 IntPtr raw_ret = g_function_info_get_property (Handle);
-                GISharp.GI.PropertyInfo ret = MarshalPtr<PropertyInfo> (raw_ret);
-                return ret;
+                return MarshalPtr<PropertyInfo> (raw_ret);
             }
         }
 
@@ -71,36 +67,30 @@ namespace GISharp.GI
         public string Symbol {
             get {
                 IntPtr raw_ret = g_function_info_get_symbol (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
+                return MarshalG.Utf8PtrToString (raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_function_info_get_vfunc (IntPtr raw);
 
-        public GISharp.GI.VFuncInfo VFunc {
+        public VFuncInfo VFunc {
             get {
                 IntPtr raw_ret = g_function_info_get_vfunc (Handle);
-                GISharp.GI.VFuncInfo ret = MarshalPtr<VFuncInfo> (raw_ret);
-                return ret;
+                return MarshalPtr<VFuncInfo> (raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe bool g_function_info_invoke (IntPtr raw, GISharp.GI.Argument[] in_args, int n_in_args, GISharp.GI.Argument[] out_args, int n_out_args, IntPtr return_value, out IntPtr error);
+        static extern unsafe bool g_function_info_invoke (IntPtr raw, Argument[] inArgs, int nInArgs, Argument[] outArgs, int nOutArgs, out Argument returnValue, out IntPtr error);
 
-        public unsafe bool Invoke (GISharp.GI.Argument[] in_args, GISharp.GI.Argument[] out_args, out GISharp.GI.Argument return_value)
+        public unsafe void Invoke (Argument[] inArgs, Argument[] outArgs, out Argument returnValue)
         {
-            IntPtr native_return_value = Marshal.AllocHGlobal (Marshal.SizeOf (typeof(GISharp.GI.Argument)));
-            IntPtr error = IntPtr.Zero;
-            bool raw_ret = g_function_info_invoke (Handle, in_args, (in_args == null ? 0 : in_args.Length), out_args, (out_args == null ? 0 : out_args.Length), native_return_value, out error);
-            bool ret = raw_ret;
-            return_value = GISharp.GI.Argument.New (native_return_value);
-            Marshal.FreeHGlobal (native_return_value);
-            if (error != IntPtr.Zero)
+            IntPtr error;
+            g_function_info_invoke (Handle, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, out error);
+            if (error != IntPtr.Zero) {
                 throw new GErrorException (error);
-            return ret;
+            }
         }
 
         public FunctionInfo (IntPtr raw) : base (raw)

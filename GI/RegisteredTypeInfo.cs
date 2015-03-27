@@ -10,17 +10,15 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class RegisteredTypeInfo : GISharp.GI.BaseInfo
+    public class RegisteredTypeInfo : BaseInfo
     {
-
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_init (IntPtr raw);
 
         public string TypeInit {
             get {
                 IntPtr raw_ret = g_registered_type_info_get_type_init (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
+                return MarshalG.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -30,8 +28,7 @@ namespace GISharp.GI
         public string TypeName {
             get {
                 IntPtr raw_ret = g_registered_type_info_get_type_name (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
+                return MarshalG.Utf8PtrToString (raw_ret);
             }
         }
 

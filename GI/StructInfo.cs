@@ -10,7 +10,7 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class StructInfo : GISharp.GI.RegisteredTypeInfo, IMethodContainer
+    public class StructInfo : RegisteredTypeInfo, IMethodContainer
     {
 
         InfoCollection<FieldInfo> fields;
@@ -38,11 +38,11 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_find_method (IntPtr raw, IntPtr name);
 
-        public GISharp.GI.FunctionInfo FindMethod (string name)
+        public FunctionInfo FindMethod (string name)
         {
             IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_struct_info_find_method (Handle, native_name);
-            GISharp.GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
+            var ret = MarshalPtr<FunctionInfo> (raw_ret);
             MarshalG.Free (native_name);
             return ret;
         }
@@ -52,30 +52,26 @@ namespace GISharp.GI
 
         public ulong Alignment {
             get {
-                UIntPtr raw_ret = g_struct_info_get_alignment (Handle);
-                ulong ret = (ulong)raw_ret;
-                return ret;
+                return (ulong)g_struct_info_get_alignment (Handle);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_field (IntPtr raw, int index);
 
-        public GISharp.GI.FieldInfo GetField (int index)
+        public FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_struct_info_get_field (Handle, index);
-            GISharp.GI.FieldInfo ret = MarshalPtr<FieldInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<FieldInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_method (IntPtr raw, int index);
 
-        public GISharp.GI.FunctionInfo GetMethod (int index)
+        public FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_struct_info_get_method (Handle, index);
-            GISharp.GI.FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            return ret;
+            return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
