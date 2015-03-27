@@ -169,7 +169,8 @@ namespace GISharp.CodeGen
             writer.WriteLine ("}");
         }
 
-        public static void WriteObject (this TextWriter writer, BaseInfo info, List<FunctionInfo> extraFunctions)
+        public static void WriteObject (this TextWriter writer, BaseInfo info,
+            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
             throw new NotImplementedException ();
         }
@@ -180,26 +181,29 @@ namespace GISharp.CodeGen
             var fixupPath = info.GetFixupPath ();
             var @enum = info as EnumInfo;
             if (@enum != null) {
+                if (constants.Count > 0) {
+                    throw new Exception ("Enums can't have extra constants");
+                }
                 writer.WriteEnum (@enum, extraFunctions);
                 return;
             }
             var @object = info as ObjectInfo;
             if (@object != null) {
-                writer.WriteObject (@object, extraFunctions);
+                writer.WriteObject (@object, constants, extraFunctions);
                 return;
             }
             var @struct = info as StructInfo;
             if (@struct != null) {
                 if (@struct.Fields.Any () && !fixupPath.IsOpaque ()) {
-                    writer.WriteStruct (@struct, extraFunctions);
+                    writer.WriteStruct (@struct, constants, extraFunctions);
                 } else {
-                    writer.WriteOpaque (@struct, extraFunctions);
+                    writer.WriteOpaque (@struct, constants, extraFunctions);
                 }
                 return;
             }
             var union = info as UnionInfo;
             if (union != null) {
-                writer.WriteUnion (union, extraFunctions);
+                writer.WriteUnion (union, constants, extraFunctions);
                 return;
             }
         }
@@ -662,7 +666,8 @@ namespace GISharp.CodeGen
             writer.WriteLine ();
         }
 
-        public static void WriteOpaque (this TextWriter writer, StructInfo @struct, List<FunctionInfo> extraFunctions)
+        public static void WriteOpaque (this TextWriter writer, StructInfo @struct,
+            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ("using System.Runtime.InteropServices;");
@@ -674,11 +679,9 @@ namespace GISharp.CodeGen
             }
             writer.WriteLine ("\tpublic class {2} : {0}.Runtime.Opaque<{1}.{2}>", MainClass.parentNamespace, @struct.Namespace, @struct.Name);
             writer.WriteLine ("\t{");
-            writer.WriteLine ("\t\tprotected {0} (IntPtr handle, bool ownsHandle) : base (handle, ownsHandle)", @struct.Name);
-            writer.WriteLine ("\t\t{");
-            writer.WriteLine ("\t\t}");
-            writer.WriteLine ();
-            writer.WriteLine ();
+            foreach (var constant in constants) {
+                writer.WriteConstant (constant, @struct.Name);
+            }
             foreach (var field in @struct.Fields) {
                 writer.WriteField (field);
             }
@@ -692,7 +695,8 @@ namespace GISharp.CodeGen
             writer.WriteLine ("}");
         }
 
-        public static void WriteStruct (this TextWriter writer, StructInfo @struct, List<FunctionInfo> extraFunctions)
+        public static void WriteStruct (this TextWriter writer, StructInfo @struct,
+            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ("using System.Runtime.InteropServices;");
@@ -702,10 +706,12 @@ namespace GISharp.CodeGen
             writer.WriteLine ("\t[StructLayout (LayoutKind.Explicit)]");
             writer.WriteLine ("\tpublic struct {0}", @struct.Name);
             writer.WriteLine ("\t{");
+            foreach (var constant in constants) {
+                writer.WriteConstant (constant, @struct.Name);
+            }
             foreach (var field in @struct.Fields) {
                 writer.WriteField (field);
             }
-            writer.WriteLine ();
             foreach (var method in @struct.Methods) {
                 writer.WriteFunction (method);
             }
@@ -716,7 +722,8 @@ namespace GISharp.CodeGen
             writer.WriteLine ("}");
         }
 
-        public static void WriteUnion (this TextWriter writer, UnionInfo union, List<FunctionInfo> extraFunctions)
+        public static void WriteUnion (this TextWriter writer, UnionInfo union,
+            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ("using System.Runtime.InteropServices;");
@@ -727,11 +734,12 @@ namespace GISharp.CodeGen
             // TODO: Figure out when to use Opaque and when to use struct
             writer.WriteLine ("\tpublic struct {0}", union.Name);
             writer.WriteLine ("\t{");
-            writer.WriteLine ();
+            foreach (var constant in constants) {
+                writer.WriteConstant (constant, union.Name);
+            }
             foreach (var field in union.Fields) {
                 writer.WriteField (field);
             }
-            writer.WriteLine ();
             foreach (var method in union.Methods) {
                 writer.WriteFunction (method);
             }

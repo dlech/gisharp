@@ -148,6 +148,8 @@ GLib.Struct.Source.Function.modify_unix_fd:
     hidden: # uses GLib.IOCondition
 GLib.Struct.Source.Function.query_unix_fd:
     hidden: # uses GLib.IOCondition
+GLib.Struct.Source.Function.remove:
+    name: RemoveByTag # conflicts with constant name
 
 # GLib.Variant - hidden below, keeping this in case it is needed
 
