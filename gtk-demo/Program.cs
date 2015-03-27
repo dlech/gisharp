@@ -10,7 +10,7 @@ namespace gtkdemo
   {
     public static void Main (string[] args)
     {
-      Repository.Require ("Gtk", "3.0", (RepositoryLoadFlags)0);
+      Repository.Require ("Gtk", "3.0");
       var gtk = Repository.Namespaces ["Gtk"];
 
 //      var gtkInfos = Repository.Default.GetInfos ("Gtk");

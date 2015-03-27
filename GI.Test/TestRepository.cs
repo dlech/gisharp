@@ -11,7 +11,7 @@ namespace GI
         public void TestGetDefault ()
         {
             // Many test require that a namespace is already loaded.
-            Repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
+            Repository.Require ("Gio", "2.0");
         }
 
         [Test ()]
@@ -87,7 +87,7 @@ namespace GI
             // We already know that this works because it is used in the setup function
             // so let's just test that it fails.
             TestDelegate require = () =>
-                Repository.Require ("DoesNotExist", "9.9", (RepositoryLoadFlags)0);
+                Repository.Require ("DoesNotExist", "9.9");
             Assert.That (require, Throws.Exception.TypeOf<GErrorException> ()
                 .With.Property ("Domain").EqualTo (Repository.ErrorDomain)
                 .And.Property ("Code").EqualTo ((int)RepositoryError.TypelibNotFound));
@@ -125,7 +125,7 @@ namespace GI
         }
 
         [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
-        static extern int g_io_error_quark ();
+        static extern uint g_io_error_quark ();
 
         [Test ()]
         public void TestFindByErrorDomain ()

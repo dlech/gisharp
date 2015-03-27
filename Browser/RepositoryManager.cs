@@ -20,7 +20,7 @@ namespace GI.Browser
     }
 
     public void LoadTypelib (string @namespace, string version) {
-      Repository.Require (@namespace, version, (RepositoryLoadFlags)0);
+      Repository.Require (@namespace, version);
       if (TypelibLoaded != null)
         TypelibLoaded (this, new EventArgs ());
     }

@@ -18,12 +18,20 @@ namespace GI
             this.getInfoAtIndex = getInfoAtIndex;
         }
 
+        /// <summary>
+        /// Gets the metadata entry at the specified index.
+        /// </summary>
+        /// <param name="index">0-based offset into namespace metadata for entry.</param>
         public T this [int index] {
             get {
                 return getInfoAtIndex (index);
             }
         }
 
+        /// <summary>
+        /// Gets the number if metadata entries in this collection.
+        /// </summary>
+        /// <value>The count.</value>
         public int Count {
             get { return getCount (); }
         }

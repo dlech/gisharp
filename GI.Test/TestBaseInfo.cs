@@ -15,7 +15,7 @@ namespace GI
         {
             // The default repository is process global, so we must initalize it only once.
             // It will be used all of the tests
-            Repository.Require ("GLib", "2.0", (RepositoryLoadFlags)0);
+            Repository.Require ("GLib", "2.0");
             infos = Repository.Namespaces ["GLib"].Infos;
         }
 

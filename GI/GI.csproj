@@ -41,7 +41,6 @@
     <Compile Include="ArgInfo.cs" />
     <Compile Include="Argument.cs" />
     <Compile Include="ArrayType.cs" />
-    <Compile Include="AttributeIter.cs" />
     <Compile Include="BaseInfo.cs" />
     <Compile Include="CallableInfo.cs" />
     <Compile Include="CallbackInfo.cs" />
@@ -76,6 +75,7 @@
     <Compile Include="ValueInfo.cs" />
     <Compile Include="MarshalG.cs" />
     <Compile Include="GErrorException.cs" />
+    <Compile Include="AttributeIter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

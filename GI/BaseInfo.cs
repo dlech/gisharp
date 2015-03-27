@@ -9,7 +9,10 @@ namespace GI
     using System.Collections.Generic;
     using System.Runtime.InteropServices;
 
-    public partial class BaseInfo : IEquatable<GI.BaseInfo>, IDisposable
+    /// <summary>
+    /// GIBaseInfo is the common base struct of all other *Info classes.
+    /// </summary>
+    public class BaseInfo : IEquatable<BaseInfo>, IDisposable
     {
         public IntPtr Handle { get; private set; }
 
@@ -80,26 +83,10 @@ namespace GI
             return (T)Activator.CreateInstance (type, new object[] { raw });
         }
 
-        public string Name {
-            get {
-                // calling g_base_info_get_name on a TypeInfo will cause a crash.
-                var typeInfo = this as TypeInfo;
-                if (typeInfo != null) {
-                    if (typeInfo.Tag == TypeTag.Interface) {
-                        return typeInfo.Interface.Name;
-                    }
-                    if (typeInfo.Tag == TypeTag.Array) {
-                        return typeInfo.ArrayType.ToString ();
-                    }
-                    if (typeInfo.Tag == TypeTag.Error) {
-                        return "Error";
-                    }
-                    return null;
-                }
-                return NameInternal;
-            }
-        }
-
+        /// <summary>
+        /// Gets all attributes associated with this node.
+        /// </summary>
+        /// <value>The attributes.</value>
         public IEnumerable<KeyValuePair<string, string>> Attributes {
             get {
                 AttributeIter iter = AttributeIter.Zero;
@@ -157,6 +144,11 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_attribute (IntPtr raw, IntPtr name);
 
+        /// <summary>
+        /// Retrieve an arbitrary attribute associated with this node.
+        /// </summary>
+        /// <returns>The attribute or <c>null</c> if no such attribute exists.</returns>
+        /// <param name="name">Name.</param>
         public string GetAttribute (string name)
         {
             IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
@@ -169,6 +161,15 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_container (IntPtr raw);
 
+        /// <summary>
+        /// Gets the container.
+        /// </summary>
+        /// <value>The container or <c>null</c>.</value>
+        /// <remarks>
+        /// The container is the parent <see cref="BaseInfo"/>. For instance, the
+        /// parent of a <see cref="FunctionInfo"/> is an <see cref="ObjectInfo"/>
+        /// or <see cref="InterfaceInfo"/>.
+        /// </remarks>
         public GI.BaseInfo Container {
             get {
                 IntPtr raw_ret = g_base_info_get_container (Handle);
@@ -180,17 +181,43 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_name (IntPtr raw);
 
-        protected string NameInternal {
+        /// <summary>
+        /// Gets the name.
+        /// </summary>
+        /// <value>The name or <c>null</c>.</value>
+        /// <remarks>
+        /// What the name represents depends on the <see cref="InfoType"/> of the
+        /// info . For instance for <see cref="FunctionInfo"/> it is the name of
+        /// the function.
+        /// </remarks>
+        public string Name {
             get {
+                // calling g_base_info_get_name on a TypeInfo will cause a crash.
+                var typeInfo = this as TypeInfo;
+                if (typeInfo != null) {
+                    if (typeInfo.Tag == TypeTag.Interface) {
+                        return typeInfo.Interface.Name;
+                    }
+                    if (typeInfo.Tag == TypeTag.Array) {
+                        return typeInfo.ArrayType.ToString ();
+                    }
+                    if (typeInfo.Tag == TypeTag.Error) {
+                        return "Error";
+                    }
+                    return null;
+                }
                 IntPtr raw_ret = g_base_info_get_name (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
+                return MarshalG.Utf8PtrToString (raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_namespace (IntPtr raw);
 
+        /// <summary>
+        /// Gets the namespace.
+        /// </summary>
+        /// <value>The namespace.</value>
         public string Namespace {
             get {
                 IntPtr raw_ret = g_base_info_get_namespace (Handle);
@@ -202,7 +229,11 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_base_info_get_type (IntPtr raw);
 
-        public GI.InfoType InfoType {
+        /// <summary>
+        /// Gets the info type of the BaseInfo.
+        /// </summary>
+        /// <value>The info type.</value>
+        public InfoType InfoType {
             get {
                 int raw_ret = g_base_info_get_type (Handle);
                 GI.InfoType ret = (GI.InfoType)raw_ret;
@@ -213,6 +244,10 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_is_deprecated (IntPtr raw);
 
+        /// <summary>
+        /// Gets a value indicating whether this instance is deprecated or not.
+        /// </summary>
+        /// <value><c>true</c> if this instance is deprecated; otherwise, <c>false</c>.</value>
         public bool IsDeprecated {
             get {
                 bool raw_ret = g_base_info_is_deprecated (Handle);
@@ -224,13 +259,13 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_iterate_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
-        protected bool IterateAttributes (ref GI.AttributeIter iterator, out string name, out string value)
+        bool IterateAttributes (ref AttributeIter iterator, out string name, out string value)
         {
             IntPtr native_name;
             IntPtr native_value;
             bool ret = g_base_info_iterate_attributes (Handle, ref iterator, out native_name, out native_value);
-            name = MarshalG.Utf8PtrToString (native_name, freePtr: true);
-            value = MarshalG.Utf8PtrToString (native_value, freePtr: true);
+            name = MarshalG.Utf8PtrToString (native_name);
+            value = MarshalG.Utf8PtrToString (native_value);
             return ret;
         }
 

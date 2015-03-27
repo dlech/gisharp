@@ -13,8 +13,8 @@ namespace GI.Browser
     static int nextStamp = 0;
 
     static GITreeModelImplmentor () {
-      Repository.Require ("GLib", "2.0", (RepositoryLoadFlags)0);
-      Repository.Require ("Gio", "2.0", (RepositoryLoadFlags)0);
+      Repository.Require ("GLib", "2.0");
+      Repository.Require ("Gio", "2.0");
     }
 
     Dictionary<int, Namespace> stampToNamespaceMap;

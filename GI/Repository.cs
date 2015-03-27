@@ -11,8 +11,6 @@ namespace GI
 
     public static class Repository
     {
-        public const string BuiltIn = "<builtin>";
-
         static NamespaceCollection namespaces;
 
         internal static InfoCollection<BaseInfo> GetInfos (string @namespace)
@@ -31,16 +29,14 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_dump (IntPtr arg, out IntPtr error);
 
-        public static bool Dump (string arg)
+        public static void Dump (string arg)
         {
             IntPtr native_arg = MarshalG.StringToUtf8Ptr (arg);
             IntPtr error = IntPtr.Zero;
-            bool raw_ret = g_irepository_dump (native_arg, out error);
-            bool ret = raw_ret;
+            g_irepository_dump (native_arg, out error);
             MarshalG.Free (native_arg);
             if (error != IntPtr.Zero)
                 throw new GErrorException (error);
-            return ret;
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -56,20 +52,30 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_irepository_error_quark ();
+        static extern uint g_irepository_error_quark ();
 
-        public static int ErrorDomain {
+        /// <summary>
+        /// Error domain for Repository.
+        /// </summary>
+        /// <value>The error domain.</value>
+        /// <remarks>
+        /// Errors in this domain will be from the <see cref="RepositoryError"/> enumeration.
+        /// </remarks>
+        public static uint ErrorDomain {
             get {
-                int raw_ret = g_irepository_error_quark ();
-                int ret = raw_ret;
-                return ret;
+                return g_irepository_error_quark ();
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, int domain);
+        static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, uint domain);
 
-        public static GI.EnumInfo FindByErrorDomain (int domain)
+        /// <summary>
+        /// Searches for the enum type corresponding to the given GError domain.
+        /// </summary>
+        /// <returns>EnumInfo representing metadata about domain's enum type, or <c>null</c>.</returns>
+        /// <param name="domain">A GError domain (aka quark).</param>
+        public static GI.EnumInfo FindByErrorDomain (uint domain)
         {
             IntPtr raw_ret = g_irepository_find_by_error_domain (IntPtr.Zero, domain);
             GI.EnumInfo ret = BaseInfo.MarshalPtr<EnumInfo> (raw_ret);
@@ -107,9 +113,9 @@ namespace GI
 
         internal static string[] GetDependencies (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
-            string[] ret = MarshalG.NullTermPtrToStringArray (raw_ret, false);
+            var native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            var raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
+            var ret = MarshalG.NullTermPtrToStringArray (raw_ret, freePtr: true);
             MarshalG.Free (native_namespace);
             return ret;
         }
@@ -129,11 +135,14 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_loaded_namespaces (IntPtr raw);
 
+        /// <summary>
+        /// Return the list of currently loaded namespaces.
+        /// </summary>
+        /// <value>List of namespaces.</value>
         public static string[] LoadedNamespaces {
             get {
                 IntPtr raw_ret = g_irepository_get_loaded_namespaces (IntPtr.Zero);
-                string[] ret = MarshalG.NullTermPtrToStringArray (raw_ret, false);
-                return ret;
+                return MarshalG.NullTermPtrToStringArray (raw_ret, freePtr: true);
             }
         }
 
@@ -142,9 +151,8 @@ namespace GI
 
         static int GetNInfos (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            int raw_ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace);
-            int ret = raw_ret;
+            var native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            var ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace);
             MarshalG.Free (native_namespace);
             return ret;
         }
@@ -152,6 +160,10 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_search_path ();
 
+        /// <summary>
+        /// Returns the current search path GIRepository will use when loading typelib files.
+        /// </summary>
+        /// <value>The search path.</value>
         public static string[] SearchPath {
             get {
                 IntPtr raw_ret = g_irepository_get_search_path ();
@@ -199,8 +211,19 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_is_registered (IntPtr raw, IntPtr @namespace, IntPtr version);
 
+        /// <summary>
+        /// Check whether a particular namespace (and optionally, a specific
+        /// version thereof) is currently loaded.
+        /// </summary>
+        /// <returns><c>true</c> if is registered the specified <c>namespace-version</c>
+        /// was loaded; otherwise, <c>false</c>.</returns>
+        /// <param name="namespace">Namespace of interest.</param>
+        /// <param name="version">Requred version or <c>null</c> for latest.</param>
         public static bool IsRegistered (string @namespace, string version)
         {
+            if (@namespace == null) {
+                throw new ArgumentNullException ("@namespace");
+            }
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
             bool raw_ret = g_irepository_is_registered (IntPtr.Zero, native_namespace, native_version);
@@ -213,8 +236,28 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_library_path (IntPtr directory);
 
+        /// <summary>
+        /// Prepends <paramref name="directory"/> to the search path that is used
+        /// to search shared libraries referenced by imported namespaces.
+        /// </summary>
+        /// <param name="directory">A single directory to scan for shared libraries.</param>
+        /// <remarks>
+        /// Multiple calls to this function all contribute to the final list of
+        /// paths. The list of paths is unique and shared for all GIRepository
+        /// instances across the process, but it doesn't affect namespaces imported
+        /// before the call.
+        ///
+        /// If the library is not found in the directories configured in this way,
+        /// loading will fall back to the system library path (ie. LD_LIBRARY_PATH
+        /// and DT_RPATH in ELF systems). See the documentation of your dynamic
+        /// linker for full details.
+        /// </remarks>
         public static void PrependLibraryPath (string directory)
         {
+            if (directory == null) {
+                throw new ArgumentNullException ("directory");
+            }
+            // TODO: Marshal as filename, not UTF8
             IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
             g_irepository_prepend_library_path (native_directory);
             MarshalG.Free (native_directory);
@@ -223,8 +266,16 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_search_path (IntPtr directory);
 
+        /// <summary>
+        /// Prepends directory to the typelib search path.
+        /// </summary>
+        /// <param name="directory">Directory name to prepend to the typelib search path.</param>
+        /// <seealso cref="PrependLibraryPath"/>
         public static void PrependSearchPath (string directory)
         {
+            if (directory == null) {
+                throw new ArgumentNullException ("directory");
+            }
             IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
             g_irepository_prepend_search_path (native_directory);
             MarshalG.Free (native_directory);
@@ -233,11 +284,30 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require (IntPtr raw, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
-        public static void Require (string @namespace, string version, GI.RepositoryLoadFlags flags)
+        /// <summary>
+        /// Force the namespace namespace_ to be loaded if it isn't already.
+        /// </summary>
+        /// <param name="namespace">Namespace.</param>
+        /// <param name="version">Version.</param>
+        /// <param name="flags">Flags.</param>
+        /// <exception cref="ArgumentNullException">If <paramref name="@namespace"/>
+        /// is <c>null<c/>.</exception>
+        /// <exception cref="GErrorException">On failure.</exception>
+        /// <remarks>
+        /// If <paramref name="@namespace"/> is not loaded, this function will
+        /// search for a ".typelib" file using the repository search path. In
+        /// addition, a version version of namespace may be specified. If version
+        /// is not specified, the latest will be used.
+        /// </remarks>
+        public static void Require (string @namespace, string version = null,
+            RepositoryLoadFlags flags = (RepositoryLoadFlags)0)
         {
+            if (@namespace == null) {
+                throw new ArgumentNullException ("@namespace");
+            }
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
-            IntPtr error = IntPtr.Zero;
+            IntPtr error;
             g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error);
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_version);
@@ -249,12 +319,36 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require_private (IntPtr raw, IntPtr typelibDir, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
-        public static void RequirePrivate (string typelibDir, string @namespace, string version, GI.RepositoryLoadFlags flags)
+        /// <summary>
+        /// Force the namespace namespace_ to be loaded if it isn't already.
+        /// </summary>
+        /// <param name="typelibDir">Private directory where to find the requested typelib.</param>
+        /// <param name="namespace">Namespace.</param>
+        /// <param name="version">Version of namespace, may be <c>null</c> for latest.</param>
+        /// <param name="flags">Flags.</param>
+        /// <exception cref="ArgumentNullException">If <paramref name="typelibDir"/>
+        /// or <paramref name="@namespace"/> is <c>null<c/>.</exception>
+        /// <exception cref="GErrorException">On failure.</exception>
+        /// <remarks>
+        /// If <paramref name="@namespace"/> is not loaded, this function will
+        /// search for a ".typelib" file within the private directory only. In
+        /// addition, a version <paramref name="version"/> of namespace may be
+        /// specified. If <paramref name="version"/> is not specified, the latest
+        /// will be used.
+        /// </remarks>
+        public static void RequirePrivate (string typelibDir, string @namespace,
+            string version = null, RepositoryLoadFlags flags = (RepositoryLoadFlags)0)
         {
+            if (typelibDir == null) {
+                throw new ArgumentNullException ("typelibDir");
+            }
+            if (@namespace == null) {
+                throw new ArgumentNullException ("@namespace");
+            }
             IntPtr native_typelib_dir = MarshalG.StringToUtf8Ptr (typelibDir);
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
-            IntPtr error = IntPtr.Zero;
+            IntPtr error;
             g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error);
             MarshalG.Free (native_typelib_dir);
             MarshalG.Free (native_namespace);

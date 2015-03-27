@@ -127,7 +127,7 @@ namespace GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_callable_info_iterate_return_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
-        public bool IterateReturnAttributes (ref GI.AttributeIter iterator, out string name, out string value)
+        bool IterateReturnAttributes (ref AttributeIter iterator, out string name, out string value)
         {
             IntPtr namePtr;
             IntPtr valuePtr;
