@@ -215,17 +215,6 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GI.ObjectInfoGetValueFunctionNative g_object_info_get_get_value_function_pointer (IntPtr raw);
-
-        public GI.ObjectInfoGetValueFunction GetValueFunction {
-            get {
-                GI.ObjectInfoGetValueFunctionNative raw_ret = g_object_info_get_get_value_function_pointer (Handle);
-                GI.ObjectInfoGetValueFunction ret = GI.ObjectInfoGetValueFunctionWrapper.GetManagedDelegate (raw_ret);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_interface (IntPtr raw, int index);
 
         protected GI.InterfaceInfo GetInterface (int index)
@@ -355,34 +344,12 @@ namespace GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GI.ObjectInfoRefFunctionNative g_object_info_get_ref_function_pointer (IntPtr raw);
-
-        public GI.ObjectInfoRefFunction RefFunction {
-            get {
-                GI.ObjectInfoRefFunctionNative raw_ret = g_object_info_get_ref_function_pointer (Handle);
-                GI.ObjectInfoRefFunction ret = GI.ObjectInfoRefFunctionWrapper.GetManagedDelegate (raw_ret);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_set_value_function (IntPtr raw);
 
         public string SetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_set_value_function (Handle);
                 string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GI.ObjectInfoSetValueFunctionNative g_object_info_get_set_value_function_pointer (IntPtr raw);
-
-        public GI.ObjectInfoSetValueFunction SetValueFunction {
-            get {
-                GI.ObjectInfoSetValueFunctionNative raw_ret = g_object_info_get_set_value_function_pointer (Handle);
-                GI.ObjectInfoSetValueFunction ret = GI.ObjectInfoSetValueFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }
@@ -426,17 +393,6 @@ namespace GI
             get {
                 IntPtr raw_ret = g_object_info_get_unref_function (Handle);
                 string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
-            }
-        }
-
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GI.ObjectInfoUnrefFunctionNative g_object_info_get_unref_function_pointer (IntPtr raw);
-
-        public GI.ObjectInfoUnrefFunction UnrefFunction {
-            get {
-                GI.ObjectInfoUnrefFunctionNative raw_ret = g_object_info_get_unref_function_pointer (Handle);
-                GI.ObjectInfoUnrefFunction ret = GI.ObjectInfoUnrefFunctionWrapper.GetManagedDelegate (raw_ret);
                 return ret;
             }
         }
