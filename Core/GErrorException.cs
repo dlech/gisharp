@@ -3,21 +3,11 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.Core
 {
+    /// <summary>
+    /// Exception that wraps an unmanaged GError.
+    /// </summary>
     public class GErrorException : Exception
     {
-        [StructLayout (LayoutKind.Sequential)]
-        struct GError
-        {
-            public uint Domain;
-            public int Code;
-            IntPtr message;
-            public string Message {
-                get {
-                    return MarshalG.Utf8PtrToString (message);
-                }
-            }
-        }
-
         GError error;
 
         /// <summary>
@@ -58,7 +48,7 @@ namespace GISharp.Core
         public IntPtr Handle { get { return handle; } }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GISharp.GI.GErrorException"/> class.
+        /// Initializes a new instance of the <see cref="GErrorException"/> class.
         /// </summary>
         /// <param name="ptr">Pointer to an unmanged GError*.</param>
         public GErrorException (IntPtr ptr)

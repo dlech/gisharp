@@ -909,6 +909,35 @@ GLib.Flags.IOFlags:
 GLib.Enum.IOError:
     hidden:
 
+# Error Reporting - Note: This is maintained manually in GISharp.Core as GErrorException
+
+GLib.Function.error_new:
+    hidden:
+GLib.Function.error_new_literal:
+    hidden:
+GLib.Function.error_new_valist:
+    hidden:
+GLib.Function.error_free:
+    hidden:
+GLib.Function.error_copy:
+    hidden:
+GLib.Function.error_matches:
+    hidden:
+GLib.Function.set_error:
+    hidden:
+GLib.Function.set_error_literal:
+    hidden:
+GLib.Function.propagate_error:
+    hidden:
+GLib.Function.clear_error:
+    hidden:
+GLib.Function.prefix_error:
+    hidden:
+GLib.Function.propagate_prefixed_error:
+    hidden:
+GLib.Struct.Error:
+    hidden:
+
 # Message Output and Debugging Functions
 
 GLib.Function.print:
