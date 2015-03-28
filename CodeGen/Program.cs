@@ -125,12 +125,7 @@ namespace GISharp.CodeGen
             //var generalFunctions = infoPool.Where (i => i.InfoType == InfoType.Function).Cast<FunctionInfo> ().ToList ();
 
             foreach (var info in infoPool) {
-                Console.Error.Write ("Unhandled top level '{0}.{1}.{2}", info.Namespace, info.InfoType, info.Name);
-                var functionInfo = info as FunctionInfo;
-                if (functionInfo != null) {
-                    Console.Error.Write (" ({0})", functionInfo.Symbol);
-                }
-                Console.Error.WriteLine ();
+                Console.Error.WriteLine ("Unhandled info: {0}.{1}.{2}", info.Namespace, info.InfoType, info.Name);
             }
         }
     }
@@ -149,14 +144,19 @@ namespace GISharp.CodeGen
             return builder.ToString ();
         }
 
-        public static void WriteStaticClass (this TextWriter writer, string @namespace,
-            string name, List<ConstantInfo> constants, List<FunctionInfo> functions)
+        public static void WriteHeader (this TextWriter writer, string @namespace)
         {
             writer.WriteLine ("using System;");
             writer.WriteLine ("using System.Runtime.InteropServices;");
             writer.WriteLine ();
             writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, @namespace);
             writer.WriteLine ("{");
+        }
+
+        public static void WriteStaticClass (this TextWriter writer, string @namespace,
+            string name, List<ConstantInfo> constants, List<FunctionInfo> functions)
+        {
+            writer.WriteHeader (@namespace);
             writer.WriteLine ("\tpublic static class {0}", name);
             writer.WriteLine ("\t{");
             foreach (var constant in constants) {
@@ -241,10 +241,7 @@ namespace GISharp.CodeGen
 
         public static void WriteCallbacks (this TextWriter writer, List<CallbackInfo> callbacks)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, callbacks[0].Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (callbacks[0].Namespace);
             foreach (var callback in callbacks) {
                 writer.WriteCallback (callback);
             }
@@ -346,10 +343,7 @@ namespace GISharp.CodeGen
 
         public static void WriteConstants (this TextWriter writer, string dllName, List<ConstantInfo> constants)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, constants[0].Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (constants[0].Namespace);
             writer.WriteLine ("\tpublic static class Constants");
             writer.WriteLine ("\t{");
             writer.WriteLine ("\t\tpublic const string ExternDllName = \"{0}\";", dllName);
@@ -363,11 +357,7 @@ namespace GISharp.CodeGen
 
         public static void WriteEnum (this TextWriter writer, EnumInfo @enum, List<FunctionInfo> extraFunctions)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ("using System.Runtime.InteropServices;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, @enum.Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (@enum.Namespace);
             if (@enum.InfoType == InfoType.Flags) {
                 writer.WriteLine ("\t[Flags]");
             }
@@ -669,11 +659,7 @@ namespace GISharp.CodeGen
         public static void WriteOpaque (this TextWriter writer, StructInfo @struct,
             List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ("using System.Runtime.InteropServices;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, @struct.Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (@struct.Namespace);
             if (@struct.Fields.Any ()) {
                 writer.WriteLine ("\t[StructLayout (LayoutKind.Explicit)]");
             }
@@ -698,11 +684,7 @@ namespace GISharp.CodeGen
         public static void WriteStruct (this TextWriter writer, StructInfo @struct,
             List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ("using System.Runtime.InteropServices;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, @struct.Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (@struct.Namespace);
             writer.WriteLine ("\t[StructLayout (LayoutKind.Explicit)]");
             writer.WriteLine ("\tpublic struct {0}", @struct.Name);
             writer.WriteLine ("\t{");
@@ -725,11 +707,7 @@ namespace GISharp.CodeGen
         public static void WriteUnion (this TextWriter writer, UnionInfo union,
             List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
-            writer.WriteLine ("using System;");
-            writer.WriteLine ("using System.Runtime.InteropServices;");
-            writer.WriteLine ();
-            writer.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, union.Namespace);
-            writer.WriteLine ("{");
+            writer.WriteHeader (union.Namespace);
             writer.WriteLine ("\t[StructLayout (LayoutKind.Explicit)] // union");
             // TODO: Figure out when to use Opaque and when to use struct
             writer.WriteLine ("\tpublic struct {0}", union.Name);
