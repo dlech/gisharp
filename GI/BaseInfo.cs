@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections;
+using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
@@ -13,6 +14,7 @@ namespace GISharp.GI
     /// <summary>
     /// GIBaseInfo is the common base struct of all other *Info classes.
     /// </summary>
+    [DebuggerDisplay ("{Namespace}.{Name}")]
     public class BaseInfo : IEquatable<BaseInfo>, IDisposable
     {
         public IntPtr Handle { get; private set; }

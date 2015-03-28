@@ -3,6 +3,13 @@
 # Group related stuff into static classes #
 ###########################################
 
+# GLib.Child
+
+GLib.Function.child_watch_source_new:
+    class: GLib.StaticClass.Child
+GLib.Function.child_watch_add:
+    class: GLib.StaticClass.Child
+
 # GLib.Idle
 
 GLib.Function.idle_add:
@@ -46,6 +53,7 @@ GLib.Constant.PRIORITY_LOW:
 
 GLib.Function.quark_from_static_string:
     class: GLib.StaticClass.Quark
+    hidden: # does not make sense to use this from managed code.
 GLib.Function.quark_from_string:
     class: GLib.StaticClass.Quark
 GLib.Function.quark_to_string:
@@ -54,8 +62,10 @@ GLib.Function.quark_try_string:
     class: GLib.StaticClass.Quark
 GLib.Function.intern_string:
     class: GLib.StaticClass.Quark
+    hidden: # does not make sense to use this from managed code.
 GLib.Function.intern_static_string:
     class: GLib.StaticClass.Quark
+    hidden: # does not make sense to use this from managed code.
 
 # GLib.Timeout
 
@@ -76,12 +86,19 @@ GLib.Constant.VERSION_MAX_ALLOWED:
     class: GLib.StaticClass.Version
 GLib.Constant.MAJOR_VERSION:
     class: GLib.StaticClass.Version
+    name: Major # MajorVersion is redundant
+    access_modifier: private
 GLib.Constant.MINOR_VERSION:
     class: GLib.StaticClass.Version
+    name: Minor # MinorVersion is redundant
+    access_modifier: private
 GLib.Constant.MICRO_VERSION:
     class: GLib.StaticClass.Version
+    name: Micro # MicroVersion is redundant
+    access_modifier: private
 GLib.Function.check_version:
     class: GLib.StaticClass.Version
+    name: Check # CheckVersion is redundant
 
 #######################
 # Fixup other classes #
@@ -113,26 +130,23 @@ GLib.Function.propagate_prefixed_error:
 
 GLib.Struct.MainContext.Function.wait:
     hidden: # requires GLib threading which is disabled below
+GLib.Function.main_depth:
+    class: GLib.Struct.MainContext
+GLib.Function.main_current_source:
+    class: GLib.Struct.MainContext
+GLib.Function.poll:
+    class: GLib.Struct.MainContext
+    hidden: # uses int* arg which is not implemented in CodeGen yet
 GLib.Struct.MainContext.Function.prepare:
     hidden: # has incorrect metadata for priority parameter
-
-# GLib.MainLoop
-
-GLib.Function.main_depth:
-    class: GLib.Struct.MainLoop
-GLib.Function.main_current_source:
-    class: GLib.Struct.MainLoop
-GLib.Function.child_watch_source_new:
-    class: GLib.Struct.MainLoop
-GLib.Function.child_watch_add:
-    class: GLib.Struct.MainLoop
-GLib.Function.poll:
-    class: GLib.Struct.MainLoop
+GLib.Struct.MainContext.Function.query:
+    hidden: # has IsCallerAllocates argument which is not implemented in CodeGen yet
 
 # GLib.PollFD
 
 GLib.Constant.POLLFD_FORMAT:
     class: GLib.Struct.PollFD
+    name: Format # automatic prefix strip does not work in this case
 
 # GLib.Source
 
@@ -150,6 +164,8 @@ GLib.Struct.Source.Function.query_unix_fd:
     hidden: # uses GLib.IOCondition
 GLib.Struct.Source.Function.remove:
     name: RemoveByTag # conflicts with constant name
+GLib.Struct.Source.Function.remove_by_funcs_user_data:
+    pinvoke only:
 
 # GLib.Variant - hidden below, keeping this in case it is needed
 
@@ -1818,7 +1834,7 @@ GLib.Struct.HookList:
     hidden:
 GLib.Struct.Hook:
     hidden:
-GLib.Enum.HookFlagMask:
+GLib.Flags.HookFlagMask:
     hidden:
 GLib.Constant.HOOK_FLAG_USER_SHIFT:
     hidden:
@@ -3367,8 +3383,8 @@ GLib.Function.dataset_id_set_data:
     hidden:
 GLib.Function.dataset_id_set_data_full:
     hidden:
-#GLib.Callback.DestroyNotify:
-#    hidden:
+GLib.Callback.DestroyNotify:
+    hidden:
 GLib.Function.dataset_id_get_data:
     hidden:
 GLib.Function.dataset_id_remove_data:

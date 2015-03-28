@@ -48,7 +48,7 @@ namespace GISharp.GI
     {
         public static bool IsBasicValueType (this TypeTag tag)
         {
-            return tag < TypeTag.GType;
+            return tag < TypeTag.GType || tag == TypeTag.Unichar;
         }
     }
 }

@@ -8,11 +8,23 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
+    /// <summary>
+    /// Struct representing an argument.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="ArgInfo"/> represents an argument. An argument is always part
+    /// of a <see cref="CallbackInfo"/>.
+    /// </remarks>
     public class ArgInfo : BaseInfo
     {
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_closure (IntPtr raw);
 
+        /// <summary>
+        /// Obtain the index of the user data argument. This is only valid for
+        /// arguments which are callbacks.
+        /// </summary>
+        /// <value>Index of the user data argument or -1 if there is none.</value>
         public int Closure {
             get {
                 return g_arg_info_get_closure (Handle);
@@ -22,6 +34,12 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_destroy (IntPtr raw);
 
+        /// <summary>
+        /// Obtains the index of the <see cref="GISharp.Core.DestroyNotify"/>
+        /// argument. This is only valid for arguments which are callbacks.
+        /// </summary>
+        /// <value>Index of the <see cref="GISharp.Core.DestroyNotify"/> argument
+        /// or -1 if there is none.</value>
         public int Destroy {
             get {
                 return g_arg_info_get_destroy (Handle);

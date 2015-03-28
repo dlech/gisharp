@@ -9,22 +9,27 @@ namespace GISharp.GI
     public enum ArrayType
     {
         /// <summary>
-        /// a C array, char[] for instance
+        /// Not an array.
+        /// </summary>
+        None = -1,
+
+        /// <summary>
+        /// C array, char[] for instance.
         /// </summary>
         C,
 
         /// <summary>
-        /// a GArray array
+        /// GArray array.
         /// </summary>
         Array,
 
         /// <summary>
-        /// a GPtrArray array
+        /// GPtrArray array.
         /// </summary>
         PtrArray,
 
         /// <summary>
-        /// a GByteArray array
+        /// GByteArray array.
         /// </summary>
         ByteArray,
     }

@@ -72,6 +72,18 @@ namespace GISharp.Core
             return ptr;
         }
 
+        public static string FilenamePtrToString (IntPtr ptr)
+        {
+            // TODO: use filesystem encoding
+            return Utf8PtrToString (ptr);
+        }
+
+        public static IntPtr StringToFilenamePtr (string str)
+        {
+            // TODO: use filesystem encoding
+            return StringToUtf8Ptr (str);
+        }
+
         [StructLayout (LayoutKind.Sequential)]
         struct GList
         {

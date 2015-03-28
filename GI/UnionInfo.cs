@@ -69,9 +69,7 @@ namespace GISharp.GI
 
         public int DiscriminatorOffset {
             get {
-                int raw_ret = g_union_info_get_discriminator_offset (Handle);
-                int ret = raw_ret;
-                return ret;
+                return g_union_info_get_discriminator_offset (Handle);
             }
         }
 
@@ -81,8 +79,7 @@ namespace GISharp.GI
         public TypeInfo DiscriminatorType {
             get {
                 IntPtr raw_ret = g_union_info_get_discriminator_type (Handle);
-                TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
-                return ret;
+                return MarshalPtr<TypeInfo> (raw_ret);
             }
         }
 
