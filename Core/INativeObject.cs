@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISharp.Runtime
+namespace GISharp.Core
 {
   /// <summary>
   /// Managed objects that wrap a unmanaged GLib struct must implement this.

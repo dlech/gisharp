@@ -35,6 +35,8 @@
     <Compile Include="GErrorException.cs" />
     <Compile Include="MarshalG.cs" />
     <Compile Include="GError.cs" />
+    <Compile Include="INativeObject.cs" />
+    <Compile Include="Opaque.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

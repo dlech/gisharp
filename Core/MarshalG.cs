@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 
@@ -10,6 +11,22 @@ namespace GISharp.Core
     /// </summary>
     public static class MarshalG
     {
+        /// <summary>
+        /// Marshals pointer to unmanaged stuct to an Opaque object.
+        /// </summary>
+        /// <returns>The to opaque object.</returns>
+        /// <param name="ptr">Handle.</param>
+        /// <param name="owned">If set to <c>true</c> the pointer is owned.</param>
+        /// <typeparam name="T">The type to cast the pointer to.</typeparam>
+        public static T PtrToOpaque<T> (IntPtr ptr, bool owned) where T : Opaque<T>
+        {
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
+            return Activator.CreateInstance (typeof(T), BindingFlags.NonPublic, null,
+                new object[] { ptr, owned }, null) as T;
+        }
+
         /// <summary>
         /// Marshals a GLib UTF8 char* to a managed string.
         /// </summary>

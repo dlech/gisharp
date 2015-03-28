@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISharp.Runtime
+namespace GISharp.Core
 {
   /// <summary>
   /// Base class for wrapping opaque unmanaged GLib struts.
@@ -22,7 +22,7 @@ namespace GISharp.Runtime
     }
 
     /// <summary>
-    /// Initializes a new instance of the <see cref="GI.Opaque"/> class.
+    /// Initializes a new instance of the <see cref="Opaque"/> class.
     /// </summary>
     /// <param name="handle">Pointer to the unmanage GLib struct.</param>
     /// <param name="ownsHandle">Should be set to true if the type is reference counted
@@ -46,14 +46,14 @@ namespace GISharp.Runtime
     }
 
     /// <summary>
-    /// Releases all resource used by the <see cref="GI.Opaque"/> object.
+    /// Releases all resource used by the <see cref="Opaque"/> object.
     /// </summary>
     /// <remarks>
-    /// Call <see cref="Dispose"/> when you are finished using the <see cref="GI.Opaque"/>. The <see cref="Dispose"/>
-    /// method leaves the <see cref="GI.Opaque"/> in an unusable state. After calling <see cref="Dispose"/>, you must
-    /// release all references to the <see cref="GI.Opaque"/> so the garbage collector can reclaim the memory that the
-    /// <see cref="GI.Opaque"/> was occupying.
-    /// 
+    /// Call <see cref="Dispose"/> when you are finished using the <see cref="Opaque"/>. The <see cref="Dispose"/>
+    /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose"/>, you must
+    /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
+    /// <see cref="Opaque"/> was occupying.
+    ///
     /// For reference counted unmanaged types, the unmanged object will be unrefed.
     /// If the unmanaged object has a free function and we owned the object, the
     /// unmanaged object will be freed.
@@ -125,7 +125,6 @@ namespace GISharp.Runtime
     /// <summary>
     /// Free the specified handle.
     /// </summary>
-    /// <param name="handle">Handle.</param>
     /// <remarks>
     /// Opaque types with a free function should override this.
     /// Has no effect for other types.

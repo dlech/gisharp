@@ -418,7 +418,7 @@ namespace GISharp.CodeGen
             case TypeTag.Double:
                 return "double";
             case TypeTag.GType:
-                return MainClass.parentNamespace + ".Runtime.GType";
+                return "GISharp.Core.GType";
             case TypeTag.UTF8:
             case TypeTag.Unichar:
                 if (isPointer) {
@@ -663,7 +663,7 @@ namespace GISharp.CodeGen
             if (@struct.Fields.Any ()) {
                 writer.WriteLine ("\t[StructLayout (LayoutKind.Explicit)]");
             }
-            writer.WriteLine ("\tpublic class {2} : {0}.Runtime.Opaque<{1}.{2}>", MainClass.parentNamespace, @struct.Namespace, @struct.Name);
+            writer.WriteLine ("\tpublic class {1} : GISharp.Core.Opaque<{0}.{1}>", @struct.Namespace, @struct.Name);
             writer.WriteLine ("\t{");
             foreach (var constant in constants) {
                 writer.WriteConstant (constant, @struct.Name);
