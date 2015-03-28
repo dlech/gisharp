@@ -45,7 +45,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern FunctionInfoFlags g_function_info_get_flags (IntPtr raw);
 
-        public FunctionInfoFlags Flags {
+        FunctionInfoFlags Flags {
             get {
                 return g_function_info_get_flags (Handle);
             }
