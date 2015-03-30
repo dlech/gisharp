@@ -9,6 +9,8 @@ using System.Text.RegularExpressions;
 using GISharp.GI;
 using TypeInfo = GISharp.GI.TypeInfo;
 
+using Mono.Options;
+
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
@@ -23,17 +25,82 @@ namespace GISharp.CodeGen
 
         internal static FixupDictionary fixup;
 
+        static void PrintHelpAndExit (OptionSet options, int exitCode = 0)
+        {
+            var writer = exitCode == 0 ? Console.Out : Console.Error;
+            writer.WriteLine ("Usage: mono GICodeGen.exe [-n <namespace> | -h | -v]");
+            writer.WriteLine ();
+            options.WriteOptionDescriptions (writer);
+            Environment.Exit (exitCode);
+        }
+
+        static void PrintVersionAndExit ()
+        {
+            var assembly = Assembly.GetExecutingAssembly ();
+            var assemblyName = assembly.GetName ();
+            Console.WriteLine ("{0} v{1}", assemblyName.Name, assemblyName.Version);
+            Environment.Exit (0);
+        }
+
         public static void Main (string[] args)
         {
-            var namespaceName = "GLib";
+            string namespaceName = null;
+            string fixupFile = null;
+            string outputDirectory = null;
 
-            using (var fs = File.OpenRead (namespaceName + ".fixup.yaml")) {
+            OptionSet options = null;
+            options = new OptionSet () {
+                {
+                    "h|help",
+                    "Print this message.",
+                    v => PrintHelpAndExit (options)
+                },
+                {
+                    "v|version",
+                    "Print the program version infomation.",
+                    v => PrintVersionAndExit ()
+                },
+                {
+                    "n=|namespace=",
+                    "The namespace to generate.",
+                    v => namespaceName = v
+                },
+                {
+                    "f=|fixup=",
+                    "The name of the fixup.yaml file. By default '<namespace>.fixup.yaml' will be used.",
+                    v => fixupFile = v
+                },
+                {
+                    "o=|output=",
+                    "The name of the output directory. By default './<namespace>/Generated' will be used.",
+                    v => outputDirectory = v
+                },
+            };
+            var extraArgs = options.Parse (args);
+            if (namespaceName == null || extraArgs.Any ()) {
+                Console.Error.WriteLine ("Bad arguments.");
+                Console.Error.WriteLine ();
+                PrintHelpAndExit (options, 1);
+            }
+
+            fixupFile = fixupFile ?? namespaceName + ".fixup.yaml";
+            outputDirectory = outputDirectory ?? Path.Combine (namespaceName, "Generated");
+
+            Console.WriteLine ("Generating files for namespace '{0}'.", namespaceName);
+            Console.WriteLine ("Using fixup file '{0}'.", Path.GetFullPath (fixupFile));
+            Console.WriteLine ("Placing generated files in '{0}'.", Path.GetFullPath (outputDirectory));
+
+            using (var fs = File.OpenRead (fixupFile)) {
                 using (var sr = new StreamReader (fs)) {
                     var deserializer = new Deserializer (namingConvention: new CamelCaseNamingConvention ());
                     fixup = deserializer.Deserialize<FixupDictionary> (sr);
                 }
             }
-            Environment.CurrentDirectory = string.Format ("../../../{0}/Generated", namespaceName);
+            // if the file is empty, fixup will be null
+            fixup = fixup ?? new FixupDictionary ();
+
+            Directory.CreateDirectory (outputDirectory);
+            Environment.CurrentDirectory = string.Format (outputDirectory);
             foreach (var file in Directory.EnumerateFiles (Environment.CurrentDirectory, "*.cs")) {
                 File.Delete (file);
             }
@@ -121,6 +188,8 @@ namespace GISharp.CodeGen
             infoPool.RemoveAll (i => generalCallbacks.Contains (i));
 
             //var generalFunctions = infoPool.Where (i => i.InfoType == InfoType.Function).Cast<FunctionInfo> ().ToList ();
+
+            Console.WriteLine ("Done!");
 
             foreach (var info in infoPool) {
                 Console.Error.WriteLine ("Unhandled info: {0}.{1}.{2}", info.Namespace, info.InfoType, info.Name);
@@ -237,15 +306,19 @@ namespace GISharp.CodeGen
 
         public static bool IsHidden (this string fixupPath)
         {
-            return MainClass.fixup.Any (f => f.Key == fixupPath && f.Value.ContainsKey ("hidden"));
+            try {
+                return MainClass.fixup[fixupPath].ContainsKey ("hidden");
+            } catch {
+                return false;
+            }
         }
 
         public static List<string> GetExtras (this string fixupPath, string @namespace, string infoType)
         {
             var prefix = string.Join (".", @namespace, infoType, string.Empty);
-            var items = from i in MainClass.fixup
-                where i.Key.StartsWith (prefix, StringComparison.Ordinal) && i.Value.ContainsKey ("class") && i.Value ["class"] == fixupPath
-                select i.Key.Remove (0, prefix.Length);
+            var items = MainClass.fixup
+                .Where (i => i.Key.StartsWith (prefix, StringComparison.Ordinal) && i.Value.ContainsKey ("class") && i.Value ["class"] == fixupPath)
+                .Select (i => i.Key.Remove (0, prefix.Length));
             return items.ToList ();
         }
 
