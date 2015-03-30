@@ -1,5 +1,8 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Threading.Tasks;
+
+using GISharp.GLib;
 
 namespace GISharp.GLib.Test
 {
@@ -9,6 +12,7 @@ namespace GISharp.GLib.Test
         [Test ()]
         public void TestCase ()
         {
+            //MainContext.ThreadDefault;
         }
     }
 }

@@ -145,12 +145,16 @@ GLib.Struct.MainLoop.Function.new.Arg.is_running:
 
 GLib.Struct.MainContext.Function.default:
     name: GetDefault
-GLib.Struct.MainContext.Function.get_thread_default:
-    hidden: # use ref_thread_default instead to be safe
-GLib.Struct.MainContext.Function.ref_thread_default:
-    name: GetThreadDefault
+GLib.Struct.MainContext.Function.find_source_by_funcs_user_data:
+    access modifier: private
+GLib.Struct.MainContext.Function.find_source_by_user_data:
+    access modifier: private
+GLib.Struct.MainContext.Function.iteration.Arg.may_block:
+    default: true
 GLib.Struct.MainContext.Function.prepare:
     hidden: # has incorrect metadata for priority parameter
+GLib.Struct.MainContext.Function.ref_thread_default:
+    hidden: # same as get_thread_default
 GLib.Struct.MainContext.Function.query:
     hidden: # has IsCallerAllocates argument which is not implemented in CodeGen yet
 GLib.Struct.MainContext.Function.wait:
