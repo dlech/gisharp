@@ -25,13 +25,14 @@ namespace GISharp.CodeGen
 
         public static void Main (string[] args)
         {
-            using (var fs = File.OpenRead ("GLib.yaml")) {
+            var namespaceName = "GLib";
+
+            using (var fs = File.OpenRead (namespaceName + ".fixup.yaml")) {
                 using (var sr = new StreamReader (fs)) {
                     var deserializer = new Deserializer (namingConvention: new CamelCaseNamingConvention ());
                     fixup = deserializer.Deserialize<FixupDictionary> (sr);
                 }
             }
-            var namespaceName = "GLib";
             Environment.CurrentDirectory = string.Format ("../../../{0}/Generated", namespaceName);
             foreach (var file in Directory.EnumerateFiles (Environment.CurrentDirectory, "*.cs")) {
                 File.Delete (file);
