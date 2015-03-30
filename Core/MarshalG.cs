@@ -18,13 +18,16 @@ namespace GISharp.Core
         /// <param name="ptr">Handle.</param>
         /// <param name="owned">If set to <c>true</c> the pointer is owned.</param>
         /// <typeparam name="T">The type to cast the pointer to.</typeparam>
-        public static T PtrToOpaque<T> (IntPtr ptr, bool owned) where T : Opaque<T>
+        public static T PtrToReferenceCountedOpaque<T> (IntPtr ptr, bool owned) where T : ReferenceCountedOpaque
         {
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            return Activator.CreateInstance (typeof(T), BindingFlags.NonPublic, null,
-                new object[] { ptr, owned }, null) as T;
+            var instance = Activator.CreateInstance (typeof(T), new object[] { ptr }, null) as T;
+            if (!owned) {
+                instance.Ref ();
+            }
+            return instance;
         }
 
         /// <summary>

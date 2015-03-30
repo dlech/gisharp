@@ -33,6 +33,7 @@ GLib.Function.log_remove_handler:
     class: GLib.StaticClass.Log
 GLib.Function.log_set_always_fatal:
     class: GLib.StaticClass.Log
+    no property: # no getter and there is another similar set function
 GLib.Function.log_set_fatal_mask:
     class: GLib.StaticClass.Log
 
@@ -126,21 +127,33 @@ GLib.Function.prefix_error:
 GLib.Function.propagate_prefixed_error:
     class: GLib.Struct.Error
 
+# GLib.MainLoop
+
+GLib.Struct.MainLoop.Function.new.Arg.context:
+    default: "null"
+GLib.Struct.MainLoop.Function.new.Arg.is_running:
+    default: false
+
 # GLib.MainContext
 
-GLib.Struct.MainContext.Function.wait:
-    hidden: # requires GLib threading which is disabled below
-GLib.Function.main_depth:
-    class: GLib.Struct.MainContext
-GLib.Function.main_current_source:
-    class: GLib.Struct.MainContext
-GLib.Function.poll:
-    class: GLib.Struct.MainContext
-    hidden: # uses int* arg which is not implemented in CodeGen yet
+GLib.Struct.MainContext.Function.default:
+    name: GetDefault
+GLib.Struct.MainContext.Function.get_thread_default:
+    hidden: # use ref_thread_default instead to be safe
+GLib.Struct.MainContext.Function.ref_thread_default:
+    name: GetThreadDefault
 GLib.Struct.MainContext.Function.prepare:
     hidden: # has incorrect metadata for priority parameter
 GLib.Struct.MainContext.Function.query:
     hidden: # has IsCallerAllocates argument which is not implemented in CodeGen yet
+GLib.Struct.MainContext.Function.wait:
+    hidden: # requires GLib threading which is disabled below
+GLib.Function.main_depth:
+    class: GLib.Struct.MainContext
+    name: GetDepth
+GLib.Function.poll:
+    class: GLib.Struct.MainContext
+    hidden: # uses int* arg which is not implemented in CodeGen yet
 
 # GLib.PollFD
 
@@ -166,6 +179,9 @@ GLib.Struct.Source.Function.remove:
     name: RemoveByTag # conflicts with constant name
 GLib.Struct.Source.Function.remove_by_funcs_user_data:
     pinvoke only:
+GLib.Function.main_current_source:
+    class: GLib.Struct.Source
+    name: GetCurrent
 
 # GLib.Variant - hidden below, keeping this in case it is needed
 

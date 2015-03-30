@@ -36,6 +36,8 @@
   <ItemGroup>
     <Compile Include="VersionTests.cs" />
     <Compile Include="QuarkTests.cs" />
+    <Compile Include="MainLoopTests.cs" />
+    <Compile Include="MainContextTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -45,6 +47,10 @@
     <ProjectReference Include="..\GLib\GLib.csproj">
       <Project>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</Project>
       <Name>GLib</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>
