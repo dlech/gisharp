@@ -14,8 +14,11 @@ GLib.Function.child_watch_add:
 
 GLib.Function.idle_add:
     class: GLib.StaticClass.Idle
+GLib.Function.idle_add.Arg.priority:
+    default: GLib.Priority.Default
 GLib.Function.idle_remove_by_data:
     class: GLib.StaticClass.Idle
+    access modifier: private
 GLib.Function.idle_source_new:
     class: GLib.StaticClass.Idle
 
@@ -72,8 +75,12 @@ GLib.Function.intern_static_string:
 
 GLib.Function.timeout_add:
     class: GLib.StaticClass.Timeout
+GLib.Function.timeout_add.Arg.priority:
+    default: GLib.Priority.Default
 GLib.Function.timeout_add_seconds:
     class: GLib.StaticClass.Timeout
+GLib.Function.timeout_add_seconds.Arg.priority:
+    default: GLib.Priority.Default
 GLib.Function.timeout_source_new:
     class: GLib.StaticClass.Timeout
 GLib.Function.timeout_source_new_seconds:
@@ -88,15 +95,15 @@ GLib.Constant.VERSION_MAX_ALLOWED:
 GLib.Constant.MAJOR_VERSION:
     class: GLib.StaticClass.Version
     name: Major # MajorVersion is redundant
-    access_modifier: private
+    access modifier: private
 GLib.Constant.MINOR_VERSION:
     class: GLib.StaticClass.Version
     name: Minor # MinorVersion is redundant
-    access_modifier: private
+    access modifier: private
 GLib.Constant.MICRO_VERSION:
     class: GLib.StaticClass.Version
     name: Micro # MicroVersion is redundant
-    access_modifier: private
+    access modifier: private
 GLib.Function.check_version:
     class: GLib.StaticClass.Version
     name: Check # CheckVersion is redundant
@@ -179,6 +186,10 @@ GLib.Struct.Source.Function.remove:
     name: RemoveByTag # conflicts with constant name
 GLib.Struct.Source.Function.remove_by_funcs_user_data:
     pinvoke only:
+GLib.Struct.Source.Function.set_callback_indirect:
+    hidden: # does not make sense to use this from managed code
+GLib.Struct.SourceCallbackFuncs:
+    hidden: # does not make sense to use this from managed code
 GLib.Function.main_current_source:
     class: GLib.Struct.Source
     name: GetCurrent
@@ -269,6 +280,13 @@ GLib.Constant.HAVE___INLINE:
     hidden: # Duplicate of HAVE_INLINE
 GLib.Constant.HAVE___INLINE__:
     hidden: # Duplicate of HAVE_INLINE
+
+###########################################
+# Hide stuff that is part of GISharp.Core #
+###########################################
+
+GLib.Callback.DestroyNotify:
+    hidden:
 
 ##########################
 # Hide GObject functions #
@@ -3398,8 +3416,6 @@ GLib.Constant.DATALIST_FLAGS_MASK:
 GLib.Function.dataset_id_set_data:
     hidden:
 GLib.Function.dataset_id_set_data_full:
-    hidden:
-GLib.Callback.DestroyNotify:
     hidden:
 GLib.Function.dataset_id_get_data:
     hidden:

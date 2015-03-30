@@ -8,5 +8,5 @@ namespace GISharp.Core
     /// <remarks>
     /// This is only inteneded for use in bindings.
     /// </remarks>
-    public delegate void DestroyNotify (IntPtr data);
+    public delegate void DestroyNotifyNative (IntPtr data);
 }

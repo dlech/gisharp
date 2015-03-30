@@ -38,6 +38,8 @@
     <Compile Include="QuarkTests.cs" />
     <Compile Include="MainLoopTests.cs" />
     <Compile Include="MainContextTests.cs" />
+    <Compile Include="TimeoutTests.cs" />
+    <Compile Include="IdleTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -12,4 +12,3 @@ namespace GISharp.GLib.Test
         }
     }
 }
-

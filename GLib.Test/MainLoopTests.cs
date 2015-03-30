@@ -23,10 +23,10 @@ namespace GISharp.GLib.Test
             MainLoop mainLoop;
 
             mainLoop = new MainLoop (null, false);
-            Assert.That (mainLoop.IsRunning, Is.EqualTo (false));
+            Assert.That (mainLoop.IsRunning, Is.False);
 
             mainLoop = new MainLoop (null, true);
-            Assert.That (mainLoop.IsRunning, Is.EqualTo (true));
+            Assert.That (mainLoop.IsRunning, Is.True);
         }
 
         [Test ()]
@@ -37,11 +37,11 @@ namespace GISharp.GLib.Test
             var runTask = Task.Run (() => mainLoop.Run ());
             Task.Delay (100).Wait ();
             Assume.That (mainLoop.IsRunning);
-            Assert.That (runTask.IsCompleted, Is.EqualTo (false));
+            Assert.That (runTask.IsCompleted, Is.False);
             mainLoop.Quit ();
             Task.Delay (100).Wait ();
             Assume.That (!mainLoop.IsRunning);
-            Assert.That (runTask.IsCompleted, Is.EqualTo (true));
+            Assert.That (runTask.IsCompleted, Is.True);
         }
     }
 }
