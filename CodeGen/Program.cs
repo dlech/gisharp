@@ -255,21 +255,81 @@ namespace GISharp.CodeGen
             cw.WriteLine ("}");
         }
 
-        public static void WriteObject (this CodeWriter cw, BaseInfo info,
+        public static void WriteObject (this CodeWriter cw, ObjectInfo @object,
             List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
         {
-            throw new NotImplementedException ();
+            cw.WriteHeader (@object.Namespace);
+            if (@object.IsDeprecated) {
+                cw.WriteLine ("[Obsolete]");
+            }
+            cw.WriteLine ("public class {0} : GISharp.Core.GObject", @object.Name);
+            cw.WriteLine ("{");
+            cw.IncIndent ();
+
+            cw.WriteLine ("public {0} (IntPtr handle) : base (handle)", @object.Name);
+            cw.WriteLine ("{");
+            cw.WriteLine ("}");
+            cw.WriteLine ();
+
+            cw.DecIndent ();
+            cw.WriteLine ("}");
+            cw.DecIndent ();
+            cw.WriteLine ("}");
         }
 
-        public static bool IsOpaque (this StructInfo @struct)
+        public static bool IsRefFunction (this FunctionInfo function)
         {
-            var fixupPath = @struct.GetFixupPath ();
-            return !@struct.Fields.Any () || fixupPath.IsOpaque ();
+            return function.Name == "ref" && function.IsMethod && function.Args.Count == 0;
+        }
+
+        public static bool IsUnrefFunction (this FunctionInfo function)
+        {
+            return function.Name == "unref" && function.IsMethod && function.Args.Count == 0;
         }
 
         public static bool IsReferenceCountedOpaque (this StructInfo @struct)
         {
-            return @struct.FindMethod ("ref") != null && @struct.FindMethod ("unref") != null;
+            return @struct.Methods.Any (m => m.IsRefFunction ())
+                && @struct.Methods.Any (m => m.IsUnrefFunction ());
+        }
+
+        public static bool IsCopyFunction (this FunctionInfo function)
+        {
+            return function.Name == "copy" && function.IsMethod && function.Args.Count == 0;
+        }
+
+        public static bool IsFreeFunction (this FunctionInfo function)
+        {
+            return function.Name == "free" && function.IsMethod && function.Args.Count == 0;
+        }
+
+        public static bool IsOwnedOpaque (this StructInfo @struct)
+        {
+            var fixupPath = @struct.GetFixupPath ();
+            try {
+                return MainClass.fixup[fixupPath].ContainsKey ("owned");
+            } catch {
+                return @struct.Methods.Any (m => m.IsCopyFunction ())
+                   && @struct.Methods.Any (m => m.IsFreeFunction ());
+            }
+        }
+
+        public static bool IsStaticOpaque (this StructInfo @struct)
+        {
+            try {
+                var newMethod = @struct.Methods.Single (m => m.Name == "new");
+                return  newMethod.CallerOwns == Transfer.Nothing;
+            } catch {
+                return false;
+            }
+        }
+
+        public static bool IsOpaque (this StructInfo @struct)
+        {
+            return !@struct.Fields.Any ()
+                || @struct.IsReferenceCountedOpaque ()
+                || @struct.IsStaticOpaque ()
+                || @struct.IsOwnedOpaque ();
         }
 
         public static void WriteClass (this CodeWriter cw, BaseInfo info,
@@ -302,6 +362,26 @@ namespace GISharp.CodeGen
                 cw.WriteUnion (union, constants, extraFunctions);
                 return;
             }
+            var @interface = info as InterfaceInfo;
+            if (@interface != null) {
+                cw.WriteInterface (@interface);
+            }
+        }
+
+        public static void WriteInterface (this CodeWriter cw, InterfaceInfo @interface)
+        {
+            cw.WriteHeader (@interface.Namespace);
+            if (@interface.IsDeprecated) {
+                cw.WriteLine ("[Obsolete]");
+            }
+            cw.WriteLine ("public interface {0}", @interface.Name);
+            cw.WriteLine ("{");
+            cw.IncIndent ();
+
+            cw.DecIndent ();
+            cw.WriteLine ("}");
+            cw.DecIndent ();
+            cw.WriteLine ("}");
         }
 
         public static bool IsHidden (this string fixupPath)
@@ -331,7 +411,7 @@ namespace GISharp.CodeGen
             if (callback.IsDeprecated) {
                 cw.WriteLine ("[Obsolete]");
             }
-            cw.Write ("{0}", native ? "" : fixupPath.GetAccessModifier ());
+            cw.Write ("{0}", fixupPath.GetAccessModifier ());
             cw.Write ("delegate ");
             cw.WriteType (callback.ReturnTypeInfo);
             cw.Write (" {0}{1} (", callback.Name, native ? "Native" : "");
@@ -473,7 +553,7 @@ namespace GISharp.CodeGen
             if (@enum.IsDeprecated) {
                 cw.WriteLine ("[Obsolete]");
             }
-            cw.WriteLine ("{0}", fixupPath.GetAccessModifier ());
+            cw.Write ("{0}", fixupPath.GetAccessModifier ());
             cw.WriteLine ("enum {0} : {1}", @enum.Name, @enum.StorageType.ToBuiltInManagedType ());
             cw.WriteLine ("{");
             cw.IncIndent ();
@@ -498,10 +578,13 @@ namespace GISharp.CodeGen
             cw.WriteLine ("}");
         }
 
-        public static string ToBuiltInManagedType (this TypeTag tag)
+        public static string ToBuiltInManagedType (this TypeTag tag, bool isPointer = false)
         {
             switch (tag) {
             case TypeTag.Void:
+                if (isPointer) {
+                    return "IntPtr";
+                }
                 return "void";
             case TypeTag.Boolean:
                 return "bool";
@@ -526,6 +609,9 @@ namespace GISharp.CodeGen
             case TypeTag.Double:
                 return "double";
             case TypeTag.Unichar:
+                if (isPointer) {
+                    return "string";
+                }
                 return "char";
             }
             throw new ArgumentException ("Must be a basic type.", "tag");
@@ -533,18 +619,14 @@ namespace GISharp.CodeGen
 
         public static string ToManagedType (this TypeInfo type)
         {
-            if (type.Tag.IsBasicValueType () && !type.IsPointer) {
-                return type.Tag.ToBuiltInManagedType ();
+            if (type.Tag.IsBasicValueType ()) {
+                return type.Tag.ToBuiltInManagedType (type.IsPointer);
             }
             switch (type.Tag) {
-            case TypeTag.Void:
-                // case of !IsPointer is handled above.
-                return "IntPtr";
             case TypeTag.GType:
                 return "GISharp.Core.GType";
             case TypeTag.UTF8:
             case TypeTag.Filename:
-            case TypeTag.Unichar:
                 if (type.IsPointer) {
                     return "string";
                 }
@@ -554,14 +636,24 @@ namespace GISharp.CodeGen
                 if (type.Interface.Namespace == "GLib" && type.Interface.Name == "DestroyNotify") {
                     return  MainClass.parentNamespace + ".Core.DestroyNotify";
                 }
+                // special case for GObject
+                if (type.Interface.Namespace == "GObject" && type.Interface.Name == "Object") {
+                    return MainClass.parentNamespace + ".Core.GObject";
+                }
+                // special case for GType
+                if (type.Interface.Namespace == "GObject" && type.Interface.Name == "GType") {
+                    return MainClass.parentNamespace + ".Core.GType";
+                }
                 return string.Join (".", MainClass.parentNamespace, type.Interface.Namespace, type.Interface.Name);
             case TypeTag.Array:
                 return type.GetParamType (0).ToManagedType () + "[]";
             case TypeTag.GList:
             case TypeTag.GSList:
-                return "System.Collections.List";
+                return "System.Collections.IList";
             case TypeTag.GHash:
-                return "GLib.HashTable";
+                return "System.Collections.IDictionary";
+            case TypeTag.Error:
+                return "GISharp.Core.GErrorException";
             default:
                 throw new Exception ("unexpected type");
             }
@@ -713,13 +805,6 @@ namespace GISharp.CodeGen
             return MainClass.fixup.Any (f => f.Key == fixupPath && f.Value.ContainsKey ("static constructor"));
         }
 
-        static readonly string[] opaqueVirtualMethods = {
-            "Ref",
-            "Unref",
-            "Copy",
-            "Free"
-        };
-
         public static void WritePInvoke (this CodeWriter cw, FunctionInfo function)
         {
             cw.WriteLine ("[DllImport ({0}.{1}.Constants.ExternDllName, CallingConvention = CallingConvention.Cdecl)]", MainClass.parentNamespace, function.Namespace);
@@ -727,7 +812,7 @@ namespace GISharp.CodeGen
             cw.WriteType (function.ReturnTypeInfo, true);
             cw.Write (" {0} (", function.Symbol);
             if (function.IsMethod) {
-                cw.Write ("IntPtr instance");
+                cw.Write ("IntPtr self");
                 if (function.Args.Any ()) {
                     cw.Write (", ");
                 }
@@ -751,7 +836,9 @@ namespace GISharp.CodeGen
             // basic types and interfaces do not need to be marshalled.
             switch (type.Tag) {
             case TypeTag.GType:
-                throw new NotImplementedException ();
+                unmanagedVarName += "Ptr";
+                cw.WriteLine ("var {0} = {1}.Handle;", unmanagedVarName, managedVarName);
+                break;
             case TypeTag.UTF8:
                 unmanagedVarName += "Ptr";
                 cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringToUtf8Ptr ({1});", unmanagedVarName, managedVarName);
@@ -767,6 +854,39 @@ namespace GISharp.CodeGen
                     break;
                 }
                 throw new NotImplementedException ();
+            case TypeTag.Interface:
+                var @enum = type.Interface as EnumInfo;
+                if (@enum != null) {
+                    // enums/flags are passed directly
+                    break;
+                }
+                var callback = type.Interface as CallableInfo;
+                if (callback != null) {
+                    // callabacks are handled seperately
+                    break;
+                }
+                var @struct = type.Interface as StructInfo;
+                if (@struct != null) {
+                    if (@struct.IsOpaque ()) {
+                        unmanagedVarName += "Ptr";
+                        cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
+                    }
+                    // managed struct types are passed directly
+                    break;
+                }
+                var @object = type.Interface as ObjectInfo;
+                if (@object != null) {
+                    unmanagedVarName += "Ptr";
+                    cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
+                    break;
+                }
+                var @interface = type.Interface as InterfaceInfo;
+                if (@interface != null) {
+                    unmanagedVarName += "Ptr";
+                    cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
+                    break;
+                }
+                throw new NotImplementedException ();
             case TypeTag.GList:
                 throw new NotImplementedException ();
             case TypeTag.GSList:
@@ -774,63 +894,118 @@ namespace GISharp.CodeGen
             case TypeTag.GHash:
                 throw new NotImplementedException ();
             case TypeTag.Error:
-                throw new NotImplementedException ();
+                unmanagedVarName += ".Handle";
+                break;
             }
             return unmanagedVarName;
         }
 
         public static void WriteMarshalTypeToManaged (this CodeWriter cw,
             TypeInfo type, string unmanagedVarName, string managedVarName,
-            Transfer transfer)
+            bool managedVarExists, Transfer transfer)
         {
+            string marshalExpression = null;
+            string freeStatement = null;
+
             // basic types do not need to be marshalled.
             switch (type.Tag) {
             case TypeTag.GType:
-                throw new NotImplementedException ();
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGType ({0})", unmanagedVarName);
+                break;
             case TypeTag.UTF8:
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.Utf8PtrToString ({1});",
-                    managedVarName, unmanagedVarName);
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.Utf8PtrToString ({0})", unmanagedVarName);
                 if (transfer != Transfer.Nothing) {
-                    cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                    freeStatement = string.Format ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
                 }
                 break;
             case TypeTag.Filename:
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.FilenamePtrToString ({1});",
-                    managedVarName, unmanagedVarName);
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.FilenamePtrToString ({0})", unmanagedVarName);
                 if (transfer != Transfer.Nothing) {
-                    cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                    freeStatement = string.Format ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
                 }
                 break;
             case TypeTag.Array:
                 if (type.ArrayType == ArrayType.C) {
-                    break;
+                    // C arrays are passed directly
+                    return;
                 }
                 throw new NotImplementedException ();
             case TypeTag.Interface:
-                var @struct = type.Interface as StructInfo;
-                if (@struct != null && @struct.IsOpaque ()) {
-                    var isReferenceCounted = @struct.IsReferenceCountedOpaque ();
-                    cw.Write ("var {0} = GISharp.Core.MarshalG.PtrTo{1}Opaque<",
-                        managedVarName, isReferenceCounted ? "ReferenceCounted" : "");
-                    cw.WriteType (type);
-                    cw.WriteLine ("> ({0}, {1});",unmanagedVarName,
-                        transfer == Transfer.Nothing ? "false" : "true");
+                var @enum = type.Interface as EnumInfo;
+                if (@enum != null) {
+                    // enums/flags are passed directly
+                    return;
                 }
-                break;
+                var @struct = type.Interface as StructInfo;
+                if (@struct != null) {
+                    if (@struct.IsOpaque ()) {
+                        var isReferenceCounted = @struct.IsReferenceCountedOpaque ();
+                        var isStaticOpaque = @struct.IsStaticOpaque ();
+                        var isOwnedOpaque = @struct.IsOwnedOpaque ();
+                        marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrTo{0}{1}{2}Opaque<{3}> ({4}, {5})",
+                            isReferenceCounted ? "ReferenceCounted" : "",
+                            isOwnedOpaque ? "Owned" : "",
+                            isStaticOpaque ? "Static" : "",
+                            type.ToManagedType (),
+                            unmanagedVarName,
+                            transfer == Transfer.Nothing ? "false" : "true");
+                        break;
+                    }
+                    // managed struct types are passed directly
+                    return;
+                }
+                var @object = type.Interface as ObjectInfo;
+                if (@object != null) {
+                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGObject<{0}> ({1}, {2})",
+                        type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
+                    break;
+                }
+                var @interface = type.Interface as InterfaceInfo;
+                if (@interface != null) {
+                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGObjectInterface<{0}> ({1}, {2})",
+                        type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
+                    break;
+                }
+                var type_ = type.Interface as TypeInfo;
+                if (type_ != null) {
+                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGType<{0}> ({1})",
+                        type.ToManagedType (), unmanagedVarName);
+                    break;
+                }
+                throw new NotImplementedException ();
             case TypeTag.GList:
-                throw new NotImplementedException ();
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGList<{0}> ({1}, {2}, {3})",
+                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
+                    transfer == Transfer.Everything ? "true" : "false");
+                break;
             case TypeTag.GSList:
-                throw new NotImplementedException ();
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGSList<{0}> ({1}, {2}, {3})",
+                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
+                    transfer == Transfer.Everything ? "true" : "false");
+                break;
             case TypeTag.GHash:
-                throw new NotImplementedException ();
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGHash<{0}> ({1}, {2}, {3})",
+                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
+                    transfer == Transfer.Everything ? "true" : "false");
+                break;
             case TypeTag.Error:
                 throw new NotImplementedException ();
+            default:
+                // basic types are passed directly
+                return;
+            }
+            if (marshalExpression == null) {
+                throw new NotImplementedException ();
+            }
+            cw.WriteLine ("{0}{1} = {2};", managedVarExists ? "" : "var ", managedVarName, marshalExpression);
+            if (freeStatement != null) {
+                cw.WriteLine (freeStatement);
             }
         }
 
         public static void WriteNullCheck (this CodeWriter cw, ArgInfo arg)
         {
-            if (arg.MayBeNull || !arg.TypeInfo.NeedsMarshal ()) {
+            if (arg.MayBeNull || arg.Direction == Direction.Out || !arg.TypeInfo.NeedsMarshal ()) {
                 return;
             }
             var argName = arg.Name.ToCamelCase ();
@@ -884,9 +1059,16 @@ namespace GISharp.CodeGen
                 var callable = arg.Container as CallableInfo;
                 var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
                 marshalledArgNames [lengthArg.Name] = lengthArg.Name.ToCamelCase ();
-                cw.WriteLine ("var {0} = {1}.Length;",
-                    marshalledArgNames [lengthArg.Name],
-                    marshalledArgNames [arg.Name]);
+                var lengthArgManagedType = lengthArg.TypeInfo.ToManagedType ();
+                cw.Write ("var {0} = ", marshalledArgNames [lengthArg.Name]);
+                if (lengthArgManagedType != "int" && lengthArgManagedType != "long") {
+                    cw.Write ("({0})", lengthArgManagedType);
+                }
+                cw.Write ("{0}.", marshalledArgNames [arg.Name]);
+                if (lengthArgManagedType == "long" || lengthArgManagedType == "ulong") {
+                    cw.Write ("Long");
+                }
+                cw.WriteLine ("Length;");
             }
         }
 
@@ -920,7 +1102,7 @@ namespace GISharp.CodeGen
 
             // some constructors may be handled as static methods to avoid name conflicts
             // i.e. we cant have 2 constructors with the same number of arguments
-            var isConstructor = function.IsConstructor && !fixupPath.IsStaticConstructor ();
+            var isConstructor = (function.IsConstructor  || function.Name == "new") && !fixupPath.IsStaticConstructor ();
 
             // anything that starts with Get, Is or Set is considered a property.
             // unless the fixup file says to skip it.
@@ -947,9 +1129,19 @@ namespace GISharp.CodeGen
             }
 
             if (function.InstanceOwnershipTransfer != Transfer.Nothing) {
-                throw new NotImplementedException ();
+                // TODO: not sure how this needs to be handled. Ignoring "unref" is a hack for now.
+                if (function.Name != "unref") {
+                    throw new NotImplementedException ();
+                }
             }
-            if (opaqueVirtualMethods.Contains (functionName)) {
+
+            var @override = false;
+            var @struct = function.Container as StructInfo;
+            if (@struct != null && @struct.IsReferenceCountedOpaque ()) {
+                @override = function.IsRefFunction () || function.IsUnrefFunction ();
+            }
+
+            if (@override) {
                 cw.Write ("public override ");
             } else if (isGetter || isSetter) {
                 cw.Write (""); // private
@@ -1010,10 +1202,6 @@ namespace GISharp.CodeGen
                             cw.Write ("out ");
                         }
                         cw.Write (marshalledArgNames [arg.Name]);
-                        var @struct = arg.TypeInfo.Interface as StructInfo;
-                        if (@struct != null && @struct.IsOpaque ()) {
-                            cw.Write (" == null ? IntPtr.Zero : {0}.Handle", marshalledArgNames [arg.Name]);
-                        }
                         if (arg != lastArg) {
                             cw.Write (", ");
                         }
@@ -1107,9 +1295,16 @@ namespace GISharp.CodeGen
                 if (arg.TypeInfo.ArrayLength >= 0) {
                     var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
                     marshalledArgNames [lengthArg.Name] = lengthArg.Name.ToCamelCase () + argSuffix;
-                    cw.WriteLine ("var {0} = {1}.Length;",
-                        marshalledArgNames [lengthArg.Name],
-                        marshalledArgNames [arg.Name]);
+                    var lengthArgManagedType = lengthArg.TypeInfo.ToManagedType ();
+                    cw.Write ("var {0} = ", marshalledArgNames [lengthArg.Name]);
+                    if (lengthArgManagedType != "int" && lengthArgManagedType != "long") {
+                        cw.Write ("({0})", lengthArgManagedType);
+                    }
+                    cw.Write ("{0}.", marshalledArgNames [arg.Name]);
+                    if (lengthArgManagedType == "long" || lengthArgManagedType == "ulong") {
+                        cw.Write ("Long");
+                    }
+                    cw.WriteLine ("Length;");
                 }
             }
 
@@ -1117,6 +1312,11 @@ namespace GISharp.CodeGen
 
             foreach (var arg in managedArgs.Where (a => a.Direction == Direction.Out)) {
                 marshalledArgNames [arg.Name] = arg.Name.ToCamelCase () + argSuffix;
+                if (arg.TypeInfo.NeedsMarshal ()) {
+                    marshalledArgNames [arg.Name] += "Ptr";
+                    cw.WriteType (arg.TypeInfo, true);
+                    cw.WriteLine (" {0};", marshalledArgNames [arg.Name]);
+                }
                 if (arg.TypeInfo.ArrayLength >= 0) {
                     var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
                     marshalledArgNames [lengthArg.Name] = lengthArg.Name.ToCamelCase () + argSuffix;
@@ -1137,6 +1337,15 @@ namespace GISharp.CodeGen
                 // if we are implementing a callback, there is nothing to do here
                 if (callable.InfoType == InfoType.Callback) {
                     continue;
+                }
+
+                // for now, just using the GISharp.Core.Default.DestroyNotify
+                // instead of an individual imlementation for each function
+
+                var hasDestroy = arg.Destroy >= 0;
+                if (hasDestroy) {
+                    var destroyArg = callable.Args [arg.Destroy];
+                    marshalledArgNames [destroyArg.Name] = "GISharp.Core.Default.DestroyNotify";
                 }
 
                 // write the callback implementation
@@ -1173,20 +1382,18 @@ namespace GISharp.CodeGen
                 cw.WriteLine ("};");
                 cw.WriteLine ();
 
-                // assign the GC handle of the callback to user_data
+                // assign the GC handle of the callback to user_data for use by the destroy callback
 
-                if (userDataArg.TypeInfo.Tag != TypeTag.Void || !userDataArg.TypeInfo.IsPointer) {
-                    // assuming that user_data is always void*
-                    throw new NotImplementedException ();
+                if (hasDestroy) {
+                    if (userDataArg.TypeInfo.Tag != TypeTag.Void || !userDataArg.TypeInfo.IsPointer) {
+                        // assuming that user_data is always void*
+                        throw new NotImplementedException ();
+                    }
+                    cw.WriteLine ("var {0} = (IntPtr)GCHandle.Alloc ({1});",
+                        marshalledArgNames [userDataArg.Name], managedCallbackArgName);
+                } else {
+                    cw.WriteLine ("var {0} = IntPtr.Zero;", marshalledArgNames [userDataArg.Name]);
                 }
-                cw.WriteLine ("var {0} = (IntPtr)GCHandle.Alloc ({1});",
-                    marshalledArgNames [userDataArg.Name], managedCallbackArgName);
-
-                // for now, just using the GISharp.Core.Default.DestroyNotify
-                // instead of an individual imlementation for each function
-
-                var destroyArg = callable.Args [arg.Destroy];
-                marshalledArgNames [destroyArg.Name] = "GISharp.Core.Default.DestroyNotify";
             }
 
             // Write the native or callback invoker
@@ -1196,8 +1403,12 @@ namespace GISharp.CodeGen
             // handle ownership in constructor
 
             if (isConstructor) {
-                if (callable.CallerOwns != Transfer.Everything) {
-                    throw new NotImplementedException ();
+                var @struct = callable.Container as StructInfo;
+                // there is no ownership in StaticOpaque
+                if (@struct == null || !@struct.IsStaticOpaque ()) {
+                    if (callable.CallerOwns != Transfer.Everything) {
+                        throw new NotImplementedException ();
+                    }
                 }
             }
 
@@ -1210,7 +1421,7 @@ namespace GISharp.CodeGen
             // Marshal output parameters as needed.
 
             foreach (var arg in managedArgs.Where (a => a.Direction == Direction.Out || a.Direction == Direction.Inout)) {
-                cw.WriteMarshalTypeToManaged (arg.TypeInfo, marshalledArgNames[arg.Name], arg.Name.ToCamelCase () + argSuffix, arg.OwnershipTransfer);
+                cw.WriteMarshalTypeToManaged (arg.TypeInfo, marshalledArgNames[arg.Name], arg.Name.ToCamelCase () + argSuffix, true, arg.OwnershipTransfer);
 //                if (arg.TypeInfo.ArrayLength >= 0) {
 //                    var lengthArg = function.Args [arg.TypeInfo.ArrayLength];
 //                    marshalledArgNames [lengthArg.Name] = lengthArg.Name.ToCamelCase ();
@@ -1223,7 +1434,7 @@ namespace GISharp.CodeGen
             // return result if needed;
 
             if (returnsValue) {
-                cw.WriteMarshalTypeToManaged (callable.ReturnTypeInfo, "retPtr" + argSuffix, "ret" + argSuffix, callable.CallerOwns);
+                cw.WriteMarshalTypeToManaged (callable.ReturnTypeInfo, "retPtr" + argSuffix, "ret" + argSuffix, false, callable.CallerOwns);
                 cw.WriteLine ("return ret{0};", argSuffix);
             }
         }
@@ -1233,11 +1444,17 @@ namespace GISharp.CodeGen
         {
             var fixupPath = @struct.GetFixupPath ();
             var isReferenceCounted = @struct.IsReferenceCountedOpaque ();
+            var isStaticOpaque = @struct.IsStaticOpaque ();
+            var isOwnedOpaque = @struct.IsOwnedOpaque ();
 
             cw.WriteHeader (@struct.Namespace);
+            if (@struct.IsDeprecated) {
+                cw.WriteLine ("[Obsolete]");
+            }
             cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.WriteLine ("partial class {0} : GISharp.Core.{1}Opaque",
-               @struct.Name, isReferenceCounted ? "ReferenceCounted" : "");
+            cw.WriteLine ("partial class {0} : GISharp.Core.{1}{2}{3}Opaque",
+                @struct.Name, isReferenceCounted ? "ReferenceCounted" : "",
+                isStaticOpaque ? "Static" : "", isOwnedOpaque ? "Owned" : "");
             cw.WriteLine ("{");
             cw.IncIndent ();
 
@@ -1307,6 +1524,9 @@ namespace GISharp.CodeGen
 
             cw.WriteHeader (@struct.Namespace);
             cw.WriteLine ("[StructLayout (LayoutKind.Explicit)]");
+            if (@struct.IsDeprecated) {
+                cw.WriteLine ("[Obsolete]");
+            }
             cw.Write ("{0}", fixupPath.GetAccessModifier ());
             cw.WriteLine ("struct {0}", @struct.Name);
             cw.WriteLine ("{");
@@ -1331,6 +1551,9 @@ namespace GISharp.CodeGen
             var fixupPath = union.GetFixupPath ();
             cw.WriteHeader (union.Namespace);
             cw.WriteLine ("[StructLayout (LayoutKind.Explicit)] // union");
+            if (union.IsDeprecated) {
+                cw.WriteLine ("[Obsolete]");
+            }
             cw.Write ("{0}", fixupPath.GetAccessModifier ());
             cw.WriteLine ("struct {0}", union.Name);
             cw.WriteLine ("{");

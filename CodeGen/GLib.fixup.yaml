@@ -115,14 +115,12 @@ GLib.Function.check_version:
 # GLib.Bytes - hidden below, leaving this in case it is needed
 
 GLib.Struct.Bytes.Function.new:
-    static_constructor: # to avoid conflict with new_take
+    static constructor: # to avoid conflict with new_take
 GLib.Struct.Bytes.Function.new_take:
-    static_constructor: # to avoid conflict with new
+    static constructor: # to avoid conflict with new
 
-# GLib.Error
+# GLib.Error - hidden below, maintained by hand as GISharp.Core.GErrorException
 
-GLib.Struct.Error:
-    opaque:
 GLib.Function.set_error_literal:
     class: GLib.Struct.Error
 GLib.Function.propagate_error:
@@ -198,7 +196,7 @@ GLib.Function.main_current_source:
     class: GLib.Struct.Source
     name: GetCurrent
 
-# GLib.Variant - hidden below, keeping this in case it is needed
+# GLib.Variant
 
 GLib.Function.variant_get_gtype:
     class: GLib.Struct.Variant
@@ -208,73 +206,116 @@ GLib.Struct.Variant.Function.get_data_as_bytes:
     hidden: # GLib.Bytes is not used
 # GLib.Variant has too many constructors
 GLib.Struct.Variant.Function.new_array:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_boolean:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_byte:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_bytestring:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_bytestring_array:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_dict_entry:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_double:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_fixed_array:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_from_bytes:
     hidden: # GLib.Bytes is not used
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_from_data:
-    static_constructor:
+    static constructor:
+    hidden: # needs to be implemented by hand if needed
 GLib.Struct.Variant.Function.new_handle:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_int16:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_int32:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_int64:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_maybe:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_object_path:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_objv:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_signature:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_string:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_strv:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_tuple:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_uint16:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_uint32:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_uint64:
-    static_constructor:
+    static constructor:
 GLib.Struct.Variant.Function.new_variant:
-    static_constructor:
+    static constructor:
+# make the accessors a bit more .NETish
+# and fix conflict with Variant property == class name
+# and fix conflict with Handle property == Opaque.Handle
+GLib.Struct.Variant.Function.get_array:
+    name: GetAsArray
+GLib.Struct.Variant.Function.get_boolean:
+    name: GetAsBoolean
+GLib.Struct.Variant.Function.get_byte:
+    name: GetAsByte
+GLib.Struct.Variant.Function.get_bytestring:
+    name: GetAsByteArray
+GLib.Struct.Variant.Function.get_data:
+    hidden:
+GLib.Struct.Variant.Function.get_dict_entry:
+    name: GetAsDictEntry
+GLib.Struct.Variant.Function.get_double:
+    name: GetAsDouble
+GLib.Struct.Variant.Function.get_handle:
+    name: GetAsHandle
+GLib.Struct.Variant.Function.get_int16:
+    name: GetAsInt16
+GLib.Struct.Variant.Function.get_int32:
+    name: GetAsInt32
+GLib.Struct.Variant.Function.get_int64:
+    name: GetAsInt64
+GLib.Struct.Variant.Function.get_maybe:
+    name: GetAsMaybe
+GLib.Struct.Variant.Function.get_object_path:
+    name: GetAsObjectPath
+GLib.Struct.Variant.Function.get_objv:
+    name: GetAsObjectPathArray
+GLib.Struct.Variant.Function.get_signature:
+    name: GetAsSignature
+GLib.Struct.Variant.Function.get_string:
+    name: GetAsString
+GLib.Struct.Variant.Function.get_strv:
+    name: GetAsStringArray
+GLib.Struct.Variant.Function.get_tuple:
+    name: GetAsTuple
+GLib.Struct.Variant.Function.get_uint16:
+    name: GetAsUInt16
+GLib.Struct.Variant.Function.get_uint32:
+    name: GetAsUInt32
+GLib.Struct.Variant.Function.get_uint64:
+    name: GetAsUInt64
+GLib.Struct.Variant.Function.get_variant:
+    name: GetAsVariant
 
-GLib.Struct.VariantBuilder:
-    opaque:
-
-GLib.Struct.VariantDict:
-    opaque:
 
 GLib.Struct.VariantType.Function.new:
-    static_constructor:
+    static constructor:
 GLib.Struct.VariantType.Function.new_array:
-    static_constructor:
+    static constructor:
 GLib.Struct.VariantType.Function.new_dict_entry:
-    static_constructor:
+    static constructor:
 GLib.Struct.VariantType.Function.new_maybe:
-    static_constructor:
+    static constructor:
 GLib.Struct.VariantType.Function.new_tuple:
-    static_constructor:
+    static constructor:
 
 #########################
 # Fix rename collisions #
@@ -2989,8 +3030,6 @@ GLib.Constant.WIN32_MSG_HANDLE:
 
 GLib.Callback.CompareFunc:
     hidden:
-GLib.Callback.CompareDataFunc:
-    hidden:
 GLib.Callback.Func:
     hidden:
 GLib.Struct.List:
@@ -3442,45 +3481,4 @@ GLib.Function.dataset_foreach:
 GLib.Callback.DataForeachFunc:
     hidden:
 GLib.Function.dataset_destroy:
-    hidden:
-
-# GVariantType
-
-GLib.Function.variant_type_checked_:
-    hidden:
-GLib.Function.variant_type_string_is_valid:
-    hidden:
-GLib.Function.variant_type_string_scan:
-    hidden:
-GLib.Struct.VariantType:
-    hidden:
-
-
-# GVariant
-
-GLib.Function.variant_get_gtype:
-    hidden:
-GLib.Function.variant_is_object_path:
-    hidden:
-GLib.Function.variant_is_signature:
-    hidden:
-GLib.Function.variant_parse:
-    hidden:
-GLib.Function.variant_parse_error_print_context:
-    hidden:
-GLib.Function.variant_parse_error_quark:
-    hidden:
-GLib.Function.variant_parser_get_error_quark:
-    hidden:
-GLib.Struct.Variant:
-    hidden:
-GLib.Enum.VariantClass:
-    hidden:
-GLib.Struct.VariantIter:
-    hidden:
-GLib.Struct.VariantBuilder:
-    hidden:
-GLib.Struct.VariantDict:
-    hidden:
-GLib.Enum.VariantParseError:
     hidden:

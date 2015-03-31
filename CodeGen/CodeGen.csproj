@@ -21,6 +21,7 @@
     <CustomCommands>
       <CustomCommands>
         <Command type="Execute" command="${TargetFile} --namespace=GLib --output=${SolutionDir}/GLib/Generated" />
+        <Command type="Execute" command="${TargetFile} --namespace=GObject --output=${SolutionDir}/GObject/Generated" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -51,6 +52,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="GLib.fixup.yaml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="GObject.fixup.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>

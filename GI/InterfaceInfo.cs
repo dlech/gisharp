@@ -10,7 +10,7 @@ using GISharp.Core;
 
 namespace GISharp.GI
 {
-    public class InterfaceInfo : RegisteredTypeInfo
+    public class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -71,10 +71,16 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_method (IntPtr raw, int index);
 
-        public FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_interface_info_get_method (Handle, index);
             return MarshalPtr<FunctionInfo> (raw_ret);
+        }
+
+        public InfoCollection<FunctionInfo> Methods {
+            get {
+                return new InfoCollection<FunctionInfo> (() => NMethods, GetMethod);
+            }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -89,7 +95,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_methods (IntPtr raw);
 
-        protected int NMethods {
+        int NMethods {
             get {
                 return g_interface_info_get_n_methods (Handle);
             }

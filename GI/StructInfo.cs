@@ -38,6 +38,15 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_find_method (IntPtr raw, IntPtr name);
 
+        /// <summary>
+        /// Finds the method.
+        /// </summary>
+        /// <returns>The method.</returns>
+        /// <param name="name">Name.</param>
+        /// <remarks>
+        /// This seems to be unreliable. It causes a crash when struct is GObject.ObjectClass
+        /// and cannot find methods in GObject.Closure
+        [Obsolete ("Not really obsolete, but unreliable.")]
         public FunctionInfo FindMethod (string name)
         {
             IntPtr native_name = MarshalG.StringToUtf8Ptr (name);

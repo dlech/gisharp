@@ -196,5 +196,30 @@ namespace GISharp.Core
         {
             g_free (ptr);
         }
+
+        public static T PtrToOwnedOpaque<T> (IntPtr ptr, bool owned)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static GType PtrToGType (IntPtr ptr)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static T PtrToGObject<T> (IntPtr ptr, bool owned) where T : GObject
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static T PtrToGObjectInterface<T> (IntPtr ptr, bool owned)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static T[] PtrToGList<T> (IntPtr ptr, bool owned, bool itemsOwned)
+        {
+            throw new NotImplementedException ();
+        }
     }
 }
