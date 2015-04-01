@@ -40,6 +40,7 @@
     <Compile Include="MainContextTests.cs" />
     <Compile Include="TimeoutTests.cs" />
     <Compile Include="IdleTests.cs" />
+    <Compile Include="VariantTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

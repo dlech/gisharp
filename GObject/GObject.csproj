@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>GObject</RootNamespace>
+    <RootNamespace>GISharp.GObject</RootNamespace>
     <AssemblyName>GObject</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -33,6 +33,7 @@
   <ItemGroup>
     <Compile Include="Generated\*.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Value.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

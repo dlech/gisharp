@@ -18,7 +18,7 @@ namespace GISharp.Core
         /// <param name="ptr">Handle.</param>
         /// <param name="owned">If set to <c>true</c> the pointer is owned.</param>
         /// <typeparam name="T">The type to cast the pointer to.</typeparam>
-        public static T PtrToReferenceCountedOpaque<T> (IntPtr ptr, bool owned) where T : ReferenceCountedOpaque
+        public static T PtrToReferenceCountedOpaque<T> (IntPtr ptr, bool owned) where T : ReferenceCountedOpaque<T>
         {
             if (ptr == IntPtr.Zero) {
                 return null;
@@ -27,6 +27,16 @@ namespace GISharp.Core
             if (!owned) {
                 instance.Ref ();
             }
+            return instance;
+        }
+
+        public static T PtrToOwnedOpaque<T> (IntPtr ptr, bool owned) where T : OwnedOpaque<T>
+        {
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
+            var instance = Activator.CreateInstance (typeof(T), new object[] { ptr }, null) as T;
+            instance.Owned = owned;
             return instance;
         }
 
@@ -197,11 +207,6 @@ namespace GISharp.Core
             g_free (ptr);
         }
 
-        public static T PtrToOwnedOpaque<T> (IntPtr ptr, bool owned)
-        {
-            throw new NotImplementedException ();
-        }
-
         public static GType PtrToGType (IntPtr ptr)
         {
             throw new NotImplementedException ();
@@ -213,6 +218,16 @@ namespace GISharp.Core
         }
 
         public static T PtrToGObjectInterface<T> (IntPtr ptr, bool owned)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static T PtrToCArray<T> (IntPtr ptr, bool owned, bool itemsOwned)
+        {
+            throw new NotImplementedException ();
+        }
+
+        public static IntPtr CArrayToPtr<T> (T array)
         {
             throw new NotImplementedException ();
         }

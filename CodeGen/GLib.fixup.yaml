@@ -204,110 +204,90 @@ GLib.Struct.Variant.Function.get_type:
     name: GetVariantType # conflicts with built-in method of System.Object
 GLib.Struct.Variant.Function.get_data_as_bytes:
     hidden: # GLib.Bytes is not used
-# GLib.Variant has too many constructors
-GLib.Struct.Variant.Function.new_array:
-    static constructor:
-GLib.Struct.Variant.Function.new_boolean:
-    static constructor:
-GLib.Struct.Variant.Function.new_byte:
-    static constructor:
-GLib.Struct.Variant.Function.new_bytestring:
-    static constructor:
+GLib.Struct.Variant.Function.ref:
+    hidden: # using ref_sink instead
+GLib.Struct.Variant.Function.ref_sink:
+    name: Ref
+GLib.Struct.Variant.Function.ref_take:
+    hidden: # not needed
+GLib.Struct.Variant.Function.is_floating:
+    hidden: # not needed
 GLib.Struct.Variant.Function.new_bytestring_array:
-    static constructor:
-GLib.Struct.Variant.Function.new_dict_entry:
-    static constructor:
-GLib.Struct.Variant.Function.new_double:
-    static constructor:
-GLib.Struct.Variant.Function.new_fixed_array:
-    static constructor:
+    pinvoke only:
+GLib.Struct.Variant.Function.equal:
+    hash: hash
+GLib.Struct.Variant.Function.hash:
+    pinvoke only: # will be called by GetHashCode ()
 GLib.Struct.Variant.Function.new_from_bytes:
     hidden: # GLib.Bytes is not used
-    static constructor:
 GLib.Struct.Variant.Function.new_from_data:
-    static constructor:
     hidden: # needs to be implemented by hand if needed
 GLib.Struct.Variant.Function.new_handle:
-    static constructor:
-GLib.Struct.Variant.Function.new_int16:
-    static constructor:
-GLib.Struct.Variant.Function.new_int32:
-    static constructor:
-GLib.Struct.Variant.Function.new_int64:
-    static constructor:
-GLib.Struct.Variant.Function.new_maybe:
-    static constructor:
+    pinvoke only: # conflicts with new_int32
 GLib.Struct.Variant.Function.new_object_path:
-    static constructor:
+    pinvoke only: # conflicts with new_string
 GLib.Struct.Variant.Function.new_objv:
-    static constructor:
+    pinvoke only: # conflicts with new_strv
 GLib.Struct.Variant.Function.new_signature:
-    static constructor:
-GLib.Struct.Variant.Function.new_string:
-    static constructor:
-GLib.Struct.Variant.Function.new_strv:
-    static constructor:
-GLib.Struct.Variant.Function.new_tuple:
-    static constructor:
-GLib.Struct.Variant.Function.new_uint16:
-    static constructor:
-GLib.Struct.Variant.Function.new_uint32:
-    static constructor:
-GLib.Struct.Variant.Function.new_uint64:
-    static constructor:
-GLib.Struct.Variant.Function.new_variant:
-    static constructor:
-# make the accessors a bit more .NETish
-# and fix conflict with Variant property == class name
-# and fix conflict with Handle property == Opaque.Handle
-GLib.Struct.Variant.Function.get_array:
-    name: GetAsArray
+    pinvoke only: # conflicts with new_string
+# Don't need any dup_* functions since marshaling will will do that anyway.
+GLib.Struct.Variant.Function.dup_bytestring:
+    hidden:
+GLib.Struct.Variant.Function.dup_bytestring_array:
+    hidden:
+GLib.Struct.Variant.Function.dup_objv:
+    hidden:
+GLib.Struct.Variant.Function.dup_string:
+    hidden:
+GLib.Struct.Variant.Function.dup_strv:
+    hidden:
+# Functions below will be exposed as explicit (cast) operators
 GLib.Struct.Variant.Function.get_boolean:
-    name: GetAsBoolean
+    access modifier: private
 GLib.Struct.Variant.Function.get_byte:
-    name: GetAsByte
+    access modifier: private
 GLib.Struct.Variant.Function.get_bytestring:
-    name: GetAsByteArray
+    access modifier: private
 GLib.Struct.Variant.Function.get_data:
     hidden:
 GLib.Struct.Variant.Function.get_dict_entry:
-    name: GetAsDictEntry
+    access modifier: private
 GLib.Struct.Variant.Function.get_double:
-    name: GetAsDouble
+    access modifier: private
 GLib.Struct.Variant.Function.get_handle:
-    name: GetAsHandle
+    access modifier: private
+    name: GetDBusHandle # conflicts with INativeObject.Handle
 GLib.Struct.Variant.Function.get_int16:
-    name: GetAsInt16
+    access modifier: private
 GLib.Struct.Variant.Function.get_int32:
-    name: GetAsInt32
+    access modifier: private
 GLib.Struct.Variant.Function.get_int64:
-    name: GetAsInt64
+    access modifier: private
 GLib.Struct.Variant.Function.get_maybe:
-    name: GetAsMaybe
+    access modifier: private
 GLib.Struct.Variant.Function.get_object_path:
-    name: GetAsObjectPath
+    access modifier: private
 GLib.Struct.Variant.Function.get_objv:
-    name: GetAsObjectPathArray
+    access modifier: private
 GLib.Struct.Variant.Function.get_signature:
-    name: GetAsSignature
+    access modifier: private
 GLib.Struct.Variant.Function.get_string:
-    name: GetAsString
+    access modifier: private
 GLib.Struct.Variant.Function.get_strv:
-    name: GetAsStringArray
+    access modifier: private
 GLib.Struct.Variant.Function.get_tuple:
-    name: GetAsTuple
+    access modifier: private
 GLib.Struct.Variant.Function.get_uint16:
-    name: GetAsUInt16
+    access modifier: private
 GLib.Struct.Variant.Function.get_uint32:
-    name: GetAsUInt32
+    access modifier: private
 GLib.Struct.Variant.Function.get_uint64:
-    name: GetAsUInt64
+    access modifier: private
 GLib.Struct.Variant.Function.get_variant:
-    name: GetAsVariant
+    access modifier: private
+    name: BoxedVariant # can't have same name as class
 
 
-GLib.Struct.VariantType.Function.new:
-    static constructor:
 GLib.Struct.VariantType.Function.new_array:
     static constructor:
 GLib.Struct.VariantType.Function.new_dict_entry:
