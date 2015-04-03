@@ -116,7 +116,7 @@ namespace GISharp.GI
         {
             var native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             var raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
-            var ret = MarshalG.NullTermPtrToStringArray (raw_ret, freePtr: true);
+            var ret = MarshalG.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
             MarshalG.Free (native_namespace);
             return ret;
         }
@@ -143,7 +143,7 @@ namespace GISharp.GI
         public static string[] LoadedNamespaces {
             get {
                 IntPtr raw_ret = g_irepository_get_loaded_namespaces (IntPtr.Zero);
-                return MarshalG.NullTermPtrToStringArray (raw_ret, freePtr: true);
+                return MarshalG.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
             }
         }
 

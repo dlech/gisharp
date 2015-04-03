@@ -714,7 +714,7 @@ namespace GISharp.CodeGen
                     return (type.Interface as StructInfo).IsOpaque ();
                 }
             } else if (type.Tag == TypeTag.Array) {
-                return type.ArrayType != ArrayType.C || type.GetParamType (0).NeedsMarshal ();
+                return !type.IsLPArray ();
             }
             return true;
         }
@@ -759,6 +759,22 @@ namespace GISharp.CodeGen
             }
         }
 
+        /// <summary>
+        /// Writes the parameter modifier ("ref" or "out") for an argument if needed.
+        /// </summary>
+        /// <param name="cw">Code writer</param>
+        /// <param name="arg">Argument info.</param>
+        public static void WriteParameterModifier (this CodeWriter cw, ArgInfo arg)
+        {
+            if (arg.Direction == Direction.Inout
+                || (arg.TypeInfo.Tag.IsBasicValueType () && arg.TypeInfo.Tag != TypeTag.Void && arg.TypeInfo.IsPointer))
+            {
+                cw.Write ("ref ");
+            } else if (arg.Direction == Direction.Out) {
+                cw.Write ("out ");
+            }
+        }
+
         public static void WriteArg (this CodeWriter cw, ArgInfo arg, bool forPinvoke = false)
         {
             if (arg.IsCallerAllocates) {
@@ -767,11 +783,10 @@ namespace GISharp.CodeGen
             if (arg.IsReturnValue) {
                 throw new NotImplementedException ();
             }
-            if (arg.Direction == Direction.Inout) {
-                cw.Write ("ref ");
-            } else if (arg.Direction == Direction.Out) {
-                cw.Write ("out ");
+            if (forPinvoke && arg.TypeInfo.IsLPArray ()) {
+                cw.Write ("[MarshalAs (UnmanagedType.LPArray)]");
             }
+            cw.WriteParameterModifier (arg);
             cw.WriteType (arg.TypeInfo, forPinvoke);
             cw.Write (" {0}", arg.GetFixedUpName (ToCamelCase));
         }
@@ -845,11 +860,44 @@ namespace GISharp.CodeGen
             }
         }
 
+        /// <summary>
+        /// Determines if type can be marshaled using UnamagedType.LPArray.
+        /// </summary>
+        /// <returns><c>true</c> if is LP array the specified type; otherwise, <c>false</c>.</returns>
+        /// <param name="type">Type.</param>
+        public static bool IsLPArray (this TypeInfo type)
+        {
+            if (type.Tag != TypeTag.Array) {
+                return false;
+            }
+            if (type.ArrayType != ArrayType.C) {
+                return false;
+            }
+            if (type.IsZeroTerminated) {
+                return false;
+            }
+            if (type.GetParamType (0).NeedsMarshal ()) {
+                return false;
+            }
+            return true;
+        }
+
         public static void WritePInvoke (this CodeWriter cw, FunctionInfo function)
         {
+            var returnType = function.ReturnTypeInfo;
             cw.WriteLine ("[DllImport ({0}.{1}.Constants.ExternDllName, CallingConvention = CallingConvention.Cdecl)]", MainClass.parentNamespace, function.Namespace);
+            if (returnType.IsLPArray ()) {
+                cw.Write ("[return: MarshalAs (UnmanagedType.LPArray");
+                if (returnType.ArrayFixedSize >= 0) {
+                    cw.Write (", SizeConst = {0}", returnType.ArrayFixedSize);
+                }
+                if (returnType.ArrayLength >= 0) {
+                    cw.Write (", SizeParamIndex = {0}", returnType.ArrayLength);
+                }
+                cw.WriteLine (")]");
+            }
             cw.Write ("static extern ");
-            cw.WriteType (function.ReturnTypeInfo, true);
+            cw.WriteType (returnType, true);
             cw.Write (" {0} (", function.Symbol);
             if (function.IsMethod) {
                 cw.Write ("IntPtr self");
@@ -894,15 +942,44 @@ namespace GISharp.CodeGen
                 writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
                 break;
             case TypeTag.Array:
+                if (type.IsLPArray ()) {
+                    // array does not need to be manually marshaled
+                    break;
+                }
                 if (type.ArrayType == ArrayType.C) {
-                    if (!type.GetParamType (0).NeedsMarshal ()) {
-                        // If array members don't need to be marshalled, we can pass C arrays directly
+                    if (type.GetParamType (0).Tag == TypeTag.UInt8 && type.IsZeroTerminated) {
+                        // this is a CString with unspecified encoding
+                        unmanagedVarName += "Ptr";
+                        cw.WriteLine ("var {0} = GISharp.Core.MarshalG.ByteStringToPtr ({1});", unmanagedVarName, managedVarName);
+                        writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
                         break;
                     }
-                    unmanagedVarName += "Ptr";
-                    cw.WriteLine ("var {0} = GISharp.Core.MarshalG.CArrayToPtr ({1});", unmanagedVarName, managedVarName);
-                    writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                    break;
+                    if (type.GetParamType (0).NeedsMarshal ()) {
+                        unmanagedVarName += "Ptr";
+                        cw.WriteLine ("var {0} = IntPtr.Zero;", unmanagedVarName);
+                        cw.WriteLine ("if ({0} != null) {{", managedVarName);
+                        cw.IncIndent ();
+                        if (type.ArrayFixedSize >= 0) {
+                            cw.WriteLine ("if ({0}.Length != {1}) {{", managedVarName, type.ArrayFixedSize);
+                            cw.IncIndent ();
+                            cw.WriteLine ("var message = string.Format (\"Expected array with Length {0} but was {{0}}.\", {1}.Length);",
+                                type.ArrayFixedSize, managedVarName);
+                            cw.WriteLine ("throw new ArgumentException (message, \"{0}\");", managedVarName);
+                            cw.DecIndent ();
+                            cw.WriteLine ("}");
+                        }
+                        cw.WriteLine ("var ptrArray = new IntPtr[{0}.Length];", managedVarName);
+                        cw.WriteLine ("for (int i = 0; i < {0}.Length; i++) {{", managedVarName);
+                        cw.IncIndent ();
+                        Action elementWriteFree;
+                        //cw.WriteMarshalTypeFromManaged (type.GetParamType (0),
+                        //    string.Format ("{0}[i]", managedVarName), out elementWriteFree);
+                        cw.DecIndent ();
+                        cw.WriteLine ("}");
+                        cw.DecIndent ();
+                        cw.WriteLine ("}");
+                        break;
+                    }
                 }
                 throw new NotImplementedException ();
             case TypeTag.Interface:
@@ -965,7 +1042,6 @@ namespace GISharp.CodeGen
             bool managedVarExists, Transfer transfer)
         {
             string marshalExpression = null;
-            string freeStatement = null;
 
             // basic types do not need to be marshalled.
             switch (type.Tag) {
@@ -973,31 +1049,37 @@ namespace GISharp.CodeGen
                 marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGType ({0})", unmanagedVarName);
                 break;
             case TypeTag.UTF8:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.Utf8PtrToString ({0})", unmanagedVarName);
-                if (transfer != Transfer.Nothing) {
-                    freeStatement = string.Format ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                }
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.Utf8PtrToString ({0}, freePtr: {1})",
+                    unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
                 break;
             case TypeTag.Filename:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.FilenamePtrToString ({0})", unmanagedVarName);
-                if (transfer != Transfer.Nothing) {
-                    freeStatement = string.Format ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                }
+                marshalExpression = string.Format ("GISharp.Core.MarshalG.FilenamePtrToString ({0}, freePtr: {1})",
+                    unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
                 break;
             case TypeTag.Array:
+                if (type.IsLPArray ()) {
+                    // array can be passed directly
+                    return;
+                }
                 if (type.ArrayType == ArrayType.C) {
-                    if (!type.GetParamType (0).NeedsMarshal ()) {
-                        // C arrays with members that don't need to be marshalled are passed directly
-                        return;
+                    if (type.GetParamType (0).Tag == TypeTag.UInt8 && type.IsZeroTerminated) {
+                        // This is a C string with unspecified encoding
+                        marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToByteString ({0}, freePtr: {1})",
+                            unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
+                        break;
                     }
-                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToCArray<{0}> ({1}, {2}, {3})",
-                        type.ToManagedType (), unmanagedVarName,
-                        transfer != Transfer.Nothing ? "true" : "false",
-                        transfer == Transfer.Everything ? "true" : "false");
-                    if (transfer != Transfer.Nothing) {
-                        freeStatement = string.Format ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                    if (type.IsZeroTerminated) {
+                        if (type.GetParamType (0).Tag == TypeTag.UTF8) {
+                            marshalExpression = string.Format ("GISharp.Core.MarshalG.GStrvPtrToStringArray ({0}, freePtr: {1}, freeElements: {2})",
+                                unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
+                                transfer == Transfer.Everything ? "true" : "false");
+                            break;
+                        }
+                    } else {
+                        // TODO: implement this properly
+                        marshalExpression = string.Format ("new {0}[0]", type.GetParamType(0).ToManagedType ());
+                        break;
                     }
-                    break;
                 }
                 throw new NotImplementedException ();
             case TypeTag.Interface:
@@ -1068,9 +1150,6 @@ namespace GISharp.CodeGen
                 throw new NotImplementedException ();
             }
             cw.WriteLine ("{0}{1} = {2};", managedVarExists ? "" : "var ", managedVarName, marshalExpression);
-            if (freeStatement != null) {
-                cw.WriteLine (freeStatement);
-            }
         }
 
         public static void WriteNullCheck (this CodeWriter cw, ArgInfo arg)
@@ -1134,35 +1213,6 @@ namespace GISharp.CodeGen
                 return false;
             }
             return true;
-        }
-
-        public static void WriteMarshalInArg (this CodeWriter cw, ArgInfo arg,
-            Dictionary<string, string> marshalledArgNames, List<Action> marshalledArgWriteFree)
-        {
-            if (arg.OwnershipTransfer != Transfer.Nothing) {
-                throw new NotImplementedException ();
-            }
-            Action writeFree;
-            marshalledArgNames [arg.Name] = cw.WriteMarshalTypeFromManaged (arg.TypeInfo, arg.GetFixedUpName (ToCamelCase), out writeFree);
-            if (writeFree != null) {
-                // have to postpone writing the free statement until after calling the pinvoke function
-                marshalledArgWriteFree.Add (writeFree);
-            }
-            if (arg.TypeInfo.ArrayLength >= 0) {
-                var callable = arg.Container as CallableInfo;
-                var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
-                marshalledArgNames [lengthArg.Name] = lengthArg.GetFixedUpName (ToCamelCase);
-                var lengthArgManagedType = lengthArg.TypeInfo.ToManagedType ();
-                cw.Write ("var {0} = ", marshalledArgNames [lengthArg.Name]);
-                if (lengthArgManagedType != "int" && lengthArgManagedType != "long") {
-                    cw.Write ("({0})", lengthArgManagedType);
-                }
-                cw.Write ("{0}.", arg.GetFixedUpName (ToCamelCase));
-                if (lengthArgManagedType == "long" || lengthArgManagedType == "ulong") {
-                    cw.Write ("Long");
-                }
-                cw.WriteLine ("Length;");
-            }
         }
 
         public static void WriteEqualOperatorImplementation (this CodeWriter cw, FunctionInfo function)
@@ -1409,12 +1459,7 @@ namespace GISharp.CodeGen
                 }
                 if (lastArg != null) {
                     foreach (var arg in function.Args) {
-                        if (arg.Direction == Direction.Inout) {
-                            cw.Write ("ref ");
-                        }
-                        if (arg.Direction == Direction.Out) {
-                            cw.Write ("out ");
-                        }
+                        cw.WriteParameterModifier (arg);
                         cw.Write (marshalledArgNames [arg.Name]);
                         if (arg != lastArg) {
                             cw.Write (", ");
@@ -1842,6 +1887,8 @@ namespace GISharp.CodeGen
         public static string ToCamelCase (this string str)
         {
             str = str.ToLower ();
+            // Make sure 'T' in GType is capitalized
+            str = str.Replace ("_gtype", "_g_type");
             int index;
             while ((index = str.IndexOf ("_", StringComparison.Ordinal)) >= 0) {
                 if (index == str.Length - 1) {

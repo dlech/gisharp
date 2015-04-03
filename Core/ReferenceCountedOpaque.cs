@@ -7,7 +7,6 @@ namespace GISharp.Core
     /// </summary>
     public abstract class ReferenceCountedOpaque<T> : INativeObject, IDisposable where T : ReferenceCountedOpaque<T>
     {
-        bool freeOnDispose;
         bool isDisposed;
 
         /// <summary>

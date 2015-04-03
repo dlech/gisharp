@@ -149,8 +149,6 @@ GLib.Struct.MainContext.Function.find_source_by_user_data:
     access modifier: private
 GLib.Struct.MainContext.Function.iteration.Arg.may_block:
     default: true
-GLib.Struct.MainContext.Function.prepare:
-    hidden: # has incorrect metadata for priority parameter
 GLib.Struct.MainContext.Function.ref_thread_default:
     hidden: # same as get_thread_default
 GLib.Struct.MainContext.Function.query:
@@ -162,7 +160,6 @@ GLib.Function.main_depth:
     name: GetDepth
 GLib.Function.poll:
     class: GLib.Struct.MainContext
-    hidden: # uses int* arg which is not implemented in CodeGen yet
 
 # GLib.PollFD
 
@@ -248,8 +245,11 @@ GLib.Struct.Variant.Function.get_byte:
     access modifier: private
 GLib.Struct.Variant.Function.get_bytestring:
     access modifier: private
+GLib.Struct.Variant.Function.get_bytestring_array:
+    access modifier: private
+    pinvoke only: # GI metadata is incorrect. Thinks it is array of UTF8 strings.
 GLib.Struct.Variant.Function.get_data:
-    hidden:
+    hidden: # goes with new_from_data
 GLib.Struct.Variant.Function.get_dict_entry:
     access modifier: private
 GLib.Struct.Variant.Function.get_double:
@@ -269,6 +269,7 @@ GLib.Struct.Variant.Function.get_object_path:
     access modifier: private
 GLib.Struct.Variant.Function.get_objv:
     access modifier: private
+    pinvoke only: # requires special handling
 GLib.Struct.Variant.Function.get_signature:
     access modifier: private
 GLib.Struct.Variant.Function.get_string:
@@ -287,6 +288,7 @@ GLib.Struct.Variant.Function.get_variant:
     access modifier: private
     name: BoxedVariant # can't have same name as class
 
+# GLib.VariantType
 
 GLib.Struct.VariantType.Function.new_array:
     static constructor:

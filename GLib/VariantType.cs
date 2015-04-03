@@ -6,7 +6,8 @@ namespace GISharp.GLib
     {
         // these static properties take the place of the G_VARIANT_TYPE_* macros
 
-        static Lazy<VariantType> lazyBoolean = new Lazy<VariantType> (() => new VariantType ("b"));
+        static Lazy<VariantType> lazyBoolean = new Lazy<VariantType> (() =>
+            new VariantType ("b"));
 
         public static VariantType Boolean {
             get {
@@ -14,7 +15,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyByte = new Lazy<VariantType> (() => new VariantType ("y"));
+        static Lazy<VariantType> lazyByte = new Lazy<VariantType> (() =>
+            new VariantType ("y"));
 
         public static VariantType Byte {
             get {
@@ -22,7 +24,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyInt16 = new Lazy<VariantType> (() => new VariantType ("n"));
+        static Lazy<VariantType> lazyInt16 = new Lazy<VariantType> (() =>
+            new VariantType ("n"));
 
         public static VariantType Int16 {
             get {
@@ -30,7 +33,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyUInt16 = new Lazy<VariantType> (() => new VariantType ("q"));
+        static Lazy<VariantType> lazyUInt16 = new Lazy<VariantType> (() =>
+            new VariantType ("q"));
 
         public static VariantType UInt16 {
             get {
@@ -38,7 +42,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyInt32 = new Lazy<VariantType> (() => new VariantType ("i"));
+        static Lazy<VariantType> lazyInt32 = new Lazy<VariantType> (() =>
+            new VariantType ("i"));
 
         public static VariantType Int32 {
             get {
@@ -46,7 +51,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyUInt32 = new Lazy<VariantType> (() => new VariantType ("u"));
+        static Lazy<VariantType> lazyUInt32 = new Lazy<VariantType> (() =>
+            new VariantType ("u"));
 
         public static VariantType UInt32 {
             get {
@@ -54,7 +60,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyInt64 = new Lazy<VariantType> (() => new VariantType ("x"));
+        static Lazy<VariantType> lazyInt64 = new Lazy<VariantType> (() =>
+            new VariantType ("x"));
 
         public static VariantType Int64 {
             get {
@@ -62,7 +69,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyUInt64 = new Lazy<VariantType> (() => new VariantType ("t"));
+        static Lazy<VariantType> lazyUInt64 = new Lazy<VariantType> (() =>
+            new VariantType ("t"));
 
         public static VariantType UInt64 {
             get {
@@ -70,7 +78,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyDBusHandle = new Lazy<VariantType> (() => new VariantType ("h"));
+        static Lazy<VariantType> lazyDBusHandle = new Lazy<VariantType> (() =>
+            new VariantType ("h"));
 
         public static VariantType DBusHandle {
             get {
@@ -78,7 +87,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyDouble = new Lazy<VariantType> (() => new VariantType ("d"));
+        static Lazy<VariantType> lazyDouble = new Lazy<VariantType> (() =>
+            new VariantType ("d"));
 
         public static VariantType Double {
             get {
@@ -86,7 +96,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyString = new Lazy<VariantType> (() => new VariantType ("s"));
+        static Lazy<VariantType> lazyString = new Lazy<VariantType> (() =>
+            new VariantType ("s"));
 
         public static VariantType String {
             get {
@@ -94,7 +105,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyObjectPath = new Lazy<VariantType> (() => new VariantType ("o"));
+        static Lazy<VariantType> lazyObjectPath = new Lazy<VariantType> (() =>
+            new VariantType ("o"));
 
         public static VariantType ObjectPath {
             get {
@@ -102,7 +114,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyDBusSignature = new Lazy<VariantType> (() => new VariantType ("g"));
+        static Lazy<VariantType> lazyDBusSignature = new Lazy<VariantType> (() =>
+            new VariantType ("g"));
 
         public static VariantType DBusSignature {
             get {
@@ -110,7 +123,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyBoxedVariant = new Lazy<VariantType> (() => new VariantType ("v"));
+        static Lazy<VariantType> lazyBoxedVariant = new Lazy<VariantType> (() =>
+            new VariantType ("v"));
 
         public static VariantType BoxedVariant {
             get {
@@ -118,7 +132,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyAny = new Lazy<VariantType> (() => new VariantType ("*"));
+        static Lazy<VariantType> lazyAny = new Lazy<VariantType> (() =>
+            new VariantType ("*"));
 
         public static VariantType Any {
             get {
@@ -126,7 +141,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyBasic = new Lazy<VariantType> (() => new VariantType ("?"));
+        static Lazy<VariantType> lazyBasic = new Lazy<VariantType> (() =>
+            new VariantType ("?"));
 
         public static VariantType Basic {
             get {
@@ -134,7 +150,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyMaybe = new Lazy<VariantType> (() => new VariantType ("m*"));
+        static Lazy<VariantType> lazyMaybe = new Lazy<VariantType> (() =>
+            new VariantType ("m*"));
 
         public static VariantType Maybe {
             get {
@@ -142,7 +159,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyArray = new Lazy<VariantType> (() => new VariantType ("a*"));
+        static Lazy<VariantType> lazyArray = new Lazy<VariantType> (() =>
+            new VariantType ("a*"));
 
         public static VariantType Array {
             get {
@@ -150,7 +168,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyTuple = new Lazy<VariantType> (() => new VariantType ("r"));
+        static Lazy<VariantType> lazyTuple = new Lazy<VariantType> (() =>
+            new VariantType ("r"));
 
         public static VariantType Tuple {
             get {
@@ -158,7 +177,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyUnit = new Lazy<VariantType> (() => new VariantType ("()"));
+        static Lazy<VariantType> lazyUnit = new Lazy<VariantType> (() =>
+            new VariantType ("()"));
 
         public static VariantType Unit {
             get {
@@ -166,7 +186,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyDictEntry = new Lazy<VariantType> (() => new VariantType ("{?*}"));
+        static Lazy<VariantType> lazyDictEntry = new Lazy<VariantType> (() =>
+            new VariantType ("{?*}"));
 
         public static VariantType DictEntry {
             get {
@@ -174,7 +195,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyDictionary = new Lazy<VariantType> (() => new VariantType ("a{?*}"));
+        static Lazy<VariantType> lazyDictionary = new Lazy<VariantType> (() =>
+            new VariantType ("a{?*}"));
 
         public static VariantType Dictionary {
             get {
@@ -182,7 +204,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyStringArray = new Lazy<VariantType> (() => new VariantType ("as"));
+        static Lazy<VariantType> lazyStringArray = new Lazy<VariantType> (() =>
+            new VariantType ("as"));
 
         public static VariantType StringArray {
             get {
@@ -190,7 +213,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyObjectPathArray = new Lazy<VariantType> (() => new VariantType ("ao"));
+        static Lazy<VariantType> lazyObjectPathArray = new Lazy<VariantType> (() =>
+            new VariantType ("ao"));
 
         public static VariantType ObjectPathArray {
             get {
@@ -198,7 +222,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyByteString = new Lazy<VariantType> (() => new VariantType ("ay"));
+        static Lazy<VariantType> lazyByteString = new Lazy<VariantType> (() => new
+            VariantType ("ay"));
 
         public static VariantType ByteString {
             get {
@@ -206,7 +231,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyByteStringArray = new Lazy<VariantType> (() => new VariantType ("aay"));
+        static Lazy<VariantType> lazyByteStringArray = new Lazy<VariantType> (() =>
+            new VariantType ("aay"));
 
         public static VariantType ByteStringArray {
             get {
@@ -214,7 +240,8 @@ namespace GISharp.GLib
             }
         }
 
-        static Lazy<VariantType> lazyVarDict = new Lazy<VariantType> (() => new VariantType ("a{sv}"));
+        static Lazy<VariantType> lazyVarDict = new Lazy<VariantType> (() =>
+            new VariantType ("a{sv}"));
 
         public static VariantType VarDict {
             get {

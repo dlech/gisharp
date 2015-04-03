@@ -147,7 +147,7 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusObjectPath value) : base (IntPtr.Zero) // new_handle
+        public Variant (DBusObjectPath value) : base (IntPtr.Zero) // new_object_path
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -158,7 +158,7 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusObjectPath[] value) : base (IntPtr.Zero) // new_handle
+        public Variant (DBusObjectPath[] value) : base (IntPtr.Zero) // new_objv
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -169,7 +169,7 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusSignature value) : base (IntPtr.Zero) // new_handle
+        public Variant (DBusSignature value) : base (IntPtr.Zero) // new_signature
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -179,6 +179,12 @@ namespace GISharp.GLib
             GISharp.Core.MarshalG.Free (valuePtr);
             g_variant_ref_sink (Handle);
         }
+
+        DBusObjectPath[] GetObjv (out ulong length) {
+            throw new NotImplementedException ();
+        }
+
+        // explicit cast operators
 
         public static explicit operator bool (Variant value)
         {

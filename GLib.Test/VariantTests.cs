@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Text;
 
 using GISharp.GLib;
 
@@ -187,10 +188,13 @@ namespace GISharp.GLib.Test
         }
 
         [Test]
-        public void TestCase ()
+        public void TestCastBytestring ()
         {
-            var v = new Variant (true);
-            Assert.That (v.VariantType, Is.EqualTo (VariantType.Boolean));
+            var expected = Encoding.ASCII.GetBytes ("bytestring");
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteString));
+            var actual = (byte[])variant;
+            Assert.That (actual, Is.EqualTo (expected));
         }
     }
 }
