@@ -920,7 +920,7 @@ namespace GISharp.CodeGen
         }
 
         public static string WriteMarshalTypeFromManaged (this CodeWriter cw,
-            TypeInfo type, string managedVarName, out Action writeFree)
+            TypeInfo type, string managedVarName, Transfer transfer, out Action writeFree)
         {
             string unmanagedVarName = managedVarName;
             writeFree = null;
@@ -934,12 +934,16 @@ namespace GISharp.CodeGen
             case TypeTag.UTF8:
                 unmanagedVarName += "Ptr";
                 cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringToUtf8Ptr ({1});", unmanagedVarName, managedVarName);
-                writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                if (transfer == Transfer.Nothing) {
+                    writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                }
                 break;
             case TypeTag.Filename:
                 unmanagedVarName += "Ptr";
                 cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringToFilenamePtr ({1});", unmanagedVarName, managedVarName);
-                writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                if (transfer == Transfer.Nothing) {
+                    writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                }
                 break;
             case TypeTag.Array:
                 if (type.IsLPArray ()) {
@@ -951,12 +955,31 @@ namespace GISharp.CodeGen
                         // this is a CString with unspecified encoding
                         unmanagedVarName += "Ptr";
                         cw.WriteLine ("var {0} = GISharp.Core.MarshalG.ByteStringToPtr ({1});", unmanagedVarName, managedVarName);
-                        writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                        if (transfer == Transfer.Nothing) {
+                            writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                        }
+                        break;
+                    }
+                    if (type.GetParamType (0).Tag == TypeTag.UTF8 && type.IsZeroTerminated) {
+                        // This is a GStrv (null terminated UTF8 string array)
+                        unmanagedVarName += "Ptr";
+                        cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringArrayToGStrvPtr ({1});", unmanagedVarName, managedVarName);
+                        if (transfer == Transfer.Nothing) {
+                            writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.FreeGStrv ({0});", unmanagedVarName);
+                        } else if (transfer == Transfer.Container) {
+                            throw new NotImplementedException ();
+                        }
                         break;
                     }
                     if (type.GetParamType (0).NeedsMarshal ()) {
+                        // for arrays with elements that need to be marshaled, iterate the array
+                        // and marshal each element individually.
                         unmanagedVarName += "Ptr";
                         cw.WriteLine ("var {0} = IntPtr.Zero;", unmanagedVarName);
+                        var elementPtrsName = managedVarName + "ElementPtrs";
+                        if (transfer == Transfer.Nothing) {
+                            cw.WriteLine ("var {0} = new System.Collections.Generic.List<IntPtr> ();", elementPtrsName);
+                        }
                         cw.WriteLine ("if ({0} != null) {{", managedVarName);
                         cw.IncIndent ();
                         if (type.ArrayFixedSize >= 0) {
@@ -968,16 +991,37 @@ namespace GISharp.CodeGen
                             cw.DecIndent ();
                             cw.WriteLine ("}");
                         }
-                        cw.WriteLine ("var ptrArray = new IntPtr[{0}.Length];", managedVarName);
-                        cw.WriteLine ("for (int i = 0; i < {0}.Length; i++) {{", managedVarName);
+                        cw.WriteLine ("{0} = GISharp.Core.MarshalG.Alloc ({1}.Length * IntPtr.Size);",
+                            unmanagedVarName, managedVarName);
+                        cw.WriteLine ("var offset = 0;");
+                        var managedElementName = managedVarName + "Element";
+                        cw.WriteLine ("foreach (var {0} in {1}) {{", managedElementName, managedVarName);
                         cw.IncIndent ();
-                        Action elementWriteFree;
-                        //cw.WriteMarshalTypeFromManaged (type.GetParamType (0),
-                        //    string.Format ("{0}[i]", managedVarName), out elementWriteFree);
+                        Action writeElementFree;
+                        cw.WriteMarshalTypeFromManaged (type.GetParamType (0), managedElementName,
+                            transfer == Transfer.Container ? Transfer.Nothing : transfer, out writeElementFree);
+                        cw.WriteLine ("Marshal.WriteIntPtr ({0}, offset, {1});",
+                            unmanagedVarName, managedElementName + "Ptr");
+                        if (transfer == Transfer.Nothing) {
+                            cw.WriteLine ("{0}.Add ({1});", elementPtrsName, managedElementName + "Ptr");
+                        }
+                        cw.WriteLine ("offset += IntPtr.Size;");
                         cw.DecIndent ();
                         cw.WriteLine ("}");
                         cw.DecIndent ();
                         cw.WriteLine ("}");
+                        if (transfer != Transfer.Everything) {
+                            writeFree = () => {
+                                cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
+                                if (transfer != Transfer.Container && writeElementFree != null) {
+                                    cw.WriteLine ("foreach (var {0} in {1}) {{", managedElementName + "Ptr", elementPtrsName);
+                                    cw.IncIndent ();
+                                    writeElementFree ();
+                                    cw.DecIndent ();
+                                    cw.WriteLine ("}");
+                                }
+                            };
+                        }
                         break;
                     }
                 }
@@ -1169,7 +1213,6 @@ namespace GISharp.CodeGen
             cw.DecIndent ();
             cw.WriteLine ("}");
         }
-
 
         public static bool GetSkipProperty (this string fixupPath)
         {
@@ -1555,7 +1598,8 @@ namespace GISharp.CodeGen
                     throw new NotImplementedException ();
                 }
                 Action writeFree;
-                marshalledArgNames [arg.Name] = cw.WriteMarshalTypeFromManaged (arg.TypeInfo, arg.GetFixedUpName (ToCamelCase) + argSuffix, out writeFree);
+                marshalledArgNames [arg.Name] = cw.WriteMarshalTypeFromManaged (arg.TypeInfo,
+                    arg.GetFixedUpName (ToCamelCase) + argSuffix, arg.OwnershipTransfer, out writeFree);
                 if (writeFree != null) {
                     // have to postpone writing the free statement until after calling the pinvoke function
                     marshalledArgWriteFree.Add (writeFree);

@@ -168,12 +168,32 @@ namespace GISharp.GLib.Test
         }
 
         [Test]
+        public void TestCastStringArray ()
+        {
+            var expected = new [] { "string" };
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType, Is.EqualTo (VariantType.StringArray));
+            var actual = (string[])variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
         public void TestCastObjectPath ()
         {
             var expected = new DBusObjectPath ("/");
             var variant = (Variant)expected;
             Assert.That (variant.VariantType, Is.EqualTo (VariantType.ObjectPath));
             var actual = (DBusObjectPath)variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestCastObjectPathArray ()
+        {
+            var expected = new [] { new DBusObjectPath ("/") };
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ObjectPathArray));
+            var actual = (DBusObjectPath[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
 
@@ -194,6 +214,16 @@ namespace GISharp.GLib.Test
             var variant = (Variant)expected;
             Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteString));
             var actual = (byte[])variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestCastBytestringArray ()
+        {
+            var expected = new [] { Encoding.ASCII.GetBytes ("bytestring") };
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteStringArray));
+            var actual = (byte[][])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
     }

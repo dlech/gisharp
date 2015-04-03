@@ -232,6 +232,18 @@ namespace GISharp.Core
             return ptr;
         }
 
+        [DllImport ("glib-2.0.dll")]
+        extern static void g_strfreev (IntPtr list);
+
+        /// <summary>
+        /// Frees an unmanaged null terminated string array (GStrv).
+        /// </summary>
+        /// <param name="ptr">Pointer to the unmanaged array.</param>
+        public static void FreeGStrv (IntPtr ptr)
+        {
+            g_strfreev (ptr);
+        }
+
         [StructLayout (LayoutKind.Sequential)]
         struct GList
         {
