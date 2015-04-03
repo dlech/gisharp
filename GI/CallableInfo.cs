@@ -12,12 +12,12 @@ namespace GISharp.GI
 {
     public class CallableInfo : BaseInfo
     {
-        InfoCollection<ArgInfo> args;
+        IndexedCollection<ArgInfo> args;
 
-        public InfoCollection<ArgInfo> Args {
+        public IndexedCollection<ArgInfo> Args {
             get {
                 if (args == null) {
-                    args = new InfoCollection<ArgInfo> (() => NArgs, GetArg);
+                    args = new IndexedCollection<ArgInfo> (() => NArgs, GetArg);
                 }
                 return args;
             }

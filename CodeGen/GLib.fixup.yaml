@@ -215,6 +215,51 @@ GLib.Struct.Variant.Function.equal:
     hash: hash
 GLib.Struct.Variant.Function.hash:
     pinvoke only: # will be called by GetHashCode ()
+GLib.Struct.Variant.Function.new_array.Arg.child_type:
+    check:
+        if (childType == null && (children == null || children.Length == 0)) {
+
+            throw new ArgumentException ("Must specify child type when no children", "childType");
+
+        }
+GLib.Struct.Variant.Function.new_array.Arg.children:
+    check:
+        if (childType == null && children == null) {
+
+            throw new ArgumentException ("childType and children cannot both be null");
+
+        }
+
+        if (children != null) {
+
+            var testChildType = childType ?? children[0].VariantType;
+
+            foreach (var item in children) {
+
+                if (item == null) {
+
+                    throw new ArgumentException ("Array cannot have null elements", "children");
+
+                }
+
+                if (item.VariantType != testChildType) {
+
+                    throw new ArgumentException ("All children must have the same variant type.", "children");
+
+                }
+
+            }
+
+        }
+GLib.Struct.Variant.Function.new_dict_entry.Arg.key:
+    check:
+        if (!key.VariantType.IsBasic) {
+
+            throw new ArgumentException ("Key must be a basic variant type.", "key");
+
+        }
+GLib.Struct.Variant.Function.new_fixed_array:
+    hidden: # Not useful in managed code
 GLib.Struct.Variant.Function.new_from_bytes:
     hidden: # GLib.Bytes is not used
 GLib.Struct.Variant.Function.new_from_data:
@@ -227,6 +272,17 @@ GLib.Struct.Variant.Function.new_objv:
     pinvoke only: # conflicts with new_strv
 GLib.Struct.Variant.Function.new_signature:
     pinvoke only: # conflicts with new_string
+GLib.Struct.Variant.Function.new_tuple.Arg.children:
+    check:
+        foreach (var item in children) {
+
+            if (item == null) {
+
+                throw new ArgumentException ("Tuple cannot have null elements", "children");
+
+            }
+
+        }
 # Don't need any dup_* functions since marshaling will will do that anyway.
 GLib.Struct.Variant.Function.dup_bytestring:
     hidden:
@@ -241,55 +297,81 @@ GLib.Struct.Variant.Function.dup_strv:
 # Functions below will be exposed as explicit (cast) operators
 GLib.Struct.Variant.Function.get_boolean:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_byte:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_bytestring:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_bytestring_array:
     access modifier: private
     pinvoke only: # GI metadata is incorrect. Thinks it is array of UTF8 strings.
+GLib.Struct.Variant.Function.get_child_value:
+    access modifier: private
+    no property:
+GLib.Struct.Variant.Function.n_children:
+    name: NChildValues # so it will match get_child_value
 GLib.Struct.Variant.Function.get_data:
     hidden: # goes with new_from_data
 GLib.Struct.Variant.Function.get_dict_entry:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_double:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_handle:
-    access modifier: private
     name: GetDBusHandle # conflicts with INativeObject.Handle
+    access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_int16:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_int32:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_int64:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_maybe:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_object_path:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_objv:
     access modifier: private
     pinvoke only: # requires special handling
 GLib.Struct.Variant.Function.get_signature:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_string:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_strv:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_tuple:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_uint16:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_uint32:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_uint64:
     access modifier: private
+    no property:
 GLib.Struct.Variant.Function.get_variant:
-    access modifier: private
     name: BoxedVariant # can't have same name as class
+    access modifier: private
+    no property:
 
 # GLib.VariantType
 
+GLib.Struct.VariantType.Function.dup_string:
+    name: ToString
 GLib.Struct.VariantType.Function.new_array:
     static constructor:
 GLib.Struct.VariantType.Function.new_dict_entry:

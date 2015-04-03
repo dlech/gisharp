@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Linq;
 
+using GISharp.Core;
+
 namespace GISharp.GI
 {
     public class Namespace
@@ -75,7 +77,7 @@ namespace GISharp.GI
             }
         }
 
-        public InfoCollection<BaseInfo> Infos {
+        public IndexedCollection<BaseInfo> Infos {
             get {
                 return Repository.GetInfos (@namespace);
             }

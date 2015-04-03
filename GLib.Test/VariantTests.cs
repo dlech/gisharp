@@ -1,5 +1,6 @@
 ﻿using NUnit.Framework;
 using System;
+using System.Collections.Generic;
 using System.Text;
 
 using GISharp.GLib;
@@ -224,6 +225,58 @@ namespace GISharp.GLib.Test
             var variant = (Variant)expected;
             Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteStringArray));
             var actual = (byte[][])variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestCastArray ()
+        {
+            var badArray = new [] { new Variant (false), null };
+            Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
+            badArray = new [] { new Variant (false), new Variant (0) };
+            Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
+            badArray = new Variant[0];
+            Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
+            badArray = null;
+            Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
+            Assert.That (() => new Variant (VariantType.Boolean, badArray), Throws.Nothing);
+
+            var expected = new [] { new Variant (false) };
+            var variant = new Variant (null, expected);
+            Assert.That (variant.VariantType.IsArray, Is.True);
+            var actual = (Variant[])variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestCastTuple ()
+        {
+            var badTuple = new [] { new Variant (false), null };
+            Assert.That (() => (Variant)badTuple, Throws.ArgumentException);
+            badTuple = null;
+            Assert.That (() => (Variant)badTuple, Throws.TypeOf<ArgumentNullException> ());
+
+            var expected = new [] { new Variant (false), new Variant (0) };
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType.IsTuple, Is.True);
+            var actual = (Variant[])variant;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
+        public void TestCastDictEntry ()
+        {
+            var badKey = new KeyValuePair<Variant, Variant> (null, null);
+            Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
+            badKey = new KeyValuePair<Variant, Variant> (new Variant(new [] { "string" }), null);
+            Assert.That (() => (Variant)badKey, Throws.ArgumentException);
+            badKey = new KeyValuePair<Variant, Variant> (new Variant ("string"), null);
+            Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
+
+            var expected = new KeyValuePair<Variant, Variant> ( new Variant ("key"), new Variant ("value") );
+            var variant = (Variant)expected;
+            Assert.That (variant.VariantType.IsDictEntry, Is.True);
+            var actual = (KeyValuePair<Variant, Variant>)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
     }

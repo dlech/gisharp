@@ -3,12 +3,14 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
+using GISharp.Core;
+
 namespace GISharp.GI.Test
 {
     [TestFixture ()]
     public class TestBaseInfo
     {
-        InfoCollection<BaseInfo> infos;
+        IndexedCollection<BaseInfo> infos;
 
         [TestFixtureSetUp ()]
         public void TestGetDefault ()

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 using GISharp.Core;
@@ -203,22 +204,20 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        byte[][] BytestringArray {
-            get {
-                ulong length;
-                var ptr = g_variant_get_bytestring_array (Handle, out length);
-                if (ptr == IntPtr.Zero) {
-                    return null;
-                }
-                var array = new List<byte[]> ();
-                var offset = 0;
-                for (ulong i = 0; i < length; i++) {
-                    var elementPtr = Marshal.ReadIntPtr (ptr, offset);
-                    array.Add (MarshalG.PtrToByteString (elementPtr));
-                    offset += IntPtr.Size;
-                }
-                return array.ToArray ();
+        byte[][] GetBytestringArray () {
+            ulong length;
+            var ptr = g_variant_get_bytestring_array (Handle, out length);
+            if (ptr == IntPtr.Zero) {
+                return null;
             }
+            var array = new List<byte[]> ();
+            var offset = 0;
+            for (ulong i = 0; i < length; i++) {
+                var elementPtr = Marshal.ReadIntPtr (ptr, offset);
+                array.Add (MarshalG.PtrToByteString (elementPtr));
+                offset += IntPtr.Size;
+            }
+            return array.ToArray ();
         }
 
         DBusObjectPath[] Objv {
@@ -244,7 +243,7 @@ namespace GISharp.GLib
             if (value.VariantType != VariantType.Boolean) {
                 throw new InvalidCastException ();
             }
-            return value.Boolean;
+            return value.GetBoolean ();
         }
 
         public static explicit operator Variant (bool value)
@@ -257,7 +256,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Byte) {
                 throw new InvalidCastException ();
             }
-            return v.Byte;
+            return v.GetByte ();
         }
 
         public static explicit operator Variant (byte value)
@@ -270,7 +269,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.ByteString) {
                 throw new InvalidCastException ();
             }
-            return v.Bytestring;
+            return v.GetBytestring ();
         }
 
         public static explicit operator Variant (byte[] value)
@@ -283,7 +282,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.ByteStringArray) {
                 throw new InvalidCastException ();
             }
-            return v.BytestringArray;
+            return v.GetBytestringArray ();
         }
 
         public static explicit operator Variant (byte[][] value)
@@ -296,7 +295,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Double) {
                 throw new InvalidCastException ();
             }
-            return v.Double;
+            return v.GetDouble ();
         }
 
         public static explicit operator Variant (double value)
@@ -309,7 +308,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.DBusHandle) {
                 throw new InvalidCastException ();
             }
-            return v.DBusHandle;
+            return v.GetDBusHandle ();
         }
 
         public static explicit operator Variant (DBusHandle value)
@@ -322,7 +321,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int16) {
                 throw new InvalidCastException ();
             }
-            return v.Int16;
+            return v.GetInt16 ();
         }
 
         public static explicit operator Variant (short value)
@@ -335,7 +334,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int32) {
                 throw new InvalidCastException ();
             }
-            return v.Int32;
+            return v.GetInt32 ();
         }
 
         public static explicit operator Variant (int value)
@@ -348,7 +347,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int64) {
                 throw new InvalidCastException ();
             }
-            return v.Int64;
+            return v.GetInt64 ();
         }
 
         public static explicit operator Variant (long value)
@@ -385,6 +384,19 @@ namespace GISharp.GLib
         }
 
         // TODO cast Maybe to nullable types
+
+        public static explicit operator Variant[] (Variant v)
+        {
+            if (!v.VariantType.IsContainer) {
+                throw new InvalidCastException ();
+            }
+            return v.ChildValues.ToArray ();
+        }
+
+        public static explicit operator Variant (Variant[] value)
+        {
+            return new Variant (value);
+        }
 
         public static explicit operator DBusObjectPath[] (Variant v)
         {
@@ -432,7 +444,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt16) {
                 throw new InvalidCastException ();
             }
-            return v.Uint16;
+            return v.GetUint16 ();
         }
 
         public static explicit operator Variant (ushort value)
@@ -445,7 +457,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt32) {
                 throw new InvalidCastException ();
             }
-            return v.Uint32;
+            return v.GetUint32 ();
         }
 
         public static explicit operator Variant (uint value)
@@ -458,12 +470,25 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt64) {
                 throw new InvalidCastException ();
             }
-            return v.Uint64;
+            return v.GetUint64 ();
         }
 
         public static explicit operator Variant (ulong value)
         {
             return new Variant (value);
+        }
+
+        public static explicit operator KeyValuePair<Variant, Variant> (Variant v)
+        {
+            if (!v.VariantType.IsDictEntry) {
+                throw new InvalidCastException ();
+            }
+            return new KeyValuePair<Variant, Variant> (v.ChildValues[0], v.childValues[1]);
+        }
+
+        public static explicit operator Variant (KeyValuePair<Variant, Variant> value)
+        {
+            return new Variant (value.Key, value.Value);
         }
     }
 }

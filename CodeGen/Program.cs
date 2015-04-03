@@ -227,7 +227,7 @@ namespace GISharp.CodeGen
             var modifier = "public";
             try {
                 modifier = MainClass.fixup[fixupPath]["access modifier"];
-            } catch {
+            } catch (KeyNotFoundException) {
             }
             modifier = modifier.Replace ("private", "");
             if (modifier.Length > 0) {
@@ -284,7 +284,7 @@ namespace GISharp.CodeGen
             try {
                 var fixupPath = function.GetFixupPath ();
                 functionName = MainClass.fixup[fixupPath]["name"].ToLower ();
-            } catch {
+            } catch (KeyNotFoundException) {
                 functionName = function.Name;
             }
             return functionName == name;
@@ -324,12 +324,19 @@ namespace GISharp.CodeGen
                 && function.Args.Count == 0;
         }
 
+        public static bool IsToStringFunction (this FunctionInfo function)
+        {
+            return function.IsFunctionNamed ("tostring")
+                && function.IsMethod
+                && function.Args.Count == 0;
+        }
+
         public static bool IsOwnedOpaque (this StructInfo @struct)
         {
             var fixupPath = @struct.GetFixupPath ();
             try {
                 return MainClass.fixup[fixupPath].ContainsKey ("owned");
-            } catch {
+            } catch (KeyNotFoundException) {
                 return @struct.Methods.Any (m => m.IsCopyFunction ())
                    && @struct.Methods.Any (m => m.IsFreeFunction ());
             }
@@ -340,7 +347,7 @@ namespace GISharp.CodeGen
             try {
                 var newMethod = @struct.Methods.Single (m => m.Name == "new");
                 return  newMethod.CallerOwns == Transfer.Nothing;
-            } catch {
+            } catch (InvalidOperationException) {
                 return false;
             }
         }
@@ -424,7 +431,7 @@ namespace GISharp.CodeGen
             var fixupPath = info.GetFixupPath ();
             try {
                 return MainClass.fixup[fixupPath].ContainsKey ("hidden");
-            } catch {
+            } catch (KeyNotFoundException) {
                 return false;
             }
         }
@@ -482,7 +489,7 @@ namespace GISharp.CodeGen
         {
             try {
                 return MainClass.fixup [fixupPath] ["name"];
-            } catch {
+            } catch (KeyNotFoundException) {
                 return defaultValue;
             }
         }
@@ -855,7 +862,7 @@ namespace GISharp.CodeGen
         {
             try {
                 return MainClass.fixup[fixupPath].ContainsKey ("static constructor");
-            } catch {
+            } catch (KeyNotFoundException) {
                 return false;
             }
         }
@@ -914,7 +921,7 @@ namespace GISharp.CodeGen
         {
             try {
                 return MainClass.fixup[fixupPath].ContainsKey ("pinvoke only");
-            } catch {
+            } catch (KeyNotFoundException) {
                 return false;
             }
         }
@@ -1196,22 +1203,45 @@ namespace GISharp.CodeGen
             cw.WriteLine ("{0}{1} = {2};", managedVarExists ? "" : "var ", managedVarName, marshalExpression);
         }
 
-        public static void WriteNullCheck (this CodeWriter cw, ArgInfo arg)
+        public static void WriteArgChecks (this CodeWriter cw, ArgInfo arg)
         {
-            if (arg.MayBeNull || arg.Direction == Direction.Out || !arg.TypeInfo.NeedsMarshal ()) {
-                return;
+            var fixupPath = arg.GetFixupPath ();
+
+            // write null check
+
+            if (!arg.MayBeNull && arg.Direction != Direction.Out && arg.TypeInfo.NeedsMarshal ()) {
+                var argName = arg.GetFixedUpName (ToCamelCase);
+                cw.WriteLine ("if ({0} == null) {{", argName);
+                cw.IncIndent ();
+                var function = arg.Container as FunctionInfo;
+                if (function != null && function.IsEqualFunction ()) {
+                    cw.WriteLine ("return false;");
+                } else {
+                    cw.WriteLine ("throw new ArgumentNullException (\"{0}\");", argName);
+                }
+                cw.DecIndent ();
+                cw.WriteLine ("}");
             }
-            var argName = arg.GetFixedUpName (ToCamelCase);
-            cw.WriteLine ("if ({0} == null) {{", argName);
-            cw.IncIndent ();
-            var function = arg.Container as FunctionInfo;
-            if (function != null && function.IsEqualFunction ()) {
-                cw.WriteLine ("return false;");
-            } else {
-                cw.WriteLine ("throw new ArgumentNullException (\"{0}\");", argName);
+
+            try {
+                var otherChecks = MainClass.fixup[fixupPath]["check"];
+                cw.WriteLine ();
+                cw.WriteLine ("#region Included from fixup file");
+                cw.WriteLine ();
+                foreach (var line in otherChecks.Split ('\n')) {
+                    if (line.StartsWith ("}", StringComparison.Ordinal)) {
+                        cw.DecIndent ();
+                    }
+                    cw.WriteLine (line);
+                    if (line.EndsWith ("{", StringComparison.Ordinal)) {
+                        cw.IncIndent ();
+                    }
+                }
+                cw.WriteLine ();
+                cw.WriteLine ("#endregion");
+                cw.WriteLine ();
+            } catch (KeyNotFoundException) {
             }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
         }
 
         public static bool GetSkipProperty (this string fixupPath)
@@ -1240,7 +1270,7 @@ namespace GISharp.CodeGen
             }
             try {
                 return MainClass.fixup[fixupPath]["name"];
-            } catch {
+            } catch (KeyNotFoundException) {
                 return convertFunc (info.Name);
             }
         }
@@ -1339,8 +1369,8 @@ namespace GISharp.CodeGen
             try {
                 var hashFunctionName = MainClass.fixup[fixupPath]["hash"];
                 var container = function.Container as IMethodContainer;
-                return container.Methods.Single (m => !m.IsHidden () && m.Name == hashFunctionName);
-            } catch {
+                return container.Methods.SingleOrDefault (m => !m.IsHidden () && m.Name == hashFunctionName);
+            } catch (KeyNotFoundException){
                 return null;
             }
         }
@@ -1424,6 +1454,26 @@ namespace GISharp.CodeGen
                 }
             }
 
+            // check if this is a child count function
+            if (functionName.StartsWith ("N", StringComparison.Ordinal) && function.Args.Count == 0) {
+                var container = function.Container as IMethodContainer;
+                var childGetterName = "Get" + functionName.Substring (1, functionName.Length - 2);
+                if (container.Methods.Any (m => m.GetFixupPath ().GetManagedName (m.GetFixedUpName (ToPascalCase)) == childGetterName)) {
+                    // the child count function will be handled in the child getter implementation
+                    return null;
+                }
+            }
+
+            // check if this is a child getter function
+            bool isChildGetter = false;
+            FunctionInfo childCountFunction = null;
+            if (functionName.StartsWith ("Get", StringComparison.Ordinal) && function.Args.Count == 1) {
+                var container = function.Container as IMethodContainer;
+                var childCountName = "N" + functionName.Substring (3) + "s";
+                childCountFunction = container.Methods.SingleOrDefault (m => m.GetFixupPath ().GetManagedName (m.GetFixedUpName (ToPascalCase)) == childCountName);
+                isChildGetter = childCountFunction != null;
+            }
+
             // Write the function declration
 
             if (function.IsDeprecated) {
@@ -1446,11 +1496,14 @@ namespace GISharp.CodeGen
                 if (@struct.IsOwnedOpaque ()) {
                     @override = function.IsCopyFunction () || function.IsFreeFunction ();
                 }
+                if (@function.IsToStringFunction ()) {
+                    @override = true;
+                }
             }
 
             if (@override) {
                 cw.Write ("public override ");
-            } else if (isGetter || isSetter) {
+            } else if (isGetter || isSetter || isChildGetter) {
                 cw.Write (""); // private
             } else {
                 cw.Write ("{0}", fixupPath.GetAccessModifier ());
@@ -1573,6 +1626,32 @@ namespace GISharp.CodeGen
                     });
             }
 
+            if (isChildGetter) {
+                var childPropertyName = childCountFunction.GetFixupPath ().GetManagedName (childCountFunction.GetFixedUpName (ToPascalCase));
+                childPropertyName = childPropertyName.Substring (1);
+                var childPrivateName = char.ToLower (childPropertyName [0]) + childPropertyName.Substring (1);
+                cw.WriteLine ("GISharp.Core.IndexedCollection<{0}> {1};",
+                    returnType.ToManagedType (), childPrivateName);
+                cw.WriteLine ("{0}GISharp.Core.IndexedCollection<{1}> {2} {{",
+                    fixupPath.GetAccessModifier (), returnType.ToManagedType (), childPropertyName);
+                cw.IncIndent ();
+                cw.WriteLine ("get {");
+                cw.IncIndent ();
+                cw.WriteLine ("if ({0} == null) {{", childPrivateName);
+                cw.IncIndent ();
+                cw.WriteLine ("{0} = new GISharp.Core.IndexedCollection<{1}> (() => (int){2} (Handle), (i) => {3} (({4})i));",
+                    childPrivateName, returnType.ToManagedType (), childCountFunction.Symbol, functionName, function.Args [0].TypeInfo.ToManagedType ());
+                cw.DecIndent ();
+                cw.WriteLine ("}");
+                cw.WriteLine ("return {0};", childPrivateName);
+                cw.DecIndent ();
+                cw.WriteLine ("}");
+                cw.DecIndent ();
+                cw.WriteLine ("}");
+                cw.WriteLine ();
+            }
+
+
             return writeProperty;
         }
 
@@ -1585,7 +1664,7 @@ namespace GISharp.CodeGen
 
             // Do null argument checks
             foreach (var arg in managedArgs) {
-                cw.WriteNullCheck (arg);
+                cw.WriteArgChecks (arg);
             }
 
             // Then marshal input args to unmanaged structures as needed
@@ -1608,7 +1687,8 @@ namespace GISharp.CodeGen
                     var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
                     marshalledArgNames [lengthArg.Name] = lengthArg.GetFixedUpName (ToCamelCase) + argSuffix;
                     var lengthArgManagedType = lengthArg.TypeInfo.ToManagedType ();
-                    cw.Write ("var {0} = ", marshalledArgNames [lengthArg.Name]);
+                    cw.Write ("var {0} = {1} == null ? 0 : ",
+                        marshalledArgNames [lengthArg.Name], arg.GetFixedUpName (ToCamelCase) + argSuffix);
                     if (lengthArgManagedType != "int" && lengthArgManagedType != "long") {
                         cw.Write ("({0})", lengthArgManagedType);
                     }

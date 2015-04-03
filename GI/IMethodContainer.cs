@@ -1,9 +1,11 @@
 ﻿using System;
 
+using GISharp.Core;
+
 namespace GISharp.GI
 {
     public interface IMethodContainer
     {
-        InfoCollection<FunctionInfo> Methods { get; }
+        IndexedCollection<FunctionInfo> Methods { get; }
     }
 }

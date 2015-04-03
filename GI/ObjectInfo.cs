@@ -12,78 +12,78 @@ namespace GISharp.GI
 {
     public class ObjectInfo : RegisteredTypeInfo, IMethodContainer
     {
-        InfoCollection<ConstantInfo> constants;
+        IndexedCollection<ConstantInfo> constants;
 
-        public InfoCollection<ConstantInfo> Constants {
+        public IndexedCollection<ConstantInfo> Constants {
             get {
                 if (constants == null) {
-                    constants = new InfoCollection<ConstantInfo> (() => NConstants, GetConstant);
+                    constants = new IndexedCollection<ConstantInfo> (() => NConstants, GetConstant);
                 }
                 return constants;
             }
         }
 
-        InfoCollection<FieldInfo> fields;
+        IndexedCollection<FieldInfo> fields;
 
-        public InfoCollection<FieldInfo> Fields {
+        public IndexedCollection<FieldInfo> Fields {
             get {
                 if (fields == null) {
-                    fields = new InfoCollection<FieldInfo> (() => NFields, GetField);
+                    fields = new IndexedCollection<FieldInfo> (() => NFields, GetField);
                 }
                 return fields;
             }
         }
 
-        InfoCollection<InterfaceInfo> interfaces;
+        IndexedCollection<InterfaceInfo> interfaces;
 
-        public InfoCollection<InterfaceInfo> Interfaces {
+        public IndexedCollection<InterfaceInfo> Interfaces {
             get {
                 if (interfaces == null) {
-                    interfaces = new InfoCollection<InterfaceInfo> (() => NInterfaces, GetInterface);
+                    interfaces = new IndexedCollection<InterfaceInfo> (() => NInterfaces, GetInterface);
                 }
                 return interfaces;
             }
         }
 
-        InfoCollection<FunctionInfo> methods;
+        IndexedCollection<FunctionInfo> methods;
 
-        public InfoCollection<FunctionInfo> Methods {
+        public IndexedCollection<FunctionInfo> Methods {
             get {
                 if (methods == null) {
-                    methods = new InfoCollection<FunctionInfo> (() => NMethods, GetMethod);
+                    methods = new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
                 }
                 return methods;
             }
         }
 
-        InfoCollection<PropertyInfo> properties;
+        IndexedCollection<PropertyInfo> properties;
 
-        public InfoCollection<PropertyInfo> Properties {
+        public IndexedCollection<PropertyInfo> Properties {
             get {
                 if (properties == null) {
-                    properties = new InfoCollection<PropertyInfo> (() => NProperties, GetProperty);
+                    properties = new IndexedCollection<PropertyInfo> (() => NProperties, GetProperty);
                 }
                 return properties;
             }
         }
 
-        InfoCollection<SignalInfo> signals;
+        IndexedCollection<SignalInfo> signals;
 
-        public InfoCollection<SignalInfo> Signals {
+        public IndexedCollection<SignalInfo> Signals {
             get {
                 if (signals == null) {
-                    signals = new InfoCollection<SignalInfo> (() => NSignals, GetSignal);
+                    signals = new IndexedCollection<SignalInfo> (() => NSignals, GetSignal);
                 }
                 return signals;
             }
         }
 
-        InfoCollection<VFuncInfo> vFuncs;
+        IndexedCollection<VFuncInfo> vFuncs;
 
-        public InfoCollection<VFuncInfo> VFuncs {
+        public IndexedCollection<VFuncInfo> VFuncs {
             get {
                 if (vFuncs == null) {
-                    vFuncs = new InfoCollection<VFuncInfo> (() => NVfuncs, GetVFunc);
+                    vFuncs = new IndexedCollection<VFuncInfo> (() => NVfuncs, GetVFunc);
                 }
                 return vFuncs;
             }

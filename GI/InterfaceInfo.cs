@@ -77,9 +77,9 @@ namespace GISharp.GI
             return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
-        public InfoCollection<FunctionInfo> Methods {
+        public IndexedCollection<FunctionInfo> Methods {
             get {
-                return new InfoCollection<FunctionInfo> (() => NMethods, GetMethod);
+                return new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
             }
         }
 

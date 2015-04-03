@@ -77,5 +77,9 @@
       <Project>{26BF5EFC-10BF-46BC-A071-11F2B69C2844}</Project>
       <Name>GI</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

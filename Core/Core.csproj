@@ -43,6 +43,7 @@
     <Compile Include="StaticOpaque.cs" />
     <Compile Include="GObject.cs" />
     <Compile Include="OwnedOpaque.cs" />
+    <Compile Include="IndexedCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

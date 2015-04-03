@@ -12,23 +12,23 @@ namespace GISharp.GI
 {
     public class EnumInfo : RegisteredTypeInfo, IMethodContainer
     {
-        InfoCollection<ValueInfo> values;
+        IndexedCollection<ValueInfo> values;
 
-        public InfoCollection<ValueInfo> Values {
+        public IndexedCollection<ValueInfo> Values {
             get {
                 if (values == null) {
-                    values = new InfoCollection<ValueInfo> (() => NValues, GetValue);
+                    values = new IndexedCollection<ValueInfo> (() => NValues, GetValue);
                 }
                 return values;
             }
         }
 
-        InfoCollection<FunctionInfo> methods;
+        IndexedCollection<FunctionInfo> methods;
 
-        public InfoCollection<FunctionInfo> Methods {
+        public IndexedCollection<FunctionInfo> Methods {
             get {
                 if (methods == null) {
-                    methods = new InfoCollection<FunctionInfo> (() => NMethods, GetMethod);
+                    methods = new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
                 }
                 return methods;
             }

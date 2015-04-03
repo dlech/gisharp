@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace GISharp.GLib
 {
+    [DebuggerDisplay ("{FormatString}")]
     public partial class VariantType
     {
         // these static properties take the place of the G_VARIANT_TYPE_* macros
