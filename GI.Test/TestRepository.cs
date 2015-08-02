@@ -6,7 +6,7 @@ using GISharp.Core;
 
 namespace GISharp.GI.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class TestRepository
     {
         [TestFixtureSetUp ()]
@@ -16,21 +16,21 @@ namespace GISharp.GI.Test
             Repository.Require ("Gio", "2.0");
         }
 
-        [Test ()]
+        [Test]
         public void TestGetDependencies ()
         {
             var deps = Repository.Namespaces ["Gio"].Dependencies;
             Assert.That (deps, Is.EqualTo (new []{ "GObject-2.0" }));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetLoadedNamespaces ()
         {
             var namespaces = Repository.LoadedNamespaces;
             Assert.That (namespaces, Is.EqualTo (new []{ "GLib", "GObject", "Gio" }));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetInfos ()
         {
             int count = 0;
@@ -42,38 +42,38 @@ namespace GISharp.GI.Test
             Assert.That (count, Is.GreaterThan (0));
         }
 
-        [Test ()]
+        [Test]
         public void TestEnumerateVersions ()
         {
             var versions = Repository.Namespaces ["Gio"].Versions;
             Assert.That (versions, Is.EqualTo (new [] { "2.0", "2.0" }));
         }
 
-        [Test ()]
+        [Test]
         public void TestPrependLibraryPath ()
         {
             Repository.PrependLibraryPath ("dummy");
             // TODO: figure out how to verify this.
         }
 
-        [Test ()]
+        [Test]
         public void TestPrependSearchPathAndGetSearchPath ()
         {
-            var startPath = Repository.SearchPath;
+            var startPath = Repository.SearchPaths;
             Assert.That (startPath, Is.Not.Member ("dummy"));
             Repository.PrependSearchPath ("dummy");
-            var endPath = Repository.SearchPath;
+            var endPath = Repository.SearchPaths;
             Assert.That (endPath, Contains.Item ("dummy"));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetTypelibPath ()
         {
             var path = Repository.Namespaces ["Gio"].TypelibPath;
             Assert.That (path, Is.EqualTo ("/usr/lib/girepository-1.0/Gio-2.0.typelib"));
         }
 
-        [Test ()]
+        [Test]
         public void TestIsRegistered ()
         {
             var registered = Repository.IsRegistered ("Gio", "2.0");
@@ -83,7 +83,7 @@ namespace GISharp.GI.Test
             Assert.That (registered, Is.False);
         }
 
-        [Test ()]
+        [Test]
         public void TestRequire ()
         {
             // We already know that this works because it is used in the setup function
@@ -95,7 +95,7 @@ namespace GISharp.GI.Test
                 .And.Property ("Code").EqualTo ((int)RepositoryError.TypelibNotFound));
         }
 
-        [Test ()]
+        [Test]
         public void TestRequirePrivate ()
         {
             TestDelegate require = () =>
@@ -105,21 +105,21 @@ namespace GISharp.GI.Test
                 .And.Property ("Code").EqualTo ((int)RepositoryError.TypelibNotFound));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetCPrefix ()
         {
             var prefix = Repository.Namespaces ["Gio"].CPrefix;
             Assert.That (prefix, Is.EqualTo ("G"));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetSharedLibrary ()
         {
             var library = Repository.Namespaces ["Gio"].SharedLibraries;
             Assert.That (library, Is.EqualTo (new [] { "libgio-2.0.so.0" }));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetVersion ()
         {
             var version = Repository.Namespaces ["Gio"].Version;
@@ -129,7 +129,7 @@ namespace GISharp.GI.Test
         [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
         static extern uint g_io_error_quark ();
 
-        [Test ()]
+        [Test]
         public void TestFindByErrorDomain ()
         {
             using (var info = Repository.FindByErrorDomain (g_io_error_quark ())) {
@@ -137,7 +137,7 @@ namespace GISharp.GI.Test
             }
         }
 
-        [Test ()]
+        [Test]
         public void TestFindByName ()
         {
             using (var info = Repository.Namespaces ["Gio"].FindByName ("IOErrorEnum")) {
@@ -145,7 +145,7 @@ namespace GISharp.GI.Test
             }
         }
 
-        [Test ()]
+        [Test]
         public void TestDump ()
         {
             TestDelegate dump = () => Repository.Dump ("NonExistentFile");
@@ -155,4 +155,3 @@ namespace GISharp.GI.Test
         }
     }
 }
-

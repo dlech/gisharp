@@ -52,10 +52,16 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_constant (IntPtr raw, int index);
 
-        public ConstantInfo GetConstant (int index)
+        ConstantInfo GetConstant (int index)
         {
             IntPtr raw_ret = g_interface_info_get_constant (Handle, index);
             return MarshalPtr<ConstantInfo> (raw_ret);
+        }
+
+        public IndexedCollection<ConstantInfo> Constants {
+            get {
+                return new IndexedCollection<ConstantInfo> (() => NConstants, GetConstant);
+            }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -140,37 +146,61 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_prerequisite (IntPtr raw, int index);
 
-        public BaseInfo GetPrerequisite (int index)
+        BaseInfo GetPrerequisite (int index)
         {
             IntPtr raw_ret = g_interface_info_get_prerequisite (Handle, index);
             return MarshalPtr<BaseInfo> (raw_ret);
         }
 
+        public IndexedCollection<BaseInfo> Prerequisites {
+            get {
+                return new IndexedCollection<BaseInfo> (() => NPrerequisites, GetPrerequisite);
+            }
+        }
+
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_property (IntPtr raw, int index);
 
-        public PropertyInfo GetProperty (int index)
+        PropertyInfo GetProperty (int index)
         {
             IntPtr raw_ret = g_interface_info_get_property (Handle, index);
             return MarshalPtr<PropertyInfo> (raw_ret);
         }
 
+        public IndexedCollection<PropertyInfo> Properties {
+            get {
+                return new IndexedCollection<PropertyInfo> (() => NProperties, GetProperty);
+            }
+        }
+
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_signal (IntPtr raw, int index);
 
-        public SignalInfo GetSignal (int index)
+        SignalInfo GetSignal (int index)
         {
             IntPtr raw_ret = g_interface_info_get_signal (Handle, index);
             return MarshalPtr<SignalInfo> (raw_ret);
         }
 
+        public IndexedCollection<SignalInfo> Signals {
+            get {
+                return new IndexedCollection<SignalInfo> (() => NSignals, GetSignal);
+            }
+        }
+
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_vfunc (IntPtr raw, int index);
 
-        public VFuncInfo GetVFunc (int index)
+        VFuncInfo GetVFunc (int index)
         {
             IntPtr raw_ret = g_interface_info_get_vfunc (Handle, index);
             return MarshalPtr<VFuncInfo> (raw_ret);
+        }
+
+        public IndexedCollection<VFuncInfo> VFuncs {
+            get {
+                return new IndexedCollection<VFuncInfo> (() => NVFuncs, GetVFunc);
+            }
         }
 
         public InterfaceInfo (IntPtr raw) : base (raw)

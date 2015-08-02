@@ -47,6 +47,25 @@
     <Compile Include="Program.cs" />
     <Compile Include="CodeWriter.cs" />
     <Compile Include="Mono.Options\Options.cs" />
+    <Compile Include="Wrapped\BaseInfo.cs" />
+    <Compile Include="Wrapped\CallableInfo.cs" />
+    <Compile Include="Wrapped\FunctionInfo.cs" />
+    <Compile Include="Wrapped\SignalInfo.cs" />
+    <Compile Include="Wrapped\VFuncInfo.cs" />
+    <Compile Include="Wrapped\RegisteredTypeInfo.cs" />
+    <Compile Include="Wrapped\EnumInfo.cs" />
+    <Compile Include="Wrapped\InterfaceInfo.cs" />
+    <Compile Include="Wrapped\ObjectInfo.cs" />
+    <Compile Include="Wrapped\StructInfo.cs" />
+    <Compile Include="Wrapped\UnionInfo.cs" />
+    <Compile Include="Wrapped\ArgInfo.cs" />
+    <Compile Include="Wrapped\ConstantInfo.cs" />
+    <Compile Include="Wrapped\FieldInfo.cs" />
+    <Compile Include="Wrapped\PropertyInfo.cs" />
+    <Compile Include="Wrapped\TypeInfo.cs" />
+    <Compile Include="Wrapped\CallbackInfo.cs" />
+    <Compile Include="Wrapped\ValueInfo.cs" />
+    <Compile Include="Wrapped\Repository.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -81,5 +100,8 @@
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Wrapped\" />
   </ItemGroup>
 </Project>

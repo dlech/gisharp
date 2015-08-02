@@ -515,47 +515,26 @@ namespace GISharp.CodeGen
                 constant.TypeInfo.ToManagedType (),
                 constantName);
 
-            Argument arg;
-            constant.GetValue (out arg);
             switch (constant.TypeInfo.Tag) {
             case TypeTag.Boolean:
-                cw.Write ("{0}", arg.Boolean ? "true" : "false");
+                cw.Write ("{0}", (bool)constant.Value ? "true" : "false");
                 break;
             case TypeTag.Int8:
-                cw.Write ("{0}", arg.Int8);
-                break;
             case TypeTag.UInt8:
-                cw.Write ("{0}", arg.UInt8);
-                break;
             case TypeTag.Int16:
-                cw.Write ("{0}", arg.Int16);
-                break;
             case TypeTag.UInt16:
-                cw.Write ("{0}", arg.UInt16);
-                break;
             case TypeTag.Int32:
-                cw.Write ("{0}", arg.Int32);
-                break;
             case TypeTag.UInt32:
-                cw.Write ("{0}", arg.UInt32);
-                break;
             case TypeTag.Int64:
-                cw.Write ("{0}", arg.Int64);
-                break;
             case TypeTag.UInt64:
-                cw.Write ("{0}", arg.UInt64);
-                break;
             case TypeTag.Float:
-                cw.Write ("{0}", arg.Float);
-                break;
             case TypeTag.Double:
-                cw.Write ("{0}", arg.Double);
+                cw.Write ("{0}", constant.Value.ToString());
                 break;
             case TypeTag.UTF8:
-                cw.Write ("\"{0}\"", arg.String.Escape ());
+                cw.Write ("\"{0}\"", ((string)constant.Value).Escape ());
                 break;
             }
-            constant.FreeValue (ref arg);
             cw.WriteLine ("; // {0}", constant.Name);
             cw.WriteLine ();
         }

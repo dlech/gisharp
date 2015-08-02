@@ -58,10 +58,16 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_discriminator (IntPtr raw, int index);
 
-        public ConstantInfo GetDiscriminator (int index)
+        ConstantInfo GetDiscriminator (int index)
         {
             IntPtr raw_ret = g_union_info_get_discriminator (Handle, index);
             return MarshalPtr<ConstantInfo> (raw_ret);
+        }
+
+        public IndexedCollection<ConstantInfo> Discriminators {
+            get {
+                return new IndexedCollection<ConstantInfo> (() => NFields, GetDiscriminator);
+            }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

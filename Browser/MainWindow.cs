@@ -4,94 +4,210 @@ using System.Linq;
 
 using GISharp.GI;
 using Gtk;
+using System.Collections;
 
 namespace GISharp.Browser
 {
-  public partial class MainWindow : Gtk.Window
-  {
-    ListStore namespaceListStore;
-    ListStore infoListStore;
-    Label namespaceNameLabel;
-    Label namespaceVersionLabel;
-
-    public event EventHandler SelectedNamespaceChanged;
-
-    public event EventHandler<InfoTypeEventArgs> SelectedInfoTypeChanged;
-
-    public string SelectedNamespaceName {
-      get { return namespaceNameLabel.Text; }
-      set { namespaceNameLabel.Text = value; }
-    }
-
-    public string SelectedNamespaceVersion {
-      get { return namespaceVersionLabel.Text; }
-      set { namespaceVersionLabel.Text = value; }
-    }
-
-    public MainWindow () : base (Gtk.WindowType.Toplevel)
+    public partial class MainWindow : Gtk.Window
     {
-      Title = "GObject Introspection Browser";
-      SetDefaultGeometry (800, 600);
-
-      var mainHBox = new HBox (false, 6);
-      mainHBox.Margin = 12;
-      Add (mainHBox);
-
-      var namespaceVBox = new VBox (true, 12);
-      mainHBox.PackStart (namespaceVBox, false, false, 0);
-
-      namespaceListStore = new ListStore (typeof(string), typeof(string));
-      var namespaceTreeView = new TreeView (namespaceListStore);
-      namespaceTreeView.AppendColumn ("Namespace", new CellRendererText (), "text", 0);
-      namespaceTreeView.AppendColumn ("Version", new CellRendererText (), "text", 1);
-      namespaceVBox.PackStart (namespaceTreeView, false, true, 6);
-
-      var namespaceInfoGrid = new Grid ();
-      namespaceInfoGrid.RowSpacing = 6;
-      namespaceInfoGrid.ColumnSpacing = 6;
-      namespaceVBox.PackEnd (namespaceInfoGrid, false, false, 0);
-
-      namespaceInfoGrid.Attach (new Label ("Name:") { Justify = Justification.Left }, 0, 0, 1, 1);
-      namespaceNameLabel = new Label () { Justify = Justification.Right };
-      namespaceInfoGrid.Attach (namespaceNameLabel, 1, 0, 1, 1);
-      namespaceInfoGrid.Attach (new Label ("Version:") { Justify = Justification.Left }, 0, 1, 1, 1);
-      namespaceVersionLabel = new Label () { Justify = Justification.Right };
-      namespaceInfoGrid.Attach (namespaceVersionLabel, 1, 1, 1, 1);
-
-      var typeVBox = new VBox (false, 3);
-      RadioButton first = null;
-      foreach (InfoType infoType in Enum.GetValues (typeof (InfoType))) {
-        var typeButton = new RadioButton (first, infoType.ToString ());
-        typeButton.Clicked += (sender, e) => {
-          if (SelectedInfoTypeChanged != null)
-            SelectedInfoTypeChanged (typeButton, new InfoTypeEventArgs (infoType));
+        static readonly string[] ignoredProperties = {
+            "Attributes",
+            "Container",
+            "Handle",
+            "Parent",
         };
-        typeVBox.PackStart (typeButton, false, false, 0);
-        if (first == null)
-          first = typeButton;
-      }
-      mainHBox.PackStart (typeVBox, false, false, 0);
 
-      infoListStore = new ListStore (typeof(string));
-      var infoTreeView = new TreeView (infoListStore);
-      infoTreeView.AppendColumn ("Name", new CellRendererText (), "text", 0);
-      var infoScroll = new ScrolledWindow ();
-      infoScroll.Add (infoTreeView);
-      mainHBox.PackStart (infoScroll, true, true, 6);
+        static readonly string[] childProperties = {
+            "Args",
+            "ClassStruct",
+            "Constants",
+            "Discriminators",
+            "DiscriminatorType",
+            "Fields",
+            "IfaceStruct",
+            "Interfaces",
+            "Methods",
+            "Prerequisites",
+            "Properties",
+            "ReturnTypeInfo",
+            "Signals",
+            "TypeInfo",
+            "Values",
+            "VFuncs",
+        };
+
+        public event EventHandler<SelectedNamespaceChangedEventArgs> SelectedNamespaceChanged;
+
+        public event EventHandler<SelectedInfoChangedEventArgs> SelectedInfoChanged;
+
+        public MainWindow () : base (Gtk.WindowType.Toplevel)
+        {
+            Build ();
+
+            namespaceNodeview.AppendColumn ("Namespace", new CellRendererText (), "text", 0);
+            namespaceNodeview.AppendColumn ("Version", new CellRendererText (), "text", 1);
+            namespaceNodeview.NodeStore = new NodeStore (typeof(NamespaceTreeNode));
+            namespaceNodeview.NodeSelection.Changed += (sender, e) => {
+                if (SelectedNamespaceChanged != null) {
+                    var selectedNode = namespaceNodeview.NodeSelection.SelectedNode as NamespaceTreeNode;
+                    var @namespace = selectedNode == null ? null : selectedNode.Namespace;
+                    SelectedNamespaceChanged (this, new SelectedNamespaceChangedEventArgs (@namespace));
+                }
+            };
+
+
+            infoNodeview.AppendColumn ("Type", new CellRendererText(), "text", 0);
+            infoNodeview.AppendColumn ("Name", new CellRendererText(), "text", 1, "strikethrough", 2);
+            infoNodeview.NodeStore = new NodeStore (typeof(InfoTreeNode));
+            infoNodeview.NodeSelection.Changed += (sender, e) => {
+                if (SelectedInfoChanged != null) {
+                    var selectedNamespaceNode = namespaceNodeview.NodeSelection.SelectedNode as NamespaceTreeNode;
+                    var @namespace = selectedNamespaceNode == null ? null : selectedNamespaceNode.Namespace;
+                    var selectedNode = infoNodeview.NodeSelection.SelectedNode as InfoTreeNode;
+                    var name = selectedNode == null ? null : selectedNode.Name;
+                    SelectedInfoChanged (this, new SelectedInfoChangedEventArgs (@namespace, name));
+                }
+            };
+
+            ClearTypelibInfo();
+            ClearTypeInfo ();
+        }
+
+        public void AddNamespace (string @namespace, string version)
+        {
+            if (@namespace == null) {
+                throw new ArgumentNullException ("namespace");
+            }
+            if (version == null) {
+                throw new ArgumentNullException ("version");
+            }
+            namespaceNodeview.NodeStore.AddNode (new NamespaceTreeNode (@namespace, version));
+        }
+
+        public void ClearTypelibInfo ()
+        {
+            pathLabel.LabelProp = null;
+            versionsLabel.LabelProp = null;
+            dependsLabel.LabelProp = null;
+            libraryLabel.LabelProp = null;
+        }
+
+        public void SetTypelibInfo (string path, string versions, string depends, string library)
+        {
+            pathLabel.LabelProp = path;
+            versionsLabel.LabelProp = versions;
+            dependsLabel.LabelProp = depends;
+            libraryLabel.LabelProp = library;
+        }
+
+        public void ClearInfos()
+        {
+            infoNodeview.NodeStore.Clear ();
+        }
+
+        public void AddInfo (string type, string name, bool isDeprecated)
+        {
+            if (type == null) {
+                throw new ArgumentNullException ("type");
+            }
+            if (name == null) {
+                throw new ArgumentNullException ("name");
+            }
+            infoNodeview.NodeStore.AddNode (new InfoTreeNode (type, name, isDeprecated));
+        }
+
+        public void ClearTypeInfo ()
+        {
+            typeInfoLabel.LabelProp = "<b>Type Info</b>";
+            typeInfoVbox.Remove (typeInfoVbox.Children.FirstOrDefault());
+        }
+
+        public void SetTypeInfo (object obj)
+        {
+            var properties = obj.GetType ().GetProperties ();
+            var propertyTable = new Table ((uint)properties.Length, 2, false) {
+                RowSpacing = 6,
+                ColumnSpacing = 6
+            };
+            uint row = 0;
+            foreach (var property in properties) {
+                
+                if (ignoredProperties.Contains(property.Name) || childProperties.Contains(property.Name)) {
+                    // skip these properties
+                    continue;
+                }
+                var descLabel = new Label (property.Name + ":") {
+                    Xalign = 1
+                };
+                propertyTable.Attach (descLabel, 0, 1, row, row + 1);
+                var value = property.GetValue (obj) ?? "<null>";
+                var valueLabel = new Label () {
+                    LabelProp = value.ToString (),
+                    Xalign = 0,
+                };
+                propertyTable.Attach (valueLabel, 1, 2, row, row + 1);
+                row++;
+            }
+            propertyTable.ShowAll ();
+            typeInfoVbox.PackStart (propertyTable, false, false, 12);
+        }
     }
 
-    public void SetNamespaces (IEnumerable<string[]> namespaces) {
-      namespaceListStore.Clear ();
-      foreach (var @namespace in namespaces) {
-        namespaceListStore.AppendValues (@namespace);
-      }
+    [TreeNode (ListOnly=true)]
+    public class NamespaceTreeNode : TreeNode
+    {
+        public NamespaceTreeNode (string @namespace, string version)
+        {
+            Namespace = @namespace;
+            Version = version;
+        }
+
+        [TreeNodeValue (Column=0)]
+        public string Namespace { get; private set; }
+
+        [TreeNodeValue (Column=1)]
+        public string Version { get; private set; }
     }
 
-    public void SetInfos (IEnumerable<string[]> infos) {
-      infoListStore.Clear ();
-      foreach (var info in infos) {
-        infoListStore.AppendValues (info);
-      }
+    [TreeNode (ListOnly=true)]
+    public class InfoTreeNode : TreeNode
+    {
+        public InfoTreeNode (string type, string name, bool isDeprecated)
+        {
+            Type = type;
+            Name = name;
+            IsDeprecated = isDeprecated;
+        }
+
+        [TreeNodeValue (Column=0)]
+        public string Type { get; private set; }
+
+        [TreeNodeValue (Column=1)]
+        public string Name { get; private set; }
+
+        [TreeNodeValue (Column=2)]
+        public bool IsDeprecated { get; private set; }
     }
-  }
+
+    public class SelectedNamespaceChangedEventArgs : EventArgs
+    {
+        public string Namespace { get; private set; }
+
+        public SelectedNamespaceChangedEventArgs (string @namespace)
+        {
+            Namespace = @namespace;
+        }
+    }
+
+    public class SelectedInfoChangedEventArgs : EventArgs
+    {
+        public string Namespace { get; private set; }
+        public string Name { get; private set; }
+
+        public SelectedInfoChangedEventArgs (string @namespace, string name)
+        {
+            Namespace = @namespace;
+            Name = name;
+        }
+    }
 }

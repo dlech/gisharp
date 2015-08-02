@@ -28,6 +28,9 @@ namespace GISharp.GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_irepository_get_default ();
+
+        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_dump (IntPtr arg, out IntPtr error);
 
         public static void Dump (string arg)
@@ -165,9 +168,17 @@ namespace GISharp.GI
         /// Returns the current search path GIRepository will use when loading typelib files.
         /// </summary>
         /// <value>The search path.</value>
-        public static string[] SearchPath {
+        public static string[] SearchPaths {
             get {
                 IntPtr raw_ret = g_irepository_get_search_path ();
+                if (raw_ret == IntPtr.Zero) {
+                    // if no method has been called yet that uses the native
+                    // GIRepository object, g_irepository_get_search_path will
+                    // return null. If that is the case, we call g_irepository_get_default
+                    // to create the instance and try again.
+                    g_irepository_get_default ();
+                    raw_ret = g_irepository_get_search_path ();
+                }
                 var ret = MarshalG.GSListToStringArray (raw_ret);
                 return ret;
             }
@@ -220,10 +231,10 @@ namespace GISharp.GI
         /// was loaded; otherwise, <c>false</c>.</returns>
         /// <param name="namespace">Namespace of interest.</param>
         /// <param name="version">Requred version or <c>null</c> for latest.</param>
-        public static bool IsRegistered (string @namespace, string version)
+        public static bool IsRegistered (string @namespace, string version = null)
         {
             if (@namespace == null) {
-                throw new ArgumentNullException ("@namespace");
+                throw new ArgumentNullException ("namespace");
             }
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
@@ -291,11 +302,11 @@ namespace GISharp.GI
         /// <param name="namespace">Namespace.</param>
         /// <param name="version">Version.</param>
         /// <param name="flags">Flags.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="@namespace"/>
+        /// <exception cref="ArgumentNullException">If <paramref name="namespace"/>
         /// is <c>null<c/>.</exception>
         /// <exception cref="GErrorException">On failure.</exception>
         /// <remarks>
-        /// If <paramref name="@namespace"/> is not loaded, this function will
+        /// If <paramref name="namespace"/> is not loaded, this function will
         /// search for a ".typelib" file using the repository search path. In
         /// addition, a version version of namespace may be specified. If version
         /// is not specified, the latest will be used.
@@ -304,7 +315,7 @@ namespace GISharp.GI
             RepositoryLoadFlags flags = (RepositoryLoadFlags)0)
         {
             if (@namespace == null) {
-                throw new ArgumentNullException ("@namespace");
+                throw new ArgumentNullException ("namespace");
             }
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
@@ -328,10 +339,10 @@ namespace GISharp.GI
         /// <param name="version">Version of namespace, may be <c>null</c> for latest.</param>
         /// <param name="flags">Flags.</param>
         /// <exception cref="ArgumentNullException">If <paramref name="typelibDir"/>
-        /// or <paramref name="@namespace"/> is <c>null<c/>.</exception>
+        /// or <paramref name="namespace"/> is <c>null<c/>.</exception>
         /// <exception cref="GErrorException">On failure.</exception>
         /// <remarks>
-        /// If <paramref name="@namespace"/> is not loaded, this function will
+        /// If <paramref name="namespace"/> is not loaded, this function will
         /// search for a ".typelib" file within the private directory only. In
         /// addition, a version <paramref name="version"/> of namespace may be
         /// specified. If <paramref name="version"/> is not specified, the latest
@@ -344,7 +355,7 @@ namespace GISharp.GI
                 throw new ArgumentNullException ("typelibDir");
             }
             if (@namespace == null) {
-                throw new ArgumentNullException ("@namespace");
+                throw new ArgumentNullException ("namespace");
             }
             IntPtr native_typelib_dir = MarshalG.StringToUtf8Ptr (typelibDir);
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
