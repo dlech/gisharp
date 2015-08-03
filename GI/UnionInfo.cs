@@ -66,7 +66,7 @@ namespace GISharp.GI
 
         public IndexedCollection<ConstantInfo> Discriminators {
             get {
-                return new IndexedCollection<ConstantInfo> (() => NFields, GetDiscriminator);
+                return new IndexedCollection<ConstantInfo> (() => IsDiscriminated ? NFields : 0, GetDiscriminator);
             }
         }
 

@@ -4,6 +4,14 @@ namespace GISharp.Browser
 {
 	public partial class MainWindow
 	{
+		private global::Gtk.VBox vbox5;
+		
+		private global::Gtk.HButtonBox hbuttonbox1;
+		
+		private global::Gtk.Button backButton;
+		
+		private global::Gtk.Button forwardButton;
+		
 		private global::Gtk.HBox hbox1;
 		
 		private global::Gtk.VBox vbox1;
@@ -26,7 +34,7 @@ namespace GISharp.Browser
 		
 		private global::Gtk.ScrolledWindow scrolledwindow3;
 		
-		private global::Gtk.NodeView infoNodeview;
+		private global::Gtk.TreeView infoTreeview;
 		
 		private global::Gtk.Label GtkLabel2;
 		
@@ -74,14 +82,53 @@ namespace GISharp.Browser
 			this.Title = global::Mono.Unix.Catalog.GetString ("GObject Introspection Browser");
 			this.Icon = global::Stetic.IconLoader.LoadIcon (this, "stock_smiley-3", global::Gtk.IconSize.Menu);
 			this.WindowPosition = ((global::Gtk.WindowPosition)(1));
+			this.BorderWidth = ((uint)(15));
 			this.DefaultWidth = 600;
 			this.DefaultHeight = 300;
 			// Container child GISharp.Browser.MainWindow.Gtk.Container+ContainerChild
+			this.vbox5 = new global::Gtk.VBox ();
+			this.vbox5.Name = "vbox5";
+			this.vbox5.Spacing = 12;
+			// Container child vbox5.Gtk.Box+BoxChild
+			this.hbuttonbox1 = new global::Gtk.HButtonBox ();
+			this.hbuttonbox1.Name = "hbuttonbox1";
+			this.hbuttonbox1.Spacing = 6;
+			this.hbuttonbox1.LayoutStyle = ((global::Gtk.ButtonBoxStyle)(3));
+			// Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
+			this.backButton = new global::Gtk.Button ();
+			this.backButton.Sensitive = false;
+			this.backButton.CanFocus = true;
+			this.backButton.Name = "backButton";
+			this.backButton.UseStock = true;
+			this.backButton.UseUnderline = true;
+			this.backButton.Label = "gtk-go-back";
+			this.hbuttonbox1.Add (this.backButton);
+			global::Gtk.ButtonBox.ButtonBoxChild w1 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1 [this.backButton]));
+			w1.Expand = false;
+			w1.Fill = false;
+			// Container child hbuttonbox1.Gtk.ButtonBox+ButtonBoxChild
+			this.forwardButton = new global::Gtk.Button ();
+			this.forwardButton.Sensitive = false;
+			this.forwardButton.CanFocus = true;
+			this.forwardButton.Name = "forwardButton";
+			this.forwardButton.UseStock = true;
+			this.forwardButton.UseUnderline = true;
+			this.forwardButton.Label = "gtk-go-forward";
+			this.hbuttonbox1.Add (this.forwardButton);
+			global::Gtk.ButtonBox.ButtonBoxChild w2 = ((global::Gtk.ButtonBox.ButtonBoxChild)(this.hbuttonbox1 [this.forwardButton]));
+			w2.Position = 1;
+			w2.Expand = false;
+			w2.Fill = false;
+			this.vbox5.Add (this.hbuttonbox1);
+			global::Gtk.Box.BoxChild w3 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbuttonbox1]));
+			w3.Position = 0;
+			w3.Expand = false;
+			w3.Fill = false;
+			// Container child vbox5.Gtk.Box+BoxChild
 			this.hbox1 = new global::Gtk.HBox ();
 			this.hbox1.HeightRequest = 600;
 			this.hbox1.Name = "hbox1";
 			this.hbox1.Spacing = 6;
-			this.hbox1.BorderWidth = ((uint)(12));
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbox1 = new global::Gtk.VBox ();
 			this.vbox1.WidthRequest = 500;
@@ -119,8 +166,8 @@ namespace GISharp.Browser
 			this.GtkLabel1.UseMarkup = true;
 			this.frame3.LabelWidget = this.GtkLabel1;
 			this.hbox3.Add (this.frame3);
-			global::Gtk.Box.BoxChild w4 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.frame3]));
-			w4.Position = 0;
+			global::Gtk.Box.BoxChild w7 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.frame3]));
+			w7.Position = 0;
 			// Container child hbox3.Gtk.Box+BoxChild
 			this.frame4 = new global::Gtk.Frame ();
 			this.frame4.Name = "frame4";
@@ -136,11 +183,11 @@ namespace GISharp.Browser
 			this.scrolledwindow3.Name = "scrolledwindow3";
 			this.scrolledwindow3.ShadowType = ((global::Gtk.ShadowType)(1));
 			// Container child scrolledwindow3.Gtk.Container+ContainerChild
-			this.infoNodeview = new global::Gtk.NodeView ();
-			this.infoNodeview.CanFocus = true;
-			this.infoNodeview.Name = "infoNodeview";
-			this.infoNodeview.SearchColumn = 1;
-			this.scrolledwindow3.Add (this.infoNodeview);
+			this.infoTreeview = new global::Gtk.TreeView ();
+			this.infoTreeview.CanFocus = true;
+			this.infoTreeview.Name = "infoTreeview";
+			this.infoTreeview.SearchColumn = 0;
+			this.scrolledwindow3.Add (this.infoTreeview);
 			this.GtkAlignment4.Add (this.scrolledwindow3);
 			this.frame4.Add (this.GtkAlignment4);
 			this.GtkLabel2 = new global::Gtk.Label ();
@@ -149,12 +196,12 @@ namespace GISharp.Browser
 			this.GtkLabel2.UseMarkup = true;
 			this.frame4.LabelWidget = this.GtkLabel2;
 			this.hbox3.Add (this.frame4);
-			global::Gtk.Box.BoxChild w8 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.frame4]));
-			w8.PackType = ((global::Gtk.PackType)(1));
-			w8.Position = 1;
+			global::Gtk.Box.BoxChild w11 = ((global::Gtk.Box.BoxChild)(this.hbox3 [this.frame4]));
+			w11.PackType = ((global::Gtk.PackType)(1));
+			w11.Position = 1;
 			this.vbox1.Add (this.hbox3);
-			global::Gtk.Box.BoxChild w9 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox3]));
-			w9.Position = 0;
+			global::Gtk.Box.BoxChild w12 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.hbox3]));
+			w12.Position = 0;
 			// Container child vbox1.Gtk.Box+BoxChild
 			this.typeInfoFrame1 = new global::Gtk.Frame ();
 			this.typeInfoFrame1.WidthRequest = 400;
@@ -178,13 +225,13 @@ namespace GISharp.Browser
 			this.dependsLabel.Xalign = 0F;
 			this.dependsLabel.LabelProp = "<depends>";
 			this.table3.Add (this.dependsLabel);
-			global::Gtk.Table.TableChild w10 = ((global::Gtk.Table.TableChild)(this.table3 [this.dependsLabel]));
-			w10.TopAttach = ((uint)(2));
-			w10.BottomAttach = ((uint)(3));
-			w10.LeftAttach = ((uint)(1));
-			w10.RightAttach = ((uint)(2));
-			w10.XOptions = ((global::Gtk.AttachOptions)(4));
-			w10.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table3 [this.dependsLabel]));
+			w13.TopAttach = ((uint)(2));
+			w13.BottomAttach = ((uint)(3));
+			w13.LeftAttach = ((uint)(1));
+			w13.RightAttach = ((uint)(2));
+			w13.XOptions = ((global::Gtk.AttachOptions)(4));
+			w13.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.label6 = new global::Gtk.Label ();
 			this.label6.Name = "label6";
@@ -192,11 +239,11 @@ namespace GISharp.Browser
 			this.label6.LabelProp = global::Mono.Unix.Catalog.GetString ("Versions:");
 			this.label6.Justify = ((global::Gtk.Justification)(1));
 			this.table3.Add (this.label6);
-			global::Gtk.Table.TableChild w11 = ((global::Gtk.Table.TableChild)(this.table3 [this.label6]));
-			w11.TopAttach = ((uint)(1));
-			w11.BottomAttach = ((uint)(2));
-			w11.XOptions = ((global::Gtk.AttachOptions)(4));
-			w11.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.table3 [this.label6]));
+			w14.TopAttach = ((uint)(1));
+			w14.BottomAttach = ((uint)(2));
+			w14.XOptions = ((global::Gtk.AttachOptions)(4));
+			w14.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.label7 = new global::Gtk.Label ();
 			this.label7.Name = "label7";
@@ -204,11 +251,11 @@ namespace GISharp.Browser
 			this.label7.LabelProp = global::Mono.Unix.Catalog.GetString ("Depends:");
 			this.label7.Justify = ((global::Gtk.Justification)(1));
 			this.table3.Add (this.label7);
-			global::Gtk.Table.TableChild w12 = ((global::Gtk.Table.TableChild)(this.table3 [this.label7]));
-			w12.TopAttach = ((uint)(2));
-			w12.BottomAttach = ((uint)(3));
-			w12.XOptions = ((global::Gtk.AttachOptions)(4));
-			w12.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.table3 [this.label7]));
+			w15.TopAttach = ((uint)(2));
+			w15.BottomAttach = ((uint)(3));
+			w15.XOptions = ((global::Gtk.AttachOptions)(4));
+			w15.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.label8 = new global::Gtk.Label ();
 			this.label8.Name = "label8";
@@ -216,11 +263,11 @@ namespace GISharp.Browser
 			this.label8.LabelProp = global::Mono.Unix.Catalog.GetString ("Shared Library:");
 			this.label8.Justify = ((global::Gtk.Justification)(1));
 			this.table3.Add (this.label8);
-			global::Gtk.Table.TableChild w13 = ((global::Gtk.Table.TableChild)(this.table3 [this.label8]));
-			w13.TopAttach = ((uint)(3));
-			w13.BottomAttach = ((uint)(4));
-			w13.XOptions = ((global::Gtk.AttachOptions)(4));
-			w13.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table3 [this.label8]));
+			w16.TopAttach = ((uint)(3));
+			w16.BottomAttach = ((uint)(4));
+			w16.XOptions = ((global::Gtk.AttachOptions)(4));
+			w16.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.label9 = new global::Gtk.Label ();
 			this.label9.Name = "label9";
@@ -228,46 +275,46 @@ namespace GISharp.Browser
 			this.label9.LabelProp = global::Mono.Unix.Catalog.GetString ("Path:");
 			this.label9.Justify = ((global::Gtk.Justification)(1));
 			this.table3.Add (this.label9);
-			global::Gtk.Table.TableChild w14 = ((global::Gtk.Table.TableChild)(this.table3 [this.label9]));
-			w14.XOptions = ((global::Gtk.AttachOptions)(4));
-			w14.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w17 = ((global::Gtk.Table.TableChild)(this.table3 [this.label9]));
+			w17.XOptions = ((global::Gtk.AttachOptions)(4));
+			w17.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.libraryLabel = new global::Gtk.Label ();
 			this.libraryLabel.Name = "libraryLabel";
 			this.libraryLabel.Xalign = 0F;
 			this.libraryLabel.LabelProp = "<library>";
 			this.table3.Add (this.libraryLabel);
-			global::Gtk.Table.TableChild w15 = ((global::Gtk.Table.TableChild)(this.table3 [this.libraryLabel]));
-			w15.TopAttach = ((uint)(3));
-			w15.BottomAttach = ((uint)(4));
-			w15.LeftAttach = ((uint)(1));
-			w15.RightAttach = ((uint)(2));
-			w15.XOptions = ((global::Gtk.AttachOptions)(4));
-			w15.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w18 = ((global::Gtk.Table.TableChild)(this.table3 [this.libraryLabel]));
+			w18.TopAttach = ((uint)(3));
+			w18.BottomAttach = ((uint)(4));
+			w18.LeftAttach = ((uint)(1));
+			w18.RightAttach = ((uint)(2));
+			w18.XOptions = ((global::Gtk.AttachOptions)(4));
+			w18.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.pathLabel = new global::Gtk.Label ();
 			this.pathLabel.Name = "pathLabel";
 			this.pathLabel.Xalign = 0F;
 			this.pathLabel.LabelProp = "<path>";
 			this.table3.Add (this.pathLabel);
-			global::Gtk.Table.TableChild w16 = ((global::Gtk.Table.TableChild)(this.table3 [this.pathLabel]));
-			w16.LeftAttach = ((uint)(1));
-			w16.RightAttach = ((uint)(2));
-			w16.XOptions = ((global::Gtk.AttachOptions)(4));
-			w16.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w19 = ((global::Gtk.Table.TableChild)(this.table3 [this.pathLabel]));
+			w19.LeftAttach = ((uint)(1));
+			w19.RightAttach = ((uint)(2));
+			w19.XOptions = ((global::Gtk.AttachOptions)(4));
+			w19.YOptions = ((global::Gtk.AttachOptions)(4));
 			// Container child table3.Gtk.Table+TableChild
 			this.versionsLabel = new global::Gtk.Label ();
 			this.versionsLabel.Name = "versionsLabel";
 			this.versionsLabel.Xalign = 0F;
 			this.versionsLabel.LabelProp = "<versions>";
 			this.table3.Add (this.versionsLabel);
-			global::Gtk.Table.TableChild w17 = ((global::Gtk.Table.TableChild)(this.table3 [this.versionsLabel]));
-			w17.TopAttach = ((uint)(1));
-			w17.BottomAttach = ((uint)(2));
-			w17.LeftAttach = ((uint)(1));
-			w17.RightAttach = ((uint)(2));
-			w17.XOptions = ((global::Gtk.AttachOptions)(4));
-			w17.YOptions = ((global::Gtk.AttachOptions)(4));
+			global::Gtk.Table.TableChild w20 = ((global::Gtk.Table.TableChild)(this.table3 [this.versionsLabel]));
+			w20.TopAttach = ((uint)(1));
+			w20.BottomAttach = ((uint)(2));
+			w20.LeftAttach = ((uint)(1));
+			w20.RightAttach = ((uint)(2));
+			w20.XOptions = ((global::Gtk.AttachOptions)(4));
+			w20.YOptions = ((global::Gtk.AttachOptions)(4));
 			this.GtkAlignment2.Add (this.table3);
 			this.typeInfoFrame1.Add (this.GtkAlignment2);
 			this.typeInfoLabel1 = new global::Gtk.Label ();
@@ -276,14 +323,14 @@ namespace GISharp.Browser
 			this.typeInfoLabel1.UseMarkup = true;
 			this.typeInfoFrame1.LabelWidget = this.typeInfoLabel1;
 			this.vbox1.Add (this.typeInfoFrame1);
-			global::Gtk.Box.BoxChild w20 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.typeInfoFrame1]));
-			w20.PackType = ((global::Gtk.PackType)(1));
-			w20.Position = 1;
-			w20.Expand = false;
-			w20.Fill = false;
+			global::Gtk.Box.BoxChild w23 = ((global::Gtk.Box.BoxChild)(this.vbox1 [this.typeInfoFrame1]));
+			w23.PackType = ((global::Gtk.PackType)(1));
+			w23.Position = 1;
+			w23.Expand = false;
+			w23.Fill = false;
 			this.hbox1.Add (this.vbox1);
-			global::Gtk.Box.BoxChild w21 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox1]));
-			w21.Position = 0;
+			global::Gtk.Box.BoxChild w24 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox1]));
+			w24.Position = 0;
 			// Container child hbox1.Gtk.Box+BoxChild
 			this.vbox2 = new global::Gtk.VBox ();
 			this.vbox2.WidthRequest = 400;
@@ -308,9 +355,9 @@ namespace GISharp.Browser
 			this.eventbox1 = new global::Gtk.EventBox ();
 			this.eventbox1.Name = "eventbox1";
 			this.typeInfoVbox.Add (this.eventbox1);
-			global::Gtk.Box.BoxChild w22 = ((global::Gtk.Box.BoxChild)(this.typeInfoVbox [this.eventbox1]));
-			w22.PackType = ((global::Gtk.PackType)(1));
-			w22.Position = 1;
+			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.typeInfoVbox [this.eventbox1]));
+			w25.PackType = ((global::Gtk.PackType)(1));
+			w25.Position = 1;
 			this.GtkAlignment1.Add (this.typeInfoVbox);
 			this.typeInfoFrame.Add (this.GtkAlignment1);
 			this.typeInfoLabel = new global::Gtk.Label ();
@@ -319,13 +366,16 @@ namespace GISharp.Browser
 			this.typeInfoLabel.UseMarkup = true;
 			this.typeInfoFrame.LabelWidget = this.typeInfoLabel;
 			this.vbox2.Add (this.typeInfoFrame);
-			global::Gtk.Box.BoxChild w25 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.typeInfoFrame]));
-			w25.Position = 0;
+			global::Gtk.Box.BoxChild w28 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.typeInfoFrame]));
+			w28.Position = 0;
 			this.hbox1.Add (this.vbox2);
-			global::Gtk.Box.BoxChild w26 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox2]));
-			w26.PackType = ((global::Gtk.PackType)(1));
-			w26.Position = 1;
-			this.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w29 = ((global::Gtk.Box.BoxChild)(this.hbox1 [this.vbox2]));
+			w29.PackType = ((global::Gtk.PackType)(1));
+			w29.Position = 1;
+			this.vbox5.Add (this.hbox1);
+			global::Gtk.Box.BoxChild w30 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox1]));
+			w30.Position = 1;
+			this.Add (this.vbox5);
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}

@@ -33,17 +33,17 @@ namespace GISharp.Browser
                     string.Join(", ", @namespace.Versions),
                     @namespace.Dependencies == null ? null : string.Join(", ", @namespace.Dependencies),
                     string.Join(", ", @namespace.SharedLibraries));
-                foreach (var info in @namespace.Infos) {
-                    window.AddInfo(info.InfoType.ToString(), info.Name, info.IsDeprecated);
-                }
+                window.AddInfo(new InfoTreeModelImpl (@namespace.Infos));
             };
             window.SelectedInfoChanged += (sender, e) => {
                 window.ClearTypeInfo();
-                if (e.Name == null) {
+                if (e.UserData == null) {
                     return;
                 }
-                var info = Repository.Namespaces[e.Namespace].FindByName(e.Name);
-                window.SetTypeInfo (info);
+                var node = e.UserData as InfoTreeModelImpl.Info;
+                if (node != null) {
+                    window.SetTypeInfo (node.BaseInfo);
+                }
             };
             manager.LoadAllTypelibs ();
 
@@ -51,4 +51,3 @@ namespace GISharp.Browser
         }
     }
 }
-

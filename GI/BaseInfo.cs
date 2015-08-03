@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GISharp.Core;
+using System.Text;
 
 namespace GISharp.GI
 {
@@ -198,15 +199,6 @@ namespace GISharp.GI
                 // calling g_base_info_get_name on a TypeInfo will cause a crash.
                 var typeInfo = this as TypeInfo;
                 if (typeInfo != null) {
-                    if (typeInfo.Tag == TypeTag.Interface) {
-                        return typeInfo.Interface.Name;
-                    }
-                    if (typeInfo.Tag == TypeTag.Array) {
-                        return typeInfo.ArrayType.ToString ();
-                    }
-                    if (typeInfo.Tag == TypeTag.Error) {
-                        return "Error";
-                    }
                     return null;
                 }
                 IntPtr raw_ret = g_base_info_get_name (Handle);
@@ -304,6 +296,20 @@ namespace GISharp.GI
                 Handle = IntPtr.Zero;
                 g_base_info_unref (oldHandle);
             }
+        }
+
+        public override string ToString ()
+        {
+            var builder = new StringBuilder ();
+            var current = this;
+            while (current != null) {
+                builder.Insert (0, current.Name ?? "<null>");
+                builder.Insert (0, ".");
+                builder.Insert (0, current.InfoType);
+                builder.Insert (0, ".");
+                current = current.Container;
+            }
+            return string.Format ("{0}{1}", Namespace, builder);
         }
     }
 }

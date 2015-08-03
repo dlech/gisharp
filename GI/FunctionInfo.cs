@@ -56,6 +56,11 @@ namespace GISharp.GI
 
         public PropertyInfo Property {
             get {
+                // Sometimes g_function_info_get_property will incorrectly return
+                // a non-null value when there is no property, so we check first.
+                if (!IsGetter && !IsSetter) {
+                    return null;
+                }
                 IntPtr raw_ret = g_function_info_get_property (Handle);
                 return MarshalPtr<PropertyInfo> (raw_ret);
             }

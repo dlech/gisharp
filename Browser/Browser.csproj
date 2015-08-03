@@ -53,6 +53,7 @@
     <Compile Include="RepositoryManager.cs" />
     <Compile Include="gtk-gui\generated.cs" />
     <Compile Include="gtk-gui\GISharp.Browser.MainWindow.cs" />
+    <Compile Include="InfoTreeModelImpl.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">

@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using System.Linq;
 
-using GISharp.GI;
 using Gtk;
-using System.Collections;
 
 namespace GISharp.Browser
 {
-    public partial class MainWindow : Gtk.Window
+    public partial class MainWindow : Window
     {
         static readonly string[] ignoredProperties = {
             "Attributes",
@@ -19,22 +18,32 @@ namespace GISharp.Browser
 
         static readonly string[] childProperties = {
             "Args",
-            "ClassStruct",
             "Constants",
             "Discriminators",
             "DiscriminatorType",
             "Fields",
-            "IfaceStruct",
             "Interfaces",
             "Methods",
             "Prerequisites",
             "Properties",
+            "Property",
             "ReturnTypeInfo",
             "Signals",
             "TypeInfo",
             "Values",
             "VFuncs",
         };
+
+        static readonly string[] linkProperties = {
+            "ClassStruct",
+            "IfaceStruct",
+            "Interface",
+            "Invoker",
+            "VFunc",
+        };
+
+        Stack<Tuple<TreePath, TreePath>> backStack = new Stack<Tuple<TreePath, TreePath>> ();
+        Stack<Tuple<TreePath, TreePath>> forwardStack = new Stack<Tuple<TreePath, TreePath>> ();
 
         public event EventHandler<SelectedNamespaceChangedEventArgs> SelectedNamespaceChanged;
 
@@ -43,6 +52,12 @@ namespace GISharp.Browser
         public MainWindow () : base (Gtk.WindowType.Toplevel)
         {
             Build ();
+
+            backButton.Label = null;
+            backButton.Image = new Image (Stock.GoBack, IconSize.Button);
+            forwardButton.Label = null;
+            forwardButton.Image = new Image (Stock.GoForward, IconSize.Button);
+            forwardButton.ImagePosition = PositionType.Right;
 
             namespaceNodeview.AppendColumn ("Namespace", new CellRendererText (), "text", 0);
             namespaceNodeview.AppendColumn ("Version", new CellRendererText (), "text", 1);
@@ -55,17 +70,15 @@ namespace GISharp.Browser
                 }
             };
 
-
-            infoNodeview.AppendColumn ("Type", new CellRendererText(), "text", 0);
-            infoNodeview.AppendColumn ("Name", new CellRendererText(), "text", 1, "strikethrough", 2);
-            infoNodeview.NodeStore = new NodeStore (typeof(InfoTreeNode));
-            infoNodeview.NodeSelection.Changed += (sender, e) => {
+            infoTreeview.AppendColumn ("Name", new CellRendererText(), "text", 0, "strikethrough", 1, "foreground", 2);
+            infoTreeview.Selection.Changed += (sender, e) => {
                 if (SelectedInfoChanged != null) {
-                    var selectedNamespaceNode = namespaceNodeview.NodeSelection.SelectedNode as NamespaceTreeNode;
-                    var @namespace = selectedNamespaceNode == null ? null : selectedNamespaceNode.Namespace;
-                    var selectedNode = infoNodeview.NodeSelection.SelectedNode as InfoTreeNode;
-                    var name = selectedNode == null ? null : selectedNode.Name;
-                    SelectedInfoChanged (this, new SelectedInfoChangedEventArgs (@namespace, name));
+                    object selected = null;
+                    TreeIter iter;
+                    if (infoTreeview.Selection.GetSelected(out iter) && iter.UserData != IntPtr.Zero) {
+                        selected = GCHandle.FromIntPtr (iter.UserData).Target;
+                    }
+                    SelectedInfoChanged (this, new SelectedInfoChangedEventArgs (selected));
                 }
             };
 
@@ -102,33 +115,42 @@ namespace GISharp.Browser
 
         public void ClearInfos()
         {
-            infoNodeview.NodeStore.Clear ();
+            infoTreeview.Model = null;
         }
 
-        public void AddInfo (string type, string name, bool isDeprecated)
+        public void AddInfo (TreeModelImplementor implementor)
         {
-            if (type == null) {
-                throw new ArgumentNullException ("type");
+            if (implementor== null) {
+                throw new ArgumentNullException ("implementor");
             }
-            if (name == null) {
-                throw new ArgumentNullException ("name");
-            }
-            infoNodeview.NodeStore.AddNode (new InfoTreeNode (type, name, isDeprecated));
+            infoTreeview.Model = new TreeModelAdapter (implementor);
         }
 
         public void ClearTypeInfo ()
         {
             typeInfoLabel.LabelProp = "<b>Type Info</b>";
-            typeInfoVbox.Remove (typeInfoVbox.Children.FirstOrDefault());
+            foreach (var child in typeInfoVbox.Children.ToArray ()) {
+                typeInfoVbox.Remove (child);
+            }
         }
 
         public void SetTypeInfo (object obj)
         {
+            var objValueLabel = new Label () {
+                LabelProp = string.Format ("<b>{0}</b>",
+                    System.Security.SecurityElement.Escape (obj.ToString ())),
+                UseMarkup = true,
+                Xalign = 0,
+            };
+            objValueLabel.Show ();
+            typeInfoVbox.PackStart (objValueLabel, false, false, 12);
+
             var properties = obj.GetType ().GetProperties ();
             var propertyTable = new Table ((uint)properties.Length, 2, false) {
                 RowSpacing = 6,
                 ColumnSpacing = 6
             };
+
             uint row = 0;
             foreach (var property in properties) {
                 
@@ -140,12 +162,20 @@ namespace GISharp.Browser
                     Xalign = 1
                 };
                 propertyTable.Attach (descLabel, 0, 1, row, row + 1);
-                var value = property.GetValue (obj) ?? "<null>";
-                var valueLabel = new Label () {
-                    LabelProp = value.ToString (),
-                    Xalign = 0,
-                };
-                propertyTable.Attach (valueLabel, 1, 2, row, row + 1);
+
+                var value = property.GetValue (obj);
+                if (linkProperties.Contains (property.Name) && value != null) {
+                    var linkLabel = new LinkButton ("", value.ToString ()) {
+                        Xalign = 0,
+                    };
+                    propertyTable.Attach (linkLabel, 1, 2, row, row + 1);
+                } else {
+                    var valueLabel = new Label () {
+                        LabelProp = (value ?? "<null>").ToString (),
+                        Xalign = 0,
+                    };
+                    propertyTable.Attach (valueLabel, 1, 2, row, row + 1);
+                }
                 row++;
             }
             propertyTable.ShowAll ();
@@ -201,13 +231,11 @@ namespace GISharp.Browser
 
     public class SelectedInfoChangedEventArgs : EventArgs
     {
-        public string Namespace { get; private set; }
-        public string Name { get; private set; }
+        public object UserData { get; private set; }
 
-        public SelectedInfoChangedEventArgs (string @namespace, string name)
+        public SelectedInfoChangedEventArgs (object userData)
         {
-            Namespace = @namespace;
-            Name = name;
+            UserData = userData;
         }
     }
 }
