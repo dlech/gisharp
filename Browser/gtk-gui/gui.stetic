@@ -43,6 +43,7 @@
             <child>
               <widget class="Gtk.Button" id="forwardButton">
                 <property name="MemberName" />
+                <property name="Visible">False</property>
                 <property name="Sensitive">False</property>
                 <property name="CanFocus">True</property>
                 <property name="UseStock">True</property>

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Diagnostics;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 using Gtk;
 
@@ -42,8 +43,8 @@ namespace GISharp.Browser
             "VFunc",
         };
 
-        Stack<Tuple<TreePath, TreePath>> backStack = new Stack<Tuple<TreePath, TreePath>> ();
-        Stack<Tuple<TreePath, TreePath>> forwardStack = new Stack<Tuple<TreePath, TreePath>> ();
+        Stack<string> backStack = new Stack<string> ();
+        Stack<string> forwardStack = new Stack<string> ();
 
         public event EventHandler<SelectedNamespaceChangedEventArgs> SelectedNamespaceChanged;
 
@@ -55,9 +56,11 @@ namespace GISharp.Browser
 
             backButton.Label = null;
             backButton.Image = new Image (Stock.GoBack, IconSize.Button);
+            backButton.Clicked += backButton_Clicked;
             forwardButton.Label = null;
             forwardButton.Image = new Image (Stock.GoForward, IconSize.Button);
             forwardButton.ImagePosition = PositionType.Right;
+            forwardButton.Clicked += forwardButton_Clicked;
 
             namespaceNodeview.AppendColumn ("Namespace", new CellRendererText (), "text", 0);
             namespaceNodeview.AppendColumn ("Version", new CellRendererText (), "text", 1);
@@ -142,6 +145,13 @@ namespace GISharp.Browser
                 UseMarkup = true,
                 Xalign = 0,
             };
+            objValueLabel.SizeAllocated += (o, args) => {
+                if (args.Allocation.Width < objValueLabel.ChildRequisition.Width) {
+                    objValueLabel.TooltipText = obj.ToString ();
+                } else {
+                    objValueLabel.TooltipText = null;
+                }
+            };
             objValueLabel.Show ();
             typeInfoVbox.PackStart (objValueLabel, false, false, 12);
 
@@ -165,8 +175,12 @@ namespace GISharp.Browser
 
                 var value = property.GetValue (obj);
                 if (linkProperties.Contains (property.Name) && value != null) {
-                    var linkLabel = new LinkButton ("", value.ToString ()) {
+                    var linkLabel = new LinkButton (string.Empty, value.ToString ()) {
                         Xalign = 0,
+                        HasTooltip = false,
+                    };
+                    linkLabel.Clicked += (sender, e) => {
+                        navigateTo (linkLabel.Label);
                     };
                     propertyTable.Attach (linkLabel, 1, 2, row, row + 1);
                 } else {
@@ -180,6 +194,99 @@ namespace GISharp.Browser
             }
             propertyTable.ShowAll ();
             typeInfoVbox.PackStart (propertyTable, false, false, 12);
+        }
+
+        void navigateTo (string infoPath, bool push = true)
+        {
+            if (push) {
+                InfoTreeModelImpl.Info selectedInfo = null;
+                TreeIter infoIter;
+                if (infoTreeview.Selection.GetSelected(out infoIter) && infoIter.UserData != IntPtr.Zero) {
+                    selectedInfo = GCHandle.FromIntPtr (infoIter.UserData).Target as InfoTreeModelImpl.Info;
+                }
+                if (selectedInfo == null) {
+                    Debug.Fail ("Could not get selected info.");
+                    return;
+                }
+
+                backStack.Push (selectedInfo.Namespace + "." + selectedInfo.Path);
+                backButton.Sensitive = true;
+                forwardStack.Clear ();
+                forwardButton.Sensitive = false;
+            }
+
+            var pathElements = infoPath.Split ('.');
+            TreeIter iter;
+
+            foreach (NamespaceTreeNode node in namespaceNodeview.NodeStore) {
+                if (node.Namespace == pathElements[0]) {
+                    namespaceNodeview.NodeSelection.SelectedNode = node;
+                    namespaceNodeview.Selection.GetSelected (out iter);
+                    var path = namespaceNodeview.Model.GetPath (iter);
+                    namespaceNodeview.ScrollToCell (path, namespaceNodeview.Columns[0], false, 0, 0);
+                    break;
+                }
+            }
+
+            infoTreeview.Model.IterChildren (out iter);
+            foreach (var element in pathElements.Skip (1)) {
+                do {
+                    if (iter.UserData == IntPtr.Zero) {
+                        continue;
+                    }
+                    var node = GCHandle.FromIntPtr (iter.UserData).Target as InfoTreeModelImpl.INode;
+                    if (node.Name == element) {
+                        if (!infoTreeview.Model.IterHasChild (iter)) {
+                            break;
+                        }
+                        if (infoTreeview.Model.IterChildren (out iter, iter)) {
+                            break;
+                        }
+                        throw new Exception ();
+                    }
+                } while (infoTreeview.Model.IterNext (ref iter));
+            }
+            var treePath = infoTreeview.Model.GetPath (iter);
+            if (treePath.Depth >= pathElements.Length) {
+                // if the target node had children, iter will be the first child
+                // so we have to go up a level to get the desired node.
+                treePath.Up ();
+                infoTreeview.Model.IterParent (out iter, iter);
+            }
+            infoTreeview.ExpandToPath (treePath);
+            infoTreeview.ScrollToCell (treePath, infoTreeview.Columns [0], false, 0, 0);
+            infoTreeview.Selection.SelectIter (iter);
+        }
+
+        void backButton_Clicked (object sender, EventArgs e)
+        {
+            if (backStack.Count == 0) {
+                Debug.Fail ("Empty back stack.");
+                return;
+            }
+            var destination = backStack.Pop ();
+            if (backStack.Count == 0) {
+                backButton.Sensitive = false;
+            }
+            navigateTo (destination, push: false);
+            // TODO: this should actuall be the current selection, not `destination`.
+            forwardStack.Push (destination);
+            forwardButton.Sensitive = true;
+        }
+
+        void forwardButton_Clicked (object sender, EventArgs e)
+        {
+            if (forwardStack.Count == 0) {
+                Debug.Fail ("Empty forward stack.");
+                return;
+            }
+            var destination = forwardStack.Pop ();
+            if (forwardStack.Count == 0) {
+                forwardButton.Sensitive = false;
+            }
+            navigateTo (destination, push: false);
+            backStack.Push (destination);
+            backButton.Sensitive = true;
         }
     }
 
@@ -197,26 +304,6 @@ namespace GISharp.Browser
 
         [TreeNodeValue (Column=1)]
         public string Version { get; private set; }
-    }
-
-    [TreeNode (ListOnly=true)]
-    public class InfoTreeNode : TreeNode
-    {
-        public InfoTreeNode (string type, string name, bool isDeprecated)
-        {
-            Type = type;
-            Name = name;
-            IsDeprecated = isDeprecated;
-        }
-
-        [TreeNodeValue (Column=0)]
-        public string Type { get; private set; }
-
-        [TreeNodeValue (Column=1)]
-        public string Name { get; private set; }
-
-        [TreeNodeValue (Column=2)]
-        public bool IsDeprecated { get; private set; }
     }
 
     public class SelectedNamespaceChangedEventArgs : EventArgs

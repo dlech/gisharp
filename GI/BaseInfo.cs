@@ -303,8 +303,10 @@ namespace GISharp.GI
             var builder = new StringBuilder ();
             var current = this;
             while (current != null) {
-                builder.Insert (0, current.Name ?? "<null>");
-                builder.Insert (0, ".");
+                if (current.Name != null) {
+                    builder.Insert (0, current.Name);
+                    builder.Insert (0, ".");
+                }
                 builder.Insert (0, current.InfoType);
                 builder.Insert (0, ".");
                 current = current.Container;

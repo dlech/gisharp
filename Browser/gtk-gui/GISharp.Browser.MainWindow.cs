@@ -379,6 +379,7 @@ namespace GISharp.Browser
 			if ((this.Child != null)) {
 				this.Child.ShowAll ();
 			}
+			this.forwardButton.Hide ();
 			this.Show ();
 		}
 	}

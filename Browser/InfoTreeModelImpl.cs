@@ -23,6 +23,7 @@ namespace GISharp.Browser
         {
             switch (index) {
             case 0:
+            case 2:
                 return GLib.GType.String;
             case 1:
                 return GLib.GType.Boolean;
@@ -190,6 +191,7 @@ namespace GISharp.Browser
             TreeIter Iter { get; }
             int Index { get; }
             string Name { get; }
+            string Path { get; }
             bool Deprecated { get; }
             INode Parent { get; }
             IReadOnlyList<INode> Children { get; }
@@ -200,6 +202,14 @@ namespace GISharp.Browser
             public TreeIter Iter { get; private set; }
             public int Index { get; private set; }
             public string Name { get; private set; }
+            public string Path {
+                get {
+                    if (Parent == null) {
+                        return Name;
+                    }
+                    return Parent.Path + "." + Name;
+                }
+            }
             public bool Deprecated { get { return false; } }
             public Info Parent { get; private set; }
             INode INode.Parent { get { return Parent; } }
@@ -225,6 +235,7 @@ namespace GISharp.Browser
             public int Index { get; private set; }
             public string Namespace { get { return BaseInfo.Namespace; } }
             public string Name { get { return BaseInfo.Name ?? "<unnamed>"; } }
+            public string Path { get { return Parent.Path + "." + Name; } }
             public bool Deprecated { get { return BaseInfo.IsDeprecated; } }
             public Group Parent { get; private set; }
             INode INode.Parent { get { return Parent; } }
@@ -299,4 +310,3 @@ namespace GISharp.Browser
         }
     }
 }
-
