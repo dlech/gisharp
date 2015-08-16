@@ -1,0 +1,352 @@
+﻿
+# Skip things already in .NET
+
+# charsets
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'ASCII_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'ascii_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Ascii')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Unicode')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'unicode_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'unichar_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'UNICHAR_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'ucs4_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'utf8_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'utf16_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'base64_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'locale_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'convert')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='ConvertError']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='IConv']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='iconv']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'filename_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'charset')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'codeset')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='NormalizeMode']"
+# crypto
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Hmac']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Rand']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'random_')]"
+# environment
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='listenv']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='MODULE_SUFFIX']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'getenv')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'setenv')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='UserDirectory']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'ENDIAN')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'hostname_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'WIN32_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SEARCHPATH_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SIZEOF_')]"
+# io
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'File')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Dir')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'DIR_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Mapped')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Stat')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'IO')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'io_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='access']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='chdir']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='close']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'mk')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='rmdir']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='unlink']"
+# math
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'MININT')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'MAXINT')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'MAXUINT')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'LN')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'LOG_2_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'PI')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='E']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='SQRT2']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'IEEE754')]"
+# memory
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='free']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'malloc')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'mem_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='memdup']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Mem')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'realloc')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'slice')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'try_')]"
+# print
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'print')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'_FORMAT')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'_MODIFIER')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='warn_message']"
+# process
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Pid']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'spawn_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Spawn')]"
+#regex
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Regex')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Match')]"
+# sleep
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='usleep']"
+# string
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'str')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'string_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'STR_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='stpcpy']"
+# test
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'assertion_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'test_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Test')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='assert_warning']"
+# thread
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'thread_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Thread')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'Mutex')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Once')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'pointer_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Cond']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Private']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='RWLock']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='AsyncQueue']"
+# timer
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Timer']"
+# uri
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'uri_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'URI_')]"
+# xml
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'markup_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Markup')]"
+
+
+# Other things that probably aren't needed
+
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='ANALYZER_ANALYZING']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'HAVE_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'INLINE')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'GNUC_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'atomic_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'return_if_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'on_error_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Print')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Checksum')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'compute_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'_application_name')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'_prgname')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'get_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='reload_user_special_dirs_cache']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='basename']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'path_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'build_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'format_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='find_program_in_path']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'bit_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='spaced_primes_closest']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='atexit']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='parse_debug_string']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='qsort_with_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='clear_pointer']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='nullify_pointer']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='FormatSizeFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='DebugKey']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Scanner')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Token')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'CSET_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Shell')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'shell_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Option')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'option_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'OPTION_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Pattern')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'pattern_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Bookmark')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'datalist_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'DATALIST_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'dataset_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SYSDEF_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='SourcePrivate']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'gettext')]"
+
+# TimeSpan
+
+# move constants to alias
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]" "gi:repository/gi:namespace/gi:alias[@name='TimeSpan']"
+# drop prefix from moved constants
+chattr "name" "TIME_SPAN_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='TimeSpan']/gi:constant[starts-with(@name,'TIME_SPAN_')]"
+
+# Time
+
+# ignore it since it is deprecated and probably not useful
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Time']"
+
+# Type
+
+# ignore it since it is actually defined in GObject
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+# ignore the two functions that use GType
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='strv_get_type']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='variant_get_gtype']"
+
+# Quark
+
+# Move quark_ functions to Quark alias
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
+# Skip quark_from_static_string since it is not useful in a managed language
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='quark_from_static_string']"
+# Drop the quark_ prefix from the function names
+chattr "name" "quark_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[starts-with(@name,'quark_')]"
+# Move intern_ functions to Quark alias
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
+# Skip intern_static_string since it is not useful in a managed language
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_static_string']"
+
+# ChildWatch
+
+# add a static class for child_watch_ functions
+addelement "<gs:static-class name='ChildWatch' />" "gi:repository/gi:namespace"
+# Move child_watch_ functions to ChildWatch static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'child_watch_')]" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']"
+# Drop the child_ prefix from the function names
+chattr "name" "child_watch_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']/gi:function[starts-with(@name,'child_watch_')]"
+chattr "shadows" "child_watch_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']/gi:function[starts-with(@shadows,'child_watch_')]"
+
+# Date
+
+# Change constant DATE_BAD_DAY type to match DateDay type
+chattr "name" "" "guint8" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_DAY']/gi:type"
+chattr "c:type" "" "guint8" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_DAY']/gi:type"
+# Change constant DATE_BAD_YEAR type to match DateYear type
+chattr "name" "" "guint16" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_YEAR']/gi:type"
+chattr "c:type" "" "guint16" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_YEAR']/gi:type"
+# Move constant DATE_ constants to the record Date
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name, 'DATE_')]" "gi:repository/gi:namespace/gi:record[@name='Date']"
+# Drop the DATE_ prefix from the constant names
+chattr "name" "DATE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:constant[starts-with(@name,'DATE_')]"
+
+# Error
+
+# Move some functions to the Error record
+move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'set_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'prefix_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'propagate_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'clear_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
+
+# File
+
+# add a static class for file_ functions
+addelement "<gs:static-class name='File' />" "gi:repository/gi:namespace"
+# Move file_ functions to File static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'file_')]" "gi:repository/gi:namespace/gs:static-class[@name='File']"
+# Drop the file_ prefix from the function names
+chattr "name" "file_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='File']/gi:function[starts-with(@name,'file_')]"
+
+# HashTable
+
+# unmark str_ functions as skipped since they are ignored above
+chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[@name='str_equal']"
+chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[@name='str_hash']"
+# move some functions
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'direct_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'double_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'int_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'int64_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+move "gi:repository/gi:namespace/gi:function[@name='str_equal']" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+move "gi:repository/gi:namespace/gi:function[@name='str_hash']" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+
+# Idle
+
+# add a static class for idle_ functions
+addelement "<gs:static-class name='Idle' />" "gi:repository/gi:namespace"
+# Move idle_ functions to Idle static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]" "gi:repository/gi:namespace/gs:static-class[@name='Idle']"
+# Drop the idle_ prefix from the function names
+chattr "name" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@name,'idle_')]"
+chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@shadows,'idle_')]"
+
+# KeyFile
+
+# Move constants that start with KEY_FILE_ to the KeyFile type
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]" "gi:repository/gi:namespace/gi:record[@name='KeyFile']"
+# Drop the KEY_FILE_ prefix from the constant names
+chattr "name" "KEY_FILE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]"
+
+# Log
+
+# add a static class for log_ functions
+addelement "<gs:static-class name='Log' />" "gi:repository/gi:namespace"
+# Move LOG_ constants to Log static-class
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]" "gi:repository/gi:namespace/gs:static-class[@name='Log']"
+# Drop the LOG_ prefix from the function names
+chattr "name" "LOG_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:constant[starts-with(@name,'LOG_')]"
+# Move log functions to Log static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'log')]" "gi:repository/gi:namespace/gs:static-class[@name='Log']"
+# Drop the log_ prefix from the function names
+chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[starts-with(@name,'log_')]"
+
+# MainContext
+
+# move some functions to MainContext record
+move "gi:repository/gi:namespace/gi:function[@name='main_depth']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
+move "gi:repository/gi:namespace/gi:function[@name='poll']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
+
+# Priority
+
+# add a static class for priority related stuff
+addelement "<gs:static-class name='Priority' />" "gi:repository/gi:namespace"
+# Move PRIORITY_ constants to Version static-class
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "gi:repository/gi:namespace/gs:static-class[@name='Priority']"
+# Drop the PRIORITY_ prefix from the constant names
+chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
+# move main_current_source function to Source record
+move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
+
+# Source
+
+# Move SOURCE_ constants to Source record
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]" "gi:repository/gi:namespace/gi:record[@name='Source']"
+# Drop the SOURCE_ prefix from the constant names
+chattr "name" "SOURCE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constant[starts-with(@name,'SOURCE_')]"
+
+# TimeoutSource
+
+# add a static class for timeout_source_ functions
+addelement "<gs:static-class name='TimeoutSource' />" "gi:repository/gi:namespace"
+# Move timeout_source_ functions to TimeoutSource static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_source_')]" "gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']"
+# Drop the timeout_source_ prefix from the function names
+chattr "name" "timeout_source_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']/gi:function[starts-with(@name,'timeout_source_')]"
+
+# Timeout
+
+# add a static class for timeout_ functions
+addelement "<gs:static-class name='Timeout' />" "gi:repository/gi:namespace"
+# Move timeout_ functions to Timeout static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']"
+# Drop the timeout_ prefix from the function names
+chattr "name" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@name,'timeout_')]"
+
+# UnixSignal
+
+# add a static class for unix_signal_ functions
+addelement "<gs:static-class name='UnixSignal' />" "gi:repository/gi:namespace"
+# Move unix_signal_ functions to UnixSignal static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_')]" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']"
+# Drop the unix_signal_ prefix from the function names
+chattr "name" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[starts-with(@name,'unix_signal_')]"
+
+# Unix
+
+# add a static class for unix_ functions
+addelement "<gs:static-class name='Unix' />" "gi:repository/gi:namespace"
+# Move unix_ functions to Unix static-class
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_')]" "gi:repository/gi:namespace/gs:static-class[@name='Unix']"
+# Drop the unix_ prefix from the function names
+chattr "name" "unix_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Unix']/gi:function[starts-with(@name,'unix_')]"
+
+# Version
+
+# add a static class for version related stuff
+addelement "<gs:static-class name='Version' />" "gi:repository/gi:namespace"
+# Move VERSION constants to Version static-class
+move "gi:repository/gi:namespace/gi:constant[contains(@name,'VERSION')]" "gi:repository/gi:namespace/gs:static-class[@name='Version']"
+# Drop the VERSION prefix or suffix from the constant names
+chattr "name" "(.*)_?VERSION_?(.*)" "$1$2" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
+# Move check_version function to Version static-class
+move "gi:repository/gi:namespace/gi:function[@name ='check_version']" "gi:repository/gi:namespace/gs:static-class[@name='Version']"
+# Drop the _version suffix from the function names
+chattr "name" "(.*)_version" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function"

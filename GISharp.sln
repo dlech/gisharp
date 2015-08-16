@@ -21,6 +21,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject", "GObject\GObject.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GirBrowser", "GirBrowser\GirBrowser.csproj", "{983B6AF3-3996-4723-8EB4-471BCBD4B6B5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -59,6 +61,10 @@ Global
 		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{983B6AF3-3996-4723-8EB4-471BCBD4B6B5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{983B6AF3-3996-4723-8EB4-471BCBD4B6B5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{983B6AF3-3996-4723-8EB4-471BCBD4B6B5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{983B6AF3-3996-4723-8EB4-471BCBD4B6B5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU

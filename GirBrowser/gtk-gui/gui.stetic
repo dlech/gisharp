@@ -1,0 +1,410 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<stetic-interface>
+  <configuration>
+    <images-root-path>..</images-root-path>
+    <target-gtk-version>2.12</target-gtk-version>
+  </configuration>
+  <import>
+    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
+    <widget-library name="../bin/Any/GirBrowser.exe" internal="true" />
+  </import>
+  <widget class="Gtk.Window" id="MainWindow" design-size="1222 688">
+    <property name="MemberName" />
+    <property name="Title" translatable="yes">GISharp Gir File Browser</property>
+    <property name="WindowPosition">Center</property>
+    <property name="BorderWidth">12</property>
+    <signal name="DeleteEvent" handler="OnDeleteEvent" />
+    <child>
+      <widget class="Gtk.VBox" id="vbox2">
+        <property name="MemberName" />
+        <property name="Spacing">6</property>
+        <child>
+          <widget class="Gtk.HBox" id="hbox3">
+            <property name="MemberName" />
+            <property name="Homogeneous">True</property>
+            <property name="Spacing">6</property>
+            <child>
+              <widget class="Gtk.Frame" id="frame1">
+                <property name="MemberName" />
+                <child>
+                  <widget class="Gtk.Alignment" id="GtkAlignment">
+                    <property name="MemberName" />
+                    <property name="Xalign">0</property>
+                    <property name="Yalign">0</property>
+                    <property name="LeftPadding">12</property>
+                    <child>
+                      <widget class="Gtk.VBox" id="vbox1">
+                        <property name="MemberName" />
+                        <property name="Spacing">6</property>
+                        <property name="BorderWidth">6</property>
+                        <child>
+                          <widget class="Gtk.HBox" id="hbox2">
+                            <property name="MemberName" />
+                            <property name="Spacing">6</property>
+                            <child>
+                              <widget class="Gtk.Label" id="label1">
+                                <property name="MemberName" />
+                                <property name="LabelProp" translatable="yes">Gir file:</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">0</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Entry" id="girFileNameEntry">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="IsEditable">True</property>
+                                <property name="InvisibleChar">•</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">1</property>
+                                <property name="AutoSize">True</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="girBrowseButton">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextOnly</property>
+                                <property name="Label" translatable="yes">_Browse</property>
+                                <property name="UseUnderline">True</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">2</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="girLoadButton">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextOnly</property>
+                                <property name="Label" translatable="yes">_Load</property>
+                                <property name="UseUnderline">True</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">3</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="Position">0</property>
+                            <property name="AutoSize">True</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.HPaned" id="hpaned1">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Position">299</property>
+                            <child>
+                              <widget class="Gtk.ScrolledWindow" id="scrolledwindow1">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="ShadowType">In</property>
+                                <child>
+                                  <widget class="Gtk.TreeView" id="girTreeView">
+                                    <property name="MemberName" />
+                                    <property name="CanFocus">True</property>
+                                    <property name="SearchColumn">1</property>
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="Resize">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.VPaned" id="vpaned1">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Position">165</property>
+                                <child>
+                                  <widget class="Gtk.ScrolledWindow" id="scrolledwindow2">
+                                    <property name="MemberName" />
+                                    <property name="CanFocus">True</property>
+                                    <property name="ShadowType">In</property>
+                                    <child>
+                                      <widget class="Gtk.NodeView" id="girAttrNodeView">
+                                        <property name="MemberName" />
+                                        <property name="CanFocus">True</property>
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="Resize">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow">
+                                    <property name="MemberName" />
+                                    <property name="ShadowType">In</property>
+                                    <child>
+                                      <widget class="Gtk.TextView" id="girTextView">
+                                        <property name="MemberName" />
+                                        <property name="CanFocus">True</property>
+                                        <property name="ShowScrollbars">True</property>
+                                        <property name="Editable">False</property>
+                                        <property name="Text" translatable="yes" />
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="Position">1</property>
+                            <property name="AutoSize">True</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="GtkLabel2">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Source Gir&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="type">label_item</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">0</property>
+                <property name="AutoSize">False</property>
+              </packing>
+            </child>
+            <child>
+              <widget class="Gtk.Frame" id="frame2">
+                <property name="MemberName" />
+                <child>
+                  <widget class="Gtk.Alignment" id="GtkAlignment1">
+                    <property name="MemberName" />
+                    <property name="Xalign">0</property>
+                    <property name="Yalign">0</property>
+                    <property name="LeftPadding">12</property>
+                    <child>
+                      <widget class="Gtk.VBox" id="vbox3">
+                        <property name="MemberName" />
+                        <property name="Spacing">6</property>
+                        <property name="BorderWidth">6</property>
+                        <child>
+                          <widget class="Gtk.HBox" id="hbox4">
+                            <property name="MemberName" />
+                            <property name="Spacing">6</property>
+                            <child>
+                              <widget class="Gtk.Label" id="label3">
+                                <property name="MemberName" />
+                                <property name="LabelProp" translatable="yes">Fixup file:</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">0</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Entry" id="fixupFileNameEntry">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="IsEditable">True</property>
+                                <property name="InvisibleChar">•</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">1</property>
+                                <property name="AutoSize">True</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="fixupBrowseButton">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextOnly</property>
+                                <property name="Label" translatable="yes">B_rowse</property>
+                                <property name="UseUnderline">True</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">2</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.Button" id="fixupApplyButton">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Type">TextOnly</property>
+                                <property name="Label" translatable="yes">_Apply</property>
+                                <property name="UseUnderline">True</property>
+                              </widget>
+                              <packing>
+                                <property name="Position">3</property>
+                                <property name="AutoSize">True</property>
+                                <property name="Expand">False</property>
+                                <property name="Fill">False</property>
+                              </packing>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="Position">0</property>
+                            <property name="AutoSize">True</property>
+                            <property name="Expand">False</property>
+                            <property name="Fill">False</property>
+                          </packing>
+                        </child>
+                        <child>
+                          <widget class="Gtk.HPaned" id="hpaned2">
+                            <property name="MemberName" />
+                            <property name="CanFocus">True</property>
+                            <property name="Position">299</property>
+                            <child>
+                              <widget class="Gtk.ScrolledWindow" id="scrolledwindow3">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="ShadowType">In</property>
+                                <child>
+                                  <widget class="Gtk.TreeView" id="fixupTreeView">
+                                    <property name="MemberName" />
+                                    <property name="CanFocus">True</property>
+                                    <property name="SearchColumn">1</property>
+                                  </widget>
+                                </child>
+                              </widget>
+                              <packing>
+                                <property name="Resize">False</property>
+                              </packing>
+                            </child>
+                            <child>
+                              <widget class="Gtk.VPaned" id="vpaned2">
+                                <property name="MemberName" />
+                                <property name="CanFocus">True</property>
+                                <property name="Position">139</property>
+                                <child>
+                                  <widget class="Gtk.ScrolledWindow" id="scrolledwindow4">
+                                    <property name="MemberName" />
+                                    <property name="CanFocus">True</property>
+                                    <property name="ShadowType">In</property>
+                                    <child>
+                                      <widget class="Gtk.NodeView" id="fixupAttrNodeView">
+                                        <property name="MemberName" />
+                                        <property name="CanFocus">True</property>
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                  <packing>
+                                    <property name="Resize">False</property>
+                                  </packing>
+                                </child>
+                                <child>
+                                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow1">
+                                    <property name="MemberName" />
+                                    <property name="ShadowType">In</property>
+                                    <child>
+                                      <widget class="Gtk.TextView" id="fixupTextView">
+                                        <property name="MemberName" />
+                                        <property name="CanFocus">True</property>
+                                        <property name="ShowScrollbars">True</property>
+                                        <property name="Editable">False</property>
+                                        <property name="Text" translatable="yes" />
+                                      </widget>
+                                    </child>
+                                  </widget>
+                                </child>
+                              </widget>
+                            </child>
+                          </widget>
+                          <packing>
+                            <property name="Position">1</property>
+                            <property name="AutoSize">True</property>
+                          </packing>
+                        </child>
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+                <child>
+                  <widget class="Gtk.Label" id="GtkLabel7">
+                    <property name="MemberName" />
+                    <property name="LabelProp" translatable="yes">&lt;b&gt;Fixup&lt;/b&gt;</property>
+                    <property name="UseMarkup">True</property>
+                  </widget>
+                  <packing>
+                    <property name="type">label_item</property>
+                  </packing>
+                </child>
+              </widget>
+              <packing>
+                <property name="Position">1</property>
+                <property name="AutoSize">False</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">0</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+        <child>
+          <widget class="Gtk.Frame" id="frame3">
+            <property name="MemberName" />
+            <child>
+              <widget class="Gtk.Alignment" id="GtkAlignment2">
+                <property name="MemberName" />
+                <property name="Xalign">0</property>
+                <property name="Yalign">0</property>
+                <property name="LeftPadding">12</property>
+                <child>
+                  <widget class="Gtk.ScrolledWindow" id="GtkScrolledWindow2">
+                    <property name="MemberName" />
+                    <property name="ShadowType">In</property>
+                    <property name="BorderWidth">12</property>
+                    <child>
+                      <widget class="Gtk.TextView" id="generatedTextView">
+                        <property name="MemberName" />
+                        <property name="CanFocus">True</property>
+                        <property name="ShowScrollbars">True</property>
+                        <property name="Editable">False</property>
+                        <property name="Text" translatable="yes" />
+                      </widget>
+                    </child>
+                  </widget>
+                </child>
+              </widget>
+            </child>
+            <child>
+              <widget class="Gtk.Label" id="GtkLabel8">
+                <property name="MemberName" />
+                <property name="LabelProp" translatable="yes">&lt;b&gt;Generated&lt;/b&gt;</property>
+                <property name="UseMarkup">True</property>
+              </widget>
+              <packing>
+                <property name="type">label_item</property>
+              </packing>
+            </child>
+          </widget>
+          <packing>
+            <property name="Position">1</property>
+            <property name="AutoSize">True</property>
+          </packing>
+        </child>
+      </widget>
+    </child>
+  </widget>
+</stetic-interface>
