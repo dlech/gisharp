@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using Gtk;
 using GISharp.GI;
 
-namespace GISharp.Browser
+namespace GISharp.TypelibBrowser
 {
     public class InfoTreeModelImpl : GLib.Object, TreeModelImplementor
     {

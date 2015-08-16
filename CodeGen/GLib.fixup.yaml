@@ -3080,7 +3080,7 @@ GLib.Function.win32_locale_filename_from_utf8:
     hidden:
 GLib.Constant.WIN32_HAVE_WIDECHAR_API:
     hidden:
-GLib.Constant.IN32_IS_NT_BASED:
+GLib.Constant.WIN32_IS_NT_BASED:
     hidden:
 GLib.Constant.WIN32_MSG_HANDLE:
     hidden:

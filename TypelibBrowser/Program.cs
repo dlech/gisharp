@@ -4,7 +4,7 @@ using System.Linq;
 using GISharp.GI;
 using Gtk;
 
-namespace GISharp.Browser
+namespace GISharp.TypelibBrowser
 {
     public class Program
     {

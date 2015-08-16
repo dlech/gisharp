@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}</ProjectGuid>
     <OutputType>Exe</OutputType>
-    <RootNamespace>GISharp.Browser</RootNamespace>
+    <RootNamespace>GISharp.TypelibBrowser</RootNamespace>
     <AssemblyName>GISharp.Browser</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -52,8 +52,8 @@
     <Compile Include="MainWindow.cs" />
     <Compile Include="RepositoryManager.cs" />
     <Compile Include="gtk-gui\generated.cs" />
-    <Compile Include="gtk-gui\GISharp.Browser.MainWindow.cs" />
     <Compile Include="InfoTreeModelImpl.cs" />
+    <Compile Include="gtk-gui\GISharp.TypelibBrowser.MainWindow.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="gtk-gui\gui.stetic">

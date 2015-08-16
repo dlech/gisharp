@@ -6,7 +6,7 @@ using System.Linq;
 using GISharp.GI;
 using System.IO;
 
-namespace GISharp.Browser
+namespace GISharp.TypelibBrowser
 {
     public class RepositoryManager
     {

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 using Gtk;
 
-namespace GISharp.Browser
+namespace GISharp.TypelibBrowser
 {
     public partial class MainWindow : Window
     {

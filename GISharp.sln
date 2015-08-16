@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GI.Test", "GI.Test\GI.Test.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "gtk-demo", "gtk-demo\gtk-demo.csproj", "{7D00FC6F-EC9D-4D3F-B7FB-4E6B6E87B97D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Browser", "Browser\Browser.csproj", "{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypelibBrowser", "TypelibBrowser\TypelibBrowser.csproj", "{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject
