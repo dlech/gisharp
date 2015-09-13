@@ -172,9 +172,9 @@ namespace GISharp.GLib
             if (value == null) {
                 throw new ArgumentNullException ("value");
             }
-            var valuePtr = GISharp.Core.MarshalG.StringToUtf8Ptr (value);
+            var valuePtr = MarshalG.StringToUtf8Ptr (value);
             Handle = g_variant_new_object_path (valuePtr);
-            GISharp.Core.MarshalG.Free (valuePtr);
+            MarshalG.Free (valuePtr);
             g_variant_ref_sink (Handle);
         }
 
@@ -236,6 +236,16 @@ namespace GISharp.GLib
             }
         }
 
+        IndexedCollection<Variant> childValues;
+        public IndexedCollection<Variant> ChildValues {
+            get {
+                if (childValues == null) {
+                    childValues = new IndexedCollection<Variant> (NChildren, GetChildValue);
+                }
+                return childValues;
+            }
+        }
+
         // explicit cast operators
 
         public static explicit operator bool (Variant value)
@@ -243,7 +253,7 @@ namespace GISharp.GLib
             if (value.VariantType != VariantType.Boolean) {
                 throw new InvalidCastException ();
             }
-            return value.GetBoolean ();
+            return value.Boolean;
         }
 
         public static explicit operator Variant (bool value)
@@ -256,7 +266,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Byte) {
                 throw new InvalidCastException ();
             }
-            return v.GetByte ();
+            return v.Byte;
         }
 
         public static explicit operator Variant (byte value)
@@ -269,7 +279,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.ByteString) {
                 throw new InvalidCastException ();
             }
-            return v.GetBytestring ();
+            return v.Bytestring;
         }
 
         public static explicit operator Variant (byte[] value)
@@ -295,7 +305,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Double) {
                 throw new InvalidCastException ();
             }
-            return v.GetDouble ();
+            return v.Double;
         }
 
         public static explicit operator Variant (double value)
@@ -308,7 +318,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.DBusHandle) {
                 throw new InvalidCastException ();
             }
-            return v.GetDBusHandle ();
+            return v.DBusHandle;
         }
 
         public static explicit operator Variant (DBusHandle value)
@@ -321,7 +331,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int16) {
                 throw new InvalidCastException ();
             }
-            return v.GetInt16 ();
+            return v.Int16;
         }
 
         public static explicit operator Variant (short value)
@@ -334,7 +344,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int32) {
                 throw new InvalidCastException ();
             }
-            return v.GetInt32 ();
+            return v.Int32;
         }
 
         public static explicit operator Variant (int value)
@@ -347,7 +357,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.Int64) {
                 throw new InvalidCastException ();
             }
-            return v.GetInt64 ();
+            return v.Int64;
         }
 
         public static explicit operator Variant (long value)
@@ -430,8 +440,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.StringArray) {
                 throw new InvalidCastException ();
             }
-            ulong length;
-            return v.GetStrv (out length);
+            return v.Strv;
         }
 
         public static explicit operator Variant (string[] value)
@@ -444,7 +453,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt16) {
                 throw new InvalidCastException ();
             }
-            return v.GetUint16 ();
+            return v.Uint16;
         }
 
         public static explicit operator Variant (ushort value)
@@ -457,7 +466,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt32) {
                 throw new InvalidCastException ();
             }
-            return v.GetUint32 ();
+            return v.Uint32;
         }
 
         public static explicit operator Variant (uint value)
@@ -470,7 +479,7 @@ namespace GISharp.GLib
             if (v.VariantType != VariantType.UInt64) {
                 throw new InvalidCastException ();
             }
-            return v.GetUint64 ();
+            return v.Uint64;
         }
 
         public static explicit operator Variant (ulong value)
@@ -483,7 +492,7 @@ namespace GISharp.GLib
             if (!v.VariantType.IsDictEntry) {
                 throw new InvalidCastException ();
             }
-            return new KeyValuePair<Variant, Variant> (v.ChildValues[0], v.childValues[1]);
+            return new KeyValuePair<Variant, Variant> (v.ChildValues[0], v.ChildValues[1]);
         }
 
         public static explicit operator Variant (KeyValuePair<Variant, Variant> value)

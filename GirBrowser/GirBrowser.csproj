@@ -9,7 +9,7 @@
     <AssemblyName>GirBrowser</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -18,35 +18,16 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <PlatformTarget>Any</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release' ">
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
     <DebugType>full</DebugType>
     <Optimize>true</Optimize>
     <OutputPath>bin\Release</OutputPath>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>false</ConsolePause>
-    <PlatformTarget>Any</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>
-    </DebugType>
-    <OutputPath>bin\Any</OutputPath>
-    <DefineConstants>
-    </DefineConstants>
-    <ConsolePause>true</ConsolePause>
-    <PlatformTarget>anycpu</PlatformTarget>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugSymbols>false</DebugSymbols>
-    <DebugType>
-    </DebugType>
-    <DefineConstants>
-    </DefineConstants>
-    <ConsolePause>true</ConsolePause>
-    <PlatformTarget>anycpu</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -84,12 +65,13 @@
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="GirTreeModel.cs" />
-    <Compile Include="Fixup.cs" />
     <Compile Include="CodeGen.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <None Include="GLib-2.0.girfixup" />
-    <None Include="girfixup-file-format.md" />
+    <ProjectReference Include="..\CodeGen\CodeGen.csproj">
+      <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
+      <Name>CodeGen</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

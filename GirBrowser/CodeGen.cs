@@ -84,7 +84,7 @@ namespace GirBrowser
                 default:
                     throw new ArgumentException (string.Format ("Bad constant type '{0}'.", constantType.BaseType));
                 }
-                var constant = new CodeMemberField (constantType, element.Attribute ("name").Value.ToPascalCase ()) {
+                var constant = new CodeMemberField (constantType, element.Attribute ("name").Value) {
                     InitExpression = new CodePrimitiveExpression (constantValue),
                     Attributes = MemberAttributes.Const | MemberAttributes.Public,
                 };
@@ -122,7 +122,7 @@ namespace GirBrowser
                 return new CodeCommentStatement (docString, docComment: true);
             case "field":
                 var fieldType = (CodeTypeReference)element.Element (gi + "type").ToCodeObject ();
-                var field = new CodeMemberField (fieldType, element.Attribute ("name").Value.ToCamelCase ());
+                var field = new CodeMemberField (fieldType, element.Attribute ("name").Value);
                 if (element.Attribute ("writeable") == null || element.Attribute ("writeable").Value != "1") {
                     // TODO: how to make readonly ?
                 }
@@ -140,7 +140,7 @@ namespace GirBrowser
                 }
                 return function;
             case "member":
-                var member = new CodeMemberField ("int", element.Attribute ("name").Value.ToPascalCase ()) {
+                var member = new CodeMemberField ("int", element.Attribute ("name").Value) {
                     InitExpression = new CodePrimitiveExpression (int.Parse (element.Attribute ("value").Value))
                 };
                 return member;

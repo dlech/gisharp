@@ -1,5 +1,6 @@
-﻿
-# Skip things already in .NET
+﻿###############################
+# Skip things already in .NET #
+###############################
 
 # charsets
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'ASCII_')]"
@@ -39,6 +40,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SEARCHP
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SIZEOF_')]"
 # io
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'File')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'file_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Dir')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'DIR_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Mapped')]"
@@ -51,6 +53,10 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='close']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'mk')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='rmdir']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='unlink']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='UnixFDSourceFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:method[@name='add_unix_fd']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:method[@name='modify_unix_fd']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:method[@name='query_unix_fd']"
 # math
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'MININT')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'MAXINT')]"
@@ -69,6 +75,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='memdup']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Mem')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'realloc')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'slice')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Slice')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'try_')]"
 # print
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'print')]"
@@ -79,12 +86,15 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='warn_message']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Pid']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'spawn_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Spawn')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ChildWatchFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'child_watch_')]"
 #regex
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Regex')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Match')]"
 # sleep
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='usleep']"
 # string
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'String')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'str')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'string_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'STR_')]"
@@ -104,6 +114,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Cond']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Private']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='RWLock']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='AsyncQueue']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name ='MainContext']/gi:method[@name='wait']"
 # timer
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Timer']"
 # uri
@@ -113,8 +124,9 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'URI_')]
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'markup_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Markup')]"
 
-
-# Other things that probably aren't needed
+############################################
+# Other things that probably aren't needed #
+############################################
 
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='ANALYZER_ANALYZING']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'HAVE_')]"
@@ -161,6 +173,38 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'dataset
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'SYSDEF_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='SourcePrivate']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'gettext')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'unix_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Hook')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'TrashStack')]"
+
+####################################################
+# Skip things that are implemented in GISharp.Core #
+####################################################
+
+# Array
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Array']"
+# HashTable
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HashFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='EqualFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HRFunc']"
+# List
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='List']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareDataFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Func']"
+# Node
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CopyFunc']"
+
+#########################
+# Fixup everything else #
+#########################
+
+# Date
+
+# rename function to replace obsolete function
+chattr "name" "" "set_time" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:method[@name='set_time_t']"
 
 # TimeSpan
 
@@ -173,6 +217,7 @@ chattr "name" "TIME_SPAN_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='
 
 # ignore it since it is deprecated and probably not useful
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Time']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:method[@name='set_time']"
 
 # Type
 
@@ -190,20 +235,30 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]" "gi:r
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='quark_from_static_string']"
 # Drop the quark_ prefix from the function names
 chattr "name" "quark_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[starts-with(@name,'quark_')]"
+# Make the quark_to_string function a method
+chelement "gi:method" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='to_string']"
+chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']/gi:parameters/gi:parameter[@name='quark']"
+move "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']/gi:parameters/gi:instance-parameter[@name='quark']" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']"
 # Move intern_ functions to Quark alias
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
 # Skip intern_static_string since it is not useful in a managed language
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_static_string']"
+# change the return type of intern_static_string so that it does not get marshaled
+chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_string']/gi:return-value/gi:type"
 
-# ChildWatch
+# ByteArray
 
-# add a static class for child_watch_ functions
-addelement "<gs:static-class name='ChildWatch' />" "gi:repository/gi:namespace"
-# Move child_watch_ functions to ChildWatch static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'child_watch_')]" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']"
-# Drop the child_ prefix from the function names
-chattr "name" "child_watch_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']/gi:function[starts-with(@name,'child_watch_')]"
-chattr "shadows" "child_watch_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='ChildWatch']/gi:function[starts-with(@shadows,'child_watch_')]"
+# Change functions to constructors and methods
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:function[contains(@name,'new')]"
+chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:function[gi:parameters/gi:parameter[@name='array']]"
+chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:method/gi:parameters/gi:parameter[@name='array']"
+
+# Bytes
+
+# hide constructors that are not useful in managed code
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_static']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_take']"
+chattr "pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']"
 
 # Date
 
@@ -218,6 +273,12 @@ move "gi:repository/gi:namespace/gi:constant[starts-with(@name, 'DATE_')]" "gi:r
 # Drop the DATE_ prefix from the constant names
 chattr "name" "DATE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:constant[starts-with(@name,'DATE_')]"
 
+# DateTime
+
+# duplicate constructors
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:constructor[starts-with(@name,'new_')]"
+chattr "name" "new_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_')]"
+
 # Error
 
 # Move some functions to the Error record
@@ -225,28 +286,6 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'set_error')]" "
 move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'prefix_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
 move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'propagate_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
 move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'clear_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
-
-# File
-
-# add a static class for file_ functions
-addelement "<gs:static-class name='File' />" "gi:repository/gi:namespace"
-# Move file_ functions to File static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'file_')]" "gi:repository/gi:namespace/gs:static-class[@name='File']"
-# Drop the file_ prefix from the function names
-chattr "name" "file_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='File']/gi:function[starts-with(@name,'file_')]"
-
-# HashTable
-
-# unmark str_ functions as skipped since they are ignored above
-chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[@name='str_equal']"
-chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[@name='str_hash']"
-# move some functions
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'direct_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'double_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'int_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'int64_')]" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
-move "gi:repository/gi:namespace/gi:function[@name='str_equal']" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
-move "gi:repository/gi:namespace/gi:function[@name='str_hash']" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
 
 # Idle
 
@@ -257,6 +296,8 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]" "gi:re
 # Drop the idle_ prefix from the function names
 chattr "name" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@name,'idle_')]"
 chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@shadows,'idle_')]"
+# set default value for priority parameter
+chattr "gs:default" "" "Priority.Default" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function/gi:parameters/gi:parameter[@name='priority']"
 
 # KeyFile
 
@@ -264,6 +305,15 @@ chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@n
 move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]" "gi:repository/gi:namespace/gi:record[@name='KeyFile']"
 # Drop the KEY_FILE_ prefix from the constant names
 chattr "name" "KEY_FILE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]"
+# Hide the free function since this is reference counted
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='free']"
+
+# List
+
+# Change functions to constructors and methods
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='List']/gi:function[contains(@name,'new')]"
+chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='List']/gi:function[gi:parameters/gi:parameter[@name='list']]"
+chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='List']/gi:method/gi:parameters/gi:parameter[@name='list']"
 
 # Log
 
@@ -283,6 +333,23 @@ chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name=
 # move some functions to MainContext record
 move "gi:repository/gi:namespace/gi:function[@name='main_depth']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
 move "gi:repository/gi:namespace/gi:function[@name='poll']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
+# rename function so that is shows up as property
+chattr "name" "" "get_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='default']"
+# ignore unneeded function
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='get_thread_default']"
+# fix parameter direction
+chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='query']/gi:parameters/gi:parameter[@name='n_fds']"
+
+# MainLoop
+
+# set default parameters for constructor
+chattr "gs:default" "" "null" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='context']"
+chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='is_running']"
+
+# Node
+
+# Rename the destory function so that it is used as the free function
+chattr "name" "" "free" "gi:repository/gi:namespace/gi:record[@name='Node']/gi:method[@name='destroy']"
 
 # Priority
 
@@ -292,8 +359,37 @@ addelement "<gs:static-class name='Priority' />" "gi:repository/gi:namespace"
 move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "gi:repository/gi:namespace/gs:static-class[@name='Priority']"
 # Drop the PRIORITY_ prefix from the constant names
 chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
-# move main_current_source function to Source record
-move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
+
+# PtrArray
+
+# Change functions to constructors and methods
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function[contains(@name,'new')]"
+chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function[gi:parameters/gi:parameter[@name='array']]"
+chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:method/gi:parameters/gi:parameter[@name='array']"
+
+# Queue
+
+# new function is constructor
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='Queue']/gi:function[contains(@name,'new')]"
+
+# Sequence
+
+# new function is constructor
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='Sequence']/gi:function[contains(@name,'new')]"
+
+# SequenceIter
+
+# Calling this is owned opaque for now even though it doesn't have a free function
+chattr "gs:opaque" "" "owned" "gi:repository/gi:namespace/gi:record[@name='SequenceIter']"
+
+# SList
+
+# make insert_before look like all of the other functions
+chattr "name" "" "list" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[@name='insert_before']/gi:parameters/gi:parameter[@name='slist']"
+# Change functions to constructors and methods
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[contains(@name,'new')]"
+chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[gi:parameters/gi:parameter[@name='list']]"
+chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:method/gi:parameters/gi:parameter[@name='list']"
 
 # Source
 
@@ -301,15 +397,63 @@ move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:r
 move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]" "gi:repository/gi:namespace/gi:record[@name='Source']"
 # Drop the SOURCE_ prefix from the constant names
 chattr "name" "SOURCE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constant[starts-with(@name,'SOURCE_')]"
+# rename function that conflicts with constant name
+chattr "name" "" "remove_by_tag" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']"
+# move main_current_source function to Source record
+move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
 
-# TimeoutSource
+# TimeZone
 
-# add a static class for timeout_source_ functions
-addelement "<gs:static-class name='TimeoutSource' />" "gi:repository/gi:namespace"
-# Move timeout_source_ functions to TimeoutSource static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_source_')]" "gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']"
-# Drop the timeout_source_ prefix from the function names
-chattr "name" "timeout_source_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']/gi:function[starts-with(@name,'timeout_source_')]"
+# duplicate constructors
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:constructor[starts-with(@name,'new_')]"
+chattr "name" "new_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:function[starts-with(@name,'new_')]"
+
+# Variant
+
+# rename method that conflicts with .NET Object.GetType()
+chattr "name" "" "get_variant_type" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
+# use ref_sink for ref function
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref']"
+chattr "name" "" "ref" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref_sink']"
+# skip other ref-related functions
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='take_ref']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='is_floating']"
+# don't need dup functions since marshaling does that anyway
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'dup_')]"
+# duplicate constructors
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_string']"
+# properties can't have the same name as the enclosing type
+chattr "name" "" "get_boxed_variant" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_variant']"
+# name conflicts with IWrappedNative.Handle
+chattr "name" "" "get_d_bus_handle" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_handle']"
+# these are both zero-terminated and have a length specified
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']/gi:parameters/gi:parameter[@name='strv']/gi:array"
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='dup_bytestring_array']/gi:return-value/gi:array"
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring_array']/gi:return-value/gi:array"
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_objv']/gi:parameters/gi:parameter[@name='strv']/gi:array"
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='dup_objv']/gi:return-value/gi:array"
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_objv']/gi:return-value/gi:array"
+# items with special implementations
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_from_data']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_handle']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_object_path']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_objv']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_signature']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring_array']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_objv']"
+# Hide functions that use GLib.String
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='print_string']"
+
+# VariantType
+
+# rename dup_string to to_string
+chattr "name" "" "to_string" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='dup_string']"
+# duplicate constructors
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_array']"
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_dict_entry']"
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_maybe']"
+chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_tuple']"
 
 # Timeout
 
@@ -319,24 +463,21 @@ addelement "<gs:static-class name='Timeout' />" "gi:repository/gi:namespace"
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']"
 # Drop the timeout_ prefix from the function names
 chattr "name" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@name,'timeout_')]"
+chattr "shadows" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@shadows,'timeout_')]"
+# set default value for priority parameter
+chattr "gs:default" "" "Priority.Default" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function/gi:parameters/gi:parameter[@name='priority']"
 
 # UnixSignal
 
 # add a static class for unix_signal_ functions
 addelement "<gs:static-class name='UnixSignal' />" "gi:repository/gi:namespace"
+# Unhide the unix_signal_functions
+chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_')]"
 # Move unix_signal_ functions to UnixSignal static-class
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_')]" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']"
 # Drop the unix_signal_ prefix from the function names
 chattr "name" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[starts-with(@name,'unix_signal_')]"
-
-# Unix
-
-# add a static class for unix_ functions
-addelement "<gs:static-class name='Unix' />" "gi:repository/gi:namespace"
-# Move unix_ functions to Unix static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_')]" "gi:repository/gi:namespace/gs:static-class[@name='Unix']"
-# Drop the unix_ prefix from the function names
-chattr "name" "unix_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Unix']/gi:function[starts-with(@name,'unix_')]"
+chattr "shadows" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[starts-with(@shadows,'unix_signal_')]"
 
 # Version
 

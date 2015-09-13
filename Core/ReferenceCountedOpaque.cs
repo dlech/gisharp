@@ -5,7 +5,7 @@ namespace GISharp.Core
     /// <summary>
     /// Base class for reference counted opaque structs
     /// </summary>
-    public abstract class ReferenceCountedOpaque<T> : INativeObject, IDisposable where T : ReferenceCountedOpaque<T>
+    public abstract class ReferenceCountedOpaque<T> : IWrappedNative, IDisposable where T : ReferenceCountedOpaque<T>
     {
         bool isDisposed;
 
@@ -84,7 +84,7 @@ namespace GISharp.Core
         /// Types that are reference counted must override this method.
         /// Has no effect for other types.
         /// </remarks>
-        public abstract T Ref ();
+        public abstract void Ref ();
 
         /// <summary>
         /// Decrease the reference count of a reference counted object.

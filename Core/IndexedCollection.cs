@@ -5,10 +5,10 @@ namespace GISharp.Core
 {
     public class IndexedCollection<T> : IEnumerable<T>
     {
-        Func<int> getCount;
-        Func<int, T> getInfoAtIndex;
+        System.Func<int> getCount;
+        System.Func<int, T> getInfoAtIndex;
 
-        public IndexedCollection (Func<int> getCount, Func<int, T> getInfoAtIndex)
+        public IndexedCollection (System.Func<int> getCount, System.Func<int, T> getInfoAtIndex)
         {
             if (getCount == null) {
                 throw new ArgumentException ("getCount");
@@ -18,6 +18,21 @@ namespace GISharp.Core
             }
             this.getCount = getCount;
             this.getInfoAtIndex = getInfoAtIndex;
+        }
+
+        public IndexedCollection (System.Func<uint> getCount, System.Func<uint, T> getInfoAtIndex)
+            : this (() => (int)getCount (), i => getInfoAtIndex ((uint)i))
+        {
+        }
+
+        public IndexedCollection (System.Func<long> getCount, System.Func<long, T> getInfoAtIndex)
+            : this (() => (int)getCount (), i => getInfoAtIndex (i))
+        {
+        }
+
+        public IndexedCollection (System.Func<ulong> getCount, System.Func<ulong, T> getInfoAtIndex)
+            : this (() => (int)getCount (), i => getInfoAtIndex ((ulong)i))
+        {
         }
 
         /// <summary>

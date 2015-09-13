@@ -2,7 +2,7 @@
 
 namespace GISharp.Core
 {
-    public class GObject : INativeObject
+    public class GObject : IWrappedNative
     {
         public IntPtr Handle { get; private set; }
 

@@ -20,8 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --namespace=GLib --output=${SolutionDir}/GLib/Generated" />
-        <Command type="Execute" command="${TargetFile} --namespace=GObject --output=${SolutionDir}/GObject/Generated" />
+        <Command type="Execute" command="${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0.girfixup --output=${SolutionDir}/GLib/Generated.cs" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -38,8 +37,49 @@
     <Reference Include="glib-sharp, Version=3.0.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f">
       <Package>glib-sharp-3.0</Package>
     </Reference>
-    <Reference Include="YamlDotNet">
-      <HintPath>..\packages\YamlDotNet.3.6.1\lib\net35\YamlDotNet.dll</HintPath>
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Collections.Immutable">
+      <HintPath>..\packages\System.Collections.Immutable.1.1.36\lib\portable-net45+win8+wp8+wpa81\System.Collections.Immutable.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Reflection.Metadata">
+      <HintPath>..\packages\System.Reflection.Metadata.1.0.21\lib\portable-net45+win8\System.Reflection.Metadata.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.1.0.0\lib\net45\Microsoft.CodeAnalysis.CSharp.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.Workspaces.Desktop">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.Workspaces.Common.1.0.0\lib\net45\Microsoft.CodeAnalysis.Workspaces.Desktop.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.CodeAnalysis.CSharp.Workspaces">
+      <HintPath>..\packages\Microsoft.CodeAnalysis.CSharp.Workspaces.1.0.0\lib\net45\Microsoft.CodeAnalysis.CSharp.Workspaces.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.AttributedModel">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.AttributedModel.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Convention">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Convention.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Hosting">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Hosting.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.Runtime">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Composition.TypedParts">
+      <HintPath>..\packages\Microsoft.Composition.1.0.30\lib\portable-net45+win8+wp8+wpa81\System.Composition.TypedParts.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Framework">
+      <HintPath>..\packages\MSBuild.0.1.2\tools\Unix\Microsoft.Build.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Build.Tasks.Core">
+      <HintPath>..\packages\MSBuild.0.1.2\tools\Unix\Microsoft.Build.Tasks.Core.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -47,25 +87,18 @@
     <Compile Include="Program.cs" />
     <Compile Include="CodeWriter.cs" />
     <Compile Include="Mono.Options\Options.cs" />
-    <Compile Include="Wrapped\BaseInfo.cs" />
-    <Compile Include="Wrapped\CallableInfo.cs" />
-    <Compile Include="Wrapped\FunctionInfo.cs" />
-    <Compile Include="Wrapped\SignalInfo.cs" />
-    <Compile Include="Wrapped\VFuncInfo.cs" />
-    <Compile Include="Wrapped\RegisteredTypeInfo.cs" />
-    <Compile Include="Wrapped\EnumInfo.cs" />
-    <Compile Include="Wrapped\InterfaceInfo.cs" />
-    <Compile Include="Wrapped\ObjectInfo.cs" />
-    <Compile Include="Wrapped\StructInfo.cs" />
-    <Compile Include="Wrapped\UnionInfo.cs" />
-    <Compile Include="Wrapped\ArgInfo.cs" />
-    <Compile Include="Wrapped\ConstantInfo.cs" />
-    <Compile Include="Wrapped\FieldInfo.cs" />
-    <Compile Include="Wrapped\PropertyInfo.cs" />
-    <Compile Include="Wrapped\TypeInfo.cs" />
-    <Compile Include="Wrapped\CallbackInfo.cs" />
-    <Compile Include="Wrapped\ValueInfo.cs" />
-    <Compile Include="Wrapped\Repository.cs" />
+    <Compile Include="Fixup.cs" />
+    <Compile Include="GirType.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="GirFieldInfo.cs" />
+    <Compile Include="IGirInfo.cs" />
+    <Compile Include="GirMethodInfo.cs" />
+    <Compile Include="GirParameterInfo.cs" />
+    <Compile Include="GirConstructorInfo.cs" />
+    <Compile Include="GirArrayType.cs" />
+    <Compile Include="GirByRefType.cs" />
+    <Compile Include="GirPropertyInfo.cs" />
+    <Compile Include="GirGenericType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -76,6 +109,25 @@
     <None Include="GObject.fixup.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Wrapped\BaseInfo.cs" />
+    <None Include="Wrapped\CallableInfo.cs" />
+    <None Include="Wrapped\FunctionInfo.cs" />
+    <None Include="Wrapped\SignalInfo.cs" />
+    <None Include="Wrapped\VFuncInfo.cs" />
+    <None Include="Wrapped\RegisteredTypeInfo.cs" />
+    <None Include="Wrapped\EnumInfo.cs" />
+    <None Include="Wrapped\InterfaceInfo.cs" />
+    <None Include="Wrapped\ObjectInfo.cs" />
+    <None Include="Wrapped\StructInfo.cs" />
+    <None Include="Wrapped\UnionInfo.cs" />
+    <None Include="Wrapped\ArgInfo.cs" />
+    <None Include="Wrapped\ConstantInfo.cs" />
+    <None Include="Wrapped\FieldInfo.cs" />
+    <None Include="Wrapped\PropertyInfo.cs" />
+    <None Include="Wrapped\TypeInfo.cs" />
+    <None Include="Wrapped\CallbackInfo.cs" />
+    <None Include="Wrapped\ValueInfo.cs" />
+    <None Include="Wrapped\Repository.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>

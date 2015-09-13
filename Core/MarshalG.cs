@@ -44,6 +44,11 @@ namespace GISharp.Core
             g_free (ptr);
         }
 
+        public static T PtrToIWrappedNative<T> (IntPtr ptr, bool owned) where T : IWrappedNative
+        {
+            throw new NotSupportedException ();
+        }
+
         /// <summary>
         /// Marshals pointer to unmanaged stuct to an Opaque object.
         /// </summary>
@@ -89,7 +94,7 @@ namespace GISharp.Core
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            var bytes = new List<byte> ();
+            var bytes = new System.Collections.Generic.List<byte> ();
             var offset = 0;
             while (true) {
                 var b = Marshal.ReadByte (ptr, offset++);
@@ -198,7 +203,7 @@ namespace GISharp.Core
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            var strings = new List<string> ();
+            var strings = new System.Collections.Generic.List<string> ();
             IntPtr current;
             var offset = 0;
             while ((current = Marshal.ReadIntPtr (ptr, offset)) != IntPtr.Zero) {
@@ -263,7 +268,7 @@ namespace GISharp.Core
         /// <param name="freePtr">If set to <c>true</c>, frees the GList.</param>
         public static string[] GListToStringArray (IntPtr ptr, bool freePtr = false)
         {
-            var ret = new List<string> ();
+            var ret = new System.Collections.Generic.List<string> ();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
                 var item = (GList)Marshal.PtrToStructure<GList> (itemPtr);
@@ -294,7 +299,7 @@ namespace GISharp.Core
         /// <param name="freePtr">If set to <c>true</c>, frees the GSList.</param>
         public static string[] GSListToStringArray (IntPtr ptr, bool freePtr = false)
         {
-            var ret = new List<string> ();
+            var ret = new System.Collections.Generic.List<string> ();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
                 var item = (GSList)Marshal.PtrToStructure<GSList> (itemPtr);

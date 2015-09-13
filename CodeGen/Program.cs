@@ -4,18 +4,17 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Text;
-using System.Text.RegularExpressions;
+using System.Xml.Linq;
 
-using GISharp.GI;
-using TypeInfo = GISharp.GI.TypeInfo;
-
+using GISharp.Core;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.CodeAnalysis.Formatting;
+using Microsoft.CodeAnalysis.MSBuild;
 using Mono.Options;
 
-using YamlDotNet.Serialization;
-using YamlDotNet.Serialization.NamingConventions;
-
-using FixupDictionary = System.Collections.Generic.Dictionary<string,
-System.Collections.Generic.Dictionary<string, string>>;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen
 {
@@ -23,12 +22,10 @@ namespace GISharp.CodeGen
     {
         internal const string parentNamespace = "GISharp";
 
-        internal static FixupDictionary fixup;
-
         static void PrintHelpAndExit (OptionSet options, int exitCode = 0)
         {
             var writer = exitCode == 0 ? Console.Out : Console.Error;
-            writer.WriteLine ("Usage: mono GICodeGen.exe [-n <namespace> | -h | -v]");
+            writer.WriteLine ("Usage: mono GICodeGen.exe [-r <repository-name> [-g <gir-directory>] [-f <fixup-file>] [-o <output-file>] | -h | -v]");
             writer.WriteLine ();
             options.WriteOptionDescriptions (writer);
             Environment.Exit (exitCode);
@@ -44,1980 +41,1773 @@ namespace GISharp.CodeGen
 
         public static void Main (string[] args)
         {
-            string namespaceName = null;
+            string repositoryName = null;
+            string girDirectory = null;
             string fixupFile = null;
-            string outputDirectory = null;
+            string outputFile = null;
 
             OptionSet options = null;
-            options = new OptionSet () {
-                {
+            options = new OptionSet () { {
                     "h|help",
                     "Print this message.",
                     v => PrintHelpAndExit (options)
-                },
-                {
+                }, {
                     "v|version",
                     "Print the program version infomation.",
                     v => PrintVersionAndExit ()
-                },
-                {
-                    "n=|namespace=",
-                    "The namespace to generate.",
-                    v => namespaceName = v
-                },
-                {
+                }, {
+                    "r=|repository=",
+                    "The repository to generate. Essentially this is the name of the .gir file without the .gir extension.",
+                    v => repositoryName = v
+                }, {
+                    "g=|gir-dir=",
+                    "The directory where the .gir file is located. By default /usr/share/gir-1.0/ will be used.",
+                    v => girDirectory = v
+                }, {
                     "f=|fixup=",
-                    "The name of the fixup.yaml file. By default '<namespace>.fixup.yaml' will be used.",
+                    "The name of the .girfixup file. By default '<namespace>.girfixup' will be used.",
                     v => fixupFile = v
-                },
-                {
+                }, {
                     "o=|output=",
-                    "The name of the output directory. By default './<namespace>/Generated' will be used.",
-                    v => outputDirectory = v
+                    "The name of the output file. By default './<namespace>/Generated.cs' will be used.",
+                    v => outputFile = v
                 },
             };
             var extraArgs = options.Parse (args);
-            if (namespaceName == null || extraArgs.Any ()) {
+            if (repositoryName == null || extraArgs.Any ()) {
                 Console.Error.WriteLine ("Bad arguments.");
                 Console.Error.WriteLine ();
                 PrintHelpAndExit (options, 1);
             }
 
-            fixupFile = fixupFile ?? namespaceName + ".fixup.yaml";
-            outputDirectory = outputDirectory ?? Path.Combine (namespaceName, "Generated");
+            // Analysis disable ConstantNullCoalescingCondition
+            var girFile = Path.Combine (girDirectory ?? "/usr/share/gir-1.0/", repositoryName + ".gir");
+            fixupFile = fixupFile ?? repositoryName + ".girfixup";
+            outputFile = outputFile ?? Path.Combine (repositoryName, "Generated");
+            // Analysis restore ConstantNullCoalescingCondition
 
-            Console.WriteLine ("Generating files for namespace '{0}'.", namespaceName);
+            Console.WriteLine ("Generating code for '{0}'.", Path.GetFullPath (girFile));
             Console.WriteLine ("Using fixup file '{0}'.", Path.GetFullPath (fixupFile));
-            Console.WriteLine ("Placing generated files in '{0}'.", Path.GetFullPath (outputDirectory));
+            Console.WriteLine ("Creating output file '{0}'.", Path.GetFullPath (outputFile));
 
-            using (var fs = File.OpenRead (fixupFile)) {
-                using (var sr = new StreamReader (fs)) {
-                    var deserializer = new Deserializer (namingConvention: new CamelCaseNamingConvention ());
-                    fixup = deserializer.Deserialize<FixupDictionary> (sr);
-                }
-            }
-            // if the file is empty, fixup will be null
-            fixup = fixup ?? new FixupDictionary ();
+            var xmlDoc = XDocument.Load (girFile);
+            xmlDoc.ApplyMoveFile (fixupFile);
+            xmlDoc.ApplyBuiltinFixup ();
 
-            Directory.CreateDirectory (outputDirectory);
-            Environment.CurrentDirectory = string.Format (outputDirectory);
-            foreach (var file in Directory.EnumerateFiles (Environment.CurrentDirectory, "*.cs")) {
-                File.Delete (file);
-            }
-            Repository.Require (namespaceName);
-            var @namespace = Repository.Namespaces [namespaceName];
-
-            // infoPool starts with copy of all infos. As we generate code for each item
-            // the item will be removed from the pool.
-            var infoPool = @namespace.Infos.ToList ();
-
-            // iterate copy of infoPool since we are removing items from infoPool in the loop
-            foreach (var info in infoPool.ToList ()) {
-                if (info.IsHidden ()) {
-                    infoPool.Remove (info);
-                    continue;
-                }
-                // this means we are just handling Enum, Object, Struct and Union
-                var methodContainer = info as IMethodContainer;
-                if (methodContainer == null) {
-                    continue;
-                }
-                var fixupPath = info.GetFixupPath ();
-                var constantNames = fixupPath.GetExtras (@namespace.Name, "Constant");
-                var constants = (from i in infoPool
-                    where i.InfoType == InfoType.Constant && constantNames.Contains (i.Name)
-                    select (ConstantInfo)i).ToList ();
-
-                var extraFunctionNames = fixupPath.GetExtras (@namespace.Name, "Function");
-                var extraFunctions = (from i in infoPool
-                    where i.InfoType == InfoType.Function && extraFunctionNames.Contains (i.Name)
-                    select (FunctionInfo)i).ToList ();
-                using (var fs = File.OpenWrite (info.Name + ".cs"))
-                using (var cw = new CodeWriter (fs)) {
-                    cw.WriteClass (info, constants, extraFunctions);
-                }
-                infoPool.RemoveAll (i => constants.Contains (i as ConstantInfo));
-                infoPool.RemoveAll (i => extraFunctions.Contains (i as FunctionInfo));
-                // remove duplicate functions from infoPool
-                infoPool.RemoveAll (i => i.InfoType == InfoType.Function && methodContainer.Methods.Any (m => m.Symbol == (i as FunctionInfo).Symbol));
-                infoPool.Remove (info);
-            }
-
-            // handle static classes defined by the fixup file
-            var fixupPrefix = string.Join (".", @namespace.Name, "StaticClass", "");
-            var staticClasses = fixup
-                .Where (x => x.Key.StartsWith (@namespace.Name + ".", StringComparison.Ordinal)
-                    && x.Value != null && x.Value.Keys.Contains ("class") && x.Value["class"].StartsWith (fixupPrefix))
-                .GroupBy (x => x.Value ["class"]);
-            foreach (var staticClass in staticClasses) {
-                var staticClassName = staticClass.Key.Remove (0, fixupPrefix.Length);
-
-                var constantNames = staticClass.Key.GetExtras (@namespace.Name, "Constant");
-                var constants = (from i in infoPool
-                    where i.InfoType == InfoType.Constant && constantNames.Contains (i.Name)
-                    select (ConstantInfo)i).ToList ();
-
-                var functionNames = staticClass.Key.GetExtras (@namespace.Name, "Function");
-                var functions = infoPool
-                    .Where (i => i.InfoType == InfoType.Function && functionNames.Contains (i.Name))
-                    .Cast<FunctionInfo> ().ToList ();
-
-                using (var fs = File.OpenWrite (staticClassName + ".cs"))
-                using (var cw = new CodeWriter (fs)) {
-                    cw.WriteStaticClass (@namespace.Name, staticClassName, constants, functions);
-                }
-                infoPool.RemoveAll (i => constants.Contains (i as ConstantInfo));
-                infoPool.RemoveAll (i => functions.Contains (i as FunctionInfo));
-            }
-
-            var generalConstants = infoPool.Where (i => i.InfoType == InfoType.Constant).Cast<ConstantInfo> ().ToList ();
-            if (generalConstants.Any ()) {
-                using (var fs = File.OpenWrite ("Constants.cs"))
-                using (var cw = new CodeWriter (fs)) {
-                    cw.WriteConstants (@namespace.SharedLibraries [0], generalConstants);
-                }
-            }
-            infoPool.RemoveAll (i => generalConstants.Contains (i));
-
-            var generalCallbacks = infoPool.Where (i => i.InfoType == InfoType.Callback).Cast<CallbackInfo> ().ToList ();
-            if (generalCallbacks.Any ()) {
-                using (var fs = File.OpenWrite ("Delegates.cs"))
-                using (var sw = new CodeWriter (fs)) {
-                    sw.WriteCallbacks (generalCallbacks);
-                }
-            }
-            infoPool.RemoveAll (i => generalCallbacks.Contains (i));
-
-            //var generalFunctions = infoPool.Where (i => i.InfoType == InfoType.Function).Cast<FunctionInfo> ().ToList ();
-
-            Console.WriteLine ("Done!");
-
-            foreach (var info in infoPool) {
-                Console.Error.WriteLine ("Unhandled info: {0}.{1}.{2}", info.Namespace, info.InfoType, info.Name);
+            var codeCompileUnit = xmlDoc.CreateFromGirX ();
+            using (var outFileStream = File.Open (outputFile, FileMode.Create))
+            using (var writer = new StreamWriter (outFileStream)) {
+                var workspace = MSBuildWorkspace.Create ();
+                Formatter.Format (codeCompileUnit, workspace).GetText ().Write (writer);
             }
         }
     }
 
     static class ExtensionMethods
     {
-        public static string GetFixupPath (this BaseInfo info)
+        static readonly XNamespace gi = Globals.CoreNamespace;
+        static readonly XNamespace c = Globals.CNamespace;
+        static readonly XNamespace glib = Globals.GLibNamespace;
+        static readonly XNamespace gs = Globals.GISharpNamespace;
+
+        public static CompilationUnitSyntax CreateFromGirX (this XDocument gir)
         {
-            var builder = new StringBuilder ();
-            var currentInfo = info;
-            while (currentInfo != null) {
-                builder.Insert (0, string.Join (".", string.Empty, currentInfo.InfoType, currentInfo.Name));
-                currentInfo = currentInfo.Container;
+            var syntax = CompilationUnit ();
+
+            var @namespace = gir.Descendants (gi + "namespace").Single ().Attribute (gs + "managed-name").Value;
+            var types = GirType.GetTypes (gir);
+            syntax = syntax.AddNamespace (@namespace, types);
+
+            return syntax;
+        }
+
+        public static CompilationUnitSyntax AddNamespace (this CompilationUnitSyntax syntax, string @namespace, IEnumerable<Type> types)
+        {
+            if (@namespace == null) {
+                throw new ArgumentNullException (nameof(@namespace));
             }
-            builder.Insert (0, info.Namespace);
-            return builder.ToString ();
-        }
-
-        public static void WriteHeader (this CodeWriter cw, string @namespace)
-        {
-            cw.WriteLine ("using System;");
-            cw.WriteLine ("using System.Runtime.InteropServices;");
-            cw.WriteLine ();
-            cw.WriteLine ("namespace {0}.{1}", MainClass.parentNamespace, @namespace);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-        }
-
-        public static string GetAccessModifier (this string fixupPath)
-        {
-            var modifier = "public";
-            try {
-                modifier = MainClass.fixup[fixupPath]["access modifier"];
-            } catch (KeyNotFoundException) {
+            if (types == null) {
+                throw new ArgumentNullException (nameof(types));
             }
-            modifier = modifier.Replace ("private", "");
-            if (modifier.Length > 0) {
-                modifier += " ";
+
+            var namespaceSyntax = NamespaceDeclaration (
+                  QualifiedName (
+                      ParseName (MainClass.parentNamespace),
+                      IdentifierName (@namespace)))
+                .AddTypes (types);
+
+            return syntax.AddMembers (namespaceSyntax);
+        }
+
+        public static NamespaceDeclarationSyntax AddTypes (this NamespaceDeclarationSyntax syntax, IEnumerable<Type> types)
+        {
+            if (types == null) {
+                throw new ArgumentNullException (nameof(types));
             }
-            return modifier;
-        }
 
-        public static void WriteStaticClass (this CodeWriter cw, string @namespace,
-            string name, List<ConstantInfo> constants, List<FunctionInfo> functions)
-        {
-            var fixupPath = string.Join (".", @namespace, "StaticClass", name);
-            cw.WriteHeader (@namespace);
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.WriteLine ("static partial class {0}", name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            foreach (var constant in constants) {
-                cw.WriteConstant (constant, name);
-            }
-            cw.WriteFunctions (functions, name);
-            cw.DecIndent ();
-            cw.WriteLine ("}");
+            var @namespace = syntax.Name.ToString ();
 
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        public static void WriteObject (this CodeWriter cw, ObjectInfo @object,
-            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
-        {
-            cw.WriteHeader (@object.Namespace);
-            if (@object.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.WriteLine ("public class {0} : GISharp.Core.GObject", @object.Name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-
-            cw.WriteLine ("public {0} (IntPtr handle) : base (handle)", @object.Name);
-            cw.WriteLine ("{");
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        public static bool IsFunctionNamed (this FunctionInfo function, string name)
-        {
-            string functionName;
-            try {
-                var fixupPath = function.GetFixupPath ();
-                functionName = MainClass.fixup[fixupPath]["name"].ToLower ();
-            } catch (KeyNotFoundException) {
-                functionName = function.Name;
-            }
-            return functionName == name;
-        }
-
-        public static bool IsRefFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("ref")
-                && function.IsMethod
-                && function.Args.Count == 0;
-        }
-
-        public static bool IsUnrefFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("unref")
-                && function.IsMethod
-                && function.Args.Count == 0;
-        }
-
-        public static bool IsReferenceCountedOpaque (this StructInfo @struct)
-        {
-            return @struct.Methods.Any (m => m.IsRefFunction ())
-                && @struct.Methods.Any (m => m.IsUnrefFunction ());
-        }
-
-        public static bool IsCopyFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("copy")
-                && function.IsMethod
-                && function.Args.Count == 0;
-        }
-
-        public static bool IsFreeFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("free")
-                && function.IsMethod
-                && function.Args.Count == 0;
-        }
-
-        public static bool IsToStringFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("tostring")
-                && function.IsMethod
-                && function.Args.Count == 0;
-        }
-
-        public static bool IsOwnedOpaque (this StructInfo @struct)
-        {
-            var fixupPath = @struct.GetFixupPath ();
-            try {
-                return MainClass.fixup[fixupPath].ContainsKey ("owned");
-            } catch (KeyNotFoundException) {
-                return @struct.Methods.Any (m => m.IsCopyFunction ())
-                   && @struct.Methods.Any (m => m.IsFreeFunction ());
-            }
-        }
-
-        public static bool IsStaticOpaque (this StructInfo @struct)
-        {
-            try {
-                var newMethod = @struct.Methods.Single (m => m.Name == "new");
-                return  newMethod.CallerOwns == Transfer.Nothing;
-            } catch (InvalidOperationException) {
-                return false;
-            }
-        }
-
-        public static bool IsOpaque (this StructInfo @struct)
-        {
-            return !@struct.Fields.Any ()
-                || @struct.IsReferenceCountedOpaque ()
-                || @struct.IsStaticOpaque ()
-                || @struct.IsOwnedOpaque ();
-        }
-
-        public static bool IsEqualFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("equal")
-                && function.IsMethod
-                && function.Args.Count == 1;
-        }
-
-        public static bool IsCompareFunction (this FunctionInfo function)
-        {
-            return function.IsFunctionNamed ("compare")
-                && function.IsMethod
-                && function.Args.Count == 1;
-        }
-
-        public static void WriteClass (this CodeWriter cw, BaseInfo info,
-            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
-        {
-            var @enum = info as EnumInfo;
-            if (@enum != null) {
-                if (constants.Count > 0) {
-                    throw new Exception ("Enums can't have extra constants");
+            foreach (var type in types) {
+                if (type.Namespace != @namespace) {
+                    var message = string.Format ("Type '{0}' does not have namespace {1}.", type.FullName, @namespace);
+                    throw new ArgumentException (message, nameof(types));
                 }
-                cw.WriteEnum (@enum, extraFunctions);
-                return;
-            }
-            var @object = info as ObjectInfo;
-            if (@object != null) {
-                cw.WriteObject (@object, constants, extraFunctions);
-                return;
-            }
-            var @struct = info as StructInfo;
-            if (@struct != null) {
-                if (@struct.IsOpaque ()) {
-                    cw.WriteOpaque (@struct, constants, extraFunctions);
-                } else {
-                    cw.WriteStruct (@struct, constants, extraFunctions);
+                if (type.IsEnum) {
+                    syntax = syntax.AddEnum (type);
+                } else if (typeof(Delegate).IsAssignableFrom (type)) {
+                    syntax = syntax.AddDelegate (type);
+                } else if (type.IsClass) {
+                    syntax = syntax.AddClass (type);
+                } else if (type.IsInterface) {
+                    syntax = syntax.AddInterface (type);
+                } else if (type.IsValueType) {
+                    syntax = syntax.AddStruct (type);
                 }
-                return;
             }
-            var union = info as UnionInfo;
-            if (union != null) {
-                cw.WriteUnion (union, constants, extraFunctions);
-                return;
-            }
-            var @interface = info as InterfaceInfo;
-            if (@interface != null) {
-                cw.WriteInterface (@interface);
-            }
+
+            return syntax;
         }
 
-        public static void WriteInterface (this CodeWriter cw, InterfaceInfo @interface)
+        public static NamespaceDeclarationSyntax AddEnum (this NamespaceDeclarationSyntax syntax, Type type)
         {
-            cw.WriteHeader (@interface.Namespace);
-            if (@interface.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
+            if (!type.IsEnum) {
+                throw new ArgumentException ("Requires an enum type.", nameof(type));
             }
-            cw.WriteLine ("public interface {0}", @interface.Name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
 
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
+            var @enum = EnumDeclaration (type.Name)
+                .WithModifiers (type.GetModifiers ())
+                .WithAttributeLists (type.GetAttributeLists ())
+                .WithMembers (type.GetEnumMembers ())
+                .WithLeadingTrivia (type.GetDocumentationComments ());
+
+            return syntax.AddMembers (@enum);
         }
 
-        public static bool IsHidden (this BaseInfo info)
+        public static NamespaceDeclarationSyntax AddDelegate (this NamespaceDeclarationSyntax syntax, Type type)
         {
-            var fixupPath = info.GetFixupPath ();
-            try {
-                return MainClass.fixup[fixupPath].ContainsKey ("hidden");
-            } catch (KeyNotFoundException) {
-                return false;
+            if (!typeof(Delegate).IsAssignableFrom (type)) {
+                throw new ArgumentException ("Requires a delegate type.", nameof(type));
             }
+            var unmanagedMethod = type.GetMethod ("InvokeNative");
+            if (unmanagedMethod == null) {
+                throw new ArgumentException ("Missing InvokeNative method for delegate.", nameof(type));
+            }
+            var managedMethod = type.GetMethod ("Invoke");
+            if (managedMethod == null) {
+                throw new ArgumentException ("Missing Invoke method for delegate.", nameof(type));
+            }
+
+            var returnType = ParseTypeName (unmanagedMethod.ReturnType.GetFixedUpName ());
+            var unmanagedDelegate = DelegateDeclaration (returnType, type.Name + "Native")
+                .WithModifiers (unmanagedMethod.GetModifiers ())
+                .WithAttributeLists (unmanagedMethod.GetAttributeLists ())
+                .WithParameterList (unmanagedMethod.GetParameterList ())
+                .WithLeadingTrivia (unmanagedMethod.GetDocumentationComments ());
+            syntax = syntax.AddMembers (unmanagedDelegate);
+
+            returnType = ParseTypeName (managedMethod.ReturnType.GetFixedUpName ());
+            var managedDelegate = DelegateDeclaration (returnType, type.Name)
+                .WithModifiers (managedMethod.GetModifiers ())
+                .WithAttributeLists (managedMethod.GetAttributeLists ())
+                .WithParameterList (managedMethod.GetParameterList ())
+                .WithLeadingTrivia (managedMethod.GetDocumentationComments ());
+            syntax = syntax.AddMembers (managedDelegate);
+
+            return syntax;
         }
 
-        public static List<string> GetExtras (this string fixupPath, string @namespace, string infoType)
+        public static NamespaceDeclarationSyntax AddClass (this NamespaceDeclarationSyntax syntax, Type type)
         {
-            var prefix = string.Join (".", @namespace, infoType, string.Empty);
-            var items = MainClass.fixup
-                .Where (i => i.Key.StartsWith (prefix, StringComparison.Ordinal) && i.Value.ContainsKey ("class") && i.Value ["class"] == fixupPath)
-                .Select (i => i.Key.Remove (0, prefix.Length));
-            return items.ToList ();
+            if (!type.IsClass) {
+                throw new ArgumentException ("Requires a class type.", nameof(type));
+            }
+
+            var @class = ClassDeclaration (type.Name)
+                .WithModifiers (type.GetModifiers ())
+                .WithAttributeLists (type.GetAttributeLists ())
+                .AddBaseTypes (type)
+                .AddFields (type.GetFields ())
+                .AddProperties (type.GetProperties ())
+                .AddDefaultConstructor (type)
+                .AddConstructors (type.GetConstructors ())
+                .AddMethods (type.GetMethods ())
+                .WithLeadingTrivia (type.GetDocumentationComments ());
+            return syntax.AddMembers (@class);
         }
 
-        public static void WriteCallback (this CodeWriter cw, CallbackInfo callback, bool native = false)
+        public static NamespaceDeclarationSyntax AddInterface (this NamespaceDeclarationSyntax syntax, Type type)
         {
-            var fixupPath = callback.GetFixupPath ();
-            if (callback.IsHidden ()) {
-                return;
+            if (!type.IsInterface) {
+                throw new ArgumentException ("Requires a interface type.", nameof(type));
             }
-            if (callback.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.Write ("delegate ");
-            cw.WriteType (callback.ReturnTypeInfo);
-            cw.Write (" {0}{1} (", callback.Name, native ? "Native" : "");
-            cw.WriteArgs (callback.Args.ToList (), native);
-            cw.WriteLine (");");
-            cw.WriteLine ();
+
+            var @interface = InterfaceDeclaration (type.Name);
+
+            return syntax.AddMembers (@interface);
         }
 
-        public static void WriteCallbacks (this CodeWriter cw, List<CallbackInfo> callbacks)
+        public static NamespaceDeclarationSyntax AddStruct (this NamespaceDeclarationSyntax syntax, Type type)
         {
-            cw.WriteHeader (callbacks[0].Namespace);
-            foreach (var callback in callbacks) {
-                cw.WriteCallback (callback);
-                cw.WriteCallback (callback, true);
+            if (!type.IsValueType || type.IsEnum || type.IsPrimitive) {
+                throw new ArgumentException ("Requires a struct type.", nameof(type));
             }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
+
+            var @struct = StructDeclaration (type.Name)
+                .WithModifiers (type.GetModifiers ())
+                .WithAttributeLists (type.GetAttributeLists ())
+                .AddFields (type.GetFields ())
+                .AddProperties (type.GetProperties ())
+                .AddMethods (type.GetMethods ())
+                .WithLeadingTrivia (type.GetDocumentationComments ());
+
+            return syntax.AddMembers (@struct);
         }
 
-        public static void WriteValue (this CodeWriter cw, ValueInfo value)
+        public static T AddProperties<T> (this T syntax, PropertyInfo[] properties) where T : TypeDeclarationSyntax
         {
-            if (value.IsHidden ()) {
-                return;
-            }
-            if (value.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.WriteLine ("{0} = {1},", value.GetFixedUpName (ToPascalCase), value.Value);
-        }
-
-        public static string GetManagedName (this string fixupPath, string defaultValue)
-        {
-            try {
-                return MainClass.fixup [fixupPath] ["name"];
-            } catch (KeyNotFoundException) {
-                return defaultValue;
-            }
-        }
-
-        public static void WriteConstant (this CodeWriter cw, ConstantInfo constant, string stripPrefix = null)
-        {
-            if (constant.IsHidden ()) {
-                return;
-            }
-
-            var constantName = constant.GetFixedUpName (ToPascalCase);
-            if (stripPrefix != null && constantName.StartsWith (stripPrefix, StringComparison.Ordinal)) {
-                constantName = constantName.Remove (0, stripPrefix.Length);
-            }
-            var fixupPath = constant.GetFixupPath ();
-            constantName = fixupPath.GetManagedName (constantName);
-
-            if (constant.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.Write ("const {0} {1} = ",
-                constant.TypeInfo.ToManagedType (),
-                constantName);
-
-            switch (constant.TypeInfo.Tag) {
-            case TypeTag.Boolean:
-                cw.Write ("{0}", (bool)constant.Value ? "true" : "false");
-                break;
-            case TypeTag.Int8:
-            case TypeTag.UInt8:
-            case TypeTag.Int16:
-            case TypeTag.UInt16:
-            case TypeTag.Int32:
-            case TypeTag.UInt32:
-            case TypeTag.Int64:
-            case TypeTag.UInt64:
-            case TypeTag.Float:
-            case TypeTag.Double:
-                cw.Write ("{0}", constant.Value.ToString());
-                break;
-            case TypeTag.UTF8:
-                cw.Write ("\"{0}\"", ((string)constant.Value).Escape ());
-                break;
-            }
-            cw.WriteLine ("; // {0}", constant.Name);
-            cw.WriteLine ();
-        }
-
-        public static string Escape (this string str)
-        {
-            str = str.Replace ("\\", @"\\");
-            str = str.Replace ("\"", @"\""");
-            str = str.Replace ("\n", @"\n");
-            str = str.Replace ("\t", @"\t");
-            return str;
-        }
-
-        public static void WriteConstants (this CodeWriter cw, string dllName, List<ConstantInfo> constants)
-        {
-            cw.WriteHeader (constants[0].Namespace);
-            cw.WriteLine ("public static class Constants");
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("public const string ExternDllName = \"{0}\";", dllName);
-            cw.WriteLine ();
-            foreach (var constant in constants) {
-                cw.WriteConstant (constant);
-            }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        public static void WriteEnum (this CodeWriter cw, EnumInfo @enum, List<FunctionInfo> extraFunctions)
-        {
-            var fixupPath = @enum.GetFixupPath ();
-            cw.WriteHeader (@enum.Namespace);
-            if (@enum.InfoType == InfoType.Flags) {
-                cw.WriteLine ("[Flags]");
-            }
-            if (@enum.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.WriteLine ("enum {0} : {1}", @enum.Name, @enum.StorageType.ToBuiltInManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            foreach (var value in @enum.Values) {
-                cw.WriteValue (value);
-            }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-
-            if (@enum.Methods.Count > 0 || extraFunctions.Count > 0) {
-                cw.WriteLine ();
-                cw.Write ("{0}", fixupPath.GetAccessModifier ());
-                cw.WriteLine ("static class {0}Extensions", @enum.Name);
-                cw.WriteLine ("{");
-                cw.IncIndent ();
-                cw.WriteFunctions (@enum.Methods);
-                cw.WriteFunctions (extraFunctions, @enum.Name);
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-            }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        public static string ToBuiltInManagedType (this TypeTag tag, bool isPointer = false)
-        {
-            switch (tag) {
-            case TypeTag.Void:
-                if (isPointer) {
-                    return "IntPtr";
+            foreach (var info in properties) {
+                var accessorList = SyntaxFactory.AccessorList ();
+                SyntaxTokenList? modifers = null;
+                if (info.CanRead) {
+                    // the getter modifiers are used to decorate the property rather than the accessor, so save them for later.
+                    modifers = info.GetMethod.GetModifiers ();
+                    var getter = SyntaxFactory.AccessorDeclaration (SyntaxKind.GetAccessorDeclaration)
+                        .WithBody (info.GetMethod.GetBody ());
+                    accessorList = accessorList.AddAccessors (getter);
                 }
+                if (info.CanWrite) {
+                    var setterModifiers = info.SetMethod.GetModifiers ();
+                    if (!modifers.HasValue) {
+                        // we shouldn't have set-only classes, but just in case...
+                        modifers = setterModifiers;
+                    }
+                    var setter = SyntaxFactory.AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
+                        .WithBody (info.SetMethod.GetBody ());
+
+                    // we only need to add modifers to the setter if they are different from the getter
+                    if (setterModifiers.ToString () != modifers.ToString ()) {
+                        // if this is a static property, we can't have the static modifer on the setter as well
+                        var staticIndex = setterModifiers.IndexOf (SyntaxKind.StaticKeyword);
+                        if (staticIndex >= 0) {
+                            setterModifiers = setterModifiers.RemoveAt (staticIndex);
+                        }
+                        setter = setter.WithModifiers (setterModifiers);
+                    }
+                    accessorList = accessorList.AddAccessors (setter);
+                }
+
+                var property = SyntaxFactory.PropertyDeclaration (SyntaxFactory.ParseTypeName (info.PropertyType.GetFixedUpName ()), SyntaxFactory.Identifier (info.Name))
+                    .WithModifiers (modifers.Value)
+                    .WithAttributeLists (info.GetAttributeLists ())
+                    .WithLeadingTrivia (info.GetDocumentationComments ())
+                    .WithAccessorList (accessorList);
+                syntax = syntax.AddMembers (property);
+            }
+            return syntax;
+        }
+
+        public static ClassDeclarationSyntax AddDefaultConstructor (this ClassDeclarationSyntax syntax, Type type)
+        {
+            if (!type.SafeGetInterfaces ().Contains (typeof(IWrappedNative))) {
+                return syntax;
+            }
+
+            var defaultConstructor = SyntaxFactory.ConstructorDeclaration (SyntaxFactory.Identifier(type.Name))
+                .WithModifiers (SyntaxFactory.TokenList (SyntaxFactory.Token(SyntaxKind.PublicKeyword)))
+                .WithParameterList (SyntaxFactory.ParameterList()
+                    .AddParameters (SyntaxFactory.Parameter (SyntaxFactory.Identifier("handle"))
+                        .WithType(SyntaxFactory.ParseTypeName(typeof(IntPtr).FullName))))
+                .WithInitializer (SyntaxFactory.ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                    .AddArgumentListArguments(SyntaxFactory.Argument (SyntaxFactory.ParseExpression("handle"))))
+                .WithBody (SyntaxFactory.Block ());
+
+            return syntax.AddMembers (defaultConstructor);
+        }
+
+        public static string GetFixedUpName (this Type type)
+        {
+            if (type == null) {
+                throw new ArgumentNullException (nameof(type));
+            }
+
+            if (type == typeof(void)) {
+                // C# can't use System.Void
                 return "void";
-            case TypeTag.Boolean:
-                return "bool";
-            case TypeTag.Int8:
-                return "sbyte";
-            case TypeTag.UInt8:
-                return "byte";
-            case TypeTag.Int16:
-                return "short";
-            case TypeTag.UInt16:
-                return "ushort";
-            case TypeTag.Int32:
-                return "int";
-            case TypeTag.UInt32:
-                return "uint";
-            case TypeTag.Int64:
-                return "long";
-            case TypeTag.UInt64:
-                return "ulong";
-            case TypeTag.Float:
-                return "float";
-            case TypeTag.Double:
-                return "double";
-            case TypeTag.Unichar:
-                if (isPointer) {
-                    return "string";
+            }
+
+            if (type.IsByRef) {
+                return type.GetElementType ().FullName;
+            }
+
+            if (type.IsGenericType) {
+                var parameters = string.Join (", ", type.GenericTypeArguments.Select (a => a.FullName));
+                return string.Format ("{0}<{1}>", type.FullName.Substring(0, type.FullName.IndexOf ('`')), parameters);
+            }
+
+            return type.FullName;
+        }
+
+        public static ParameterListSyntax GetParameterList (this MethodBase info)
+        {
+            var list = SyntaxFactory.ParameterList ();
+
+            foreach (var p in info.GetParameters ()) {
+                var parameter = SyntaxFactory.Parameter (SyntaxFactory.Identifier (p.Name))
+                    .WithType (SyntaxFactory.ParseTypeName (p.ParameterType.GetFixedUpName ()))
+                    .WithModifiers (p.GetModifiers ())
+                    .WithAttributeLists (p.GetAttributeLists ())
+                    .WithLeadingTrivia (
+                        // put each parameter on a new line for better readability since we are using full type names
+                        SyntaxFactory.EndOfLine("\n"),
+                        SyntaxFactory.Whitespace ("\t"));
+                if (p.HasDefaultValue) {
+                    parameter = parameter.WithDefault (SyntaxFactory.EqualsValueClause (SyntaxFactory.ParseExpression (p.DefaultValue.ToString ())));
                 }
-                return "char";
+                list = list.AddParameters (parameter);
             }
-            throw new ArgumentException ("Must be a basic type.", "tag");
+
+            return list;
         }
 
-        public static string ToManagedType (this TypeInfo type)
+        public static SyntaxTokenList GetModifiers (this ParameterInfo info)
         {
-            if (type.Tag.IsBasicValueType ()) {
-                return type.Tag.ToBuiltInManagedType (type.IsPointer);
-            }
-            switch (type.Tag) {
-            case TypeTag.GType:
-                return "GISharp.Core.GType";
-            case TypeTag.UTF8:
-            case TypeTag.Filename:
-                if (type.IsPointer) {
-                    return "string";
-                }
-                return "char";
-            case TypeTag.Interface:
-                // special case for internal callback
-                if (type.Interface.Namespace == "GLib" && type.Interface.Name == "DestroyNotify") {
-                    return  MainClass.parentNamespace + ".Core.DestroyNotify";
-                }
-                // special case for GObject
-                if (type.Interface.Namespace == "GObject" && type.Interface.Name == "Object") {
-                    return MainClass.parentNamespace + ".Core.GObject";
-                }
-                // special case for GType
-                if (type.Interface.Namespace == "GObject" && type.Interface.Name == "GType") {
-                    return MainClass.parentNamespace + ".Core.GType";
-                }
-                return string.Join (".", MainClass.parentNamespace, type.Interface.Namespace, type.Interface.Name);
-            case TypeTag.Array:
-                return type.GetParamType (0).ToManagedType () + "[]";
-            case TypeTag.GList:
-            case TypeTag.GSList:
-                return "System.Collections.IList";
-            case TypeTag.GHash:
-                return "System.Collections.IDictionary";
-            case TypeTag.Error:
-                return "GISharp.Core.GErrorException";
-            default:
-                throw new Exception ("unexpected type");
-            }
-        }
+            var list = TokenList ();
 
-        public static bool NeedsMarshal (this TypeInfo type)
-        {
-            if (type.Tag.IsBasicValueType ()) {
-                return false;
-            }
-            if (type.Tag == TypeTag.Interface) {
-                switch (type.Interface.InfoType) {
-                case InfoType.Enum:
-                case InfoType.Flags:
-                case InfoType.Union:
-                    return false;
-                case InfoType.Callback:
-                    // Some structs have function pointers that are not defined at the top level Repository.GetInfos
-                    // would be better to have actual delegates, but just using IntPtr for now.
-                    return char.IsLower (type.Name, 0);
-                case InfoType.Struct:
-                    return (type.Interface as StructInfo).IsOpaque ();
-                }
-            } else if (type.Tag == TypeTag.Array) {
-                return !type.IsLPArray ();
-            }
-            return true;
-        }
-
-        public static void WriteType (this CodeWriter cw, TypeInfo type, bool forPinvoke = false)
-        {
-            if (forPinvoke && type.NeedsMarshal ()) {
-                cw.Write ("IntPtr");
-                return;
-            }
-            cw.Write ("{0}", type.ToManagedType ());
-            if (forPinvoke && type.Tag == TypeTag.Interface && type.Interface.InfoType == InfoType.Callback) {
-                cw.Write ("Native");
-            }
-        }
-
-        public static void WriteField (this CodeWriter cw, GISharp.GI.FieldInfo field)
-        {
-            var fixupPath = field.GetFixupPath ();
-            cw.WriteLine ("[FieldOffset({0})]", field.Offset);
-            if (field.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            var marshalNeeded = !field.TypeInfo.NeedsMarshal ();
-
-            cw.Write ("{0}", marshalNeeded ? "" : fixupPath.GetAccessModifier ());
-            cw.WriteType (field.TypeInfo, true);
-            cw.WriteLine (" {0};", marshalNeeded ? field.GetFixedUpName (ToCamelCase) : field.GetFixedUpName (ToPascalCase));
-            cw.WriteLine ();
-            if (marshalNeeded) {
-//        cw.WriteLine ("\tpublic ");
-//        cw.WriteLine (field_type);
-//        cw.WriteLine (" %s {\n", field.get_name ());
-//        cw.WriteLine ("\t\tget {\n");
-//        print_marshal_type_to_managed (field_type, field_name);
-//        cw.WriteLine ("\t\t}\n");
-//        cw.WriteLine ("\t\tset {\n");
-//        print_marshal_type_from_managed (field_type, field_name, "value");
-//        cw.WriteLine ("\t\t}\n");
-//        cw.WriteLine ("\t}\n");
-//        cw.WriteLine ("\n");
-            }
-        }
-
-        /// <summary>
-        /// Writes the parameter modifier ("ref" or "out") for an argument if needed.
-        /// </summary>
-        /// <param name="cw">Code writer</param>
-        /// <param name="arg">Argument info.</param>
-        public static void WriteParameterModifier (this CodeWriter cw, ArgInfo arg)
-        {
-            if (arg.Direction == Direction.Inout
-                || (arg.TypeInfo.Tag.IsBasicValueType () && arg.TypeInfo.Tag != TypeTag.Void && arg.TypeInfo.IsPointer))
-            {
-                cw.Write ("ref ");
-            } else if (arg.Direction == Direction.Out) {
-                cw.Write ("out ");
-            }
-        }
-
-        public static void WriteArg (this CodeWriter cw, ArgInfo arg, bool forPinvoke = false)
-        {
-            if (arg.IsCallerAllocates) {
-                throw new NotImplementedException ();
-            }
-            if (arg.IsReturnValue) {
-                throw new NotImplementedException ();
-            }
-            if (forPinvoke && arg.TypeInfo.IsLPArray ()) {
-                cw.Write ("[MarshalAs (UnmanagedType.LPArray)]");
-            }
-            cw.WriteParameterModifier (arg);
-            cw.WriteType (arg.TypeInfo, forPinvoke);
-            cw.Write (" {0}", arg.GetFixedUpName (ToCamelCase));
-        }
-
-        public static void FilterForManaged (this List<ArgInfo> args)
-        {
-            var closureArgs = args.Where (a => a.Closure >= 0).Select (a => args[a.Closure]);
-            var destryoArgs = args.Where (a => a.Destroy >= 0).Select (a => args[a.Destroy]);
-            var arrayLengthArgs = args.Where (a => a.TypeInfo.ArrayLength >= 0).Select (a => args[a.TypeInfo.ArrayLength]);
-            foreach (var arg in closureArgs.Union (destryoArgs).Union (arrayLengthArgs).ToList ()) {
-                args.Remove (arg);
-            }
-            // move args with default parameters to the end of the list
-            foreach (var arg in args.ToList ()) {
-                var fixupPath = arg.GetFixupPath ();
-                if (fixupPath.GetDefaultValue () != null) {
-                    args.Remove (arg);
-                    args.Add (arg);
+            if (info.ParameterType.IsByRef) {
+                if (info.IsOut) {
+                    list = list.Add (Token (SyntaxKind.OutKeyword));
+                } else {
+                    list = list.Add (Token (SyntaxKind.RefKeyword));
                 }
             }
+
+            return list;
         }
 
-        public static string GetDefaultValue (this string fixupPath)
-        {
-            try {
-                return MainClass.fixup[fixupPath]["default"];
-            } catch (Exception) {
-                return null;
-            }
-        }
+        public static SyntaxTokenList GetModifiers (this MemberInfo info) {
+            var list = TokenList ();
 
-        public static void WriteArgs (this CodeWriter cw, List<ArgInfo> args,
-            bool forPinvoke = false, string suffix = null)
-        {
-            if (!forPinvoke) {
-                args.FilterForManaged ();
-            }
-            if (args.Count == 0) {
-                return;
-            }
-            var lastArg = args [args.Count - 1];
-            foreach (var arg in args) {
-                var fixupPath = arg.GetFixupPath ();
-                cw.WriteArg (arg, forPinvoke);
-                if (suffix != null) {
-                    cw.Write (suffix);
+            var type = info as Type;
+            if (type != null) {
+                if (type.IsPublic) {
+                    list = list.Add (Token (SyntaxKind.PublicKeyword));
                 }
-                if (!forPinvoke) {
-                    var defaultValue = fixupPath.GetDefaultValue ();
-                    if (defaultValue != null) {
-                        cw.Write (" = {0}", defaultValue);
-                    }
+                if (type.IsAbstract && type.IsSealed) {
+                    list = list.Add (Token (SyntaxKind.StaticKeyword));
                 }
-                if (arg != lastArg) {
-                    cw.Write (", ");
+                if (!type.IsEnum && !typeof(Delegate).IsAssignableFrom (type)) {
+                    // partial *must* be the last token in the list
+                    list = list.Add (Token (SyntaxKind.PartialKeyword));
                 }
             }
-        }
-
-        public static bool IsOpaque (this string fixupPath)
-        {
-            return MainClass.fixup.Any (f => f.Key == fixupPath && f.Value.ContainsKey ("opaque"));
-        }
-
-        public static bool IsStaticConstructor (this string fixupPath)
-        {
-            try {
-                return MainClass.fixup[fixupPath].ContainsKey ("static constructor");
-            } catch (KeyNotFoundException) {
-                return false;
+            var field = info as FieldInfo;
+            if (field != null) {
+                if (field.IsPublic) {
+                    list = list.Add (Token (SyntaxKind.PublicKeyword));
+                }
+                if (field.IsFamily) {
+                    list = list.Add (Token (SyntaxKind.ProtectedKeyword));
+                }
+                if (field.IsAssembly) {
+                    list = list.Add (Token (SyntaxKind.InternalKeyword));
+                }
+                if (field.IsLiteral) {
+                    // const *must* be the last token in the list
+                    list = list.Add (Token (SyntaxKind.ConstKeyword));
+                }
             }
+            var method = info as MethodBase;
+            if (method != null) {
+                if (method.IsPublic) {
+                    list = list.Add (Token (SyntaxKind.PublicKeyword));
+                }
+                if (method.IsFamily) {
+                    list = list.Add (Token (SyntaxKind.ProtectedKeyword));
+                }
+                if (method.IsAssembly) {
+                    list = list.Add (Token (SyntaxKind.InternalKeyword));
+                }
+                if (method.IsStatic) {
+                    list = list.Add (Token (SyntaxKind.StaticKeyword));
+                }
+                if (method.Attributes.HasFlag (MethodAttributes.PinvokeImpl)) {
+                    list = list.Add (Token (SyntaxKind.ExternKeyword));
+                }
+                if (method.IsHideBySig && method.Attributes.HasFlag (MethodAttributes.ReuseSlot)) {
+                    list = list.Add (Token (SyntaxKind.OverrideKeyword));
+                }
+            }
+
+            return list;
+        }
+
+        public static SeparatedSyntaxList<EnumMemberDeclarationSyntax> GetEnumMembers (this Type type)
+        {
+            var list = SeparatedList<EnumMemberDeclarationSyntax> ();
+
+            foreach (var field in type.GetFields ()) {
+                var value = LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal ((int)field.GetValue (null)));
+                // TODO: would be nice to use hex here for bitfields
+                var member = EnumMemberDeclaration (field.Name)
+                    .WithEqualsValue(EqualsValueClause (value))
+                    .WithAttributeLists (field.GetAttributeLists ())
+                    .WithLeadingTrivia (field.GetDocumentationComments ());
+                list = list.Add (member);
+            }
+
+            return list;
+        }
+
+        public static SyntaxList<AttributeListSyntax> GetAttributeLists (this ICustomAttributeProvider info, string target = null)
+        {
+            var listOfLists = SyntaxFactory.List<AttributeListSyntax> ();
+
+            foreach (CustomAttributeData attr in info.GetCustomAttributes (false)) {;
+                var name = attr.AttributeType.FullName;
+                if (name.EndsWith ("Attribute", StringComparison.Ordinal)) {
+                    name = name.Remove (name.Length - "Attribute".Length);
+                }
+                var argList = SyntaxFactory.AttributeArgumentList ();
+                foreach (var arg in attr.ConstructorArguments) {
+                    var argSyntax = SyntaxFactory.AttributeArgument (
+                        arg.Value.ToExpression ());
+                    argList = argList.AddArguments (argSyntax);
+                }
+                foreach (var arg in attr.NamedArguments) {
+                    var argSyntax = SyntaxFactory.AttributeArgument (
+                        SyntaxFactory.NameEquals (arg.MemberName),
+                        null,
+                        arg.TypedValue.Value.ToExpression ());
+                    argList = argList.AddArguments (argSyntax);
+                }
+
+                var attrList = SyntaxFactory.AttributeList ()
+                    .WithAttributes (SyntaxFactory.SeparatedList<AttributeSyntax> ()
+                        .Add (SyntaxFactory.Attribute (SyntaxFactory.ParseName (name))
+                            .WithArgumentList(argList)));
+                if (target != null) {
+                    attrList = attrList.WithTarget (SyntaxFactory.AttributeTargetSpecifier (SyntaxFactory.Identifier (target)));
+                }
+
+                listOfLists = listOfLists.Add (attrList);
+            }
+
+            var methodInfo = info as MethodInfo;
+            if (methodInfo != null) {
+                listOfLists = listOfLists.AddRange (methodInfo.ReturnTypeCustomAttributes.GetAttributeLists ("return"));
+            }
+
+            // for parameters, combine attribute lists into a single attribute list
+            var parameterInfo = info as ParameterInfo;
+            if (parameterInfo != null && listOfLists.Any ()) {
+                listOfLists = SyntaxFactory.List<AttributeListSyntax> ()
+                    .Add (SyntaxFactory.AttributeList ()
+                        .AddAttributes (listOfLists.SelectMany (l => l.Attributes).ToArray ()));
+            }
+
+            return listOfLists;
         }
 
         /// <summary>
-        /// Determines if type can be marshaled using UnamagedType.LPArray.
+        /// Converts an object to an approprate ExpressionSyntax
         /// </summary>
-        /// <returns><c>true</c> if is LP array the specified type; otherwise, <c>false</c>.</returns>
-        /// <param name="type">Type.</param>
-        public static bool IsLPArray (this TypeInfo type)
+        /// <returns>The expression.</returns>
+        /// <param name="obj">Object.</param>
+        public static ExpressionSyntax ToExpression (this object obj)
         {
-            if (type.Tag != TypeTag.Array) {
-                return false;
+            var @bool = obj as bool?;
+            if (@bool.HasValue) {
+                if (@bool.Value) {
+                    return LiteralExpression (
+                        SyntaxKind.TrueLiteralExpression,
+                        Token (SyntaxKind.TrueKeyword));
+                }
+                return LiteralExpression (
+                    SyntaxKind.FalseLiteralExpression,
+                    Token (SyntaxKind.FalseKeyword));
             }
-            if (type.ArrayType != ArrayType.C) {
-                return false;
+            var @byte = obj as byte?;
+            if (@byte.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@byte.Value));
             }
-            if (type.IsZeroTerminated) {
-                return false;
+            var @sbyte = obj as sbyte?;
+            if (@sbyte.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@sbyte.Value));
             }
-            if (type.GetParamType (0).NeedsMarshal ()) {
-                return false;
+            var @short = obj as short?;
+            if (@short.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@short.Value));
             }
-            return true;
+            var @ushort = obj as ushort?;
+            if (@ushort.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@ushort.Value));
+            }
+            var @int = obj as int?;
+            if (@int.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@int.Value));
+            }
+            var @uint = obj as uint?;
+            if (@uint.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@uint.Value));
+            }
+            var @long = obj as long?;
+            if (@long.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@long.Value));
+            }
+            var @ulong = obj as ulong?;
+            if (@ulong.HasValue) {
+                return LiteralExpression (
+                    SyntaxKind.NumericLiteralExpression,
+                    Literal (@ulong.Value));
+            }
+            var str = obj as string;
+            if (str != null) {
+                return LiteralExpression (
+                    SyntaxKind.StringLiteralExpression,
+                    Literal (str));
+            }
+            var @enum = obj as Enum;
+            if (@enum != null) {
+                return MemberAccessExpression (
+                    SyntaxKind.SimpleMemberAccessExpression,
+                    ParseExpression (@enum.GetType ().FullName),
+                    IdentifierName (@enum.ToString ()));
+            }
+            var message = string.Format ("Unexpected type '{0}", obj.GetType ().FullName);
+            throw new ArgumentException (message, nameof(obj));
         }
 
-        public static void WritePInvoke (this CodeWriter cw, FunctionInfo function)
+        public static SyntaxTriviaList GetDocumentationComments (this MemberInfo info)
         {
-            var returnType = function.ReturnTypeInfo;
-            cw.WriteLine ("[DllImport ({0}.{1}.Constants.ExternDllName, CallingConvention = CallingConvention.Cdecl)]", MainClass.parentNamespace, function.Namespace);
-            if (returnType.IsLPArray ()) {
-                cw.Write ("[return: MarshalAs (UnmanagedType.LPArray");
-                if (returnType.ArrayFixedSize >= 0) {
-                    cw.Write (", SizeConst = {0}", returnType.ArrayFixedSize);
-                }
-                if (returnType.ArrayLength >= 0) {
-                    cw.Write (", SizeParamIndex = {0}", returnType.ArrayLength);
-                }
-                cw.WriteLine (")]");
+            var girInfo = info as IGirInfo;
+            if (girInfo != null) {
+                return ParseLeadingTrivia (girInfo.DocumentationComments);
             }
-            cw.Write ("static extern ");
-            cw.WriteType (returnType, true);
-            cw.Write (" {0} (", function.Symbol);
-            if (function.IsMethod) {
-                cw.Write ("IntPtr self");
-                if (function.Args.Any ()) {
-                    cw.Write (", ");
-                }
-            }
-            cw.WriteArgs (function.Args.ToList (), true);
-            cw.WriteLine (");");
-            cw.WriteLine ();
+            return TriviaList ();
         }
 
-        public static bool IsPInvokeOnly (this string fixupPath)
+        public static ClassDeclarationSyntax AddBaseTypes (this ClassDeclarationSyntax syntax, Type type)
         {
-            try {
-                return MainClass.fixup[fixupPath].ContainsKey ("pinvoke only");
-            } catch (KeyNotFoundException) {
-                return false;
+            var typeName = SyntaxFactory.ParseTypeName (type.BaseType.GetFixedUpName ());
+
+            if (type != typeof(object)) {
+                // Add the base type to the list
+                syntax = syntax.AddBaseListTypes (SyntaxFactory.SimpleBaseType (typeName));
+            }
+
+            // Add any interfaces to the list
+            var interfaces = type.SafeGetInterfaces ().Except (type.BaseType.SafeGetInterfaces ());
+            foreach (var ifaceType in interfaces) {
+                typeName = SyntaxFactory.ParseTypeName (ifaceType.GetFixedUpName ());
+                syntax = syntax.AddBaseListTypes (SyntaxFactory.SimpleBaseType (typeName));
+            }
+
+            // put each item on a new line for readability since we are using full type names
+            var baseListTypes = syntax.BaseList.Types;
+            for (int i = 0; i < baseListTypes.SeparatorCount; i++) {
+                baseListTypes = baseListTypes.ReplaceSeparator (
+                    baseListTypes.GetSeparator (i),
+                    Token (SyntaxKind.CommaToken)
+                        .WithTrailingTrivia (EndOfLine ("\n"), Whitespace("\t")));
+            }
+            syntax = syntax.WithBaseList (syntax.BaseList.WithTypes (baseListTypes));
+
+            return syntax;
+        }
+
+        public static T AddConstructors<T> (this T syntax, ConstructorInfo[] constructors) where T : TypeDeclarationSyntax
+        {
+            foreach (var ctor in constructors) {
+                var identifier = SyntaxFactory.Identifier (ctor.Name);
+                var member = SyntaxFactory.ConstructorDeclaration (identifier)
+                    .WithModifiers (ctor.GetModifiers ())
+                    .WithAttributeLists (ctor.GetAttributeLists ())
+                    .WithParameterList (ctor.GetParameterList ())
+                    .WithLeadingTrivia (ctor.GetDocumentationComments ())
+                    .WithBody (ctor.GetBody ());
+
+                var declaringType = ctor.DeclaringType;
+
+                if (ctor.DeclaringType.SafeGetInterfaces ().Contains (typeof(IWrappedNative))) {
+                    member = member.WithInitializer (SyntaxFactory.ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                        .WithArgumentList (SyntaxFactory.ArgumentList ()
+                            .AddArguments (SyntaxFactory.Argument (SyntaxFactory.ParseExpression ("System.IntPtr.Zero")))));
+                }
+
+                syntax = syntax.AddMembers (member);
+            }
+
+            return syntax;
+        }
+
+        public static T AddMethods<T> (this T syntax, MethodInfo[] methods) where T : TypeDeclarationSyntax
+        {
+            foreach (var method in methods) {
+                var returnType = SyntaxFactory.ParseTypeName (method.ReturnType.GetFixedUpName ());
+                var identifier = SyntaxFactory.Identifier (method.Name);
+                var member = SyntaxFactory.MethodDeclaration (returnType, identifier)
+                    .WithModifiers (method.GetModifiers ())
+                    .WithAttributeLists (method.GetAttributeLists ())
+                    .WithParameterList (method.GetParameterList ())
+                    .WithLeadingTrivia (method.GetDocumentationComments ());
+                if (method.Attributes.HasFlag (MethodAttributes.PinvokeImpl)) {
+                    member = member.WithSemicolonToken (SyntaxFactory.Token (SyntaxKind.SemicolonToken));
+                } else {
+                    member = member.WithBody (method.GetBody ());
+                }
+                syntax = syntax.AddMembers (member);
+            }
+
+            var type = methods.FirstOrDefault ()?.DeclaringType;
+            if (type != null) {
+                var typeName = type.GetFixedUpName ();
+                foreach (var iface in type.SafeGetInterfaces ()) {
+                    if (iface.FullName == typeof(IEquatable<>).MakeGenericType (type).FullName) {
+                        syntax = syntax.AddMembers (
+                            CreateOverrideEqualsMethod (typeName),
+                            // TODO: find hash method or do something else.
+                            CreateOverrideGetHashCodeMethod ("base.GetHashCode ()"),
+                            CreateEqualityOperator (typeName),
+                            CreateInequalityOperator (typeName));
+                    }
+                    if (iface.FullName == typeof(IComparable<>).MakeGenericType (type).FullName) {
+                        syntax = syntax.AddMembers (
+                            CreateCompareToOperator ("<", typeName),
+                            CreateCompareToOperator ("<=", typeName),
+                            CreateCompareToOperator (">=", typeName),
+                            CreateCompareToOperator (">", typeName));
+                    }
+                }
+            }
+
+            return syntax;
+        }
+
+        public static BlockSyntax GetBody (this MethodBase info)
+        {
+            var body = SyntaxFactory.Block ();
+
+            foreach (var param in info.GetParameters ().Where (p => !p.IsOut)) {
+                // this is in and inout parameters
+                // TODO: add statment to marshal managed to unmanged
+            }
+            foreach (var param in info.GetParameters ().Where (p => p.ParameterType.IsByRef)) {
+                // this is inout and out parameters
+                // TODO: add statment to marshal unmanaged to manged
+                if (param.IsOut) {
+                    var defaultExpression = string.Format ("default({0})", param.ParameterType.GetFixedUpName ());
+                    var outStatement = SyntaxFactory.ExpressionStatement (
+                        SyntaxFactory.AssignmentExpression (SyntaxKind.SimpleAssignmentExpression,
+                            SyntaxFactory.IdentifierName (param.Name), SyntaxFactory.ParseExpression (defaultExpression)));
+                    body = body.AddStatements (outStatement);
+                }
+            }
+
+            var methodInfo = info as MethodInfo;
+            if (methodInfo != null) {
+                if (methodInfo.ReturnType != typeof(void)) {
+                    var defaultExpression = string.Format ("default({0})", methodInfo.ReturnType.GetFixedUpName ());
+                    var outStatement = SyntaxFactory.ReturnStatement ()
+                    .WithExpression (SyntaxFactory.ParseExpression (defaultExpression));
+                    body = body.AddStatements (outStatement);
+                }
+            }
+
+            return body;
+        }
+
+        public static T AddFields<T> (this T syntax, FieldInfo[] fields) where T : TypeDeclarationSyntax
+        {
+            foreach (var field in fields) {
+
+                var variable = VariableDeclarator (field.Name);
+
+                if (field.IsStatic && field.IsLiteral) {
+                    variable = variable.WithInitializer(EqualsValueClause (field.GetValue (null).ToExpression ()));
+                }
+
+                var variableDeclaration = VariableDeclaration (ParseTypeName (field.FieldType.GetFixedUpName ()))
+                    .AddVariables (variable);
+
+               var fieldSyntax = FieldDeclaration (variableDeclaration)
+                    .WithModifiers (field.GetModifiers ())
+                    .WithAttributeLists(field.GetAttributeLists ())
+                    .WithLeadingTrivia (field.GetDocumentationComments ());
+                syntax = syntax.AddMembers (fieldSyntax);
+            }
+            return syntax;
+        }
+
+        public static CompilationUnitSyntax CreateFromGir (this XDocument gir)
+        {
+            var compilationUnit = CompilationUnit ()
+                .AddUsings (
+                    UsingDirective (
+                        ParseName ("System")),
+                    UsingDirective (
+                        ParseName ("System.Runtime.InteropServices")))
+                .AddNamespaces (gir.Descendants (gi + "namespace"));
+
+            return compilationUnit;
+        }
+
+        public static CompilationUnitSyntax AddNamespaces (this CompilationUnitSyntax compilationUnit, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                compilationUnit = compilationUnit.AddNamespace (element);
+            }
+            return compilationUnit;
+        }
+
+        public static CompilationUnitSyntax AddNamespace (this CompilationUnitSyntax compilationUnit, XElement element)
+        {
+            if (element.Name != gi + "namespace") {
+                throw new ArgumentException ("Expecting 'namespace' element.", nameof(element));
+            }
+
+            var name = QualifiedName (
+                IdentifierName (MainClass.parentNamespace),
+                IdentifierName (element.Attribute (gs + "managed-name").Value));
+
+            var @namespace = NamespaceDeclaration (name)
+                .AddCallbacks (element.Elements (gi + "callback"))
+                .AddConstantsClass (element.Elements (gi + "constant"))
+                .AddAliases (element.Elements (gi + "alias"))
+                .AddEnumerations (element.Elements (gi + "bitfield"))
+                .AddEnumerations (element.Elements (gi + "enumeration"))
+                .AddRecords (element.Elements (gi + "record"))
+                .AddUnions (element.Elements (gi + "union"))
+                .AddStaticClasses (element.Elements (gs + "static-class"));
+
+            return compilationUnit.AddMembers (@namespace);
+        }
+
+        /// <summary>
+        /// Adds the callbacks to the namespace.
+        /// </summary>
+        /// <returns>The new namespace object.</returns>
+        /// <param name="namespace">The current namespace object.</param>
+        /// <param name="elements">The 'callback' elements to add.</param>
+        public static NamespaceDeclarationSyntax AddCallbacks (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                // each delegate has a version for passing to/from unmanaged code
+                @namespace = @namespace.AddMembers (element.GetDelegateDeclaration (managed: false));
+                // and a version for use with managed code
+                @namespace = @namespace.AddMembers (element.GetDelegateDeclaration (managed: true));
+            }
+
+            return @namespace;
+        }
+
+        /// <summary>
+        /// Adds a global constants class to a namespace.
+        /// </summary>
+        /// <returns>The the new namespace object.</returns>
+        /// <param name="namespace">The current namespace object.</param>
+        /// <param name="elements">The 'constant' elements to add.</param>
+        public static NamespaceDeclarationSyntax AddConstantsClass (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            var constantsClass = ClassDeclaration ("Constants")
+                .AddModifiers (ParseTokens ("public static partial").ToArray ())
+                .AddMembers (elements.Select (e => e.GetConstantField ()).ToArray ());
+
+           return @namespace.AddMembers (constantsClass);
+        }
+
+        /// <summary>
+        /// Adds type declarations for aliases to the namespace
+        /// </summary>
+        /// <returns>The the new namespace object.</returns>
+        /// <param name="namespace">The current namespace object.</param>
+        /// <param name="elements">The 'alias' elements to add.</param>
+        public static NamespaceDeclarationSyntax AddAliases (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                @namespace = @namespace.AddAlias (element);
+            }
+            return @namespace;
+        }
+
+        public static NamespaceDeclarationSyntax AddAlias (this NamespaceDeclarationSyntax @namespace, XElement element)
+        {
+            if (element.Name != gi + "alias") {
+                throw new ArgumentException ("Requires an 'alias' element.", "element");
+            }
+
+            var valueType = ParseTypeName (element.Attribute (gs + "managed-type").Value);
+            var valueVar = VariableDeclarator (ParseToken ("value"));
+
+            var alias = StructDeclaration (element.Attribute (gs + "managed-name").Value)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddModifiers (ParseToken ("partial"))
+                .AddMembers (FieldDeclaration (
+                            VariableDeclaration (valueType)
+                                .AddVariables (valueVar)))
+                .AddMembersFromElement (element)
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return @namespace.AddMembers (alias);
+        }
+
+        public static NamespaceDeclarationSyntax AddEnumerations (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                @namespace = @namespace.AddEnumeration (element);
+            }
+            return @namespace;
+        }
+
+        public static NamespaceDeclarationSyntax AddEnumeration (this NamespaceDeclarationSyntax @namespace, XElement element)
+        {
+            if (element.Name != gi + "bitfield" && element.Name != gi + "enumeration") {
+                throw new ArgumentException ("Requires a 'bitfield' or 'enumeration' element.", "element");
+            }
+
+            var enumeration = EnumDeclaration (element.Attribute (gs + "managed-name").Value)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddMembers (element.GetEnumMembers ().ToArray ())
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return @namespace.AddMembers (enumeration);
+
+            // TODO: add a static class with extenstion methods if there are "functions" element children.
+        }
+
+        public static NamespaceDeclarationSyntax AddRecords (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                @namespace = @namespace.AddRecord (element);
+            }
+            return @namespace;
+        }
+
+        public static NamespaceDeclarationSyntax AddRecord (this NamespaceDeclarationSyntax @namespace, XElement element)
+        {
+            if (element.Name != gi + "record") {
+                throw new ArgumentException ("Requires a 'record' element.", "element");
+            }
+
+            var name = element.Attribute (gs + "managed-name").Value;
+
+            if (element.Attribute (gs + "opaque") == null) {
+                var @struct = StructDeclaration (name)
+                    .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                    .AddModifiers (ParseToken ("partial"))
+                    .AddMembersFromElement (element)
+                    .AddAttributeLists (element.GetAttributes ().ToArray ())
+                    .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+                return @namespace.AddMembers (@struct);
+            }
+
+            var @class = ClassDeclaration (name)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddModifiers (ParseToken ("partial"))
+                .AddBaseTypeForRecord (element)
+                .AddMembersFromElement (element)
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return @namespace.AddMembers (@class);
+        }
+
+        public static NamespaceDeclarationSyntax AddUnions (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                @namespace = @namespace.AddUnion (element);
+            }
+            return @namespace;
+        }
+
+        public static NamespaceDeclarationSyntax AddUnion (this NamespaceDeclarationSyntax @namespace, XElement element)
+        {
+            if (element.Name != gi + "union") {
+                throw new ArgumentException ("Requires a 'union' element.", "element");
+            }
+
+            var union = ClassDeclaration (element.Attribute (gs + "managed-name").Value)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddMembersFromElement (element)
+                .AddModifiers (ParseToken ("partial"))
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return @namespace.AddMembers (union);
+        }
+
+        public static NamespaceDeclarationSyntax AddStaticClasses (this NamespaceDeclarationSyntax @namespace, IEnumerable<XElement> elements)
+        {
+            foreach (var element in elements) {
+                @namespace = @namespace.AddStaticClass (element);
+            }
+            return @namespace;
+        }
+
+        public static NamespaceDeclarationSyntax AddStaticClass (this NamespaceDeclarationSyntax @namespace, XElement element)
+        {
+            if (element.Name != gs + "static-class") {
+                throw new ArgumentException ("Requires a 'static-class' element.", "element");
+            }
+
+            var staticClass = ClassDeclaration (element.Attribute ("name").Value)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddModifiers (ParseTokens ("static partial").ToArray ())
+                .AddMembersFromElement (element)
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return @namespace.AddMembers (staticClass);
+        }
+
+        public static IEnumerable<EnumMemberDeclarationSyntax> GetEnumMembers (this XElement parent)
+        {
+            foreach (var child in parent.Elements (gi + "member")) {
+                var enumMember = EnumMemberDeclaration (child.Attribute ("name").Value)
+                    .WithEqualsValue (EqualsValueClause (
+                        LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                            Literal (int.Parse (child.Attribute ("value").Value)))))
+                    .AddAttributeLists (child.GetAttributes ().ToArray ())
+                    .WithLeadingTrivia (child.GetDocumentationCommentTrivia ().ToArray ());
+                yield return enumMember;
             }
         }
 
-        public static string WriteMarshalTypeFromManaged (this CodeWriter cw,
-            TypeInfo type, string managedVarName, Transfer transfer, out Action writeFree)
+        public static T AddMembersFromElement<T> (this T syntax, XElement parent) where T : TypeDeclarationSyntax
         {
-            string unmanagedVarName = managedVarName;
-            writeFree = null;
-
-            // basic types and interfaces do not need to be marshalled.
-            switch (type.Tag) {
-            case TypeTag.GType:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = {1}.Handle;", unmanagedVarName, managedVarName);
-                break;
-            case TypeTag.UTF8:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringToUtf8Ptr ({1});", unmanagedVarName, managedVarName);
-                if (transfer == Transfer.Nothing) {
-                    writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                }
-                break;
-            case TypeTag.Filename:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringToFilenamePtr ({1});", unmanagedVarName, managedVarName);
-                if (transfer == Transfer.Nothing) {
-                    writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                }
-                break;
-            case TypeTag.Array:
-                if (type.IsLPArray ()) {
-                    // array does not need to be manually marshaled
-                    break;
-                }
-                if (type.ArrayType == ArrayType.C) {
-                    if (type.GetParamType (0).Tag == TypeTag.UInt8 && type.IsZeroTerminated) {
-                        // this is a CString with unspecified encoding
-                        unmanagedVarName += "Ptr";
-                        cw.WriteLine ("var {0} = GISharp.Core.MarshalG.ByteStringToPtr ({1});", unmanagedVarName, managedVarName);
-                        if (transfer == Transfer.Nothing) {
-                            writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                        }
-                        break;
-                    }
-                    if (type.GetParamType (0).Tag == TypeTag.UTF8 && type.IsZeroTerminated) {
-                        // This is a GStrv (null terminated UTF8 string array)
-                        unmanagedVarName += "Ptr";
-                        cw.WriteLine ("var {0} = GISharp.Core.MarshalG.StringArrayToGStrvPtr ({1});", unmanagedVarName, managedVarName);
-                        if (transfer == Transfer.Nothing) {
-                            writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.FreeGStrv ({0});", unmanagedVarName);
-                        } else if (transfer == Transfer.Container) {
-                            throw new NotImplementedException ();
-                        }
-                        break;
-                    }
-                    if (type.GetParamType (0).NeedsMarshal ()) {
-                        // for arrays with elements that need to be marshaled, iterate the array
-                        // and marshal each element individually.
-                        unmanagedVarName += "Ptr";
-                        cw.WriteLine ("var {0} = IntPtr.Zero;", unmanagedVarName);
-                        var elementPtrsName = managedVarName + "ElementPtrs";
-                        if (transfer == Transfer.Nothing) {
-                            cw.WriteLine ("var {0} = new System.Collections.Generic.List<IntPtr> ();", elementPtrsName);
-                        }
-                        cw.WriteLine ("if ({0} != null) {{", managedVarName);
-                        cw.IncIndent ();
-                        if (type.ArrayFixedSize >= 0) {
-                            cw.WriteLine ("if ({0}.Length != {1}) {{", managedVarName, type.ArrayFixedSize);
-                            cw.IncIndent ();
-                            cw.WriteLine ("var message = string.Format (\"Expected array with Length {0} but was {{0}}.\", {1}.Length);",
-                                type.ArrayFixedSize, managedVarName);
-                            cw.WriteLine ("throw new ArgumentException (message, \"{0}\");", managedVarName);
-                            cw.DecIndent ();
-                            cw.WriteLine ("}");
-                        }
-                        cw.WriteLine ("{0} = GISharp.Core.MarshalG.Alloc ({1}.Length * IntPtr.Size);",
-                            unmanagedVarName, managedVarName);
-                        cw.WriteLine ("var offset = 0;");
-                        var managedElementName = managedVarName + "Element";
-                        cw.WriteLine ("foreach (var {0} in {1}) {{", managedElementName, managedVarName);
-                        cw.IncIndent ();
-                        Action writeElementFree;
-                        cw.WriteMarshalTypeFromManaged (type.GetParamType (0), managedElementName,
-                            transfer == Transfer.Container ? Transfer.Nothing : transfer, out writeElementFree);
-                        cw.WriteLine ("Marshal.WriteIntPtr ({0}, offset, {1});",
-                            unmanagedVarName, managedElementName + "Ptr");
-                        if (transfer == Transfer.Nothing) {
-                            cw.WriteLine ("{0}.Add ({1});", elementPtrsName, managedElementName + "Ptr");
-                        }
-                        cw.WriteLine ("offset += IntPtr.Size;");
-                        cw.DecIndent ();
-                        cw.WriteLine ("}");
-                        cw.DecIndent ();
-                        cw.WriteLine ("}");
-                        if (transfer != Transfer.Everything) {
-                            writeFree = () => {
-                                cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                                if (transfer != Transfer.Container && writeElementFree != null) {
-                                    cw.WriteLine ("foreach (var {0} in {1}) {{", managedElementName + "Ptr", elementPtrsName);
-                                    cw.IncIndent ();
-                                    writeElementFree ();
-                                    cw.DecIndent ();
-                                    cw.WriteLine ("}");
-                                }
-                            };
-                        }
-                        break;
-                    }
-                }
-                throw new NotImplementedException ();
-            case TypeTag.Interface:
-                var @enum = type.Interface as EnumInfo;
-                if (@enum != null) {
-                    // enums/flags are passed directly
-                    break;
-                }
-                var callback = type.Interface as CallableInfo;
-                if (callback != null) {
-                    // callabacks are handled seperately
-                    break;
-                }
-                var @struct = type.Interface as StructInfo;
-                if (@struct != null) {
-                    if (@struct.IsOpaque ()) {
-                        unmanagedVarName += "Ptr";
-                        cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
-                    }
-                    // managed struct types are passed directly
-                    break;
-                }
-                var @object = type.Interface as ObjectInfo;
-                if (@object != null) {
-                    unmanagedVarName += "Ptr";
-                    cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
-                    break;
-                }
-                var @interface = type.Interface as InterfaceInfo;
-                if (@interface != null) {
-                    unmanagedVarName += "Ptr";
-                    cw.WriteLine ("var {0} = {1} == null ? IntPtr.Zero : {1}.Handle;", unmanagedVarName, managedVarName);
-                    break;
-                }
-                throw new NotImplementedException ();
-            case TypeTag.GList:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.GListToPtr ({1});", unmanagedVarName, managedVarName);
-                writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                break;
-            case TypeTag.GSList:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.GSListToPtr ({1});", unmanagedVarName, managedVarName);
-                writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                break;
-            case TypeTag.GHash:
-                unmanagedVarName += "Ptr";
-                cw.WriteLine ("var {0} = GISharp.Core.MarshalG.GHashToPtr ({1});", unmanagedVarName, managedVarName);
-                writeFree = () => cw.WriteLine ("GISharp.Core.MarshalG.Free ({0});", unmanagedVarName);
-                break;
-            case TypeTag.Error:
-                unmanagedVarName += ".Handle";
-                break;
+            foreach (var child in parent.Elements (gi + "constant")) {
+                syntax = syntax.AddMembers (child.GetConstantField ());
             }
-            return unmanagedVarName;
+            if (parent.Attribute (gs + "opaque") == null) {
+                // hide fields in opaque types
+                foreach (var child in parent.Elements (gi + "field")) {
+                    syntax = syntax.AddField (child);
+                }
+            }
+            var @class = syntax as ClassDeclarationSyntax;
+            if (@class != null && !@class.Modifiers.Select (m => m.Text).Contains ("static")) {
+                syntax = @class.AddFromNativeConstructor () as T;
+            }
+            var callables = parent.Elements (gi + "constructor")
+                .Union (parent.Elements (gi + "method"))
+                .Union (parent.Elements (gi + "function"));
+            foreach (var child in callables) {
+                syntax = syntax.AddMembers (child.ToPinvokeMethod ());
+                if (!child.Attribute (gs + "pinvoke-only").AsBool ()) {
+                    syntax = syntax.AddManagedWrapperForCallable (child);
+                }
+            }
+            return syntax;
         }
 
-        public static void WriteMarshalTypeToManaged (this CodeWriter cw,
-            TypeInfo type, string unmanagedVarName, string managedVarName,
-            bool managedVarExists, Transfer transfer)
+        public static FieldDeclarationSyntax GetConstantField (this XElement element)
         {
-            string marshalExpression = null;
+            if (element.Name != gi + "constant") {
+                throw new ArgumentException ("Requires a 'constant' element.", "element");
+            }
 
-            // basic types do not need to be marshalled.
-            switch (type.Tag) {
-            case TypeTag.GType:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGType ({0})", unmanagedVarName);
-                break;
-            case TypeTag.UTF8:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.Utf8PtrToString ({0}, freePtr: {1})",
-                    unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
-                break;
-            case TypeTag.Filename:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.FilenamePtrToString ({0}, freePtr: {1})",
-                    unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
-                break;
-            case TypeTag.Array:
-                if (type.IsLPArray ()) {
-                    // array can be passed directly
-                    return;
+            var type = ParseTypeName (element.Attribute (gs + "managed-type").Value);
+            var variable = VariableDeclarator (element.Attribute ("name").Value);
+            var value = element.GetValueAsLiteral ();
+
+            var constant = FieldDeclaration (VariableDeclaration (type)
+                .AddVariables(variable.WithInitializer (EqualsValueClause (value))))
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddModifiers (ParseToken ("const"))
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return constant;
+        }
+
+        public static T AddField<T> (this T syntax, XElement element) where T : TypeDeclarationSyntax
+        {
+            if (element.Name != gi + "field") {
+                throw new ArgumentException ("Requires a 'field' element.", "element");
+            }
+
+            TypeSyntax type;
+            var callback = element.Element (gi + "callback");
+            if (callback != null) {
+                var @delegate = callback.GetDelegateDeclaration (false);
+                type = ParseTypeName (@delegate.Identifier.ToString ());
+                syntax = syntax.AddMembers (@delegate);
+            } else {
+                type = ParseTypeName (element.Attribute (gs + "managed-type").Value);
+            }
+            var variable = VariableDeclarator (element.Attribute ("name").Value);
+
+            var field = FieldDeclaration (
+                               VariableDeclaration (type).AddVariables (variable))
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
+
+            return syntax.AddMembers (field);
+        }
+
+        public static MethodDeclarationSyntax ToPinvokeMethod (this XElement element)
+        {
+            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "constructor") {
+                throw new ArgumentException ("Requires a 'function', 'method' or 'constructor' element.", "element");
+            }
+
+            var returnType = element.GetReturnType (false);
+            var name = element.Attribute (c + "identifier").Value;
+
+            var pinvoke = MethodDeclaration (returnType, name)
+                .WithParameters (element.Element (gi + "parameters"), managed: false)
+                .AddModifiers (ParseTokens ("static extern").ToArray ())
+                .AddPinvokeAttributes (element)
+                .WithSemicolonToken (Token (SyntaxKind.SemicolonToken));
+
+            return pinvoke;
+        }
+
+        public static MethodDeclarationSyntax AddPinvokeAttributes (this MethodDeclarationSyntax syntax, XElement element)
+        {
+            syntax = syntax.AddAttribute ("DllImport",
+                "(Constants.ExternDllName, CallingConvention = CallingConvention.Cdecl)");
+
+            var returnElement = element.Element (gi + "return-value");
+
+            if (returnElement.GetLengthIndex () >= 0) {
+                // need to add one to the index if there is an instance parameter
+                var offset = element.Parent.Name == gi + "method" ? 1 : 0;
+                syntax = syntax.AddAttribute ("MarshalAs",
+                    string.Format ("(UnmanagedType.LPArray, SizeParamIndex = {0})",
+                        returnElement.GetLengthIndex () + offset),
+                    "return");
+            }
+            if (returnElement.GetFixedSize () >= 0) {
+                syntax = syntax.AddAttribute ("MarshalAs",
+                    string.Format ("(UnmanagedType.LPArray, SizeConst = {0})",
+                        returnElement.GetFixedSize ()),
+                    "return");
+            }
+
+            return syntax;
+        }
+
+        public static BlockSyntax AddArgumentCheckStatements (this BlockSyntax syntax, XElement element)
+        {
+            var parametersElement = element.Element (gi + "parameters");
+
+            if (parametersElement != null) {
+                var parameters = parametersElement.Elements (gi + "parameter")
+                    .Where (p => p.Attribute ("direction").AsString ("in") != "out")
+                    //.Where (p => !Fixup.GetTypeMeta (p.Attribute (gs + "unmanaged-type").Value).IsValueType)
+                    .Where (p => !p.Attribute ("allow-none").AsBool ()).ToList ();
+                foreach (var p in parameters) {
+                    var statement = ParseStatement (
+                        string.Format (@"if ({0} == null) {{
+                            throw new ArgumentNullException (""{0}"");
+                        }}", p.Attribute ("name").Value));
+                    syntax = syntax.AddStatements (statement);
                 }
-                if (type.ArrayType == ArrayType.C) {
-                    if (type.GetParamType (0).Tag == TypeTag.UInt8 && type.IsZeroTerminated) {
-                        // This is a C string with unspecified encoding
-                        marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToByteString ({0}, freePtr: {1})",
-                            unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
-                        break;
+            }
+
+            return syntax;
+        }
+
+        public static T AddManagedWrapperForCallable<T> (this T syntax, XElement element) where T : TypeDeclarationSyntax
+        {
+            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "constructor") {
+                throw new ArgumentException ("Requires a 'function', 'method' or 'constructor' element.", "element");
+            }
+
+            var returnType = element.GetReturnType (true);
+            var name = element.Attribute ("name").Value;
+            var parentName = element.Parent.Attribute ("name").Value;
+            var isStatic = element.Name == gi + "function";
+
+            var body = Block ()
+                .AddArgumentCheckStatements (element)
+                .AddInputParamArrayLenthAssignmentStatements (element)
+                .AddPinvokeStatement (element);
+            if (element.Name != gi + "constructor" && returnType.ToString () != "void") {
+                body = body.AddStatements (ReturnStatement ()
+                    .WithExpression (ParseExpression (
+                    string.Format ("default({0})", returnType))));
+            }
+
+            if (element.Name == gi + "constructor") {
+                // handle constructors
+                var constructor = ConstructorDeclaration (parentName)
+                    .WithParameters (element, managed: true)
+                    .WithInitializer(ConstructorInitializer(
+                        SyntaxKind.BaseConstructorInitializer)
+                        .AddArgumentListArguments(Argument(
+                            ParseName ("IntPtr.Zero"))))
+                    .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                    .AddAttributeLists (element.GetAttributes ().ToArray ())
+                    .WithLeadingTrivia (element.GetDocumentationCommentTrivia ())
+                    .WithBody (body);
+
+                return syntax.AddMembers (constructor);
+            }
+
+            if (name.StartsWith ("Get", StringComparison.Ordinal) || name.StartsWith ("Is", StringComparison.Ordinal)) {
+                // handle getters
+                if (!element.EnumerateParameters (managed: true).Any ()) {
+                    // getters do not have any parameters (other than possibly 'instance-parameter')
+                    var propertyName = name;
+                    if (propertyName.StartsWith ("Get", StringComparison.Ordinal)) {
+                        // drop the "Get" but keep the "Is"
+                        propertyName = name.Substring (3);
                     }
-                    if (type.IsZeroTerminated) {
-                        if (type.GetParamType (0).Tag == TypeTag.UTF8) {
-                            marshalExpression = string.Format ("GISharp.Core.MarshalG.GStrvPtrToStringArray ({0}, freePtr: {1}, freeElements: {2})",
-                                unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
-                                transfer == Transfer.Everything ? "true" : "false");
+                    var property = PropertyDeclaration (returnType, propertyName)
+                        .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                        .AddModifiers (ParseToken (isStatic ? "static" : ""))
+                        .AddAttributeLists (element.GetAttributes ().ToArray ())
+                        .WithLeadingTrivia (element.GetDocumentationCommentTrivia ())
+                        .AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.GetAccessorDeclaration)
+                            .WithBody (body));
+
+                    return syntax.AddMembers (property);
+                }
+            }
+
+            if (name.StartsWith ("Set", StringComparison.Ordinal)) {
+                // handle setters
+                if (element.EnumerateParameters (managed: true).Count () == 1) {
+                    // setters have one parameter
+                    var propertyName = name.Substring (3);
+                    // find the matching property. This assumes the Gir was in alphabetical order and the
+                    // getter has already been created.
+                    var property = syntax.Members.OfType<PropertyDeclarationSyntax> ()
+                        .SingleOrDefault (p => p.Identifier.Text == propertyName || p.Identifier.Text == "Is" + propertyName);
+                    var parameter = element.Element (gs + "managed-parameters").Element (gi + "parameter");
+                    var parameterName = parameter.Attribute ("name").Value;
+                    var parameterType = parameter.Attribute (gs + "managed-type").Value;
+                    if (property != null && property.Type.ToString () == parameterType) {
+                        var setter = AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
+                            // We need to replace the parameter name with the "value" keyword in the body
+                            .WithBody (body.ReplaceTokens (body.DescendantTokens ().Where (t => t.Text == parameterName),
+                                (t1, t2) => ParseToken ("value")));
+
+                        return syntax.ReplaceNode (property, property.AddAccessorListAccessors (setter));
+                    }
+                    // we don't want write-only properties, so if a matching property with a getter was not
+                    // found, just fall through to the "regular" method creation.
+                }
+            }
+
+            // handle "regular" functions and methods
+            var method = MethodDeclaration (returnType, name)
+                .WithParameters (element, managed: true)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddModifiers (ParseToken (isStatic ? "static" : ""))
+                .AddAttributeLists (element.GetAttributes ().ToArray ())
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ())
+                .WithBody (body);
+
+            return syntax;
+
+//            var methodList = new List<MemberDeclarationSyntax> ();
+//
+//            if (element.Attribute (gs + "special-func") != null) {
+//                switch (element.Attribute (gs + "special-func").Value) {
+//                case "free":
+//                case "copy":
+//                case "ref":
+//                case "unref":
+//                case "to-string":
+//                    method = method.AddModifiers (ParseToken ("override"));
+//                    break;
+//                case "equal":
+//                    string hashFunc = "Handle.GetHashCode ()";
+//                    var hashFuncElement = element.Parent.Elements ()
+//                        .SingleOrDefault (e => e.Attribute (gs + "special-func").AsString () == "hash");
+//                    if (hashFuncElement != null) {
+//                        hashFunc = "(int)Hash ()";
+//                    }
+//                    methodList.Add (CreateOverrideEqualsMethod (parentName));
+//                    methodList.Add (CreateOverrideGetHashCodeMethod (hashFunc));
+//                    methodList.Add (CreateEqualityOperator (parentName));
+//                    methodList.Add (CreateInequalityOperator (parentName));
+//                    break;
+//                case "compare":
+//                    syntax = syntax.AddBaseListType (string.Format ("IComparable<{0}>", parentName));
+//                    methodList.Add (CreateCompareToOperator ("<", parentName));
+//                    methodList.Add (CreateCompareToOperator ("<=", parentName));
+//                    methodList.Add (CreateCompareToOperator (">=", parentName));
+//                    methodList.Add (CreateCompareToOperator (">", parentName));
+//                    break;
+//                }
+//            }
+//
+//            methodList.Insert (0, method);
+//
+//            return syntax.AddMembers (methodList.ToArray ());
+        }
+
+        public static BlockSyntax AddInputParamArrayLenthAssignmentStatements (this BlockSyntax syntax, XElement element)
+        {
+            var parametersElement = element.Element (gi + "parameters");
+
+            if (parametersElement != null) {
+                var parameters = parametersElement.Elements (gi + "parameter")
+                    .Where (p => p.Attribute ("direction").AsString ("in") != "out").ToList ();
+                var arrayParameters = parameters.Where (p => p.GetLengthIndex () >= 0)
+                    .Select (p => new Tuple<XElement,XElement> (p, parameters[p.GetLengthIndex ()]));
+                foreach (var p in arrayParameters) {
+                    var statement = LocalDeclarationStatement (VariableDeclaration (
+                        ParseTypeName ("var"))
+                        .AddVariables (VariableDeclarator (
+                            ParseToken (p.Item2.Attribute ("name").Value))
+                            .WithInitializer (EqualsValueClause (
+                                ParseExpression (
+                                    string.Format ("({0}){1}.Length",
+                                        p.Item2.Attribute (gs + "unmanaged-type").Value,
+                                        p.Item1.Attribute ("name").Value))))));
+                    syntax = syntax.AddStatements (statement);
+                }
+            }
+
+            return syntax;
+        }
+
+        public static BlockSyntax AddPinvokeStatement (this BlockSyntax syntax, XElement element)
+        {
+            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "constructor") {
+                throw new ArgumentException ("Requires a 'function', 'method' or 'constructor' element.", "element");
+            }
+
+            var pinvokeExpression = InvocationExpression (
+                IdentifierName (element.Attribute (c + "identifier").Value));
+            var parametersElement = element.Element (gi + "parameters");
+            if (parametersElement != null) {
+                var argumentList = ArgumentList ();
+                foreach (var p in element.EnumerateParameters (managed: false)) {
+                    var name = p.Attribute ("name").Value;
+                    if (p.Name == gi + "instance-parameter") {
+                        name = "Handle";
+                    }
+                    var arg = Argument (ParseExpression (name));
+                    argumentList = argumentList.AddArguments (arg);
+                }
+                pinvokeExpression = pinvokeExpression.WithArgumentList (argumentList);
+            }
+
+            StatementSyntax statement = ExpressionStatement (pinvokeExpression);
+            if (element.GetReturnType (managed: false).ToString () != "void") {
+                statement = LocalDeclarationStatement (
+                    VariableDeclaration (ParseTypeName ("var"))
+                    .AddVariables (VariableDeclarator (ParseToken ("ret"))
+                        .WithInitializer (EqualsValueClause (pinvokeExpression))));
+            }
+
+            return syntax.AddStatements (statement);
+        }
+
+        public static MethodDeclarationSyntax CreateOverrideEqualsMethod (string type)
+        {
+            var syntax = MethodDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("Equals"))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public override")))
+                .WithParameterList (ParseParameterList ("(object obj)"))
+                .WithBody (Block ()
+                    .AddStatements (
+                        ParseStatement (
+                            string.Format ("return Equals (obj as {0});", type))));
+            return syntax;
+        }
+
+        public static MethodDeclarationSyntax CreateOverrideGetHashCodeMethod (string hashFunc)
+        {
+            var syntax = MethodDeclaration (
+                ParseTypeName ("int"),
+                ParseToken ("GetHashCode"))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public override")))
+                .WithBody (Block ()
+                    .AddStatements (
+                        ParseStatement (
+                            string.Format ("return {0};", hashFunc))));
+            return syntax;
+        }
+
+        public static OperatorDeclarationSyntax CreateEqualityOperator (string type)
+        {
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("=="))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
+                    string.Format ("({0} one, {0} two)", type)))
+                .WithBody (Block ()
+                    .AddStatements (
+                        ParseStatement (@"
+                            if ((object)one == null) {
+                                return (object)two == null;
+                            }"),
+                        ParseStatement (
+                            "return one.Equals (two);")));
+            return syntax;
+        }
+
+        public static OperatorDeclarationSyntax CreateInequalityOperator (string type)
+        {
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("!="))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
+                    string.Format ("({0} one, {0} two)", type)))
+                .WithBody (Block ()
+                    .AddStatements (ParseStatement (
+                        "return !(one == two);")));
+            return syntax;
+        }
+
+        public static OperatorDeclarationSyntax CreateCompareToOperator (string @operator, string type)
+        {
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken (@operator))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
+                    string.Format ("({0} one, {0} two)", type)))
+                .WithBody (Block ()
+                    .AddStatements (ParseStatement (
+                        string.Format ("return one.CompareTo (two) {0} 0;", @operator))));
+
+            return syntax;
+        }
+
+        public static ClassDeclarationSyntax AddBaseTypeForRecord (this ClassDeclarationSyntax syntax, XElement element)
+        {
+            if (element.Name != gi + "record") {
+                throw new ArgumentException ("Requires a 'record' element.", "element");
+            }
+
+            var name = element.Attribute ("name").Value;
+
+            switch (element.Attribute (gs + "opaque").Value) {
+            case "ref-counted":
+                return syntax.AddBaseListType (string.Format ("GISharp.Core.ReferenceCountedOpaque<{0}>", name));
+            case "owned":
+                return syntax.AddBaseListType (string.Format ("GISharp.Core.OwnedOpaque<{0}>", name));
+            case "static":
+                return syntax.AddBaseListType (string.Format ("GISharp.Core.StaticOpaque<{0}>", name));
+            }
+
+            return syntax;
+        }
+
+        public static T AddBaseListType<T> (this T syntax, string typeName) where T : TypeDeclarationSyntax
+        {
+            var addBaseListTypes = syntax.GetType ().GetMethod ("AddBaseListTypes");
+            if (addBaseListTypes == null) {
+                throw new ArgumentException ("Requires AddBaseListTypes method", "syntax");
+            }
+
+            var baseType = SimpleBaseType (ParseTypeName (typeName));
+
+            return (T)addBaseListTypes.Invoke (syntax, new [] { new [] { baseType } });
+        }
+
+        public static ParameterSyntax GetParameter (this XElement element, bool managed, bool includeDefault)
+        {
+            if (element.Name != gi + "instance-parameter" && element.Name != gi + "parameter") {
+                throw new ArgumentException ("Requires 'instance-parameter' or 'parameter' element.", "element");
+            }
+
+            var type = ParseTypeName (element.Attribute (gs + (managed ? "managed-type" : "unmanaged-type")).Value);
+            var identifier = Identifier (element.Attribute ("name").Value);
+
+            var parameter = Parameter (identifier)
+                .WithType (type)
+                .AddModifiers (element.GetParameterModiferToken ());
+
+            if (managed && includeDefault && element.Attribute (gs + "default") != null) {
+                parameter = parameter.WithDefault (EqualsValueClause (
+                    ParseExpression (element.Attribute (gs + "default").Value)));
+            }
+
+            return parameter;
+        }
+
+        public static SyntaxToken GetParameterModiferToken (this XElement element)
+        {
+            var directionAttribute = element.Attribute ("direction");
+
+            if (directionAttribute != null) {
+                switch (directionAttribute.Value) {
+                case  "out":
+                    return Token (SyntaxKind.OutKeyword);
+                case "inout":
+                    return Token (SyntaxKind.RefKeyword);
+                }
+            }
+            return ParseToken ("");
+        }
+
+        public static TypeSyntax GetReturnType (this XElement parent, bool managed)
+        {
+            if (parent.Element (gi + "return-value") == null) {
+                throw new ArgumentException ("Requires 'return-value' child element.", "parent");
+            }
+
+            return ParseTypeName (parent.Element (gi + "return-value")
+                .Attribute (gs + (managed ? "managed-type" : "unmanaged-type")).Value);
+        }
+
+        public static IEnumerable<SyntaxToken> GetAccessModifiersAsTokens (this XElement element)
+        {
+            if (element.Attribute (gs + "access-modifier") == null) {
+                return ParseTokens ("public");
+            }
+
+            return ParseTokens (element.Attribute (gs + "access-modifier").Value);
+        }
+
+        public static SyntaxTriviaList GetDocumentationCommentTrivia (this XElement element)
+        {
+            string line;
+            var builder = new StringBuilder ();
+            if (element.Element (gi + "doc") != null) {
+                using (var reader = new StringReader (element.Element (gi + "doc").Value)) {
+                    builder.AppendLine ("/// <summary>");
+                    while ((line = reader.ReadLine ()) != null) {
+                        // summary is only the first paragraph
+                        if (string.IsNullOrWhiteSpace (line)) {
                             break;
                         }
-                    } else {
-                        // TODO: implement this properly
-                        marshalExpression = string.Format ("new {0}[0]", type.GetParamType(0).ToManagedType ());
-                        break;
+                        builder.AppendFormat ("/// {0}", new XText (line));
+                        builder.AppendLine ();
+                    }
+                    builder.AppendLine ("/// </summary>");
+                    if (line != null) {
+                        // if there are more lines, they go in the remarks
+                        builder.AppendLine ("/// <remarks>");
+                        while ((line = reader.ReadLine ()) != null) {
+                            builder.AppendFormat ("/// {0}", new XText (line));
+                            builder.AppendLine ();
+                        }
+                        builder.AppendLine ("/// </remarks>");
                     }
                 }
-                throw new NotImplementedException ();
-            case TypeTag.Interface:
-                var @enum = type.Interface as EnumInfo;
-                if (@enum != null) {
-                    // enums/flags are passed directly
-                    return;
-                }
-                var @struct = type.Interface as StructInfo;
-                if (@struct != null) {
-                    if (@struct.IsOpaque ()) {
-                        var isReferenceCounted = @struct.IsReferenceCountedOpaque ();
-                        var isStaticOpaque = @struct.IsStaticOpaque ();
-                        var isOwnedOpaque = @struct.IsOwnedOpaque ();
-                        marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrTo{0}{1}{2}Opaque<{3}> ({4}, {5})",
-                            isReferenceCounted ? "ReferenceCounted" : "",
-                            isOwnedOpaque ? "Owned" : "",
-                            isStaticOpaque ? "Static" : "",
-                            type.ToManagedType (),
-                            unmanagedVarName,
-                            transfer == Transfer.Nothing ? "false" : "true");
-                        break;
+            }
+            foreach (var paramElement in element.EnumerateParameters (managed: false)) {
+                if (paramElement.Element (gi + "doc") != null) {
+                    using (var reader = new StringReader (paramElement.Element (gi + "doc").Value)) {
+                        builder.AppendFormat ("/// <param name=\"{0}\">",
+                            paramElement.Attribute ("name").Value.Replace ("@", ""));
+                        builder.AppendLine ();
+                        while ((line = reader.ReadLine ()) != null) {
+                            builder.AppendFormat ("/// {0}", new XText (line));
+                            builder.AppendLine ();
+                        }
+                        builder.AppendLine ("/// </param>");
                     }
-                    // managed struct types are passed directly
-                    return;
                 }
-                var @object = type.Interface as ObjectInfo;
-                if (@object != null) {
-                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGObject<{0}> ({1}, {2})",
-                        type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
-                    break;
+            }
+            if (element.Element (gi + "return-value") != null) {
+                if (element.Element (gi + "return-value").Element (gi + "doc") != null) {
+                    using (var reader = new StringReader (element.Element (gi + "return-value").Element (gi + "doc").Value)) {
+                        builder.AppendLine ("/// <returns>");
+                        while ((line = reader.ReadLine ()) != null) {
+                            builder.AppendFormat ("/// {0}", new XText (line));
+                            builder.AppendLine ();
+                        }
+                        builder.AppendLine ("/// </returns>");
+                    }
                 }
-                var @interface = type.Interface as InterfaceInfo;
-                if (@interface != null) {
-                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGObjectInterface<{0}> ({1}, {2})",
-                        type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true");
-                    break;
+            }
+            var triviaList = ParseLeadingTrivia (builder.ToString ());
+
+            return triviaList;
+        }
+
+        public static DelegateDeclarationSyntax GetDelegateDeclaration (this XElement element, bool managed)
+        {
+            if (element.Name != gi + "callback") {
+                throw new ArgumentException ("Requires a 'callback' element", "element");
+            }
+
+            var returnType = ParseTypeName (element.Element (gi + "return-value").Attribute (gs + "managed-type").Value);
+            var name = element.Attribute ("name").Value + (managed ? "" : "Native");
+
+            var @delegate = DelegateDeclaration (returnType, name)
+                .WithParameters (element.Element (gi + "parameters"), managed)
+                .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
+                .AddAttribute ("UnmanagedFunctionPointer", "(CallingConvention.Cdecl)")
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ().ToArray ());
+
+            return @delegate;
+        }
+
+        public static T WithParameters<T> (this T syntax, XElement element, bool managed) where T : MemberDeclarationSyntax
+        {
+            if (element == null) {
+                return syntax;
+            }
+
+            var parameterList = ParameterList ();
+
+            foreach (var child in element.EnumerateParameters (managed)) {
+                parameterList = parameterList.AddParameters (child.GetParameter (managed, managed));
+            }
+
+            return (T) syntax.GetType ().GetMethod ("WithParameterList").Invoke (syntax, new [] { parameterList });
+        }
+
+        public static IEnumerable<XElement> EnumerateParameters (this XElement element, bool managed)
+        {
+            var parametersElement = managed 
+                ? element.Element (gs + "managed-parameters")
+                : element.Element (gi + "parameters");
+            
+            if (parametersElement != null) {
+                var instanceParameter = parametersElement.Element (gi + "instance-parameter");
+                if (instanceParameter != null) {
+                    yield return instanceParameter;
                 }
-                var type_ = type.Interface as TypeInfo;
-                if (type_ != null) {
-                    marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGType<{0}> ({1})",
-                        type.ToManagedType (), unmanagedVarName);
-                    break;
+                foreach (var parameter in parametersElement.Elements (gi + "parameter")) {
+                    yield return parameter;
                 }
-                throw new NotImplementedException ();
-            case TypeTag.GList:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGList<{0}> ({1}, {2}, {3})",
-                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
-                    transfer == Transfer.Everything ? "true" : "false");
-                break;
-            case TypeTag.GSList:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGSList<{0}> ({1}, {2}, {3})",
-                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
-                    transfer == Transfer.Everything ? "true" : "false");
-                break;
-            case TypeTag.GHash:
-                marshalExpression = string.Format ("GISharp.Core.MarshalG.PtrToGHash<{0}> ({1}, {2}, {3})",
-                    type.ToManagedType (), unmanagedVarName, transfer == Transfer.Nothing ? "false" : "true",
-                    transfer == Transfer.Everything ? "true" : "false");
-                break;
-            case TypeTag.Error:
-                throw new NotImplementedException ();
+            }
+        }
+
+        public static IEnumerable<AttributeListSyntax> GetAttributes (this XElement element)
+        {
+            if (element.Attribute ("deprecated").AsBool ()) {
+                var obsoleteAttribute = Attribute (
+                    ParseName ("Obsolete"));
+
+                var message = new StringBuilder ();
+                var docDeprecated = element.Element (gi + "doc-deprecated");
+                if (docDeprecated != null) {
+                    message.Append (docDeprecated.Value);
+                }
+                var deprecatedSince = element.Attribute ("deprecated-since");
+                if (deprecatedSince != null) {
+                    if (message.Length > 0) {
+                        message.Append (" ");
+                    }
+                    message.Append (deprecatedSince.Value);
+                }
+                if (message.Length > 0) {
+                    obsoleteAttribute = obsoleteAttribute.AddArgumentListArguments (
+                        AttributeArgument (
+                            LiteralExpression (SyntaxKind.StringLiteralExpression,
+                                Literal (message.ToString ()))));
+                }
+
+                yield return AttributeList ().AddAttributes (obsoleteAttribute);
+            }
+
+            if (element.Attribute ("version") != null) {
+                var sinceAttribute = Attribute (ParseName ("GISharp.Core.Since"))
+                    .WithArgumentList (AttributeArgumentList ()
+                        .AddArguments (AttributeArgument (
+                            LiteralExpression (SyntaxKind.StringLiteralExpression,
+                                Literal (element.Attribute ("version").Value)))));
+
+                yield return AttributeList ().AddAttributes (sinceAttribute);
+            }
+
+            if (element.Name == gi + "alias") {
+                var structLayoutAttribute = Attribute (ParseName ("StructLayout"))
+                    .WithArgumentList (ParseAttributeArgumentList ("(LayoutKind.Sequential)"));
+                yield return AttributeList ().AddAttributes (structLayoutAttribute);
+            }
+
+            if (element.Name == gi + "bitfield") {
+                var flagsAttribute = Attribute (ParseName ("Flags"));
+                yield return AttributeList ().AddAttributes (flagsAttribute);
+            }
+
+            if (element.Attribute (glib + "error-domain") != null) {
+                var errorDomainAttribute = Attribute (ParseName ("GISharp.Core.ErrorDomain"))
+                    .WithArgumentList (ParseAttributeArgumentList (
+                        string.Format ("(\"{0}\")", element.Attribute (glib + "error-domain").Value)));
+                yield return AttributeList ().AddAttributes (errorDomainAttribute);
+            }
+
+            if (element.Name == gi + "union") {
+                var structLayoutAttribute = Attribute (ParseName ("StructLayout"))
+                    .WithArgumentList (ParseAttributeArgumentList ("(LayoutKind.Explicit)"));
+                yield return AttributeList ().AddAttributes (structLayoutAttribute);
+            }
+
+            if (element.Name == gi + "field" && element.Parent.Name == gi + "union") {
+                var structLayoutAttribute = Attribute (ParseName ("FieldOffset"))
+                    .WithArgumentList (ParseAttributeArgumentList ("(0)"));
+                yield return AttributeList ().AddAttributes (structLayoutAttribute);
+            }
+        }
+
+        public static LiteralExpressionSyntax GetValueAsLiteral (this XElement element)
+        {
+            if (element.Attribute (gs + "managed-type") == null) {
+                throw new ArgumentException ("Requires element to have 'managed-type' attribute.");
+            }
+            if (element.Attribute ("value") == null) {
+                throw new ArgumentException ("Requires element to have 'value' attribute.");
+            }
+
+            switch (element.Attribute (gs + "managed-type").Value) {
+            case "bool":
+                switch (element.Attribute ("value").Value) {
+                case "true":
+                    return LiteralExpression (SyntaxKind.TrueLiteralExpression);
+                case "false":
+                    return LiteralExpression (SyntaxKind.FalseLiteralExpression);
+                default:
+                    throw new Exception (string.Format ("Unknown bool constant value '{0}'.", element.Attribute ("value").Value));
+                }
+            case "byte":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (byte.Parse (element.Attribute ("value").Value)));
+            case "sbyte":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (sbyte.Parse (element.Attribute ("value").Value)));
+            case "short":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (short.Parse (element.Attribute ("value").Value)));
+            case "ushort":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (ushort.Parse (element.Attribute ("value").Value)));
+            case "int":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (int.Parse (element.Attribute ("value").Value)));
+            case "uint":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (uint.Parse (element.Attribute ("value").Value)));
+            case "long":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (long.Parse (element.Attribute ("value").Value)));
+            case "ulong":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (ulong.Parse (element.Attribute ("value").Value)));
+            case "float":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (float.Parse (element.Attribute ("value").Value)));
+            case "double":
+                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                    Literal (double.Parse (element.Attribute ("value").Value)));
+            case "string":
+                return LiteralExpression (SyntaxKind.StringLiteralExpression,
+                    Literal (element.Attribute ("value").Value));
             default:
-                // basic types are passed directly
-                return;
-            }
-            if (marshalExpression == null) {
-                throw new NotImplementedException ();
-            }
-            cw.WriteLine ("{0}{1} = {2};", managedVarExists ? "" : "var ", managedVarName, marshalExpression);
-        }
-
-        public static void WriteArgChecks (this CodeWriter cw, ArgInfo arg)
-        {
-            var fixupPath = arg.GetFixupPath ();
-
-            // write null check
-
-            if (!arg.MayBeNull && arg.Direction != Direction.Out && arg.TypeInfo.NeedsMarshal ()) {
-                var argName = arg.GetFixedUpName (ToCamelCase);
-                cw.WriteLine ("if ({0} == null) {{", argName);
-                cw.IncIndent ();
-                var function = arg.Container as FunctionInfo;
-                if (function != null && function.IsEqualFunction ()) {
-                    cw.WriteLine ("return false;");
-                } else {
-                    cw.WriteLine ("throw new ArgumentNullException (\"{0}\");", argName);
-                }
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-            }
-
-            try {
-                var otherChecks = MainClass.fixup[fixupPath]["check"];
-                cw.WriteLine ();
-                cw.WriteLine ("#region Included from fixup file");
-                cw.WriteLine ();
-                foreach (var line in otherChecks.Split ('\n')) {
-                    if (line.StartsWith ("}", StringComparison.Ordinal)) {
-                        cw.DecIndent ();
-                    }
-                    cw.WriteLine (line);
-                    if (line.EndsWith ("{", StringComparison.Ordinal)) {
-                        cw.IncIndent ();
-                    }
-                }
-                cw.WriteLine ();
-                cw.WriteLine ("#endregion");
-                cw.WriteLine ();
-            } catch (KeyNotFoundException) {
+                throw new Exception (string.Format ("Bad constant type: {0}", element.Attribute (gs + "managed-type").Value));
             }
         }
 
-        public static bool GetSkipProperty (this string fixupPath)
+        public static T AddMembers<T> (this T syntax, params MemberDeclarationSyntax[] declarations) where T : TypeDeclarationSyntax
         {
-            try {
-                return MainClass.fixup[fixupPath].ContainsKey ("no property");
-            } catch (Exception) {
-                return false;
+            var addMembers = syntax.GetType ().GetMethod ("AddMembers");
+            if (addMembers == null) {
+                throw new ArgumentException ("Syntax node does not have AddMembers method", "syntax");
             }
-        }
-
-        public static string GetFixedUpName (this BaseInfo info, Func<string, string> convertFunc = null)
-        {
-            var fixupPath = info.GetFixupPath ();
-            if (convertFunc == null) {
-                convertFunc = (s) => s;
-            }
-            var function = info as FunctionInfo;
-            if (function != null) {
-                if (function.IsEqualFunction ()) {
-                    return "Equals"; // to implement IEquatable<T>
-                }
-                if (function.IsCompareFunction ()) {
-                    return "CompareTo"; // to implement IComparable<T>
-                }
-            }
-            try {
-                return MainClass.fixup[fixupPath]["name"];
-            } catch (KeyNotFoundException) {
-                return convertFunc (info.Name);
-            }
-        }
-
-        public static bool GetReturnsValue (this CallableInfo callable)
-        {
-            if (callable.ReturnTypeInfo.Tag == TypeTag.Void && !callable.ReturnTypeInfo.IsPointer) {
-                //void functions don't return a value
-                return false;
-            }
-            if (callable.SkipReturn) {
-                // GI tells us to ignore the return value
-                return false;
-            }
-            return true;
-        }
-
-        public static void WriteEqualOperatorImplementation (this CodeWriter cw, FunctionInfo function)
-        {
-            // == implementation
-
-            cw.WriteLine ("public static bool operator == ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-
-            cw.WriteLine ("if ((object)one == null) {");
-            cw.IncIndent ();
-            cw.WriteLine ("return (object)two == null;");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ("return one.Equals (two);");
-
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            // != implementation
-
-            cw.WriteLine ("public static bool operator != ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-
-            cw.WriteLine ("return !(one == two);");
-
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-        }
-
-        public static void WriteCompareOperatorImplementation (this CodeWriter cw, FunctionInfo function)
-        {
-            // < implementation
-
-            cw.WriteLine ("public static bool operator < ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("return one.CompareTo (two) < 0;");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            // <= implementation
-
-            cw.WriteLine ("public static bool operator <= ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("return one.CompareTo (two) <= 0;");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            // > implementation
-
-            cw.WriteLine ("public static bool operator > ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("return one.CompareTo (two) > 0;");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            // >= implementation
-
-            cw.WriteLine ("public static bool operator >= ({0} one, {0} two)", function.Args[0].TypeInfo.ToManagedType ());
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("return one.CompareTo (two) >= 0;");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-        }
-
-        public static FunctionInfo GetHashFunction (this FunctionInfo function)
-        {
-            var fixupPath = function.GetFixupPath ();
-            try {
-                var hashFunctionName = MainClass.fixup[fixupPath]["hash"];
-                var container = function.Container as IMethodContainer;
-                return container.Methods.SingleOrDefault (m => !m.IsHidden () && m.Name == hashFunctionName);
-            } catch (KeyNotFoundException){
-                return null;
-            }
-        }
-
-        public static void WriteEqualsOverride (this CodeWriter cw, FunctionInfo function)
-        {
-            // override System.Object.Equals
-
-            cw.WriteLine ("public override bool Equals (object other)");
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            cw.WriteLine ("return Equals (other as {0});", function.Args[0].TypeInfo.ToManagedType ());
-
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            // override System.Object.GetHashCode
-
-            cw.WriteLine ("public override int GetHashCode ()");
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            var hashFunction = function.GetHashFunction ();
-            if (hashFunction == null) {
-                cw.WriteLine ("return Handle.GetHashCode ();");
-            } else {
-                cw.WriteLine ("return (int){0} (Handle);", hashFunction.Symbol);
-            }
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
+            return (T)addMembers.Invoke (syntax, new [] { declarations });
         }
 
         /// <summary>
-        /// Writes the function.
+        /// Adds an AttributeList with a single attribute and optional parameters.
         /// </summary>
-        /// <returns>An Tuple with action to write a property getter/setter and
-        /// a bool where <c>true</c> indicates that this is a getter (and
-        /// <c>false</c> is a setter) or <c>null</c> if this is not a getter or
-        /// setter.</returns>
-        /// <param name="cw">cw.</param>
-        /// <param name="function">Function.</param>
-        /// <param name="stripPrefix">Strip prefix.</param>
-        public static Tuple<string, bool, Action, Action> WriteFunction (this CodeWriter cw,
-            FunctionInfo function, string stripPrefix = null)
+        /// <returns>The new Syntax with the attribute added.</returns>
+        /// <param name="syntax">A Syntax object that has an AddAttributeLists method.</param>
+        /// <param name="name">The name of the attribute.</param>
+        /// <param name="target">The target of the attribute (e.g. "return") or null.</param>
+        /// <param name="args">The attribute arguments (including the inclosing parentheses).</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static T AddAttribute<T> (this T syntax, string name, string args = null, string target = null) where T : SyntaxNode
         {
-            if (function.IsHidden ()) {
-                return null;
-            }
-            var functionName = function.GetFixedUpName (ToPascalCase);
-            if (stripPrefix != null && functionName.StartsWith (stripPrefix, StringComparison.Ordinal)) {
-                functionName = functionName.Remove (0, stripPrefix.Length);
-            }
-            var fixupPath = function.GetFixupPath ();
-            functionName = fixupPath.GetManagedName (functionName);
-
-            cw.WritePInvoke (function);
-            if (fixupPath.IsPInvokeOnly ()) {
-                return null;
+            var addAttributeLists = syntax.GetType ().GetMethod ("AddAttributeLists");
+            if (addAttributeLists == null) {
+                throw new ArgumentException ("Requires Syntax with AddAttributeLists method.", "syntax");
             }
 
-            // some constructors may be handled as static methods to avoid name conflicts
-            // i.e. we cant have 2 constructors with the same number of arguments
-            var isConstructor = (function.IsConstructor  || function.Name == "new") && !fixupPath.IsStaticConstructor ();
-
-            // anything that starts with Get, Is or Set is considered a property.
-            // unless the fixup file says to skip it.
-            var isGetter = false;
-            var isSetter = false;
-            if (!fixupPath.GetSkipProperty ()) {
-                isGetter = function.IsGetter
-                || (functionName.StartsWith ("Get", StringComparison.Ordinal) && function.Args.Count == 0)
-                || (functionName.StartsWith ("Is", StringComparison.Ordinal) && function.Args.Count == 0);
-                isSetter = function.IsSetter
-                || (functionName.StartsWith ("Set", StringComparison.Ordinal) && function.Args.Count == 1);
-
-                // Add "Get" prefix to "Is" getters to avoid naming conflict.
-                // The resulting property will still start with "Is".
-                if (isGetter && functionName.StartsWith ("Is", StringComparison.Ordinal)) {
-                    functionName = "Get" + functionName;
-                }
+            var attribute = Attribute (ParseName (name));
+            if (args != null) {
+                attribute = attribute.WithArgumentList (
+                    ParseAttributeArgumentList (args));
             }
 
-            // check if this is a child count function
-            if (functionName.StartsWith ("N", StringComparison.Ordinal) && function.Args.Count == 0) {
-                var container = function.Container as IMethodContainer;
-                var childGetterName = "Get" + functionName.Substring (1, functionName.Length - 2);
-                if (container.Methods.Any (m => m.GetFixupPath ().GetManagedName (m.GetFixedUpName (ToPascalCase)) == childGetterName)) {
-                    // the child count function will be handled in the child getter implementation
-                    return null;
-                }
+            var attributeList = AttributeList ().AddAttributes (attribute);
+            if (target != null) {
+                attributeList = attributeList.WithTarget (AttributeTargetSpecifier (
+                    ParseToken (target)));
             }
 
-            // check if this is a child getter function
-            bool isChildGetter = false;
-            FunctionInfo childCountFunction = null;
-            if (functionName.StartsWith ("Get", StringComparison.Ordinal) && function.Args.Count == 1) {
-                var container = function.Container as IMethodContainer;
-                var childCountName = "N" + functionName.Substring (3) + "s";
-                childCountFunction = container.Methods.SingleOrDefault (m => m.GetFixupPath ().GetManagedName (m.GetFixedUpName (ToPascalCase)) == childCountName);
-                isChildGetter = childCountFunction != null;
-            }
-
-            // Write the function declration
-
-            if (function.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-
-            if (function.InstanceOwnershipTransfer != Transfer.Nothing) {
-                // TODO: not sure how this needs to be handled. Ignoring "unref" is a hack for now.
-                if (function.Name != "unref") {
-                    throw new NotImplementedException ();
-                }
-            }
-
-            var @override = false;
-            var @struct = function.Container as StructInfo;
-            if (@struct != null) {
-                if (@struct.IsReferenceCountedOpaque ()) {
-                    @override = function.IsRefFunction () || function.IsUnrefFunction ();
-                }
-                if (@struct.IsOwnedOpaque ()) {
-                    @override = function.IsCopyFunction () || function.IsFreeFunction ();
-                }
-                if (@function.IsToStringFunction ()) {
-                    @override = true;
-                }
-            }
-
-            if (@override) {
-                cw.Write ("public override ");
-            } else if (isGetter || isSetter || isChildGetter) {
-                cw.Write (""); // private
-            } else {
-                cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            }
-            if (!function.IsMethod && !isConstructor) {
-                cw.Write ("static ");
-            }
-
-            var returnType = function.ReturnTypeInfo;
-            var returnsValue = !isConstructor && function.GetReturnsValue ();
-
-            if (isConstructor) {
-                cw.Write (returnType.Name);
-            } else if (returnsValue) {
-                cw.WriteType (returnType);
-            } else {
-                cw.Write ("void");
-            }
-            if (!isConstructor) {
-                cw.Write (" {0}", functionName);
-            }
-            cw.Write (" (");
-            cw.WriteArgs (function.Args.ToList ());
-            cw.Write (")");
-            if (isConstructor) {
-                cw.Write (" : base (IntPtr.Zero)");
-            }
-            cw.WriteLine (" // {0}", function.Name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-
-            // write the function body
-
-            Action<Dictionary<string, string>, string> writeInvoke = (marshalledArgNames, argSuffix) => {
-                // Call the PInvoke function
-
-                if (returnsValue) {
-                    cw.Write ("var ret{0}{1} = ", returnType.NeedsMarshal () ? "Ptr" : "", argSuffix);
-                } else if (isConstructor) {
-                    cw.Write ("Handle = ");
-                }
-                cw.Write ("{0} (", function.Symbol);
-                var lastArg = function.Args.LastOrDefault ();
-                if (function.IsMethod) {
-                    cw.Write ("Handle");
-                    if (lastArg != null) {
-                        cw.Write (", ");
-                    }
-                }
-                if (lastArg != null) {
-                    foreach (var arg in function.Args) {
-                        cw.WriteParameterModifier (arg);
-                        cw.Write (marshalledArgNames [arg.Name]);
-                        if (arg != lastArg) {
-                            cw.Write (", ");
-                        }
-                    }
-                }
-                cw.WriteLine (");");
-            };
-
-            cw.WriteCallableBody (function, writeInvoke, isConstructor, returnsValue);
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            if (function.IsEqualFunction ()) {
-                cw.WriteEqualsOverride (function);
-                cw.WriteEqualOperatorImplementation (function);
-            }
-
-            if (function.IsCompareFunction ()) {
-                cw.WriteCompareOperatorImplementation (function);
-            }
-
-            // generate property accessor for use later
-
-            Tuple<string, bool, Action, Action> writeProperty = null;
-            var propertyName = functionName.Remove (0, 3);
-            if (isGetter) {
-                writeProperty = new Tuple<string, bool, Action, Action> (
-                    propertyName,
-                    true,
-                    () => {
-                        cw.Write ("{0}", fixupPath.GetAccessModifier ());
-                        if (!function.IsMethod) {
-                            cw.Write ("static ");
-                        }
-                        cw.WriteType (function.ReturnTypeInfo);
-                        cw.WriteLine (" {0} {{", propertyName);
-                        cw.IncIndent ();
-                    },
-                    () => {
-                        cw.WriteLine ("get {");
-                        cw.IncIndent ();
-                        cw.WriteLine ("return {0} ();", functionName);
-                        cw.DecIndent ();
-                        cw.WriteLine ("}");
-                    });
-            }
-            if (isSetter) {
-                writeProperty = new Tuple<string, bool, Action, Action> (
-                    propertyName,
-                    false,
-                    () => {
-                        cw.Write ("{0}", fixupPath.GetAccessModifier ());
-                        if (!function.IsMethod) {
-                            cw.Write ("static ");
-                        }
-                        cw.WriteType (function.Args[0].TypeInfo);
-                        cw.WriteLine (" {0} {{", propertyName);
-                        cw.IncIndent ();
-                    },
-                    () => {
-                        cw.WriteLine ("set {");
-                        cw.IncIndent ();
-                        cw.WriteLine ("{0} (value);", functionName);
-                        cw.DecIndent ();
-                        cw.WriteLine ("}");
-                    });
-            }
-
-            if (isChildGetter) {
-                var childPropertyName = childCountFunction.GetFixupPath ().GetManagedName (childCountFunction.GetFixedUpName (ToPascalCase));
-                childPropertyName = childPropertyName.Substring (1);
-                var childPrivateName = char.ToLower (childPropertyName [0]) + childPropertyName.Substring (1);
-                cw.WriteLine ("GISharp.Core.IndexedCollection<{0}> {1};",
-                    returnType.ToManagedType (), childPrivateName);
-                cw.WriteLine ("{0}GISharp.Core.IndexedCollection<{1}> {2} {{",
-                    fixupPath.GetAccessModifier (), returnType.ToManagedType (), childPropertyName);
-                cw.IncIndent ();
-                cw.WriteLine ("get {");
-                cw.IncIndent ();
-                cw.WriteLine ("if ({0} == null) {{", childPrivateName);
-                cw.IncIndent ();
-                cw.WriteLine ("{0} = new GISharp.Core.IndexedCollection<{1}> (() => (int){2} (Handle), (i) => {3} (({4})i));",
-                    childPrivateName, returnType.ToManagedType (), childCountFunction.Symbol, functionName, function.Args [0].TypeInfo.ToManagedType ());
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-                cw.WriteLine ("return {0};", childPrivateName);
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-                cw.WriteLine ();
-            }
-
-
-            return writeProperty;
+            return (T)addAttributeLists.Invoke (syntax, new [] { new [] { attributeList } });
         }
 
-        public static void WriteCallableBody (this CodeWriter cw, CallableInfo callable,
-            Action<Dictionary<string, string>, string> writeInvoke,
-            bool isConstructor, bool returnsValue, string argSuffix = "")
+        public static ClassDeclarationSyntax AddFromNativeConstructor (this ClassDeclarationSyntax syntax)
         {
-            var managedArgs = callable.Args.ToList ();
-            managedArgs.FilterForManaged ();
+            var constructor = ConstructorDeclaration (syntax.Identifier)
+                .AddModifiers (ParseToken ("public"))
+                .WithParameterList (ParseParameterList ("(IntPtr handle)"))
+                .WithInitializer (ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                    .WithArgumentList (ParseArgumentList ("(handle)")))
+                .WithBody (Block ());
 
-            // Do null argument checks
-            foreach (var arg in managedArgs) {
-                cw.WriteArgChecks (arg);
-            }
-
-            // Then marshal input args to unmanaged structures as needed
-
-            var marshalledArgNames = new Dictionary<string, string> ();
-            var marshalledArgWriteFree = new List<Action> ();
-
-            foreach (var arg in managedArgs.Where (a => a.Direction == Direction.In || a.Direction == Direction.Inout)) {
-                if (arg.OwnershipTransfer != Transfer.Nothing) {
-                    throw new NotImplementedException ();
-                }
-                Action writeFree;
-                marshalledArgNames [arg.Name] = cw.WriteMarshalTypeFromManaged (arg.TypeInfo,
-                    arg.GetFixedUpName (ToCamelCase) + argSuffix, arg.OwnershipTransfer, out writeFree);
-                if (writeFree != null) {
-                    // have to postpone writing the free statement until after calling the pinvoke function
-                    marshalledArgWriteFree.Add (writeFree);
-                }
-                if (arg.TypeInfo.ArrayLength >= 0) {
-                    var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
-                    marshalledArgNames [lengthArg.Name] = lengthArg.GetFixedUpName (ToCamelCase) + argSuffix;
-                    var lengthArgManagedType = lengthArg.TypeInfo.ToManagedType ();
-                    cw.Write ("var {0} = {1} == null ? 0 : ",
-                        marshalledArgNames [lengthArg.Name], arg.GetFixedUpName (ToCamelCase) + argSuffix);
-                    if (lengthArgManagedType != "int" && lengthArgManagedType != "long") {
-                        cw.Write ("({0})", lengthArgManagedType);
-                    }
-                    cw.Write ("{0}.", arg.GetFixedUpName (ToCamelCase));
-                    if (lengthArgManagedType == "long" || lengthArgManagedType == "ulong") {
-                        cw.Write ("Long");
-                    }
-                    cw.WriteLine ("Length;");
-                }
-            }
-
-            // Declare any out args that need to be marshalled
-
-            foreach (var arg in managedArgs.Where (a => a.Direction == Direction.Out)) {
-                marshalledArgNames [arg.Name] = arg.GetFixedUpName (ToCamelCase) + argSuffix;
-                if (arg.TypeInfo.NeedsMarshal ()) {
-                    marshalledArgNames [arg.Name] += "Ptr";
-                    cw.WriteType (arg.TypeInfo, true);
-                    cw.WriteLine (" {0};", marshalledArgNames [arg.Name]);
-                }
-                if (arg.TypeInfo.ArrayLength >= 0) {
-                    var lengthArg = callable.Args [arg.TypeInfo.ArrayLength];
-                    marshalledArgNames [lengthArg.Name] = lengthArg.GetFixedUpName (ToCamelCase) + argSuffix;
-                    cw.WriteType (lengthArg.TypeInfo);
-                    cw.WriteLine (" {0};", marshalledArgNames [lengthArg.Name]);
-                }
-            }
-
-            // Implement callback function for closures
-
-            var closureArgs = callable.Args.Where (a => a.Closure >= 0).Select (a => new Tuple<ArgInfo, ArgInfo> (a, callable.Args [a.Closure]));
-            foreach (var args in closureArgs) {
-                var arg = args.Item1;
-                marshalledArgNames [arg.Name] = arg.GetFixedUpName (ToCamelCase) + argSuffix;
-                var userDataArg = args.Item2;
-                marshalledArgNames [userDataArg.Name] = userDataArg.GetFixedUpName (ToCamelCase) + argSuffix;
-
-                // if we are implementing a callback, there is nothing to do here
-                if (callable.InfoType == InfoType.Callback) {
-                    continue;
-                }
-
-                // for now, just using the GISharp.Core.Default.DestroyNotify
-                // instead of an individual imlementation for each function
-
-                var hasDestroy = arg.Destroy >= 0;
-                if (hasDestroy) {
-                    var destroyArg = callable.Args [arg.Destroy];
-                    marshalledArgNames [destroyArg.Name] = "GISharp.Core.Default.DestroyNotify";
-                }
-
-                // write the callback implementation
-
-                marshalledArgNames [arg.Name] += "Wrapper";
-                var callback = arg.TypeInfo.Interface as CallbackInfo;
-                var managedCallbackArgName = arg.GetFixedUpName (ToCamelCase) + argSuffix;
-
-                cw.WriteType (arg.TypeInfo, true);
-                cw.Write (" {0} = (", marshalledArgNames[arg.Name]);
-                // have to use a suffix to avoid naming conflicts with the outer function.
-                cw.WriteArgs (callback.Args.ToList (), true, "_");
-                cw.WriteLine (") => {");
-                cw.IncIndent ();
-
-                Action<Dictionary<string, string>, string> writeInvoke_ = (marshalledArgNames_, argSuffix_) => {
-                    if (callback.GetReturnsValue ()) {
-                        cw.Write ("var ret{0}{1} = ", "", argSuffix_);
-                    }
-                    cw.Write ("{0} (", managedCallbackArgName);
-                    var invokeArgs = callback.Args.ToList ();
-                    invokeArgs.FilterForManaged ();
-                    var lastInvokeArg = invokeArgs.LastOrDefault ();
-                    foreach (var invokeArg in invokeArgs) {
-                        cw.Write (marshalledArgNames_[invokeArg.Name]);
-                        if (invokeArg != lastInvokeArg) {
-                            cw.Write (", ");
-                        }
-                    }
-                    cw.WriteLine (");");
-                };
-                cw.WriteCallableBody (callback, writeInvoke_, false, callback.GetReturnsValue (), argSuffix + "_");
-                cw.DecIndent ();
-                cw.WriteLine ("};");
-                cw.WriteLine ();
-
-                // assign the GC handle of the callback to user_data for use by the destroy callback
-
-                if (hasDestroy) {
-                    if (userDataArg.TypeInfo.Tag != TypeTag.Void || !userDataArg.TypeInfo.IsPointer) {
-                        // assuming that user_data is always void*
-                        throw new NotImplementedException ();
-                    }
-                    cw.WriteLine ("var {0} = (IntPtr)GCHandle.Alloc ({1});",
-                        marshalledArgNames [userDataArg.Name], managedCallbackArgName);
-                } else {
-                    cw.WriteLine ("var {0} = IntPtr.Zero;", marshalledArgNames [userDataArg.Name]);
-                }
-            }
-
-            // Write the native or callback invoker
-
-            writeInvoke (marshalledArgNames, argSuffix);
-
-            // handle ownership in constructor
-
-            if (isConstructor) {
-                do {
-                    if (callable.CallerOwns != Transfer.Everything) {
-                        var @struct = callable.Container as StructInfo;
-                        if (@struct != null) {
-                            if (@struct.IsStaticOpaque ()) {
-                                // there is no ownership in StaticOpaque
-                                break;
-                            }
-                            if (@struct.IsReferenceCountedOpaque ()) {
-                                var refFunction = @struct.Methods.Single (m => !m.IsHidden () && m.IsRefFunction ());
-                                cw.WriteLine ("{0} (Handle);", refFunction.Symbol);
-                                break;
-                            }
-                        }
-                        throw new NotImplementedException ();
-                    }
-                } while (false);
-            }
-
-            // Free any unmanged input args
-
-            foreach (var writeFree in marshalledArgWriteFree) {
-                writeFree ();
-            }
-
-            // Marshal output parameters as needed.
-
-            foreach (var arg in managedArgs.Where (a => a.Direction == Direction.Out || a.Direction == Direction.Inout)) {
-                cw.WriteMarshalTypeToManaged (arg.TypeInfo, marshalledArgNames[arg.Name], arg.GetFixedUpName (ToCamelCase) + argSuffix, true, arg.OwnershipTransfer);
-//                if (arg.TypeInfo.ArrayLength >= 0) {
-//                    var lengthArg = function.Args [arg.TypeInfo.ArrayLength];
-//                    marshalledArgNames [lengthArg.Name] = lengthArg.GetFixedUpName (ToCamelCase);
-//                    cw.WriteLine ("{0} = {1}.Length;",
-//                        marshalledArgNames [arg.Name],
-//                        marshalledArgNames [lengthArg.Name]);
-//                }
-            }
-
-            // return result if needed;
-
-            if (returnsValue) {
-                cw.WriteMarshalTypeToManaged (callable.ReturnTypeInfo, "retPtr" + argSuffix, "ret" + argSuffix, false, callable.CallerOwns);
-                cw.WriteLine ("return ret{0};", argSuffix);
-            }
+            return syntax.AddMembers (constructor);
         }
 
-        public static  void WriteImplementedInterfaces (this CodeWriter cw, IMethodContainer container)
+        public static int GetClosureIndex (this XElement element)
         {
-            var info = container as BaseInfo;
-            foreach (var method in container.Methods) {
-                if (method.IsEqualFunction ()) {
-                    cw.Write (", IEquatable<{0}.{1}.{2}>", MainClass.parentNamespace, info.Namespace, info.Name);
-                }
-                if (method.IsCompareFunction ()) {
-                    cw.Write (", IComparable<{0}.{1}.{2}>", MainClass.parentNamespace, info.Namespace, info.Name);
-                }
+            if (element.Attribute ("closure") == null) {
+                return -1;
             }
+
+            return int.Parse (element.Attribute ("closure").Value);
         }
 
-        public static void WriteOpaque (this CodeWriter cw, StructInfo @struct,
-            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
+        public static int GetDestroyIndex (this XElement element)
         {
-            var fixupPath = @struct.GetFixupPath ();
-            var isReferenceCounted = @struct.IsReferenceCountedOpaque ();
-            var isStaticOpaque = @struct.IsStaticOpaque ();
-            var isOwnedOpaque = @struct.IsOwnedOpaque ();
-
-            cw.WriteHeader (@struct.Namespace);
-            if (@struct.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.Write ("partial class {0} : GISharp.Core.{1}{2}{3}Opaque<{0}>",
-                @struct.Name, isReferenceCounted ? "ReferenceCounted" : "",
-                isStaticOpaque ? "Static" : "", isOwnedOpaque ? "Owned" : "");
-            cw.WriteImplementedInterfaces (@struct);
-            cw.WriteLine ();
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-
-            foreach (var constant in constants) {
-                cw.WriteConstant (constant, @struct.Name);
+            if (element.Attribute ("destroy") == null) {
+                return -1;
             }
 
-            // this constructor is called when marshalling
-            cw.WriteLine ("public {0} (IntPtr handle) : base (handle)", @struct.Name);
-            cw.WriteLine ("{");
-            cw.WriteLine ("}");
-            cw.WriteLine ();
-
-            cw.WriteFunctions (@struct.Methods);
-            cw.WriteFunctions (extraFunctions, @struct.Name);
-
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
+            return int.Parse (element.Attribute ("destroy").Value);;
         }
 
-        public static void WritePseudoProperties (this CodeWriter cw,
-            Dictionary<string, Action> declarations,
-            Dictionary<string, Action> getters,
-            Dictionary<string, Action> setters)
+        public static int GetLengthIndex (this XElement element)
         {
-            foreach (var property in declarations) {
-                property.Value.Invoke ();
-                if (getters.ContainsKey (property.Key)) {
-                    getters [property.Key].Invoke ();
-                }
-                if (setters.ContainsKey (property.Key)) {
-                    setters [property.Key].Invoke ();
-                }
-                cw.DecIndent ();
-                cw.WriteLine ("}");
-                cw.WriteLine ();
+            var arrayElement = element.Element (gi + "array");
+            if (arrayElement == null || arrayElement.Attribute ("length") == null) {
+                return -1;
             }
+
+            return int.Parse (arrayElement.Attribute ("length").Value);
         }
 
-        public static void WriteFunctions (this CodeWriter cw, IEnumerable<FunctionInfo> functions,
-            string stripPrefix = null)
+        public static int GetFixedSize (this XElement element)
         {
-            var propertyTypes = new Dictionary <string, Action> ();
-            var propertyGetters = new Dictionary <string, Action> ();
-            var propertySetters = new Dictionary <string, Action> ();
+            var arrayElement = element.Element (gi + "array");
+            if (arrayElement == null || arrayElement.Attribute ("fixed-size") == null) {
+                return -1;
+            }
 
-            foreach (var function in functions) {
-                var propertyAccessor = cw.WriteFunction (function, stripPrefix);
-                if (propertyAccessor != null) {
-                    propertyTypes [propertyAccessor.Item1] = propertyAccessor.Item3;
-                    if (propertyAccessor.Item2) {
-                        propertyGetters [propertyAccessor.Item1] = propertyAccessor.Item4;
-                    } else {
-                        propertySetters [propertyAccessor.Item1] = propertyAccessor.Item4;
-                    }
-                }
-            }
-            cw.WritePseudoProperties (propertyTypes, propertyGetters, propertySetters);
-        }
-
-        public static void WriteStruct (this CodeWriter cw, StructInfo @struct,
-            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
-        {
-            var fixupPath = @struct.GetFixupPath ();
-
-            cw.WriteHeader (@struct.Namespace);
-            cw.WriteLine ("[StructLayout (LayoutKind.Explicit)]");
-            if (@struct.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.WriteLine ("struct {0}", @struct.Name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            foreach (var constant in constants) {
-                cw.WriteConstant (constant, @struct.Name);
-            }
-            foreach (var field in @struct.Fields) {
-                cw.WriteField (field);
-            }
-            cw.WriteFunctions (@struct.Methods);
-            cw.WriteFunctions (extraFunctions, @struct.Name);
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        public static void WriteUnion (this CodeWriter cw, UnionInfo union,
-            List<ConstantInfo> constants, List<FunctionInfo> extraFunctions)
-        {
-            var fixupPath = union.GetFixupPath ();
-            cw.WriteHeader (union.Namespace);
-            cw.WriteLine ("[StructLayout (LayoutKind.Explicit)] // union");
-            if (union.IsDeprecated) {
-                cw.WriteLine ("[Obsolete]");
-            }
-            cw.Write ("{0}", fixupPath.GetAccessModifier ());
-            cw.WriteLine ("struct {0}", union.Name);
-            cw.WriteLine ("{");
-            cw.IncIndent ();
-            foreach (var constant in constants) {
-                cw.WriteConstant (constant, union.Name);
-            }
-            foreach (var field in union.Fields) {
-                cw.WriteField (field);
-            }
-            cw.WriteFunctions (union.Methods);
-            cw.WriteFunctions (extraFunctions, union.Name);
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-            cw.DecIndent ();
-            cw.WriteLine ("}");
-        }
-
-        static readonly string[] keywords = {
-            "abstract", "as", "base", "bool", "break", "byte", "case", "catch",
-            "char", "checked", "class", "const", "continue", "decimal", "default",
-            "delegate", "do", "double", "else", "enum", "event", "explicit",
-            "extern", "false", "finally", "fixed", "float", "for", "foreach",
-            "goto", "if", "implicit", "in", "int", "interface", "internal", "is",
-            "lock", "long", "namespace", "new", "null", "object", "operator", "out",
-            "override", "params", "private", "protected", "public", "readonly",
-            "ref", "return", "sbyte", "sealed", "short", "sizeof", "stackalloc",
-            "static", "string", "struct", "switch", "this", "throw", "true", "try",
-            "typeof", "uint", "ulong", "unchecked", "unsafe", "ushort", "using",
-            "virtual", "void", "volatile", "while"
-        };
-
-        public static bool IsKeyword (this string str)
-        {
-            return keywords.Contains (str);
-        }
-
-        public static string ToCamelCase (this string str)
-        {
-            str = str.ToLower ();
-            // Make sure 'T' in GType is capitalized
-            str = str.Replace ("_gtype", "_g_type");
-            int index;
-            while ((index = str.IndexOf ("_", StringComparison.Ordinal)) >= 0) {
-                if (index == str.Length - 1) {
-                    str = str.Replace ("_", "");
-                    break;
-                }
-                var oldChar = str [index + 1];
-                str = str.Remove (index, 2);
-                str = str.Insert (index, oldChar.ToString ().ToUpper ());
-            }
-            if (str.IsKeyword ()) {
-                str = "@" + str;
-            }
-            return str;
-        }
-
-        public static string ToPascalCase (this string str)
-        {
-            if (string.IsNullOrWhiteSpace (str)) {
-                throw new ArgumentException ("Can't have empty string", "str");
-            }
-            if (str == "_") {
-                return str;
-            }
-            str = "_" + str;
-            return str.ToCamelCase ();
+            return int.Parse (arrayElement.Attribute ("fixed-size").Value);
         }
     }
 }

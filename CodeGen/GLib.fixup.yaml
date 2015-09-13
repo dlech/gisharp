@@ -3,12 +3,12 @@
 # Group related stuff into static classes #
 ###########################################
 
-# GLib.Child
+# GLib.ChildWatch
 
 GLib.Function.child_watch_source_new:
-    class: GLib.StaticClass.Child
+    class: GLib.StaticClass.ChildWatch
 GLib.Function.child_watch_add:
-    class: GLib.StaticClass.Child
+    class: GLib.StaticClass.ChildWatch
 
 # GLib.Idle
 
@@ -205,7 +205,7 @@ GLib.Struct.Variant.Function.ref:
     hidden: # using ref_sink instead
 GLib.Struct.Variant.Function.ref_sink:
     name: Ref
-GLib.Struct.Variant.Function.ref_take:
+GLib.Struct.Variant.Function.take_ref:
     hidden: # not needed
 GLib.Struct.Variant.Function.is_floating:
     hidden: # not needed

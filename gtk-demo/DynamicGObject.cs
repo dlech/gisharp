@@ -59,8 +59,6 @@ namespace gtkdemo
 
     public override bool TryInvokeMember (InvokeMemberBinder binder, object[] args, out object result)
     {
-      foreach (var name in binder.CallInfo.ArgumentNames)
-        Console.WriteLine (name);
       var current = info;
       while (current != null) {
         var method = current.FindMethod (binder.Name);

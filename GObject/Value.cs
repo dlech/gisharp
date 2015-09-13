@@ -6,11 +6,11 @@ namespace GISharp.GObject
     {
         public override Value Copy ()
         {
-            // TODO: Need to lookup free function in TypeValueTable
+            // TODO: Need to lookup copy function in TypeValueTable
             throw new NotImplementedException ();
         }
 
-        public override void Free ()
+        protected override void Free ()
         {
             // TODO: Need to lookup free function in TypeValueTable
             throw new NotImplementedException ();

@@ -13,7 +13,7 @@ namespace GISharp.GLib.Test
         [Test ()]
         public void TestFromString ()
         {
-            uint actual;
+            Quark actual;
 
             actual = Quark.FromString (null);
             Assert.That (actual, Is.EqualTo (0));
@@ -28,14 +28,14 @@ namespace GISharp.GLib.Test
             string actual;
 
             // null always returns 0
-            actual = Quark.ToString (0);
+            actual = Quark.Zero.ToString ();
             Assert.That (actual, Is.Null);
 
             // undefined quark creates new
             var quarkString = testQuarkPrefix + "test-to-string";
             Assume.That (Quark.TryString (quarkString), Is.EqualTo (0));
             var quark = Quark.FromString (quarkString);
-            actual = Quark.ToString (quark);
+            actual = quark.ToString ();
             Assert.That (actual, Is.EqualTo (quarkString));
         }
 
@@ -43,7 +43,7 @@ namespace GISharp.GLib.Test
         [Test ()]
         public void TestTryString ()
         {
-            uint actual;
+            Quark actual;
             var quarkString = testQuarkPrefix + "test-try-string";
 
             // null always returns 0

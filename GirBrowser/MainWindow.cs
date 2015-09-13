@@ -4,9 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using GirBrowser;
 using Gtk;
-using System.Xml.Xsl;
-using System.Xml.XPath;
-using System.Xml;
+using GISharp.CodeGen;
 
 public partial class MainWindow: Gtk.Window
 {
@@ -26,6 +24,7 @@ public partial class MainWindow: Gtk.Window
         girAttrNodeView.AppendColumn ("Attribute", new CellRendererText (), "text", 0);
         girAttrNodeView.AppendColumn ("Value", new CellRendererText (), "text", 1);
 
+        fixupBrowseButton.Clicked += fixupBrowseButton_Clicked;
         fixupApplyButton.Clicked += fixupApplyButton_Clicked;
 
         fixupTreeView.AppendColumn ("Element", new CellRendererText (), "text", 0);
@@ -39,7 +38,7 @@ public partial class MainWindow: Gtk.Window
 
         #if DEBUG
         girFileNameEntry.Text = "/usr/share/gir-1.0/GLib-2.0.gir";
-        fixupFileNameEntry.Text = "../../GLib-2.0.girfixup";
+        fixupFileNameEntry.Text = "../../../GLib-2.0.girfixup";
         girLoadButton.Click ();
         #endif
     }
@@ -142,6 +141,29 @@ public partial class MainWindow: Gtk.Window
         }
         if (fileDialog.Run () == (int)ResponseType.Ok) {
             girFileNameEntry.Text = fileDialog.Filename;
+        }
+        fileDialog.Destroy ();
+    }
+
+    void fixupBrowseButton_Clicked (object sender, EventArgs e)
+    {
+        var fixupFilter = new FileFilter { Name = "Gir fixup files (*.girfixup)" };
+        fixupFilter.AddPattern ("*.girfixup");
+        var allFilesFilter = new FileFilter { Name = "All files (*.*)" };
+        allFilesFilter.AddPattern ("*.*");
+
+        var fileDialog = new FileChooserDialog ("Select", this, FileChooserAction.Open,
+            "_Cancel", ResponseType.Cancel,
+            "_Open", ResponseType.Ok);
+        fileDialog.AddFilter (fixupFilter);
+        fileDialog.AddFilter (allFilesFilter);
+        if (File.Exists (fixupFileNameEntry.Text)) {
+            fileDialog.SetFilename (fixupFileNameEntry.Text);
+        } else {
+            fileDialog.SetCurrentFolder (".");
+        }
+        if (fileDialog.Run () == (int)ResponseType.Ok) {
+            fixupFileNameEntry.Text = fileDialog.Filename;
         }
         fileDialog.Destroy ();
     }

@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Linq;
 using Gtk;
+using GISharp.CodeGen;
 
 namespace GirBrowser
 {
@@ -189,10 +190,14 @@ namespace GirBrowser
         public string GetText (TreeIter iter)
         {
             var element = getNode (iter);
-            if (element == null || !element.Nodes ().OfType <XText> ().Any ()) {
+            if (element == null) {
                 return null;
             }
-            return element.Nodes ().OfType <XText> ().First ().Value;
+            var textNode = element.Nodes ().OfType <XText> ().SingleOrDefault ();
+            if (textNode != null) {
+                return textNode.Value;
+            }
+            return null;
         }
 
         public string GetCodeFragment (TreeIter iter)
