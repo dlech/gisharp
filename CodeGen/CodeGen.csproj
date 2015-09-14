@@ -109,25 +109,6 @@
     <None Include="GObject.fixup.yaml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Wrapped\BaseInfo.cs" />
-    <None Include="Wrapped\CallableInfo.cs" />
-    <None Include="Wrapped\FunctionInfo.cs" />
-    <None Include="Wrapped\SignalInfo.cs" />
-    <None Include="Wrapped\VFuncInfo.cs" />
-    <None Include="Wrapped\RegisteredTypeInfo.cs" />
-    <None Include="Wrapped\EnumInfo.cs" />
-    <None Include="Wrapped\InterfaceInfo.cs" />
-    <None Include="Wrapped\ObjectInfo.cs" />
-    <None Include="Wrapped\StructInfo.cs" />
-    <None Include="Wrapped\UnionInfo.cs" />
-    <None Include="Wrapped\ArgInfo.cs" />
-    <None Include="Wrapped\ConstantInfo.cs" />
-    <None Include="Wrapped\FieldInfo.cs" />
-    <None Include="Wrapped\PropertyInfo.cs" />
-    <None Include="Wrapped\TypeInfo.cs" />
-    <None Include="Wrapped\CallbackInfo.cs" />
-    <None Include="Wrapped\ValueInfo.cs" />
-    <None Include="Wrapped\Repository.cs" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -152,8 +133,5 @@
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Wrapped\" />
   </ItemGroup>
 </Project>
