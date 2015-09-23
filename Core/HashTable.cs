@@ -711,7 +711,7 @@ namespace GISharp.Core
         /// the passed in <see cref="HashTable{K,V}"/>
         /// </returns>
         [Since("2.10")]
-        public override void Ref ()
+        internal protected override void Ref ()
         {
             HashTableInternal.g_hash_table_ref (Handle);
         }
@@ -826,7 +826,7 @@ namespace GISharp.Core
         /// This function is MT-safe and may be called from any thread.
         /// </summary>
         [Since("2.10")]
-        public override void Unref ()
+        internal protected override void Unref ()
         {
             HashTableInternal.g_hash_table_unref (Handle);
         }

@@ -199,7 +199,7 @@ namespace GISharp.CodeGen
 
         public override Type BaseType {
             get {
-                throw new NotImplementedException ();
+                return type.BaseType;
             }
         }
 

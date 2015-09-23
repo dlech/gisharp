@@ -185,7 +185,7 @@ namespace GISharp.Core
         /// The passed in <see cref="Array{T}"/>
         /// </returns>
         [GISharp.Core.Since("2.22")]
-        public override void Ref ()
+        internal protected override void Ref ()
         {
             ArrayInternal.g_array_ref (Handle);
         }
@@ -316,7 +316,7 @@ namespace GISharp.Core
         /// released. This function is MT-safe and may be called from any
         /// thread.
         [GISharp.Core.Since("2.22")]
-        public override void Unref ()
+        internal protected override void Unref ()
         {
             ArrayInternal.g_array_unref (Handle);
         }

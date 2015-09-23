@@ -16,7 +16,7 @@ namespace GISharp.Core
         public IntPtr Handle { get; protected set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ReferenceCountedOpaque"/> class.
+        /// Initializes a new instance of the <see cref="ReferenceCountedOpaque{T}"/> class.
         /// </summary>
         /// <param name="handle">Handle.</param>
         /// <remarks>
@@ -33,13 +33,13 @@ namespace GISharp.Core
         }
 
         /// <summary>
-        /// Releases all resource used by the <see cref="Opaque"/> object.
+        /// Releases all resource used by the <see cref="ReferenceCountedOpaque{T}"/> object.
         /// </summary>
         /// <remarks>
-        /// Call <see cref="Dispose"/> when you are finished using the <see cref="Opaque"/>. The <see cref="Dispose"/>
-        /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose"/>, you must
-        /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
-        /// <see cref="Opaque"/> was occupying.
+        /// Call <see cref="Dispose"/> when you are finished using the <see cref="ReferenceCountedOpaque{T}"/>. The <see cref="Dispose"/>
+        /// method leaves the <see cref="ReferenceCountedOpaque{T}"/> in an unusable state. After calling <see cref="Dispose"/>, you must
+        /// release all references to the <see cref="ReferenceCountedOpaque{T}"/> so the garbage collector can reclaim the memory that the
+        /// <see cref="ReferenceCountedOpaque{T}"/> was occupying.
         ///
         /// For reference counted unmanaged types, the unmanged object will be unrefed.
         /// If the unmanaged object has a free function and we owned the object, the
@@ -84,7 +84,7 @@ namespace GISharp.Core
         /// Types that are reference counted must override this method.
         /// Has no effect for other types.
         /// </remarks>
-        public abstract void Ref ();
+        internal protected abstract void Ref ();
 
         /// <summary>
         /// Decrease the reference count of a reference counted object.
@@ -93,7 +93,7 @@ namespace GISharp.Core
         /// Types that are reference counted must override this method.
         /// Has no effect for other types.
         /// </remarks>
-        public abstract void Unref ();
+        internal protected abstract void Unref ();
 
         public override bool Equals (object obj)
         {

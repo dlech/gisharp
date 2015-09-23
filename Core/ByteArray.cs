@@ -277,7 +277,7 @@ namespace GISharp.Core
         /// This function is thread-safe and may be called from any thread.
         /// </summary>
         [Since("2.22")]
-        public override void Ref ()
+        internal protected override void Ref ()
         {
             g_byte_array_ref (Handle);
         }
@@ -502,7 +502,7 @@ namespace GISharp.Core
         /// thread.
         /// </summary>
         [Since("2.22")]
-        public override void Unref ()
+        internal protected override void Unref ()
         {
             g_byte_array_unref (Handle);
         }

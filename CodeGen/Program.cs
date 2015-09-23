@@ -94,7 +94,7 @@ namespace GISharp.CodeGen
             xmlDoc.ApplyMoveFile (fixupFile);
             xmlDoc.ApplyBuiltinFixup ();
 
-            var codeCompileUnit = xmlDoc.CreateFromGirX ();
+            var codeCompileUnit = xmlDoc.CreateFromGir ();
             using (var outFileStream = File.Open (outputFile, FileMode.Create))
             using (var writer = new StreamWriter (outFileStream)) {
                 var workspace = MSBuildWorkspace.Create ();
@@ -109,17 +109,6 @@ namespace GISharp.CodeGen
         static readonly XNamespace c = Globals.CNamespace;
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
-
-        public static CompilationUnitSyntax CreateFromGirX (this XDocument gir)
-        {
-            var syntax = CompilationUnit ();
-
-            var @namespace = gir.Descendants (gi + "namespace").Single ().Attribute (gs + "managed-name").Value;
-            var types = GirType.GetTypes (gir);
-            syntax = syntax.AddNamespace (@namespace, types);
-
-            return syntax;
-        }
 
         public static CompilationUnitSyntax AddNamespace (this CompilationUnitSyntax syntax, string @namespace, IEnumerable<Type> types)
         {
@@ -851,15 +840,9 @@ namespace GISharp.CodeGen
                 throw new ArgumentException ("Requires an 'alias' element.", "element");
             }
 
-            var valueType = ParseTypeName (element.Attribute (gs + "managed-type").Value);
-            var valueVar = VariableDeclarator (ParseToken ("value"));
-
             var alias = StructDeclaration (element.Attribute (gs + "managed-name").Value)
                 .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
                 .AddModifiers (ParseToken ("partial"))
-                .AddMembers (FieldDeclaration (
-                            VariableDeclaration (valueType)
-                                .AddVariables (valueVar)))
                 .AddMembersFromElement (element)
                 .AddAttributeLists (element.GetAttributes ().ToArray ())
                 .WithLeadingTrivia (element.GetDocumentationCommentTrivia ());
@@ -968,7 +951,7 @@ namespace GISharp.CodeGen
                 throw new ArgumentException ("Requires a 'static-class' element.", "element");
             }
 
-            var staticClass = ClassDeclaration (element.Attribute ("name").Value)
+            var staticClass = ClassDeclaration (element.Attribute (gs + "managed-name").Value)
                 .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
                 .AddModifiers (ParseTokens ("static partial").ToArray ())
                 .AddMembersFromElement (element)
@@ -981,7 +964,7 @@ namespace GISharp.CodeGen
         public static IEnumerable<EnumMemberDeclarationSyntax> GetEnumMembers (this XElement parent)
         {
             foreach (var child in parent.Elements (gi + "member")) {
-                var enumMember = EnumMemberDeclaration (child.Attribute ("name").Value)
+                var enumMember = EnumMemberDeclaration (child.Attribute (gs + "managed-name").Value)
                     .WithEqualsValue (EqualsValueClause (
                         LiteralExpression (SyntaxKind.NumericLiteralExpression,
                             Literal (int.Parse (child.Attribute ("value").Value)))))
@@ -1025,7 +1008,7 @@ namespace GISharp.CodeGen
             }
 
             var type = ParseTypeName (element.Attribute (gs + "managed-type").Value);
-            var variable = VariableDeclarator (element.Attribute ("name").Value);
+            var variable = VariableDeclarator (element.Attribute (gs + "managed-name").Value);
             var value = element.GetValueAsLiteral ();
 
             var constant = FieldDeclaration (VariableDeclaration (type)
@@ -1053,7 +1036,7 @@ namespace GISharp.CodeGen
             } else {
                 type = ParseTypeName (element.Attribute (gs + "managed-type").Value);
             }
-            var variable = VariableDeclarator (element.Attribute ("name").Value);
+            var variable = VariableDeclarator (element.Attribute (gs + "managed-name").Value);
 
             var field = FieldDeclaration (
                                VariableDeclaration (type).AddVariables (variable))
@@ -1074,10 +1057,11 @@ namespace GISharp.CodeGen
             var name = element.Attribute (c + "identifier").Value;
 
             var pinvoke = MethodDeclaration (returnType, name)
-                .WithParameters (element.Element (gi + "parameters"), managed: false)
+                .WithParameters (element, managed: false)
                 .AddModifiers (ParseTokens ("static extern").ToArray ())
                 .AddPinvokeAttributes (element)
-                .WithSemicolonToken (Token (SyntaxKind.SemicolonToken));
+                .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia (managed: false));
 
             return pinvoke;
         }
@@ -1109,18 +1093,19 @@ namespace GISharp.CodeGen
 
         public static BlockSyntax AddArgumentCheckStatements (this BlockSyntax syntax, XElement element)
         {
-            var parametersElement = element.Element (gi + "parameters");
+            var parametersElement = element.Element (gs + "managed-parameters");
 
             if (parametersElement != null) {
                 var parameters = parametersElement.Elements (gi + "parameter")
                     .Where (p => p.Attribute ("direction").AsString ("in") != "out")
-                    //.Where (p => !Fixup.GetTypeMeta (p.Attribute (gs + "unmanaged-type").Value).IsValueType)
-                    .Where (p => !p.Attribute ("allow-none").AsBool ()).ToList ();
+                    .Where (p => !GirType.GetType (p.Attribute (gs + "managed-type").Value, element.Document).IsValueType)
+                    // TODO: Do we also need to check for the obsolete "allow-none"?
+                    .Where (p => !p.Attribute ("nullable").AsBool ()).ToList ();
                 foreach (var p in parameters) {
                     var statement = ParseStatement (
                         string.Format (@"if ({0} == null) {{
                             throw new ArgumentNullException (""{0}"");
-                        }}", p.Attribute ("name").Value));
+                        }}", p.Attribute (gs + "managed-name").Value));
                     syntax = syntax.AddStatements (statement);
                 }
             }
@@ -1135,8 +1120,8 @@ namespace GISharp.CodeGen
             }
 
             var returnType = element.GetReturnType (true);
-            var name = element.Attribute ("name").Value;
-            var parentName = element.Parent.Attribute ("name").Value;
+            var name = element.Attribute (gs + "managed-name").Value;
+            var parentName = element.Parent.Attribute (gs + "managed-name").Value;
             var isStatic = element.Name == gi + "function";
 
             var body = Block ()
@@ -1196,7 +1181,7 @@ namespace GISharp.CodeGen
                     var property = syntax.Members.OfType<PropertyDeclarationSyntax> ()
                         .SingleOrDefault (p => p.Identifier.Text == propertyName || p.Identifier.Text == "Is" + propertyName);
                     var parameter = element.Element (gs + "managed-parameters").Element (gi + "parameter");
-                    var parameterName = parameter.Attribute ("name").Value;
+                    var parameterName = parameter.Attribute (gs + "managed-name").Value;
                     var parameterType = parameter.Attribute (gs + "managed-type").Value;
                     if (property != null && property.Type.ToString () == parameterType) {
                         var setter = AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
@@ -1220,44 +1205,42 @@ namespace GISharp.CodeGen
                 .WithLeadingTrivia (element.GetDocumentationCommentTrivia ())
                 .WithBody (body);
 
-            return syntax;
+            var methodList = new System.Collections.Generic.List<MemberDeclarationSyntax> ();
 
-//            var methodList = new List<MemberDeclarationSyntax> ();
-//
-//            if (element.Attribute (gs + "special-func") != null) {
-//                switch (element.Attribute (gs + "special-func").Value) {
-//                case "free":
-//                case "copy":
-//                case "ref":
-//                case "unref":
-//                case "to-string":
-//                    method = method.AddModifiers (ParseToken ("override"));
-//                    break;
-//                case "equal":
-//                    string hashFunc = "Handle.GetHashCode ()";
-//                    var hashFuncElement = element.Parent.Elements ()
-//                        .SingleOrDefault (e => e.Attribute (gs + "special-func").AsString () == "hash");
-//                    if (hashFuncElement != null) {
-//                        hashFunc = "(int)Hash ()";
-//                    }
-//                    methodList.Add (CreateOverrideEqualsMethod (parentName));
-//                    methodList.Add (CreateOverrideGetHashCodeMethod (hashFunc));
-//                    methodList.Add (CreateEqualityOperator (parentName));
-//                    methodList.Add (CreateInequalityOperator (parentName));
-//                    break;
-//                case "compare":
-//                    syntax = syntax.AddBaseListType (string.Format ("IComparable<{0}>", parentName));
-//                    methodList.Add (CreateCompareToOperator ("<", parentName));
-//                    methodList.Add (CreateCompareToOperator ("<=", parentName));
-//                    methodList.Add (CreateCompareToOperator (">=", parentName));
-//                    methodList.Add (CreateCompareToOperator (">", parentName));
-//                    break;
-//                }
-//            }
-//
-//            methodList.Insert (0, method);
-//
-//            return syntax.AddMembers (methodList.ToArray ());
+            if (element.Attribute (gs + "special-func") != null) {
+                switch (element.Attribute (gs + "special-func").Value) {
+                case "free":
+                case "copy":
+                case "ref":
+                case "unref":
+                case "to-string":
+                    method = method.AddModifiers (ParseToken ("override"));
+                    break;
+                case "equal":
+                    string hashFunc = "Handle.GetHashCode ()";
+                    var hashFuncElement = element.Parent.Elements ()
+                        .SingleOrDefault (e => e.Attribute (gs + "special-func").AsString () == "hash");
+                    if (hashFuncElement != null) {
+                        hashFunc = "(int)Hash ()";
+                    }
+                    methodList.Add (CreateOverrideEqualsMethod (parentName));
+                    methodList.Add (CreateOverrideGetHashCodeMethod (hashFunc));
+                    methodList.Add (CreateEqualityOperator (parentName));
+                    methodList.Add (CreateInequalityOperator (parentName));
+                    break;
+                case "compare":
+                    syntax = syntax.AddBaseListType (string.Format ("IComparable<{0}>", parentName));
+                    methodList.Add (CreateCompareToOperator ("<", parentName));
+                    methodList.Add (CreateCompareToOperator ("<=", parentName));
+                    methodList.Add (CreateCompareToOperator (">=", parentName));
+                    methodList.Add (CreateCompareToOperator (">", parentName));
+                    break;
+                }
+            }
+
+            methodList.Insert (0, method);
+
+            return syntax.AddMembers (methodList.ToArray ());
         }
 
         public static BlockSyntax AddInputParamArrayLenthAssignmentStatements (this BlockSyntax syntax, XElement element)
@@ -1273,12 +1256,12 @@ namespace GISharp.CodeGen
                     var statement = LocalDeclarationStatement (VariableDeclaration (
                         ParseTypeName ("var"))
                         .AddVariables (VariableDeclarator (
-                            ParseToken (p.Item2.Attribute ("name").Value))
+                            ParseToken (p.Item2.Attribute (gs + "managed-name").Value))
                             .WithInitializer (EqualsValueClause (
                                 ParseExpression (
                                     string.Format ("({0}){1}.Length",
                                         p.Item2.Attribute (gs + "unmanaged-type").Value,
-                                        p.Item1.Attribute ("name").Value))))));
+                                        p.Item1.Attribute (gs + "managed-name").Value))))));
                     syntax = syntax.AddStatements (statement);
                 }
             }
@@ -1298,7 +1281,7 @@ namespace GISharp.CodeGen
             if (parametersElement != null) {
                 var argumentList = ArgumentList ();
                 foreach (var p in element.EnumerateParameters (managed: false)) {
-                    var name = p.Attribute ("name").Value;
+                    var name = p.Attribute (gs + "managed-name").Value;
                     if (p.Name == gi + "instance-parameter") {
                         name = "Handle";
                     }
@@ -1405,7 +1388,7 @@ namespace GISharp.CodeGen
                 throw new ArgumentException ("Requires a 'record' element.", "element");
             }
 
-            var name = element.Attribute ("name").Value;
+            var name = element.Attribute (gs + "managed-name").Value;
 
             switch (element.Attribute (gs + "opaque").Value) {
             case "ref-counted":
@@ -1438,7 +1421,7 @@ namespace GISharp.CodeGen
             }
 
             var type = ParseTypeName (element.Attribute (gs + (managed ? "managed-type" : "unmanaged-type")).Value);
-            var identifier = Identifier (element.Attribute ("name").Value);
+            var identifier = Identifier (element.Attribute (gs + "managed-name").Value);
 
             var parameter = Parameter (identifier)
                 .WithType (type)
@@ -1469,12 +1452,25 @@ namespace GISharp.CodeGen
 
         public static TypeSyntax GetReturnType (this XElement parent, bool managed)
         {
-            if (parent.Element (gi + "return-value") == null) {
+            var returnValueElement = parent.Element (gi + "return-value");
+            if (returnValueElement == null) {
                 throw new ArgumentException ("Requires 'return-value' child element.", "parent");
             }
 
-            return ParseTypeName (parent.Element (gi + "return-value")
-                .Attribute (gs + (managed ? "managed-type" : "unmanaged-type")).Value);
+            string typeName;
+            if (managed) {
+                if (returnValueElement.Attribute ("skip").AsBool ()) {
+                    typeName = "void";
+                } else {
+                    typeName = returnValueElement.Attribute (gs + ("managed-type")).Value;
+                }
+            } else {
+                typeName = returnValueElement.Attribute (gs + ("unmanaged-type")).Value;
+            }
+
+            var syntax = ParseTypeName (typeName);
+
+            return syntax;
         }
 
         public static IEnumerable<SyntaxToken> GetAccessModifiersAsTokens (this XElement element)
@@ -1486,7 +1482,7 @@ namespace GISharp.CodeGen
             return ParseTokens (element.Attribute (gs + "access-modifier").Value);
         }
 
-        public static SyntaxTriviaList GetDocumentationCommentTrivia (this XElement element)
+        public static SyntaxTriviaList GetDocumentationCommentTrivia (this XElement element, bool managed = true)
         {
             string line;
             var builder = new StringBuilder ();
@@ -1513,17 +1509,19 @@ namespace GISharp.CodeGen
                     }
                 }
             }
-            foreach (var paramElement in element.EnumerateParameters (managed: false)) {
-                if (paramElement.Element (gi + "doc") != null) {
-                    using (var reader = new StringReader (paramElement.Element (gi + "doc").Value)) {
-                        builder.AppendFormat ("/// <param name=\"{0}\">",
-                            paramElement.Attribute ("name").Value.Replace ("@", ""));
-                        builder.AppendLine ();
-                        while ((line = reader.ReadLine ()) != null) {
-                            builder.AppendFormat ("/// {0}", new XText (line));
+            if (element.Element (gi + "parameters") != null) {
+                foreach (var paramElement in element.EnumerateParameters (managed)) {
+                    if (paramElement.Element (gi + "doc") != null) {
+                        using (var reader = new StringReader (paramElement.Element (gi + "doc").Value)) {
+                            builder.AppendFormat ("/// <param name=\"{0}\">",
+                                paramElement.Attribute (gs + "managed-name").Value.Replace ("@", ""));
                             builder.AppendLine ();
+                            while ((line = reader.ReadLine ()) != null) {
+                                builder.AppendFormat ("/// {0}", new XText (line));
+                                builder.AppendLine ();
+                            }
+                            builder.AppendLine ("/// </param>");
                         }
-                        builder.AppendLine ("/// </param>");
                     }
                 }
             }
@@ -1551,13 +1549,13 @@ namespace GISharp.CodeGen
             }
 
             var returnType = ParseTypeName (element.Element (gi + "return-value").Attribute (gs + "managed-type").Value);
-            var name = element.Attribute ("name").Value + (managed ? "" : "Native");
+            var name = element.Attribute (gs + "managed-name").Value + (managed ? "" : "Native");
 
             var @delegate = DelegateDeclaration (returnType, name)
-                .WithParameters (element.Element (gi + "parameters"), managed)
+                .WithParameters (element, managed)
                 .AddModifiers (element.GetAccessModifiersAsTokens ().ToArray ())
                 .AddAttribute ("UnmanagedFunctionPointer", "(CallingConvention.Cdecl)")
-                .WithLeadingTrivia (element.GetDocumentationCommentTrivia ().ToArray ());
+                .WithLeadingTrivia (element.GetDocumentationCommentTrivia (managed).ToArray ());
 
             return @delegate;
         }
@@ -1579,18 +1577,30 @@ namespace GISharp.CodeGen
 
         public static IEnumerable<XElement> EnumerateParameters (this XElement element, bool managed)
         {
-            var parametersElement = managed 
-                ? element.Element (gs + "managed-parameters")
-                : element.Element (gi + "parameters");
-            
-            if (parametersElement != null) {
-                var instanceParameter = parametersElement.Element (gi + "instance-parameter");
-                if (instanceParameter != null) {
-                    yield return instanceParameter;
+            if (element == null) {
+                throw new ArgumentNullException (nameof(element));
+            }
+
+            var childElementName = managed ? gs + "managed-parameters" : gi + "parameters";
+            var parametersElement = element.Element (childElementName);
+
+            if (parametersElement == null) {
+                if (element.Element (gi + "return-value") != null) {
+                    // if we have a <return-value>, then we can assume that this is a
+                    // proper node and just does not have any parameters.
+                    // Alternatly, we could check if this is function/method/constructor/callback
+                    yield break;
                 }
-                foreach (var parameter in parametersElement.Elements (gi + "parameter")) {
-                    yield return parameter;
-                }
+                var message = string.Format ("Expecting element with <{0}> child element.", childElementName.LocalName);
+                throw new ArgumentException (message, nameof(element));
+            }
+
+            var instanceParameter = parametersElement.Element (gi + "instance-parameter");
+            if (instanceParameter != null) {
+                yield return instanceParameter;
+            }
+            foreach (var parameter in parametersElement.Elements (gi + "parameter")) {
+                yield return parameter;
             }
         }
 
@@ -1674,6 +1684,7 @@ namespace GISharp.CodeGen
 
             switch (element.Attribute (gs + "managed-type").Value) {
             case "bool":
+            case "System.Boolean":
                 switch (element.Attribute ("value").Value) {
                 case "true":
                     return LiteralExpression (SyntaxKind.TrueLiteralExpression);
@@ -1683,36 +1694,47 @@ namespace GISharp.CodeGen
                     throw new Exception (string.Format ("Unknown bool constant value '{0}'.", element.Attribute ("value").Value));
                 }
             case "byte":
+            case "System.Byte":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (byte.Parse (element.Attribute ("value").Value)));
             case "sbyte":
+            case "System.SByte":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (sbyte.Parse (element.Attribute ("value").Value)));
             case "short":
+            case "System.Int16":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (short.Parse (element.Attribute ("value").Value)));
             case "ushort":
+            case "System.UInt16":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (ushort.Parse (element.Attribute ("value").Value)));
             case "int":
+            case "System.Int32":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (int.Parse (element.Attribute ("value").Value)));
             case "uint":
+            case "System.Uint32":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (uint.Parse (element.Attribute ("value").Value)));
             case "long":
+            case "System.Int64":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (long.Parse (element.Attribute ("value").Value)));
             case "ulong":
+            case "System.UInt64":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (ulong.Parse (element.Attribute ("value").Value)));
             case "float":
+            case "System.Float":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (float.Parse (element.Attribute ("value").Value)));
             case "double":
+            case "System.Double":
                 return LiteralExpression (SyntaxKind.NumericLiteralExpression,
                     Literal (double.Parse (element.Attribute ("value").Value)));
             case "string":
+            case "System.String":
                 return LiteralExpression (SyntaxKind.StringLiteralExpression,
                     Literal (element.Attribute ("value").Value));
             default:

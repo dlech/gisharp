@@ -187,7 +187,7 @@ namespace GISharp.Core
         /// The passed in <see cref="PtrArray{T}"/>
         /// </returns>
         [Since("2.22")]
-        public override void Ref()
+        internal protected override void Ref()
         {
             PtrArrayInternal.g_ptr_array_ref (Handle);
         }
@@ -368,7 +368,7 @@ namespace GISharp.Core
         /// is MT-safe and may be called from any thread.
         /// </summary>
         [Since("2.22")]
-        public override void Unref ()
+        internal protected override void Unref ()
         {
             PtrArrayInternal.g_ptr_array_unref (Handle);
         }

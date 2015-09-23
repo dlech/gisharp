@@ -15,10 +15,10 @@ namespace GISharp.CodeGen
             this.type = type;
         }
 
-        public override Type MakeByRefType ()
-        {
-            return new GirByRefType (this);
-        }
+//        public override Type MakeByRefType ()
+//        {
+//            return new GirByRefType (this);
+//        }
 
         #region implemented abstract members of MemberInfo
 
@@ -181,7 +181,7 @@ namespace GISharp.CodeGen
 
         public override Type BaseType {
             get {
-                throw new NotImplementedException ();
+                return typeof(Array);
             }
         }
 

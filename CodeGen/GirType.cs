@@ -8,7 +8,7 @@ using GISharp.Core;
 
 namespace GISharp.CodeGen
 {
-    public class GirType : Type, IGirInfo
+    public class GirType : Type
     {
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace c = Globals.CNamespace;
@@ -53,7 +53,8 @@ namespace GISharp.CodeGen
                 genericArgs = typeName.Remove(typeName.Length - 1).Substring (typeName.IndexOf ('[') + 1).Split (',')
                     .Select (x => GirType.GetType (x, document))
                     .ToArray ();
-                typeName = typeName.Remove (typeName.IndexOf ('`'));
+                typeName = typeName.Remove (typeName.IndexOf ('[') + 1) + "]";
+                type = GetType (typeName, document);
             }
 
             switch (typeName) {
@@ -135,13 +136,14 @@ namespace GISharp.CodeGen
             if (type == null) {
                 XElement typeDefinitionElement = null;
                 if (!girTypeCache.TryGetValue (typeName, out typeDefinitionElement)) {
+                    var unqualifiedTypeName = typeName.Split ('.').Last ();
                     typeDefinitionElement = document.Descendants ()
-                    .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
-                    .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == typeName);
+                        .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
+                        .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     if (typeDefinitionElement == null) {
                         // special case for callbacks since there is a "Native" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
-                        .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value + "Native" == typeName);
+                            .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value + "Native" == unqualifiedTypeName);
                     }
                     if (typeDefinitionElement != null) {
                         girTypeCache.Add (typeName, typeDefinitionElement);
@@ -180,39 +182,14 @@ namespace GISharp.CodeGen
             return element.GetCustomAttributes (false).ToList ();
         }
 
-        public override Type MakeArrayType ()
-        {
-            return new GirArrayType (this);
-        }
-
-        public override Type MakeByRefType ()
-        {
-            return new GirByRefType (this);
-        }
-
         public override Type MakeGenericType (params Type[] typeArguments)
         {
             return new GirGenericType (this, typeArguments);
         }
 
-        public override InterfaceMapping GetInterfaceMap (Type interfaceType)
+        public override Type MakeArrayType ()
         {
-            if (interfaceType == null) {
-                throw new ArgumentNullException (nameof(interfaceType));
-            }
-            if (!interfaceType.IsInterface) {
-                throw new ArgumentException ("Not an interface.", nameof(interfaceType));
-            }
-            if (!getInterfaces ().Contains (interfaceType)) {
-                throw new ArgumentException ("Does not implement this interface.", nameof(interfaceType));
-            }
-            var mapping = new InterfaceMapping () {
-                InterfaceMethods = interfaceType.GetMethods (),
-                InterfaceType = interfaceType,
-                TargetMethods = GetMethods (),
-                TargetType = this,
-            };
-            return mapping;
+            return new GirArrayType (this);
         }
 
         #region implemented abstract members of MemberInfo
@@ -252,29 +229,7 @@ namespace GISharp.CodeGen
 
         public override Type[] GetInterfaces ()
         {
-            return getInterfaces ().ToArray ();
-        }
-
-        IEnumerable<Type> getInterfaces ()
-        {
-            foreach (var implmentsElement in element.Elements (gi + "implements")) {
-                yield return GetType (implmentsElement.Attribute ("name").Value, element.Document);
-            }
-            foreach (var specialFuncElement in element.Elements ().Where (e => e.Attribute (gs + "special-func") != null)) {
-                var specialFunc = specialFuncElement.Attribute (gs + "special-func").Value;
-                switch(specialFunc) {
-                case "equal":
-                    yield return typeof(IEquatable<>).MakeGenericType (this);
-                    break;
-                case "compare":
-                    yield return typeof(IComparable<>).MakeGenericType (this);
-                    break;
-                }
-            }
-
-            foreach (var iface in BaseType.SafeGetInterfaces ()) {
-                yield return iface;
-            }
+            throw new NotImplementedException ();
         }
 
         public override Type GetElementType ()
@@ -299,20 +254,7 @@ namespace GISharp.CodeGen
 
         public override FieldInfo[] GetFields (BindingFlags bindingAttr)
         {
-            return getFields (bindingAttr).ToArray ();
-        }
-
-        IEnumerable<FieldInfo> getFields (BindingFlags bindingAttr)
-        {
-            foreach (var e in element.Elements (gi + "constant")) {
-                yield return GirFieldInfo.Get (e);
-            }
-            foreach (var e in element.Elements (gi + "field")) {
-                yield return GirFieldInfo.Get (e);
-            }
-            foreach (var e in element.Elements (gi + "member")) {
-                yield return GirFieldInfo.Get (e);
-            }
+            throw new NotImplementedException ();
         }
 
         public override MemberInfo[] GetMembers (BindingFlags bindingAttr)
@@ -322,39 +264,12 @@ namespace GISharp.CodeGen
 
         protected override MethodInfo GetMethodImpl (string name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
-            if (element.Name == gi + "callback") {
-                if (name == "Invoke") {
-                    return GirMethodInfo.Get (element, false);
-                }
-                if (name == "InvokeNative") {
-                    return GirMethodInfo.Get (element, true);
-                }
-            }
             throw new NotImplementedException ();
         }
 
         public override MethodInfo[] GetMethods (BindingFlags bindingAttr)
         {
-            return getMethods (bindingAttr).ToArray ();
-        }
-
-        IEnumerable<MethodInfo> getMethods (BindingFlags bindingAttr)
-        {
-            foreach (var e in element.Elements (gi + "constructor")) {
-                yield return GirMethodInfo.Get (e, true);
-            }
-            foreach (var e in element.Elements (gi + "function")) {
-                yield return GirMethodInfo.Get (e, true);
-                if (!e.Attribute (gs + "pinvoke-only").AsBool () && e.Attribute (gs + "property") == null) {
-                    yield return GirMethodInfo.Get (e, false);
-                }
-            }
-            foreach (var e in element.Elements (gi + "method")) {
-                yield return GirMethodInfo.Get (e, true);
-                if (!e.Attribute (gs + "pinvoke-only").AsBool () && e.Attribute (gs + "property") == null) {
-                    yield return GirMethodInfo.Get (e, false);
-                }
-            }
+            throw new NotImplementedException ();
         }
 
         public override Type GetNestedType (string name, BindingFlags bindingAttr)
@@ -369,25 +284,7 @@ namespace GISharp.CodeGen
 
         public override PropertyInfo[] GetProperties (BindingFlags bindingAttr)
         {
-            return getProperties (bindingAttr).ToArray ();
-        }
-
-        IEnumerable<PropertyInfo> getProperties (BindingFlags bindingAttr)
-        {
-            var functionProperties = element.Elements (gi + "function")
-                .Where (e => e.Attribute (gs + "property") != null)
-                .GroupBy (e => e.Attribute (gs + "property").Value);
-            foreach (var e in functionProperties) {
-                var lookup = e.ToLookup (x => x.Attribute ("name").Value.StartsWith ("set_", StringComparison.Ordinal));
-                yield return GirPropertyInfo.Get (lookup[false].SingleOrDefault (), lookup[true].SingleOrDefault ());
-            }
-            var methodProperties = element.Elements (gi + "method")
-                .Where (e => e.Attribute (gs + "property") != null)
-                .GroupBy (e => e.Attribute (gs + "property").Value);
-            foreach (var e in methodProperties) {
-                var lookup = e.ToLookup (x => x.Attribute ("name").Value.StartsWith ("set_", StringComparison.Ordinal));
-                yield return GirPropertyInfo.Get (lookup[false].SingleOrDefault (), lookup[true].SingleOrDefault ());
-            }
+            throw new NotImplementedException ();
         }
 
         protected override PropertyInfo GetPropertyImpl (string name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
@@ -402,21 +299,7 @@ namespace GISharp.CodeGen
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
         {
-            var attrs = default(TypeAttributes);
-
-            attrs |= TypeAttributes.Public;
-
-            if (element.Name == gi + "interface") {
-                // this flag is used by the IsInterface getter
-                attrs |= TypeAttributes.ClassSemanticsMask;
-            }
-
-            if (element.Name == gs + "static-class") {
-                attrs |= TypeAttributes.Abstract;
-                attrs |= TypeAttributes.Sealed;
-            }
-
-            return attrs;
+            throw new NotImplementedException ();
         }
 
         protected override bool HasElementTypeImpl ()
@@ -452,16 +335,7 @@ namespace GISharp.CodeGen
 
         public override ConstructorInfo[] GetConstructors (BindingFlags bindingAttr)
         {
-            return getConstructors (bindingAttr).ToArray ();
-        }
-
-        IEnumerable<ConstructorInfo> getConstructors (BindingFlags bindingAttr)
-        {
-            foreach (var e in element.Elements (gi + "constructor")) {
-                if (!e.Attribute (gs + "pinvoke-only").AsBool ()) {
-                    yield return GirConstructorInfo.Get (e);
-                }
-            }
+            throw new NotImplementedException ();
         }
 
         public override object InvokeMember (string name, BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
@@ -522,7 +396,7 @@ namespace GISharp.CodeGen
 
         public override string FullName {
             get {
-                return Namespace + "." + Name;
+                return string.Format ("{0}.{1}", Namespace, Name);
             }
         }
 
@@ -540,23 +414,15 @@ namespace GISharp.CodeGen
 
         public override string Namespace {
             get {
-                return "GISharp." + element.Ancestors (gi + "namespace").Single ().Attribute (gs + "managed-name").Value;
+                return string.Format ("{0}.{1}",
+                    MainClass.parentNamespace,
+                    element.GetNamespace ());
             }
         }
 
         public override Type UnderlyingSystemType {
             get {
                 return BaseType.UnderlyingSystemType;
-            }
-        }
-
-        #endregion
-
-        #region IGirInfo implementation
-
-        public string DocumentationComments {
-            get {
-                return element.GetDocumentationComments ();
             }
         }
 

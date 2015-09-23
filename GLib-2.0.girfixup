@@ -181,8 +181,12 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'TrashSt
 # Skip things that are implemented in GISharp.Core #
 ####################################################
 
+# ByteArray
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ByteArray']"
 # Array
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Array']"
+# PtrArray
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='PtrArray']"
 # HashTable
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HashFunc']"
@@ -196,6 +200,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareDataF
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Func']"
 # Node
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CopyFunc']"
+# SList
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SList']"
 
 #########################
 # Fixup everything else #
@@ -245,13 +251,6 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]" "gi:
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_static_string']"
 # change the return type of intern_static_string so that it does not get marshaled
 chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_string']/gi:return-value/gi:type"
-
-# ByteArray
-
-# Change functions to constructors and methods
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:function[contains(@name,'new')]"
-chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:function[gi:parameters/gi:parameter[@name='array']]"
-chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='ByteArray']/gi:method/gi:parameters/gi:parameter[@name='array']"
 
 # Bytes
 
@@ -308,13 +307,6 @@ chattr "name" "KEY_FILE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='
 # Hide the free function since this is reference counted
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='free']"
 
-# List
-
-# Change functions to constructors and methods
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='List']/gi:function[contains(@name,'new')]"
-chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='List']/gi:function[gi:parameters/gi:parameter[@name='list']]"
-chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='List']/gi:method/gi:parameters/gi:parameter[@name='list']"
-
 # Log
 
 # add a static class for log_ functions
@@ -360,13 +352,6 @@ move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "g
 # Drop the PRIORITY_ prefix from the constant names
 chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
 
-# PtrArray
-
-# Change functions to constructors and methods
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function[contains(@name,'new')]"
-chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function[gi:parameters/gi:parameter[@name='array']]"
-chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:method/gi:parameters/gi:parameter[@name='array']"
-
 # Queue
 
 # new function is constructor
@@ -381,15 +366,6 @@ chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='Sequence
 
 # Calling this is owned opaque for now even though it doesn't have a free function
 chattr "gs:opaque" "" "owned" "gi:repository/gi:namespace/gi:record[@name='SequenceIter']"
-
-# SList
-
-# make insert_before look like all of the other functions
-chattr "name" "" "list" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[@name='insert_before']/gi:parameters/gi:parameter[@name='slist']"
-# Change functions to constructors and methods
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[contains(@name,'new')]"
-chelement "gi:method" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:function[gi:parameters/gi:parameter[@name='list']]"
-chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:record[@name='SList']/gi:method/gi:parameters/gi:parameter[@name='list']"
 
 # Source
 

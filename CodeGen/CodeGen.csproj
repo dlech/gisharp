@@ -88,17 +88,11 @@
     <Compile Include="CodeWriter.cs" />
     <Compile Include="Mono.Options\Options.cs" />
     <Compile Include="Fixup.cs" />
-    <Compile Include="GirType.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="GirFieldInfo.cs" />
     <Compile Include="IGirInfo.cs" />
-    <Compile Include="GirMethodInfo.cs" />
-    <Compile Include="GirParameterInfo.cs" />
-    <Compile Include="GirConstructorInfo.cs" />
-    <Compile Include="GirArrayType.cs" />
-    <Compile Include="GirByRefType.cs" />
-    <Compile Include="GirPropertyInfo.cs" />
+    <Compile Include="GirType.cs" />
     <Compile Include="GirGenericType.cs" />
+    <Compile Include="GirArrayType.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

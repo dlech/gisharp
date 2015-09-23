@@ -36,6 +36,8 @@ namespace GISharp.CodeGen
             }
         }
 
+        static Dictionary<string, Type> typeLookup = new Dictionary<string, Type> ();
+
         public static void ApplyMoveFile (this XDocument document, string filename)
         {
             if (document == null) {
@@ -196,7 +198,7 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static bool IsCallableWithVarArgs (this XElement element)
+        static bool IsCallableWithVarArgs (this XElement element)
         {
             element = element.Element (gi + "parameters");
             if (element == null) {
@@ -280,6 +282,11 @@ namespace GISharp.CodeGen
                 name = camelCase ? name.ToCamelCase () : name.ToPascalCase ();
 
                 element.SetAttributeValue (gs + "managed-name", name);
+
+                if (ElementsThatDefineAType.Contains (element.Name)) {
+                    var @namespace = element.GetNamespace ();
+                    typeLookup.Add (name, new GirType (element));
+                }
             }
 
            // flag ref functions
@@ -289,6 +296,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithRefMethod) {
                 element.SetAttributeValue (gs + "special-func", "ref");
+                element.SetAttributeValue (gs + "access-modifier", "protected");
                 element.Element (gi + "return-value").SetAttributeValue ("skip", "1");
             }
 
@@ -299,6 +307,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithUnrefMethod) {
                 element.SetAttributeValue (gs + "special-func", "unref");
+                element.SetAttributeValue (gs + "access-modifier", "protected");
             }
 
             // flag copy functions
@@ -411,6 +420,7 @@ namespace GISharp.CodeGen
             // add managed-type attribute (skipping existing managed-type attributes)
 
             var elementsWithManagedType = document.Descendants ()
+                .Where (d => ElementsThatReferenceAType.Contains (d.Name))
                 .Where (d => d.Attribute (gs + "managed-type") == null);
             foreach (var element in elementsWithManagedType) {
                 element.SetAttributeValue (gs + "managed-type", element.GetManagedTypeName ());
@@ -419,13 +429,10 @@ namespace GISharp.CodeGen
             // add unmanaged-type attribute (skipping existing unmanaged-type attributes)
 
             var elementsWithUnmanagedType = document.Descendants ()
+                .Where (d => ElementsThatReferenceAType.Contains (d.Name))
                 .Where (d => d.Attribute (gs + "unmanaged-type") == null);
             foreach (var element in elementsWithUnmanagedType) {
-                try {
-                    element.SetAttributeValue (gs + "unmanaged-type", element.GetUnmanagedTypeName ());
-                // Analysis disable once EmptyGeneralCatchClause
-                } catch {
-                }
+                element.SetAttributeValue (gs + "unmanaged-type", element.GetUnmanagedTypeName ());
             }
 
             // add managed-parameters element
@@ -497,7 +504,7 @@ namespace GISharp.CodeGen
         /// </remarks>
         /// <returns>The parameter elements.</returns>
         /// <param name="parameters">A 'parameters' element.</param>
-        public static IEnumerable<XElement> EnumerateManagedParameters (this XElement parameters)
+        static IEnumerable<XElement> EnumerateManagedParameters (this XElement parameters)
         {
             if (parameters.Name != gi + "parameters") {
                 throw new ArgumentException ("Requires 'parameters' element.", "parameters");
@@ -568,7 +575,7 @@ namespace GISharp.CodeGen
         /// <remarks>
         /// These are used in the "name" attribute of "type" elements.
         /// </remarks>
-        public static IEnumerable<string> PrimitiveGirTypeNames {
+        static IEnumerable<string> PrimitiveGirTypeNames {
             get {
                 yield return "gboolean";
                 yield return "gpointer";
@@ -606,7 +613,7 @@ namespace GISharp.CodeGen
         /// <remarks>
         /// These are used in the "name" attribute of "type" elements.
         /// </remarks>
-        public static IEnumerable<string> SpecialGirTypeNames {
+        static IEnumerable<string> SpecialGirTypeNames {
             get {
                 yield return "none";
                 yield return "utf8";
@@ -616,7 +623,30 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static string GetManagedTypeName (this XElement element)
+        public static string GetNamespace (this XElement element)
+        {
+            if (element == null) {
+                throw new ArgumentNullException (nameof(element));
+            }
+            var namespaceElement = element.Ancestors (gi + "namespace").Single ();
+            var @namespace = namespaceElement.Attribute (gs + "managed-name").Value;
+
+            return @namespace;
+        }
+
+//        public static Type LookupType (string @namespace, string typeName)
+//        {
+//            var type = Type.GetType (typeName);
+//            if (!typeLookup.ContainsKey (@namespace)) {
+//                throw new NotImplementedException ();
+//            }
+//            if (!typeLookup[@namespace].ContainsKey (typeName)) {
+//                throw new NotImplementedException ();
+//            }
+//            var typeElement = typeLookup[@namespace][typeName];
+//        }
+
+        static string GetManagedTypeName (this XElement element)
         {
             string typeName = null;
             var typeElement = element.Element (gi + "type");
@@ -628,76 +658,130 @@ namespace GISharp.CodeGen
                 // Also see https://github.com/dotnet/coreclr/issues/963
 
                 switch (typeName) {
+
+                // basic/fundamental types
+
                 case "gboolean":
-                    typeName = typeof(bool).FullName;
-                    break;
+                    return typeof(bool).FullName;
                 case "gchar":
                 case "gint8":
-                    typeName = typeof(sbyte).FullName;
-                    break;
+                    return typeof(sbyte).FullName;
                 case "guchar":
                 case "guint8":
-                    typeName = typeof(byte).FullName;
-                    break;
+                    return typeof(byte).FullName;
                 case "gshort":
                 case "gint16":
-                    typeName = typeof(short).FullName;
-                    break;
+                    return typeof(short).FullName;
                 case "gushort":
                 case "guint16":
-                    typeName = typeof(ushort).FullName;
-                    break;
+                    return typeof(ushort).FullName;
                 case "gint":
                 case "gint32":
-                    typeName = typeof(int).FullName;
-                    break;
+                    return typeof(int).FullName;
                 case "guint":
                 case "guint32":
-                    typeName = typeof(uint).FullName;
-                    break;
+                    return typeof(uint).FullName;
                 case "gssize":
                 case "goffset":
                 case "glong":
                 case "gint64":
-                    typeName = typeof(long).FullName;
-                    break;
+                    return typeof(long).FullName;
                 case "gsize":
                 case "gulong":
                 case "guint64":
-                    typeName = typeof(ulong).FullName;
-                    break;
+                    return typeof(ulong).FullName;
                 case "gfloat":
-                    typeName = typeof(float).FullName;
-                    break;
+                    return typeof(float).FullName;
                 case "gdouble":
-                    typeName = typeof(double).FullName;
-                    break;
+                    return typeof(double).FullName;
                 case "gpointer":
                 case "gconstpointer":
                 case "gintptr":
-                    typeName = typeof(IntPtr).FullName;
-                    break;
+                    return typeof(IntPtr).FullName;
                 case "guintptr":
-                    typeName = typeof(UIntPtr).FullName;
-                    break;
+                    return typeof(UIntPtr).FullName;
                 case "filename":
                 case "utf8":
-                    typeName = typeof(string).FullName;
-                    break;
+                    return typeof(string).FullName;
                 case "va_list":
-                    typeName = typeof(object[]).FullName;
-                    break;
+                    return typeof(object[]).FullName;
                 case "none":
-                    typeName = typeof(void).FullName;
-                    break;
+                    return typeof(void).FullName;
+
+                // core callbacks
+
+                case "CompareDataFunc":
+                case "GLib.CompareDataFunc":
+                case "CompareFunc":
+                case "GLib.CompareFunc":
+                    return typeof(GISharp.Core.CompareFunc<>).FullName
+                        + string.Format ("[{0}.{1}.{2}]",
+                            MainClass.parentNamespace,
+                            element.GetNamespace (),
+                            element.Ancestors ()
+                                .Single (a => ElementsThatDefineAType.Contains (a.Name))
+                                .Attribute ("name").Value);
+                case "CopyFunc":
+                case "GLib.CopyFunc":
+                    return typeof(GISharp.Core.CopyFunc<>).FullName
+                        + string.Format ("[{0}.{1}.{2}]",
+                            MainClass.parentNamespace,
+                            element.GetNamespace (),
+                            element.Ancestors ()
+                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
+                            .Attribute ("name").Value);
+                case "DestroyNotify":
+                case "GLib.DestroyNotify":
+                    return typeof(GISharp.Core.DestroyNotify<>).FullName
+                        + string.Format ("[{0}.{1}.{2}]",
+                            MainClass.parentNamespace,
+                            element.GetNamespace (),
+                            element.Ancestors ()
+                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
+                            .Attribute ("name").Value);
+                case "Func":
+                case "GLib.Func":
+                    return typeof(GISharp.Core.Func<>).FullName
+                        + string.Format ("[{0}.{1}.{2}]",
+                            MainClass.parentNamespace,
+                            element.GetNamespace (),
+                            element.Ancestors ()
+                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
+                            .Attribute ("name").Value);
+
                 }
                 var typeParameterElements = typeElement.Elements (gi + "type").Union (element.Elements (gi + "array")).ToList ();
                 if (typeParameterElements.Any ()) {
-                    // GLib.List, GLib.SList and GLib.HashTable can have generic parameters
-                    typeName = string.Format ("{0}`{1}[{2}]", typeName, typeParameterElements.Count,
-                        string.Join (",", typeParameterElements
-                            .Select (c => new XElement("dummy", c)
-                                .GetManagedTypeName ())));
+                    switch (typeName) {
+                    case "GLib.List":
+                        return string.Format ("{0}`1[{1}]",
+                            string.Concat (typeof(GISharp.Core.List<>).FullName.TakeWhile (c => c != '`')),
+                            typeParameterElements
+                                .Select (c => new XElement ("dummy", c).GetManagedTypeName ())
+                                .Single ());
+                    case "GLib.SList":
+                        return string.Format ("{0}`1[{1}]",
+                            string.Concat (typeof(GISharp.Core.SList<>).FullName.TakeWhile (c => c != '`')),
+                            typeParameterElements
+                                .Select (c => new XElement ("dummy", c).GetManagedTypeName ())
+                                .Single ());
+                    case "GLib.HashTable":
+                        return string.Format ("{0}`2[{1}]",
+                            string.Concat (typeof(GISharp.Core.HashTable<,>).FullName.TakeWhile (c => c != '`')),
+                            string.Join (",", typeParameterElements
+                                .Select (c => new XElement ("dummy", c)
+                                    .GetManagedTypeName ())));
+                    default:
+                        var message = string.Format ("Unknown type '{0} with type parameters.", typeName);
+                        throw new ArgumentException (message, "element");
+                    }
+                }
+
+                if (!typeName.Contains (".")) {
+                    return string.Format ("{0}.{1}.{2}",
+                        MainClass.parentNamespace,
+                        element.GetNamespace (),
+                        typeName);
                 }
             } 
 
@@ -705,22 +789,41 @@ namespace GISharp.CodeGen
             if (arrayElement != null) {
                 var arrayNameAttr = element.Element (gi + "array").Attribute ("name");
                 if (arrayNameAttr == null) {
-                    typeName = string.Format ("{0}[]", element.Element (gi + "array").GetManagedTypeName ());
+                    return string.Format ("{0}[]", element.Element (gi + "array").GetManagedTypeName ());
                 } else {
-                    // GLib.Array, GLib.PtrArray and GLib.ByteArray can have generic parameters
-                    typeName = string.Format("{0}`1[{1}]", element.Element (gi + "array").Attribute ("name").Value,
-                        arrayElement.GetManagedTypeName ());
+                    var arrayName = arrayNameAttr.Value;
+                    switch (arrayName) {
+                    case "GLib.ByteArray":
+                        // GLib.ByteArray has array type, but it should always be System.Byte
+                        return typeof(GISharp.Core.ByteArray).FullName;
+                    case "GLib.Array":
+                        // GLib.Array has generic parameters
+                        return string.Format("{0}<{1}>",
+                            string.Concat (typeof(GISharp.Core.Array<>).FullName.TakeWhile (c => c != '`')),
+                            arrayElement.GetManagedTypeName ());
+                    case "GLib.PtrArray":
+                        //GLib.PtrArray has generic parameters
+                        return string.Format("{0}<{1}>",
+                            string.Concat (typeof(GISharp.Core.PtrArray<>).FullName.TakeWhile (c => c != '`')),
+                            arrayElement.GetManagedTypeName ());
+                    default:
+                        var message = string.Format ("Unknown array type '{0}.", typeName);
+                        throw new ArgumentException (message, "element");
+                    }
                 }
-            } else if (element.Element (gi + "callback") != null) {
+            }
+
+            if (element.Element (gi + "callback") != null) {
                 // fields can have a callback instead of a type
-                typeName = typeof(IntPtr).FullName;
+                return typeof(IntPtr).FullName;
                 // TODO: implment fields with callback
                 //typeName = element.Attribute ("name") + "Func";
             }
-            return typeName;
+            
+            throw new ArgumentException ("element must have <type>, <array> or <callback> child");
         }
 
-        public static string GetUnmanagedTypeName (this XElement element)
+        static string GetUnmanagedTypeName (this XElement element)
         {
             var typeElement = element.Element (gi + "type");
             if (typeElement != null) {
@@ -761,19 +864,8 @@ namespace GISharp.CodeGen
                     // these have to be marshaled
                     return typeof(IntPtr).FullName;
                 default:
-                    try {
-                        var type = GirType.GetType (element.Attribute (gs + "managed-type").Value, element.Document);
-                        if (type.SafeGetInterfaces ().Contains (typeof(GISharp.Core.IWrappedNative))) {
-                            return typeof(IntPtr).FullName;
-                        }
-                        if (typeof(Delegate).IsAssignableFrom (type)) {
-                            return typeElement.Attribute ("name").Value + "Native";
-                        }
-                    } catch (Exception) {
-                        Console.Error.WriteLine (string.Format ("Could not find the type '{0}'.",
-                            typeElement.Attribute ("name").Value));
-                    }
-                    return typeElement.Attribute ("name").Value;
+                    // TODO: need to lookup type. delegates and structs are passed by value.
+                    return typeof(IntPtr).FullName;
                 }
             }
 
