@@ -17,11 +17,6 @@ namespace GISharp.Core
 
         public bool Owned { get; internal set; }
 
-        protected OwnedOpaque (IntPtr handle)
-        {
-            Handle = handle;
-        }
-
         ~OwnedOpaque ()
         {
             Dispose (false);

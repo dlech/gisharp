@@ -312,7 +312,7 @@ namespace GISharp.GI
         /// is not specified, the latest will be used.
         /// </remarks>
         public static void Require (string @namespace, string version = null,
-            RepositoryLoadFlags flags = (RepositoryLoadFlags)0)
+            RepositoryLoadFlags flags = default(RepositoryLoadFlags))
         {
             if (@namespace == null) {
                 throw new ArgumentNullException ("namespace");
@@ -349,7 +349,7 @@ namespace GISharp.GI
         /// will be used.
         /// </remarks>
         public static void RequirePrivate (string typelibDir, string @namespace,
-            string version = null, RepositoryLoadFlags flags = (RepositoryLoadFlags)0)
+            string version = null, RepositoryLoadFlags flags = default(RepositoryLoadFlags))
         {
             if (typelibDir == null) {
                 throw new ArgumentNullException ("typelibDir");

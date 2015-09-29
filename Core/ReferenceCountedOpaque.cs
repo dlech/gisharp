@@ -15,18 +15,6 @@ namespace GISharp.Core
         /// <value>The pointer.</value>
         public IntPtr Handle { get; protected set; }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="ReferenceCountedOpaque{T}"/> class.
-        /// </summary>
-        /// <param name="handle">Handle.</param>
-        /// <remarks>
-        /// This is indened for use by bindings. You should normally call
-        /// <see cref="MarshalG.PtrToReferenceCountedOpaque"/> instead.
-        protected ReferenceCountedOpaque (IntPtr handle)
-        {
-            Handle = handle;
-        }
-
         ~ReferenceCountedOpaque ()
         {
             Dispose (false);

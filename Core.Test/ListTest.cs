@@ -86,7 +86,7 @@ namespace Core.Test
         [Test]
         public void TestInsertSorted ()
         {
-            CompareFunc<TestWrappedNative> compareFunc = (a, b) =>
+            CompareFuncCallback<TestWrappedNative> compareFunc = (a, b) =>
                 a.Value.CompareTo (b.Value);
             var list = new List<TestWrappedNative> ();
             Assume.That (list.Length, Is.EqualTo (0));
@@ -217,7 +217,7 @@ namespace Core.Test
         public void TestCopyDeep ()
         {
             var copyFuncWasCalled = false;
-            CopyFunc<TestWrappedNative> copyFunc = (src) => {
+            CopyFuncCallback<TestWrappedNative> copyFunc = (src) => {
                 copyFuncWasCalled = true;
                 if (src == null) {
                     return null;
@@ -269,7 +269,7 @@ namespace Core.Test
         public void TestSort ()
         {
             var compareFuncWasCalled = false;
-            CompareFunc<TestWrappedNative> compareFunc = (a, b) => {
+            CompareFuncCallback<TestWrappedNative> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Handle.ToInt32 ().CompareTo (b.Handle.ToInt32 ());
             };
@@ -327,7 +327,7 @@ namespace Core.Test
         public void TestForeach ()
         {
             int foreachCallCount = 0;
-            GISharp.Core.Func<TestWrappedNative> foreachFunc = (data) =>
+            GISharp.Core.FuncCallback<TestWrappedNative> foreachFunc = (data) =>
                 foreachCallCount++;
             // check that callback is called
             var list = new List<TestWrappedNative> ()
@@ -493,7 +493,7 @@ namespace Core.Test
         public void TestFindCustom ()
         {
             var compareFuncWasCalled = false;
-            CompareFunc<TestWrappedNative> compareFunc = (a, b) => {
+            CompareFuncCallback<TestWrappedNative> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Value > b.Value ? 0 : -1;
             };

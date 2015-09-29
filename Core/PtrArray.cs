@@ -18,16 +18,17 @@ namespace GISharp.Core
             typeParameterCustomMarshaler = typeof(T).GetCustomMarshaler ();
         }
 
-        DestroyNotifyNative elementFreeFuncNative;
+        DestroyNotify elementFreeFuncNative;
 
-        public PtrArray (IntPtr handle) : base (handle)
+        public PtrArray (IntPtr handle)
         {
+            Handle = handle;
         }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/>.
         /// </summary>
-        public PtrArray () : base (IntPtr.Zero)
+        public PtrArray ()
         {
             Handle = PtrArrayInternal.g_ptr_array_new ();
         }
@@ -49,8 +50,7 @@ namespace GISharp.Core
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.30")]
-        public PtrArray (UInt32 reservedSize, DestroyNotify<T> elementFreeFunc)
-            : base (IntPtr.Zero)
+        public PtrArray (UInt32 reservedSize, DestroyNotifyCallback<T> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
                 throw new ArgumentNullException ("elementFreeFunc");
@@ -76,7 +76,7 @@ namespace GISharp.Core
         /// A new <see cref="PtrArray{T}"/>
         /// </returns>
         [Since("2.22")]
-        public PtrArray (DestroyNotify<T> elementFreeFunc) : base (IntPtr.Zero)
+        public PtrArray (DestroyNotifyCallback<T> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
                 throw new ArgumentNullException ("elementFreeFunc");
@@ -100,7 +100,7 @@ namespace GISharp.Core
         /// <returns>
         /// the new <see cref="PtrArray{T}"/>
         /// </returns>
-        public PtrArray(UInt32 reservedSize) : base (IntPtr.Zero)
+        public PtrArray(UInt32 reservedSize)
         {
             Handle = PtrArrayInternal.g_ptr_array_sized_new (reservedSize);
         }
@@ -125,9 +125,9 @@ namespace GISharp.Core
         /// the function to call for each array element
         /// </param>
         [Since("2.4")]
-        public void Foreach (Func<T> func)
+        public void Foreach (FuncCallback<T> func)
         {
-            FuncNative funcNative = (funcDataPtr, funcUserDataPtr) => {
+            Func funcNative = (funcDataPtr, funcUserDataPtr) => {
                 var funcData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcDataPtr);
                 func.Invoke (funcData);
             };
@@ -304,10 +304,10 @@ namespace GISharp.Core
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.22")]
-        public void SetFreeFunc (DestroyNotify<T> elementFreeFunc)
+        public void SetFreeFunc (DestroyNotifyCallback<T> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
-                elementFreeFuncNative = default(DestroyNotifyNative);
+                elementFreeFuncNative = default(DestroyNotify);
             } else {
                 elementFreeFuncNative = (elementFreeFuncDataPtr) => {
                     var elementFreeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (elementFreeFuncDataPtr);
@@ -347,12 +347,12 @@ namespace GISharp.Core
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (CompareFunc<T> compareFunc)
+        public void Sort (CompareFuncCallback<T> compareFunc)
         {
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
-            CompareFuncNative compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
                 var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
@@ -534,7 +534,7 @@ namespace GISharp.Core
         [Since("2.30")]
         internal static extern IntPtr g_ptr_array_new_full(
             [In] UInt32 reservedSize,
-            [In] DestroyNotifyNative elementFreeFunc);
+            [In] DestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Creates a new #GPtrArray with a reference count of 1 and use
@@ -552,7 +552,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern IntPtr g_ptr_array_new_with_free_func(
-            [In] DestroyNotifyNative elementFreeFunc);
+            [In] DestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Creates a new #GPtrArray with @reservedSize pointers preallocated
@@ -601,7 +601,7 @@ namespace GISharp.Core
         [Since("2.4")]
         internal static extern void g_ptr_array_foreach(
             [In] IntPtr array,
-            [In] FuncNative func,
+            [In] Func func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -799,7 +799,7 @@ namespace GISharp.Core
         [Since("2.22")]
         internal static extern void g_ptr_array_set_free_func(
             [In] IntPtr array,
-            [In] DestroyNotifyNative elementFreeFunc);
+            [In] DestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
@@ -840,7 +840,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_ptr_array_sort(
             [In] IntPtr array,
-            [In] CompareFuncNative compareFunc);
+            [In] CompareFunc compareFunc);
 
         /// <summary>
         /// Like g_ptr_array_sort(), but the comparison function has an extra
@@ -865,7 +865,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_ptr_array_sort_with_data(
             [In] IntPtr array,
-            [In] CompareDataFuncNative compareFunc,
+            [In] CompareDataFunc compareFunc,
             [In] IntPtr userData);
 
         /// <summary>

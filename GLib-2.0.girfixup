@@ -23,10 +23,19 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'filenam
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'charset')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'codeset')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='NormalizeMode']"
+# collections
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Queue']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Sequence']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='SequenceIter']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='SequenceIterCompareFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Tree']"
 # crypto
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Hmac']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Rand']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'random_')]"
+# datetime
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeVal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='TimeVal']"
 # environment
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='listenv']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='MODULE_SUFFIX']"
@@ -175,7 +184,10 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='SourcePrivate']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'gettext')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'unix_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Hook')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'HOOK_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'TrashStack')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='USEC_PER_SEC']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='VA_COPY_AS_ARRAY']"
 
 ####################################################
 # Skip things that are implemented in GISharp.Core #
@@ -193,6 +205,16 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HashFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='EqualFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HRFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='direct_equal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='direct_hash']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='double_hash']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='double_equal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='double_hash']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int_equal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int_hash']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int64_equal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int64_hash']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTableIter']"
 # List
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='List']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareFunc']"
@@ -257,7 +279,7 @@ chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/
 # hide constructors that are not useful in managed code
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_static']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_take']"
-chattr "pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']"
 
 # Date
 
@@ -342,6 +364,8 @@ chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='Main
 
 # Rename the destory function so that it is used as the free function
 chattr "name" "" "free" "gi:repository/gi:namespace/gi:record[@name='Node']/gi:method[@name='destroy']"
+# TODO: this needs type parameter for CopyFunc
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Node']/gi:method[@name='copy_deep']"
 
 # Priority
 

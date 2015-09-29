@@ -74,13 +74,6 @@ special-func
 : Values
     : `ref`, `unref`, `copy`, `free`, `equal`, `compare`, `hash`, `to_string`
 
-unmanaged-type
-: Description
-    : Stores the unmanaged type that will be used for an element. The value is
-      automatically generated.
-: Values
-    : Any valid C# type identifier
-
 Commands
 --------
 

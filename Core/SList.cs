@@ -25,8 +25,9 @@ namespace GISharp.Core
             Owned = true;
         }
 
-        public SList(IntPtr handle) : base(handle)
+        public SList (IntPtr handle)
         {
+            Handle = handle;
         }
 
         /// <summary>
@@ -156,13 +157,13 @@ namespace GISharp.Core
         /// a full copy of @list, use #g_slist_free_full to free it
         /// </returns>
         [Since("2.34")]
-        public SList<T> CopyDeep (CopyFunc<T> func)
+        public SList<T> CopyDeep (CopyFuncCallback<T> func)
         {
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            CopyFuncNative funcNative = (funcSrcPtr, funcDataPtr) => {
+            CopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
                 var funcSrc = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcSrcPtr);
                 var funcRet = func.Invoke (funcSrc);
                 if (funcRet == null) {
@@ -255,13 +256,13 @@ namespace GISharp.Core
         /// <returns>
         /// the found #GSList element, or %NULL if it is not found
         /// </returns>
-        public SList<T> FindCustom (T data, CompareFunc<T> func)
+        public SList<T> FindCustom (T data, CompareFuncCallback<T> func)
         {
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            CompareFuncNative funcNative = (funcAPtr, funcBPtr) => {
+            CompareFunc funcNative = (funcAPtr, funcBPtr) => {
                 var funcA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcAPtr);
                 var funcB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcBPtr);
                 var funcRet = func.Invoke (funcA, funcB);
@@ -282,13 +283,13 @@ namespace GISharp.Core
         /// <param name="func">
         /// the function to call with each element's data
         /// </param>
-        public void Foreach (Func<T> func)
+        public void Foreach (FuncCallback<T> func)
         {
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            FuncNative funcNative = (funcDataPtr, funcUserDataPtr) => {
+            Func funcNative = (funcDataPtr, funcUserDataPtr) => {
                 var funcData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcDataPtr);
                 func.Invoke (funcData);
             };
@@ -330,13 +331,13 @@ namespace GISharp.Core
         /// the function to be called to free each element's data
         /// </param>
         [Since("2.28")]
-        public void FreeFull (DestroyNotify<T> freeFunc)
+        public void FreeFull (DestroyNotifyCallback<T> freeFunc)
         {
             if (freeFunc == null) {
                 throw new ArgumentNullException ("freeFunc");
             }
             AssertNotDisposed ();
-            DestroyNotifyNative freeFuncNative = (freeFuncDataPtr) => {
+            DestroyNotify freeFuncNative = (freeFuncDataPtr) => {
                 var freeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (freeFuncDataPtr);
                 freeFunc.Invoke (freeFuncData);
             };
@@ -432,14 +433,14 @@ namespace GISharp.Core
         /// <returns>
         /// the new start of the #GSList
         /// </returns>
-        public SList<T> InsertSorted (T data, CompareFunc<T> func)
+        public SList<T> InsertSorted (T data, CompareFuncCallback<T> func)
         {
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            CompareFuncNative funcNative = (compareFuncAPtr, compareFuncBPtr) => {
+            CompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
                 var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
                 var compareFuncRet = func.Invoke (compareFuncA, compareFuncB);
@@ -695,13 +696,13 @@ namespace GISharp.Core
         /// <returns>
         /// the start of the sorted #GSList
         /// </returns>
-        public SList<T> Sort(CompareFunc<T> compareFunc)
+        public SList<T> Sort(CompareFuncCallback<T> compareFunc)
         {
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
             AssertIsHeadOfList ();
-            CompareFuncNative compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
                 var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
@@ -878,7 +879,7 @@ namespace GISharp.Core
         [Since("2.34")]
         internal static extern IntPtr g_slist_copy_deep(
             [In] IntPtr list,
-            [In] CopyFuncNative func,
+            [In] CopyFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -951,7 +952,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_slist_find_custom(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareFuncNative func);
+            [In] CompareFunc func);
 
         /// <summary>
         /// Calls a function for each element of a #GSList.
@@ -968,7 +969,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_slist_foreach(
             [In] IntPtr list,
-            [In] FuncNative func,
+            [In] Func func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1012,7 +1013,7 @@ namespace GISharp.Core
         [Since("2.28")]
         internal static extern void g_slist_free_full(
             [In] IntPtr list,
-            [In] DestroyNotifyNative freeFunc);
+            [In] DestroyNotify freeFunc);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -1100,7 +1101,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_slist_insert_sorted(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareFuncNative func);
+            [In] CompareFunc func);
 
         /// <summary>
         /// Inserts a new element into the list, using the given
@@ -1128,7 +1129,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_slist_insert_sorted_with_data(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareDataFuncNative func,
+            [In] CompareDataFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1346,7 +1347,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_slist_sort(
             [In] IntPtr list,
-            [In] CompareFuncNative compareFunc);
+            [In] CompareFunc compareFunc);
 
         /// <summary>
         /// Like g_slist_sort(), but the sort function accepts a user data argument.
@@ -1366,7 +1367,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_slist_sort_with_data(
             [In] IntPtr list,
-            [In] CompareDataFuncNative compareFunc,
+            [In] CompareDataFunc compareFunc,
             [In] IntPtr userData);
     }
 }

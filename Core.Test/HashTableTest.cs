@@ -13,13 +13,13 @@ namespace Core.Test
         public void TestConstructor ()
         {
             var hashTable1 = new HashTable<TestWrappedNative, TestWrappedNative> ();
-            HashFunc<TestWrappedNative> hashFunc = (key) =>
+            HashFuncCallback<TestWrappedNative> hashFunc = (key) =>
                 (uint)key.GetHashCode ();
-            EqualFunc<TestWrappedNative> keyEqualFunc = (a, b) =>
+            EqualFuncCallback<TestWrappedNative> keyEqualFunc = (a, b) =>
                 a.Value == b.Value;
-            DestroyNotify<TestWrappedNative> keyDestroyFunc = (data) => {
+            DestroyNotifyCallback<TestWrappedNative> keyDestroyFunc = (data) => {
             };
-            DestroyNotify<TestWrappedNative> valueDestroyFunc = (data) => {
+            DestroyNotifyCallback<TestWrappedNative> valueDestroyFunc = (data) => {
             };
             var hashTable2 = new HashTable<TestWrappedNative, TestWrappedNative> (
                 hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc);
@@ -144,7 +144,7 @@ namespace Core.Test
         public void TestForeach ()
         {
             var count = 0;
-            HFunc<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
                 count++;
             };
             var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
@@ -161,7 +161,7 @@ namespace Core.Test
         [Test]
         public void TestFind ()
         {
-            HRFunc<TestWrappedNative,TestWrappedNative> findFunc = (key, value) => {
+            HRFuncCallback<TestWrappedNative,TestWrappedNative> findFunc = (key, value) => {
                 return true;
             };
             var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
@@ -216,7 +216,7 @@ namespace Core.Test
         public void TestForeachRemove ()
         {
             var count = 0;
-            HRFunc<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HRFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };
@@ -235,7 +235,7 @@ namespace Core.Test
         public void TestForeachSteal ()
         {
             var count = 0;
-            HRFunc<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HRFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };

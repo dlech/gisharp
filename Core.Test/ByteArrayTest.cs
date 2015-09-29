@@ -108,7 +108,7 @@ namespace Core.Test
         public void TestSort ()
         {
             var compareFuncWasCalled = false;
-            CompareFunc<WrappedStruct<byte>> compareFunc = (a, b) => {
+            CompareFuncCallback<WrappedStruct<byte>> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Value.CompareTo (b.Value);
             };

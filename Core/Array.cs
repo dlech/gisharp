@@ -23,10 +23,6 @@ namespace GISharp.Core
             }
         }
 
-        public Array (IntPtr handle) : base(handle)
-        {
-        }
-
         /// <summary>
         /// Creates a new zero-terminated <see cref="Array{T}"/> with clear set to <c>true</c>.
         /// </summary>
@@ -52,7 +48,6 @@ namespace GISharp.Core
         /// number of elements preallocated
         /// </param>
         public Array (Boolean zeroTerminated, Boolean clear, UInt32 reservedSize)
-            : base(IntPtr.Zero)
         {
             var elementSize = Marshal.SizeOf<T> ();
             if (reservedSize == 0) {

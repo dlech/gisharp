@@ -141,7 +141,7 @@ namespace GISharp.GLib
 
     public partial class Variant
     {
-        public Variant (byte[][] value) : base (IntPtr.Zero) // new_bytestring_array
+        public Variant (byte[][] value) // new_bytestring_array
         {
             var strv = IntPtr.Zero;
             if (value != null) {
@@ -161,13 +161,13 @@ namespace GISharp.GLib
         {
         }
 
-        public Variant (DBusHandle value) : base (IntPtr.Zero) // new_handle
+        public Variant (DBusHandle value) // new_handle
         {
             Handle = g_variant_new_handle (value);
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusObjectPath value) : base (IntPtr.Zero) // new_object_path
+        public Variant (DBusObjectPath value) // new_object_path
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -178,7 +178,7 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusObjectPath[] value) : base (IntPtr.Zero) // new_objv
+        public Variant (DBusObjectPath[] value) // new_objv
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -193,7 +193,7 @@ namespace GISharp.GLib
             g_variant_ref_sink (Handle);
         }
 
-        public Variant (DBusSignature value) : base (IntPtr.Zero) // new_signature
+        public Variant (DBusSignature value) // new_signature
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -210,7 +210,7 @@ namespace GISharp.GLib
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            var array = new List<byte[]> ();
+            var array = new System.Collections.Generic.List<byte[]> ();
             var offset = 0;
             for (ulong i = 0; i < length; i++) {
                 var elementPtr = Marshal.ReadIntPtr (ptr, offset);

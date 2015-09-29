@@ -89,10 +89,23 @@
     <Compile Include="Mono.Options\Options.cs" />
     <Compile Include="Fixup.cs" />
     <Compile Include="Globals.cs" />
-    <Compile Include="IGirInfo.cs" />
     <Compile Include="GirType.cs" />
     <Compile Include="GirGenericType.cs" />
     <Compile Include="GirArrayType.cs" />
+    <Compile Include="Model\NamespaceInfo.cs" />
+    <Compile Include="Model\DelegateInfo.cs" />
+    <Compile Include="Model\ClassInfo.cs" />
+    <Compile Include="Model\StructInfo.cs" />
+    <Compile Include="Model\EnumInfo.cs" />
+    <Compile Include="Model\MemberInfo.cs" />
+    <Compile Include="Model\FieldInfo.cs" />
+    <Compile Include="Model\EnumMemberInfo.cs" />
+    <Compile Include="Model\MethodInfo.cs" />
+    <Compile Include="Model\TypeDeclarationInfo.cs" />
+    <Compile Include="Model\ParameterInfo.cs" />
+    <Compile Include="Model\BaseInfo.cs" />
+    <Compile Include="Model\TypeInfo.cs" />
+    <Compile Include="Model\Transfer.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -127,5 +140,8 @@
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Model\" />
   </ItemGroup>
 </Project>

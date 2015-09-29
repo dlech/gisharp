@@ -38,7 +38,6 @@
     <Compile Include="VariantType.cs" />
     <Compile Include="Generated.cs" />
     <Compile Include="Quark.cs" />
-    <Compile Include="SequenceIter.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

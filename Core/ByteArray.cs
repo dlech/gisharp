@@ -8,14 +8,15 @@ namespace GISharp.Core
     /// </summary>
     public sealed class ByteArray : ReferenceCountedOpaque<GISharp.Core.ByteArray>
     {
-        public ByteArray (IntPtr handle) : base (handle)
+        public ByteArray (IntPtr handle)
         {
+            Handle = handle;
         }
 
         /// <summary>
         /// Creates a new #GByteArray.
         /// </summary>
-        public ByteArray () : base (IntPtr.Zero)
+        public ByteArray ()
         {
             Handle = g_byte_array_new ();
         }
@@ -27,7 +28,7 @@ namespace GISharp.Core
         /// byte data for the array
         /// </param>
         [Since("2.32")]
-        public ByteArray (Byte[] data) : base (IntPtr.Zero)
+        public ByteArray (Byte[] data)
         {
             if (data == null) {
                 throw new ArgumentNullException ("data");
@@ -46,7 +47,7 @@ namespace GISharp.Core
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (UInt32 reservedSize) : base (IntPtr.Zero)
+        public ByteArray (UInt32 reservedSize)
         {
             Handle = g_byte_array_sized_new (reservedSize);
         }
@@ -448,7 +449,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_sort(
             [In] IntPtr array,
-            [In] CompareFuncNative compareFunc);
+            [In] CompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a byte array, using @compareFunc which should be a
@@ -466,15 +467,15 @@ namespace GISharp.Core
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (CompareFunc<WrappedStruct<byte>> compareFunc)
+        public void Sort (CompareFuncCallback<WrappedStruct<byte>> compareFunc)
         {
             AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
-            CompareFuncNative compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = new WrappedStruct<byte> (compareFuncAPtr);
-                var compareFuncB = new WrappedStruct<byte> (compareFuncBPtr);
+            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+                var compareFuncA = new WrappedStruct<byte> (compareFuncAPtr, owned: false);
+                var compareFuncB = new WrappedStruct<byte> (compareFuncBPtr, owned: false);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };

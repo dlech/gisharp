@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Reflection;
 
 using GISharp.Core;
+using System.Reflection.Emit;
 
 namespace GISharp.CodeGen
 {
@@ -15,6 +16,7 @@ namespace GISharp.CodeGen
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
 
+        static readonly Assembly gisharpCoreAssembly = Assembly.GetAssembly (typeof(IWrappedNative));
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
 
         readonly XElement element;
@@ -36,7 +38,7 @@ namespace GISharp.CodeGen
             if (type != null) {
                 return type;
             }
-            type = GetType (Assembly.CreateQualifiedName (Assembly.GetAssembly (typeof(IWrappedNative)).FullName, typeName));
+            type = GetType (Assembly.CreateQualifiedName (gisharpCoreAssembly.FullName, typeName));
             if (type != null) {
                 return type;
             }
@@ -50,10 +52,10 @@ namespace GISharp.CodeGen
             var genericArgs = default(Type[]);
             if (typeName.Contains ('`')) {
                 isGeneric = true;
-                genericArgs = typeName.Remove(typeName.Length - 1).Substring (typeName.IndexOf ('[') + 1).Split (',')
+                genericArgs = string.Concat (typeName.SkipWhile (x => x != '[').TakeWhile (x => x != ']')).Split (',')
                     .Select (x => GirType.GetType (x, document))
                     .ToArray ();
-                typeName = typeName.Remove (typeName.IndexOf ('[') + 1) + "]";
+                typeName = typeName.Remove (typeName.IndexOf ('['));
                 type = GetType (typeName, document);
             }
 
@@ -95,55 +97,19 @@ namespace GISharp.CodeGen
                 type = typeof(GISharp.Core.ByteArray);
                 isGeneric = false;
                 break;
-            case "CompareDataFunc":
-            case "CompareDataFuncNative":
-                type = typeof(GISharp.Core.CompareDataFuncNative);
-                break;
-            case "CompareFunc":
-            case "CompareFuncNative":
-                type = typeof(GISharp.Core.CompareFuncNative);
-                break;
-            case "CopyFunc":
-            case "CopyFuncNative":
-                type = typeof(GISharp.Core.CopyFuncNative);
-                break;
-            case "DestoryNotify":
-            case "DestoryNotifyNative":
-                type = typeof(GISharp.Core.DestroyNotifyNative);
-                break;
-            case "EqualFunc":
-            case "EqualFuncNative":
-                type = typeof(GISharp.Core.EqualFuncNative);
-                break;
-            case "Func":
-            case "FuncNative":
-                type = typeof(GISharp.Core.FuncNative);
-                break;
-            case "HashFunc":
-            case "HashFuncNative":
-                type = typeof(GISharp.Core.HashFuncNative);
-                break;
-            case "HFunc":
-            case "HFuncNative":
-                type = typeof(GISharp.Core.HFuncNative);
-                break;
-            case "HRFunc":
-            case "HRFuncNative":
-                type = typeof(GISharp.Core.HRFuncNative);
-                break;
             }
 
             if (type == null) {
-                XElement typeDefinitionElement = null;
+                XElement typeDefinitionElement;
                 if (!girTypeCache.TryGetValue (typeName, out typeDefinitionElement)) {
                     var unqualifiedTypeName = typeName.Split ('.').Last ();
                     typeDefinitionElement = document.Descendants ()
                         .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
                         .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     if (typeDefinitionElement == null) {
-                        // special case for callbacks since there is a "Native" version of each of those as well.
+                        // special case for callbacks since there is a "Callback" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
-                            .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value + "Native" == unqualifiedTypeName);
+                            .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value + "Callback" == unqualifiedTypeName);
                     }
                     if (typeDefinitionElement != null) {
                         girTypeCache.Add (typeName, typeDefinitionElement);
@@ -177,11 +143,6 @@ namespace GISharp.CodeGen
                 .Select (e => new GirType (e));
         }
 
-        public override IList<CustomAttributeData> GetCustomAttributesData ()
-        {
-            return element.GetCustomAttributes (false).ToList ();
-        }
-
         public override Type MakeGenericType (params Type[] typeArguments)
         {
             return new GirGenericType (this, typeArguments);
@@ -201,10 +162,7 @@ namespace GISharp.CodeGen
 
         public override object[] GetCustomAttributes (bool inherit)
         {
-            if (inherit) {
-                throw new NotImplementedException ();
-            }
-            return element.GetCustomAttributes (false).ToArray ();
+            throw new NotImplementedException ();
         }
 
         public override object[] GetCustomAttributes (Type attributeType, bool inherit)
@@ -214,7 +172,8 @@ namespace GISharp.CodeGen
 
         public override string Name {
             get {
-                return element.Attribute (gs + "managed-name").Value;
+                // strip off generic parameters
+                return string.Concat (element.Attribute (gs + "managed-name").Value.TakeWhile (x => x != '['));
             }
         }
 
@@ -304,13 +263,12 @@ namespace GISharp.CodeGen
 
         protected override bool HasElementTypeImpl ()
         {
-            // TODO: This should return true if this is an array, pointer or reference type
             return false;
         }
 
         protected override bool IsArrayImpl ()
         {
-            throw new NotImplementedException ();
+            return false;
         }
 
         protected override bool IsByRefImpl ()
@@ -381,7 +339,7 @@ namespace GISharp.CodeGen
                     // this indicates a struct
                     return typeof(ValueType);
                 }
-                if (element.Name == gi + "alias") {
+                if (element.Name == gi + "alias" || element.Name == gi + "union") {
                     return typeof(ValueType);
                 }
                 if (element.Name == gi + "enumeration" || element.Name == gi + "bitfield") {
@@ -422,7 +380,10 @@ namespace GISharp.CodeGen
 
         public override Type UnderlyingSystemType {
             get {
-                return BaseType.UnderlyingSystemType;
+                if (element.Name == gi + "enumeration" || element.Name == gi + "bitfield") {
+                    return typeof(int);
+                }
+                return this;
             }
         }
 

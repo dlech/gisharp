@@ -1,0 +1,58 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
+using System.Xml.Linq;
+
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+
+namespace GISharp.CodeGen.Model
+{
+    public class StructInfo : TypeDeclarationInfo
+    {
+        public StructInfo (XElement element, MemberInfo declaringMember)
+            : base (element, declaringMember)
+        {
+            if (element.Name != gi + "alias" && element.Name != gi + "record" && element.Name != gi + "union") {
+                throw new ArgumentException ("Requires <alias>, <record> or <union> element.", nameof(element));
+            }
+            if (element.Name == gi + "record" && element.Attribute (gs + "opaque") != null) {
+                throw new ArgumentException ("<record> element must not be opaque.", nameof(element));
+            }
+        }
+
+        protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
+        {
+            foreach (var baseAttr in base.GetAttributeLists ()) {
+                yield return baseAttr;
+            }
+            var structLayoutAttrName = SyntaxFactory.ParseName (typeof(StructLayoutAttribute).FullName);
+            var layoutKind = (Element.Name == gi + "union") ? LayoutKind.Explicit : LayoutKind.Sequential;
+            var structLayoutAttrArgListText = string.Format ("({0}.{1})", typeof(LayoutKind).FullName, layoutKind);
+            var structLayoutAttrArgList = SyntaxFactory.ParseAttributeArgumentList (structLayoutAttrArgListText);
+            var structLayoutAttr = SyntaxFactory.Attribute (structLayoutAttrName)
+                .WithArgumentList (structLayoutAttrArgList);
+            yield return SyntaxFactory.AttributeList ().AddAttributes (structLayoutAttr);
+        }
+
+        protected override IEnumerable<SyntaxToken> GetModifiers ()
+        {
+            foreach (var baseModifier in base.GetModifiers ()) {
+                yield return baseModifier;
+            }
+            yield return SyntaxFactory.Token (SyntaxKind.PartialKeyword);
+        }
+
+        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        {
+            var structDeclaration = SyntaxFactory.StructDeclaration (Identifier)
+                .WithModifiers (Modifiers)
+                .WithMembers (TypeMembers)
+                .WithAttributeLists (AttributeLists)
+                .WithLeadingTrivia (DocumentationCommentTriviaList);
+            yield return structDeclaration;
+        }
+    }
+}

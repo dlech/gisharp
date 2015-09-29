@@ -51,11 +51,13 @@ namespace GISharp.Core
             }
         }
 
-        public WrappedStruct (IntPtr handle) : base (handle)
+        public WrappedStruct (IntPtr handle, bool owned)
         {
+            Handle = handle;
+            Owned = owned;
         }
 
-        public WrappedStruct () : base (IntPtr.Zero)
+        public WrappedStruct ()
         {
             Handle = MarshalG.Alloc (Marshal.SizeOf<T> ());
             Owned = true;
