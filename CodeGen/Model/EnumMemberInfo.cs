@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class EnumMemberInfo : BaseInfo
@@ -16,10 +18,10 @@ namespace GISharp.CodeGen.Model
         public EnumMemberDeclarationSyntax EnumMemberDeclaration {
             get {
                 if (_EnumMemberDeclaration == default(EnumMemberDeclarationSyntax)) {
-                    var literalValue = SyntaxFactory.Literal (int.Parse (Element.Attribute ("value").Value));
-                    var literalExpression = SyntaxFactory.LiteralExpression (SyntaxKind.NumericLiteralExpression, literalValue);
-                    var equalsValue = SyntaxFactory.EqualsValueClause (literalExpression);
-                    _EnumMemberDeclaration = SyntaxFactory.EnumMemberDeclaration (ManagedName)
+                    var literalValue = Literal (int.Parse (Element.Attribute ("value").Value));
+                    var literalExpression = LiteralExpression (SyntaxKind.NumericLiteralExpression, literalValue);
+                    var equalsValue = EqualsValueClause (literalExpression);
+                    _EnumMemberDeclaration = EnumMemberDeclaration (ManagedName)
                         .WithEqualsValue (equalsValue)
                         .WithAttributeLists (AttributeLists)
                         .WithLeadingTrivia (DocumentationCommentTriviaList);

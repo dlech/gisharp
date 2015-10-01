@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
-using System.Linq;
+
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen.Model
 {
@@ -15,7 +17,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxToken Identifier {
             get {
                 if (_Identifier == default(SyntaxToken)) {
-                    _Identifier = SyntaxFactory.Identifier (ManagedName);
+                    _Identifier = Identifier (ManagedName);
                 }
                 return _Identifier;
             }
@@ -25,7 +27,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxTokenList Modifiers {
             get {
                 if (_Modifiers == default(SyntaxTokenList)) {
-                    _Modifiers = SyntaxFactory.TokenList (GetModifiers ());
+                    _Modifiers = TokenList (GetModifiers ());
                 }
                 return _Modifiers;
             }
@@ -50,7 +52,7 @@ namespace GISharp.CodeGen.Model
         {
             // default value is "public" unless "access-modifier" attribute is present
             var accessModifierAttr = Element.Attribute (gs + "access-modifier");
-            var tokens = SyntaxFactory.ParseTokens (accessModifierAttr?.Value ?? "public");
+            var tokens = ParseTokens (accessModifierAttr?.Value ?? "public");
             return tokens;
         }
 

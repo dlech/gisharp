@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public abstract class BaseInfo
@@ -35,7 +37,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<AttributeListSyntax> AttributeLists {
             get {
                 if (_AttributeLists == default(SyntaxList<AttributeListSyntax>)) {
-                    _AttributeLists = SyntaxFactory.List<AttributeListSyntax> ()
+                    _AttributeLists = List<AttributeListSyntax> ()
                         .AddRange (GetAttributeLists ());
                 }
                 return _AttributeLists;
@@ -64,7 +66,7 @@ namespace GISharp.CodeGen.Model
         protected virtual IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             if (Element.Attribute ("deprecated").AsBool ()) {
-                var obsoleteAttribute = SyntaxFactory.Attribute (SyntaxFactory.ParseName (typeof(ObsoleteAttribute).FullName));
+                var obsoleteAttribute = Attribute (ParseName (typeof(ObsoleteAttribute).FullName));
 
                 var message = new StringBuilder ();
                 var docDeprecated = Element.Element (gi + "doc-deprecated");
@@ -80,23 +82,23 @@ namespace GISharp.CodeGen.Model
                 }
                 if (message.Length > 0) {
                     obsoleteAttribute = obsoleteAttribute.AddArgumentListArguments (
-                        SyntaxFactory.AttributeArgument (
-                            SyntaxFactory.LiteralExpression (SyntaxKind.StringLiteralExpression,
-                                SyntaxFactory.Literal (message.ToString ()))));
+                        AttributeArgument (
+                            LiteralExpression (SyntaxKind.StringLiteralExpression,
+                                Literal (message.ToString ()))));
                 }
 
-                yield return SyntaxFactory.AttributeList ().AddAttributes (obsoleteAttribute);
+                yield return AttributeList ().AddAttributes (obsoleteAttribute);
             }
 
             if (Element.Attribute ("version") != null) {
-                var sinceAttributeName = SyntaxFactory.ParseName (typeof(GISharp.Core.SinceAttribute).FullName);
-                var sinceAttribute = SyntaxFactory.Attribute (sinceAttributeName)
-                    .WithArgumentList (SyntaxFactory.AttributeArgumentList ()
-                        .AddArguments (SyntaxFactory.AttributeArgument (
-                            SyntaxFactory.LiteralExpression (SyntaxKind.StringLiteralExpression,
-                                SyntaxFactory.Literal (Element.Attribute ("version").Value)))));
+                var sinceAttributeName = ParseName (typeof(GISharp.Core.SinceAttribute).FullName);
+                var sinceAttribute = Attribute (sinceAttributeName)
+                    .WithArgumentList (AttributeArgumentList ()
+                        .AddArguments (AttributeArgument (
+                            LiteralExpression (SyntaxKind.StringLiteralExpression,
+                                Literal (Element.Attribute ("version").Value)))));
 
-                yield return SyntaxFactory.AttributeList ().AddAttributes (sinceAttribute);
+                yield return AttributeList ().AddAttributes (sinceAttribute);
             }
         }
 
@@ -127,7 +129,7 @@ namespace GISharp.CodeGen.Model
                     }
                 }
             }
-            var trivia = SyntaxFactory.ParseLeadingTrivia (builder.ToString ());
+            var trivia = ParseLeadingTrivia (builder.ToString ());
             return trivia;
         }
     }

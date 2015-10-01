@@ -9,6 +9,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class TypeInfo : BaseInfo
@@ -66,7 +68,7 @@ namespace GISharp.CodeGen.Model
                             + typeName.Substring (typeName.IndexOf ('['));
                         fixedUpTypeName = fixedUpTypeName.Replace ('[', '<').Replace (']', '>');
                     }
-                    _Type = SyntaxFactory.ParseTypeName (fixedUpTypeName);
+                    _Type = ParseTypeName (fixedUpTypeName);
                 }
                 return _Type;
             }

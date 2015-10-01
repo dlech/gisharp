@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class MethodInfo : MemberInfo
@@ -38,13 +40,15 @@ namespace GISharp.CodeGen.Model
 
         public bool IsGetter {
             get {
-                return Element.Attribute (gs + "managed-name").Value.StartsWith ("get_", StringComparison.Ordinal);
+                return Element.Attribute (gs + "managed-name").Value
+                              .StartsWith ("get_", StringComparison.Ordinal);
             }
         }
 
         public bool IsSetter {
             get {
-                return Element.Attribute (gs + "managed-name").Value.StartsWith ("set_", StringComparison.Ordinal);
+                return Element.Attribute (gs + "managed-name").Value
+                              .StartsWith ("set_", StringComparison.Ordinal);
             }
         }
 
@@ -99,7 +103,7 @@ namespace GISharp.CodeGen.Model
             get {
                 if (_PinvokeIdentifier == default(SyntaxToken)) {
                     var cIdentifier = Element.Attribute (c + "identifier").Value;
-                    _PinvokeIdentifier = SyntaxFactory.Identifier (cIdentifier);
+                    _PinvokeIdentifier = Identifier (cIdentifier);
                 }
                 return _PinvokeIdentifier;
             }
@@ -109,9 +113,9 @@ namespace GISharp.CodeGen.Model
         public ParameterListSyntax ParameterList {
             get {
                 if (_ParameterList == default(ParameterListSyntax)) {
-                    var parameterList = SyntaxFactory.SeparatedList<ParameterSyntax> ()
+                    var parameterList = SeparatedList<ParameterSyntax> ()
                         .AddRange (ManagedParameterInfos.Select (x => x.Parameter));
-                    _ParameterList = SyntaxFactory.ParameterList (parameterList);
+                    _ParameterList = ParameterList (parameterList);
                 }
                 return _ParameterList;
             }
@@ -131,9 +135,9 @@ namespace GISharp.CodeGen.Model
         public ParameterListSyntax PinvokeParameterList {
             get {
                 if (_PinvokeParameterList == default(ParameterListSyntax)) {
-                    var parameterList = SyntaxFactory.SeparatedList<ParameterSyntax> ()
+                    var parameterList = SeparatedList<ParameterSyntax> ()
                         .AddRange (PinvokeParameterInfos.Select (x => x.Parameter));
-                    _PinvokeParameterList = SyntaxFactory.ParameterList (parameterList);
+                    _PinvokeParameterList = ParameterList (parameterList);
                 }
                 return _PinvokeParameterList;
             }
@@ -143,7 +147,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxTokenList PinvokeModifiers {
             get {
                 if (_PinvokeModifiers == default(SyntaxTokenList)) {
-                    _PinvokeModifiers = SyntaxFactory.TokenList (GetPinvokeModifiers ());
+                    _PinvokeModifiers = TokenList (GetPinvokeModifiers ());
                 }
                 return _PinvokeModifiers;
             }
@@ -153,7 +157,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<AttributeListSyntax> PinvokeAttributeLists {
             get {
                 if (_PinvokeAttributeLists == default(SyntaxList<AttributeListSyntax>)) {
-                    _PinvokeAttributeLists = SyntaxFactory.List<AttributeListSyntax> ()
+                    _PinvokeAttributeLists = List<AttributeListSyntax> ()
                         .AddRange (GetPinvokeAttributeLists ());
                 }
                 return _PinvokeAttributeLists;
@@ -180,20 +184,20 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var pinvokeMethod = SyntaxFactory.MethodDeclaration (
+            var pinvokeMethod = MethodDeclaration (
                 UnmanagedReturnParameterInfo.TypeInfo.Type,
                 PinvokeIdentifier
                     .WithTrailingTrivia (UnmanagedReturnParameterInfo.AnnotationTriviaList))
                 .WithAttributeLists (PinvokeAttributeLists)
                 .WithModifiers (PinvokeModifiers)
                 .WithParameterList (PinvokeParameterList)
-                .WithSemicolonToken (SyntaxFactory.Token (SyntaxKind.SemicolonToken))
+                .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
                 .WithLeadingTrivia (PinvokeDocumentationCommentTriviaList);
             yield return pinvokeMethod;
             if (!IsPinvokeOnly) {
-                var body = SyntaxFactory.Block (GetStatements ());
+                var body = Block (GetStatements ());
                 if (IsConstructor) {
-                    var constructorDeclaration = SyntaxFactory.ConstructorDeclaration (DeclaringMember.Identifier)
+                    var constructorDeclaration = ConstructorDeclaration (DeclaringMember.Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
                         .WithParameterList (ParameterList)
@@ -201,18 +205,18 @@ namespace GISharp.CodeGen.Model
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
                     yield return constructorDeclaration;
                 } else if (IsGetter) {
-                    var propertyGetter = SyntaxFactory.AccessorDeclaration (SyntaxKind.GetAccessorDeclaration, body);
-                    var propertyAccessorList = SyntaxFactory.AccessorList ()
+                    var propertyGetter = AccessorDeclaration (SyntaxKind.GetAccessorDeclaration, body);
+                    var propertyAccessorList = AccessorList ()
                         .AddAccessors (propertyGetter);
                     var propertySetterMethodInfo = (DeclaringMember as TypeDeclarationInfo)?.MethodInfos
                         .SingleOrDefault (x => x.ManagedName == ManagedName.Replace ("get_", "set_"));
                     if (propertySetterMethodInfo != null) {
-                        var propertySetterBody = SyntaxFactory.Block (propertySetterMethodInfo.GetStatements ());
-                        var propertySetter = SyntaxFactory.AccessorDeclaration (SyntaxKind.SetAccessorDeclaration, propertySetterBody);
+                        var propertySetterBody = Block (propertySetterMethodInfo.GetStatements ());
+                        var propertySetter = AccessorDeclaration (SyntaxKind.SetAccessorDeclaration, propertySetterBody);
                         // TODO: add modifiers to setter if they are different than getter
                         propertyAccessorList = propertyAccessorList.AddAccessors (propertySetter);
                     }
-                    var propertyDeclaration = SyntaxFactory.PropertyDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, ManagedName.Substring (4))
+                    var propertyDeclaration = PropertyDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, ManagedName.Substring (4))
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
                         .WithAccessorList (propertyAccessorList)
@@ -221,7 +225,7 @@ namespace GISharp.CodeGen.Model
                 } else if (IsSetter) {
                     // This is handled in IsGetter - there should be *no* set-only properties
                 } else {
-                    var methodDeclaration = SyntaxFactory.MethodDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+                    var methodDeclaration = MethodDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
                         .WithParameterList (ParameterList)
@@ -261,12 +265,12 @@ namespace GISharp.CodeGen.Model
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
                 var assignOutParam = string.Format ("{0} = default({1});",
                     p.ManagedName, p.TypeInfo.Type);
-                yield return SyntaxFactory.ParseStatement (assignOutParam);
+                yield return ParseStatement (assignOutParam);
             }
             if (!IsConstructor && ManagedReturnParameterInfo.TypeInfo.TypeObject != typeof(void)) {
                 var returnDefault = string.Format ("return default({0});",
                     ManagedReturnParameterInfo.TypeInfo.Type);
-                yield return SyntaxFactory.ParseStatement (returnDefault);
+                yield return ParseStatement (returnDefault);
             }
         }
 
@@ -275,7 +279,7 @@ namespace GISharp.CodeGen.Model
             // check for parameters where null is not allowed
 
             foreach (var p in ManagedParameterInfos.Where (x => x.NeedsNullCheck)) {
-                var statement = SyntaxFactory.ParseStatement (
+                var statement = ParseStatement (
                     string.Format (@"if ({0} == null) {{
                         throw new {1} (""{0}"");
                     }}", p.Identifier.Text,
@@ -292,14 +296,14 @@ namespace GISharp.CodeGen.Model
                 // TODO: needs real implementation
                 var statement = string.Format ("var {0}Native = default({1});\n",
                     destroyParam.Identifier, destroyParam.TypeInfo.Type);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
             }
             foreach (var p in PinvokeParameterInfos.Where (x => x.ClosureIndex >= 0)) {
                 var closureParam = PinvokeParameterInfos[p.ClosureIndex];
                 // TODO: needs real implementation
                 var statement = string.Format ("var {0} = default({1});\n",
                     closureParam.Identifier, typeof(IntPtr).FullName);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
             }
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 var nativeParameter = PinvokeParameterInfos.Single (x => x.GirName == p.GirName);
@@ -308,17 +312,17 @@ namespace GISharp.CodeGen.Model
                     var statement = string.Format ("var {0}Native = default({1});\n",
                         p.Identifier,
                         nativeParameter.TypeInfo.Type);
-                    yield return SyntaxFactory.ParseStatement (statement);
+                    yield return ParseStatement (statement);
                 } else {
                     var statement = string.Format ("var {0}Ptr = default({1});\n",
                                     p.Identifier,
                                     typeof(IntPtr).FullName);
-                    yield return SyntaxFactory.ParseStatement (statement);
+                    yield return ParseStatement (statement);
                 }
             }
             foreach (var p in PinvokeParameterInfos.Where (x => x.IsErrorParameter)) {
                 var statement = string.Format ("{0} {1};\n", typeof(IntPtr).FullName, p.Identifier);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
             }
         }
 
@@ -334,20 +338,20 @@ namespace GISharp.CodeGen.Model
                         lengthParameter.Identifier,
                         lengthParameter.TypeInfo.Type,
                         p.Identifier);
-                    yield return SyntaxFactory.ParseStatement (statement);
+                    yield return ParseStatement (statement);
                 } else {
                     var statement = string.Format ("{0} {1};\n",
                         lengthParameter.TypeInfo.Type,
                         lengthParameter.Identifier);
-                    yield return SyntaxFactory.ParseStatement (statement);
+                    yield return ParseStatement (statement);
                 }
             }
         }
 
         StatementSyntax GetPinvokeInvocationStatement () {
-            var pinvokeExpression = SyntaxFactory.InvocationExpression (
-                SyntaxFactory.IdentifierName (PinvokeIdentifier));
-            var argumentList = SyntaxFactory. ArgumentList ();
+            var pinvokeExpression = InvocationExpression (
+                IdentifierName (PinvokeIdentifier));
+            var argumentList =  ArgumentList ();
             foreach (var p in PinvokeParameterInfos) {
                 var name = string.Format ("{0} {1}", p.Modifiers,
                     // setters use "value" keyword for parameter
@@ -359,104 +363,104 @@ namespace GISharp.CodeGen.Model
                 } else if (p.TypeInfo.RequiresMarshal) {
                     name += "Ptr";
                 }
-                var arg = SyntaxFactory.Argument (SyntaxFactory.ParseExpression (name));
+                var arg = Argument (ParseExpression (name));
                 argumentList = argumentList.AddArguments (arg);
             }
             pinvokeExpression = pinvokeExpression.WithArgumentList (argumentList);
 
-            StatementSyntax statement = SyntaxFactory.ExpressionStatement (pinvokeExpression);
+            StatementSyntax statement = ExpressionStatement (pinvokeExpression);
             if (IsConstructor) {
-                statement = SyntaxFactory.ExpressionStatement (
-                    SyntaxFactory.AssignmentExpression (SyntaxKind.SimpleAssignmentExpression,
-                        SyntaxFactory.ParseExpression ("Handle"), pinvokeExpression));
+                statement = ExpressionStatement (
+                    AssignmentExpression (SyntaxKind.SimpleAssignmentExpression,
+                        ParseExpression ("Handle"), pinvokeExpression));
             } else if (ManagedReturnParameterInfo.TypeInfo.TypeObject != typeof(void)) {
                 var ret = "ret";
                 if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "Ptr";
                 }
-                statement = SyntaxFactory.LocalDeclarationStatement (
-                    SyntaxFactory.VariableDeclaration (SyntaxFactory.ParseTypeName ("var"))
-                    .AddVariables (SyntaxFactory.VariableDeclarator (SyntaxFactory.ParseToken (ret))
-                    .WithInitializer (SyntaxFactory.EqualsValueClause (pinvokeExpression))));
+                statement = LocalDeclarationStatement (
+                    VariableDeclaration (ParseTypeName ("var"))
+                    .AddVariables (VariableDeclarator (ParseToken (ret))
+                    .WithInitializer (EqualsValueClause (pinvokeExpression))));
             }
             return statement;
         }
 
         MethodDeclarationSyntax CreateOverrideEqualsMethod ()
         {
-            var syntax = SyntaxFactory.MethodDeclaration (
-                SyntaxFactory.ParseTypeName ("bool"),
-                SyntaxFactory.ParseToken ("Equals"))
-                .WithModifiers (SyntaxFactory.TokenList (
-                    SyntaxFactory.ParseTokens ("public override")))
-                .WithParameterList (SyntaxFactory.ParseParameterList ("(object obj)"))
-                .WithBody (SyntaxFactory.Block ()
+            var syntax = MethodDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("Equals"))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public override")))
+                .WithParameterList (ParseParameterList ("(object obj)"))
+                .WithBody (Block ()
                     .AddStatements (
-                        SyntaxFactory.ParseStatement (
+                        ParseStatement (
                             string.Format ("return Equals (obj as {0});", DeclaringMember.ManagedName))));
             return syntax;
         }
 
         MethodDeclarationSyntax CreateOverrideGetHashCodeMethod (string hashFunc)
         {
-            var syntax = SyntaxFactory.MethodDeclaration (
-                SyntaxFactory.ParseTypeName ("int"),
-                SyntaxFactory.ParseToken ("GetHashCode"))
-                .WithModifiers (SyntaxFactory.TokenList (
-                    SyntaxFactory.ParseTokens ("public override")))
-                .WithBody (SyntaxFactory.Block ()
+            var syntax = MethodDeclaration (
+                ParseTypeName ("int"),
+                ParseToken ("GetHashCode"))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public override")))
+                .WithBody (Block ()
                     .AddStatements (
-                        SyntaxFactory.ParseStatement (
+                        ParseStatement (
                             string.Format ("return {0};", hashFunc))));
             return syntax;
         }
 
         OperatorDeclarationSyntax CreateEqualityOperator ()
         {
-            var syntax = SyntaxFactory.OperatorDeclaration (
-                SyntaxFactory.ParseTypeName ("bool"),
-                SyntaxFactory.ParseToken ("=="))
-                .WithModifiers (SyntaxFactory.TokenList (
-                    SyntaxFactory.ParseTokens ("public static")))
-                .WithParameterList (SyntaxFactory.ParseParameterList (
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("=="))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
                     string.Format ("({0} one, {0} two)", DeclaringMember.ManagedName)))
-                .WithBody (SyntaxFactory.Block ()
+                .WithBody (Block ()
                     .AddStatements (
-                        SyntaxFactory.ParseStatement (@"
+                        ParseStatement (@"
                             if ((object)one == null) {
                                 return (object)two == null;
                             }"),
-                        SyntaxFactory.ParseStatement (
+                        ParseStatement (
                             "return one.Equals (two);")));
             return syntax;
         }
 
         OperatorDeclarationSyntax CreateInequalityOperator ()
         {
-            var syntax = SyntaxFactory.OperatorDeclaration (
-                SyntaxFactory.ParseTypeName ("bool"),
-                SyntaxFactory.ParseToken ("!="))
-                .WithModifiers (SyntaxFactory.TokenList (
-                    SyntaxFactory.ParseTokens ("public static")))
-                .WithParameterList (SyntaxFactory.ParseParameterList (
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken ("!="))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
                     string.Format ("({0} one, {0} two)", DeclaringMember.ManagedName)))
-                .WithBody (SyntaxFactory.Block ()
-                    .AddStatements (SyntaxFactory.ParseStatement (
+                .WithBody (Block ()
+                    .AddStatements (ParseStatement (
                         "return !(one == two);")));
             return syntax;
         }
 
         OperatorDeclarationSyntax CreateCompareToOperator (string @operator)
         {
-            var syntax = SyntaxFactory.OperatorDeclaration (
-                SyntaxFactory.ParseTypeName ("bool"),
-                SyntaxFactory.ParseToken (@operator))
-                .WithModifiers (SyntaxFactory.TokenList (
-                    SyntaxFactory.ParseTokens ("public static")))
-                .WithParameterList (SyntaxFactory.ParseParameterList (
+            var syntax = OperatorDeclaration (
+                ParseTypeName ("bool"),
+                ParseToken (@operator))
+                .WithModifiers (TokenList (
+                    ParseTokens ("public static")))
+                .WithParameterList (ParseParameterList (
                     string.Format ("({0} one, {0} two)", DeclaringMember.ManagedName)))
-                .WithBody (SyntaxFactory.Block ()
-                    .AddStatements (SyntaxFactory.ParseStatement (
+                .WithBody (Block ()
+                    .AddStatements (ParseStatement (
                         string.Format ("return one.CompareTo (two) {0} 0;", @operator))));
 
             return syntax;
@@ -508,7 +512,7 @@ namespace GISharp.CodeGen.Model
                 yield return baseModifier;
             }
             if (IsStaticMethod) {
-                yield return SyntaxFactory.Token (SyntaxKind.StaticKeyword);
+                yield return Token (SyntaxKind.StaticKeyword);
             }
         }
 
@@ -522,8 +526,8 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<SyntaxToken> GetPinvokeModifiers ()
         {
-            yield return SyntaxFactory.Token (SyntaxKind.StaticKeyword);
-            yield return SyntaxFactory.Token (SyntaxKind.ExternKeyword);
+            yield return Token (SyntaxKind.StaticKeyword);
+            yield return Token (SyntaxKind.ExternKeyword);
         }
 
         IEnumerable<AttributeListSyntax> GetPinvokeAttributeLists ()
@@ -532,16 +536,16 @@ namespace GISharp.CodeGen.Model
                 yield return baseAttr;
             }
             var dllName = Element.Ancestors (gi + "repository")
-                .Single ().Element (gi + "package").Attribute ("name").Value + ".dll";
-            var dllImportAttrName = SyntaxFactory.ParseName (typeof(DllImportAttribute).FullName);
+                .Single ().Element (gi + "package").Attribute ("name").Value;
+            var dllImportAttrName = ParseName (typeof(DllImportAttribute).FullName);
             var dllImportAttrArgListText = string.Format ("(\"{0}\", CallingConvention = {1}.{2})",
                 dllName,
                 typeof(CallingConvention).FullName,
                 CallingConvention.Cdecl);
-            var dllImportAttrArgList = SyntaxFactory.ParseAttributeArgumentList (dllImportAttrArgListText);
-            var dllImportAttr = SyntaxFactory.Attribute (dllImportAttrName)
+            var dllImportAttrArgList = ParseAttributeArgumentList (dllImportAttrArgListText);
+            var dllImportAttr = Attribute (dllImportAttrName)
                 .WithArgumentList (dllImportAttrArgList);
-            yield return SyntaxFactory.AttributeList ().AddAttributes (dllImportAttr);
+            yield return AttributeList ().AddAttributes (dllImportAttr);
         }
 
         SyntaxTriviaList GetPinvokeDocumentationCommentTriviaList ()

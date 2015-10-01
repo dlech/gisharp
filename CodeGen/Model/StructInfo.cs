@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class StructInfo : TypeDeclarationInfo
@@ -28,13 +30,13 @@ namespace GISharp.CodeGen.Model
             foreach (var baseAttr in base.GetAttributeLists ()) {
                 yield return baseAttr;
             }
-            var structLayoutAttrName = SyntaxFactory.ParseName (typeof(StructLayoutAttribute).FullName);
+            var structLayoutAttrName = ParseName (typeof(StructLayoutAttribute).FullName);
             var layoutKind = (Element.Name == gi + "union") ? LayoutKind.Explicit : LayoutKind.Sequential;
             var structLayoutAttrArgListText = string.Format ("({0}.{1})", typeof(LayoutKind).FullName, layoutKind);
-            var structLayoutAttrArgList = SyntaxFactory.ParseAttributeArgumentList (structLayoutAttrArgListText);
-            var structLayoutAttr = SyntaxFactory.Attribute (structLayoutAttrName)
+            var structLayoutAttrArgList = ParseAttributeArgumentList (structLayoutAttrArgListText);
+            var structLayoutAttr = Attribute (structLayoutAttrName)
                 .WithArgumentList (structLayoutAttrArgList);
-            yield return SyntaxFactory.AttributeList ().AddAttributes (structLayoutAttr);
+            yield return AttributeList ().AddAttributes (structLayoutAttr);
         }
 
         protected override IEnumerable<SyntaxToken> GetModifiers ()
@@ -42,12 +44,12 @@ namespace GISharp.CodeGen.Model
             foreach (var baseModifier in base.GetModifiers ()) {
                 yield return baseModifier;
             }
-            yield return SyntaxFactory.Token (SyntaxKind.PartialKeyword);
+            yield return Token (SyntaxKind.PartialKeyword);
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var structDeclaration = SyntaxFactory.StructDeclaration (Identifier)
+            var structDeclaration = StructDeclaration (Identifier)
                 .WithModifiers (Modifiers)
                 .WithMembers (TypeMembers)
                 .WithAttributeLists (AttributeLists)

@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class DelegateInfo : MemberInfo
@@ -32,7 +34,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxToken NativeIdentifier {
             get {
                 if (_NativeIdentifier == default(SyntaxToken)) {
-                    _NativeIdentifier = SyntaxFactory.Identifier (base.ManagedName);
+                    _NativeIdentifier = Identifier (base.ManagedName);
                 }
                 return _NativeIdentifier;
             }
@@ -42,14 +44,14 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<AttributeListSyntax> NativeAttributeLists {
             get {
                 if (_NativeAttributeLists == default(SyntaxList<AttributeListSyntax>)) {
-                    var unmanagedFuncPtrAttrName = SyntaxFactory.ParseName (typeof(UnmanagedFunctionPointerAttribute).FullName);
+                    var unmanagedFuncPtrAttrName = ParseName (typeof(UnmanagedFunctionPointerAttribute).FullName);
                     var unmangedFuncPtrAttrArgListText = string.Format ("({0}.{1})", typeof(CallingConvention), CallingConvention.Cdecl);
-                    var unmanagedFuncPtrAttrArgList = SyntaxFactory.ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
-                    var unmanagedFuncPtrAttr = SyntaxFactory.Attribute (unmanagedFuncPtrAttrName)
+                    var unmanagedFuncPtrAttrArgList = ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
+                    var unmanagedFuncPtrAttr = Attribute (unmanagedFuncPtrAttrName)
                         .WithArgumentList (unmanagedFuncPtrAttrArgList);
-                    _NativeAttributeLists = SyntaxFactory.List<AttributeListSyntax> ()
+                    _NativeAttributeLists = List<AttributeListSyntax> ()
                         .AddRange (base.GetAttributeLists ())
-                        .Add (SyntaxFactory.AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
+                        .Add (AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
                 }
                 return _NativeAttributeLists;
             }
@@ -75,14 +77,14 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var unmangedDeclaration = SyntaxFactory.DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
+            var unmangedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
                 .WithAttributeLists (NativeAttributeLists)
                 .WithModifiers (Modifiers)
                 .WithParameterList (MethodInfo.PinvokeParameterList)
                 .WithLeadingTrivia (NativeDocumentationCommentTriviaList);
             yield return unmangedDeclaration;
 
-            var managedDeclaration = SyntaxFactory.DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+            var managedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
                 .WithAttributeLists (AttributeLists)
                 .WithModifiers (Modifiers)
                 .WithParameterList (MethodInfo.ParameterList)

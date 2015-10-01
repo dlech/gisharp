@@ -10,6 +10,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class ParameterInfo : BaseInfo
@@ -134,7 +136,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxToken Identifier {
             get {
                 if (_Identifier == default(SyntaxToken)) {
-                    _Identifier = SyntaxFactory.Identifier (ManagedName);
+                    _Identifier = Identifier (ManagedName);
                 }
                 return _Identifier;
             }
@@ -144,16 +146,16 @@ namespace GISharp.CodeGen.Model
         public ParameterSyntax Parameter {
             get {
                 if (_Parameter == default(ParameterSyntax)) {
-                    _Parameter = SyntaxFactory.Parameter (Identifier)
+                    _Parameter = Parameter (Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
                         .WithType (TypeInfo.Type).WithLeadingTrivia (
                             // put each parameter on a new line for better readability since we are using full type names
-                            SyntaxFactory.EndOfLine("\n"),
-                            SyntaxFactory.Whitespace ("\t"))
+                            EndOfLine("\n"),
+                            Whitespace ("\t"))
                         .WithTrailingTrivia (AnnotationTriviaList);
                     if (managed && HasDefault) {
-                        var @default = SyntaxFactory.EqualsValueClause (Default);
+                        var @default = EqualsValueClause (Default);
                         _Parameter = _Parameter.WithDefault (@default);
                     }
                 }
@@ -165,7 +167,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxTokenList Modifiers {
             get {
                 if (_Modifiers == default(SyntaxTokenList)) {
-                    _Modifiers = SyntaxFactory.TokenList (GetModifiers ());
+                    _Modifiers = TokenList (GetModifiers ());
                 }
                 return _Modifiers;
             }
@@ -181,7 +183,7 @@ namespace GISharp.CodeGen.Model
         public ExpressionSyntax Default {
             get {
                 if (_Default == default(ExpressionSyntax)) {
-                    _Default = SyntaxFactory.ParseExpression (Element.Attribute (gs + "default")?.Value);
+                    _Default = ParseExpression (Element.Attribute (gs + "default")?.Value);
                 }
                 return _Default;
             }
@@ -191,7 +193,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxTriviaList AnnotationTriviaList {
             get {
                 if (_AnnotationTriviaList == default(SyntaxTriviaList)) {
-                    _AnnotationTriviaList = SyntaxFactory.TriviaList (GetAnnotationTrivias ());
+                    _AnnotationTriviaList = TriviaList (GetAnnotationTrivias ());
                 }
                 return _AnnotationTriviaList;
             }
@@ -215,9 +217,9 @@ namespace GISharp.CodeGen.Model
         {
             if (!IsReturnParameter) {
                 if (IsInParam && IsOutParam) {
-                    yield return SyntaxFactory.Token (SyntaxKind.RefKeyword);
+                    yield return Token (SyntaxKind.RefKeyword);
                 } else if (IsOutParam) {
-                    yield return SyntaxFactory.Token (SyntaxKind.OutKeyword);
+                    yield return Token (SyntaxKind.OutKeyword);
                 }
             }
         }
@@ -248,7 +250,7 @@ namespace GISharp.CodeGen.Model
                 }
             }
 
-            return SyntaxFactory.ParseLeadingTrivia (builder.ToString ());
+            return ParseLeadingTrivia (builder.ToString ());
         }
 
         SyntaxTriviaList GetAnnotationTrivias ()
@@ -265,7 +267,7 @@ namespace GISharp.CodeGen.Model
                 builder.AppendFormat ("{0}:{1} ", attr.Name.LocalName, attr.Value);
             }
             builder.Append ("*/");
-            return SyntaxFactory.ParseTrailingTrivia (builder.ToString ());
+            return ParseTrailingTrivia (builder.ToString ());
         }
     }
 }

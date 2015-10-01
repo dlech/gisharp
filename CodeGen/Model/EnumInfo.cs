@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class EnumInfo : MemberInfo
@@ -28,7 +30,7 @@ namespace GISharp.CodeGen.Model
         public SeparatedSyntaxList<EnumMemberDeclarationSyntax> EnumMembers {
             get {
                 if (_EnumMembers == default(SeparatedSyntaxList<EnumMemberDeclarationSyntax>)) {
-                    _EnumMembers = SyntaxFactory.SeparatedList<EnumMemberDeclarationSyntax> ()
+                    _EnumMembers = SeparatedList<EnumMemberDeclarationSyntax> ()
                         .AddRange (EnumMemberInfos.Select (x => x.EnumMemberDeclaration));
                 }
                 return _EnumMembers;
@@ -50,25 +52,25 @@ namespace GISharp.CodeGen.Model
             }
 
             if (Element.Name == gi + "bitfield") {
-                var flagsAttrName = SyntaxFactory.ParseName (typeof(FlagsAttribute).FullName);
-                var flagsAttr = SyntaxFactory.Attribute (flagsAttrName);
-                yield return SyntaxFactory.AttributeList ().AddAttributes (flagsAttr);
+                var flagsAttrName = ParseName (typeof(FlagsAttribute).FullName);
+                var flagsAttr = Attribute (flagsAttrName);
+                yield return AttributeList ().AddAttributes (flagsAttr);
             }
 
             var errorDomain = Element.Attribute (glib + "error-domain")?.Value;
             if (errorDomain != null) {
-                var errorDomainAttrName = SyntaxFactory.ParseName (typeof(GISharp.Core.ErrorDomainAttribute).FullName);
+                var errorDomainAttrName = ParseName (typeof(GISharp.Core.ErrorDomainAttribute).FullName);
                 var errorDomainAttrArgListText = string.Format ("(\"{0}\")", errorDomain);
-                var errorDomainAttrArgList = SyntaxFactory.ParseAttributeArgumentList (errorDomainAttrArgListText);
-                var errorDomainAttr = SyntaxFactory.Attribute (errorDomainAttrName)
+                var errorDomainAttrArgList = ParseAttributeArgumentList (errorDomainAttrArgListText);
+                var errorDomainAttr = Attribute (errorDomainAttrName)
                     .WithArgumentList (errorDomainAttrArgList);
-                yield return SyntaxFactory.AttributeList ().AddAttributes (errorDomainAttr);
+                yield return AttributeList ().AddAttributes (errorDomainAttr);
             }
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var enumDeclaration = SyntaxFactory.EnumDeclaration (Identifier)
+            var enumDeclaration = EnumDeclaration (Identifier)
                 .WithModifiers (Modifiers)
                 .WithAttributeLists (AttributeLists)
                 .WithMembers (EnumMembers)

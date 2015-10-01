@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public abstract class TypeDeclarationInfo : MemberInfo
@@ -36,7 +38,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<MemberDeclarationSyntax> TypeMembers {
             get {
                 if (_TypeMembers == default(SyntaxList<MemberDeclarationSyntax>)) {
-                    _TypeMembers = SyntaxFactory.List<MemberDeclarationSyntax> ()
+                    _TypeMembers = List<MemberDeclarationSyntax> ()
                         .AddRange (FieldInfos.SelectMany (x => x.Declarations))
                         .AddRange (MethodInfos.SelectMany (x => x.Declarations));
                 }

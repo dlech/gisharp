@@ -6,6 +6,8 @@ using System.Xml.Linq;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class NamespaceInfo : MemberInfo
@@ -24,12 +26,12 @@ namespace GISharp.CodeGen.Model
         public NamespaceDeclarationSyntax Syntax { get
             {
                 if (_Syntax == null) {
-                    var globalNamespaceNameSyntax = SyntaxFactory.ParseName (GlobalPrefix);
-                    var namespaceNameSyntax = SyntaxFactory.IdentifierName (ManagedName);
-                    var nameSyntax = SyntaxFactory.QualifiedName (globalNamespaceNameSyntax, namespaceNameSyntax);
-                    var members = SyntaxFactory.List<MemberDeclarationSyntax> ()
+                    var globalNamespaceNameSyntax = ParseName (GlobalPrefix);
+                    var namespaceNameSyntax = IdentifierName (ManagedName);
+                    var nameSyntax = QualifiedName (globalNamespaceNameSyntax, namespaceNameSyntax);
+                    var members = List<MemberDeclarationSyntax> ()
                         .AddRange (Declarations);
-                    _Syntax = SyntaxFactory.NamespaceDeclaration (nameSyntax)
+                    _Syntax = NamespaceDeclaration (nameSyntax)
                         .WithMembers (members);
                 }
                 return _Syntax;

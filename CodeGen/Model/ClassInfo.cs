@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
 namespace GISharp.CodeGen.Model
 {
     public class ClassInfo : TypeDeclarationInfo
@@ -16,7 +18,7 @@ namespace GISharp.CodeGen.Model
         public BaseListSyntax BaseList {
             get {
                 if (_BaseList == default(BaseListSyntax)) {
-                    var types = SyntaxFactory.SeparatedList<BaseTypeSyntax> ();
+                    var types = SeparatedList<BaseTypeSyntax> ();
                     var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
                     if (opaqueTypeName != null) {
                         switch (opaqueTypeName) {
@@ -36,22 +38,22 @@ namespace GISharp.CodeGen.Model
                         opaqueTypeName= opaqueTypeName.Remove (opaqueTypeName.IndexOf ('`'));
                         // TODO: use full name with namespace instead of ManagedName
                         opaqueTypeName = string.Format ("{0}<{1}>", opaqueTypeName, ManagedName);
-                        var baseType = SyntaxFactory.ParseTypeName (opaqueTypeName);
-                        types = types.Add (SyntaxFactory.SimpleBaseType (baseType));
+                        var baseType = ParseTypeName (opaqueTypeName);
+                        types = types.Add (SimpleBaseType (baseType));
                     }
                     // TODO: add parent type for objects
                     // TODO: add interfaces for objects
                     if (MethodInfos.Any (x => x.IsEquals)) {
                         var typeName = string.Concat (typeof(IEquatable<>).FullName.TakeWhile (x => x != '`'));
                         typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
-                        types = types.Add (SyntaxFactory.SimpleBaseType (SyntaxFactory.ParseTypeName (typeName)));
+                        types = types.Add (SimpleBaseType (ParseTypeName (typeName)));
                     }
                     if (MethodInfos.Any (x => x.IsCompare)) {
                         var typeName = string.Concat (typeof(IComparable<>).FullName.TakeWhile (x => x != '`'));
                         typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
-                        types = types.Add (SyntaxFactory.SimpleBaseType (SyntaxFactory.ParseTypeName (typeName)));
+                        types = types.Add (SimpleBaseType (ParseTypeName (typeName)));
                     }
-                    _BaseList = SyntaxFactory.BaseList (types);
+                    _BaseList = BaseList (types);
                 }
                 return _BaseList;
             }
@@ -73,14 +75,14 @@ namespace GISharp.CodeGen.Model
                 yield return baseModifier;
             }
             if (Element.Name == gs + "static-class") {
-                yield return SyntaxFactory.Token (SyntaxKind.StaticKeyword);
+                yield return Token (SyntaxKind.StaticKeyword);
             }
-            yield return SyntaxFactory.Token (SyntaxKind.PartialKeyword);
+            yield return Token (SyntaxKind.PartialKeyword);
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var classDeclaration = SyntaxFactory.ClassDeclaration (Identifier)
+            var classDeclaration = ClassDeclaration (Identifier)
                 .WithAttributeLists (AttributeLists)
                 .WithModifiers (Modifiers)
                 .WithMembers (TypeMembers)
