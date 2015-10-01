@@ -151,7 +151,7 @@ namespace GISharp.GI.Test
             TestDelegate dump = () => Repository.Dump ("NonExistentFile");
             Assert.That (dump, Throws.Exception.TypeOf<GErrorException> ()
                 .With.Property ("Domain").EqualTo (g_io_error_quark ())
-                .And.Property ("Code").EqualTo ((int)GLib.IOErrorEnum.NotFound));
+                .And.Property ("Code").EqualTo (1 /* G_IO_ERROR_NOT_FOUND */));
         }
     }
 }
