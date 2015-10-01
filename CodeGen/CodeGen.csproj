@@ -106,6 +106,7 @@
     <Compile Include="Model\BaseInfo.cs" />
     <Compile Include="Model\TypeInfo.cs" />
     <Compile Include="Model\Transfer.cs" />
+    <Compile Include="Freedesktop.Xdg\BaseDirectory.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

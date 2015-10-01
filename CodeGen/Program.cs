@@ -81,7 +81,11 @@ namespace GISharp.CodeGen
             }
 
             // Analysis disable ConstantNullCoalescingCondition
-            var girFile = Path.Combine (girDirectory ?? "/usr/share/gir-1.0/", repositoryName + ".gir");
+            var girFile = Path.Combine (girDirectory ?? "gir-1.0", repositoryName + ".gir");
+            if (!Path.IsPathRooted (girFile)) {
+                girFile = Freedesktop.Xdg.BaseDirectory.FindDataFile (girFile) ?? girFile;
+            }
+
             fixupFile = fixupFile ?? repositoryName + ".girfixup";
             outputFile = outputFile ?? Path.Combine (repositoryName, "Generated");
             // Analysis restore ConstantNullCoalescingCondition
