@@ -8,7 +8,7 @@ using System.Xml.Linq;
 using Microsoft.CSharp;
 using System.Runtime.InteropServices;
 
-namespace GirBrowser
+namespace GISharp.GirBrowser
 {
     public static class CodeGen
     {

@@ -3,7 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Gtk;
 
-namespace GirBrowser
+namespace GISharp.GirBrowser
 {
     class MainClass
     {

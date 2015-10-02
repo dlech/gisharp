@@ -5,10 +5,9 @@
     <target-gtk-version>2.12</target-gtk-version>
   </configuration>
   <import>
-    <widget-library name="glade-sharp, Version=2.12.0.0, Culture=neutral, PublicKeyToken=35e10195dab3c99f" />
     <widget-library name="../bin/Debug/GirBrowser.exe" internal="true" />
   </import>
-  <widget class="Gtk.Window" id="MainWindow" design-size="1222 688">
+  <widget class="Gtk.Window" id="GISharp.GirBrowser.MainWindow" design-size="1222 688">
     <property name="MemberName" />
     <property name="Title" translatable="yes">GISharp Gir File Browser</property>
     <property name="WindowPosition">Center</property>

@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using Gtk;
 using GISharp.CodeGen;
 
-namespace GirBrowser
+namespace GISharp.GirBrowser
 {
     public class GirTreeModel : GLib.Object, TreeModelImplementor
     {
