@@ -536,7 +536,8 @@ namespace GISharp.CodeGen.Model
                 yield return baseAttr;
             }
             var dllName = Element.Ancestors (gi + "repository")
-                .Single ().Element (gi + "package").Attribute ("name").Value;
+                .Single ().Element (gi + "package")
+                .Attribute ("name").Value + ".dll";
             var dllImportAttrName = ParseName (typeof(DllImportAttribute).FullName);
             var dllImportAttrArgListText = string.Format ("(\"{0}\", CallingConvention = {1}.{2})",
                 dllName,
