@@ -224,6 +224,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Func']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CopyFunc']"
 # SList
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SList']"
+# Strv
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Strv']"
 
 #########################
 # Fixup everything else #
