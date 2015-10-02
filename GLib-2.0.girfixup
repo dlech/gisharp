@@ -24,10 +24,21 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'charset')]
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'codeset')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='NormalizeMode']"
 # collections
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Bytes']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='Bytes']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:return-value/gi:type/@name ='Bytes']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='DataForeachFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Node']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='NodeForeachFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='NodeTraverseFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Queue']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Sequence']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='SequenceIter']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='SequenceIterCompareFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='TraverseFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='TraverseFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='TraverseType']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Tree']"
 # crypto
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Hmac']"
@@ -106,8 +117,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'
 #regex
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Regex')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Match')]"
-# sleep
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='usleep']"
 # string
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'String')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'str')]"
@@ -130,6 +139,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Private']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='RWLock']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='AsyncQueue']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name ='MainContext']/gi:method[@name='wait']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='usleep']"
 # timer
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Timer']"
 # uri
@@ -263,13 +273,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:func
 # change the return type of intern_static_string so that it does not get marshaled
 chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_string']/gi:return-value/gi:type"
 
-# Bytes
-
-# hide constructors that are not useful in managed code
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_static']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_take']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']"
-
 # Error
 
 # Move some functions to the Error record
@@ -330,13 +333,6 @@ chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainCont
 chattr "gs:default" "" "null" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='context']"
 chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='is_running']"
 
-# Node
-
-# Rename the destory function so that it is used as the free function
-chattr "name" "" "free" "gi:repository/gi:namespace/gi:record[@name='Node']/gi:method[@name='destroy']"
-# TODO: this needs type parameter for CopyFunc
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Node']/gi:method[@name='copy_deep']"
-
 # Priority
 
 # add a static class for priority related stuff
@@ -345,21 +341,6 @@ addelement "<gs:static-class name='Priority' />" "gi:repository/gi:namespace"
 move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "gi:repository/gi:namespace/gs:static-class[@name='Priority']"
 # Drop the PRIORITY_ prefix from the constant names
 chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
-
-# Queue
-
-# new function is constructor
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='Queue']/gi:function[contains(@name,'new')]"
-
-# Sequence
-
-# new function is constructor
-chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name='Sequence']/gi:function[contains(@name,'new')]"
-
-# SequenceIter
-
-# Calling this is owned opaque for now even though it doesn't have a free function
-chattr "gs:opaque" "" "owned" "gi:repository/gi:namespace/gi:record[@name='SequenceIter']"
 
 # Source
 
