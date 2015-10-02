@@ -226,10 +226,21 @@ namespace GISharp.CodeGen
                     || d.Attribute ("moved-to") != null
                     || d.Attribute ("shadowed-by") != null
                     || d.IsCallableWithVarArgs ()
-                    || d.Attribute ("name").AsString ("").EndsWith ("_autoptr"))
+                    || d.Attribute ("name").AsString ("").EndsWith ("_autoptr", StringComparison.Ordinal))
                 .ToList ();
             foreach (var element in elementsToRemove) {
                 element.Remove ();
+            }
+
+            // rename all error_quark functions to get_error_quark so that they
+            // become properties
+            var errorQuarkElements = document.Descendants (gi + "function")
+                .Where (d => d.Attribute ("name").Value.EndsWith ("error_quark", StringComparison.Ordinal));
+            foreach (var element in errorQuarkElements) {
+                if (element.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal)) {
+                    continue;
+                }
+                element.SetAttributeValue ("name", "get_" + element.Attribute ("name").Value);
             }
 
             // add value field to all alias elements
