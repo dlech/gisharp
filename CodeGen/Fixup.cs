@@ -217,14 +217,16 @@ namespace GISharp.CodeGen
             document.Root.SetAttributeValue (XNamespace.Xmlns + "gs", gs.NamespaceName);
 
             // remove all elements marked as "skip" or "moved-to" or "shadowed-by"
-            // and functions/methods with varagrs
+            // and functions/methods with varagrs. On OS X/homebrew, there are
+            // aliases that end with _autoptr that need to be ignored too.
 
             var elementsToRemove = document.Descendants ()
                 .Where (d => d.Name != gi + "return-value" && d.Name != gi + "parameter")
                 .Where (d => d.Attribute ("skip").AsBool ()
                     || d.Attribute ("moved-to") != null
                     || d.Attribute ("shadowed-by") != null
-                    || d.IsCallableWithVarArgs ())
+                    || d.IsCallableWithVarArgs ()
+                    || d.Attribute ("name").AsString ("").EndsWith ("_autoptr"))
                 .ToList ();
             foreach (var element in elementsToRemove) {
                 element.Remove ();
