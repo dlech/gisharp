@@ -253,24 +253,32 @@ namespace GISharp.CodeGen.Model
             foreach (var s in GetArgumentCheckStatements ()) {
                 yield return s;
             }
+            var freeStatements = new List<StatementSyntax> ();
             foreach (var s in GetMarshalManagedToNativeParameterStatements ()) {
-                yield return s;
+                yield return s.Item1;
+                if (s.Item2 != default(StatementSyntax)) {
+                    freeStatements.Add (s.Item2);
+                }
             }
             foreach (var s in GetArrayLengthAssignmentStatements ()) {
                 yield return s;
             }
             yield return GetPinvokeInvocationStatement ();
 
-            // TODO: these are temporary
+            foreach (var s in freeStatements) {
+                yield return s;
+            }
+
+            // TODO: handle throws error
+
+            // TODO: need real implementation for out parameters
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
                 var assignOutParam = string.Format ("{0} = default({1});",
                     p.ManagedName, p.TypeInfo.Type);
                 yield return ParseStatement (assignOutParam);
             }
-            if (!IsConstructor && ManagedReturnParameterInfo.TypeInfo.TypeObject != typeof(void)) {
-                var returnDefault = string.Format ("return default({0});",
-                    ManagedReturnParameterInfo.TypeInfo.Type);
-                yield return ParseStatement (returnDefault);
+            foreach (var s in GetReturnStatements ()) {
+                yield return s;
             }
         }
 
@@ -289,21 +297,23 @@ namespace GISharp.CodeGen.Model
             // TODO: check Element.Attribute (gs + "arg-check) for statements
         }
 
-        IEnumerable<StatementSyntax> GetMarshalManagedToNativeParameterStatements ()
+        IEnumerable<Tuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToNativeParameterStatements ()
         {
             foreach (var p in PinvokeParameterInfos.Where (x => x.DestoryIndex >= 0)) {
                 var destroyParam = PinvokeParameterInfos[p.DestoryIndex];
                 // TODO: needs real implementation
                 var statement = string.Format ("var {0}Native = default({1});\n",
                     destroyParam.Identifier, destroyParam.TypeInfo.Type);
-                yield return ParseStatement (statement);
+                yield return new Tuple<StatementSyntax, StatementSyntax> (
+                    ParseStatement (statement), default(StatementSyntax));
             }
             foreach (var p in PinvokeParameterInfos.Where (x => x.ClosureIndex >= 0)) {
                 var closureParam = PinvokeParameterInfos[p.ClosureIndex];
                 // TODO: needs real implementation
                 var statement = string.Format ("var {0} = default({1});\n",
                     closureParam.Identifier, typeof(IntPtr).FullName);
-                yield return ParseStatement (statement);
+                yield return new Tuple<StatementSyntax, StatementSyntax> (
+                    ParseStatement (statement), default(StatementSyntax));
             }
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 var nativeParameter = PinvokeParameterInfos.Single (x => x.GirName == p.GirName);
@@ -312,17 +322,36 @@ namespace GISharp.CodeGen.Model
                     var statement = string.Format ("var {0}Native = default({1});\n",
                         p.Identifier,
                         nativeParameter.TypeInfo.Type);
-                    yield return ParseStatement (statement);
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), default(StatementSyntax));
+                } else if (p.TypeInfo.IsUtf8) {
+                    var statement = string.Format ("var {0}Ptr = {1}.{2} ({0});\n",
+                       p.Identifier,
+                       typeof(GISharp.Core.MarshalG),
+                       nameof(GISharp.Core.MarshalG.StringToUtf8Ptr));
+                    string freeStatement = string.Empty;
+                    if (p.Transfer == Transfer.None) {
+                        freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
+                            typeof(GISharp.Core.MarshalG),
+                            nameof(GISharp.Core.MarshalG.Free),
+                            p.Identifier);
+                    }
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), ParseStatement (freeStatement));
                 } else {
                     var statement = string.Format ("var {0}Ptr = default({1});\n",
-                                    p.Identifier,
-                                    typeof(IntPtr).FullName);
-                    yield return ParseStatement (statement);
+                        p.Identifier,
+                        typeof(IntPtr).FullName);
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), default(StatementSyntax));
                 }
             }
             foreach (var p in PinvokeParameterInfos.Where (x => x.IsErrorParameter)) {
-                var statement = string.Format ("{0} {1};\n", typeof(IntPtr).FullName, p.Identifier);
-                yield return ParseStatement (statement);
+                var statement = string.Format ("{0} {1};\n",
+                    typeof(IntPtr).FullName,
+                    p.Identifier);
+                yield return new Tuple<StatementSyntax, StatementSyntax> (
+                    ParseStatement (statement), default(StatementSyntax));
             }
         }
 
@@ -357,7 +386,8 @@ namespace GISharp.CodeGen.Model
                     // setters use "value" keyword for parameter
                     ManagedName.StartsWith ("set_", StringComparison.Ordinal) ? "value" : p.ManagedName);
                 if (p.IsInstanceParameter) {
-                    name = "Handle";
+                    var declaringTypeInfo = (TypeDeclarationInfo)p.DeclaringMember.DeclaringMember;
+                    name = declaringTypeInfo.InstanceIdentifier.Text;
                 } else if (p.TypeInfo.TypeObject.IsDelegate ()) {
                     name += "Native";
                 } else if (p.TypeInfo.RequiresMarshal) {
@@ -384,6 +414,36 @@ namespace GISharp.CodeGen.Model
                     .WithInitializer (EqualsValueClause (pinvokeExpression))));
             }
             return statement;
+        }
+
+        IEnumerable<StatementSyntax> GetReturnStatements ()
+        {
+            if (IsConstructor || ManagedReturnParameterInfo.TypeInfo.TypeObject == typeof(void)) {
+                yield break;
+            }
+            foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo)) {
+                yield return s;
+            }
+            yield return ParseStatement ("return ret;");
+        }
+
+        IEnumerable<StatementSyntax> GetMarshalNativeToManagedStatements (ParameterInfo info)
+        {
+            if (!info.TypeInfo.RequiresMarshal) {
+                yield break;
+            }
+            if (info.TypeInfo.IsUtf8) {
+                var statement = string.Format ("var ret = {0}.{1} (retPtr, {2});\n",
+                   typeof(GISharp.Core.MarshalG),
+                   nameof(GISharp.Core.MarshalG.Utf8PtrToString),
+                   info.Transfer == Transfer.All ? "true" : "false");
+                yield return ParseStatement (statement);
+            } else {
+                // TODO: need real implementation
+                var statement = string.Format ("var ret = default({0});\n",
+                   info.TypeInfo.Type);
+                yield return ParseStatement (statement);
+            }
         }
 
         MethodDeclarationSyntax CreateOverrideEqualsMethod ()

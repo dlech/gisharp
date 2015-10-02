@@ -266,7 +266,6 @@ chattr "name" "quark_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='Quar
 # Make the quark_to_string function a method
 chelement "gi:method" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='to_string']"
 chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']/gi:parameters/gi:parameter[@name='quark']"
-move "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']/gi:parameters/gi:instance-parameter[@name='quark']" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']"
 # Move intern_ functions to Quark alias
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
 # Skip intern_static_string since it is not useful in a managed language
@@ -454,6 +453,8 @@ chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType
 chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_dict_entry']"
 chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_maybe']"
 chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_tuple']"
+# needs manual marshalling
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:function[@name='string_scan']"
 
 # Timeout
 

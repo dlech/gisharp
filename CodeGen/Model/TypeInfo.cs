@@ -17,6 +17,16 @@ namespace GISharp.CodeGen.Model
     {
         readonly string typeName;
 
+        /// <summary>
+        /// Gets a value indicating if this is a UTF-8 encoded, null terminated string.
+        /// </summary>
+        /// <value><c>true</c> if the type is a UTF-8 string.</value>
+        public bool IsUtf8 {
+            get {
+                return Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8";
+            }
+        }
+
         public bool RequiresMarshal { get; private set; }
 
         public bool ArrayZeroTerminated {

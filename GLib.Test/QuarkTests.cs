@@ -5,42 +5,54 @@ using GISharp.GLib;
 
 namespace GISharp.GLib.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class QuarkTests
     {
         const string testQuarkPrefix = "gisharp-glib-test-quark-";
 
-        [Test ()]
+        [Test]
+        public void TestImplicitOperator ()
+        {
+            uint expected = 1;
+            Quark quark = expected;
+            uint actual = quark;
+            Assert.That (actual, Is.EqualTo (expected));
+        }
+
+        [Test]
         public void TestFromString ()
         {
             Quark actual;
 
+            // null always returns 0
             actual = Quark.FromString (null);
-            Assert.That (actual, Is.EqualTo (0));
+            Assert.That (actual, Is.EqualTo (default(Quark)));
 
+            // this creates a new quark if it does not exist
             actual = Quark.FromString (testQuarkPrefix + "test-from-string");
-            Assert.That (actual, Is.Not.EqualTo (0));
+            Assert.That (actual, Is.Not.EqualTo (default(Quark)));
         }
 
-        [Test ()]
+        [Test]
         public void TestToString ()
         {
             string actual;
 
             // null always returns 0
-            actual = Quark.Zero.ToString ();
+            actual = default(Quark).ToString ();
             Assert.That (actual, Is.Null);
 
             // undefined quark creates new
             var quarkString = testQuarkPrefix + "test-to-string";
-            Assume.That (Quark.TryString (quarkString), Is.EqualTo (0));
+            Assume.That (Quark.TryString (quarkString), Is.EqualTo (default(Quark)));
             var quark = Quark.FromString (quarkString);
+            Assume.That (quark, Is.Not.EqualTo (default(Quark)));
             actual = quark.ToString ();
             Assert.That (actual, Is.EqualTo (quarkString));
         }
 
 
-        [Test ()]
+        [Test]
         public void TestTryString ()
         {
             Quark actual;
@@ -48,11 +60,11 @@ namespace GISharp.GLib.Test
 
             // null always returns 0
             actual = Quark.TryString (null);
-            Assert.That (actual, Is.EqualTo (0));
+            Assert.That (actual, Is.EqualTo (default(Quark)));
 
             // undefined quark returns 0
             actual = Quark.TryString (quarkString);
-            Assert.That (actual, Is.EqualTo (0));
+            Assert.That (actual, Is.EqualTo (default(Quark)));
 
             // defined quark returns value
             var quark = Quark.FromString (quarkString);

@@ -14,6 +14,17 @@ namespace GISharp.CodeGen.Model
 {
     public abstract class TypeDeclarationInfo : MemberInfo
     {
+        SyntaxToken _InstanceIdentifier;
+        public SyntaxToken InstanceIdentifier {
+            get {
+                if (_InstanceIdentifier == default(SyntaxToken)) {
+                    _InstanceIdentifier = Element.Name == gi + "alias"
+                        ? Identifier("value") : Identifier ("Handle");
+                }
+                return _InstanceIdentifier;
+            }
+        }
+
         List<FieldInfo> _FieldInfos;
         public IReadOnlyList<FieldInfo> FieldInfos {
             get {
@@ -49,6 +60,9 @@ namespace GISharp.CodeGen.Model
         protected TypeDeclarationInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
+            if (element.Name != gi + "alias" && element.Name != gi + "record" && element.Name != gi + "object" && element.Name != gs + "static-class" && element.Name != gi + "callback") {
+                throw new ArgumentException ("Requires <alias>, <record>, <object>, <static-class> or <callback> element.", nameof(element));
+            }
         }
 
         IEnumerable<FieldInfo> GetFieldInfos ()
