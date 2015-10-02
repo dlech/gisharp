@@ -1,8 +1,31 @@
-﻿using System;
+//
+// BaseDirectory.cs
+//
+// Copyright (c) 2015 David Lechner <david@lechnology.com>
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
+
+using System;
 using System.IO;
 using System.Linq;
 
-namespace Freedesktop.Xdg
+namespace GISharp.CodeGen.Freedesktop.Xdg
 {
     /// <summary>
     /// XDG Base directories.
@@ -10,7 +33,7 @@ namespace Freedesktop.Xdg
     /// <remarks>
     /// Based on http://standards.freedesktop.org/basedir-spec/basedir-spec-0.8.html.
     /// </remarks>
-    public static class BaseDirectory
+    static class BaseDirectory
     {
         /// <summary>
         /// Gets the directory where user-specific data files are stored.
@@ -22,14 +45,10 @@ namespace Freedesktop.Xdg
         /// </remarks>
         public static string DataHome {
             get {
-                var dir = Environment.GetEnvironmentVariable ("XDG_DATA_HOME");
-                if (string.IsNullOrWhiteSpace (dir)) {
-                    dir = Path.Combine (
-                        Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
-                        ".local",
-                        "share");
-                }
-                return dir;
+                return GetDir ("XDG_DATA_HOME",Path.Combine (
+                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    ".local",
+                    "share"));
             }
         }
 
@@ -43,13 +62,9 @@ namespace Freedesktop.Xdg
         /// </remarks>
         public static string ConfigHome {
             get {
-                var dir = Environment.GetEnvironmentVariable ("XDG_CONFIG_HOME");
-                if (string.IsNullOrWhiteSpace (dir)) {
-                    dir = Path.Combine (
-                        Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
-                        ".config");
-                }
-                return dir;
+                return GetDir ("XDG_CONFIG_HOME", Path.Combine (
+                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    ".config"));
             }
         }
 
@@ -63,15 +78,12 @@ namespace Freedesktop.Xdg
         /// non-empty or <c>/usr/local/share</c>, <c>/usr/share</c> otherwise;
         public static string[] DataDirs {
             get {
-                var dirs = Environment.GetEnvironmentVariable ("XDG_DATA_DIRS");
-                if (string.IsNullOrWhiteSpace (dirs)) {
-                    dirs = string.Join (Path.PathSeparator.ToString (),
-                        Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                            "usr", "local", "share"),
-                        Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                            "usr", "share"));
-                }
-                return dirs.Split (Path.PathSeparator);
+                return GetDirs ("XDG_DATA_DIRS", new [] {
+                    Path.Combine (Path.DirectorySeparatorChar.ToString (),
+                                      "usr", "local", "share"),
+                            Path.Combine (Path.DirectorySeparatorChar.ToString (),
+                                      "usr", "share")
+                });
             }
         }
 
@@ -86,12 +98,10 @@ namespace Freedesktop.Xdg
         /// </remarks>
         public static string[] ConfigDirs {
             get {
-                var dirs = Environment.GetEnvironmentVariable ("XDG_CONFIG_DIRS");
-                if (string.IsNullOrWhiteSpace (dirs)) {
-                    dirs = Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                        "etc", "xdg");
-                }
-                return dirs.Split (Path.PathSeparator);
+                return GetDirs ("XDG_CONFIG_DIRS", new [] {
+                    Path.Combine (Path.DirectorySeparatorChar.ToString (),
+                                      "etc", "xdg")
+                });
             }
         }
 
@@ -105,21 +115,16 @@ namespace Freedesktop.Xdg
         /// </remarks>
         public static string CacheHome {
             get {
-                var dir = Environment.GetEnvironmentVariable ("XDG_CACHE_HOME");
-                if (string.IsNullOrWhiteSpace (dir)) {
-                    dir = Path.Combine (
-                        Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
-                        ".cache");
-                }
-                return dir;
+                return GetDir ("XDG_CACHE_HOME", Path.Combine (
+                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    ".cache"));
             }
         }
 
         public static string RuntimeDir {
             get {
-                var dir = Environment.GetEnvironmentVariable ("XDG_RUNTIME_DIR");
                 // TODO: need to figure out default directory.
-                return dir;
+                return GetDir ("XDG_RUNTIME_DIR", null);
             }
         }
 
@@ -141,6 +146,23 @@ namespace Freedesktop.Xdg
         }
 
         /// <summary>
+        /// Searches for the directory specified by <paramref name="relativePath"/>
+        /// in <see cref="DataHome"/> and <see cref="DataDirs"/>.
+        /// </summary>
+        /// <returns>The absolute path if the directory exists or <c>null</c> otherwise.</returns>
+        /// <param name="relativePath">The path of the directory relative to the base data directory.</param>
+        public static string FindDataDirectory (string relativePath)
+        {
+            foreach (var dir in new [] { DataHome }.Union (DataDirs)) {
+                var path = Path.Combine (dir, relativePath);
+                if (Directory.Exists (path)) {
+                    return Path.GetFullPath (path);
+                }
+            }
+            return null;
+        }
+
+        /// <summary>
         /// Searches for the file specified by <paramref name="relativePath"/>
         /// in <see cref="ConfigHome"/> and <see cref="ConfigDirs"/>.
         /// </summary>
@@ -155,6 +177,49 @@ namespace Freedesktop.Xdg
                 }
             }
             return null;
+        }
+
+        /// <summary>
+        /// Searches for the directory specified by <paramref name="relativePath"/>
+        /// in <see cref="ConfigHome"/> and <see cref="ConfigDirs"/>.
+        /// </summary>
+        /// <returns>The absolute path if the directory exists or <c>null</c> otherwise.</returns>
+        /// <param name="relativePath">The path of the directory relative to the base data directory.</param>
+        public static string FindConfigDirectory (string relativePath)
+        {
+            foreach (var dir in new [] { ConfigHome }.Union (ConfigDirs)) {
+                var path = Path.Combine (dir, relativePath);
+                if (Directory.Exists (path)) {
+                    return Path.GetFullPath (path);
+                }
+            }
+            return null;
+        }
+
+        static string GetDir (string envVar, string defaultValue)
+        {
+            var dir = Environment.GetEnvironmentVariable (envVar);
+            if (string.IsNullOrWhiteSpace (dir) || !Path.IsPathRooted (dir)) {
+                return defaultValue;
+            }
+            return dir;
+        }
+
+        static string[] GetDirs (string envVar, params string[] defaultValues)
+        {
+            var dirs = Environment.GetEnvironmentVariable (envVar)
+                                  ?.Split (Path.PathSeparator).ToList ();
+            if (dirs != null) {
+                foreach (var dir in dirs.ToArray ()) {
+                    if (!Path.IsPathRooted (dir)) {
+                        dirs.Remove (dir);
+                    }
+                }
+            }
+            if (dirs == null || !dirs.Any ()) {
+                return defaultValues;
+            }
+            return dirs?.ToArray ();
         }
     }
 }
