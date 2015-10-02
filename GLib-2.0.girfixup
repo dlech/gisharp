@@ -33,9 +33,15 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Tree']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Hmac']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Rand']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'random_')]"
-# datetime
+# date/time
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'DATE_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Date')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'TIME_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='Time']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeSpan']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeVal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='TimeVal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeZone']"
 # environment
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='listenv']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='MODULE_SUFFIX']"
@@ -231,24 +237,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Strv']"
 # Fixup everything else #
 #########################
 
-# Date
-
-# rename function to replace obsolete function
-chattr "name" "" "set_time" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:method[@name='set_time_t']"
-
-# TimeSpan
-
-# move constants to alias
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]" "gi:repository/gi:namespace/gi:alias[@name='TimeSpan']"
-# drop prefix from moved constants
-chattr "name" "TIME_SPAN_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='TimeSpan']/gi:constant[starts-with(@name,'TIME_SPAN_')]"
-
-# Time
-
-# ignore it since it is deprecated and probably not useful
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Time']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:method[@name='set_time']"
-
 # Type
 
 # ignore it since it is actually defined in GObject
@@ -281,25 +269,6 @@ chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_static']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_take']"
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']"
-
-# Date
-
-# Change constant DATE_BAD_DAY type to match DateDay type
-chattr "name" "" "guint8" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_DAY']/gi:type"
-chattr "c:type" "" "guint8" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_DAY']/gi:type"
-# Change constant DATE_BAD_YEAR type to match DateYear type
-chattr "name" "" "guint16" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_YEAR']/gi:type"
-chattr "c:type" "" "guint16" "gi:repository/gi:namespace/gi:constant[@name='DATE_BAD_YEAR']/gi:type"
-# Move constant DATE_ constants to the record Date
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name, 'DATE_')]" "gi:repository/gi:namespace/gi:record[@name='Date']"
-# Drop the DATE_ prefix from the constant names
-chattr "name" "DATE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Date']/gi:constant[starts-with(@name,'DATE_')]"
-
-# DateTime
-
-# duplicate constructors
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:constructor[starts-with(@name,'new_')]"
-chattr "name" "new_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_')]"
 
 # Error
 
@@ -402,12 +371,6 @@ chattr "name" "SOURCE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='So
 chattr "name" "" "remove_by_tag" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']"
 # move main_current_source function to Source record
 move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
-
-# TimeZone
-
-# duplicate constructors
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:constructor[starts-with(@name,'new_')]"
-chattr "name" "new_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:function[starts-with(@name,'new_')]"
 
 # Variant
 
