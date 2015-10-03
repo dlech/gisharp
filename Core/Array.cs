@@ -19,6 +19,7 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.22")]
         public Int32 ElementSize {
             get {
+                AssertNotDisposed ();
                 return (int)ArrayInternal.g_array_get_element_size (Handle);
             }
         }
@@ -76,6 +77,7 @@ namespace GISharp.Core
         /// </param>
         public void Add (T data)
         {
+            AssertNotDisposed ();
             AddRange (data);
         }
 
@@ -87,6 +89,7 @@ namespace GISharp.Core
         /// </param>
         public void AddRange (params T[] data)
         {
+            AssertNotDisposed ();
             var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
             var itemPtr = dataPtr;
             foreach (var item in data) {
@@ -121,6 +124,7 @@ namespace GISharp.Core
         /// </returns>
         IntPtr Free (Boolean freeSegment)
         {
+            AssertNotDisposed ();
             return ArrayInternal.g_array_free (Handle, freeSegment);
         }
 
@@ -135,6 +139,7 @@ namespace GISharp.Core
         /// </param>
         public void Insert (Int32 index, T data)
         {
+            AssertNotDisposed ();
             InsertRange (index, data);
         }
 
@@ -149,6 +154,7 @@ namespace GISharp.Core
         /// </param>
         public void InsertRange (Int32 index, params T[] data)
         {
+            AssertNotDisposed ();
             AssertInsertIndexInRange (index);
             var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
             var itemPtr = dataPtr;
@@ -173,6 +179,7 @@ namespace GISharp.Core
         /// </param>
         public void Prepend (params T[] data)
         {
+            AssertNotDisposed ();
             var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
             var itemPtr = dataPtr;
             foreach (var item in data) {
@@ -193,6 +200,7 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.22")]
         internal protected override void Ref ()
         {
+            AssertNotDisposed ();
             ArrayInternal.g_array_ref (Handle);
         }
 
@@ -205,6 +213,7 @@ namespace GISharp.Core
         /// </param>
         public void RemoveAt (Int32 index)
         {
+            AssertNotDisposed ();
             AssertIndexInRange (index);
             Handle = ArrayInternal.g_array_remove_index (Handle, (uint)index);
         }
@@ -220,6 +229,7 @@ namespace GISharp.Core
         /// </param>
         public void RemoveAtFast (Int32 index)
         {
+            AssertNotDisposed ();
             AssertIndexInRange (index);
             Handle = ArrayInternal.g_array_remove_index_fast (Handle, (uint)index);
         }
@@ -237,6 +247,7 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.4")]
         public void RemoveAtRange (Int32 index, Int32 length)
         {
+            AssertNotDisposed ();
             AssertIndexInRange (index);
             if (length < 0 || index + length > Count) {
                 throw new ArgumentOutOfRangeException ("length");
@@ -274,6 +285,7 @@ namespace GISharp.Core
         /// </param>
         public void SetSize (Int32 length)
         {
+            AssertNotDisposed ();
             if (length < 0) {
                 throw new ArgumentOutOfRangeException ("length");
             }
@@ -324,11 +336,13 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.22")]
         internal protected override void Unref ()
         {
+            AssertNotDisposed ();
             ArrayInternal.g_array_unref (Handle);
         }
 
         public T this[int index] {
             get {
+                AssertNotDisposed ();
                 AssertIndexInRange (index);
                 var dataPtr = Marshal.ReadIntPtr (Handle);
                 dataPtr += Marshal.SizeOf<T> () * index;
@@ -336,6 +350,7 @@ namespace GISharp.Core
                 return item;
             }
             set {
+                AssertNotDisposed ();
                 RemoveAt (index);
                 InsertRange (index, value);
             }
@@ -343,6 +358,7 @@ namespace GISharp.Core
 
         public int Count {
             get {
+                AssertNotDisposed ();
                 return Marshal.ReadInt32 (Handle, IntPtr.Size);
             }
         }
@@ -370,6 +386,7 @@ namespace GISharp.Core
         }
 
         public void Clear () {
+            AssertNotDisposed ();
             var oldSize = Count;
             SetSize (0);
             SetSize (oldSize);
@@ -377,6 +394,7 @@ namespace GISharp.Core
 
         public bool Contains (T other)
         {
+            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (other)) {
                     return true;
@@ -387,6 +405,7 @@ namespace GISharp.Core
 
         public void CopyTo (T[] array, Int32 length)
         {
+            AssertNotDisposed ();
             if (length < 0 || length > Count) {
                 throw new ArgumentOutOfRangeException ("length");
             }
@@ -397,6 +416,7 @@ namespace GISharp.Core
 
         public int IndexOf (T data)
         {
+            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     return i;
@@ -407,6 +427,7 @@ namespace GISharp.Core
 
         public bool Remove (T data)
         {
+            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     RemoveAt (i);
@@ -417,11 +438,15 @@ namespace GISharp.Core
         }
 
         public bool IsReadOnly {
-            get { return false; }
+            get {
+                AssertNotDisposed ();
+                return false;
+            }
         }
 
         public IEnumerator<T> GetEnumerator ()
         {
+            AssertNotDisposed ();
             return new ArrayEnumerator (this);
         }
 

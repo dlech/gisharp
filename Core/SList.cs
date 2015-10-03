@@ -38,9 +38,11 @@ namespace GISharp.Core
         public static SList<T> Concat (SList<T> list1, SList<T> list2)
         {
             if (list1 != null) {
+                list1.AssertNotDisposed ();
                 list1.AssertIsHeadOfList ();
             }
             if (list2 != null) {
+                list2.AssertNotDisposed ();
                 list2.AssertIsHeadOfList ();
             }
             var list1Ptr = list1 == null ? IntPtr.Zero : list1.Handle;
@@ -89,6 +91,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Append (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_append (Handle, dataPtr);
@@ -111,6 +114,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Copy ()
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_copy (Handle);
             var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
@@ -147,6 +151,7 @@ namespace GISharp.Core
         [Since("2.34")]
         public SList<T> CopyDeep (CopyFuncCallback<T> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -187,6 +192,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> DeleteLink (SList<T> link)
         {
+            AssertNotDisposed ();
             if (link == null) {
                 throw new ArgumentNullException ("link");
             }
@@ -214,6 +220,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Find (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_find (Handle, dataPtr);
@@ -244,6 +251,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> FindCustom (T data, CompareFuncCallback<T> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -271,6 +279,7 @@ namespace GISharp.Core
         /// </param>
         public void Foreach (FuncCallback<T> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -293,6 +302,7 @@ namespace GISharp.Core
         /// </remarks>
         protected override void Free ()
         {
+            AssertNotDisposed ();
             SListInternal.g_slist_free (Handle);
             Owned = false;
         }
@@ -319,10 +329,10 @@ namespace GISharp.Core
         [Since("2.28")]
         public void FreeFull (DestroyNotifyCallback<T> freeFunc)
         {
+            AssertNotDisposed ();
             if (freeFunc == null) {
                 throw new ArgumentNullException ("freeFunc");
             }
-            AssertNotDisposed ();
             DestroyNotify freeFuncNative = (freeFuncDataPtr) => {
                 var freeFuncData = Opaque.GetInstance<T> (freeFuncDataPtr, Transfer.None);
                 freeFunc.Invoke (freeFuncData);
@@ -345,6 +355,7 @@ namespace GISharp.Core
         /// </returns>
         public Int32 IndexOf (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var ret = SListInternal.g_slist_index (Handle, dataPtr);
@@ -368,6 +379,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Insert (T data, Int32 position)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_insert (Handle, dataPtr, position);
@@ -390,6 +402,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> InsertBefore (SList<T> sibling, T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             if (sibling != null) {
                 sibling.AssertNotDisposed ();
@@ -419,6 +432,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> InsertSorted (T data, CompareFuncCallback<T> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -487,6 +501,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Nth (UInt32 n)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_nth (Handle, n);
             if (retPtr == IntPtr.Zero) {
@@ -529,6 +544,7 @@ namespace GISharp.Core
         /// </returns>
         public Int32 Position (SList<T> link)
         {
+            AssertNotDisposed ();
             if (link == null) {
                 throw new ArgumentNullException ("link");
             }
@@ -561,6 +577,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Prepend (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_prepend (Handle, dataPtr);
@@ -582,6 +599,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Remove (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove (Handle, dataPtr);
@@ -604,6 +622,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> RemoveAll (T data)
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove_all (Handle, dataPtr);
@@ -633,6 +652,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> RemoveLink (SList<T> link)
         {
+            AssertNotDisposed ();
             if (link == null) {
                 throw new ArgumentNullException ("link");
             }
@@ -654,6 +674,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Reverse ()
         {
+            AssertNotDisposed ();
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_reverse (Handle);
             Owned = false;
@@ -676,6 +697,7 @@ namespace GISharp.Core
         /// </returns>
         public SList<T> Sort(CompareFuncCallback<T> compareFunc)
         {
+            AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
@@ -721,7 +743,6 @@ namespace GISharp.Core
 
         void AssertIsHeadOfList ()
         {
-            AssertNotDisposed ();
             if (!Owned) {
                 throw new InvalidOperationException ("This operation requires an owned list.");
             }

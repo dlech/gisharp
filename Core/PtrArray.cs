@@ -75,6 +75,7 @@ namespace GISharp.Core
         /// </param>
         public void Add (T data)
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_add (Handle, data.Handle);
         }
 
@@ -87,6 +88,7 @@ namespace GISharp.Core
         [Since("2.4")]
         public void Foreach (FuncCallback<T> func)
         {
+            AssertNotDisposed ();
             Func funcNative = (funcDataPtr, funcUserDataPtr) => {
                 var funcData = Opaque.GetInstance<T> (funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
@@ -118,6 +120,7 @@ namespace GISharp.Core
         /// </returns>
         public IntPtr Free (Boolean freeSeg)
         {
+            AssertNotDisposed ();
             var ret = PtrArrayInternal.g_ptr_array_free (Handle, freeSeg);
             return ret;
         }
@@ -135,6 +138,7 @@ namespace GISharp.Core
         [Since("2.40")]
         public void Insert (Int32 index, T data)
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_insert (Handle, index, data.Handle);
         }
 
@@ -148,6 +152,7 @@ namespace GISharp.Core
         [Since("2.22")]
         internal protected override void Ref()
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_ref (Handle);
         }
 
@@ -170,6 +175,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Remove (T data)
         {
+            AssertNotDisposed ();
             var ret = PtrArrayInternal.g_ptr_array_remove (Handle, data.Handle);
             return ret;
         }
@@ -193,6 +199,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean RemoveFast (T data)
         {
+            AssertNotDisposed ();
             var ret = PtrArrayInternal.g_ptr_array_remove_fast (Handle, data.Handle);
             return ret;
         }
@@ -208,6 +215,7 @@ namespace GISharp.Core
         /// </param>
         public T RemoveIndex (Int32 index)
         {
+            AssertNotDisposed ();
             var retPtr = PtrArrayInternal.g_ptr_array_remove_index (Handle, (uint)index);
             var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
             return ret;
@@ -228,6 +236,7 @@ namespace GISharp.Core
         /// </returns>
         public T RemoveIndexFast (UInt32 index)
         {
+            AssertNotDisposed ();
             var retPtr = PtrArrayInternal.g_ptr_array_remove_index_fast (Handle, index);
             var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
             return ret;
@@ -248,6 +257,7 @@ namespace GISharp.Core
         [Since("2.4")]
         public void RemoveRange (UInt32 index, UInt32 length)
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_remove_range (Handle, index, length);
         }
 
@@ -263,6 +273,7 @@ namespace GISharp.Core
         [Since("2.22")]
         public void SetFreeFunc (DestroyNotifyCallback<T> elementFreeFunc)
         {
+            AssertNotDisposed ();
             if (elementFreeFunc == null) {
                 elementFreeFuncNative = default(DestroyNotify);
             } else {
@@ -285,6 +296,7 @@ namespace GISharp.Core
         /// </param>
         public void SetSize (Int32 length)
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_set_size (Handle, length);
         }
 
@@ -306,6 +318,7 @@ namespace GISharp.Core
         /// </param>
         public void Sort (CompareFuncCallback<T> compareFunc)
         {
+            AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
@@ -327,6 +340,7 @@ namespace GISharp.Core
         [Since("2.22")]
         internal protected override void Unref ()
         {
+            AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_unref (Handle);
         }
 
@@ -339,6 +353,7 @@ namespace GISharp.Core
                 return ret;
             }
             set {
+                AssertNotDisposed ();
                 RemoveIndex (index);
                 Insert (index, value);
             }
@@ -358,6 +373,7 @@ namespace GISharp.Core
 
         public int IndexOf (T data)
         {
+            AssertNotDisposed ();
             for (int i = 0; i < Count; i++)
             {
                 if (this[i].Equals(data)) {
@@ -369,16 +385,19 @@ namespace GISharp.Core
 
         public void Clear ()
         {
+            AssertNotDisposed ();
             SetSize (0);
         }
 
         public bool Contains (T data)
         {
+            AssertNotDisposed ();
             return IndexOf (data) >= 0;
         }
 
         public void CopyTo (T[] array, int length)
         {
+            AssertNotDisposed ();
             if (length < 0 || length > Count) {
                 throw new ArgumentOutOfRangeException ("length");
             }
@@ -390,6 +409,7 @@ namespace GISharp.Core
 
         public IEnumerator<T> GetEnumerator ()
         {
+            AssertNotDisposed ();
             return new Enumerator (this);
         }
 
@@ -400,6 +420,7 @@ namespace GISharp.Core
 
         public void RemoveAt (int index)
         {
+            AssertNotDisposed ();
             RemoveIndex (index);
         }
 

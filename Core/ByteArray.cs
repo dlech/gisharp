@@ -143,6 +143,7 @@ namespace GISharp.Core
         public void Append (Byte[] data)
         {
             AssertNotDisposed ();
+            AssertNotDisposed ();
             if (data == null) {
                 throw new ArgumentNullException ("data");
             }
@@ -185,6 +186,7 @@ namespace GISharp.Core
         /// </returns>
         public Byte Free (Boolean freeSegment)
         {
+            AssertNotDisposed ();
             throw new NotImplementedException ();
         }
 
@@ -295,6 +297,7 @@ namespace GISharp.Core
         [Since("2.22")]
         internal protected override void Ref ()
         {
+            AssertNotDisposed ();
             g_byte_array_ref (Handle);
         }
 
@@ -520,11 +523,13 @@ namespace GISharp.Core
         [Since("2.22")]
         internal protected override void Unref ()
         {
+            AssertNotDisposed ();
             g_byte_array_unref (Handle);
         }
 
         public int Length {
             get {
+                AssertNotDisposed ();
                 return Marshal.ReadInt32 (Handle, IntPtr.Size);
             }
         }

@@ -29,6 +29,7 @@ namespace GISharp.Core
         {
             get
             {
+                AssertNotDisposed ();
                 var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
                 var ret = Opaque.GetInstance<List<K>> (retPtr, Transfer.None);
                 return ret;
@@ -50,6 +51,7 @@ namespace GISharp.Core
         {
             get
             {
+                AssertNotDisposed ();
                 var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
                 var ret = Opaque.GetInstance<List<V>> (retPtr, Transfer.None);
                 return ret;
@@ -441,6 +443,7 @@ namespace GISharp.Core
         [Since("2.32")]
         public Boolean Add (K key)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = HashTableInternal.g_hash_table_add (Handle, keyPtr);
             return ret;
@@ -455,6 +458,7 @@ namespace GISharp.Core
         [Since("2.32")]
         public Boolean Contains (K key)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = HashTableInternal.g_hash_table_contains (Handle, keyPtr);
             return ret;
@@ -470,6 +474,7 @@ namespace GISharp.Core
         /// </summary>
         public void Destroy ()
         {
+            AssertNotDisposed ();
             HashTableInternal.g_hash_table_destroy (Handle);
         }
 
@@ -500,6 +505,7 @@ namespace GISharp.Core
         [Since("2.4")]
         public V Find (HRFuncCallback<K,V> predicate)
         {
+            AssertNotDisposed ();
             if (predicate == null) {
                 throw new ArgumentNullException ("predicate");
             }
@@ -534,6 +540,7 @@ namespace GISharp.Core
         /// </param>
         public void Foreach (HFuncCallback<K,V> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -564,6 +571,7 @@ namespace GISharp.Core
         /// </returns>
         public UInt32 ForeachRemove (HRFuncCallback<K,V> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -595,6 +603,7 @@ namespace GISharp.Core
         /// </returns>
         public UInt32 ForeachSteal (HRFuncCallback<K,V> func)
         {
+            AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
@@ -630,6 +639,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Insert (K key, V value)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var valuePtr = value == null ? IntPtr.Zero : value.Handle;
             var ret = HashTableInternal.g_hash_table_insert (Handle, keyPtr, valuePtr);
@@ -650,6 +660,7 @@ namespace GISharp.Core
         /// </returns>
         public V Lookup (K key)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var retPtr = HashTableInternal.g_hash_table_lookup (Handle, keyPtr);
             var ret = Opaque.GetInstance<V> (retPtr, Transfer.None);
@@ -681,6 +692,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean LookupExtended (K lookupKey, out K origKey, out V value)
         {
+            AssertNotDisposed ();
             var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle;
             IntPtr origKeyPtr, valuePtr;
             var ret = HashTableInternal.g_hash_table_lookup_extended (Handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
@@ -707,6 +719,7 @@ namespace GISharp.Core
         [Since("2.10")]
         internal protected override void Ref ()
         {
+            AssertNotDisposed ();
             HashTableInternal.g_hash_table_ref (Handle);
         }
 
@@ -727,6 +740,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Remove (K key)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = HashTableInternal.g_hash_table_remove (Handle, keyPtr);
             return ret;
@@ -744,6 +758,7 @@ namespace GISharp.Core
         [Since("2.12")]
         public void RemoveAll ()
         {
+            AssertNotDisposed ();
             HashTableInternal.g_hash_table_remove_all (Handle);
         }
 
@@ -767,6 +782,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Replace (K key, V value)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var valuePtr = value == null ? IntPtr.Zero : value.Handle;
             var ret = HashTableInternal.g_hash_table_replace (Handle, keyPtr, valuePtr);
@@ -781,6 +797,7 @@ namespace GISharp.Core
         /// </returns>
         public UInt32 Size {
             get {
+                AssertNotDisposed ();
                 var ret = HashTableInternal.g_hash_table_size (Handle);
                 return ret;
             }
@@ -798,6 +815,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Steal (K key)
         {
+            AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = HashTableInternal.g_hash_table_steal (Handle, keyPtr);
             return ret;
@@ -810,6 +828,7 @@ namespace GISharp.Core
         [Since("2.12")]
         public void StealAll ()
         {
+            AssertNotDisposed ();
             HashTableInternal.g_hash_table_steal_all (Handle);
         }
 
@@ -822,6 +841,7 @@ namespace GISharp.Core
         [Since("2.10")]
         internal protected override void Unref ()
         {
+            AssertNotDisposed ();
             HashTableInternal.g_hash_table_unref (Handle);
         }
     }

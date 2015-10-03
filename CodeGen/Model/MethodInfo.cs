@@ -269,6 +269,10 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<StatementSyntax> GetStatements ()
         {
+            if (IsInstanceMethod && DeclaringMember is ClassInfo) {
+                var statement = "AssertNotDisposed ();\n";
+                yield return ParseStatement (statement);
+            }
             foreach (var s in GetArgumentCheckStatements ()) {
                 yield return s;
             }

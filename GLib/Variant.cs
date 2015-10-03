@@ -260,6 +260,7 @@ namespace GISharp.GLib
         IndexedCollection<Variant> childValues;
         public IndexedCollection<Variant> ChildValues {
             get {
+                AssertNotDisposed ();
                 if (childValues == null) {
                     childValues = new IndexedCollection<Variant> (NChildren, GetChildValue);
                 }
