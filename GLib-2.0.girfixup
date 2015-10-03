@@ -187,6 +187,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TranslateFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='VoidFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Scanner')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Token')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='ErrorType']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'CSET_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Shell')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'shell_')]"
@@ -221,6 +222,9 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Array']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='PtrArray']"
 # DestroyNotify
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='DestroyNotify']"
+# Error
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Error']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='Error']"
 # HashTable
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HashFunc']"

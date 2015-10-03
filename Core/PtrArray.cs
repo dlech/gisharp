@@ -9,28 +9,39 @@ namespace GISharp.Core
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
-    public sealed class PtrArray<T> : ReferenceCountedOpaque<GISharp.Core.PtrArray<T>>, IList<T> where T : Opaque
+    public sealed class PtrArray<T> : ReferenceCountedOpaque, IList<T> where T : Opaque
     {
-        // Analysis disable once StaticFieldInGenericType
-        static readonly ICustomMarshaler typeParameterCustomMarshaler;
-
-        static PtrArray () {
-            typeParameterCustomMarshaler = typeof(T).GetCustomMarshaler ();
-        }
-
         DestroyNotify elementFreeFuncNative;
 
-        public PtrArray (IntPtr handle)
+        public PtrArray (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            Handle = handle;
+        }
+
+        static IntPtr New ()
+        {
+            var retPtr = PtrArrayInternal.g_ptr_array_new ();
+            return retPtr;
         }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/>.
         /// </summary>
-        public PtrArray ()
+        public PtrArray () : this (New (), Transfer.All)
         {
-            Handle = PtrArrayInternal.g_ptr_array_new ();
+        }
+
+        static IntPtr NewFull (UInt32 reservedSize, DestroyNotifyCallback<T> elementFreeFunc)
+        {
+            if (elementFreeFunc == null) {
+                throw new ArgumentNullException ("elementFreeFunc");
+            }
+            // TODO: this callback will be garbage collected before we are done with it
+            DestroyNotify elementFreeFuncNative = (elementFreeFuncDataPtr) => {
+                var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
+                elementFreeFunc (elementFreeFuncData);
+            };
+            var retPtr = PtrArrayInternal.g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
+            return retPtr;
         }
 
         /// <summary>
@@ -51,58 +62,8 @@ namespace GISharp.Core
         /// </param>
         [Since("2.30")]
         public PtrArray (UInt32 reservedSize, DestroyNotifyCallback<T> elementFreeFunc)
+            : this (NewFull (reservedSize, elementFreeFunc), Transfer.All)
         {
-            if (elementFreeFunc == null) {
-                throw new ArgumentNullException ("elementFreeFunc");
-            }
-            elementFreeFuncNative = (elementFreeFuncDataPtr) => {
-                var elementFreeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (elementFreeFuncDataPtr);
-                elementFreeFunc (elementFreeFuncData);
-            };
-            Handle = PtrArrayInternal.g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="PtrArray{T}"/> and use
-        /// <paramref name="elementFreeFunc"/> for freeing each element when the array is destroyed
-        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to <c>true</c> or when removing elements.
-        /// </summary>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy this array or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// A new <see cref="PtrArray{T}"/>
-        /// </returns>
-        [Since("2.22")]
-        public PtrArray (DestroyNotifyCallback<T> elementFreeFunc)
-        {
-            if (elementFreeFunc == null) {
-                throw new ArgumentNullException ("elementFreeFunc");
-            }
-            elementFreeFuncNative = (elementFreeFuncDataPtr) => {
-                var elementFreeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (elementFreeFuncDataPtr);
-                elementFreeFunc (elementFreeFuncData);
-            };
-            Handle = PtrArrayInternal.g_ptr_array_new_with_free_func (elementFreeFuncNative);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="PtrArray{T}"/> with @reservedSize pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <returns>
-        /// the new <see cref="PtrArray{T}"/>
-        /// </returns>
-        public PtrArray(UInt32 reservedSize)
-        {
-            Handle = PtrArrayInternal.g_ptr_array_sized_new (reservedSize);
         }
 
         /// <summary>
@@ -114,8 +75,7 @@ namespace GISharp.Core
         /// </param>
         public void Add (T data)
         {
-            var dataPtr = typeParameterCustomMarshaler.MarshalManagedToNative (data);
-            PtrArrayInternal.g_ptr_array_add (Handle, dataPtr);
+            PtrArrayInternal.g_ptr_array_add (Handle, data.Handle);
         }
 
         /// <summary>
@@ -128,7 +88,7 @@ namespace GISharp.Core
         public void Foreach (FuncCallback<T> func)
         {
             Func funcNative = (funcDataPtr, funcUserDataPtr) => {
-                var funcData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcDataPtr);
+                var funcData = Opaque.GetInstance<T> (funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
             };
             PtrArrayInternal.g_ptr_array_foreach (Handle, funcNative, IntPtr.Zero);
@@ -175,8 +135,7 @@ namespace GISharp.Core
         [Since("2.40")]
         public void Insert (Int32 index, T data)
         {
-            var dataPtr = typeParameterCustomMarshaler.MarshalManagedToNative (data);
-            PtrArrayInternal.g_ptr_array_insert (Handle, index, dataPtr);
+            PtrArrayInternal.g_ptr_array_insert (Handle, index, data.Handle);
         }
 
         /// <summary>
@@ -211,8 +170,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean Remove (T data)
         {
-            var dataPtr = typeParameterCustomMarshaler.MarshalManagedToNative (data);
-            var ret = PtrArrayInternal.g_ptr_array_remove (Handle, dataPtr);
+            var ret = PtrArrayInternal.g_ptr_array_remove (Handle, data.Handle);
             return ret;
         }
 
@@ -235,8 +193,7 @@ namespace GISharp.Core
         /// </returns>
         public Boolean RemoveFast (T data)
         {
-            var dataPtr = typeParameterCustomMarshaler.MarshalManagedToNative (data);
-            var ret = PtrArrayInternal.g_ptr_array_remove_fast (Handle, dataPtr);
+            var ret = PtrArrayInternal.g_ptr_array_remove_fast (Handle, data.Handle);
             return ret;
         }
 
@@ -252,7 +209,7 @@ namespace GISharp.Core
         public T RemoveIndex (Int32 index)
         {
             var retPtr = PtrArrayInternal.g_ptr_array_remove_index (Handle, (uint)index);
-            var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+            var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -272,7 +229,7 @@ namespace GISharp.Core
         public T RemoveIndexFast (UInt32 index)
         {
             var retPtr = PtrArrayInternal.g_ptr_array_remove_index_fast (Handle, index);
-            var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+            var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -310,7 +267,7 @@ namespace GISharp.Core
                 elementFreeFuncNative = default(DestroyNotify);
             } else {
                 elementFreeFuncNative = (elementFreeFuncDataPtr) => {
-                    var elementFreeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (elementFreeFuncDataPtr);
+                    var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
                     elementFreeFunc (elementFreeFuncData);
                 };
             }
@@ -353,8 +310,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("compareFunc");
             }
             CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
-                var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
+                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
@@ -378,7 +335,7 @@ namespace GISharp.Core
                 AssertNotDisposed ();
                 var dataPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 0);
                 var retPtr = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
-                var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
             set {

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
@@ -11,11 +12,25 @@ namespace GISharp.Core
     {
         protected bool IsDisposed;
 
+        IntPtr _Handle;
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public IntPtr Handle { get; protected set; }
+        public IntPtr Handle { 
+            get {
+                AssertNotDisposed ();
+                return _Handle;
+            }
+            protected set {
+                _Handle = value;
+            }
+        }
+
+        static bool GetNullHandleIsInstance<T> () {
+            var attr = typeof(T).GetCustomAttribute <NullHandleIsInstanceAttribute> ();
+            return attr != null;
+        }
 
         ~Opaque ()
         {
@@ -64,33 +79,29 @@ namespace GISharp.Core
                 throw new ObjectDisposedException (GetType ().Name);
             }
         }
-    }
 
-    public static class OpaquueExtensions
-    {
-        public static ICustomMarshaler GetCustomMarshaler (this Type type)
+        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque
         {
-            type.Assembly.GetType (type.FullName + "Marshaler", true);
-            var getCustomMarshaler = type.GetMethod ("GetCustomMarshaler",
-                BindingFlags.Static | BindingFlags.Public,
-                null, new Type[] { }, null);
-            if (getCustomMarshaler == null) {
-                throw new MissingMethodException (type.FullName, "GetCustomMarshaler");
+            if (handle == IntPtr.Zero && !GetNullHandleIsInstance<T> ()) {
+                return null;
             }
-            var customMarshalerType = (Type)getCustomMarshaler.Invoke (null, null);
-            var getInstance = customMarshalerType.GetMethod ("GetInstance",
-                BindingFlags.Static | BindingFlags.Public,
-                null, new [] { typeof(string) }, null);
-            if (getInstance == null) {
-                throw new MissingMethodException (type.FullName, "GetInstance");
+            var obj = ReferenceCountedOpaque.TryGetExisting (handle) as T;
+            if (obj != null) {
+                if (ownership != Transfer.None) {
+                    // we already have a reference, so we don't need another one.
+                    (obj as ReferenceCountedOpaque).Unref ();
+                }
+                return obj;
             }
-            var customMarshaler = (ICustomMarshaler)getInstance.Invoke (null, new [] { string.Empty });
-
-            return customMarshaler;
+            // TODO: look up type if there is a GType
+            obj = (T)Activator.CreateInstance (typeof(T),
+                BindingFlags.Instance | BindingFlags.NonPublic,
+                null, new object[] { handle, ownership }, null);
+            return obj;
         }
     }
 
-    public class WrappedStruct<T> : OwnedOpaque<WrappedStruct<T>> where T : struct
+    public sealed class WrappedStruct<T> : OwnedOpaque where T : struct
     {
         public T Value {
             get {
@@ -101,16 +112,12 @@ namespace GISharp.Core
             }
         }
 
-        public WrappedStruct (IntPtr handle, bool owned)
+        WrappedStruct (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            Handle = handle;
-            Owned = owned;
         }
 
-        public WrappedStruct ()
+        public WrappedStruct () : this (MarshalG.Alloc (Marshal.SizeOf<T> ()), Transfer.All)
         {
-            Handle = MarshalG.Alloc (Marshal.SizeOf<T> ());
-            Owned = true;
         }
 
         public WrappedStruct (T value) : this ()

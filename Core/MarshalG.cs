@@ -44,40 +44,6 @@ namespace GISharp.Core
             g_free (ptr);
         }
 
-        public static T PtrToOpaque<T> (IntPtr ptr, bool owned) where T : Opaque
-        {
-            throw new NotSupportedException ();
-        }
-
-        /// <summary>
-        /// Marshals pointer to unmanaged stuct to an Opaque object.
-        /// </summary>
-        /// <returns>The to opaque object.</returns>
-        /// <param name="ptr">Handle.</param>
-        /// <param name="owned">If set to <c>true</c> the pointer is owned.</param>
-        /// <typeparam name="T">The type to cast the pointer to.</typeparam>
-        public static T PtrToReferenceCountedOpaque<T> (IntPtr ptr, bool owned) where T : ReferenceCountedOpaque<T>
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            var instance = Activator.CreateInstance (typeof(T), new object[] { ptr }, null) as T;
-            if (!owned) {
-                instance.Ref ();
-            }
-            return instance;
-        }
-
-        public static T PtrToOwnedOpaque<T> (IntPtr ptr, bool owned) where T : OwnedOpaque<T>
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            var instance = Activator.CreateInstance (typeof(T), new object[] { ptr }, null) as T;
-            instance.Owned = owned;
-            return instance;
-        }
-
         /// <summary>
         /// Marshals a C string pointer to a byte array.
         /// </summary>

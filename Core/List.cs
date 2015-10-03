@@ -9,27 +9,18 @@ namespace GISharp.Core
     /// <summary>
     /// The <see cref="List{T}"/> struct is used for each element in a doubly-linked list.
     /// </summary>
-    public sealed class List<T> : OwnedOpaque<List<T>> where T : Opaque
+    [NullHandleIsInstance]
+    public sealed class List<T> : OwnedOpaque where T : Opaque
     {
-        // Analysis disable once StaticFieldInGenericType
-        static readonly ICustomMarshaler typeParameterCustomMarshaler;
-
-        static List ()
+        List (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            typeParameterCustomMarshaler = typeof(T).GetCustomMarshaler ();
-        }
-
-        public List (IntPtr handle)
-        {
-            Handle = handle;
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        public List ()
+        public List () : this (IntPtr.Zero, Transfer.All)
         {
-            Owned = true;
         }
 
         /// <summary>
@@ -64,8 +55,7 @@ namespace GISharp.Core
             if (list2 != null) {
                 list2.Owned = false;
             }
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -93,8 +83,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_append (Handle, dataPtr);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -110,12 +99,11 @@ namespace GISharp.Core
         /// <returns>
         /// the start of the new list that holds the same data as @list
         /// </returns>
-        public override List<T> Copy ()
+        public List<T> Copy ()
         {
             AssertIsHeadOfList ();
             var retPtr = ListInternal.g_list_copy (Handle);
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -156,7 +144,7 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
-                var funcSrc = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcSrcPtr);
+                var funcSrc = Opaque.GetInstance<T> (funcSrcPtr, Transfer.None);
                 var funcRet = func.Invoke (funcSrc);
                 if (funcRet == null) {
                     return IntPtr.Zero;
@@ -164,8 +152,7 @@ namespace GISharp.Core
                 return funcRet.Handle;
             };
             var retPtr = ListInternal.g_list_copy_deep (Handle, funcNative, IntPtr.Zero);
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -192,8 +179,7 @@ namespace GISharp.Core
             Owned = false;
             link.Owned = false;
             link.IsDisposed = true;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -214,7 +200,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new List<T> (retPtr);
+            var ret = new List<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -243,8 +229,8 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CompareFunc funcNative = (funcAPtr, funcBPtr) => {
-                var funcA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcAPtr);
-                var funcB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcBPtr);
+                var funcA = Opaque.GetInstance<T> (funcAPtr, Transfer.None);
+                var funcB = Opaque.GetInstance<T> (funcBPtr, Transfer.None);
                 var funcRet = func.Invoke (funcA, funcB);
                 return funcRet;
             };
@@ -253,7 +239,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new List<T> (retPtr);
+            var ret = new List<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -271,7 +257,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new List<T> (retPtr);
+                var ret = new List<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -289,7 +275,7 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             Func funcNative = (funcDataPtr, funcUserDataPtr) => {
-                var funcData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcDataPtr);
+                var funcData = Opaque.GetInstance<T>(funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
             };
             ListInternal.g_list_foreach (Handle, funcNative, IntPtr.Zero);
@@ -336,7 +322,7 @@ namespace GISharp.Core
             }
             AssertNotDisposed ();
             DestroyNotify freeFuncNative = (freeFuncDataPtr) => {
-                var freeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (freeFuncDataPtr);
+                var freeFuncData = Opaque.GetInstance<T> (freeFuncDataPtr, Transfer.None);
                 freeFunc.Invoke (freeFuncData);
             };
             ListInternal.g_list_free_full (Handle, freeFuncNative);
@@ -386,8 +372,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_insert (Handle, dataPtr, position);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -414,8 +399,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_insert_before (Handle, siblingPtr, dataPtr);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -448,15 +432,14 @@ namespace GISharp.Core
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             CompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
-                var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
+                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = func.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
             var retPtr = ListInternal.g_list_insert_sorted (Handle, dataPtr, funcNative);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -477,7 +460,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new List<T> (retPtr);
+                var ret = new List<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -516,7 +499,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new List<T> (retPtr);
+            var ret = new List<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -534,7 +517,7 @@ namespace GISharp.Core
             get {
                 AssertIsHeadOfList ();
                 var retPtr = ListInternal.g_list_nth_data (Handle, n);
-                var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -556,7 +539,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new List<T> (retPtr);
+            var ret = new List<T> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -603,7 +586,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_prepend (Handle, dataPtr);
             Owned = false;
-            var ret = new List<T> (retPtr);
+            var ret = new List<T> (retPtr, Transfer.None);
             ret.Owned = true;
             return ret;
         }
@@ -625,8 +608,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_remove (Handle, dataPtr);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -648,8 +630,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = ListInternal.g_list_remove_all (Handle, dataPtr);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -675,8 +656,7 @@ namespace GISharp.Core
             var retPtr = ListInternal.g_list_remove_link (Handle, linkPtr);
             Owned = false;
             link.Owned = true;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -692,8 +672,7 @@ namespace GISharp.Core
             AssertIsHeadOfList ();
             var retPtr = ListInternal.g_list_reverse (Handle);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -718,15 +697,14 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
-                var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
+                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
             var retPtr = ListInternal.g_list_sort (Handle, compareFuncNative);
             Owned = false;
-            var ret = new List<T> (retPtr);
-            ret.Owned = true;
+            var ret = new List<T> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -737,7 +715,7 @@ namespace GISharp.Core
                     return null;
                 }
                 var retPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 0);
-                var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -752,7 +730,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new List<T> (retPtr);
+                var ret = new List<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -767,7 +745,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new List<T> (retPtr);
+                var ret = new List<T> (retPtr, Transfer.None);
                 return ret;
             }
         }

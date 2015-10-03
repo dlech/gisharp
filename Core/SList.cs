@@ -10,24 +10,15 @@ namespace GISharp.Core
     /// The #GSList struct is used for each element in the singly-linked
     /// list.
     /// </summary>
-    public sealed class SList<T> : OwnedOpaque<GISharp.Core.SList<T>> where T : Opaque
+    [NullHandleIsInstance]
+    public sealed class SList<T> : OwnedOpaque where T : Opaque
     {
-        // Analysis disable once StaticFieldInGenericType
-        static readonly ICustomMarshaler typeParameterCustomMarshaler;
-
-        static SList ()
+        public SList () : this (IntPtr.Zero, Transfer.All)
         {
-            typeParameterCustomMarshaler = typeof(T).GetCustomMarshaler ();
         }
 
-        public SList () : this (IntPtr.Zero)
+        SList (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            Owned = true;
-        }
-
-        public SList (IntPtr handle)
-        {
-            Handle = handle;
         }
 
         /// <summary>
@@ -61,8 +52,7 @@ namespace GISharp.Core
             if (list2 != null) {
                 list2.Owned = false;
             }
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -103,8 +93,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_append (Handle, dataPtr);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -120,12 +109,11 @@ namespace GISharp.Core
         /// <returns>
         /// a copy of @list
         /// </returns>
-        public override SList<T> Copy ()
+        public SList<T> Copy ()
         {
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_copy (Handle);
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -164,7 +152,7 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
-                var funcSrc = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcSrcPtr);
+                var funcSrc = Opaque.GetInstance<T> (funcSrcPtr, Transfer.None);
                 var funcRet = func.Invoke (funcSrc);
                 if (funcRet == null) {
                     return IntPtr.Zero;
@@ -172,8 +160,7 @@ namespace GISharp.Core
                 return funcRet.Handle;
             };
             var retPtr = SListInternal.g_slist_copy_deep (Handle, funcNative, IntPtr.Zero);
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -210,8 +197,7 @@ namespace GISharp.Core
             Owned = false;
             link.Owned = false;
             link.IsDisposed = true;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -234,7 +220,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new SList<T> (retPtr);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -263,8 +249,8 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CompareFunc funcNative = (funcAPtr, funcBPtr) => {
-                var funcA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcAPtr);
-                var funcB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcBPtr);
+                var funcA = Opaque.GetInstance<T> (funcAPtr, Transfer.None);
+                var funcB = Opaque.GetInstance<T> (funcBPtr, Transfer.None);
                 var funcRet = func.Invoke (funcA, funcB);
                 return funcRet;
             };
@@ -273,7 +259,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new SList<T> (retPtr);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -290,7 +276,7 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             Func funcNative = (funcDataPtr, funcUserDataPtr) => {
-                var funcData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (funcDataPtr);
+                var funcData = Opaque.GetInstance<T> (funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
             };
             SListInternal.g_slist_foreach (Handle, funcNative, IntPtr.Zero);
@@ -338,7 +324,7 @@ namespace GISharp.Core
             }
             AssertNotDisposed ();
             DestroyNotify freeFuncNative = (freeFuncDataPtr) => {
-                var freeFuncData = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (freeFuncDataPtr);
+                var freeFuncData = Opaque.GetInstance<T> (freeFuncDataPtr, Transfer.None);
                 freeFunc.Invoke (freeFuncData);
             };
             SListInternal.g_slist_free_full (Handle, freeFuncNative);
@@ -386,8 +372,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_insert (Handle, dataPtr, position);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -413,8 +398,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_insert_before (Handle, siblingPtr, dataPtr);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -441,15 +425,14 @@ namespace GISharp.Core
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             CompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
-                var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
+                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = func.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
             var retPtr = SListInternal.g_slist_insert_sorted (Handle, dataPtr, funcNative);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -470,7 +453,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new SList<T> (retPtr);
+                var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -509,7 +492,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = new SList<T> (retPtr);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -528,7 +511,7 @@ namespace GISharp.Core
             get {
                 AssertIsHeadOfList ();
                 var retPtr = SListInternal.g_slist_nth_data (Handle, n);
-                var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -582,8 +565,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_prepend (Handle, dataPtr);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -604,8 +586,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove (Handle, dataPtr);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -627,8 +608,7 @@ namespace GISharp.Core
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove_all (Handle, dataPtr);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -662,8 +642,7 @@ namespace GISharp.Core
             var retPtr = SListInternal.g_slist_remove_link (Handle, linkPtr);
             Owned = false;
             link.Owned = true;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -678,8 +657,7 @@ namespace GISharp.Core
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_reverse (Handle);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -703,15 +681,14 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncAPtr);
-                var compareFuncB = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (compareFuncBPtr);
+                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
             var retPtr = SListInternal.g_slist_sort (Handle, compareFuncNative);
             Owned = false;
-            var ret = new SList<T> (retPtr);
-            ret.Owned = true;
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
             return ret;
         }
 
@@ -722,7 +699,7 @@ namespace GISharp.Core
                     return null;
                 }
                 var retPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 0);
-                var ret = (T)typeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -737,7 +714,7 @@ namespace GISharp.Core
                 if (retPtr == IntPtr.Zero) {
                     return null;
                 }
-                var ret = new List<T> (retPtr);
+                var ret = Opaque.GetInstance<List<T>> (retPtr, Transfer.None);
                 return ret;
             }
         }

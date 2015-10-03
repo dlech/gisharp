@@ -8,7 +8,7 @@ namespace GISharp.Core
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
-    public sealed class Array<T> : GISharp.Core.ReferenceCountedOpaque<Array<T>>, IList<T> where T : struct
+    public sealed class Array<T> : GISharp.Core.ReferenceCountedOpaque, IList<T> where T : struct
     {
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -23,11 +23,27 @@ namespace GISharp.Core
             }
         }
 
+        Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
+        }
+
         /// <summary>
         /// Creates a new zero-terminated <see cref="Array{T}"/> with clear set to <c>true</c>.
         /// </summary>
         public Array () : this (true, true, 0)
         {
+        }
+
+        static IntPtr New (Boolean zeroTerminated, Boolean clear, UInt32 reservedSize)
+        {
+            var elementSize = Marshal.SizeOf<T> ();
+            IntPtr retPtr;
+            if (reservedSize == 0) {
+                retPtr = ArrayInternal.g_array_new (zeroTerminated, clear, (uint)elementSize);
+            } else {
+                retPtr = ArrayInternal.g_array_sized_new (zeroTerminated, clear, (uint)elementSize, reservedSize);
+            }
+            return retPtr;
         }
 
         /// <summary>
@@ -48,13 +64,8 @@ namespace GISharp.Core
         /// number of elements preallocated
         /// </param>
         public Array (Boolean zeroTerminated, Boolean clear, UInt32 reservedSize)
+            : this (New (zeroTerminated, clear, reservedSize), Transfer.All)
         {
-            var elementSize = Marshal.SizeOf<T> ();
-            if (reservedSize == 0) {
-                Handle = ArrayInternal.g_array_new (zeroTerminated, clear, (uint)elementSize);
-            } else {
-                Handle = ArrayInternal.g_array_sized_new (zeroTerminated, clear, (uint)elementSize, reservedSize);
-            }
         }
 
         /// <summary>

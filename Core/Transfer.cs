@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISharp.CodeGen.Model
+namespace GISharp.Core
 {
     /// <summary>
     /// Describes the ownership transfer for a parameter, return value or property.

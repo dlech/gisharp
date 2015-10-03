@@ -14,6 +14,12 @@ namespace GISharp.CodeGen.Model
 {
     public class ClassInfo : TypeDeclarationInfo
     {
+        public bool IsStaticClass {
+            get {
+                return Element.Name == gs + "static-class";
+            }
+        }
+
         BaseListSyntax _BaseList;
         public BaseListSyntax BaseList {
             get {
@@ -23,21 +29,18 @@ namespace GISharp.CodeGen.Model
                     if (opaqueTypeName != null) {
                         switch (opaqueTypeName) {
                         case "ref-counted":
-                            opaqueTypeName = typeof(GISharp.Core.ReferenceCountedOpaque<>).FullName;
+                            opaqueTypeName = typeof(GISharp.Core.ReferenceCountedOpaque).FullName;
                             break;
                         case "owned":
-                            opaqueTypeName = typeof(GISharp.Core.OwnedOpaque<>).FullName;
+                            opaqueTypeName = typeof(GISharp.Core.OwnedOpaque).FullName;
                             break;
                         case "static":
-                            opaqueTypeName = typeof(GISharp.Core.StaticOpaque<>).FullName;
+                            opaqueTypeName = typeof(GISharp.Core.StaticOpaque).FullName;
                             break;
                         default:
                             var message = string.Format ("Unknown oqaue type '{0}.", opaqueTypeName);
                             throw new Exception (message);
                         }
-                        opaqueTypeName= opaqueTypeName.Remove (opaqueTypeName.IndexOf ('`'));
-                        // TODO: use full name with namespace instead of ManagedName
-                        opaqueTypeName = string.Format ("{0}<{1}>", opaqueTypeName, ManagedName);
                         var baseType = ParseTypeName (opaqueTypeName);
                         types = types.Add (SimpleBaseType (baseType));
                     }
@@ -58,6 +61,29 @@ namespace GISharp.CodeGen.Model
                 return _BaseList;
             }
         }
+
+        ConstructorDeclarationSyntax _DefaultConstructor;
+        public ConstructorDeclarationSyntax DefaultConstructor {
+            get {
+                if (_DefaultConstructor == default(ConstructorDeclarationSyntax)) {
+                    var modifiers = TokenList ()
+                        .Add (Token (SyntaxKind.ProtectedKeyword));
+                    var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
+                        typeof(IntPtr).FullName,
+                        typeof(GISharp.Core.Transfer).FullName));
+                    var argList = ParseArgumentList ("(handle, ownership)");
+                    var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                        .WithArgumentList (argList);
+                    _DefaultConstructor = ConstructorDeclaration (Identifier)
+                        .WithModifiers (modifiers)
+                        .WithParameterList (paramerList)
+                        .WithInitializer (initializer)
+                        .WithBody (Block ());
+                }
+                return _DefaultConstructor;
+            }
+        }
+
         public ClassInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -89,6 +115,11 @@ namespace GISharp.CodeGen.Model
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             if (BaseList.Types.Any ()) {
                 classDeclaration = classDeclaration.WithBaseList (BaseList);
+            }
+            // TODO: should probably make this optional (via xml attribute) in
+            // case we need to implment manually
+            if (!IsStaticClass) {
+                classDeclaration = classDeclaration.AddMembers (DefaultConstructor);
             }
             yield return classDeclaration;
         }

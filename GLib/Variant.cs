@@ -141,7 +141,7 @@ namespace GISharp.GLib
 
     public partial class Variant
     {
-        public Variant (byte[][] value) // new_bytestring_array
+        static IntPtr NewBytestringArray (byte[][] value) // new_bytestring_array
         {
             var strv = IntPtr.Zero;
             if (value != null) {
@@ -153,32 +153,48 @@ namespace GISharp.GLib
                 }
                 Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
             }
-            Handle = g_variant_new_bytestring_array (strv, -1);
-            g_variant_ref_sink (Handle);
+            var retPtr = g_variant_new_bytestring_array (strv, -1);
+            g_variant_ref_sink (retPtr);
+            return retPtr;
+        }
+
+        public Variant (byte[][] value) : this (NewBytestringArray (value), Transfer.All)
+        {
         }
 
         public Variant (KeyValuePair<Variant, Variant> value) : this (value.Key, value.Value) // new_dict_entry
         {
         }
 
-        public Variant (DBusHandle value) // new_handle
+        static IntPtr NewHandle (DBusHandle value) // new_handle
         {
-            Handle = g_variant_new_handle (value);
-            g_variant_ref_sink (Handle);
+            var retPtr =  g_variant_new_handle (value);
+            g_variant_ref_sink (retPtr);
+            return retPtr;
         }
 
-        public Variant (DBusObjectPath value) // new_object_path
+        public Variant (DBusHandle value) : this (NewHandle (value), Transfer.All)
+        {
+        }
+
+        static IntPtr NewObjectPath (DBusObjectPath value) // new_object_path
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
             }
             var valuePtr = MarshalG.StringToUtf8Ptr (value);
-            Handle = g_variant_new_object_path (valuePtr);
+            var retPtr = g_variant_new_object_path (valuePtr);
             MarshalG.Free (valuePtr);
-            g_variant_ref_sink (Handle);
+            g_variant_ref_sink (retPtr);
+            return retPtr;
         }
 
-        public Variant (DBusObjectPath[] value) // new_objv
+
+        public Variant (DBusObjectPath value) : this (NewObjectPath (value), Transfer.All)
+        {
+        }
+
+        static IntPtr NewObjv (DBusObjectPath[] value) // new_objv
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
@@ -188,20 +204,30 @@ namespace GISharp.GLib
                 strv [i] = value [i];
             }
             var ptr = MarshalG.StringArrayToGStrvPtr (strv);
-            Handle = g_variant_new_objv (ptr, -1);
+            var retPtr = g_variant_new_objv (ptr, -1);
             MarshalG.FreeGStrv (ptr);
-            g_variant_ref_sink (Handle);
+            g_variant_ref_sink (retPtr);
+            return retPtr;
         }
 
-        public Variant (DBusSignature value) // new_signature
+        public Variant (DBusObjectPath[] value) : this (NewObjv (value), Transfer.All)
+        {
+        }
+
+        static IntPtr NewSignature (DBusSignature value) // new_signature
         {
             if (value == null) {
                 throw new ArgumentNullException ("value");
             }
             var valuePtr = MarshalG.StringToUtf8Ptr (value);
-            Handle = g_variant_new_signature (valuePtr);
+            var retPtr = g_variant_new_signature (valuePtr);
             MarshalG.Free (valuePtr);
-            g_variant_ref_sink (Handle);
+            g_variant_ref_sink (retPtr);
+            return retPtr;
+        }
+
+        public Variant (DBusSignature value) : this (NewSignature (value), Transfer.All)
+        {
         }
 
         byte[][] GetBytestringArray () {

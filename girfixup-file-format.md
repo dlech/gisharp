@@ -72,7 +72,7 @@ special-func
     : Indicates that a method performs a special function. These attributes
       are automatically added when a matching `method` element is found.
 : Values
-    : `ref`, `unref`, `copy`, `free`, `equal`, `compare`, `hash`, `to_string`
+    : `ref`, `unref`, `free`, `equal`, `compare`, `hash`, `to_string`
 
 Commands
 --------

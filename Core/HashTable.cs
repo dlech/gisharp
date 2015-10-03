@@ -10,27 +10,10 @@ namespace GISharp.Core
     /// following functions.
     /// </summary>
     // Analysis disable InconsistentNaming
-    public sealed class HashTable<K,V> : ReferenceCountedOpaque<HashTable<K,V>>
+    public sealed class HashTable<K,V> : ReferenceCountedOpaque
         where K : Opaque where V : Opaque
     // Analysis restore InconsistentNaming
     {
-        // Analysis disable StaticFieldInGenericType
-        static readonly ICustomMarshaler keyTypeParameterCustomMarshaler;
-        static readonly ICustomMarshaler valueTypeParameterCustomMarshaler;
-        // Analysis restore StaticFieldInGenericType
-
-        static HashTable () {
-            keyTypeParameterCustomMarshaler = typeof(K).GetCustomMarshaler ();
-            valueTypeParameterCustomMarshaler = typeof(V).GetCustomMarshaler ();
-        }
-
-        // have to keep functions (closures) around for lifetime of object.
-
-        HashFunc hashFuncNative;
-        EqualFunc keyEqualFuncNative;
-        DestroyNotify keyDestroyFuncNative;
-        DestroyNotify valueDestroyFuncNative;
-
         /// <summary>
         /// Retrieves every key inside this HashTable. The returned data is valid
         /// until changes to the hash release those keys.
@@ -47,7 +30,7 @@ namespace GISharp.Core
             get
             {
                 var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
-                var ret = new List<K> (retPtr);
+                var ret = Opaque.GetInstance<List<K>> (retPtr, Transfer.None);
                 return ret;
             }
         }
@@ -68,14 +51,13 @@ namespace GISharp.Core
             get
             {
                 var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
-                var ret = new List<V> (retPtr);
+                var ret = Opaque.GetInstance<List<V>> (retPtr, Transfer.None);
                 return ret;
             }
         }
 
-        public HashTable (IntPtr handle)
+        public HashTable (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            Handle = handle;
         }
 
         /// <summary>
@@ -110,7 +92,7 @@ namespace GISharp.Core
 //                ? default(HashFuncNative)
 //                : (hashFuncKeyPtr) =>
 //            {
-//                var hashFuncKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (hashFuncKeyPtr);
+//                var hashFuncKey = Opaque.GetInstance<K> (hashFuncKeyPtr);
 //                var hashFuncRet = hashFunc.Invoke (hashFuncKey);
 //                return hashFuncRet;
 //            };
@@ -118,13 +100,52 @@ namespace GISharp.Core
 //                ? default(EqualFuncNative)
 //                : (keyEqualFuncAPtr, keyEqualFuncBPtr) =>
 //            {
-//                var keyEqualFuncA = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (keyEqualFuncAPtr);
-//                var keyEqualFuncB = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (keyEqualFuncBPtr);
+//                var keyEqualFuncA = Opaque.GetInstance<K> (keyEqualFuncAPtr);
+//                var keyEqualFuncB = Opaque.GetInstance<K> (keyEqualFuncBPtr);
 //                var keyEqualFuncRet = keyEqualFunc.Invoke (keyEqualFuncA, keyEqualFuncB);
 //                return keyEqualFuncRet;
 //            };
 //            Handle = HashTableInternal.g_hash_table_new (hashFuncNative, keyEqualFuncNative);
 //        }
+
+        static IntPtr NewFull (HashFuncCallback<K> hashFunc, EqualFuncCallback<K> keyEqualFunc,
+            DestroyNotifyCallback<K> keyDestroyFunc, DestroyNotifyCallback<V> valueDestroyFunc)
+        {
+            // TODO: need to prevent anonymous functions from being garbage collected.
+            HashFunc hashFuncNative = null;
+            if (hashFunc != null) {
+                hashFuncNative = (hashFuncKeyPtr) => {
+                    var hashFuncKey = Opaque.GetInstance<K> (hashFuncKeyPtr, Transfer.None);
+                    var hashFuncRet = hashFunc.Invoke (hashFuncKey);
+                    return hashFuncRet;
+                };
+            }
+            EqualFunc keyEqualFuncNative = null;
+            if (keyEqualFunc != null) {
+                keyEqualFuncNative = (keyEqualFuncAPtr, keyEqualFuncBPtr) => {
+                    var keyEqualFuncA = Opaque.GetInstance<K> (keyEqualFuncAPtr, Transfer.None);
+                    var keyEqualFuncB = Opaque.GetInstance<K> (keyEqualFuncBPtr, Transfer.None);
+                    var keyEqualFuncRet = keyEqualFunc.Invoke (keyEqualFuncA, keyEqualFuncB);
+                    return keyEqualFuncRet;
+                };
+            }
+            DestroyNotify keyDestroyFuncNative = null;
+            if (keyDestroyFunc != null) {
+                keyDestroyFuncNative = (keyDestroyFuncDataPtr) => {
+                    var keyDestroyFuncData = Opaque.GetInstance<K> (keyDestroyFuncDataPtr, Transfer.None);
+                    keyDestroyFunc.Invoke (keyDestroyFuncData);
+                };
+            }
+            DestroyNotify valueDestroyFuncNative = null;
+            if (valueDestroyFunc != null) {
+                valueDestroyFuncNative = (valueDestroyFuncDataPtr) => {
+                    var valueDestroyFuncData = Opaque.GetInstance<V> (valueDestroyFuncDataPtr, Transfer.None);
+                    valueDestroyFunc.Invoke (valueDestroyFuncData);
+                };
+            }
+            var retPtr = HashTableInternal.g_hash_table_new_full (hashFuncNative, keyEqualFuncNative, keyDestroyFuncNative, valueDestroyFuncNative);
+            return retPtr;
+        }
 
         /// <summary>
         /// Creates a new <see cref="HashTable{K,V}"/> like g_hash_table_new() with a reference
@@ -153,35 +174,8 @@ namespace GISharp.Core
         /// </returns>
         public HashTable(HashFuncCallback<K> hashFunc = null, EqualFuncCallback<K> keyEqualFunc = null,
             DestroyNotifyCallback<K> keyDestroyFunc = null, DestroyNotifyCallback<V> valueDestroyFunc = null)
+            : base (NewFull (hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc), Transfer.All)
         {
-            if (hashFunc != null) {
-                hashFuncNative = (hashFuncKeyPtr) => {
-                    var hashFuncKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (hashFuncKeyPtr);
-                    var hashFuncRet = hashFunc.Invoke (hashFuncKey);
-                    return hashFuncRet;
-                };
-            }
-            if (keyEqualFunc != null) {
-                keyEqualFuncNative = (keyEqualFuncAPtr, keyEqualFuncBPtr) => {
-                    var keyEqualFuncA = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (keyEqualFuncAPtr);
-                    var keyEqualFuncB = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (keyEqualFuncBPtr);
-                    var keyEqualFuncRet = keyEqualFunc.Invoke (keyEqualFuncA, keyEqualFuncB);
-                    return keyEqualFuncRet;
-                };
-            }
-            if (keyDestroyFunc != null) {
-                keyDestroyFuncNative = (keyDestroyFuncDataPtr) => {
-                    var keyDestroyFuncData = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (keyDestroyFuncDataPtr);
-                    keyDestroyFunc.Invoke (keyDestroyFuncData);
-                };
-            }
-            if (valueDestroyFunc != null) {
-                valueDestroyFuncNative = (valueDestroyFuncDataPtr) => {
-                    var valueDestroyFuncData = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (valueDestroyFuncDataPtr);
-                    valueDestroyFunc.Invoke (valueDestroyFuncData);
-                };
-            }
-            Handle = HashTableInternal.g_hash_table_new_full (hashFuncNative, keyEqualFuncNative, keyDestroyFuncNative, valueDestroyFuncNative);
         }
 
         /// <summary>
@@ -510,8 +504,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("predicate");
             }
             HRFunc predicateNative = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
-                var predicateKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (predicateKeyPtr);
-                var predicateValue = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (predicateValuePtr);
+                var predicateKey = Opaque.GetInstance<K> (predicateKeyPtr, Transfer.None);
+                var predicateValue = Opaque.GetInstance<V> (predicateValuePtr, Transfer.None);
                 var predicateRet = predicate.Invoke (predicateKey, predicateValue);
                 return predicateRet;
             };
@@ -519,7 +513,7 @@ namespace GISharp.Core
             if (retPtr == IntPtr.Zero) {
                 return null;
             }
-            var ret = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+            var ret = Opaque.GetInstance<V> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -544,8 +538,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("func");
             }
             HFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (funcKeyPtr);
-                var funcValue = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (funcValuePtr);
+                var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
+                var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 func.Invoke (funcKey, funcValue);
             };
             HashTableInternal.g_hash_table_foreach (Handle, funcNative, IntPtr.Zero);
@@ -574,8 +568,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("func");
             }
             HRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (funcKeyPtr);
-                var funcValue = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (funcValuePtr);
+                var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
+                var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 var funcRet = func.Invoke (funcKey, funcValue);
                 return funcRet;
             };
@@ -605,8 +599,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("func");
             }
             HRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (funcKeyPtr);
-                var funcValue = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (funcValuePtr);
+                var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
+                var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 var funcRet = func.Invoke (funcKey, funcValue);
                 return funcRet;
             };
@@ -658,7 +652,7 @@ namespace GISharp.Core
         {
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var retPtr = HashTableInternal.g_hash_table_lookup (Handle, keyPtr);
-            var ret = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (retPtr);
+            var ret = Opaque.GetInstance<V> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -693,12 +687,12 @@ namespace GISharp.Core
             if (origKeyPtr == IntPtr.Zero) {
                 origKey = null;
             } else {
-                origKey = (K)keyTypeParameterCustomMarshaler.MarshalNativeToManaged (origKeyPtr);
+                origKey = Opaque.GetInstance<K> (origKeyPtr, Transfer.None);
             }
             if (valuePtr == IntPtr.Zero) {
                 value = null;
             } else {
-                value = (V)valueTypeParameterCustomMarshaler.MarshalNativeToManaged (valuePtr);
+                value = Opaque.GetInstance<V> (valuePtr, Transfer.None);
             }
             return ret;
         }

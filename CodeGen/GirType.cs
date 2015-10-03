@@ -325,11 +325,11 @@ namespace GISharp.CodeGen
                     if (opaqueAttr != null) {
                         switch (opaqueAttr.Value) {
                         case "ref-counted":
-                            return typeof(ReferenceCountedOpaque<>).MakeGenericType (this);
+                            return typeof(ReferenceCountedOpaque);
                         case "owned":
-                            return typeof(OwnedOpaque<>).MakeGenericType (this);
+                            return typeof(OwnedOpaque);
                         case "static":
-                            return typeof(StaticOpaque<>).MakeGenericType (this);
+                            return typeof(StaticOpaque);
                         default:
                             var message = string.Format ("Unknown opaque type '{0}'.",
                                           opaqueAttr.Value);

@@ -121,6 +121,16 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        ConstructorInitializerSyntax _ConstructorInitalizer;
+        public ConstructorInitializerSyntax ConstructorInitalizer {
+            get {
+                if (_ConstructorInitalizer == default(ConstructorInitializerSyntax)) {
+                    _ConstructorInitalizer = GetConstructorInitalizer ();
+                }
+                return _ConstructorInitalizer;
+            }
+        }
+
         ParameterInfo _UnmanagedReturnParameterInfo;
         public ParameterInfo UnmanagedReturnParameterInfo {
             get {
@@ -196,15 +206,7 @@ namespace GISharp.CodeGen.Model
             yield return pinvokeMethod;
             if (!IsPinvokeOnly) {
                 var body = Block (GetStatements ());
-                if (IsConstructor) {
-                    var constructorDeclaration = ConstructorDeclaration (DeclaringMember.Identifier)
-                        .WithAttributeLists (AttributeLists)
-                        .WithModifiers (Modifiers)
-                        .WithParameterList (ParameterList)
-                        .WithBody (body)
-                        .WithLeadingTrivia (DocumentationCommentTriviaList);
-                    yield return constructorDeclaration;
-                } else if (IsGetter) {
+                if (IsGetter) {
                     var propertyGetter = AccessorDeclaration (SyntaxKind.GetAccessorDeclaration, body);
                     var propertyAccessorList = AccessorList ()
                         .AddAccessors (propertyGetter);
@@ -231,6 +233,12 @@ namespace GISharp.CodeGen.Model
                         .WithParameterList (ParameterList)
                         .WithBody (body)
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
+                    if (IsConstructor) {
+                        // replace return type with IntPtr and make private static
+                        methodDeclaration = methodDeclaration
+                            .WithReturnType (ParseTypeName (typeof(IntPtr).FullName))
+                            .WithModifiers (TokenList ().Add (Token (SyntaxKind.StaticKeyword)));
+                    }
                         yield return methodDeclaration;
                     if (IsEquals) {
                         yield return CreateOverrideEqualsMethod ();
@@ -244,6 +252,17 @@ namespace GISharp.CodeGen.Model
                         yield return CreateCompareToOperator ("<");
                         yield return CreateCompareToOperator ("<=");
                     }
+                }
+                if (IsConstructor) {
+                    // actual constructor that calls the private static method created above
+                    var constructorDeclaration = ConstructorDeclaration (DeclaringMember.Identifier)
+                        .WithAttributeLists (AttributeLists)
+                        .WithModifiers (Modifiers)
+                        .WithParameterList (ParameterList)
+                        .WithInitializer (ConstructorInitalizer)
+                        .WithBody (Block ())
+                        .WithLeadingTrivia (DocumentationCommentTriviaList);
+                    yield return constructorDeclaration;
                 }
             }
         }
@@ -330,7 +349,7 @@ namespace GISharp.CodeGen.Model
                        typeof(GISharp.Core.MarshalG),
                        nameof(GISharp.Core.MarshalG.StringToUtf8Ptr));
                     string freeStatement = string.Empty;
-                    if (p.Transfer == Transfer.None) {
+                    if (p.Transfer == GISharp.Core.Transfer.None) {
                         freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
                             typeof(GISharp.Core.MarshalG),
                             nameof(GISharp.Core.MarshalG.Free),
@@ -399,11 +418,7 @@ namespace GISharp.CodeGen.Model
             pinvokeExpression = pinvokeExpression.WithArgumentList (argumentList);
 
             StatementSyntax statement = ExpressionStatement (pinvokeExpression);
-            if (IsConstructor) {
-                statement = ExpressionStatement (
-                    AssignmentExpression (SyntaxKind.SimpleAssignmentExpression,
-                        ParseExpression ("Handle"), pinvokeExpression));
-            } else if (ManagedReturnParameterInfo.TypeInfo.TypeObject != typeof(void)) {
+            if (ManagedReturnParameterInfo.TypeInfo.TypeObject != typeof(void)) {
                 var ret = "ret";
                 if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "Ptr";
@@ -418,13 +433,18 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<StatementSyntax> GetReturnStatements ()
         {
-            if (IsConstructor || ManagedReturnParameterInfo.TypeInfo.TypeObject == typeof(void)) {
+            if (ManagedReturnParameterInfo.TypeInfo.TypeObject == typeof(void)) {
                 yield break;
             }
-            foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo)) {
-                yield return s;
+            var ret = "ret";
+            if (IsConstructor) {
+                ret += "Ptr";
+            } else {
+                foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo)) {
+                    yield return s;
+                }
             }
-            yield return ParseStatement ("return ret;");
+            yield return ParseStatement (string.Format ("return {0};", ret));
         }
 
         IEnumerable<StatementSyntax> GetMarshalNativeToManagedStatements (ParameterInfo info)
@@ -436,7 +456,7 @@ namespace GISharp.CodeGen.Model
                 var statement = string.Format ("var ret = {0}.{1} (retPtr, {2});\n",
                    typeof(GISharp.Core.MarshalG),
                    nameof(GISharp.Core.MarshalG.Utf8PtrToString),
-                   info.Transfer == Transfer.All ? "true" : "false");
+                    info.Transfer == GISharp.Core.Transfer.All ? "true" : "false");
                 yield return ParseStatement (statement);
             } else {
                 // TODO: need real implementation
@@ -564,6 +584,29 @@ namespace GISharp.CodeGen.Model
             if (errorParameter != null) {
                 yield return errorParameter;
             }
+        }
+
+        ConstructorInitializerSyntax GetConstructorInitalizer ()
+        {
+            if (!IsConstructor) {
+                throw new NotSupportedException ();
+            }
+            var invokeExpression = InvocationExpression (ParseExpression (Identifier.Text));
+            foreach (var info in ManagedParameterInfos) {
+                var item = Argument (ParseExpression (info.Identifier.Text));
+                invokeExpression = invokeExpression.AddArgumentListArguments (item);
+            }
+            var invokeArgument = Argument (invokeExpression);
+            var transfer = string.Format ("{0}.{1}",
+                typeof(GISharp.Core.Transfer), UnmanagedReturnParameterInfo.Transfer);
+            var transferExpression = ParseExpression (transfer);
+            var transferArgument = Argument (transferExpression);
+            var argList = ArgumentList ()
+                .AddArguments (invokeArgument, transferArgument);
+            var initializer = ConstructorInitializer (SyntaxKind.ThisConstructorInitializer)
+                .WithArgumentList (argList);
+
+            return initializer;
         }
 
         protected override IEnumerable<SyntaxToken> GetModifiers ()

@@ -6,14 +6,7 @@ namespace GISharp.Core
     /// Static opaque wraps a struct that is not reference counted and cannot
     /// be freed or copied.
     /// </summary>
-    public abstract class StaticOpaque<T> : Opaque where T : StaticOpaque<T>
+    public abstract class StaticOpaque : Opaque
     {
-        public IntPtr Handle { get; protected set; }
-
-        protected StaticOpaque (IntPtr handle)
-        {
-            Handle = handle;
-        }
     }
 }
-

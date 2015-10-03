@@ -1,13 +1,34 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace GISharp.Core
 {
     /// <summary>
     /// Base class for reference counted opaque structs
     /// </summary>
-    public abstract class ReferenceCountedOpaque<T>
-        : Opaque, IDisposable where T : ReferenceCountedOpaque<T>
+    public abstract class ReferenceCountedOpaque
+        : Opaque, IDisposable
     {
+        static Dictionary<IntPtr, WeakReference> objectMap = new Dictionary<IntPtr, WeakReference> ();
+        static object lockObj = new object ();
+
+        protected ReferenceCountedOpaque (IntPtr handle, Transfer ownership)
+        {
+            if (handle == IntPtr.Zero) {
+                throw new NotSupportedException ();
+            }
+            if (ownership == Transfer.Container) {
+                throw new NotSupportedException ();
+            }
+            Handle = handle;
+            lock (lockObj) {
+                    objectMap.Add (handle, new WeakReference (this));
+                    if (ownership == Transfer.None) {
+                        Ref ();
+                    }
+            }
+        }
+
         /// <summary>
         /// Inrease the reference count of a reference counted object.
         /// </summary>
@@ -26,28 +47,33 @@ namespace GISharp.Core
         /// </remarks>
         internal protected abstract void Unref ();
 
-        public override bool Equals (object obj)
-        {
-            AssertNotDisposed ();
-            var otherOpaque = obj as ReferenceCountedOpaque<T>;
-            if (otherOpaque != null) {
-                return Handle == otherOpaque.Handle;
-            }
-            return false;
-        }
-
-        public override int GetHashCode ()
-        {
-            AssertNotDisposed ();
-            return Handle.GetHashCode ();
-        }
-
         protected override void Dispose(bool disposing)
         {
             if (!IsDisposed) {
-                Unref ();
+                lock (lockObj) {
+                    objectMap.Remove (Handle);
+                    Unref ();
+                }
             }
             base.Dispose (disposing);
+        }
+
+        public static T TryGetExisting<T> (IntPtr handle) where T : ReferenceCountedOpaque
+        {
+            return TryGetExisting (handle) as T;
+        }
+
+        public static ReferenceCountedOpaque TryGetExisting (IntPtr handle)
+        {
+            lock (lockObj) {
+                WeakReference weakRef;
+                if (objectMap.TryGetValue (handle, out weakRef)) {
+                    if (weakRef.IsAlive) {
+                        return weakRef.Target as ReferenceCountedOpaque;
+                    }
+                }
+            }
+            return null;
         }
     }
 }

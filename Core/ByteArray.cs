@@ -6,19 +6,18 @@ namespace GISharp.Core
     /// <summary>
     /// Contains the public fields of a GByteArray.
     /// </summary>
-    public sealed class ByteArray : ReferenceCountedOpaque<GISharp.Core.ByteArray>
+    public sealed class ByteArray : ReferenceCountedOpaque
     {
-        public ByteArray (IntPtr handle)
+        ByteArray (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
         {
-            Handle = handle;
         }
 
         /// <summary>
         /// Creates a new #GByteArray.
         /// </summary>
-        public ByteArray ()
+        public ByteArray () : base (New (), Transfer.All)
         {
-            Handle = g_byte_array_new ();
         }
 
         /// <summary>
@@ -28,14 +27,8 @@ namespace GISharp.Core
         /// byte data for the array
         /// </param>
         [Since("2.32")]
-        public ByteArray (Byte[] data)
+        public ByteArray (Byte[] data) : base (NewTake (data), Transfer.All)
         {
-            if (data == null) {
-                throw new ArgumentNullException ("data");
-            }
-            var dataPtr = MarshalG.Alloc (data.Length);
-            Marshal.Copy (data, 0, dataPtr, data.Length);
-            Handle = g_byte_array_new_take (dataPtr, (ulong)data.Length);
         }
 
         /// <summary>
@@ -47,9 +40,8 @@ namespace GISharp.Core
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (UInt32 reservedSize)
+        public ByteArray (UInt32 reservedSize) : base (SizedNew (reservedSize), Transfer.All)
         {
-            Handle = g_byte_array_sized_new (reservedSize);
         }
 
         /// <summary>
@@ -60,6 +52,12 @@ namespace GISharp.Core
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_new();
+
+        static IntPtr New ()
+        {
+            var retPtr = g_byte_array_new ();
+            return retPtr;
+        }
 
         /// <summary>
         /// Create byte array containing the data. The data will be owned by the array
@@ -80,6 +78,17 @@ namespace GISharp.Core
             [In] IntPtr data,
             [In] UInt64 len);
 
+        static IntPtr NewTake (Byte[] data)
+        {
+            if (data == null) {
+                throw new ArgumentNullException ("data");
+            }
+            var dataPtr = MarshalG.Alloc (data.Length);
+            Marshal.Copy (data, 0, dataPtr, data.Length);
+            var retPtr = g_byte_array_new_take (dataPtr, (ulong)data.Length);
+            return retPtr;
+        }
+
         /// <summary>
         /// Creates a new #GByteArray with @reservedSize bytes preallocated.
         /// This avoids frequent reallocation, if you are going to add many
@@ -95,6 +104,12 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_sized_new(
             [In] UInt32 reservedSize);
+
+        static IntPtr SizedNew (UInt32 reservedSize)
+        {
+            var retPtr = g_byte_array_sized_new (reservedSize);
+            return retPtr;
+        }
 
         /// <summary>
         /// Adds the given bytes to the end of the #GByteArray.
@@ -474,8 +489,8 @@ namespace GISharp.Core
                 throw new ArgumentNullException ("compareFunc");
             }
             CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = new WrappedStruct<byte> (compareFuncAPtr, owned: false);
-                var compareFuncB = new WrappedStruct<byte> (compareFuncBPtr, owned: false);
+                var compareFuncA = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };

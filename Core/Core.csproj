@@ -54,6 +54,8 @@
     <Compile Include="ByteArray.cs" />
     <Compile Include="PtrArray.cs" />
     <Compile Include="GirXmlAttribute.cs" />
+    <Compile Include="Transfer.cs" />
+    <Compile Include="NullHandleIsInstanceAttribute.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

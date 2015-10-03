@@ -41,17 +41,17 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        public Transfer Transfer {
+        public GISharp.Core.Transfer Transfer {
             get {
                 var transfer = Element.Attribute ("transfer-ownership").Value;
                 switch (transfer) {
                 case "none":
                 case "floating":
-                    return Transfer.None;
+                    return GISharp.Core.Transfer.None;
                 case "container":
-                    return Transfer.Container;
+                    return GISharp.Core.Transfer.Container;
                 case "full":
-                    return Transfer.All;
+                    return GISharp.Core.Transfer.All;
                 }
                 var message = string.Format ("Unknown trasfer type '{0}'.", transfer);
                 throw new NotSupportedException (message);
