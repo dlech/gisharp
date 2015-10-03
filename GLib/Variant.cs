@@ -154,11 +154,10 @@ namespace GISharp.GLib
                 Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
             }
             var retPtr = g_variant_new_bytestring_array (strv, -1);
-            g_variant_ref_sink (retPtr);
             return retPtr;
         }
 
-        public Variant (byte[][] value) : this (NewBytestringArray (value), Transfer.All)
+        public Variant (byte[][] value) : this (NewBytestringArray (value), Transfer.None)
         {
         }
 
@@ -169,11 +168,10 @@ namespace GISharp.GLib
         static IntPtr NewHandle (DBusHandle value) // new_handle
         {
             var retPtr =  g_variant_new_handle (value);
-            g_variant_ref_sink (retPtr);
             return retPtr;
         }
 
-        public Variant (DBusHandle value) : this (NewHandle (value), Transfer.All)
+        public Variant (DBusHandle value) : this (NewHandle (value), Transfer.None)
         {
         }
 
@@ -185,12 +183,11 @@ namespace GISharp.GLib
             var valuePtr = MarshalG.StringToUtf8Ptr (value);
             var retPtr = g_variant_new_object_path (valuePtr);
             MarshalG.Free (valuePtr);
-            g_variant_ref_sink (retPtr);
             return retPtr;
         }
 
 
-        public Variant (DBusObjectPath value) : this (NewObjectPath (value), Transfer.All)
+        public Variant (DBusObjectPath value) : this (NewObjectPath (value), Transfer.None)
         {
         }
 
@@ -206,11 +203,10 @@ namespace GISharp.GLib
             var ptr = MarshalG.StringArrayToGStrvPtr (strv);
             var retPtr = g_variant_new_objv (ptr, -1);
             MarshalG.FreeGStrv (ptr);
-            g_variant_ref_sink (retPtr);
             return retPtr;
         }
 
-        public Variant (DBusObjectPath[] value) : this (NewObjv (value), Transfer.All)
+        public Variant (DBusObjectPath[] value) : this (NewObjv (value), Transfer.None)
         {
         }
 
@@ -222,11 +218,10 @@ namespace GISharp.GLib
             var valuePtr = MarshalG.StringToUtf8Ptr (value);
             var retPtr = g_variant_new_signature (valuePtr);
             MarshalG.Free (valuePtr);
-            g_variant_ref_sink (retPtr);
             return retPtr;
         }
 
-        public Variant (DBusSignature value) : this (NewSignature (value), Transfer.All)
+        public Variant (DBusSignature value) : this (NewSignature (value), Transfer.None)
         {
         }
 
