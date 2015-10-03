@@ -9,7 +9,7 @@ namespace GISharp.Core
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
-    public sealed class PtrArray<T> : ReferenceCountedOpaque<GISharp.Core.PtrArray<T>>, IList<T> where T : class, IWrappedNative
+    public sealed class PtrArray<T> : ReferenceCountedOpaque<GISharp.Core.PtrArray<T>>, IList<T> where T : Opaque
     {
         // Analysis disable once StaticFieldInGenericType
         static readonly ICustomMarshaler typeParameterCustomMarshaler;

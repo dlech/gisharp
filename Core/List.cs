@@ -9,7 +9,7 @@ namespace GISharp.Core
     /// <summary>
     /// The <see cref="List{T}"/> struct is used for each element in a doubly-linked list.
     /// </summary>
-    public sealed class List<T> : OwnedOpaque<List<T>> where T : class, IWrappedNative
+    public sealed class List<T> : OwnedOpaque<List<T>> where T : Opaque
     {
         // Analysis disable once StaticFieldInGenericType
         static readonly ICustomMarshaler typeParameterCustomMarshaler;
@@ -191,7 +191,7 @@ namespace GISharp.Core
             var retPtr = ListInternal.g_list_remove_link (Handle, linkPtr);
             Owned = false;
             link.Owned = false;
-            link.Disposed = true;
+            link.IsDisposed = true;
             var ret = new List<T> (retPtr);
             ret.Owned = true;
             return ret;
@@ -318,7 +318,7 @@ namespace GISharp.Core
             AssertNotDisposed ();
             ListInternal.g_list_free_1 (Handle);
             Owned = false;
-            Disposed = true;
+            IsDisposed = true;
         }
 
         /// <summary>
@@ -341,7 +341,7 @@ namespace GISharp.Core
             };
             ListInternal.g_list_free_full (Handle, freeFuncNative);
             Owned = false;
-            Disposed = true;
+            IsDisposed = true;
         }
 
         /// <summary>

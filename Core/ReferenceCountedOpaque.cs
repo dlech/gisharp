@@ -5,66 +5,9 @@ namespace GISharp.Core
     /// <summary>
     /// Base class for reference counted opaque structs
     /// </summary>
-    public abstract class ReferenceCountedOpaque<T> : IWrappedNative, IDisposable where T : ReferenceCountedOpaque<T>
+    public abstract class ReferenceCountedOpaque<T>
+        : Opaque, IDisposable where T : ReferenceCountedOpaque<T>
     {
-        bool isDisposed;
-
-        /// <summary>
-        /// Gets the pointer to the unmanaged GLib struct.
-        /// </summary>
-        /// <value>The pointer.</value>
-        public IntPtr Handle { get; protected set; }
-
-        ~ReferenceCountedOpaque ()
-        {
-            Dispose (false);
-        }
-
-        /// <summary>
-        /// Releases all resource used by the <see cref="ReferenceCountedOpaque{T}"/> object.
-        /// </summary>
-        /// <remarks>
-        /// Call <see cref="Dispose"/> when you are finished using the <see cref="ReferenceCountedOpaque{T}"/>. The <see cref="Dispose"/>
-        /// method leaves the <see cref="ReferenceCountedOpaque{T}"/> in an unusable state. After calling <see cref="Dispose"/>, you must
-        /// release all references to the <see cref="ReferenceCountedOpaque{T}"/> so the garbage collector can reclaim the memory that the
-        /// <see cref="ReferenceCountedOpaque{T}"/> was occupying.
-        ///
-        /// For reference counted unmanaged types, the unmanged object will be unrefed.
-        /// If the unmanaged object has a free function and we owned the object, the
-        /// unmanaged object will be freed.
-        /// </remarks>
-        public void Dispose ()
-        {
-            Dispose (true);
-            GC.SuppressFinalize (this);
-        }
-
-        protected virtual void Dispose (bool disposing)
-        {
-            if (isDisposed) {
-                return;
-            }
-            isDisposed = true;
-            if (Handle != IntPtr.Zero) {
-                Unref ();
-                Handle = IntPtr.Zero;
-            }
-        }
-
-        /// <summary>
-        /// Assert that the object has not been disposed.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">Thrown if this object has already been disposed.</exception>
-        /// <remarks>
-        /// All public methods should call this so we don't operate on a disposed object.
-        /// </remarks>
-        protected void AssertNotDisposed ()
-        {
-            if (isDisposed) {
-                throw new ObjectDisposedException (GetType ().Name);
-            }
-        }
-
         /// <summary>
         /// Inrease the reference count of a reference counted object.
         /// </summary>
@@ -85,6 +28,7 @@ namespace GISharp.Core
 
         public override bool Equals (object obj)
         {
+            AssertNotDisposed ();
             var otherOpaque = obj as ReferenceCountedOpaque<T>;
             if (otherOpaque != null) {
                 return Handle == otherOpaque.Handle;
@@ -94,7 +38,16 @@ namespace GISharp.Core
 
         public override int GetHashCode ()
         {
+            AssertNotDisposed ();
             return Handle.GetHashCode ();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!IsDisposed) {
+                Unref ();
+            }
+            base.Dispose (disposing);
         }
     }
 }

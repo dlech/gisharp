@@ -11,14 +11,14 @@ namespace Core.Test
         [Test]
         public void TestConstructor ()
         {
-            var array = new PtrArray<TestWrappedNative> ();
+            var array = new PtrArray<TestOpaque> ();
         }
 
         [Test]
         public void TestAdd ()
         {
-            var array = new PtrArray<TestWrappedNative> ();
-            array.Add (new TestWrappedNative (0));
+            var array = new PtrArray<TestOpaque> ();
+            array.Add (new TestOpaque (0));
         }
     }
 }

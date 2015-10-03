@@ -5,46 +5,27 @@ using GISharp.Core;
 
 namespace Core.Test
 {
-    class TestWrappedNative : IWrappedNative
+    class TestOpaque : Opaque
     {
-        public IntPtr Handle { get; private set; }
-
         public int Value { get { return Handle.ToInt32 (); } }
 
-        public TestWrappedNative (IntPtr handle)
+        public TestOpaque (IntPtr handle)
         {
             Handle = handle;
         }
 
-        public TestWrappedNative (int value)
+        public TestOpaque (int value)
         {
             Handle = (IntPtr)value;
         }
 
         public static Type GetCustomMarshaler ()
         {
-            return typeof(TestWrappedNativeMarshaler);
-        }
-
-        public override bool Equals (object obj)
-        {
-            if ((object)this == null && obj == null) {
-                return true;
-            }
-            var other = obj as TestWrappedNative;
-            if (other != null) {
-                return Handle == other.Handle;
-            }
-            return false;
-        }
-
-        public override int GetHashCode ()
-        {
-            return Handle.ToInt32 ();
+            return typeof(TestOpaqueMarshaler);
         }
     }
 
-    public class TestWrappedNativeMarshaler : ICustomMarshaler
+    public class TestOpaqueMarshaler : ICustomMarshaler
     {
         #region ICustomMarshaler implementation
 
@@ -52,7 +33,7 @@ namespace Core.Test
         public static ICustomMarshaler GetInstance (string cookie)
         {
             if (instance == null) {
-                instance = new TestWrappedNativeMarshaler ();
+                instance = new TestOpaqueMarshaler ();
             }
             return instance;
         }
@@ -75,11 +56,13 @@ namespace Core.Test
             if (managedObj == null) {
                 return IntPtr.Zero;
             }
-            var testWrappedNative = managedObj as TestWrappedNative;
-            if (testWrappedNative == null) {
-                throw new MarshalDirectiveException ("Requires a TestWrappedNative object.");
+            var testOpaque = managedObj as TestOpaque;
+            if (testOpaque == null) {
+                var message = string.Format ("Requires a {0} object.",
+                    typeof(TestOpaque).Name);
+                throw new MarshalDirectiveException (message);
             }
-            return testWrappedNative.Handle;
+            return testOpaque.Handle;
         }
 
         object ICustomMarshaler.MarshalNativeToManaged (IntPtr nativeDataPtr)
@@ -87,7 +70,7 @@ namespace Core.Test
             if (nativeDataPtr == IntPtr.Zero) {
                 return null;
             }
-            return new TestWrappedNative (nativeDataPtr);
+            return new TestOpaque (nativeDataPtr);
         }
 
         #endregion

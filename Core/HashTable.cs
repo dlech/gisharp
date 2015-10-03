@@ -11,7 +11,7 @@ namespace GISharp.Core
     /// </summary>
     // Analysis disable InconsistentNaming
     public sealed class HashTable<K,V> : ReferenceCountedOpaque<HashTable<K,V>>
-        where K : class, IWrappedNative where V : class, IWrappedNative
+        where K : Opaque where V : Opaque
     // Analysis restore InconsistentNaming
     {
         // Analysis disable StaticFieldInGenericType
@@ -185,7 +185,7 @@ namespace GISharp.Core
         }
 
         /// <summary>
-        /// Compares two <see cref="IWrappedNative"/> arguments and returns <c>true</c> if they are equal.
+        /// Compares two <see cref="Opaque"/> arguments and returns <c>true</c> if they are equal.
         /// It can be passed to <see cref="HashTable{K,V}()"/>  as the <c>keyEqualFunc</c>
         /// parameter, when using opaque pointers compared by pointer value as
         /// keys in a <see cref="HashTable{K,V}"/>.

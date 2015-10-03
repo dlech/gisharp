@@ -7,16 +7,66 @@ namespace GISharp.Core
     /// <summary>
     /// Managed objects that wrap a unmanaged GLib data structures must implement this.
     /// </summary>
-    public interface IWrappedNative
+    public abstract class Opaque : IDisposable
     {
+        protected bool IsDisposed;
+
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        IntPtr Handle { get; }
+        public IntPtr Handle { get; protected set; }
+
+        ~Opaque ()
+        {
+            Dispose (false);
+        }
+
+        /// <summary>
+        /// Releases all resource used by the <see cref="Opaque"/> object.
+        /// </summary>
+        /// <remarks>
+        /// Call <see cref="Dispose"/> when you are finished using the <see cref="Opaque"/>. The <see cref="Dispose"/>
+        /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose"/>, you must
+        /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
+        /// <see cref="Opaque"/> was occupying.
+        ///
+        /// For reference counted unmanaged types, the unmanged object will be unrefed.
+        /// If the unmanaged object has a free function and we owned the object, the
+        /// unmanaged object will be freed.
+        /// </remarks>
+        public void Dispose ()
+        {
+            Dispose (true);
+            GC.SuppressFinalize (this);
+        }
+
+        /// <summary>
+        /// Dispose the specified disposing.
+        /// </summary>
+        /// <param name="disposing"><c>true</c> if called from the <see cref="Dispose"/> method,
+        /// <c>false</c> if called from a finalizer.</param>
+        protected virtual void Dispose (bool disposing)
+        {
+            IsDisposed = true;
+        }
+
+        /// <summary>
+        /// Assert that the object has not been disposed.
+        /// </summary>
+        /// <exception cref="ObjectDisposedException">Thrown if this object has already been disposed.</exception>
+        /// <remarks>
+        /// All public methods should call this so we don't operate on a disposed object.
+        /// </remarks>
+        protected void AssertNotDisposed ()
+        {
+            if (IsDisposed) {
+                throw new ObjectDisposedException (GetType ().Name);
+            }
+        }
     }
 
-    public static class WrappedNativeExtensions
+    public static class OpaquueExtensions
     {
         public static ICustomMarshaler GetCustomMarshaler (this Type type)
         {

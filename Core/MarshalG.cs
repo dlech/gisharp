@@ -44,7 +44,7 @@ namespace GISharp.Core
             g_free (ptr);
         }
 
-        public static T PtrToIWrappedNative<T> (IntPtr ptr, bool owned) where T : IWrappedNative
+        public static T PtrToOpaque<T> (IntPtr ptr, bool owned) where T : Opaque
         {
             throw new NotSupportedException ();
         }

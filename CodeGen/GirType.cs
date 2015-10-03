@@ -16,7 +16,7 @@ namespace GISharp.CodeGen
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
 
-        static readonly Assembly gisharpCoreAssembly = Assembly.GetAssembly (typeof(IWrappedNative));
+        static readonly Assembly gisharpCoreAssembly = Assembly.GetAssembly (typeof(Opaque));
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
 
         readonly XElement element;
@@ -63,34 +63,34 @@ namespace GISharp.CodeGen
             case "GLib.List":
                 type = typeof(GISharp.Core.List<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(IWrappedNative);
+                    genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.SList":
                 type = typeof(GISharp.Core.SList<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(IWrappedNative);
+                    genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.HashTable":
                 type = typeof(GISharp.Core.HashTable<,>);
                 if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(IWrappedNative);
+                    genericArgs[0] = typeof(Opaque);
                 }
                 if (genericArgs[1] == typeof(IntPtr)) {
-                    genericArgs[1] = typeof(IWrappedNative);
+                    genericArgs[1] = typeof(Opaque);
                 }
                 break;
             case "GLib.Array":
                 type = typeof(GISharp.Core.Array<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(IWrappedNative);
+                    genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.PtrArray":
                 type = typeof(GISharp.Core.PtrArray<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(IWrappedNative);
+                    genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.ByteArray":

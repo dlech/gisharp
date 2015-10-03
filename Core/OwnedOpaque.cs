@@ -9,12 +9,8 @@ namespace GISharp.Core
     /// "Owned" means that it is not reference counted. It has Copy and Free
     /// methods.
     /// </remarks>
-    public abstract class OwnedOpaque<T> : IWrappedNative, IDisposable where T : OwnedOpaque<T>
+    public abstract class OwnedOpaque<T> : Opaque, IDisposable where T : OwnedOpaque<T>
     {
-        protected bool Disposed;
-
-        public IntPtr Handle { get; protected set; }
-
         public bool Owned { get; internal set; }
 
         ~OwnedOpaque ()
@@ -29,27 +25,14 @@ namespace GISharp.Core
 
         protected abstract void Free ();
 
-        public void Dispose ()
+        protected override void Dispose (bool disposing)
         {
-            Dispose (true);
-        }
-
-        protected void Dispose (bool disposing)
-        {
-            if (Disposed) {
-                return;
+            if (!IsDisposed) {
+                if (Owned) {
+                    Free ();
+                }
             }
-            if (Owned) {
-                Free ();
-            }
-            Disposed = true;
-        }
-
-        protected void AssertNotDisposed ()
-        {
-            if (Disposed) {
-                throw new ObjectDisposedException ("OwnedOpaque");
-            }
+            base.Dispose (disposing);
         }
     }
 }

@@ -38,7 +38,7 @@
     <Compile Include="ListTest.cs" />
     <Compile Include="HashTableTest.cs" />
     <Compile Include="SListTest.cs" />
-    <Compile Include="TestWrappedNative.cs" />
+    <Compile Include="TestOpaque.cs" />
     <Compile Include="ByteArrayTest.cs" />
     <Compile Include="PtrArrayTest.cs" />
   </ItemGroup>

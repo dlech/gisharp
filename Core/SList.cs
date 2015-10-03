@@ -10,7 +10,7 @@ namespace GISharp.Core
     /// The #GSList struct is used for each element in the singly-linked
     /// list.
     /// </summary>
-    public sealed class SList<T> : OwnedOpaque<GISharp.Core.SList<T>> where T : class, IWrappedNative
+    public sealed class SList<T> : OwnedOpaque<GISharp.Core.SList<T>> where T : Opaque
     {
         // Analysis disable once StaticFieldInGenericType
         static readonly ICustomMarshaler typeParameterCustomMarshaler;
@@ -209,7 +209,7 @@ namespace GISharp.Core
             var retPtr = SListInternal.g_slist_remove_link (Handle, linkPtr);
             Owned = false;
             link.Owned = false;
-            link.Disposed = true;
+            link.IsDisposed = true;
             var ret = new SList<T> (retPtr);
             ret.Owned = true;
             return ret;
@@ -320,7 +320,7 @@ namespace GISharp.Core
             AssertNotDisposed ();
             SListInternal.g_slist_free_1 (Handle);
             Owned = false;
-            Disposed = true;
+            IsDisposed = true;
         }
 
         /// <summary>
@@ -343,7 +343,7 @@ namespace GISharp.Core
             };
             SListInternal.g_slist_free_full (Handle, freeFuncNative);
             Owned = false;
-            Disposed = true;
+            IsDisposed = true;
         }
 
         /// <summary>

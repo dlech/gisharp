@@ -60,7 +60,7 @@ namespace GISharp.Core
     /// negative value if @a &lt; @b; zero if @a = @b; positive
     ///          value if @a &gt; @b
     /// </returns>
-    public delegate Int32 CompareFuncCallback<T> (T a, T b) where T : IWrappedNative;
+    public delegate Int32 CompareFuncCallback<T> (T a, T b) where T : Opaque;
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -88,7 +88,7 @@ namespace GISharp.Core
     /// the copy
     /// </returns>
     [Since("2.4")]
-    public delegate T CopyFuncCallback<T> (T src) where T : IWrappedNative;
+    public delegate T CopyFuncCallback<T> (T src) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of function which is called when a data element
@@ -142,7 +142,7 @@ namespace GISharp.Core
     /// <returns>
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
-    public delegate Boolean EqualFuncCallback<T> (T a, T b) where T : IWrappedNative;
+    public delegate Boolean EqualFuncCallback<T> (T a, T b) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -247,7 +247,7 @@ namespace GISharp.Core
     /// <returns>
     /// the hash value corresponding to the key
     /// </returns>
-    public delegate UInt32 HashFuncCallback<T> (T key) where T : IWrappedNative;
+    public delegate UInt32 HashFuncCallback<T> (T key) where T : Opaque;
 
 
     /// <summary>

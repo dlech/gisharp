@@ -12,32 +12,32 @@ namespace Core.Test
         [Test]
         public void TestConstructor ()
         {
-            var hashTable1 = new HashTable<TestWrappedNative, TestWrappedNative> ();
-            HashFuncCallback<TestWrappedNative> hashFunc = (key) =>
+            var hashTable1 = new HashTable<TestOpaque, TestOpaque> ();
+            HashFuncCallback<TestOpaque> hashFunc = (key) =>
                 (uint)key.GetHashCode ();
-            EqualFuncCallback<TestWrappedNative> keyEqualFunc = (a, b) =>
+            EqualFuncCallback<TestOpaque> keyEqualFunc = (a, b) =>
                 a.Value == b.Value;
-            DestroyNotifyCallback<TestWrappedNative> keyDestroyFunc = (data) => {
+            DestroyNotifyCallback<TestOpaque> keyDestroyFunc = (data) => {
             };
-            DestroyNotifyCallback<TestWrappedNative> valueDestroyFunc = (data) => {
+            DestroyNotifyCallback<TestOpaque> valueDestroyFunc = (data) => {
             };
-            var hashTable2 = new HashTable<TestWrappedNative, TestWrappedNative> (
+            var hashTable2 = new HashTable<TestOpaque, TestOpaque> (
                 hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc);
         }
 
         [Test]
         public void TestInsert ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             Assume.That (hashTable.Size, Is.EqualTo (0));
             // inserting a value returns true
-            var ret = hashTable.Insert (new TestWrappedNative (0), new TestWrappedNative (0));
+            var ret = hashTable.Insert (new TestOpaque (0), new TestOpaque (0));
             Assert.That (ret, Is.True);
             // replacing a value returns false
-            ret = hashTable.Insert (new TestWrappedNative (0), new TestWrappedNative (1));
+            ret = hashTable.Insert (new TestOpaque (0), new TestOpaque (1));
             Assert.That (ret, Is.False);
             // null key works
-            ret = hashTable.Insert (null, new TestWrappedNative (0));
+            ret = hashTable.Insert (null, new TestOpaque (0));
             Assert.That (ret, Is.False);
             // null value works
             ret = hashTable.Insert (null, null);
@@ -47,16 +47,16 @@ namespace Core.Test
         [Test]
         public void TestReplace ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             Assume.That (hashTable.Size, Is.EqualTo (0));
             // adding a new key returns true
-            var ret = hashTable.Replace (new TestWrappedNative (0), new TestWrappedNative (0));
+            var ret = hashTable.Replace (new TestOpaque (0), new TestOpaque (0));
             Assert.That (ret, Is.True);
             // replacing a key returns false
-            ret = hashTable.Replace (new TestWrappedNative (0), new TestWrappedNative (1));
+            ret = hashTable.Replace (new TestOpaque (0), new TestOpaque (1));
             Assert.That (ret, Is.False);
             // null key works
-            ret = hashTable.Replace (null, new TestWrappedNative (0));
+            ret = hashTable.Replace (null, new TestOpaque (0));
             Assert.That (ret, Is.False);
             // null value works
             ret = hashTable.Replace (null, null);
@@ -66,13 +66,13 @@ namespace Core.Test
         [Test]
         public void TestAdd ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             Assume.That (hashTable.Size, Is.EqualTo (0));
             // adding a new key returns true
-            var ret = hashTable.Add (new TestWrappedNative (0));
+            var ret = hashTable.Add (new TestOpaque (0));
             Assert.That (ret, Is.True);
             // replacing a key returns false
-            ret = hashTable.Add (new TestWrappedNative (0));
+            ret = hashTable.Add (new TestOpaque (0));
             Assert.That (ret, Is.False);
             // null key works
             ret = hashTable.Add (null);
@@ -82,14 +82,14 @@ namespace Core.Test
         [Test]
         public void TestContains ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             // no match returns false
-            var ret = hashTable.Contains (new TestWrappedNative (0));
+            var ret = hashTable.Contains (new TestOpaque (0));
             Assert.That (ret, Is.False);
             // match returns true
-            hashTable.Add (new TestWrappedNative (0));
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.Contains (new TestWrappedNative (0));
+            ret = hashTable.Contains (new TestOpaque (0));
             Assert.That (ret, Is.True);
             // null key works
             ret = hashTable.Contains (null);
@@ -99,23 +99,23 @@ namespace Core.Test
         [Test]
         public void TestSize ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             Assume.That (hashTable.Size, Is.EqualTo (0));
-            hashTable.Add (new TestWrappedNative (0));
+            hashTable.Add (new TestOpaque (0));
             Assert.That (hashTable.Size, Is.EqualTo (1));
         }
 
         [Test]
         public void TestLookup ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             // no match returns false
-            var ret = hashTable.Lookup (new TestWrappedNative (0));
+            var ret = hashTable.Lookup (new TestOpaque (0));
             Assert.That (ret, Is.Null);
             // match returns true
-            hashTable.Add (new TestWrappedNative (1));
+            hashTable.Add (new TestOpaque (1));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.Lookup (new TestWrappedNative (1));
+            ret = hashTable.Lookup (new TestOpaque (1));
             Assert.That (ret, Is.Not.Null);
             // null key works
             ret = hashTable.Lookup (null);
@@ -125,15 +125,15 @@ namespace Core.Test
         [Test]
         public void TestLookupExtended ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            TestWrappedNative key, value;
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            TestOpaque key, value;
             // no match returns false
-            var ret = hashTable.LookupExtended (new TestWrappedNative (0), out key, out value);
+            var ret = hashTable.LookupExtended (new TestOpaque (0), out key, out value);
             Assert.That (ret, Is.False);
             // match returns true
-            hashTable.Add (new TestWrappedNative (0));
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.LookupExtended (new TestWrappedNative (0), out key, out value);
+            ret = hashTable.LookupExtended (new TestOpaque (0), out key, out value);
             Assert.That (ret, Is.True);
             // null key works
             ret = hashTable.LookupExtended (null, out key, out value);
@@ -144,11 +144,11 @@ namespace Core.Test
         public void TestForeach ()
         {
             var count = 0;
-            HFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
             };
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // function is called back
             hashTable.Foreach (foreachFunc);
@@ -161,15 +161,15 @@ namespace Core.Test
         [Test]
         public void TestFind ()
         {
-            HRFuncCallback<TestWrappedNative,TestWrappedNative> findFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestOpaque> findFunc = (key, value) => {
                 return true;
             };
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             // no match returns null
             var ret = hashTable.Find (findFunc);
             Assert.That (ret, Is.Null);
             // match returns non-null
-            hashTable.Add (new TestWrappedNative (1));
+            hashTable.Add (new TestOpaque (1));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             ret = hashTable.Find (findFunc);
             Assert.That (ret, Is.Not.Null);
@@ -181,14 +181,14 @@ namespace Core.Test
         [Test]
         public void TestRemove ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             // no match returns false
-            var ret = hashTable.Remove (new TestWrappedNative (0));
+            var ret = hashTable.Remove (new TestOpaque (0));
             Assert.That (ret, Is.False);
             // match returns true
-            hashTable.Add (new TestWrappedNative (0));
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.Remove (new TestWrappedNative (0));
+            ret = hashTable.Remove (new TestOpaque (0));
             Assert.That (ret, Is.True);
             // null key works
             ret = hashTable.Remove (null);
@@ -198,14 +198,14 @@ namespace Core.Test
         [Test]
         public void TestSteal ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             // no match returns false
-            var ret = hashTable.Steal (new TestWrappedNative (0));
+            var ret = hashTable.Steal (new TestOpaque (0));
             Assert.That (ret, Is.False);
             // match returns true
-            hashTable.Add (new TestWrappedNative (0));
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.Steal (new TestWrappedNative (0));
+            ret = hashTable.Steal (new TestOpaque (0));
             Assert.That (ret, Is.True);
             // null key works
             ret = hashTable.Steal (null);
@@ -216,12 +216,12 @@ namespace Core.Test
         public void TestForeachRemove ()
         {
             var count = 0;
-            HRFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // function is called back
             var ret = hashTable.ForeachRemove (foreachFunc);
@@ -235,12 +235,12 @@ namespace Core.Test
         public void TestForeachSteal ()
         {
             var count = 0;
-            HRFuncCallback<TestWrappedNative,TestWrappedNative> foreachFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // function is called back
             var ret = hashTable.ForeachSteal (foreachFunc);
@@ -253,8 +253,8 @@ namespace Core.Test
         [Test]
         public void TestRemoveAll ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // function is called back
             hashTable.RemoveAll ();
@@ -264,8 +264,8 @@ namespace Core.Test
         [Test]
         public void TestStealAll ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // function is called back
             hashTable.StealAll ();
@@ -275,8 +275,8 @@ namespace Core.Test
         [Test]
         public void TestGetKeys ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // test case
             var ret = hashTable.Keys;
@@ -286,8 +286,8 @@ namespace Core.Test
         [Test]
         public void TestGetValues ()
         {
-            var hashTable = new HashTable<TestWrappedNative,TestWrappedNative> ();
-            hashTable.Add (new TestWrappedNative (0));
+            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+            hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
             // test case
             var ret = hashTable.Values;
