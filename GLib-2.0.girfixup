@@ -300,8 +300,11 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]" "gi:re
 # Drop the idle_ prefix from the function names
 chattr "name" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@name,'idle_')]"
 chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@shadows,'idle_')]"
-# set default value for priority parameter
-chattr "gs:default" "" "Priority.Default" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function/gi:parameters/gi:parameter[@name='priority']"
+# rename fuction to be more .NETish
+chattr "name" "" "create_source" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='source_new']"
+# functions with special handling
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='add_full']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='remove_by_data']"
 
 # KeyFile
 

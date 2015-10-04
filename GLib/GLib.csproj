@@ -37,6 +37,7 @@
     <Compile Include="Variant.cs" />
     <Compile Include="VariantType.cs" />
     <Compile Include="Generated.cs" />
+    <Compile Include="Idle.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>
