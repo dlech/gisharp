@@ -375,19 +375,16 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:m
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='is_floating']"
 # don't need dup functions since marshaling does that anyway
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'dup_')]"
-# duplicate constructors
+# duplicate constructor - using new_take_string instead
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_string']"
+# fix incorrect transfer
+chattr "transfer-ownership" "" "full" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_take_string']/gi:parameters/gi:parameter[@name='string']"
 # properties can't have the same name as the enclosing type
 chattr "name" "" "get_boxed_variant" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_variant']"
 # name conflicts with IWrappedNative.Handle
 chattr "name" "" "get_d_bus_handle" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_handle']"
-# these are both zero-terminated and have a length specified
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']/gi:parameters/gi:parameter[@name='strv']/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='dup_bytestring_array']/gi:return-value/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring_array']/gi:return-value/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_objv']/gi:parameters/gi:parameter[@name='strv']/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='dup_objv']/gi:return-value/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_objv']/gi:return-value/gi:array"
+# gir does not specify array length
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring']/gi:return-value/gi:array"
 # items with special implementations
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']"
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_from_data']"

@@ -13,17 +13,47 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen.Model
 {
+    public enum TypeClassification
+    {
+        CArray,
+        Delegate,
+        FilenameString,
+        Opaque,
+        Strv,
+        Utf8String,
+        ValueType,
+    }
     public class TypeInfo : BaseInfo
     {
         readonly string typeName;
 
-        /// <summary>
-        /// Gets a value indicating if this is a UTF-8 encoded, null terminated string.
-        /// </summary>
-        /// <value><c>true</c> if the type is a UTF-8 string.</value>
-        public bool IsUtf8 {
+        TypeClassification? _Classification;
+        public TypeClassification Classification {
             get {
-                return Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8";
+                if (!_Classification.HasValue) {
+                    if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
+                        // GirType always returns false for IsAssignableFrom when type is a RuntimeType
+                        // so we have to check IsSubclassOf as well.
+                        _Classification = TypeClassification.Delegate;
+                    } else if (typeof(GISharp.Core.Opaque).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(GISharp.Core.Opaque))) {
+                        _Classification = TypeClassification.Opaque;
+                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
+                        _Classification = TypeClassification.Utf8String;
+                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
+                        _Classification = TypeClassification.FilenameString;
+                    } else if (TypeObject.IsArray) {
+                        if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
+                            _Classification = TypeClassification.Strv;
+                        } else {
+                            _Classification = TypeClassification.CArray;
+                        }
+                    } else if (TypeObject.IsValueType) {
+                        _Classification = TypeClassification.ValueType;
+                    } else {
+                        throw new NotSupportedException ();
+                    }
+                }
+                return _Classification.Value;
             }
         }
 
@@ -92,7 +122,7 @@ namespace GISharp.CodeGen.Model
                 throw new ArgumentException ("Requires element with 'managed-type' attribute.", nameof(element));
             }
             var type = TypeObject;
-            if (type.IsDelegate ()) {
+            if (typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate))) {
                 RequiresMarshal = true;
                 if (managed) {
                     typeName += "Callback";

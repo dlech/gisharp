@@ -449,7 +449,7 @@ namespace GISharp.GLib
                 throw new InvalidCastException ();
             }
             ulong length;
-            return v.GetString (out length).Substring (0, (int)length);
+            return v.GetString (out length);
         }
 
         public static explicit operator Variant (string value)

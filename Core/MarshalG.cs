@@ -56,7 +56,6 @@ namespace GISharp.Core
         /// </remarks>
         public static byte[] PtrToByteString (IntPtr ptr, bool freePtr = false)
         {
-
             if (ptr == IntPtr.Zero) {
                 return null;
             }
@@ -278,34 +277,64 @@ namespace GISharp.Core
             return ret.ToArray ();
         }
 
-        public static GType PtrToGType (IntPtr ptr)
+        /// <summary>
+        /// Marshals a C-style array from unmanged memory to managed memory.
+        /// </summary>
+        /// <returns>The managed array.</returns>
+        /// <param name="ptr">Pointer to the unmanged array.</param>
+        /// <param name="length">The length of the array or null if the array is null-terminated.</param>
+        /// <param name="freePtr">Setting to <c>true</c> will call g_free() on <paramref name="ptr"/>.</param>
+        /// <typeparam name="T">The array element type.</typeparam>
+        public static T[] PtrToCArray<T> (IntPtr ptr, int? length, bool freePtr = false) where T : struct
         {
-            throw new NotImplementedException ();
+            T[] array;
+            var elementSize = Marshal.SizeOf (typeof(T));
+            if (length.HasValue) {
+                array = new T[length.Value];
+                var current = ptr;
+                for (int i = 0; i < array.Length; i++) {
+                    array[i] = Marshal.PtrToStructure<T> (current);
+                    current += elementSize;
+                }
+            } else {
+                var list = new System.Collections.Generic.List<T> ();
+                T item;
+                var current = ptr;
+                while (!(item = Marshal.PtrToStructure<T> (current)).Equals (default(T))) {
+                    list.Add (item);
+                    current += elementSize;
+                }
+                array = list.ToArray ();
+            }
+            if (freePtr) {
+                Free (ptr);
+            }
+
+            return array;
         }
 
-        public static T PtrToGObject<T> (IntPtr ptr, bool owned) where T : GObject
+        /// <summary>
+        /// Marshalls an array of structs to unmanged memory.
+        /// </summary>
+        /// <returns>The pointer to the array in unmanged memory.</returns>
+        /// <param name="array">The managed array.</param>
+        /// <exception cref="NotSupportedException">
+        /// Thrown if array element type is not a value type
+        /// </exception>
+        public static IntPtr CArrayToPtr (Array array)
         {
-            throw new NotImplementedException ();
-        }
-
-        public static T PtrToGObjectInterface<T> (IntPtr ptr, bool owned)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public static T PtrToCArray<T> (IntPtr ptr, bool owned, bool itemsOwned)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public static IntPtr CArrayToPtr<T> (T array)
-        {
-            throw new NotImplementedException ();
-        }
-
-        public static T[] PtrToGList<T> (IntPtr ptr, bool owned, bool itemsOwned)
-        {
-            throw new NotImplementedException ();
+            var elementType = array.GetType ().GetElementType ();
+            if (elementType.IsValueType) {
+                throw new NotSupportedException ();
+            }
+            var elementSize = Marshal.SizeOf (elementType);
+            var ptr = Alloc (array.Length * elementSize);
+            var current = ptr;
+            for (int i = 0; i < array.Length; i++) {
+                Marshal.StructureToPtr (array.GetValue (i), current, false);
+                current += elementSize;
+            }
+            return ptr;
         }
     }
 }

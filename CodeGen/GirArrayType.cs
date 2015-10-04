@@ -59,7 +59,7 @@ namespace GISharp.CodeGen
 
         public override Type GetElementType ()
         {
-            throw new NotImplementedException ();
+            return type;
         }
 
         public override EventInfo GetEvent (string name, BindingFlags bindingAttr)

@@ -261,12 +261,5 @@ namespace GISharp.CodeGen
 
             return arrayElement.Attribute ("zero-terminated").AsBool ();
         }
-
-        public static bool IsDelegate (this Type type)
-        {
-            // GirType always returns false for IsAssignableFrom when type is a RuntimeType
-            // so we have to check IsSubclassOf as well.
-            return typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate));
-        }
     }
 }
