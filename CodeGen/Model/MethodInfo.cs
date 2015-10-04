@@ -64,6 +64,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool HasCustomArgCheck {
+            get {
+                return Element.Attribute (gs + "custom-arg-check").AsBool ();
+            }
+        }
+
         List<ParameterInfo> _ManagedParameterInfos;
         public IReadOnlyList<ParameterInfo> ManagedParameterInfos {
             get {
@@ -316,7 +322,16 @@ namespace GISharp.CodeGen.Model
                         typeof(ArgumentNullException).FullName));
                 yield return statement;
             }
-            // TODO: check Element.Attribute (gs + "arg-check) for statements
+            if (HasCustomArgCheck) {
+                var invocation = InvocationExpression (
+                    ParseExpression (string.Format ("Assert{0}Args", Identifier)));
+                foreach (var p in ManagedParameterInfos.Where (x => x.IsInParam)) {
+                    var item = Argument (ParseExpression(p.Identifier.Text));
+                    invocation = invocation.AddArgumentListArguments (item);
+                }
+                var statement = ExpressionStatement (invocation);
+                yield return statement;
+            }
         }
 
         IEnumerable<Tuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToNativeParameterStatements ()
@@ -348,10 +363,12 @@ namespace GISharp.CodeGen.Model
                 string statement, freeStatement;
                 switch (p.TypeInfo.Classification) {
                 case TypeClassification.CArray:
-                    statement = string.Format ("var {0}Ptr = {1}.{2} ({0});\n",
+                        statement = string.Format ("var {0}Ptr = {1}.{2}<{3}> ({0}, {4});\n",
                         p.Identifier,
                         typeof(GISharp.Core.MarshalG),
-                        nameof(GISharp.Core.MarshalG.CArrayToPtr));
+                        nameof(GISharp.Core.MarshalG.CArrayToPtr),
+                        p.TypeInfo.TypeObject.GetElementType ().FullName,
+                        nativeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
                     freeStatement = string.Empty;
                     if (p.Transfer == Core.Transfer.None) {
                         freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
@@ -373,11 +390,51 @@ namespace GISharp.CodeGen.Model
                         ParseStatement (string.Format ("throw new {0} ();\n",
                             typeof(NotImplementedException).FullName)), null);
                     break;
+                case TypeClassification.Opaque:
+                    statement = string.Format ("var {0}Ptr = {0} == null ? {1}.{2} : {0}.Handle;\n",
+                        p.Identifier,
+                        typeof(IntPtr).FullName,
+                        nameof(IntPtr.Zero));
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), null);
+                    break;
+                case TypeClassification.OpaqueCArray:
+                    statement = string.Format ("var {0}Ptr = {1}.{2}<{3}> ({0}, {4});\n",
+                        p.Identifier,
+                        typeof(GISharp.Core.MarshalG),
+                        nameof(GISharp.Core.MarshalG.OpaqueCArrayToPtr),
+                        p.TypeInfo.TypeObject.GetElementType ().FullName,
+                        nativeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
+                    freeStatement = string.Empty;
+                    if (p.Transfer == Core.Transfer.None) {
+                        freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
+                           typeof(GISharp.Core.MarshalG),
+                           nameof(GISharp.Core.MarshalG.Free),
+                           p.Identifier);
+                    }
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), ParseStatement (freeStatement));
+                    break;
+                case TypeClassification.Strv:
+                    statement = string.Format ("var {0}Ptr = {1}.{2} ({0});\n",
+                        p.Identifier,
+                        typeof(GISharp.Core.MarshalG),
+                        nameof(GISharp.Core.MarshalG.StringArrayToGStrvPtr));
+                    freeStatement = string.Empty;
+                    if (p.Transfer == GISharp.Core.Transfer.None) {
+                        freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
+                            typeof(GISharp.Core.MarshalG),
+                            nameof(GISharp.Core.MarshalG.FreeGStrv),
+                            p.Identifier);
+                    }
+                    yield return new Tuple<StatementSyntax, StatementSyntax> (
+                        ParseStatement (statement), ParseStatement (freeStatement));
+                    break;
                 case TypeClassification.Utf8String:
                     statement = string.Format ("var {0}Ptr = {1}.{2} ({0});\n",
-                       p.Identifier,
-                       typeof(GISharp.Core.MarshalG),
-                       nameof(GISharp.Core.MarshalG.StringToUtf8Ptr));
+                        p.Identifier,
+                        typeof(GISharp.Core.MarshalG),
+                        nameof(GISharp.Core.MarshalG.StringToUtf8Ptr));
                     freeStatement = string.Empty;
                     if (p.Transfer == GISharp.Core.Transfer.None) {
                         freeStatement = string.Format ("{0}.{1} ({2}Ptr);\n",
@@ -387,12 +444,6 @@ namespace GISharp.CodeGen.Model
                     }
                     yield return new Tuple<StatementSyntax, StatementSyntax> (
                         ParseStatement (statement), ParseStatement (freeStatement));
-                    break;
-                case TypeClassification.Opaque:
-                    statement = string.Format ("var {0}Ptr = {0}.Handle;\n",
-                        p.Identifier);
-                    yield return new Tuple<StatementSyntax, StatementSyntax> (
-                        ParseStatement (statement), null);
                     break;
                 default:
                     // TODO: need to add more implementations
@@ -424,7 +475,7 @@ namespace GISharp.CodeGen.Model
             foreach (var p in parameters) {
                 var lengthParameter = PinvokeParameterInfos[p.TypeInfo.ArrayLengthIndex];
                 if (p.IsInParam) {
-                    var statement = string.Format ("var {0} = ({1}){2}.Length;\n",
+                    var statement = string.Format ("var {0} = ({1})({2} == null ? 0 : {2}.Length);\n",
                         lengthParameter.Identifier,
                         lengthParameter.TypeInfo.Type,
                         p.Identifier);
@@ -500,6 +551,7 @@ namespace GISharp.CodeGen.Model
             string statement;
             switch (managedParameterInfo.TypeInfo.Classification) {
             case TypeClassification.CArray:
+            case TypeClassification.OpaqueCArray:
                 string length = null;
                 if (unmangedParameterInfo.TypeInfo.ArrayFixedSize >= 0) {
                     length = "(int)" + unmangedParameterInfo.TypeInfo.ArrayFixedSize.ToString ();
@@ -518,10 +570,13 @@ namespace GISharp.CodeGen.Model
                         Identifier);
                     throw new Exception (message);
                 }
+                var marshalFunc = managedParameterInfo.TypeInfo.Classification == TypeClassification.CArray
+                    ? nameof(GISharp.Core.MarshalG.PtrToCArray)
+                    : nameof(GISharp.Core.MarshalG.PtrToOpaqueCArray);
                 statement = string.Format ("{0} = {1}.{2}<{3}> ({0}Ptr, {4}, {5});\n",
                     managedParameterInfo.Identifier,
                     typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.PtrToCArray),
+                    marshalFunc,
                     managedParameterInfo.TypeInfo.TypeObject.GetElementType ().FullName,
                     length,
                     managedParameterInfo.Transfer == Core.Transfer.None ? "false" : "true");
@@ -538,6 +593,17 @@ namespace GISharp.CodeGen.Model
                     managedParameterInfo.TypeInfo.Type,
                     typeof(Core.Transfer).FullName,
                     managedParameterInfo.Transfer);
+                if (managedParameterInfo.IsReturnParameter) {
+                    statement = "var " + statement;
+                }
+                yield return ParseStatement (statement);
+                break;
+            case TypeClassification.Strv:
+                statement = string.Format ("{0} = {1}.{2} ({0}Ptr, {3});\n",
+                    managedParameterInfo.Identifier,
+                    typeof(GISharp.Core.MarshalG),
+                    nameof(GISharp.Core.MarshalG.GStrvPtrToStringArray),
+                    managedParameterInfo.Transfer == Core.Transfer.All ? "true" : "false");
                 if (managedParameterInfo.IsReturnParameter) {
                     statement = "var " + statement;
                 }

@@ -287,6 +287,9 @@ namespace GISharp.Core
         /// <typeparam name="T">The array element type.</typeparam>
         public static T[] PtrToCArray<T> (IntPtr ptr, int? length, bool freePtr = false) where T : struct
         {
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
             T[] array;
             var elementSize = Marshal.SizeOf (typeof(T));
             if (length.HasValue) {
@@ -318,21 +321,69 @@ namespace GISharp.Core
         /// </summary>
         /// <returns>The pointer to the array in unmanged memory.</returns>
         /// <param name="array">The managed array.</param>
+        /// <param name="nullTerminated">Set to <c>true</c> to make the array null-terminated<./param>
         /// <exception cref="NotSupportedException">
         /// Thrown if array element type is not a value type
         /// </exception>
-        public static IntPtr CArrayToPtr (Array array)
+        public static IntPtr CArrayToPtr<T> (T[] array, bool nullTerminated) where T : struct
         {
-            var elementType = array.GetType ().GetElementType ();
-            if (elementType.IsValueType) {
-                throw new NotSupportedException ();
+            if (array == null) {
+                return IntPtr.Zero;
             }
-            var elementSize = Marshal.SizeOf (elementType);
-            var ptr = Alloc (array.Length * elementSize);
+            var elementSize = Marshal.SizeOf<T> ();
+            var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
             var current = ptr;
             for (int i = 0; i < array.Length; i++) {
                 Marshal.StructureToPtr (array.GetValue (i), current, false);
                 current += elementSize;
+            }
+            if (nullTerminated) {
+                Marshal.StructureToPtr (default(T), current, false);
+            }
+            return ptr;
+        }
+
+        public static T[] PtrToOpaqueCArray<T> (IntPtr ptr, int? length, bool freePtr = false) where T : Opaque
+        {
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
+            T[] array;
+            if (length.HasValue) {
+                array = new T[length.Value];
+                for (int i = 0; i < array.Length; i++) {
+                    var handle = Marshal.ReadIntPtr (ptr, i * IntPtr.Size);
+                    array[i] = Opaque.GetInstance<T> (handle, Transfer.None);
+                }
+            } else {
+                var list = new System.Collections.Generic.List<T> ();
+                IntPtr handle;
+                var current = ptr;
+                while ((handle = Marshal.ReadIntPtr (current)) != IntPtr.Zero) {
+                    var item = Opaque.GetInstance<T> (handle, Core.Transfer.None);
+                    list.Add (item);
+                    current += IntPtr.Size;
+                }
+                array = list.ToArray ();
+            }
+            if (freePtr) {
+                Free (ptr);
+            }
+
+            return array;
+        }
+
+        public static IntPtr OpaqueCArrayToPtr<T> (T[] array, bool nullTerminated) where T : Opaque
+        {
+            if (array == null) {
+                return IntPtr.Zero;
+            }
+            var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * IntPtr.Size);
+            for (int i = 0; i < array.Length; i++) {
+                Marshal.WriteIntPtr (ptr, i * IntPtr.Size, array[i].Handle);
+            }
+            if (nullTerminated) {
+                Marshal.WriteIntPtr (ptr, array.Length * IntPtr.Size, IntPtr.Zero);
             }
             return ptr;
         }

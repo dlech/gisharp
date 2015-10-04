@@ -83,7 +83,7 @@ namespace GISharp.GLib.Test
         {
             var expected = short.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.Int16));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.Int16));
             var actual = (short)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -93,7 +93,7 @@ namespace GISharp.GLib.Test
         {
             var expected = ushort.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.UInt16));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.UInt16));
             var actual = (ushort)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -103,7 +103,7 @@ namespace GISharp.GLib.Test
         {
             var expected = int.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.Int32));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.Int32));
             var actual = (int)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -113,7 +113,7 @@ namespace GISharp.GLib.Test
         {
             var expected = uint.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.UInt32));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.UInt32));
             var actual = (uint)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -123,7 +123,7 @@ namespace GISharp.GLib.Test
         {
             var expected = long.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.Int64));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.Int64));
             var actual = (long)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -133,7 +133,7 @@ namespace GISharp.GLib.Test
         {
             var expected = ulong.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.UInt64));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.UInt64));
             var actual = (ulong)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -143,7 +143,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new DBusHandle (int.MaxValue);
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.DBusHandle));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.DBusHandle));
             var actual = (DBusHandle)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -153,7 +153,7 @@ namespace GISharp.GLib.Test
         {
             var expected = double.MaxValue;
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.Double));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.Double));
             var actual = (double)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -163,7 +163,7 @@ namespace GISharp.GLib.Test
         {
             var expected = "string";
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.String));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.String));
             var actual = (string)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -173,7 +173,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new [] { "string" };
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.StringArray));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.StringArray));
             var actual = (string[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -183,7 +183,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new DBusObjectPath ("/");
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ObjectPath));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.ObjectPath));
             var actual = (DBusObjectPath)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -193,7 +193,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new [] { new DBusObjectPath ("/") };
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ObjectPathArray));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.ObjectPathArray));
             var actual = (DBusObjectPath[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -203,7 +203,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new DBusSignature ("i");
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.DBusSignature));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.DBusSignature));
             var actual = (DBusSignature)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -213,7 +213,7 @@ namespace GISharp.GLib.Test
         {
             var expected = Encoding.ASCII.GetBytes ("bytestring");
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteString));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.ByteString));
             var actual = (byte[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -223,7 +223,7 @@ namespace GISharp.GLib.Test
         {
             var expected = new [] { Encoding.ASCII.GetBytes ("bytestring") };
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType, Is.EqualTo (VariantType.ByteStringArray));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.ByteStringArray));
             var actual = (byte[][])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -243,7 +243,7 @@ namespace GISharp.GLib.Test
 
             var expected = new [] { new Variant (false) };
             var variant = new Variant (null, expected);
-            Assert.That (variant.VariantType.IsArray, Is.True);
+            Assert.That (variant.Type.IsArray, Is.True);
             var actual = (Variant[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -258,7 +258,7 @@ namespace GISharp.GLib.Test
 
             var expected = new [] { new Variant (false), new Variant (0) };
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType.IsTuple, Is.True);
+            Assert.That (variant.Type.IsTuple, Is.True);
             var actual = (Variant[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -266,16 +266,22 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestCastDictEntry ()
         {
-            var badKey = new KeyValuePair<Variant, Variant> (null, null);
+            // null key is not allowed
+            var badKey = new KeyValuePair<Variant, Variant> (null, new Variant ("string"));
             Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
-            badKey = new KeyValuePair<Variant, Variant> (new Variant(new [] { "string" }), null);
-            Assert.That (() => (Variant)badKey, Throws.ArgumentException);
+
+            // null value is not allowed
             badKey = new KeyValuePair<Variant, Variant> (new Variant ("string"), null);
             Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
 
+            // only basic variant types are allowed as key
+            badKey = new KeyValuePair<Variant, Variant> (new Variant(new [] { "string" }), new Variant ("string"));
+            Assert.That (() => (Variant)badKey, Throws.ArgumentException);
+
+            // make sure we get back what we put in
             var expected = new KeyValuePair<Variant, Variant> ( new Variant ("key"), new Variant ("value") );
             var variant = (Variant)expected;
-            Assert.That (variant.VariantType.IsDictEntry, Is.True);
+            Assert.That (variant.Type.IsDictEntry, Is.True);
             var actual = (KeyValuePair<Variant, Variant>)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }

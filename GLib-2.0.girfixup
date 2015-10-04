@@ -324,6 +324,8 @@ chattr "name" "LOG_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name=
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'log')]" "gi:repository/gi:namespace/gs:static-class[@name='Log']"
 # Drop the log_ prefix from the function names
 chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[starts-with(@name,'log_')]"
+# valist is not supported yet
+chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='logv']"
 
 # MainContext
 
@@ -365,8 +367,10 @@ move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:r
 
 # Variant
 
-# rename method that conflicts with .NET Object.GetType()
-chattr "name" "" "get_variant_type" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
+# custom argument checks
+chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_array']"
+chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_dict_entry']"
+chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_tuple']"
 # use ref_sink for ref function
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref']"
 chattr "name" "" "ref" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref_sink']"
@@ -375,6 +379,12 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:m
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='is_floating']"
 # don't need dup functions since marshaling does that anyway
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'dup_')]"
+# most getters are private - using cast operators instead.
+chattr "gs:access-modifier" "" "private" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'get_')]"
+chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
+chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type_string']"
+chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_size']"
+chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_data']"
 # duplicate constructor - using new_take_string instead
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_string']"
 # fix incorrect transfer
@@ -384,6 +394,7 @@ chattr "name" "" "get_boxed_variant" "gi:repository/gi:namespace/gi:record[@name
 # name conflicts with IWrappedNative.Handle
 chattr "name" "" "get_d_bus_handle" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_handle']"
 # gir does not specify array length
+chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring']/gi:parameters/gi:parameter[@name='string']/gi:array"
 chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring']/gi:return-value/gi:array"
 # items with special implementations
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']"
@@ -396,6 +407,11 @@ chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Var
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_objv']"
 # Hide functions that use GLib.String
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='print_string']"
+# valist is not supported yet
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_va']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_parsed_va']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_va']"
+
 
 # VariantType
 

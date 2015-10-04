@@ -15,12 +15,41 @@ namespace GISharp.CodeGen.Model
 {
     public enum TypeClassification
     {
+        /// <summary>
+        /// A C-style array of structs
+        /// </summary>
         CArray,
+        /// <summary>
+        /// A delegate.
+        /// </summary>
         Delegate,
+        /// <summary>
+        /// A string encoded using filesystem encoding.
+        /// </summary>
         FilenameString,
+        /// <summary>
+        /// A null-terminated array of filename strings.
+        /// </summary>
+        FilenameStrv,
+        /// <summary>
+        /// An <see cref="Opaque"/> object.
+        /// </summary>
         Opaque,
+        /// <summary>
+        /// A C-style array of pointers to unmanaged <see cref="Opaque"/> objects
+        /// </summary>
+        OpaqueCArray,
+        /// <summary>
+        /// A null-terminated array of UTF-8 strings.
+        /// </summary>
         Strv,
+        /// <summary>
+        /// A null-terminated UTF-8 string.
+        /// </summary>
         Utf8String,
+        /// <summary>
+        /// A value type (struct).
+        /// </summary>
         ValueType,
     }
     public class TypeInfo : BaseInfo
@@ -44,8 +73,14 @@ namespace GISharp.CodeGen.Model
                     } else if (TypeObject.IsArray) {
                         if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
                             _Classification = TypeClassification.Strv;
-                        } else {
+                        } else if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
+                            _Classification = TypeClassification.FilenameStrv;
+                        } else if (TypeObject.GetElementType ().IsValueType) {
                             _Classification = TypeClassification.CArray;
+                        } else if (TypeObject.GetElementType ().IsSubclassOf (typeof(GISharp.Core.Opaque))) {
+                            _Classification = TypeClassification.OpaqueCArray;
+                        } else {
+                            throw new NotSupportedException ();
                         }
                     } else if (TypeObject.IsValueType) {
                         _Classification = TypeClassification.ValueType;

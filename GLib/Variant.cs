@@ -262,7 +262,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 if (childValues == null) {
-                    childValues = new IndexedCollection<Variant> (NChildren, GetChildValue);
+                    childValues = new IndexedCollection<Variant> (NChildren, getChildValue);
                 }
                 return childValues;
             }
@@ -272,7 +272,7 @@ namespace GISharp.GLib
 
         public static explicit operator bool (Variant value)
         {
-            if (value.VariantType != VariantType.Boolean) {
+            if (value.Type != VariantType.Boolean) {
                 throw new InvalidCastException ();
             }
             return value.Boolean;
@@ -285,7 +285,7 @@ namespace GISharp.GLib
 
         public static explicit operator byte (Variant v)
         {
-            if (v.VariantType != VariantType.Byte) {
+            if (v.Type != VariantType.Byte) {
                 throw new InvalidCastException ();
             }
             return v.Byte;
@@ -298,7 +298,7 @@ namespace GISharp.GLib
 
         public static explicit operator byte[] (Variant v)
         {
-            if (v.VariantType != VariantType.ByteString) {
+            if (v.Type != VariantType.ByteString) {
                 throw new InvalidCastException ();
             }
             return v.Bytestring;
@@ -311,7 +311,7 @@ namespace GISharp.GLib
 
         public static explicit operator byte[][] (Variant v)
         {
-            if (v.VariantType != VariantType.ByteStringArray) {
+            if (v.Type != VariantType.ByteStringArray) {
                 throw new InvalidCastException ();
             }
             return v.GetBytestringArray ();
@@ -324,7 +324,7 @@ namespace GISharp.GLib
 
         public static explicit operator double (Variant v)
         {
-            if (v.VariantType != VariantType.Double) {
+            if (v.Type != VariantType.Double) {
                 throw new InvalidCastException ();
             }
             return v.Double;
@@ -337,7 +337,7 @@ namespace GISharp.GLib
 
         public static explicit operator DBusHandle (Variant v)
         {
-            if (v.VariantType != VariantType.DBusHandle) {
+            if (v.Type != VariantType.DBusHandle) {
                 throw new InvalidCastException ();
             }
             return v.DBusHandle;
@@ -350,7 +350,7 @@ namespace GISharp.GLib
 
         public static explicit operator short (Variant v)
         {
-            if (v.VariantType != VariantType.Int16) {
+            if (v.Type != VariantType.Int16) {
                 throw new InvalidCastException ();
             }
             return v.Int16;
@@ -363,7 +363,7 @@ namespace GISharp.GLib
 
         public static explicit operator int (Variant v)
         {
-            if (v.VariantType != VariantType.Int32) {
+            if (v.Type != VariantType.Int32) {
                 throw new InvalidCastException ();
             }
             return v.Int32;
@@ -376,7 +376,7 @@ namespace GISharp.GLib
 
         public static explicit operator long (Variant v)
         {
-            if (v.VariantType != VariantType.Int64) {
+            if (v.Type != VariantType.Int64) {
                 throw new InvalidCastException ();
             }
             return v.Int64;
@@ -389,11 +389,11 @@ namespace GISharp.GLib
 
         public static explicit operator DBusObjectPath (Variant v)
         {
-            if (v.VariantType != VariantType.ObjectPath) {
+            if (v.Type != VariantType.ObjectPath) {
                 throw new InvalidCastException ();
             }
             ulong length;
-            return v.GetString (out length).Substring (0, (int)length);
+            return v.getString (out length).Substring (0, (int)length);
         }
 
         public static explicit operator Variant (DBusObjectPath value)
@@ -403,11 +403,11 @@ namespace GISharp.GLib
 
         public static explicit operator DBusSignature (Variant v)
         {
-            if (v.VariantType != VariantType.DBusSignature) {
+            if (v.Type != VariantType.DBusSignature) {
                 throw new InvalidCastException ();
             }
             ulong length;
-            return v.GetString (out length).Substring (0, (int)length);
+            return v.getString (out length).Substring (0, (int)length);
         }
 
         public static explicit operator Variant (DBusSignature value)
@@ -419,7 +419,7 @@ namespace GISharp.GLib
 
         public static explicit operator Variant[] (Variant v)
         {
-            if (!v.VariantType.IsContainer) {
+            if (!v.Type.IsContainer) {
                 throw new InvalidCastException ();
             }
             return v.ChildValues.ToArray ();
@@ -432,7 +432,7 @@ namespace GISharp.GLib
 
         public static explicit operator DBusObjectPath[] (Variant v)
         {
-            if (v.VariantType != VariantType.ObjectPathArray) {
+            if (v.Type != VariantType.ObjectPathArray) {
                 throw new InvalidCastException ();
             }
             return v.Objv;
@@ -445,11 +445,11 @@ namespace GISharp.GLib
 
         public static explicit operator string (Variant v)
         {
-            if (v.VariantType != VariantType.String) {
+            if (v.Type != VariantType.String) {
                 throw new InvalidCastException ();
             }
             ulong length;
-            return v.GetString (out length);
+            return v.getString (out length);
         }
 
         public static explicit operator Variant (string value)
@@ -459,7 +459,7 @@ namespace GISharp.GLib
 
         public static explicit operator string[] (Variant v)
         {
-            if (v.VariantType != VariantType.StringArray) {
+            if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException ();
             }
             return v.Strv;
@@ -472,7 +472,7 @@ namespace GISharp.GLib
 
         public static explicit operator ushort (Variant v)
         {
-            if (v.VariantType != VariantType.UInt16) {
+            if (v.Type != VariantType.UInt16) {
                 throw new InvalidCastException ();
             }
             return v.Uint16;
@@ -485,7 +485,7 @@ namespace GISharp.GLib
 
         public static explicit operator uint (Variant v)
         {
-            if (v.VariantType != VariantType.UInt32) {
+            if (v.Type != VariantType.UInt32) {
                 throw new InvalidCastException ();
             }
             return v.Uint32;
@@ -498,7 +498,7 @@ namespace GISharp.GLib
 
         public static explicit operator ulong (Variant v)
         {
-            if (v.VariantType != VariantType.UInt64) {
+            if (v.Type != VariantType.UInt64) {
                 throw new InvalidCastException ();
             }
             return v.Uint64;
@@ -511,7 +511,7 @@ namespace GISharp.GLib
 
         public static explicit operator KeyValuePair<Variant, Variant> (Variant v)
         {
-            if (!v.VariantType.IsDictEntry) {
+            if (!v.Type.IsDictEntry) {
                 throw new InvalidCastException ();
             }
             return new KeyValuePair<Variant, Variant> (v.ChildValues[0], v.ChildValues[1]);
@@ -520,6 +520,43 @@ namespace GISharp.GLib
         public static explicit operator Variant (KeyValuePair<Variant, Variant> value)
         {
             return new Variant (value.Key, value.Value);
+        }
+
+        static void AssertNewArrayArgs (VariantType childType, Variant[] children)
+        {
+            if (childType == null && (children == null || children.Length == 0)) {
+                throw new ArgumentException ("Must specify child type when no children", nameof(childType));
+            }
+            if (childType == null && children == null) {
+                throw new ArgumentException ("childType and children cannot both be null");
+            }
+            if (children != null) {
+                var testChildType = childType ?? children[0].Type;
+                foreach (var item in children) {
+                    if (item == null) {
+                        throw new ArgumentException ("Array cannot have null elements", nameof(children));
+                    }
+                    if (item.Type != testChildType) {
+                        throw new ArgumentException ("All children must have the same variant type.", nameof(children));
+                    }
+                }
+            }
+        }
+
+        static void AssertNewDictEntryArgs (Variant key, Variant value)
+        {
+            if (!key.Type.IsBasic) {
+                throw new ArgumentException ("Key must be a basic variant type.", nameof(key));
+            }
+        }
+
+        static void AssertNewTupleArgs (Variant[] children)
+        {
+            foreach (var item in children) {
+                if (item == null) {
+                    throw new ArgumentException ("Tuple cannot have null elements", nameof(children));
+                }
+            }
         }
     }
 }
