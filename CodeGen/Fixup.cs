@@ -368,7 +368,11 @@ namespace GISharp.CodeGen
                     && d.Element (gi + "return-value").Element (gi + "type").Attribute ("name").Value == "guint");
             foreach (var element in elementsWithHashFunction) {
                 element.SetAttributeValue (gs + "special-func", "hash");
-                element.SetAttributeValue (gs + "access-modifier", "protected");
+                element.SetAttributeValue (gs + "access-modifier", "public override");
+                // set managed-name here so it don't get turned into a property getter
+                element.SetAttributeValue (gs + "managed-name", "GetHashCode");
+                // change return type to match .NET
+                element.Element (gi + "return-value").Element (gi + "type").SetAttributeValue ("name", "gint");
             }
 
             // flag to_string functions
