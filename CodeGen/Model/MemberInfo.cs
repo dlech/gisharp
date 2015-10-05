@@ -23,6 +23,28 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        QualifiedNameSyntax _QualifiedName;
+        public QualifiedNameSyntax QualifiedName {
+            get {
+                if (_QualifiedName == null) {
+                    _QualifiedName = QualifiedName (
+                        NamespaceInfo.Name,
+                        IdentifierName (Identifier));
+                    // callbacks can be declared by fields, in which case they
+                    // are a child type.
+                    var declaringType = DeclaringMember.DeclaringMember as TypeDeclarationInfo;
+                    if (declaringType != null) {
+                        _QualifiedName = QualifiedName (
+                            QualifiedName (
+                                _QualifiedName.Left,
+                                IdentifierName (declaringType.Identifier)),
+                            _QualifiedName.Right);
+                    }
+                }
+                return _QualifiedName;
+            }
+        }
+
         SyntaxTokenList _Modifiers;
         public SyntaxTokenList Modifiers {
             get {

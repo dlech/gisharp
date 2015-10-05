@@ -22,6 +22,12 @@ namespace GISharp.CodeGen.Model
             get { return string.Join (".", GlobalPrefix, ManagedName); }
         }
 
+        public NameSyntax Name {
+            get {
+                return ParseName (FullManagedName);
+            }
+        }
+
         NamespaceDeclarationSyntax _Syntax;
         public NamespaceDeclarationSyntax Syntax { get
             {

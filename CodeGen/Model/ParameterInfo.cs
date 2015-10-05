@@ -58,6 +58,27 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public ParameterScope Scope {
+            get {
+                if (TypeInfo.Classification != Model.TypeClassification.Delegate) {
+                    throw new InvalidOperationException ("Scope only applies to callbacks.");
+                }
+
+                var scope = Element.Attribute ("scope").AsString ("call");
+                switch (scope) {
+                case "call":
+                    return Model.ParameterScope.Call;
+                case "async":
+                    return Model.ParameterScope.Async;
+                case "notified":
+                    return Model.ParameterScope.Notified;
+                default:
+                    var message = string.Format ("Unknown scope: {0}", scope);
+                    throw new NotSupportedException (message);
+                }
+            }
+        }
+
         /// <summary>
         /// Gets a value indicating whether this <see cref="GISharp.CodeGen.Model.ParameterInfo"/> needs a null check.
         /// </summary>
@@ -269,5 +290,27 @@ namespace GISharp.CodeGen.Model
             builder.Append ("*/");
             return ParseTrailingTrivia (builder.ToString ());
         }
+    }
+
+    /// <summary>
+    /// Parameter scope indicates how long a parameter must be kept alive.
+    /// </summary>
+    public enum ParameterScope
+    {
+        /// <summary>
+        /// Only valid for the duration of the call.
+        /// </summary>
+        /// <remarks>>
+        /// Can be called multiple times during the call.
+        /// </remarks>
+        Call,
+        /// <summary>
+        /// Only valid for the duration of the first callback invocation. Can only be called once. 
+        /// </summary>
+        Async,
+        /// <summary>
+        /// valid until the GDestroyNotify argument is called. Can be called multiple times before the GDestroyNotify is called. 
+        /// </summary>
+        Notified,
     }
 }

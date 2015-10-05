@@ -111,6 +111,23 @@ namespace GISharp.Core
     /// </param>
     public delegate void DestroyNotifyCallback<T> (T data);
 
+    public static class DestoryNotifyFactory
+    {
+        /// <summary>
+        /// Creates a destroy notify function that can be passed to native methods
+        /// that frees the GCHandle when called.
+        /// </summary>
+        /// <param name="handle">Handle.</param>
+        public static DestroyNotify Create (GCHandle handle)
+        {
+            DestroyNotify method = (userData) => {
+                handle.Free ();
+                GCHandle.FromIntPtr (userData).Free ();
+            };
+            return method;
+        }
+    }
+
     /// <summary>
     /// Specifies the type of a function used to test two values for
     /// equality. The function should return <c>true</c> if both values are equal

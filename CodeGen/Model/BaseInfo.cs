@@ -31,6 +31,21 @@ namespace GISharp.CodeGen.Model
             get { return Element.Attribute (gs + "managed-name").Value; }
         }
 
+        public NamespaceInfo NamespaceInfo {
+            get {
+                MemberInfo info = DeclaringMember;
+                while (info != null) {
+                    var namespaceInfo = info as NamespaceInfo;
+                    if (namespaceInfo != null) {
+                        return namespaceInfo;
+                    }
+                    info = info.DeclaringMember;
+                }
+                throw new InvalidOperationException ("Missing NamespaceInfo ancestor");
+            }
+        }
+
+
         public MemberInfo DeclaringMember { get; private set; }
 
         SyntaxList<AttributeListSyntax> _AttributeLists;

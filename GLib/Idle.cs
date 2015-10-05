@@ -35,19 +35,15 @@ namespace GISharp.GLib
             {
                 throw new System.ArgumentNullException("function");
             }
-            SourceFunc functionNative = (functionNativeUserData) => {
-                var functionNativeRet = function.Invoke ();
-                return functionNativeRet;
-            };
-            var funcNativeGCHandle = GCHandle.Alloc (functionNative);
-            DestroyNotify notifyNative = (notifyNativeUserData) => {
-                funcNativeGCHandle.Free ();
-                GCHandle.FromIntPtr (notifyNativeUserData).Free ();
-            };
-            var notifyNativeGCHandle = GCHandle.Alloc (notifyNative);
-            var data = GCHandle.ToIntPtr (notifyNativeGCHandle);
-            g_idle_add_full (priority, functionNative, data, notifyNative);
-            return notifyNativeGCHandle;
+
+            SourceFunc nativeFunction = SourceFuncFactory.Create (function, false);
+            var nativeFunctionGCHandle = GCHandle.Alloc (nativeFunction);
+            DestroyNotify nativeNotify = DestoryNotifyFactory.Create (nativeFunctionGCHandle);
+            var nativeNotifyGCHandle = GCHandle.Alloc (nativeNotify);
+            var data = GCHandle.ToIntPtr (nativeNotifyGCHandle);
+            g_idle_add_full (priority, nativeFunction, data, nativeNotify);
+
+            return nativeNotifyGCHandle;
         }
 
         /// <summary>

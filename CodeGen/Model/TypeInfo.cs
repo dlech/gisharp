@@ -51,6 +51,10 @@ namespace GISharp.CodeGen.Model
         /// A value type (struct).
         /// </summary>
         ValueType,
+        /// <summary>
+        /// No type.
+        /// </summary>
+        Void,
     }
     public class TypeInfo : BaseInfo
     {
@@ -60,7 +64,9 @@ namespace GISharp.CodeGen.Model
         public TypeClassification Classification {
             get {
                 if (!_Classification.HasValue) {
-                    if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
+                    if (TypeObject == typeof(void)) {
+                        _Classification = TypeClassification.Void;
+                    } else if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
                         // GirType always returns false for IsAssignableFrom when type is a RuntimeType
                         // so we have to check IsSubclassOf as well.
                         _Classification = TypeClassification.Delegate;
