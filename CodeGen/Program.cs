@@ -111,10 +111,12 @@ namespace GISharp.CodeGen
 
     static class ExtensionMethods
     {
+        #pragma warning disable 0414 // ignore private field not used
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace c = Globals.CNamespace;
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
+        #pragma warning restore 0414
 
         /// <summary>
         /// Converts an object to an approprate ExpressionSyntax

@@ -11,10 +11,12 @@ namespace GISharp.CodeGen
 {
     public class GirType : Type
     {
+        #pragma warning disable 0414 // ignore private field not used
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace c = Globals.CNamespace;
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
+        #pragma warning restore 0414
 
         static readonly Assembly gisharpCoreAssembly = Assembly.GetAssembly (typeof(Opaque));
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
