@@ -46,7 +46,7 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         public static string DataHome {
             get {
                 return GetDir ("XDG_DATA_HOME",Path.Combine (
-                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    Environment.GetEnvironmentVariable ("HOME"),
                     ".local",
                     "share"));
             }
@@ -63,7 +63,7 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         public static string ConfigHome {
             get {
                 return GetDir ("XDG_CONFIG_HOME", Path.Combine (
-                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    Environment.GetEnvironmentVariable ("HOME"),
                     ".config"));
             }
         }
@@ -79,10 +79,12 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         public static string[] DataDirs {
             get {
                 return GetDirs ("XDG_DATA_DIRS", new [] {
-                    Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                                      "usr", "local", "share"),
-                            Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                                      "usr", "share")
+                    Path.Combine (
+                        Path.DirectorySeparatorChar.ToString (),
+                        "usr", "local", "share"),
+                    Path.Combine (
+                        Path.DirectorySeparatorChar.ToString (),
+                        "usr", "share")
                 });
             }
         }
@@ -99,8 +101,9 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         public static string[] ConfigDirs {
             get {
                 return GetDirs ("XDG_CONFIG_DIRS", new [] {
-                    Path.Combine (Path.DirectorySeparatorChar.ToString (),
-                                      "etc", "xdg")
+                    Path.Combine (
+                        Path.DirectorySeparatorChar.ToString (),
+                        "etc", "xdg")
                 });
             }
         }
@@ -116,7 +119,7 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         public static string CacheHome {
             get {
                 return GetDir ("XDG_CACHE_HOME", Path.Combine (
-                    Environment.GetFolderPath (Environment.SpecialFolder.UserProfile),
+                    Environment.GetEnvironmentVariable ("HOME"),
                     ".cache"));
             }
         }
