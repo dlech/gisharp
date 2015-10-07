@@ -20,7 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0.girfixup --output=${SolutionDir}/GLib/Generated.cs" />
+        <Command type="Execute" command="${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0/GLib-2.0.girfixup --output=${SolutionDir}/GLib-2.0/Generated.cs" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

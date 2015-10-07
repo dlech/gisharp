@@ -65,9 +65,14 @@
       <Name>CodeGen</Name>
     </ProjectReference>
   </ItemGroup>
+  <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
+    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/usr/local/bin/mono')">/usr/local/bin/mono</MonoPath>
+    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/Library/Frameworks/Mono.framework/Commands/mono')">/Library/Frameworks/Mono.framework/Commands/mono</MonoPath>
+    <MonoPath Condition="'$(MonoPath)' == ''">mono</MonoPath>
+  </PropertyGroup>
   <Target Name="BeforeCompile">
     <Delete Files="Generated.cs" />
     <Message Text="Generating Generated.cs..." />
-    <Exec Command="mono $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs" />
+    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs" />
   </Target>
 </Project>
