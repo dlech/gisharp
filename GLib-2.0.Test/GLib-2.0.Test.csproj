@@ -47,13 +47,13 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GLib\GLib.csproj">
-      <Project>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</Project>
-      <Name>GLib</Name>
-    </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GLib-2.0\GLib-2.0.csproj">
+      <Project>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</Project>
+      <Name>GLib-2.0</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

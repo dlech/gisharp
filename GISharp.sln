@@ -11,9 +11,9 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypelibBrowser", "TypelibBr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib", "GLib\GLib.csproj", "{177DD4B3-658C-48DC-AC1E-30E2F170A34F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib-2.0", "GLib-2.0\GLib-2.0.csproj", "{177DD4B3-658C-48DC-AC1E-30E2F170A34F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib.Test", "GLib.Test\GLib.Test.csproj", "{EA59587D-98C3-4F27-91D7-48E427B44BD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib-2.0.Test", "GLib-2.0.Test\GLib-2.0.Test.csproj", "{EA59587D-98C3-4F27-91D7-48E427B44BD7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{537864E0-F054-4AC1-8E19-BD41CB33E920}"
 	ProjectSection(MonoDevelopProperties) = preProject
