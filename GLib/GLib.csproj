@@ -55,4 +55,12 @@
       <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="GLib-2.0.girfixup" />
+  </ItemGroup>
+  <Target Name="BeforeCompile">
+    <Delete Files="Generated.cs" />
+    <Message Text="Generating Generated.cs..." />
+    <Exec Command="mono $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs" />
+  </Target>
 </Project>

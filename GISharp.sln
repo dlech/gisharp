@@ -23,7 +23,6 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FixupFiles", "FixupFiles", "{3E5C24C4-48A1-4238-9FAA-E3D7F67915CE}"
 	ProjectSection(SolutionItems) = preProject
 		girfixup-file-format.md = girfixup-file-format.md
-		GLib-2.0.girfixup = GLib-2.0.girfixup
 	EndProjectSection
 	ProjectSection(MonoDevelopProperties) = preProject
 		BaseDirectory = FixupFiles
