@@ -12,6 +12,9 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen.Model
 {
+    /// <summary>
+    /// Base class for wrapping xml elements from a fixed up .gir file.
+    /// </summary>
     public abstract class BaseInfo
     {
         // Analysis disable InconsistentNaming
@@ -23,14 +26,26 @@ namespace GISharp.CodeGen.Model
 
         protected readonly XElement Element;
 
+        /// <summary>
+        /// Gets the "name" xml attribute from the fixed up xml element associated with this item.
+        /// </summary>
+        /// <value>The name.</value>
         public string GirName {
             get { return Element.Attribute ("name").Value; }
         }
 
+        /// <summary>
+        /// Gets the "gs:managed-name" attribute for xml element associated with this item.
+        /// </summary>
+        /// <value>The name of the managed.</value>
         public virtual string ManagedName {
             get { return Element.Attribute (gs + "managed-name").Value; }
         }
 
+        /// <summary>
+        /// Gets the namespace info associated with this item.
+        /// </summary>
+        /// <value>The namespace info.</value>
         public NamespaceInfo NamespaceInfo {
             get {
                 MemberInfo info = DeclaringMember;
@@ -45,10 +60,20 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-
+        /// <summary>
+        /// Gets the parent member info that declares this item.
+        /// </summary>
+        /// <value>The declaring member or <c>null</c> if this is a top level element.</value>
         public MemberInfo DeclaringMember { get; private set; }
 
         SyntaxList<AttributeListSyntax> _AttributeLists;
+        /// <summary>
+        /// Gets the custom attribute syntax for this item.
+        /// </summary>
+        /// <value>The attribute lists.</value>
+        /// <remarks>
+        /// Implementing members can modify this value by overriding <see cref="GetAttributeLists"/>.
+        /// </remarks>
         public SyntaxList<AttributeListSyntax> AttributeLists {
             get {
                 if (_AttributeLists == default(SyntaxList<AttributeListSyntax>)) {
@@ -60,6 +85,14 @@ namespace GISharp.CodeGen.Model
         }
 
         SyntaxTriviaList? _DocumentationCommentTriviaList;
+        /// <summary>
+        /// Gets the documentation comment syntax for this item.
+        /// </summary>
+        /// <value>The documentation comment trivia list.</value>
+        /// <remarks>
+        /// Implementing members can modify this value by overriding
+        /// <see cref="GetDocumentationCommentTriviaList"/>.
+        /// </remarks>
         public SyntaxTriviaList DocumentationCommentTriviaList {
             get {
                 if (!_DocumentationCommentTriviaList.HasValue) {
@@ -69,6 +102,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:GISharp.CodeGen.Model.BaseInfo"/> class.
+        /// </summary>
+        /// <param name="element">The xml element from the fixed up .gir file.</param>
+        /// <param name="declaringMember">The parent member info on <c>null</c>
+        /// if this is a top level element.</param>
         protected BaseInfo (XElement element, MemberInfo declaringMember)
         {
             if (element == null) {
@@ -78,6 +117,14 @@ namespace GISharp.CodeGen.Model
             DeclaringMember = declaringMember;
         }
 
+        /// <summary>
+        /// Gets the attribute lists for this item.
+        /// </summary>
+        /// <returns>The attribute lists.</returns>
+        /// <remarks>
+        /// Overriding methods should return the values from the base method
+        /// in addition to adding new attributes.
+        /// </remarks>
         protected virtual IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             if (Element.Attribute ("deprecated").AsBool ()) {
@@ -117,6 +164,10 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Gets the documentation comment trivia list for this item.
+        /// </summary>
+        /// <returns>The documentation comment trivia list.</returns>
         protected virtual SyntaxTriviaList GetDocumentationCommentTriviaList ()
         {
             var builder = new StringBuilder ();
