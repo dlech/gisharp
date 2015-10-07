@@ -30,13 +30,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxToken _NativeIdentifier;
+        SyntaxToken? _NativeIdentifier;
         public SyntaxToken NativeIdentifier {
             get {
-                if (_NativeIdentifier == default(SyntaxToken)) {
+                if (!_NativeIdentifier.HasValue) {
                     _NativeIdentifier = Identifier (base.ManagedName);
                 }
-                return _NativeIdentifier;
+                return _NativeIdentifier.Value;
             }
         }
 
@@ -62,10 +62,10 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxList<AttributeListSyntax> _NativeAttributeLists;
+        SyntaxList<AttributeListSyntax>? _NativeAttributeLists;
         public SyntaxList<AttributeListSyntax> NativeAttributeLists {
             get {
-                if (_NativeAttributeLists == default(SyntaxList<AttributeListSyntax>)) {
+                if (!_NativeAttributeLists.HasValue) {
                     var unmanagedFuncPtrAttrName = ParseName (typeof(UnmanagedFunctionPointerAttribute).FullName);
                     var unmangedFuncPtrAttrArgListText = string.Format ("({0}.{1})", typeof(CallingConvention), CallingConvention.Cdecl);
                     var unmanagedFuncPtrAttrArgList = ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
@@ -75,17 +75,17 @@ namespace GISharp.CodeGen.Model
                         .AddRange (base.GetAttributeLists ())
                         .Add (AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
                 }
-                return _NativeAttributeLists;
+                return _NativeAttributeLists.Value;
             }
         }
 
-        SyntaxTriviaList _NativeDocumentationCommentTriviaList;
+        SyntaxTriviaList? _NativeDocumentationCommentTriviaList;
         public SyntaxTriviaList NativeDocumentationCommentTriviaList {
             get {
-                if (_NativeDocumentationCommentTriviaList == default(SyntaxTriviaList)) {
+                if (!_NativeDocumentationCommentTriviaList.HasValue) {
                     _NativeDocumentationCommentTriviaList = base.GetDocumentationCommentTriviaList ();
                 }
-                return _NativeDocumentationCommentTriviaList;
+                return _NativeDocumentationCommentTriviaList.Value;
             }
         }
 

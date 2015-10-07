@@ -23,7 +23,7 @@ namespace GISharp.CodeGen.Model
         BaseListSyntax _BaseList;
         public BaseListSyntax BaseList {
             get {
-                if (_BaseList == default(BaseListSyntax)) {
+                if (_BaseList == null) {
                     var types = SeparatedList<BaseTypeSyntax> ();
                     var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
                     if (opaqueTypeName != null) {
@@ -65,7 +65,7 @@ namespace GISharp.CodeGen.Model
         ConstructorDeclarationSyntax _DefaultConstructor;
         public ConstructorDeclarationSyntax DefaultConstructor {
             get {
-                if (_DefaultConstructor == default(ConstructorDeclarationSyntax)) {
+                if (_DefaultConstructor == null) {
                     var modifiers = TokenList ()
                         .Add (Token (SyntaxKind.ProtectedKeyword));
                     var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",

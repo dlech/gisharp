@@ -26,14 +26,14 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SeparatedSyntaxList<EnumMemberDeclarationSyntax> _EnumMembers;
+        SeparatedSyntaxList<EnumMemberDeclarationSyntax>? _EnumMembers;
         public SeparatedSyntaxList<EnumMemberDeclarationSyntax> EnumMembers {
             get {
-                if (_EnumMembers == default(SeparatedSyntaxList<EnumMemberDeclarationSyntax>)) {
+                if (!_EnumMembers.HasValue) {
                     _EnumMembers = SeparatedList<EnumMemberDeclarationSyntax> ()
                         .AddRange (EnumMemberInfos.Select (x => x.EnumMemberDeclaration));
                 }
-                return _EnumMembers;
+                return _EnumMembers.Value;
             }
         }
 

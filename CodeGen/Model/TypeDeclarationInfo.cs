@@ -14,14 +14,14 @@ namespace GISharp.CodeGen.Model
 {
     public abstract class TypeDeclarationInfo : MemberInfo
     {
-        SyntaxToken _InstanceIdentifier;
+        SyntaxToken? _InstanceIdentifier;
         public SyntaxToken InstanceIdentifier {
             get {
-                if (_InstanceIdentifier == default(SyntaxToken)) {
+                if (!_InstanceIdentifier.HasValue) {
                     _InstanceIdentifier = Element.Name == gi + "alias"
                         ? Identifier("value") : Identifier ("Handle");
                 }
-                return _InstanceIdentifier;
+                return _InstanceIdentifier.Value;
             }
         }
 
@@ -45,15 +45,15 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxList<MemberDeclarationSyntax> _TypeMembers;
+        SyntaxList<MemberDeclarationSyntax>? _TypeMembers;
         public SyntaxList<MemberDeclarationSyntax> TypeMembers {
             get {
-                if (_TypeMembers == default(SyntaxList<MemberDeclarationSyntax>)) {
+                if (!_TypeMembers.HasValue) {
                     _TypeMembers = List<MemberDeclarationSyntax> ()
                         .AddRange (FieldInfos.SelectMany (x => x.Declarations))
                         .AddRange (MethodInfos.SelectMany (x => x.Declarations));
                 }
-                return _TypeMembers;
+                return _TypeMembers.Value;
             }
         }
 

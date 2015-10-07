@@ -56,6 +56,7 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         Void,
     }
+
     public class TypeInfo : BaseInfo
     {
         readonly string typeName;
@@ -139,7 +140,7 @@ namespace GISharp.CodeGen.Model
         TypeSyntax _Type;
         public TypeSyntax Type {
             get {
-                if (_Type == default(TypeSyntax)) {
+                if (_Type == null) {
                     var fixedUpTypeName = typeName;
                     if (typeName == "System.Void") {
                         // C# can't use System.Void

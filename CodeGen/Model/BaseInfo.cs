@@ -59,13 +59,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTriviaList _DocumentationCommentTriviaList;
+        SyntaxTriviaList? _DocumentationCommentTriviaList;
         public SyntaxTriviaList DocumentationCommentTriviaList {
             get {
-                if (_DocumentationCommentTriviaList == default(SyntaxTriviaList)) {
+                if (!_DocumentationCommentTriviaList.HasValue) {
                     _DocumentationCommentTriviaList = GetDocumentationCommentTriviaList ();
                 }
-                return _DocumentationCommentTriviaList;
+                return _DocumentationCommentTriviaList.Value;
             }
         }
 

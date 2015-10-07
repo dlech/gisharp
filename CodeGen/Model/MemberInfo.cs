@@ -13,13 +13,13 @@ namespace GISharp.CodeGen.Model
 {
     public abstract class MemberInfo : BaseInfo
     {
-        SyntaxToken _Identifier;
+        SyntaxToken? _Identifier;
         public SyntaxToken Identifier {
             get {
-                if (_Identifier == default(SyntaxToken)) {
+                if (!_Identifier.HasValue) {
                     _Identifier = Identifier (ManagedName);
                 }
-                return _Identifier;
+                return _Identifier.Value;
             }
         }
 
@@ -45,13 +45,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTokenList _Modifiers;
+        SyntaxTokenList? _Modifiers;
         public SyntaxTokenList Modifiers {
             get {
-                if (_Modifiers == default(SyntaxTokenList)) {
+                if (!_Modifiers.HasValue) {
                     _Modifiers = TokenList (GetModifiers ());
                 }
-                return _Modifiers;
+                return _Modifiers.Value;
             }
         }
 

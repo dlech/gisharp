@@ -153,20 +153,20 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxToken _Identifier;
+        SyntaxToken? _Identifier;
         public SyntaxToken Identifier {
             get {
-                if (_Identifier == default(SyntaxToken)) {
+                if (!_Identifier.HasValue) {
                     _Identifier = Identifier (ManagedName);
                 }
-                return _Identifier;
+                return _Identifier.Value;
             }
         }
 
         ParameterSyntax _Parameter;
         public ParameterSyntax Parameter {
             get {
-                if (_Parameter == default(ParameterSyntax)) {
+                if (_Parameter == null) {
                     _Parameter = Parameter (Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
@@ -184,13 +184,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTokenList _Modifiers;
+        SyntaxTokenList? _Modifiers;
         public SyntaxTokenList Modifiers {
             get {
-                if (_Modifiers == default(SyntaxTokenList)) {
+                if (!_Modifiers.HasValue) {
                     _Modifiers = TokenList (GetModifiers ());
                 }
-                return _Modifiers;
+                return _Modifiers.Value;
             }
         }
 
@@ -203,20 +203,20 @@ namespace GISharp.CodeGen.Model
         ExpressionSyntax _Default;
         public ExpressionSyntax Default {
             get {
-                if (_Default == default(ExpressionSyntax)) {
+                if (_Default == null) {
                     _Default = ParseExpression (Element.Attribute (gs + "default")?.Value);
                 }
                 return _Default;
             }
         }
 
-        SyntaxTriviaList _AnnotationTriviaList;
+        SyntaxTriviaList? _AnnotationTriviaList;
         public SyntaxTriviaList AnnotationTriviaList {
             get {
-                if (_AnnotationTriviaList == default(SyntaxTriviaList)) {
+                if (!_AnnotationTriviaList.HasValue) {
                     _AnnotationTriviaList = TriviaList (GetAnnotationTrivias ());
                 }
-                return _AnnotationTriviaList;
+                return _AnnotationTriviaList.Value;
             }
         }
 

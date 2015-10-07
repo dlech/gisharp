@@ -110,21 +110,21 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxToken _PinvokeIdentifier;
+        SyntaxToken? _PinvokeIdentifier;
         public SyntaxToken PinvokeIdentifier { 
             get {
-                if (_PinvokeIdentifier == default(SyntaxToken)) {
+                if (!_PinvokeIdentifier.HasValue) {
                     var cIdentifier = Element.Attribute (c + "identifier").Value;
                     _PinvokeIdentifier = Identifier (cIdentifier);
                 }
-                return _PinvokeIdentifier;
+                return _PinvokeIdentifier.Value;
             }
         }
 
         ParameterListSyntax _ParameterList;
         public ParameterListSyntax ParameterList {
             get {
-                if (_ParameterList == default(ParameterListSyntax)) {
+                if (_ParameterList == null) {
                     var parameterList = SeparatedList<ParameterSyntax> ()
                         .AddRange (ManagedParameterInfos.Select (x => x.Parameter));
                     _ParameterList = ParameterList (parameterList);
@@ -136,7 +136,7 @@ namespace GISharp.CodeGen.Model
         ConstructorInitializerSyntax _ConstructorInitalizer;
         public ConstructorInitializerSyntax ConstructorInitalizer {
             get {
-                if (_ConstructorInitalizer == default(ConstructorInitializerSyntax)) {
+                if (_ConstructorInitalizer == null) {
                     _ConstructorInitalizer = GetConstructorInitalizer ();
                 }
                 return _ConstructorInitalizer;
@@ -156,7 +156,7 @@ namespace GISharp.CodeGen.Model
         ParameterListSyntax _PinvokeParameterList;
         public ParameterListSyntax PinvokeParameterList {
             get {
-                if (_PinvokeParameterList == default(ParameterListSyntax)) {
+                if (_PinvokeParameterList == null) {
                     var parameterList = SeparatedList<ParameterSyntax> ()
                         .AddRange (PinvokeParameterInfos.Select (x => x.Parameter));
                     _PinvokeParameterList = ParameterList (parameterList);
@@ -165,34 +165,34 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTokenList _PinvokeModifiers;
+        SyntaxTokenList? _PinvokeModifiers;
         public SyntaxTokenList PinvokeModifiers {
             get {
-                if (_PinvokeModifiers == default(SyntaxTokenList)) {
+                if (!_PinvokeModifiers.HasValue) {
                     _PinvokeModifiers = TokenList (GetPinvokeModifiers ());
                 }
-                return _PinvokeModifiers;
+                return _PinvokeModifiers.Value;
             }
         }
 
-        SyntaxList<AttributeListSyntax> _PinvokeAttributeLists;
+        SyntaxList<AttributeListSyntax>? _PinvokeAttributeLists;
         public SyntaxList<AttributeListSyntax> PinvokeAttributeLists {
             get {
-                if (_PinvokeAttributeLists == default(SyntaxList<AttributeListSyntax>)) {
+                if (!_PinvokeAttributeLists.HasValue) {
                     _PinvokeAttributeLists = List<AttributeListSyntax> ()
                         .AddRange (GetPinvokeAttributeLists ());
                 }
-                return _PinvokeAttributeLists;
+                return _PinvokeAttributeLists.Value;
             }
         }
 
-        SyntaxTriviaList _PinvokeDocumentationCommentTriviaList;
+        SyntaxTriviaList? _PinvokeDocumentationCommentTriviaList;
         public SyntaxTriviaList PinvokeDocumentationCommentTriviaList {
             get {
-                if (_PinvokeDocumentationCommentTriviaList == default(SyntaxTriviaList)) {
+                if (!_PinvokeDocumentationCommentTriviaList.HasValue) {
                     _PinvokeDocumentationCommentTriviaList = GetPinvokeDocumentationCommentTriviaList ();
                 }
-                return _PinvokeDocumentationCommentTriviaList;
+                return _PinvokeDocumentationCommentTriviaList.Value;
             }
         }
 
