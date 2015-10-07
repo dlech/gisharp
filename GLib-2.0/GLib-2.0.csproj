@@ -58,6 +58,13 @@
   <ItemGroup>
     <None Include="GLib-2.0.girfixup" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\CodeGen\CodeGen.csproj">
+      <ReferenceOutputAssembly>false</ReferenceOutputAssembly>
+      <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
+      <Name>CodeGen</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Target Name="BeforeCompile">
     <Delete Files="Generated.cs" />
     <Message Text="Generating Generated.cs..." />
