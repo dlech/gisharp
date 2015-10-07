@@ -6,26 +6,39 @@ using GISharp.GLib;
 
 namespace GISharp.GLib.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class VersionTests
     {
-        [Test ()]
-        public void TestVersion ()
+        [Test]
+        public void TestCompileTime ()
         {
             // This is a bit of a backwards test since it is actually verifying
             // that the assembly version is correct.
             var assembly = Assembly.GetAssembly (typeof (Version));
             var assemblyVersion = assembly.GetName ().Version;
-            Assert.That (Version.Current.Major, Is.EqualTo (assemblyVersion.Major));
-            Assert.That (Version.Current.MajorRevision, Is.EqualTo (assemblyVersion.MajorRevision));
+            Assert.That (Version.CompileTime.Major, Is.EqualTo (assemblyVersion.Major));
+            Assert.That (Version.CompileTime.Minor, Is.EqualTo (assemblyVersion.Minor));
         }
 
-        [Test ()]
+        [Test]
+        public void TestRuntimeTime ()
+        {
+            // This is a bit of a backwards test since it is actually verifying
+            // that the assembly version is correct.
+            var assembly = Assembly.GetAssembly (typeof (Version));
+            var assemblyVersion = assembly.GetName ().Version;
+            Assert.That (Version.RunTime.Major, Is.EqualTo (assemblyVersion.Major));
+            Assert.That (Version.RunTime.Minor, Is.EqualTo (assemblyVersion.Minor));
+        }
+
+        [Test]
         public void TestCheck ()
         {
             string actual;
-            actual = Version.Check ((uint)Version.Current.Major,
-                (uint)Version.Current.MajorRevision, (uint)Version.Current.Minor);
+            actual = Version.Check (
+                (uint)Version.CompileTime.Major,
+                (uint)Version.CompileTime.Minor,
+                (uint)Version.CompileTime.Revision);
             // null means version is OK
             Assert.That (actual, Is.Null);
 
