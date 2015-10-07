@@ -12,7 +12,7 @@ namespace GISharp.GLib
         /// <value>The compile time version.</value>
         public static System.Version CompileTime {
             get {
-                return new System.Version (Major, Minor, Micro, 0);
+                return new System.Version (major, minor, micro, 0);
             }
         }
 

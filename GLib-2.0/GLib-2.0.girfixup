@@ -352,7 +352,7 @@ chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='Main
 
 # add a static class for priority related stuff
 addelement "<gs:static-class name='Priority' />" "gi:repository/gi:namespace"
-# Move PRIORITY_ constants to Version static-class
+# Move PRIORITY_ constants to Priority static-class
 move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "gi:repository/gi:namespace/gs:static-class[@name='Priority']"
 # Drop the PRIORITY_ prefix from the constant names
 chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
@@ -458,6 +458,8 @@ chattr "shadows" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-c
 addelement "<gs:static-class name='Version' />" "gi:repository/gi:namespace"
 # Move VERSION constants to Version static-class
 move "gi:repository/gi:namespace/gi:constant[contains(@name,'VERSION')]" "gi:repository/gi:namespace/gs:static-class[@name='Version']"
+# make version constants private
+chattr "gs:access-modifier" "" "private" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
 # Drop the VERSION prefix or suffix from the constant names
 chattr "name" "(.*)_?VERSION_?(.*)" "$1$2" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
 # Move check_version function to Version static-class
