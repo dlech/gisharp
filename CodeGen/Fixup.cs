@@ -263,7 +263,9 @@ namespace GISharp.CodeGen
                     new XAttribute ("name", "error"),
                     new XAttribute ("direction", "out"),
                     new XAttribute (gs + "managed-type", typeof(IntPtr).FullName),
-                    new XElement (gi + "doc", "return location for a #GError"));
+                    new XElement (gi + "doc", "return location for a #GError"),
+                    new XElement (gi + "type",
+                        new XAttribute ("name", "GLib.Error")));
                 if (element.Element (gi + "parameters") == null) {
                     element.Add (new XElement (gi + "parameters"));
                 }

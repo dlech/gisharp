@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
@@ -156,6 +157,20 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        SyntaxTrivia? _GirXmlTrivia;
+        /// <summary>
+        /// Gets the gir xml for the type as a comment.
+        /// </summary>
+        /// <value>The gir xml trivia.</value>
+        public SyntaxTrivia GirXmlTrivia {
+            get {
+                if (!_GirXmlTrivia.HasValue) {
+                    _GirXmlTrivia = GetGirXmlTrivia ();
+                }
+                return _GirXmlTrivia.Value;
+            }
+        }
+
         public TypeInfo (XElement element, bool managed)
             : base (element, null)
         {
@@ -180,6 +195,24 @@ namespace GISharp.CodeGen.Model
             }
             // have to reset the lazy getter since we possibly changed the type.
             _TypeObject = null;
+        }
+
+        SyntaxTrivia GetGirXmlTrivia ()
+        {
+            var copy = new XElement (Element);
+            copy.Descendants (gi + "doc").Remove ();
+            // Thanks: http://stackoverflow.com/a/14865785/1976323
+            foreach (var e in copy.DescendantsAndSelf()) {
+                // Stripping the namespace by setting the name of the element to it's localname only
+                e.Name = e.Name.LocalName;
+                // replacing all attributes with attributes that are not namespaces
+                // and their names are set to only the localname
+                e.ReplaceAttributes (e.Attributes()
+                    .Where(a => !a.IsNamespaceDeclaration)
+                    .Select (a => new XAttribute(a.Name.LocalName, a.Value)));
+            }
+            var comment = string.Format ($"/* {copy.Elements ().Single ()} */");
+            return Comment (comment);
         }
     }
 }

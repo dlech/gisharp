@@ -170,11 +170,7 @@ namespace GISharp.CodeGen.Model
                     _Parameter = Parameter (Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
-                        .WithType (TypeInfo.Type).WithLeadingTrivia (
-                            // put each parameter on a new line for better readability since we are using full type names
-                            EndOfLine("\n"),
-                            Whitespace ("\t"))
-                        .WithTrailingTrivia (AnnotationTriviaList);
+                        .WithType (TypeInfo.Type);
                     if (managed && HasDefault) {
                         var @default = EqualsValueClause (Default);
                         _Parameter = _Parameter.WithDefault (@default);
@@ -210,13 +206,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTriviaList? _AnnotationTriviaList;
-        public SyntaxTriviaList AnnotationTriviaList {
+        SyntaxTrivia? _AnnotationTrivia;
+        public SyntaxTrivia AnnotationTrivia {
             get {
-                if (!_AnnotationTriviaList.HasValue) {
-                    _AnnotationTriviaList = TriviaList (GetAnnotationTrivias ());
+                if (!_AnnotationTrivia.HasValue) {
+                    _AnnotationTrivia = GetAnnotationTrivia ();
                 }
-                return _AnnotationTriviaList.Value;
+                return _AnnotationTrivia.Value;
             }
         }
 
@@ -274,21 +270,17 @@ namespace GISharp.CodeGen.Model
             return ParseLeadingTrivia (builder.ToString ());
         }
 
-        SyntaxTriviaList GetAnnotationTrivias ()
+        SyntaxTrivia GetAnnotationTrivia ()
         {
-            // only add comments to pinvoke parameters
-            if (managed) {
-                return default(SyntaxTriviaList);
-            }
             var builder = new StringBuilder ();
-            builder.Append (" /* ");
+            builder.Append ("/* ");
             var attrs = Element.Attributes ()
                 .Where (x => x.Name.Namespace != gs && x.Name != "name");
             foreach (var attr in attrs) {
                 builder.AppendFormat ("{0}:{1} ", attr.Name.LocalName, attr.Value);
             }
             builder.Append ("*/");
-            return ParseTrailingTrivia (builder.ToString ());
+            return Comment (builder.ToString ());
         }
     }
 

@@ -158,7 +158,12 @@ namespace GISharp.CodeGen.Model
             get {
                 if (_PinvokeParameterList == null) {
                     var parameterList = SeparatedList<ParameterSyntax> ()
-                        .AddRange (PinvokeParameterInfos.Select (x => x.Parameter));
+                        .AddRange (PinvokeParameterInfos.Select (
+                            x => x.Parameter.WithLeadingTrivia (
+                                x.TypeInfo.GirXmlTrivia,
+                                EndOfLine("\n"),
+                                x.AnnotationTrivia,
+                                EndOfLine("\n"))));
                     _PinvokeParameterList = ParameterList (parameterList);
                 }
                 return _PinvokeParameterList;
@@ -219,10 +224,15 @@ namespace GISharp.CodeGen.Model
         {
             var pinvokeMethod = MethodDeclaration (
                 UnmanagedReturnParameterInfo.TypeInfo.Type,
-                PinvokeIdentifier
-                    .WithTrailingTrivia (UnmanagedReturnParameterInfo.AnnotationTriviaList))
+                PinvokeIdentifier)
                 .WithAttributeLists (PinvokeAttributeLists)
-                .WithModifiers (PinvokeModifiers)
+                .WithModifiers (PinvokeModifiers.Replace (
+                    // add type info xml comment before declaration, but after attributes
+                    PinvokeModifiers.First (),
+                    PinvokeModifiers.First ().WithLeadingTrivia (
+                        UnmanagedReturnParameterInfo.TypeInfo.GirXmlTrivia,
+                        EndOfLine ("\n"),
+                        UnmanagedReturnParameterInfo.AnnotationTrivia)))
                 .WithParameterList (PinvokeParameterList)
                 .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
                 .WithLeadingTrivia (PinvokeDocumentationCommentTriviaList);
