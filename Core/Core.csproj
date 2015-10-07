@@ -55,6 +55,12 @@
     <Compile Include="GirXmlAttribute.cs" />
     <Compile Include="Transfer.cs" />
     <Compile Include="NullHandleIsInstanceAttribute.cs" />
+    <Compile Include="DynamicLibrary.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Core.dll.config">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
