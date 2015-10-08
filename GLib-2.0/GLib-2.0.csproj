@@ -38,6 +38,7 @@
     <Compile Include="VariantType.cs" />
     <Compile Include="Generated.cs" />
     <Compile Include="Idle.cs" />
+    <Compile Include="MainLoop.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ProjectExtensions>

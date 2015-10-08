@@ -12,24 +12,26 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestAdd ()
         {
-            var idleInvoked = false;
+            lock (MainLoopTests.MainLoopLock) {
+                var idleInvoked = false;
 
-            // null function is not allowed
-            Assert.That (() => Idle.Add (null),
-                Throws.InstanceOf<ArgumentNullException> ());
+                // null function is not allowed
+                Assert.That (() => Idle.Add (null),
+                    Throws.InstanceOf<ArgumentNullException> ());
 
-            // make sure method actually works as intended
-            Task.Run (() => {
-                var mainLoop = new MainLoop (MainContext.ThreadDefault);
-                Idle.Add (() => {
-                    mainLoop.Quit ();
-                    idleInvoked = true;
-                    return Source.Remove;
-                });
-                mainLoop.Run ();
-            }).Wait (100);
+                // make sure method actually works as intended
+                Task.Run (() => {
+                    var mainLoop = new MainLoop ();
+                    Idle.Add (() => {
+                        mainLoop.Quit ();
+                        idleInvoked = true;
+                        return Source.Remove;
+                    });
+                    mainLoop.Run ();
+                }).Wait (100);
 
-            Assert.That (idleInvoked, Is.True);
+                Assert.That (idleInvoked, Is.True);
+            }
         }
 
         [Test]

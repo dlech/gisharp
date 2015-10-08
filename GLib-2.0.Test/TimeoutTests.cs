@@ -12,37 +12,41 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestAdd ()
         {
-            var timeoutInvoked = false;
+            lock (MainLoopTests.MainLoopLock) {
+                var timeoutInvoked = false;
 
-            Task.Run (() => {
-                var mainLoop = new MainLoop (MainContext.ThreadDefault);
-                Timeout.Add (0, () => {
-                    mainLoop.Quit ();
-                    timeoutInvoked = true;
-                    return Source.Remove;
-                });
-                mainLoop.Run ();
-            }).Wait (100);
+                Task.Run (() => {
+                    var mainLoop = new MainLoop ();
+                    Timeout.Add (0, () => {
+                        mainLoop.Quit ();
+                        timeoutInvoked = true;
+                        return Source.Remove;
+                    });
+                    mainLoop.Run ();
+                }).Wait (100);
 
-            Assert.That (timeoutInvoked, Is.True);
+                Assert.That (timeoutInvoked, Is.True);
+            }
         }
 
         [Test]
         public void TestAddSeconds ()
         {
-            var timeoutInvoked = false;
+            lock (MainLoopTests.MainLoopLock) {
+                var timeoutInvoked = false;
 
-            Task.Run (() => {
-                var mainLoop = new MainLoop (MainContext.ThreadDefault);
-                Timeout.AddSeconds (0, () => {
-                    mainLoop.Quit ();
-                    timeoutInvoked = true;
-                    return Source.Remove;
-                });
-                mainLoop.Run ();
-            }).Wait (2000);
+                Task.Run (() => {
+                    var mainLoop = new MainLoop ();
+                    Timeout.AddSeconds (0, () => {
+                        mainLoop.Quit ();
+                        timeoutInvoked = true;
+                        return Source.Remove;
+                    });
+                    mainLoop.Run ();
+                }).Wait (2000);
 
-            Assert.That (timeoutInvoked, Is.True);
+                Assert.That (timeoutInvoked, Is.True);
+            }
         }
 
         [Test]

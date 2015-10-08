@@ -342,12 +342,18 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/
 chattr "name" "" "get_thread_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='ref_thread_default']"
 # fix parameter direction
 chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='query']/gi:parameters/gi:parameter[@name='n_fds']"
+# add shadow for invoke methods
+chattr "shadowed-by" "" "invoke_full" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke']"
+chattr "shadows" "" "invoke" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']"
+chattr "gs:default" "" "GISharp.GLib.Priority.Default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']/gi:parameters/gi:parameter[@name='priority']"
 
 # MainLoop
 
 # set default parameters for constructor
 chattr "gs:default" "" "null" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='context']"
 chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='is_running']"
+# requires special implementation
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:method[@name='run']"
 
 # Priority
 
@@ -415,7 +421,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:m
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_va']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_parsed_va']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_va']"
-
 
 # VariantType
 
