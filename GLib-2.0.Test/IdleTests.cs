@@ -20,7 +20,7 @@ namespace GISharp.GLib.Test
 
             // make sure method actually works as intended
             Task.Run (() => {
-                var mainLoop = new MainLoop ();
+                var mainLoop = new MainLoop (MainContext.ThreadDefault);
                 Idle.Add (() => {
                     mainLoop.Quit ();
                     idleInvoked = true;

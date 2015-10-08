@@ -337,8 +337,9 @@ move "gi:repository/gi:namespace/gi:function[@name='main_depth']" "gi:repository
 move "gi:repository/gi:namespace/gi:function[@name='poll']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
 # rename function so that is shows up as property
 chattr "name" "" "get_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='default']"
-# ignore unneeded function
+# use ref_thread_default instead of get_thread_default
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='get_thread_default']"
+chattr "name" "" "get_thread_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='ref_thread_default']"
 # fix parameter direction
 chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='query']/gi:parameters/gi:parameter[@name='n_fds']"
 

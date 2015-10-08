@@ -6,10 +6,10 @@ using GISharp.GLib;
 
 namespace GISharp.GLib.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class MainLoopTests
     {
-        [Test ()]
+        [Test]
         public void TestGetContext ()
         {
             var mainLoop = new MainLoop ();
@@ -17,7 +17,7 @@ namespace GISharp.GLib.Test
             Assert.That (context, Is.EqualTo (MainContext.Default));
         }
 
-        [Test ()]
+        [Test]
         public void TestIsRunning ()
         {
             MainLoop mainLoop;
@@ -29,10 +29,10 @@ namespace GISharp.GLib.Test
             Assert.That (mainLoop.IsRunning, Is.True);
         }
 
-        [Test ()]
+        [Test]
         public void TestRunQuit ()
         {
-            var mainLoop = new MainLoop ();
+            var mainLoop = new MainLoop (MainContext.ThreadDefault);
             Assume.That (!mainLoop.IsRunning);
             var runTask = Task.Run (() => mainLoop.Run ());
             Task.Delay (100).Wait ();

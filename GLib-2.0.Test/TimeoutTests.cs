@@ -6,16 +6,16 @@ using GISharp.GLib;
 
 namespace GISharp.GLib.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class TimeoutTests
     {
-        [Test ()]
-        public void TestTimeoutAdd ()
+        [Test]
+        public void TestAdd ()
         {
             var timeoutInvoked = false;
 
             Task.Run (() => {
-                var mainLoop = new MainLoop ();
+                var mainLoop = new MainLoop (MainContext.ThreadDefault);
                 Timeout.Add (0, () => {
                     mainLoop.Quit ();
                     timeoutInvoked = true;
@@ -28,12 +28,12 @@ namespace GISharp.GLib.Test
         }
 
         [Test]
-        public void TestTimeoutAddSeconds ()
+        public void TestAddSeconds ()
         {
             var timeoutInvoked = false;
 
             Task.Run (() => {
-                var mainLoop = new MainLoop ();
+                var mainLoop = new MainLoop (MainContext.ThreadDefault);
                 Timeout.AddSeconds (0, () => {
                     mainLoop.Quit ();
                     timeoutInvoked = true;
@@ -45,14 +45,14 @@ namespace GISharp.GLib.Test
             Assert.That (timeoutInvoked, Is.True);
         }
 
-        [Test ()]
+        [Test]
         public void TestTimeoutAddNew ()
         {
             var source = Timeout.SourceNew (0);
             Assert.That (source, Is.Not.Null);
         }
 
-        [Test ()]
+        [Test]
         public void TestTimeoutAddNewSeconds ()
         {
             var source = Timeout.SourceNewSeconds (0);
