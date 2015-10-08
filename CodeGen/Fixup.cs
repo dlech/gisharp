@@ -303,8 +303,9 @@ namespace GISharp.CodeGen
                 name = camelCase ? name.ToCamelCase () : name.ToPascalCase ();
 
                 // callbacks that are defined for a field tend to have name conflicts
-                if (element.Name == gi + "callback" && element.Parent.Name == gi + "field") {
-                    name += "Callback";
+                if (element.Name == gi + "field" && element.Element (gi + "callback") != null) {
+                    // add "Impl" suffix to the field name
+                    name += "Impl";
                 }
 
                 element.SetAttributeValue (gs + "managed-name", name);
@@ -724,7 +725,7 @@ namespace GISharp.CodeGen
                 case "GLib.CompareDataFunc":
                 case "CompareFunc":
                 case "GLib.CompareFunc":
-                    return typeof(GISharp.Core.CompareFunc).FullName;
+                    return typeof(GISharp.Core.NativeCompareFunc).FullName;
 //                        + string.Format ("[{0}.{1}.{2}]",
 //                            MainClass.parentNamespace,
 //                            element.GetNamespace (),
@@ -733,7 +734,7 @@ namespace GISharp.CodeGen
 //                                .Attribute ("name").Value);
                 case "CopyFunc":
                 case "GLib.CopyFunc":
-                    return typeof(GISharp.Core.CopyFunc).FullName;
+                    return typeof(GISharp.Core.NativeCopyFunc).FullName;
 //                        + string.Format ("[{0}.{1}.{2}]",
 //                            MainClass.parentNamespace,
 //                            element.GetNamespace (),
@@ -742,7 +743,7 @@ namespace GISharp.CodeGen
 //                            .Attribute ("name").Value);
                 case "DestroyNotify":
                 case "GLib.DestroyNotify":
-                    return typeof(GISharp.Core.DestroyNotify).FullName;
+                    return typeof(GISharp.Core.NativeDestroyNotify).FullName;
 //                        + string.Format ("[{0}.{1}.{2}]",
 //                            MainClass.parentNamespace,
 //                            element.GetNamespace (),
@@ -751,7 +752,7 @@ namespace GISharp.CodeGen
 //                            .Attribute ("name").Value);
                 case "Func":
                 case "GLib.Func":
-                    return typeof(GISharp.Core.Func).FullName;
+                    return typeof(GISharp.Core.NativeFunc).FullName;
 //                        + string.Format ("[{0}.{1}.{2}]",
 //                            MainClass.parentNamespace,
 //                            element.GetNamespace (),

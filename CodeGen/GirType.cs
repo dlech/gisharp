@@ -109,9 +109,9 @@ namespace GISharp.CodeGen
                         .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
                         .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     if (typeDefinitionElement == null) {
-                        // special case for callbacks since there is a "Callback" version of each of those as well.
+                        // special case for callbacks since there is a "Native" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
-                            .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value + "Callback" == unqualifiedTypeName);
+                            .SingleOrDefault (d => "Native" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     }
                     if (typeDefinitionElement != null) {
                         girTypeCache.Add (typeName, typeDefinitionElement);

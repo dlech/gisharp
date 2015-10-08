@@ -86,7 +86,7 @@ namespace Core.Test
         [Test]
         public void TestInsertSorted ()
         {
-            CompareFuncCallback<TestOpaque> compareFunc = (a, b) =>
+            CompareFunc<TestOpaque> compareFunc = (a, b) =>
                 a.Value.CompareTo (b.Value);
             var list = new SList<TestOpaque> ();
             Assume.That (list.Length, Is.EqualTo (0));
@@ -217,7 +217,7 @@ namespace Core.Test
         public void TestCopyDeep ()
         {
             var copyFuncWasCalled = false;
-            CopyFuncCallback<TestOpaque> copyFunc = (src) => {
+            CopyFunc<TestOpaque> copyFunc = (src) => {
                 copyFuncWasCalled = true;
                 if (src == null) {
                     return null;
@@ -269,7 +269,7 @@ namespace Core.Test
         public void TestSort ()
         {
             var compareFuncWasCalled = false;
-            CompareFuncCallback<TestOpaque> compareFunc = (a, b) => {
+            CompareFunc<TestOpaque> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Handle.ToInt32 ().CompareTo (b.Handle.ToInt32 ());
             };
@@ -327,7 +327,7 @@ namespace Core.Test
         public void TestForeach ()
         {
             int foreachCallCount = 0;
-            GISharp.Core.FuncCallback<TestOpaque> foreachFunc = (data) =>
+            GISharp.Core.Func<TestOpaque> foreachFunc = (data) =>
                 foreachCallCount++;
             // check that callback is called
             var list = new SList<TestOpaque> ()
@@ -442,7 +442,7 @@ namespace Core.Test
         public void TestFindCustom ()
         {
             var compareFuncWasCalled = false;
-            CompareFuncCallback<TestOpaque> compareFunc = (a, b) => {
+            CompareFunc<TestOpaque> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Value > b.Value ? 0 : -1;
             };

@@ -430,8 +430,8 @@ namespace GISharp.CodeGen.Model
                         var notifyStatement = string.Format (
                             "var {0}_ = {1}.{2} ({3});\n",
                             notifyParameter.Identifier,
-                            typeof(GISharp.Core.DestoryNotifyFactory).FullName,
-                            nameof(GISharp.Core.DestoryNotifyFactory.Create),
+                            typeof(GISharp.Core.NativeDestoryNotifyFactory).FullName,
+                            nameof(GISharp.Core.NativeDestoryNotifyFactory.Create),
                             closureHandle);
                         yield return new Tuple<StatementSyntax, StatementSyntax> (
                             ParseStatement (notifyStatement), null);

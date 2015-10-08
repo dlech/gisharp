@@ -110,11 +110,11 @@ namespace GISharp.Core
 //            Handle = HashTableInternal.g_hash_table_new (hashFuncNative, keyEqualFuncNative);
 //        }
 
-        static IntPtr NewFull (HashFuncCallback<K> hashFunc, EqualFuncCallback<K> keyEqualFunc,
-            DestroyNotifyCallback<K> keyDestroyFunc, DestroyNotifyCallback<V> valueDestroyFunc)
+        static IntPtr NewFull (HashFunc<K> hashFunc, EqualFunc<K> keyEqualFunc,
+            DestroyNotify<K> keyDestroyFunc, DestroyNotify<V> valueDestroyFunc)
         {
             // TODO: need to prevent anonymous functions from being garbage collected.
-            HashFunc hashFuncNative = null;
+            NativeHashFunc hashFuncNative = null;
             if (hashFunc != null) {
                 hashFuncNative = (hashFuncKeyPtr) => {
                     var hashFuncKey = Opaque.GetInstance<K> (hashFuncKeyPtr, Transfer.None);
@@ -122,7 +122,7 @@ namespace GISharp.Core
                     return hashFuncRet;
                 };
             }
-            EqualFunc keyEqualFuncNative = null;
+            NativeEqualFunc keyEqualFuncNative = null;
             if (keyEqualFunc != null) {
                 keyEqualFuncNative = (keyEqualFuncAPtr, keyEqualFuncBPtr) => {
                     var keyEqualFuncA = Opaque.GetInstance<K> (keyEqualFuncAPtr, Transfer.None);
@@ -131,14 +131,14 @@ namespace GISharp.Core
                     return keyEqualFuncRet;
                 };
             }
-            DestroyNotify keyDestroyFuncNative = null;
+            NativeDestroyNotify keyDestroyFuncNative = null;
             if (keyDestroyFunc != null) {
                 keyDestroyFuncNative = (keyDestroyFuncDataPtr) => {
                     var keyDestroyFuncData = Opaque.GetInstance<K> (keyDestroyFuncDataPtr, Transfer.None);
                     keyDestroyFunc.Invoke (keyDestroyFuncData);
                 };
             }
-            DestroyNotify valueDestroyFuncNative = null;
+            NativeDestroyNotify valueDestroyFuncNative = null;
             if (valueDestroyFunc != null) {
                 valueDestroyFuncNative = (valueDestroyFuncDataPtr) => {
                     var valueDestroyFuncData = Opaque.GetInstance<V> (valueDestroyFuncDataPtr, Transfer.None);
@@ -174,8 +174,8 @@ namespace GISharp.Core
         /// <returns>
         /// a new <see cref="HashTable{K,V}"/>
         /// </returns>
-        public HashTable(HashFuncCallback<K> hashFunc = null, EqualFuncCallback<K> keyEqualFunc = null,
-            DestroyNotifyCallback<K> keyDestroyFunc = null, DestroyNotifyCallback<V> valueDestroyFunc = null)
+        public HashTable(HashFunc<K> hashFunc = null, EqualFunc<K> keyEqualFunc = null,
+            DestroyNotify<K> keyDestroyFunc = null, DestroyNotify<V> valueDestroyFunc = null)
             : base (NewFull (hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc), Transfer.All)
         {
         }
@@ -503,13 +503,13 @@ namespace GISharp.Core
         ///     requested property is found, <c>null</c> is returned.
         /// </returns>
         [Since("2.4")]
-        public V Find (HRFuncCallback<K,V> predicate)
+        public V Find (HRFunc<K,V> predicate)
         {
             AssertNotDisposed ();
             if (predicate == null) {
                 throw new ArgumentNullException ("predicate");
             }
-            HRFunc predicateNative = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
+            NativeHRFunc predicateNative = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
                 var predicateKey = Opaque.GetInstance<K> (predicateKeyPtr, Transfer.None);
                 var predicateValue = Opaque.GetInstance<V> (predicateValuePtr, Transfer.None);
                 var predicateRet = predicate.Invoke (predicateKey, predicateValue);
@@ -538,13 +538,13 @@ namespace GISharp.Core
         /// <param name="func">
         /// the function to call for each key/value pair
         /// </param>
-        public void Foreach (HFuncCallback<K,V> func)
+        public void Foreach (HFunc<K,V> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
-            HFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
+            NativeHFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
                 var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 func.Invoke (funcKey, funcValue);
@@ -569,13 +569,13 @@ namespace GISharp.Core
         /// <returns>
         /// the number of key/value pairs removed
         /// </returns>
-        public UInt32 ForeachRemove (HRFuncCallback<K,V> func)
+        public UInt32 ForeachRemove (HRFunc<K,V> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
-            HRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
+            NativeHRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
                 var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 var funcRet = func.Invoke (funcKey, funcValue);
@@ -601,13 +601,13 @@ namespace GISharp.Core
         /// <returns>
         /// the number of key/value pairs removed.
         /// </returns>
-        public UInt32 ForeachSteal (HRFuncCallback<K,V> func)
+        public UInt32 ForeachSteal (HRFunc<K,V> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
-            HRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
+            NativeHRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = Opaque.GetInstance<K> (funcKeyPtr, Transfer.None);
                 var funcValue = Opaque.GetInstance<V> (funcValuePtr, Transfer.None);
                 var funcRet = func.Invoke (funcKey, funcValue);
@@ -879,8 +879,8 @@ namespace GISharp.Core
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_hash_table_new(
-            [In] HashFunc hashFunc,
-            [In] EqualFunc keyEqualFunc);
+            [In] NativeHashFunc hashFunc,
+            [In] NativeEqualFunc keyEqualFunc);
 
         /// <summary>
         /// Creates a new #GHashTable like g_hash_table_new() with a reference
@@ -909,10 +909,10 @@ namespace GISharp.Core
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_hash_table_new_full(
-            [In] HashFunc hashFunc,
-            [In] EqualFunc keyEqualFunc,
-            [In] DestroyNotify keyDestroyFunc,
-            [In] DestroyNotify valueDestroyFunc);
+            [In] NativeHashFunc hashFunc,
+            [In] NativeEqualFunc keyEqualFunc,
+            [In] NativeDestroyNotify keyDestroyFunc,
+            [In] NativeDestroyNotify valueDestroyFunc);
 
         /// <summary>
         /// Compares two #gpointer arguments and returns %TRUE if they are equal.
@@ -1221,7 +1221,7 @@ namespace GISharp.Core
         [Since("2.4")]
         internal static extern IntPtr g_hash_table_find(
             [In] IntPtr hashTable,
-            [In] HRFunc predicate,
+            [In] NativeHRFunc predicate,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1248,7 +1248,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_hash_table_foreach(
             [In] IntPtr hashTable,
-            [In] HFunc func,
+            [In] NativeHFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1277,7 +1277,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_hash_table_foreach_remove(
             [In] IntPtr hashTable,
-            [In] HRFunc func,
+            [In] NativeHRFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1305,7 +1305,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_hash_table_foreach_steal(
             [In] IntPtr hashTable,
-            [In] HRFunc func,
+            [In] NativeHRFunc func,
             [In] IntPtr userData);
 
         /// <summary>

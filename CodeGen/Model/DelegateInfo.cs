@@ -14,12 +14,6 @@ namespace GISharp.CodeGen.Model
 {
     public class DelegateInfo : MemberInfo
     {
-        public override string ManagedName {
-            get {
-                return base.ManagedName + "Callback";
-            }
-        }
-
         MethodInfo _MethodInfo;
         public MethodInfo MethodInfo {
             get {
@@ -34,7 +28,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxToken NativeIdentifier {
             get {
                 if (!_NativeIdentifier.HasValue) {
-                    _NativeIdentifier = Identifier (base.ManagedName);
+                    _NativeIdentifier = Identifier ("Native" + Identifier);
                 }
                 return _NativeIdentifier.Value;
             }

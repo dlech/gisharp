@@ -141,14 +141,14 @@ namespace GISharp.Core
         ///     use g_list_free_full() to free it
         /// </returns>
         [GISharp.Core.Since("2.34")]
-        public List<T> CopyDeep(CopyFuncCallback<T> func)
+        public List<T> CopyDeep(CopyFunc<T> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            CopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
+            NativeCopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
                 var funcSrc = Opaque.GetInstance<T> (funcSrcPtr, Transfer.None);
                 var funcRet = func.Invoke (funcSrc);
                 if (funcRet == null) {
@@ -229,14 +229,14 @@ namespace GISharp.Core
         /// <returns>
         /// the found <see cref="List{T}"/> element, or <c>null</c> if it is not found
         /// </returns>
-        public List<T> FindCustom (T data, CompareFuncCallback<T> func)
+        public List<T> FindCustom (T data, CompareFunc<T> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            CompareFunc funcNative = (funcAPtr, funcBPtr) => {
+            NativeCompareFunc funcNative = (funcAPtr, funcBPtr) => {
                 var funcA = Opaque.GetInstance<T> (funcAPtr, Transfer.None);
                 var funcB = Opaque.GetInstance<T> (funcBPtr, Transfer.None);
                 var funcRet = func.Invoke (funcA, funcB);
@@ -276,14 +276,14 @@ namespace GISharp.Core
         /// <param name="func">
         /// the function to call with each element's data
         /// </param>
-        public void Foreach (FuncCallback<T> func)
+        public void Foreach (Func<T> func)
         {
             AssertNotDisposed ();
             if (func == null) {
                 throw new ArgumentNullException ("func");
             }
             AssertIsHeadOfList ();
-            Func funcNative = (funcDataPtr, funcUserDataPtr) => {
+            NativeFunc funcNative = (funcDataPtr, funcUserDataPtr) => {
                 var funcData = Opaque.GetInstance<T>(funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
             };
@@ -324,13 +324,13 @@ namespace GISharp.Core
         /// the function to be called to free each element's data
         /// </param>
         [GISharp.Core.Since("2.28")]
-        public void FreeFull (DestroyNotifyCallback<T> freeFunc)
+        public void FreeFull (DestroyNotify<T> freeFunc)
         {
             if (freeFunc == null) {
                 throw new ArgumentNullException ("freeFunc");
             }
             AssertNotDisposed ();
-            DestroyNotify freeFuncNative = (freeFuncDataPtr) => {
+            NativeDestroyNotify freeFuncNative = (freeFuncDataPtr) => {
                 var freeFuncData = Opaque.GetInstance<T> (freeFuncDataPtr, Transfer.None);
                 freeFunc.Invoke (freeFuncData);
             };
@@ -436,7 +436,7 @@ namespace GISharp.Core
         /// <returns>
         /// the (possibly changed) start of the <see cref="List{T}"/>
         /// </returns>
-        public List<T> InsertSorted (T data, CompareFuncCallback<T> func)
+        public List<T> InsertSorted (T data, CompareFunc<T> func)
         {
             AssertNotDisposed ();
             if (func == null) {
@@ -444,7 +444,7 @@ namespace GISharp.Core
             }
             AssertIsHeadOfList ();
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            CompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
+            NativeCompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
                 var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = func.Invoke (compareFuncA, compareFuncB);
@@ -711,14 +711,14 @@ namespace GISharp.Core
         /// <returns>
         /// the (possibly changed) start of the <see cref="List{T}"/>
         /// </returns>
-        public List<T> Sort (CompareFuncCallback<T> compareFunc)
+        public List<T> Sort (CompareFunc<T> compareFunc)
         {
             AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
             AssertIsHeadOfList ();
-            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
                 var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
@@ -922,7 +922,7 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.34")]
         internal static extern IntPtr g_list_copy_deep(
             [In] IntPtr list,
-            [In] CopyFunc func,
+            [In] NativeCopyFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -986,7 +986,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_list_find_custom(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareFunc func);
+            [In] NativeCompareFunc func);
 
         /// <summary>
         /// Gets the first element in a #GList.
@@ -1017,7 +1017,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_list_foreach(
             [In] IntPtr list,
-            [In] Func func,
+            [In] NativeFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1049,7 +1049,7 @@ namespace GISharp.Core
         [GISharp.Core.Since("2.28")]
         internal static extern void g_list_free_full(
             [In] IntPtr list,
-            [In] DestroyNotify freeFunc);
+            [In] NativeDestroyNotify freeFunc);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -1155,7 +1155,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_list_insert_sorted(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareFunc func);
+            [In] NativeCompareFunc func);
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -1190,7 +1190,7 @@ namespace GISharp.Core
         internal static extern IntPtr g_list_insert_sorted_with_data(
             [In] IntPtr list,
             [In] IntPtr data,
-            [In] CompareDataFunc func,
+            [In] NativeCompareDataFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -1433,7 +1433,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_sort(
             [In] IntPtr list,
-            [In] CompareFunc compareFunc);
+            [In] NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Like g_list_sort(), but the comparison function accepts
@@ -1454,7 +1454,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_sort_with_data(
             [In] IntPtr list,
-            [In] CompareDataFunc compareFunc,
+            [In] NativeCompareDataFunc compareFunc,
             [In] IntPtr userData);
     }
 }

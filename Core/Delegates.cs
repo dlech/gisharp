@@ -23,7 +23,7 @@ namespace GISharp.Core
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Int32 CompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
+    public delegate Int32 NativeCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -42,7 +42,7 @@ namespace GISharp.Core
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Int32 CompareFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate Int32 NativeCompareFunc ([In] IntPtr a, [In] IntPtr b);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -60,7 +60,7 @@ namespace GISharp.Core
     /// negative value if @a &lt; @b; zero if @a = @b; positive
     ///          value if @a &gt; @b
     /// </returns>
-    public delegate Int32 CompareFuncCallback<T> (T a, T b) where T : Opaque;
+    public delegate Int32 CompareFunc<T> (T a, T b) where T : Opaque;
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -76,7 +76,7 @@ namespace GISharp.Core
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [Since("2.4")]
-    public delegate IntPtr CopyFunc ([In] IntPtr src, [In] IntPtr data);
+    public delegate IntPtr NativeCopyFunc ([In] IntPtr src, [In] IntPtr data);
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -88,7 +88,7 @@ namespace GISharp.Core
     /// the copy
     /// </returns>
     [Since("2.4")]
-    public delegate T CopyFuncCallback<T> (T src) where T : Opaque;
+    public delegate T CopyFunc<T> (T src) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of function which is called when a data element
@@ -99,7 +99,7 @@ namespace GISharp.Core
     /// the data element.
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void DestroyNotify ([In] IntPtr data);
+    public delegate void NativeDestroyNotify ([In] IntPtr data);
 
     /// <summary>
     /// Specifies the type of function which is called when a data element
@@ -109,18 +109,18 @@ namespace GISharp.Core
     /// <param name="data">
     /// the data element.
     /// </param>
-    public delegate void DestroyNotifyCallback<T> (T data);
+    public delegate void DestroyNotify<T> (T data);
 
-    public static class DestoryNotifyFactory
+    public static class NativeDestoryNotifyFactory
     {
         /// <summary>
         /// Creates a destroy notify function that can be passed to native methods
         /// that frees the GCHandle when called.
         /// </summary>
         /// <param name="handle">Handle.</param>
-        public static DestroyNotify Create (GCHandle handle)
+        public static NativeDestroyNotify Create (GCHandle handle)
         {
-            DestroyNotify method = (userData) => {
+            NativeDestroyNotify method = (userData) => {
                 handle.Free ();
                 GCHandle.FromIntPtr (userData).Free ();
             };
@@ -143,7 +143,7 @@ namespace GISharp.Core
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Boolean EqualFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate Boolean NativeEqualFunc ([In] IntPtr a, [In] IntPtr b);
 
     /// <summary>
     /// Specifies the type of a function used to test two values for
@@ -159,7 +159,7 @@ namespace GISharp.Core
     /// <returns>
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
-    public delegate Boolean EqualFuncCallback<T> (T a, T b) where T : Opaque;
+    public delegate Boolean EqualFunc<T> (T a, T b) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -172,7 +172,7 @@ namespace GISharp.Core
     /// user data passed to g_list_foreach() or g_slist_foreach()
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void Func ([In] IntPtr data, [In] IntPtr userData);
+    public delegate void NativeFunc ([In] IntPtr data, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -181,7 +181,7 @@ namespace GISharp.Core
     /// <param name="data">
     /// the element's data
     /// </param>
-    public delegate void FuncCallback<T> (T data);
+    public delegate void Func<T> (T data);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -223,7 +223,7 @@ namespace GISharp.Core
     /// the hash value corresponding to the key
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate UInt32 HashFunc ([In] IntPtr key);
+    public delegate UInt32 NativeHashFunc ([In] IntPtr key);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -264,7 +264,7 @@ namespace GISharp.Core
     /// <returns>
     /// the hash value corresponding to the key
     /// </returns>
-    public delegate UInt32 HashFuncCallback<T> (T key) where T : Opaque;
+    public delegate UInt32 HashFunc<T> (T key) where T : Opaque;
 
 
     /// <summary>
@@ -282,7 +282,7 @@ namespace GISharp.Core
     /// user data passed to <see cref="HashTable{K,V}.Foreach"/>
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void HFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate void NativeHFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to <see cref="HashTable{K,V}.Foreach"/>.
@@ -295,7 +295,7 @@ namespace GISharp.Core
     /// the value corresponding to the key
     /// </param>
     // Analysis disable InconsistentNaming
-    public delegate void HFuncCallback<K,V> (K key, V value);
+    public delegate void HFunc<K,V> (K key, V value);
     // Analysis restore InconsistentNaming
 
     /// <summary>
@@ -319,7 +319,7 @@ namespace GISharp.Core
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Boolean HRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate Boolean NativeHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to
@@ -338,6 +338,6 @@ namespace GISharp.Core
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     // Analysis disable InconsistentNaming
-    public delegate Boolean HRFuncCallback<K,V> (K key, V value);
+    public delegate Boolean HRFunc<K,V> (K key, V value);
     // Analysis restore InconsistentNaming
 }

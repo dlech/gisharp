@@ -467,7 +467,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_sort(
             [In] IntPtr array,
-            [In] CompareFunc compareFunc);
+            [In] NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a byte array, using @compareFunc which should be a
@@ -485,13 +485,13 @@ namespace GISharp.Core
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (CompareFuncCallback<WrappedStruct<byte>> compareFunc)
+        public void Sort (CompareFunc<WrappedStruct<byte>> compareFunc)
         {
             AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
-            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncAPtr, Transfer.None);
                 var compareFuncB = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);

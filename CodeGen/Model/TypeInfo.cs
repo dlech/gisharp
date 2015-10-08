@@ -180,10 +180,12 @@ namespace GISharp.CodeGen.Model
             }
             var type = TypeObject;
             if (typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate))) {
-                RequiresMarshal = true;
-                if (managed) {
-                    typeName += "Callback";
+                if (!managed && type is GirType) {
+                    var split = typeName.Split ('.');
+                    split[split.Length -1] = "Native" + split[split.Length -1];
+                    typeName = string.Join (".", split);
                 }
+                RequiresMarshal = true;
             } else if (!type.IsValueType) {
                 // If the managed type is a value type or a delegate, then it can
                 // be passed directly, otherwise it requires special marshalling

@@ -13,13 +13,13 @@ namespace Core.Test
         public void TestConstructor ()
         {
             var hashTable1 = new HashTable<TestOpaque, TestOpaque> ();
-            HashFuncCallback<TestOpaque> hashFunc = (key) =>
+            HashFunc<TestOpaque> hashFunc = (key) =>
                 (uint)key.GetHashCode ();
-            EqualFuncCallback<TestOpaque> keyEqualFunc = (a, b) =>
+            EqualFunc<TestOpaque> keyEqualFunc = (a, b) =>
                 a.Value == b.Value;
-            DestroyNotifyCallback<TestOpaque> keyDestroyFunc = (data) => {
+            DestroyNotify<TestOpaque> keyDestroyFunc = (data) => {
             };
-            DestroyNotifyCallback<TestOpaque> valueDestroyFunc = (data) => {
+            DestroyNotify<TestOpaque> valueDestroyFunc = (data) => {
             };
             var hashTable2 = new HashTable<TestOpaque, TestOpaque> (
                 hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc);
@@ -144,7 +144,7 @@ namespace Core.Test
         public void TestForeach ()
         {
             var count = 0;
-            HFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+            HFuncCallback<TestOpaOpaque> foreachFunc = (key, value) => {
                 count++;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -161,7 +161,7 @@ namespace Core.Test
         [Test]
         public void TestFind ()
         {
-            HRFuncCallback<TestOpaque,TestOpaque> findFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestfindFunc = (key, value) => {
                 return true;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -216,7 +216,7 @@ namespace Core.Test
         public void TestForeachRemove ()
         {
             var count = 0;
-            HRFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestforeachFunc = (key, value) => {
                 count++;
                 return true;
             };
@@ -235,7 +235,7 @@ namespace Core.Test
         public void TestForeachSteal ()
         {
             var count = 0;
-            HRFuncCallback<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+            HRFuncCallback<TestOpaque,TestforeachFunc = (key, value) => {
                 count++;
                 return true;
             };

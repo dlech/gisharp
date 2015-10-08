@@ -29,16 +29,16 @@ namespace GISharp.GLib
         /// <returns>
         /// GC handle that can be used to remove the source using <see cref="Remove"/>
         /// </returns>
-        public static GCHandle Add (SourceFuncCallback function, Int32 priority = Priority.DefaultIdle)
+        public static GCHandle Add (SourceFunc function, Int32 priority = Priority.DefaultIdle)
         {
             if (function == null)
             {
                 throw new System.ArgumentNullException("function");
             }
 
-            SourceFunc nativeFunction = SourceFuncFactory.Create (function, false);
+            NativeSourceFunc nativeFunction = NativeSourceFuncFactory.Create (function, false);
             var nativeFunctionGCHandle = GCHandle.Alloc (nativeFunction);
-            DestroyNotify nativeNotify = DestoryNotifyFactory.Create (nativeFunctionGCHandle);
+            NativeDestroyNotify nativeNotify = NativeDestoryNotifyFactory.Create (nativeFunctionGCHandle);
             var nativeNotifyGCHandle = GCHandle.Alloc (nativeNotify);
             var data = GCHandle.ToIntPtr (nativeNotifyGCHandle);
             g_idle_add_full (priority, nativeFunction, data, nativeNotify);

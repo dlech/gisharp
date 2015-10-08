@@ -11,7 +11,7 @@ namespace GISharp.Core
     /// </summary>
     public sealed class PtrArray<T> : ReferenceCountedOpaque, IList<T> where T : Opaque
     {
-        DestroyNotify elementFreeFuncNative;
+        NativeDestroyNotify elementFreeFuncNative;
 
         public PtrArray (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -30,13 +30,13 @@ namespace GISharp.Core
         {
         }
 
-        static IntPtr NewFull (UInt32 reservedSize, DestroyNotifyCallback<T> elementFreeFunc)
+        static IntPtr NewFull (UInt32 reservedSize, DestroyNotify<T> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
                 throw new ArgumentNullException ("elementFreeFunc");
             }
             // TODO: this callback will be garbage collected before we are done with it
-            DestroyNotify elementFreeFuncNative = (elementFreeFuncDataPtr) => {
+            NativeDestroyNotify elementFreeFuncNative = (elementFreeFuncDataPtr) => {
                 var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
                 elementFreeFunc (elementFreeFuncData);
             };
@@ -61,7 +61,7 @@ namespace GISharp.Core
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.30")]
-        public PtrArray (UInt32 reservedSize, DestroyNotifyCallback<T> elementFreeFunc)
+        public PtrArray (UInt32 reservedSize, DestroyNotify<T> elementFreeFunc)
             : this (NewFull (reservedSize, elementFreeFunc), Transfer.All)
         {
         }
@@ -86,10 +86,10 @@ namespace GISharp.Core
         /// the function to call for each array element
         /// </param>
         [Since("2.4")]
-        public void Foreach (FuncCallback<T> func)
+        public void Foreach (Func<T> func)
         {
             AssertNotDisposed ();
-            Func funcNative = (funcDataPtr, funcUserDataPtr) => {
+            NativeFunc funcNative = (funcDataPtr, funcUserDataPtr) => {
                 var funcData = Opaque.GetInstance<T> (funcDataPtr, Transfer.None);
                 func.Invoke (funcData);
             };
@@ -271,11 +271,11 @@ namespace GISharp.Core
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.22")]
-        public void SetFreeFunc (DestroyNotifyCallback<T> elementFreeFunc)
+        public void SetFreeFunc (DestroyNotify<T> elementFreeFunc)
         {
             AssertNotDisposed ();
             if (elementFreeFunc == null) {
-                elementFreeFuncNative = default(DestroyNotify);
+                elementFreeFuncNative = default(NativeDestroyNotify);
             } else {
                 elementFreeFuncNative = (elementFreeFuncDataPtr) => {
                     var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
@@ -316,13 +316,13 @@ namespace GISharp.Core
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (CompareFuncCallback<T> compareFunc)
+        public void Sort (CompareFunc<T> compareFunc)
         {
             AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException ("compareFunc");
             }
-            CompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
                 var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
                 var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
@@ -512,7 +512,7 @@ namespace GISharp.Core
         [Since("2.30")]
         internal static extern IntPtr g_ptr_array_new_full(
             [In] UInt32 reservedSize,
-            [In] DestroyNotify elementFreeFunc);
+            [In] NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Creates a new #GPtrArray with a reference count of 1 and use
@@ -530,7 +530,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern IntPtr g_ptr_array_new_with_free_func(
-            [In] DestroyNotify elementFreeFunc);
+            [In] NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Creates a new #GPtrArray with @reservedSize pointers preallocated
@@ -579,7 +579,7 @@ namespace GISharp.Core
         [Since("2.4")]
         internal static extern void g_ptr_array_foreach(
             [In] IntPtr array,
-            [In] Func func,
+            [In] NativeFunc func,
             [In] IntPtr userData);
 
         /// <summary>
@@ -777,7 +777,7 @@ namespace GISharp.Core
         [Since("2.22")]
         internal static extern void g_ptr_array_set_free_func(
             [In] IntPtr array,
-            [In] DestroyNotify elementFreeFunc);
+            [In] NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
@@ -818,7 +818,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_ptr_array_sort(
             [In] IntPtr array,
-            [In] CompareFunc compareFunc);
+            [In] NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Like g_ptr_array_sort(), but the comparison function has an extra
@@ -843,7 +843,7 @@ namespace GISharp.Core
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_ptr_array_sort_with_data(
             [In] IntPtr array,
-            [In] CompareDataFunc compareFunc,
+            [In] NativeCompareDataFunc compareFunc,
             [In] IntPtr userData);
 
         /// <summary>
