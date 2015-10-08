@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Model
                     _DefaultConstructor = ConstructorDeclaration (Identifier)
                         .WithModifiers (modifiers)
                         .WithParameterList (paramerList)
-                        .WithInitializer (initializer)
+                        .WithInitializer (initializer.WithLeadingTrivia (EndOfLine("\n"), Whitespace("\t")))
                         .WithBody (Block ());
                 }
                 return _DefaultConstructor;
@@ -135,7 +135,10 @@ namespace GISharp.CodeGen.Model
                 .WithMembers (TypeMembers)
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             if (BaseList.Types.Any ()) {
-                classDeclaration = classDeclaration.WithBaseList (BaseList);
+                classDeclaration = classDeclaration.WithIdentifier (
+                    classDeclaration.Identifier.WithTrailingTrivia (EndOfLine ("\n")));
+                classDeclaration = classDeclaration.WithBaseList (
+                    BaseList.WithLeadingTrivia (Whitespace ("\t")));
             }
             // TODO: should probably make this optional (via xml attribute) in
             // case we need to implment manually

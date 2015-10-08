@@ -291,8 +291,10 @@ namespace GISharp.CodeGen.Model
                     var constructorDeclaration = ConstructorDeclaration (DeclaringMember.Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
-                        .WithParameterList (ParameterList)
-                        .WithInitializer (ConstructorInitalizer)
+                        .WithParameterList (ParameterList.WithTrailingTrivia (
+                            EndOfLine ("\n")))
+                        .WithInitializer (ConstructorInitalizer.WithLeadingTrivia (
+                            Whitespace ("\t")))
                         .WithBody (Block ())
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
                     yield return constructorDeclaration;
