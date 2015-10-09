@@ -144,7 +144,7 @@ namespace Core.Test
         public void TestForeach ()
         {
             var count = 0;
-            HFuncCallback<TestOpaOpaque> foreachFunc = (key, value) => {
+            HFunc<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -161,7 +161,7 @@ namespace Core.Test
         [Test]
         public void TestFind ()
         {
-            HRFuncCallback<TestOpaque,TestfindFunc = (key, value) => {
+            HRFunc<TestOpaque,TestOpaque> findFunc = (key, value) => {
                 return true;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -216,7 +216,7 @@ namespace Core.Test
         public void TestForeachRemove ()
         {
             var count = 0;
-            HRFuncCallback<TestOpaque,TestforeachFunc = (key, value) => {
+            HRFunc<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };
@@ -235,7 +235,7 @@ namespace Core.Test
         public void TestForeachSteal ()
         {
             var count = 0;
-            HRFuncCallback<TestOpaque,TestforeachFunc = (key, value) => {
+            HRFunc <TestOpaque,TestOpaque> foreachFunc = (key, value) => {
                 count++;
                 return true;
             };
