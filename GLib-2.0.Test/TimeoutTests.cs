@@ -17,11 +17,12 @@ namespace GISharp.GLib.Test
 
                 Task.Run (() => {
                     var mainLoop = new MainLoop ();
-                    Timeout.Add (0, () => {
+                    var id = Timeout.Add (0, () => {
                         mainLoop.Quit ();
                         timeoutInvoked = true;
                         return Source.Remove;
                     });
+                    Assert.That (id, Is.Not.EqualTo (0));
                     mainLoop.Run ();
                 }).Wait (100);
 
@@ -37,11 +38,12 @@ namespace GISharp.GLib.Test
 
                 Task.Run (() => {
                     var mainLoop = new MainLoop ();
-                    Timeout.AddSeconds (0, () => {
+                    var id = Timeout.AddSeconds (0, () => {
                         mainLoop.Quit ();
                         timeoutInvoked = true;
                         return Source.Remove;
                     });
+                    Assert.That (id, Is.Not.EqualTo (0));
                     mainLoop.Run ();
                 }).Wait (2000);
 
@@ -50,16 +52,16 @@ namespace GISharp.GLib.Test
         }
 
         [Test]
-        public void TestTimeoutAddNew ()
+        public void TestCreateSource ()
         {
-            var source = Timeout.SourceNew (0);
+            var source = Timeout.CreateSource (0);
             Assert.That (source, Is.Not.Null);
         }
 
         [Test]
-        public void TestTimeoutAddNewSeconds ()
+        public void TestCreateSourceSeconds ()
         {
-            var source = Timeout.SourceNewSeconds (0);
+            var source = Timeout.CreateSourceSeconds (0);
             Assert.That (source, Is.Not.Null);
         }
     }

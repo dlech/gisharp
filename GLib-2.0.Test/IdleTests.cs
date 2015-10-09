@@ -22,30 +22,17 @@ namespace GISharp.GLib.Test
                 // make sure method actually works as intended
                 Task.Run (() => {
                     var mainLoop = new MainLoop ();
-                    Idle.Add (() => {
+                    var id = Idle.Add (() => {
                         mainLoop.Quit ();
                         idleInvoked = true;
                         return Source.Remove;
                     });
                     mainLoop.Run ();
+                    Assert.That (id, Is.Not.EqualTo (0));
                 }).Wait (100);
 
                 Assert.That (idleInvoked, Is.True);
             }
-        }
-
-        [Test]
-        public void TestRemove ()
-        {
-            var handle = Idle.Add (() => Source.Continue);
-
-            // make sure removing works
-            var actual = Idle.Remove (handle);
-            Assert.That (actual, Is.True);
-
-            // and try to remove again.
-            actual = Idle.Remove (handle);
-            Assert.That (actual, Is.False);
         }
 
         [Test]

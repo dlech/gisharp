@@ -302,9 +302,10 @@ chattr "name" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name
 chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@shadows,'idle_')]"
 # rename fuction to be more .NETish
 chattr "name" "" "create_source" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='source_new']"
-# functions with special handling
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='add_full']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='remove_by_data']"
+# default parameter values
+chattr "gs:default" "" "GISharp.GLib.Priority.DefaultIdle" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='add_full']/gi:parameters/gi:parameter[@name='priority']"
+# skip functions that require user_Data
+chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='remove_by_data']"
 
 # KeyFile
 
@@ -346,6 +347,11 @@ chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainCont
 chattr "shadowed-by" "" "invoke_full" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke']"
 chattr "shadows" "" "invoke" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']"
 chattr "gs:default" "" "GISharp.GLib.Priority.Default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']/gi:parameters/gi:parameter[@name='priority']"
+# skip functions that use user_data
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='find_source_by_user_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='find_source_by_funcs_user_data']"
+# make main_depth a property
+chattr "name" "" "get_depth" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='main_depth']"
 
 # MainLoop
 
@@ -371,9 +377,21 @@ move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]" "gi:
 # Drop the SOURCE_ prefix from the constant names
 chattr "name" "SOURCE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constant[starts-with(@name,'SOURCE_')]"
 # rename function that conflicts with constant name
-chattr "name" "" "remove_by_tag" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']"
-# move main_current_source function to Source record
+chattr "name" "" "remove_by_id" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']"
+# better parameter name
+chattr "name" "" "id" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_id']/gi:parameters/gi:parameter[@name='tag']"
+# ignore return value
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_id']/gi:return-value"
+# move main_current_source function to Source record and rename so it is a static property
 move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
+chattr "name" "" "get_current" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='main_current_source']"
+# custom checks
+chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:method[@name='attach']"
+# requires special handling
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constructor[@name='new']"
+# ignore stuff that uses user_data
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_user_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_funcs_user_data']"
 
 # Variant
 
@@ -445,6 +463,9 @@ chattr "name" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@n
 chattr "shadows" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@shadows,'timeout_')]"
 # set default value for priority parameter
 chattr "gs:default" "" "Priority.Default" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function/gi:parameters/gi:parameter[@name='priority']"
+# rename fuctions to be more .NETish
+chattr "name" "" "create_source" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[@name='source_new']"
+chattr "name" "" "create_source_seconds" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[@name='source_new_seconds']"
 
 # UnixSignal
 
