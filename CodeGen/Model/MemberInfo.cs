@@ -72,8 +72,8 @@ namespace GISharp.CodeGen.Model
 
         protected virtual IEnumerable<SyntaxToken> GetModifiers ()
         {
-            // default value is "public" unless "access-modifier" attribute is present
-            var accessModifierAttr = Element.Attribute (gs + "access-modifier");
+            // default value is "public" unless "access-modifiers" attribute is present
+            var accessModifierAttr = Element.Attribute (gs + "access-modifiers");
             var tokens = ParseTokens (accessModifierAttr?.Value ?? "public");
             return tokens;
         }

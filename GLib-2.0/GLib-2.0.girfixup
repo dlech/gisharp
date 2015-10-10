@@ -408,11 +408,11 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:m
 # don't need dup functions since marshaling does that anyway
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'dup_')]"
 # most getters are private - using cast operators instead.
-chattr "gs:access-modifier" "" "private" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'get_')]"
-chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
-chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type_string']"
-chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_size']"
-chattr "gs:access-modifier" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_data']"
+chattr "gs:access-modifiers" "" "private" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'get_')]"
+chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
+chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type_string']"
+chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_size']"
+chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_data']"
 # duplicate constructor - using new_take_string instead
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_string']"
 # fix incorrect transfer
@@ -486,7 +486,7 @@ addelement "<gs:static-class name='Version' />" "gi:repository/gi:namespace"
 # Move VERSION constants to Version static-class
 move "gi:repository/gi:namespace/gi:constant[contains(@name,'VERSION')]" "gi:repository/gi:namespace/gs:static-class[@name='Version']"
 # make version constants private
-chattr "gs:access-modifier" "" "private" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
+chattr "gs:access-modifiers" "" "private" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
 # Drop the VERSION prefix or suffix from the constant names
 chattr "name" "(.*)_?VERSION_?(.*)" "$1$2" "gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'VERSION')]"
 # Move check_version function to Version static-class

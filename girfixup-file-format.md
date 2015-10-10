@@ -30,12 +30,13 @@ static-class
 
 ## Attributes
 
-access-modifier
+access-modifiers
 : Description
     : Instructs the code generator to use the specified access modifiers. The
-      default is `public` when this attribute is not present.
+      default is `public` when this attribute is not present. It can also be
+      used to control interitance.
 : Values
-    : `private`, `protected`, `internal`, `protected internal`
+    : `private`, `protected`, `internal`, `override`, `new`
 
 default
 : Description

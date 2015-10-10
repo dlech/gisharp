@@ -249,7 +249,7 @@ namespace GISharp.CodeGen
             foreach (var element in aliasElements) {
                 var valueFieldElement = new XElement (gi + "field",
                     new XAttribute ("name", "value"),
-                    new XAttribute (gs + "access-modifier", "private"),
+                    new XAttribute (gs + "access-modifiers", "private"),
                     new XElement (element.Element (gi + "type")));
                 element.Add (valueFieldElement);
             }
@@ -292,7 +292,7 @@ namespace GISharp.CodeGen
 
                 // check various conditions where we might want camelCase
                 var camelCase = false;
-                var accessModifier = element.Attribute (gs + "access-modifier");
+                var accessModifier = element.Attribute (gs + "access-modifiers");
                 if (accessModifier != null) {
                     camelCase = accessModifier.Value.Contains ("private");
                 }
@@ -318,7 +318,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithRefMethod) {
                 element.SetAttributeValue (gs + "special-func", "ref");
-                element.SetAttributeValue (gs + "access-modifier", "protected override");
+                element.SetAttributeValue (gs + "access-modifiers", "protected override");
                 element.Element (gi + "return-value").SetAttributeValue ("skip", "1");
             }
 
@@ -329,7 +329,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithUnrefMethod) {
                 element.SetAttributeValue (gs + "special-func", "unref");
-                element.SetAttributeValue (gs + "access-modifier", "protected override");
+                element.SetAttributeValue (gs + "access-modifiers", "protected override");
             }
 
             // flag free functions
@@ -339,7 +339,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithFreeMethod) {
                 element.SetAttributeValue (gs + "special-func", "free");
-                element.SetAttributeValue (gs + "access-modifier", "protected override");
+                element.SetAttributeValue (gs + "access-modifiers", "protected override");
             }
 
             // flag equals functions
@@ -371,7 +371,7 @@ namespace GISharp.CodeGen
                     && d.Element (gi + "return-value").Element (gi + "type").Attribute ("name").Value == "guint");
             foreach (var element in elementsWithHashFunction) {
                 element.SetAttributeValue (gs + "special-func", "hash");
-                element.SetAttributeValue (gs + "access-modifier", "public override");
+                element.SetAttributeValue (gs + "access-modifiers", "public override");
                 // set managed-name here so it don't get turned into a property getter
                 element.SetAttributeValue (gs + "managed-name", "GetHashCode");
                 // change return type to match .NET
@@ -385,7 +385,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithToStringFunction) {
                 element.SetAttributeValue (gs + "special-func", "to-string");
-                element.SetAttributeValue (gs + "access-modifier", "public override");
+                element.SetAttributeValue (gs + "access-modifiers", "public override");
             }
 
             // flag reference-counted opaques

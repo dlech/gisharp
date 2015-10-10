@@ -916,12 +916,11 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<SyntaxToken> GetModifiers ()
         {
-            foreach (var baseModifier in base.GetModifiers ()) {
-                yield return baseModifier;
+            var modifiers = base.GetModifiers ().ToList ();
+            if (IsStaticMethod && !modifiers.Any (x => x.IsKind (SyntaxKind.StaticKeyword))) {
+                modifiers.Add (Token (SyntaxKind.StaticKeyword));
             }
-            if (IsStaticMethod) {
-                yield return Token (SyntaxKind.StaticKeyword);
-            }
+            return modifiers;
         }
 
         protected override SyntaxTriviaList GetDocumentationCommentTriviaList ()
