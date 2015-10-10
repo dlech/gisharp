@@ -39,6 +39,18 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsSealed {
+            get {
+                return !IsGObject || Element.Attribute (glib + "type-struct") == null;
+            }
+        }
+
+        public bool IsAbstract {
+            get {
+                return Element.Attribute ("abstract").AsBool ();
+            }
+        }
+
         BaseListSyntax _BaseList;
         /// <summary>
         /// Gets the base list syntax for the class declaration.
@@ -73,7 +85,8 @@ namespace GISharp.CodeGen.Model
                             types = types.Add (SimpleBaseType (
                                 ParseTypeName (typeof(GISharp.Core.ReferenceCountedOpaque).FullName)));
                         } else {
-                            types = types.Add (SimpleBaseType (ParseTypeName (parent)));
+                            var parentType = GirType.GetType (parent, Element.Document);
+                            types = types.Add (SimpleBaseType (ParseTypeName (parentType.FullName)));
                         }
                         // TODO: add interfaces for objects
                     }
@@ -101,8 +114,10 @@ namespace GISharp.CodeGen.Model
         public ConstructorDeclarationSyntax DefaultConstructor {
             get {
                 if (_DefaultConstructor == null) {
-                    var modifiers = TokenList ()
-                        .Add (Token (SyntaxKind.ProtectedKeyword));
+                    var modifiers = TokenList ();
+                    if (!IsSealed) {
+                        modifiers = modifiers.Add (Token (SyntaxKind.ProtectedKeyword));
+                    }
                     var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
                         typeof(IntPtr).FullName,
                         typeof(GISharp.Core.Transfer).FullName));
@@ -141,8 +156,12 @@ namespace GISharp.CodeGen.Model
             foreach (var baseModifier in base.GetModifiers ()) {
                 yield return baseModifier;
             }
-            if (Element.Name == gs + "static-class") {
+            if (IsStaticClass) {
                 yield return Token (SyntaxKind.StaticKeyword);
+            } else if (IsAbstract) {
+                yield return Token (SyntaxKind.AbstractKeyword);
+            } else if (IsSealed) {
+                yield return Token (SyntaxKind.SealedKeyword);
             }
             yield return Token (SyntaxKind.PartialKeyword);
         }
