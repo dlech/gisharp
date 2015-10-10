@@ -36,6 +36,7 @@
     <Compile Include="Value.cs" />
     <Compile Include="Generated.cs" />
     <Compile Include="TypeClass.cs" />
+    <Compile Include="Object.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

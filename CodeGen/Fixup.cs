@@ -295,6 +295,10 @@ namespace GISharp.CodeGen
             // create managed-name attributes
 
             foreach (var element in document.Descendants ()) {
+                if (element.Attribute (gs + "managed-name") != null) {
+                    continue;
+                }
+
                 if (element.Name == gi + "return-value") {
                     element.SetAttributeValue (gs + "managed-name", "ret");
                     continue;

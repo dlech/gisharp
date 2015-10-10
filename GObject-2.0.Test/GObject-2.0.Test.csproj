@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C25A3333-B7C6-40C1-B221-4455EC83CCC8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>GISharp.GObject.Test</RootNamespace>
+    <AssemblyName>GObject-2.0.Test</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System, Version=1.0.5000.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="TestObject.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
+      <Name>Core</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GLib-2.0\GLib-2.0.csproj">
+      <Project>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</Project>
+      <Name>GLib-2.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GObject-2.0\GObject-2.0.csproj">
+      <Project>{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}</Project>
+      <Name>GObject-2.0</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+</Project>

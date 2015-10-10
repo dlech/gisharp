@@ -16,11 +16,38 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
 chattr "gs:default-constructor" "" "0" "gi:repository/gi:namespace/gi:class[@name ='Object']"
 # 'new' constructor has params
 chattr "gs:params" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:constructor[@name='newv']/gi:parameters/gi:parameter[@name='parameters']"
+# make method an overload
+chattr "gs:managed-name" "" "BindProperty" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='bind_property_with_closures']"
+chattr "gs:managed-name" "" "Notify" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='notify_by_pspec']"
+# special handling for references
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='ref']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='ref_sink']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='unref']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='add_toggle_ref']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='remove_toggle_ref']"
+# ignore floating reference business
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='is_floating']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='force_floating']"
 # ignore user_data stuff
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_data']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_qdata']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_data_full']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_qdata_full']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='get_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='steal_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_data']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='get_qdata']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_qdata']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='steal_qdata']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_qdata']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_data_full']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_qdata_full']"
+# ignore object lifecycle stuff
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='add_weak_pointer']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='remove_weak_pointer']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='weak_ref']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='weak_unref']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='watch_closure']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='run_dispose']"
+# not sure wat this is for
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:function[@name='compat_control']"
 
 # ParamSpec
 

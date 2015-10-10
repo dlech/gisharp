@@ -29,6 +29,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test", "Core.Test\Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "GObject-2.0\GObject-2.0.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0.Test", "GObject-2.0.Test\GObject-2.0.Test.csproj", "{C25A3333-B7C6-40C1-B221-4455EC83CCC8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -75,6 +77,10 @@ Global
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
