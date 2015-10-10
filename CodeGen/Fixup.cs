@@ -216,7 +216,7 @@ namespace GISharp.CodeGen
 
             document.Root.SetAttributeValue (XNamespace.Xmlns + "gs", gs.NamespaceName);
 
-            // remove all elements marked as "skip" or "moved-to" or "shadowed-by"
+            // remove all elements marked as "skip", "moved-to" or "shadowed-by"
             // and functions/methods with varagrs. On OS X/homebrew, there are
             // aliases that end with _autoptr that need to be ignored too.
 
@@ -409,9 +409,17 @@ namespace GISharp.CodeGen
 
             var recordsThatAreStatic = document.Descendants (gi + "record")
                 .Where (d => d.Elements (gi + "constructor").Any (c => c.Attribute ("name").AsString () == "new"
-                    && c.Attribute ("transfer-ownership").AsString () == "none"));
+                      && c.Element (gi + "return-value").Attribute ("transfer-ownership").AsString () == "none"));
             foreach (var element in recordsThatAreStatic) {
                 element.SetAttributeValue (gs + "opaque", "static");
+            }
+
+            // flag gtype-struct opaques
+
+            var recordsThatAreGTypeStructs = document.Descendants (gi + "record")
+                .Where (d => d.Attribute (glib + "is-gtype-struct-for") != null);
+            foreach (var element in recordsThatAreGTypeStructs) {
+                element.SetAttributeValue (gs+ "opaque", "static");
             }
 
             // remove fields from opaques
@@ -726,40 +734,15 @@ namespace GISharp.CodeGen
                 case "CompareFunc":
                 case "GLib.CompareFunc":
                     return typeof(GISharp.Core.NativeCompareFunc).FullName;
-//                        + string.Format ("[{0}.{1}.{2}]",
-//                            MainClass.parentNamespace,
-//                            element.GetNamespace (),
-//                            element.Ancestors ()
-//                                .Single (a => ElementsThatDefineAType.Contains (a.Name))
-//                                .Attribute ("name").Value);
                 case "CopyFunc":
                 case "GLib.CopyFunc":
                     return typeof(GISharp.Core.NativeCopyFunc).FullName;
-//                        + string.Format ("[{0}.{1}.{2}]",
-//                            MainClass.parentNamespace,
-//                            element.GetNamespace (),
-//                            element.Ancestors ()
-//                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
-//                            .Attribute ("name").Value);
                 case "DestroyNotify":
                 case "GLib.DestroyNotify":
                     return typeof(GISharp.Core.NativeDestroyNotify).FullName;
-//                        + string.Format ("[{0}.{1}.{2}]",
-//                            MainClass.parentNamespace,
-//                            element.GetNamespace (),
-//                            element.Ancestors ()
-//                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
-//                            .Attribute ("name").Value);
                 case "Func":
                 case "GLib.Func":
                     return typeof(GISharp.Core.NativeFunc).FullName;
-//                        + string.Format ("[{0}.{1}.{2}]",
-//                            MainClass.parentNamespace,
-//                            element.GetNamespace (),
-//                            element.Ancestors ()
-//                            .Single (a => ElementsThatDefineAType.Contains (a.Name))
-//                            .Attribute ("name").Value);
-
                 }
                 var typeParameterElements = typeElement.Elements (gi + "type").Union (element.Elements (gi + "array")).ToList ();
                 if (typeParameterElements.Any ()) {
@@ -768,25 +751,28 @@ namespace GISharp.CodeGen
                         return string.Format ("{0}`1[{1}]",
                             string.Concat (typeof(GISharp.Core.List<>).FullName.TakeWhile (c => c != '`')),
                             typeParameterElements
-                                .Select (c => new XElement ("dummy", c).GetManagedTypeName ())
+                                .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.SList":
                         return string.Format ("{0}`1[{1}]",
                             string.Concat (typeof(GISharp.Core.SList<>).FullName.TakeWhile (c => c != '`')),
                             typeParameterElements
-                                .Select (c => new XElement ("dummy", c).GetManagedTypeName ())
+                                .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.HashTable":
                         return string.Format ("{0}`2[{1}]",
                             string.Concat (typeof(GISharp.Core.HashTable<,>).FullName.TakeWhile (c => c != '`')),
                             string.Join (",", typeParameterElements
-                                .Select (c => new XElement ("dummy", c)
-                                    .GetManagedTypeName ())));
+                                 .Select (c => c.Parent.GetManagedTypeName ())));
                     default:
                         var message = string.Format ("Unknown type '{0} with type parameters.", typeName);
                         throw new ArgumentException (message, "element");
                     }
                 }
+
+                // if it wasn't one of the well-known types, then fixup the type name
+
+                typeName = string.Join (".", typeName.Split ('.').Select (x => x.ToPascalCase ()));
 
                 if (!typeName.Contains (".")) {
                     return string.Format ("{0}.{1}.{2}",
@@ -794,6 +780,8 @@ namespace GISharp.CodeGen
                         element.GetNamespace (),
                         typeName);
                 }
+
+                return string.Format ("{0}.{1}", MainClass.parentNamespace, typeName);
             } 
 
             var arrayElement = element.Element (gi + "array");

@@ -124,7 +124,8 @@ namespace GISharp.CodeGen
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
         {
-            throw new NotImplementedException ();
+            var flags = default(TypeAttributes);
+            return flags;
         }
 
         protected override bool HasElementTypeImpl ()

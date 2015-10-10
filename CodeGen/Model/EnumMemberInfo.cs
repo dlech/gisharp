@@ -18,7 +18,9 @@ namespace GISharp.CodeGen.Model
         public EnumMemberDeclarationSyntax EnumMemberDeclaration {
             get {
                 if (_EnumMemberDeclaration == null) {
-                    var literalValue = Literal (int.Parse (Element.Attribute ("value").Value));
+                    var valueText = Element.Attribute ("value").Value;
+                    var literalValue = Literal (valueText[0] == '-'
+                        ? int.Parse (valueText) : (int)uint.Parse (valueText));
                     var literalExpression = LiteralExpression (SyntaxKind.NumericLiteralExpression, literalValue);
                     var equalsValue = EqualsValueClause (literalExpression);
                     _EnumMemberDeclaration = EnumMemberDeclaration (ManagedName)

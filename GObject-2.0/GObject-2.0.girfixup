@@ -1,0 +1,59 @@
+﻿# va_list not supported yet
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[./gi:type/@name ='VaClosureMarshal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name ='VaClosureMarshal']"
+
+# DupliateFunc not implemented in GLib
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='GLib.DuplicateFunc']"
+
+# Change alias name to match what is used in type name everywhere else
+chattr "name" "" "GType" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+
+# Object
+
+# ignore user_data stuff
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_data']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_qdata']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_data_full']"
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='set_qdata_full']"
+
+# ParamSpec
+
+# ignore user_data stuff
+chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='ParamSpec']/gi:method[@name='set_qdata_full']"
+
+
+# ParamSpecPool
+
+# new function should be constructor
+chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name ='ParamSpecPool']/gi:function[@name='new']"
+
+# TypeClass
+
+# this is reference-counted
+chattr "gs:opaque" "" "ref-counted" "gi:repository/gi:namespace/gi:record[@name='TypeClass']"
+
+# TypeInstance
+
+# calling this static oqaque for now
+chattr "gs:opaque" "" "static" "gi:repository/gi:namespace/gi:record[@name='TypeInstance']"
+
+# TypeInterface
+
+# calling this static oqaque for now
+chattr "gs:opaque" "" "static" "gi:repository/gi:namespace/gi:record[@name='TypeInterface']"
+
+# Value
+
+# this is owned opaque, but does not have a single free function
+chattr "gs:opaque" "" "owned" "gi:repository/gi:namespace/gi:record[@name ='Value']"
+# ValueArray
+
+# obsolete
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name ='ValueArray']"
+
+# WeakRef
+
+# not needed?
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name ='WeakRef']"

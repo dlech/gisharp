@@ -79,7 +79,9 @@ namespace GISharp.CodeGen.Model
                     yield return new DelegateInfo (child, this);
                 } else if (child.Name == gi + "enumeration" || child.Name == gi + "bitfield") {
                     yield return new EnumInfo (child, this);
-                } else if (child.Name == gi + "object" || (child.Name == gi + "record" && child.Attribute (gs + "opaque") != null) || child.Name == gs + "static-class") {
+                } else if (child.Name == gi + "interface") {
+                    yield return new InterfaceInfo (child, this);
+                } else if (child.Name == gi + "class" || (child.Name == gi + "record" && child.Attribute (gs + "opaque") != null) || child.Name == gs + "static-class") {
                     yield return new ClassInfo (child, this);
                 } else if (child.Name == gi + "record" || child.Name == gi + "alias" || child.Name == gi + "union") {
                     yield return new StructInfo (child, this);

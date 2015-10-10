@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 using System.Xml.Linq;
 using System.Collections.Generic;
@@ -18,7 +19,7 @@ namespace GISharp.CodeGen
         static readonly XNamespace gs = Globals.GISharpNamespace;
         #pragma warning restore 0414
 
-        static readonly Assembly gisharpCoreAssembly = Assembly.GetAssembly (typeof(Opaque));
+        static readonly Dictionary<string, Assembly> assemblyCache = new Dictionary<string, Assembly> ();
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
 
         readonly XElement element;
@@ -40,9 +41,12 @@ namespace GISharp.CodeGen
             if (type != null) {
                 return type;
             }
-            type = GetType (Assembly.CreateQualifiedName (gisharpCoreAssembly.FullName, typeName));
-            if (type != null) {
-                return type;
+
+            foreach (var assembly in assemblyCache.Values) {
+                type = GetType (Assembly.CreateQualifiedName (assembly.FullName, typeName));
+                if (type != null) {
+                    return type;
+                }
             }
 
             var isArray = false;
@@ -136,6 +140,12 @@ namespace GISharp.CodeGen
             Console.Error.WriteLine (message);
 
             return null;
+        }
+
+        public static void LoadAssembly (string path)
+        {
+            var assembly = Assembly.LoadFrom (path);
+            assemblyCache.Add (assembly.FullName, assembly);
         }
 
         public static IEnumerable<GirType> GetTypes (XDocument document)
@@ -260,7 +270,11 @@ namespace GISharp.CodeGen
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
         {
-            throw new NotImplementedException ();
+            var flags = default(TypeAttributes);
+            if (element.Name == gi + "interface") {
+                flags |= TypeAttributes.Interface;
+            }
+            return flags;
         }
 
         protected override bool HasElementTypeImpl ()
@@ -317,10 +331,12 @@ namespace GISharp.CodeGen
 
         public override Type BaseType {
             get {
-                // <class> elements have <parent>
+                // <class> elements have parent attribute unless they are a fundamental type
                 var parentAttribute = element.Attribute ("parent");
                 if (parentAttribute != null) {
                     return GetType (parentAttribute.Value, element.Document);
+                } else if (element.Name == gi + "class") {
+                    return typeof(ReferenceCountedOpaque);
                 }
                 if (element.Name == gi + "record") {
                     var opaqueAttr = element.Attribute (gs + "opaque");

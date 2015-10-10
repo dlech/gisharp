@@ -20,7 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0/GLib-2.0.girfixup --output=${SolutionDir}/GLib-2.0/Generated.cs" />
+        <Command type="Execute" command="${TargetFile} --repository=GObject-2.0 --fixup=${SolutionDir}/GObject-2.0/GObject-2.0.girfixup --output=${SolutionDir}/GObject-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -103,6 +103,7 @@
     <Compile Include="Model\BaseInfo.cs" />
     <Compile Include="Model\TypeInfo.cs" />
     <Compile Include="Freedesktop.Xdg\BaseDirectory.cs" />
+    <Compile Include="Model\InterfaceInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -37,9 +37,7 @@
     <Compile Include="GError.cs" />
     <Compile Include="Delegates.cs" />
     <Compile Include="ReferenceCountedOpaque.cs" />
-    <Compile Include="GType.cs" />
     <Compile Include="StaticOpaque.cs" />
-    <Compile Include="GObject.cs" />
     <Compile Include="OwnedOpaque.cs" />
     <Compile Include="IndexedCollection.cs" />
     <Compile Include="IntN.cs" />

@@ -43,7 +43,18 @@ namespace GISharp.CodeGen.Model
 
         public GISharp.Core.Transfer Transfer {
             get {
-                var transfer = Element.Attribute ("transfer-ownership").Value;
+                var defaultTransfer = default(string);
+                if (IsOutParam || IsReturnParameter || TypeInfo.Classification == TypeClassification.GObject) {
+                    defaultTransfer = "full";
+                } else if (TypeInfo.Classification == TypeClassification.Utf8String) {
+                    var cType = Element.Element (gi + "type").Attribute (c + "type").Value;
+                    if (cType == "gchar*") {
+                        defaultTransfer = "full";
+                    } else if (cType == "const gchar*") {
+                        defaultTransfer = "none";
+                    }
+                }
+                var transfer = Element.Attribute ("transfer-ownership").AsString (defaultTransfer);
                 switch (transfer) {
                 case "none":
                 case "floating":

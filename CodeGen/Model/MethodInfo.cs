@@ -325,7 +325,7 @@ namespace GISharp.CodeGen.Model
             }
             if (ThrowsGErrorException) {
                 var statement = string.Format (
-                    "{0} {1};\n",
+                    "{0} {1}_;\n",
                     typeof(IntPtr).FullName,
                     PinvokeParameterInfos.Single (x => x.IsErrorParameter).Identifier);
                 yield return ParseStatement (statement);
@@ -439,7 +439,7 @@ namespace GISharp.CodeGen.Model
                             ParseStatement (notifyStatement), null);
                         
                         var closureParameterStatement = string.Format (
-                            "var {0} = {1}.{2} ({1}.{3} ({4}_));\n",
+                            "var {0}_ = {1}.{2} ({1}.{3} ({4}_));\n",
                             closureParameter.Identifier,
                             typeof(GCHandle).FullName,
                             nameof(GCHandle.ToIntPtr),
@@ -449,7 +449,7 @@ namespace GISharp.CodeGen.Model
                             ParseStatement (closureParameterStatement), null);
                     } else {
                         var closureParameterStatement = string.Format (
-                            "var {0} = {1}.{2} ({3});\n",
+                            "var {0}_ = {1}.{2} ({3});\n",
                             closureParameter.Identifier,
                             typeof(GCHandle).FullName,
                             nameof(GCHandle.ToIntPtr),
@@ -536,13 +536,13 @@ namespace GISharp.CodeGen.Model
             foreach (var p in parameters) {
                 var lengthParameter = PinvokeParameterInfos[p.TypeInfo.ArrayLengthIndex];
                 if (p.IsInParam) {
-                    var statement = string.Format ("var {0} = ({1})({2} == null ? 0 : {2}.Length);\n",
+                    var statement = string.Format ("var {0}_ = ({1})({2} == null ? 0 : {2}.Length);\n",
                         lengthParameter.Identifier,
                         lengthParameter.TypeInfo.Type,
                         p.Identifier);
                     yield return ParseStatement (statement);
                 } else {
-                    var statement = string.Format ("{0} {1};\n",
+                    var statement = string.Format ("{0} {1}_;\n",
                         lengthParameter.TypeInfo.Type,
                         lengthParameter.Identifier);
                     yield return ParseStatement (statement);
@@ -570,7 +570,7 @@ namespace GISharp.CodeGen.Model
             StatementSyntax statement = ExpressionStatement (invokeExpression);
             if (ManagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
                 var ret = "ret";
-                if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
+                if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
                 }
                 statement = LocalDeclarationStatement (
@@ -594,7 +594,8 @@ namespace GISharp.CodeGen.Model
                 if (p.IsInstanceParameter) {
                     var declaringTypeInfo = (TypeDeclarationInfo)p.DeclaringMember.DeclaringMember;
                     name = declaringTypeInfo.InstanceIdentifier.Text;
-                } else if (p.TypeInfo.RequiresMarshal) {
+                } else if (p.TypeInfo.RequiresMarshal || !ManagedParameterInfos.Any (x => x.GirName == p.GirName)) {
+                    // add suffix unless the parameter is also a managed parameter and does not need to be marshaled
                     name += "_";
                 }
                 var arg = Argument (ParseExpression (name));
@@ -650,7 +651,7 @@ namespace GISharp.CodeGen.Model
                 }
                 if (unmangedParameterInfo.TypeInfo.ArrayLengthIndex >= 0) {
                     var lengthParameterInfo = PinvokeParameterInfos[unmangedParameterInfo.TypeInfo.ArrayLengthIndex];
-                    length = "(int)" + lengthParameterInfo.Identifier.Text;
+                    length = "(int)" + lengthParameterInfo.Identifier.Text + "_";
                 }
                 if (unmangedParameterInfo.TypeInfo.ArrayZeroTerminated) {
                     length = "null";
@@ -758,7 +759,7 @@ namespace GISharp.CodeGen.Model
                     }
                 }
                 var ret = "ret";
-                if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
+                if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
                 }
                 var returnStatement = ReturnStatement (ParseExpression (ret));

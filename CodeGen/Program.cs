@@ -25,7 +25,7 @@ namespace GISharp.CodeGen
         static void PrintHelpAndExit (OptionSet options, int exitCode = 0)
         {
             var writer = exitCode == 0 ? Console.Out : Console.Error;
-            writer.WriteLine ("Usage: mono GICodeGen.exe [-r <repository-name> [-g <gir-directory>] [-f <fixup-file>] [-o <output-file>] | -h | -v]");
+            writer.WriteLine ("Usage: mono GICodeGen.exe -r <repository-name> [-g <gir-directory>] [-f <fixup-file>] [-o <output-file>] [-a <path1[:path2[...]] | -h | -v]");
             writer.WriteLine ();
             options.WriteOptionDescriptions (writer);
             Environment.Exit (exitCode);
@@ -45,6 +45,7 @@ namespace GISharp.CodeGen
             string girDirectory = null;
             string fixupFile = null;
             string outputFile = null;
+            string paths = null;
 
             OptionSet options = null;
             options = new OptionSet () { {
@@ -68,6 +69,10 @@ namespace GISharp.CodeGen
                     "The name of the .girfixup file. By default '<namespace>.girfixup' will be used.",
                     v => fixupFile = v
                 }, {
+                    "a=|assemblies=",
+                    "A colon separated list of dependant assembly paths.",
+                    v => paths = v
+                }, {
                     "o=|output=",
                     "The name of the output file. By default './<namespace>/Generated.cs' will be used.",
                     v => outputFile = v
@@ -88,11 +93,21 @@ namespace GISharp.CodeGen
 
             fixupFile = fixupFile ?? repositoryName + ".girfixup";
             outputFile = outputFile ?? Path.Combine (repositoryName, "Generated");
+
+            var pathList = (paths?.Split (':') ?? new string[0] )
+                .Select (x => Path.GetFullPath(x)).ToList ();
             // Analysis restore ConstantNullCoalescingCondition
 
             Console.WriteLine ("Generating code for '{0}'.", Path.GetFullPath (girFile));
             Console.WriteLine ("Using fixup file '{0}'.", Path.GetFullPath (fixupFile));
             Console.WriteLine ("Creating output file '{0}'.", Path.GetFullPath (outputFile));
+            Console.WriteLine ("With assemblies: {0}.",
+                string.Join (", ", pathList.Select (x => string.Format ("'{0}'", x))));
+
+            // Preload the specified assemblies for lookup later
+            foreach (var path in pathList) {
+                GirType.LoadAssembly (path);
+            }
 
             var xmlDoc = XDocument.Load (girFile);
             xmlDoc.ApplyMoveFile (fixupFile);

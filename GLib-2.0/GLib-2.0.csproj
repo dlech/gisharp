@@ -6,7 +6,7 @@
     <ProjectGuid>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</ProjectGuid>
     <OutputType>Library</OutputType>
     <RootNamespace>GISharp.GLib</RootNamespace>
-    <AssemblyName>GI.GLib</AssemblyName>
+    <AssemblyName>GLib-2.0</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -74,6 +74,6 @@
   <Target Name="BeforeCompile">
     <Delete Files="Generated.cs" />
     <Message Text="Generating Generated.cs..." />
-    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs" />
+    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs -a $(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/Core.dll" />
   </Target>
 </Project>

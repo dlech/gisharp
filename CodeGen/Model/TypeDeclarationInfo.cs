@@ -60,8 +60,8 @@ namespace GISharp.CodeGen.Model
         protected TypeDeclarationInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            if (element.Name != gi + "alias" && element.Name != gi + "record" && element.Name != gi + "object" && element.Name != gs + "static-class" && element.Name != gi + "callback") {
-                throw new ArgumentException ("Requires <alias>, <record>, <object>, <static-class> or <callback> element.", nameof(element));
+            if (!Fixup.ElementsThatDefineAType.Contains (element.Name)) {
+                throw new ArgumentException ("Requires <gi:alias>, <gi:record>, <gi:union>, <gi:interface>, <gi:class>, <gs:static-class> or <gi:callback> element.", nameof(element));
             }
         }
 

@@ -27,6 +27,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsGObject {
+            get {
+                return Element.Name == gi + "class";
+            }
+        }
+
         BaseListSyntax _BaseList;
         /// <summary>
         /// Gets the base list syntax for the class declaration.
@@ -55,8 +61,16 @@ namespace GISharp.CodeGen.Model
                         var baseType = ParseTypeName (opaqueTypeName);
                         types = types.Add (SimpleBaseType (baseType));
                     }
-                    // TODO: add parent type for objects
-                    // TODO: add interfaces for objects
+                    if (IsGObject) {
+                        var parent = Element.Attribute ("parent")?.Value;
+                        if (parent == null) {
+                            types = types.Add (SimpleBaseType (
+                                ParseTypeName (typeof(GISharp.Core.ReferenceCountedOpaque).FullName)));
+                        } else {
+                            types = types.Add (SimpleBaseType (ParseTypeName (parent)));
+                        }
+                        // TODO: add interfaces for objects
+                    }
                     if (MethodInfos.Any (x => x.IsEquals)) {
                         var typeName = string.Concat (typeof(IEquatable<>).FullName.TakeWhile (x => x != '`'));
                         typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
@@ -108,8 +122,8 @@ namespace GISharp.CodeGen.Model
         public ClassInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            if (element.Name != gi + "object" && element.Name != gi + "record" && element.Name != gs + "static-class") {
-                throw new ArgumentException ("Requires <gi:object>, <gi:record> or <gs:static-class> element.", nameof(element));
+            if (element.Name != gi + "class" && element.Name != gi + "record" && element.Name != gs + "static-class") {
+                throw new ArgumentException ("Requires <gi:class>, <gi:record> or <gs:static-class> element.", nameof(element));
             }
             if (element.Name == gi + "record" && element.Attribute (gs + "opaque") == null) {
                 throw new ArgumentException ("<record> element must be opaque.", nameof(element));

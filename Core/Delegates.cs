@@ -126,6 +126,18 @@ namespace GISharp.Core
             };
             return method;
         }
+
+        public static NativeDestroyNotify Create<T> (DestroyNotify<T> method, bool freeData) where T : Opaque
+        {
+            NativeDestroyNotify native = (userData_) => {
+                var userData = Opaque.GetInstance<T> (userData_, Core.Transfer.None);
+                method.Invoke (userData);
+                if (freeData) {
+                    GCHandle.FromIntPtr (userData_).Free ();
+                }
+            };
+            return native;
+        }
     }
 
     /// <summary>
