@@ -232,6 +232,26 @@ namespace GISharp.CodeGen
                 element.Remove ();
             }
 
+            // add functions for GType getters
+
+            var elementsWithGTypeGetter = document.Descendants ()
+                .Where (d => d.Attribute (glib + "get-type").AsString ("intern") != "intern");
+            foreach (var element in elementsWithGTypeGetter) {
+                var functionElement = new XElement (
+                    gi + "function",
+                    new XAttribute ("name", "get_g_type"),
+                    new XAttribute (c + "identifier", element.Attribute (glib + "get-type").Value),
+                    new XElement (
+                        gi + "return-value",
+                        new XElement (
+                            gi + "type",
+                            new XAttribute ("name", "GType"))));
+                if (element.Attribute ("parent") != null) {
+                    functionElement.SetAttributeValue (gs + "access-modifiers", "public static new");
+                }
+                element.Add (functionElement);
+            }
+
             // rename all error_quark functions to get_error_quark so that they
             // become properties
             var errorQuarkElements = document.Descendants (gi + "function")
@@ -743,6 +763,9 @@ namespace GISharp.CodeGen
                 case "Func":
                 case "GLib.Func":
                     return typeof(GISharp.Core.NativeFunc).FullName;
+
+                case "GType":
+                    return typeof(GISharp.Core.GType).FullName;
                 }
                 var typeParameterElements = typeElement.Elements (gi + "type").Union (element.Elements (gi + "array")).ToList ();
                 if (typeParameterElements.Any ()) {

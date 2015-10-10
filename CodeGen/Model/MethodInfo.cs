@@ -946,8 +946,10 @@ namespace GISharp.CodeGen.Model
                 .Single ().Element (gi + "package")
                 .Attribute ("name").Value + ".dll";
             var dllImportAttrName = ParseName (typeof(DllImportAttribute).FullName);
-            var dllImportAttrArgListText = string.Format ("(\"{0}\", CallingConvention = {1}.{2})",
+            var dllImportAttrArgListText = string.Format (
+                "(\"{0}\", {1} = {2}.{3})",
                 dllName,
+                nameof(DllImportAttribute.CallingConvention),
                 typeof(CallingConvention).FullName,
                 CallingConvention.Cdecl);
             var dllImportAttrArgList = ParseAttributeArgumentList (dllImportAttrArgListText);

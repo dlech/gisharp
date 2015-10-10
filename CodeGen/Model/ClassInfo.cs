@@ -27,6 +27,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsGType {
+            get {
+                return Element.Attribute (glib + "get-type") != null;
+            }
+        }
+
         public bool IsGObject {
             get {
                 return Element.Name == gi + "class";

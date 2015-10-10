@@ -7,8 +7,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name ='VaClosureMa
 # DupliateFunc not implemented in GLib
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='GLib.DuplicateFunc']"
 
-# Change alias name to match what is used in type name everywhere else
-chattr "name" "" "GType" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+# Implemented in GISharp Core assembly
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
 
 # Object
 
