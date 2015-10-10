@@ -60,6 +60,12 @@ opaque
 : Values
     : `ref-counted`, `owned`, `static`
 
+params
+: Description
+    : Indicates that a parameter is "params"
+: Values
+    : `1` (true), `0` (false)
+
 pinvoke-only
 : Description
     : Instructs the code generator to only generate the pinvoke method for a

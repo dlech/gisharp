@@ -12,6 +12,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
 
 # Object
 
+# 'new' constructor has params
+chattr "gs:params" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:constructor[@name='newv']/gi:parameters/gi:parameter[@name='parameters']"
 # ignore user_data stuff
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_data']"
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='replace_qdata']"

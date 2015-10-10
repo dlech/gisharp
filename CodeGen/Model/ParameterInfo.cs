@@ -41,6 +41,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsParams {
+            get {
+                return managed && Element.Attribute (gs + "params").AsBool ();
+            }
+        }
+
         public GISharp.Core.Transfer Transfer {
             get {
                 var defaultTransfer = default(string);
@@ -248,6 +254,8 @@ namespace GISharp.CodeGen.Model
                     yield return Token (SyntaxKind.RefKeyword);
                 } else if (IsOutParam) {
                     yield return Token (SyntaxKind.OutKeyword);
+                } else if (IsParams) {
+                    yield return Token (SyntaxKind.ParamsKeyword);
                 }
             }
         }

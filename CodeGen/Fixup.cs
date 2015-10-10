@@ -573,10 +573,12 @@ namespace GISharp.CodeGen
             }
             list = list.Where ((p, i) => !indexesToRemove.Contains (i)).ToList ();
 
-            // reorder the parameters to that those with defaults are at the end
+            // reorder the parameters to that those with default values are at
+            // the end and params are at the very end
 
-            list = list.Where (p => p.Attribute (gs + "default") == null)
-                .Union (list.Where (p => p.Attribute (gs + "default") != null)).ToList ();
+            list = list.Where (p => p.Attribute (gs + "default") == null && p.Attribute (gs + "params") == null)
+                       .Union (list.Where (p => p.Attribute (gs + "default") != null && p.Attribute (gs + "params") == null))
+                       .Union (list.Where (p => p.Attribute (gs + "params") != null)).ToList ();
 
             return list;
         }
