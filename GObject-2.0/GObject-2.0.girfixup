@@ -12,6 +12,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
 
 # Object
 
+# has custom default constructor
+chattr "gs:default-constructor" "" "0" "gi:repository/gi:namespace/gi:class[@name ='Object']"
 # 'new' constructor has params
 chattr "gs:params" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:constructor[@name='newv']/gi:parameters/gi:parameter[@name='parameters']"
 # ignore user_data stuff

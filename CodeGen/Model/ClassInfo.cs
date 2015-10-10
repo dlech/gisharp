@@ -51,6 +51,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool HasDefaultConstructor {
+            get {
+                return Element.Attribute (gs + "default-constructor").AsBool (!IsStaticClass);
+            }
+        }
+
         BaseListSyntax _BaseList;
         /// <summary>
         /// Gets the base list syntax for the class declaration.
@@ -179,9 +185,7 @@ namespace GISharp.CodeGen.Model
                 classDeclaration = classDeclaration.WithBaseList (
                     BaseList.WithLeadingTrivia (Whitespace ("\t")));
             }
-            // TODO: should probably make this optional (via xml attribute) in
-            // case we need to implment manually
-            if (!IsStaticClass) {
+            if (HasDefaultConstructor) {
                 classDeclaration = classDeclaration.AddMembers (DefaultConstructor);
             }
             yield return classDeclaration;

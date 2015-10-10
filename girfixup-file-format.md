@@ -45,6 +45,13 @@ default
 : Values
     : Any valid C# expression
 
+default-constructor
+: Description
+    : Specifies that a class should have an automatically generated consructor.
+      Set to "0" when you need to implement a custom default constructor.
+: Values
+    : `1` (true), `0` (false)
+
 managed-type
 : Description
     : Stores the managed type that will be used for an element. The value is
