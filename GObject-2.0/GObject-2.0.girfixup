@@ -1,14 +1,36 @@
 ﻿# va_list not supported yet
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[./gi:type/@name ='VaClosureMarshal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name ='VaClosureMarshal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[./gi:parameters/gi:parameter/gi:type/@name='SignalCVaMarshaller']"
 
 # DupliateFunc not implemented in GLib
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='GLib.DuplicateFunc']"
 
-# Implemented in GISharp Core assembly
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+# Can't use _register_static functions
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[contains(@name,'_register_static')]"
+
+# Boxed
+
+# move functions to static class
+addelement "<gs:static-class name='Boxed' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'boxed_')]" "gi:repository/gi:namespace/gs:static-class[@name='Boxed']"
+chattr "name" "boxed_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Boxed']/gi:function[starts-with(@name,'boxed_')]"
+
+# Enum
+
+# move functions to static class
+addelement "<gs:static-class name='Enum' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_')]" "gi:repository/gi:namespace/gs:static-class[@name='Enum']"
+chattr "name" "enum_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Enum']/gi:function[starts-with(@name,'enum_')]"
+
+# Flags
+
+# move functions to static class
+addelement "<gs:static-class name='Flags' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'flags_')]" "gi:repository/gi:namespace/gs:static-class[@name='Flags']"
+chattr "name" "flags_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Flags']/gi:function[starts-with(@name,'flags_')]"
 
 # Object
 
@@ -46,19 +68,76 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:me
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='weak_unref']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='watch_closure']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:method[@name='run_dispose']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name ='clear_object']"
 # not sure wat this is for
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']/gi:function[@name='compat_control']"
+
+# ParamFlags
+
+# move constants and change to members
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PARAM_')]" "gi:repository/gi:namespace/gi:bitfield[@name='ParamFlags']"
+chelement "gi:member" "gi:repository/gi:namespace/gi:bitfield[@name ='ParamFlags']/gi:constant"
 
 # ParamSpec
 
 # ignore user_data stuff
 chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:class[@name ='ParamSpec']/gi:method[@name='set_qdata_full']"
 
+# ParamSpecs
+
+# move functions to static class
+addelement "<gs:static-class name='ParamSpecs' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'param_spec_')]" "gi:repository/gi:namespace/gs:static-class[@name='ParamSpecs']"
+chattr "name" "param_spec_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='ParamSpecs']/gi:function[starts-with(@name,'param_spec_')]"
+
 
 # ParamSpecPool
 
 # new function should be constructor
 chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name ='ParamSpecPool']/gi:function[@name='new']"
+
+# SignalAccumulators
+
+# move functions to static class
+addelement "<gs:static-class name='SignalAccumulators' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_accumulator_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalAccumulators']"
+chattr "name" "signal_accumulator_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalAccumulators']/gi:function[starts-with(@name,'signal_accumulator_')]"
+
+# SignalHandlers
+
+# move functions to static class
+addelement "<gs:static-class name='SignalHandlers' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handlers_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandlers']"
+chattr "name" "signal_handlers_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandlers']/gi:function[starts-with(@name,'signal_handlers_')]"
+
+# SignalHandler
+
+# move functions to static class
+addelement "<gs:static-class name='SignalHandler' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handler_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandler']"
+chattr "name" "signal_handler_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandler']/gi:function[starts-with(@name,'signal_handler_')]"
+
+# Signal
+
+# move functions and constants to static class
+addelement "<gs:static-class name='Signal' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_')]" "gi:repository/gi:namespace/gs:static-class[@name='Signal']"
+chattr "name" "signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[starts-with(@name,'signal_')]"
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SIGNAL_')]" "gi:repository/gi:namespace/gs:static-class[@name='Signal']"
+chattr "name" "SIGNAL_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:constant[starts-with(@name,'SIGNAL_')]"
+
+# Type
+
+# GType alias implemented in GISharp Core assembly
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+# not needed?
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[@name='TYPE_FLAG_RESERVED_ID_BIT']"
+# have a static class for everything else
+addelement "<gs:static-class name='Type' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function[starts-with(@name,'type_')]" "gi:repository/gi:namespace/gs:static-class[@name='Type']"
+chattr "name" "type_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Type']/gi:function[starts-with(@name,'type_')]"
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'TYPE_')]" "gi:repository/gi:namespace/gs:static-class[@name='Type']"
+chattr "name" "TYPE_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Type']/gi:constant[starts-with(@name,'TYPE_')]"
 
 # TypeClass
 
@@ -79,6 +158,9 @@ chattr "gs:opaque" "" "static" "gi:repository/gi:namespace/gi:record[@name='Type
 
 # this is owned opaque, but does not have a single free function
 chattr "gs:opaque" "" "owned" "gi:repository/gi:namespace/gi:record[@name ='Value']"
+move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'VALUE_')]" "gi:repository/gi:namespace/gi:record[@name='Value']"
+chattr "name" "VALUE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Value']/gi:constant[starts-with(@name,'VALUE_')]"
+
 # ValueArray
 
 # obsolete
