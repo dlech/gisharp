@@ -627,6 +627,8 @@ namespace GISharp.CodeGen
                 yield return "gconstpointer";
                 yield return "gchar";
                 yield return "guchar";
+                yield return "gunichar";
+                yield return "gunichar2";
                 yield return "gint";
                 yield return "guint";
                 yield return "gshort";
@@ -663,7 +665,6 @@ namespace GISharp.CodeGen
                 yield return "none";
                 yield return "utf8";
                 yield return "filename";
-                yield return "gunichar";
                 yield return "va_list";
             }
         }
@@ -720,8 +721,11 @@ namespace GISharp.CodeGen
                 case "gushort":
                 case "guint16":
                     return typeof(ushort).FullName;
+                case "gunichar2":
+                    return typeof(char).FullName;
                 case "gint":
                 case "gint32":
+                case "gunichar":
                     return typeof(int).FullName;
                 case "guint":
                 case "guint32":

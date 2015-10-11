@@ -57,6 +57,10 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         TypeClass,
         /// <summary>
+        /// A UTF-32/UCS-4 character.
+        /// </summary>
+        Utf32Char,
+        /// <summary>
         /// A null-terminated UTF-8 string.
         /// </summary>
         Utf8String,
@@ -94,6 +98,8 @@ namespace GISharp.CodeGen.Model
                         _Classification = TypeClassification.Utf8String;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
                         _Classification = TypeClassification.FilenameString;
+                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "gunichar") {
+                        _Classification = TypeClassification.Utf32Char;
                     } else if (TypeObject.IsArray) {
                         if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
                             _Classification = TypeClassification.Strv;
