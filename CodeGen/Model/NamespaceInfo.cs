@@ -44,6 +44,16 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        List<MemberInfo> _TypeDeclarationInfos;
+        public IReadOnlyList<MemberInfo> TypeDeclarationInfos {
+            get {
+                if (_TypeDeclarationInfos == null) {
+                    _TypeDeclarationInfos = GetTypeDeclarationInfos ().ToList ();
+                }
+                return _TypeDeclarationInfos.AsReadOnly ();
+            }
+        }
+
         public NamespaceInfo (XDocument document) 
             : base (document.Element (gi + "repository").Element (gi + "namespace"), null)
         {
@@ -66,9 +76,28 @@ namespace GISharp.CodeGen.Model
             Version = namespaceElement.Attribute ("version").Value;
         }
 
+        /// <summary>
+        /// Finds the info for the specified element.
+        /// </summary>
+        /// <returns>The info or <c>null</c> if the element was not found.</returns>
+        /// <param name="element">The element to search for.</param>
+        public BaseInfo FindInfo (XElement element)
+        {
+            var info = element.Annotation<BaseInfo> ();
+            if (info != null) {
+                return info;
+            }
+            return InternalFindInfo (element);
+        }
+
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            return TypeDeclarationInfos;
+        }
+
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            return GetTypeDeclarationInfos ().SelectMany (x => x.Declarations);
+            return TypeDeclarationInfos.SelectMany (x => x.Declarations);
         }
 
         IEnumerable<MemberInfo> GetTypeDeclarationInfos ()

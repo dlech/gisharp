@@ -113,8 +113,26 @@ namespace GISharp.CodeGen.Model
             if (element == null) {
                 throw new ArgumentNullException (nameof(element));
             }
-            this.Element = element;
+            Element = element;
             DeclaringMember = declaringMember;
+        }
+
+        internal abstract IEnumerable<BaseInfo> GetChildInfos ();
+
+        internal BaseInfo InternalFindInfo (XElement element)
+        {
+            if (element == Element) {
+                element.AddAnnotation (this);
+                return this;
+            }
+            foreach (var child in GetChildInfos ()) {
+                var info = child.InternalFindInfo (element);
+                if (info != null) {
+                    return info;
+                }
+            }
+
+            return null;
         }
 
         /// <summary>

@@ -54,6 +54,7 @@
     <Compile Include="Transfer.cs" />
     <Compile Include="NullHandleIsInstanceAttribute.cs" />
     <Compile Include="DynamicLibrary.cs" />
+    <Compile Include="CallbackCache.cs" />
     <Compile Include="GType.cs" />
   </ItemGroup>
   <ItemGroup>

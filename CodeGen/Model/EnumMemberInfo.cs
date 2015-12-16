@@ -39,5 +39,10 @@ namespace GISharp.CodeGen.Model
                 throw new ArgumentException ("Requires <member> element.", nameof(element));
             }
         }
+
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            yield break;
+        }
     }
 }

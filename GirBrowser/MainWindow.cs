@@ -4,6 +4,7 @@ using System.Linq;
 using System.Xml.Linq;
 using Gtk;
 using GISharp.CodeGen;
+using GISharp.CodeGen.Model;
 using GISharp.GirBrowser.Freedesktop.Xdg;
 
 namespace GISharp.GirBrowser
@@ -41,7 +42,7 @@ namespace GISharp.GirBrowser
             #if DEBUG
             girFileNameEntry.Text = BaseDirectory.FindDataFile (
                 System.IO.Path.Combine ("gir-1.0", "GLib-2.0.gir")) ?? "";
-            fixupFileNameEntry.Text = "../../../GLib-2.0.girfixup";
+            fixupFileNameEntry.Text = "../../../GLib-2.0/GLib-2.0.girfixup";
             girLoadButton.Click ();
             #endif
         }
@@ -78,7 +79,7 @@ namespace GISharp.GirBrowser
                 var model = girTreeView.Model as TreeModelAdapter;
                 var impl = model.Implementor as GirTreeModel;
                 var newDoc = new XDocument (impl.Root.Document);
-                newDoc.ApplyMoveFile (fixupFileNameEntry.Text);
+                newDoc.ApplyFixupFile (fixupFileNameEntry.Text);
                 newDoc.ApplyBuiltinFixup ();
                 var fixupImpl = new GirTreeModel (newDoc.Root);
                 fixupTreeView.Model = new TreeModelAdapter (fixupImpl);

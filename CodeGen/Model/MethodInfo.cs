@@ -220,6 +220,16 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            return new BaseInfo[] {
+                UnmanagedReturnParameterInfo,
+                ManagedReturnParameterInfo
+            }
+                .Concat (PinvokeParameterInfos)
+                .Concat (ManagedParameterInfos);
+        }
+
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
             var pinvokeMethod = MethodDeclaration (

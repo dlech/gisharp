@@ -221,6 +221,11 @@ namespace GISharp.CodeGen.Model
             _TypeObject = null;
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            yield break;
+        }
+
         SyntaxTrivia GetGirXmlTrivia ()
         {
             var copy = new XElement (Element);

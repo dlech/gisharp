@@ -2,22 +2,25 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using System.Xml;
 using System.Xml.Linq;
-using Gtk;
+
 using GISharp.CodeGen;
+using GISharp.CodeGen.Model;
+using Gtk;
 
 namespace GISharp.GirBrowser
 {
     public class GirTreeModel : GLib.Object, TreeModelImplementor
     {
         readonly Dictionary<XElement, TreeIter> iterMap = new Dictionary<XElement, TreeIter> ();
+        readonly NamespaceInfo namespaceInfo;
 
         public readonly XElement Root;
 
         public GirTreeModel (XElement root)
         {
             Root = root;
+            namespaceInfo = new NamespaceInfo (root.Document);
         }
 
         #region TreeModelImplementor implementation
@@ -206,7 +209,8 @@ namespace GISharp.GirBrowser
             if (element == null) {
                 return null;
             }
-            return element.ToCodeFragment ();
+
+            return namespaceInfo.FindInfo (element)?.ToString ();
         }
 
         XElement getNode (TreeIter iter)

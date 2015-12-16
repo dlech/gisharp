@@ -7,6 +7,7 @@ using System.Text;
 using System.Xml.Linq;
 
 using GISharp.Core;
+using GISharp.CodeGen.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -110,11 +111,11 @@ namespace GISharp.CodeGen
             }
 
             var xmlDoc = XDocument.Load (girFile);
-            xmlDoc.ApplyMoveFile (fixupFile);
+            xmlDoc.ApplyFixupFile (fixupFile);
             xmlDoc.ApplyBuiltinFixup ();
 
-            var namespaceInfo = new GISharp.CodeGen.Model.NamespaceInfo (xmlDoc);
-            var codeCompileUnit = SyntaxFactory.CompilationUnit ()
+            var namespaceInfo = new NamespaceInfo (xmlDoc);
+            var codeCompileUnit = CompilationUnit ()
                 .AddMembers (namespaceInfo.Syntax);
             using (var outFileStream = File.Open (outputFile, FileMode.Create))
             using (var writer = new StreamWriter (outFileStream)) {

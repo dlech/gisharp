@@ -242,6 +242,11 @@ namespace GISharp.CodeGen.Model
             this.managed = managed;
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            yield break;
+        }
+
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             return base.GetAttributeLists ().Union (TypeInfo.AttributeLists);

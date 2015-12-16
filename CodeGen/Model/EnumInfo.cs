@@ -45,6 +45,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            return EnumMemberInfos;
+        }
+
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             foreach (var baseAttr in base.GetAttributeLists ()) {

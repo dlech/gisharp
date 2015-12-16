@@ -36,7 +36,7 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static void ApplyMoveFile (this XDocument document, string filename)
+        public static void ApplyFixupFile (this XDocument document, string filename)
         {
             if (document == null) {
                 throw new ArgumentNullException ("document");

@@ -91,6 +91,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            return MethodInfo.GetChildInfos ();
+        }
+
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
             var unmangedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)

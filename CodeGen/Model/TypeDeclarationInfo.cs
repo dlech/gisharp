@@ -65,6 +65,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        {
+            return FieldInfos.Cast<BaseInfo> ().Concat (MethodInfos);
+        }
+
         IEnumerable<FieldInfo> GetFieldInfos ()
         {
             foreach (var constant in Element.Elements (gi + "constant")) {
