@@ -1,0 +1,5 @@
+everything.*
+*.gir
+*.typelib
+*.la
+.libs/

@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "GObject-2.0\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0.Test", "GObject-2.0.Test\GObject-2.0.Test.csproj", "{C25A3333-B7C6-40C1-B221-4455EC83CCC8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Everything-1.0", "Everything-1.0\Everything-1.0.csproj", "{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -81,6 +83,10 @@ Global
 		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C25A3333-B7C6-40C1-B221-4455EC83CCC8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
@@ -90,8 +96,11 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedFlat
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.TextStylePolicy = $2
-		$2.inheritsSet = null
-		$2.scope = text/x-csharp
+		$2.inheritsSet = Mono
+		$2.scope = text/x-makefile
+		$2.NoTabsAfterNonTabs = True
+		$2.EolMarker = Unix
+		$2.inheritsScope = text/plain
 		$0.CSharpFormattingPolicy = $3
 		$3.IndentPreprocessorDirectives = False
 		$3.BeforeIndexerDeclarationBracket = False

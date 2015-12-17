@@ -324,7 +324,14 @@ namespace GISharp.CodeGen.Model
             var freeStatements = new List<StatementSyntax> ();
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 foreach (var s in GetMarshalManagedToNativeParameterStatements (p, false)) {
-                    yield return s.Item1;
+                    if (p.IsInParam) {
+                        yield return s.Item1;
+                    } else {
+                        var unmangedParameter = PinvokeParameterInfos.Single (x => x.GirName == p.GirName);
+                        yield return LocalDeclarationStatement (
+                            VariableDeclaration(unmangedParameter.TypeInfo.Type)
+                                .AddVariables (VariableDeclarator (unmangedParameter.ManagedName + "_")));
+                    }
                     if (s.Item2 != null) {
                         freeStatements.Add (s.Item2);
                     }

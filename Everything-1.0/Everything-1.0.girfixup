@@ -1,0 +1,3 @@
+# add static class for everything
+addelement "<gs:static-class name='Everything' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function" "gi:repository/gi:namespace/gs:static-class[@name='Everything']"
