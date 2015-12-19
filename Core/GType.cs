@@ -19,5 +19,7 @@ namespace GISharp.Core
         {
             return value.value;
         }
+
+        public static GType None { get { return 0ul; } }
     }
 }

@@ -33,10 +33,15 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0.Test", "GObject
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Everything-1.0", "Everything-1.0\Everything-1.0.csproj", "{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Everything-1.0.Test", "Everything-1.0.Test\Everything-1.0.Test.csproj", "{58F158F3-BAC8-488E-910A-C598AC027B6C}"
+EndProject
+Project("{9344BDBB-3E7F-41FC-A0DD-8665D75EE146}") = "Everything-1.0.CMake", "Everything-1.0.CMake\Everything-1.0.CMake.mdproj", "{1CCB4266-6089-4275-B23B-33737A6D1569}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
+		Default|Any CPU = Default|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{0C182ABF-3133-4742-AA1E-32016AEA22C8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
@@ -87,6 +92,14 @@ Global
 		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FEC2BDEF-36BB-4287-B9AD-25B3BB914441}.Release|Any CPU.Build.0 = Release|Any CPU
+		{58F158F3-BAC8-488E-910A-C598AC027B6C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{58F158F3-BAC8-488E-910A-C598AC027B6C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{58F158F3-BAC8-488E-910A-C598AC027B6C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{58F158F3-BAC8-488E-910A-C598AC027B6C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1CCB4266-6089-4275-B23B-33737A6D1569}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1CCB4266-6089-4275-B23B-33737A6D1569}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1CCB4266-6089-4275-B23B-33737A6D1569}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1CCB4266-6089-4275-B23B-33737A6D1569}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
@@ -96,8 +109,8 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedFlat
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.TextStylePolicy = $2
-		$2.inheritsSet = Mono
-		$2.scope = text/x-makefile
+		$2.inheritsSet = null
+		$2.scope = application/xml
 		$2.NoTabsAfterNonTabs = True
 		$2.EolMarker = Unix
 		$2.inheritsScope = text/plain
@@ -137,12 +150,16 @@ Global
 		$0.NameConventionPolicy = $10
 		$10.Rules = $11
 		$11.NamingRule = $12
-		$12.Name = Namespaces
-		$12.AffectedEntity = Namespace
+		$12.Name = Type Parameters
+		$12.AffectedEntity = TypeParameter
 		$12.VisibilityMask = VisibilityMask
 		$12.NamingStyle = PascalCase
 		$12.IncludeInstanceMembers = True
 		$12.IncludeStaticEntities = True
+		$12.RequiredPrefixes = $33
+		$33.String = T
+		$12.RequiredSuffixes = $34
+		$34.String = Exception
 		$11.NamingRule = $13
 		$13.Name = Types
 		$13.AffectedEntity = Class, Struct, Enum, Delegate

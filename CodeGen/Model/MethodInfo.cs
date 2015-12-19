@@ -349,17 +349,27 @@ namespace GISharp.CodeGen.Model
             }
             yield return GetPinvokeInvocationStatement ();
 
-            foreach (var s in freeStatements) {
-                yield return s;
-            }
+            // TODO: handle throws error - needs if statement around GetMarshalNativeToManagedStatements
+            // and then call freeStatements before throwing
 
-            // TODO: handle throws error
-
+            // must marshal output parameters before freeing input parameters
+            // in case input parameters are passed through as output parameters
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
                 foreach (var s in GetMarshalNativeToManagedStatements (p, false)) {
                     yield return s;
                 }
             }
+
+            if (!IsConstructor) {
+                foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo, true)) {
+                    yield return s;
+                }
+            }
+
+            foreach (var s in freeStatements) {
+                yield return s;
+            }
+
             foreach (var s in GetReturnStatements ()) {
                 yield return s;
             }
@@ -642,10 +652,6 @@ namespace GISharp.CodeGen.Model
             var ret = "ret";
             if (IsConstructor) {
                 ret += "_";
-            } else {
-                foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo, true)) {
-                    yield return s;
-                }
             }
             yield return ParseStatement (string.Format ("return {0};", ret));
         }

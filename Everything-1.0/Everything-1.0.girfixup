@@ -1,3 +1,6 @@
-# add static class for everything
-addelement "<gs:static-class name='Everything' />" "gi:repository/gi:namespace"
-move "gi:repository/gi:namespace/gi:function" "gi:repository/gi:namespace/gs:static-class[@name='Everything']"
+# g-ir-scanner make gchar* into utf8 when it should not
+chattr "name" "" "gchar" "gi:repository/gi:namespace/gi:function[@name='one_outparam_gchar']/gi:parameters/gi:parameter[@name='arg0']/gi:type"
+
+# add static class for everything - can have classname same as namespace
+addelement "<gs:static-class name='X' />" "gi:repository/gi:namespace"
+move "gi:repository/gi:namespace/gi:function" "gi:repository/gi:namespace/gs:static-class[@name='X']"

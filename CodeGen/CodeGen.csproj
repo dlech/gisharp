@@ -20,7 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --repository=Everything-1.0 --gir-dir=${SolutionDir}/Everything-1.0 --fixup=${SolutionDir}/Everything-1.0/Everything-1.0.girfixup --output=${SolutionDir}/Everything-1.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
+        <Command type="Execute" command="${TargetFile} --repository=Everything-1.0 --gir-dir=${SolutionDir}/Everything-1.0.Cmake/obj/Debug --fixup=${SolutionDir}/Everything-1.0/Everything-1.0.girfixup --output=${SolutionDir}/Everything-1.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

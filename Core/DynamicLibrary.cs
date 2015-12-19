@@ -18,7 +18,7 @@ namespace GISharp.Core
         /// </summary>
         /// <param name="name">The name of the library.</param>
         /// <param name="mode">The mode flags.</param>
-        public DynamicLibrary (string name, Mode mode = Mode.Lazy)
+        public DynamicLibrary (string name, Mode mode = Mode.Lazy | Mode.Local)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof(name));
@@ -32,6 +32,7 @@ namespace GISharp.Core
             name = string.Format ($"{LibraryPrefix}{name}{LibrarySuffix}");
 
             lock (lockObj) {
+                ClearLastError ();
                 Handle = dlopen (name, mode);
                 if (Handle == IntPtr.Zero) {
                     throw new Exception (CheckLastError ());
@@ -68,7 +69,7 @@ namespace GISharp.Core
                 throw new ArgumentNullException (nameof(symbol));
             }
             lock (lockObj) {
-                dlerror (); // clear existing error
+                ClearLastError ();
                 var ret = dlsym (Handle, symbol);
                 var err = CheckLastError (); 
                 if (err!= null) {
@@ -95,7 +96,14 @@ namespace GISharp.Core
         static string CheckLastError ()
         {
             // we can't free the string returned from dlerror
-            return Marshal.PtrToStringAnsi (dlerror ());
+            var ptr = dlerror ();
+            var message = Marshal.PtrToStringAnsi (ptr);
+            return message;
+        }
+
+        static void ClearLastError ()
+        {
+            dlerror ();
         }
 
         [Flags]
