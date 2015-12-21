@@ -57,6 +57,18 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsGType {
+            get {
+                return Element.Attribute (glib + "get-type") != null;
+            }
+        }
+
+        public string GTypeName {
+            get {
+                return Element.Attribute (glib + "type-name").AsString ();
+            }
+        }
+
         protected TypeDeclarationInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -90,6 +102,29 @@ namespace GISharp.CodeGen.Model
             }
             foreach (var method in Element.Elements (gi + "method")) {
                 yield return new MethodInfo (method, this);
+            }
+        }
+
+        protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
+        {
+            return base.GetAttributeLists ().Union (GetTypeDeclarationAttributeLists ());
+        }
+
+        IEnumerable<AttributeListSyntax> GetTypeDeclarationAttributeLists ()
+        {
+            if (IsGType) {
+                var nameArgument = string.Format (
+                    "{0} = \"{1}\"",
+                    nameof (GISharp.Core.GTypeAttribute.Name),
+                    GTypeName);
+                var registerArgument = string.Format (
+                    "{0} = false",
+                    nameof (GISharp.Core.GTypeAttribute.Register));
+                yield return AttributeList ().AddAttributes (
+                    Attribute (ParseName (typeof (GISharp.Core.GTypeAttribute).FullName))
+                    .AddArgumentListArguments(
+                        AttributeArgument (ParseExpression (nameArgument)),
+                        AttributeArgument (ParseExpression(registerArgument))));
             }
         }
     }

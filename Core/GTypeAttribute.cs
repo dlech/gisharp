@@ -2,7 +2,7 @@
 
 namespace GISharp.Core
 {
-    [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum)]
+    [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
     public class GTypeAttribute : Attribute
     {
         /// <summary>
@@ -18,6 +18,7 @@ namespace GISharp.Core
         /// If you are creating a new type in managed code, this should be set
         /// to <c>true</c> (default). If you are binding a type implemented in
         /// unmanged code, then this should be set to false.
+        /// </remarks>
         public bool Register { get; set; } = true;
     }
 }

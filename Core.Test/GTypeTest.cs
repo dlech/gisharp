@@ -8,6 +8,12 @@ namespace GISharp.Core.Test
     public class GTypeTest
     {
         [Test]
+        public void TestGetGTypeName ()
+        {
+            Assert.That (typeof (GType).GetGTypeName (), Is.EqualTo ("GType"));
+        }
+
+        [Test]
         public void TestName ()
         {
             Assert.That (() => GType.Invalid.Name, Throws.InvalidOperationException);
@@ -42,8 +48,12 @@ namespace GISharp.Core.Test
         public void TestFromName ()
         {
             Assert.That (GType.FromName ("void"), Is.EqualTo (GType.None));
-            Assert.That (GType.FromName ("there should never be a type with this name"),
+            Assert.That (GType.FromName ("there-should-never-be-a-type-with-this-name"),
                          Is.EqualTo (GType.Invalid));
+            Assert.That (() => GType.FromName ("name has invalid characters"),
+                         Throws.TypeOf<InvalidGTypeNameException> ());
+            Assert.That (() => GType.FromName (null),
+                         Throws.TypeOf<ArgumentNullException> ());
         }
 
         [Test]

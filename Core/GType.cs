@@ -9,6 +9,7 @@ namespace GISharp.Core
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
+    [GType (Name = "GType", Register = false)]
     public struct GType
     {
         /// <summary>
