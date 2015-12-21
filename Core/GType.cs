@@ -719,15 +719,29 @@ namespace GISharp.Core
                 var values = (int[])type.GetEnumValues ();
                 var names = type.GetEnumNames ();
                 //var fields = type.GetFields ();
-                var gtypeValues = new EnumValue [values.Length];
-                for (int i = 0; i < values.Length; i++) {
-                    gtypeValues[i].Value = values[i];
-                    // TODO: Check fields for EnumValueAttribute and use those names/nicks instead
-                    gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
-                    gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
+                var flagsAttribute = type.GetCustomAttributes (
+                    typeof (FlagsAttribute), false).SingleOrDefault ();
+                if (flagsAttribute == null) {
+                    var gtypeValues = new EnumValue[values.Length];
+                    for (int i = 0; i < values.Length; i++) {
+                        gtypeValues[i].Value = values[i];
+                        // TODO: Check fields for EnumValueAttribute and use those names/nicks instead
+                        gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
+                        gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
+                    }
+                    var ret = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
+                    return ret;
+                } else {
+                    var gtypeValues = new FlagsValue[values.Length];
+                    for (int i = 0; i < values.Length; i++) {
+                        gtypeValues[i].Value = (uint)values[i];
+                        // TODO: Check fields for EnumValueAttribute and use those names/nicks instead
+                        gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
+                        gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
+                    }
+                    var ret = Core.Flags.RegisterStatic (gtypeName, gtypeValues);
+                    return ret;
                 }
-                var ret = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
-                return ret;
             }
             throw new NotImplementedException ();
         }

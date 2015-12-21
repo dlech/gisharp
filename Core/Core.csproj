@@ -59,6 +59,7 @@
     <Compile Include="Value.cs" />
     <Compile Include="Enum.cs" />
     <Compile Include="GTypeAttribute.cs" />
+    <Compile Include="Flags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

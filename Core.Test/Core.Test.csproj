@@ -43,6 +43,7 @@
     <Compile Include="PtrArrayTest.cs" />
     <Compile Include="GTypeTest.cs" />
     <Compile Include="EnumTest.cs" />
+    <Compile Include="FlagsTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
