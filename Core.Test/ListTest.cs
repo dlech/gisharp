@@ -1,9 +1,8 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.Core;
 
-namespace Core.Test
+namespace GISharp.Core.Test
 {
     [TestFixture]
     public class ListTest

@@ -56,6 +56,9 @@
     <Compile Include="DynamicLibrary.cs" />
     <Compile Include="CallbackCache.cs" />
     <Compile Include="GType.cs" />
+    <Compile Include="Value.cs" />
+    <Compile Include="Enum.cs" />
+    <Compile Include="GTypeAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

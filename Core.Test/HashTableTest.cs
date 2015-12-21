@@ -1,10 +1,8 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
-using GISharp.Core;
 using NUnit.Framework;
 
-namespace Core.Test
+namespace GISharp.Core.Test
 {
     [TestFixture]
     public class HashTableTest

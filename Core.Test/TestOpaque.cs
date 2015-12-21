@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Runtime.InteropServices;
 
-using GISharp.Core;
-
-namespace Core.Test
+namespace GISharp.Core.Test
 {
     sealed class TestOpaque : Opaque
     {

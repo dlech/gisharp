@@ -570,7 +570,7 @@ namespace Everything.Test
         {
             GType actual;
             OneOutparamGType (out actual);
-            Assert.That (actual, Is.EqualTo (GType.None));
+            Assert.That (actual, Is.EqualTo (GType.Invalid));
         }
 
         [Test]
@@ -860,7 +860,7 @@ namespace Everything.Test
         [Test]
         public void TestPassthroughOneGType ()
         {
-            var expected = GType.None;
+            var expected = GType.Invalid;
             var actual = PassthroughOneGType (expected);
             Assert.That (actual, Is.EqualTo (expected));
         }

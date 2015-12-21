@@ -5,6 +5,9 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[./gi:type/@name ='VaCl
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name ='VaClosureMarshal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[./gi:parameters/gi:parameter/gi:type/@name='SignalCVaMarshaller']"
 
+# GType is implemented in Core library
+
+
 # DupliateFunc not implemented in GLib
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='GLib.DuplicateFunc']"
 

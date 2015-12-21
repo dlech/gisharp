@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{85913FB2-05F7-4995-BD23-4B5FA58E6729}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Core.Test</RootNamespace>
+    <RootNamespace>GISharp.Core.Test</RootNamespace>
     <AssemblyName>Core.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -41,6 +41,8 @@
     <Compile Include="TestOpaque.cs" />
     <Compile Include="ByteArrayTest.cs" />
     <Compile Include="PtrArrayTest.cs" />
+    <Compile Include="GTypeTest.cs" />
+    <Compile Include="EnumTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

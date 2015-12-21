@@ -109,8 +109,8 @@ Global
 		$1.DirectoryNamespaceAssociation = PrefixedFlat
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.TextStylePolicy = $2
-		$2.inheritsSet = null
-		$2.scope = application/xml
+		$2.inheritsSet = VisualStudio
+		$2.scope = text/x-csharp
 		$2.NoTabsAfterNonTabs = True
 		$2.EolMarker = Unix
 		$2.inheritsScope = text/plain
@@ -124,6 +124,7 @@ Global
 		$3.inheritsSet = Mono
 		$3.inheritsScope = text/x-csharp
 		$3.scope = text/x-csharp
+		$3.SpaceBeforeOpenSquareBracket = False
 		$0.TextStylePolicy = $4
 		$4.NoTabsAfterNonTabs = True
 		$4.EolMarker = Unix
