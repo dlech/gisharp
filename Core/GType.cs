@@ -711,11 +711,11 @@ namespace GISharp.Core
             if (!gtypeAttribute.Register) {
                 throw new InvalidOperationException ("This type can't be registered.");
             }
+            var gtypeName = type.GetGTypeName ();
             if (type.IsEnum) {
                 if (Marshal.SizeOf (type.GetEnumUnderlyingType ()) != 4) {
                     throw new InvalidOperationException ("GType enums must be int/uint");
                 }
-                var gtypeName = gtypeAttribute.Name ?? type.FullName.Replace ('.', '-');
                 var values = (int[])type.GetEnumValues ();
                 var names = type.GetEnumNames ();
                 //var fields = type.GetFields ();
@@ -3503,14 +3503,49 @@ namespace GISharp.Core
 
     public static class GTypeExtenstion
     {
-        public static GType GetGType (this Type type)
+        /// <summary>
+        /// Gets the type name used by the GObject type system.
+        /// </summary>
+        /// <returns>The name.</returns>
+        /// <param name="type">Type.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="type"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
+        /// </exception>
+        public static string GetGTypeName (this Type type)
         {
+            if (type == null) {
+                throw new ArgumentNullException (nameof (type));
+            }
             var gtypeAttr = (GTypeAttribute)type.GetCustomAttributes (
                 typeof (GTypeAttribute), false).SingleOrDefault ();
             if (gtypeAttr == null) {
-                return GType.Invalid;
+                var message = string.Format ("The type '{0}' does not have {1}",
+                                             type.FullName, typeof (GTypeAttribute).FullName);
+                throw new ArgumentException (message, nameof (type));
             }
-            return GType.FromName (gtypeAttr.Name ?? type.FullName.Replace ('.', '-'));
+            return gtypeAttr.Name ?? type.FullName.Replace ('.', '-');
+        }
+
+        /// <summary>
+        /// Gets the <see cref="GType"/> for the managed type.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="GType"/> or <see cref="GType.Invalid"/> if the type
+        /// is not registered.
+        /// </returns>
+        /// <param name="type">Type.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="type"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
+        /// </exception>
+        public static GType GetGType (this Type type)
+        {
+            return GType.FromName (type.GetGTypeName ());
         }
     }
 
