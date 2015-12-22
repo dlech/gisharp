@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
@@ -10,6 +11,7 @@ namespace GISharp.Core
     /// type.
     /// </summary>
     [GType (Name = "GType", Register = false)]
+    [DebuggerDisplay ("{Name}")]
     public struct GType
     {
         /// <summary>
@@ -267,15 +269,14 @@ namespace GISharp.Core
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_type_get_type ();
+        static extern GType g_gtype_get_type ();
 
         /// <summary>
         /// The type for GType.
         /// </summary>
-        public static GType xGType {
-            // FIXME: member name cannot be the same as the type name
+        public static GType Type {
             get {
-                return g_type_get_type ();
+                return g_gtype_get_type ();
             }
         }
 
@@ -471,6 +472,10 @@ namespace GISharp.Core
             return value.GetHashCode ();
         }
 
+        public override string ToString ()
+        {
+            return Name ?? "invalid";
+        }
 
         /// <summary>
         /// Get the unique name that is assigned to a type ID.  Note that this
@@ -501,9 +506,6 @@ namespace GISharp.Core
         /// </returns>
         public string Name {
             get {
-                if (this == Invalid) {
-                    throw new InvalidOperationException ("Invalid GType.");
-                }
                 var ret_ = g_type_name (this);
                 var ret = MarshalG.Utf8PtrToString (ret_, false);
                 return ret;
@@ -538,9 +540,6 @@ namespace GISharp.Core
         /// </returns>
         public GType Parent {
             get {
-                if (this == Invalid) {
-                    throw new InvalidOperationException ("Invalid GType.");
-                }
                 var ret = g_type_parent (this);
                 return ret;
             }
@@ -583,9 +582,6 @@ namespace GISharp.Core
         /// </returns>
         public GType [] Children {
             get {
-                if (this == Invalid) {
-                    throw new InvalidOperationException ("Invalid GType.");
-                }
                 uint nChildren_;
                 var ret_ = g_type_children (this, out nChildren_);
                 var ret = MarshalG.PtrToCArray<GType> (ret_, (int)nChildren_, freePtr: true);
@@ -598,12 +594,6 @@ namespace GISharp.Core
 
         public bool IsA (GType type)
         {
-            if (this == Invalid) {
-                throw new InvalidOperationException ("Invalid GType.");
-            }
-            if (type == Invalid) {
-                throw new ArgumentException ("Invalid GType.", nameof (type));
-            }
             var ret = g_type_is_a (this, type);
             return ret;
         }
