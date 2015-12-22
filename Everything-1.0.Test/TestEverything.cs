@@ -566,7 +566,7 @@ namespace Everything.Test
         }
 
         [Test]
-        public void TestOneOutparamGtype ()
+        public void TestOneOutparamGType ()
         {
             GType actual;
             OneOutparamGType (out actual);

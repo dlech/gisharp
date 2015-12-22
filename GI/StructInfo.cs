@@ -130,7 +130,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_struct_info_is_gtype_struct (IntPtr raw);
 
-        public bool IsGtypeStruct {
+        public bool IsGTypeStruct {
             get {
                 bool raw_ret = g_struct_info_is_gtype_struct (Handle);
                 bool ret = raw_ret;

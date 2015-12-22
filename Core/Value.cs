@@ -1560,7 +1560,7 @@ namespace GISharp.Core
         /// <param name="value">
         /// a valid #GValue of type %G_TYPE_GTYPE
         /// </param>
-        /// <param name="vGtype">
+        /// <param name="vGType">
         /// #GType to be set
         /// </param>
         [SinceAttribute ("2.12")]
@@ -1573,7 +1573,7 @@ namespace GISharp.Core
             IntPtr value,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
-            GType vGtype);
+            GType vGType);
 
         /// <summary>
         /// Sets @value from an instantiatable type via the
