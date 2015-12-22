@@ -194,6 +194,25 @@ namespace GISharp.TypelibBrowser
             }
             propertyTable.ShowAll ();
             typeInfoVbox.PackStart (propertyTable, false, false, 12);
+
+            var registeredTypeInfo = obj as GI.RegisteredTypeInfo;
+            if (registeredTypeInfo != null && registeredTypeInfo.GType != Core.GType.None) {
+                var gtypeVBox = new VBox ();
+                var gtypeSectionLabel = new Label () {
+                    LabelProp = "<b>GType Hierarchy</b>",
+                    UseMarkup = true,
+                    Xalign = 0,
+                };
+                gtypeVBox.PackStart (gtypeSectionLabel, false, false, 12);
+                var current = registeredTypeInfo.GType;
+                do {
+                    var gtypeLabel = new Label (current.Name);
+                    gtypeVBox.PackEnd (gtypeLabel);
+                    current = current.Parent;
+                } while (current != Core.GType.Invalid);
+                gtypeVBox.ShowAll ();
+                typeInfoVbox.PackStart (gtypeVBox, false, false, 12);
+            }
         }
 
         void navigateTo (string infoPath, bool push = true)
