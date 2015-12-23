@@ -10,33 +10,34 @@ namespace GISharp.Core.Test
         [Test]
         public void TestRegister ()
         {
-            // can't have null argument
-            Assert.That (() => GType.Register (null),
-                         Throws.TypeOf <ArgumentNullException> ());
-
-            // invalid because it does not have [Register] attribute.
-            Assert.That (() => GType.Register (typeof (TestEnum1)),
-                         Throws.InvalidOperationException);
+            // invalid because it does not have [GType] attribute.
+            Assert.That (() => typeof (TestEnum1).GetGType (),
+                         Throws.ArgumentException);
 
             // invalid because underlying type is too big.
-            Assert.That (() => GType.Register (typeof (TestEnum2)),
-                         Throws.InvalidOperationException);
+            Assert.That (() => typeof (TestEnum2).GetGType (),
+                         Throws.ArgumentException);
 
-            // invalid because Register = false.
-            Assert.That (() => GType.Register (typeof (TestEnum3)),
-                         Throws.InvalidOperationException);
+            // invalid because IsWrappedNativeType = true.
+            Assert.That (() => typeof (TestEnum3).GetGType (),
+                         Throws.ArgumentException);
 
-            var actual = GType.Register (typeof (TestEnum));
+            // this should register successfully
+            var actual = typeof (TestEnum).GetGType ();
             Assert.That (actual, Is.Not.EqualTo (GType.Invalid),
                          "Failed to register an enum");
 
+            // make sure the type is not re-registed.
             Assert.That (actual, Is.EqualTo (typeof (TestEnum).GetGType ()));
+
+            // a couple more GType checks
+            Assert.That ((Type)actual, Is.EqualTo (typeof (TestEnum)));
             Assert.That (actual.IsA (GType.Enum), Is.True);
         }
     }
 
     // This type is not registered with the GType system since it does not
-    // have the [Register] attribute.
+    // have the [GType] attribute.
     public enum TestEnum1
     {
         One,
@@ -53,8 +54,8 @@ namespace GISharp.Core.Test
         Three,
     }
 
-    // This type should not be allowed because of Register = false
-    [GType (Register = false)]
+    // This type should not be allowed because of IsWrappedNativeType = true
+    [GType (IsWrappedNativeType = true)]
     public enum TestEnum3
     {
         One,

@@ -14,7 +14,7 @@ namespace GISharp.Core
     /// within the 2 element @data union, and the @g_type member should
     /// only be accessed through the G_VALUE_TYPE() macro.
     /// </summary>
-    [GTypeAttribute (Name = "GValue", Register = false)]
+    [GTypeAttribute (Name = "GValue", IsWrappedNativeType = true)]
     [DebuggerDisplay ("{ToString ()}")]
     public sealed class Value : OwnedOpaque
     {

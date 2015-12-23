@@ -12,7 +12,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen.Model
 {
-    public class EnumInfo : MemberInfo
+    public class EnumInfo : TypeDeclarationInfo
     {
         List<EnumMemberInfo> _EnumMemberInfos;
         public IReadOnlyList<EnumMemberInfo> EnumMemberInfos {
@@ -81,7 +81,34 @@ namespace GISharp.CodeGen.Model
                 .WithMembers (EnumMembers)
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             yield return enumDeclaration;
-            // TODO: add class declaration for extension methods if there are functions/methods
+
+            // Methods in an enum are not allowed, so using extension methods instead.
+            var enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Extensions")
+                .AddModifiers (
+                    Token (SyntaxKind.PublicKeyword),
+                    Token (SyntaxKind.StaticKeyword))
+                .WithMembers (List<MemberDeclarationSyntax> ().AddRange (GetExtensionMembers ()));
+            // only create a class if there are members
+            if (enumExtenstionsDeclaration.Members.Any ()) {
+                yield return enumExtenstionsDeclaration;
+            }
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetExtensionMembers ()
+        {
+            if (IsGType) {
+                var staticConstructor = ConstructorDeclaration (Identifier + "Extensions")
+                    .AddModifiers (Token (SyntaxKind.StaticKeyword))
+                    .AddBodyStatements (
+                        ParseStatement ($"{typeof (Core.GType)}.{nameof (Core.GType.Register)} (typeof ({Identifier}));"));
+                yield return staticConstructor;
+            }
+
+            foreach (var method in MethodInfos) {
+                foreach (var decl in method.Declarations) {
+                    yield return decl;
+                }
+            }
         }
     }
 }

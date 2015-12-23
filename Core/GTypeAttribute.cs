@@ -19,6 +19,6 @@ namespace GISharp.Core
         /// to <c>true</c> (default). If you are binding a type implemented in
         /// unmanged code, then this should be set to false.
         /// </remarks>
-        public bool Register { get; set; } = true;
+        public bool IsWrappedNativeType { get; set; }
     }
 }

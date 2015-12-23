@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -10,10 +12,75 @@ namespace GISharp.Core
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
-    [GType (Name = "GType", Register = false)]
+    [GType (Name = "GType", IsWrappedNativeType = true)]
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
+        static Dictionary<Type, GType> typeMap;
+        static Dictionary<GType, Type> gtypeMap;
+        static object mapLock;
+
+        static GType ()
+        {
+            typeMap = new Dictionary<Type, GType> ();
+            gtypeMap = new Dictionary<GType, Type> ();
+            mapLock = new object ();
+
+            lock (mapLock) {
+                // add the built-in fundamental types
+                typeMap.Add (typeof (void), None);
+                gtypeMap.Add (None, typeof (void));
+                // No managed type for Interface
+                //typeMap.Add (typeof (interface), Interface);
+                //gtypeMap.Add (Interface, typeof (interface));
+                typeMap.Add (typeof (sbyte), Char);
+                gtypeMap.Add (Char, typeof (sbyte));
+                typeMap.Add (typeof (byte), UChar);
+                gtypeMap.Add (UChar, typeof (byte));
+                typeMap.Add (typeof (bool), Boolean);
+                gtypeMap.Add (Boolean, typeof (bool));
+                typeMap.Add (typeof (int), Int);
+                gtypeMap.Add (Int, typeof (int));
+                typeMap.Add (typeof (uint), UInt);
+                gtypeMap.Add (UInt, typeof (uint));
+                // FIXME: long/ulong only work on LP64 systems
+                // and can't have same managed type as Int64
+                //typeMap.Add (typeof (long), Long);
+                //gtypeMap.Add (Long, typeof (long));
+                //typeMap.Add (typeof (ulong), ULong);
+                //gtypeMap.Add (ULong, typeof (ulong));
+                typeMap.Add (typeof (long), Int64);
+                gtypeMap.Add (Int64, typeof (long));
+                typeMap.Add (typeof (ulong), UInt64);
+                gtypeMap.Add (UInt64, typeof (ulong));
+                // TOOD: do we care about enum/flags?
+                typeMap.Add (typeof (System.Enum), Enum);
+                gtypeMap.Add (Enum, typeof (System.Enum));
+                //typeMap.Add (typeof (System.Enum), Flags);
+                //gtypeMap.Add (Flags, typeof (System.Enum));
+                typeMap.Add (typeof (float), Float);
+                gtypeMap.Add (Float, typeof (float));
+                typeMap.Add (typeof (double), Double);
+                gtypeMap.Add (Double, typeof (double));
+                typeMap.Add (typeof (string), String);
+                gtypeMap.Add (String, typeof (string));
+                typeMap.Add (typeof (IntPtr), Pointer);
+                gtypeMap.Add (Pointer, typeof (IntPtr));
+                // TODO: Boxed is not implemented yet
+                //typeMap.Add (typeof (Boxed), Boxed);
+                //gtypeMap.Add (Boxed, typeof (Boxed));
+                typeMap.Add (typeof (ParamSpec), Param);
+                gtypeMap.Add (Param, typeof (ParamSpec));
+                typeMap.Add (typeof (Object), Object);
+                gtypeMap.Add (Object, typeof (Object));
+                typeMap.Add (typeof (GType), Type);
+                gtypeMap.Add (Type, typeof (GType));
+                // TODO: Need to move Variant from GLib
+                //typeMap.Add (typeof (Variant), Variant);
+                //gtypeMap.Add (Variant, typeof (Variant));
+            }
+        }
+
         /// <summary>
         /// An integer constant that represents the number of identifiers reserved
         /// for types that are assigned at compile-time.
@@ -692,20 +759,46 @@ namespace GISharp.Core
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
             }
+
             var gtypeAttribute = (GTypeAttribute)type.GetCustomAttributes (
                 typeof (GTypeAttribute), false).SingleOrDefault ();
             if (gtypeAttribute == null) {
                 var message = string.Format ("Type must have {0} attribute.",
                                              typeof (GTypeAttribute).FullName);
-                throw new InvalidOperationException (message);
+                throw new ArgumentException (message, nameof (type));
             }
-            if (!gtypeAttribute.Register) {
-                throw new InvalidOperationException ("This type can't be registered.");
+            if (typeMap.ContainsKey (type)) {
+                throw new ArgumentException ("This type is already registered.", nameof (type));
             }
+
+            if (gtypeAttribute.IsWrappedNativeType) {
+                // enums and interfaces can't have method implementations, so we
+                // need to find the associated Extensions type for the actual
+                // implementation.
+                var implementationType = type;
+                if (type.IsEnum || type.IsInterface) {
+                    implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+                }
+                var getGType = implementationType.GetMethod ("getGType",
+                                                         System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+                if (getGType == null) {
+                    throw new ArgumentException ("Could not find getType() method.", nameof (type));
+                }
+                var gtype = (GType)getGType.Invoke (null, null);
+                if (gtype == Invalid) {
+                    throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
+                }
+                lock (mapLock) {
+                    typeMap.Add (type, gtype);
+                    gtypeMap.Add (gtype, type);
+                }
+                return gtype;
+            }
+
             var gtypeName = type.GetGTypeName ();
             if (type.IsEnum) {
                 if (Marshal.SizeOf (type.GetEnumUnderlyingType ()) != 4) {
-                    throw new InvalidOperationException ("GType enums must be int/uint");
+                    throw new ArgumentException ("GType enums must be int/uint", nameof (type));
                 }
                 var values = (int[])type.GetEnumValues ();
                 var names = type.GetEnumNames ();
@@ -720,8 +813,15 @@ namespace GISharp.Core
                         gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
                         gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
                     }
-                    var ret = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
-                    return ret;
+                    var gtype = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
+                    if (gtype == Invalid) {
+                        throw new InvalidOperationException ("Something bad happend while registering enum.");
+                    }
+                    lock (mapLock) {
+                        typeMap.Add (type, gtype);
+                        gtypeMap.Add (gtype, type);
+                    }
+                    return gtype;
                 } else {
                     var gtypeValues = new FlagsValue[values.Length];
                     for (int i = 0; i < values.Length; i++) {
@@ -730,11 +830,56 @@ namespace GISharp.Core
                         gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
                         gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
                     }
-                    var ret = Core.Flags.RegisterStatic (gtypeName, gtypeValues);
-                    return ret;
+                    var gtype = Core.Flags.RegisterStatic (gtypeName, gtypeValues);
+                    if (gtype == Invalid) {
+                        throw new InvalidOperationException ("Something bad happend while registering flags.");
+                    }
+                    lock (mapLock) {
+                        typeMap.Add (type, gtype);
+                        gtypeMap.Add (gtype, type);
+                    }
+                    return gtype;
                 }
             }
             throw new NotImplementedException ();
+        }
+
+        public static explicit operator GType (Type type)
+        {
+            try {
+                return GetGTypeForType (type);
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Could not get GType from type.", ex);
+            }
+        }
+
+        public static explicit operator Type (GType type)
+        {
+            // TODO: need to lookup types that have not been registered yet.
+            return gtypeMap[type];
+        }
+
+        internal static GType GetGTypeForType (Type type)
+        {
+            // enums and interfaces can't have method implementations, so we
+            // need to find the associated Extensions type for the actual
+            // implementation.
+            var implementationType = type;
+            if (type.IsEnum || type.IsInterface) {
+                implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+            }
+
+            // Make sure the static constructor has been called before other checks.
+            // This may register the type.
+            RuntimeHelpers.RunClassConstructor (implementationType.TypeHandle);
+
+            // Is the type already registered?
+            if (typeMap.ContainsKey (type)) {
+                return typeMap[type];
+            }
+
+            var ret = Register (type);
+            return ret;
         }
 
 #if THIS_CODE_IS_NOT_COMPILED
@@ -3492,7 +3637,7 @@ namespace GISharp.Core
         public IntPtr VPointer;
     }
 
-    public static class GTypeExtenstion
+    public static class GTypeExtenstions
     {
         /// <summary>
         /// Gets the type name used by the GObject type system.
@@ -3536,7 +3681,7 @@ namespace GISharp.Core
         /// </exception>
         public static GType GetGType (this Type type)
         {
-            return GType.FromName (type.GetGTypeName ());
+            return GType.GetGTypeForType (type);
         }
     }
 

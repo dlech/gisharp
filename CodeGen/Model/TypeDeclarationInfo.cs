@@ -118,8 +118,8 @@ namespace GISharp.CodeGen.Model
                     nameof (GISharp.Core.GTypeAttribute.Name),
                     GTypeName);
                 var registerArgument = string.Format (
-                    "{0} = false",
-                    nameof (GISharp.Core.GTypeAttribute.Register));
+                    "{0} = true",
+                    nameof (GISharp.Core.GTypeAttribute.IsWrappedNativeType));
                 yield return AttributeList ().AddAttributes (
                     Attribute (ParseName (typeof (GISharp.Core.GTypeAttribute).FullName))
                     .AddArgumentListArguments(

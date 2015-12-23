@@ -95,7 +95,7 @@ namespace GISharp.Core
             }
             // TODO: look up type if there is a GType
             obj = (T)Activator.CreateInstance (typeof(T),
-                BindingFlags.Instance | BindingFlags.NonPublic,
+                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
                 null, new object[] { handle, ownership }, null);
             return obj;
         }

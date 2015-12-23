@@ -17,6 +17,7 @@ namespace GISharp.GI.Test
         }
 
         [Test]
+        [Ignore ("This is not the same on all installs.")]
         public void TestGetDependencies ()
         {
             var deps = Repository.Namespaces ["Gio"].Dependencies;
@@ -67,6 +68,7 @@ namespace GISharp.GI.Test
         }
 
         [Test]
+        [Ignore ("This is not the same on all installs.")]
         public void TestGetTypelibPath ()
         {
             var path = Repository.Namespaces ["Gio"].TypelibPath;
@@ -113,6 +115,7 @@ namespace GISharp.GI.Test
         }
 
         [Test]
+        [Ignore ("This is not the same on all installs.")]
         public void TestGetSharedLibrary ()
         {
             var library = Repository.Namespaces ["Gio"].SharedLibraries;

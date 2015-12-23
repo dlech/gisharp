@@ -172,7 +172,7 @@ namespace GISharp.Core.Test
             // Can't have enum without implementation
             Assert.That (() => new Value (GType.Enum), Throws.ArgumentException);
 
-            var gtype = GType.Register (typeof (ValueTestEnum));
+            var gtype = typeof (ValueTestEnum).GetGType ();
             var v = new Value (gtype);
             Assert.That (v.ValueGType, Is.EqualTo (gtype));
             var expected = ValueTestEnum.Value;
@@ -196,7 +196,7 @@ namespace GISharp.Core.Test
             // Can't have flags without implementation
             Assert.That (() => new Value (GType.Flags), Throws.ArgumentException);
 
-            var gtype = GType.Register (typeof (ValueTestFlags));
+            var gtype = typeof (ValueTestFlags).GetGType ();
             var v = new Value (gtype);
             Assert.That (v.ValueGType, Is.EqualTo (gtype));
             var expected = ValueTestFlags.Value;
