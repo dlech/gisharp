@@ -60,6 +60,9 @@
     <Compile Include="Enum.cs" />
     <Compile Include="GTypeAttribute.cs" />
     <Compile Include="Flags.cs" />
+    <Compile Include="ParamSpec.cs" />
+    <Compile Include="Object.cs" />
+    <Compile Include="BindingFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

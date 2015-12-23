@@ -208,62 +208,62 @@ namespace GISharp.CodeGen
             throw new NotImplementedException ();
         }
 
-        public override EventInfo GetEvent (string name, BindingFlags bindingAttr)
+        public override EventInfo GetEvent (string name, System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override EventInfo[] GetEvents (BindingFlags bindingAttr)
+        public override EventInfo[] GetEvents (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override FieldInfo GetField (string name, BindingFlags bindingAttr)
+        public override FieldInfo GetField (string name, System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override FieldInfo[] GetFields (BindingFlags bindingAttr)
+        public override FieldInfo[] GetFields (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override MemberInfo[] GetMembers (BindingFlags bindingAttr)
+        public override MemberInfo[] GetMembers (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        protected override MethodInfo GetMethodImpl (string name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override MethodInfo GetMethodImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
             throw new NotImplementedException ();
         }
 
-        public override MethodInfo[] GetMethods (BindingFlags bindingAttr)
+        public override MethodInfo[] GetMethods (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override Type GetNestedType (string name, BindingFlags bindingAttr)
+        public override Type GetNestedType (string name, System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override Type[] GetNestedTypes (BindingFlags bindingAttr)
+        public override Type[] GetNestedTypes (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override PropertyInfo[] GetProperties (BindingFlags bindingAttr)
+        public override PropertyInfo[] GetProperties (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        protected override PropertyInfo GetPropertyImpl (string name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
+        protected override PropertyInfo GetPropertyImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
         {
             throw new NotImplementedException ();
         }
 
-        protected override ConstructorInfo GetConstructorImpl (BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override ConstructorInfo GetConstructorImpl (System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
             throw new NotImplementedException ();
         }
@@ -307,12 +307,12 @@ namespace GISharp.CodeGen
             return false;
         }
 
-        public override ConstructorInfo[] GetConstructors (BindingFlags bindingAttr)
+        public override ConstructorInfo[] GetConstructors (System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotImplementedException ();
         }
 
-        public override object InvokeMember (string name, BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
+        public override object InvokeMember (string name, System.Reflection.BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
         {
             throw new NotImplementedException ();
         }
