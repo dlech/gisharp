@@ -47,6 +47,7 @@
     <Compile Include="ValueTest.cs" />
     <Compile Include="BindingFlagsTest.cs" />
     <Compile Include="ObjectTest.cs" />
+    <Compile Include="Setup.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

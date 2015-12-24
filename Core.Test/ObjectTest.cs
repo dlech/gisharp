@@ -14,32 +14,9 @@ namespace GISharp.Core.Test
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_unref (IntPtr @object);
 
-        delegate void LogFunc (IntPtr log_domain, uint log_level, IntPtr message, IntPtr user_data);
-
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern uint g_log_set_handler (
-            IntPtr log_domain,
-            uint log_levels,
-            LogFunc log_func,
-            IntPtr user_data);
-        
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern uint g_log_set_default_handler (
-            LogFunc log_func,
-            IntPtr user_data);
-
-        static void Log (IntPtr logDomainPtr, uint log_level, IntPtr messagePtr, IntPtr user_data)
-        {
-            var logDomain = MarshalG.Utf8PtrToString (logDomainPtr);
-            var message = MarshalG.Utf8PtrToString (messagePtr);
-            Assert.Fail ($"({logDomain}) {log_level} {message}");
-        }
-
         [Test]
         public void TestReferences ()
         {
-            g_log_set_default_handler (Log, IntPtr.Zero);
-
             var o1 = new Object ();
             var handle = o1.Handle;
             // getting an object that already exists should return that object
