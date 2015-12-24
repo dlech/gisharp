@@ -11,13 +11,21 @@ namespace GISharp.Core
     public class Object : ReferenceCountedOpaque
     {
         GCHandle toggleRefGCHandle;
+        NativeToggleNotify nativeToggleNotify;
+        bool supressUnref;
 
         protected Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
-            // we are guaranteed to have a reference at this point.
+            // We are guaranteed to own a reference at this point.
 
-            // this allocates a GCHandle in case someone else has a reference already.
-            handleToggleRef (IntPtr.Zero, Handle, false);
+            // Have to use a delegate for passing to unmanged code. If handleToggleRef
+            // is passed directly, it won't have the same address each time and
+            // g_object_remove_toggle_ref will fail because it does not match
+            // the address sent to g_object_add_toggle_ref.
+            nativeToggleNotify = (data, @object, isLastRef) => handleToggleRef (isLastRef);
+
+            // This allocates a GCHandle in case someone else has a reference already.
+            handleToggleRef (false);
             // This will free the GCHandle if we have the only reference
             SwapRefForToggleRef ();
         }
@@ -27,13 +35,12 @@ namespace GISharp.Core
             AssertNotDisposed ();
             // take the floating reference if there is one
             g_object_ref_sink (Handle);
-            SwapRefForToggleRef ();
         }
 
         void SwapRefForToggleRef ()
         {
             // use toggle reference so we don't get GCed when unmanaged code still has a reference
-            g_object_add_toggle_ref (Handle, handleToggleRef, IntPtr.Zero);
+            g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
             // release the original ref since we now have a toggle ref
             g_object_unref (Handle);
         }
@@ -41,10 +48,21 @@ namespace GISharp.Core
         protected internal override void Unref ()
         {
             AssertNotDisposed ();
-            g_object_remove_toggle_ref (Handle, handleToggleRef, IntPtr.Zero);
+            if (!supressUnref) {
+                g_object_unref (Handle);
+            }
         }
 
-        void handleToggleRef (IntPtr data, IntPtr obj, bool isLastRef)
+        protected override void Dispose (bool disposing)
+        {
+            if (!IsDisposed) {
+                supressUnref = true;
+                g_object_remove_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
+            }
+            base.Dispose (disposing);
+        }
+
+        void handleToggleRef (bool isLastRef)
         {
             if (isLastRef) {
                 toggleRefGCHandle.Free ();
@@ -82,20 +100,20 @@ namespace GISharp.Core
             GType objectType,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
-            System.UInt32 nParameters,
+            uint nParameters,
             /* <array length="1" zero-terminated="0" type="GParameter*">
-<type name="Parameter" type="GParameter" managed-name="Parameter" />
-</array> */
+               <type name="Parameter" type="GParameter" managed-name="Parameter" />
+               </array> */
             /* transfer-ownership:none */
             IntPtr parameters);
 
         static IntPtr New (GType objectType, params Parameter[] parameters)
         {
             if (parameters == null) {
-                throw new System.ArgumentNullException ("parameters");
+                throw new ArgumentNullException (nameof (parameters));
             }
             var parameters_ = MarshalG.CArrayToPtr<Parameter> (parameters, false);
-            var nParameters_ = (System.UInt32)(parameters == null ? 0 : parameters.Length);
+            var nParameters_ = (uint)(parameters == null ? 0 : parameters.Length);
             var ret_ = g_object_newv (objectType, nParameters_, parameters_);
             MarshalG.Free (parameters_);
             return ret_;
@@ -120,6 +138,10 @@ namespace GISharp.Core
         /// </returns>
         Object (GType objectType, params Parameter[] parameters)
             : this (New (objectType, parameters), Transfer.All)
+        {
+        }
+
+        public Object () : this (GType.Object, new Parameter[0])
         {
         }
 
@@ -177,7 +199,7 @@ namespace GISharp.Core
         static ParamSpec InterfaceFindProperty (IntPtr gIface, string propertyName)
         {
             if (propertyName == null) {
-                throw new System.ArgumentNullException ("propertyName");
+                throw new ArgumentNullException (nameof (propertyName));
             }
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_interface_find_property (gIface, propertyName_);
@@ -250,7 +272,7 @@ namespace GISharp.Core
         static void InterfaceInstallProperty (IntPtr gIface, ParamSpec pspec)
         {
             if (pspec == null) {
-                throw new System.ArgumentNullException ("pspec");
+                throw new ArgumentNullException (nameof (pspec));
             }
             var pspec_ = pspec == null ? IntPtr.Zero : pspec.Handle;
             g_object_interface_install_property (gIface, pspec_);
@@ -279,8 +301,8 @@ namespace GISharp.Core
         [SinceAttribute ("2.4")]
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GParamSpec**">
-<type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
-</array> */
+          <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
+          </array> */
         /* transfer-ownership:container */
         static extern IntPtr g_object_interface_list_properties (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
@@ -288,7 +310,7 @@ namespace GISharp.Core
             IntPtr gIface,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
-            out System.UInt32 nPropertiesP);
+            out uint nPropertiesP);
 
         /// <summary>
         /// Lists the properties of an interface.Generally, the interface
@@ -310,7 +332,7 @@ namespace GISharp.Core
         [SinceAttribute ("2.4")]
         static ParamSpec[] InterfaceListProperties (IntPtr gIface)
         {
-            System.UInt32 nPropertiesP_;
+            uint nPropertiesP_;
             var ret_ = g_object_interface_list_properties (gIface, out nPropertiesP_);
             var ret = MarshalG.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nPropertiesP_, true);
             return ret;
@@ -733,10 +755,10 @@ namespace GISharp.Core
         {
             AssertNotDisposed ();
             if (propertyName == null) {
-                throw new System.ArgumentNullException ("propertyName");
+                throw new ArgumentNullException (nameof (propertyName));
             }
             if (value == null) {
-                throw new System.ArgumentNullException ("value");
+                throw new ArgumentNullException (nameof (value));
             }
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
             var value_ = value == null ? IntPtr.Zero : value.Handle;
@@ -794,7 +816,7 @@ namespace GISharp.Core
         {
             AssertNotDisposed ();
             if (propertyName == null) {
-                throw new System.ArgumentNullException ("propertyName");
+                throw new ArgumentNullException (nameof (propertyName));
             }
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
             g_object_notify (Handle, propertyName_);
@@ -909,7 +931,7 @@ namespace GISharp.Core
         {
             AssertNotDisposed ();
             if (pspec == null) {
-                throw new System.ArgumentNullException ("pspec");
+                throw new ArgumentNullException (nameof (pspec));
             }
             var pspec_ = pspec == null ? IntPtr.Zero : pspec.Handle;
             g_object_notify_by_pspec (Handle, pspec_);
@@ -1010,10 +1032,10 @@ namespace GISharp.Core
         {
             AssertNotDisposed ();
             if (propertyName == null) {
-                throw new System.ArgumentNullException ("propertyName");
+                throw new ArgumentNullException (nameof (propertyName));
             }
             if (value == null) {
-                throw new System.ArgumentNullException ("value");
+                throw new ArgumentNullException (nameof (value));
             }
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
             var value_ = value == null ? IntPtr.Zero : value.Handle;
@@ -1063,6 +1085,22 @@ namespace GISharp.Core
         }
 
         /// <summary>
+        /// Increases the reference count of object.
+        /// <param name="object">
+        /// a #GObject
+        /// </param>
+        /// <returns>
+        /// the same object.
+        /// </returns>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_object_ref (
+            /* <type name="Object" type="gpointer" managed-name="Object" /> */
+            /* transfer-ownership:none */
+            IntPtr @object);
+
+        /// <summary>
         /// Decreases the reference count of @object. When its reference count
         /// drops to 0, the object is finalized (i.e. its memory is freed).
         /// </summary>
@@ -1089,7 +1127,7 @@ namespace GISharp.Core
     /// of a toggle reference changes. See g_object_add_toggle_ref().
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeToggleNotify(
+    delegate void NativeToggleNotify (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr data,
