@@ -290,9 +290,10 @@ namespace GISharp.TypelibBrowser
                         if (typeof(IEnumerable<BaseInfo>).IsAssignableFrom (property.PropertyType)) {
                             childGroups.Add (new InfoGrouping (property.Name,
                                 (IEnumerable<BaseInfo>)property.GetValue (info)));
-                        } else if (typeof(TypeInfo).IsAssignableFrom(property.PropertyType)
-                            || typeof(PropertyInfo).IsAssignableFrom(property.PropertyType))
-                        {
+                        } else if (typeof(TypeInfo).IsAssignableFrom(property.PropertyType)) {
+                            // type info will be show with parent
+                            continue;
+                        } else if (typeof(PropertyInfo).IsAssignableFrom(property.PropertyType)) {
                             var value = (BaseInfo)property.GetValue (info);
                                 childGroups.Add (new InfoGrouping (property.Name,
                                 value == null ? new BaseInfo[] { } : new [] { value }));

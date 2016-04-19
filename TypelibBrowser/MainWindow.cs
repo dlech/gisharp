@@ -139,61 +139,23 @@ namespace GISharp.TypelibBrowser
 
         public void SetTypeInfo (object obj)
         {
-            var objValueLabel = new Label () {
-                LabelProp = string.Format ("<b>{0}</b>",
-                    System.Security.SecurityElement.Escape (obj.ToString ())),
-                UseMarkup = true,
-                Xalign = 0,
-            };
-            objValueLabel.SizeAllocated += (o, args) => {
-                if (args.Allocation.Width < objValueLabel.ChildRequisition.Width) {
-                    objValueLabel.TooltipText = obj.ToString ();
-                } else {
-                    objValueLabel.TooltipText = null;
-                }
-            };
-            objValueLabel.Show ();
+            var objValueLabel = createLabel (obj);
             typeInfoVbox.PackStart (objValueLabel, false, false, 12);
 
-            var properties = obj.GetType ().GetProperties ();
-            var propertyTable = new Table ((uint)properties.Length, 2, false) {
-                RowSpacing = 6,
-                ColumnSpacing = 6
-            };
-
-            uint row = 0;
-            foreach (var property in properties) {
-                
-                if (ignoredProperties.Contains(property.Name) || childProperties.Contains(property.Name)) {
-                    // skip these properties
-                    continue;
-                }
-                var descLabel = new Label (property.Name + ":") {
-                    Xalign = 1
-                };
-                propertyTable.Attach (descLabel, 0, 1, row, row + 1);
-
-                var value = property.GetValue (obj);
-                if (linkProperties.Contains (property.Name) && value != null) {
-                    var linkLabel = new LinkButton (string.Empty, value.ToString ()) {
-                        Xalign = 0,
-                        HasTooltip = false,
-                    };
-                    linkLabel.Clicked += (sender, e) => {
-                        navigateTo (linkLabel.Label);
-                    };
-                    propertyTable.Attach (linkLabel, 1, 2, row, row + 1);
-                } else {
-                    var valueLabel = new Label () {
-                        LabelProp = (value ?? "<null>").ToString (),
-                        Xalign = 0,
-                    };
-                    propertyTable.Attach (valueLabel, 1, 2, row, row + 1);
-                }
-                row++;
-            }
-            propertyTable.ShowAll ();
+            var propertyTable = createPropertyTable (obj);
             typeInfoVbox.PackStart (propertyTable, false, false, 12);
+
+            var typeInfoProperty = obj.GetType ().GetProperty ("TypeInfo") ??
+                obj.GetType ().GetProperty ("ReturnTypeInfo");
+            if (typeInfoProperty?.PropertyType == typeof(GI.TypeInfo)) {
+                var typeInfo = typeInfoProperty.GetValue (obj);
+
+                var typeInfoLabel = createLabel (typeInfo);
+                typeInfoVbox.PackStart (typeInfoLabel, false, false, 12);
+
+                var typeInfoPropertyTable = createPropertyTable (typeInfo);
+                typeInfoVbox.PackStart (typeInfoPropertyTable, false, false, 12);
+            }
 
             var registeredTypeInfo = obj as GI.RegisteredTypeInfo;
             if (registeredTypeInfo != null && registeredTypeInfo.GType != Core.GType.None) {
@@ -213,6 +175,69 @@ namespace GISharp.TypelibBrowser
                 gtypeVBox.ShowAll ();
                 typeInfoVbox.PackStart (gtypeVBox, false, false, 12);
             }
+        }
+
+        Label createLabel (object obj)
+        {
+            var label = new Label {
+                LabelProp = string.Format ("<b>{0}</b>",
+                    System.Security.SecurityElement.Escape (obj.ToString ())),
+                UseMarkup = true,
+                Xalign = 0,
+            };
+            label.SizeAllocated += (o, args) => {
+                if (args.Allocation.Width < label.ChildRequisition.Width) {
+                    label.TooltipText = obj.ToString ();
+                } else {
+                    label.TooltipText = null;
+                }
+            };
+            label.Show ();
+
+            return label;
+        }
+
+        Table createPropertyTable (object obj)
+        {
+            var properties = obj.GetType ().GetProperties ();
+            var propertyTable = new Table ((uint)properties.Length, 2, false) {
+                RowSpacing = 6,
+                ColumnSpacing = 6
+            };
+
+            uint row = 0;
+            foreach (var property in properties) {
+
+                if (ignoredProperties.Contains(property.Name) || childProperties.Contains(property.Name)) {
+                    // skip these properties
+                    continue;
+                }
+                var descLabel = new Label (property.Name + ":") {
+                    Xalign = 1
+                };
+                propertyTable.Attach (descLabel, 0, 1, row, row + 1);
+
+                var value = property.GetValue (obj);
+                if (linkProperties.Contains (property.Name) && value != null) {
+                    var linkLabel = new LinkButton (string.Empty, value.ToString ()) {
+                        Xalign = 0,
+                        HasTooltip = false,
+                    };
+                    linkLabel.Clicked += (sender, e) =>
+                        navigateTo (linkLabel.Label);
+                    propertyTable.Attach (linkLabel, 1, 2, row, row + 1);
+                } else {
+                    var valueLabel = new Label () {
+                        LabelProp = (value ?? "<null>").ToString (),
+                        Xalign = 0,
+                    };
+                    propertyTable.Attach (valueLabel, 1, 2, row, row + 1);
+                }
+                row++;
+            }
+            propertyTable.ShowAll ();
+
+            return propertyTable;
         }
 
         void navigateTo (string infoPath, bool push = true)
