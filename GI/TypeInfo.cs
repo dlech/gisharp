@@ -38,6 +38,9 @@ namespace GISharp.GI
 
         public ArrayType ArrayType {
             get {
+                if (Tag != TypeTag.Array) {
+                    return ArrayType.None;
+                }
                 return g_type_info_get_array_type (Handle);
             }
         }
