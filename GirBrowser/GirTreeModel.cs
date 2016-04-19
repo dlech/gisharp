@@ -30,18 +30,22 @@ namespace GISharp.GirBrowser
             if (index < 0 || index >= NColumns) {
                 throw new ArgumentOutOfRangeException ("index");
             }
+
             return GLib.GType.String;
         }
 
         public bool GetIter (out TreeIter iter, TreePath path)
         {
             iter = TreeIter.Zero;
+
             try {
                 var element = Root;
+
                 foreach (var index in path.Indices.Skip (1)) {
                     element = element.Elements ().ElementAt (index);
                 }
                 iter = getIter (element);
+
                 return true;
             } catch {
                 return false;
@@ -50,13 +54,18 @@ namespace GISharp.GirBrowser
 
         public TreePath GetPath (TreeIter iter)
         {
-            var element = getNode (iter) ?? Root;
+            var element = getNode (iter);
             var path = new TreePath ();
+
+            if (element == null) {
+                return path;
+            }
             while (element.Parent != null) {
-                path.PrependIndex (element.Parent.Elements ().ToList ().IndexOf (element));
+                path.PrependIndex (element.ElementsBeforeSelf ().Count ());
                 element = element.Parent;
             }
             path.PrependIndex (0);
+
             return path;
         }
 
@@ -87,46 +96,66 @@ namespace GISharp.GirBrowser
 
         public bool IterNext (ref TreeIter iter)
         {
-            var element = getNode (iter) ?? Root;
-            if (!element.ElementsAfterSelf ().Any ()) {
+            var element = getNode (iter);
+
+            if (element == null || !element.ElementsAfterSelf ().Any ()) {
                 return false;
             }
             iter = getIter (element.ElementsAfterSelf ().First ());
+
             return true;
         }
 
         public bool IterChildren (out TreeIter iter, TreeIter parent)
         {
             iter = TreeIter.Zero;
-            var element = getNode (parent) ?? Root;
+            var element = getNode (parent);
+
+            if (element == null) {
+                iter = getIter (Root);
+                return true;
+            }
             if (!element.HasElements) {
                 return false;
             }
             iter = getIter (element.Elements ().First ());
+
             return true;
         }
 
         public bool IterHasChild (TreeIter iter)
         {
             var element = getNode (iter) ?? Root;
+
             return element.HasElements;
         }
 
         public int IterNChildren (TreeIter iter)
         {
-            var element = getNode (iter) ?? Root;
+            var element = getNode (iter);
+
+            if (element == null) {
+                return 1;
+            }
             if (!element.HasElements) {
                 return 0;
             }
+
             return element.Elements ().Count ();
         }
 
         public bool IterNthChild (out TreeIter iter, TreeIter parent, int n)
         {
             iter = TreeIter.Zero;
-            var element = getNode (parent) ?? Root;
+            var element = getNode (parent);
+
+            if (element == null) {
+                iter = getIter (Root);
+                return true;
+            }
             try {
                 iter = getIter (element.Elements ().ElementAt (n));
+
                 return true;
             } catch {
                 return false;
@@ -137,10 +166,12 @@ namespace GISharp.GirBrowser
         {
             iter = TreeIter.Zero;
             var element = getNode (child);
+
             if (element == null || element.Parent == null) {
                 return false;
             }
             iter = getIter (element.Parent);
+
             return true;
         }
 
