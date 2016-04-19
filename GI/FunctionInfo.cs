@@ -81,6 +81,9 @@ namespace GISharp.GI
 
         public VFuncInfo VFunc {
             get {
+                if (!WrapsVfunc) {
+                    return null;
+                }
                 IntPtr raw_ret = g_function_info_get_vfunc (Handle);
                 return MarshalPtr<VFuncInfo> (raw_ret);
             }
