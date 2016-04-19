@@ -71,10 +71,18 @@ namespace GISharp.TypelibBrowser
                 value = new GLib.Value (node.Deprecated);
                 break;
             case 2:
-                value = new GLib.Value (node is Group ? "green" : "black");
+                if (node is Group) {
+                    value = new GLib.Value ("green");
+                } else if (node.IsGType) {
+                    value = new GLib.Value ("blue");
+                } else if (node.IsGTypeStruct) {
+                    value = new GLib.Value ("magenta");
+                } else {
+                    value = new GLib.Value ("black");
+                }
                 break;
             default:
-                throw new ArgumentOutOfRangeException ("index");
+                throw new ArgumentOutOfRangeException (nameof(column));
             }
         }
 
@@ -193,6 +201,8 @@ namespace GISharp.TypelibBrowser
             string Name { get; }
             string Path { get; }
             bool Deprecated { get; }
+            bool IsGType { get; }
+            bool IsGTypeStruct { get; }
             INode Parent { get; }
             IReadOnlyList<INode> Children { get; }
         }
@@ -211,6 +221,8 @@ namespace GISharp.TypelibBrowser
                 }
             }
             public bool Deprecated { get { return false; } }
+            public bool IsGType { get { return false; } }
+            public bool IsGTypeStruct { get { return false; } }
             public Info Parent { get; private set; }
             INode INode.Parent { get { return Parent; } }
             public IReadOnlyList<Info> Children { get; private set; }
@@ -237,6 +249,24 @@ namespace GISharp.TypelibBrowser
             public string Name { get { return BaseInfo.Name ?? "<unnamed>"; } }
             public string Path { get { return Parent.Path + "." + Name; } }
             public bool Deprecated { get { return BaseInfo.IsDeprecated; } }
+            public bool IsGType {
+                get {
+                    var typeInfo = BaseInfo as RegisteredTypeInfo;
+                    if (typeInfo == null) {
+                        return false;
+                    }
+                    return !string.IsNullOrEmpty(typeInfo.TypeInit);
+                }
+            }
+            public bool IsGTypeStruct {
+                get {
+                    var structInfo = BaseInfo as StructInfo;
+                    if (structInfo == null) {
+                        return false;
+                    }
+                    return structInfo.IsGTypeStruct;
+                }
+            }
             public Group Parent { get; private set; }
             INode INode.Parent { get { return Parent; } }
             Lazy<IReadOnlyList<Group>> _Children;
