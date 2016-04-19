@@ -6,11 +6,11 @@ namespace GISharp.Core
     public class DynamicLibrary : Opaque
     {
         const string LibraryPrefix = "lib";
-        const string LibrarySuffix = ".dylib";
+        const string LibrarySuffix = ".so";
 
         static object lockObj = new object ();
 
-        [DllImport ("ld.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("dl.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr dlopen (string path, Mode mode);
 
         /// <summary>
@@ -60,7 +60,7 @@ namespace GISharp.Core
             return(uint)Marshal.ReadInt32 (ptr);
         }
 
-        [DllImport ("ld.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("dl.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr dlsym (IntPtr handle, string symbol);
 
         IntPtr GetSymbol (string symbol)
@@ -79,7 +79,7 @@ namespace GISharp.Core
             }
         }
 
-        [DllImport ("ld.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("dl.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int dlclose (IntPtr handle);
 
         protected override void Dispose(bool disposing)
@@ -90,7 +90,7 @@ namespace GISharp.Core
             base.Dispose(disposing);
         }
 
-        [DllImport ("ld.dll")]
+        [DllImport ("dl.dll")]
         internal static extern IntPtr dlerror ();
 
         static string CheckLastError ()
