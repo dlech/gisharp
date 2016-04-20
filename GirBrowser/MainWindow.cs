@@ -18,26 +18,36 @@ namespace GISharp.GirBrowser
             girBrowseButton.Clicked += girBrowseButton_Clicked;
             girLoadButton.Clicked += girLoadButton_Clicked;
 
-            girTreeView.AppendColumn ("Element", new CellRendererText (), "text", 0);
-            girTreeView.AppendColumn ("N", new CellRendererText (), "text", 2);
-            girTreeView.AppendColumn ("Name", new CellRendererText (), "text", 1);
+            girTreeView.AppendColumn ("Element", new CellRendererText (),
+                "text", 0, "foreground", 3, "strikethrough", 4);
+            girTreeView.AppendColumn ("N", new CellRendererText (),
+                "text", 2, "foreground", 3, "strikethrough", 4);
+            girTreeView.AppendColumn ("Name", new CellRendererText (),
+                "text", 1, "foreground", 3, "strikethrough", 4);
             girTreeView.Selection.Changed += girTreeView_Selection_Changed;
 
             girAttrNodeView.NodeStore = new NodeStore (typeof(AttributeNode));
-            girAttrNodeView.AppendColumn ("Attribute", new CellRendererText (), "text", 0);
-            girAttrNodeView.AppendColumn ("Value", new CellRendererText (), "text", 1);
+            girAttrNodeView.AppendColumn ("Attribute", new CellRendererText (),
+                "text", 0);
+            girAttrNodeView.AppendColumn ("Value", new CellRendererText (),
+                "text", 1);
 
             fixupBrowseButton.Clicked += fixupBrowseButton_Clicked;
             fixupApplyButton.Clicked += fixupApplyButton_Clicked;
 
-            fixupTreeView.AppendColumn ("Element", new CellRendererText (), "text", 0);
-            fixupTreeView.AppendColumn ("N", new CellRendererText (), "text", 2);
-            fixupTreeView.AppendColumn ("Name", new CellRendererText (), "text", 1);
+            fixupTreeView.AppendColumn ("Element", new CellRendererText (),
+                "text", 0, "foreground", 3, "strikethrough", 4);
+            fixupTreeView.AppendColumn ("N", new CellRendererText (),
+                "text", 2, "foreground", 3, "strikethrough", 4);
+            fixupTreeView.AppendColumn ("Name", new CellRendererText (),
+                "text", 1, "foreground", 3, "strikethrough", 4);
             fixupTreeView.Selection.Changed += fixupTreeView_Selection_Changed;
 
             fixupAttrNodeView.NodeStore = new NodeStore (typeof(AttributeNode));
-            fixupAttrNodeView.AppendColumn ("Attribute", new CellRendererText (), "text", 0);
-            fixupAttrNodeView.AppendColumn ("Value", new CellRendererText (), "text", 1);
+            fixupAttrNodeView.AppendColumn ("Attribute", new CellRendererText (),
+                "text", 0);
+            fixupAttrNodeView.AppendColumn ("Value", new CellRendererText (),
+                "text", 1);
 
             #if DEBUG
             girFileNameEntry.Text = BaseDirectory.FindDataFile (

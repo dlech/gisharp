@@ -64,15 +64,17 @@ namespace GISharp.TypelibBrowser
                 return;
             }
             switch (column) {
-            case 0:
+            case 0: // name column
                 value = new GLib.Value (node.Name);
                 break;
-            case 1:
+            case 1: // strikethrough
                 value = new GLib.Value (node.Deprecated);
                 break;
-            case 2:
+            case 2: // color
                 if (node is Group) {
                     value = new GLib.Value ("green");
+                } else if (node.IsErrorDomain) {
+                    value = new GLib.Value ("orange");
                 } else if (node.IsGType) {
                     value = new GLib.Value ("blue");
                 } else if (node.IsGTypeStruct) {
@@ -203,6 +205,7 @@ namespace GISharp.TypelibBrowser
             bool Deprecated { get; }
             bool IsGType { get; }
             bool IsGTypeStruct { get; }
+            bool IsErrorDomain { get; }
             INode Parent { get; }
             IReadOnlyList<INode> Children { get; }
         }
@@ -223,6 +226,7 @@ namespace GISharp.TypelibBrowser
             public bool Deprecated { get { return false; } }
             public bool IsGType { get { return false; } }
             public bool IsGTypeStruct { get { return false; } }
+            public bool IsErrorDomain { get { return false; } }
             public Info Parent { get; private set; }
             INode INode.Parent { get { return Parent; } }
             public IReadOnlyList<Info> Children { get; private set; }
@@ -265,6 +269,15 @@ namespace GISharp.TypelibBrowser
                         return false;
                     }
                     return structInfo.IsGTypeStruct;
+                }
+            }
+            public bool IsErrorDomain {
+                get {
+                    var enumInfo = BaseInfo as EnumInfo;
+                    if (enumInfo == null) {
+                        return false;
+                    }
+                    return enumInfo.ErrorDomain != null;
                 }
             }
             public Group Parent { get; private set; }

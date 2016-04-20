@@ -4,7 +4,6 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
 
-using GISharp.CodeGen;
 using GISharp.CodeGen.Model;
 using Gtk;
 
@@ -12,6 +11,8 @@ namespace GISharp.GirBrowser
 {
     public class GirTreeModel : GLib.Object, TreeModelImplementor
     {
+        static readonly XNamespace glib = "http://www.gtk.org/introspection/glib/1.0";
+
         readonly Dictionary<XElement, TreeIter> iterMap = new Dictionary<XElement, TreeIter> ();
         readonly NamespaceInfo namespaceInfo;
 
@@ -73,7 +74,7 @@ namespace GISharp.GirBrowser
         {
             var element = getNode (iter);
             switch (column) {
-            case 0:
+            case 0: // element column
                 var name = element.Name.LocalName;
                 if (element.Name.Namespace != element.GetDefaultNamespace ()) {
                     var prefix = element.GetPrefixOfNamespace (element.Name.Namespace);
@@ -81,15 +82,27 @@ namespace GISharp.GirBrowser
                 }
                 value = new GLib.Value (name);
                 break;
-            case 1:
-                if (element.HasAttributes && element.Attribute ("name") != null) {
-                    value = new GLib.Value (element.Attribute ("name").Value);
+            case 1: // name column
+                value = new GLib.Value (element.Attribute ("name")?.Value ?? string.Empty);
+                break;
+            case 2: // N column (count)
+                value = new GLib.Value (IterNChildren (iter).ToString ());
+                break;
+            case 3: // color - all columns
+                if (element.Attribute ("deprecated") != null) {
+                    value = new GLib.Value ("red");
+                } else if (element.Attribute (glib + "is-gtype-struct-for") != null) {
+                    value = new GLib.Value ("magenta");
+                } else if (element.Attribute (glib + "get-type") != null) {
+                    value = new GLib.Value ("blue");
+                } else if (element.Attribute (glib + "error-domain") != null) {
+                    value = new GLib.Value ("orange");
                 } else {
-                    value = new GLib.Value (string.Empty);
+                    value = new GLib.Value ("black");
                 }
                 break;
-            case 2:
-                value = new GLib.Value (IterNChildren (iter).ToString ());
+            case 4: // strikethrough - all columns
+                value = new GLib.Value (element.Attribute ("moved-to") != null);
                 break;
             }
         }
@@ -191,7 +204,7 @@ namespace GISharp.GirBrowser
 
         public int NColumns {
             get {
-                return 3;
+                return 5;
             }
         }
 
