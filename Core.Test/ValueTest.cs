@@ -12,6 +12,8 @@ namespace GISharp.Core.Test
         {
             var v = new Value (GType.Boolean);
             Assert.That (v.ValueGType, Is.EqualTo (GType.Boolean));
+
+            Assume.That (v.Boolean, Is.False);
             v.Boolean = true;
             Assert.That (v.Boolean, Is.True);
 

@@ -7,27 +7,41 @@ namespace GISharp.Core
     /// All the fields in the GObject structure are private
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
-    [GTypeAttribute (Name = "GObject", IsWrappedNativeType = false)]
+    [GType(Name = "GObject", IsWrappedNativeType = true)]
     public class Object : ReferenceCountedOpaque
     {
         GCHandle toggleRefGCHandle;
-        NativeToggleNotify nativeToggleNotify;
         bool supressUnref;
+
+        [DllImport("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_object_get_type ();
+
+        static GType getType ()
+        {
+            return g_object_get_type ();
+        }
+
 
         protected Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
             // We are guaranteed to own a reference at this point.
 
-            // Have to use a delegate for passing to unmanged code. If handleToggleRef
-            // is passed directly, it won't have the same address each time and
-            // g_object_remove_toggle_ref will fail because it does not match
-            // the address sent to g_object_add_toggle_ref.
-            nativeToggleNotify = (data, @object, isLastRef) => handleToggleRef (isLastRef);
-
             // This allocates a GCHandle in case someone else has a reference already.
             handleToggleRef (false);
-            // This will free the GCHandle if we have the only reference
-            SwapRefForToggleRef ();
+            // use toggle reference so we don't get GCed when unmanaged code
+            // still has a reference
+            g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
+            // release the original ref since we now have a toggle ref
+            g_object_unref (Handle);
+        }
+
+        // using a static method for this because it can be called back from
+        // native code within the finalizer, in which case any instance methods
+        // or instance fields (delegates) could already be invalid.
+        static void nativeToggleNotify (IntPtr dataPtr, IntPtr objectPtr, bool isLastRef)
+        {
+            var obj = TryGetExisting<Object> (objectPtr);
+            obj.handleToggleRef (isLastRef);
         }
 
         protected internal override void Ref ()
@@ -35,14 +49,6 @@ namespace GISharp.Core
             AssertNotDisposed ();
             // take the floating reference if there is one
             g_object_ref_sink (Handle);
-        }
-
-        void SwapRefForToggleRef ()
-        {
-            // use toggle reference so we don't get GCed when unmanaged code still has a reference
-            g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
-            // release the original ref since we now have a toggle ref
-            g_object_unref (Handle);
         }
 
         protected internal override void Unref ()
@@ -107,41 +113,30 @@ namespace GISharp.Core
             /* transfer-ownership:none */
             IntPtr parameters);
 
-        static IntPtr New (GType objectType, params Parameter[] parameters)
+        protected static IntPtr New<T> (params object[] parameters)
         {
-            if (parameters == null) {
-                throw new ArgumentNullException (nameof (parameters));
+            var gtype = GType.TypeOf<T> ();
+            var paramArray = new Parameter[parameters.Length / 2];
+            for (int i = 0; i < parameters.Length; i += 2) {
+                var name = parameters[i] as string;
+                if (name == null) {
+                    var message = string.Format ("Expecting string at index {0}", i);
+                    throw new ArgumentException (message, nameof (parameters));
+                }
+                var objClass = TypeClass.Get<ObjectClass> (gtype);
+                var paramSpec = objClass.FindProperty (name);
+                if (paramSpec == null) {
+                    var message = string.Format ("Could not find property '{0}'", name);
+                    throw new ArgumentException (message, nameof (parameters));
+                }
             }
-            var parameters_ = MarshalG.CArrayToPtr<Parameter> (parameters, false);
-            var nParameters_ = (uint)(parameters == null ? 0 : parameters.Length);
-            var ret_ = g_object_newv (objectType, nParameters_, parameters_);
-            MarshalG.Free (parameters_);
+            var paramArrayPtr = MarshalG.CArrayToPtr<Parameter> (paramArray, false);
+            var ret_ = g_object_newv (gtype, (uint)paramArray.Length, paramArrayPtr);
+            MarshalG.Free (paramArrayPtr);
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new instance of a #GObject subtype and sets its properties.
-        /// </summary>
-        /// <remarks>
-        /// Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
-        /// which are not explicitly specified are set to their default values.
-        /// </remarks>
-        /// <param name="objectType">
-        /// the type id of the #GObject subtype to instantiate
-        /// </param>
-        /// <param name="parameters">
-        /// an array of #GParameter
-        /// </param>
-        /// <returns>
-        /// a new instance of
-        /// @object_type
-        /// </returns>
-        Object (GType objectType, params Parameter[] parameters)
-            : this (New (objectType, parameters), Transfer.All)
-        {
-        }
-
-        public Object () : this (GType.Object, new Parameter[0])
+        public Object () : this (New<Object> (), Transfer.All)
         {
         }
 
@@ -350,7 +345,7 @@ namespace GISharp.Core
         /// paired references: the strong reference added by
         /// g_object_add_toggle_ref() and a reverse reference to the proxy
         /// object which is either a strong reference or weak reference.
-        /// 
+        ///
         /// The setup is that when there are no other references to @object,
         /// only a weak reference is held in the reverse direction from @object
         /// to the proxy object, but when there are other references held to
@@ -358,11 +353,11 @@ namespace GISharp.Core
         /// when the reference from @object to the proxy object should be
         /// "toggled" from strong to weak (@is_last_ref true) or weak to strong
         /// (@is_last_ref false).
-        /// 
+        ///
         /// Since a (normal) reference must be held to the object before
         /// calling g_object_add_toggle_ref(), the initial state of the reverse
         /// link is always strong.
-        /// 
+        ///
         /// Multiple toggle references may be added to the same gobject,
         /// however if there are multiple toggle references to an object, none
         /// of them will ever be notified until all but one are removed.  For
@@ -404,20 +399,20 @@ namespace GISharp.Core
         /// |[
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
-        /// 
+        ///
         /// Will result in the "sensitive" property of the widget #GObject instance to be
         /// updated with the same value of the "active" property of the action #GObject
         /// instance.
-        /// 
+        ///
         /// If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
         /// if @target_property on @target changes then the @source_property on @source
         /// will be updated as well.
-        /// 
+        ///
         /// The binding will automatically be removed when either the @source or the
         /// @target instances are finalized. To remove the binding without affecting the
         /// @source and the @target you can just call g_object_unref() on the returned
         /// #GBinding instance.
-        /// 
+        ///
         /// A #GObject can have multiple bindings.
         /// </remarks>
         /// <param name="source">
@@ -470,20 +465,20 @@ namespace GISharp.Core
         /// |[
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
-        /// 
+        ///
         /// Will result in the "sensitive" property of the widget #GObject instance to be
         /// updated with the same value of the "active" property of the action #GObject
         /// instance.
-        /// 
+        ///
         /// If @flags contains %G_BINDING_BIDIRECTIONAL then the binding will be mutual:
         /// if @target_property on @target changes then the @source_property on @source
         /// will be updated as well.
-        /// 
+        ///
         /// The binding will automatically be removed when either the @source or the
         /// @target instances are finalized. To remove the binding without affecting the
         /// @source and the @target you can just call g_object_unref() on the returned
         /// #GBinding instance.
-        /// 
+        ///
         /// A #GObject can have multiple bindings.
         /// </remarks>
         /// <param name="sourceProperty">
@@ -706,7 +701,7 @@ namespace GISharp.Core
         /// <remarks>
         /// In general, a copy is made of the property contents and the caller is
         /// responsible for freeing the memory by calling g_value_unset().
-        /// 
+        ///
         /// Note that g_object_get_property() is really intended for language
         /// bindings, g_object_get() is much more convenient for C programming.
         /// </remarks>
@@ -741,7 +736,7 @@ namespace GISharp.Core
         /// <remarks>
         /// In general, a copy is made of the property contents and the caller is
         /// responsible for freeing the memory by calling g_value_unset().
-        /// 
+        ///
         /// Note that g_object_get_property() is really intended for language
         /// bindings, g_object_get() is much more convenient for C programming.
         /// </remarks>
@@ -773,7 +768,7 @@ namespace GISharp.Core
         /// When possible, eg. when signaling a property change from within the class
         /// that registered the property, you should use g_object_notify_by_pspec()
         /// instead.
-        /// 
+        ///
         /// Note that emission of the notify signal may be blocked with
         /// g_object_freeze_notify(). In this case, the signal emissions are queued
         /// and will be emitted (in reverse order) when g_object_thaw_notify() is
@@ -803,7 +798,7 @@ namespace GISharp.Core
         /// When possible, eg. when signaling a property change from within the class
         /// that registered the property, you should use g_object_notify_by_pspec()
         /// instead.
-        /// 
+        ///
         /// Note that emission of the notify signal may be blocked with
         /// g_object_freeze_notify(). In this case, the signal emissions are queued
         /// and will be emitted (in reverse order) when g_object_thaw_notify() is
@@ -829,12 +824,12 @@ namespace GISharp.Core
         /// <remarks>
         /// This function omits the property name lookup, hence it is faster than
         /// g_object_notify().
-        /// 
+        ///
         /// One way to avoid using g_object_notify() from within the
         /// class that registered the properties, and using g_object_notify_by_pspec()
         /// instead, is to store the GParamSpec used with
         /// g_object_class_install_property() inside a static array, e.g.:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   enum
         ///   {
@@ -842,9 +837,9 @@ namespace GISharp.Core
         ///     PROP_FOO,
         ///     PROP_LAST
         ///   };
-        /// 
+        ///
         ///   static GParamSpec *properties[PROP_LAST];
-        /// 
+        ///
         ///   static void
         ///   my_object_class_init (MyObjectClass *klass)
         ///   {
@@ -857,9 +852,9 @@ namespace GISharp.Core
         ///                                      properties[PROP_FOO]);
         ///   }
         /// ]|
-        /// 
+        ///
         /// and then notify a change on the "foo" property with:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   g_object_notify_by_pspec (self, properties[PROP_FOO]);
         /// ]|
@@ -888,12 +883,12 @@ namespace GISharp.Core
         /// <remarks>
         /// This function omits the property name lookup, hence it is faster than
         /// g_object_notify().
-        /// 
+        ///
         /// One way to avoid using g_object_notify() from within the
         /// class that registered the properties, and using g_object_notify_by_pspec()
         /// instead, is to store the GParamSpec used with
         /// g_object_class_install_property() inside a static array, e.g.:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   enum
         ///   {
@@ -901,9 +896,9 @@ namespace GISharp.Core
         ///     PROP_FOO,
         ///     PROP_LAST
         ///   };
-        /// 
+        ///
         ///   static GParamSpec *properties[PROP_LAST];
-        /// 
+        ///
         ///   static void
         ///   my_object_class_init (MyObjectClass *klass)
         ///   {
@@ -916,9 +911,9 @@ namespace GISharp.Core
         ///                                      properties[PROP_FOO]);
         ///   }
         /// ]|
-        /// 
+        ///
         /// and then notify a change on the "foo" property with:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   g_object_notify_by_pspec (self, properties[PROP_FOO]);
         /// ]|
@@ -1052,7 +1047,7 @@ namespace GISharp.Core
         /// Duplicate notifications for each property are squashed so that at most one
         /// #GObject::notify signal is emitted for each property, in the reverse order
         /// in which they have been queued.
-        /// 
+        ///
         /// It is an error to call this function when the freeze count is zero.
         /// </remarks>
         /// <param name="object">
@@ -1075,7 +1070,7 @@ namespace GISharp.Core
         /// Duplicate notifications for each property are squashed so that at most one
         /// #GObject::notify signal is emitted for each property, in the reverse order
         /// in which they have been queued.
-        /// 
+        ///
         /// It is an error to call this function when the freeze count is zero.
         /// </remarks>
         public void ThawNotify ()
@@ -1142,7 +1137,6 @@ namespace GISharp.Core
     /// The GParameter struct is an auxiliary structure used
     /// to hand parameter name/value pairs to g_object_newv().
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
     struct Parameter
     {
         /// <summary>
@@ -1154,5 +1148,26 @@ namespace GISharp.Core
         /// the parameter value
         /// </summary>
         public IntPtr Value;
+    }
+
+    /// <summary>
+    /// GObject property attribute.
+    /// </summary>
+    /// <remarks>
+    /// This is used to mark properties for registration with the GObject type
+    /// system. If <see cref="Name"/> is specified, it will be used for the
+    /// property name, otherwise a name will be automatically generated.
+    /// When wrapping unmanged types, the <see cref="Name"/> value must be
+    /// set to the actual value assigned in unmanaged code.
+    /// </remarks>
+    [AttributeUsage (AttributeTargets.Property)]
+    public class PropertyAttribute : Attribute
+    {
+        public string Name { get; private set; }
+
+        public PropertyAttribute (string name = null)
+        {
+            Name = name;
+        }
     }
 }

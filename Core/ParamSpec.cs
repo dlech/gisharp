@@ -9,7 +9,7 @@ namespace GISharp.Core
     /// </summary>
     /// <remarks>
     /// ## Parameter names # {#canonical-parameter-names}
-    /// 
+    ///
     /// Parameter names need to start with a letter (a-z or A-Z).
     /// Subsequent characters can be letters, numbers or a '-'.
     /// All other characters are replaced by a '-' during construction.
@@ -19,123 +19,6 @@ namespace GISharp.Core
     [GType (Name = "GParam", IsWrappedNativeType = true)]
     abstract class ParamSpec : ReferenceCountedOpaque
     {
-        /// <summary>
-        /// Creates a new #GParamSpec instance.
-        /// </summary>
-        /// <remarks>
-        /// A property name consists of segments consisting of ASCII letters and
-        /// digits, separated by either the '-' or '_' character. The first
-        /// character of a property name must be a letter. Names which violate these
-        /// rules lead to undefined behaviour.
-        /// 
-        /// When creating and looking up a #GParamSpec, either separator can be
-        /// used, but they cannot be mixed. Using '-' is considerably more
-        /// efficient and in fact required when using property names as detail
-        /// strings for signals.
-        /// 
-        /// Beyond the name, #GParamSpecs have two more descriptive
-        /// strings associated with them, the @nick, which should be suitable
-        /// for use as a label for the property in a property editor, and the
-        /// @blurb, which should be a somewhat longer description, suitable for
-        /// e.g. a tooltip. The @nick and @blurb should ideally be localized.
-        /// </remarks>
-        /// <param name="paramType">
-        /// the #GType for the property; must be derived from #G_TYPE_PARAM
-        /// </param>
-        /// <param name="name">
-        /// the canonical name of the property
-        /// </param>
-        /// <param name="nick">
-        /// the nickname of the property
-        /// </param>
-        /// <param name="blurb">
-        /// a short description of the property
-        /// </param>
-        /// <param name="flags">
-        /// a combination of #GParamFlags
-        /// </param>
-        /// <returns>
-        /// a newly allocated #GParamSpec instance
-        /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* */
-        static extern IntPtr g_param_spec_internal (
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType paramType,
-            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-            /* transfer-ownership:none */
-            IntPtr name,
-            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-            /* transfer-ownership:none */
-            IntPtr nick,
-            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-            /* transfer-ownership:none */
-            IntPtr blurb,
-            /* <type name="ParamFlags" type="GParamFlags" managed-name="ParamFlags" /> */
-            /* transfer-ownership:none */
-            ParamFlags flags);
-
-        /// <summary>
-        /// Creates a new #GParamSpec instance.
-        /// </summary>
-        /// <remarks>
-        /// A property name consists of segments consisting of ASCII letters and
-        /// digits, separated by either the '-' or '_' character. The first
-        /// character of a property name must be a letter. Names which violate these
-        /// rules lead to undefined behaviour.
-        /// 
-        /// When creating and looking up a #GParamSpec, either separator can be
-        /// used, but they cannot be mixed. Using '-' is considerably more
-        /// efficient and in fact required when using property names as detail
-        /// strings for signals.
-        /// 
-        /// Beyond the name, #GParamSpecs have two more descriptive
-        /// strings associated with them, the @nick, which should be suitable
-        /// for use as a label for the property in a property editor, and the
-        /// @blurb, which should be a somewhat longer description, suitable for
-        /// e.g. a tooltip. The @nick and @blurb should ideally be localized.
-        /// </remarks>
-        /// <param name="paramType">
-        /// the #GType for the property; must be derived from #G_TYPE_PARAM
-        /// </param>
-        /// <param name="name">
-        /// the canonical name of the property
-        /// </param>
-        /// <param name="nick">
-        /// the nickname of the property
-        /// </param>
-        /// <param name="blurb">
-        /// a short description of the property
-        /// </param>
-        /// <param name="flags">
-        /// a combination of #GParamFlags
-        /// </param>
-        /// <returns>
-        /// a newly allocated #GParamSpec instance
-        /// </returns>
-        public static IntPtr Internal (GType paramType, string name, string nick, string blurb, ParamFlags flags)
-        {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
-            var name_ = MarshalG.StringToUtf8Ptr (name);
-            var nick_ = MarshalG.StringToUtf8Ptr (nick);
-            var blurb_ = MarshalG.StringToUtf8Ptr (blurb);
-            var ret = g_param_spec_internal (paramType, name_, nick_, blurb_, flags);
-            MarshalG.Free (name_);
-            MarshalG.Free (nick_);
-            MarshalG.Free (blurb_);
-            return ret;
-        }
-
         /// <summary>
         /// Get the short description of a #GParamSpec.
         /// </summary>
@@ -595,6 +478,40 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecBoolean (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_boolean (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            bool defaultValue,
+            ParamFlags flags);
+
+        static IntPtr New (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_boolean (namePtr, nickPtr, blurbPtr, defaultValue, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -606,6 +523,44 @@ namespace GISharp.Core
         ParamSpecBoxed (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
+        }
+
+        public ParamSpecBoxed (string name, string nick, string blurb, GType boxedType, ParamFlags flags)
+            : this (New (name, nick, blurb, boxedType, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_boxed (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType boxedType,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType boxedType, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            if (!boxedType.IsA (GType.Boxed)) {
+                throw new ArgumentException ("Expecting boxed type.", nameof (boxedType));
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
+            var pspecPtr = g_param_spec_boxed(namePtr, nickPtr, blurbPtr, boxedType, flags);
+
+            return pspecPtr;
         }
     }
 
@@ -619,6 +574,92 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecChar (string name, string nick, string blurb, sbyte min, sbyte max, sbyte defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_char (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            sbyte min,
+            sbyte max,
+            sbyte defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, sbyte min, sbyte max, sbyte defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_char (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for character properties.
+    /// </summary>
+    [GType (Name = "GParamUChar", IsWrappedNativeType = true)]
+    sealed class ParamSpecUChar : ParamSpec
+    {
+        ParamSpecUChar (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecUChar (string name, string nick, string blurb, byte min, byte max, byte defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_uchar (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            byte min,
+            byte max,
+            byte defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, byte min, byte max, byte defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_uchar (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -630,6 +671,43 @@ namespace GISharp.Core
         ParamSpecDouble (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
+        }
+
+        public ParamSpecDouble (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_double (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            double min,
+            double max,
+            double defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_double (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
         }
     }
 
@@ -644,6 +722,45 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecEnum (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, enumType, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_enum (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType enumType,
+            int defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            if (!enumType.IsA (GType.Enum)) {
+                throw new ArgumentException ("Expecting an enum type", nameof (enumType));
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_enum (namePtr, nickPtr, blurbPtr, enumType, defaultValue, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -657,6 +774,45 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecFlags (string name, string nick, string blurb, GType flagsType, int defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, flagsType, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_flags (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType flagsType,
+            int defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType flagsType, int defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            if (!flagsType.IsA (GType.Flags)) {
+                throw new ArgumentException ("Expecting an enum type", nameof (flagsType));
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_flags(namePtr, nickPtr, blurbPtr, flagsType, defaultValue, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -668,6 +824,43 @@ namespace GISharp.Core
         ParamSpecFloat (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
+        }
+
+        public ParamSpecFloat (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_float (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            float min,
+            float max,
+            float defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_float (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
         }
     }
 
@@ -682,6 +875,41 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+            : this (New (name, nick, blurb, isAType, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_gtype (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType isAType,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -693,6 +921,92 @@ namespace GISharp.Core
         ParamSpecInt (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
+        }
+
+        public ParamSpecInt (string name, string nick, string blurb, int min, int max, int defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_int (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            int min,
+            int max,
+            int defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, int min, int max, int defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_int (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for integer properties.
+    /// </summary>
+    [GType (Name = "GParamUInt", IsWrappedNativeType = true)]
+    sealed class ParamSpecUInt : ParamSpec
+    {
+        ParamSpecUInt (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecUInt (string name, string nick, string blurb, uint min, uint max, uint defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_uint (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            uint min,
+            uint max,
+            uint defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, uint min, uint max, uint defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_uint (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
         }
     }
 
@@ -706,6 +1020,92 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecInt64 (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_int64 (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            long min,
+            long max,
+            long defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_int64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for 64bit integer properties.
+    /// </summary>
+    [GType (Name = "GParamUInt64", IsWrappedNativeType = true)]
+    sealed class ParamSpecUInt64 : ParamSpec
+    {
+        ParamSpecUInt64 (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecUInt64 (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_uint64 (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            ulong min,
+            ulong max,
+            ulong defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_uint64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -718,6 +1118,140 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecLong (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_long (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            long min,
+            long max,
+            long defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_long (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for long integer properties.
+    /// </summary>
+    [GType (Name = "GParamULong", IsWrappedNativeType = true)]
+    sealed class ParamSpecULong : ParamSpec
+    {
+        ParamSpecULong (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecULong (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_ulong (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            ulong min,
+            ulong max,
+            ulong defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_ulong (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for string properties.
+    /// </summary>
+    [GType (Name = "GParamString", IsWrappedNativeType = true)]
+    sealed class ParamSpecString : ParamSpec
+    {
+        ParamSpecString (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_string (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            IntPtr defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var defaultValuePtr = MarshalG.StringToUtf8Ptr (defaultValue);
+            var pspecPtr = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -729,6 +1263,44 @@ namespace GISharp.Core
         ParamSpecObject (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
+        }
+
+        public ParamSpecObject (string name, string nick, string blurb, GType objectType, ParamFlags flags)
+            : this (New (name, nick, blurb, objectType, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_object (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType objectType,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType objectType, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            if (!objectType.IsA (GType.Object)) {
+                throw new ArgumentException ("Expecting object type.", nameof (objectType));
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
+            var pspecPtr = g_param_spec_object(namePtr, nickPtr, blurbPtr, objectType, flags);
+
+            return pspecPtr;
         }
     }
 
@@ -763,6 +1335,44 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecParam (string name, string nick, string blurb, GType paramType, ParamFlags flags)
+            : this (New (name, nick, blurb, paramType, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_param (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            GType paramType,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, GType paramType, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            if (!paramType.IsA (GType.Param)) {
+                throw new ArgumentException ("Expecting param type.", nameof (paramType));
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
+            var pspecPtr = g_param_spec_param (namePtr, nickPtr, blurbPtr, paramType, flags);
+
+            return pspecPtr;
+        }
     }
 
     /// <summary>
@@ -775,7 +1385,185 @@ namespace GISharp.Core
             : base (handle, ownership)
         {
         }
+
+        public ParamSpecPointer (string name, string nick, string blurb,ParamFlags flags)
+            : this (New (name, nick, blurb, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_pointer (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
+            var pspecPtr = g_param_spec_pointer(namePtr, nickPtr, blurbPtr, flags);
+
+            return pspecPtr;
+        }
     }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for character properties.
+    /// </summary>
+    [GType (Name = "GParamUnichar", IsWrappedNativeType = true)]
+    sealed class ParamSpecUnichar : ParamSpec
+    {
+        ParamSpecUnichar (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecUnichar (string name, string nick, string blurb, uint defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_unichar (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            uint defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, uint defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_unichar (namePtr, nickPtr, blurbPtr, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for character properties.
+    /// </summary>
+    [GType (Name = "GParamValueArray", IsWrappedNativeType = true)]
+    sealed class ParamSpecValueArray : ParamSpec
+    {
+        ParamSpecValueArray (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecValueArray (string name, string nick, string blurb, ParamSpec elementSpec, ParamFlags flags)
+            : this (New (name, nick, blurb, elementSpec, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_value_array (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            IntPtr elementSpec,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, ParamSpec elementSpec, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_value_array (namePtr, nickPtr, blurbPtr, elementSpec.Handle, flags);
+
+            return pspecPtr;
+        }
+    }
+
+    /* TODO: Need to move Variant to Core
+    /// <summary>
+    /// A #GParamSpec derived structure that contains the meta data for character properties.
+    /// </summary>
+    [GType (Name = "GParamVariant", IsWrappedNativeType = true)]
+    sealed class ParamSpecVariant : ParamSpec
+    {
+        ParamSpecVariant (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+
+        public ParamSpecVariant (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, type, defaultValue, flags), Transfer.All)
+        {
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        IntPtr g_param_spec_variant (IntPtr name,
+            IntPtr nick,
+            IntPtr blurb,
+            VariantType type,
+            Variant defaultValue,
+            ParamFlags flags);
+
+
+        static IntPtr New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
+        {
+            if (name == null) {
+                throw new ArgumentNullException (nameof (name));
+
+            }
+            if (nick == null) {
+                throw new ArgumentNullException (nameof (nick));
+
+            }
+            if (blurb == null) {
+                throw new ArgumentNullException (nameof (blurb));
+
+            }
+            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type, defaultValue, flags);
+
+            return pspecPtr;
+        }
+    }
+    */
 
     /// <summary>
     /// Through the #GParamFlags flag values, certain aspects of parameters

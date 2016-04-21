@@ -96,14 +96,6 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetExtensionMembers ()
         {
-            if (IsGType) {
-                var staticConstructor = ConstructorDeclaration (Identifier + "Extensions")
-                    .AddModifiers (Token (SyntaxKind.StaticKeyword))
-                    .AddBodyStatements (
-                        ParseStatement ($"{typeof (Core.GType)}.{nameof (Core.GType.Register)} (typeof ({Identifier}));"));
-                yield return staticConstructor;
-            }
-
             foreach (var method in MethodInfos) {
                 foreach (var decl in method.Declarations) {
                     yield return decl;

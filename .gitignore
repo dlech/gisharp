@@ -5,3 +5,4 @@ packages/
 *.orig
 *~
 Generated.cs
+TestResult.xml

@@ -93,8 +93,19 @@ namespace GISharp.Core
                 }
                 return obj;
             }
-            // TODO: look up type if there is a GType
-            obj = (T)Activator.CreateInstance (typeof(T),
+
+            // If the type is a GType, then we use the GType to get the actual
+            // type of the object. It could be possible that T is one of the
+            // inherited types and not the actual type of the object.
+            var type = typeof(T);
+            try {
+                var gtype = (GType)type;
+                type = (Type)gtype;
+            } catch (InvalidCastException) {
+                // Type is not a GType
+            }
+
+            obj = (T)Activator.CreateInstance (type,
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
                 null, new object[] { handle, ownership }, null);
             return obj;

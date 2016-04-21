@@ -45,11 +45,6 @@ namespace GISharp.Core
 
     public static class BindingFlagsExtensions
     {
-        static BindingFlagsExtensions()
-        {
-            GType.Register(typeof(BindingFlags));
-        }
-
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_binding_flags_get_type ();
 

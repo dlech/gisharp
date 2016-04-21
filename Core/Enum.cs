@@ -6,8 +6,14 @@ namespace GISharp.Core
     [AttributeUsage (AttributeTargets.Field)]
     public class EnumValueAttribute : Attribute
     {
-        public string Name { get; set; }
-        public string Nick { get; set; }
+        public string Name { get; private set; }
+        public string Nick { get; private set; }
+
+        public EnumValueAttribute (string name = null, string nick = null)
+        {
+            Name = name;
+            Nick = nick;
+        }
     }
 
     public static class EnumExtensions

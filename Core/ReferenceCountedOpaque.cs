@@ -9,8 +9,8 @@ namespace GISharp.Core
     public abstract class ReferenceCountedOpaque
         : Opaque, IDisposable
     {
-        static Dictionary<IntPtr, WeakReference> objectMap = new Dictionary<IntPtr, WeakReference> ();
-        static object lockObj = new object ();
+        static readonly Dictionary<IntPtr, WeakReference> objectMap = new Dictionary<IntPtr, WeakReference> ();
+        static readonly object lockObj = new object ();
 
         protected ReferenceCountedOpaque (IntPtr handle, Transfer ownership)
         {
@@ -67,12 +67,11 @@ namespace GISharp.Core
         {
             lock (lockObj) {
                 WeakReference weakRef;
-                if (objectMap.TryGetValue (handle, out weakRef)) {
-                    if (weakRef.IsAlive) {
-                        return weakRef.Target as ReferenceCountedOpaque;
-                    }
+                if (objectMap.TryGetValue (handle, out weakRef) && weakRef.IsAlive) {
+                    return weakRef.Target as ReferenceCountedOpaque;
                 }
             }
+
             return null;
         }
     }

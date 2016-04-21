@@ -9,6 +9,40 @@ using System.Text.RegularExpressions;
 namespace GISharp.Core
 {
     /// <summary>
+    /// This attribute is applied to types that need to interop with unmanaged
+    /// glib code.
+    /// </summary>
+    /// <remarks>
+    /// If <see cref="IsWrappedNativeType"/> is true, then the type wraps an
+    /// unmanaged type. Otherwise, the type will be registered with the GObject
+    /// type system so that it can be used in unmanged code.
+    /// </remarks>
+    [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
+    public class GTypeAttribute : Attribute
+    {
+        /// <summary>
+        /// Gets or sets the GType name.
+        /// </summary>
+        /// <remarks>
+        /// If specified, this name will be used as the GType name. Otherwise
+        /// a name will be generated from the fully qualified type name. If
+        /// binding an unmanged type, this must be set to match the existing
+        /// GType name.
+        /// </remarks>
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Indicates if the type can be registered with the GObject type system.
+        /// </summary>
+        /// <remarks>
+        /// If you are creating a new type in managed code, this should be set
+        /// to <c>true</c> (default). If you are binding a type implemented in
+        /// unmanged code, then this should be set to false.
+        /// </remarks>
+        public bool IsWrappedNativeType { get; set; }
+    }
+
+    /// <summary>
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
@@ -16,8 +50,8 @@ namespace GISharp.Core
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
-        static Dictionary<Type, GType> typeMap;
-        static Dictionary<GType, Type> gtypeMap;
+        static readonly Dictionary<Type, GType> typeMap;
+        static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
 
         static GType ()
@@ -26,8 +60,8 @@ namespace GISharp.Core
             gtypeMap = new Dictionary<GType, Type> ();
             mapLock = new object ();
 
+            // add the built-in fundamental types
             lock (mapLock) {
-                // add the built-in fundamental types
                 typeMap.Add (typeof (void), None);
                 gtypeMap.Add (None, typeof (void));
                 // No managed type for Interface
@@ -53,7 +87,7 @@ namespace GISharp.Core
                 gtypeMap.Add (Int64, typeof (long));
                 typeMap.Add (typeof (ulong), UInt64);
                 gtypeMap.Add (UInt64, typeof (ulong));
-                // TOOD: do we care about enum/flags?
+                // TODO: do we care about enum/flags?
                 typeMap.Add (typeof (System.Enum), Enum);
                 gtypeMap.Add (Enum, typeof (System.Enum));
                 //typeMap.Add (typeof (System.Enum), Flags);
@@ -121,7 +155,12 @@ namespace GISharp.Core
         const int ReservedUserFirst = 49;
 
         // typedef gsize GType;
-        UIntPtr value;
+        readonly UIntPtr value;
+
+        GType (uint value)
+        {
+            this.value = new UIntPtr (value);
+        }
 
         /// <summary>
         /// An invalid GType used as error return value in some functions which
@@ -139,7 +178,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType None {
             get {
-                return new GType { value = (UIntPtr)(1 << FundamentalShift) };
+                return new GType (1 << FundamentalShift);
             }
         }
 
@@ -148,7 +187,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Interface {
             get {
-                return new GType { value = (UIntPtr)(2 << FundamentalShift) };
+                return new GType (2 << FundamentalShift);
             }
         }
 
@@ -162,7 +201,7 @@ namespace GISharp.Core
         /// </remarks>
         public static GType Char {
             get {
-                return new GType { value = (UIntPtr)(3 << FundamentalShift) };
+                return new GType (3 << FundamentalShift);
             }
         }
 
@@ -171,7 +210,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType UChar {
             get {
-                return new GType { value = (UIntPtr)(4 << FundamentalShift) };
+                return new GType (4 << FundamentalShift);
             }
         }
 
@@ -180,7 +219,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Boolean {
             get {
-                return new GType { value = (UIntPtr)(5 << FundamentalShift) };
+                return new GType (5 << FundamentalShift);
             }
         }
 
@@ -189,7 +228,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Int {
             get {
-                return new GType { value = (UIntPtr)(6 << FundamentalShift) };
+                return new GType (6 << FundamentalShift);
             }
         }
 
@@ -198,7 +237,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType UInt {
             get {
-                return new GType { value = (UIntPtr)(7 << FundamentalShift) };
+                return new GType (7 << FundamentalShift);
             }
         }
 
@@ -207,7 +246,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Long {
             get {
-                return new GType { value = (UIntPtr)(8 << FundamentalShift) };
+                return new GType (8 << FundamentalShift);
             }
         }
 
@@ -216,7 +255,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType ULong {
             get {
-                return new GType { value = (UIntPtr)(9 << FundamentalShift) };
+                return new GType (9 << FundamentalShift);
             }
         }
 
@@ -225,7 +264,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Int64 {
             get {
-                return new GType { value = (UIntPtr)(10 << FundamentalShift) };
+                return new GType(10 << FundamentalShift);
             }
         }
 
@@ -234,7 +273,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType UInt64 {
             get {
-                return new GType { value = (UIntPtr)(11 << FundamentalShift) };
+                return new GType (11 << FundamentalShift);
             }
         }
 
@@ -243,7 +282,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Enum {
             get {
-                return new GType { value = (UIntPtr)(12 << FundamentalShift) };
+                return new GType (12 << FundamentalShift);
             }
         }
 
@@ -252,7 +291,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Flags {
             get {
-                return new GType { value = (UIntPtr)(13 << FundamentalShift) };
+                return new GType (13 << FundamentalShift);
             }
         }
 
@@ -261,7 +300,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Float {
             get {
-                return new GType { value = (UIntPtr)(14 << FundamentalShift) };
+                return new GType (14 << FundamentalShift);
             }
         }
 
@@ -270,7 +309,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Double {
             get {
-                return new GType { value = (UIntPtr)(15 << FundamentalShift) };
+                return new GType (15 << FundamentalShift);
             }
         }
 
@@ -279,7 +318,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType String {
             get {
-                return new GType { value = (UIntPtr)(16 << FundamentalShift) };
+                return new GType (16 << FundamentalShift);
             }
         }
 
@@ -288,7 +327,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Pointer {
             get {
-                return new GType { value = (UIntPtr)(17 << FundamentalShift) };
+                return new GType (17 << FundamentalShift);
             }
         }
 
@@ -297,7 +336,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Boxed {
             get {
-                return new GType { value = (UIntPtr)(18 << FundamentalShift) };
+                return new GType (18 << FundamentalShift);
             }
         }
 
@@ -306,7 +345,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Param {
             get {
-                return new GType { value = (UIntPtr)(19 << FundamentalShift) };
+                return new GType (19 << FundamentalShift);
             }
         }
 
@@ -315,7 +354,7 @@ namespace GISharp.Core
         /// </summary>
         public static GType Object {
             get {
-                return new GType { value = (UIntPtr)(20 << FundamentalShift) };
+                return new GType (20 << FundamentalShift);
             }
         }
 
@@ -331,8 +370,13 @@ namespace GISharp.Core
         /// </remarks>
         public static GType Variant {
             get {
-                return new GType { value = (UIntPtr)21 };
+                return new GType (21 << FundamentalShift);
             }
+        }
+
+        internal static GType FromClass (TypeClass gClass) {
+            var offset = Marshal.OffsetOf<TypeClass.TypeClass_> (nameof (TypeClass.TypeClass_.GType));
+            return new GType ((uint)Marshal.ReadIntPtr (gClass.Handle, offset.ToInt32 ()));
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -702,9 +746,6 @@ namespace GISharp.Core
         /// </remarks>
         public static GType FromName (string name)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
             AssertGTypeName (name);
             var name_ = MarshalG.StringToUtf8Ptr (name);
             var ret = g_type_from_name (name_);
@@ -734,27 +775,46 @@ namespace GISharp.Core
                 throw new ArgumentNullException (nameof (name));
             }
             if (name.Length < 3) {
-                var message = string.Format ($"The name '{name}' is too short.");
+                var message = string.Format ($"The name '{name}' is too short.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name[0].ToString (), "[^A-Za-z_]")) {
-                var message = string.Format ($"The name '{name}' must start with letter or underscore.");
+                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name, "[^0-9A-Za-z_\\-\\+]")) {
-                var message = string.Format ($"The name '{name}' contains an invalid character.");
+                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_type_register_static (
-            GType parent_type,
-            IntPtr type_name,
+            GType parentType,
+            IntPtr typeName,
             IntPtr info,
             TypeFlags flags);
 
-        public static GType Register (Type type)
+        static GType RegisterStatic (GType type, string typeName, TypeInfo info, TypeFlags flags)
+        {
+            // this is static, so typeName_ is not freed
+            var typeName_ = MarshalG.StringToUtf8Ptr (typeName);
+            // also, make a copy of info in unmanaged memory so that it always exists
+            var info_ = MarshalG.Alloc (Marshal.SizeOf (info));
+            Marshal.StructureToPtr (info, info_, false);
+            var ret = g_type_register_static (type, typeName_, info_, flags);
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Register the specified type with the GObject type system.
+        /// </summary>
+        /// <param name="type">Type.</param>
+        /// <remarks>
+        /// This is meant to be called from that static constructor of a type.
+        /// </remarks>
+        static GType Register (Type type)
         {
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
@@ -767,120 +827,211 @@ namespace GISharp.Core
                                              typeof (GTypeAttribute).FullName);
                 throw new ArgumentException (message, nameof (type));
             }
-            if (typeMap.ContainsKey (type)) {
-                throw new ArgumentException ("This type is already registered.", nameof (type));
-            }
+            lock (mapLock) {
+                if (typeMap.ContainsKey (type)) {
+                    throw new ArgumentException ("This type is already registered.", nameof (type));
+                }
 
-            if (gtypeAttribute.IsWrappedNativeType) {
-                // enums and interfaces can't have method implementations, so we
-                // need to find the associated Extensions type for the actual
-                // implementation.
-                var implementationType = type;
-                if (type.IsEnum || type.IsInterface) {
-                    implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
-                }
-                var getGType = implementationType.GetMethod ("getGType",
-                                                         System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-                if (getGType == null) {
-                    throw new ArgumentException ("Could not find getType() method.", nameof (type));
-                }
-                var gtype = (GType)getGType.Invoke (null, null);
-                if (gtype == Invalid) {
-                    throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
-                }
-                lock (mapLock) {
+                if (gtypeAttribute.IsWrappedNativeType) {
+                    // enums and interfaces can't have method implementations, so we
+                    // need to find the associated Extensions type for the actual
+                    // implementation.
+                    var implementationType = type;
+                    if (type.IsEnum || type.IsInterface) {
+                        implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+                    }
+                    var getGType = implementationType.GetMethod ("getGType",
+                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+                    if (getGType == null) {
+                        throw new ArgumentException ("Could not find getType() method.", nameof (type));
+                    }
+                    var gtype = (GType)getGType.Invoke (null, null);
+                    if (gtype == Invalid) {
+                        throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
+                    }
+
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);
-                }
-                return gtype;
-            }
 
-            var gtypeName = type.GetGTypeName ();
-            if (type.IsEnum) {
-                if (Marshal.SizeOf (type.GetEnumUnderlyingType ()) != 4) {
-                    throw new ArgumentException ("GType enums must be int/uint", nameof (type));
+                    return gtype;
                 }
-                var values = (int[])type.GetEnumValues ();
-                var names = type.GetEnumNames ();
-                //var fields = type.GetFields ();
-                var flagsAttribute = type.GetCustomAttributes (
-                    typeof (FlagsAttribute), false).SingleOrDefault ();
-                if (flagsAttribute == null) {
-                    var gtypeValues = new EnumValue[values.Length];
-                    for (int i = 0; i < values.Length; i++) {
-                        gtypeValues[i].Value = values[i];
-                        // TODO: Check fields for EnumValueAttribute and use those names/nicks instead
-                        gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
-                        gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
+
+                var gtypeName = type.GetGTypeName ();
+                AssertGTypeName (gtypeName);
+                if (type.IsClass) {
+                    if (!type.IsSubclassOf (typeof(Object))) {
+                        var message = string.Format ("Class does not inherit from {0}",
+                            typeof(Object).FullName);
+                        throw new ArgumentException (message, nameof (type));
                     }
-                    var gtype = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
+                    var parentGType = type.BaseType.GetGType ();
+                    TypeQuery parentTypeQuery = default (TypeQuery);
+                    g_type_query (parentGType, ref parentTypeQuery);
+                    var info = new TypeInfo {
+                        ClassSize = (ushort)parentTypeQuery.ClassSize,
+                        ClassInit = ObjectClass.InitManagedClass,
+                        ClassData = GCHandle.ToIntPtr (GCHandle.Alloc (type)),
+                        InstanceSize = (ushort)parentTypeQuery.InstanceSize,
+                    };
+                    TypeFlags flags = default(TypeFlags);
+                    // TODO: do we need to set any flags?
+                    var gtype = RegisterStatic (GType.Object, gtypeName, info, flags);
                     if (gtype == Invalid) {
-                        throw new InvalidOperationException ("Something bad happend while registering enum.");
+                        throw new InvalidOperationException ("Something bad happend while registering object.");
                     }
-                    lock (mapLock) {
+
+                    typeMap.Add (type, gtype);
+                    gtypeMap.Add (gtype, type);
+
+                    return gtype;
+                }
+                if (type.IsEnum) {
+                    if (Marshal.SizeOf (type.GetEnumUnderlyingType ()) != 4) {
+                        throw new ArgumentException ("GType enums must be int/uint", nameof (type));
+                    }
+                    var values = (int[])type.GetEnumValues ();
+                    var names = type.GetEnumNames ();
+                    var flagsAttribute = type.GetCustomAttributes (
+                        typeof (FlagsAttribute), false).SingleOrDefault ();
+                    if (flagsAttribute == null) {
+                        var gtypeValues = new EnumValue[values.Length];
+                        for (int i = 0; i < values.Length; i++) {
+                            gtypeValues[i].Value = values[i];
+                            var enumValueField = type.GetField (names[i]);
+                            var enumValueAttr = enumValueField
+                                .GetCustomAttributes (false)
+                                .OfType<EnumValueAttribute> ()
+                                .SingleOrDefault ();
+                            var valueName = enumValueAttr?.Name ?? names[i];
+                            var valueNick = enumValueAttr?.Nick ?? names[i];
+                            gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (valueName);
+                            gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (valueNick);
+                        }
+                        var gtype = Core.Enum.RegisterStatic (gtypeName, gtypeValues);
+                        if (gtype == Invalid) {
+                            throw new InvalidOperationException ("Something bad happend while registering enum.");
+                        }
+
                         typeMap.Add (type, gtype);
                         gtypeMap.Add (gtype, type);
-                    }
-                    return gtype;
-                } else {
-                    var gtypeValues = new FlagsValue[values.Length];
-                    for (int i = 0; i < values.Length; i++) {
-                        gtypeValues[i].Value = (uint)values[i];
-                        // TODO: Check fields for EnumValueAttribute and use those names/nicks instead
-                        gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (names[i]);
-                        gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (names[i]);
-                    }
-                    var gtype = Core.Flags.RegisterStatic (gtypeName, gtypeValues);
-                    if (gtype == Invalid) {
-                        throw new InvalidOperationException ("Something bad happend while registering flags.");
-                    }
-                    lock (mapLock) {
+
+                        return gtype;
+                    } else {
+                        var gtypeValues = new FlagsValue[values.Length];
+                        for (int i = 0; i < values.Length; i++) {
+                            gtypeValues[i].Value = (uint)values[i];
+                            var enumValueField = type.GetField (names[i]);
+                            var enumValueAttr = enumValueField
+                                .GetCustomAttributes (false)
+                                .OfType<EnumValueAttribute> ()
+                                .SingleOrDefault ();
+                            var valueName = enumValueAttr?.Name ?? names[i];
+                            var valueNick = enumValueAttr?.Nick ?? names[i];
+                            gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (valueName);
+                            gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (valueNick);
+                        }
+                        var gtype = Core.Flags.RegisterStatic (gtypeName, gtypeValues);
+                        if (gtype == Invalid) {
+                            throw new InvalidOperationException ("Something bad happend while registering flags.");
+                        }
+
                         typeMap.Add (type, gtype);
                         gtypeMap.Add (gtype, type);
+
+                        return gtype;
                     }
-                    return gtype;
                 }
             }
             throw new NotImplementedException ();
         }
 
+
+        public static GType TypeOf (Type type)
+        {
+            lock (mapLock) {
+                if (typeMap.ContainsKey (type)) {
+                    return typeMap[type];
+                }
+
+                var ret = Register (type);
+
+                return ret;
+            }
+        }
+
+        public static GType TypeOf<T> ()
+        {
+            return TypeOf (typeof(T));
+        }
+
         public static explicit operator GType (Type type)
         {
             try {
-                return GetGTypeForType (type);
+                return TypeOf (type);
             } catch (Exception ex) {
                 throw new InvalidCastException ("Could not get GType from type.", ex);
             }
         }
 
+        public static Type TypeOf (GType type)
+        {
+            lock (mapLock) {
+                if (!gtypeMap.ContainsKey (type)) {
+                    Type matchingType = null;
+                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+                        matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
+                            .FirstOrDefault (t => t.GetCustomAttributes (typeof(GTypeAttribute), false)
+                                .Any (a => ((GTypeAttribute)a).Name == type.Name));
+                        if (matchingType != null) {
+                            break;
+                        }
+                    }
+                    if (matchingType == null) {
+                        // TODO: More specific exception type
+                        throw new Exception ("Could not find type for GType in loaded assemblies.");
+                    }
+                    Register (matchingType);
+                }
+
+                return gtypeMap[type];
+            }
+        }
+
         public static explicit operator Type (GType type)
         {
-            // TODO: need to lookup types that have not been registered yet.
-            return gtypeMap[type];
+            try {
+                return TypeOf (type);
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Could not get type from GType.", ex);
+            }
         }
 
-        internal static GType GetGTypeForType (Type type)
-        {
-            // enums and interfaces can't have method implementations, so we
-            // need to find the associated Extensions type for the actual
-            // implementation.
-            var implementationType = type;
-            if (type.IsEnum || type.IsInterface) {
-                implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
-            }
 
-            // Make sure the static constructor has been called before other checks.
-            // This may register the type.
-            RuntimeHelpers.RunClassConstructor (implementationType.TypeHandle);
-
-            // Is the type already registered?
-            if (typeMap.ContainsKey (type)) {
-                return typeMap[type];
-            }
-
-            var ret = Register (type);
-            return ret;
-        }
+        /// <summary>
+        /// Queries the type system for information about a specific type.
+        /// This function will fill in a user-provided structure to hold
+        /// type-specific information. If an invalid #GType is passed in, the
+        /// @type member of the #GTypeQuery is 0. All members filled into the
+        /// #GTypeQuery structure should be considered constant and have to be
+        /// left untouched.
+        /// </summary>
+        /// <param name="type">
+        /// #GType of a static, classed type
+        /// </param>
+        /// <param name="query">
+        /// a user provided structure that is
+        ///     filled in with constant values upon success
+        /// </param>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_query(
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type,
+            /* <type name="TypeQuery" type="GTypeQuery*" managed-name="TypeQuery" /> */
+            /* direction:out caller-allocates:1 transfer-ownership:none */
+            ref TypeQuery query);
 
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
@@ -1376,7 +1527,7 @@ namespace GISharp.Core
         /// <remarks>
         /// The extended members of the returned instance are guaranteed to be filled
         /// with zeros.
-        /// 
+        ///
         /// Note: Do not use this function, unless you're implementing a
         /// fundamental type. Also language bindings should not use this
         /// function, but g_object_new() instead.
@@ -1410,7 +1561,7 @@ namespace GISharp.Core
         /// <remarks>
         /// The extended members of the returned instance are guaranteed to be filled
         /// with zeros.
-        /// 
+        ///
         /// Note: Do not use this function, unless you're implementing a
         /// fundamental type. Also language bindings should not use this
         /// function, but g_object_new() instead.
@@ -2177,52 +2328,6 @@ namespace GISharp.Core
         }
 
         /// <summary>
-        /// Queries the type system for information about a specific type.
-        /// This function will fill in a user-provided structure to hold
-        /// type-specific information. If an invalid #GType is passed in, the
-        /// @type member of the #GTypeQuery is 0. All members filled into the
-        /// #GTypeQuery structure should be considered constant and have to be
-        /// left untouched.
-        /// </summary>
-        /// <param name="type">
-        /// #GType of a static, classed type
-        /// </param>
-        /// <param name="query">
-        /// a user provided structure that is
-        ///     filled in with constant values upon success
-        /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_query(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type,
-            /* <type name="TypeQuery" type="GTypeQuery*" managed-name="TypeQuery" /> */
-            /* direction:out caller-allocates:1 transfer-ownership:none */
-            ref TypeQuery query);
-
-        /// <summary>
-        /// Queries the type system for information about a specific type.
-        /// This function will fill in a user-provided structure to hold
-        /// type-specific information. If an invalid #GType is passed in, the
-        /// @type member of the #GTypeQuery is 0. All members filled into the
-        /// #GTypeQuery structure should be considered constant and have to be
-        /// left untouched.
-        /// </summary>
-        /// <param name="type">
-        /// #GType of a static, classed type
-        /// </param>
-        /// <param name="query">
-        /// a user provided structure that is
-        ///     filled in with constant values upon success
-        /// </param>
-        public static void Query(GType type, ref TypeQuery query)
-        {
-            g_type_query(type,ref query);
-        }
-
-        /// <summary>
         /// Registers @type_name as the name of a new dynamic type derived from
         /// @parent_type.  The type system uses the information contained in the
         /// #GTypePlugin structure pointed to by @plugin to manage the type and its
@@ -2518,6 +2623,477 @@ namespace GISharp.Core
 #endif
     }
 
+    /// <summary>
+    /// An opaque structure used as the base of all classes.
+    /// </summary>
+    class TypeClass : ReferenceCountedOpaque
+    {
+        internal struct TypeClass_
+        {
+            public GType GType;
+        }
+
+#if THIS_CODE_IS_NOT_COMPILED
+        /// <summary>
+        /// Registers a private structure for an instantiatable type.
+        /// </summary>
+        /// <remarks>
+        /// When an object is allocated, the private structures for
+        /// the type and all of its parent types are allocated
+        /// sequentially in the same memory block as the public
+        /// structures, and are zero-filled.
+        ///
+        /// Note that the accumulated size of the private structures of
+        /// a type and all its parent types cannot exceed 64 KiB.
+        ///
+        /// This function should be called in the type's class_init() function.
+        /// The private structure can be retrieved using the
+        /// G_TYPE_INSTANCE_GET_PRIVATE() macro.
+        ///
+        /// The following example shows attaching a private structure
+        /// MyObjectPrivate to an object MyObject defined in the standard
+        /// GObject fashion in the type's class_init() function.
+        ///
+        /// Note the use of a structure member "priv" to avoid the overhead
+        /// of repeatedly calling MY_OBJECT_GET_PRIVATE().
+        ///
+        /// |[&lt;!-- language="C" --&gt;
+        /// typedef struct _MyObject        MyObject;
+        /// typedef struct _MyObjectPrivate MyObjectPrivate;
+        ///
+        /// struct _MyObject {
+        ///  GObject parent;
+        ///
+        ///  MyObjectPrivate *priv;
+        /// };
+        ///
+        /// struct _MyObjectPrivate {
+        ///   int some_field;
+        /// };
+        ///
+        /// static void
+        /// my_object_class_init (MyObjectClass *klass)
+        /// {
+        ///   g_type_class_add_private (klass, sizeof (MyObjectPrivate));
+        /// }
+        ///
+        /// static void
+        /// my_object_init (MyObject *my_object)
+        /// {
+        ///   my_object-&gt;priv = G_TYPE_INSTANCE_GET_PRIVATE (my_object,
+        ///                                                  MY_TYPE_OBJECT,
+        ///                                                  MyObjectPrivate);
+        ///   // my_object-&gt;priv-&gt;some_field will be automatically initialised to 0
+        /// }
+        ///
+        /// static int
+        /// my_object_get_some_field (MyObject *my_object)
+        /// {
+        ///   MyObjectPrivate *priv;
+        ///
+        ///   g_return_val_if_fail (MY_IS_OBJECT (my_object), 0);
+        ///
+        ///   priv = my_object-&gt;priv;
+        ///
+        ///   return priv-&gt;some_field;
+        /// }
+        /// ]|
+        /// </remarks>
+        /// <param name="gClass">
+        /// class structure for an instantiatable type
+        /// </param>
+        /// <param name="privateSize">
+        /// size of private structure
+        /// </param>
+        [SinceAttribute ("2.4")]
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_class_add_private (
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass,
+            /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
+            /* transfer-ownership:none */
+            UInt64 privateSize);
+
+        /// <summary>
+        /// Registers a private structure for an instantiatable type.
+        /// </summary>
+        /// <remarks>
+        /// When an object is allocated, the private structures for
+        /// the type and all of its parent types are allocated
+        /// sequentially in the same memory block as the public
+        /// structures, and are zero-filled.
+        ///
+        /// Note that the accumulated size of the private structures of
+        /// a type and all its parent types cannot exceed 64 KiB.
+        ///
+        /// This function should be called in the type's class_init() function.
+        /// The private structure can be retrieved using the
+        /// G_TYPE_INSTANCE_GET_PRIVATE() macro.
+        ///
+        /// The following example shows attaching a private structure
+        /// MyObjectPrivate to an object MyObject defined in the standard
+        /// GObject fashion in the type's class_init() function.
+        ///
+        /// Note the use of a structure member "priv" to avoid the overhead
+        /// of repeatedly calling MY_OBJECT_GET_PRIVATE().
+        ///
+        /// |[&lt;!-- language="C" --&gt;
+        /// typedef struct _MyObject        MyObject;
+        /// typedef struct _MyObjectPrivate MyObjectPrivate;
+        ///
+        /// struct _MyObject {
+        ///  GObject parent;
+        ///
+        ///  MyObjectPrivate *priv;
+        /// };
+        ///
+        /// struct _MyObjectPrivate {
+        ///   int some_field;
+        /// };
+        ///
+        /// static void
+        /// my_object_class_init (MyObjectClass *klass)
+        /// {
+        ///   g_type_class_add_private (klass, sizeof (MyObjectPrivate));
+        /// }
+        ///
+        /// static void
+        /// my_object_init (MyObject *my_object)
+        /// {
+        ///   my_object-&gt;priv = G_TYPE_INSTANCE_GET_PRIVATE (my_object,
+        ///                                                  MY_TYPE_OBJECT,
+        ///                                                  MyObjectPrivate);
+        ///   // my_object-&gt;priv-&gt;some_field will be automatically initialised to 0
+        /// }
+        ///
+        /// static int
+        /// my_object_get_some_field (MyObject *my_object)
+        /// {
+        ///   MyObjectPrivate *priv;
+        ///
+        ///   g_return_val_if_fail (MY_IS_OBJECT (my_object), 0);
+        ///
+        ///   priv = my_object-&gt;priv;
+        ///
+        ///   return priv-&gt;some_field;
+        /// }
+        /// ]|
+        /// </remarks>
+        /// <param name="gClass">
+        /// class structure for an instantiatable type
+        /// </param>
+        /// <param name="privateSize">
+        /// size of private structure
+        /// </param>
+        [SinceAttribute ("2.4")]
+        public static void AddPrivate (IntPtr gClass, UInt64 privateSize)
+        {
+            g_type_class_add_private (gClass, privateSize);
+        }
+
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_class_adjust_private_offset (
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass,
+            /* <type name="gint" type="gint*" managed-name="Gint" /> */
+            /* transfer-ownership:none */
+            Int32 privateSizeOrOffset);
+
+        public static void AdjustPrivateOffset (IntPtr gClass, Int32 privateSizeOrOffset)
+        {
+            g_type_class_adjust_private_offset (gClass, privateSizeOrOffset);
+        }
+
+        /// <summary>
+        /// Gets the offset of the private data for instances of @g_class.
+        /// </summary>
+        /// <remarks>
+        /// This is how many bytes you should add to the instance pointer of a
+        /// class in order to get the private data for the type represented by
+        /// @g_class.
+        ///
+        /// You can only call this function after you have registered a private
+        /// data area for @g_class using g_type_class_add_private().
+        /// </remarks>
+        /// <param name="gClass">
+        /// a #GTypeClass
+        /// </param>
+        /// <returns>
+        /// the offset, in bytes
+        /// </returns>
+        [SinceAttribute ("2.38")]
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="gint" type="gint" managed-name="Gint" /> */
+        /* transfer-ownership:none */
+        static extern Int32 g_type_class_get_instance_private_offset (
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        /// <summary>
+        /// Gets the offset of the private data for instances of @g_class.
+        /// </summary>
+        /// <remarks>
+        /// This is how many bytes you should add to the instance pointer of a
+        /// class in order to get the private data for the type represented by
+        /// @g_class.
+        ///
+        /// You can only call this function after you have registered a private
+        /// data area for @g_class using g_type_class_add_private().
+        /// </remarks>
+        /// <param name="gClass">
+        /// a #GTypeClass
+        /// </param>
+        /// <returns>
+        /// the offset, in bytes
+        /// </returns>
+        [SinceAttribute ("2.38")]
+        public static Int32 GetInstancePrivateOffset (IntPtr gClass)
+        {
+            var ret = g_type_class_get_instance_private_offset (gClass);
+            return ret;
+        }
+#endif
+
+        /// <summary>
+        /// This function is essentially the same as g_type_class_ref(),
+        /// except that the classes reference count isn't incremented.
+        /// As a consequence, this function may return %NULL if the class
+        /// of the type passed in does not currently exist (hasn't been
+        /// referenced before).
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the #GTypeClass
+        ///     structure for the given type ID or %NULL if the class does not
+        ///     currently exist
+        /// </returns>
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_peek (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type);
+
+        public static T Get<T> (GType type) where T : TypeClass
+        {
+            var handle = g_type_class_peek (type);
+            var ret =  Opaque.GetInstance<T> (handle, Transfer.None);
+            return ret;
+        }
+
+#if THIS_CODE_IS_NOT_COMPILED
+        /// <summary>
+        /// A more efficient version of g_type_class_peek() which works only for
+        /// static types.
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the #GTypeClass
+        ///     structure for the given type ID or %NULL if the class does not
+        ///     currently exist or is dynamically loaded
+        /// </returns>
+        [SinceAttribute ("2.4")]
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_peek_static (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type);
+
+        /// <summary>
+        /// A more efficient version of g_type_class_peek() which works only for
+        /// static types.
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the #GTypeClass
+        ///     structure for the given type ID or %NULL if the class does not
+        ///     currently exist or is dynamically loaded
+        /// </returns>
+        [SinceAttribute ("2.4")]
+        public static TypeClass PeekStatic (GType type)
+        {
+            var ret_ = g_type_class_peek_static (type);
+            var ret = Opaque.GetInstance<TypeClass> (ret_, Transfer.None);
+            return ret;
+        }
+#endif
+
+        /// <summary>
+        /// Increments the reference count of the class structure belonging to
+        /// @type. This function will demand-create the class if it doesn't
+        /// exist already.
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the #GTypeClass
+        ///     structure for the given type ID
+        /// </returns>
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_ref (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type);
+
+        internal protected override void Ref ()
+        {
+            var gtype = GType.FromClass (this);
+            g_type_class_ref (gtype);
+        }
+
+#if THIS_CODE_IS_NOT_COMPILED
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* */
+        static extern IntPtr g_type_class_get_private (
+            /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr klass,
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType privateType);
+
+        public IntPtr GetPrivate (GType privateType)
+        {
+            AssertNotDisposed ();
+            var ret = g_type_class_get_private (Handle, privateType);
+            return ret;
+        }
+
+        /// <summary>
+        /// This is a convenience function often needed in class initializers.
+        /// It returns the class structure of the immediate parent type of the
+        /// class passed in.  Since derived classes hold a reference count on
+        /// their parent classes as long as they are instantiated, the returned
+        /// class will always exist.
+        /// </summary>
+        /// <remarks>
+        /// This function is essentially equivalent to:
+        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+        /// </remarks>
+        /// <param name="gClass">
+        /// the #GTypeClass structure to
+        ///     retrieve the parent class for
+        /// </param>
+        /// <returns>
+        /// the parent class
+        ///     of @g_class
+        /// </returns>
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_peek_parent (
+            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        /// <summary>
+        /// This is a convenience function often needed in class initializers.
+        /// It returns the class structure of the immediate parent type of the
+        /// class passed in.  Since derived classes hold a reference count on
+        /// their parent classes as long as they are instantiated, the returned
+        /// class will always exist.
+        /// </summary>
+        /// <remarks>
+        /// This function is essentially equivalent to:
+        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+        /// </remarks>
+        /// <returns>
+        /// the parent class
+        ///     of @g_class
+        /// </returns>
+        public TypeClass PeekParent ()
+        {
+            AssertNotDisposed ();
+            var ret_ = g_type_class_peek_parent (Handle);
+            var ret = Opaque.GetInstance<TypeClass> (ret_, Transfer.None);
+            return ret;
+        }
+#endif
+
+        /// <summary>
+        /// Decrements the reference count of the class structure being passed in.
+        /// Once the last reference count of a class has been released, classes
+        /// may be finalized by the type system, so further dereferencing of a
+        /// class pointer after g_type_class_unref() are invalid.
+        /// </summary>
+        /// <param name="gClass">
+        /// a #GTypeClass structure to unref
+        /// </param>
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_class_unref (
+            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        /// <summary>
+        /// Decrements the reference count of the class structure being passed in.
+        /// Once the last reference count of a class has been released, classes
+        /// may be finalized by the type system, so further dereferencing of a
+        /// class pointer after g_type_class_unref() are invalid.
+        /// </summary>
+        protected internal override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_type_class_unref (Handle);
+        }
+
+        /// <summary>
+        /// A variant of g_type_class_unref() for use in #GTypeClassCacheFunc
+        /// implementations. It unreferences a class without consulting the chain
+        /// of #GTypeClassCacheFuncs, avoiding the recursion which would occur
+        /// otherwise.
+        /// </summary>
+        /// <param name="gClass">
+        /// a #GTypeClass structure to unref
+        /// </param>
+        [DllImportAttribute ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_class_unref_uncached (
+            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        /// <summary>
+        /// A variant of g_type_class_unref() for use in #GTypeClassCacheFunc
+        /// implementations. It unreferences a class without consulting the chain
+        /// of #GTypeClassCacheFuncs, avoiding the recursion which would occur
+        /// otherwise.
+        /// </summary>
+        public void UnrefUncached ()
+        {
+            AssertNotDisposed ();
+            g_type_class_unref_uncached (Handle);
+        }
+
+        protected TypeClass (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
+    }
+
     public class InvalidGTypeNameException : Exception
     {
         public InvalidGTypeNameException (string message) : base (message)
@@ -2582,52 +3158,6 @@ namespace GISharp.Core
         IntPtr gClass);
 
     /// <summary>
-    /// A callback function used by the type system to do base initialization
-    /// of the class structures of derived types. It is called as part of the
-    /// initialization process of all derived classes and should reallocate
-    /// or reset all dynamic class members copied over from the parent class.
-    /// For example, class members (such as strings) that are not sufficiently
-    /// handled by a plain memory copy of the parent class into the derived class
-    /// have to be altered. See GClassInitFunc() for a discussion of the class
-    /// intialization process.
-    /// </summary>
-    delegate void BaseInitFunc(IntPtr gClass);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeBaseInitFunc"/> methods.
-    /// </summary>
-    public static class NativeBaseInitFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="BaseInitFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        static NativeBaseInitFunc Create(BaseInitFunc method, bool freeUserData)
-        {
-            NativeBaseInitFunc nativeCallback = (
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gClass_) =>
-            {
-                method.Invoke(gClass_);
-            };
-            return nativeCallback;
-        }
-    }
-
-    /// <summary>
     /// A callback function used by the type system to finalize those portions
     /// of a derived types class structure that were setup from the corresponding
     /// GBaseInitFunc() function. Class finalization basically works the inverse
@@ -2641,56 +3171,13 @@ namespace GISharp.Core
         IntPtr gClass);
 
     /// <summary>
-    /// A callback function used by the type system to finalize those portions
-    /// of a derived types class structure that were setup from the corresponding
-    /// GBaseInitFunc() function. Class finalization basically works the inverse
-    /// way in which class intialization is performed.
-    /// See GClassInitFunc() for a discussion of the class intialization process.
-    /// </summary>
-    delegate void BaseFinalizeFunc(IntPtr gClass);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeBaseFinalizeFunc"/> methods.
-    /// </summary>
-    static class NativeBaseFinalizeFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="BaseFinalizeFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        public static NativeBaseFinalizeFunc Create (BaseFinalizeFunc method, bool freeUserData)
-        {
-            NativeBaseFinalizeFunc nativeCallback = (
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gClass_) =>
-            {
-                method.Invoke(gClass_);
-            };
-            return nativeCallback;
-        }
-    }
-
-    /// <summary>
     /// A callback function used by the type system to initialize the class
     /// of a specific type. This function should initialize all static class
     /// members.
     /// </summary>
     /// <remarks>
     /// The initialization process of a class involves:
-    /// 
+    ///
     /// - Copying common members from the parent class over to the
     ///   derived class structure.
     /// - Zero initialization of the remaining members not copied
@@ -2698,7 +3185,7 @@ namespace GISharp.Core
     /// - Invocation of the GBaseInitFunc() initializers of all parent
     ///   types and the class' type.
     /// - Invocation of the class' GClassInitFunc() initializer.
-    /// 
+    ///
     /// Since derived classes are partially initialized through a memory copy
     /// of the parent class, the general rule is that GBaseInitFunc() and
     /// GBaseFinalizeFunc() should take care of necessary reinitialization
@@ -2709,10 +3196,10 @@ namespace GISharp.Core
     /// or reference counted resources) are better handled by a GBaseInitFunc()
     /// for this type, so proper initialization of the dynamic class members
     /// is performed for class initialization of derived types as well.
-    /// 
+    ///
     /// An example may help to correspond the intend of the different class
     /// initializers:
-    /// 
+    ///
     /// |[&lt;!-- language="C" --&gt;
     /// typedef struct {
     ///   GObjectClass parent_class;
@@ -2734,7 +3221,7 @@ namespace GISharp.Core
     /// {
     ///   class-&gt;static_integer = 42;
     /// }
-    /// 
+    ///
     /// typedef struct {
     ///   TypeAClass   parent_class;
     ///   gfloat       static_float;
@@ -2759,7 +3246,7 @@ namespace GISharp.Core
     /// Initialization of TypeBClass will first cause initialization of
     /// TypeAClass (derived classes reference their parent classes, see
     /// g_type_class_ref() on this).
-    /// 
+    ///
     /// Initialization of TypeAClass roughly involves zero-initializing its fields,
     /// then calling its GBaseInitFunc() type_a_base_class_init() to allocate
     /// its dynamic members (dynamic_string), and finally calling its GClassInitFunc()
@@ -2770,13 +3257,13 @@ namespace GISharp.Core
     /// The dynamic members of TypeAClass within TypeBClass now need
     /// reinitialization which is performed by calling type_a_base_class_init()
     /// with an argument of TypeBClass.
-    /// 
+    ///
     /// After that, the GBaseInitFunc() of TypeBClass, type_b_base_class_init()
     /// is called to allocate the dynamic members of TypeBClass (dynamic_gstring),
     /// and finally the GClassInitFunc() of TypeBClass, type_b_class_init(),
     /// is called to complete the initialization process with the static members
     /// (static_float).
-    /// 
+    ///
     /// Corresponding finalization counter parts to the GBaseInitFunc() functions
     /// have to be provided to release allocated resources at class finalization
     /// time.
@@ -2789,143 +3276,6 @@ namespace GISharp.Core
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr classData);
-
-    /// <summary>
-    /// A callback function used by the type system to initialize the class
-    /// of a specific type. This function should initialize all static class
-    /// members.
-    /// </summary>
-    /// <remarks>
-    /// The initialization process of a class involves:
-    /// 
-    /// - Copying common members from the parent class over to the
-    ///   derived class structure.
-    /// - Zero initialization of the remaining members not copied
-    ///   over from the parent class.
-    /// - Invocation of the GBaseInitFunc() initializers of all parent
-    ///   types and the class' type.
-    /// - Invocation of the class' GClassInitFunc() initializer.
-    /// 
-    /// Since derived classes are partially initialized through a memory copy
-    /// of the parent class, the general rule is that GBaseInitFunc() and
-    /// GBaseFinalizeFunc() should take care of necessary reinitialization
-    /// and release of those class members that were introduced by the type
-    /// that specified these GBaseInitFunc()/GBaseFinalizeFunc().
-    /// GClassInitFunc() should only care about initializing static
-    /// class members, while dynamic class members (such as allocated strings
-    /// or reference counted resources) are better handled by a GBaseInitFunc()
-    /// for this type, so proper initialization of the dynamic class members
-    /// is performed for class initialization of derived types as well.
-    /// 
-    /// An example may help to correspond the intend of the different class
-    /// initializers:
-    /// 
-    /// |[&lt;!-- language="C" --&gt;
-    /// typedef struct {
-    ///   GObjectClass parent_class;
-    ///   gint         static_integer;
-    ///   gchar       *dynamic_string;
-    /// } TypeAClass;
-    /// static void
-    /// type_a_base_class_init (TypeAClass *class)
-    /// {
-    ///   class-&gt;dynamic_string = g_strdup ("some string");
-    /// }
-    /// static void
-    /// type_a_base_class_finalize (TypeAClass *class)
-    /// {
-    ///   g_free (class-&gt;dynamic_string);
-    /// }
-    /// static void
-    /// type_a_class_init (TypeAClass *class)
-    /// {
-    ///   class-&gt;static_integer = 42;
-    /// }
-    /// 
-    /// typedef struct {
-    ///   TypeAClass   parent_class;
-    ///   gfloat       static_float;
-    ///   GString     *dynamic_gstring;
-    /// } TypeBClass;
-    /// static void
-    /// type_b_base_class_init (TypeBClass *class)
-    /// {
-    ///   class-&gt;dynamic_gstring = g_string_new ("some other string");
-    /// }
-    /// static void
-    /// type_b_base_class_finalize (TypeBClass *class)
-    /// {
-    ///   g_string_free (class-&gt;dynamic_gstring);
-    /// }
-    /// static void
-    /// type_b_class_init (TypeBClass *class)
-    /// {
-    ///   class-&gt;static_float = 3.14159265358979323846;
-    /// }
-    /// ]|
-    /// Initialization of TypeBClass will first cause initialization of
-    /// TypeAClass (derived classes reference their parent classes, see
-    /// g_type_class_ref() on this).
-    /// 
-    /// Initialization of TypeAClass roughly involves zero-initializing its fields,
-    /// then calling its GBaseInitFunc() type_a_base_class_init() to allocate
-    /// its dynamic members (dynamic_string), and finally calling its GClassInitFunc()
-    /// type_a_class_init() to initialize its static members (static_integer).
-    /// The first step in the initialization process of TypeBClass is then
-    /// a plain memory copy of the contents of TypeAClass into TypeBClass and
-    /// zero-initialization of the remaining fields in TypeBClass.
-    /// The dynamic members of TypeAClass within TypeBClass now need
-    /// reinitialization which is performed by calling type_a_base_class_init()
-    /// with an argument of TypeBClass.
-    /// 
-    /// After that, the GBaseInitFunc() of TypeBClass, type_b_base_class_init()
-    /// is called to allocate the dynamic members of TypeBClass (dynamic_gstring),
-    /// and finally the GClassInitFunc() of TypeBClass, type_b_class_init(),
-    /// is called to complete the initialization process with the static members
-    /// (static_float).
-    /// 
-    /// Corresponding finalization counter parts to the GBaseInitFunc() functions
-    /// have to be provided to release allocated resources at class finalization
-    /// time.
-    /// </remarks>
-    delegate void ClassInitFunc(IntPtr gClass, IntPtr classData);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeClassInitFunc"/> methods.
-    /// </summary>
-    static class NativeClassInitFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="ClassInitFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        public static NativeClassInitFunc Create (ClassInitFunc method, bool freeUserData)
-        {
-            NativeClassInitFunc nativeCallback = (
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gClass_,
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr classData_) =>
-            {
-                method.Invoke(gClass_, classData_);
-            };
-            return nativeCallback;
-        }
-    }
 
     /// <summary>
     /// A callback function used by the type system to finalize a class.
@@ -2946,54 +3296,6 @@ namespace GISharp.Core
         IntPtr classData);
 
     /// <summary>
-    /// A callback function used by the type system to finalize a class.
-    /// This function is rarely needed, as dynamically allocated class resources
-    /// should be handled by GBaseInitFunc() and GBaseFinalizeFunc().
-    /// Also, specification of a GClassFinalizeFunc() in the #GTypeInfo
-    /// structure of a static type is invalid, because classes of static types
-    /// will never be finalized (they are artificially kept alive when their
-    /// reference count drops to zero).
-    /// </summary>
-    delegate void ClassFinalizeFunc(IntPtr gClass, IntPtr classData);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeClassFinalizeFunc"/> methods.
-    /// </summary>
-    static class NativeClassFinalizeFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="ClassFinalizeFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        static NativeClassFinalizeFunc Create (ClassFinalizeFunc method, bool freeUserData)
-        {
-            NativeClassFinalizeFunc nativeCallback = (
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gClass_,
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr classData_) =>
-            {
-                method.Invoke(gClass_, classData_);
-            };
-            return nativeCallback;
-        }
-    }
-
-    /// <summary>
     /// A callback function used by the type system to initialize a new
     /// instance of a type. This function initializes all instance members and
     /// allocates any resources required by it.
@@ -3003,7 +3305,7 @@ namespace GISharp.Core
     /// types instance initializers, so the class member of the instance
     /// is altered during its initialization to always point to the class that
     /// belongs to the type the current initializer was introduced for.
-    /// 
+    ///
     /// The extended members of @instance are guaranteed to have been filled with
     /// zeros before this function is called.
     /// </remarks>
@@ -3015,60 +3317,6 @@ namespace GISharp.Core
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gClass);
-
-    /// <summary>
-    /// A callback function used by the type system to initialize a new
-    /// instance of a type. This function initializes all instance members and
-    /// allocates any resources required by it.
-    /// </summary>
-    /// <remarks>
-    /// Initialization of a derived instance involves calling all its parent
-    /// types instance initializers, so the class member of the instance
-    /// is altered during its initialization to always point to the class that
-    /// belongs to the type the current initializer was introduced for.
-    /// 
-    /// The extended members of @instance are guaranteed to have been filled with
-    /// zeros before this function is called.
-    /// </remarks>
-    delegate void InstanceInitFunc(TypeInstance instance, IntPtr gClass);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeInstanceInitFunc"/> methods.
-    /// </summary>
-    static class NativeInstanceInitFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="InstanceInitFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        public static NativeInstanceInitFunc Create(InstanceInitFunc method, bool freeUserData)
-        {
-            NativeInstanceInitFunc nativeCallback = (
-                /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
-                /* transfer-ownership:none */
-                IntPtr instance_,
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gClass_) =>
-            {
-                var instance = Opaque.GetInstance<TypeInstance>(instance_, Transfer.None);
-                method.Invoke(instance, gClass_);
-            };
-            return nativeCallback;
-        }
-    }
 
     /// <summary>
     /// A callback function used by the type system to finalize an interface.
@@ -3083,50 +3331,6 @@ namespace GISharp.Core
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr ifaceData);
-
-    /// <summary>
-    /// A callback function used by the type system to finalize an interface.
-    /// This function should destroy any internal data and release any resources
-    /// allocated by the corresponding GInterfaceInitFunc() function.
-    /// </summary>
-    delegate void InterfaceFinalizeFunc(IntPtr gIface, IntPtr ifaceData);
-
-    /// <summary>
-    /// Factory for creating <see cref="NativeInterfaceFinalizeFunc"/> methods.
-    /// </summary>
-    public static class NativeInterfaceFinalizeFuncFactory
-    {
-        /// <summary>
-        /// Wraps <see cref="InterfaceFinalizeFunc"/> in an anonymous method that can be passed
-        /// to unmaged code.
-        /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
-        /// <returns>The callback method for passing to unmanged code.</returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged code. If this
-        /// callback is only called once, <paramref name="freeUserData"/> should be
-        /// set to <c>true</c>. If it can be called multiple times, it should be set to
-        /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-        /// not have closure user data, then the <paramref name="freeUserData"/> 
-        /// parameter has no effect.
-        /// </remarks>
-        static NativeInterfaceFinalizeFunc Create (InterfaceFinalizeFunc method, bool freeUserData)
-        {
-            NativeInterfaceFinalizeFunc nativeCallback = (
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr gIface_,
-                /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-                /* transfer-ownership:none */
-                IntPtr ifaceData_) =>
-            {
-                method.Invoke(gIface_, ifaceData_);
-            };
-            return nativeCallback;
-        }
-    }
 
     /// <summary>
     /// This structure is used to provide the type system with the information
@@ -3233,7 +3437,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeValueInit Create(ValueInit method, bool freeUserData)
@@ -3279,7 +3483,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeValueFree Create(ValueFree method, bool freeUserData)
@@ -3328,7 +3532,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeValueCopy Create(ValueCopy method, bool freeUserData)
@@ -3378,7 +3582,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeValuePeekPointer Create(ValuePeekPointer method, bool freeUserData)
@@ -3450,7 +3654,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeCollectValue Create(CollectValue method, bool freeUserData)
@@ -3490,7 +3694,7 @@ namespace GISharp.Core
         public IntPtr LcopyFormat;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate string NativeLcopyValue(
+        public delegate IntPtr NativeLcopyValue(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -3524,7 +3728,7 @@ namespace GISharp.Core
             /// callback is only called once, <paramref name="freeUserData"/> should be
             /// set to <c>true</c>. If it can be called multiple times, it should be set to
             /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/> 
+            /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
             public static NativeLcopyValue Create(LcopyValue method, bool freeUserData)
@@ -3546,7 +3750,7 @@ namespace GISharp.Core
                     var value = Opaque.GetInstance<Value>(value_, Transfer.None);
                     var ret = method.Invoke(value, nCollectValues_, collectValues_, collectFlags_);
                     var ret_ = MarshalG.StringToUtf8Ptr(ret);
-                    return ret;
+                    return ret_;
                 };
                 return nativeCallback;
             }
@@ -3681,7 +3885,7 @@ namespace GISharp.Core
         /// </exception>
         public static GType GetGType (this Type type)
         {
-            return GType.GetGTypeForType (type);
+            return GType.TypeOf (type);
         }
     }
 
@@ -3711,5 +3915,32 @@ namespace GISharp.Core
         TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
+    }
+
+    /// <summary>
+    /// A structure holding information for a specific type.
+    /// It is filled in by the g_type_query() function.
+    /// </summary>
+    struct TypeQuery
+    {
+        /// <summary>
+        /// the #GType value of the type
+        /// </summary>
+        public GType Type;
+
+        /// <summary>
+        /// the name of the type
+        /// </summary>
+        public IntPtr TypeName;
+
+        /// <summary>
+        /// the size of the class structure
+        /// </summary>
+        public UInt32 ClassSize;
+
+        /// <summary>
+        /// the size of the instance structure
+        /// </summary>
+        public UInt32 InstanceSize;
     }
 }

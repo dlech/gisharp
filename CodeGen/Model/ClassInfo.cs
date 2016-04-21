@@ -35,7 +35,17 @@ namespace GISharp.CodeGen.Model
 
         public bool IsSealed {
             get {
-                return !IsGObject || Element.Attribute (glib + "type-struct") == null;
+                if (Element.Attribute (glib + "type-struct") == null) {
+                    // if there is not a GType struct, this this is type is
+                    // "final" and not meant to be inherited
+                    return true;
+                }
+                if (!IsGObject) {
+                    // for now, only GObjects can be inherited
+                    return true;
+                }
+
+                return false;
             }
         }
 

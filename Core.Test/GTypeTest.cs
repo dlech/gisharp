@@ -1,6 +1,10 @@
 ﻿using System;
 
 using NUnit.Framework;
+using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Reflection.Emit;
+using System.Linq;
 
 namespace GISharp.Core.Test
 {
@@ -168,6 +172,7 @@ namespace GISharp.Core.Test
         {
             Assert.That (GType.Invalid.Children, Is.Null);
             Assert.That (GType.None.Children, Is.Empty);
+            // TODO: would be nice to have a test case that does not return Null or Empty
         }
 
         [Test]
@@ -212,5 +217,80 @@ namespace GISharp.Core.Test
             Assert.That (GType.Invalid.Equals (new object ()), Is.False);
             Assert.That (GType.Invalid.Equals (null), Is.False);
         }
+
+        [Test]
+        public void TestTypeOfUnregistedManagedType ()
+        {
+            // This tests that if a GType is received from unmanged code
+            // that has never been initialized in managed code.
+
+            const string testName = "TestTypeOfUnregistedManagedType";
+
+            // first we register the type in unmaged code and make sure that
+            // it throws an exception because there is no matching type in
+            // managed code.
+
+            var gtype = GetDummyGType ();
+            // TODO: Need more specific type of exception
+            Assert.That (() => GType.TypeOf (gtype), Throws.Exception);
+
+            // then we dynamically generate a matching managed type
+
+            var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly (
+                new AssemblyName(testName + "_assembly"),
+                AssemblyBuilderAccess.Run);
+            var modBuilder = asmBuilder.DefineDynamicModule (testName + "_module");
+            var typeBuilder = modBuilder.DefineType (testName + "_type",
+                TypeAttributes.Public);
+            var gtypeAttribute = typeof(GTypeAttribute);
+            typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
+                gtypeAttribute.GetConstructors ().Single (), new object [] { },
+                new [] {
+                    gtypeAttribute.GetProperty ("Name"),
+                    gtypeAttribute.GetProperty ("IsWrappedNativeType")
+                },
+                new object [] {
+                    dummyTypeName, // Name
+                    true // IsWrappedNativeType
+                }));
+            var getTypeMethod = typeBuilder.DefineMethod ("getGType",
+                MethodAttributes.Private | MethodAttributes.Static);
+            getTypeMethod.SetReturnType (typeof(GType));
+            var getDummyGType = GetType ().GetMethod (nameof (GetDummyGType));
+            var generator = getTypeMethod.GetILGenerator ();
+            generator.Emit (OpCodes.Call, getDummyGType);
+            generator.Emit (OpCodes.Ret);
+
+            var expectedType = typeBuilder.CreateType ();
+
+            // and try the test again
+
+            var actualType = GType.TypeOf (gtype);
+            Assert.That (actualType, Is.EqualTo (expectedType));
+        }
+
+        const string dummyTypeName = "GTypeTestDummyType";
+        static GType _dummyGType;
+        public static GType GetDummyGType ()
+        {
+            if (_dummyGType == GType.Invalid) {
+                _dummyGType = g_type_register_static_simple(GType.Object,
+                    MarshalG.StringToUtf8Ptr(dummyTypeName),
+                    new UIntPtr (256), IntPtr.Zero, new UIntPtr (32), IntPtr.Zero, 0);
+            }
+
+            return _dummyGType;
+        }
+
+        [DllImport("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType
+        g_type_register_static_simple (
+            GType parentType,
+            IntPtr typeName,
+            UIntPtr classSize,
+            IntPtr classInit,
+            UIntPtr instanceSize,
+            IntPtr instanceInit,
+            uint flags);
     }
 }

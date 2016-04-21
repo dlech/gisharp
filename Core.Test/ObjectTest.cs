@@ -8,17 +8,12 @@ namespace GISharp.Core.Test
     [TestFixture]
     public class ObjectTest
     {
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_ref (IntPtr @object);
-
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_unref (IntPtr @object);
-
         [Test]
         public void TestReferences ()
         {
             var o1 = new Object ();
             var handle = o1.Handle;
+
             // getting an object that already exists should return that object
             var o2 = Opaque.GetInstance<Object> (handle, Transfer.None);
             Assert.That (ReferenceEquals (o1, o2), Is.True);
@@ -32,9 +27,10 @@ namespace GISharp.Core.Test
             o1.Dispose ();
 
             // Normally, we would not dispose an object if there is a possiblity
-            // that it could be used again because it will loose it's state.
-            // The internal GCHandle will keep the object alive as long as
-            // unmanaged code has a reference to the object.
+            // that it could be used again because it will loose any state that
+            // is stored in the managed object. Instead, a GCHandle will keep
+            // the object alive as long as unmanaged code has a reference to the
+            // object.
 
             // Transfer.All means the new object takes ownership of the reference
             // from the manual call to g_object_ref(), so we don't need to call
@@ -84,5 +80,65 @@ namespace GISharp.Core.Test
             GC.WaitForPendingFinalizers ();
             Assert.That (weakRef.IsAlive, Is.False);
         }
+
+        [Test]
+        public void TestSubclass ()
+        {
+            // Test that a subclass is properly registered with the GObject
+            // type system.
+
+            // Objects without the GType attribute will fail.
+            Assert.That (() => typeof(TestObject1).GetGType (),
+                Throws.ArgumentException);
+
+            // Objects that do not inherit from GISharp.Core.Object fail
+            Assert.That (() => typeof(TestObject2).GetGType (),
+                Throws.ArgumentException);
+
+            var testObject3GType = typeof(TestObject3).GetGType ();
+            Assert.That (testObject3GType, Is.Not.EqualTo (GType.Invalid));
+
+            var obj = new TestObject3 ();
+
+            // check if setting properties from unmanged code works
+            Assume.That (obj.IntValue, Is.EqualTo (0));
+            var value = new Value (GType.Int);
+            value.Int = 1;
+            obj.SetProperty ("IntValue", value);
+            Assert.That (obj.IntValue, Is.EqualTo (1));
+        }
+
+        // This will fail because it lacks the GTypeAttribute
+        class TestObject1 : Object
+        {
+        }
+
+        // This will fail because it does not inherit from GISharp.Core.Object
+        [GType]
+        class TestObject2
+        {
+        }
+
+        [GType]
+        class TestObject3 : Object
+        {
+            [Property]
+            public int IntValue { get; set; }
+
+            public TestObject3 () : this (New<TestObject3> (), Transfer.All)
+            {
+            }
+
+            protected TestObject3 (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_ref (IntPtr @object);
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_unref (IntPtr @object);
     }
 }
