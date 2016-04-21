@@ -6,20 +6,13 @@ namespace GISharp.Core
 {
     /// <summary>
     /// An opaque structure used to hold different types of values.
-    /// The data within the structure has protected scope: it is accessible only
-    /// to functions within a #GTypeValueTable structure, or implementations of
-    /// the g_value_*() API. That is, code portions which implement new fundamental
-    /// types.
-    /// #GValue users cannot make any assumptions about how data is stored
-    /// within the 2 element @data union, and the @g_type member should
-    /// only be accessed through the G_VALUE_TYPE() macro.
     /// </summary>
-    [GTypeAttribute (Name = "GValue", IsWrappedNativeType = true)]
+    [GType (Name = "GValue", IsWrappedNativeType = true)]
     [DebuggerDisplay ("{ToString ()}")]
     public sealed class Value : OwnedOpaque
     {
         /// <summary>
-        /// The maximal number of #GTypeCValues which can be collected for a
+        /// The maximum number of #GTypeCValues which can be collected for a
         /// single #GValue.
         /// </summary>
         const int CollectFormatMaxLength = 8;
@@ -31,15 +24,278 @@ namespace GISharp.Core
         /// </summary>
         const int NocopyContents = 134217728;
 
+        public object Get ()
+        {
+            AssertNotDisposed ();
+
+            var gtype = ValueGType.Fundamental;
+            if (gtype == GType.Boolean) {
+                return Boolean;
+            }
+            if (gtype == GType.Boxed) {
+                return Boxed;
+            }
+            if (gtype == GType.Char) {
+                return Char;
+            }
+            if (gtype == GType.UChar) {
+                return UChar;
+            }
+            if (gtype == GType.Double) {
+                return Double;
+            }
+            if (gtype == GType.Float) {
+                return Float;
+            }
+            if (gtype == GType.Enum) {
+                var enumType = GType.TypeOf (ValueGType);
+                return System.Enum.ToObject (enumType, Enum);
+            }
+            if (gtype == GType.Flags) {
+                var enumType = GType.TypeOf (ValueGType);
+                return System.Enum.ToObject (enumType, Flags);
+            }
+            if (gtype == GType.Int) {
+                return Int;
+            }
+            if (gtype == GType.UInt) {
+                return UInt;
+            }
+            if (gtype == GType.Int64) {
+                return Int64;
+            }
+            if (gtype == GType.UInt64) {
+                return UInt64;
+            }
+            if (gtype == GType.Long) {
+                return Long;
+            }
+            if (gtype == GType.ULong) {
+                return ULong;
+            }
+            if (gtype == GType.Object) {
+                return Object;
+            }
+            if (gtype == GType.Param) {
+                return Param;
+            }
+            if (ValueGType == GType.Type) {
+                // GType has fundamental type of void, so we can't check the
+                // fundamental type here and also the check has to be before
+                // Pointer (which is void)
+                return GType;
+            }
+            if (gtype == GType.Pointer) {
+                return Pointer;
+            }
+            if (gtype == GType.String) {
+                return String;
+            }
+//                if (gtype == GType.Variant) {
+//                    return Variant;
+//                }
+            // TODO: Need more specific exception
+            throw new Exception ("unhandled GType");
+        }
+
+        public void Set (object obj)
+        {
+            AssertNotDisposed ();
+
+            var gtype = ValueGType.Fundamental;
+            try {
+                if (gtype == GType.Boolean) {
+                    Boolean = (bool)obj;
+                } else if (gtype == GType.Boxed) {
+                    Boxed = (IntPtr)obj;
+                } else if (gtype == GType.Char) {
+                    Char = (sbyte)obj;
+                } else if (gtype == GType.UChar) {
+                    UChar = (byte)obj;
+                } else if (gtype == GType.Double) {
+                    Double = (double)obj;
+                } else if (gtype == GType.Float) {
+                    Float = (float)obj;
+                } else if (gtype == GType.Enum) {
+                    Enum = (int)obj;
+                } else if (gtype == GType.Flags) {
+                    Flags = (uint)(int)obj;
+                } else if (gtype == GType.Int) {
+                    Int = (int)obj;
+                } else if (gtype == GType.UInt) {
+                    UInt = (uint)obj;
+                } else if (gtype == GType.Int64) {
+                    Int64 = (long)obj;
+                } else if (gtype == GType.UInt64) {
+                    UInt64 = (ulong)obj;
+                } else if (gtype == GType.Long) {
+                    Long = (long)obj;
+                } else if (gtype == GType.ULong) {
+                    ULong = (ulong)obj;
+                } else if (gtype == GType.Object) {
+                    Object = (Object)obj;
+                } else if (gtype == GType.Param) {
+                    Param = (ParamSpec)obj;
+                } else if (ValueGType == GType.Type) {
+                    // GType has fundamental type of void, so this check must
+                    // be before Pointer and not check the fundamental GType
+                    GType = (GType)obj;
+                } else if (gtype == GType.Pointer) {
+                    Pointer = (IntPtr)obj;
+                } else if (gtype == GType.String) {
+                    String = (string)obj;
+//            } else if (gtype == GType.Variant) {
+//                Variant = (Variant)obj;
+                } else {
+                    // TODO: Need more specific exception
+                    throw new Exception ("unhandled GType");
+                }
+            } catch (InvalidCastException ex) {
+                throw new ArgumentException ("Wrong type", nameof (obj), ex);
+            }
+        }
+
         /// <summary>
         /// Gets the GType of the stored value.
         /// </summary>
         /// <value>The value's GType.</value>
         public GType ValueGType {
             get {
+                AssertNotDisposed ();
                 return Marshal.PtrToStructure<GType> (Handle);
             }
         }
+
+        public static explicit operator bool (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Boolean;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("", ex);
+            }
+        }
+
+        public static explicit operator sbyte (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Char;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to sbyte", ex);
+            }
+        }
+
+        public static explicit operator byte (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.UChar;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to byte", ex);
+            }
+        }
+
+        public static explicit operator int (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Int;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to int", ex);
+            }
+        }
+
+        public static explicit operator uint (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.UInt;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to uint", ex);
+            }
+        }
+
+        public static explicit operator long (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Int64;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to long", ex);
+            }
+        }
+
+        public static explicit operator ulong (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.UInt64;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to ulong", ex);
+            }
+        }
+
+        public static explicit operator float (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Float;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to float", ex);
+            }
+        }
+
+        public static explicit operator double (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Double;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to double", ex);
+            }
+        }
+
+        public static explicit operator IntPtr (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Pointer;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to IntPtr", ex);
+            }
+        }
+
+        public static explicit operator Object (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Object;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to GObject", ex);
+            }
+        }
+
+        public static explicit operator string (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.String;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to string", ex);
+            }
+        }
+
+        public static explicit operator GType (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.GType;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to GType", ex);
+            }
+        }
+
 
         /// <summary>
         /// Registers a value transformation function for use in g_value_transform().
@@ -90,7 +346,7 @@ namespace GISharp.Core
             if (transformFunc == null) {
                 throw new ArgumentNullException (nameof (transformFunc));
             }
-            var transformFunc_ = NativeValueTransformFactory.Create (transformFunc, false);
+            var transformFunc_ = NativeValueTransformFactory.Create (transformFunc);
             g_value_register_transform_func (srcType, destType, transformFunc_);
         }
 
@@ -256,6 +512,7 @@ namespace GISharp.Core
             return ret;
         }
 
+#if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
         /// Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
         /// its reference count. If the contents of the #GValue are %NULL, then
@@ -285,13 +542,14 @@ namespace GISharp.Core
         /// object content of @value,
         ///          should be unreferenced when no longer needed.
         /// </returns>
-        //public Object DupObject()
-        //{
-        //    AssertNotDisposed();
-        //    var ret_ = g_value_dup_object(Handle);
-        //    var ret = Opaque.GetInstance<Object>(ret_, Transfer.All);
-        //    return ret;
-        //}
+        public Object DupObject()
+        {
+            AssertNotDisposed();
+            var ret_ = g_value_dup_object(Handle);
+            var ret = Opaque.GetInstance<Object>(ret_, Transfer.All);
+            return ret;
+        }
+
 
         /// <summary>
         /// Get the contents of a %G_TYPE_PARAM #GValue, increasing its
@@ -320,13 +578,13 @@ namespace GISharp.Core
         /// #GParamSpec content of @value, should be unreferenced when
         ///          no longer needed.
         /// </returns>
-        //public ParamSpec DupParam()
-        //{
-        //    AssertNotDisposed();
-        //    var ret_ = g_value_dup_param(Handle);
-        //    var ret = Opaque.GetInstance<ParamSpec>(ret_, Transfer.All);
-        //    return ret;
-        //}
+        public ParamSpec DupParam()
+        {
+            AssertNotDisposed();
+            var ret_ = g_value_dup_param(Handle);
+            var ret = Opaque.GetInstance<ParamSpec>(ret_, Transfer.All);
+            return ret;
+        }
 
         /// <summary>
         /// Get the contents of a variant #GValue, increasing its refcount.
@@ -355,13 +613,13 @@ namespace GISharp.Core
         ///   g_variant_unref() when no longer needed
         /// </returns>
         //[SinceAttribute("2.26")]
-        //public GISharp.GLib.Variant DupVariant()
-        //{
-        //    AssertNotDisposed();
-        //    var ret_ = g_value_dup_variant(Handle);
-        //    var ret = Opaque.GetInstance<GISharp.GLib.Variant>(ret_, Transfer.All);
-        //    return ret;
-        //}
+        public GISharp.GLib.Variant DupVariant()
+        {
+            AssertNotDisposed();
+            var ret_ = g_value_dup_variant(Handle);
+            var ret = Opaque.GetInstance<GISharp.GLib.Variant>(ret_, Transfer.All);
+            return ret;
+        }
 
         /// <summary>
         /// Determines if @value will fit inside the size of a pointer value.
@@ -394,6 +652,7 @@ namespace GISharp.Core
             var ret = g_value_fits_pointer (Handle);
             return ret;
         }
+#endif
 
         /// <summary>
         /// Get the contents of a %G_TYPE_BOOLEAN #GValue.
@@ -418,16 +677,14 @@ namespace GISharp.Core
         /// <returns>
         /// boolean contents of @value
         /// </returns>
-        public bool Boolean {
+        bool Boolean {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Boolean);
                 var ret = g_value_get_boolean (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Boolean);
                 g_value_set_boolean (Handle, value);
             }
@@ -456,70 +713,24 @@ namespace GISharp.Core
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        [Obsolete ("TODO: Need to pass object and check if it is actually a boxed type")]
-        public IntPtr Boxed {
+        object Boxed {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Boxed);
-                var ret = g_value_get_boxed (Handle);
+                var ret_ = g_value_get_boxed (Handle);
+                var ret = Opaque.GetInstance<Opaque> (ret_, Transfer.None);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Boxed);
-                g_value_set_boxed (Handle, value);
+                var gtype = value.GetGType ();
+                // TODO: box anything that is no already a boxed type.
+                if (!gtype.IsA (GType.Boxed)) {
+                    throw new ArgumentException ("Requires a boxed type.", nameof (value));
+                }
+                g_value_set_boxed (Handle, ((Opaque)value).Handle);
             }
         }
-
-        /// <summary>
-        /// Do not use this function; it is broken on platforms where the %char
-        /// type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
-        /// </summary>
-        /// <remarks>
-        /// Get the contents of a %G_TYPE_CHAR #GValue.
-        /// </remarks>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_CHAR
-        /// </param>
-        /// <returns>
-        /// character contents of @value
-        /// </returns>
-        //[Obsolete ("This function's return type is broken, see g_value_get_schar()")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="gchar" type="gchar" managed-name="Gchar" /> */
-        ///* transfer-ownership:none */
-        //static extern sbyte g_value_get_char(
-        //    /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    IntPtr value);
-
-        /// <summary>
-        /// Do not use this function; it is broken on platforms where the %char
-        /// type is unsigned, such as ARM and PowerPC.  See g_value_get_schar().
-        /// </summary>
-        /// <remarks>
-        /// Get the contents of a %G_TYPE_CHAR #GValue.
-        /// </remarks>
-        /// <returns>
-        /// character contents of @value
-        /// </returns>
-        //[Obsolete ("This function's return type is broken, see g_value_get_schar()")]
-        //public sbyte Char
-        //{
-        //    get
-        //    {
-        //        AssertNotDisposed();
-        //        var ret = g_value_get_char(Handle);
-        //        return ret;
-        //    }
-
-        //    set
-        //    {
-        //        AssertNotDisposed();
-        //        g_value_set_char(Handle, value);
-        //    }
-        //}
 
         /// <summary>
         /// Get the contents of a %G_TYPE_DOUBLE #GValue.
@@ -544,16 +755,14 @@ namespace GISharp.Core
         /// <returns>
         /// double contents of @value
         /// </returns>
-        public double Double {
+        double Double {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Double);
                 var ret = g_value_get_double (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Double);
                 g_value_set_double (Handle, value);
             }
@@ -582,16 +791,14 @@ namespace GISharp.Core
         /// <returns>
         /// enum contents of @value
         /// </returns>
-        public int Enum {
+        int Enum {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Enum);
                 var ret = g_value_get_enum (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Enum);
                 g_value_set_enum (Handle, value);
             }
@@ -620,16 +827,14 @@ namespace GISharp.Core
         /// <returns>
         /// flags contents of @value
         /// </returns>
-        public uint Flags {
+        uint Flags {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Flags);
                 var ret = g_value_get_flags (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Flags);
 
                 g_value_set_flags (Handle, value);
@@ -659,16 +864,14 @@ namespace GISharp.Core
         /// <returns>
         /// float contents of @value
         /// </returns>
-        public float Float {
+        float Float {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Float);
                 var ret = g_value_get_float (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Float);
                 g_value_set_float (Handle, value);
             }
@@ -699,16 +902,14 @@ namespace GISharp.Core
         /// the #GType stored in @value
         /// </returns>
         [SinceAttribute ("2.12")]
-        public GType GType {
+        GType GType {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Type);
                 var ret = g_value_get_gtype (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Type);
                 g_value_set_gtype (Handle, value);
             }
@@ -737,16 +938,14 @@ namespace GISharp.Core
         /// <returns>
         /// integer contents of @value
         /// </returns>
-        public int Int {
+        int Int {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Int);
                 var ret = g_value_get_int (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Int);
                 g_value_set_int (Handle, value);
             }
@@ -775,16 +974,14 @@ namespace GISharp.Core
         /// <returns>
         /// 64bit integer contents of @value
         /// </returns>
-        public long Int64 {
+        long Int64 {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Int64);
                 var ret = g_value_get_int64 (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Int64);
                 g_value_set_int64 (Handle, value);
             }
@@ -813,16 +1010,14 @@ namespace GISharp.Core
         /// <returns>
         /// long integer contents of @value
         /// </returns>
-        public long Long {
+        long Long {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Long);
                 var ret = g_value_get_long (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Long);
                 g_value_set_long (Handle, value);
             }
@@ -851,23 +1046,18 @@ namespace GISharp.Core
         /// <returns>
         /// object contents of @value
         /// </returns>
-        //public Object Object
-        //{
-        //    get
-        //    {
-        //        AssertNotDisposed();
-        //        var ret_ = g_value_get_object(Handle);
-        //        var ret = Opaque.GetInstance<Object>(ret_, Transfer.None);
-        //        return ret;
-        //    }
+        Object Object {
+            get {
+                var ret_ = g_value_get_object (Handle);
+                var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
+                return ret;
+            }
 
-        //    set
-        //    {
-        //        AssertNotDisposed();
-        //        var value_ = value == null ? IntPtr.Zero : value.Handle;
-        //        g_value_set_object(Handle, value_);
-        //    }
-        //}
+            set {
+                var value_ = value == null ? IntPtr.Zero : value.Handle;
+                g_value_set_object (Handle, value_);
+            }
+        }
 
         /// <summary>
         /// Get the contents of a %G_TYPE_PARAM #GValue.
@@ -892,23 +1082,18 @@ namespace GISharp.Core
         /// <returns>
         /// #GParamSpec content of @value
         /// </returns>
-        //public ParamSpec Param
-        //{
-        //    get
-        //    {
-        //        AssertNotDisposed();
-        //        var ret_ = g_value_get_param(Handle);
-        //        var ret = Opaque.GetInstance<ParamSpec>(ret_, Transfer.None);
-        //        return ret;
-        //    }
+        ParamSpec Param {
+            get {
+                var ret_ = g_value_get_param (Handle);
+                var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
+                return ret;
+            }
 
-        //    set
-        //    {
-        //        AssertNotDisposed();
-        //        var value_ = value == null ? IntPtr.Zero : value.Handle;
-        //        g_value_set_param(Handle, value_);
-        //    }
-        //}
+            set {
+                var value_ = value == null ? IntPtr.Zero : value.Handle;
+                g_value_set_param (Handle, value_);
+            }
+        }
 
         /// <summary>
         /// Get the contents of a pointer #GValue.
@@ -933,16 +1118,14 @@ namespace GISharp.Core
         /// <returns>
         /// pointer contents of @value
         /// </returns>
-        public IntPtr Pointer {
+        IntPtr Pointer {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Pointer);
                 var ret = g_value_get_pointer (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Pointer);
                 g_value_set_pointer (Handle, value);
             }
@@ -973,16 +1156,14 @@ namespace GISharp.Core
         /// signed 8 bit integer contents of @value
         /// </returns>
         [SinceAttribute ("2.32")]
-        public sbyte Char {
+        sbyte Char {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.Char);
                 var ret = g_value_get_schar (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.Char);
                 g_value_set_schar (Handle, value);
             }
@@ -1011,9 +1192,8 @@ namespace GISharp.Core
         /// <returns>
         /// string content of @value
         /// </returns>
-        public string String {
+        string String {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.String);
                 var ret_ = g_value_get_string (Handle);
                 var ret = MarshalG.Utf8PtrToString (ret_, false);
@@ -1021,7 +1201,6 @@ namespace GISharp.Core
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.String);
                 var value_ = MarshalG.StringToUtf8Ptr (value);
                 g_value_set_string (Handle, value_);
@@ -1052,16 +1231,14 @@ namespace GISharp.Core
         /// <returns>
         /// unsigned character contents of @value
         /// </returns>
-        public byte UChar {
+        byte UChar {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.UChar);
                 var ret = g_value_get_uchar (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.UChar);
                 g_value_set_uchar (Handle, value);
             }
@@ -1090,16 +1267,14 @@ namespace GISharp.Core
         /// <returns>
         /// unsigned integer contents of @value
         /// </returns>
-        public uint UInt {
+        uint UInt {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.UInt);
                 var ret = g_value_get_uint (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.UInt);
                 g_value_set_uint (Handle, value);
             }
@@ -1128,16 +1303,14 @@ namespace GISharp.Core
         /// <returns>
         /// unsigned 64bit integer contents of @value
         /// </returns>
-        public ulong UInt64 {
+        ulong UInt64 {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.UInt64);
                 var ret = g_value_get_uint64 (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.UInt64);
                 g_value_set_uint64 (Handle, value);
             }
@@ -1166,16 +1339,14 @@ namespace GISharp.Core
         /// <returns>
         /// unsigned long integer contents of @value
         /// </returns>
-        public ulong ULong {
+        ulong ULong {
             get {
-                AssertNotDisposed ();
                 AssertType (GType.ULong);
                 var ret = g_value_get_ulong (Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
                 AssertType (GType.ULong);
                 g_value_set_ulong (Handle, value);
             }
@@ -1206,11 +1377,10 @@ namespace GISharp.Core
         /// variant contents of @value
         /// </returns>
         //[SinceAttribute("2.26")]
-        //public GISharp.GLib.Variant Variant
+        //GISharp.GLib.Variant Variant
         //{
         //    get
         //    {
-        //        AssertNotDisposed();
         //        var ret_ = g_value_get_variant(Handle);
         //        var ret = Opaque.GetInstance<GISharp.GLib.Variant>(ret_, Transfer.All);
         //        return ret;
@@ -1218,7 +1388,6 @@ namespace GISharp.Core
 
         //    set
         //    {
-        //        AssertNotDisposed();
         //        var value_ = value == null ? IntPtr.Zero : value.Handle;
         //        g_value_set_variant(Handle, value_);
         //    }
@@ -1603,11 +1772,11 @@ namespace GISharp.Core
         /// <param name="instance">
         /// the instance
         /// </param>
-        public void SetInstance (IntPtr instance)
-        {
-            AssertNotDisposed ();
-            g_value_set_instance (Handle, instance);
-        }
+        //        public void SetInstance (IntPtr instance)
+        //        {
+        //            AssertNotDisposed ();
+        //            g_value_set_instance (Handle, instance);
+        //        }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_INT #GValue to @v_int.
@@ -2093,12 +2262,12 @@ namespace GISharp.Core
         /// <param name="vBoxed">
         /// duplicated unowned boxed value to be set
         /// </param>
-        [SinceAttribute ("2.4")]
-        public void TakeBoxed (IntPtr vBoxed)
-        {
-            AssertNotDisposed ();
-            g_value_take_boxed (Handle, vBoxed);
-        }
+        //        [SinceAttribute ("2.4")]
+        //        public void TakeBoxed (IntPtr vBoxed)
+        //        {
+        //            AssertNotDisposed ();
+        //            g_value_take_boxed (Handle, vBoxed);
+        //        }
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
@@ -2141,12 +2310,12 @@ namespace GISharp.Core
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        [SinceAttribute ("2.4")]
-        public void TakeObject (IntPtr vObject)
-        {
-            AssertNotDisposed ();
-            g_value_take_object (Handle, vObject);
-        }
+        //        [SinceAttribute ("2.4")]
+        //        public void TakeObject (IntPtr vObject)
+        //        {
+        //            AssertNotDisposed ();
+        //            g_value_take_object (Handle, vObject);
+        //        }
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
@@ -2214,14 +2383,14 @@ namespace GISharp.Core
         /// <param name="vString">
         /// string to take ownership of
         /// </param>
-        [SinceAttribute ("2.4")]
-        public void TakeString (string vString)
-        {
-            AssertNotDisposed ();
-            var vString_ = MarshalG.StringToUtf8Ptr (vString);
-            g_value_take_string (Handle, vString_);
-            MarshalG.Free (vString_);
-        }
+        //        [SinceAttribute ("2.4")]
+        //        public void TakeString (string vString)
+        //        {
+        //            AssertNotDisposed ();
+        //            var vString_ = MarshalG.StringToUtf8Ptr (vString);
+        //            g_value_take_string (Handle, vString_);
+        //            MarshalG.Free (vString_);
+        //        }
 
         /// <summary>
         /// Set the contents of a variant #GValue to @variant, and takes over
@@ -2328,7 +2497,7 @@ namespace GISharp.Core
         /// Whether a transformation rule was found and could be applied.
         ///  Upon failing transformations, @dest_value is left untouched.
         /// </returns>
-        public bool Transform (Value destValue)
+        public bool TryTransform (Value destValue)
         {
             AssertNotDisposed ();
             if (destValue == null) {
@@ -2336,6 +2505,7 @@ namespace GISharp.Core
             }
             var destValue_ = destValue == null ? IntPtr.Zero : destValue.Handle;
             var ret = g_value_transform (Handle, destValue_);
+
             return ret;
         }
 
@@ -2402,17 +2572,19 @@ namespace GISharp.Core
         {
             if (type == GType.Invalid) {
                 Dispose ();
-                throw new ArgumentException ("Cannot initialize using GType.Invalid.");
+                var message = "Cannot initialize using GType.Invalid.";
+                throw new ArgumentException (message, nameof (type));
             }
             if (type.IsAbstract) {
                 Dispose ();
-                throw new ArgumentException ("Cannot initialize using abstract GType.");
+                var message = "Cannot initialize using abstract GType.";
+                throw new ArgumentException (message, nameof (type));
             }
             Init (type);
             if (ValueGType == GType.Invalid) {
                 Dispose ();
-                var message = string.Format ($"{type.Name} cannot be used as Value.");
-                throw new ArgumentException (message);
+                var message = $"{type.Name} cannot be used as Value.";
+                throw new ArgumentException (message, nameof (type));
             }
         }
 
@@ -2425,15 +2597,14 @@ namespace GISharp.Core
             MarshalG.Free (Handle);
         }
 
-        Value (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        Value (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 
         void AssertType (GType type)
         {
             if (!ValueGType.IsA (type)) {
-                var message = string.Format ($"Expecting {type.Name} but have {ValueGType.Name}");
+                var message = $"Expecting {type.Name} but have {ValueGType.Name}";
                 throw new InvalidOperationException (message);
             }
         }
@@ -2450,10 +2621,12 @@ namespace GISharp.Core
         /// debugging output, the way in which the contents are described may
         /// change between different GLib versions.
         /// </remarks>
-        public override string ToString () {
+        public override string ToString ()
+        {
             AssertNotDisposed ();
             var ret_ = g_strdup_value_contents (Handle);
             var ret = MarshalG.Utf8PtrToString (ret_, freePtr: true);
+
             return $"{ValueGType.Name}: {ret}";
         }
     }
@@ -2463,12 +2636,12 @@ namespace GISharp.Core
     /// g_value_register_transform_func().
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeValueTransform (
-        /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-        /* transfer-ownership:none */
+    delegate void NativeValueTransform (
+    /* <type name="Value" type="const GValue*" managed-name="Value" /> */
+    /* transfer-ownership:none */
         IntPtr srcValue,
-        /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        /* transfer-ownership:none */
+    /* <type name="Value" type="GValue*" managed-name="Value" /> */
+    /* transfer-ownership:none */
         IntPtr destValue);
 
     /// <summary>
@@ -2480,15 +2653,13 @@ namespace GISharp.Core
     /// <summary>
     /// Factory for creating <see cref="NativeValueTransform"/> methods.
     /// </summary>
-    public static class NativeValueTransformFactory
+    static class NativeValueTransformFactory
     {
         /// <summary>
         /// Wraps <see cref="ValueTransform"/> in an anonymous method that can be passed
         /// to unmaged code.
         /// </summary>
         /// <param name="method">The managed method to wrap.</param>
-        /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-        /// data closure parameters in the unmanged function</param>
         /// <returns>The callback method for passing to unmanged code.</returns>
         /// <remarks>
         /// This function is used to marshal managed callbacks to unmanged code. If this
@@ -2498,19 +2669,19 @@ namespace GISharp.Core
         /// not have closure user data, then the <paramref name="freeUserData"/> 
         /// parameter has no effect.
         /// </remarks>
-        public static NativeValueTransform Create (ValueTransform method, bool freeUserData)
+        public static NativeValueTransform Create (ValueTransform method)
         {
             NativeValueTransform nativeCallback = (
                 /* <type name="Value" type="const GValue*" managed-name="Value" /> */
                 /* transfer-ownership:none */
-                IntPtr srcValue_,
+                                                      IntPtr srcValue_,
                 /* <type name="Value" type="GValue*" managed-name="Value" /> */
                 /* transfer-ownership:none */
-                IntPtr destValue_) => {
-                    var srcValue = Opaque.GetInstance<Value> (srcValue_, Transfer.None);
-                    var destValue = Opaque.GetInstance<Value> (destValue_, Transfer.None);
-                    method.Invoke (srcValue, destValue);
-                };
+                                                      IntPtr destValue_) => {
+                var srcValue = Opaque.GetInstance<Value> (srcValue_, Transfer.None);
+                var destValue = Opaque.GetInstance<Value> (destValue_, Transfer.None);
+                method.Invoke (srcValue, destValue);
+            };
             return nativeCallback;
         }
     }

@@ -191,51 +191,7 @@ namespace GISharp.Core
 
             // TODO: need better name matching for looking up properties
             var propInfo = obj.GetType ().GetProperty (pspec.Name);
-            var gtype = value.ValueGType;
-            if (gtype == GType.Boolean) {
-                propInfo.SetValue (obj, value.Boolean);
-            } else if (gtype == GType.Boxed) {
-                propInfo.SetValue (obj, value.Boxed);
-            } else if (gtype == GType.Char) {
-                propInfo.SetValue (obj, value.Char);
-            } else if (gtype == GType.UChar) {
-                propInfo.SetValue (obj, value.UChar);
-            } else if (gtype == GType.Double) {
-                propInfo.SetValue (obj, value.Double);
-            } else if (gtype == GType.Float) {
-                propInfo.SetValue (obj, value.Float);
-            } else if (gtype == GType.Enum) {
-                propInfo.SetValue (obj, value.Enum);
-            } else if (gtype == GType.Flags) {
-                propInfo.SetValue (obj, value.Flags);
-            } else if (gtype == GType.Int) {
-                propInfo.SetValue (obj, value.Int);
-            } else if (gtype == GType.UInt) {
-                propInfo.SetValue (obj, value.UInt);
-            } else if (gtype == GType.Int64) {
-                propInfo.SetValue (obj, value.Int64);
-            } else if (gtype == GType.UInt64) {
-                propInfo.SetValue (obj, value.UInt64);
-            } else if (gtype == GType.Long) {
-                propInfo.SetValue (obj, value.Long);
-            } else if (gtype == GType.ULong) {
-                propInfo.SetValue (obj, value.ULong);
-//            } else if (gtype == GType.Object) {
-//                propInfo.SetValue (obj, value.Object);
-//            } else if (gtype == GType.Param) {
-//                propInfo.SetValue (obj, value.Param);
-            } else if (gtype == GType.Pointer) {
-                propInfo.SetValue (obj, value.Pointer);
-            } else if (gtype == GType.String) {
-                propInfo.SetValue (obj, value.String);
-            } else if (gtype == GType.Type) {
-                propInfo.SetValue (obj, value.GType);
-//            } else if (gtype == GType.Variant) {
-//                propInfo.SetValue (obj, value.Variant);
-            } else {
-                // TODO: Need more specific exception
-                throw new Exception ("unhandled GType");
-            }
+            propInfo.SetValue (obj, value.Get ());
         }
 
         internal static void GetPropertyManagedClass(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
@@ -246,51 +202,7 @@ namespace GISharp.Core
 
             // TODO: need better name matching for looking up properties
             var propInfo = obj.GetType ().GetProperty (pspec.Name);
-            var gtype = value.ValueGType;
-            if (gtype == GType.Boolean) {
-                value.Boolean = (bool)propInfo.GetValue (obj);
-            } else if (gtype == GType.Boxed) {
-                value.Boxed = (IntPtr)propInfo.GetValue (obj);
-            } else if (gtype == GType.Char) {
-                value.Char = (sbyte)propInfo.GetValue (obj);
-            } else if (gtype == GType.UChar) {
-                value.UChar = (byte)propInfo.GetValue (obj);
-            } else if (gtype == GType.Double) {
-                value.Double = (double)propInfo.GetValue (obj);
-            } else if (gtype == GType.Float) {
-                value.Float = (float)propInfo.GetValue (obj);
-            } else if (gtype == GType.Enum) {
-                value.Enum = (int)propInfo.GetValue (obj);
-            } else if (gtype == GType.Flags) {
-                value.Flags = (uint)propInfo.GetValue (obj);
-            } else if (gtype == GType.Int) {
-                value.Int = (int)propInfo.GetValue (obj);
-            } else if (gtype == GType.UInt) {
-                value.UInt = (uint)propInfo.GetValue (obj);
-            } else if (gtype == GType.Int64) {
-                value.Int64 = (long)propInfo.GetValue (obj);
-            } else if (gtype == GType.UInt64) {
-                value.UInt64 = (ulong)propInfo.GetValue (obj);
-            } else if (gtype == GType.Long) {
-                value.Long = (long)propInfo.GetValue (obj);
-            } else if (gtype == GType.ULong) {
-                value.ULong = (ulong)propInfo.GetValue (obj);
-//            } else if (gtype == GType.Object) {
-//                value.Object = (Object)propInfo.GetValue (obj);
-//            } else if (gtype == GType.Param) {
-//                value.Param = (ParamSpec)propInfo.GetValue (obj);
-            } else if (gtype == GType.Pointer) {
-                value.Pointer = (IntPtr)propInfo.GetValue (obj);
-            } else if (gtype == GType.String) {
-                value.String = (string)propInfo.GetValue (obj);
-            } else if (gtype == GType.Type) {
-                value.GType = (GType)propInfo.GetValue (obj);
-//            } else if (gtype == GType.Variant) {
-//                value.Variant = (Variant)propInfo.GetValue (obj);
-            } else {
-                // TODO: Need more specific exception
-                throw new Exception ("unhandled GType");
-            }
+            value.Set (propInfo.GetValue (obj));
         }
 
         /// <summary>

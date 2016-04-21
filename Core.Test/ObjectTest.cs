@@ -103,7 +103,7 @@ namespace GISharp.Core.Test
             // check if setting properties from unmanged code works
             Assume.That (obj.IntValue, Is.EqualTo (0));
             var value = new Value (GType.Int);
-            value.Int = 1;
+            value.Set (1);
             obj.SetProperty ("IntValue", value);
             Assert.That (obj.IntValue, Is.EqualTo (1));
         }

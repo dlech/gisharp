@@ -3887,6 +3887,28 @@ namespace GISharp.Core
         {
             return GType.TypeOf (type);
         }
+
+        /// <summary>
+        /// Gets the <see cref="GType"/> for the managed objcet.
+        /// </summary>
+        /// <returns>
+        /// The <see cref="GType"/> or <see cref="GType.Invalid"/> if the type
+        /// is not registered.
+        /// </returns>
+        /// <param name="obj">Type.</param>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="obj"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown if the Type of <paramref name="obj"/> is not decorated with <see cref="GTypeAttribute"/>
+        /// </exception>
+        public static GType GetGType (this object obj)
+        {
+            if (obj == null) {
+                throw new ArgumentNullException (nameof (obj));
+            }
+            return GType.TypeOf (obj.GetType ());
+        }
     }
 
     /// <summary>
