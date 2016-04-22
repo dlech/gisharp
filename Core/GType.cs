@@ -6,6 +6,9 @@ using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
+using nlong = NativeLong.NativeLong;
+using nulong = NativeLong.NativeULong;
+
 namespace GISharp.Core
 {
     /// <summary>
@@ -77,12 +80,10 @@ namespace GISharp.Core
                 gtypeMap.Add (Int, typeof (int));
                 typeMap.Add (typeof (uint), UInt);
                 gtypeMap.Add (UInt, typeof (uint));
-                // FIXME: long/ulong only work on LP64 systems
-                // and can't have same managed type as Int64
-                //typeMap.Add (typeof (long), Long);
-                //gtypeMap.Add (Long, typeof (long));
-                //typeMap.Add (typeof (ulong), ULong);
-                //gtypeMap.Add (ULong, typeof (ulong));
+                typeMap.Add (typeof (nlong), Long);
+                gtypeMap.Add (Long, typeof (nlong));
+                typeMap.Add (typeof (nulong), ULong);
+                gtypeMap.Add (ULong, typeof (nulong));
                 typeMap.Add (typeof (long), Int64);
                 gtypeMap.Add (Int64, typeof (long));
                 typeMap.Add (typeof (ulong), UInt64);

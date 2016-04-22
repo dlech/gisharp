@@ -2,6 +2,9 @@
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
+using nlong = NativeLong.NativeLong;
+using nulong = NativeLong.NativeULong;
+
 namespace GISharp.Core
 {
     /// <summary>
@@ -129,9 +132,9 @@ namespace GISharp.Core
                 } else if (gtype == GType.UInt64) {
                     UInt64 = (ulong)obj;
                 } else if (gtype == GType.Long) {
-                    Long = (long)obj;
+                    Long = (nlong)obj;
                 } else if (gtype == GType.ULong) {
-                    ULong = (ulong)obj;
+                    ULong = (nulong)obj;
                 } else if (gtype == GType.Object) {
                     Object = (Object)obj;
                 } else if (gtype == GType.Param) {
@@ -233,6 +236,26 @@ namespace GISharp.Core
                 return value.UInt64;
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to ulong", ex);
+            }
+        }
+
+        public static explicit operator nlong (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.Long;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to nlong", ex);
+            }
+        }
+
+        public static explicit operator nulong (Value value)
+        {
+            value.AssertNotDisposed ();
+            try {
+                return value.ULong;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to nulong", ex);
             }
         }
 
@@ -999,7 +1022,7 @@ namespace GISharp.Core
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" managed-name="Glong" /> */
         /* transfer-ownership:none */
-        static extern long g_value_get_long (
+        static extern nlong g_value_get_long (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -1010,7 +1033,7 @@ namespace GISharp.Core
         /// <returns>
         /// long integer contents of @value
         /// </returns>
-        long Long {
+        nlong Long {
             get {
                 AssertType (GType.Long);
                 var ret = g_value_get_long (Handle);
@@ -1328,7 +1351,7 @@ namespace GISharp.Core
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern ulong g_value_get_ulong (
+        static extern nulong g_value_get_ulong (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -1339,7 +1362,7 @@ namespace GISharp.Core
         /// <returns>
         /// unsigned long integer contents of @value
         /// </returns>
-        ulong ULong {
+        nulong ULong {
             get {
                 AssertType (GType.ULong);
                 var ret = g_value_get_ulong (Handle);
@@ -1836,7 +1859,7 @@ namespace GISharp.Core
             IntPtr value,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            long vLong);
+            nlong vLong);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
@@ -2207,7 +2230,7 @@ namespace GISharp.Core
             IntPtr value,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            ulong vUlong);
+            nulong vUlong);
 
         /// <summary>
         /// Set the contents of a variant #GValue to @variant.

@@ -6,6 +6,9 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Linq;
 
+using nlong = NativeLong.NativeLong;
+using nulong = NativeLong.NativeULong;
+
 namespace GISharp.Core.Test
 {
     [TestFixture]
@@ -56,13 +59,13 @@ namespace GISharp.Core.Test
         [Test]
         public void TestLong ()
         {
-            Assert.That (() => (Type)GType.Long, Throws.Exception);
+            Assert.That (() => (Type)GType.Long, Is.EqualTo (typeof (nlong)));
         }
 
         [Test]
         public void TestULong ()
         {
-            Assert.That (() => (Type)GType.ULong, Throws.Exception);
+            Assert.That (() => (Type)GType.ULong, Is.EqualTo (typeof (nulong)));
         }
 
         [Test]

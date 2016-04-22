@@ -29,6 +29,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="NativeLong">
+      <HintPath>..\packages\dlech.NativeLong64.0.1.0\lib\NativeLong.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -40,7 +43,6 @@
     <Compile Include="StaticOpaque.cs" />
     <Compile Include="OwnedOpaque.cs" />
     <Compile Include="IndexedCollection.cs" />
-    <Compile Include="IntN.cs" />
     <Compile Include="SinceAttribute.cs" />
     <Compile Include="ErrorDomainAttribute.cs" />
     <Compile Include="Opaque.cs" />
@@ -68,6 +70,7 @@
     <None Include="Core.dll.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

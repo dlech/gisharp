@@ -10,6 +10,9 @@ using System.Text.RegularExpressions;
 //using GISharp.Core;
 using Microsoft.CodeAnalysis.CSharp;
 
+using nlong = NativeLong.NativeLong;
+using nulong = NativeLong.NativeULong;
+
 namespace GISharp.CodeGen
 {
     public static class Fixup
@@ -697,10 +700,6 @@ namespace GISharp.CodeGen
             if (typeElement != null) {
                 typeName = typeElement.Attribute ("name").Value;
 
-                // TODO: Making the *bad* assumption here that glib was compiled using LP64
-                // See http://www.unix.org/version2/whatsnew/lp64_wp.html
-                // Also see https://github.com/dotnet/coreclr/issues/963
-
                 switch (typeName) {
 
                 // basic/fundamental types
@@ -728,13 +727,15 @@ namespace GISharp.CodeGen
                 case "guint":
                 case "guint32":
                     return typeof(uint).FullName;
+                case "glong":
+                    return typeof(nlong).FullName;
+                case "gulong":
+                    return typeof(nulong).FullName;
                 case "gssize":
                 case "goffset":
-                case "glong":
                 case "gint64":
                     return typeof(long).FullName;
                 case "gsize":
-                case "gulong":
                 case "guint64":
                     return typeof(ulong).FullName;
                 case "gfloat":

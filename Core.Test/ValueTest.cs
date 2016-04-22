@@ -1,6 +1,8 @@
 ﻿using System;
 
 using NUnit.Framework;
+using nlong = NativeLong.NativeLong;
+using nulong = NativeLong.NativeULong;
 
 namespace GISharp.Core.Test
 {
@@ -89,14 +91,14 @@ namespace GISharp.Core.Test
         {
             var v = new Value (GType.Long);
             Assert.That (v.ValueGType, Is.EqualTo (GType.Long));
-            long expected = 1;
+            nlong expected = 1;
             v.Set (expected);
-            Assert.That ((long)v, Is.EqualTo (expected));
+            Assert.That ((nlong)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
             var v2 = new Value (GType.Boolean);
             Assert.That (() => v2.Set (1L), Throws.ArgumentException);
-            Assert.That (() => (long)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That (() => (nlong)v2, Throws.InstanceOf<InvalidCastException> ());
         }
 
         [Test]
@@ -104,14 +106,14 @@ namespace GISharp.Core.Test
         {
             var v = new Value (GType.ULong);
             Assert.That (v.ValueGType, Is.EqualTo (GType.ULong));
-            ulong expected = 1;
+            nulong expected = 1;
             v.Set (expected);
-            Assert.That ((ulong)v, Is.EqualTo (expected));
+            Assert.That ((nulong)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
             var v2 = new Value (GType.Boolean);
             Assert.That (() => v2.Set (1UL), Throws.ArgumentException);
-            Assert.That (() => (ulong)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That (() => (nulong)v2, Throws.InstanceOf<InvalidCastException> ());
         }
 
         [Test]

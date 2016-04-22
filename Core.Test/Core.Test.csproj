@@ -32,6 +32,9 @@
     <Reference Include="nunit.framework">
       <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="NativeLong">
+      <HintPath>..\packages\dlech.NativeLong64.0.1.0\lib\NativeLong.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ArrayTest.cs" />
