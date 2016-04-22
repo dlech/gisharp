@@ -20,7 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --repository=GObject-2.0 --fixup=${SolutionDir}/GObject-2.0/GObject-2.0.girfixup --output=${SolutionDir}/GObject-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/Core/bin/${ProjectConfig}/NativeLong.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
+        <Command type="Execute" command="${TargetFile} --repository=GObject-2.0 --fixup=${SolutionDir}/GObject-2.0/GObject-2.0.girfixup --output=${SolutionDir}/GObject-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>
@@ -77,9 +77,6 @@
     </Reference>
     <Reference Include="Microsoft.Build.Tasks.Core">
       <HintPath>..\packages\MSBuild.0.1.2\tools\Unix\Microsoft.Build.Tasks.Core.dll</HintPath>
-    </Reference>
-    <Reference Include="NativeLong">
-      <HintPath>..\packages\dlech.NativeLong64.0.1.0\lib\NativeLong.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>

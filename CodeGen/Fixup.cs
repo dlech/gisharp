@@ -10,8 +10,8 @@ using System.Text.RegularExpressions;
 //using GISharp.Core;
 using Microsoft.CodeAnalysis.CSharp;
 
-using nlong = NativeLong.NativeLong;
-using nulong = NativeLong.NativeULong;
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.CodeGen
 {

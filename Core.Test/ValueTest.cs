@@ -1,8 +1,8 @@
 ﻿using System;
 
 using NUnit.Framework;
-using nlong = NativeLong.NativeLong;
-using nulong = NativeLong.NativeULong;
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
 using GISharp.GObject;
 
 namespace GISharp.Core.Test

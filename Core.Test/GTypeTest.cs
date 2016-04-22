@@ -6,8 +6,8 @@ using System.Reflection;
 using System.Reflection.Emit;
 using System.Linq;
 
-using nlong = NativeLong.NativeLong;
-using nulong = NativeLong.NativeULong;
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
 using GISharp.GObject;
 using GISharp.Runtime;
 

@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
-using nlong = NativeLong.NativeLong;
-using nulong = NativeLong.NativeULong;
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.GObject
 {

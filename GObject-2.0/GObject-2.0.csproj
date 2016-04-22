@@ -29,9 +29,6 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
-    <Reference Include="NativeLong">
-      <HintPath>..\packages\dlech.NativeLong64.0.1.0\lib\NativeLong.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Generated\*.cs" />
@@ -56,7 +53,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="GObject-2.0.girfixup" />
-    <None Include="packages.config" />
   </ItemGroup>
   <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
     <MonoPath Condition="'$(MonoPath)' == '' And Exists('/usr/local/bin/mono')">/usr/local/bin/mono</MonoPath>
