@@ -8,7 +8,7 @@ using GISharp.GI;
 
 namespace GISharp.TypelibBrowser
 {
-    public class InfoTreeModelImpl : GLib.Object, TreeModelImplementor
+    public class InfoTreeModelImpl : global::GLib.Object, TreeModelImplementor
     {
         readonly IReadOnlyList<Group> topLevelGroups;
 
@@ -19,14 +19,14 @@ namespace GISharp.TypelibBrowser
 
         #region TreeModelImplementor implementation
 
-        public GLib.GType GetColumnType (int index)
+        public global::GLib.GType GetColumnType (int index)
         {
             switch (index) {
             case 0:
             case 2:
-                return GLib.GType.String;
+                return global::GLib.GType.String;
             case 1:
-                return GLib.GType.Boolean;
+                return global::GLib.GType.Boolean;
             }
             throw new ArgumentOutOfRangeException ("index");
         }
@@ -57,7 +57,7 @@ namespace GISharp.TypelibBrowser
             return path;
         }
 
-        public void GetValue (TreeIter iter, int column, ref GLib.Value value)
+        public void GetValue (TreeIter iter, int column, ref global::GLib.Value value)
         {
             var node = GetNode (iter);
             if (node == null) {
@@ -65,22 +65,22 @@ namespace GISharp.TypelibBrowser
             }
             switch (column) {
             case 0: // name column
-                value = new GLib.Value (node.Name);
+                value = new global::GLib.Value (node.Name);
                 break;
             case 1: // strikethrough
-                value = new GLib.Value (node.Deprecated);
+                value = new global::GLib.Value (node.Deprecated);
                 break;
             case 2: // color
                 if (node is Group) {
-                    value = new GLib.Value ("green");
+                    value = new global::GLib.Value ("green");
                 } else if (node.IsErrorDomain) {
-                    value = new GLib.Value ("orange");
+                    value = new global::GLib.Value ("orange");
                 } else if (node.IsGType) {
-                    value = new GLib.Value ("blue");
+                    value = new global::GLib.Value ("blue");
                 } else if (node.IsGTypeStruct) {
-                    value = new GLib.Value ("magenta");
+                    value = new global::GLib.Value ("magenta");
                 } else {
-                    value = new GLib.Value ("black");
+                    value = new global::GLib.Value ("black");
                 }
                 break;
             default:

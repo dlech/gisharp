@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
     /// <summary>
     /// Specifies the type of a comparison function used to compare two

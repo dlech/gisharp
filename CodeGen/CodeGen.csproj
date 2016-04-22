@@ -110,6 +110,7 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <None Include="packages.config" />
+    <None Include="Docs\Debug.txt" />
   </ItemGroup>
   <ProjectExtensions>
     <MonoDevelop>
@@ -137,5 +138,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Model\" />
+    <Folder Include="Docs\" />
   </ItemGroup>
 </Project>

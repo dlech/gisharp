@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     /// <summary>
-    /// Flags to be passed to <see cref="GISharp.Core.Object.BindProperty"/>.
+    /// Flags to be passed to <see cref="GISharp.GObject.Object.BindProperty"/>.
     /// </summary>
     /// <remarks>
     /// This enumeration can be extended at later date.

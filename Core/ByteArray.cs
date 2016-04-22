@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
     /// <summary>
     /// Contains the public fields of a GByteArray.

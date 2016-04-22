@@ -8,6 +8,7 @@ using System.Linq;
 
 using nlong = NativeLong.NativeLong;
 using nulong = NativeLong.NativeULong;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test
 {
@@ -133,7 +134,7 @@ namespace GISharp.Core.Test
         [Test]
         public void TestObject ()
         {
-            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (Core.Object)));
+            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GObject.Object)));
         }
 
         [Test]

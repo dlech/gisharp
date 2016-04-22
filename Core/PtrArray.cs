@@ -2,8 +2,10 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Collections;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
 
     /// <summary>

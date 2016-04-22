@@ -2,8 +2,10 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Reflection;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
 
     /// <summary>
@@ -140,7 +142,7 @@ namespace GISharp.Core
         /// the start of the new list that holds a full copy of @list,
         ///     use g_list_free_full() to free it
         /// </returns>
-        [GISharp.Core.Since("2.34")]
+        [Since("2.34")]
         public List<T> CopyDeep(CopyFunc<T> func)
         {
             AssertNotDisposed ();
@@ -323,7 +325,7 @@ namespace GISharp.Core
         /// <param name="freeFunc">
         /// the function to be called to free each element's data
         /// </param>
-        [GISharp.Core.Since("2.28")]
+        [Since("2.28")]
         public void FreeFull (DestroyNotify<T> freeFunc)
         {
             if (freeFunc == null) {
@@ -919,7 +921,7 @@ namespace GISharp.Core
         ///     use g_list_free_full() to free it
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.34")]
+        [Since("2.34")]
         internal static extern IntPtr g_list_copy_deep(
             [In] IntPtr list,
             [In] NativeCopyFunc func,
@@ -1046,7 +1048,7 @@ namespace GISharp.Core
         /// the function to be called to free each element's data
         /// </param>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.28")]
+        [Since("2.28")]
         internal static extern void g_list_free_full(
             [In] IntPtr list,
             [In] NativeDestroyNotify freeFunc);
@@ -1186,7 +1188,7 @@ namespace GISharp.Core
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.10")]
+        [Since("2.10")]
         internal static extern IntPtr g_list_insert_sorted_with_data(
             [In] IntPtr list,
             [In] IntPtr data,

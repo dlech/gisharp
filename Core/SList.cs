@@ -2,8 +2,9 @@
 using System.Runtime.InteropServices;
 
 using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
 
     /// <summary>

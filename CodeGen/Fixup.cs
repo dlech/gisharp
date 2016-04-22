@@ -762,38 +762,38 @@ namespace GISharp.CodeGen
                 case "GLib.CompareDataFunc":
                 case "CompareFunc":
                 case "GLib.CompareFunc":
-                    return typeof(GISharp.Core.NativeCompareFunc).FullName;
+                    return typeof(GISharp.GLib.NativeCompareFunc).FullName;
                 case "CopyFunc":
                 case "GLib.CopyFunc":
-                    return typeof(GISharp.Core.NativeCopyFunc).FullName;
+                    return typeof(GISharp.GLib.NativeCopyFunc).FullName;
                 case "DestroyNotify":
                 case "GLib.DestroyNotify":
-                    return typeof(GISharp.Core.NativeDestroyNotify).FullName;
+                    return typeof(GISharp.GLib.NativeDestroyNotify).FullName;
                 case "Func":
                 case "GLib.Func":
-                    return typeof(GISharp.Core.NativeFunc).FullName;
+                    return typeof(GISharp.GLib.NativeFunc).FullName;
 
                 case "GType":
-                    return typeof(GISharp.Core.GType).FullName;
+                    return typeof(GISharp.GObject.GType).FullName;
                 }
                 var typeParameterElements = typeElement.Elements (gi + "type").Union (element.Elements (gi + "array")).ToList ();
                 if (typeParameterElements.Any ()) {
                     switch (typeName) {
                     case "GLib.List":
                         return string.Format ("{0}`1[{1}]",
-                            string.Concat (typeof(GISharp.Core.List<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.GLib.List<>).FullName.TakeWhile (c => c != '`')),
                             typeParameterElements
                                 .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.SList":
                         return string.Format ("{0}`1[{1}]",
-                            string.Concat (typeof(GISharp.Core.SList<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.GLib.SList<>).FullName.TakeWhile (c => c != '`')),
                             typeParameterElements
                                 .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.HashTable":
                         return string.Format ("{0}`2[{1}]",
-                            string.Concat (typeof(GISharp.Core.HashTable<,>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.GLib.HashTable<,>).FullName.TakeWhile (c => c != '`')),
                             string.Join (",", typeParameterElements
                                  .Select (c => c.Parent.GetManagedTypeName ())));
                     default:
@@ -826,16 +826,16 @@ namespace GISharp.CodeGen
                     switch (arrayName) {
                     case "GLib.ByteArray":
                         // GLib.ByteArray has array type, but it should always be System.Byte
-                        return typeof(GISharp.Core.ByteArray).FullName;
+                        return typeof(GISharp.GLib.ByteArray).FullName;
                     case "GLib.Array":
                         // GLib.Array has generic parameters
                         return string.Format("{0}<{1}>",
-                            string.Concat (typeof(GISharp.Core.Array<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.GLib.Array<>).FullName.TakeWhile (c => c != '`')),
                             arrayElement.GetManagedTypeName ());
                     case "GLib.PtrArray":
                         //GLib.PtrArray has generic parameters
                         return string.Format("{0}<{1}>",
-                            string.Concat (typeof(GISharp.Core.PtrArray<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.GLib.PtrArray<>).FullName.TakeWhile (c => c != '`')),
                             arrayElement.GetManagedTypeName ());
                     default:
                         var message = string.Format ("Unknown array type '{0}.", typeName);

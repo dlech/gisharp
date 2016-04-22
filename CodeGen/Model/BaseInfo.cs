@@ -171,7 +171,7 @@ namespace GISharp.CodeGen.Model
             }
 
             if (Element.Attribute ("version") != null) {
-                var sinceAttributeName = ParseName (typeof(GISharp.Core.SinceAttribute).FullName);
+                var sinceAttributeName = ParseName (typeof(GISharp.GObject.SinceAttribute).FullName);
                 var sinceAttribute = Attribute (sinceAttributeName)
                     .WithArgumentList (AttributeArgumentList ()
                         .AddArguments (AttributeArgument (

@@ -3,6 +3,7 @@
 using NUnit.Framework;
 using nlong = NativeLong.NativeLong;
 using nulong = NativeLong.NativeULong;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test
 {

@@ -55,16 +55,14 @@
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\CodeGen\CodeGen.csproj">
+      <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
+      <Name>CodeGen</Name>
+      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <None Include="GLib-2.0.girfixup" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeGen\CodeGen.csproj">
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-      <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
-      <Name>CodeGen</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
     <MonoPath Condition="'$(MonoPath)' == '' And Exists('/usr/local/bin/mono')">/usr/local/bin/mono</MonoPath>

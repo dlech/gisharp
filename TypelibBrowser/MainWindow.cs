@@ -158,7 +158,7 @@ namespace GISharp.TypelibBrowser
             }
 
             var registeredTypeInfo = obj as GI.RegisteredTypeInfo;
-            if (registeredTypeInfo != null && registeredTypeInfo.GType != Core.GType.None) {
+            if (registeredTypeInfo != null && registeredTypeInfo.GType != GObject.GType.None) {
                 var gtypeVBox = new VBox ();
                 var gtypeSectionLabel = new Label () {
                     LabelProp = "<b>GType Hierarchy</b>",
@@ -171,7 +171,7 @@ namespace GISharp.TypelibBrowser
                     var gtypeLabel = new Label (current.Name);
                     gtypeVBox.PackEnd (gtypeLabel);
                     current = current.Parent;
-                } while (current != Core.GType.Invalid);
+                } while (current != GObject.GType.Invalid);
                 gtypeVBox.ShowAll ();
                 typeInfoVbox.PackStart (gtypeVBox, false, false, 12);
             }

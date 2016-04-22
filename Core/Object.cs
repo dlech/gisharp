@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Core;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     /// <summary>
     /// All the fields in the GObject structure are private

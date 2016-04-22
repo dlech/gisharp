@@ -19,7 +19,7 @@ namespace GISharp.TypelibBrowser
             }
         }
 
-        [GLib.Signal ("typelib-loaded")]
+        [global::GLib.Signal ("typelib-loaded")]
         public event EventHandler<TypelibLoadedEventArgs> TypelibLoaded;
 
         public RepositoryManager ()

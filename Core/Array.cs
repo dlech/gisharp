@@ -2,13 +2,15 @@
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Collections;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
-    public sealed class Array<T> : GISharp.Core.ReferenceCountedOpaque, IList<T> where T : struct
+    public sealed class Array<T> : ReferenceCountedOpaque, IList<T> where T : struct
     {
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -16,7 +18,7 @@ namespace GISharp.Core
         /// <returns>
         /// Size of each element, in bytes
         /// </returns>
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         public Int32 ElementSize {
             get {
                 AssertNotDisposed ();
@@ -197,7 +199,7 @@ namespace GISharp.Core
         /// <returns>
         /// The passed in <see cref="Array{T}"/>
         /// </returns>
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         internal protected override void Ref ()
         {
             AssertNotDisposed ();
@@ -244,7 +246,7 @@ namespace GISharp.Core
         /// <param name="length">
         /// the number of elements to remove
         /// </param>
-        [GISharp.Core.Since("2.4")]
+        [Since("2.4")]
         public void RemoveAtRange (Int32 index, Int32 length)
         {
             AssertNotDisposed ();
@@ -270,7 +272,7 @@ namespace GISharp.Core
         /// <param name="clearFunc">
         /// a function to clear an element of this array
         /// </param>
-//        [GISharp.Core.Since("2.32")]
+//        [Since("2.32")]
 //        public void SetClearFunc(
 //            GISharp.GLib.DestroyNotify clearFunc)
 //        {
@@ -333,7 +335,7 @@ namespace GISharp.Core
         /// reference count drops to 0, all memory allocated by the array is
         /// released. This function is MT-safe and may be called from any
         /// thread.
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         internal protected override void Unref ()
         {
             AssertNotDisposed ();
@@ -609,7 +611,7 @@ namespace GISharp.Core
         /// Size of each element, in bytes
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         internal static extern UInt32 g_array_get_element_size(
             [In] IntPtr array);
 
@@ -675,7 +677,7 @@ namespace GISharp.Core
         /// The passed in <see cref="Array{T}"/>
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         internal static extern IntPtr g_array_ref(
             [In] IntPtr array);
 
@@ -734,7 +736,7 @@ namespace GISharp.Core
         /// the <see cref="Array{T}"/>
         /// </returns>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.4")]
+        [Since("2.4")]
         internal static extern IntPtr g_array_remove_range(
             [In] IntPtr array,
             [In] UInt32 index,
@@ -759,7 +761,7 @@ namespace GISharp.Core
         /// a function to clear an element of this array
         /// </param>
         //        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        //        [GISharp.Core.Since("2.32")]
+        //        [Since("2.32")]
         //        internal static extern void g_array_set_clear_func(
         //            [In] IntPtr array,
         //            [In] GISharp.GLib.DestroyNotify clearFunc);
@@ -838,7 +840,7 @@ namespace GISharp.Core
         /// A <see cref="Array{T}"/>
         /// </param>
         [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        [GISharp.Core.Since("2.22")]
+        [Since("2.22")]
         internal static extern void g_array_unref(
             [In] IntPtr array);
     }

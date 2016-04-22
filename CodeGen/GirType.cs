@@ -35,7 +35,7 @@ namespace GISharp.CodeGen
             this.element = element;
         }
 
-        public static Type GetType (string typeName, XDocument document)
+        public static Type ResolveType (string typeName, XDocument document)
         {
             var type = GetType (typeName);
             if (type != null) {
@@ -49,6 +49,16 @@ namespace GISharp.CodeGen
                 }
             }
 
+            // TODO: remove this when all of GObject is moved to Core
+            switch(typeName) {
+//            case "BaseInitFunc":
+//                return typeof(GISharp.GObject.BaseInitFunc);
+            case "Object":
+                return typeof(GISharp.GObject.Object);
+            case "ParamSpec":
+                return typeof(GISharp.GObject.ParamSpec);
+            }
+
             var isArray = false;
             if (typeName.EndsWith ("[]", StringComparison.Ordinal)) {
                 typeName = typeName.Remove (typeName.Length - "[]".Length);
@@ -58,28 +68,32 @@ namespace GISharp.CodeGen
             var genericArgs = default(Type[]);
             if (typeName.Contains ('`')) {
                 isGeneric = true;
-                genericArgs = string.Concat (typeName.SkipWhile (x => x != '[').TakeWhile (x => x != ']')).Split (',')
-                    .Select (x => GirType.GetType (x, document))
+                genericArgs = string.Concat (typeName
+                    .SkipWhile (x => x != '[')
+                    .Skip (1)
+                    .TakeWhile (x => x != ']'))
+                    .Split (',')
+                    .Select (x => ResolveType (x, document))
                     .ToArray ();
                 typeName = typeName.Remove (typeName.IndexOf ('['));
-                type = GetType (typeName, document);
+                type = ResolveType (typeName, document);
             }
 
             switch (typeName) {
             case "GLib.List":
-                type = typeof(GISharp.Core.List<>);
+                type = typeof(GISharp.GLib.List<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.SList":
-                type = typeof(GISharp.Core.SList<>);
+                type = typeof(GISharp.GLib.SList<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.HashTable":
-                type = typeof(GISharp.Core.HashTable<,>);
+                type = typeof(GISharp.GLib.HashTable<,>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
@@ -88,19 +102,19 @@ namespace GISharp.CodeGen
                 }
                 break;
             case "GLib.Array":
-                type = typeof(GISharp.Core.Array<>);
+                type = typeof(GISharp.GLib.Array<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.PtrArray":
-                type = typeof(GISharp.Core.PtrArray<>);
+                type = typeof(GISharp.GLib.PtrArray<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.ByteArray":
-                type = typeof(GISharp.Core.ByteArray);
+                type = typeof(GISharp.GLib.ByteArray);
                 isGeneric = false;
                 break;
             }
@@ -334,7 +348,7 @@ namespace GISharp.CodeGen
                 // <class> elements have parent attribute unless they are a fundamental type
                 var parentAttribute = element.Attribute ("parent");
                 if (parentAttribute != null) {
-                    return GetType (parentAttribute.Value, element.Document);
+                    return ResolveType (parentAttribute.Value, element.Document);
                 } else if (element.Name == gi + "class") {
                     return typeof(ReferenceCountedOpaque);
                 }

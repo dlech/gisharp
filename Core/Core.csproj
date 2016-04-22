@@ -65,6 +65,7 @@
     <Compile Include="Object.cs" />
     <Compile Include="BindingFlags.cs" />
     <Compile Include="ObjectClass.cs" />
+    <Compile Include="TypeClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

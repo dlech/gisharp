@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     [AttributeUsage (AttributeTargets.Enum)]
     public class ErrorDomainAttribute : Attribute

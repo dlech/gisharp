@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using GISharp.Core;
+using GISharp.GObject;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
     /// <summary>
     /// The <see cref="HashTable{K,V}"/> struct is an opaque data structure to represent a

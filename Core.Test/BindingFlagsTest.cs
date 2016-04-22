@@ -1,6 +1,7 @@
 ﻿using System;
 
 using NUnit.Framework;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test
 {

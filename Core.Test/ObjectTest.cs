@@ -2,6 +2,7 @@
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test
 {
@@ -11,11 +12,11 @@ namespace GISharp.Core.Test
         [Test]
         public void TestReferences ()
         {
-            var o1 = new Object ();
+            var o1 = new GObject.Object ();
             var handle = o1.Handle;
 
             // getting an object that already exists should return that object
-            var o2 = Opaque.GetInstance<Object> (handle, Transfer.None);
+            var o2 = Opaque.GetInstance<GObject.Object> (handle, Transfer.None);
             Assert.That (ReferenceEquals (o1, o2), Is.True);
 
             // Simulate unmanaged code taking a reference so that the handle is
@@ -35,7 +36,7 @@ namespace GISharp.Core.Test
             // Transfer.All means the new object takes ownership of the reference
             // from the manual call to g_object_ref(), so we don't need to call
             // g_object_unref() manually.
-            o2 = Opaque.GetInstance<Object> (handle, Transfer.All);
+            o2 = Opaque.GetInstance<GObject.Object> (handle, Transfer.All);
 
             Assert.That (ReferenceEquals (o1, o2), Is.False);
 
@@ -49,7 +50,7 @@ namespace GISharp.Core.Test
         {
             WeakReference weakRef = null;
 
-            new Action (() => weakRef = new WeakReference (new Object ())).Invoke ();
+            new Action (() => weakRef = new WeakReference (new GObject.Object ())).Invoke ();
 
             // first make sure our testing method is sane and Object is really GC'ed
             GC.Collect ();
@@ -60,7 +61,7 @@ namespace GISharp.Core.Test
 
             IntPtr handle = IntPtr.Zero;
             new Action (() => {
-                var o = new Object ();
+                var o = new GObject.Object ();
                 weakRef = new WeakReference (o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
@@ -109,7 +110,7 @@ namespace GISharp.Core.Test
         }
 
         // This will fail because it lacks the GTypeAttribute
-        class TestObject1 : Object
+        class TestObject1 : GObject.Object
         {
         }
 
@@ -120,9 +121,9 @@ namespace GISharp.Core.Test
         }
 
         [GType]
-        class TestObject3 : Object
+        class TestObject3 : GObject.Object
         {
-            [Property]
+            [GISharp.GObject.Property]
             public int IntValue { get; set; }
 
             public TestObject3 () : this (New<TestObject3> (), Transfer.All)

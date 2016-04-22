@@ -2,6 +2,7 @@
 
 using NUnit.Framework;
 using System.Runtime.InteropServices;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test
 {

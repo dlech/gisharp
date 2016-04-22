@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using GISharp.Core;
 
 using nlong = NativeLong.NativeLong;
 using nulong = NativeLong.NativeULong;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     /// <summary>
     /// An opaque structure used to hold different types of values.

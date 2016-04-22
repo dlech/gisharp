@@ -2,8 +2,9 @@
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GISharp.Core;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     /// <summary>
     /// The class structure for the GObject type.
@@ -41,7 +42,9 @@ namespace GISharp.Core
         {
             public TypeClass.TypeClass_ GTypeClass;
 
+            #pragma warning disable 169
             IntPtr constructProperties;
+            #pragma warning restore 169
 
             /* seldom overidden */
             public NativeConstructor Constructor;
@@ -58,8 +61,10 @@ namespace GISharp.Core
             /* called when done constructing */
             public NativeConstructed Constructed;
 
+            #pragma warning disable 169
             ulong flags;
             IntPtr pdummy;
+            #pragma warning restore 169
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);

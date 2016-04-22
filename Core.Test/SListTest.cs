@@ -1,6 +1,7 @@
 ﻿using System;
 
 using NUnit.Framework;
+using GISharp.GLib;
 
 namespace GISharp.Core.Test
 {
@@ -326,7 +327,7 @@ namespace GISharp.Core.Test
         public void TestForeach ()
         {
             int foreachCallCount = 0;
-            GISharp.Core.Func<TestOpaque> foreachFunc = (data) =>
+            GISharp.GLib.Func<TestOpaque> foreachFunc = (data) =>
                 foreachCallCount++;
             // check that callback is called
             var list = new SList<TestOpaque> ()

@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Core;
 
-namespace GISharp.Core
+namespace GISharp.GLib
 {
     /// <summary>
     /// Structure for getting unmanged errors.

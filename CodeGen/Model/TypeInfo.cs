@@ -154,7 +154,7 @@ namespace GISharp.CodeGen.Model
         public Type TypeObject {
             get {
                 if (_TypeObject == null) {
-                    _TypeObject = GirType.GetType (typeName, Element.Document);
+                    _TypeObject = GirType.ResolveType (typeName, Element.Document);
                 }
                 return _TypeObject;
             }

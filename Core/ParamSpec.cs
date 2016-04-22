@@ -1,7 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Core;
 
-namespace GISharp.Core
+namespace GISharp.GObject
 {
     /// <summary>
     /// #GParamSpec is an object structure that encapsulates the metadata
@@ -17,7 +18,7 @@ namespace GISharp.Core
     /// the parameter.
     /// </remarks>
     [GType (Name = "GParam", IsWrappedNativeType = true)]
-    abstract class ParamSpec : ReferenceCountedOpaque
+    public abstract class ParamSpec : ReferenceCountedOpaque
     {
         /// <summary>
         /// Get the short description of a #GParamSpec.

@@ -95,7 +95,7 @@ namespace GISharp.CodeGen.Model
                             types = types.Add (SimpleBaseType (
                                 ParseTypeName (typeof(GISharp.Core.ReferenceCountedOpaque).FullName)));
                         } else {
-                            var parentType = GirType.GetType (parent, Element.Document);
+                            var parentType = GirType.ResolveType (parent, Element.Document);
                             types = types.Add (SimpleBaseType (ParseTypeName (parentType.FullName)));
                         }
                         // TODO: add interfaces for objects

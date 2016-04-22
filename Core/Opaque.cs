@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using GISharp.GObject;
 
 namespace GISharp.Core
 {
