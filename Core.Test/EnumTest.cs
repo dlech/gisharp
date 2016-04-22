@@ -4,6 +4,7 @@ using NUnit.Framework;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.Core.Test
 {

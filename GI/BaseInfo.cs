@@ -7,7 +7,7 @@ using System.Diagnostics;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-using GISharp.Core;
+using GISharp.Runtime;
 using System.Text;
 
 namespace GISharp.GI

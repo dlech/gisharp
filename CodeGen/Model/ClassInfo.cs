@@ -74,13 +74,13 @@ namespace GISharp.CodeGen.Model
                     if (opaqueTypeName != null) {
                         switch (opaqueTypeName) {
                         case "ref-counted":
-                            opaqueTypeName = typeof(GISharp.Core.ReferenceCountedOpaque).FullName;
+                            opaqueTypeName = typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName;
                             break;
                         case "owned":
-                            opaqueTypeName = typeof(GISharp.Core.OwnedOpaque).FullName;
+                            opaqueTypeName = typeof(GISharp.Runtime.OwnedOpaque).FullName;
                             break;
                         case "static":
-                            opaqueTypeName = typeof(GISharp.Core.StaticOpaque).FullName;
+                            opaqueTypeName = typeof(GISharp.Runtime.StaticOpaque).FullName;
                             break;
                         default:
                             var message = string.Format ("Unknown oqaue type '{0}.", opaqueTypeName);
@@ -93,7 +93,7 @@ namespace GISharp.CodeGen.Model
                         var parent = Element.Attribute ("parent")?.Value;
                         if (parent == null) {
                             types = types.Add (SimpleBaseType (
-                                ParseTypeName (typeof(GISharp.Core.ReferenceCountedOpaque).FullName)));
+                                ParseTypeName (typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName)));
                         } else {
                             var parentType = GirType.ResolveType (parent, Element.Document);
                             types = types.Add (SimpleBaseType (ParseTypeName (parentType.FullName)));
@@ -130,7 +130,7 @@ namespace GISharp.CodeGen.Model
                     }
                     var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
                         typeof(IntPtr).FullName,
-                        typeof(GISharp.Core.Transfer).FullName));
+                        typeof(GISharp.Runtime.Transfer).FullName));
                     var argList = ParseArgumentList ("(handle, ownership)");
                     var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
                         .WithArgumentList (argList);

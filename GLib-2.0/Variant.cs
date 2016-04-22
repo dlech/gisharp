@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-using GISharp.Core;
+using GISharp.Runtime;
 
 namespace GISharp.GLib
 {

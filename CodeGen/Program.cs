@@ -6,7 +6,7 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 
-using GISharp.Core;
+using GISharp.Runtime;
 using GISharp.CodeGen.Model;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;

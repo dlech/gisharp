@@ -3,6 +3,7 @@ using System.Runtime.InteropServices;
 
 using NUnit.Framework;
 using GISharp.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.Core.Test
 {

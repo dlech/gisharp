@@ -9,6 +9,7 @@ using System.Linq;
 using nlong = NativeLong.NativeLong;
 using nulong = NativeLong.NativeULong;
 using GISharp.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.Core.Test
 {

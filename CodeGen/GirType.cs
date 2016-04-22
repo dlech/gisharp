@@ -5,7 +5,7 @@ using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Reflection;
 
-using GISharp.Core;
+using GISharp.Runtime;
 using System.Reflection.Emit;
 
 namespace GISharp.CodeGen

@@ -1,4 +1,5 @@
 ﻿using System;
+using GISharp.Runtime;
 
 namespace GISharp.Core.Test
 {

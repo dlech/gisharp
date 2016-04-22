@@ -412,15 +412,15 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.CArray:
                     statement = string.Format ("var {0}_ = {1}.{2}<{3}> ({0}, {4});\n",
                     managedParameter.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.CArrayToPtr),
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.CArrayToPtr),
                     managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
                     pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
                 freeStatement = string.Empty;
-                if (managedParameter.Transfer == Core.Transfer.None) {
+                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Core.MarshalG),
-                        nameof(GISharp.Core.MarshalG.Free),
+                        typeof(GISharp.Runtime.MarshalG),
+                        nameof(GISharp.Runtime.MarshalG.Free),
                         managedParameter.Identifier);
                 }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
@@ -497,16 +497,16 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.OpaqueCArray:
                 statement = string.Format ("var {0}_ = {1}.{2}<{3}> ({0}, {4});\n",
                     managedParameter.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.OpaqueCArrayToPtr),
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.OpaqueCArrayToPtr),
                     managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
                     pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
                 freeStatement = string.Empty;
-                if (managedParameter.Transfer == Core.Transfer.None) {
+                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                       typeof(GISharp.Core.MarshalG),
-                       nameof(GISharp.Core.MarshalG.Free),
-                       managedParameter.Identifier);
+                        typeof(GISharp.Runtime.MarshalG),
+                        nameof(GISharp.Runtime.MarshalG.Free),
+                        managedParameter.Identifier);
                 }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
                     ParseStatement (statement), ParseStatement (freeStatement));
@@ -514,13 +514,13 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Strv:
                 statement = string.Format ("var {0}_ = {1}.{2} ({0});\n",
                     managedParameter.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.StringArrayToGStrvPtr));
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.StringArrayToGStrvPtr));
                 freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Core.Transfer.None) {
+                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Core.MarshalG),
-                        nameof(GISharp.Core.MarshalG.FreeGStrv),
+                        typeof(GISharp.Runtime.MarshalG),
+                        nameof(GISharp.Runtime.MarshalG.FreeGStrv),
                         managedParameter.Identifier);
                 }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
@@ -529,13 +529,13 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Utf8String:
                 statement = string.Format ("var {0}_ = {1}.{2} ({0});\n",
                     managedParameter.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.StringToUtf8Ptr));
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.StringToUtf8Ptr));
                 freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Core.Transfer.None) {
+                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Core.MarshalG),
-                        nameof(GISharp.Core.MarshalG.Free),
+                        typeof(GISharp.Runtime.MarshalG),
+                        nameof(GISharp.Runtime.MarshalG.Free),
                         managedParameter.Identifier);
                 }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
@@ -687,15 +687,15 @@ namespace GISharp.CodeGen.Model
                     throw new Exception (message);
                 }
                 var marshalFunc = managedParameterInfo.TypeInfo.Classification == TypeClassification.CArray
-                    ? nameof(GISharp.Core.MarshalG.PtrToCArray)
-                    : nameof(GISharp.Core.MarshalG.PtrToOpaqueCArray);
+                    ? nameof(GISharp.Runtime.MarshalG.PtrToCArray)
+                    : nameof(GISharp.Runtime.MarshalG.PtrToOpaqueCArray);
                 statement = string.Format ("{0} = {1}.{2}<{3}> ({0}_, {4}, {5});\n",
                     managedParameterInfo.Identifier,
-                    typeof(GISharp.Core.MarshalG),
+                    typeof(GISharp.Runtime.MarshalG),
                     marshalFunc,
                     managedParameterInfo.TypeInfo.TypeObject.GetElementType ().FullName,
                     length,
-                    managedParameterInfo.Transfer == Core.Transfer.None ? "false" : "true");
+                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.None ? "false" : "true");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
@@ -704,10 +704,10 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Opaque:
                 statement = string.Format ("{0} = {1}.{2}<{3}> ({0}_, {4}.{5});\n",
                     managedParameterInfo.Identifier,
-                    typeof(GISharp.Core.Opaque),
-                    nameof(GISharp.Core.Opaque.GetInstance),
+                    typeof(GISharp.Runtime.Opaque),
+                    nameof(GISharp.Runtime.Opaque.GetInstance),
                     managedParameterInfo.TypeInfo.Type,
-                    typeof(Core.Transfer).FullName,
+                    typeof(GISharp.Runtime.Transfer).FullName,
                     managedParameterInfo.Transfer);
                 if (declareVariable) {
                     statement = "var " + statement;
@@ -717,9 +717,9 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Strv:
                 statement = string.Format ("{0} = {1}.{2} ({0}_, {3});\n",
                     managedParameterInfo.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.GStrvPtrToStringArray),
-                    managedParameterInfo.Transfer == Core.Transfer.All ? "true" : "false");
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.GStrvPtrToStringArray),
+                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.All ? "true" : "false");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
@@ -728,9 +728,9 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Utf8String:
                 statement = string.Format ("{0} = {1}.{2} ({0}_, {3});\n",
                     managedParameterInfo.Identifier,
-                    typeof(GISharp.Core.MarshalG),
-                    nameof(GISharp.Core.MarshalG.Utf8PtrToString),
-                    managedParameterInfo.Transfer == Core.Transfer.All ? "true" : "false");
+                    typeof(GISharp.Runtime.MarshalG),
+                    nameof(GISharp.Runtime.MarshalG.Utf8PtrToString),
+                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.All ? "true" : "false");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
@@ -926,7 +926,7 @@ namespace GISharp.CodeGen.Model
             }
             var invokeArgument = Argument (invokeExpression);
             var transfer = string.Format ("{0}.{1}",
-                typeof(GISharp.Core.Transfer), UnmanagedReturnParameterInfo.Transfer);
+                typeof(GISharp.Runtime.Transfer), UnmanagedReturnParameterInfo.Transfer);
             var transferExpression = ParseExpression (transfer);
             var transferArgument = Argument (transferExpression);
             var argList = ArgumentList ()

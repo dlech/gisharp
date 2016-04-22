@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Linq;
 
-using GISharp.Core;
+using GISharp.Runtime;
 
 namespace GISharp.GI
 {

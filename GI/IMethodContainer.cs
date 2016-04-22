@@ -1,6 +1,6 @@
 ﻿using System;
 
-using GISharp.Core;
+using GISharp.Runtime;
 
 namespace GISharp.GI
 {

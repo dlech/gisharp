@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Model
                         // GirType always returns false for IsAssignableFrom when type is a RuntimeType
                         // so we have to check IsSubclassOf as well.
                         _Classification = TypeClassification.Delegate;
-                    } else if (typeof(GISharp.Core.Opaque).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(GISharp.Core.Opaque))) {
+                    } else if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
                         _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
                         _Classification = TypeClassification.Utf8String;
@@ -107,7 +107,7 @@ namespace GISharp.CodeGen.Model
                             _Classification = TypeClassification.FilenameStrv;
                         } else if (TypeObject.GetElementType ().IsValueType) {
                             _Classification = TypeClassification.CArray;
-                        } else if (TypeObject.GetElementType ().IsSubclassOf (typeof(GISharp.Core.Opaque))) {
+                        } else if (TypeObject.GetElementType ().IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
                             _Classification = TypeClassification.OpaqueCArray;
                         } else {
                             throw new NotSupportedException ();

@@ -7,7 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-using GISharp.Core;
+using GISharp.Runtime;
 using GISharp.GObject;
 
 namespace GISharp.GI

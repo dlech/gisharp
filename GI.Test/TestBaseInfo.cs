@@ -3,7 +3,7 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 
-using GISharp.Core;
+using GISharp.Runtime;
 
 namespace GISharp.GI.Test
 {

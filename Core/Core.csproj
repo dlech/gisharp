@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>GISharp.Core</RootNamespace>
+    <RootNamespace>GISharp</RootNamespace>
     <AssemblyName>Core</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -35,37 +35,37 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GErrorException.cs" />
-    <Compile Include="MarshalG.cs" />
-    <Compile Include="GError.cs" />
-    <Compile Include="Delegates.cs" />
-    <Compile Include="ReferenceCountedOpaque.cs" />
-    <Compile Include="StaticOpaque.cs" />
-    <Compile Include="OwnedOpaque.cs" />
-    <Compile Include="IndexedCollection.cs" />
-    <Compile Include="SinceAttribute.cs" />
-    <Compile Include="ErrorDomainAttribute.cs" />
-    <Compile Include="Opaque.cs" />
-    <Compile Include="Array.cs" />
-    <Compile Include="List.cs" />
-    <Compile Include="HashTable.cs" />
-    <Compile Include="SList.cs" />
-    <Compile Include="ByteArray.cs" />
-    <Compile Include="PtrArray.cs" />
-    <Compile Include="GirXmlAttribute.cs" />
-    <Compile Include="Transfer.cs" />
-    <Compile Include="NullHandleIsInstanceAttribute.cs" />
-    <Compile Include="DynamicLibrary.cs" />
-    <Compile Include="CallbackCache.cs" />
-    <Compile Include="GType.cs" />
-    <Compile Include="Value.cs" />
-    <Compile Include="Enum.cs" />
-    <Compile Include="Flags.cs" />
-    <Compile Include="ParamSpec.cs" />
-    <Compile Include="Object.cs" />
-    <Compile Include="BindingFlags.cs" />
-    <Compile Include="ObjectClass.cs" />
-    <Compile Include="TypeClass.cs" />
+    <Compile Include="GLib\Array.cs" />
+    <Compile Include="GObject\BindingFlags.cs" />
+    <Compile Include="GLib\ByteArray.cs" />
+    <Compile Include="Runtime\CallbackCache.cs" />
+    <Compile Include="GLib\Delegates.cs" />
+    <Compile Include="Runtime\DynamicLibrary.cs" />
+    <Compile Include="GObject\Enum.cs" />
+    <Compile Include="GObject\Flags.cs" />
+    <Compile Include="GLib\GError.cs" />
+    <Compile Include="Runtime\ErrorDomainAttribute.cs" />
+    <Compile Include="Runtime\GErrorException.cs" />
+    <Compile Include="GObject\GType.cs" />
+    <Compile Include="Runtime\GirXmlAttribute.cs" />
+    <Compile Include="GLib\HashTable.cs" />
+    <Compile Include="GLib\List.cs" />
+    <Compile Include="Runtime\IndexedCollection.cs" />
+    <Compile Include="Runtime\MarshalG.cs" />
+    <Compile Include="Runtime\NullHandleIsInstanceAttribute.cs" />
+    <Compile Include="GObject\Object.cs" />
+    <Compile Include="GObject\ObjectClass.cs" />
+    <Compile Include="Runtime\Opaque.cs" />
+    <Compile Include="Runtime\OwnedOpaque.cs" />
+    <Compile Include="GObject\ParamSpec.cs" />
+    <Compile Include="GLib\PtrArray.cs" />
+    <Compile Include="Runtime\ReferenceCountedOpaque.cs" />
+    <Compile Include="Runtime\SinceAttribute.cs" />
+    <Compile Include="GLib\SList.cs" />
+    <Compile Include="Runtime\StaticOpaque.cs" />
+    <Compile Include="GObject\TypeClass.cs" />
+    <Compile Include="GObject\Value.cs" />
+    <Compile Include="Runtime\Transfer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">
@@ -74,4 +74,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="GObject\" />
+    <Folder Include="GLib\" />
+    <Folder Include="Runtime\" />
+  </ItemGroup>
 </Project>

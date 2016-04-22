@@ -47,7 +47,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        public GISharp.Core.Transfer Transfer {
+        public GISharp.Runtime.Transfer Transfer {
             get {
                 var defaultTransfer = default(string);
                 if (IsOutParam || IsReturnParameter || TypeInfo.Classification == TypeClassification.GObject) {
@@ -64,11 +64,11 @@ namespace GISharp.CodeGen.Model
                 switch (transfer) {
                 case "none":
                 case "floating":
-                    return GISharp.Core.Transfer.None;
+                    return GISharp.Runtime.Transfer.None;
                 case "container":
-                    return GISharp.Core.Transfer.Container;
+                    return GISharp.Runtime.Transfer.Container;
                 case "full":
-                    return GISharp.Core.Transfer.All;
+                    return GISharp.Runtime.Transfer.All;
                 }
                 var message = string.Format ("Unknown trasfer type '{0}'.", transfer);
                 throw new NotSupportedException (message);
