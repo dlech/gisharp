@@ -243,33 +243,10 @@ namespace GISharp.GObject
         }
 #endif
 
-        /// <summary>
-        /// This function is essentially the same as g_type_class_ref(),
-        /// except that the classes reference count isn't incremented.
-        /// As a consequence, this function may return %NULL if the class
-        /// of the type passed in does not currently exist (hasn't been
-        /// referenced before).
-        /// </summary>
-        /// <param name="type">
-        /// type ID of a classed type
-        /// </param>
-        /// <returns>
-        /// the #GTypeClass
-        ///     structure for the given type ID or %NULL if the class does not
-        ///     currently exist
-        /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_class_peek (
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type);
-
         public static T Get<T> (GType type) where T : TypeClass
         {
-            var handle = g_type_class_peek (type);
-            var ret =  Opaque.GetInstance<T> (handle, Transfer.None);
+            var handle = g_type_class_ref (type);
+            var ret =  Opaque.GetInstance<T> (handle, Transfer.All);
             return ret;
         }
 

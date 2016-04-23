@@ -5,7 +5,7 @@ using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
     public class FlagsTest
@@ -40,7 +40,7 @@ namespace GISharp.Core.Test
 
 
             // make sure that we set the typename, value name and value nick
-            Assert.That (testFlags4GType.Name, Is.EqualTo ("GISharp-Core-Test-FlagsTest+TestFlags4"));
+            Assert.That (testFlags4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-FlagsTest+TestFlags4"));
             var flags4TypeClassPtr = g_type_class_ref (testFlags4GType);
             try {
                 var valuePtr = g_flags_get_first_value (flags4TypeClassPtr, 1);

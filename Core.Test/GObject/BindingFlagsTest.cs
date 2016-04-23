@@ -3,7 +3,7 @@
 using NUnit.Framework;
 using GISharp.GObject;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
     public class BindingFlagsTest

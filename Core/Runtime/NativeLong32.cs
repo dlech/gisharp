@@ -4,6 +4,10 @@ namespace GISharp.Runtime
 {
     public struct NativeLong
     {
+        public static readonly NativeLong MinValue = (NativeLong)int.MinValue;
+
+        public static readonly NativeLong MaxValue = (NativeLong)int.MaxValue;
+
         readonly int value;
 
         NativeLong (int value)
@@ -92,6 +96,10 @@ namespace GISharp.Runtime
 
     public struct NativeULong
     {
+        public static readonly NativeULong MinValue = new NativeULong (uint.MinValue);
+
+        public static readonly NativeULong MaxValue = new NativeULong (uint.MaxValue);
+
         readonly uint value;
 
         NativeULong (uint value)

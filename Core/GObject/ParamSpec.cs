@@ -2,6 +2,9 @@
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
+
 namespace GISharp.GObject
 {
     /// <summary>
@@ -20,6 +23,76 @@ namespace GISharp.GObject
     [GType (Name = "GParam", IsWrappedNativeType = true)]
     public abstract class ParamSpec : ReferenceCountedOpaque
     {
+        /// <summary>
+        /// All other fields of the GParamSpec struct are private and should not be used directly.
+        /// </summary>
+        struct ParamSpec_
+        {
+            /// <summary>
+            /// private GTypeInstance portion
+            /// </summary>
+            public TypeInstance.TypeInstance_ GTypeInstance;
+
+            /// <summary>
+            /// name of this parameter: always an interned string
+            /// </summary>
+            public IntPtr Name;
+
+            /// <summary>
+            /// GParamFlags flags for this parameter
+            /// </summary>
+            public ParamFlags Flags;
+
+            /// <summary>
+            /// the GValue type for this parameter
+            /// </summary>
+            public GType ValueType;
+
+            /// <summary>
+            /// GType type that uses (introduces) this parameter
+            /// </summary>
+            public GType OwnerType;
+        }
+
+
+        /// <summary>
+        /// The <see cref="Value"/> type for this parameter
+        /// </summary>
+        internal ParamFlags Flags {
+            get {
+                var offset = Marshal.OffsetOf<ParamSpec_> (nameof (ParamSpec_.Flags));
+                var flags = Marshal.ReadInt32 (Handle, (int)offset);
+
+                return (ParamFlags)flags;
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="Value"/> type for this parameter
+        /// </summary>
+        public GType ValueType {
+            get {
+                var offset = Marshal.OffsetOf<ParamSpec_> (nameof (ParamSpec_.ValueType));
+                var type = Marshal.ReadIntPtr (Handle, (int)offset);
+                var gtype = new GType (type);
+
+                return gtype;
+            }
+        }
+
+        /// <summary>
+        /// <see cref="GType"/> type that uses (introduces) this parameter
+        /// </summary>
+        public GType OwnerType {
+            get {
+                var offset = Marshal.OffsetOf<ParamSpec_> (nameof (ParamSpec_.OwnerType));
+                var type = Marshal.ReadIntPtr (Handle, (int)offset);
+                var gtype = new GType (type);
+
+                return gtype;
+            }
+        }
+
         /// <summary>
         /// Get the short description of a #GParamSpec.
         /// </summary>
@@ -1120,7 +1193,7 @@ namespace GISharp.GObject
         {
         }
 
-        public ParamSpecLong (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+        public ParamSpecLong (string name, string nick, string blurb, nlong min, nlong max, nlong defaultValue, ParamFlags flags)
             : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
         {
         }
@@ -1129,13 +1202,13 @@ namespace GISharp.GObject
         extern static IntPtr g_param_spec_long (IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            long min,
-            long max,
-            long defaultValue,
+            nlong min,
+            nlong max,
+            nlong defaultValue,
             ParamFlags flags);
 
 
-        static IntPtr New (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, nlong min, nlong max, nlong defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -1169,7 +1242,7 @@ namespace GISharp.GObject
         {
         }
 
-        public ParamSpecULong (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+        public ParamSpecULong (string name, string nick, string blurb, nulong min, nulong max, nulong defaultValue, ParamFlags flags)
             : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
         {
         }
@@ -1178,13 +1251,13 @@ namespace GISharp.GObject
         extern static IntPtr g_param_spec_ulong (IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            ulong min,
-            ulong max,
-            ulong defaultValue,
+            nulong min,
+            nulong max,
+            nulong defaultValue,
             ParamFlags flags);
 
 
-        static IntPtr New (string name, string nick, string blurb, ulong min, ulong max, ulong defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, nulong min, nulong max, nulong defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -1565,107 +1638,4 @@ namespace GISharp.GObject
         }
     }
     */
-
-    /// <summary>
-    /// Through the #GParamFlags flag values, certain aspects of parameters
-    /// can be configured. See also #G_PARAM_STATIC_STRINGS.
-    /// </summary>
-    [Flags]
-    enum ParamFlags
-    {
-        /// <summary>
-        /// the parameter is readable
-        /// </summary>
-        Readable = 1,
-
-        /// <summary>
-        /// the parameter is writable
-        /// </summary>
-        Writable = 2,
-
-        /// <summary>
-        /// alias for <see cref="Readable"/> | <see cref="Writable"/>
-        /// </summary>
-        Readwrite = 3,
-
-        /// <summary>
-        /// the parameter will be set upon object construction
-        /// </summary>
-        Construct = 4,
-
-        /// <summary>
-        /// the parameter can only be set upon object construction
-        /// </summary>
-        ConstructOnly = 8,
-
-        /// <summary>
-        /// upon parameter conversion (see g_param_value_convert())
-        ///  strict validation is not required
-        /// </summary>
-        LaxValidation = 16,
-
-        /// <summary>
-        /// the string used as name when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmodified for the lifetime of the parameter.
-        /// </summary>
-        [Since ("2.8")]
-        StaticName = 32,
-
-        ///// <summary>
-        ///// internal
-        ///// </summary>
-        //Private = 32,
-        /// <summary>
-        /// the string used as nick when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmmodified for the lifetime of the parameter.
-        /// </summary>
-        [Since ("2.8")]
-        StaticNick = 64,
-
-        /// <summary>
-        /// the string used as blurb when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmodified for the lifetime of the parameter.
-        /// </summary>
-        [Since ("2.8")]
-        StaticBlurb = 128,
-
-        /// <summary>
-        /// calls to g_object_set_property() for this
-        ///   property will not automatically result in a "notify" signal being
-        ///   emitted: the implementation must call g_object_notify() themselves
-        ///   in case the property actually changes.
-        /// </summary>
-        [Since ("2.42")]
-        ExplicitNotify = 1073741824,
-
-        /// <summary>
-        /// the parameter is deprecated and will be removed
-        ///  in a future version. A warning will be generated if it is used
-        ///  while running with G_ENABLE_DIAGNOSTIC=1.
-        /// </summary>
-        [Since ("2.26")]
-        Deprecated = -2147483648,
-
-        /// <summary>
-        /// Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
-        /// </summary>
-        ParamMask = 255,
-
-        /// <summary>
-        /// #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
-        /// </summary>
-        /// <remarks>
-        /// </remarks>
-        [Since ("2.13")]
-        ParamStaticStrings = 0,
-
-        /// <summary>
-        /// Minimum shift count to be used for user defined flags, to be stored in
-        /// #GParamSpec.flags. The maximum allowed is 10.
-        /// </summary>
-        ParamUserShift = 8
-    }
 }

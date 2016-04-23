@@ -1,7 +1,7 @@
 ﻿using System;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test.Runtime
+namespace GISharp.Core.Test
 {
     sealed class TestOpaque : Opaque
     {

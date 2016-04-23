@@ -64,6 +64,16 @@
     <Compile Include="GObject\Value.cs" />
     <Compile Include="Runtime\Transfer.cs" />
     <Compile Include="Runtime\NativeLong64.cs" />
+    <Compile Include="GObject\Delegates.cs" />
+    <Compile Include="GObject\TypeCValue.cs" />
+    <Compile Include="GObject\TypeFlags.cs" />
+    <Compile Include="GObject\TypeInstance.cs" />
+    <Compile Include="GObject\TypeQuery.cs" />
+    <Compile Include="GObject\TypeValueTable.cs" />
+    <Compile Include="GObject\TypeInfo.cs" />
+    <Compile Include="Runtime\GTypeAttribute.cs" />
+    <Compile Include="Runtime\PropertyAttribute.cs" />
+    <Compile Include="GObject\ParamFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

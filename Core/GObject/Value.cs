@@ -5,6 +5,7 @@ using GISharp.Runtime;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
+using System.Collections.Generic;
 
 namespace GISharp.GObject
 {
@@ -15,6 +16,44 @@ namespace GISharp.GObject
     [DebuggerDisplay ("{ToString ()}")]
     public sealed class Value : OwnedOpaque
     {
+        struct Value_
+        {
+            public GType Type;
+            [MarshalAs (UnmanagedType.LPArray, SizeConst = 2)]
+            public ValueDataUnion[] Data;
+        }
+
+        [StructLayout (LayoutKind.Explicit)]
+        struct ValueDataUnion
+        {
+            [FieldOffset (0)]
+            public int VInt;
+
+            [FieldOffset (0)]
+            public uint VUInt;
+
+            [FieldOffset (0)]
+            public nlong VLong;
+
+            [FieldOffset (0)]
+            public nulong VULong;
+
+            [FieldOffset (0)]
+            public long VInt64;
+
+            [FieldOffset (0)]
+            public ulong VUInt64;
+
+            [FieldOffset (0)]
+            public float VFloat;
+
+            [FieldOffset (0)]
+            public double VDouble;
+
+            [FieldOffset (0)]
+            public IntPtr VPointer;
+        }
+
         /// <summary>
         /// The maximum number of #GTypeCValues which can be collected for a
         /// single #GValue.
@@ -27,6 +66,10 @@ namespace GISharp.GObject
         /// objects.
         /// </summary>
         const int NocopyContents = 134217728;
+
+        static readonly Dictionary<Tuple<GType, GType>, GCHandle> transformFuncMap
+            = new Dictionary<Tuple<GType, GType>, GCHandle> ();
+        static readonly object transformFuncMapLock = new object ();
 
         public object Get ()
         {
@@ -351,9 +394,7 @@ namespace GISharp.GObject
             NativeValueTransform transformFunc);
 
         /// <summary>
-        /// Registers a value transformation function for use in g_value_transform().
-        /// A previously registered transformation function for @src_type and @dest_type
-        /// will be replaced.
+        /// Registers a value transformation function for use in <see cref="TryTransform"/>.
         /// </summary>
         /// <param name="srcType">
         /// Source type.
@@ -362,16 +403,27 @@ namespace GISharp.GObject
         /// Target type.
         /// </param>
         /// <param name="transformFunc">
-        /// a function which transforms values of type @src_type
-        ///  into value of type @dest_type
+        /// a function which transforms values of type <paramref name="srcType"/>
+        ///  into value of type <paramref name="destType"/>
         /// </param>
+        /// <remarks>
+        /// A previously registered transformation function for <paramref name="srcType"/>
+        /// and <paramref name="destType"/> will be replaced.
+        /// </remarks>
         public static void RegisterTransformFunc (GType srcType, GType destType, ValueTransform transformFunc)
         {
             if (transformFunc == null) {
                 throw new ArgumentNullException (nameof (transformFunc));
             }
-            var transformFunc_ = NativeValueTransformFactory.Create (transformFunc);
-            g_value_register_transform_func (srcType, destType, transformFunc_);
+            lock (transformFuncMapLock) {
+                var key = new Tuple<GType, GType> (srcType, destType);
+                if (transformFuncMap.ContainsKey (key)) {
+                    transformFuncMap[key].Free ();
+                }
+                var transformFunc_ = NativeValueTransformFactory.Create (transformFunc);
+                g_value_register_transform_func (srcType, destType, transformFunc_);
+                transformFuncMap[key] = GCHandle.Alloc (transformFunc);
+            }
         }
 
         /// <summary>
@@ -2506,31 +2558,59 @@ namespace GISharp.GObject
             IntPtr destValue);
 
         /// <summary>
-        /// Tries to cast the contents of @src_value into a type appropriate
-        /// to store in @dest_value, e.g. to transform a %G_TYPE_INT value
-        /// into a %G_TYPE_FLOAT value. Performing transformations between
-        /// value types might incur precision lossage. Especially
-        /// transformations into strings might reveal seemingly arbitrary
-        /// results and shouldn't be relied upon for production code (such
-        /// as rcfile value or object property serialization).
+        /// Tries to cast the contents of this Value into a type appropriate
+        /// to store in <paramref name="destValue"/>, e.g. to transform a
+        /// <see cref="GType.Int"/> value into a <see cref="GType.Float"/> value.
         /// </summary>
         /// <param name="destValue">
         /// Target value.
         /// </param>
         /// <returns>
         /// Whether a transformation rule was found and could be applied.
-        ///  Upon failing transformations, @dest_value is left untouched.
+        ///  Upon failing transformations, <paramref name="destValue"/> is left untouched.
         /// </returns>
+        /// <remarks>
+        /// Performing transformations between
+        /// value types might incur precision lossage. Especially
+        /// transformations into strings might reveal seemingly arbitrary
+        /// results and shouldn't be relied upon for production code (such
+        /// as rcfile value or object property serialization).
+        /// </remarks>
         public bool TryTransform (Value destValue)
         {
             AssertNotDisposed ();
             if (destValue == null) {
                 throw new ArgumentNullException (nameof (destValue));
             }
-            var destValue_ = destValue == null ? IntPtr.Zero : destValue.Handle;
-            var ret = g_value_transform (Handle, destValue_);
+            var ret = g_value_transform (Handle, destValue.Handle);
 
             return ret;
+        }
+
+        /// <summary>
+        /// Tries to cast the contents of this Value into a type appropriate
+        /// to store in <paramref name="destValue"/>, e.g. to transform a
+        /// <see cref="GType.Int"/> value into a <see cref="GType.Float"/> value.
+        /// </summary>
+        /// <param name="destValue">
+        /// Target value.
+        /// </param>
+        /// <exception cref="InvalidOperationException">
+        /// If a transformation rule was not found and or could not be applied.
+        ///  Upon failing transformations, <paramref name="destValue"/> is left untouched.
+        /// </exception>
+        /// <remarks>
+        /// Performing transformations between
+        /// value types might incur precision lossage. Especially
+        /// transformations into strings might reveal seemingly arbitrary
+        /// results and shouldn't be relied upon for production code (such
+        /// as rcfile value or object property serialization).
+        /// </remarks>
+        public void Transform (Value destValue)
+        {
+            if (!TryTransform (destValue)) {
+                throw new InvalidOperationException ();
+            }
         }
 
         /// <summary>
@@ -2581,7 +2661,7 @@ namespace GISharp.GObject
             //        gpointer  v_pointer;
             //    } data[2];
             //};
-            var size = Marshal.SizeOf<GType> () + sizeof(long) * 2;
+            var size = Marshal.SizeOf<Value_> ();
             var ret = MarshalG.Alloc (size);
             for (int i = 0; i < size; i++) {
                 Marshal.WriteByte (ret, i, 0);

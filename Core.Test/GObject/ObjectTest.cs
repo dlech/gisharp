@@ -5,7 +5,7 @@ using NUnit.Framework;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
     public class ObjectTest
@@ -13,11 +13,11 @@ namespace GISharp.Core.Test
         [Test]
         public void TestReferences ()
         {
-            var o1 = new GObject.Object ();
+            var o1 = new GISharp.GObject.Object ();
             var handle = o1.Handle;
 
             // getting an object that already exists should return that object
-            var o2 = Opaque.GetInstance<GObject.Object> (handle, Transfer.None);
+            var o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.None);
             Assert.That (ReferenceEquals (o1, o2), Is.True);
 
             // Simulate unmanaged code taking a reference so that the handle is
@@ -37,7 +37,7 @@ namespace GISharp.Core.Test
             // Transfer.All means the new object takes ownership of the reference
             // from the manual call to g_object_ref(), so we don't need to call
             // g_object_unref() manually.
-            o2 = Opaque.GetInstance<GObject.Object> (handle, Transfer.All);
+            o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.All);
 
             Assert.That (ReferenceEquals (o1, o2), Is.False);
 
@@ -51,7 +51,7 @@ namespace GISharp.Core.Test
         {
             WeakReference weakRef = null;
 
-            new Action (() => weakRef = new WeakReference (new GObject.Object ())).Invoke ();
+            new Action (() => weakRef = new WeakReference (new GISharp.GObject.Object ())).Invoke ();
 
             // first make sure our testing method is sane and Object is really GC'ed
             GC.Collect ();
@@ -62,7 +62,7 @@ namespace GISharp.Core.Test
 
             IntPtr handle = IntPtr.Zero;
             new Action (() => {
-                var o = new GObject.Object ();
+                var o = new GISharp.GObject.Object ();
                 weakRef = new WeakReference (o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
@@ -97,10 +97,17 @@ namespace GISharp.Core.Test
             Assert.That (() => typeof(TestObject2).GetGType (),
                 Throws.ArgumentException);
 
+            // this one should actually work since it is setup correctly
             var testObject3GType = typeof(TestObject3).GetGType ();
             Assert.That (testObject3GType, Is.Not.EqualTo (GType.Invalid));
 
-            var obj = new TestObject3 ();
+            Assert.That(() => new TestObject3 (), Throws.Nothing);
+        }
+
+        [Test]
+        public void TestSubclassPropertyRegistration ()
+        {
+            var obj = new TestObjectPropertiesBase ();
 
             // check if setting properties from unmanged code works
             Assume.That (obj.IntValue, Is.EqualTo (0));
@@ -110,8 +117,50 @@ namespace GISharp.Core.Test
             Assert.That (obj.IntValue, Is.EqualTo (1));
         }
 
+        [Test]
+        public void TestSubclassPropertyOverride ()
+        {
+            var obj = new TestObjectPropertiesSubclass ();
+
+            // the new keyword does not override a property, just hides it...
+
+            Assume.That (obj.IntValue, Is.EqualTo (0));
+            var intValue = new Value (GType.Int);
+            intValue.Set (1);
+            obj.SetProperty (nameof (obj.IntValue), intValue);
+            Assert.That (obj.IntValue, Is.EqualTo (1));
+
+            Assert.That (((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo (0));
+
+            var baseObjClass = TypeClass.Get<ObjectClass> (typeof(TestObjectPropertiesBase).GetGType ());
+            var baseIntValueProp = baseObjClass.FindProperty (nameof (obj.IntValue));
+
+            var subclassObjClass = TypeClass.Get<ObjectClass> (typeof(TestObjectPropertiesSubclass).GetGType ());
+            var subclassIntValueProp = subclassObjClass.FindProperty (nameof (obj.IntValue));
+
+            // ...so ParamSpecs should not be the same
+            Assert.That (baseIntValueProp.Handle, Is.Not.EqualTo (subclassIntValueProp.Handle));
+
+
+            // But the override keyword replaces property...
+
+            Assume.That (obj.BoolValue, Is.False);
+            var value = new Value (GType.Boolean);
+            value.Set (true);
+            obj.SetProperty (nameof(obj.BoolValue), value);
+            Assert.That (obj.BoolValue, Is.True);
+
+            Assert.That (((TestObjectPropertiesBase)obj).BoolValue, Is.True);
+
+            var baseBoolValueProp = baseObjClass.FindProperty (nameof(obj.BoolValue));
+            var subclassBoolValueProp = subclassObjClass.FindProperty (nameof(obj.BoolValue));
+
+            // ...so ParamSpecs should be the same
+            Assert.That (baseBoolValueProp.Handle, Is.EqualTo (subclassBoolValueProp.Handle));
+        }
+
         // This will fail because it lacks the GTypeAttribute
-        class TestObject1 : GObject.Object
+        class TestObject1 : GISharp.GObject.Object
         {
         }
 
@@ -122,16 +171,56 @@ namespace GISharp.Core.Test
         }
 
         [GType]
-        class TestObject3 : GObject.Object
+        class TestObject3 : GISharp.GObject.Object
         {
-            [GISharp.GObject.Property]
-            public int IntValue { get; set; }
-
             public TestObject3 () : this (New<TestObject3> (), Transfer.All)
             {
             }
 
             protected TestObject3 (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        [GType]
+        class TestObjectPropertiesBase : GISharp.GObject.Object
+        {
+            [GISharp.Runtime.Property]
+            public int IntValue { get; set; }
+
+            [GISharp.Runtime.Property]
+            public virtual bool BoolValue { get; set; }
+
+            [GISharp.Runtime.Property]
+            public double DoubleValue { get; set; }
+
+            public TestObjectPropertiesBase ()
+                : this (New<TestObjectPropertiesBase> (), Transfer.All)
+            {
+            }
+
+            protected TestObjectPropertiesBase (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        [GType]
+        class TestObjectPropertiesSubclass : TestObjectPropertiesBase
+        {
+            [GISharp.Runtime.Property]
+            public new int IntValue { get; set; }
+
+            [GISharp.Runtime.Property]
+            public override bool BoolValue { get; set; }
+
+            public TestObjectPropertiesSubclass ()
+                : this (New<TestObjectPropertiesSubclass> (), Transfer.All)
+            {
+            }
+
+            protected TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
             }

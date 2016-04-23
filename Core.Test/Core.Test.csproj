@@ -34,20 +34,20 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="ArrayTest.cs" />
-    <Compile Include="ListTest.cs" />
-    <Compile Include="HashTableTest.cs" />
-    <Compile Include="SListTest.cs" />
-    <Compile Include="TestOpaque.cs" />
-    <Compile Include="ByteArrayTest.cs" />
-    <Compile Include="PtrArrayTest.cs" />
-    <Compile Include="GTypeTest.cs" />
-    <Compile Include="EnumTest.cs" />
-    <Compile Include="FlagsTest.cs" />
-    <Compile Include="ValueTest.cs" />
-    <Compile Include="BindingFlagsTest.cs" />
-    <Compile Include="ObjectTest.cs" />
     <Compile Include="Setup.cs" />
+    <Compile Include="GLib\ArrayTest.cs" />
+    <Compile Include="GObject\BindingFlagsTest.cs" />
+    <Compile Include="GLib\ByteArrayTest.cs" />
+    <Compile Include="GObject\EnumTest.cs" />
+    <Compile Include="GObject\FlagsTest.cs" />
+    <Compile Include="GObject\GTypeTest.cs" />
+    <Compile Include="GLib\HashTableTest.cs" />
+    <Compile Include="GLib\ListTest.cs" />
+    <Compile Include="GObject\ObjectTest.cs" />
+    <Compile Include="GLib\PtrArrayTest.cs" />
+    <Compile Include="GLib\SListTest.cs" />
+    <Compile Include="GObject\ValueTest.cs" />
+    <Compile Include="TestOpaque.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -58,5 +58,10 @@
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="GLib\" />
+    <Folder Include="GObject\" />
+    <Folder Include="Runtime\" />
   </ItemGroup>
 </Project>

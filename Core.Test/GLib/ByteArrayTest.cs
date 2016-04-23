@@ -4,7 +4,7 @@ using NUnit.Framework;
 using GISharp.GLib;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
     public class ByteArrayTest

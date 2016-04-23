@@ -11,7 +11,7 @@ using nulong = GISharp.Runtime.NativeULong;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
     public class GTypeTest
@@ -135,7 +135,7 @@ namespace GISharp.Core.Test
         [Test]
         public void TestObject ()
         {
-            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GObject.Object)));
+            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GISharp.GObject.Object)));
         }
 
         [Test]

@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
     public class EnumTest
@@ -40,7 +40,7 @@ namespace GISharp.Core.Test
             Assert.That (testEnum4GType.IsA (GType.Enum), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That (testEnum4GType.Name, Is.EqualTo ("GISharp-Core-Test-EnumTest+TestEnum4"));
+            Assert.That (testEnum4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-EnumTest+TestEnum4"));
             var enum4TypeClassPtr = g_type_class_ref (testEnum4GType);
             try {
                 var valuePtr = g_enum_get_value (enum4TypeClassPtr, 1);

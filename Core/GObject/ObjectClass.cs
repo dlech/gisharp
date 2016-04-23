@@ -4,38 +4,16 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
+using System.Reflection;
+using System.Collections.Generic;
+
 namespace GISharp.GObject
 {
     /// <summary>
     /// The class structure for the GObject type.
     /// </summary>
-    /// <remarks>
-    /// &lt;example&gt;
-    /// &lt;title&gt;Implementing singletons using a constructor&lt;/title&gt;
-    /// &lt;programlisting&gt;
-    /// static MySingleton *the_singleton = NULL;
-    ///
-    /// static GObject*
-    /// my_singleton_constructor (GType                  type,
-    ///                           guint                  n_construct_params,
-    ///                           GObjectConstructParam *construct_params)
-    /// {
-    ///   GObject *object;
-    ///
-    ///   if (!the_singleton)
-    ///     {
-    ///       object = G_OBJECT_CLASS (parent_class)-&gt;constructor (type,
-    ///                                                            n_construct_params,
-    ///                                                            construct_params);
-    ///       the_singleton = MY_SINGLETON (object);
-    ///     }
-    ///   else
-    ///     object = g_object_ref (G_OBJECT (the_singleton));
-    ///
-    ///   return object;
-    /// }
-    /// &lt;/programlisting&gt;&lt;/example&gt;
-    /// </remarks>
     class ObjectClass : TypeClass
     {
         struct ObjectClass_
@@ -84,26 +62,31 @@ namespace GISharp.GObject
             public delegate void NativeConstructed (IntPtr @object);
         }
 
+        static readonly Dictionary<Type, List<PropertyInfo>> propertyInfoMap = new Dictionary<Type, List<PropertyInfo>> ();
+
         internal static void InitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
-            var propId = 1u; // id 0 is special, so start with 1
 
-            var test1 = Marshal.SizeOf<TypeClass.TypeClass_> ();
-            var test2 = Marshal.SizeOf<ObjectClass_> ();
+            propertyInfoMap.Add (type, new List<PropertyInfo> ());
 
             Marshal.WriteIntPtr (classPtr,
                 (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.SetProperty)),
-                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (SetPropertyManagedClass));
+                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassSetProperty));
             Marshal.WriteIntPtr (classPtr,
                 (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.GetProperty)),
-                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (GetPropertyManagedClass));
+                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
 
             foreach (var propInfo in type.GetProperties ()) {
+                propertyInfoMap[type].Add (propInfo);
+                // propId 0 is used internally, so we start with 1
+                var propId = (uint)propertyInfoMap[type].Count;
                 var propAttr = propInfo.GetCustomAttributes (false)
                     .OfType<PropertyAttribute> ()
                     .SingleOrDefault ();
+
                 if (propAttr == null) {
+                    // properties without PropertyAttribute are not installed
                     continue;
                 }
                 // TODO: convert propInfo.Name to a more glib friendly name.
@@ -119,27 +102,43 @@ namespace GISharp.GObject
                 var defaultValue = propInfo.GetCustomAttributes (false)
                     .OfType<DefaultValueAttribute> ()
                     .SingleOrDefault ()?.Value;
+
+                // setup the flags
+
                 var flags = default(ParamFlags);
+
                 if (propInfo.CanRead) {
                     flags |= ParamFlags.Readable;
                 }
                 if (propInfo.CanWrite) {
                     flags |= ParamFlags.Writable;
                 }
-                // TODO: How to handle construct properties?
+                // Construct properties don't work with managed types because they
+                // require setting the property before the class has been instantiated.
+                // So, we don't ever set ParamFlags.Construct or ParamFlags.ConstructOnly
+
                 flags |= ParamFlags.StaticName;
                 flags |= ParamFlags.StaticNick;
                 flags |= ParamFlags.StaticBlurb;
-                // TODO: how to handle explicit notify?
+
+                // Always explicit notify. Setting properties from managed code
+                // must manually call notify, so if a property was set via
+                // unmanaged code, it would result in double notification if
+                // ExplicitNotify was not set.
+                flags |= ParamFlags.ExplicitNotify;
+
                 if (propInfo.CustomAttributes.OfType <ObsoleteAttribute> ().Any ()) {
                     flags |= ParamFlags.Deprecated;
                 }
+
+                // create the pspec instance based on type
+
                 ParamSpec pspec;
                 // TODO: Need to create special boxed type for non-GType objects
                 var propertyGType = (GType)propInfo.PropertyType;
                 var fundamentalGType = propertyGType.Fundamental;
                 if (fundamentalGType == GType.Boolean) {
-                    pspec = new ParamSpecBoolean (name, nick, blurb, (bool)defaultValue, flags);
+                    pspec = new ParamSpecBoolean (name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);
                 } else if (fundamentalGType == GType.Boxed) {
                     pspec = new ParamSpecBoxed (name, nick, blurb, propertyGType, flags);
                 } else if (fundamentalGType == GType.Char) {
@@ -163,9 +162,9 @@ namespace GISharp.GObject
                 } else if (fundamentalGType == GType.UInt64) {
                     pspec = new ParamSpecUInt64 (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
                 } else if (fundamentalGType == GType.Long) {
-                    pspec = new ParamSpecLong (name, nick, blurb, long.MinValue, long.MaxValue, (long)(defaultValue ?? default(long)), flags);
+                    pspec = new ParamSpecLong (name, nick, blurb, nlong.MinValue, nlong.MaxValue, (nlong)(defaultValue ?? default(nlong)), flags);
                 } else if (fundamentalGType == GType.ULong) {
-                    pspec = new ParamSpecULong (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
+                    pspec = new ParamSpecULong (name, nick, blurb, nulong.MinValue, nulong.MaxValue, (nulong)(defaultValue ?? default(nulong)), flags);
                 } else if (fundamentalGType == GType.Object) {
                     pspec = new ParamSpecObject (name, nick, blurb, propertyGType, flags);
                 }
@@ -183,30 +182,41 @@ namespace GISharp.GObject
                     // TODO: Need more specific exception
                     throw new Exception ("unhandled GType");
                 }
-                // TODO: create param specs
-                g_object_class_install_property (classPtr, propId++, pspec.Handle);
+
+                var methodInfo = propInfo.GetAccessors ().First ();
+                if (methodInfo.GetBaseDefinition () != methodInfo) {
+                    // if this type did not declare the property, the we know
+                    // we are overriding a property from a base class or interface
+                    g_object_class_override_property (classPtr, propId, MarshalG.StringToUtf8Ptr (name));
+                } else {
+                    g_object_class_install_property (classPtr, propId, pspec.Handle);
+                }
             }
         }
 
-        internal static void SetPropertyManagedClass(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        internal static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
         {
-            var obj = Opaque.GetInstance <Object> (objPtr, Transfer.None);
+            var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
+            if (obj == null) {
+                throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
+            }
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
-            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+//            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            // TODO: need better name matching for looking up properties
-            var propInfo = obj.GetType ().GetProperty (pspec.Name);
+            var propInfo = propertyInfoMap[obj.GetType ()][(int)propertyId - 1];
             propInfo.SetValue (obj, value.Get ());
         }
 
-        internal static void GetPropertyManagedClass(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        internal static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
         {
-            var obj = Opaque.GetInstance <Object> (objPtr, Transfer.None);
+            var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
+            if (obj == null) {
+                throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
+            }
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
-            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+//            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            // TODO: need better name matching for looking up properties
-            var propInfo = obj.GetType ().GetProperty (pspec.Name);
+            var propInfo = propertyInfoMap[obj.GetType ()][(int)propertyId - 1];
             value.Set (propInfo.GetValue (obj));
         }
 
@@ -580,47 +590,26 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr name);
 
-        /// <summary>
-        /// Registers @property_id as referring to a property with the name
-        /// @name in a parent class or in an interface implemented by @oclass.
-        /// This allows this class to "override" a property implementation in
-        /// a parent class or to provide the implementation of a property from
-        /// an interface.
-        /// </summary>
-        /// <remarks>
-        /// Internally, overriding is implemented by creating a property of type
-        /// #GParamSpecOverride; generally operations that query the properties of
-        /// the object class, such as g_object_class_find_property() or
-        /// g_object_class_list_properties() will return the overridden
-        /// property. However, in one case, the @construct_properties argument of
-        /// the @constructor virtual function, the #GParamSpecOverride is passed
-        /// instead, so that the @param_id field of the #GParamSpec will be
-        /// correct.  For virtually all uses, this makes no difference. If you
-        /// need to get the overridden property, you can call
-        /// g_param_spec_get_redirect_target().
-        /// </remarks>
-        /// <param name="propertyId">
-        /// the new property ID
-        /// </param>
-        /// <param name="name">
-        /// the name of a property registered in a parent class or
-        ///  in an interface of this class.
-        /// </param>
-        [Since ("2.4")]
-        public void OverrideProperty (UInt32 propertyId, String name)
-        {
-            AssertNotDisposed ();
-            if (name == null) {
-                throw new ArgumentNullException ("name");
-            }
-            var name_ = MarshalG.StringToUtf8Ptr (name);
-            g_object_class_override_property (Handle, propertyId, name_);
-            MarshalG.Free (name_);
-        }
-
         ObjectClass (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }
+    }
+
+    /// <summary>
+    /// The GObjectConstructParam struct is an auxiliary structure used to hand
+    /// GParamSpec/GValue pairs to the constructor of a GObjectClass.
+    /// </summary>
+    struct ObjectConstructParam
+    {
+        /// <summary>
+        /// the GParamSpec of the construct parameter
+        /// </summary>
+        public IntPtr Pspec;
+
+        /// <summary>
+        /// the value to set the parameter to
+        /// </summary>
+        public IntPtr Value;
     }
 }

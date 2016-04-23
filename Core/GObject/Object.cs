@@ -130,11 +130,41 @@ namespace GISharp.GObject
                     var message = string.Format ("Could not find property '{0}'", name);
                     throw new ArgumentException (message, nameof (parameters));
                 }
+                var value = new Value (paramSpec.ValueType);
+                value.Set (parameters[i + 1]);
+                paramArray[i / 2] = new Parameter {
+                    Name = MarshalG.StringToUtf8Ptr (name),
+                    Value = value.Handle
+                };
             }
             var paramArrayPtr = MarshalG.CArrayToPtr<Parameter> (paramArray, false);
-            var ret_ = g_object_newv (gtype, (uint)paramArray.Length, paramArrayPtr);
-            MarshalG.Free (paramArrayPtr);
-            return ret_;
+            try {
+                var ret_ = g_object_newv (gtype, (uint)paramArray.Length, paramArrayPtr);
+
+                return ret_;
+            } finally {
+                MarshalG.Free (paramArrayPtr);
+                foreach (var p in paramArray) {
+                    MarshalG.Free (p.Name);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Creates a new instance of <typeparamref name="T"/> using the specified
+        /// property names and values.
+        /// </summary>
+        /// <returns>The instance.</returns>
+        /// <param name="parameters">Property name and value pairs.</param>
+        /// <typeparam name="T">The 1st type parameter.</typeparam>
+        public static T CreateInstance<T> (params object[] parameters)
+        {
+            var handle = New<T> (parameters);
+            var instance = (T) Activator.CreateInstance (typeof(T),
+              System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
+                null, new object [] { handle, Transfer.All });
+
+            return instance;
         }
 
         public Object () : this (New<Object> (), Transfer.All)
@@ -1149,26 +1179,5 @@ namespace GISharp.GObject
         /// the parameter value
         /// </summary>
         public IntPtr Value;
-    }
-
-    /// <summary>
-    /// GObject property attribute.
-    /// </summary>
-    /// <remarks>
-    /// This is used to mark properties for registration with the GObject type
-    /// system. If <see cref="Name"/> is specified, it will be used for the
-    /// property name, otherwise a name will be automatically generated.
-    /// When wrapping unmanged types, the <see cref="Name"/> value must be
-    /// set to the actual value assigned in unmanaged code.
-    /// </remarks>
-    [AttributeUsage (AttributeTargets.Property)]
-    public class PropertyAttribute : Attribute
-    {
-        public string Name { get; private set; }
-
-        public PropertyAttribute (string name = null)
-        {
-            Name = name;
-        }
     }
 }
