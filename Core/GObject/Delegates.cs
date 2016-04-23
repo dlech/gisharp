@@ -172,7 +172,7 @@ namespace GISharp.GObject
     /// zeros before this function is called.
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeInstanceInitFunc(
+    delegate void NativeInstanceInitFunc(
         /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
         /* transfer-ownership:none */
         IntPtr instance,
@@ -186,11 +186,60 @@ namespace GISharp.GObject
     /// allocated by the corresponding GInterfaceInitFunc() function.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeInterfaceFinalizeFunc(
+    delegate void NativeInterfaceFinalizeFunc(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gIface,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr ifaceData);
+
+
+    /// <summary>
+    /// A simple function pointer to get invoked when the signal is emitted. This
+    /// allows you to tie a hook to the signal type, so that it will trap all
+    /// emissions of that signal, from any object.
+    /// </summary>
+    /// <remarks>
+    /// You may not attach these to signals created with the #G_SIGNAL_NO_HOOKS flag.
+    /// </remarks>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    delegate bool NativeSignalEmissionHook (
+        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
+        /* transfer-ownership:none */
+        GISharp.GObject.SignalInvocationHint ihint,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
+        uint nParamValues,
+        /* <array length="1" zero-terminated="0" type="GValue*">
+            <type name="Value" type="GValue" managed-name="Value" />
+            </array> */
+        /* transfer-ownership:none */
+        IntPtr paramValues,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none */
+        IntPtr data);
+
+    /// <summary>
+    /// The type used for callback functions in structure definitions and function
+    /// signatures. This doesn't mean that all callback functions must take no
+    /// parameters and return void. The required signature of a callback function
+    /// is determined by the context in which is used (e.g. the signal to which it
+    /// is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    delegate void NativeCallback();
+
+    /// <summary>
+    /// The type used for the various notification callbacks which can be registered
+    /// on closures.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    delegate void NativeClosureNotify(
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none */
+        System.IntPtr data,
+        /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
+        /* transfer-ownership:none */
+        System.IntPtr closure);
 }

@@ -3,7 +3,7 @@ using System;
 
 using GISharp.GLib;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
     public class QuarkTests

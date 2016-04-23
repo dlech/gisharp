@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
@@ -159,6 +160,40 @@ namespace GISharp.Core.Test.GObject
             Assert.That (baseBoolValueProp.Handle, Is.EqualTo (subclassBoolValueProp.Handle));
         }
 
+        [Test]
+        public void TestSubclassPropertyChangeNotification ()
+        {
+            var obj = new TestObjectPropertiesBase ();
+            var notificationCount = 0;
+
+            obj.PropertyChanged += (sender, e) => {
+                Assert.That (e.PropertyName == nameof (obj.DoubleValue));
+                notificationCount++;
+            };
+
+            // IntValue does not notifiy of property change
+            obj.IntValue = 1;
+            Assert.That (notificationCount, Is.EqualTo (0));
+
+            // likewise, setting the property from unmange code should not
+            // trigger a change either
+            var intValue = new Value (GType.Int);
+            intValue.Set (1);
+            obj.SetProperty (nameof(obj.IntValue), intValue);
+            Assert.That (notificationCount, Is.EqualTo (0));
+
+            // DoubleValue does notify
+            obj.DoubleValue = 1;
+            Assert.That (notificationCount, Is.EqualTo (1));
+
+            // also make sure changing the propery from unmanged code notifies
+            // and that it only notifies once
+            var doubleValue = new Value (GType.Double);
+            doubleValue.Set (1.0);
+            obj.SetProperty (nameof(obj.DoubleValue), doubleValue);
+            Assert.That (notificationCount, Is.EqualTo (2));
+        }
+
         // This will fail because it lacks the GTypeAttribute
         class TestObject1 : GISharp.GObject.Object
         {
@@ -192,8 +227,17 @@ namespace GISharp.Core.Test.GObject
             [GISharp.Runtime.Property]
             public virtual bool BoolValue { get; set; }
 
+            double _DoubleValue;
             [GISharp.Runtime.Property]
-            public double DoubleValue { get; set; }
+            public double DoubleValue {
+                get {
+                    return _DoubleValue;
+                }
+                set {
+                    _DoubleValue = value;
+                    Notify (nameof (DoubleValue));
+                }
+            }
 
             public TestObjectPropertiesBase ()
                 : this (New<TestObjectPropertiesBase> (), Transfer.All)

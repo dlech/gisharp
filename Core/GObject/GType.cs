@@ -9,6 +9,7 @@ using System.Text.RegularExpressions;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 using GISharp.Runtime;
+using System.Reflection;
 
 namespace GISharp.GObject
 {
@@ -793,6 +794,24 @@ namespace GISharp.GObject
             return ret;
         }
 
+        static void MapPropertyInfo (GType gtype, Type type)
+        {
+            var objClass = TypeClass.Get<ObjectClass> (gtype);
+            foreach (var pspec in objClass.ListProperties ()) {
+                var prop = type.GetProperty (pspec.Name);
+                if (prop == null) {
+                    prop = type.GetProperties ().SingleOrDefault (p =>
+                        p.GetCustomAttributes (true)
+                        .OfType <PropertyAttribute> ()
+                        .SingleOrDefault ()?.Name == pspec.Name);
+                }
+                if (prop == null) {
+                    throw new Exception ("Could not find matchng property.");
+                }
+                pspec.SetUserData<PropertyInfo> (prop);
+            }
+        }
+
         /// <summary>
         /// Register the specified type with the GObject type system.
         /// </summary>
@@ -836,6 +855,10 @@ namespace GISharp.GObject
                         throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
                     }
 
+                    if (gtype.Fundamental == GType.Object) {
+                        MapPropertyInfo (gtype, type);
+                    }
+
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);
 
@@ -865,6 +888,8 @@ namespace GISharp.GObject
                     if (gtype == Invalid) {
                         throw new InvalidOperationException ("Something bad happend while registering object.");
                     }
+
+                    MapPropertyInfo (gtype, type);
 
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);

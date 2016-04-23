@@ -74,6 +74,16 @@
     <Compile Include="Runtime\GTypeAttribute.cs" />
     <Compile Include="Runtime\PropertyAttribute.cs" />
     <Compile Include="GObject\ParamFlags.cs" />
+    <Compile Include="Runtime\SignalAttribute.cs" />
+    <Compile Include="GObject\Signal.cs" />
+    <Compile Include="GObject\Binding.cs" />
+    <Compile Include="GObject\ConnectFlags.cs" />
+    <Compile Include="GObject\InitallyUnowned.cs" />
+    <Compile Include="GObject\SignalHandler.cs" />
+    <Compile Include="GObject\SignalFlags.cs" />
+    <Compile Include="GObject\SignalInvocationHint.cs" />
+    <Compile Include="GLib\Quark.cs" />
+    <Compile Include="GObject\SignalMatchType.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

@@ -20,7 +20,7 @@
     <ConsolePause>false</ConsolePause>
     <CustomCommands>
       <CustomCommands>
-        <Command type="Execute" command="${TargetFile} --repository=GObject-2.0 --fixup=${SolutionDir}/GObject-2.0/GObject-2.0.girfixup --output=${SolutionDir}/GObject-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'" />
+        <Command type="Execute" command="${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0/GLib-2.0.girfixup --output=${SolutionDir}/GLib-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll'" />
       </CustomCommands>
     </CustomCommands>
   </PropertyGroup>

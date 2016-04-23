@@ -1,6 +1,8 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
+using System.Reflection;
 
 namespace GISharp.GObject
 {
@@ -9,7 +11,7 @@ namespace GISharp.GObject
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
     [GType(Name = "GObject", IsWrappedNativeType = true)]
-    public class Object : ReferenceCountedOpaque
+    public class Object : ReferenceCountedOpaque, INotifyPropertyChanged
     {
         GCHandle toggleRefGCHandle;
         bool supressUnref;
@@ -22,7 +24,6 @@ namespace GISharp.GObject
             return g_object_get_type ();
         }
 
-
         protected Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
             // We are guaranteed to own a reference at this point.
@@ -34,6 +35,35 @@ namespace GISharp.GObject
             g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
             // release the original ref since we now have a toggle ref
             g_object_unref (Handle);
+
+            // attach signal handler for property change notification
+            var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
+            Signal.g_signal_connect_data (Handle, MarshalG.StringToUtf8Ptr ("notify"),
+                nativeNotifyPtr, IntPtr.Zero, null, default(ConnectFlags));
+        }
+
+        delegate void NativeNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
+
+        static void NativeOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
+        {
+            var obj = Opaque.GetInstance<Object> (gobjectPtr, Transfer.None);
+            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var propInfo = pspec.GetUserData<PropertyInfo> ();
+            obj.OnPropertyChanged (propInfo.Name);
+        }
+
+        #region INotifyPropertyChanged implementation
+
+        [Signal ("notify")]
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        #endregion
+
+        void OnPropertyChanged (string name)
+        {
+            if (PropertyChanged != null) {
+                PropertyChanged (this, new PropertyChangedEventArgs (name));
+            }
         }
 
         // using a static method for this because it can be called back from

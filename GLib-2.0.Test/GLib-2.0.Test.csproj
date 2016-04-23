@@ -35,7 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VersionTests.cs" />
-    <Compile Include="QuarkTests.cs" />
     <Compile Include="MainLoopTests.cs" />
     <Compile Include="MainContextTests.cs" />
     <Compile Include="TimeoutTests.cs" />

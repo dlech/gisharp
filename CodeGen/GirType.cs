@@ -117,6 +117,9 @@ namespace GISharp.CodeGen
                 type = typeof(GISharp.GLib.ByteArray);
                 isGeneric = false;
                 break;
+            case "GLib.Quark":
+                type = typeof(GISharp.GLib.Quark);
+                break;
             }
 
             if (type == null) {

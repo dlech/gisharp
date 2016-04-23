@@ -4,6 +4,7 @@ using GISharp.Runtime;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -215,7 +216,7 @@ namespace GISharp.GObject
         //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         ///* transfer-ownership:none */
-        //static extern GISharp.GLib.Quark g_param_spec_get_name_quark (
+        //static extern Quark g_param_spec_get_name_quark (
         //    /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         //    /* transfer-ownership:none */
         //    IntPtr param);
@@ -227,7 +228,7 @@ namespace GISharp.GObject
         /// the GQuark for @pspec-&gt;name.
         /// </returns>
         //[SinceAttribute ("2.46")]
-        //public GISharp.GLib.Quark NameQuark {
+        //public Quark NameQuark {
         //    get {
         //        AssertNotDisposed ();
         //        var ret = g_param_spec_get_name_quark (Handle);
@@ -279,32 +280,34 @@ namespace GISharp.GObject
         /// <returns>
         /// the user data pointer set, or %NULL
         /// </returns>
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        ///* transfer-ownership:none */
-        //static extern IntPtr g_param_spec_get_qdata (
-        //    /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
-        //    /* transfer-ownership:none */
-        //    IntPtr pspec,
-        //    /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
-        //    /* transfer-ownership:none */
-        //    GISharp.GLib.Quark quark);
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_param_spec_get_qdata (
+            /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
+            /* transfer-ownership:none */
+            IntPtr pspec,
+            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
+            /* transfer-ownership:none */
+            Quark quark);
 
         /// <summary>
-        /// Gets back user data pointers stored via g_param_spec_set_qdata().
+        /// Gets back user data stored via <see cref="SetUserData"/>.
         /// </summary>
-        /// <param name="quark">
-        /// a #GQuark, naming the user data pointer
-        /// </param>
         /// <returns>
         /// the user data pointer set, or %NULL
         /// </returns>
-        //public IntPtr GetQdata (GISharp.GLib.Quark quark)
-        //{
-        //    AssertNotDisposed ();
-        //    var ret = g_param_spec_get_qdata (Handle, quark);
-        //    return ret;
-        //}
+        public T GetUserData<T> ()
+        {
+            AssertNotDisposed ();
+            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
+            var ret = g_param_spec_get_qdata (Handle, quark);
+            if (ret == IntPtr.Zero) {
+                throw new InvalidOperationException ("Data was not set.");
+            }
+
+            return (T)GCHandle.FromIntPtr (ret).Target;
+        }
 
         /// <summary>
         /// If the paramspec redirects operations to another paramspec,
@@ -397,39 +400,53 @@ namespace GISharp.GObject
         /// <param name="data">
         /// an opaque user data pointer
         /// </param>
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
-        //static extern void g_param_spec_set_qdata (
-        //    /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
-        //    /* transfer-ownership:none */
-        //    IntPtr pspec,
-        //    /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
-        //    /* transfer-ownership:none */
-        //    GISharp.GLib.Quark quark,
-        //    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        //    /* transfer-ownership:none */
-        //    IntPtr data);
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_param_spec_set_qdata (
+            /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
+            /* transfer-ownership:none */
+            IntPtr pspec,
+            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
+            /* transfer-ownership:none */
+            Quark quark,
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr data);
 
         /// <summary>
-        /// Sets an opaque, named pointer on a #GParamSpec. The name is
-        /// specified through a #GQuark (retrieved e.g. via
-        /// g_quark_from_static_string()), and the pointer can be gotten back
-        /// from the @pspec with g_param_spec_get_qdata().  Setting a
-        /// previously set user data pointer, overrides (frees) the old pointer
-        /// set, using %NULL as pointer essentially removes the data stored.
+        /// Sets arbitrary user data associated with this ParamSpec.
+        /// The data can be retreived using <see cref="SetUserData"/>
+        /// using the same type parameter.
         /// </summary>
-        /// <param name="quark">
-        /// a #GQuark, naming the user data pointer
-        /// </param>
         /// <param name="data">
         /// an opaque user data pointer
         /// </param>
-        //public void SetQdata (GISharp.GLib.Quark quark, IntPtr data)
-        //{
-        //    AssertNotDisposed ();
-        //    g_param_spec_set_qdata (Handle, quark, data);
-        //}
+        public void SetUserData<T> (T data)
+        {
+            AssertNotDisposed ();
+            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
+            var oldData = g_param_spec_get_qdata (Handle, quark);
+            if (oldData != IntPtr.Zero) {
+                GCHandle.FromIntPtr (oldData).Free ();
+            }
+            var newData = GCHandle.ToIntPtr (GCHandle.Alloc (data));
+            g_param_spec_set_qdata (Handle, quark, newData);
+        }
+
+        /// <summary>
+        /// Clears the user data of the specified type.
+        /// </summary>
+        public void ClearUserData<T> ()
+        {
+            AssertNotDisposed ();
+            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
+            var oldData = g_param_spec_get_qdata (Handle, quark);
+            if (oldData != IntPtr.Zero) {
+                GCHandle.FromIntPtr (oldData).Free ();
+            }
+            g_param_spec_set_qdata (Handle, quark, IntPtr.Zero);
+        }
 
         /// <summary>
         /// This function works like g_param_spec_set_qdata(), but in addition,
@@ -460,7 +477,7 @@ namespace GISharp.GObject
         //    IntPtr pspec,
         //    /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         //    /* transfer-ownership:none */
-        //    GISharp.GLib.Quark quark,
+        //    Quark quark,
         //    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         //    /* transfer-ownership:none */
         //    IntPtr data,
@@ -492,7 +509,7 @@ namespace GISharp.GObject
         //    IntPtr pspec,
         //    /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         //    /* transfer-ownership:none */
-        //    GISharp.GLib.Quark quark);
+        //    Quark quark);
 
         /// <summary>
         /// Gets back user data pointers stored via g_param_spec_set_qdata()
@@ -506,7 +523,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the user data pointer set, or %NULL
         /// </returns>
-        //public IntPtr StealQdata (GISharp.GLib.Quark quark)
+        //public IntPtr StealQdata (Quark quark)
         //{
         //    AssertNotDisposed ();
         //    var ret = g_param_spec_steal_qdata (Handle, quark);

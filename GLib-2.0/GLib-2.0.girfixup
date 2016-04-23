@@ -267,21 +267,11 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='variant_get_
 
 # Quark
 
-# Move quark_ functions to Quark alias
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
-# Skip quark_from_static_string since it is not useful in a managed language
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='quark_from_static_string']"
-# Drop the quark_ prefix from the function names
-chattr "name" "quark_(.*)" "$1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[starts-with(@name,'quark_')]"
-# Make the quark_to_string function a method
-chelement "gi:method" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='to_string']"
-chelement "gi:instance-parameter" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:method[@name='to_string']/gi:parameters/gi:parameter[@name='quark']"
-# Move intern_ functions to Quark alias
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
-# Skip intern_static_string since it is not useful in a managed language
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_static_string']"
-# change the return type of intern_static_string so that it does not get marshaled
-chattr "name" "" "gpointer" "gi:repository/gi:namespace/gi:alias[@name='Quark']/gi:function[@name='intern_string']/gi:return-value/gi:type"
+# Implemented in Core
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]"
+# intern_* is related to Quark
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]"
 
 # Error
 

@@ -62,13 +62,10 @@ namespace GISharp.GObject
             public delegate void NativeConstructed (IntPtr @object);
         }
 
-        static readonly Dictionary<Type, List<PropertyInfo>> propertyInfoMap = new Dictionary<Type, List<PropertyInfo>> ();
-
         internal static void InitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
-
-            propertyInfoMap.Add (type, new List<PropertyInfo> ());
+            uint propId = 1; // propId 0 is used internally, so we start with 1
 
             Marshal.WriteIntPtr (classPtr,
                 (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.SetProperty)),
@@ -78,9 +75,6 @@ namespace GISharp.GObject
                 Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
 
             foreach (var propInfo in type.GetProperties ()) {
-                propertyInfoMap[type].Add (propInfo);
-                // propId 0 is used internally, so we start with 1
-                var propId = (uint)propertyInfoMap[type].Count;
                 var propAttr = propInfo.GetCustomAttributes (false)
                     .OfType<PropertyAttribute> ()
                     .SingleOrDefault ();
@@ -191,6 +185,7 @@ namespace GISharp.GObject
                 } else {
                     g_object_class_install_property (classPtr, propId, pspec.Handle);
                 }
+                propId++;
             }
         }
 
@@ -201,9 +196,9 @@ namespace GISharp.GObject
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
-//            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = propertyInfoMap[obj.GetType ()][(int)propertyId - 1];
+            var propInfo = pspec.GetUserData<PropertyInfo> ();
             propInfo.SetValue (obj, value.Get ());
         }
 
@@ -214,9 +209,9 @@ namespace GISharp.GObject
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
-//            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = propertyInfoMap[obj.GetType ()][(int)propertyId - 1];
+            var propInfo = pspec.GetUserData<PropertyInfo> ();
             value.Set (propInfo.GetValue (obj));
         }
 
@@ -590,7 +585,7 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr name);
 
-        ObjectClass (IntPtr handle, Transfer ownership)
+        protected ObjectClass (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }
