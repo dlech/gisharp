@@ -154,7 +154,7 @@ namespace GISharp.GObject
                 if (gtype == GType.Boolean) {
                     Boolean = (bool)obj;
                 } else if (gtype == GType.Boxed) {
-                    Boxed = (IntPtr)obj;
+                    Boxed = obj;
                 } else if (gtype == GType.Char) {
                     Char = (sbyte)obj;
                 } else if (gtype == GType.UChar) {
@@ -793,18 +793,27 @@ namespace GISharp.GObject
             get {
                 AssertType (GType.Boxed);
                 var ret_ = g_value_get_boxed (Handle);
-                var ret = Opaque.GetInstance<Opaque> (ret_, Transfer.None);
-                return ret;
+                var gchandle = GCHandle.FromIntPtr (ret_);
+                if (gchandle.IsAllocated) {
+                    return gchandle.Target;
+                }
+
+                return Opaque.GetInstance<Opaque> (ret_, Transfer.None);
             }
 
             set {
                 AssertType (GType.Boxed);
                 var gtype = value.GetGType ();
-                // TODO: box anything that is no already a boxed type.
                 if (!gtype.IsA (GType.Boxed)) {
                     throw new ArgumentException ("Requires a boxed type.", nameof (value));
                 }
-                g_value_set_boxed (Handle, ((Opaque)value).Handle);
+                if (value is Opaque) {
+                    // if this is a wrapped native type, then we pass the native handle
+                    g_value_set_boxed (Handle, ((Opaque)value).Handle);
+                } else {
+                    // otherwise, we create a GCHandle.
+                    g_value_set_boxed (Handle, (GCHandle.ToIntPtr (GCHandle.Alloc (value))));
+                }
             }
         }
 
@@ -2693,6 +2702,11 @@ namespace GISharp.GObject
         }
 
         public Value (GType type, object value) : this (type)
+        {
+            Set (value);
+        }
+
+        public Value (Type type, object value) : this (type.GetGType ())
         {
             Set (value);
         }

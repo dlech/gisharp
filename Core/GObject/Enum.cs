@@ -132,10 +132,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
-        static extern EnumValue g_enum_get_value (
+        static extern IntPtr g_enum_get_value (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            ref EnumClass enumClass,
+            IntPtr enumClass,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int value);
@@ -153,9 +153,15 @@ namespace GISharp.GObject
         /// the #GEnumValue for @value, or %NULL
         ///          if @value is not a member of the enumeration
         /// </returns>
-        public static EnumValue GetValue (ref EnumClass enumClass, int value)
+        public static EnumValue GetValue (EnumClass enumClass, int value)
         {
-            var ret = g_enum_get_value (ref enumClass, value);
+            if (enumClass == null) {
+                throw new ArgumentNullException (nameof (enumClass));
+            }
+
+            var ret_ = g_enum_get_value (enumClass.Handle, value);
+            var ret = Marshal.PtrToStructure<EnumValue> (ret_);
+
             return ret;
         }
 
@@ -176,10 +182,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
-        static extern EnumValue g_enum_get_value_by_name (
+        static extern IntPtr g_enum_get_value_by_name (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            ref EnumClass enumClass,
+            IntPtr enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -198,14 +204,20 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that name
         /// </returns>
-        public static EnumValue GetValueByName (ref EnumClass enumClass, string name)
+        public static EnumValue GetValueByName (EnumClass enumClass, string name)
         {
+            if (enumClass == null) {
+                throw new ArgumentNullException (nameof (enumClass));
+            }
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
             }
+
             var name_ = MarshalG.StringToUtf8Ptr (name);
-            var ret = g_enum_get_value_by_name (ref enumClass, name_);
+            var ret_ = g_enum_get_value_by_name (enumClass.Handle, name_);
             MarshalG.Free (name_);
+            var ret = Marshal.PtrToStructure<EnumValue> (ret_);
+
             return ret;
         }
 
@@ -226,10 +238,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
-        static extern EnumValue g_enum_get_value_by_nick (
+        static extern IntPtr g_enum_get_value_by_nick (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            ref EnumClass enumClass,
+            IntPtr enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);
@@ -248,14 +260,20 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that nickname
         /// </returns>
-        public static EnumValue GetValueByNick (ref EnumClass enumClass, string nick)
+        public static EnumValue GetValueByNick (EnumClass enumClass, string nick)
         {
+            if (enumClass == null) {
+                throw new ArgumentNullException (nameof (enumClass));
+            }
             if (nick == null) {
                 throw new ArgumentNullException (nameof (nick));
             }
+
             var nick_ = MarshalG.StringToUtf8Ptr (nick);
-            var ret = g_enum_get_value_by_nick (ref enumClass, nick_);
+            var ret_ = g_enum_get_value_by_nick (enumClass.Handle, nick_);
             MarshalG.Free (nick_);
+            var ret = Marshal.PtrToStructure<EnumValue> (ret_);
+
             return ret;
         }
 
@@ -277,41 +295,47 @@ namespace GISharp.GObject
     /// The class of an enumeration type holds information about its
     /// possible values.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
-    struct EnumClass
+    class EnumClass : TypeClass
     {
-        /// <summary>
-        /// the parent class
-        /// </summary>
-        public IntPtr GTypeClass;
+        struct EnumClass_
+        {
+            /// <summary>
+            /// the parent class
+            /// </summary>
+            public TypeClass_ GTypeClass;
 
-        /// <summary>
-        /// the smallest possible value.
-        /// </summary>
-        public int Minimum;
+            /// <summary>
+            /// the smallest possible value.
+            /// </summary>
+            public int Minimum;
 
-        /// <summary>
-        /// the largest possible value.
-        /// </summary>
-        public int Maximum;
+            /// <summary>
+            /// the largest possible value.
+            /// </summary>
+            public int Maximum;
 
-        /// <summary>
-        /// the number of possible values.
-        /// </summary>
-        public uint NValues;
+            /// <summary>
+            /// the number of possible values.
+            /// </summary>
+            public uint NValues;
 
-        /// <summary>
-        /// an array of #GEnumValue structs describing the
-        ///  individual values.
-        /// </summary>
-        public IntPtr Values;
+            /// <summary>
+            /// an array of #GEnumValue structs describing the
+            ///  individual values.
+            /// </summary>
+            public IntPtr Values;
+        }
+
+        protected EnumClass (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
     }
 
     /// <summary>
     /// A structure which contains a single enum value, its name, and its
     /// nickname.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
     struct EnumValue
     {
         /// <summary>

@@ -825,16 +825,25 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (type));
             }
 
-            var gtypeAttribute = type.GetCustomAttributes ()
-                .OfType<GTypeAttribute> ().SingleOrDefault ();
-            if (gtypeAttribute == null) {
-                var message = string.Format ("Type must have {0} attribute.",
-                                             typeof (GTypeAttribute).FullName);
-                throw new ArgumentException (message, nameof (type));
-            }
             lock (mapLock) {
                 if (typeMap.ContainsKey (type)) {
                     throw new ArgumentException ("This type is already registered.", nameof (type));
+                }
+
+                var gtypeAttribute = type.GetCustomAttributes ()
+                    .OfType<GTypeAttribute> ().SingleOrDefault ();
+                if (gtypeAttribute == null) {
+                    // if the type is not decorate with GTypeAttribute, then we
+                    // register it as a boxed type.
+                    var name = type.GetGTypeName ();
+                    AssertGTypeName (name);
+                    var gtype = GObject.Boxed.Register (name,
+                        GObject.Boxed.CopyManagedType, GObject.Boxed.FreeManagedType);
+
+                    typeMap.Add (type, gtype);
+                    gtypeMap.Add (gtype, type);
+
+                    return gtype;
                 }
 
                 if (gtypeAttribute.IsWrappedNativeType) {
@@ -2661,12 +2670,8 @@ namespace GISharp.GObject
             }
             var gtypeAttr = type.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
-            if (gtypeAttr == null) {
-                var message = string.Format ("The type '{0}' does not have {1}",
-                                             type.FullName, typeof (GTypeAttribute).FullName);
-                throw new ArgumentException (message, nameof (type));
-            }
-            return gtypeAttr.Name ?? type.FullName.Replace ('.', '-');
+
+            return gtypeAttr?.Name ?? type.FullName.Replace ('.', '-');
         }
 
         /// <summary>

@@ -81,6 +81,7 @@ namespace GISharp.GObject
                     propertyChangedHandler -= value;
                     if (propertyChangedHandler == null) {
                         notifySignalHandler.Disconnect ();
+                        notifySignalHandler = null;
                     }
                 }
             }

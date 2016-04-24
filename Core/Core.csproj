@@ -85,6 +85,7 @@
     <Compile Include="GLib\Quark.cs" />
     <Compile Include="GObject\SignalMatchType.cs" />
     <Compile Include="GObject\SignalCMarshaller.cs" />
+    <Compile Include="GObject\Boxed.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

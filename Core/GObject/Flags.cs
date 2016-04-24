@@ -73,10 +73,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern FlagsValue g_flags_get_first_value (
+        static extern IntPtr g_flags_get_first_value (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            ref FlagsClass flagsClass,
+            IntPtr flagsClass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint value);
@@ -94,9 +94,15 @@ namespace GISharp.GObject
         /// the first #GFlagsValue which is set in
         ///          @value, or %NULL if none is set
         /// </returns>
-        public static FlagsValue GetFirstValue (ref FlagsClass flagsClass, uint value)
+        public static FlagsValue GetFirstValue (FlagsClass flagsClass, uint value)
         {
-            var ret = g_flags_get_first_value (ref flagsClass, value);
+            if (flagsClass == null) {
+                throw new ArgumentNullException (nameof (flagsClass));
+            }
+
+            var ret_ = g_flags_get_first_value (flagsClass.Handle, value);
+            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+
             return ret;
         }
 
@@ -116,10 +122,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern FlagsValue g_flags_get_value_by_name (
+        static extern IntPtr g_flags_get_value_by_name (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            ref FlagsClass flagsClass,
+            IntPtr flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -137,14 +143,20 @@ namespace GISharp.GObject
         /// the #GFlagsValue with name @name,
         ///          or %NULL if there is no flag with that name
         /// </returns>
-        public static FlagsValue GetValueByName (ref FlagsClass flagsClass, string name)
+        public static FlagsValue GetValueByName (FlagsClass flagsClass, string name)
         {
+            if (flagsClass == null) {
+                throw new ArgumentNullException (nameof (flagsClass));
+            }
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
             }
+
             var name_ = MarshalG.StringToUtf8Ptr (name);
-            var ret = g_flags_get_value_by_name (ref flagsClass, name_);
+            var ret_ = g_flags_get_value_by_name (flagsClass.Handle, name_);
             MarshalG.Free (name_);
+            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+
             return ret;
         }
 
@@ -164,10 +176,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern FlagsValue g_flags_get_value_by_nick (
+        static extern IntPtr g_flags_get_value_by_nick (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            ref FlagsClass flagsClass,
+            IntPtr flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);
@@ -185,14 +197,19 @@ namespace GISharp.GObject
         /// the #GFlagsValue with nickname @nick,
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
-        public static FlagsValue GetValueByNick (ref FlagsClass flagsClass, string nick)
+        public static FlagsValue GetValueByNick (FlagsClass flagsClass, string nick)
         {
+            if (flagsClass == null) {
+                throw new ArgumentNullException (nameof (flagsClass));
+            }
             if (nick == null) {
                 throw new ArgumentNullException (nameof (nick));
             }
             var nick_ = MarshalG.StringToUtf8Ptr (nick);
-            var ret = g_flags_get_value_by_nick (ref flagsClass, nick_);
+            var ret_ = g_flags_get_value_by_nick (flagsClass.Handle, nick_);
             MarshalG.Free (nick_);
+            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+
             return ret;
         }
 
@@ -214,29 +231,36 @@ namespace GISharp.GObject
     /// The class of a flags type holds information about its
     /// possible values.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
-    struct FlagsClass
+    class FlagsClass : TypeClass
     {
-        /// <summary>
-        /// the parent class
-        /// </summary>
-        public IntPtr GTypeClass;
+        struct FlagsClass_
+        {
+            /// <summary>
+            /// the parent class
+            /// </summary>
+            public TypeClass_ GTypeClass;
 
-        /// <summary>
-        /// a mask covering all possible values.
-        /// </summary>
-        public uint Mask;
+            /// <summary>
+            /// a mask covering all possible values.
+            /// </summary>
+            public uint Mask;
 
-        /// <summary>
-        /// the number of possible values.
-        /// </summary>
-        public uint NValues;
+            /// <summary>
+            /// the number of possible values.
+            /// </summary>
+            public uint NValues;
 
-        /// <summary>
-        /// an array of #GFlagsValue structs describing the
-        ///  individual values.
-        /// </summary>
-        public IntPtr Values;
+            /// <summary>
+            /// an array of #GFlagsValue structs describing the
+            ///  individual values.
+            /// </summary>
+            public IntPtr Values;
+        }
+
+        protected FlagsClass (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
+        {
+        }
     }
 
     /// <summary>

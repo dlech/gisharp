@@ -115,6 +115,13 @@ namespace GISharp.Core.Test.GObject
             var value = new Value (GType.Int, 1);
             obj.SetProperty (nameof (obj.IntValue), value);
             Assert.That (obj.IntValue, Is.EqualTo (1));
+
+            // also make sure that non-GTypes get boxed
+            Assume.That (obj.ObjectProperty, Is.Null);
+            var expectedObj = new object ();
+            var objValue = new Value (typeof(object), expectedObj);
+            obj.SetProperty (nameof (obj.ObjectProperty), objValue);
+            Assert.That (obj.ObjectProperty, Is.SameAs (expectedObj));
         }
 
         [Test]
@@ -248,6 +255,9 @@ namespace GISharp.Core.Test.GObject
                 }
             }
 
+            [GISharp.Runtime.Property]
+            public object ObjectProperty { get; set; }
+
             public TestObjectPropertiesBase ()
                 : this (New<TestObjectPropertiesBase> (), Transfer.All)
             {
@@ -302,6 +312,7 @@ namespace GISharp.Core.Test.GObject
                         eventHappend -= value;
                         if (eventHappend == null) {
                             eventHappendedHandler.Disconnect ();
+                            eventHappendedHandler = null;
                         }
                     }
                 }

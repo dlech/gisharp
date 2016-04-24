@@ -15,6 +15,12 @@ namespace GISharp.GObject
             public GType GType;
         }
 
+        public GType ClassGType {
+            get {
+                return new GType (Marshal.ReadIntPtr (Handle));
+            }
+        }
+
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
         /// Registers a private structure for an instantiatable type.
@@ -245,6 +251,9 @@ namespace GISharp.GObject
 
         public static T Get<T> (GType type) where T : TypeClass
         {
+            if (type.IsA (GType.Boxed)) {
+                throw new InvalidOperationException ("Cannot get type class for boxed types");
+            }
             var handle = g_type_class_ref (type);
             var ret =  Opaque.GetInstance<T> (handle, Transfer.All);
             return ret;
