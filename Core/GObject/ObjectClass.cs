@@ -1,13 +1,16 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
+
 using GISharp.Runtime;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
-using System.Reflection;
-using System.Collections.Generic;
+using BindFlags = System.Reflection.BindingFlags;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -62,8 +65,14 @@ namespace GISharp.GObject
             public delegate void NativeConstructed (IntPtr @object);
         }
 
+        internal static readonly Quark managedClassPropertyInfoQuark =
+            Quark.FromString ("gisharp-object-class-managed-class-property-info-quark");
+
         internal static void InitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
+            // Can't use type.GetGType () here since the type registration has
+            // not finished. So, we get the GType this way instead.
+            var gtype = new GType (Marshal.ReadIntPtr (classPtr));
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
             uint propId = 1; // propId 0 is used internally, so we start with 1
 
@@ -75,25 +84,31 @@ namespace GISharp.GObject
                 Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
 
             foreach (var propInfo in type.GetProperties ()) {
-                var propAttr = (PropertyAttribute)Attribute.GetCustomAttribute (propInfo, typeof(PropertyAttribute), true);
+                if (propInfo.DeclaringType != type) {
+                    // only register properties declared in this type
+                    continue;
+                }
+
+                var propAttr = (PropertyAttribute)Attribute.GetCustomAttribute (propInfo,
+                    typeof(PropertyAttribute), true);
 
                 if (propAttr == null) {
                     // properties without PropertyAttribute are not installed
                     continue;
                 }
-                // TODO: convert propInfo.Name to a more glib friendly name.
+                // TODO: convert propInfo.Name to a more glib friendly name?
                 // e.g. "MyProperty" becomes "my-property"
                 var name = propAttr.Name ?? propInfo.Name;
-                var nick = propInfo.GetCustomAttributes (false)
-                    .OfType <DisplayNameAttribute> ()
-                    .SingleOrDefault ()?.DisplayName ?? name;
-                var blurb = propInfo.GetCustomAttributes (false)
-                    .OfType <DescriptionAttribute> ()
-                    .SingleOrDefault ()?.Description ?? nick;
+                var nick = ((DisplayNameAttribute)Attribute
+                    .GetCustomAttribute (propInfo, typeof(DisplayNameAttribute), true))
+                    ?.DisplayName ?? name;
+                var blurb = ((DescriptionAttribute)Attribute
+                    .GetCustomAttribute (propInfo, typeof(DescriptionAttribute), true))
+                    ?.Description ?? nick;
                 // TODO: localize strings
-                var defaultValue = propInfo.GetCustomAttributes (false)
-                    .OfType<DefaultValueAttribute> ()
-                    .SingleOrDefault ()?.Value;
+                var defaultValue = ((DefaultValueAttribute)Attribute
+                    .GetCustomAttribute (propInfo, typeof(DefaultValueAttribute), true))
+                    ?.Value;
 
                 // setup the flags
 
@@ -119,7 +134,7 @@ namespace GISharp.GObject
                 // ExplicitNotify was not set.
                 flags |= ParamFlags.ExplicitNotify;
 
-                if (propInfo.CustomAttributes.OfType <ObsoleteAttribute> ().Any ()) {
+                if (Attribute.GetCustomAttribute (propInfo, typeof(ObsoleteAttribute), true) != null) {
                     flags |= ParamFlags.Deprecated;
                 }
 
@@ -185,6 +200,44 @@ namespace GISharp.GObject
                 }
                 propId++;
             }
+
+            foreach (var eventInfo in type.GetEvents ()) {
+                if (eventInfo.DeclaringType != type) {
+                    // only register events declared in this type
+                    continue;
+                }
+
+                var signalAttr = (SignalAttribute)Attribute.GetCustomAttribute (eventInfo,
+                    typeof(SignalAttribute), true);
+
+                if (signalAttr == null) {
+                    // events without SignalAttribute are not installed
+                    continue;
+                }
+                // TODO: convert eventInfo.Name to a more glib friendly name?
+                // e.g. "MyEvent" becomes "my-event"
+                var name = signalAttr.Name ?? eventInfo.Name;
+
+                var flags = default(SignalFlags);
+                // TODO: which flags do we need to set?
+                if (Attribute.GetCustomAttribute (eventInfo, typeof(ObsoleteAttribute), true) != null) {
+                    flags |= SignalFlags.Deprecated;
+                }
+
+                var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
+                var returnGType = methodInfo.ReturnType.GetGType ();
+                var parameters = methodInfo.GetParameters ();
+                var parameterGTypes = new GType[parameters.Length];
+                for (int i = 0; i < parameters.Length; i++) {
+                    parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
+                }
+
+                var namePtr = MarshalG.StringToUtf8Ptr (name);
+                var parameterGTypesPtr = MarshalG.CArrayToPtr<GType> (parameterGTypes, false);
+                var id = Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
+                    null, IntPtr.Zero, null, returnGType,
+                    (uint)parameterGTypes.Length, parameterGTypesPtr);
+            }
         }
 
         internal static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
@@ -196,7 +249,7 @@ namespace GISharp.GObject
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = pspec.GetUserData<PropertyInfo> ();
+            var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);
             propInfo.SetValue (obj, value.Get ());
         }
 
@@ -209,7 +262,7 @@ namespace GISharp.GObject
             var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = pspec.GetUserData<PropertyInfo> ();
+            var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);
             value.Set (propInfo.GetValue (obj));
         }
 

@@ -16,9 +16,10 @@ namespace GISharp.Runtime
         extern static IntPtr g_malloc (UIntPtr nBytes);
 
         /// <summary>
-        /// Allocates unmanaged memory using g_malloc.
+        /// Allocates <paramref name="size"/> bytes of memory.
+        /// If <paramref name="size"/> is 0 it returns <c>IntPtr.Zero</c>.
         /// </summary>
-        /// <param name="size">Size in bytes.</param>
+        /// <param name="size">The number of bytes to allocate.</param>
         /// <exception cref="ArgumentException">If size is less than 0.</exception>
         public static IntPtr Alloc (int size)
         {
@@ -26,6 +27,23 @@ namespace GISharp.Runtime
                 throw new ArgumentException ("Size must be >= 0", "size");
             }
             return g_malloc ((UIntPtr)(uint)size);
+        }
+
+        [DllImport ("glib-2.0.dll")]
+        extern static IntPtr g_malloc0 (UIntPtr nBytes);
+
+        /// <summary>
+        /// Allocates <paramref name="size"/> bytes of memory, initialized to 0's.
+        /// If <paramref name="size"/> is 0 it returns <c>IntPtr.Zero</c>.
+        /// </summary>
+        /// <param name="size">The number of bytes to allocate.</param>
+        /// <exception cref="ArgumentException">If size is less than 0.</exception>
+        public static IntPtr Alloc0 (int size)
+        {
+            if (size < 0) {
+                throw new ArgumentException ("Size must be >= 0", "size");
+            }
+            return g_malloc0 ((UIntPtr)(uint)size);
         }
 
         [DllImport ("glib-2.0.dll")]

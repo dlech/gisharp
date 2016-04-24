@@ -7,7 +7,7 @@ using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.GObject
 {
-    public struct SignalHandler
+    public class SignalHandler
     {
         readonly Object instance;
         readonly nulong handlerId;
@@ -186,11 +186,10 @@ namespace GISharp.GObject
         /// <returns>
         /// whether @handler_id identifies a handler connected to @instance.
         /// </returns>
-        public bool IsConnected ()
-        {
-            var ret = g_signal_handler_is_connected (instance.Handle, handlerId);
-
-            return ret;
+        public bool IsConnected {
+            get {
+                return g_signal_handler_is_connected (instance.Handle, handlerId);
+            }
         }
 
         /// <summary>

@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using System.Reflection;
+
+using GISharp.Runtime;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
-using GISharp.Runtime;
-using System.Reflection;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -807,7 +808,7 @@ namespace GISharp.GObject
                 if (prop == null) {
                     throw new Exception ("Could not find matchng property.");
                 }
-                pspec.SetUserData<PropertyInfo> (prop);
+                pspec.SetUserData (ObjectClass.managedClassPropertyInfoQuark, prop);
             }
         }
 
@@ -824,8 +825,8 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (type));
             }
 
-            var gtypeAttribute = (GTypeAttribute)type.GetCustomAttributes (
-                typeof (GTypeAttribute), false).SingleOrDefault ();
+            var gtypeAttribute = type.GetCustomAttributes ()
+                .OfType<GTypeAttribute> ().SingleOrDefault ();
             if (gtypeAttribute == null) {
                 var message = string.Format ("Type must have {0} attribute.",
                                              typeof (GTypeAttribute).FullName);
@@ -901,15 +902,14 @@ namespace GISharp.GObject
                     }
                     var values = (int[])type.GetEnumValues ();
                     var names = type.GetEnumNames ();
-                    var flagsAttribute = type.GetCustomAttributes (
-                        typeof (FlagsAttribute), false).SingleOrDefault ();
+                    var flagsAttribute = type.GetCustomAttributes ()
+                        .OfType<FlagsAttribute> ().SingleOrDefault ();
                     if (flagsAttribute == null) {
                         var gtypeValues = new EnumValue[values.Length];
                         for (int i = 0; i < values.Length; i++) {
                             gtypeValues[i].Value = values[i];
                             var enumValueField = type.GetField (names[i]);
-                            var enumValueAttr = enumValueField
-                                .GetCustomAttributes (false)
+                            var enumValueAttr = enumValueField.GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
@@ -932,7 +932,7 @@ namespace GISharp.GObject
                             gtypeValues[i].Value = (uint)values[i];
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField
-                                .GetCustomAttributes (false)
+                                .GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
@@ -990,8 +990,9 @@ namespace GISharp.GObject
                     Type matchingType = null;
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
                         matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
-                            .FirstOrDefault (t => t.GetCustomAttributes (typeof(GTypeAttribute), false)
-                                .Any (a => ((GTypeAttribute)a).Name == type.Name));
+                            .FirstOrDefault (t => t.GetCustomAttributes ()
+                                .OfType<GTypeAttribute> ()
+                                .Any (a => a.Name == type.Name));
                         if (matchingType != null) {
                             break;
                         }
@@ -2658,8 +2659,8 @@ namespace GISharp.GObject
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
             }
-            var gtypeAttr = (GTypeAttribute)type.GetCustomAttributes (
-                typeof (GTypeAttribute), false).SingleOrDefault ();
+            var gtypeAttr = type.GetCustomAttributes ()
+                .OfType<GTypeAttribute> ().SingleOrDefault ();
             if (gtypeAttr == null) {
                 var message = string.Format ("The type '{0}' does not have {1}",
                                              type.FullName, typeof (GTypeAttribute).FullName);

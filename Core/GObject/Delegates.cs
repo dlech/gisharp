@@ -14,7 +14,7 @@ namespace GISharp.GObject
     /// intialization process.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeBaseInitFunc(
+    delegate void NativeBaseInitFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gClass);
@@ -27,7 +27,7 @@ namespace GISharp.GObject
     /// See GClassInitFunc() for a discussion of the class intialization process.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeBaseFinalizeFunc(
+    delegate void NativeBaseFinalizeFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gClass);
@@ -131,7 +131,7 @@ namespace GISharp.GObject
     /// time.
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeClassInitFunc(
+    delegate void NativeClassInitFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gClass,
@@ -149,7 +149,7 @@ namespace GISharp.GObject
     /// reference count drops to zero).
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeClassFinalizeFunc(
+    delegate void NativeClassFinalizeFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gClass,
@@ -172,7 +172,7 @@ namespace GISharp.GObject
     /// zeros before this function is called.
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeInstanceInitFunc(
+    delegate void NativeInstanceInitFunc (
         /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
         /* transfer-ownership:none */
         IntPtr instance,
@@ -186,7 +186,7 @@ namespace GISharp.GObject
     /// allocated by the corresponding GInterfaceInitFunc() function.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeInterfaceFinalizeFunc(
+    delegate void NativeInterfaceFinalizeFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr gIface,
@@ -207,7 +207,7 @@ namespace GISharp.GObject
     delegate bool NativeSignalEmissionHook (
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
-        GISharp.GObject.SignalInvocationHint ihint,
+        SignalInvocationHint ihint,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nParamValues,
@@ -227,19 +227,68 @@ namespace GISharp.GObject
     /// is determined by the context in which is used (e.g. the signal to which it
     /// is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.
     /// </summary>
-    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    delegate void NativeCallback();
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    delegate void NativeCallback ();
 
     /// <summary>
     /// The type used for the various notification callbacks which can be registered
     /// on closures.
     /// </summary>
-    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-    delegate void NativeClosureNotify(
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    delegate void NativeClosureNotify (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
-        System.IntPtr data,
+        IntPtr data,
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        System.IntPtr closure);
+        IntPtr closure);
+
+    /// <summary>
+    /// The signal accumulator is a special callback function that can be used
+    /// to collect return values of the various callbacks that are called
+    /// during a signal emission. The signal accumulator is specified at signal
+    /// creation time, if it is left %NULL, no accumulation of callback return
+    /// values is performed. The return value of signal emissions is then the
+    /// value returned by the last callback.
+    /// </summary>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    delegate bool NativeSignalAccumulator (
+        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
+        /* transfer-ownership:none */
+        SignalInvocationHint ihint,
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+        IntPtr returnAccu,
+        /* <type name="Value" type="const GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+        IntPtr handlerReturn,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none */
+        IntPtr data);
+
+    /// <summary>
+    /// The type used for marshaller functions.
+    /// </summary>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    delegate void NativeClosureMarshal (
+        /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
+        /* transfer-ownership:none */
+        IntPtr closure,
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        IntPtr returnValue,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
+        uint nParamValues,
+        /* <array length="2" zero-terminated="0" type="GValue*">
+            <type name="Value" type="GValue" managed-name="Value" />
+            </array> */
+        /* transfer-ownership:none */
+        IntPtr paramValues,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        IntPtr invocationHint,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        IntPtr marshalData);
 }

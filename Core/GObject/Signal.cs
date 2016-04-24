@@ -101,8 +101,8 @@ namespace GISharp.GObject
         /* transfer-ownership:none */
         static extern void g_signal_chain_from_overridden (
             /* <array zero-terminated="0" type="GValue*">
-<type name="Value" type="GValue" managed-name="Value" />
-</array> */
+                <type name="Value" type="GValue" managed-name="Value" />
+                </array> */
             /* transfer-ownership:none */
             IntPtr instanceAndParams,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
@@ -422,8 +422,8 @@ namespace GISharp.GObject
         /* transfer-ownership:none */
         static extern void g_signal_emitv (
             /* <array zero-terminated="0" type="GValue*">
-<type name="Value" type="GValue" managed-name="Value" />
-</array> */
+                <type name="Value" type="GValue" managed-name="Value" />
+                </array> */
             /* transfer-ownership:none */
             IntPtr instanceAndParams,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
@@ -434,19 +434,13 @@ namespace GISharp.GObject
             Quark detail,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
-            ref IntPtr returnValue);
+            IntPtr returnValue);
 
         /// <summary>
         /// Emits a signal.
         /// </summary>
-        /// <remarks>
-        /// Note that g_signal_emitv() doesn't change @return_value if no handlers are
-        /// connected, in contrast to g_signal_emit() and g_signal_emit_valist().
-        /// </remarks>
-        /// <param name="instanceAndParams">
-        /// argument list for the signal emission.
-        ///  The first element in the array is a #GValue for the instance the signal
-        ///  is being emitted on. The rest are any arguments to be passed to the signal.
+        /// <param name="instance">
+        /// the object the signal is being emitted on
         /// </param>
         /// <param name="signalId">
         /// the signal id
@@ -454,21 +448,31 @@ namespace GISharp.GObject
         /// <param name="detail">
         /// the detail
         /// </param>
-        /// <param name="returnValue">
-        /// Location to
-        /// store the return value of the signal emission. This must be provided if the
-        /// specified signal returns a value, but may be ignored otherwise.
+        /// <param name="parameters">
+        /// argument list for the signal emission.
+        ///  The arguments to be passed to the signal.
         /// </param>
-        public static void Emitv (Value[] instanceAndParams, uint signalId, Quark detail, ref Value returnValue)
+        public static void Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
         {
-            if (instanceAndParams == null) {
-                throw new ArgumentNullException ("instanceAndParams");
+            if (instance == null) {
+                throw new ArgumentNullException (nameof(instance));
             }
-            var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
-            var returnValue_ = returnValue == null ? IntPtr.Zero : returnValue.Handle;
-            g_signal_emitv (instanceAndParams_, signalId, detail, ref returnValue_);
-            returnValue = Opaque.GetInstance<Value> (returnValue_, Transfer.All);
-            MarshalG.Free (instanceAndParams_);
+
+            var sizeOfValue = Marshal.SizeOf <Value.Value_> ();
+            var instanceAndParams = MarshalG.Alloc0 ((parameters.Length + 1) * sizeOfValue);
+            var value = Opaque.GetInstance<Value> (instanceAndParams, Transfer.None);
+            value.Init (instance.GetGType ());
+            value.Set (instance);
+            int offset = sizeOfValue;
+            foreach (var p in parameters) {
+                value = Opaque.GetInstance<Value> (instanceAndParams + offset, Transfer.None);
+                value.Init (p.GetGType ());
+                value.Set (p);
+                offset += sizeOfValue;
+            }
+
+            g_signal_emitv (instanceAndParams, signalId, detail, IntPtr.Zero);
+            MarshalG.Free (instanceAndParams);
         }
 
         /// <summary>
@@ -500,10 +504,10 @@ namespace GISharp.GObject
         static SignalInvocationHint GetInvocationHint (Object instance)
         {
             if (instance == null) {
-                throw new ArgumentNullException ("instance");
+                throw new ArgumentNullException (nameof(instance));
             }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-            var ret = g_signal_get_invocation_hint (instance_);
+            var ret = g_signal_get_invocation_hint (instance.Handle);
+
             return ret;
         }
 
@@ -793,108 +797,42 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal id
         /// </returns>
-        //        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        //        /* <type name="guint" type="guint" managed-name="Guint" /> */
-        //        /* transfer-ownership:none */
-        //        static extern uint g_signal_newv (
-        //            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-        //            /* transfer-ownership:none */
-        //            IntPtr signalName,
-        //            /* <type name="GType" type="GType" managed-name="GType" /> */
-        //            /* transfer-ownership:none */
-        //            GType itype,
-        //            /* <type name="SignalFlags" type="GSignalFlags" managed-name="SignalFlags" /> */
-        //            /* transfer-ownership:none */
-        //            SignalFlags signalFlags,
-        //            /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-        //            /* transfer-ownership:none nullable:1 allow-none:1 */
-        //            IntPtr classClosure,
-        //            /* <type name="SignalAccumulator" type="GSignalAccumulator" managed-name="SignalAccumulator" /> */
-        //            /* transfer-ownership:none nullable:1 allow-none:1 closure:5 */
-        //            NativeSignalAccumulator accumulator,
-        //            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        //            /* transfer-ownership:none */
-        //            IntPtr accuData,
-        //            /* <type name="SignalCMarshaller" type="GSignalCMarshaller" managed-name="SignalCMarshaller" /> */
-        //            /* transfer-ownership:none nullable:1 allow-none:1 */
-        //            SignalCMarshaller cMarshaller,
-        //            /* <type name="GType" type="GType" managed-name="GType" /> */
-        //            /* transfer-ownership:none */
-        //            GType returnType,
-        //            /* <type name="guint" type="guint" managed-name="Guint" /> */
-        //            /* transfer-ownership:none */
-        //            uint nParams,
-        //            /* <array length="8" zero-terminated="0" type="GType*">
-        //<type name="GType" type="GType" managed-name="GType" />
-        //</array> */
-        //            /* transfer-ownership:none */
-        //            IntPtr paramTypes);
-
-        /// <summary>
-        /// Creates a new signal. (This is usually done in the class initializer.)
-        /// </summary>
-        /// <remarks>
-        /// See g_signal_new() for details on allowed signal names.
-        ///
-        /// If c_marshaller is %NULL, g_cclosure_marshal_generic() will be used as
-        /// the marshaller for this signal.
-        /// </remarks>
-        /// <param name="signalName">
-        /// the name for the signal
-        /// </param>
-        /// <param name="itype">
-        /// the type this signal pertains to. It will also pertain to
-        ///     types which are derived from this type
-        /// </param>
-        /// <param name="signalFlags">
-        /// a combination of #GSignalFlags specifying detail of when
-        ///     the default handler is to be invoked. You should at least specify
-        ///     %G_SIGNAL_RUN_FIRST or %G_SIGNAL_RUN_LAST
-        /// </param>
-        /// <param name="classClosure">
-        /// The closure to invoke on signal emission;
-        ///     may be %NULL
-        /// </param>
-        /// <param name="accumulator">
-        /// the accumulator for this signal; may be %NULL
-        /// </param>
-        /// <param name="cMarshaller">
-        /// the function to translate arrays of
-        ///     parameter values to signal emissions into C language callback
-        ///     invocations or %NULL
-        /// </param>
-        /// <param name="returnType">
-        /// the type of return value, or #G_TYPE_NONE for a signal
-        ///     without a return value
-        /// </param>
-        /// <param name="paramTypes">
-        /// an array of types, one for
-        ///     each parameter
-        /// </param>
-        /// <returns>
-        /// the signal id
-        /// </returns>
-        //        public static uint Newv (string signalName, GType itype, SignalFlags signalFlags, Closure classClosure, SignalAccumulator accumulator, SignalCMarshaller cMarshaller, GType returnType, GType[] paramTypes)
-        //        {
-        //            if (signalName == null) {
-        //                throw new ArgumentNullException ("signalName");
-        //            }
-        //            if (paramTypes == null) {
-        //                throw new ArgumentNullException ("paramTypes");
-        //            }
-        //            var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
-        //            var classClosure_ = classClosure == null ? IntPtr.Zero : classClosure.Handle;
-        //            var accumulator_ = NativeSignalAccumulatorFactory.Create (accumulator, false);
-        //            var accumulatorHandle = GCHandle.Alloc (accumulator);
-        //            var accuData_ = GCHandle.ToIntPtr (accumulatorHandle);
-        //            var paramTypes_ = MarshalG.CArrayToPtr<GType> (paramTypes, false);
-        //            var nParams_ = (uint)(paramTypes == null ? 0 : paramTypes.Length);
-        //            var ret = g_signal_newv (signalName_, itype, signalFlags, classClosure_, accumulator_, accuData_, cMarshaller, returnType, nParams_, paramTypes_);
-        //            MarshalG.Free (signalName_);
-        //            accumulatorHandle.Free ();
-        //            MarshalG.Free (paramTypes_);
-        //            return ret;
-        //        }
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
+        internal static extern uint g_signal_newv (
+            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+            /* transfer-ownership:none */
+            IntPtr signalName,
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType itype,
+            /* <type name="SignalFlags" type="GSignalFlags" managed-name="SignalFlags" /> */
+            /* transfer-ownership:none */
+            SignalFlags signalFlags,
+            /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 */
+            IntPtr classClosure,
+            /* <type name="SignalAccumulator" type="GSignalAccumulator" managed-name="SignalAccumulator" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 closure:5 */
+            NativeSignalAccumulator accumulator,
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr accuData,
+            /* <type name="SignalCMarshaller" type="GSignalCMarshaller" managed-name="SignalCMarshaller" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 */
+            SignalCMarshaller cMarshaller,
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType returnType,
+            /* <type name="guint" type="guint" managed-name="Guint" /> */
+            /* transfer-ownership:none */
+            uint nParams,
+            /* <array length="8" zero-terminated="0" type="GType*">
+                <type name="GType" type="GType" managed-name="GType" />
+                </array> */
+            /* transfer-ownership:none */
+            IntPtr paramTypes);
 
         /// <summary>
         /// Overrides the class closure (i.e. the default handler) for the given signal

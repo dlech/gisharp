@@ -16,15 +16,15 @@ namespace GISharp.GObject
     [DebuggerDisplay ("{ToString ()}")]
     public sealed class Value : OwnedOpaque
     {
-        struct Value_
+        internal struct Value_
         {
             public GType Type;
-            [MarshalAs (UnmanagedType.LPArray, SizeConst = 2)]
+            [MarshalAs (UnmanagedType.ByValArray, SizeConst = 2)]
             public ValueDataUnion[] Data;
         }
 
         [StructLayout (LayoutKind.Explicit)]
-        struct ValueDataUnion
+        internal struct ValueDataUnion
         {
             [FieldOffset (0)]
             public int VInt;
@@ -2690,6 +2690,11 @@ namespace GISharp.GObject
                 var message = $"{type.Name} cannot be used as Value.";
                 throw new ArgumentException (message, nameof (type));
             }
+        }
+
+        public Value (GType type, object value) : this (type)
+        {
+            Set (value);
         }
 
         protected override void Free ()

@@ -84,6 +84,7 @@
     <Compile Include="GObject\SignalInvocationHint.cs" />
     <Compile Include="GLib\Quark.cs" />
     <Compile Include="GObject\SignalMatchType.cs" />
+    <Compile Include="GObject\SignalCMarshaller.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

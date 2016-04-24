@@ -112,8 +112,7 @@ namespace GISharp.Core.Test.GObject
 
             // check if setting properties from unmanged code works
             Assume.That (obj.IntValue, Is.EqualTo (0));
-            var value = new Value (GType.Int);
-            value.Set (1);
+            var value = new Value (GType.Int, 1);
             obj.SetProperty (nameof (obj.IntValue), value);
             Assert.That (obj.IntValue, Is.EqualTo (1));
         }
@@ -126,8 +125,7 @@ namespace GISharp.Core.Test.GObject
             // the new keyword does not override a property, just hides it...
 
             Assume.That (obj.IntValue, Is.EqualTo (0));
-            var intValue = new Value (GType.Int);
-            intValue.Set (1);
+            var intValue = new Value (GType.Int, 1);
             obj.SetProperty (nameof (obj.IntValue), intValue);
             Assert.That (obj.IntValue, Is.EqualTo (1));
 
@@ -146,8 +144,7 @@ namespace GISharp.Core.Test.GObject
             // But the override keyword replaces property...
 
             Assume.That (obj.BoolValue, Is.False);
-            var value = new Value (GType.Boolean);
-            value.Set (true);
+            var value = new Value (GType.Boolean, true);
             obj.SetProperty ("bool-value", value);
             Assert.That (obj.BoolValue, Is.True);
 
@@ -161,7 +158,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
-        public void TestSubclassPropertyChangeNotification ()
+        public void TestPropertyChangeNotification ()
         {
             var obj = new TestObjectPropertiesBase ();
             var notificationCount = 0;
@@ -177,8 +174,7 @@ namespace GISharp.Core.Test.GObject
 
             // likewise, setting the property from unmange code should not
             // trigger a change either
-            var intValue = new Value (GType.Int);
-            intValue.Set (1);
+            var intValue = new Value (GType.Int, 1);
             obj.SetProperty (nameof(obj.IntValue), intValue);
             Assert.That (notificationCount, Is.EqualTo (0));
 
@@ -188,10 +184,23 @@ namespace GISharp.Core.Test.GObject
 
             // also make sure changing the propery from unmanged code notifies
             // and that it only notifies once
-            var doubleValue = new Value (GType.Double);
-            doubleValue.Set (1.0);
+            var doubleValue = new Value (GType.Double, 1.0);
             obj.SetProperty (nameof(obj.DoubleValue), doubleValue);
             Assert.That (notificationCount, Is.EqualTo (2));
+        }
+
+        [Test]
+        public void TestSignalRegistration ()
+        {
+            var obj = new TestObjectSignal ();
+            var eventCount = 0;
+
+            obj.EventHappened += () => eventCount++;
+
+            // check that emitting the signal from unmanaged code fires the event
+            obj.OnEventHappened ();
+
+            Assert.That (eventCount, Is.EqualTo (1));
         }
 
         // This will fail because it lacks the GTypeAttribute
@@ -267,6 +276,59 @@ namespace GISharp.Core.Test.GObject
             protected TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
+            }
+        }
+
+        [GType]
+        class TestObjectSignal : GISharp.GObject.Object
+        {
+            Action eventHappend;
+            object eventHappendHandlerLock = new object ();
+            SignalHandler eventHappendedHandler;
+
+            [Signal]
+            public event Action EventHappened {
+                add {
+                    lock (eventHappendHandlerLock) {
+                        if (eventHappend == null) {
+                            eventHappendedHandler = Signal.Connect (this,
+                                nameof(EventHappened), NativeEventHappened);
+                        }
+                        eventHappend += value;
+                    }
+                }
+                remove {
+                    lock (eventHappendHandlerLock) {
+                        eventHappend -= value;
+                        if (eventHappend == null) {
+                            eventHappendedHandler.Disconnect ();
+                        }
+                    }
+                }
+            }
+
+            void NativeEventHappened ()
+            {
+                if (eventHappend != null) {
+                    eventHappend ();
+                }
+            }
+
+            readonly uint eventHappendSignalId;
+            public void OnEventHappened ()
+            {
+                Signal.Emit (this, eventHappendSignalId);
+            }
+
+            public TestObjectSignal ()
+                : this (New<TestObjectSignal> (), Transfer.All)
+            {
+            }
+
+            protected TestObjectSignal (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+                eventHappendSignalId = Signal.Lookup (nameof(EventHappened), this.GetGType ());
             }
         }
 

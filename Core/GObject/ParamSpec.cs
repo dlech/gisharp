@@ -294,19 +294,17 @@ namespace GISharp.GObject
         /// <summary>
         /// Gets back user data stored via <see cref="SetUserData"/>.
         /// </summary>
+        /// <param name="quark">
+        /// a <see cref="Quark"/>, naming the user data
+        /// </param>
         /// <returns>
-        /// the user data pointer set, or %NULL
+        /// the user data if set, or <c>null</c>
         /// </returns>
-        public T GetUserData<T> ()
+        public object GetUserData (Quark quark)
         {
             AssertNotDisposed ();
-            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
             var ret = g_param_spec_get_qdata (Handle, quark);
-            if (ret == IntPtr.Zero) {
-                throw new InvalidOperationException ("Data was not set.");
-            }
-
-            return (T)GCHandle.FromIntPtr (ret).Target;
+            return ret == IntPtr.Zero ? null : GCHandle.FromIntPtr (ret).Target;
         }
 
         /// <summary>
@@ -416,36 +414,24 @@ namespace GISharp.GObject
 
         /// <summary>
         /// Sets arbitrary user data associated with this ParamSpec.
-        /// The data can be retreived using <see cref="SetUserData"/>
-        /// using the same type parameter.
+        /// The data can be retreived using <see cref="SetUserData"/>.
         /// </summary>
+        /// <param name="quark">
+        /// a <see cref="Quark"/>, naming the user data
+        /// </param>
         /// <param name="data">
         /// an opaque user data pointer
         /// </param>
-        public void SetUserData<T> (T data)
+        public void SetUserData (Quark quark, object data)
         {
             AssertNotDisposed ();
-            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
             var oldData = g_param_spec_get_qdata (Handle, quark);
             if (oldData != IntPtr.Zero) {
                 GCHandle.FromIntPtr (oldData).Free ();
             }
-            var newData = GCHandle.ToIntPtr (GCHandle.Alloc (data));
+            var newData = data == null ? IntPtr.Zero
+                : GCHandle.ToIntPtr (GCHandle.Alloc (data));
             g_param_spec_set_qdata (Handle, quark, newData);
-        }
-
-        /// <summary>
-        /// Clears the user data of the specified type.
-        /// </summary>
-        public void ClearUserData<T> ()
-        {
-            AssertNotDisposed ();
-            var quark = Quark.FromString (typeof(T).AssemblyQualifiedName);
-            var oldData = g_param_spec_get_qdata (Handle, quark);
-            if (oldData != IntPtr.Zero) {
-                GCHandle.FromIntPtr (oldData).Free ();
-            }
-            g_param_spec_set_qdata (Handle, quark, IntPtr.Zero);
         }
 
         /// <summary>

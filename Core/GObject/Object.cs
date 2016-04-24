@@ -3,6 +3,10 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using System.Reflection;
+using System.Collections.Generic;
+using System.Linq;
+
+using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.GObject
 {
@@ -35,11 +39,6 @@ namespace GISharp.GObject
             g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
             // release the original ref since we now have a toggle ref
             g_object_unref (Handle);
-
-            // attach signal handler for property change notification
-            var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
-            Signal.g_signal_connect_data (Handle, MarshalG.StringToUtf8Ptr ("notify"),
-                nativeNotifyPtr, IntPtr.Zero, null, default(ConnectFlags));
         }
 
         delegate void NativeNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
@@ -48,21 +47,51 @@ namespace GISharp.GObject
         {
             var obj = Opaque.GetInstance<Object> (gobjectPtr, Transfer.None);
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
-            var propInfo = pspec.GetUserData<PropertyInfo> ();
+            var propInfo = (PropertyInfo)pspec.GetUserData (ObjectClass.managedClassPropertyInfoQuark);
             obj.OnPropertyChanged (propInfo.Name);
+        }
+
+        PropertyChangedEventHandler propertyChangedHandler;
+        object propertyChangedHandlerLock = new object ();
+        SignalHandler notifySignalHandler;
+
+        SignalHandler ConnectNotifiySignal ()
+        {
+            var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
+            var id = Signal.g_signal_connect_data (Handle, MarshalG.StringToUtf8Ptr ("notify"),
+                nativeNotifyPtr, IntPtr.Zero, null, default(ConnectFlags));
+
+            return new SignalHandler (this, id);
         }
 
         #region INotifyPropertyChanged implementation
 
         [Signal ("notify")]
-        public event PropertyChangedEventHandler PropertyChanged;
+        public event PropertyChangedEventHandler PropertyChanged {
+            add {
+                lock (propertyChangedHandlerLock) {
+                    if (propertyChangedHandler == null) {
+                        notifySignalHandler = ConnectNotifiySignal ();
+                    }
+                    propertyChangedHandler += value;
+                }
+            }
+            remove {
+                lock (propertyChangedHandlerLock) {
+                    propertyChangedHandler -= value;
+                    if (propertyChangedHandler == null) {
+                        notifySignalHandler.Disconnect ();
+                    }
+                }
+            }
+        }
 
         #endregion
 
         void OnPropertyChanged (string name)
         {
-            if (PropertyChanged != null) {
-                PropertyChanged (this, new PropertyChangedEventArgs (name));
+            if (propertyChangedHandler != null) {
+                propertyChangedHandler (this, new PropertyChangedEventArgs (name));
             }
         }
 
@@ -160,8 +189,7 @@ namespace GISharp.GObject
                     var message = string.Format ("Could not find property '{0}'", name);
                     throw new ArgumentException (message, nameof (parameters));
                 }
-                var value = new Value (paramSpec.ValueType);
-                value.Set (parameters[i + 1]);
+                var value = new Value (paramSpec.ValueType, parameters[i + 1]);
                 paramArray[i / 2] = new Parameter {
                     Name = MarshalG.StringToUtf8Ptr (name),
                     Value = value.Handle
