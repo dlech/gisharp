@@ -10,22 +10,34 @@ namespace GISharp.Core.Test.GObject
     public class EnumTest
     {
         [Test]
-        public void TestRegister ()
+        public void TestRegister1 ()
         {
             // invalid because it does not have [GType] attribute.
-            var testEnum1GType = typeof (TestEnum1).GetGType ();
+            var testEnum1GType = typeof(TestEnum1).GetGType ();
             Assert.That (() => TypeClass.Get<EnumClass> (testEnum1GType),
                 Throws.InvalidOperationException);
+        }
 
+        [Test]
+        public void TestRegister2 ()
+        {
             // invalid because underlying type is too big.
             Assert.That (() => typeof (TestEnum2).GetGType (),
-                         Throws.ArgumentException);
+                Throws.ArgumentException);
+        }
 
+        [Test]
+        public void TestRegister3 ()
+        {
             // invalid because IsWrappedNativeType = true but there is no
             // matching getGType method.
             Assert.That (() => typeof (TestEnum3).GetGType (),
-                         Throws.ArgumentException);
+                Throws.ArgumentException);
+        }
 
+        [Test]
+        public void TestRegister4 ()
+        {
             // this should register successfully
             var testEnum4GType = typeof (TestEnum4).GetGType ();
             Assert.That (testEnum4GType, Is.Not.EqualTo (GType.Invalid),
@@ -48,6 +60,11 @@ namespace GISharp.Core.Test.GObject
             var valueNick = MarshalG.Utf8PtrToString (value.ValueNick);
             Assert.That (valueNick, Is.EqualTo ("One"));
 
+        }
+
+        [Test]
+        public void TestRegister5 ()
+        {
             // make sure that we can override name and nick with attributes
             var testEnum5GType = typeof(TestEnum5).GetGType ();
             Assert.That (testEnum5GType.Name, Is.EqualTo ("TestEnum5GTypeName"));

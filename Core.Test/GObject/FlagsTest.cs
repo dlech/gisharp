@@ -10,22 +10,34 @@ namespace GISharp.Core.Test.GObject
     public class FlagsTest
     {
         [Test]
-        public void TestRegister ()
+        public void TestRegister1 ()
         {
             // invalid because it does not have [GType] attribute.
-            var testFlags1GType = typeof (TestFlags1).GetGType ();
+            var testFlags1GType = typeof(TestFlags1).GetGType ();
             Assert.That (() => TypeClass.Get<FlagsClass> (testFlags1GType),
                 Throws.InvalidOperationException);
+        }
 
+        [Test]
+        public void TestRegister2 ()
+        {
             // invalid because underlying type is too big.
             Assert.That (() => typeof (TestFlags2).GetGType (),
-                         Throws.ArgumentException);
+                Throws.ArgumentException);
+        }
 
+        [Test]
+        public void TestRegister3 ()
+        {
             // invalid because IsWrappedNativeType = true but there is not
             // a matching getGType method.
             Assert.That (() => typeof (TestFlags3).GetGType (),
-                         Throws.ArgumentException);
+                Throws.ArgumentException);
+        }
 
+        [Test]
+        public void TestRegister4 ()
+        {
             // this should register successfully
             var testFlags4GType = typeof (TestFlags4).GetGType ();
             Assert.That (testFlags4GType, Is.Not.EqualTo (GType.Invalid),
@@ -38,7 +50,6 @@ namespace GISharp.Core.Test.GObject
             Assert.That ((Type)testFlags4GType, Is.EqualTo (typeof (TestFlags4)));
             Assert.That (testFlags4GType.IsA (GType.Flags), Is.True);
 
-
             // make sure that we set the typename, value name and value nick
             Assert.That (testFlags4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-FlagsTest+TestFlags4"));
             var flags4TypeClass = TypeClass.Get<FlagsClass> (testFlags4GType);
@@ -49,6 +60,11 @@ namespace GISharp.Core.Test.GObject
             var valueNick = MarshalG.Utf8PtrToString (value.ValueNick);
             Assert.That (valueNick, Is.EqualTo ("One"));
 
+        }
+
+        [Test]
+        public void TestRegister5 ()
+        {
             // make sure that we can override name and nick with attributes
             var testFlags5GType = typeof(TestFlags5).GetGType ();
             Assert.That (testFlags5GType.Name, Is.EqualTo ("TestFlags5GTypeName"));
