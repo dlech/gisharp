@@ -197,6 +197,32 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
+        public void TestPropertyComponentModelAttributes ()
+        {
+            // check that ComponentModel attributes map to ParamSpec
+            var baseObj = new TestObjectPropertiesBase ();
+            var baseObjClass = TypeClass.Get<ObjectClass> (baseObj.GetGType ());
+            var basePspec = baseObjClass.FindProperty ("bool-value");
+            Assert.That (basePspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
+            Assert.That (basePspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
+            Assert.That (basePspec.Blurb, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyBlurb));
+            Assert.That (basePspec.DefaultValue.Get (),
+                Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
+
+            // The subclass will inherit the values of the parent class.
+            // If the subclass tries to declare an attribute again, it will
+            // be ignored as is the case with DefaultValueAttribute here.
+            var subObj = new TestObjectPropertiesSubclass ();
+            var subObjClass = TypeClass.Get<ObjectClass> (subObj.GetGType ());
+            var subPspec = subObjClass.FindProperty ("bool-value");
+            Assert.That (subPspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
+            Assert.That (subPspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
+            Assert.That (subPspec.Blurb, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyBlurb));
+            Assert.That (subPspec.DefaultValue.Get (),
+                Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
+        }
+
+        [Test]
         public void TestSignalRegistration ()
         {
             var obj = new TestObjectSignal ();
@@ -240,8 +266,16 @@ namespace GISharp.Core.Test.GObject
             [GISharp.Runtime.Property]
             public int IntValue { get; set; }
 
-            [GISharp.Runtime.Property ("bool-value")]
-            public virtual bool BoolValue { get; set; }
+            public const string BoolValuePropertyName = "bool-value";
+            public const string BoolValuePropertyNick = "Boolean Value";
+            public const string BoolValuePropertyBlurb = "A boolean value for testing stuff.";
+            public const bool BoolValuePropertyDefaultValue = true;
+
+            [GISharp.Runtime.Property (BoolValuePropertyName)]
+            [DisplayName (BoolValuePropertyNick)]
+            [System.ComponentModel.Description (BoolValuePropertyBlurb)]
+            [DefaultValue (BoolValuePropertyDefaultValue)]
+            public virtual bool BoolValue { get; set; } = BoolValuePropertyDefaultValue;
 
             double _DoubleValue;
             [GISharp.Runtime.Property]
@@ -276,7 +310,11 @@ namespace GISharp.Core.Test.GObject
             public new int IntValue { get; set; }
 
             // PropertyAttribute is inherited, so GObject property name will be "bool-value"
-            public override bool BoolValue { get; set; }
+            // ComponentModel attributes are ingnored on overriden properties though,
+            // so setting DefaultValueAttribute here will not have an effect on
+            // the default value as far as the GObject type system is concerned.
+            [DefaultValue (!BoolValuePropertyDefaultValue)]
+            public override bool BoolValue { get; set; } = !BoolValuePropertyDefaultValue;
 
             public TestObjectPropertiesSubclass ()
                 : this (New<TestObjectPropertiesSubclass> (), Transfer.All)
