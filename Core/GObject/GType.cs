@@ -801,9 +801,8 @@ namespace GISharp.GObject
                 var prop = type.GetProperty (pspec.Name);
                 if (prop == null) {
                     prop = type.GetProperties ().SingleOrDefault (p =>
-                        p.GetCustomAttributes (true)
-                        .OfType <PropertyAttribute> ()
-                        .SingleOrDefault ()?.Name == pspec.Name);
+                        ((PropertyAttribute)Attribute.GetCustomAttribute (p,
+                            typeof(PropertyAttribute), true))?.Name == pspec.Name);
                 }
                 if (prop == null) {
                     throw new Exception ("Could not find matchng property.");

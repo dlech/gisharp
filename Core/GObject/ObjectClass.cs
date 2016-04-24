@@ -75,9 +75,7 @@ namespace GISharp.GObject
                 Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
 
             foreach (var propInfo in type.GetProperties ()) {
-                var propAttr = propInfo.GetCustomAttributes (false)
-                    .OfType<PropertyAttribute> ()
-                    .SingleOrDefault ();
+                var propAttr = (PropertyAttribute)Attribute.GetCustomAttribute (propInfo, typeof(PropertyAttribute), true);
 
                 if (propAttr == null) {
                     // properties without PropertyAttribute are not installed

@@ -12,7 +12,7 @@ namespace GISharp.Runtime
     /// When wrapping unmanged types, the <see cref="Name"/> value must be
     /// set to the actual value assigned in unmanaged code.
     /// </remarks>
-    [AttributeUsage (AttributeTargets.Property)]
+    [AttributeUsage (AttributeTargets.Property, Inherited = true)]
     public class PropertyAttribute : Attribute
     {
         /// <summary>

@@ -114,7 +114,7 @@ namespace GISharp.Core.Test.GObject
             Assume.That (obj.IntValue, Is.EqualTo (0));
             var value = new Value (GType.Int);
             value.Set (1);
-            obj.SetProperty ("IntValue", value);
+            obj.SetProperty (nameof (obj.IntValue), value);
             Assert.That (obj.IntValue, Is.EqualTo (1));
         }
 
@@ -148,13 +148,13 @@ namespace GISharp.Core.Test.GObject
             Assume.That (obj.BoolValue, Is.False);
             var value = new Value (GType.Boolean);
             value.Set (true);
-            obj.SetProperty (nameof(obj.BoolValue), value);
+            obj.SetProperty ("bool-value", value);
             Assert.That (obj.BoolValue, Is.True);
 
             Assert.That (((TestObjectPropertiesBase)obj).BoolValue, Is.True);
 
-            var baseBoolValueProp = baseObjClass.FindProperty (nameof(obj.BoolValue));
-            var subclassBoolValueProp = subclassObjClass.FindProperty (nameof(obj.BoolValue));
+            var baseBoolValueProp = baseObjClass.FindProperty ("bool-value");
+            var subclassBoolValueProp = subclassObjClass.FindProperty ("bool-value");
 
             // ...so ParamSpecs should be the same
             Assert.That (baseBoolValueProp.Handle, Is.EqualTo (subclassBoolValueProp.Handle));
@@ -224,7 +224,7 @@ namespace GISharp.Core.Test.GObject
             [GISharp.Runtime.Property]
             public int IntValue { get; set; }
 
-            [GISharp.Runtime.Property]
+            [GISharp.Runtime.Property ("bool-value")]
             public virtual bool BoolValue { get; set; }
 
             double _DoubleValue;
@@ -256,7 +256,7 @@ namespace GISharp.Core.Test.GObject
             [GISharp.Runtime.Property]
             public new int IntValue { get; set; }
 
-            [GISharp.Runtime.Property]
+            // PropertyAttribute is inherited, so GObject property name will be "bool-value"
             public override bool BoolValue { get; set; }
 
             public TestObjectPropertiesSubclass ()
