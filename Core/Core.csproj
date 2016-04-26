@@ -90,6 +90,7 @@
     <Compile Include="GObject\InterfaceInfo.cs" />
     <Compile Include="Runtime\ReflectionExtensions.cs" />
     <Compile Include="Runtime\GTypeStruct.cs" />
+    <Compile Include="Runtime\GTypeStructAttribute.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

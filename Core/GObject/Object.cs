@@ -14,7 +14,8 @@ namespace GISharp.GObject
     /// All the fields in the GObject structure are private
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
-    [GType ("GObject", IsWrappedNativeType = true, GTypeStruct = typeof(ObjectClass))]
+    [GType ("GObject", IsWrappedNativeType = true)]
+    [GTypeStruct (typeof(ObjectClass))]
     public class Object : ReferenceCountedOpaque, INotifyPropertyChanged
     {
         GCHandle toggleRefGCHandle;

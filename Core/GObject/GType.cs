@@ -2574,23 +2574,12 @@ namespace GISharp.GObject
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
             }
-            var gtypeAttr = type.GetCustomAttribute<GTypeAttribute> ();
-            if (gtypeAttr == null) {
-                throw new ArgumentException ($"Type '{type.FullName}' does not have have GTypeAttribute", nameof(type));
-            }
-            var gtypeStructType = gtypeAttr.GTypeStruct;
-            if (gtypeStructType == null) {
-                // search ancestors for GType struct
-                while ((gtypeAttr = type.BaseType?.GetCustomAttribute<GTypeAttribute> ()) != null) {
-                    gtypeStructType = gtypeAttr.GTypeStruct;
-                    if (gtypeStructType != null) {
-                        break;
-                    }
-                    type = type.BaseType;
-                }
-            }
-            if (gtypeStructType == null) {
+
+            Type gtypeStructType;
+            var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute> (true);
+            if (gtypeStructAttr == null) {
                 if (type.IsEnum) {
+                    // GTypeStructAttribute is not needed on Enums/Flags
                     var flagsAttr = type.GetCustomAttribute<FlagsAttribute> ();
                     if (flagsAttr == null) {
                         gtypeStructType = typeof(EnumClass);
@@ -2598,8 +2587,15 @@ namespace GISharp.GObject
                         gtypeStructType = typeof(FlagsClass);
                     }
                 } else {
-                    throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
+                    var message = $"Type '{type.FullName}' does not have have GTypeStructAttribute";
+                    throw new ArgumentException (message, nameof (type));
                 }
+            } else {
+                gtypeStructType = gtypeStructAttr.GTypeStruct;
+            }
+
+            if (gtypeStructType == null) {
+                throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
             }
 
             return gtypeStructType;

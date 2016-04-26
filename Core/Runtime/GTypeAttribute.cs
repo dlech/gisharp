@@ -35,16 +35,6 @@ namespace GISharp.Runtime
         /// </remarks>
         public bool IsWrappedNativeType { get; set; }
 
-        /// <summary>
-        /// The glib type struct that is used to declare this class in unmanaged
-        /// code.
-        /// </summary>
-        /// <remarks>
-        /// This type must be a derivitave of <see cref="GISharp.GObject.TypeClass"/>
-        /// for objects or <see cref="GISharp.GObject.TypeInterface"/> for interfaces.
-        /// </remarks>
-        public Type GTypeStruct { get; set; }
-
         public GTypeAttribute (string name = null)
         {
             Name = name;

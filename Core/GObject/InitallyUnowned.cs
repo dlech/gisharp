@@ -9,7 +9,8 @@ namespace GISharp.GObject
     /// are private to the #GInitiallyUnowned implementation and should never be
     /// accessed directly.
     /// </summary>
-    [GType ("GInitiallyUnowned", IsWrappedNativeType = true, GTypeStruct = typeof(InitiallyUnownedClass))]
+    [GType ("GInitiallyUnowned", IsWrappedNativeType = true)]
+    [GTypeStruct (typeof(InitiallyUnownedClass))]
     public class InitiallyUnowned : Object
     {
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -253,12 +253,15 @@ namespace GISharp.Core.Test.GObject
                 new object [] { dummyTypeName },
                 new [] {
                     gtypeAttribute.GetProperty ("IsWrappedNativeType"),
-                    gtypeAttribute.GetProperty ("GTypeStruct"),
                 },
                 new object [] {
                     true, // IsWrappedNativeType
-                    typeof(TypeClass), 
                 }));
+            var gtypeStructAttribute = typeof(GTypeStructAttribute);
+            typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
+                gtypeStructAttribute.GetConstructors ().Single (),
+                new object[] { typeof(TypeClass) },
+                new FieldInfo[0], new object[0]));
             var getTypeMethod = typeBuilder.DefineMethod ("getGType",
                 MethodAttributes.Private | MethodAttributes.Static);
             getTypeMethod.SetReturnType (typeof(GType));

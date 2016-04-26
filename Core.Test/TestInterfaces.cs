@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 
 namespace GISharp.Core.Test
 {
-    [GType ("GInitable", IsWrappedNativeType = true, GTypeStruct = typeof(InitableIface))]
+    [GType ("GInitable", IsWrappedNativeType = true)]
+    [GTypeStruct (typeof(InitableIface))]
     public interface IInitable
     {
         bool Init (IntPtr cancellable);
@@ -121,7 +122,8 @@ namespace GISharp.Core.Test
         }
     }
 
-    [GType ("GNetworkMonitor", IsWrappedNativeType = true, GTypeStruct = typeof(NetworkMonitorInterface))]
+    [GType ("GNetworkMonitor", IsWrappedNativeType = true)]
+    [GTypeStruct (typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable
     {
         bool CanReach (IntPtr connectable, IntPtr cancellable);
