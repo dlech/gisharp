@@ -295,14 +295,14 @@ namespace GISharp.GObject
     /// The class of an enumeration type holds information about its
     /// possible values.
     /// </summary>
-    class EnumClass : TypeClass
+    public sealed class EnumClass : TypeClass
     {
-        struct EnumClass_
+        struct EnumClassStruct
         {
             /// <summary>
             /// the parent class
             /// </summary>
-            public TypeClass_ GTypeClass;
+            public TypeClassStruct GTypeClass;
 
             /// <summary>
             /// the smallest possible value.
@@ -326,8 +326,14 @@ namespace GISharp.GObject
             public IntPtr Values;
         }
 
-        protected EnumClass (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public override Type StructType {
+            get {
+                return typeof(EnumClassStruct);
+            }
+        }
+
+        public EnumClass (IntPtr handle, bool ownsRef)
+            : base (handle, ownsRef)
         {
         }
     }

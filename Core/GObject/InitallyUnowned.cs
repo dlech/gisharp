@@ -33,7 +33,7 @@ namespace GISharp.GObject
     {
         internal struct InitiallyUnownedClass_
         {
-            public TypeClass_ GTypeClass;
+            public TypeClassStruct GTypeClass;
             public IntPtr ConstructProperties;
             public NativeConstructor Constructor;
             public NativeSetProperty SetProperty;
@@ -65,8 +65,8 @@ namespace GISharp.GObject
             public delegate void NativeConstructed (IntPtr @object);
         }
 
-        InitiallyUnownedClass (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public InitiallyUnownedClass (IntPtr handle, bool ownsRef)
+            : base (handle, ownsRef)
         {
         }
     }

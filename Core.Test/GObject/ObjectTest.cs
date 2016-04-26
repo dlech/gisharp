@@ -138,10 +138,10 @@ namespace GISharp.Core.Test.GObject
 
             Assert.That (((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo (0));
 
-            var baseObjClass = TypeClass.Get<ObjectClass> (typeof(TestObjectPropertiesBase).GetGType ());
+            var baseObjClass = (ObjectClass)TypeClass.Peek (typeof(TestObjectPropertiesBase).GetGType ());
             var baseIntValueProp = baseObjClass.FindProperty (nameof (obj.IntValue));
 
-            var subclassObjClass = TypeClass.Get<ObjectClass> (typeof(TestObjectPropertiesSubclass).GetGType ());
+            var subclassObjClass = (ObjectClass)TypeClass.Peek (typeof(TestObjectPropertiesSubclass).GetGType ());
             var subclassIntValueProp = subclassObjClass.FindProperty (nameof (obj.IntValue));
 
             // ...so ParamSpecs should not be the same
@@ -201,7 +201,7 @@ namespace GISharp.Core.Test.GObject
         {
             // check that ComponentModel attributes map to ParamSpec
             var baseObj = new TestObjectPropertiesBase ();
-            var baseObjClass = TypeClass.Get<ObjectClass> (baseObj.GetGType ());
+            var baseObjClass = (ObjectClass)TypeClass.Peek (baseObj.GetGType ());
             var basePspec = baseObjClass.FindProperty ("bool-value");
             Assert.That (basePspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
             Assert.That (basePspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
@@ -213,7 +213,7 @@ namespace GISharp.Core.Test.GObject
             // If the subclass tries to declare an attribute again, it will
             // be ignored as is the case with DefaultValueAttribute here.
             var subObj = new TestObjectPropertiesSubclass ();
-            var subObjClass = TypeClass.Get<ObjectClass> (subObj.GetGType ());
+            var subObjClass = (ObjectClass)TypeClass.Peek (subObj.GetGType ());
             var subPspec = subObjClass.FindProperty ("bool-value");
             Assert.That (subPspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
             Assert.That (subPspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));

@@ -21,7 +21,7 @@ namespace GISharp.GObject
     {
         struct ObjectClass_
         {
-            public TypeClass.TypeClass_ GTypeClass;
+            public TypeClass.TypeClassStruct GTypeClass;
 
             #pragma warning disable 169
             IntPtr constructProperties;
@@ -299,7 +299,6 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec FindProperty (String propertyName)
         {
-            AssertNotDisposed ();
             if (propertyName == null) {
                 throw new ArgumentNullException ("propertyName");
             }
@@ -472,7 +471,6 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public void InstallProperties (ParamSpec[] pspecs)
         {
-            AssertNotDisposed ();
             if (pspecs == null) {
                 throw new ArgumentNullException ("pspecs");
             }
@@ -539,7 +537,6 @@ namespace GISharp.GObject
         /// </param>
         public void InstallProperty (UInt32 propertyId, ParamSpec pspec)
         {
-            AssertNotDisposed ();
             if (pspec == null) {
                 throw new ArgumentNullException (nameof (pspec));
             }
@@ -582,7 +579,6 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec[] ListProperties ()
         {
-            AssertNotDisposed ();
             UInt32 nProperties_;
             var ret_ = g_object_class_list_properties (Handle, out nProperties_);
             var ret = MarshalG.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
@@ -633,8 +629,8 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr name);
 
-        protected ObjectClass (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public ObjectClass (IntPtr handle, bool ownsRef)
+            : base (handle, ownsRef)
         {
         }
     }

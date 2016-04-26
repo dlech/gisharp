@@ -32,7 +32,7 @@ namespace GISharp.GObject
             /// <summary>
             /// private GTypeInstance portion
             /// </summary>
-            public TypeInstance.TypeInstance_ GTypeInstance;
+            public TypeInstance.TypeInstanceStruct GTypeInstance;
 
             /// <summary>
             /// name of this parameter: always an interned string

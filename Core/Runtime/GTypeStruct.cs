@@ -47,6 +47,7 @@ namespace GISharp.Runtime
         public void Dispose ()
         {
             Dispose (true, ownsRef);
+            GC.SuppressFinalize (this);
         }
 
         protected abstract void Dispose (bool disposing, bool ownsRef);
@@ -60,6 +61,9 @@ namespace GISharp.Runtime
 
         public static GTypeStruct CreateInstance (IntPtr handle, bool ownsRef)
         {
+            if (handle == IntPtr.Zero) {
+                return null;
+            }
             var gtype = new GType (Marshal.ReadIntPtr (handle));
             var type = gtype.GetGTypeStruct ();
             var ret = Activator.CreateInstance (type, new object[] { handle, ownsRef }, null);

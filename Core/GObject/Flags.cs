@@ -231,14 +231,14 @@ namespace GISharp.GObject
     /// The class of a flags type holds information about its
     /// possible values.
     /// </summary>
-    class FlagsClass : TypeClass
+    public sealed class FlagsClass : TypeClass
     {
-        struct FlagsClass_
+        struct FlagsClassStruct
         {
             /// <summary>
             /// the parent class
             /// </summary>
-            public TypeClass_ GTypeClass;
+            public TypeClassStruct GTypeClass;
 
             /// <summary>
             /// a mask covering all possible values.
@@ -257,8 +257,14 @@ namespace GISharp.GObject
             public IntPtr Values;
         }
 
-        protected FlagsClass (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public override Type StructType {
+            get {
+                return typeof(FlagsClassStruct);
+            }
+        }
+
+        public FlagsClass (IntPtr handle, bool ownsRef)
+            : base (handle, ownsRef)
         {
         }
     }

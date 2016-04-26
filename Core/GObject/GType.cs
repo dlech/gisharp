@@ -26,7 +26,7 @@ namespace GISharp.GObject
         static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
 
-        #pragma warning disable 169
+#pragma warning disable 169
         // There is an unfortunate bug that g_type_add_interface_static() will
         // fail to install properties because class_init of GObject has not
         // been run yet to create the param spec pool.
@@ -38,8 +38,8 @@ namespace GISharp.GObject
         //
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
-        static readonly IntPtr eternalObject = GObject.Object.g_object_newv(Object, 0, IntPtr.Zero);
-        #pragma warning restore 169
+        static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
+#pragma warning restore 169
 
         static GType ()
         {
@@ -764,15 +764,15 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (name));
             }
             if (name.Length < 3) {
-                var message = string.Format ($"The name '{name}' is too short.", nameof (name)); 
+                var message = string.Format ($"The name '{name}' is too short.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name[0].ToString (), "[^A-Za-z_]")) {
-                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name)); 
+                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name, "[^0-9A-Za-z_\\-\\+]")) {
-                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name)); 
+                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name));
                 throw new InvalidGTypeNameException (message);
             }
         }
@@ -807,7 +807,9 @@ namespace GISharp.GObject
 
         static void MapPropertyInfo (GType gtype, Type type)
         {
-            var objClass = TypeClass.Get<ObjectClass> (gtype);
+            // type registration has not been completed here, so have to use
+            // pinvoke directly
+            var objClass = new ObjectClass (TypeClass.g_type_class_ref (gtype), true);
 
             foreach (var pspec in objClass.ListProperties ()) {
                 var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
@@ -877,7 +879,6 @@ namespace GISharp.GObject
 
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);
-
                     return gtype;
                 }
 
@@ -2579,7 +2580,26 @@ namespace GISharp.GObject
             }
             var gtypeStructType = gtypeAttr.GTypeStruct;
             if (gtypeStructType == null) {
-                throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
+                // search ancestors for GType struct
+                while ((gtypeAttr = type.BaseType?.GetCustomAttribute<GTypeAttribute> ()) != null) {
+                    gtypeStructType = gtypeAttr.GTypeStruct;
+                    if (gtypeStructType != null) {
+                        break;
+                    }
+                    type = type.BaseType;
+                }
+            }
+            if (gtypeStructType == null) {
+                if (type.IsEnum) {
+                    var flagsAttr = type.GetCustomAttribute<FlagsAttribute> ();
+                    if (flagsAttr == null) {
+                        gtypeStructType = typeof(EnumClass);
+                    } else {
+                        gtypeStructType = typeof(FlagsClass);
+                    }
+                } else {
+                    throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
+                }
             }
 
             return gtypeStructType;

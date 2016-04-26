@@ -8,11 +8,17 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all type instances.
     /// </summary>
-    class TypeInstance : StaticOpaque
+    class TypeInstance : GTypeStruct
     {
-        internal struct TypeInstance_
+        internal protected struct TypeInstanceStruct
         {
-            public TypeClass.TypeClass_ GClass;
+            public TypeClass.TypeClassStruct GClass;
+        }
+
+        public override Type StructType {
+            get {
+                return typeof(TypeInstanceStruct);
+            }
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -28,12 +34,15 @@ namespace GISharp.GObject
 
         public IntPtr GetPrivate (GType privateType)
         {
-            AssertNotDisposed();
-            var ret = g_type_instance_get_private(Handle, privateType);
+            var ret = g_type_instance_get_private (Handle, privateType);
             return ret;
         }
 
-        TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        protected override void Dispose (bool disposing, bool ownsRef)
+        {
+        }
+
+        public TypeInstance (IntPtr handle, bool ownsRef) : base (handle, ownsRef)
         {
         }
     }

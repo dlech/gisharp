@@ -14,7 +14,7 @@ namespace GISharp.Core.Test.GObject
         {
             // invalid because it does not have [GType] attribute.
             var testFlags1GType = typeof(TestFlags1).GetGType ();
-            Assert.That (() => TypeClass.Get<FlagsClass> (testFlags1GType),
+            Assert.That (() => (FlagsClass)TypeClass.Ref (testFlags1GType),
                 Throws.InvalidOperationException);
         }
 
@@ -52,7 +52,7 @@ namespace GISharp.Core.Test.GObject
 
             // make sure that we set the typename, value name and value nick
             Assert.That (testFlags4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-FlagsTest+TestFlags4"));
-            var flags4TypeClass = TypeClass.Get<FlagsClass> (testFlags4GType);
+            var flags4TypeClass = (FlagsClass)TypeClass.Ref (testFlags4GType);
             var value = Flags.GetFirstValue (flags4TypeClass, 1);
             Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));
             var valueName = MarshalG.Utf8PtrToString (value.ValueName);
@@ -68,7 +68,7 @@ namespace GISharp.Core.Test.GObject
             // make sure that we can override name and nick with attributes
             var testFlags5GType = typeof(TestFlags5).GetGType ();
             Assert.That (testFlags5GType.Name, Is.EqualTo ("TestFlags5GTypeName"));
-            var flags5TypeClass = TypeClass.Get<FlagsClass> (testFlags5GType);
+            var flags5TypeClass = (FlagsClass)TypeClass.Ref (testFlags5GType);
             var value1 = Flags.GetFirstValue (flags5TypeClass, 1);
             Assert.That (value1.Value, Is.EqualTo ((int)TestFlags5.One));
             var value1Name = MarshalG.Utf8PtrToString (value1.ValueName);

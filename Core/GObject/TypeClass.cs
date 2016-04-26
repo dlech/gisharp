@@ -8,17 +8,171 @@ namespace GISharp.GObject
     /// An opaque structure used as the base of all classes.
     /// </summary>
     // TODO: this should be internal
-    public class TypeClass : ReferenceCountedOpaque
+    public class TypeClass : GTypeStruct
     {
-        internal struct TypeClass_
+        internal protected struct TypeClassStruct
         {
             public GType GType;
+        }
+
+        public override Type StructType {
+            get {
+                return typeof(TypeClassStruct);
+            }
         }
 
         public GType GType {
             get {
                 return new GType (Marshal.ReadIntPtr (Handle));
             }
+        }
+
+        /// <summary>
+        /// This function is essentially the same as g_type_class_ref(), except
+        /// that the classes reference count isn't incremented. As a consequence,
+        /// this function may return NULL if the class of the type passed in does
+        ///  not currently exist (hasn't been referenced before).
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the GTypeClass structure for the given type ID or NULL if the class
+        /// does not currently exist.
+        /// </returns>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_peek (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type);
+
+        /// <summary>
+        /// This function is essentially the same as g_type_class_ref(), except
+        /// that the classes reference count isn't incremented. As a consequence,
+        /// this function may return NULL if the class of the type passed in does
+        ///  not currently exist (hasn't been referenced before).
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the GTypeClass structure for the given type ID or NULL if the class
+        /// does not currently exist.
+        /// </returns>
+        public static TypeClass Peek (GType type)
+        {
+            var ret_ = g_type_class_peek (type);
+            var ret = (TypeClass)CreateInstance (ret_, false);
+            return ret;
+        }
+
+        /// <summary>
+        /// This is a convenience function often needed in class initializers.
+        /// It returns the class structure of the immediate parent type of the
+        /// class passed in.  Since derived classes hold a reference count on
+        /// their parent classes as long as they are instantiated, the returned
+        /// class will always exist.
+        /// </summary>
+        /// <remarks>
+        /// This function is essentially equivalent to:
+        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+        /// </remarks>
+        /// <param name="gClass">
+        /// the #GTypeClass structure to retrieve the parent class for
+        /// </param>
+        /// <returns>
+        /// the parent class of @g_class
+        /// </returns>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_class_peek_parent (
+            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        /// <summary>
+        /// This is a convenience function often needed in class initializers.
+        /// It returns the class structure of the immediate parent type of the
+        /// class passed in.  Since derived classes hold a reference count on
+        /// their parent classes as long as they are instantiated, the returned
+        /// class will always exist.
+        /// </summary>
+        /// <remarks>
+        /// This function is essentially equivalent to:
+        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+        /// </remarks>
+        /// <returns>
+        /// the parent class of this class
+        /// </returns>
+        public TypeClass PeekParent ()
+        {
+            var ret_ = g_type_class_peek_parent (Handle);
+            var ret = (TypeClass)CreateInstance (ret_, false);
+            return ret;
+        }
+
+        /// <summary>
+        /// Increments the reference count of the class structure belonging to
+        /// @type. This function will demand-create the class if it doesn't
+        /// exist already.
+        /// </summary>
+        /// <param name="type">
+        /// type ID of a classed type
+        /// </param>
+        /// <returns>
+        /// the #GTypeClass
+        ///     structure for the given type ID
+        /// </returns>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+        /* transfer-ownership:none */
+        internal static extern IntPtr g_type_class_ref (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type);
+
+
+        public static TypeClass Ref (GType type)
+        {
+            if (type.IsA (GType.Boxed)) {
+                throw new InvalidOperationException ("Cannot get type class for boxed types");
+            }
+            var handle = g_type_class_ref (type);
+            var ret = (TypeClass)CreateInstance (handle, true);
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Decrements the reference count of the class structure being passed in.
+        /// Once the last reference count of a class has been released, classes
+        /// may be finalized by the type system, so further dereferencing of a
+        /// class pointer after g_type_class_unref() are invalid.
+        /// </summary>
+        /// <param name="gClass">
+        /// a #GTypeClass structure to unref
+        /// </param>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_class_unref (
+            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
+
+        protected override void Dispose (bool disposing, bool ownsRef)
+        {
+            if (ownsRef) {
+                g_type_class_unref (Handle);
+            }
+        }
+
+        public TypeClass (IntPtr handle, bool ownsRef)
+            : base (handle, ownsRef)
+        {
         }
 
 #if THIS_CODE_IS_NOT_COMPILED
@@ -98,12 +252,12 @@ namespace GISharp.GObject
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_add_private (
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr gClass,
-        /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
-        /* transfer-ownership:none */
-        UInt64 privateSize);
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass,
+            /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
+            /* transfer-ownership:none */
+            UInt64 privateSize);
 
         /// <summary>
         /// Registers a private structure for an instantiatable type.
@@ -179,23 +333,23 @@ namespace GISharp.GObject
         [SinceAttribute ("2.4")]
         public static void AddPrivate (IntPtr gClass, UInt64 privateSize)
         {
-        g_type_class_add_private (gClass, privateSize);
+            g_type_class_add_private (gClass, privateSize);
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_adjust_private_offset (
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr gClass,
-        /* <type name="gint" type="gint*" managed-name="Gint" /> */
-        /* transfer-ownership:none */
-        Int32 privateSizeOrOffset);
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass,
+            /* <type name="gint" type="gint*" managed-name="Gint" /> */
+            /* transfer-ownership:none */
+            Int32 privateSizeOrOffset);
 
         public static void AdjustPrivateOffset (IntPtr gClass, Int32 privateSizeOrOffset)
         {
-        g_type_class_adjust_private_offset (gClass, privateSizeOrOffset);
+            g_type_class_adjust_private_offset (gClass, privateSizeOrOffset);
         }
 
         /// <summary>
@@ -220,9 +374,9 @@ namespace GISharp.GObject
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern Int32 g_type_class_get_instance_private_offset (
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr gClass);
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr gClass);
 
         /// <summary>
         /// Gets the offset of the private data for instances of @g_class.
@@ -244,186 +398,25 @@ namespace GISharp.GObject
         [SinceAttribute ("2.38")]
         public static Int32 GetInstancePrivateOffset (IntPtr gClass)
         {
-        var ret = g_type_class_get_instance_private_offset (gClass);
-        return ret;
-        }
-#endif
-
-        public static T Get<T> (GType type) where T : TypeClass
-        {
-            if (type.IsA (GType.Boxed)) {
-                throw new InvalidOperationException ("Cannot get type class for boxed types");
-            }
-            var handle = g_type_class_ref (type);
-            var ret =  Opaque.GetInstance<T> (handle, Transfer.All);
+            var ret = g_type_class_get_instance_private_offset (gClass);
             return ret;
         }
 
-#if THIS_CODE_IS_NOT_COMPILED
-        /// <summary>
-        /// A more efficient version of g_type_class_peek() which works only for
-        /// static types.
-        /// </summary>
-        /// <param name="type">
-        /// type ID of a classed type
-        /// </param>
-        /// <returns>
-        /// the #GTypeClass
-        ///     structure for the given type ID or %NULL if the class does not
-        ///     currently exist or is dynamically loaded
-        /// </returns>
-        [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_class_peek_static (
-        /* <type name="GType" type="GType" managed-name="GType" /> */
-        /* transfer-ownership:none */
-        GType type);
-
-        /// <summary>
-        /// A more efficient version of g_type_class_peek() which works only for
-        /// static types.
-        /// </summary>
-        /// <param name="type">
-        /// type ID of a classed type
-        /// </param>
-        /// <returns>
-        /// the #GTypeClass
-        ///     structure for the given type ID or %NULL if the class does not
-        ///     currently exist or is dynamically loaded
-        /// </returns>
-        [SinceAttribute ("2.4")]
-        public static TypeClass PeekStatic (GType type)
-        {
-        var ret_ = g_type_class_peek_static (type);
-        var ret = Opaque.GetInstance<TypeClass> (ret_, Transfer.None);
-        return ret;
-        }
-#endif
-
-        /// <summary>
-        /// Increments the reference count of the class structure belonging to
-        /// @type. This function will demand-create the class if it doesn't
-        /// exist already.
-        /// </summary>
-        /// <param name="type">
-        /// type ID of a classed type
-        /// </param>
-        /// <returns>
-        /// the #GTypeClass
-        ///     structure for the given type ID
-        /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_class_ref (
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type);
-
-        internal protected override void Ref ()
-        {
-            g_type_class_ref (GType);
-        }
-
-#if THIS_CODE_IS_NOT_COMPILED
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* */
         static extern IntPtr g_type_class_get_private (
-        /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        IntPtr klass,
-        /* <type name="GType" type="GType" managed-name="GType" /> */
-        /* transfer-ownership:none */
-        GType privateType);
+            /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
+            /* transfer-ownership:none */
+            IntPtr klass,
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType privateType);
 
         public IntPtr GetPrivate (GType privateType)
         {
-        AssertNotDisposed ();
-        var ret = g_type_class_get_private (Handle, privateType);
-        return ret;
-        }
-
-        /// <summary>
-        /// This is a convenience function often needed in class initializers.
-        /// It returns the class structure of the immediate parent type of the
-        /// class passed in.  Since derived classes hold a reference count on
-        /// their parent classes as long as they are instantiated, the returned
-        /// class will always exist.
-        /// </summary>
-        /// <remarks>
-        /// This function is essentially equivalent to:
-        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
-        /// </remarks>
-        /// <param name="gClass">
-        /// the #GTypeClass structure to
-        ///     retrieve the parent class for
-        /// </param>
-        /// <returns>
-        /// the parent class
-        ///     of @g_class
-        /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_class_peek_parent (
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        IntPtr gClass);
-
-        /// <summary>
-        /// This is a convenience function often needed in class initializers.
-        /// It returns the class structure of the immediate parent type of the
-        /// class passed in.  Since derived classes hold a reference count on
-        /// their parent classes as long as they are instantiated, the returned
-        /// class will always exist.
-        /// </summary>
-        /// <remarks>
-        /// This function is essentially equivalent to:
-        /// g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
-        /// </remarks>
-        /// <returns>
-        /// the parent class
-        ///     of @g_class
-        /// </returns>
-        public TypeClass PeekParent ()
-        {
-        AssertNotDisposed ();
-        var ret_ = g_type_class_peek_parent (Handle);
-        var ret = Opaque.GetInstance<TypeClass> (ret_, Transfer.None);
-        return ret;
-        }
-#endif
-
-        /// <summary>
-        /// Decrements the reference count of the class structure being passed in.
-        /// Once the last reference count of a class has been released, classes
-        /// may be finalized by the type system, so further dereferencing of a
-        /// class pointer after g_type_class_unref() are invalid.
-        /// </summary>
-        /// <param name="gClass">
-        /// a #GTypeClass structure to unref
-        /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_class_unref (
-            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-            /* transfer-ownership:none */
-            IntPtr gClass);
-
-        /// <summary>
-        /// Decrements the reference count of the class structure being passed in.
-        /// Once the last reference count of a class has been released, classes
-        /// may be finalized by the type system, so further dereferencing of a
-        /// class pointer after g_type_class_unref() are invalid.
-        /// </summary>
-        protected internal override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_type_class_unref (Handle);
+            var ret = g_type_class_get_private (Handle, privateType);
+            return ret;
         }
 
         /// <summary>
@@ -451,13 +444,8 @@ namespace GISharp.GObject
         /// </summary>
         public void UnrefUncached ()
         {
-            AssertNotDisposed ();
             g_type_class_unref_uncached (Handle);
         }
-
-        protected TypeClass (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
+#endif
     }
 }

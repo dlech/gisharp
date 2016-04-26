@@ -14,7 +14,7 @@ namespace GISharp.Core.Test.GObject
         {
             // invalid because it does not have [GType] attribute.
             var testEnum1GType = typeof(TestEnum1).GetGType ();
-            Assert.That (() => TypeClass.Get<EnumClass> (testEnum1GType),
+            Assert.That (() => (EnumClass)TypeClass.Ref (testEnum1GType),
                 Throws.InvalidOperationException);
         }
 
@@ -52,7 +52,7 @@ namespace GISharp.Core.Test.GObject
 
             // make sure that we set the typename, value name and value nick
             Assert.That (testEnum4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-EnumTest+TestEnum4"));
-            var enum4TypeClass = TypeClass.Get<EnumClass> (testEnum4GType);
+            var enum4TypeClass = (EnumClass)TypeClass.Ref (testEnum4GType);
             var value = GISharp.GObject.Enum.GetValue (enum4TypeClass, 1);
             Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
             var valueName = MarshalG.Utf8PtrToString (value.ValueName);
@@ -68,7 +68,7 @@ namespace GISharp.Core.Test.GObject
             // make sure that we can override name and nick with attributes
             var testEnum5GType = typeof(TestEnum5).GetGType ();
             Assert.That (testEnum5GType.Name, Is.EqualTo ("TestEnum5GTypeName"));
-            var enum5TypeClass = TypeClass.Get<EnumClass> (testEnum5GType);
+            var enum5TypeClass = (EnumClass)TypeClass.Ref (testEnum5GType);
             var value1 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 1);
             Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));
             var value1Name = MarshalG.Utf8PtrToString (value1.ValueName);

@@ -184,7 +184,7 @@ namespace GISharp.GObject
                     var message = string.Format ("Expecting string at index {0}", i);
                     throw new ArgumentException (message, nameof (parameters));
                 }
-                var objClass = TypeClass.Get<ObjectClass> (gtype);
+                var objClass = (ObjectClass)TypeClass.Peek (gtype);
                 var paramSpec = objClass.FindProperty (name);
                 if (paramSpec == null) {
                     var message = string.Format ("Could not find property '{0}'", name);
