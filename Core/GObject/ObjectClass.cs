@@ -74,7 +74,8 @@ namespace GISharp.GObject
             // not finished. So, we get the GType this way instead.
             var gtype = new GType (Marshal.ReadIntPtr (classPtr));
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
-            uint propId = 1; // propId 0 is used internally, so we start with 1
+
+            // Install Properties
 
             Marshal.WriteIntPtr (classPtr,
                 (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.SetProperty)),
@@ -83,22 +84,18 @@ namespace GISharp.GObject
                 (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.GetProperty)),
                 Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
 
+            uint propId = 1; // propId 0 is used internally, so we start with 1
             foreach (var propInfo in type.GetProperties ()) {
                 if (propInfo.DeclaringType != type) {
-                    // only register properties declared in this type
+                    // only register properties declared in this type or in interfaces
                     continue;
                 }
 
-                var propAttr = (PropertyAttribute)Attribute.GetCustomAttribute (propInfo,
-                    typeof(PropertyAttribute), true);
-
-                if (propAttr == null) {
-                    // properties without PropertyAttribute are not installed
+                var name = propInfo.TryGetGTypePropertyName ();
+                if (name == null) {
+                    // this property is not to be registered with the GObject type system
                     continue;
                 }
-                // TODO: convert propInfo.Name to a more glib friendly name?
-                // e.g. "MyProperty" becomes "my-property"
-                var name = propAttr.Name ?? propInfo.Name;
                 var nick = ((DisplayNameAttribute)Attribute
                     .GetCustomAttribute (propInfo, typeof(DisplayNameAttribute), true))
                     ?.DisplayName ?? name;
@@ -191,7 +188,7 @@ namespace GISharp.GObject
                 }
 
                 var methodInfo = propInfo.GetAccessors ().First ();
-                if (methodInfo.GetBaseDefinition () != methodInfo) {
+                if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
                     // if this type did not declare the property, the we know
                     // we are overriding a property from a base class or interface
                     g_object_class_override_property (classPtr, propId, MarshalG.StringToUtf8Ptr (name));

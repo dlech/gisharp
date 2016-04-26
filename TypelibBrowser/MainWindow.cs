@@ -148,13 +148,23 @@ namespace GISharp.TypelibBrowser
             var typeInfoProperty = obj.GetType ().GetProperty ("TypeInfo") ??
                 obj.GetType ().GetProperty ("ReturnTypeInfo");
             if (typeInfoProperty?.PropertyType == typeof(GI.TypeInfo)) {
-                var typeInfo = typeInfoProperty.GetValue (obj);
+                var typeInfo = (GI.TypeInfo)typeInfoProperty.GetValue (obj);
 
                 var typeInfoLabel = createLabel (typeInfo);
                 typeInfoVbox.PackStart (typeInfoLabel, false, false, 12);
 
                 var typeInfoPropertyTable = createPropertyTable (typeInfo);
                 typeInfoVbox.PackStart (typeInfoPropertyTable, false, false, 12);
+
+                if (typeInfo.ArrayType != GI.ArrayType.None) {
+                    var arrayTypeInfo = typeInfo.GetParamType (0);
+
+                    var arrayTypeInfoLabel = createLabel (arrayTypeInfo);
+                    typeInfoVbox.PackStart (arrayTypeInfoLabel, false, false, 12);
+
+                    var arrayTypeInfoPropertyTable = createPropertyTable (arrayTypeInfo);
+                    typeInfoVbox.PackStart (arrayTypeInfoPropertyTable, false, false, 12);
+                }
             }
 
             var registeredTypeInfo = obj as GI.RegisteredTypeInfo;

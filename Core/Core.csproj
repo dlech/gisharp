@@ -86,6 +86,10 @@
     <Compile Include="GObject\SignalMatchType.cs" />
     <Compile Include="GObject\SignalCMarshaller.cs" />
     <Compile Include="GObject\Boxed.cs" />
+    <Compile Include="GObject\TypeInterface.cs" />
+    <Compile Include="GObject\InterfaceInfo.cs" />
+    <Compile Include="Runtime\ReflectionExtensions.cs" />
+    <Compile Include="Runtime\GTypeStruct.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

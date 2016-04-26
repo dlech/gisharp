@@ -14,7 +14,7 @@ namespace GISharp.GObject
     /// All the fields in the GObject structure are private
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
-    [GType(Name = "GObject", IsWrappedNativeType = true)]
+    [GType ("GObject", IsWrappedNativeType = true, GTypeStruct = typeof(ObjectClass))]
     public class Object : ReferenceCountedOpaque, INotifyPropertyChanged
     {
         GCHandle toggleRefGCHandle;
@@ -161,7 +161,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_object_newv (
+        internal static extern IntPtr g_object_newv (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType objectType,
@@ -833,22 +833,21 @@ namespace GISharp.GObject
         /// <param name="propertyName">
         /// the name of the property to get
         /// </param>
-        /// <param name="value">
-        /// return location for the property value
-        /// </param>
-        public void GetProperty (string propertyName, Value value)
+        /// <returns>
+        /// the property value
+        /// </returns>
+        public Value GetProperty (string propertyName, GType type)
         {
             AssertNotDisposed ();
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
+            var value = new Value (type);
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
-            var value_ = value == null ? IntPtr.Zero : value.Handle;
-            g_object_get_property (Handle, propertyName_, value_);
+            g_object_get_property (Handle, propertyName_, value.Handle);
             MarshalG.Free (propertyName_);
+
+            return value;
         }
 
         /// <summary>

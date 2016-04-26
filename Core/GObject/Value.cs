@@ -12,7 +12,7 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used to hold different types of values.
     /// </summary>
-    [GType (Name = "GValue", IsWrappedNativeType = true)]
+    [GType ("GValue", IsWrappedNativeType = true)]
     [DebuggerDisplay ("{ToString ()}")]
     public sealed class Value : OwnedOpaque
     {
@@ -223,6 +223,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (bool value)
+        {
+            return new Value (GType.Boolean, value);
+        }
+
         public static explicit operator sbyte (Value value)
         {
             value.AssertNotDisposed ();
@@ -231,6 +236,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to sbyte", ex);
             }
+        }
+
+        public static explicit operator Value (sbyte value)
+        {
+            return new Value (GType.Char, value);
         }
 
         public static explicit operator byte (Value value)
@@ -243,6 +253,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (byte value)
+        {
+            return new Value (GType.UChar, value);
+        }
+
         public static explicit operator int (Value value)
         {
             value.AssertNotDisposed ();
@@ -251,6 +266,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to int", ex);
             }
+        }
+
+        public static explicit operator Value (int value)
+        {
+            return new Value (GType.Int, value);
         }
 
         public static explicit operator uint (Value value)
@@ -263,6 +283,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (uint value)
+        {
+            return new Value (GType.UInt, value);
+        }
+
         public static explicit operator long (Value value)
         {
             value.AssertNotDisposed ();
@@ -271,6 +296,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to long", ex);
             }
+        }
+
+        public static explicit operator Value (long value)
+        {
+            return new Value (GType.Int64, value);
         }
 
         public static explicit operator ulong (Value value)
@@ -283,6 +313,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (ulong value)
+        {
+            return new Value (GType.UInt64, value);
+        }
+
         public static explicit operator nlong (Value value)
         {
             value.AssertNotDisposed ();
@@ -291,6 +326,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to nlong", ex);
             }
+        }
+
+        public static explicit operator Value (nlong value)
+        {
+            return new Value (GType.Long, value);
         }
 
         public static explicit operator nulong (Value value)
@@ -303,6 +343,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (nulong value)
+        {
+            return new Value (GType.ULong, value);
+        }
+
         public static explicit operator float (Value value)
         {
             value.AssertNotDisposed ();
@@ -311,6 +356,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to float", ex);
             }
+        }
+
+        public static explicit operator Value (float value)
+        {
+            return new Value (GType.Float, value);
         }
 
         public static explicit operator double (Value value)
@@ -323,6 +373,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (double value)
+        {
+            return new Value (GType.Double, value);
+        }
+
         public static explicit operator IntPtr (Value value)
         {
             value.AssertNotDisposed ();
@@ -331,6 +386,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to IntPtr", ex);
             }
+        }
+
+        public static explicit operator Value (IntPtr value)
+        {
+            return new Value (GType.Pointer, value);
         }
 
         public static explicit operator Object (Value value)
@@ -343,6 +403,11 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (Object value)
+        {
+            return new Value (GType.Object, value);
+        }
+
         public static explicit operator string (Value value)
         {
             value.AssertNotDisposed ();
@@ -351,6 +416,11 @@ namespace GISharp.GObject
             } catch (Exception ex) {
                 throw new InvalidCastException ("Cannot cast to string", ex);
             }
+        }
+
+        public static explicit operator Value (string value)
+        {
+            return new Value (GType.String, value);
         }
 
         public static explicit operator GType (Value value)
@@ -363,6 +433,10 @@ namespace GISharp.GObject
             }
         }
 
+        public static explicit operator Value (GType value)
+        {
+            return new Value (GType.Type, value);
+        }
 
         /// <summary>
         /// Registers a value transformation function for use in g_value_transform().
@@ -1510,12 +1584,10 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        public Value Init (GType gType)
+        public void Init (GType gType)
         {
             AssertNotDisposed ();
-            var ret_ = g_value_init (Handle, gType);
-            var ret = Opaque.GetInstance<Value> (ret_, Transfer.None);
-            return ret;
+            g_value_init (Handle, gType);
         }
 
         /// <summary>
@@ -2718,6 +2790,13 @@ namespace GISharp.GObject
                 Unset ();
             }
             MarshalG.Free (Handle);
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_value_get_type ();
+
+        static GType getGType () {
+            return g_value_get_type ();
         }
 
         Value (IntPtr handle, Transfer ownership) : base (handle, ownership)

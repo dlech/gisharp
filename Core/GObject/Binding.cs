@@ -85,7 +85,7 @@ namespace GISharp.GObject
     /// #GBinding is available since GObject 2.26
     /// </remarks>
     [Since ("2.26")]
-    [GType (Name = "GBinding", IsWrappedNativeType = true)]
+    [GType ("GBinding", IsWrappedNativeType = true)]
     public sealed class Binding : Object
     {
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]

@@ -125,7 +125,7 @@ namespace GISharp.Core.Test.GObject
 
         // This type will be regiseted with the GObject type system
         // It has attributes set to check that we can override the default names
-        [Flags, GType (Name = "TestFlags5GTypeName")]
+        [Flags, GType ("TestFlags5GTypeName")]
         public enum TestFlags5
         {
             [EnumValue ("test_flags_5_value_one")]

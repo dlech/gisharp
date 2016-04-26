@@ -15,7 +15,7 @@ namespace GISharp.GObject
             public GType GType;
         }
 
-        public GType ClassGType {
+        public GType GType {
             get {
                 return new GType (Marshal.ReadIntPtr (Handle));
             }
@@ -324,8 +324,7 @@ namespace GISharp.GObject
 
         internal protected override void Ref ()
         {
-            var gtype = GType.FromClass (this);
-            g_type_class_ref (gtype);
+            g_type_class_ref (GType);
         }
 
 #if THIS_CODE_IS_NOT_COMPILED

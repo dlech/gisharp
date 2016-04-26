@@ -181,21 +181,6 @@ namespace GISharp.GObject
         IntPtr gClass);
 
     /// <summary>
-    /// A callback function used by the type system to finalize an interface.
-    /// This function should destroy any internal data and release any resources
-    /// allocated by the corresponding GInterfaceInitFunc() function.
-    /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeInterfaceFinalizeFunc (
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr gIface,
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr ifaceData);
-
-
-    /// <summary>
     /// A simple function pointer to get invoked when the signal is emitted. This
     /// allows you to tie a hook to the signal type, so that it will trap all
     /// emissions of that signal, from any object.

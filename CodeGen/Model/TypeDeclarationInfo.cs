@@ -113,10 +113,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<AttributeListSyntax> GetTypeDeclarationAttributeLists ()
         {
             if (IsGType) {
-                var nameArgument = string.Format (
-                    "{0} = \"{1}\"",
-                    nameof (GISharp.Runtime.GTypeAttribute.Name),
-                    GTypeName);
+                var nameArgument = string.Format ("\"{0}\"", GTypeName);
                 var registerArgument = string.Format (
                     "{0} = true",
                     nameof (GISharp.Runtime.GTypeAttribute.IsWrappedNativeType));

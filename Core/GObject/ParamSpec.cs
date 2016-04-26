@@ -21,8 +21,8 @@ namespace GISharp.GObject
     /// The result of this replacement is called the canonical name of
     /// the parameter.
     /// </remarks>
-    [GType (Name = "GParam", IsWrappedNativeType = true)]
-    public abstract class ParamSpec : ReferenceCountedOpaque
+    [GType ("GParam", IsWrappedNativeType = true)]
+    public class ParamSpec : ReferenceCountedOpaque
     {
         /// <summary>
         /// All other fields of the GParamSpec struct are private and should not be used directly.
@@ -548,7 +548,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for boolean properties.
     /// </summary>
-    [GType (Name = "GParamBoolean", IsWrappedNativeType = true)]
+    [GType ("GParamBoolean", IsWrappedNativeType = true)]
     sealed class ParamSpecBoolean : ParamSpec
     {
         ParamSpecBoolean (IntPtr handle, Transfer ownership)
@@ -594,7 +594,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for boxed properties.
     /// </summary>
-    [GType (Name = "GParamBoxed", IsWrappedNativeType = true)]
+    [GType ("GParamBoxed", IsWrappedNativeType = true)]
     sealed class ParamSpecBoxed : ParamSpec
     {
         ParamSpecBoxed (IntPtr handle, Transfer ownership)
@@ -644,7 +644,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType (Name = "GParamChar", IsWrappedNativeType = true)]
+    [GType ("GParamChar", IsWrappedNativeType = true)]
     sealed class ParamSpecChar : ParamSpec
     {
         ParamSpecChar (IntPtr handle, Transfer ownership)
@@ -693,7 +693,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType (Name = "GParamUChar", IsWrappedNativeType = true)]
+    [GType ("GParamUChar", IsWrappedNativeType = true)]
     sealed class ParamSpecUChar : ParamSpec
     {
         ParamSpecUChar (IntPtr handle, Transfer ownership)
@@ -742,7 +742,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for double properties.
     /// </summary>
-    [GType (Name = "GParamDouble", IsWrappedNativeType = true)]
+    [GType ("GParamDouble", IsWrappedNativeType = true)]
     sealed class ParamSpecDouble : ParamSpec
     {
         ParamSpecDouble (IntPtr handle, Transfer ownership)
@@ -792,7 +792,7 @@ namespace GISharp.GObject
     /// A #GParamSpec derived structure that contains the meta data for enum
     /// properties.
     /// </summary>
-    [GType (Name = "GParamEnum", IsWrappedNativeType = true)]
+    [GType ("GParamEnum", IsWrappedNativeType = true)]
     sealed class ParamSpecEnum : ParamSpec
     {
         ParamSpecEnum (IntPtr handle, Transfer ownership)
@@ -844,7 +844,7 @@ namespace GISharp.GObject
     /// A #GParamSpec derived structure that contains the meta data for flags
     /// properties.
     /// </summary>
-    [GType (Name = "GParamFlags", IsWrappedNativeType = true)]
+    [GType ("GParamFlags", IsWrappedNativeType = true)]
     sealed class ParamSpecFlags : ParamSpec
     {
         ParamSpecFlags (IntPtr handle, Transfer ownership)
@@ -895,7 +895,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for float properties.
     /// </summary>
-    [GType (Name = "GParamFloat", IsWrappedNativeType = true)]
+    [GType ("GParamFloat", IsWrappedNativeType = true)]
     sealed class ParamSpecFloat : ParamSpec
     {
         ParamSpecFloat (IntPtr handle, Transfer ownership)
@@ -945,7 +945,7 @@ namespace GISharp.GObject
     /// A #GParamSpec derived structure that contains the meta data for #GType properties.
     /// </summary>
     [SinceAttribute ("2.10")]
-    [GType (Name = "GParamGType", IsWrappedNativeType = true)]
+    [GType ("GParamGType", IsWrappedNativeType = true)]
     sealed class ParamSpecGType : ParamSpec
     {
         ParamSpecGType (IntPtr handle, Transfer ownership)
@@ -992,7 +992,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for integer properties.
     /// </summary>
-    [GType (Name = "GParamInt", IsWrappedNativeType = true)]
+    [GType ("GParamInt", IsWrappedNativeType = true)]
     sealed class ParamSpecInt : ParamSpec
     {
         ParamSpecInt (IntPtr handle, Transfer ownership)
@@ -1041,7 +1041,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for integer properties.
     /// </summary>
-    [GType (Name = "GParamUInt", IsWrappedNativeType = true)]
+    [GType ("GParamUInt", IsWrappedNativeType = true)]
     sealed class ParamSpecUInt : ParamSpec
     {
         ParamSpecUInt (IntPtr handle, Transfer ownership)
@@ -1090,7 +1090,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for 64bit integer properties.
     /// </summary>
-    [GType (Name = "GParamInt64", IsWrappedNativeType = true)]
+    [GType ("GParamInt64", IsWrappedNativeType = true)]
     sealed class ParamSpecInt64 : ParamSpec
     {
         ParamSpecInt64 (IntPtr handle, Transfer ownership)
@@ -1139,7 +1139,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for 64bit integer properties.
     /// </summary>
-    [GType (Name = "GParamUInt64", IsWrappedNativeType = true)]
+    [GType ("GParamUInt64", IsWrappedNativeType = true)]
     sealed class ParamSpecUInt64 : ParamSpec
     {
         ParamSpecUInt64 (IntPtr handle, Transfer ownership)
@@ -1188,7 +1188,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for long integer properties.
     /// </summary>
-    [GType (Name = "GParamLong", IsWrappedNativeType = true)]
+    [GType ("GParamLong", IsWrappedNativeType = true)]
     sealed class ParamSpecLong : ParamSpec
     {
         ParamSpecLong (IntPtr handle, Transfer ownership)
@@ -1237,7 +1237,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for long integer properties.
     /// </summary>
-    [GType (Name = "GParamULong", IsWrappedNativeType = true)]
+    [GType ("GParamULong", IsWrappedNativeType = true)]
     sealed class ParamSpecULong : ParamSpec
     {
         ParamSpecULong (IntPtr handle, Transfer ownership)
@@ -1286,7 +1286,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for string properties.
     /// </summary>
-    [GType (Name = "GParamString", IsWrappedNativeType = true)]
+    [GType ("GParamString", IsWrappedNativeType = true)]
     sealed class ParamSpecString : ParamSpec
     {
         ParamSpecString (IntPtr handle, Transfer ownership)
@@ -1334,7 +1334,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for object properties.
     /// </summary>
-    [GType (Name = "GParamObject", IsWrappedNativeType = true)]
+    [GType ("GParamObject", IsWrappedNativeType = true)]
     sealed class ParamSpecObject : ParamSpec
     {
         ParamSpecObject (IntPtr handle, Transfer ownership)
@@ -1392,7 +1392,7 @@ namespace GISharp.GObject
     /// unless you are implementing a new base type similar to GObject.
     /// </summary>
     [SinceAttribute ("2.4")]
-    [GType (Name = "GParamOverride", IsWrappedNativeType = true)]
+    [GType ("GParamOverride", IsWrappedNativeType = true)]
     sealed class ParamSpecOverride : ParamSpec
     {
         ParamSpecOverride (IntPtr handle, Transfer ownership)
@@ -1405,7 +1405,7 @@ namespace GISharp.GObject
     /// A #GParamSpec derived structure that contains the meta data for %G_TYPE_PARAM
     /// properties.
     /// </summary>
-    [GType (Name = "GParamParam", IsWrappedNativeType = true)]
+    [GType ("GParamParam", IsWrappedNativeType = true)]
     sealed class ParamSpecParam : ParamSpec
     {
         ParamSpecParam (IntPtr handle, Transfer ownership)
@@ -1455,7 +1455,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for pointer properties.
     /// </summary>
-    [GType (Name = "GParamPointer", IsWrappedNativeType = true)]
+    [GType ("GParamPointer", IsWrappedNativeType = true)]
     sealed class ParamSpecPointer : ParamSpec
     {
         ParamSpecPointer (IntPtr handle, Transfer ownership)
@@ -1501,7 +1501,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType (Name = "GParamUnichar", IsWrappedNativeType = true)]
+    [GType ("GParamUnichar", IsWrappedNativeType = true)]
     sealed class ParamSpecUnichar : ParamSpec
     {
         ParamSpecUnichar (IntPtr handle, Transfer ownership)
@@ -1548,7 +1548,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType (Name = "GParamValueArray", IsWrappedNativeType = true)]
+    [GType ("GParamValueArray", IsWrappedNativeType = true)]
     sealed class ParamSpecValueArray : ParamSpec
     {
         ParamSpecValueArray (IntPtr handle, Transfer ownership)

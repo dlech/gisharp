@@ -10,7 +10,7 @@ using GISharp.Runtime;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
-using GISharp.GLib;
+using BindFlags = System.Reflection.BindingFlags;
 
 namespace GISharp.GObject
 {
@@ -18,13 +18,28 @@ namespace GISharp.GObject
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
-    [GType (Name = "GType", IsWrappedNativeType = true)]
+    [GType ("GType", IsWrappedNativeType = true)]
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
         static readonly Dictionary<Type, GType> typeMap;
         static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
+
+        #pragma warning disable 169
+        // There is an unfortunate bug that g_type_add_interface_static() will
+        // fail to install properties because class_init of GObject has not
+        // been run yet to create the param spec pool.
+        //
+        // The error is "g_param_spec_pool_lookup: assertaion 'pool != NULL' failed"
+        //
+        // creating an object here and keeping it around forever will ensure
+        // that class_init is run before we try to add any interfaces.
+        //
+        // Since the GISharp.GObject.Object class depends on GType, we have to
+        // use pinvoke directly.
+        static readonly IntPtr eternalObject = GObject.Object.g_object_newv(Object, 0, IntPtr.Zero);
+        #pragma warning restore 169
 
         static GType ()
         {
@@ -34,51 +49,51 @@ namespace GISharp.GObject
 
             // add the built-in fundamental types
             lock (mapLock) {
-                typeMap.Add (typeof (void), None);
-                gtypeMap.Add (None, typeof (void));
+                typeMap.Add (typeof(void), None);
+                gtypeMap.Add (None, typeof(void));
                 // No managed type for Interface
                 //typeMap.Add (typeof (interface), Interface);
                 //gtypeMap.Add (Interface, typeof (interface));
-                typeMap.Add (typeof (sbyte), Char);
-                gtypeMap.Add (Char, typeof (sbyte));
-                typeMap.Add (typeof (byte), UChar);
-                gtypeMap.Add (UChar, typeof (byte));
-                typeMap.Add (typeof (bool), Boolean);
-                gtypeMap.Add (Boolean, typeof (bool));
-                typeMap.Add (typeof (int), Int);
-                gtypeMap.Add (Int, typeof (int));
-                typeMap.Add (typeof (uint), UInt);
-                gtypeMap.Add (UInt, typeof (uint));
-                typeMap.Add (typeof (nlong), Long);
-                gtypeMap.Add (Long, typeof (nlong));
-                typeMap.Add (typeof (nulong), ULong);
-                gtypeMap.Add (ULong, typeof (nulong));
-                typeMap.Add (typeof (long), Int64);
-                gtypeMap.Add (Int64, typeof (long));
-                typeMap.Add (typeof (ulong), UInt64);
-                gtypeMap.Add (UInt64, typeof (ulong));
+                typeMap.Add (typeof(sbyte), Char);
+                gtypeMap.Add (Char, typeof(sbyte));
+                typeMap.Add (typeof(byte), UChar);
+                gtypeMap.Add (UChar, typeof(byte));
+                typeMap.Add (typeof(bool), Boolean);
+                gtypeMap.Add (Boolean, typeof(bool));
+                typeMap.Add (typeof(int), Int);
+                gtypeMap.Add (Int, typeof(int));
+                typeMap.Add (typeof(uint), UInt);
+                gtypeMap.Add (UInt, typeof(uint));
+                typeMap.Add (typeof(nlong), Long);
+                gtypeMap.Add (Long, typeof(nlong));
+                typeMap.Add (typeof(nulong), ULong);
+                gtypeMap.Add (ULong, typeof(nulong));
+                typeMap.Add (typeof(long), Int64);
+                gtypeMap.Add (Int64, typeof(long));
+                typeMap.Add (typeof(ulong), UInt64);
+                gtypeMap.Add (UInt64, typeof(ulong));
                 // TODO: do we care about enum/flags?
-                typeMap.Add (typeof (System.Enum), Enum);
-                gtypeMap.Add (Enum, typeof (System.Enum));
+                typeMap.Add (typeof(System.Enum), Enum);
+                gtypeMap.Add (Enum, typeof(System.Enum));
                 //typeMap.Add (typeof (System.Enum), Flags);
                 //gtypeMap.Add (Flags, typeof (System.Enum));
-                typeMap.Add (typeof (float), Float);
-                gtypeMap.Add (Float, typeof (float));
-                typeMap.Add (typeof (double), Double);
-                gtypeMap.Add (Double, typeof (double));
-                typeMap.Add (typeof (string), String);
-                gtypeMap.Add (String, typeof (string));
-                typeMap.Add (typeof (IntPtr), Pointer);
-                gtypeMap.Add (Pointer, typeof (IntPtr));
+                typeMap.Add (typeof(float), Float);
+                gtypeMap.Add (Float, typeof(float));
+                typeMap.Add (typeof(double), Double);
+                gtypeMap.Add (Double, typeof(double));
+                typeMap.Add (typeof(string), String);
+                gtypeMap.Add (String, typeof(string));
+                typeMap.Add (typeof(IntPtr), Pointer);
+                gtypeMap.Add (Pointer, typeof(IntPtr));
                 // TODO: Boxed is not implemented yet
                 //typeMap.Add (typeof (Boxed), Boxed);
                 //gtypeMap.Add (Boxed, typeof (Boxed));
-                typeMap.Add (typeof (ParamSpec), Param);
-                gtypeMap.Add (Param, typeof (ParamSpec));
-                typeMap.Add (typeof (Object), Object);
-                gtypeMap.Add (Object, typeof (Object));
-                typeMap.Add (typeof (GType), Type);
-                gtypeMap.Add (Type, typeof (GType));
+                typeMap.Add (typeof(ParamSpec), Param);
+                gtypeMap.Add (Param, typeof(ParamSpec));
+                typeMap.Add (typeof(Object), Object);
+                gtypeMap.Add (Object, typeof(Object));
+                typeMap.Add (typeof(GType), Type);
+                gtypeMap.Add (Type, typeof(GType));
                 // TODO: Need to move Variant from GLib
                 //typeMap.Add (typeof (Variant), Variant);
                 //gtypeMap.Add (Variant, typeof (Variant));
@@ -243,7 +258,7 @@ namespace GISharp.GObject
         /// </summary>
         public static GType Int64 {
             get {
-                return new GType(10 << FundamentalShift);
+                return new GType (10 << FundamentalShift);
             }
         }
 
@@ -351,11 +366,6 @@ namespace GISharp.GObject
             get {
                 return new GType (21 << FundamentalShift);
             }
-        }
-
-        internal static GType FromClass (TypeClass gClass) {
-            var offset = Marshal.OffsetOf<TypeClass.TypeClass_> (nameof (TypeClass.TypeClass_.GType));
-            return new GType ((uint)Marshal.ReadIntPtr (gClass.Handle, offset.ToInt32 ()));
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -703,7 +713,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
-        static extern GType g_type_from_name(
+        static extern GType g_type_from_name (
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -754,15 +764,15 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (name));
             }
             if (name.Length < 3) {
-                var message = string.Format ($"The name '{name}' is too short.", nameof (name));
+                var message = string.Format ($"The name '{name}' is too short.", nameof (name)); 
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name[0].ToString (), "[^A-Za-z_]")) {
-                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name));
+                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name)); 
                 throw new InvalidGTypeNameException (message);
             }
             if (Regex.IsMatch (name, "[^0-9A-Za-z_\\-\\+]")) {
-                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name));
+                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name)); 
                 throw new InvalidGTypeNameException (message);
             }
         }
@@ -798,13 +808,10 @@ namespace GISharp.GObject
         static void MapPropertyInfo (GType gtype, Type type)
         {
             var objClass = TypeClass.Get<ObjectClass> (gtype);
+
             foreach (var pspec in objClass.ListProperties ()) {
-                var prop = type.GetProperty (pspec.Name);
-                if (prop == null) {
-                    prop = type.GetProperties ().SingleOrDefault (p =>
-                        ((PropertyAttribute)Attribute.GetCustomAttribute (p,
-                            typeof(PropertyAttribute), true))?.Name == pspec.Name);
-                }
+                var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
+                    .SingleOrDefault (p => p.TryGetGTypePropertyName () == pspec.Name);
                 if (prop == null) {
                     throw new Exception ("Could not find matchng property.");
                 }
@@ -833,12 +840,12 @@ namespace GISharp.GObject
                 var gtypeAttribute = type.GetCustomAttributes ()
                     .OfType<GTypeAttribute> ().SingleOrDefault ();
                 if (gtypeAttribute == null) {
-                    // if the type is not decorate with GTypeAttribute, then we
+                    // if the type is not decorated with GTypeAttribute, then we
                     // register it as a boxed type.
                     var name = type.GetGTypeName ();
                     AssertGTypeName (name);
                     var gtype = GObject.Boxed.Register (name,
-                        GObject.Boxed.CopyManagedType, GObject.Boxed.FreeManagedType);
+                                    GObject.Boxed.CopyManagedType, GObject.Boxed.FreeManagedType);
 
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);
@@ -855,7 +862,7 @@ namespace GISharp.GObject
                         implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
                     }
                     var getGType = implementationType.GetMethod ("getGType",
-                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+                                       System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
                     if (getGType == null) {
                         throw new ArgumentException ("Could not find getType() method.", nameof (type));
                     }
@@ -879,12 +886,12 @@ namespace GISharp.GObject
                 if (type.IsClass) {
                     if (!type.IsSubclassOf (typeof(Object))) {
                         var message = string.Format ("Class does not inherit from {0}",
-                            typeof(Object).FullName);
+                                          typeof(Object).FullName);
                         throw new ArgumentException (message, nameof (type));
                     }
                     var parentGType = type.BaseType.GetGType ();
-                    TypeQuery parentTypeQuery = default (TypeQuery);
-                    g_type_query (parentGType, ref parentTypeQuery);
+                    TypeQuery parentTypeQuery;
+                    g_type_query (parentGType, out parentTypeQuery);
                     var info = new TypeInfo {
                         ClassSize = (ushort)parentTypeQuery.ClassSize,
                         ClassInit = ObjectClass.InitManagedClass,
@@ -896,6 +903,27 @@ namespace GISharp.GObject
                     var gtype = RegisterStatic (parentGType, gtypeName, info, flags);
                     if (gtype == Invalid) {
                         throw new InvalidOperationException ("Something bad happend while registering object.");
+                    }
+
+                    // Install interfaces
+
+                    foreach (var ifaceType in type.GetInterfaces ()) {
+                        var ifaceMap = type.GetInterfaceMap (ifaceType);
+                        if (ifaceMap.TargetType != type) {
+                            // only interested in interfaces that are actually
+                            // implemented by this type and not inherited
+                            continue;
+                        }
+                        var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute> ();
+                        if (gtypeAttr == null) {
+                            // only care about interfaces registed with the GObject
+                            // type system
+                            continue;
+                        }
+                        var ifaceGType = ifaceType.GetGType ();
+                        var typeInterface = TypeInterface.GetDefault (ifaceGType);
+                        var interfaceInfo = typeInterface.CreateInterfaceInfo (type);
+                        AddInterfaceStatic (gtype, ifaceGType, interfaceInfo);
                     }
 
                     MapPropertyInfo (gtype, type);
@@ -963,7 +991,6 @@ namespace GISharp.GObject
             }
             throw new NotImplementedException ();
         }
-
 
         public static GType TypeOf (Type type)
         {
@@ -1045,13 +1072,71 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_query(
+        static extern void g_type_query (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,
             /* <type name="TypeQuery" type="GTypeQuery*" managed-name="TypeQuery" /> */
             /* direction:out caller-allocates:1 transfer-ownership:none */
-            ref TypeQuery query);
+            out TypeQuery query);
+
+
+        /// <summary>
+        /// Adds the static @interface_type to @instantiable_type.
+        /// The information contained in the #GInterfaceInfo structure
+        /// pointed to by @info is used to manage the relationship.
+        /// </summary>
+        /// <param name="instanceType">
+        /// #GType value of an instantiable type
+        /// </param>
+        /// <param name="interfaceType">
+        /// #GType value of an interface type
+        /// </param>
+        /// <param name="info">
+        /// #GInterfaceInfo structure for this
+        ///        (@instance_type, @interface_type) combination
+        /// </param>
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_add_interface_static (
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType instanceType,
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType interfaceType,
+            /* <type name="InterfaceInfo" type="const GInterfaceInfo*" managed-name="InterfaceInfo" /> */
+            /* transfer-ownership:none */
+            IntPtr info);
+
+        /// <summary>
+        /// Adds the static @interface_type to @instantiable_type.
+        /// The information contained in the #GInterfaceInfo structure
+        /// pointed to by @info is used to manage the relationship.
+        /// </summary>
+        /// <param name="instanceType">
+        /// #GType value of an instantiable type
+        /// </param>
+        /// <param name="interfaceType">
+        /// #GType value of an interface type
+        /// </param>
+        /// <param name="info">
+        /// #GInterfaceInfo structure for this
+        ///        (@instance_type, @interface_type) combination
+        /// </param>
+        static void AddInterfaceStatic (GType instanceType, GType interfaceType, InterfaceInfo info)
+        {
+            // making a copy of info in unmanged memory that will never be freed
+            var infoPtr = MarshalG.Alloc (Marshal.SizeOf<InterfaceInfo> ());
+            Marshal.StructureToPtr<InterfaceInfo> (info, infoPtr, false);
+
+            // also make sure the delegates are never GCed.
+            GCHandle.Alloc (info.InterfaceInit);
+            GCHandle.Alloc (info.InterfaceFinalize);
+
+            g_type_add_interface_static (instanceType, interfaceType, infoPtr);
+        }
 
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
@@ -1290,55 +1375,6 @@ namespace GISharp.GObject
             var plugin_ = default(IntPtr);
             throw new System.NotImplementedException();
             g_type_add_interface_dynamic(instanceType, interfaceType, plugin_);
-        }
-
-        /// <summary>
-        /// Adds the static @interface_type to @instantiable_type.
-        /// The information contained in the #GInterfaceInfo structure
-        /// pointed to by @info is used to manage the relationship.
-        /// </summary>
-        /// <param name="instanceType">
-        /// #GType value of an instantiable type
-        /// </param>
-        /// <param name="interfaceType">
-        /// #GType value of an interface type
-        /// </param>
-        /// <param name="info">
-        /// #GInterfaceInfo structure for this
-        ///        (@instance_type, @interface_type) combination
-        /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_add_interface_static(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType instanceType,
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType interfaceType,
-            /* <type name="InterfaceInfo" type="const GInterfaceInfo*" managed-name="InterfaceInfo" /> */
-            /* transfer-ownership:none */
-            InterfaceInfo info);
-
-        /// <summary>
-        /// Adds the static @interface_type to @instantiable_type.
-        /// The information contained in the #GInterfaceInfo structure
-        /// pointed to by @info is used to manage the relationship.
-        /// </summary>
-        /// <param name="instanceType">
-        /// #GType value of an instantiable type
-        /// </param>
-        /// <param name="interfaceType">
-        /// #GType value of an interface type
-        /// </param>
-        /// <param name="info">
-        /// #GInterfaceInfo structure for this
-        ///        (@instance_type, @interface_type) combination
-        /// </param>
-        public static void AddInterfaceStatic(GType instanceType, GType interfaceType, InterfaceInfo info)
-        {
-            g_type_add_interface_static(instanceType, interfaceType, info);
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -1598,148 +1634,6 @@ namespace GISharp.GObject
             var ret_ = g_type_create_instance(type);
             var ret = GISharp.Core.Opaque.GetInstance<TypeInstance>(ret_, GISharp.Core.Transfer.All);
             return ret;
-        }
-
-        /// <summary>
-        /// If the interface type @g_type is currently in use, returns its
-        /// default interface vtable.
-        /// </summary>
-        /// <param name="gType">
-        /// an interface type
-        /// </param>
-        /// <returns>
-        /// the default
-        ///     vtable for the interface, or %NULL if the type is not currently
-        ///     in use
-        /// </returns>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_default_interface_peek(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType gType);
-
-        /// <summary>
-        /// If the interface type @g_type is currently in use, returns its
-        /// default interface vtable.
-        /// </summary>
-        /// <param name="gType">
-        /// an interface type
-        /// </param>
-        /// <returns>
-        /// the default
-        ///     vtable for the interface, or %NULL if the type is not currently
-        ///     in use
-        /// </returns>
-        [Since ("2.4")]
-        public static TypeInterface DefaultInterfacePeek(GType gType)
-        {
-            var ret_ = g_type_default_interface_peek(gType);
-            var ret = GISharp.Core.Opaque.GetInstance<TypeInterface>(ret_, GISharp.Core.Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Increments the reference count for the interface type @g_type,
-        /// and returns the default interface vtable for the type.
-        /// </summary>
-        /// <remarks>
-        /// If the type is not currently in use, then the default vtable
-        /// for the type will be created and initalized by calling
-        /// the base interface init and default vtable init functions for
-        /// the type (the @base_init and @class_init members of #GTypeInfo).
-        /// Calling g_type_default_interface_ref() is useful when you
-        /// want to make sure that signals and properties for an interface
-        /// have been installed.
-        /// </remarks>
-        /// <param name="gType">
-        /// an interface type
-        /// </param>
-        /// <returns>
-        /// the default
-        ///     vtable for the interface; call g_type_default_interface_unref()
-        ///     when you are done using the interface.
-        /// </returns>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_default_interface_ref(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType gType);
-
-        /// <summary>
-        /// Increments the reference count for the interface type @g_type,
-        /// and returns the default interface vtable for the type.
-        /// </summary>
-        /// <remarks>
-        /// If the type is not currently in use, then the default vtable
-        /// for the type will be created and initalized by calling
-        /// the base interface init and default vtable init functions for
-        /// the type (the @base_init and @class_init members of #GTypeInfo).
-        /// Calling g_type_default_interface_ref() is useful when you
-        /// want to make sure that signals and properties for an interface
-        /// have been installed.
-        /// </remarks>
-        /// <param name="gType">
-        /// an interface type
-        /// </param>
-        /// <returns>
-        /// the default
-        ///     vtable for the interface; call g_type_default_interface_unref()
-        ///     when you are done using the interface.
-        /// </returns>
-        [Since ("2.4")]
-        public static TypeInterface DefaultInterfaceRef(GType gType)
-        {
-            var ret_ = g_type_default_interface_ref(gType);
-            var ret = GISharp.Core.Opaque.GetInstance<TypeInterface>(ret_, GISharp.Core.Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Decrements the reference count for the type corresponding to the
-        /// interface default vtable @g_iface. If the type is dynamic, then
-        /// when no one is using the interface and all references have
-        /// been released, the finalize function for the interface's default
-        /// vtable (the @class_finalize member of #GTypeInfo) will be called.
-        /// </summary>
-        /// <param name="gIface">
-        /// the default vtable
-        ///     structure for a interface, as returned by g_type_default_interface_ref()
-        /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_default_interface_unref(
-            /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
-            /* transfer-ownership:none */
-            IntPtr gIface);
-
-        /// <summary>
-        /// Decrements the reference count for the type corresponding to the
-        /// interface default vtable @g_iface. If the type is dynamic, then
-        /// when no one is using the interface and all references have
-        /// been released, the finalize function for the interface's default
-        /// vtable (the @class_finalize member of #GTypeInfo) will be called.
-        /// </summary>
-        /// <param name="gIface">
-        /// the default vtable
-        ///     structure for a interface, as returned by g_type_default_interface_ref()
-        /// </param>
-        [Since ("2.4")]
-        public static void DefaultInterfaceUnref(TypeInterface gIface)
-        {
-            if (gIface == null)
-            {
-                throw new ArgumentNullException("gIface");
-            }
-            var gIface_ = gIface == null ? IntPtr.Zero : gIface.Handle;
-            g_type_default_interface_unref(gIface_);
         }
 
         /// <summary>
@@ -2672,6 +2566,28 @@ namespace GISharp.GObject
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
             return gtypeAttr?.Name ?? type.FullName.Replace ('.', '-');
+        }
+
+        public static Type GetGTypeStruct (this Type type)
+        {
+            if (type == null) {
+                throw new ArgumentNullException (nameof (type));
+            }
+            var gtypeAttr = type.GetCustomAttribute<GTypeAttribute> ();
+            if (gtypeAttr == null) {
+                throw new ArgumentException ($"Type '{type.FullName}' does not have have GTypeAttribute", nameof(type));
+            }
+            var gtypeStructType = gtypeAttr.GTypeStruct;
+            if (gtypeStructType == null) {
+                throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
+            }
+
+            return gtypeStructType;
+        }
+
+        public static Type GetGTypeStruct (this GType type)
+        {
+            return GType.TypeOf (type).GetGTypeStruct ();
         }
 
         /// <summary>

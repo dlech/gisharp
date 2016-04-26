@@ -11,6 +11,12 @@ namespace GISharp.GLib
     {
         readonly uint value;
 
+        public static Quark Null {
+            get {
+                return new Quark ();
+            }
+        }
+
         internal Quark (uint value)
         {
             this.value = value;

@@ -37,6 +37,10 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         GObject,
         /// <summary>
+        /// A GType TypeClass or TypeInterface
+        /// </summary>
+        GTypeStruct,
+        /// <summary>
         /// An interface.
         /// </summary>
         Interface,
@@ -52,10 +56,6 @@ namespace GISharp.CodeGen.Model
         /// A null-terminated array of UTF-8 strings.
         /// </summary>
         Strv,
-        /// <summary>
-        /// A GType type class.
-        /// </summary>
-        TypeClass,
         /// <summary>
         /// A UTF-32/UCS-4 character.
         /// </summary>
@@ -86,8 +86,8 @@ namespace GISharp.CodeGen.Model
                         _Classification = TypeClassification.Void;
                     } else if (TypeObject.IsInterface) {
                         _Classification = TypeClassification.Interface;
-                    } else if (Element.Attribute (glib + "is-gtype-struct-for") != null) {
-                        _Classification = TypeClassification.TypeClass;
+                    } else if (Element.Attribute (glib + "is-gtype-struct-for") != null || typeof(GISharp.Runtime.GTypeStruct).IsAssignableFrom (TypeObject)) {
+                        _Classification = TypeClassification.GTypeStruct;
                     } else if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
                         // GirType always returns false for IsAssignableFrom when type is a RuntimeType
                         // so we have to check IsSubclassOf as well.
