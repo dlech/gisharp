@@ -11,6 +11,7 @@ using GISharp.Runtime;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 using BindFlags = System.Reflection.BindingFlags;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -94,9 +95,8 @@ namespace GISharp.GObject
                 gtypeMap.Add (Object, typeof(Object));
                 typeMap.Add (typeof(GType), Type);
                 gtypeMap.Add (Type, typeof(GType));
-                // TODO: Need to move Variant from GLib
-                //typeMap.Add (typeof (Variant), Variant);
-                //gtypeMap.Add (Variant, typeof (Variant));
+                typeMap.Add (typeof (Variant), Variant);
+                gtypeMap.Add (Variant, typeof (Variant));
             }
         }
 

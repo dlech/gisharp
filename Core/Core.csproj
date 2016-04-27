@@ -91,6 +91,12 @@
     <Compile Include="Runtime\ReflectionExtensions.cs" />
     <Compile Include="Runtime\GTypeStruct.cs" />
     <Compile Include="Runtime\GTypeStructAttribute.cs" />
+    <Compile Include="GLib\Variant.cs" />
+    <Compile Include="Runtime\VariantDbusTypes.cs" />
+    <Compile Include="GLib\VariantType.cs" />
+    <Compile Include="GLib\VariantParseError.cs" />
+    <Compile Include="GLib\VariantIter.cs" />
+    <Compile Include="GLib\VariantClass.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

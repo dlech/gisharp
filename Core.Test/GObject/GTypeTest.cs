@@ -10,6 +10,7 @@ using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 using GISharp.GObject;
 using GISharp.Runtime;
+using GISharp.GLib;
 
 namespace GISharp.Core.Test.GObject
 {
@@ -147,8 +148,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestVariant ()
         {
-            // TODO: Need to move Variant from GLib
-            //Assert.That ((Type)GType.Variant, Is.EqualTo (typeof (Variant)));
+            Assert.That ((Type)GType.Variant, Is.EqualTo (typeof (Variant)));
         }
 
         [Test]

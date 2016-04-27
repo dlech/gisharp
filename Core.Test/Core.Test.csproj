@@ -51,6 +51,7 @@
     <Compile Include="GLib\QuarkTests.cs" />
     <Compile Include="TestInterfaces.cs" />
     <Compile Include="GObject\InterfaceTest.cs" />
+    <Compile Include="GLib\VariantTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

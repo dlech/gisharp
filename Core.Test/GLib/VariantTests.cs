@@ -4,10 +4,11 @@ using System.Collections.Generic;
 using System.Text;
 
 using GISharp.GLib;
+using GISharp.Runtime;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Core.Test.GLib
 {
-    [TestFixture ()]
+    [TestFixture]
     public class VariantTests
     {
         [Test]
@@ -37,8 +38,8 @@ namespace GISharp.GLib.Test
         public void TestCompareTo ()
         {
             var one = new Variant (1);
-            var otherOne = new Variant ((short)1);
             var two = new Variant (2);
+            var otherOne = new Variant ((short)1);
 
             Assert.That (one, Is.Not.LessThan (one));
             Assert.That (one, Is.LessThan (two));
@@ -49,15 +50,14 @@ namespace GISharp.GLib.Test
             Assert.That (one, Is.GreaterThanOrEqualTo (one));
             Assert.That (one, Is.Not.GreaterThanOrEqualTo (two));
 
-            Assert.That (one < otherOne, Is.False);
-            Assert.That (one <= otherOne, Is.True);
-            Assert.That (one > otherOne, Is.False);
-            Assert.That (one >= otherOne, Is.True);
-
             Assert.That (one < two, Is.True);
             Assert.That (one <= two, Is.True);
             Assert.That (one > two, Is.False);
             Assert.That (one >= two, Is.False);
+
+            // types must match
+            Assert.That (() => one.CompareTo (otherOne),
+                Throws.InvalidOperationException);
         }
 
         [Test]
@@ -275,11 +275,11 @@ namespace GISharp.GLib.Test
             Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
 
             // only basic variant types are allowed as key
-            badKey = new KeyValuePair<Variant, Variant> (new Variant(new [] { "string" }), new Variant ("string"));
+            badKey = new KeyValuePair<Variant, Variant> (new Variant (new [] { "string" }), new Variant ("string"));
             Assert.That (() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in
-            var expected = new KeyValuePair<Variant, Variant> ( new Variant ("key"), new Variant ("value") );
+            var expected = new KeyValuePair<Variant, Variant> (new Variant ("key"), new Variant ("value"));
             var variant = (Variant)expected;
             Assert.That (variant.Type.IsDictEntry, Is.True);
             var actual = (KeyValuePair<Variant, Variant>)variant;

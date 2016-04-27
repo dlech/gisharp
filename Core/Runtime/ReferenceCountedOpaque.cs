@@ -49,7 +49,9 @@ namespace GISharp.Runtime
 
         protected override void Dispose(bool disposing)
         {
-            if (!IsDisposed) {
+            // It is possible for halfway constructed objects to be finalized,
+            // so we need to make sure that Handle exists before trying to free it.
+            if (!IsDisposed && Handle != IntPtr.Zero) {
                 lock (lockObj) {
                     objectMap.Remove (Handle);
                     Unref ();

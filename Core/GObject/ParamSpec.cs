@@ -634,8 +634,9 @@ namespace GISharp.GObject
             }
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
-            var pspecPtr = g_param_spec_boxed(namePtr, nickPtr, blurbPtr, boxedType, flags);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            ;
+            var pspecPtr = g_param_spec_boxed (namePtr, nickPtr, blurbPtr, boxedType, flags);
 
             return pspecPtr;
         }
@@ -886,7 +887,7 @@ namespace GISharp.GObject
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
             var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_flags(namePtr, nickPtr, blurbPtr, flagsType, defaultValue, flags);
+            var pspecPtr = g_param_spec_flags (namePtr, nickPtr, blurbPtr, flagsType, defaultValue, flags);
 
             return pspecPtr;
         }
@@ -1374,8 +1375,8 @@ namespace GISharp.GObject
             }
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
-            var pspecPtr = g_param_spec_object(namePtr, nickPtr, blurbPtr, objectType, flags);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_object (namePtr, nickPtr, blurbPtr, objectType, flags);
 
             return pspecPtr;
         }
@@ -1445,7 +1446,7 @@ namespace GISharp.GObject
             }
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_param (namePtr, nickPtr, blurbPtr, paramType, flags);
 
             return pspecPtr;
@@ -1463,7 +1464,7 @@ namespace GISharp.GObject
         {
         }
 
-        public ParamSpecPointer (string name, string nick, string blurb,ParamFlags flags)
+        public ParamSpecPointer (string name, string nick, string blurb, ParamFlags flags)
             : this (New (name, nick, blurb, flags), Transfer.All)
         {
         }
@@ -1491,8 +1492,8 @@ namespace GISharp.GObject
             }
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);;
-            var pspecPtr = g_param_spec_pointer(namePtr, nickPtr, blurbPtr, flags);
+            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var pspecPtr = g_param_spec_pointer (namePtr, nickPtr, blurbPtr, flags);
 
             return pspecPtr;
         }
@@ -1592,11 +1593,10 @@ namespace GISharp.GObject
         }
     }
 
-    /* TODO: Need to move Variant to Core
     /// <summary>
     /// A #GParamSpec derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType (Name = "GParamVariant", IsWrappedNativeType = true)]
+    [GType ("GParamVariant", IsWrappedNativeType = true)]
     sealed class ParamSpecVariant : ParamSpec
     {
         ParamSpecVariant (IntPtr handle, Transfer ownership)
@@ -1610,11 +1610,11 @@ namespace GISharp.GObject
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        IntPtr g_param_spec_variant (IntPtr name,
+        static extern IntPtr g_param_spec_variant (IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             VariantType type,
-            Variant defaultValue,
+            IntPtr defaultValue,
             ParamFlags flags);
 
 
@@ -1635,10 +1635,10 @@ namespace GISharp.GObject
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
             var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type, defaultValue, flags);
+            var defaultValuePtr = defaultValue == null ? IntPtr.Zero : defaultValue.Handle;
+            var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type, defaultValuePtr, flags);
 
             return pspecPtr;
         }
     }
-    */
 }

@@ -385,62 +385,12 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:fu
 
 # Variant
 
-# custom argument checks
-chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_array']"
-chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_dict_entry']"
-chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_tuple']"
-# use ref_sink for ref function
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref']"
-chattr "name" "" "ref" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='ref_sink']"
-# skip other ref-related functions
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='take_ref']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='is_floating']"
-# don't need dup functions since marshaling does that anyway
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'dup_')]"
-# most getters are private - using cast operators instead.
-chattr "gs:access-modifiers" "" "private" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[starts-with(@name,'get_')]"
-chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type']"
-chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_type_string']"
-chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_size']"
-chattr "gs:access-modifiers" "" "public" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_data']"
-# duplicate constructor - using new_take_string instead
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_string']"
-# fix incorrect transfer
-chattr "transfer-ownership" "" "full" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_take_string']/gi:parameters/gi:parameter[@name='string']"
-# properties can't have the same name as the enclosing type
-chattr "name" "" "get_boxed_variant" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_variant']"
-# name conflicts with IWrappedNative.Handle
-chattr "name" "" "get_d_bus_handle" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_handle']"
-# gir does not specify array length
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring']/gi:parameters/gi:parameter[@name='string']/gi:array"
-chattr "zero-terminated" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring']/gi:return-value/gi:array"
-# items with special implementations
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_bytestring_array']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_from_data']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_handle']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_object_path']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_objv']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_signature']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_bytestring_array']"
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_objv']"
-# Hide functions that use GLib.String
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='print_string']"
-# valist is not supported yet
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_va']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_parsed_va']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']/gi:method[@name='get_va']"
-
-# VariantType
-
-# rename dup_string to to_string
-chattr "name" "" "to_string" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:method[@name='dup_string']"
-# duplicate constructors
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_array']"
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_dict_entry']"
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_maybe']"
-chelement "gi:function" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:constructor[@name='new_tuple']"
-# needs manual marshalling
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']/gi:function[@name='string_scan']"
+# Implemented in Core
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantIter']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantParseError']"
 
 # Timeout
 
