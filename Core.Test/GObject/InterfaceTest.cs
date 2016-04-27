@@ -67,12 +67,12 @@ namespace GISharp.Core.Test.GObject
 
         void INetworkMonitor.CanReachAsync (IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         bool INetworkMonitor.CanReachFinish (IntPtr result)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         void INetworkMonitor.OnNetworkChanged (bool availible)
@@ -90,13 +90,13 @@ namespace GISharp.Core.Test.GObject
 
         public bool NetworkAvailable {
             get {
-                throw new NotImplementedException ();
+                throw new InvalidOperationException ();
             }
         }
 
         public bool NetworkMetered {
             get {
-                throw new NotImplementedException ();
+                throw new InvalidOperationException ();
             }
         }
 
@@ -106,7 +106,7 @@ namespace GISharp.Core.Test.GObject
 
         public bool Init (IntPtr cancellable)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         #endregion

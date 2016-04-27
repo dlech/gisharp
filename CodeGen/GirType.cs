@@ -186,17 +186,17 @@ namespace GISharp.CodeGen
 
         public override bool IsDefined (Type attributeType, bool inherit)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override object[] GetCustomAttributes (bool inherit)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override object[] GetCustomAttributes (Type attributeType, bool inherit)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override string Name {
@@ -212,77 +212,77 @@ namespace GISharp.CodeGen
 
         public override Type GetInterface (string name, bool ignoreCase)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override Type[] GetInterfaces ()
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override Type GetElementType ()
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override EventInfo GetEvent (string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override EventInfo[] GetEvents (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override FieldInfo GetField (string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override FieldInfo[] GetFields (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override MemberInfo[] GetMembers (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override MethodInfo GetMethodImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override MethodInfo[] GetMethods (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override Type GetNestedType (string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override Type[] GetNestedTypes (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override PropertyInfo[] GetProperties (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override PropertyInfo GetPropertyImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override ConstructorInfo GetConstructorImpl (System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
@@ -311,12 +311,12 @@ namespace GISharp.CodeGen
 
         protected override bool IsCOMObjectImpl ()
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override bool IsPointerImpl ()
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         protected override bool IsPrimitiveImpl ()
@@ -326,12 +326,12 @@ namespace GISharp.CodeGen
 
         public override ConstructorInfo[] GetConstructors (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override object InvokeMember (string name, System.Reflection.BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
         {
-            throw new NotImplementedException ();
+            throw new InvalidOperationException ();
         }
 
         public override Assembly Assembly {
@@ -342,7 +342,7 @@ namespace GISharp.CodeGen
 
         public override string AssemblyQualifiedName {
             get {
-                throw new NotImplementedException ();
+                throw new InvalidOperationException ();
             }
         }
 
@@ -395,13 +395,13 @@ namespace GISharp.CodeGen
 
         public override Guid GUID {
             get {
-                throw new NotImplementedException ();
+                throw new InvalidOperationException ();
             }
         }
 
         public override Module Module {
             get {
-                throw new NotImplementedException ();
+                throw new InvalidOperationException ();
             }
         }
 
@@ -425,4 +425,3 @@ namespace GISharp.CodeGen
         #endregion
     }
 }
-
