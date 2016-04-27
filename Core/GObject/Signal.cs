@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using GISharp.GLib;
@@ -457,22 +458,14 @@ namespace GISharp.GObject
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
             }
+            using (var instanceAndParams = new GLib.Array<Value> (false, true, (uint)parameters.Length + 1)) {
+                instanceAndParams.Add (new Value (instance.GetGType (), instance));
+                foreach (var p in parameters) {
+                    instanceAndParams.Add (new Value (p.GetGType (), p));
+                }
 
-            var sizeOfValue = Marshal.SizeOf <Value.Value_> ();
-            var instanceAndParams = MarshalG.Alloc0 ((parameters.Length + 1) * sizeOfValue);
-            var value = Opaque.GetInstance<Value> (instanceAndParams, Transfer.None);
-            value.Init (instance.GetGType ());
-            value.Set (instance);
-            int offset = sizeOfValue;
-            foreach (var p in parameters) {
-                value = Opaque.GetInstance<Value> (instanceAndParams + offset, Transfer.None);
-                value.Init (p.GetGType ());
-                value.Set (p);
-                offset += sizeOfValue;
+                g_signal_emitv (instanceAndParams.Data, signalId, detail, IntPtr.Zero);
             }
-
-            g_signal_emitv (instanceAndParams, signalId, detail, IntPtr.Zero);
-            MarshalG.Free (instanceAndParams);
         }
 
         /// <summary>

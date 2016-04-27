@@ -47,9 +47,9 @@ namespace GISharp.GObject
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeSetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
+            public delegate void NativeSetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeGetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
+            public delegate void NativeGetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeDispose (IntPtr @object);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -265,26 +265,24 @@ namespace GISharp.GObject
             }
         }
 
-        static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-            }
-            var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
+            };
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);
             propInfo.SetValue (obj, value.Get ());
         }
 
-        static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
-            var value = Opaque.GetInstance<Value> (valuePtr, Transfer.None);
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);

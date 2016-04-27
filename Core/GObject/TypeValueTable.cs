@@ -11,198 +11,10 @@ namespace GISharp.GObject
     /// </summary>
     public struct TypeValueTable
     {
-        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeValueInit(
-            /* <type name="Value" type="GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr value);
-
-        public delegate void ValueInit(Value value);
-
-        /// <summary>
-        /// Factory for creating <see cref="NativeValueInit"/> methods.
-        /// </summary>
-        public static class NativeValueInitFactory
-        {
-            /// <summary>
-            /// Wraps <see cref="ValueInit"/> in an anonymous method that can be passed
-            /// to unmaged code.
-            /// </summary>
-            /// <param name="method">The managed method to wrap.</param>
-            /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-            /// data closure parameters in the unmanged function</param>
-            /// <returns>The callback method for passing to unmanged code.</returns>
-            /// <remarks>
-            /// This function is used to marshal managed callbacks to unmanged code. If this
-            /// callback is only called once, <paramref name="freeUserData"/> should be
-            /// set to <c>true</c>. If it can be called multiple times, it should be set to
-            /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/>
-            /// parameter has no effect.
-            /// </remarks>
-            public static NativeValueInit Create(ValueInit method, bool freeUserData)
-            {
-                NativeValueInit nativeCallback = (
-                    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-                    /* transfer-ownership:none */
-                    IntPtr value_) =>
-                {
-                    var value = Opaque.GetInstance<Value>(value_, Transfer.None);
-                    method.Invoke(value);
-                };
-                return nativeCallback;
-            }
-        }
-
-        [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeValueInit ValueInitImpl;
-
-        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeValueFree(
-            /* <type name="Value" type="GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr value);
-
-        public delegate void ValueFree(Value value);
-
-        /// <summary>
-        /// Factory for creating <see cref="NativeValueFree"/> methods.
-        /// </summary>
-        public static class NativeValueFreeFactory
-        {
-            /// <summary>
-            /// Wraps <see cref="ValueFree"/> in an anonymous method that can be passed
-            /// to unmaged code.
-            /// </summary>
-            /// <param name="method">The managed method to wrap.</param>
-            /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-            /// data closure parameters in the unmanged function</param>
-            /// <returns>The callback method for passing to unmanged code.</returns>
-            /// <remarks>
-            /// This function is used to marshal managed callbacks to unmanged code. If this
-            /// callback is only called once, <paramref name="freeUserData"/> should be
-            /// set to <c>true</c>. If it can be called multiple times, it should be set to
-            /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/>
-            /// parameter has no effect.
-            /// </remarks>
-            public static NativeValueFree Create(ValueFree method, bool freeUserData)
-            {
-                NativeValueFree nativeCallback = (
-                    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-                    /* transfer-ownership:none */
-                    IntPtr value_) =>
-                {
-                    var value = Opaque.GetInstance<Value>(value_, Transfer.None);
-                    method.Invoke(value);
-                };
-                return nativeCallback;
-            }
-        }
-
-        [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeValueFree ValueFreeImpl;
-
-        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeValueCopy(
-            /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr srcValue,
-            /* <type name="Value" type="GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr destValue);
-
-        public delegate void ValueCopy(Value srcValue, Value destValue);
-
-        /// <summary>
-        /// Factory for creating <see cref="NativeValueCopy"/> methods.
-        /// </summary>
-        public static class NativeValueCopyFactory
-        {
-            /// <summary>
-            /// Wraps <see cref="ValueCopy"/> in an anonymous method that can be passed
-            /// to unmaged code.
-            /// </summary>
-            /// <param name="method">The managed method to wrap.</param>
-            /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-            /// data closure parameters in the unmanged function</param>
-            /// <returns>The callback method for passing to unmanged code.</returns>
-            /// <remarks>
-            /// This function is used to marshal managed callbacks to unmanged code. If this
-            /// callback is only called once, <paramref name="freeUserData"/> should be
-            /// set to <c>true</c>. If it can be called multiple times, it should be set to
-            /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/>
-            /// parameter has no effect.
-            /// </remarks>
-            public static NativeValueCopy Create(ValueCopy method, bool freeUserData)
-            {
-                NativeValueCopy nativeCallback = (
-                    /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-                    /* transfer-ownership:none */
-                    IntPtr srcValue_,
-                    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-                    /* transfer-ownership:none */
-                    IntPtr destValue_) =>
-                {
-                    var srcValue = Opaque.GetInstance<Value>(srcValue_, Transfer.None);
-                    var destValue = Opaque.GetInstance<Value>(destValue_, Transfer.None);
-                    method.Invoke(srcValue, destValue);
-                };
-                return nativeCallback;
-            }
-        }
-
-        [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeValueCopy ValueCopyImpl;
-
-        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate IntPtr NativeValuePeekPointer (
-            /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr value);
-
-        public delegate IntPtr ValuePeekPointer (Value value);
-
-        /// <summary>
-        /// Factory for creating <see cref="NativeValuePeekPointer"/> methods.
-        /// </summary>
-        public static class NativeValuePeekPointerFactory
-        {
-            /// <summary>
-            /// Wraps <see cref="ValuePeekPointer"/> in an anonymous method that can be passed
-            /// to unmaged code.
-            /// </summary>
-            /// <param name="method">The managed method to wrap.</param>
-            /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
-            /// data closure parameters in the unmanged function</param>
-            /// <returns>The callback method for passing to unmanged code.</returns>
-            /// <remarks>
-            /// This function is used to marshal managed callbacks to unmanged code. If this
-            /// callback is only called once, <paramref name="freeUserData"/> should be
-            /// set to <c>true</c>. If it can be called multiple times, it should be set to
-            /// <c>false</c> and the user data must be freed elsewhere. If the callback does
-            /// not have closure user data, then the <paramref name="freeUserData"/>
-            /// parameter has no effect.
-            /// </remarks>
-            public static NativeValuePeekPointer Create(ValuePeekPointer method, bool freeUserData)
-            {
-                NativeValuePeekPointer nativeCallback = (
-                    /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-                    /* transfer-ownership:none */
-                    IntPtr value_) =>
-                {
-                    var value = Opaque.GetInstance<Value>(value_, Transfer.None);
-                    var ret_ = method.Invoke(value);
-                    return ret_;
-                };
-                return nativeCallback;
-            }
-        }
-
-        [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeValuePeekPointer ValuePeekPointerImpl;
-
+        public ValueInit ValueInitImpl;
+        public ValueFree ValueFreeImpl;
+        public ValueCopy ValueCopyImpl;
+        public ValuePeekPointer ValuePeekPointerImpl;
         /// <summary>
         /// A string format describing how to collect the contents of
         ///  this value bit-by-bit. Each character in the format represents
@@ -220,21 +32,49 @@ namespace GISharp.GObject
         public IntPtr CollectFormat;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate IntPtr NativeCollectValue(
-            /* <type name="Value" type="GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr value,
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
+        public delegate void ValueInit (
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value value);
+
+
+        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+        public delegate void ValueFree (
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value value);
+
+        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+        public delegate void ValueCopy (
+        /* <type name="Value" type="const GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value srcValue,
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value destValue);
+
+        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+        public delegate IntPtr ValuePeekPointer (
+        /* <type name="Value" type="const GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value value);
+
+        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+        public delegate IntPtr NativeCollectValue (
+        /* <type name="Value" type="GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value value,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
             uint nCollectValues,
-            /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
-            /* transfer-ownership:none */
+        /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
+        /* transfer-ownership:none */
             IntPtr collectValues,
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
             uint collectFlags);
 
-        public delegate string CollectValue (Value value, TypeCValue[] collectValues, uint collectFlags);
+        public delegate string CollectValue (ref Value value, TypeCValue[] collectValues, uint collectFlags);
 
         /// <summary>
         /// Factory for creating <see cref="NativeCollectValue"/> methods.
@@ -257,26 +97,25 @@ namespace GISharp.GObject
             /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
-            public static NativeCollectValue Create(CollectValue method, bool freeUserData)
+            public static NativeCollectValue Create (CollectValue method, bool freeUserData)
             {
                 NativeCollectValue nativeCallback = (
                     /* <type name="Value" type="GValue*" managed-name="Value" /> */
                     /* transfer-ownership:none */
-                    IntPtr value_,
+                    ref
+                                                        Value value,
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
-                    uint nCollectValues_,
+                                                        uint nCollectValues_,
                     /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
                     /* transfer-ownership:none */
-                    IntPtr collectValues_,
+                                                        IntPtr collectValues_,
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
-                    uint collectFlags_) =>
-                {
-                    var value = Opaque.GetInstance<Value>(value_, Transfer.None);
+                                                        uint collectFlags_) => {
                     var collectValues = MarshalG.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
-                    var ret = method.Invoke(value, collectValues, collectFlags_);
-                    var ret_ = MarshalG.StringToUtf8Ptr(ret);
+                    var ret = method.Invoke (ref value, collectValues, collectFlags_);
+                    var ret_ = MarshalG.StringToUtf8Ptr (ret);
                     return ret_;
                 };
                 return nativeCallback;
@@ -294,21 +133,21 @@ namespace GISharp.GObject
         public IntPtr LcopyFormat;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate IntPtr NativeLcopyValue(
-            /* <type name="Value" type="const GValue*" managed-name="Value" /> */
-            /* transfer-ownership:none */
-            IntPtr value,
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
+        public delegate IntPtr NativeLcopyValue (
+        /* <type name="Value" type="const GValue*" managed-name="Value" /> */
+        /* transfer-ownership:none */
+            ref Value value,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
             uint nCollectValues,
-            /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
-            /* transfer-ownership:none */
-            TypeCValue collectValues,
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
+        /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
+        /* transfer-ownership:none */
+            IntPtr collectValues,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
             uint collectFlags);
 
-        public delegate string LcopyValue(Value value, uint nCollectValues, TypeCValue collectValues, uint collectFlags);
+        public delegate string LcopyValue (ref Value value, TypeCValue[] collectValues, uint collectFlags);
 
         /// <summary>
         /// Factory for creating <see cref="NativeLcopyValue"/> methods.
@@ -331,25 +170,25 @@ namespace GISharp.GObject
             /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
-            public static NativeLcopyValue Create(LcopyValue method, bool freeUserData)
+            public static NativeLcopyValue Create (LcopyValue method, bool freeUserData)
             {
                 NativeLcopyValue nativeCallback = (
                     /* <type name="Value" type="const GValue*" managed-name="Value" /> */
                     /* transfer-ownership:none */
-                    IntPtr value_,
+                    ref
+                                                      Value value,
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
-                    uint nCollectValues_,
+                                                      uint nCollectValues_,
                     /* <type name="TypeCValue" type="GTypeCValue*" managed-name="TypeCValue" /> */
                     /* transfer-ownership:none */
-                    TypeCValue collectValues_,
+                                                      IntPtr collectValues_,
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
-                    uint collectFlags_) =>
-                {
-                    var value = Opaque.GetInstance<Value>(value_, Transfer.None);
-                    var ret = method.Invoke(value, nCollectValues_, collectValues_, collectFlags_);
-                    var ret_ = MarshalG.StringToUtf8Ptr(ret);
+                                                      uint collectFlags_) => {
+                    var collectValue = MarshalG.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
+                    var ret = method.Invoke (ref value, collectValue, collectFlags_);
+                    var ret_ = MarshalG.StringToUtf8Ptr (ret);
                     return ret_;
                 };
                 return nativeCallback;
@@ -374,10 +213,10 @@ namespace GISharp.GObject
         /// location of the #GTypeValueTable associated with @type or
         ///     %NULL if there is no #GTypeValueTable associated with @type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention =  CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeValueTable" type="GTypeValueTable*" managed-name="TypeValueTable" /> */
         /* */
-        static extern TypeValueTable g_type_value_table_peek(
+        static extern TypeValueTable g_type_value_table_peek (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -397,9 +236,9 @@ namespace GISharp.GObject
         /// location of the #GTypeValueTable associated with @type or
         ///     %NULL if there is no #GTypeValueTable associated with @type
         /// </returns>
-        public static TypeValueTable Peek(GType type)
+        public static TypeValueTable Peek (GType type)
         {
-            var ret = g_type_value_table_peek(type);
+            var ret = g_type_value_table_peek (type);
             return ret;
         }
     }

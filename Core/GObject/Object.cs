@@ -194,8 +194,8 @@ namespace GISharp.GObject
                 var value = new Value (paramSpec.ValueType, parameters[i + 1]);
                 paramArray[i / 2] = new Parameter {
                     Name = MarshalG.StringToUtf8Ptr (name),
-                    Value = value.Handle
                 };
+                Marshal.StructureToPtr<Value> (value, paramArray[i / 2].Value, false);
             }
             var paramArrayPtr = MarshalG.CArrayToPtr<Parameter> (paramArray, false);
             try {
@@ -817,7 +817,7 @@ namespace GISharp.GObject
             IntPtr propertyName,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            IntPtr value);
+            ref Value value);
 
         /// <summary>
         /// Gets a property of an object. @value must have been initialized to the
@@ -845,7 +845,7 @@ namespace GISharp.GObject
             }
             var value = new Value (type);
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
-            g_object_get_property (Handle, propertyName_, value.Handle);
+            g_object_get_property (Handle, propertyName_, ref value);
             MarshalG.Free (propertyName_);
 
             return value;
@@ -1102,7 +1102,7 @@ namespace GISharp.GObject
             IntPtr propertyName,
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            IntPtr value);
+            ref Value value);
 
         /// <summary>
         /// Sets a property on an object.
@@ -1119,12 +1119,8 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
-            var value_ = value == null ? IntPtr.Zero : value.Handle;
-            g_object_set_property (Handle, propertyName_, value_);
+            g_object_set_property (Handle, propertyName_, ref value);
             MarshalG.Free (propertyName_);
         }
 

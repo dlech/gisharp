@@ -2572,7 +2572,11 @@ namespace GISharp.GObject
             var gtypeAttr = type.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
-            return gtypeAttr?.Name ?? type.FullName.Replace ('.', '-');
+            var ret = gtypeAttr?.Name ?? type.FullName
+                .Replace ('.', '-')
+                .Replace ("[]", "--Array--");
+
+            return ret;
         }
 
         public static Type GetGTypeStruct (this Type type)

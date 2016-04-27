@@ -12,6 +12,22 @@ namespace GISharp.GLib
     /// </summary>
     public sealed class Array<T> : ReferenceCountedOpaque, IList<T> where T : struct
     {
+        struct ArrayStruct
+        {
+            public IntPtr Data;
+            public uint Len;
+        }
+
+        /// <summary>
+        /// Gets the pointer to the unmanaged array data.
+        /// </summary>
+        public IntPtr Data {
+            get {
+                AssertNotDisposed ();
+                return Marshal.ReadIntPtr (Handle);
+            }
+        }
+
         /// <summary>
         /// Gets the size of the elements in this array.
         /// </summary>

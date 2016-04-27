@@ -158,7 +158,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_default_value (Handle);
-                var ret = Opaque.GetInstance<Value> (ret_, Transfer.None);
+                var ret = Marshal.PtrToStructure<Value> (ret_);
                 return ret;
             }
         }
