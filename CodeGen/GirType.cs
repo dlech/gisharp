@@ -47,6 +47,10 @@ namespace GISharp.CodeGen
                 if (type != null) {
                     return type;
                 }
+                type = GetType (Assembly.CreateQualifiedName (assembly.FullName, $"{nameof(GISharp)}.{typeName}"));
+                if (type != null) {
+                    return type;
+                }
             }
 
             // TODO: remove this when all of GObject is moved to Core

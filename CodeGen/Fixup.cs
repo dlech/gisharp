@@ -48,6 +48,11 @@ namespace GISharp.CodeGen
                 throw new ArgumentNullException ("filename");
             }
 
+            // Helpful for creating a .girfixup that skips everything
+//            foreach (var e in document.Element (gi + "repository").Element (gi + "namespace").Elements ()) {
+//                Console.WriteLine ($"chattr \"skip\" \"\" \"1\" \"gi:repository/gi:namespace/gi:{e.Name.LocalName}[@name='{e.Attribute ("name").Value}']\"");
+//            }
+
             var quoteCount = 0;
             var lastCharWasEscape = false;
             var builder = new StringBuilder ();

@@ -6,3 +6,6 @@ ${TargetFile} --repository=GLib-2.0 --fixup=${SolutionDir}/GLib-2.0/GLib-2.0.gir
 
 GObject-2.0:
 ${TargetFile} --repository=GObject-2.0 --fixup=${SolutionDir}/GObject-2.0/GObject-2.0.girfixup --output=${SolutionDir}/GObject-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'
+
+Gio-2.0:
+${TargetFile} --repository=Gio-2.0 --fixup=${SolutionDir}/Gio-2.0/Gio-2.0.girfixup --output=${SolutionDir}/Gio-2.0/Generated.cs --assemblies='${SolutionDir}/Core/bin/${ProjectConfig}/Core.dll:${SolutionDir}/GLib-2.0/bin/${ProjectConfig}/GLib-2.0.dll'

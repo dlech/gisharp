@@ -51,8 +51,8 @@ namespace GISharp.GirBrowser
 
             #if DEBUG
             girFileNameEntry.Text = BaseDirectory.FindDataFile (
-                System.IO.Path.Combine ("gir-1.0", "GLib-2.0.gir")) ?? "";
-            fixupFileNameEntry.Text = "../../../GLib-2.0/GLib-2.0.girfixup";
+                System.IO.Path.Combine ("gir-1.0", "Gio-2.0.gir")) ?? "";
+            fixupFileNameEntry.Text = "../../../Gio-2.0/Gio-2.0.girfixup";
             girLoadButton.Click ();
             #endif
         }
