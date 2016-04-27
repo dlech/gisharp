@@ -32,7 +32,7 @@ namespace GISharp.GObject
     /// </summary>
     sealed class InitiallyUnownedClass : TypeClass
     {
-        internal struct InitiallyUnownedClass_
+        struct InitiallyUnownedClassStruct
         {
             public TypeClassStruct GTypeClass;
             public IntPtr ConstructProperties;
@@ -64,6 +64,12 @@ namespace GISharp.GObject
             public delegate void NativeNotify (IntPtr @object, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeConstructed (IntPtr @object);
+        }
+
+        public override Type StructType {
+            get {
+                return typeof(InitiallyUnownedClassStruct);
+            }
         }
 
         public InitiallyUnownedClass (IntPtr handle, bool ownsRef)
