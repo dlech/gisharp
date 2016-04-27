@@ -9,7 +9,7 @@ namespace GISharp.GLib.Test
     [TestFixture]
     public class VersionTests
     {
-        [Test]
+        [Test, Ignore ("This depends on the system we are running on")]
         public void TestCompileTime ()
         {
             // This is a bit of a backwards test since it is actually verifying
@@ -20,7 +20,7 @@ namespace GISharp.GLib.Test
             Assert.That (Version.CompileTime.Minor, Is.EqualTo (assemblyVersion.Minor));
         }
 
-        [Test]
+        [Test, Ignore ("This depends on the system we a running on")]
         public void TestRuntimeTime ()
         {
             // This is a bit of a backwards test since it is actually verifying
