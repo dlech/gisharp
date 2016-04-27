@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// A union holding one collected value.
     /// </summary>
     [StructLayout (LayoutKind.Explicit)]
-    struct TypeCValue
+    public struct TypeCValue
     {
         /// <summary>
         /// the field for holding integer values

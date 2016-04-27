@@ -6,7 +6,7 @@ namespace GISharp.GObject
     /// A structure holding information for a specific type.
     /// It is filled in by the g_type_query() function.
     /// </summary>
-    struct TypeQuery
+    public struct TypeQuery
     {
         /// <summary>
         /// the #GType value of the type

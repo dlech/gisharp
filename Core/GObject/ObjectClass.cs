@@ -5,27 +5,25 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
+using GISharp.GLib;
 using GISharp.Runtime;
 
+using BindFlags = System.Reflection.BindingFlags;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
-using BindFlags = System.Reflection.BindingFlags;
-using GISharp.GLib;
 
 namespace GISharp.GObject
 {
     /// <summary>
     /// The class structure for the GObject type.
     /// </summary>
-    class ObjectClass : TypeClass
+    public class ObjectClass : TypeClass
     {
-        struct ObjectClass_
+        struct ObjectClassStruct
         {
             public TypeClass.TypeClassStruct GTypeClass;
 
-            #pragma warning disable 169
-            IntPtr constructProperties;
-            #pragma warning restore 169
+            public IntPtr ConstructProperties;
 
             /* seldom overidden */
             public NativeConstructor Constructor;
@@ -42,10 +40,9 @@ namespace GISharp.GObject
             /* called when done constructing */
             public NativeConstructed Constructed;
 
-            #pragma warning disable 169
-            ulong flags;
-            IntPtr pdummy;
-            #pragma warning restore 169
+            public ulong Flags;
+            [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
+            public IntPtr Dummy;
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
@@ -68,21 +65,52 @@ namespace GISharp.GObject
         internal static readonly Quark managedClassPropertyInfoQuark =
             Quark.FromString ("gisharp-object-class-managed-class-property-info-quark");
 
-        internal static void InitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
+        /// <summary>
+        /// Gets the type info for registering a managed class with the GObject
+        /// type system.
+        /// </summary>
+        /// <returns>The type info.</returns>
+        /// <param name="type">The managed type to register.</param>
+        public override TypeInfo GetTypeInfo (Type type)
+        {
+            var parentGType = type.BaseType.GetGType ();
+            var parentTypeQuery = parentGType.Query ();
+            var ret = new TypeInfo {
+                ClassSize = (ushort)parentTypeQuery.ClassSize,
+                ClassInit = NativeInitManagedClass,
+                ClassData = GCHandle.ToIntPtr (GCHandle.Alloc (type)),
+                InstanceSize = (ushort)parentTypeQuery.InstanceSize,
+            };
+
+            return ret;
+        }
+
+        /// <summary>
+        /// ClassInit callback for managed classes.
+        /// </summary>
+        /// <param name="classPtr">Pointer to <see cref="ObjectClassStruct"/>.</param>
+        /// <param name="userDataPtr">Pointer to user data from <see cref="TypeInfo"/>.</param>
+        /// <remarks>
+        /// This takes care of overriding the methods to make the managed type
+        /// interop with the GObject type system.
+        /// </remarks>
+        static void NativeInitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
             // Can't use type.GetGType () here since the type registration has
             // not finished. So, we get the GType this way instead.
             var gtype = new GType (Marshal.ReadIntPtr (classPtr));
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
 
-            // Install Properties
+            // override property native accessors
 
             Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.SetProperty)),
-                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassSetProperty));
+                (int)Marshal.OffsetOf<ObjectClassStruct> (nameof (ObjectClassStruct.SetProperty)),
+                Marshal.GetFunctionPointerForDelegate<ObjectClassStruct.NativeSetProperty> (ManagedClassSetProperty));
             Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<ObjectClass_> (nameof (ObjectClass_.GetProperty)),
-                Marshal.GetFunctionPointerForDelegate<ObjectClass_.NativeSetProperty> (ManagedClassGetProperty));
+                (int)Marshal.OffsetOf<ObjectClassStruct> (nameof (ObjectClassStruct.GetProperty)),
+                Marshal.GetFunctionPointerForDelegate<ObjectClassStruct.NativeSetProperty> (ManagedClassGetProperty));
+
+            // Install Properties
 
             uint propId = 1; // propId 0 is used internally, so we start with 1
             foreach (var propInfo in type.GetProperties ()) {
@@ -96,13 +124,13 @@ namespace GISharp.GObject
                     // this property is not to be registered with the GObject type system
                     continue;
                 }
+                // TODO: localize strings for nick and blurb
                 var nick = ((DisplayNameAttribute)Attribute
                     .GetCustomAttribute (propInfo, typeof(DisplayNameAttribute), true))
                     ?.DisplayName ?? name;
                 var blurb = ((DescriptionAttribute)Attribute
                     .GetCustomAttribute (propInfo, typeof(DescriptionAttribute), true))
                     ?.Description ?? nick;
-                // TODO: localize strings
                 var defaultValue = ((DefaultValueAttribute)Attribute
                     .GetCustomAttribute (propInfo, typeof(DefaultValueAttribute), true))
                     ?.Value;
@@ -231,13 +259,13 @@ namespace GISharp.GObject
 
                 var namePtr = MarshalG.StringToUtf8Ptr (name);
                 var parameterGTypesPtr = MarshalG.CArrayToPtr<GType> (parameterGTypes, false);
-                var id = Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
+                Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
                     null, IntPtr.Zero, null, returnGType,
                     (uint)parameterGTypes.Length, parameterGTypesPtr);
             }
         }
 
-        internal static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
         {
             var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
             if (obj == null) {
@@ -250,7 +278,7 @@ namespace GISharp.GObject
             propInfo.SetValue (obj, value.Get ());
         }
 
-        internal static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
+        static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, IntPtr valuePtr, IntPtr pspecPtr)
         {
             var obj = ReferenceCountedOpaque.TryGetExisting <Object> (objPtr);
             if (obj == null) {

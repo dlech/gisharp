@@ -7,8 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all classes.
     /// </summary>
-    // TODO: this should be internal
-    public class TypeClass : GTypeStruct
+    public abstract class TypeClass : GTypeStruct
     {
         internal protected struct TypeClassStruct
         {
@@ -21,11 +20,7 @@ namespace GISharp.GObject
             }
         }
 
-        public GType GType {
-            get {
-                return new GType (Marshal.ReadIntPtr (Handle));
-            }
-        }
+        public abstract TypeInfo GetTypeInfo (Type type);
 
         /// <summary>
         /// This function is essentially the same as g_type_class_ref(), except

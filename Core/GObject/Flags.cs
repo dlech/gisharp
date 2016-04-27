@@ -267,6 +267,11 @@ namespace GISharp.GObject
             : base (handle, ownsRef)
         {
         }
+
+        public override TypeInfo GetTypeInfo (Type type)
+        {
+            throw new NotSupportedException ();
+        }
     }
 
     /// <summary>

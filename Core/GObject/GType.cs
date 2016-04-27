@@ -26,7 +26,7 @@ namespace GISharp.GObject
         static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
 
-#pragma warning disable 169
+#pragma warning disable 414
         // There is an unfortunate bug that g_type_add_interface_static() will
         // fail to install properties because class_init of GObject has not
         // been run yet to create the param spec pool.
@@ -39,7 +39,7 @@ namespace GISharp.GObject
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
         static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
-#pragma warning restore 169
+#pragma warning restore 414
 
         static GType ()
         {
@@ -891,17 +891,13 @@ namespace GISharp.GObject
                         throw new ArgumentException (message, nameof (type));
                     }
                     var parentGType = type.BaseType.GetGType ();
-                    TypeQuery parentTypeQuery;
-                    g_type_query (parentGType, out parentTypeQuery);
-                    var info = new TypeInfo {
-                        ClassSize = (ushort)parentTypeQuery.ClassSize,
-                        ClassInit = ObjectClass.InitManagedClass,
-                        ClassData = GCHandle.ToIntPtr (GCHandle.Alloc (type)),
-                        InstanceSize = (ushort)parentTypeQuery.InstanceSize,
-                    };
+                    var parentTypeclass = TypeClass.Ref (parentGType);
+                    var typeInfo = parentTypeclass.GetTypeInfo (type);
+
                     TypeFlags flags = default(TypeFlags);
                     // TODO: do we need to set any flags?
-                    var gtype = RegisterStatic (parentGType, gtypeName, info, flags);
+
+                    var gtype = RegisterStatic (parentGType, gtypeName, typeInfo, flags);
                     if (gtype == Invalid) {
                         throw new InvalidOperationException ("Something bad happend while registering object.");
                     }
@@ -1081,6 +1077,16 @@ namespace GISharp.GObject
             /* direction:out caller-allocates:1 transfer-ownership:none */
             out TypeQuery query);
 
+        /// <summary>
+        /// Queries the type system for information about a specific type.
+        /// </summary>
+        public TypeQuery Query ()
+        {
+            TypeQuery query;
+            g_type_query (this, out query);
+
+            return query;
+        }
 
         /// <summary>
         /// Adds the static @interface_type to @instantiable_type.

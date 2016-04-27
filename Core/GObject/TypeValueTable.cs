@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// The #GTypeValueTable provides the functions required by the #GValue
     /// implementation, to serve as a container for values of a type.
     /// </summary>
-    struct TypeValueTable
+    public struct TypeValueTable
     {
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void NativeValueInit(
