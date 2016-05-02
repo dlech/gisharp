@@ -35,7 +35,6 @@
     <Compile Include="GLib\Array.cs" />
     <Compile Include="GObject\BindingFlags.cs" />
     <Compile Include="GLib\ByteArray.cs" />
-    <Compile Include="Runtime\CallbackCache.cs" />
     <Compile Include="GLib\Delegates.cs" />
     <Compile Include="Runtime\DynamicLibrary.cs" />
     <Compile Include="GObject\Enum.cs" />
@@ -97,6 +96,9 @@
     <Compile Include="GLib\VariantParseError.cs" />
     <Compile Include="GLib\VariantIter.cs" />
     <Compile Include="GLib\VariantClass.cs" />
+    <Compile Include="Runtime\DeprecatedAttribute.cs" />
+    <Compile Include="Runtime\IObject.cs" />
+    <Compile Include="Runtime\CallbackScope.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

@@ -25,6 +25,16 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        List<TypeDeclarationInfo> _NestedTypeInfos;
+        public IReadOnlyList<TypeDeclarationInfo> NestedTypeInfos {
+            get {
+                if (_NestedTypeInfos == null) {
+                    _NestedTypeInfos = GetNestedTypeInfos ().ToList ();
+                }
+                return _NestedTypeInfos.AsReadOnly ();
+            }
+        }
+
         List<FieldInfo> _FieldInfos;
         public IReadOnlyList<FieldInfo> FieldInfos {
             get {
@@ -45,15 +55,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxList<MemberDeclarationSyntax>? _TypeMembers;
-        public SyntaxList<MemberDeclarationSyntax> TypeMembers {
+        List<MethodInfo> _VirtualMethodInfos;
+        public IReadOnlyList<MethodInfo> VirtualMethodInfos {
             get {
-                if (!_TypeMembers.HasValue) {
-                    _TypeMembers = List<MemberDeclarationSyntax> ()
-                        .AddRange (FieldInfos.SelectMany (x => x.Declarations))
-                        .AddRange (MethodInfos.SelectMany (x => x.Declarations));
+                if (_VirtualMethodInfos == null) {
+                    _VirtualMethodInfos = GetVirtualMethodInfos ().ToList ();
                 }
-                return _TypeMembers.Value;
+                return _VirtualMethodInfos.AsReadOnly ();
             }
         }
 
@@ -69,6 +77,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public string GTypeStruct {
+            get {
+                return Element.Attribute (glib + "type-struct").AsString ();
+            }
+        }
+
         protected TypeDeclarationInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -79,7 +93,14 @@ namespace GISharp.CodeGen.Model
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
         {
-            return FieldInfos.Cast<BaseInfo> ().Concat (MethodInfos);
+            return NestedTypeInfos.Cast<BaseInfo> ().Concat (FieldInfos).Concat (MethodInfos);
+        }
+
+        IEnumerable<TypeDeclarationInfo> GetNestedTypeInfos ()
+        {
+            foreach (var record in Element.Elements (gi + "record")) {
+                yield return new StructInfo (record, this);
+            }
         }
 
         IEnumerable<FieldInfo> GetFieldInfos ()
@@ -105,6 +126,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        IEnumerable<MethodInfo> GetVirtualMethodInfos ()
+        {
+            foreach (var method in Element.Elements (gi + "virtual-method")) {
+                yield return new MethodInfo (method, this);
+            }
+        }
+
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             return base.GetAttributeLists ().Union (GetTypeDeclarationAttributeLists ());
@@ -112,6 +140,7 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<AttributeListSyntax> GetTypeDeclarationAttributeLists ()
         {
+            // If a type is a GType, then decorate it with the GTypeAttribute
             if (IsGType) {
                 var nameArgument = string.Format ("\"{0}\"", GTypeName);
                 var registerArgument = string.Format (
@@ -122,6 +151,15 @@ namespace GISharp.CodeGen.Model
                     .AddArgumentListArguments(
                         AttributeArgument (ParseExpression (nameArgument)),
                         AttributeArgument (ParseExpression(registerArgument))));
+            }
+
+            // If a type has an associate GType struct, decorate it with the GTypeStructAttribute
+            if (GTypeStruct != null) {
+                var typeArgument = GirType.ResolveType (GTypeStruct, Element.Document);
+                yield return AttributeList ().AddAttributes (
+                    Attribute (ParseName (typeof(GISharp.Runtime.GTypeStructAttribute).FullName))
+                        .AddArgumentListArguments (
+                            AttributeArgument (ParseExpression ($"typeof({typeArgument.FullName})"))));
             }
         }
     }

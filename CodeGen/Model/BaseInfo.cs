@@ -148,26 +148,26 @@ namespace GISharp.CodeGen.Model
             if (Element.Attribute ("deprecated").AsBool ()) {
                 var obsoleteAttribute = Attribute (ParseName (typeof(ObsoleteAttribute).FullName));
 
-                var message = new StringBuilder ();
                 var docDeprecated = Element.Element (gi + "doc-deprecated");
                 if (docDeprecated != null) {
-                    message.Append (docDeprecated.Value);
-                }
-                var deprecatedSince = Element.Attribute ("deprecated-since");
-                if (deprecatedSince != null) {
-                    if (message.Length > 0) {
-                        message.Append (" ");
-                    }
-                    message.Append (deprecatedSince.Value);
-                }
-                if (message.Length > 0) {
                     obsoleteAttribute = obsoleteAttribute.AddArgumentListArguments (
                         AttributeArgument (
                             LiteralExpression (SyntaxKind.StringLiteralExpression,
-                                Literal (message.ToString ()))));
+                                Literal (docDeprecated.Value))));
                 }
 
                 yield return AttributeList ().AddAttributes (obsoleteAttribute);
+
+                var deprecatedAttribute = Attribute (ParseName (typeof(GISharp.Runtime.DeprecatedAttribute).FullName));
+                var deprecatedVersion = Element.Attribute ("deprecated-version");
+                if (deprecatedVersion != null) {
+                    deprecatedAttribute = deprecatedAttribute.AddArgumentListArguments (
+                        AttributeArgument (
+                            LiteralExpression (SyntaxKind.StringLiteralExpression,
+                                Literal (deprecatedVersion.Value))));
+                }
+
+                yield return AttributeList ().AddAttributes (deprecatedAttribute);
             }
 
             if (Element.Attribute ("version") != null) {

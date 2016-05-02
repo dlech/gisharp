@@ -70,6 +70,6 @@
   <Target Name="BeforeCompile">
     <Delete Files="Generated.cs" />
     <Message Text="Generating Generated.cs..." />
-    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs -a $(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/Core.dll:$(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/NativeLong.dll" />
+    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs -a $(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/Core.dll" />
   </Target>
 </Project>

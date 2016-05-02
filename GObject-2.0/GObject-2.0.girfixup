@@ -1,64 +1,107 @@
-﻿# va_list not supported yet
+﻿###########
+# Ignores #
+###########
+
+# Most of GObject is implemented in Core
+
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='SignalCMarshaller']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='SignalCVaMarshaller']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='BaseFinalizeFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='BaseInitFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='Binding']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='BindingFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='BindingTransformFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='BoxedCopyFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='BoxedFreeFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='CClosure']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Callback']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ClassFinalizeFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ClassInitFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Closure']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ClosureMarshal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ClosureNotify']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ClosureNotifyData']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='ConnectFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='EnumClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='EnumValue']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='FlagsClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='FlagsValue']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='InitiallyUnowned']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='InitiallyUnownedClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='InstanceInitFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='InterfaceFinalizeFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='InterfaceInfo']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='InterfaceInitFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='Object']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ObjectClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ObjectConstructParam']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ObjectFinalizeFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ObjectGetPropertyFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ObjectSetPropertyFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='ParamFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[starts-with(@name,'ParamSpec')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Parameter']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='SignalAccumulator']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='SignalEmissionHook']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='SignalFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SignalInvocationHint']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='SignalMatchType']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SignalQuery']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ToggleNotify']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:union[@name='TypeCValue']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypeClassCacheFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='TypeDebugFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='TypeFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='TypeFundamentalFlags']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeFundamentalInfo']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeInfo']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeInstance']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeInterface']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypeInterfaceCheckFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='TypeModule']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeModuleClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:interface[@name='TypePlugin']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypePluginClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypePluginCompleteInterfaceInfo']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypePluginCompleteTypeInfo']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypePluginUnuse']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='TypePluginUse']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeQuery']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeValueTable']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='VaClosureMarshal']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Value']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ValueArray']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='ValueTransform']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='WeakNotify']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='WeakRef']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:union[@name='_Value__data__union']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'flags_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PARAM_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'param_spec_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handler_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handlers_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'type_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'TYPE_')]"
+
+
+##########
+# Fixups #
+##########
+
+# va_list not supported
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='va_list']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[./gi:type/@name ='VaClosureMarshal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name ='VaClosureMarshal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[./gi:parameters/gi:parameter/gi:type/@name='SignalCVaMarshaller']"
 
-# GType is implemented in Core library
-
-# delagates in core
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'BaseFinalizeFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'BaseInitFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'ClassFinalizeFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'ClassInitFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'InstanceInitFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'TypeClassCacheFunc']"
-#chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name = 'BaseFinalizeFunc']"
-
 # DupliateFunc not implemented in GLib
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='GLib.DuplicateFunc']"
 
-# Can't use _register_static functions
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[contains(@name,'_register_static')]"
-
-# Boxed
-
-# move functions to static class
-addelement "<gs:static-class name='Boxed' />" "gi:repository/gi:namespace"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'boxed_')]" "gi:repository/gi:namespace/gs:static-class[@name='Boxed']"
-chattr "name" "boxed_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Boxed']/gi:function[starts-with(@name,'boxed_')]"
-
-# Enum
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_')]"
-
-# Flags
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'flags_')]"
-
-# Object
-
-# moved to core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='Object']"
-
-# ParamFlags
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PARAM_')]"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name ='ParamFlags']"
-
-# ParamSpec
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name ='ParamSpec']"
-
-# ParamSpecs
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'param_spec_')]"
 
 # ParamSpecPool
 
@@ -71,42 +114,6 @@ chelement "gi:constructor" "gi:repository/gi:namespace/gi:record[@name ='ParamSp
 addelement "<gs:static-class name='SignalAccumulators' />" "gi:repository/gi:namespace"
 move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_accumulator_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalAccumulators']"
 chattr "name" "signal_accumulator_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalAccumulators']/gi:function[starts-with(@name,'signal_accumulator_')]"
-
-# SignalHandlers
-
-# move functions to static class
-addelement "<gs:static-class name='SignalHandlers' />" "gi:repository/gi:namespace"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handlers_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandlers']"
-chattr "name" "signal_handlers_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandlers']/gi:function[starts-with(@name,'signal_handlers_')]"
-
-# SignalHandler
-
-# move functions to static class
-addelement "<gs:static-class name='SignalHandler' />" "gi:repository/gi:namespace"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_handler_')]" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandler']"
-chattr "name" "signal_handler_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='SignalHandler']/gi:function[starts-with(@name,'signal_handler_')]"
-
-# Signal
-
-# move functions and constants to static class
-addelement "<gs:static-class name='Signal' />" "gi:repository/gi:namespace"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_')]" "gi:repository/gi:namespace/gs:static-class[@name='Signal']"
-chattr "name" "signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:function[starts-with(@name,'signal_')]"
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SIGNAL_')]" "gi:repository/gi:namespace/gs:static-class[@name='Signal']"
-chattr "name" "SIGNAL_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Signal']/gi:constant[starts-with(@name,'SIGNAL_')]"
-
-# Type
-
-# part of core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[@name='TYPE_FLAG_RESERVED_ID_BIT']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'type_')]"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'TYPE_')]"
-
-# TypeClass
-
-# part of Core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='TypeClass']"
 
 # TypeInstance
 

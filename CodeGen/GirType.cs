@@ -19,7 +19,6 @@ namespace GISharp.CodeGen
         static readonly XNamespace gs = Globals.GISharpNamespace;
         #pragma warning restore 0414
 
-        static readonly Dictionary<string, Assembly> assemblyCache = new Dictionary<string, Assembly> ();
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
 
         readonly XElement element;
@@ -40,27 +39,6 @@ namespace GISharp.CodeGen
             var type = GetType (typeName);
             if (type != null) {
                 return type;
-            }
-
-            foreach (var assembly in assemblyCache.Values) {
-                type = GetType (Assembly.CreateQualifiedName (assembly.FullName, typeName));
-                if (type != null) {
-                    return type;
-                }
-                type = GetType (Assembly.CreateQualifiedName (assembly.FullName, $"{nameof(GISharp)}.{typeName}"));
-                if (type != null) {
-                    return type;
-                }
-            }
-
-            // TODO: remove this when all of GObject is moved to Core
-            switch(typeName) {
-//            case "BaseInitFunc":
-//                return typeof(GISharp.GObject.BaseInitFunc);
-            case "Object":
-                return typeof(GISharp.GObject.Object);
-            case "ParamSpec":
-                return typeof(GISharp.GObject.ParamSpec);
             }
 
             var isArray = false;
@@ -157,16 +135,15 @@ namespace GISharp.CodeGen
                 return type;
             }
 
+            // If we couldn't find a matching type, try adding the GISharp namespace prefix
+            if (!typeName.StartsWith ($"{MainClass.parentNamespace}.", StringComparison.Ordinal)) {
+                return ResolveType ($"{MainClass.parentNamespace}.{typeName}", document);
+            }
+
             var message = string.Format ("Failed to get type for '{0}'.", typeName);
             Console.Error.WriteLine (message);
 
             return null;
-        }
-
-        public static void LoadAssembly (string path)
-        {
-            var assembly = Assembly.LoadFrom (path);
-            assemblyCache.Add (assembly.FullName, assembly);
         }
 
         public static IEnumerable<GirType> GetTypes (XDocument document)

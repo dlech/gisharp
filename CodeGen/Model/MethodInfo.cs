@@ -26,9 +26,21 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsVirtualMethod {
+            get {
+                return Element.Name == gi + "virtual-method";
+            }
+        }
+
         public bool IsStaticMethod {
             get {
-                return Element.Name == gi + "function";
+                return Element.Name == gi + "function" || IsExtensionMethod;
+            }
+        }
+
+        public bool IsExtensionMethod {
+            get {
+                return Element.Attribute (gs + "extension-method").AsBool ();
             }
         }
 
@@ -153,6 +165,19 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        ParameterListSyntax _UnmanagedParameterList;
+        public ParameterListSyntax UnmanagedParameterList {
+            get {
+                if (_UnmanagedParameterList == null) {
+                    var parameterList = SeparatedList<ParameterSyntax> ()
+                        .AddRange (PinvokeParameterInfos.Select (
+                            x => x.Parameter.WithIdentifier (ParseToken (x.Identifier.Text + "_"))));
+                    _UnmanagedParameterList = ParameterList (parameterList);
+                }
+                return _UnmanagedParameterList;
+            }
+        }
+
         ParameterListSyntax _PinvokeParameterList;
         public ParameterListSyntax PinvokeParameterList {
             get {
@@ -212,11 +237,22 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        SyntaxList<StatementSyntax>? _VirtualMethodImplStatements;
+        public SyntaxList<StatementSyntax> VirtualMethodImplStatements {
+            get {
+                if (!_VirtualMethodImplStatements.HasValue) {
+                    _VirtualMethodImplStatements = List<StatementSyntax> ()
+                        .AddRange (GetVirtualMethodImplStatements ());
+                }
+                return _VirtualMethodImplStatements.Value;
+            }
+        }
+
         public MethodInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "constructor" && element.Name != gi + "callback") {
-                throw new ArgumentException ("Requires <fuction>, <method>, <constructor> or <callback> element.", nameof(element));
+            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "virtual-method" && element.Name != gi + "constructor" && element.Name != gi + "callback") {
+                throw new ArgumentException ("Requires <fuction>, <method>, <virtual-method> <constructor> or <callback> element.", nameof(element));
             }
         }
 
@@ -232,6 +268,18 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
+            if (IsVirtualMethod) {
+                var iface = DeclaringMember as InterfaceInfo;
+                if (iface != null) {
+                    var methodDeclaration = MethodDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+                        .WithAttributeLists (AttributeLists)
+                        .WithParameterList (ParameterList)
+                        .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
+                        .WithLeadingTrivia (DocumentationCommentTriviaList);
+                    yield return methodDeclaration;
+                }
+                yield break;
+            }
             var pinvokeMethod = MethodDeclaration (
                 UnmanagedReturnParameterInfo.TypeInfo.Type,
                 PinvokeIdentifier)
@@ -324,7 +372,7 @@ namespace GISharp.CodeGen.Model
             var freeStatements = new List<StatementSyntax> ();
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 if (p.IsInParam) {
-                    foreach (var s in GetMarshalManagedToNativeParameterStatements (p, false)) {
+                    foreach (var s in GetMarshalManagedToNativeParameterStatements (p, true)) {
                         yield return s.Item1;
                         if (s.Item2 != null) {
                             freeStatements.Add (s.Item2);
@@ -410,12 +458,15 @@ namespace GISharp.CodeGen.Model
             string statement, freeStatement;
             switch (managedParameter.TypeInfo.Classification) {
             case TypeClassification.CArray:
-                    statement = string.Format ("var {0}_ = {1}.{2}<{3}> ({0}, {4});\n",
+                statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
                     managedParameter.Identifier,
                     typeof(GISharp.Runtime.MarshalG),
                     nameof(GISharp.Runtime.MarshalG.CArrayToPtr),
                     managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
                     pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 freeStatement = string.Empty;
                 if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
@@ -428,12 +479,20 @@ namespace GISharp.CodeGen.Model
                 break;
             case TypeClassification.Delegate:
                 statement = string.Format (
-                    "var {0}_ = {1}Factory.Create ({0}, {2});\n",
+                    "{0}_ = {1}Factory.Create ({0}, {2});\n",
                     managedParameter.Identifier,
                     pinvokeParameter.TypeInfo.Type,
                     // By defintion, scope of async is only called once, so we free userData
                     // other scopes can be called multiple times, so userData is freed elsewhere
-                    pinvokeParameter.Scope == ParameterScope.Async ? "true" : "false");
+                    pinvokeParameter.Scope == GISharp.Runtime.CallbackScope.Async ? "true" : "false");
+                // TODO: need to find better way to handle delegates
+                statement = string.Format ("{0}_ = default({1});", managedParameter.Identifier, pinvokeParameter.TypeInfo.Type);
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
+                yield return new Tuple<StatementSyntax, StatementSyntax> (
+                    ParseStatement (statement), null);
+                statement = string.Format ("throw new {0} ();", typeof(NotImplementedException).FullName);
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
                     ParseStatement (statement), null);
                 if (pinvokeParameter.ClosureIndex >= 0) {
@@ -451,7 +510,7 @@ namespace GISharp.CodeGen.Model
                         nameof(GCHandle.Free));
                     yield return new Tuple<StatementSyntax, StatementSyntax> (
                         ParseStatement (closureHandleStatement),
-                        pinvokeParameter.Scope == ParameterScope.Call
+                        pinvokeParameter.Scope == GISharp.Runtime.CallbackScope.Call
                         ? ParseStatement (closureHandleFreeStatement) : null);
                     
                     if (pinvokeParameter.DestoryIndex >= 0) {
@@ -486,21 +545,33 @@ namespace GISharp.CodeGen.Model
                     }
                 }
                 break;
+            case TypeClassification.Interface:
             case TypeClassification.Opaque:
-                statement = string.Format ("var {0}_ = {0} == null ? {1}.{2} : {0}.Handle;\n",
-                    managedParameter.Identifier,
-                    typeof(IntPtr).FullName,
-                    nameof(IntPtr.Zero));
+                if (managedParameter.NeedsNullCheck) {
+                    statement = string.Format ("{0}_ = {0}.Handle;\n",
+                        managedParameter.Identifier);
+                } else {
+                    statement = string.Format ("{0}_ = {0} == null ? {1}.{2} : {0}.Handle;\n",
+                        managedParameter.Identifier,
+                        typeof(IntPtr).FullName,
+                        nameof (IntPtr.Zero));
+                }
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
                     ParseStatement (statement), null);
                 break;
             case TypeClassification.OpaqueCArray:
-                statement = string.Format ("var {0}_ = {1}.{2}<{3}> ({0}, {4});\n",
+                statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
                     managedParameter.Identifier,
                     typeof(GISharp.Runtime.MarshalG),
                     nameof(GISharp.Runtime.MarshalG.OpaqueCArrayToPtr),
                     managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
                     pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 freeStatement = string.Empty;
                 if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
@@ -512,10 +583,13 @@ namespace GISharp.CodeGen.Model
                     ParseStatement (statement), ParseStatement (freeStatement));
                 break;
             case TypeClassification.Strv:
-                statement = string.Format ("var {0}_ = {1}.{2} ({0});\n",
+                statement = string.Format ("{0}_ = {1}.{2} ({0});\n",
                     managedParameter.Identifier,
                     typeof(GISharp.Runtime.MarshalG),
                     nameof(GISharp.Runtime.MarshalG.StringArrayToGStrvPtr));
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 freeStatement = string.Empty;
                 if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
@@ -527,10 +601,13 @@ namespace GISharp.CodeGen.Model
                     ParseStatement (statement), ParseStatement (freeStatement));
                 break;
             case TypeClassification.Utf8String:
-                statement = string.Format ("var {0}_ = {1}.{2} ({0});\n",
+                statement = string.Format ("{0}_ = {1}.{2} ({0});\n",
                     managedParameter.Identifier,
                     typeof(GISharp.Runtime.MarshalG),
                     nameof(GISharp.Runtime.MarshalG.StringToUtf8Ptr));
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 freeStatement = string.Empty;
                 if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
                     freeStatement = string.Format ("{0}.{1} ({2}_);\n",
@@ -543,9 +620,12 @@ namespace GISharp.CodeGen.Model
                 break;
             default:
                 // TODO: need to add more implementations
-                statement = string.Format ("var {0}_ = default({1});\n",
+                statement = string.Format ("{0}_ = default({1});\n",
                     managedParameter.Identifier,
                     typeof(IntPtr).FullName);
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
                     ParseStatement (statement), null);
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
@@ -577,11 +657,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        StatementSyntax GetInvocationStatement (string methodName = null)
+        StatementSyntax GetInvocationStatement (string methodName = null, bool skipFirstParameter = false)
         {
             var invokeExpression = InvocationExpression (IdentifierName (methodName ?? Identifier.Text));
             var argList = ArgumentList ();
-            foreach (var p in ManagedParameterInfos) {
+            foreach (var p in ManagedParameterInfos.Skip (skipFirstParameter ? 1 : 0)) {
                 var name = string.Format (
                     "{0} {1}",
                     p.Modifiers,
@@ -596,14 +676,10 @@ namespace GISharp.CodeGen.Model
 
             StatementSyntax statement = ExpressionStatement (invokeExpression);
             if (ManagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                var ret = "ret";
-                if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
-                    ret += "_";
-                }
                 statement = LocalDeclarationStatement (
                     VariableDeclaration (ParseTypeName ("var"))
                     .AddVariables (
-                        VariableDeclarator (ParseToken (ret))
+                        VariableDeclarator (ParseToken ("ret"))
                             .WithInitializer (EqualsValueClause (invokeExpression))));
             }
             return statement;
@@ -619,9 +695,13 @@ namespace GISharp.CodeGen.Model
                     // setters use "value" keyword for parameter
                     ManagedName.StartsWith ("set_", StringComparison.Ordinal) ? "value" : p.ManagedName);
                 if (p.IsInstanceParameter) {
-                    var declaringTypeInfo = (TypeDeclarationInfo)p.DeclaringMember.DeclaringMember;
-                    name = declaringTypeInfo.InstanceIdentifier.Text;
-                } else if (p.TypeInfo.RequiresMarshal || !ManagedParameterInfos.Any (x => x.GirName == p.GirName)) {
+                    if (IsExtensionMethod) {
+                        name = $"{p.ManagedName}_";
+                    } else {
+                        var declaringTypeInfo = (TypeDeclarationInfo)p.DeclaringMember.DeclaringMember;
+                        name = declaringTypeInfo.InstanceIdentifier.Text;
+                    }
+                } else if (p.TypeInfo.RequiresMarshal || ManagedParameterInfos.All (x => x.GirName != p.GirName)) {
                     // add suffix unless the parameter is also a managed parameter and does not need to be marshaled
                     name += "_";
                 }
@@ -661,10 +741,13 @@ namespace GISharp.CodeGen.Model
             if (!managedParameterInfo.TypeInfo.RequiresMarshal) {
                 yield break;
             }
+
+            string statement;
+
             var unmangedParameterInfo = managedParameterInfo.IsReturnParameter
                 ? UnmanagedReturnParameterInfo
                 : PinvokeParameterInfos.Single (x => x.GirName == managedParameterInfo.GirName);
-            string statement;
+
             switch (managedParameterInfo.TypeInfo.Classification) {
             case TypeClassification.CArray:
             case TypeClassification.OpaqueCArray:
@@ -696,6 +779,20 @@ namespace GISharp.CodeGen.Model
                     managedParameterInfo.TypeInfo.TypeObject.GetElementType ().FullName,
                     length,
                     managedParameterInfo.Transfer == GISharp.Runtime.Transfer.None ? "false" : "true");
+                if (declareVariable) {
+                    statement = "var " + statement;
+                }
+                yield return ParseStatement (statement);
+                break;
+            case TypeClassification.Interface:
+                statement = string.Format ("{0} = ({1}){2}.{3}<{4}> ({0}_, {5}.{6});\n",
+                    managedParameterInfo.Identifier,
+                    managedParameterInfo.TypeInfo.Type,
+                    typeof(GISharp.Runtime.Opaque),
+                    nameof(GISharp.Runtime.Opaque.GetInstance),
+                    typeof(GISharp.GObject.Object).FullName,
+                    typeof(GISharp.Runtime.Transfer).FullName,
+                    managedParameterInfo.Transfer);
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
@@ -783,6 +880,48 @@ namespace GISharp.CodeGen.Model
                 }
                 var ret = "ret";
                 if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
+                    ret += "_";
+                }
+                var returnStatement = ReturnStatement (ParseExpression (ret));
+                yield return returnStatement;
+            }
+        }
+
+        IEnumerable<StatementSyntax> GetVirtualMethodImplStatements ()
+        {
+            foreach (var p in ManagedParameterInfos) {
+                if (p.IsOutParam) {
+                    if (p.TypeInfo.RequiresMarshal) {
+                        var statement = $"{p.TypeInfo.Type} {p.ManagedName};\n";
+                        yield return SyntaxFactory.ParseStatement (statement);
+                    }
+                } else {
+                    foreach (var s in GetMarshalNativeToManagedStatements (p, true)) {
+                        yield return s;
+                    }
+                }
+            }
+            var instanceParam = PinvokeParameterInfos.First ();
+            yield return GetInvocationStatement ($"{instanceParam.ManagedName}.{ManagedName}", true);
+
+            foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
+                foreach (var s in GetMarshalManagedToNativeParameterStatements (p, false)) {
+                    yield return s.Item1;
+                    if (s.Item2 != null) {
+                        yield return s.Item2;
+                    }
+                }
+            }
+
+            if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+                foreach (var s in  GetMarshalManagedToNativeParameterStatements (ManagedReturnParameterInfo, true)) {
+                    yield return s.Item1;
+                    if (s.Item2 != null) {
+                        yield return s.Item2;
+                    }
+                }
+                var ret = "ret";
+                if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
                 }
                 var returnStatement = ReturnStatement (ParseExpression (ret));

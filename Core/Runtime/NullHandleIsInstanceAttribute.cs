@@ -10,10 +10,10 @@ namespace GISharp.Runtime
     /// a default instance rather than a null object.
     /// </remarks>
     [AttributeUsage (AttributeTargets.Class)]
-    public class NullHandleIsInstanceAttribute : Attribute
+    public sealed class NullHandleIsInstanceAttribute : Attribute
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:GISharp.Core.NullHandleIsInstanceAttribute"/> class.
+        /// Initializes a new instance of the <see cref="NullHandleIsInstanceAttribute"/> class.
         /// </summary>
         public NullHandleIsInstanceAttribute()
         {

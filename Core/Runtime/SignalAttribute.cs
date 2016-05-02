@@ -7,7 +7,7 @@ namespace GISharp.Runtime
     /// as signals with the GObject type system.
     /// </summary>
     [AttributeUsage (AttributeTargets.Event, Inherited = true)]
-    public class SignalAttribute : Attribute
+    public sealed class SignalAttribute : Attribute
     {
         public string Name { get; private set; }
 

@@ -3,10 +3,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{8E23D0EC-C98A-4275-8171-07688F5EDDE1}</ProjectGuid>
+    <ProjectGuid>{8441EC25-8A72-407C-85E9-957648FE36E7}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>Gio2</RootNamespace>
-    <AssemblyName>Gio-2.0</AssemblyName>
+    <RootNamespace>GISharp.Gio.Test</RootNamespace>
+    <AssemblyName>Gio-2.0.Test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -29,33 +29,25 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="nunit.framework">
+      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Generated.cs" />
+    <Compile Include="ActionTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\GObject-2.0\GObject-2.0.csproj">
-      <Project>{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}</Project>
-      <Name>GObject-2.0</Name>
-    </ProjectReference>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
       <Name>Core</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Gio-2.0\Gio-2.0.csproj">
+      <Project>{8E23D0EC-C98A-4275-8171-07688F5EDDE1}</Project>
+      <Name>Gio-2.0</Name>
+    </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Gio-2.0.girfixup" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
-    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/usr/local/bin/mono')">/usr/local/bin/mono</MonoPath>
-    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/Library/Frameworks/Mono.framework/Commands/mono')">/Library/Frameworks/Mono.framework/Commands/mono</MonoPath>
-    <MonoPath Condition="'$(MonoPath)' == ''">mono</MonoPath>
-  </PropertyGroup>
-  <Target Name="BeforeCompile">
-    <Delete Files="Generated.cs" />
-    <Message Text="Generating Generated.cs..." />
-    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r Gio-2.0 -f Gio-2.0.girfixup -o Generated.cs -a '$(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/Core.dll:$(MSBuildProjectDirectory)/../GLib-2.0/bin/$(Configuration)/GLib-2.0.dll'" />
-  </Target>
 </Project>

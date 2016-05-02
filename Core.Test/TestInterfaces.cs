@@ -12,7 +12,7 @@ namespace GISharp.Core.Test
 {
     [GType ("GInitable", IsWrappedNativeType = true)]
     [GTypeStruct (typeof(InitableIface))]
-    public interface IInitable
+    public interface IInitable : IObject
     {
         bool Init (IntPtr cancellable);
     }
@@ -110,7 +110,7 @@ namespace GISharp.Core.Test
         {
             IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
             try {
-                var ret = g_initable_init (((GISharp.GObject.Object)intitable).Handle, IntPtr.Zero, errorPtr);
+                var ret = g_initable_init (intitable.Handle, IntPtr.Zero, errorPtr);
                 var error = Marshal.ReadIntPtr (errorPtr);
                 if (error != IntPtr.Zero) {
                     throw new GErrorException (error);
@@ -260,7 +260,7 @@ namespace GISharp.Core.Test
 
         public static bool GetNetworkAvailible (this INetworkMonitor monitor)
         {
-            var ret = g_network_monitor_get_network_available (((GISharp.GObject.Object)monitor).Handle);
+            var ret = g_network_monitor_get_network_available (monitor.Handle);
 
             return ret;
         }
@@ -270,7 +270,7 @@ namespace GISharp.Core.Test
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
-            var ret = g_network_monitor_get_network_metered (((GISharp.GObject.Object)monitor).Handle);
+            var ret = g_network_monitor_get_network_metered (monitor.Handle);
 
             return ret;
         }
@@ -282,7 +282,7 @@ namespace GISharp.Core.Test
         {
             IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
             try {
-                var ret = g_network_monitor_can_reach (((GISharp.GObject.Object)monitor).Handle, connectable, cancellable, errorPtr);
+                var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, errorPtr);
                 var error = Marshal.ReadIntPtr (errorPtr);
                 if (error != IntPtr.Zero) {
                     throw new GErrorException (error);
@@ -316,7 +316,7 @@ namespace GISharp.Core.Test
                 GCHandle.FromIntPtr (userDataPtr).Free ();
             };
             var callbackGCHandle = GCHandle.Alloc (nativeCallback);
-            g_network_monitor_can_reach_async (((GISharp.GObject.Object)monitor).Handle, connectable, cancellable, nativeCallback, GCHandle.ToIntPtr (callbackGCHandle));
+            g_network_monitor_can_reach_async (monitor.Handle, connectable, cancellable, nativeCallback, GCHandle.ToIntPtr (callbackGCHandle));
 
             return completion.Task;
         }

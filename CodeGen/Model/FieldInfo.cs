@@ -14,6 +14,12 @@ namespace GISharp.CodeGen.Model
 {
     public class FieldInfo : MemberInfo
     {
+        public bool IsCallback {
+            get {
+                return Element.Element (gi + "callback") != null;
+            }
+        }
+
         TypeInfo _TypeInfo;
         public TypeInfo TypeInfo {
             get {
@@ -54,7 +60,7 @@ namespace GISharp.CodeGen.Model
                     yield return AttributeList ().AddAttributes (fieldOffsetAttr);
                 }
 
-                if (Element.Element (gi + "callback") != null) {
+                if (IsCallback) {
                     var marshalAsAttrName = ParseName (typeof(MarshalAsAttribute).FullName);
                     var marshalAsAttrArgListText = string.Format ("({0}.{1})", typeof(UnmanagedType).FullName, UnmanagedType.FunctionPtr);
                     var marshalAsAttrArgList = ParseAttributeArgumentList (marshalAsAttrArgListText);
@@ -75,16 +81,37 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        DelegateInfo _CallbackInfo;
+        public DelegateInfo CallbackInfo {
+            get {
+                if (!IsCallback) {
+                    throw new InvalidOperationException ();
+                }
+                if (_CallbackInfo == null) {
+                    _CallbackInfo = new DelegateInfo (Element.Element (gi + "callback"), this);
+                }
+                return _CallbackInfo;
+            }
+        }
+
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
             TypeSyntax type;
-            var callbackElement = Element.Element (gi + "callback");
-            if (callbackElement != null) {
-                var delegateInfo = new DelegateInfo (callbackElement, this);
-                foreach (var callbackDeclaration in delegateInfo.Declarations) {
+            if (IsCallback) {
+                foreach (var callbackDeclaration in CallbackInfo.Declarations) {
                     yield return callbackDeclaration;
                 }
-                type = ParseTypeName (delegateInfo.NativeIdentifier.Text);
+                type = ParseTypeName (CallbackInfo.NativeIdentifier.Text);
+
+            } else if (Element.Parent.Parent.Attribute (glib + "is-gtype-struct-for") != null
+                && !Element.ElementsBeforeSelf ().Any ())
+            {
+                // The first element of a GType struct is always another GType struct
+                // rather than a pointer.
+                var parentTypeName = Element.Attribute (gs + "managed-type").Value;
+                var lastDot = parentTypeName.LastIndexOf ('.');
+                var parentStructName = parentTypeName.Substring (lastDot) + "Struct";
+                type = ParseTypeName (parentTypeName + parentStructName);
             } else {
                 type = TypeInfo.Type;
             }

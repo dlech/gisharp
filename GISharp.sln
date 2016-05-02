@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "GObject-2.0\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0.Test", "Gio-2.0.Test\Gio-2.0.Test.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,6 +60,12 @@ Global
 		{746D44D3-A201-4FB6-8697-7609E2C3C70E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{746D44D3-A201-4FB6-8697-7609E2C3C70E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{746D44D3-A201-4FB6-8697-7609E2C3C70E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Default|Any CPU.Build.0 = Debug|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8441EC25-8A72-407C-85E9-957648FE36E7}.Release|Any CPU.Build.0 = Release|Any CPU
 		{85913FB2-05F7-4995-BD23-4B5FA58E6729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{85913FB2-05F7-4995-BD23-4B5FA58E6729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{85913FB2-05F7-4995-BD23-4B5FA58E6729}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -107,7 +115,6 @@ Global
 		$3.scope = text/x-csharp
 		$0.TextStylePolicy = $4
 		$4.NoTabsAfterNonTabs = True
-		$4.EolMarker = Unix
 		$4.inheritsSet = VisualStudio
 		$4.inheritsScope = text/plain
 		$4.scope = text/plain

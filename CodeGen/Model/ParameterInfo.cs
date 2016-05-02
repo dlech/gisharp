@@ -75,7 +75,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        public ParameterScope Scope {
+        public GISharp.Runtime.CallbackScope Scope {
             get {
                 if (TypeInfo.Classification != Model.TypeClassification.Delegate) {
                     throw new InvalidOperationException ("Scope only applies to callbacks.");
@@ -84,11 +84,11 @@ namespace GISharp.CodeGen.Model
                 var scope = Element.Attribute ("scope").AsString ("call");
                 switch (scope) {
                 case "call":
-                    return Model.ParameterScope.Call;
+                    return GISharp.Runtime.CallbackScope.Call;
                 case "async":
-                    return Model.ParameterScope.Async;
+                    return GISharp.Runtime.CallbackScope.Async;
                 case "notified":
-                    return Model.ParameterScope.Notified;
+                    return GISharp.Runtime.CallbackScope.Notified;
                 default:
                     var message = string.Format ("Unknown scope: {0}", scope);
                     throw new NotSupportedException (message);
@@ -261,6 +261,11 @@ namespace GISharp.CodeGen.Model
                     yield return Token (SyntaxKind.OutKeyword);
                 } else if (IsParams) {
                     yield return Token (SyntaxKind.ParamsKeyword);
+                } else if (IsInstanceParameter) {
+                    var methodInfo = DeclaringMember as MethodInfo;
+                    if (methodInfo != null && methodInfo.IsExtensionMethod) {
+                        yield return Token (SyntaxKind.ThisKeyword);
+                    }
                 }
             }
         }
@@ -306,27 +311,5 @@ namespace GISharp.CodeGen.Model
             builder.Append ("*/");
             return Comment (builder.ToString ());
         }
-    }
-
-    /// <summary>
-    /// Parameter scope indicates how long a parameter must be kept alive.
-    /// </summary>
-    public enum ParameterScope
-    {
-        /// <summary>
-        /// Only valid for the duration of the call.
-        /// </summary>
-        /// <remarks>>
-        /// Can be called multiple times during the call.
-        /// </remarks>
-        Call,
-        /// <summary>
-        /// Only valid for the duration of the first callback invocation. Can only be called once. 
-        /// </summary>
-        Async,
-        /// <summary>
-        /// valid until the GDestroyNotify argument is called. Can be called multiple times before the GDestroyNotify is called. 
-        /// </summary>
-        Notified,
     }
 }

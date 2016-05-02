@@ -12,7 +12,7 @@ namespace GISharp.Runtime
     /// type system so that it can be used in unmanged code.
     /// </remarks>
     [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
-    public class GTypeAttribute : Attribute
+    public sealed class GTypeAttribute : Attribute
     {
         /// <summary>
         /// The type name that is used in unmanged code.

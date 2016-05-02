@@ -3,7 +3,7 @@
 namespace GISharp.Runtime
 {
     [AttributeUsage (AttributeTargets.Class | AttributeTargets.Interface, Inherited = true)]
-    public class GTypeStructAttribute : Attribute
+    public sealed class GTypeStructAttribute : Attribute
     {
         /// <summary>
         /// The glib type struct that is used to declare this class in unmanaged

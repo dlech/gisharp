@@ -17,6 +17,21 @@ namespace GISharp.CodeGen.Model
     /// </summary>
     public class InterfaceInfo : TypeDeclarationInfo
     {
+        BaseListSyntax _BaseList;
+        /// <summary>
+        /// Gets the base list syntax for the interface declaration.
+        /// </summary>
+        /// <value>The base list.</value>
+        public BaseListSyntax BaseList {
+            get {
+                if (_BaseList == null) {
+                    var types = SeparatedList<BaseTypeSyntax> (GetBaseTypes ());
+                    _BaseList = BaseList (types);
+                }
+                return _BaseList;
+            }
+        }
+
         SyntaxList<MemberDeclarationSyntax>? _InterfaceMembers;
         public SyntaxList<MemberDeclarationSyntax> InterfaceMembers {
             get {
@@ -24,6 +39,16 @@ namespace GISharp.CodeGen.Model
                     _InterfaceMembers = List<MemberDeclarationSyntax> (GetInterfaceMembers ());
                 }
                 return _InterfaceMembers.Value;
+            }
+        }
+
+        SyntaxList<MemberDeclarationSyntax>? _InterfaceExtensionsMembers;
+        public SyntaxList<MemberDeclarationSyntax> InterfaceExtensionsMembers {
+            get {
+                if (!_InterfaceExtensionsMembers.HasValue) {
+                    _InterfaceExtensionsMembers = List<MemberDeclarationSyntax> (MethodInfos.SelectMany (mi => mi.Declarations));
+                }
+                return _InterfaceExtensionsMembers.Value;
             }
         }
 
@@ -46,23 +71,35 @@ namespace GISharp.CodeGen.Model
             var interfaceDeclaration = InterfaceDeclaration (Identifier)
                 .WithAttributeLists (AttributeLists)
                 .WithModifiers (Modifiers)
+                .WithBaseList (BaseList)
                 .WithMembers (InterfaceMembers)
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             yield return interfaceDeclaration;
+
+            var interfaceExtensionsModifiers = SyntaxFactory.TokenList ()
+                .Add (SyntaxFactory.Token (SyntaxKind.PublicKeyword))
+                .Add (SyntaxFactory.Token (SyntaxKind.StaticKeyword));
+            var interfaceExtenstionsDeclaration = SyntaxFactory.ClassDeclaration (Identifier.Text + "Extensions")
+                .WithModifiers (interfaceExtensionsModifiers)
+                .WithMembers (InterfaceExtensionsMembers);
+            yield return interfaceExtenstionsDeclaration;
+        }
+
+        IEnumerable<BaseTypeSyntax> GetBaseTypes ()
+        {
+            if (Element.Descendants (gi + "prerequisite").Any ()) {
+                foreach (var prerequisite in Element.Descendants (gi + "prerequisite")) {
+                    var type = GirType.ResolveType (prerequisite.Attribute ("name").Value, Element.Document);
+                    yield return SimpleBaseType (ParseTypeName (type.FullName));
+                }
+            } else {
+                yield return SimpleBaseType (ParseTypeName (typeof(GISharp.Runtime.IObject).FullName));
+            }
         }
 
         IEnumerable<MemberDeclarationSyntax> GetInterfaceMembers ()
         {
-            foreach (var method in MethodInfos) {
-                var methodDeclaration = MethodDeclaration (
-                    method.ManagedReturnParameterInfo.TypeInfo.Type,
-                    method.Identifier)
-                    .WithAttributeLists (method.AttributeLists)
-                    .WithParameterList (method.ParameterList)
-                    .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
-                    .WithLeadingTrivia (method.DocumentationCommentTriviaList);
-                yield return methodDeclaration;
-            }
+            return VirtualMethodInfos.SelectMany (x => x.Declarations);
         }
     }
 }

@@ -390,7 +390,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantClass']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantIter']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantParseError']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']"
 
 # Timeout
 

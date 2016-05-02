@@ -19,7 +19,7 @@ namespace GISharp.GObject
     /// </summary>
     public class ObjectClass : TypeClass
     {
-        struct ObjectClassStruct
+        protected struct ObjectClassStruct
         {
             public TypeClass.TypeClassStruct GTypeClass;
 

@@ -16,7 +16,7 @@ namespace GISharp.GObject
     /// </summary>
     [GType ("GObject", IsWrappedNativeType = true)]
     [GTypeStruct (typeof(ObjectClass))]
-    public class Object : ReferenceCountedOpaque, INotifyPropertyChanged
+    public class Object : ReferenceCountedOpaque, INotifyPropertyChanged, IObject
     {
         GCHandle toggleRefGCHandle;
         bool supressUnref;

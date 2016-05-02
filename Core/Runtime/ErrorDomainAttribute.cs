@@ -3,7 +3,7 @@
 namespace GISharp.Runtime
 {
     [AttributeUsage (AttributeTargets.Enum)]
-    public class ErrorDomainAttribute : Attribute
+    public sealed class ErrorDomainAttribute : Attribute
     {
         public string ErrorDomain { get; private set; }
 

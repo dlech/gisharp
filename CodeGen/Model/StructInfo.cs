@@ -14,6 +14,16 @@ namespace GISharp.CodeGen.Model
 {
     public class StructInfo : TypeDeclarationInfo
     {
+        SyntaxList<MemberDeclarationSyntax>? _StructMembers;
+        public SyntaxList<MemberDeclarationSyntax> StructMembers {
+            get {
+                if (!_StructMembers.HasValue) {
+                    _StructMembers = SyntaxFactory.List<MemberDeclarationSyntax> (GetStructMemberDeclarations ());
+                }
+                return _StructMembers.Value;
+            }
+        }
+
         public StructInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -51,10 +61,17 @@ namespace GISharp.CodeGen.Model
         {
             var structDeclaration = StructDeclaration (Identifier)
                 .WithModifiers (Modifiers)
-                .WithMembers (TypeMembers)
+                .WithMembers (StructMembers)
                 .WithAttributeLists (AttributeLists)
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             yield return structDeclaration;
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetStructMemberDeclarations ()
+        {
+            return NestedTypeInfos.SelectMany (x => x.Declarations)
+                .Concat(FieldInfos.SelectMany (x => x.Declarations))
+                .Concat (MethodInfos.SelectMany (x => x.Declarations));
         }
     }
 }

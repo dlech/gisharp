@@ -107,8 +107,9 @@ namespace GISharp.CodeGen
 
             // Preload the specified assemblies for lookup later
             foreach (var path in pathList) {
-                GirType.LoadAssembly (path);
+                TypeResolver.LoadAssembly (path);
             }
+            AppDomain.CurrentDomain.TypeResolve += TypeResolver.Resolve;
 
             var xmlDoc = XDocument.Load (girFile);
             xmlDoc.ApplyFixupFile (fixupFile);

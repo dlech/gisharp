@@ -6,13 +6,6 @@
 # of GIO. Items can be un-ignored on an as-needed basis if they are needed for
 # dependant libraries.
 
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:interface[@name='Action']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ActionEntry']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:interface[@name='ActionGroup']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ActionInterface']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:interface[@name='ActionMap']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ActionMapInterface']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:interface[@name='AppInfo']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[@name='AppInfoCreateFlags']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='AppInfoIface']"
@@ -333,10 +326,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SettingsPrivat
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SettingsSchema']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SettingsSchemaKey']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SettingsSchemaSource']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='SimpleAction']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='SimpleActionGroup']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SimpleActionGroupClass']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SimpleActionGroupPrivate']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:class[@name='SimpleAsyncResult']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SimpleAsyncResultClass']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='SimpleAsyncThreadFunc']"

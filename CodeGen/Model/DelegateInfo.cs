@@ -98,7 +98,7 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var unmangedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
+            var unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
                 .WithAttributeLists (NativeAttributeLists)
                 .WithModifiers (Modifiers)
                 .WithParameterList (MethodInfo.PinvokeParameterList)
@@ -129,7 +129,7 @@ namespace GISharp.CodeGen.Model
                     .WithBody (Block (GetFactoryStatements ()))
                     .WithLeadingTrivia (GetFactoryCreateMethodDocumentationCommentTrivia ()))
                 .WithLeadingTrivia (GetFactoryDocumentationCommentTrivia ());
-            yield return factoryDeclaration;
+            //yield return factoryDeclaration;
         }
 
         IEnumerable<StatementSyntax> GetFactoryStatements ()

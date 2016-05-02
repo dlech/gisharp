@@ -341,7 +341,19 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "managed-name", name);
             }
 
-           // flag ref functions
+            // flag extension methods
+            var elementNamesThatRequireExtensionMethods = new [] {
+                gi + "enumeration",
+                gi + "bitfield",
+                gi + "interface",
+            };
+            var elementsThatRequireExtensionMethods = document.Descendants (gi + "method")
+                .Where (e => elementNamesThatRequireExtensionMethods.Contains (e.Parent.Name));
+            foreach (var element in elementsThatRequireExtensionMethods) {
+                element.SetAttributeValue (gs + "extension-method", "1");
+            }
+
+            // flag ref functions
 
             var elementsWithRefMethod = document.Descendants (gi + "method")
                 .Where (d => d.Attribute ("name").Value == "ref"
@@ -449,18 +461,24 @@ namespace GISharp.CodeGen
             var recordsThatAreGTypeStructs = document.Descendants (gi + "record")
                 .Where (d => d.Attribute (glib + "is-gtype-struct-for") != null);
             foreach (var element in recordsThatAreGTypeStructs) {
-                element.SetAttributeValue (gs+ "opaque", "static");
+                element.SetAttributeValue (gs+ "opaque", "gtype-struct");
             }
 
-            // remove fields from opaques
+            // move fields to internal struct in opaques
 
             var recordsThatAreOpaque = document.Descendants (gi + "record")
                 .Where (d => d.Attribute (gs + "opaque") != null);
             foreach (var element in recordsThatAreOpaque) {
+                var innerStruct = new XElement (gi + "record",
+                    new XAttribute ("name", element.Attribute ("name").Value + "Struct"),
+                    new XAttribute (gs + "managed-name", element.Attribute (gs + "managed-name").Value + "Struct"),
+                    new XAttribute (gs + "access-modifiers", "protected"));
                 var fields = element.Elements (gi + "field").ToList ();
                 foreach (var field in fields) {
                     field.Remove ();
+                    innerStruct.Add (field);
                 }
+                element.AddFirst (innerStruct);
             }
 
             // remove fields from classes
@@ -498,6 +516,7 @@ namespace GISharp.CodeGen
 
             var getters = document.Descendants ()
                 .Where (d => (d.Name == gi + "function" || d.Name == gi + "method")
+                    && !d.Attribute (gs + "extension-method").AsBool ()
                     && !d.Attribute (gs + "pinvoke-only").AsBool ()
                     && (d.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal) || d.Attribute ("name").Value.StartsWith ("is_", StringComparison.Ordinal))
                     && (d.Element (gs + "managed-parameters") == null || !d.Element (gs + "managed-parameters").Elements (gi + "parameter").Any ()));
@@ -589,6 +608,18 @@ namespace GISharp.CodeGen
             list = list.Where (p => p.Attribute (gs + "default") == null && p.Attribute (gs + "params") == null)
                        .Union (list.Where (p => p.Attribute (gs + "default") != null && p.Attribute (gs + "params") == null))
                        .Union (list.Where (p => p.Attribute (gs + "params") != null)).ToList ();
+
+            // In the GObject type system, enums and interfaces can have methods.
+            // This is not allowed directly in C#, but it can be made to work
+            // using extension methods, in which case we will need the instance
+            // parameter. Otherwise, the instance parameter is skipped.
+
+            if (parameters.Parent.Attribute (gs + "extension-method").AsBool ()) {
+                var instanceParameter = parameters.Element (gi + "instance-parameter");
+                if (instanceParameter != null) {
+                    list.Insert (0, instanceParameter);
+                }
+            }
 
             return list;
         }
@@ -705,6 +736,12 @@ namespace GISharp.CodeGen
             if (typeElement != null) {
                 typeName = typeElement.Attribute ("name").Value;
 
+                // Treat all *Private structures as untyped pointers. This way
+                // we don't have to bind private types.
+                if (typeName.EndsWith ("Private", StringComparison.Ordinal)) {
+                    return typeof(IntPtr).FullName;
+                }
+
                 switch (typeName) {
 
                 // basic/fundamental types
@@ -736,11 +773,8 @@ namespace GISharp.CodeGen
                     return typeof(nlong).FullName;
                 case "gulong":
                     return typeof(nulong).FullName;
-                case "gssize":
-                case "goffset":
                 case "gint64":
                     return typeof(long).FullName;
-                case "gsize":
                 case "guint64":
                     return typeof(ulong).FullName;
                 case "gfloat":
@@ -750,8 +784,11 @@ namespace GISharp.CodeGen
                 case "gpointer":
                 case "gconstpointer":
                 case "gintptr":
+                case "gssize":
+                case "goffset":
                     return typeof(IntPtr).FullName;
                 case "guintptr":
+                case "gsize":
                     return typeof(UIntPtr).FullName;
                 case "filename":
                 case "utf8":

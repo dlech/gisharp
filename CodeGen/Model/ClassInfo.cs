@@ -55,9 +55,33 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsGTypeStruct {
+            get {
+                return Element.Attribute (glib + "is-gtype-struct-for") != null;
+            }
+        }
+
+        public Type GTypeStructParent {
+            get {
+                var firstField = Element.Element (gi + "record").Elements (gi + "field").First ();
+                var parentType = GirType.ResolveType (firstField.Attribute (gs + "managed-type").Value, Element.Document);
+                return parentType;
+            }
+        }
+
         public bool HasDefaultConstructor {
             get {
                 return Element.Attribute (gs + "default-constructor").AsBool (!IsStaticClass);
+            }
+        }
+
+        SyntaxList<MemberDeclarationSyntax>? _ClassMembers;
+        public SyntaxList<MemberDeclarationSyntax> ClassMembers {
+            get {
+                if (!_ClassMembers.HasValue) {
+                    _ClassMembers = List<MemberDeclarationSyntax> (GetClassMemberDeclarations ());
+                }
+                return _ClassMembers.Value;
             }
         }
 
@@ -69,47 +93,7 @@ namespace GISharp.CodeGen.Model
         public BaseListSyntax BaseList {
             get {
                 if (_BaseList == null) {
-                    var types = SeparatedList<BaseTypeSyntax> ();
-                    var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
-                    if (opaqueTypeName != null) {
-                        switch (opaqueTypeName) {
-                        case "ref-counted":
-                            opaqueTypeName = typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName;
-                            break;
-                        case "owned":
-                            opaqueTypeName = typeof(GISharp.Runtime.OwnedOpaque).FullName;
-                            break;
-                        case "static":
-                            opaqueTypeName = typeof(GISharp.Runtime.StaticOpaque).FullName;
-                            break;
-                        default:
-                            var message = string.Format ("Unknown oqaue type '{0}.", opaqueTypeName);
-                            throw new Exception (message);
-                        }
-                        var baseType = ParseTypeName (opaqueTypeName);
-                        types = types.Add (SimpleBaseType (baseType));
-                    }
-                    if (IsGObject) {
-                        var parent = Element.Attribute ("parent")?.Value;
-                        if (parent == null) {
-                            types = types.Add (SimpleBaseType (
-                                ParseTypeName (typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName)));
-                        } else {
-                            var parentType = GirType.ResolveType (parent, Element.Document);
-                            types = types.Add (SimpleBaseType (ParseTypeName (parentType.FullName)));
-                        }
-                        // TODO: add interfaces for objects
-                    }
-                    if (MethodInfos.Any (x => x.IsEquals)) {
-                        var typeName = string.Concat (typeof(IEquatable<>).FullName.TakeWhile (x => x != '`'));
-                        typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
-                        types = types.Add (SimpleBaseType (ParseTypeName (typeName)));
-                    }
-                    if (MethodInfos.Any (x => x.IsCompare)) {
-                        var typeName = string.Concat (typeof(IComparable<>).FullName.TakeWhile (x => x != '`'));
-                        typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
-                        types = types.Add (SimpleBaseType (ParseTypeName (typeName)));
-                    }
+                    var types = SeparatedList<BaseTypeSyntax> (GetBaseTypes ());
                     _BaseList = BaseList (types);
                 }
                 return _BaseList;
@@ -124,21 +108,11 @@ namespace GISharp.CodeGen.Model
         public ConstructorDeclarationSyntax DefaultConstructor {
             get {
                 if (_DefaultConstructor == null) {
-                    var modifiers = TokenList ();
-                    if (!IsSealed) {
-                        modifiers = modifiers.Add (Token (SyntaxKind.ProtectedKeyword));
+                    if (IsGTypeStruct) {
+                        _DefaultConstructor = GetGTypeStructDefaultConstructor ();
+                    } else {
+                        _DefaultConstructor = GetOpaqueDefaultConstructor ();
                     }
-                    var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
-                        typeof(IntPtr).FullName,
-                        typeof(GISharp.Runtime.Transfer).FullName));
-                    var argList = ParseArgumentList ("(handle, ownership)");
-                    var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
-                        .WithArgumentList (argList);
-                    _DefaultConstructor = ConstructorDeclaration (Identifier)
-                        .WithModifiers (modifiers)
-                        .WithParameterList (paramerList)
-                        .WithInitializer (initializer.WithLeadingTrivia (EndOfLine("\n"), Whitespace("\t")))
-                        .WithBody (Block ());
                 }
                 return _DefaultConstructor;
             }
@@ -181,7 +155,7 @@ namespace GISharp.CodeGen.Model
             var classDeclaration = ClassDeclaration (Identifier)
                 .WithAttributeLists (AttributeLists)
                 .WithModifiers (Modifiers)
-                .WithMembers (TypeMembers)
+                .WithMembers (ClassMembers)
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             if (BaseList.Types.Any ()) {
                 classDeclaration = classDeclaration.WithIdentifier (
@@ -189,10 +163,210 @@ namespace GISharp.CodeGen.Model
                 classDeclaration = classDeclaration.WithBaseList (
                     BaseList.WithLeadingTrivia (Whitespace ("\t")));
             }
-            if (HasDefaultConstructor) {
-                classDeclaration = classDeclaration.AddMembers (DefaultConstructor);
-            }
+
             yield return classDeclaration;
+        }
+
+        MethodDeclarationSyntax GetGTypeStructCreateInterfaceInfoMethod ()
+        {
+            var method = SyntaxFactory.MethodDeclaration (
+                SyntaxFactory.ParseTypeName (typeof(GISharp.GObject.InterfaceInfo).FullName),
+                nameof (GISharp.GObject.TypeInterface.CreateInterfaceInfo))
+                .AddModifiers (
+                             SyntaxFactory.Token (SyntaxKind.PublicKeyword),
+                             SyntaxFactory.Token (SyntaxKind.OverrideKeyword))
+                .AddParameterListParameters (
+                             SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("type"))
+                    .WithType (SyntaxFactory.ParseTypeName (typeof(Type).FullName)))
+                .AddBodyStatements (
+                    SyntaxFactory.ParseStatement (@"var ret = new GISharp.GObject.InterfaceInfo {
+                InterfaceInit = InterfaceInit,
+            };"),
+                    SyntaxFactory.ParseStatement ("return ret;"));
+
+            return method;
+        }
+
+        MethodDeclarationSyntax GetGTypeStructInterfaceInitMethod()
+        {
+            var method = SyntaxFactory.MethodDeclaration(
+                SyntaxFactory.PredefinedType(SyntaxFactory.Token (SyntaxKind.VoidKeyword)),
+                "InterfaceInit")
+                .AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
+                .AddParameterListParameters (
+                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("gIface"))
+                        .WithType (SyntaxFactory.ParseTypeName (typeof(IntPtr).FullName)),
+                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("userData"))
+                        .WithType (SyntaxFactory.ParseTypeName (typeof(IntPtr).FullName)))
+                .WithBody (SyntaxFactory.Block (GetGTypeStructInterfaceInitStatements ()));
+
+            return method;
+        }
+
+        IEnumerable<StatementSyntax> GetGTypeStructInterfaceInitStatements ()
+        {
+            string statement;
+            foreach (var f in NestedTypeInfos.Single (x => x.ManagedName == ManagedName + "Struct").FieldInfos.Where (x => x.IsCallback)) {
+                var methodName = f.ManagedName;
+                var delegateName = "Native" + f.CallbackInfo.ManagedName;
+                var prefix = methodName.ToCamelCase ();
+                var structName = ManagedName + "Struct";
+
+                statement = string.Format ("var {0}Offset = {1}.OffsetOf<{2}> (nameof ({2}.{3}));\n",
+                    prefix, typeof(Marshal).FullName, structName, methodName);
+                yield return SyntaxFactory.ParseStatement (statement);
+
+                statement = string.Format ("var {0}Ptr = {1}.GetFunctionPointerForDelegate<{2}.{3}> ({4});\n",
+                    prefix, typeof(Marshal).FullName, structName, delegateName, methodName);
+                yield return SyntaxFactory.ParseStatement (statement);
+
+                statement = string.Format ("{0}.WriteIntPtr (gIface, (int){1}Offset, {1}Ptr);\n",
+                    typeof(Marshal).FullName, prefix);
+                yield return SyntaxFactory.ParseStatement (statement);
+            }
+        }
+
+        IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls ()
+        {
+            foreach (var f in NestedTypeInfos.Single (x => x.ManagedName == ManagedName + "Struct").FieldInfos.Where (x => x.IsCallback)) {
+                var methodName = f.ManagedName;
+                var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
+
+                var method = SyntaxFactory.MethodDeclaration (returnType, methodName)
+                    .AddModifiers (SyntaxFactory.Token (SyntaxKind.StaticKeyword))
+                    .WithParameterList (f.CallbackInfo.MethodInfo.UnmanagedParameterList)
+                    .WithBody (SyntaxFactory.Block (f.CallbackInfo.MethodInfo.VirtualMethodImplStatements));
+
+                yield return method;
+            }
+        }
+
+        MethodDeclarationSyntax GetGTypeStructGetInfoMethod ()
+        {
+            var method = SyntaxFactory.MethodDeclaration (
+                SyntaxFactory.ParseTypeName (typeof(GISharp.GObject.TypeInfo).FullName),
+                nameof (GISharp.GObject.TypeClass.GetTypeInfo))
+                .AddModifiers (
+                    SyntaxFactory.Token (SyntaxKind.PublicKeyword),
+                    SyntaxFactory.Token (SyntaxKind.OverrideKeyword))
+                .AddParameterListParameters (
+                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("type"))
+                    .WithType (SyntaxFactory.ParseTypeName (typeof(Type).FullName)))
+                .AddBodyStatements (
+                    SyntaxFactory.ParseStatement ($"throw new {typeof(NotImplementedException).FullName} ();"));
+
+            return method;
+        }
+
+        IEnumerable<BaseTypeSyntax> GetBaseTypes ()
+        {
+            var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
+            if (opaqueTypeName != null) {
+                switch (opaqueTypeName) {
+                case "ref-counted":
+                    opaqueTypeName = typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName;
+                    break;
+                case "owned":
+                    opaqueTypeName = typeof(GISharp.Runtime.OwnedOpaque).FullName;
+                    break;
+                case "static":
+                    opaqueTypeName = typeof(GISharp.Runtime.StaticOpaque).FullName;
+                    break;
+                case "gtype-struct":
+                    opaqueTypeName = GTypeStructParent.FullName;
+                    break;
+                default:
+                    var message = string.Format ("Unknown oqaue type '{0}.", opaqueTypeName);
+                    throw new Exception (message);
+                }
+                yield return SimpleBaseType (ParseTypeName (opaqueTypeName));
+            }
+            if (IsGObject) {
+                var parent = Element.Attribute ("parent")?.Value;
+                if (parent == null) {
+                    yield return SimpleBaseType (
+                        ParseTypeName (typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName));
+                } else {
+                    var parentType = GirType.ResolveType (parent, Element.Document);
+                    yield return SimpleBaseType (ParseTypeName (parentType.FullName));
+                }
+                // TODO: add interfaces for objects
+            }
+            if (MethodInfos.Any (x => x.IsEquals)) {
+                var typeName = string.Concat (typeof(IEquatable<>).FullName.TakeWhile (x => x != '`'));
+                typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
+                yield return SimpleBaseType (ParseTypeName (typeName));
+            }
+            if (MethodInfos.Any (x => x.IsCompare)) {
+                var typeName = string.Concat (typeof(IComparable<>).FullName.TakeWhile (x => x != '`'));
+                typeName = string.Format ("{0}<{1}>", typeName, ManagedName);
+                yield return SimpleBaseType (ParseTypeName (typeName));
+            }
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetClassMemberDeclarations ()
+        {
+            foreach (var d in NestedTypeInfos.SelectMany (x => x.Declarations)) {
+                yield return d;
+            }
+            foreach (var d in FieldInfos.SelectMany (x => x.Declarations)) {
+                yield return d;
+            }
+            if (HasDefaultConstructor) {
+                yield return DefaultConstructor;
+            }
+            if (IsGTypeStruct) {
+                // taking advantage of the face that interfaces can't inherit,
+                // so parent will always be GISharp.GObject.TypeInterface for
+                // interfaces.
+                if (GTypeStructParent == typeof(GISharp.GObject.TypeInterface)) {
+                    yield return GetGTypeStructCreateInterfaceInfoMethod ();
+                    yield return GetGTypeStructInterfaceInitMethod ();
+                    foreach (var m in GetGTypeInterfaceMethodImpls ()) {
+                        yield return m;
+                    }
+                } else {
+                    yield return GetGTypeStructGetInfoMethod ();
+                }
+            }
+            foreach (var d in MethodInfos.SelectMany (x => x.Declarations)) {
+                yield return d;
+            }
+        }
+
+        ConstructorDeclarationSyntax GetOpaqueDefaultConstructor ()
+        {
+            var modifiers = TokenList ();
+            if (!IsSealed) {
+                modifiers = modifiers.Add (Token (SyntaxKind.ProtectedKeyword));
+            }
+            var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
+                typeof(IntPtr).FullName,
+                typeof(GISharp.Runtime.Transfer).FullName));
+            var argList = ParseArgumentList ("(handle, ownership)");
+            var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                .WithArgumentList (argList);
+            return ConstructorDeclaration (Identifier)
+                .WithModifiers (modifiers)
+                .WithParameterList (paramerList)
+                .WithInitializer (initializer.WithLeadingTrivia (EndOfLine("\n"), Whitespace("\t")))
+                .WithBody (Block ());
+        }
+
+        ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor ()
+        {
+            var modifiers = TokenList ().Add (Token (SyntaxKind.PublicKeyword));
+            var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownsRef)",
+                typeof(IntPtr).FullName,
+                typeof(bool).FullName));
+            var argList = ParseArgumentList ("(handle, ownsRef)");
+            var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
+                .WithArgumentList (argList);
+            return ConstructorDeclaration (Identifier)
+                .WithModifiers (modifiers)
+                .WithParameterList (paramerList)
+                .WithInitializer (initializer.WithLeadingTrivia (EndOfLine("\n"), Whitespace("\t")))
+                .WithBody (Block ());
         }
     }
 }
