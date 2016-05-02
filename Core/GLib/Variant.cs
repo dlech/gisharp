@@ -4470,7 +4470,7 @@ namespace GISharp.GLib
         /// are not floating.
         /// </remarks>
         [Since ("2.24")]
-        internal protected override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             g_variant_ref_sink (Handle);
@@ -4555,7 +4555,7 @@ namespace GISharp.GLib
         /// drops to 0, the memory used by the variant is freed.
         /// </summary>
         [Since ("2.24")]
-        internal protected override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             g_variant_unref (Handle);

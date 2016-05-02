@@ -106,14 +106,14 @@ namespace GISharp.GObject
             obj.handleToggleRef (isLastRef);
         }
 
-        protected internal override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             // take the floating reference if there is one
             g_object_ref_sink (Handle);
         }
 
-        protected internal override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             if (!supressUnref) {

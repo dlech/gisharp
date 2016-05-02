@@ -116,6 +116,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool CanBeNull {
+            get {
+                // TODO: Do we also need to check for the obsolete "allow-none"?
+                return Element.Attribute ("nullable").AsBool ();
+            }
+        }
+
         public bool IsReturnParameter {
             get {
                 return Element.Name == gi + "return-value";

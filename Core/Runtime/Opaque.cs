@@ -29,7 +29,11 @@ namespace GISharp.Runtime
         }
 
         static bool GetNullHandleIsInstance<T> () {
-            var attr = typeof(T).GetCustomAttribute <NullHandleIsInstanceAttribute> ();
+            return GetNullHandleIsInstance (typeof(T));
+        }
+
+        static bool GetNullHandleIsInstance (Type type) {
+            var attr = type.GetCustomAttribute <NullHandleIsInstanceAttribute> ();
             return attr != null;
         }
 
@@ -81,7 +85,7 @@ namespace GISharp.Runtime
             }
         }
 
-        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque
+        public static T GetInstance<T> (IntPtr handle, Transfer ownership, Type typeHint = null) where T : Opaque
         {
             if (handle == IntPtr.Zero && !GetNullHandleIsInstance<T> ()) {
                 return null;
@@ -95,18 +99,7 @@ namespace GISharp.Runtime
                 return obj;
             }
 
-            // If the type is a GType, then we use the GType to get the actual
-            // type of the object. It could be possible that T is one of the
-            // inherited types and not the actual type of the object.
-            var type = typeof(T);
-            try {
-                var gtype = (GType)type;
-                type = (Type)gtype;
-            } catch (InvalidCastException) {
-                // Type is not a GType
-            }
-
-            obj = (T)Activator.CreateInstance (type,
+            obj = (T)Activator.CreateInstance (typeHint ?? typeof(T),
                 System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
                 null, new object[] { handle, ownership }, null);
             return obj;

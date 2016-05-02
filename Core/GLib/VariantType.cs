@@ -803,7 +803,7 @@ namespace GISharp.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             out IntPtr endptr);
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GISharp.GObject.GType g_variant_type_get_gtype ();
@@ -993,8 +993,7 @@ namespace GISharp.GLib
             if (type2 == null) {
                 throw new ArgumentNullException (nameof (type2));
             }
-            var type2_ = type2 == null ? IntPtr.Zero : type2.Handle;
-            var ret = g_variant_type_equal (Handle, type2_);
+            var ret = g_variant_type_equal (Handle, type2.Handle);
             return ret;
         }
 

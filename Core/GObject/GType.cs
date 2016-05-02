@@ -1032,7 +1032,8 @@ namespace GISharp.GObject
                     }
                     if (matchingType == null) {
                         // TODO: More specific exception type
-                        throw new Exception ("Could not find type for GType in loaded assemblies.");
+                        var message = $"Could not find type for GType '{type.Name}' in loaded assemblies.";
+                        throw new Exception (message);
                     }
                     Register (matchingType);
                 }

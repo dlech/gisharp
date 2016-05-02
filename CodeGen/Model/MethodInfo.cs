@@ -908,7 +908,8 @@ namespace GISharp.CodeGen.Model
                 foreach (var s in GetMarshalManagedToNativeParameterStatements (p, false)) {
                     yield return s.Item1;
                     if (s.Item2 != null) {
-                        yield return s.Item2;
+                        // TODO: how to prevent memory leak?
+                        //yield return s.Item2;
                     }
                 }
             }
@@ -917,7 +918,17 @@ namespace GISharp.CodeGen.Model
                 foreach (var s in  GetMarshalManagedToNativeParameterStatements (ManagedReturnParameterInfo, true)) {
                     yield return s.Item1;
                     if (s.Item2 != null) {
-                        yield return s.Item2;
+                        // TODO: how to prevent memory leak?
+                        //yield return s.Item2;
+                    }
+                }
+                if (ManagedReturnParameterInfo.Transfer != GISharp.Runtime.Transfer.None) {
+                    if (typeof(GISharp.Runtime.ReferenceCountedOpaque).IsAssignableFrom (ManagedReturnParameterInfo.TypeInfo.TypeObject)) {
+                        var refStatement = ParseStatement ("ret.Ref ();\n");
+                        if (ManagedReturnParameterInfo.CanBeNull) {
+                            refStatement = IfStatement (ParseExpression ("ret != null"), Block(refStatement));
+                        }
+                        yield return refStatement;
                     }
                 }
                 var ret = "ret";

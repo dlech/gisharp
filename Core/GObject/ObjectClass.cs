@@ -210,6 +210,11 @@ namespace GISharp.GObject
                     pspec = new ParamSpecString (name, nick, blurb, (string)defaultValue, flags);
                 } else if (fundamentalGType == GType.Type) {
                     pspec = new ParamSpecGType (name, nick, blurb, propertyGType, flags);
+                } else if (fundamentalGType == GType.Variant) {
+                    // TODO: need to pass variant type using attribute?
+                    // for now, always using any type
+                    var variantType = VariantType.Any;
+                    pspec = new ParamSpecVariant (name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
                 } else {
                     // TODO: Need more specific exception
                     throw new Exception ("unhandled GType");

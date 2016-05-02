@@ -297,7 +297,7 @@ namespace GISharp.GLib
         /// This function is thread-safe and may be called from any thread.
         /// </summary>
         [Since("2.22")]
-        internal protected override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             g_byte_array_ref (Handle);
@@ -523,7 +523,7 @@ namespace GISharp.GLib
         /// thread.
         /// </summary>
         [Since("2.22")]
-        internal protected override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             g_byte_array_unref (Handle);

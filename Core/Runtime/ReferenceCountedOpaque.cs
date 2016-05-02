@@ -36,7 +36,7 @@ namespace GISharp.Runtime
         /// Types that are reference counted must override this method.
         /// Has no effect for other types.
         /// </remarks>
-        internal protected abstract void Ref ();
+        public abstract void Ref ();
 
         /// <summary>
         /// Decrease the reference count of a reference counted object.
@@ -45,7 +45,7 @@ namespace GISharp.Runtime
         /// Types that are reference counted must override this method.
         /// Has no effect for other types.
         /// </remarks>
-        internal protected abstract void Unref ();
+        public abstract void Unref ();
 
         protected override void Dispose(bool disposing)
         {

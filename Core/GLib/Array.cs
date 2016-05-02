@@ -216,7 +216,7 @@ namespace GISharp.GLib
         /// The passed in <see cref="Array{T}"/>
         /// </returns>
         [Since("2.22")]
-        internal protected override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             ArrayInternal.g_array_ref (Handle);
@@ -352,7 +352,7 @@ namespace GISharp.GLib
         /// released. This function is MT-safe and may be called from any
         /// thread.
         [Since("2.22")]
-        internal protected override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             ArrayInternal.g_array_unref (Handle);

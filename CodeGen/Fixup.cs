@@ -360,7 +360,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithRefMethod) {
                 element.SetAttributeValue (gs + "special-func", "ref");
-                element.SetAttributeValue (gs + "access-modifiers", "protected override");
+                element.SetAttributeValue (gs + "access-modifiers", "public override");
                 element.Element (gi + "return-value").SetAttributeValue ("skip", "1");
             }
 
@@ -371,7 +371,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithUnrefMethod) {
                 element.SetAttributeValue (gs + "special-func", "unref");
-                element.SetAttributeValue (gs + "access-modifiers", "protected override");
+                element.SetAttributeValue (gs + "access-modifiers", "public override");
             }
 
             // flag free functions
@@ -926,8 +926,8 @@ namespace GISharp.CodeGen
                 return null;
             }
 
-            if (str.Contains ('_')) {
-                var words = str.Split ('_').Select (w => w.ToPascalCase ());
+            if (str.Contains ('_') || str.Contains ('-')) {
+                var words = str.Split ('_', '-').Select (w => w.ToPascalCase ());
                 str = string.Join ("", words);
             } else {
                 if (str == str.ToUpper ()) {

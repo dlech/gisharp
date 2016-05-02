@@ -6,6 +6,9 @@ using GISharp.Runtime;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 using System.Collections.Generic;
+using GISharp.GLib;
+using System.Linq;
+using System.Reflection;
 
 namespace GISharp.GObject
 {
@@ -190,8 +193,8 @@ namespace GISharp.GObject
                     Pointer = (IntPtr)obj;
                 } else if (gtype == GType.String) {
                     String = (string)obj;
-//            } else if (gtype == GType.Variant) {
-//                Variant = (Variant)obj;
+                } else if (gtype == GType.Variant) {
+                    Variant = (Variant)obj;
                 } else {
                     // TODO: Need more specific exception
                     throw new Exception ("unhandled GType");
@@ -419,6 +422,20 @@ namespace GISharp.GObject
         public static explicit operator Value (GType value)
         {
             return new Value (GType.Type, value);
+        }
+
+        public static explicit operator Variant (Value value)
+        {
+            try {
+                return value.Variant;
+            } catch (Exception ex) {
+                throw new InvalidCastException ("Cannot cast to Variant", ex);
+            }
+        }
+
+        public static explicit operator Value (Variant value)
+        {
+            return new Value (GType.Variant, value);
         }
 
         /// <summary>
@@ -842,13 +859,13 @@ namespace GISharp.GObject
         object Boxed {
             get {
                 AssertType (GType.Boxed);
+                var managedType = GISharp.GObject.GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (ref this);
-                var gchandle = GCHandle.FromIntPtr (ret_);
-                if (gchandle.IsAllocated) {
-                    return gchandle.Target;
+                if (typeof(Opaque).IsAssignableFrom (managedType)) {
+                    return Opaque.GetInstance<Opaque> (ret_, Transfer.None, managedType);
                 }
-
-                return Opaque.GetInstance<Opaque> (ret_, Transfer.None);
+                var gchandle = GCHandle.FromIntPtr (ret_);
+                return gchandle.Target;
             }
 
             set {
@@ -857,9 +874,10 @@ namespace GISharp.GObject
                 if (!gtype.IsA (GType.Boxed)) {
                     throw new ArgumentException ("Requires a boxed type.", nameof (value));
                 }
-                if (value is Opaque) {
+                var opaque = value as Opaque;
+                if (opaque != null) {
                     // if this is a wrapped native type, then we pass the native handle
-                    g_value_set_boxed (ref this, ((Opaque)value).Handle);
+                    g_value_set_boxed (ref this, opaque.Handle);
                 } else {
                     // otherwise, we create a GCHandle.
                     g_value_set_boxed (ref this, (GCHandle.ToIntPtr (GCHandle.Alloc (value))));
@@ -1511,22 +1529,18 @@ namespace GISharp.GObject
         /// <returns>
         /// variant contents of @value
         /// </returns>
-        //[SinceAttribute("2.26")]
-        //GISharp.GLib.Variant Variant
-        //{
-        //    get
-        //    {
-        //        var ret_ = g_value_get_variant(Handle);
-        //        var ret = Opaque.GetInstance<GISharp.GLib.Variant>(ret_, Transfer.All);
-        //        return ret;
-        //    }
-
-        //    set
-        //    {
-        //        var value_ = value == null ? IntPtr.Zero : value.Handle;
-        //        g_value_set_variant(Handle, value_);
-        //    }
-        //}
+        [SinceAttribute ("2.26")]
+        Variant Variant {
+            get {
+                var ret_ = g_value_get_variant (ref this);
+                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+                return ret;
+            }
+            set {
+                var value_ = value == null ? IntPtr.Zero : value.Handle;
+                g_value_set_variant (ref this, value_);
+            }
+        }
 
         /// <summary>
         /// Initializes @value with the default value of @type.

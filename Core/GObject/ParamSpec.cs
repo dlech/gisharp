@@ -375,7 +375,7 @@ namespace GISharp.GObject
         /// <summary>
         /// Increments the reference count of @pspec.
         /// </summary>
-        protected internal override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             g_param_spec_ref (Handle);
@@ -533,7 +533,7 @@ namespace GISharp.GObject
         /// <summary>
         /// Decrements the reference count of a @pspec.
         /// </summary>
-        protected internal override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             g_param_spec_unref (Handle);
@@ -1613,7 +1613,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_variant (IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            VariantType type,
+            IntPtr type,
             IntPtr defaultValue,
             ParamFlags flags);
 
@@ -1632,11 +1632,15 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
+            if (type == null) {
+                throw new ArgumentNullException (nameof (type));
+
+            }
             var namePtr = MarshalG.StringToUtf8Ptr (name);
             var nickPtr = MarshalG.StringToUtf8Ptr (nick);
             var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
             var defaultValuePtr = defaultValue == null ? IntPtr.Zero : defaultValue.Handle;
-            var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type, defaultValuePtr, flags);
+            var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValuePtr, flags);
 
             return pspecPtr;
         }

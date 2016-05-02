@@ -87,7 +87,7 @@ namespace GISharp.GObject
             NativeBoxedCopyFunc boxedCopy,
             NativeBoxedFreeFunc boxedFree);
 
-        public static GType Register (string name, NativeBoxedCopyFunc boxedCopy, NativeBoxedFreeFunc boxedFree)
+        internal static GType Register (string name, NativeBoxedCopyFunc boxedCopy, NativeBoxedFreeFunc boxedFree)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -102,7 +102,7 @@ namespace GISharp.GObject
             return g_boxed_type_register_static (name_, boxedCopy, boxedFree);
         }
 
-        public static IntPtr CopyManagedType (IntPtr boxed)
+        internal static IntPtr CopyManagedType (IntPtr boxed)
         {
             if (boxed == IntPtr.Zero) {
                 return IntPtr.Zero;
@@ -111,7 +111,7 @@ namespace GISharp.GObject
             return GCHandle.ToIntPtr (GCHandle.Alloc (target));
         }
 
-        public static void FreeManagedType (IntPtr boxed)
+        internal static void FreeManagedType (IntPtr boxed)
         {
             if (boxed == IntPtr.Zero) {
                 return;

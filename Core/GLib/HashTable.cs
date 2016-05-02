@@ -719,7 +719,7 @@ namespace GISharp.GLib
         /// the passed in <see cref="HashTable{K,V}"/>
         /// </returns>
         [Since("2.10")]
-        internal protected override void Ref ()
+        public override void Ref ()
         {
             AssertNotDisposed ();
             HashTableInternal.g_hash_table_ref (Handle);
@@ -841,7 +841,7 @@ namespace GISharp.GLib
         /// This function is MT-safe and may be called from any thread.
         /// </summary>
         [Since("2.10")]
-        internal protected override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             HashTableInternal.g_hash_table_unref (Handle);

@@ -45,6 +45,16 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        List<PropertyInfo> _PropertyInfos;
+        public IReadOnlyList<PropertyInfo> PropertyInfos {
+            get {
+                if (_PropertyInfos == null) {
+                    _PropertyInfos = GetPropertyInfos ().ToList ();
+                }
+                return _PropertyInfos.AsReadOnly ();
+            }
+        }
+
         List<MethodInfo> _MethodInfos;
         public IReadOnlyList<MethodInfo> MethodInfos {
             get {
@@ -110,6 +120,13 @@ namespace GISharp.CodeGen.Model
             }
             foreach (var field in Element.Elements (gi + "field")) {
                 yield return new FieldInfo (field, this);
+            }
+        }
+
+        IEnumerable<PropertyInfo> GetPropertyInfos ()
+        {
+            foreach (var property in Element.Elements (gi + "property")) {
+                yield return new PropertyInfo (property, this);
             }
         }
 

@@ -152,7 +152,7 @@ namespace GISharp.GLib
         /// The passed in <see cref="PtrArray{T}"/>
         /// </returns>
         [Since("2.22")]
-        internal protected override void Ref()
+        public override void Ref()
         {
             AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_ref (Handle);
@@ -340,7 +340,7 @@ namespace GISharp.GLib
         /// is MT-safe and may be called from any thread.
         /// </summary>
         [Since("2.22")]
-        internal protected override void Unref ()
+        public override void Unref ()
         {
             AssertNotDisposed ();
             PtrArrayInternal.g_ptr_array_unref (Handle);
