@@ -164,7 +164,7 @@ namespace GISharp.CodeGen.Model
         public TypeSyntax Type {
             get {
                 if (_Type == null) {
-                    var fixedUpTypeName = typeName;
+                    var fixedUpTypeName = TypeObject.FullName;
                     if (typeName == "System.Void") {
                         // C# can't use System.Void
                         fixedUpTypeName = "void";

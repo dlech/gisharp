@@ -68,7 +68,7 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var interfaceDeclaration = InterfaceDeclaration (Identifier)
+            var interfaceDeclaration = InterfaceDeclaration ("I" + Identifier.Text)
                 .WithAttributeLists (AttributeLists)
                 .WithModifiers (Modifiers)
                 .WithBaseList (BaseList)
@@ -79,7 +79,7 @@ namespace GISharp.CodeGen.Model
             var interfaceExtensionsModifiers = SyntaxFactory.TokenList ()
                 .Add (SyntaxFactory.Token (SyntaxKind.PublicKeyword))
                 .Add (SyntaxFactory.Token (SyntaxKind.StaticKeyword));
-            var interfaceExtenstionsDeclaration = SyntaxFactory.ClassDeclaration (Identifier.Text + "Extensions")
+            var interfaceExtenstionsDeclaration = SyntaxFactory.ClassDeclaration (Identifier)
                 .WithModifiers (interfaceExtensionsModifiers)
                 .WithMembers (InterfaceExtensionsMembers);
             yield return interfaceExtenstionsDeclaration;

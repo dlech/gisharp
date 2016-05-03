@@ -145,7 +145,7 @@ namespace GISharp.Gio.Test
     }
 
     [GType]
-    class ActionImpl : GObject.Object, Action
+    class ActionImpl : GObject.Object, IAction
     {
         public bool Enabled {
             get {
@@ -175,7 +175,7 @@ namespace GISharp.Gio.Test
 
         public int ActivateCallbackCount;
 
-        void Action.Activate (Variant parameter)
+        void IAction.Activate (Variant parameter)
         {
             Assert.That ((int)parameter, Is.EqualTo (1));
             ActivateCallbackCount++;
@@ -183,7 +183,7 @@ namespace GISharp.Gio.Test
 
         public int ChangeStateCallbackCount;
 
-        void Action.ChangeState (Variant value)
+        void IAction.ChangeState (Variant value)
         {
             Assert.That ((int)value, Is.EqualTo (1));
             ChangeStateCallbackCount++;
@@ -191,7 +191,7 @@ namespace GISharp.Gio.Test
 
         public int GetEnabledCallbackCount;
 
-        bool Action.GetEnabled ()
+        bool IAction.GetEnabled ()
         {
             GetEnabledCallbackCount++;
             return true;
@@ -199,7 +199,7 @@ namespace GISharp.Gio.Test
 
         public int GetNameCallbackCount;
 
-        string Action.GetName ()
+        string IAction.GetName ()
         {
             GetNameCallbackCount++;
             return "TestActionName";
@@ -207,7 +207,7 @@ namespace GISharp.Gio.Test
 
         public int GetParameterTypeCallbackCount;
 
-        VariantType Action.GetParameterType ()
+        VariantType IAction.GetParameterType ()
         {
             GetParameterTypeCallbackCount++;
             return VariantType.Int32;
@@ -215,7 +215,7 @@ namespace GISharp.Gio.Test
 
         public int GetStateCallbackCount;
 
-        Variant Action.GetState ()
+        Variant IAction.GetState ()
         {
             GetStateCallbackCount++;
             return new Variant (2);
@@ -223,7 +223,7 @@ namespace GISharp.Gio.Test
 
         public int GetStateHintCallbackCount;
 
-        Variant Action.GetStateHint ()
+        Variant IAction.GetStateHint ()
         {
             GetStateHintCallbackCount++;
             return null;
@@ -231,7 +231,7 @@ namespace GISharp.Gio.Test
 
         public int GetStateTypeCallbackCount;
 
-        VariantType Action.GetStateType ()
+        VariantType IAction.GetStateType ()
         {
             GetStateTypeCallbackCount++;
             return VariantType.Int32;

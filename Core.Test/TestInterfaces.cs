@@ -73,7 +73,7 @@ namespace GISharp.Core.Test
         }
     }
 
-    public static class IInitableExtensions
+    public static class Initable
     {
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initable_get_type ();
@@ -245,7 +245,7 @@ namespace GISharp.Core.Test
         }
     }
 
-    public static class INetworkMonitorExtensions
+    public static class NetworkMonitor
     {
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_network_monitor_get_type ();

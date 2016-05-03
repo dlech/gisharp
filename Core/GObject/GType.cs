@@ -856,12 +856,15 @@ namespace GISharp.GObject
                 }
 
                 if (gtypeAttribute.IsWrappedNativeType) {
-                    // enums and interfaces can't have method implementations, so we
-                    // need to find the associated Extensions type for the actual
-                    // implementation.
+                    // enums and interfaces can't have method implementations,
+                    // so we need to find the associated static type for the
+                    // actual implementation.
                     var implementationType = type;
-                    if (type.IsEnum || type.IsInterface) {
+                    if (type.IsEnum) {
                         implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+                    } else if (type.IsInterface) {
+                        var nameWithoutIPrefix = type.FullName.Remove (type.FullName.LastIndexOf ('.') + 1, 1);
+                        implementationType = type.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
                     }
                     var getGType = implementationType.GetMethod ("getGType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);

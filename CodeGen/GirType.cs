@@ -116,6 +116,11 @@ namespace GISharp.CodeGen
                         typeDefinitionElement = document.Descendants (gi + "callback")
                             .SingleOrDefault (d => "Native" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     }
+                    if (typeDefinitionElement == null) {
+                        // special case for interfaces since we add the "I" prefix.
+                        typeDefinitionElement = document.Descendants (gi + "interface")
+                            .SingleOrDefault (d => "I" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
+                    }
                     if (typeDefinitionElement != null) {
                         girTypeCache.Add (typeName, typeDefinitionElement);
                     }
@@ -183,7 +188,13 @@ namespace GISharp.CodeGen
         public override string Name {
             get {
                 // strip off generic parameters
-                return string.Concat (element.Attribute (gs + "managed-name").Value.TakeWhile (x => x != '['));
+                var name = string.Concat (element.Attribute (gs + "managed-name").Value.TakeWhile (x => x != '['));
+
+                if (IsInterface) {
+                    name = "I" + name;
+                }
+
+                return name;
             }
         }
 
