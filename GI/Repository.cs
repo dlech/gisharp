@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
+using GISharp.GLib;
 
 namespace GISharp.GI
 {
@@ -40,7 +41,7 @@ namespace GISharp.GI
             g_irepository_dump (native_arg, out error);
             MarshalG.Free (native_arg);
             if (error != IntPtr.Zero)
-                throw new GErrorException (error);
+                throw GErrorException.CreateInstance (error);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -56,7 +57,7 @@ namespace GISharp.GI
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern uint g_irepository_error_quark ();
+        static extern Quark g_irepository_error_quark ();
 
         /// <summary>
         /// Error domain for Repository.
@@ -65,24 +66,24 @@ namespace GISharp.GI
         /// <remarks>
         /// Errors in this domain will be from the <see cref="RepositoryError"/> enumeration.
         /// </remarks>
-        public static uint ErrorDomain {
+        public static Quark ErrorQuark {
             get {
                 return g_irepository_error_quark ();
             }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, uint domain);
+        static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, Quark domain);
 
         /// <summary>
         /// Searches for the enum type corresponding to the given GError domain.
         /// </summary>
         /// <returns>EnumInfo representing metadata about domain's enum type, or <c>null</c>.</returns>
-        /// <param name="domain">A GError domain (aka quark).</param>
-        public static GISharp.GI.EnumInfo FindByErrorDomain (uint domain)
+        /// <param name="domain">A GError domain.</param>
+        public static EnumInfo FindByErrorDomain (Quark domain)
         {
             IntPtr raw_ret = g_irepository_find_by_error_domain (IntPtr.Zero, domain);
-            GISharp.GI.EnumInfo ret = BaseInfo.MarshalPtr<EnumInfo> (raw_ret);
+            EnumInfo ret = BaseInfo.MarshalPtr<EnumInfo> (raw_ret);
             return ret;
         }
 
@@ -324,7 +325,7 @@ namespace GISharp.GI
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
-                throw new GErrorException (error);
+                throw GErrorException.CreateInstance (error);
             }
         }
 
@@ -366,7 +367,7 @@ namespace GISharp.GI
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_version);
             if (error != IntPtr.Zero) {
-                throw new GErrorException (error);
+                throw GErrorException.CreateInstance (error);
             }
         }
     }

@@ -1,70 +1,60 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using System.Linq;
 using GISharp.GLib;
+using System.Collections.Generic;
+using System.Reflection;
 
 namespace GISharp.Runtime
 {
     /// <summary>
     /// Exception that wraps an unmanaged GError.
     /// </summary>
-    public class GErrorException : Exception
+    public abstract class GErrorException : Exception
     {
-        GError error;
+        static readonly Dictionary<Quark, Type> errorDomainMap = new Dictionary<Quark, Type> ();
+        static readonly object errorDomainMapLock = new object ();
 
-        /// <summary>
-        /// Gets the error domain (aka error quark).
-        /// </summary>
-        /// <value>The domain value.</value>
-        public uint Domain {
-            get { return error.Domain; }
-        }
+        public Error Error { get; private set; }
 
-        /// <summary>
-        /// Gets the error code.
-        /// </summary>
-        /// <value>The code.</value>
-        public int Code {
-            get { return error.Code; }
-        }
-
-        string message;
-        /// <summary>
-        /// Gets the error message.
-        /// </summary>
-        /// <value>The message.</value>
         public override string Message {
             get {
-                if (message == null) {
-                    message = error.Message;
-                }
-                return message;
+                return Error.Message;
             }
         }
 
-        IntPtr handle;
-        /// <summary>
-        /// Gets the pointer to the unmanaged GError structure.
-        /// </summary>
-        /// <value>The pointer.</value>
-        public IntPtr Handle { get { return handle; } }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="GErrorException"/> class.
-        /// </summary>
-        /// <param name="ptr">Pointer to an unmanged GError*.</param>
-        public GErrorException (IntPtr ptr)
+        protected GErrorException (Error error)
         {
-            // have to hang on the the pointer so we can free it later (which frees the message too).
-            handle = ptr;
-            error = (GError)Marshal.PtrToStructure<GError> (ptr);
+            Error = error;
         }
 
-        [DllImport ("glib-2.0.dll")]
-        extern static void g_clear_error (ref IntPtr err);
-
-        ~GErrorException ()
+        public static GErrorException CreateInstance (IntPtr error)
         {
-            g_clear_error (ref handle);
+            var err = Opaque.GetInstance<Error> (error, Transfer.All);
+            lock (errorDomainMapLock) {
+                if (!errorDomainMap.ContainsKey (err.Domain)) {
+                    foreach (var assembly in AppDomain.CurrentDomain.GetAssemblies ()) {
+                        foreach (var enumType in assembly.GetTypes ().Where (t => t.IsEnum)) {
+                            var errorDomainAttr = enumType.GetCustomAttribute<ErrorDomainAttribute> ();
+                            if (errorDomainAttr == null) {
+                                continue;
+                            }
+                            var errorDomainQuark = Quark.FromString (errorDomainAttr.ErrorDomain);
+                            if (errorDomainMap.ContainsKey (errorDomainQuark)) {
+                                continue;
+                            }
+                            var exceptionType = assembly.GetType (enumType.FullName + "Exception", true);
+                            errorDomainMap.Add (errorDomainQuark, exceptionType);
+                            if (err.Domain == errorDomainQuark) {
+                                break;
+                            }
+                        }
+                    }
+                }
+                var type = errorDomainMap[err.Domain];
+                var instance = Activator.CreateInstance (type, err);
+                return (GErrorException)instance;
+            }
         }
     }
 }

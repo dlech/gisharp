@@ -4,6 +4,7 @@ using GISharp.GLib;
 using GISharp.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
+using System.Reflection;
 
 namespace GISharp.Gio.Test
 {
@@ -141,6 +142,71 @@ namespace GISharp.Gio.Test
             var actual = obj.GetStateType ();
             Assert.That (actual, Is.EqualTo (VariantType.Int32));
             Assert.That (obj.GetStateTypeCallbackCount, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void TestNameIsValidNullArgument ()
+        {
+            Assert.That (() => Action.NameIsValid (null),
+                Throws.InstanceOf<ArgumentNullException> ());
+        }
+
+        [Test]
+        public void TestNameIsValidEmptyIsNotValid ()
+        {
+            Assert.That (Action.NameIsValid (string.Empty), Is.False);
+        }
+
+        [Test]
+        public void TestNameIsValidWithValid ()
+        {
+            Assert.That (Action.NameIsValid ("a.valid-name123"), Is.True);
+        }
+
+        [Test]
+        public void TestNameIsValidWithInvalidName ()
+        {
+            Assert.That (Action.NameIsValid ("not a valid name"), Is.False);
+        }
+
+        [Test]
+        public void TestParseDetailedNameWithInvalidName ()
+        {
+            string actionName;
+            Variant target;
+            Assert.That (() => Action.ParseDetailedName ("invaid name", out actionName, out target),
+                Throws.InstanceOf<VariantParseErrorException> ()
+                .And.Property (nameof (VariantParseErrorException.Code)).EqualTo (VariantParseError.Failed));
+        }
+
+        [Test]
+        public void TestParseDetailedNameActionWithNoTarget ()
+        {
+            string actionName;
+            Variant target;
+            Assert.That (Action.ParseDetailedName ("action", out actionName, out target), Is.True);
+            Assert.That (actionName, Is.EqualTo ("action"));
+            Assert.That (target, Is.Null);
+        }
+
+        [Test]
+        public void TestParseDetailedNameActionWithStringTarget ()
+        {
+            string actionName;
+            Variant target;
+            Assert.That (Action.ParseDetailedName ("action::target", out actionName, out target), Is.True);
+            Assert.That (actionName, Is.EqualTo ("action"));
+            Assert.That ((string)target, Is.EqualTo ("target"));
+        }
+
+        [Test]
+        public void TestParseDetailedNameActionWithIntTarget ()
+        {
+            string actionName;
+            Variant target;
+            Assert.That (Action.ParseDetailedName ("action(42)", out actionName, out target), Is.True);
+            Assert.That (actionName, Is.EqualTo ("action"));
+            Assert.That ((int)target, Is.EqualTo (42));
         }
     }
 

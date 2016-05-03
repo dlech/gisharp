@@ -397,30 +397,38 @@ namespace GISharp.CodeGen.Model
             }
             yield return GetPinvokeInvocationStatement ();
 
-            // TODO: handle throws error - needs if statement around GetMarshalNativeToManagedStatements
-            // and then call freeStatements before throwing
+            var tryStatement = SyntaxFactory.TryStatement ()
+                .WithFinally (SyntaxFactory.FinallyClause (SyntaxFactory.Block (freeStatements)));
+
+            if (ThrowsGErrorException) {
+                var errorIdentifier = PinvokeParameterInfos.Single (x => x.IsErrorParameter).Identifier;
+                var conditionExpression = string.Format ("{0}_ != {1}.{2}",
+                    errorIdentifier,
+                    typeof(IntPtr).FullName,
+                    nameof (IntPtr.Zero));
+                var throwStatement = string.Format ("throw {0}.{1} ({2}_);",
+                    typeof(GISharp.Runtime.GErrorException).FullName,
+                    nameof(GISharp.Runtime.GErrorException.CreateInstance),
+                    errorIdentifier);
+                tryStatement = tryStatement.AddBlockStatements (SyntaxFactory.IfStatement (
+                    SyntaxFactory.ParseExpression (conditionExpression),
+                    SyntaxFactory.Block (SyntaxFactory.ParseStatement (throwStatement))));
+            }
 
             // must marshal output parameters before freeing input parameters
             // in case input parameters are passed through as output parameters
-            foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
-                foreach (var s in GetMarshalNativeToManagedStatements (p, false)) {
-                    yield return s;
-                }
-            }
+            tryStatement = tryStatement.AddBlockStatements (SyntaxFactory.Block (ManagedParameterInfos
+                .Where (x => x.IsOutParam)
+                .SelectMany (p => GetMarshalNativeToManagedStatements (p, false))));
 
             if (!IsConstructor) {
-                foreach (var s in GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo, true)) {
-                    yield return s;
-                }
+                tryStatement = tryStatement.AddBlockStatements (
+                    GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo, true).ToArray ());
             }
 
-            foreach (var s in freeStatements) {
-                yield return s;
-            }
+            tryStatement = tryStatement.AddBlockStatements (GetReturnStatements ().ToArray ());
 
-            foreach (var s in GetReturnStatements ()) {
-                yield return s;
-            }
+            yield return tryStatement;
         }
 
         IEnumerable<StatementSyntax> GetArgumentCheckStatements ()

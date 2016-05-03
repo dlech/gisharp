@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 // using GNetworkMonitor for testing since it is in gio, which is likely to
 // be installed and it has methods, properties and a signal as well as having
 // GInitable as a prerequsite.
+using GISharp.GLib;
 
 namespace GISharp.Core.Test
 {
@@ -24,7 +25,7 @@ namespace GISharp.Core.Test
             public TypeInterface.TypeInterfaceStruct GIface;
             public NativeInit Init;
 
-            public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, IntPtr errorPtr);
+            public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
 
         public override Type StructType {
@@ -54,16 +55,14 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, IntPtr errorPtr)
+        static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             var initable = (IInitable)Opaque.GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
             try {
                 var ret = initable.Init (cancellablePtr);
                 return ret;
             } catch (GErrorException ex) {
-                if (errorPtr != IntPtr.Zero) {
-                    Marshal.WriteIntPtr (errorPtr, ex.Handle);
-                }
+                Error.Propogate (errorPtr, ex.Error);
             }
             return false;
         }
@@ -84,41 +83,31 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, IntPtr errorPtr);
+        static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
 
         public static GISharp.GObject.Object New (GType objectType, params object[] parameters)
         {
-            IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
-            try {
-                var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, errorPtr);
-                var error = Marshal.ReadIntPtr (errorPtr);
-                if (error != IntPtr.Zero) {
-                    throw new GErrorException (error);
-                }
-                var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.All);
-
-                return ret;
-            } finally {
-                MarshalG.Free (errorPtr);
+            IntPtr errorPtr;
+            var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
+            if (errorPtr != IntPtr.Zero) {
+                throw GErrorException.CreateInstance (errorPtr);
             }
+            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.All);
+
+            return ret;
         }
 
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_initable_init (IntPtr intitable, IntPtr cancellable, IntPtr errorPtr);
+        static extern bool g_initable_init (IntPtr intitable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool Init (this IInitable intitable)
         {
-            IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
-            try {
-                var ret = g_initable_init (intitable.Handle, IntPtr.Zero, errorPtr);
-                var error = Marshal.ReadIntPtr (errorPtr);
-                if (error != IntPtr.Zero) {
-                    throw new GErrorException (error);
-                }
-                return ret;
-            } finally {
-                MarshalG.Free (errorPtr);
+            IntPtr errorPtr;
+            var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
+            if (errorPtr != IntPtr.Zero) {
+                throw GErrorException.CreateInstance (errorPtr);
             }
+            return ret;
         }
     }
 
@@ -155,11 +144,11 @@ namespace GISharp.Core.Test
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool availible);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, IntPtr errorPtr);
+            public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, IntPtr errorPtr);
+            public delegate void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
         }
 
         public override Type StructType {
@@ -204,16 +193,14 @@ namespace GISharp.Core.Test
             monitor.OnNetworkChanged (availible);
         }
 
-        static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, IntPtr errorPtr)
+        static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
             } catch (GErrorException ex) {
-                if (errorPtr != IntPtr.Zero) {
-                    Marshal.WriteIntPtr (errorPtr, ex.Handle);
-                }
+                Error.Propogate (errorPtr, ex.Error);
             }
             return false;
         }
@@ -227,15 +214,13 @@ namespace GISharp.Core.Test
             monitor.CanReachAsync (connectablePtr, cancellablePtr, managedCallback);
         }
 
-        static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, IntPtr errorPtr)
+        static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
             var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
-                if (errorPtr != IntPtr.Zero) {
-                    Marshal.WriteIntPtr (errorPtr, ex.Handle);
-                }
+                Error.Propogate (errorPtr, ex.Error);
             }
         }
 
@@ -276,43 +261,36 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, IntPtr errorPtr);
+        static extern bool g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
-            IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
-            try {
-                var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, errorPtr);
-                var error = Marshal.ReadIntPtr (errorPtr);
-                if (error != IntPtr.Zero) {
-                    throw new GErrorException (error);
-                }
-
-                return ret;
-            } finally {
-                MarshalG.Free (errorPtr);
+            IntPtr errorPtr;
+            var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
+            if (errorPtr != IntPtr.Zero) {
+                throw GErrorException.CreateInstance (errorPtr);
             }
+
+            return ret;
         }
 
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_network_monitor_can_reach_async (IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
 
         [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, IntPtr errorPtr);
+        static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, out IntPtr errorPtr);
 
         public static Task<bool> CanReachAsync (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             var completion = new TaskCompletionSource<bool> ();
             Action<IntPtr, IntPtr, IntPtr> nativeCallback = (sourceObjectPtr, resultPtr, userDataPtr) => {
-                IntPtr errorPtr = MarshalG.Alloc0 (IntPtr.Size);
-                var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, errorPtr);
-                var error = Marshal.ReadIntPtr (errorPtr);
-                if (error != IntPtr.Zero) {
-                    completion.SetException (new GErrorException (error));
+                IntPtr errorPtr;
+                var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
+                if (errorPtr != IntPtr.Zero) {
+                    completion.SetException (GErrorException.CreateInstance (errorPtr));
                 } else {
                     completion.SetResult (ret);
                 }
-                MarshalG.Free (errorPtr);
                 GCHandle.FromIntPtr (userDataPtr).Free ();
             };
             var callbackGCHandle = GCHandle.Alloc (nativeCallback);

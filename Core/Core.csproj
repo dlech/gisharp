@@ -39,7 +39,6 @@
     <Compile Include="Runtime\DynamicLibrary.cs" />
     <Compile Include="GObject\Enum.cs" />
     <Compile Include="GObject\Flags.cs" />
-    <Compile Include="GLib\GError.cs" />
     <Compile Include="Runtime\ErrorDomainAttribute.cs" />
     <Compile Include="Runtime\GErrorException.cs" />
     <Compile Include="GObject\GType.cs" />
@@ -99,6 +98,7 @@
     <Compile Include="Runtime\DeprecatedAttribute.cs" />
     <Compile Include="Runtime\IObject.cs" />
     <Compile Include="Runtime\CallbackScope.cs" />
+    <Compile Include="GLib\Error.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

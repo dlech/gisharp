@@ -98,7 +98,7 @@ namespace GISharp.GI
             IntPtr error;
             bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error);
             if (error != IntPtr.Zero)
-                throw new GErrorException (error);
+                throw GErrorException.CreateInstance (error);
             return ret;
         }
 
