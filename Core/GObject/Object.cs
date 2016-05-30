@@ -37,6 +37,7 @@ namespace GISharp.GObject
             handleToggleRef (false);
             // use toggle reference so we don't get GCed when unmanaged code
             // still has a reference
+            // This will free the GCHandle if we have the only reference
             g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
             // release the original ref since we now have a toggle ref
             g_object_unref (Handle);
