@@ -9,18 +9,31 @@ namespace GISharp.Core.Test
     [SetUpFixture]
     public class Setup
     {
-        delegate void LogFunc (IntPtr log_domain, uint log_level, IntPtr message, IntPtr user_data);
+        [Flags]
+        enum LogLevelFlags
+        {
+            Recursion   = 1,
+            Fatal       = 2,
+            Error       = 4,
+            Critical    = 8,
+            Warning     = 16,
+            Message     = 32,
+            Info        = 64,
+            Debug       = 128,
+        }
+
+        delegate void LogFunc (IntPtr logDomainPtr, LogLevelFlags logLevel,
+                               IntPtr messagePtr, IntPtr userDataPtr);
 
         [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern uint g_log_set_default_handler (
-            LogFunc log_func,
-            IntPtr user_data);
+        static extern uint g_log_set_default_handler (LogFunc logFunc, IntPtr userDataPtr);
 
-        static void Log (IntPtr logDomainPtr, uint log_level, IntPtr messagePtr, IntPtr user_data)
+        static void Log (IntPtr logDomainPtr, LogLevelFlags logLevel,
+                         IntPtr messagePtr, IntPtr userDataPtr)
         {
             var logDomain = MarshalG.Utf8PtrToString (logDomainPtr);
             var message = MarshalG.Utf8PtrToString (messagePtr);
-            Assert.Fail ($"({logDomain}) {log_level} {message}");
+            Assert.Fail ($"({logDomain}) {logLevel}: {message}");
         }
 
         [SetUp]
