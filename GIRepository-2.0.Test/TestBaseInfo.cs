@@ -1,18 +1,15 @@
 ﻿using NUnit.Framework;
 using System;
 using System.Linq;
-using System.Collections.Generic;
-
-using GISharp.Runtime;
 
 namespace GISharp.GIRepository.Test
 {
-    [TestFixture ()]
+    [TestFixture]
     public class TestBaseInfo
     {
         InfoDictionary<BaseInfo> infos;
 
-        [TestFixtureSetUp ()]
+        [TestFixtureSetUp]
         public void TestGetDefault ()
         {
             // The default repository is process global, so we must initalize it only once.
@@ -21,11 +18,11 @@ namespace GISharp.GIRepository.Test
             infos = Repository.Namespaces ["GLib"].Infos;
         }
 
-        [Test ()]
+        [Test]
         public void TestEqual ()
         {
             var info1 = infos [0];
-            var info2 = infos [0];
+            var info2 = Repository.Namespaces["GLib"].FindByName (info1.Name);
             // want to make sure that we compare by value and not by reference
             Assume.That (ReferenceEquals (info1, info2), Is.False);
             Assert.That (info1, Is.EqualTo (info2));
@@ -48,32 +45,32 @@ namespace GISharp.GIRepository.Test
             Assert.That (info1 != info2, Is.False);
         }
 
-        [Test ()]
+        [Test]
         public void TestGetType ()
         {
             Assert.That (infos.First ().InfoType, Is.EqualTo (InfoType.Constant));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetNameSpace ()
         {
             Assert.That (infos.First ().Namespace, Is.EqualTo ("GLib"));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetName ()
         {
             Assert.That (infos.First ().Name, Is.EqualTo ("ANALYZER_ANALYZING"));
         }
 
-        [Test ()]
+        [Test]
         public void TestGetAttribute ()
         {
             // TODO: Need to figure out how to add attributes.
             //Assert.That (infos.First ().GetAttribute("type"), Is.EqualTo (""));
         }
 
-        [Test ()]
+        [Test]
         public void TestIterateAttributes ()
         {
             // TODO: Need to figure out how to add attributes.
@@ -84,7 +81,7 @@ namespace GISharp.GIRepository.Test
             }
         }
 
-        [Test ()]
+        [Test]
         public void TestGetContainer ()
         {
             var function = infos
@@ -94,7 +91,7 @@ namespace GISharp.GIRepository.Test
             Assert.That (container, Is.EqualTo (function));
         }
 
-        [Test ()]
+        [Test]
         public void TestIsDeprecated ()
         {
             var count = infos.Count (i => i.IsDeprecated == true);
@@ -102,4 +99,3 @@ namespace GISharp.GIRepository.Test
         }
     }
 }
-
