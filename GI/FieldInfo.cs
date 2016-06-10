@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class FieldInfo : BaseInfo
     {

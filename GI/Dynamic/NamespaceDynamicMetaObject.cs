@@ -4,7 +4,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Reflection;
 
-namespace GISharp.GI.Dynamic
+namespace GISharp.GIRepository.Dynamic
 {
     class NamespaceDynamicMetaObject : DynamicMetaObject
     {

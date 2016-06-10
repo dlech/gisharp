@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     /// <summary>
     /// The type of a <see cref="BaseInfo"/> struct.

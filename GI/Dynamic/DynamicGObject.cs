@@ -7,7 +7,7 @@ using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.GI.Dynamic
+namespace GISharp.GIRepository.Dynamic
 {
     public class DynamicGObject : IDynamicMetaObjectProvider, IDisposable
     {

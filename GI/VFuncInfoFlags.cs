@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     /// <summary>
     /// Flags of a <see cref="VFuncInfo"/> struct.

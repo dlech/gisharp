@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public abstract class RegisteredTypeInfo : BaseInfo
     {

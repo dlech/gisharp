@@ -5,7 +5,7 @@ using System.Linq;
 using GISharp.Runtime;
 using GISharp.GLib;
 
-namespace GISharp.GI.Test
+namespace GISharp.GIRepository.Test
 {
     [TestFixture]
     public class TestRepository

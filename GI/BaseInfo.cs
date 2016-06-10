@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.Runtime;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     /// <summary>
     /// GIBaseInfo is the common base struct of all other *Info classes.

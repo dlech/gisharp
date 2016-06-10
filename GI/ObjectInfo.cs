@@ -6,10 +6,10 @@ using System.Dynamic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-using GISharp.GI.Dynamic;
+using GISharp.GIRepository.Dynamic;
 using GISharp.Runtime;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class ObjectInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {

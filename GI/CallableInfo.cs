@@ -8,7 +8,7 @@ using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public abstract class CallableInfo : BaseInfo
     {

@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class CallbackInfo : CallableInfo
     {

@@ -4,7 +4,7 @@
 using GISharp.GLib;
 using GISharp.Runtime;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     /// <summary>
     /// An error code returned from a Repository method.

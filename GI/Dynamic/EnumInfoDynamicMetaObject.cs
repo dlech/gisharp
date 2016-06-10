@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Linq.Expressions;
 
-namespace GISharp.GI.Dynamic
+namespace GISharp.GIRepository.Dynamic
 {
     class EnumInfoDynamicMetaObject : DynamicMetaObject
     {

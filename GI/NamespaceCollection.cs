@@ -1,7 +1,7 @@
 ﻿
 using System.Collections.Generic;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class NamespaceCollection : IEnumerable<Namespace>
     {

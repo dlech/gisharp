@@ -5,7 +5,7 @@ using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     [DebuggerDisplay ("{Tag}")]
     public sealed class TypeInfo : BaseInfo

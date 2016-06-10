@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 using GISharp.Runtime;
 
-namespace GISharp.GI.Test
+namespace GISharp.GIRepository.Test
 {
     [TestFixture ()]
     public class TestBaseInfo

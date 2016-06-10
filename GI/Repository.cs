@@ -10,7 +10,7 @@ using GISharp.Runtime;
 using GISharp.GLib;
 using GISharp.GObject;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public static class Repository
     {
@@ -91,12 +91,12 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
-        internal static GISharp.GI.BaseInfo FindByName (string @namespace, string name)
+        internal static GISharp.GIRepository.BaseInfo FindByName (string @namespace, string name)
         {
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace, native_name);
-            GISharp.GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+            GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_name);
             return ret;
@@ -140,11 +140,11 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_info (IntPtr raw, IntPtr @namespace, int index);
 
-        internal static GISharp.GI.BaseInfo GetInfo (string @namespace, int index)
+        internal static GISharp.GIRepository.BaseInfo GetInfo (string @namespace, int index)
         {
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace, index);
-            GISharp.GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+            GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             MarshalG.Free (native_namespace);
             return ret;
         }

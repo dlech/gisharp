@@ -5,7 +5,7 @@ using System;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class PropertyInfo : BaseInfo
     {

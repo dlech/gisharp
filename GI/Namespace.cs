@@ -2,9 +2,9 @@
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
-using GISharp.GI.Dynamic;
+using GISharp.GIRepository.Dynamic;
 
-namespace GISharp.GI
+namespace GISharp.GIRepository
 {
     public sealed class Namespace : IDynamicMetaObjectProvider
     {

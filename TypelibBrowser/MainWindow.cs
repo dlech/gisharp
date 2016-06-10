@@ -150,8 +150,8 @@ namespace GISharp.TypelibBrowser
 
             var typeInfoProperty = obj.GetType ().GetProperty ("TypeInfo") ??
                 obj.GetType ().GetProperty ("ReturnTypeInfo");
-            if (typeInfoProperty?.PropertyType == typeof(GI.TypeInfo)) {
-                var typeInfo = (GI.TypeInfo)typeInfoProperty.GetValue (obj);
+            if (typeInfoProperty?.PropertyType == typeof(GIRepository.TypeInfo)) {
+                var typeInfo = (GIRepository.TypeInfo)typeInfoProperty.GetValue (obj);
 
                 var typeInfoLabel = createLabel (typeInfo);
                 typeInfoVbox.PackStart (typeInfoLabel, false, false, 12);
@@ -159,7 +159,7 @@ namespace GISharp.TypelibBrowser
                 var typeInfoPropertyTable = createPropertyTable (typeInfo);
                 typeInfoVbox.PackStart (typeInfoPropertyTable, false, false, 12);
 
-                if (typeInfo.ArrayType != GI.ArrayType.None) {
+                if (typeInfo.ArrayType != GIRepository.ArrayType.None) {
                     var arrayTypeInfo = typeInfo.GetParamType (0);
 
                     var arrayTypeInfoLabel = createLabel (arrayTypeInfo);
@@ -170,7 +170,7 @@ namespace GISharp.TypelibBrowser
                 }
             }
 
-            var registeredTypeInfo = obj as GI.RegisteredTypeInfo;
+            var registeredTypeInfo = obj as GIRepository.RegisteredTypeInfo;
             if (registeredTypeInfo != null && registeredTypeInfo.GType != GObject.GType.None) {
                 var gtypeVBox = new VBox ();
                 var gtypeSectionLabel = new Label () {

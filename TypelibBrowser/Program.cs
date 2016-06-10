@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using GISharp.GI;
+using GISharp.GIRepository;
 using Gtk;
 
 namespace GISharp.TypelibBrowser

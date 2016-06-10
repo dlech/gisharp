@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{26BF5EFC-10BF-46BC-A071-11F2B69C2844}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>GISharp.GI</RootNamespace>
+    <RootNamespace>GISharp.GIRepository</RootNamespace>
     <AssemblyName>girepository</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
