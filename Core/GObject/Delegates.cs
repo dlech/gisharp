@@ -84,7 +84,7 @@ namespace GISharp.GObject
         IntPtr closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
-        IntPtr returnValue,
+        ref Value returnValue,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nParamValues,
@@ -92,7 +92,8 @@ namespace GISharp.GObject
             <type name="Value" type="GValue" managed-name="Value" />
             </array> */
         /* transfer-ownership:none */
-        IntPtr paramValues,
+        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)]
+        Value[] paramValues,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr invocationHint,

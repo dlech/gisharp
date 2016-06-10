@@ -99,6 +99,7 @@
     <Compile Include="Runtime\IObject.cs" />
     <Compile Include="Runtime\CallbackScope.cs" />
     <Compile Include="GLib\Error.cs" />
+    <Compile Include="GObject\Closure.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

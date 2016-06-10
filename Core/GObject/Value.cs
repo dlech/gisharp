@@ -19,14 +19,16 @@ namespace GISharp.GObject
     [DebuggerDisplay ("{ToString ()}")]
     public struct Value
     {
-        const int valueDataUnionSize = 2;
-
         GType type;
 
 #pragma warning disable 414
         // this should never be accessed directly
-        [MarshalAs (UnmanagedType.ByValArray, SizeConst = valueDataUnionSize)]
-        ValueDataUnion[] data;
+        //[MarshalAs (UnmanagedType.ByValArray, SizeConst = 2)]
+        //ValueDataUnion[] data;
+
+        // using explicit values instead of array so we can use .NET marshaler
+        ValueDataUnion data0;
+        ValueDataUnion data1;
 
         [StructLayout (LayoutKind.Explicit)]
         struct ValueDataUnion
@@ -2713,7 +2715,8 @@ namespace GISharp.GObject
                 throw new ArgumentException (message, nameof (type));
             }
             this.type = GType.Invalid;
-            this.data = new ValueDataUnion[valueDataUnionSize];
+            data0 = default (ValueDataUnion);
+            data1 = default (ValueDataUnion);
 
             Init (type);
             if (ValueGType == GType.Invalid) {

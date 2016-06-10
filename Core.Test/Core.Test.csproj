@@ -52,6 +52,7 @@
     <Compile Include="TestInterfaces.cs" />
     <Compile Include="GObject\InterfaceTest.cs" />
     <Compile Include="GLib\VariantTests.cs" />
+    <Compile Include="GObject\ClosureTest.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
