@@ -73,6 +73,7 @@
     <Compile Include="VFuncInfoFlags.cs" />
     <Compile Include="ValueInfo.cs" />
     <Compile Include="AttributeIter.cs" />
+    <Compile Include="InfoDictionary.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

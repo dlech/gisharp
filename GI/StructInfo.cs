@@ -13,23 +13,23 @@ namespace GISharp.GI
     public class StructInfo : RegisteredTypeInfo, IMethodContainer
     {
 
-        IndexedCollection<FieldInfo> fields;
+        InfoDictionary<FieldInfo> fields;
 
-        public IndexedCollection<FieldInfo> Fields {
+        public InfoDictionary<FieldInfo> Fields {
             get {
                 if (fields == null) {
-                    fields = new IndexedCollection<FieldInfo> (() => NFields, GetField);
+                    fields = new InfoDictionary<FieldInfo> (NFields, GetField);
                 }
                 return fields;
             }
         }
 
-        IndexedCollection<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo> methods;
 
-        public IndexedCollection<FunctionInfo> Methods {
+        public InfoDictionary<FunctionInfo> Methods {
             get {
                 if (methods == null) {
-                    methods = new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
+                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
                 }
                 return methods;
             }

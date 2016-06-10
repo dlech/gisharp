@@ -12,23 +12,23 @@ namespace GISharp.GI
 {
     public class UnionInfo : RegisteredTypeInfo, IMethodContainer
     {
-        IndexedCollection<FieldInfo> fields;
+        InfoDictionary<FieldInfo> fields;
 
-        public IndexedCollection<FieldInfo> Fields {
+        public InfoDictionary<FieldInfo> Fields {
             get {
                 if (fields == null) {
-                    fields = new IndexedCollection<FieldInfo> (() => NFields, GetField);
+                    fields = new InfoDictionary<FieldInfo> (NFields, GetField);
                 }
                 return fields;
             }
         }
 
-        IndexedCollection<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo> methods;
 
-        public IndexedCollection<FunctionInfo> Methods {
+        public InfoDictionary<FunctionInfo> Methods {
             get {
                 if (methods == null) {
-                    methods = new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
+                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
                 }
                 return methods;
             }
@@ -64,9 +64,9 @@ namespace GISharp.GI
             return MarshalPtr<ConstantInfo> (raw_ret);
         }
 
-        public IndexedCollection<ConstantInfo> Discriminators {
+        public InfoDictionary<ConstantInfo> Discriminators {
             get {
-                return new IndexedCollection<ConstantInfo> (() => IsDiscriminated ? NFields : 0, GetDiscriminator);
+                return new InfoDictionary<ConstantInfo> (IsDiscriminated ? NFields : 0, GetDiscriminator);
             }
         }
 

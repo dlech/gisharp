@@ -22,6 +22,7 @@ namespace GISharp.GI
                 throw new ArgumentOutOfRangeException ("@namespace");
 
             this.@namespace = @namespace;
+            _Infos = new Lazy<InfoDictionary<BaseInfo>> (() => Repository.GetInfos (@namespace));
         }
 
         /// <summary>
@@ -77,9 +78,10 @@ namespace GISharp.GI
             }
         }
 
-        public IndexedCollection<BaseInfo> Infos {
+        Lazy<InfoDictionary<BaseInfo>> _Infos;
+        public InfoDictionary<BaseInfo> Infos {
             get {
-                return Repository.GetInfos (@namespace);
+                return _Infos.Value;
             }
         }
 

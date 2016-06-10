@@ -6,6 +6,6 @@ namespace GISharp.GI
 {
     public interface IMethodContainer
     {
-        IndexedCollection<FunctionInfo> Methods { get; }
+        InfoDictionary<FunctionInfo> Methods { get; }
     }
 }

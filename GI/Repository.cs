@@ -15,9 +15,9 @@ namespace GISharp.GI
     {
         static NamespaceCollection namespaces;
 
-        internal static IndexedCollection<BaseInfo> GetInfos (string @namespace)
+        internal static InfoDictionary<BaseInfo> GetInfos (string @namespace)
         {
-            return new IndexedCollection<BaseInfo> (() => GetNInfos (@namespace), (i) => GetInfo (@namespace, i));
+            return new InfoDictionary<BaseInfo> (GetNInfos (@namespace), (i) => GetInfo (@namespace, i));
         }
 
         public static NamespaceCollection Namespaces {

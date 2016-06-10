@@ -58,9 +58,9 @@ namespace GISharp.GI
             return MarshalPtr<ConstantInfo> (raw_ret);
         }
 
-        public IndexedCollection<ConstantInfo> Constants {
+        public InfoDictionary<ConstantInfo> Constants {
             get {
-                return new IndexedCollection<ConstantInfo> (() => NConstants, GetConstant);
+                return new InfoDictionary<ConstantInfo> (NConstants, GetConstant);
             }
         }
 
@@ -83,9 +83,9 @@ namespace GISharp.GI
             return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
-        public IndexedCollection<FunctionInfo> Methods {
+        public InfoDictionary<FunctionInfo> Methods {
             get {
-                return new IndexedCollection<FunctionInfo> (() => NMethods, GetMethod);
+                return new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
             }
         }
 
@@ -152,9 +152,9 @@ namespace GISharp.GI
             return MarshalPtr<BaseInfo> (raw_ret);
         }
 
-        public IndexedCollection<BaseInfo> Prerequisites {
+        public InfoDictionary<BaseInfo> Prerequisites {
             get {
-                return new IndexedCollection<BaseInfo> (() => NPrerequisites, GetPrerequisite);
+                return new InfoDictionary<BaseInfo> (NPrerequisites, GetPrerequisite);
             }
         }
 
@@ -167,9 +167,9 @@ namespace GISharp.GI
             return MarshalPtr<PropertyInfo> (raw_ret);
         }
 
-        public IndexedCollection<PropertyInfo> Properties {
+        public InfoDictionary<PropertyInfo> Properties {
             get {
-                return new IndexedCollection<PropertyInfo> (() => NProperties, GetProperty);
+                return new InfoDictionary<PropertyInfo> (NProperties, GetProperty);
             }
         }
 
@@ -182,9 +182,9 @@ namespace GISharp.GI
             return MarshalPtr<SignalInfo> (raw_ret);
         }
 
-        public IndexedCollection<SignalInfo> Signals {
+        public InfoDictionary<SignalInfo> Signals {
             get {
-                return new IndexedCollection<SignalInfo> (() => NSignals, GetSignal);
+                return new InfoDictionary<SignalInfo> (NSignals, GetSignal);
             }
         }
 
@@ -197,9 +197,9 @@ namespace GISharp.GI
             return MarshalPtr<VFuncInfo> (raw_ret);
         }
 
-        public IndexedCollection<VFuncInfo> VFuncs {
+        public InfoDictionary<VFuncInfo> VFuncs {
             get {
-                return new IndexedCollection<VFuncInfo> (() => NVFuncs, GetVFunc);
+                return new InfoDictionary<VFuncInfo> (NVFuncs, GetVFunc);
             }
         }
 

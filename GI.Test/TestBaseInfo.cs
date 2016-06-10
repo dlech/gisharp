@@ -10,7 +10,7 @@ namespace GISharp.GI.Test
     [TestFixture ()]
     public class TestBaseInfo
     {
-        IndexedCollection<BaseInfo> infos;
+        InfoDictionary<BaseInfo> infos;
 
         [TestFixtureSetUp ()]
         public void TestGetDefault ()
