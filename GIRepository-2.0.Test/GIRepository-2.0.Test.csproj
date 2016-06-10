@@ -5,7 +5,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProjectGuid>{746D44D3-A201-4FB6-8697-7609E2C3C70E}</ProjectGuid>
     <OutputType>Library</OutputType>
-    <RootNamespace>GISharp.GI.Test</RootNamespace>
+    <RootNamespace>GISharp.GIRepository.Test</RootNamespace>
     <AssemblyName>girepository-test</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
   </PropertyGroup>
@@ -45,9 +45,9 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\GI\GI.csproj">
+    <ProjectReference Include="..\GIRepository-2.0\GIRepository-2.0.csproj">
       <Project>{26BF5EFC-10BF-46BC-A071-11F2B69C2844}</Project>
-      <Name>GI</Name>
+      <Name>GIRepository-2.0</Name>
     </ProjectReference>
     <ProjectReference Include="..\Core\Core.csproj">
       <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
