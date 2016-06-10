@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="Microsoft.CSharp" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -74,10 +75,16 @@
     <Compile Include="ValueInfo.cs" />
     <Compile Include="AttributeIter.cs" />
     <Compile Include="InfoDictionary.cs" />
+    <Compile Include="Dynamic\EnumInfoDynamicMetaObject.cs" />
+    <Compile Include="Dynamic\FunctionInfoDynamicMetaObject.cs" />
+    <Compile Include="Dynamic\NamespaceDynamicMetaObject.cs" />
+    <Compile Include="Dynamic\ObjectInfoDynamicMetaObject.cs" />
+    <Compile Include="Dynamic\DynamicGObject.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="..\Generated\" />
+    <Folder Include="Dynamic\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.csproj">

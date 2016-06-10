@@ -25,7 +25,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_type_info_get_array_length (IntPtr raw);
 
-        public int ArrayLength {
+        public int ArrayLengthIndex {
             get {
                 int raw_ret = g_type_info_get_array_length (Handle);
                 int ret = raw_ret;

@@ -15,6 +15,9 @@ namespace GISharp.TypelibBrowser
             "Container",
             "Handle",
             "Parent",
+            "ReturnAttributes",
+            "InArgs",
+            "OutArgs",
         };
 
         static readonly string[] childProperties = {

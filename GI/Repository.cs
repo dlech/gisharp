@@ -8,6 +8,7 @@ using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 using GISharp.GLib;
+using GISharp.GObject;
 
 namespace GISharp.GI
 {
@@ -98,6 +99,17 @@ namespace GISharp.GI
             GISharp.GI.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             MarshalG.Free (native_namespace);
             MarshalG.Free (native_name);
+            return ret;
+        }
+
+        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_irepository_find_by_gtype (IntPtr raw, GType gtype);
+
+        public static BaseInfo FindByGType (GType gtype)
+        {
+            var raw_ret = g_irepository_find_by_gtype (IntPtr.Zero, gtype);
+            var ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+
             return ret;
         }
 

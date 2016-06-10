@@ -4,6 +4,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -158,8 +159,26 @@ namespace GISharp.GI
             }
         }
 
+        Lazy<InfoDictionary<ArgInfo>> _InArgs;
+        public InfoDictionary<ArgInfo> InArgs {
+            get { return _InArgs.Value; }
+        }
+
+        Lazy<InfoDictionary<ArgInfo>> _OutArgs;
+        public InfoDictionary<ArgInfo> OutArgs {
+            get { return _OutArgs.Value; }
+        }
+
         public CallableInfo (IntPtr raw) : base (raw)
         {
+            _InArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
+                var inArgs = Args.Where (a => a.Direction != Direction.Out).ToList ();
+                return new InfoDictionary<ArgInfo> (inArgs.Count, i => inArgs[i]);
+            });
+            _OutArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
+                var outArgs = Args.Where (a => a.Direction != Direction.In).ToList ();
+                return new InfoDictionary<ArgInfo> (outArgs.Count, i => outArgs [i]);
+            });
         }
     }
 }

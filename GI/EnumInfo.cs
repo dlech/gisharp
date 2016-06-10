@@ -4,13 +4,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
+using GISharp.GI.Dynamic;
 using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class EnumInfo : RegisteredTypeInfo, IMethodContainer
+    public class EnumInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {
         InfoDictionary<ValueInfo> values;
 
@@ -87,6 +90,11 @@ namespace GISharp.GI
         {
             IntPtr raw_ret = g_enum_info_get_value (Handle, index);
             return MarshalPtr<ValueInfo> (raw_ret);
+        }
+
+        public DynamicMetaObject GetMetaObject (Expression parameter)
+        {
+            return new EnumInfoDynamicMetaObject (parameter, this);
         }
 
         public EnumInfo (IntPtr raw) : base (raw)

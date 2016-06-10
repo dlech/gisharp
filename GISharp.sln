@@ -33,6 +33,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "Gio-2.0\Gio-2.0.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0.Test", "Gio-2.0.Test\Gio-2.0.Test.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GI.Dynamic.Playground", "GI.Dynamic.Playground\GI.Dynamic.Playground.csproj", "{61A206E0-B860-4A3D-93CC-046D6FE871BF}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -92,6 +94,12 @@ Global
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EA59587D-98C3-4F27-91D7-48E427B44BD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Default|Any CPU.ActiveCfg = Debug|Any CPU
+		{61A206E0-B860-4A3D-93CC-046D6FE871BF}.Default|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection
@@ -102,7 +110,9 @@ Global
 		$1.ResourceNamePolicy = FileFormatDefault
 		$0.TextStylePolicy = $2
 		$2.inheritsSet = null
-		$2.scope = application/xml
+		$2.scope = application/config+xml
+		$2.NoTabsAfterNonTabs = True
+		$2.inheritsScope = text/plain
 		$0.CSharpFormattingPolicy = $3
 		$3.IndentPreprocessorDirectives = False
 		$3.BeforeIndexerDeclarationBracket = False
@@ -113,6 +123,7 @@ Global
 		$3.inheritsSet = Mono
 		$3.inheritsScope = text/x-csharp
 		$3.scope = text/x-csharp
+		$3.SpaceBeforeOpenSquareBracket = False
 		$0.TextStylePolicy = $4
 		$4.NoTabsAfterNonTabs = True
 		$4.inheritsSet = VisualStudio
@@ -122,9 +133,9 @@ Global
 		$5.inheritsSet = null
 		$5.scope = application/config+xml
 		$0.XmlFormattingPolicy = $6
-		$6.inheritsSet = Mono
+		$6.inheritsSet = null
 		$6.inheritsScope = application/xml
-		$6.scope = application/xml
+		$6.scope = application/config+xml
 		$0.StandardHeader = $7
 		$7.Text = 
 		$7.IncludeInNewFiles = True

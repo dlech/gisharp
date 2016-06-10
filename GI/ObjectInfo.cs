@@ -4,13 +4,16 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Dynamic;
+using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
+using GISharp.GI.Dynamic;
 using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class ObjectInfo : RegisteredTypeInfo, IMethodContainer
+    public class ObjectInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {
         InfoDictionary<ConstantInfo> constants;
 
@@ -376,6 +379,11 @@ namespace GISharp.GI
         {
             IntPtr raw_ret = g_object_info_get_vfunc (Handle, index);
             return MarshalPtr<VFuncInfo> (raw_ret);
+        }
+
+        public DynamicMetaObject GetMetaObject (Expression parameter)
+        {
+            return new ObjectInfoDynamicMetaObject (parameter, this);
         }
 
         public ObjectInfo (IntPtr raw) : base (raw)

@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Dynamic;
 using System.Linq;
-
-using GISharp.Runtime;
+using System.Linq.Expressions;
+using GISharp.GI.Dynamic;
 
 namespace GISharp.GI
 {
-    public class Namespace
+    public class Namespace : IDynamicMetaObjectProvider
     {
         /// <summary>
         /// Special string that can be returned by <see cref="TypelibPath"/>.
@@ -34,9 +35,14 @@ namespace GISharp.GI
         public BaseInfo FindByName (string name)
         {
             if (name == null) {
-                throw new ArgumentNullException ("name");
+                throw new ArgumentNullException (nameof (name));
             }
             return Repository.FindByName (@namespace, name);
+        }
+
+        public DynamicMetaObject GetMetaObject (Expression parameter)
+        {
+            return new NamespaceDynamicMetaObject (parameter, this);
         }
 
         /// <summary>

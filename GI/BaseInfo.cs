@@ -9,6 +9,7 @@ using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 using System.Text;
+using System.Dynamic;
 
 namespace GISharp.GI
 {
@@ -185,6 +186,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_name (IntPtr raw);
 
+        Lazy<string> _Name;
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -194,32 +196,17 @@ namespace GISharp.GI
         /// info . For instance for <see cref="FunctionInfo"/> it is the name of
         /// the function.
         /// </remarks>
-        public string Name {
-            get {
-                // calling g_base_info_get_name on a TypeInfo will cause a crash.
-                var typeInfo = this as TypeInfo;
-                if (typeInfo != null) {
-                    return null;
-                }
-                IntPtr raw_ret = g_base_info_get_name (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
-            }
-        }
+        public string Name { get { return _Name.Value; } }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_namespace (IntPtr raw);
 
+        Lazy<string> _Namespace;
         /// <summary>
         /// Gets the namespace.
         /// </summary>
         /// <value>The namespace.</value>
-        public string Namespace {
-            get {
-                IntPtr raw_ret = g_base_info_get_namespace (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
-                return ret;
-            }
-        }
+        public string Namespace { get { return _Namespace.Value; } }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_base_info_get_type (IntPtr raw);
@@ -267,6 +254,19 @@ namespace GISharp.GI
         public BaseInfo (IntPtr raw)
         {
             Handle = raw;
+            _Namespace = new Lazy<string> (() => {
+                var ret = g_base_info_get_namespace (Handle);
+                return MarshalG.Utf8PtrToString (ret);
+            });
+            _Name = new Lazy<string> (() => {
+                // calling g_base_info_get_name on a TypeInfo will cause a crash.
+                var typeInfo = this as TypeInfo;
+                if (typeInfo != null) {
+                    return null;
+                }
+                var ret = g_base_info_get_name (Handle);
+                return MarshalG.Utf8PtrToString (ret);
+            });
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
