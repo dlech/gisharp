@@ -25,7 +25,7 @@ namespace GISharp.GObject
         public GType GInstanceType {
             get {
                 var offset = Marshal.OffsetOf<TypeInterfaceStruct> (nameof (TypeInterfaceStruct.GInstanceType));
-                return new GType (Marshal.ReadIntPtr (Handle, offset.ToInt32 ()));
+                return Marshal.PtrToStructure<GType> (Handle + (int)offset);
             }
         }
 

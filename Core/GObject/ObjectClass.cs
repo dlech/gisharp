@@ -98,7 +98,7 @@ namespace GISharp.GObject
         {
             // Can't use type.GetGType () here since the type registration has
             // not finished. So, we get the GType this way instead.
-            var gtype = new GType (Marshal.ReadIntPtr (classPtr));
+            var gtype = Marshal.PtrToStructure<GType> (classPtr);
             var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
 
             // override property native accessors

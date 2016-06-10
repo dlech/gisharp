@@ -27,7 +27,7 @@ namespace GISharp.Runtime
         public GType GType {
             get {
                 // GType is always the first field
-                return new GType (Marshal.ReadIntPtr (Handle));
+                return Marshal.PtrToStructure<GType> (Handle);
             }
         }
 
@@ -64,7 +64,7 @@ namespace GISharp.Runtime
             if (handle == IntPtr.Zero) {
                 return null;
             }
-            var gtype = new GType (Marshal.ReadIntPtr (handle));
+            var gtype = Marshal.PtrToStructure<GType> (handle);
             var type = gtype.GetGTypeStruct ();
             var ret = Activator.CreateInstance (type, new object[] { handle, ownsRef }, null);
             return (GTypeStruct)ret;

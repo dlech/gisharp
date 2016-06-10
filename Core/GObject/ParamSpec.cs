@@ -74,8 +74,7 @@ namespace GISharp.GObject
         public GType ValueType {
             get {
                 var offset = Marshal.OffsetOf<ParamSpec_> (nameof (ParamSpec_.ValueType));
-                var type = Marshal.ReadIntPtr (Handle, (int)offset);
-                var gtype = new GType (type);
+                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)offset);
 
                 return gtype;
             }
@@ -87,8 +86,7 @@ namespace GISharp.GObject
         public GType OwnerType {
             get {
                 var offset = Marshal.OffsetOf<ParamSpec_> (nameof (ParamSpec_.OwnerType));
-                var type = Marshal.ReadIntPtr (Handle, (int)offset);
-                var gtype = new GType (type);
+                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)offset);
 
                 return gtype;
             }

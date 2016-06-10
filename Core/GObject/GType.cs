@@ -147,15 +147,6 @@ namespace GISharp.GObject
             this.value = new UIntPtr (value);
         }
 
-        internal GType (IntPtr value)
-        {
-            if (IntPtr.Size == 8) {
-                this.value = new UIntPtr ((ulong)value.ToInt64 ());
-            } else {
-                this.value = new UIntPtr ((uint)value.ToInt32 ());
-            }
-        }
-
         /// <summary>
         /// An invalid GType used as error return value in some functions which
         /// return a GType.
