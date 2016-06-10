@@ -2,19 +2,43 @@
 // It is now maintained by hand.
 
 using System;
-using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
+    /// <summary>
+    /// Flags for a <see cref="FunctionInfo"/> struct.
+    /// </summary>
     [Flags]
     enum FunctionInfoFlags
     {
-
+        /// <summary>
+        /// is a method.
+        /// </summary>
         IsMethod = 1 << 0,
+
+        /// <summary>
+        /// is a constructor.
+        /// </summary>
         IsConstructor = 1 << 1,
+
+        /// <summary>
+        /// is a getter of a <see cref="PropertyInfo"/>.
+        /// </summary>
         IsGetter = 1 << 2,
+
+        /// <summary>
+        /// is a setter of a <see cref="PropertyInfo"/>.
+        /// </summary>
         IsSetter = 1 << 3,
+
+        /// <summary>
+        /// represents a virtual function.
+        /// </summary>
         WrapsVfunc = 1 << 4,
+
+        /// <summary>
+        /// the function may throw an error.
+        /// </summary>
         Throws = 1 << 5,
     }
 }

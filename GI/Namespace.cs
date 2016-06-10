@@ -6,21 +6,23 @@ using GISharp.GI.Dynamic;
 
 namespace GISharp.GI
 {
-    public class Namespace : IDynamicMetaObjectProvider
+    public sealed class Namespace : IDynamicMetaObjectProvider
     {
         /// <summary>
         /// Special string that can be returned by <see cref="TypelibPath"/>.
         /// </summary>
-        public const string BuiltIn = "<builtin>";
+        public const string BuiltInPath = "<builtin>";
 
-        string @namespace;
+        readonly string @namespace;
 
         internal Namespace (string @namespace)
         {
-            if (@namespace == null)
-                throw new ArgumentNullException ("@namespace");
-            if (!Repository.LoadedNamespaces.Contains (@namespace))
-                throw new ArgumentOutOfRangeException ("@namespace");
+            if (@namespace == null) {
+                throw new ArgumentNullException (nameof (@namespace));
+            }
+            if (!Repository.LoadedNamespaces.Contains (@namespace)) {
+                throw new ArgumentOutOfRangeException (nameof (@namespace));
+            }
 
             this.@namespace = @namespace;
             _Infos = new Lazy<InfoDictionary<BaseInfo>> (() => Repository.GetInfos (@namespace));
@@ -106,7 +108,7 @@ namespace GISharp.GI
                 if (library == null) {
                     return new string[0];
                 }
-                return library.Split (new [] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                return library.Split (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
 

@@ -2,13 +2,10 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
-    public class CallbackInfo : CallableInfo
+    public sealed class CallbackInfo : CallableInfo
     {
         public CallbackInfo (IntPtr raw) : base (raw)
         {

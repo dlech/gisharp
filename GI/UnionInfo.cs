@@ -2,15 +2,16 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class UnionInfo : RegisteredTypeInfo, IMethodContainer
+    /// <summary>
+    /// Struct representing a union.
+    /// </summary>
+    public sealed class UnionInfo : RegisteredTypeInfo, IMethodContainer
     {
         InfoDictionary<FieldInfo> fields;
 
@@ -110,7 +111,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_union_info_get_n_fields (IntPtr raw);
 
-        protected int NFields {
+        int NFields {
             get {
                 int raw_ret = g_union_info_get_n_fields (Handle);
                 int ret = raw_ret;
@@ -121,7 +122,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_union_info_get_n_methods (IntPtr raw);
 
-        protected int NMethods {
+        int NMethods {
             get {
                 int raw_ret = g_union_info_get_n_methods (Handle);
                 int ret = raw_ret;
@@ -135,7 +136,7 @@ namespace GISharp.GI
         public ulong Size {
             get {
                 UIntPtr raw_ret = g_union_info_get_size (Handle);
-                ulong ret = (ulong)raw_ret;
+                var ret = (ulong)raw_ret;
                 return ret;
             }
         }

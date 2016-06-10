@@ -310,13 +310,14 @@ namespace GISharp.GI
         static extern IntPtr g_irepository_require (IntPtr raw, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
         /// <summary>
-        /// Force the namespace namespace_ to be loaded if it isn't already.
+        /// Force the namespace <paramref name="namespace"/> to be loaded if it
+        /// isn't already.
         /// </summary>
         /// <param name="namespace">Namespace.</param>
         /// <param name="version">Version.</param>
         /// <param name="flags">Flags.</param>
         /// <exception cref="ArgumentNullException">If <paramref name="namespace"/>
-        /// is <c>null<c/>.</exception>
+        /// is <c>null</c>.</exception>
         /// <exception cref="GErrorException">On failure.</exception>
         /// <remarks>
         /// If <paramref name="namespace"/> is not loaded, this function will
@@ -328,7 +329,7 @@ namespace GISharp.GI
             RepositoryLoadFlags flags = default(RepositoryLoadFlags))
         {
             if (@namespace == null) {
-                throw new ArgumentNullException ("namespace");
+                throw new ArgumentNullException (nameof(@namespace));
             }
             IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
             IntPtr native_version = MarshalG.StringToUtf8Ptr (version);

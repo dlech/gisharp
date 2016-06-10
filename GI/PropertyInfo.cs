@@ -2,13 +2,12 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using GISharp.GObject;
 
 namespace GISharp.GI
 {
-    public class PropertyInfo : GISharp.GI.BaseInfo
+    public sealed class PropertyInfo : BaseInfo
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

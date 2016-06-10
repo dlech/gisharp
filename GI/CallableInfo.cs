@@ -2,7 +2,6 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -11,7 +10,7 @@ using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class CallableInfo : BaseInfo
+    public abstract class CallableInfo : BaseInfo
     {
         InfoDictionary<ArgInfo> args;
 
@@ -125,10 +124,20 @@ namespace GISharp.GI
             return ret;
         }
 
+        public IEnumerable<KeyValuePair<string, string>> ReturnAttributes {
+            get {
+                string name, value;
+                var iter = AttributeIter.Zero;
+                while (IterateReturnAttributes (ref iter, out name, out value)) {
+                    yield return new KeyValuePair<string, string> (name, value);
+                }
+            }
+        }
+
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_callable_info_load_arg (IntPtr raw, int n, IntPtr arg);
 
-        public void LoadArg (int n, ArgInfo arg)
+        void LoadArg (int n, ArgInfo arg)
         {
             g_callable_info_load_arg (Handle, n, arg == null ? IntPtr.Zero : arg.Handle);
         }
@@ -136,7 +145,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_callable_info_load_return_type (IntPtr raw, IntPtr type);
 
-        public void LoadReturnType (TypeInfo type)
+        void LoadReturnType (TypeInfo type)
         {
             g_callable_info_load_return_type (Handle, type == null ? IntPtr.Zero : type.Handle);
         }
@@ -159,17 +168,17 @@ namespace GISharp.GI
             }
         }
 
-        Lazy<InfoDictionary<ArgInfo>> _InArgs;
+        readonly Lazy<InfoDictionary<ArgInfo>> _InArgs;
         public InfoDictionary<ArgInfo> InArgs {
             get { return _InArgs.Value; }
         }
 
-        Lazy<InfoDictionary<ArgInfo>> _OutArgs;
+        readonly Lazy<InfoDictionary<ArgInfo>> _OutArgs;
         public InfoDictionary<ArgInfo> OutArgs {
             get { return _OutArgs.Value; }
         }
 
-        public CallableInfo (IntPtr raw) : base (raw)
+        protected CallableInfo (IntPtr raw) : base (raw)
         {
             _InArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
                 var inArgs = Args.Where (a => a.Direction != Direction.Out).ToList ();
@@ -177,7 +186,7 @@ namespace GISharp.GI
             });
             _OutArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
                 var outArgs = Args.Where (a => a.Direction != Direction.In).ToList ();
-                return new InfoDictionary<ArgInfo> (outArgs.Count, i => outArgs [i]);
+                return new InfoDictionary<ArgInfo> (outArgs.Count, i => outArgs[i]);
             });
         }
     }

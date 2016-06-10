@@ -2,15 +2,13 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
+    public sealed class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

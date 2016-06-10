@@ -2,13 +2,11 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
-    public class FieldInfo : BaseInfo
+    public sealed class FieldInfo : BaseInfo
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

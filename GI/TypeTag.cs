@@ -39,7 +39,7 @@ namespace GISharp.GI
         GHash = 19,
         Error = 20,
         /// <summary>
-        /// Unicode character
+        /// Unicode (UTF-32) character
         /// </summary>
         Unichar = 21,
     }

@@ -2,14 +2,11 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Diagnostics;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
-
-using GISharp.Runtime;
 using System.Text;
-using System.Dynamic;
+using GISharp.Runtime;
 
 namespace GISharp.GI
 {
@@ -17,7 +14,7 @@ namespace GISharp.GI
     /// GIBaseInfo is the common base struct of all other *Info classes.
     /// </summary>
     [DebuggerDisplay ("{Namespace}.{Name}")]
-    public class BaseInfo : IEquatable<BaseInfo>, IDisposable
+    public abstract class BaseInfo : IEquatable<BaseInfo>, IDisposable
     {
         public IntPtr Handle { get; private set; }
 
@@ -175,10 +172,10 @@ namespace GISharp.GI
         /// parent of a <see cref="FunctionInfo"/> is an <see cref="ObjectInfo"/>
         /// or <see cref="InterfaceInfo"/>.
         /// </remarks>
-        public GISharp.GI.BaseInfo Container {
+        public BaseInfo Container {
             get {
                 IntPtr raw_ret = g_base_info_get_container (Handle);
-                GISharp.GI.BaseInfo ret = MarshalPtr<GISharp.GI.BaseInfo> (raw_ret, false);
+                BaseInfo ret = MarshalPtr<BaseInfo> (raw_ret, false);
                 return ret;
             }
         }
@@ -218,7 +215,7 @@ namespace GISharp.GI
         public InfoType InfoType {
             get {
                 int raw_ret = g_base_info_get_type (Handle);
-                GISharp.GI.InfoType ret = (GISharp.GI.InfoType)raw_ret;
+                var ret = (InfoType)raw_ret;
                 return ret;
             }
         }
@@ -251,7 +248,7 @@ namespace GISharp.GI
             return ret;
         }
 
-        public BaseInfo (IntPtr raw)
+        protected BaseInfo (IntPtr raw)
         {
             Handle = raw;
             _Namespace = new Lazy<string> (() => {

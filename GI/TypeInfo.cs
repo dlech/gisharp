@@ -2,13 +2,13 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
+using System.Diagnostics;
 using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
-    public class TypeInfo : BaseInfo
+    [DebuggerDisplay ("{Tag}")]
+    public sealed class TypeInfo : BaseInfo
     {
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]

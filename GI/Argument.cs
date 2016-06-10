@@ -112,13 +112,13 @@ namespace GISharp.GI
             set { _v_pointer = value; }
         }
 
-        public static GISharp.GI.Argument Zero = new GISharp.GI.Argument ();
+        public static Argument Zero = new Argument ();
 
-        public static GISharp.GI.Argument New (IntPtr raw)
+        public static Argument New (IntPtr raw)
         {
             if (raw == IntPtr.Zero)
-                return GISharp.GI.Argument.Zero;
-            return (GISharp.GI.Argument)Marshal.PtrToStructure (raw, typeof(GISharp.GI.Argument));
+                return Zero;
+            return (Argument)Marshal.PtrToStructure (raw, typeof(Argument));
         }
 
         public bool Equals (Argument other)
@@ -126,9 +126,9 @@ namespace GISharp.GI
             return _v_pointer.Equals (other._v_pointer);
         }
 
-        public override bool Equals (object other)
+        public override bool Equals (object obj)
         {
-            return other is Argument && Equals ((Argument)other);
+            return obj is Argument && Equals ((Argument)obj);
         }
 
         public override int GetHashCode ()

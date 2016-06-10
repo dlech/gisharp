@@ -2,13 +2,11 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 namespace GISharp.GI
 {
-    public class ConstantInfo : BaseInfo
+    public sealed class ConstantInfo : BaseInfo
     {
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_constant_info_free_value (IntPtr raw, ref Argument value);
@@ -26,8 +24,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_constant_info_get_value (IntPtr raw, out Argument value);
 
-        public object Value
-        {
+        public object Value {
             get {
                 Argument value;
                 g_constant_info_get_value (Handle, out value);
@@ -70,9 +67,10 @@ namespace GISharp.GI
                     result = value.String;
                     break;
                 default:
-                    throw new Exception(string.Format("Unexpected value type '{0}'.", TypeInfo.Tag));
+                    throw new Exception ($"Unexpected value type '{TypeInfo.Tag}'");
                 }
                 g_constant_info_free_value (Handle, ref value);
+
                 return result;
             }
         }

@@ -1,10 +1,9 @@
-﻿using System;
+﻿
 using System.Collections.Generic;
-using System.Linq;
 
 namespace GISharp.GI
 {
-    public class NamespaceCollection : IEnumerable<Namespace>
+    public sealed class NamespaceCollection : IEnumerable<Namespace>
     {
         Dictionary<string, Namespace> namespaceMap;
 
@@ -16,24 +15,24 @@ namespace GISharp.GI
         Namespace EnsureNamespace (string @namespace)
         {
             if (!namespaceMap.ContainsKey (@namespace)) {
-                namespaceMap [@namespace] = new Namespace (@namespace);
+                namespaceMap[@namespace] = new Namespace (@namespace);
             }
-            return namespaceMap [@namespace];
+            return namespaceMap[@namespace];
         }
 
-        public Namespace this [int index] {
+        public Namespace this[int index] {
             get {
-                return EnsureNamespace (Repository.LoadedNamespaces [index]);
+                return EnsureNamespace (Repository.LoadedNamespaces[index]);
             }
         }
 
-        public Namespace this [string @namespace] {
+        public Namespace this[string @namespace] {
             get {
                 return EnsureNamespace (@namespace);
             }
         }
 
-#region IEnumerable implementation
+        #region IEnumerable implementation
 
         public IEnumerator<Namespace> GetEnumerator ()
         {
@@ -42,16 +41,16 @@ namespace GISharp.GI
             }
         }
 
-#endregion
+        #endregion
 
-#region IEnumerable implementation
+        #region IEnumerable implementation
 
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
         {
             return GetEnumerator ();
         }
 
-#endregion
+        #endregion
     }
 }
 

@@ -55,14 +55,12 @@
     <Compile Include="InterfaceInfo.cs" />
     <Compile Include="InvokeError.cs" />
     <Compile Include="ObjectInfo.cs" />
-    <Compile Include="ParamFlags.cs" />
     <Compile Include="PropertyInfo.cs" />
     <Compile Include="RegisteredTypeInfo.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="RepositoryError.cs" />
     <Compile Include="RepositoryLoadFlags.cs" />
     <Compile Include="ScopeType.cs" />
-    <Compile Include="SignalFlags.cs" />
     <Compile Include="SignalInfo.cs" />
     <Compile Include="StructInfo.cs" />
     <Compile Include="Transfer.cs" />

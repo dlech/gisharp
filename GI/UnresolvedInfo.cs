@@ -9,7 +9,7 @@ namespace GISharp.GI
     /// Represents a unresolved type in a typelib.
     /// </summary>
     /// <param name="raw">Raw.</param>
-    public class UnresolvedInfo : BaseInfo
+    public sealed class UnresolvedInfo : BaseInfo
     {
         public UnresolvedInfo (IntPtr raw) : base (raw)
         {

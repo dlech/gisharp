@@ -14,13 +14,13 @@ namespace GISharp.GI
         private IntPtr _data3;
         private IntPtr _data4;
 
-        public static GISharp.GI.AttributeIter Zero = new GISharp.GI.AttributeIter ();
+        public readonly static AttributeIter Zero = new AttributeIter ();
 
-        public static GISharp.GI.AttributeIter New (IntPtr raw)
+        public static AttributeIter New (IntPtr raw)
         {
             if (raw == IntPtr.Zero)
-                return GISharp.GI.AttributeIter.Zero;
-            return (GISharp.GI.AttributeIter)Marshal.PtrToStructure (raw, typeof(GISharp.GI.AttributeIter));
+                return Zero;
+            return (AttributeIter)Marshal.PtrToStructure (raw, typeof (AttributeIter));
         }
 
         public bool Equals (AttributeIter other)
@@ -28,9 +28,9 @@ namespace GISharp.GI
             return true && _data.Equals (other._data) && _data2.Equals (other._data2) && _data3.Equals (other._data3) && _data4.Equals (other._data4);
         }
 
-        public override bool Equals (object other)
+        public override bool Equals (object obj)
         {
-            return other is AttributeIter && Equals ((AttributeIter)other);
+            return obj is AttributeIter && Equals ((AttributeIter)obj);
         }
 
         public override int GetHashCode ()

@@ -5,6 +5,9 @@ using System;
 
 namespace GISharp.GI
 {
+    /// <summary>
+    /// The type of a <see cref="BaseInfo"/> struct.
+    /// </summary>
     public enum InfoType
     {
         /// <summary>
@@ -58,7 +61,7 @@ namespace GISharp.GI
         Constant,
 
         /// <summary>
-        /// deleted, was ErrorDomain
+        /// deleted, was <c>ErrorDomain</c>
         /// </summary>
         [Obsolete]
         Invalid0,

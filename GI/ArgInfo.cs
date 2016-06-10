@@ -2,8 +2,6 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 
@@ -16,7 +14,7 @@ namespace GISharp.GI
     /// <see cref="ArgInfo"/> represents an argument. An argument is always part
     /// of a <see cref="CallbackInfo"/>.
     /// </remarks>
-    public class ArgInfo : BaseInfo
+    public sealed class ArgInfo : BaseInfo
     {
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_closure (IntPtr raw);
@@ -32,17 +30,17 @@ namespace GISharp.GI
             }
         }
 
-        Lazy<ArgInfo> _Closure;
+        readonly Lazy<ArgInfo> _Closure;
         public ArgInfo Closure { get { return _Closure.Value; } }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_destroy (IntPtr raw);
 
         /// <summary>
-        /// Obtains the index of the <see cref="GISharp.Core.NativeDestroyNotify"/>
+        /// Obtains the index of the <see cref="GLib.NativeDestroyNotify"/>
         /// argument. This is only valid for arguments which are callbacks.
         /// </summary>
-        /// <value>Index of the <see cref="GISharp.Core.NativeDestroyNotify"/> argument
+        /// <value>Index of the <see cref="GLib.NativeDestroyNotify"/> argument
         /// or -1 if there is none.</value>
         public int DestroyIndex {
             get {
@@ -50,10 +48,10 @@ namespace GISharp.GI
             }
         }
 
-        Lazy<ArgInfo> _Destroy;
+        readonly Lazy<ArgInfo> _Destroy;
         public ArgInfo Destroy { get { return _Destroy.Value; } }
 
-        Lazy<ArgInfo> _ArrayLength;
+        readonly Lazy<ArgInfo> _ArrayLength;
         public ArgInfo ArrayLength { get { return _ArrayLength.Value; } }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -132,7 +130,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_arg_info_load_type (IntPtr raw, IntPtr type);
 
-        public void LoadType (TypeInfo type)
+        void LoadType (TypeInfo type)
         {
             g_arg_info_load_type (Handle, type == null ? IntPtr.Zero : type.Handle);
         }
@@ -146,13 +144,13 @@ namespace GISharp.GI
             }
         }
 
-        Lazy<int> _Index;
+        readonly Lazy<int> _Index;
         public int Index { get { return _Index.Value; } }
 
-        Lazy<int> _InIndex;
+        readonly Lazy<int> _InIndex;
         public int InIndex { get { return _InIndex.Value; } }
 
-        Lazy<int> _OutIndex;
+        readonly Lazy<int> _OutIndex;
         public int OutIndex { get { return _OutIndex.Value; } }
 
 

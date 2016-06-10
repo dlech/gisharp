@@ -2,8 +2,6 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
@@ -13,7 +11,7 @@ using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class EnumInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
+    public sealed class EnumInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {
         InfoDictionary<ValueInfo> values;
 

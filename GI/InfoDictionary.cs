@@ -7,6 +7,12 @@ using System.Linq;
 
 namespace GISharp.GI
 {
+    /// <summary>
+    /// Dictionary of type info objects.
+    /// </summary>
+    /// <remarks>
+    /// Members are read at initalization and cached for faster lookup later.
+    /// </remarks>
     [DebuggerDisplay ("Count: {Count}")]
     public sealed class InfoDictionary<T> : IOrderedDictionary, IEnumerable<T> where T : BaseInfo
     {

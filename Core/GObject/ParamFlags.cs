@@ -8,7 +8,7 @@ namespace GISharp.GObject
     /// can be configured. See also #G_PARAM_STATIC_STRINGS.
     /// </summary>
     [Flags]
-    enum ParamFlags
+    public enum ParamFlags
     {
         /// <summary>
         /// the parameter is readable

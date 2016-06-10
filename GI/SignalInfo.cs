@@ -2,13 +2,12 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using GISharp.GObject;
 
 namespace GISharp.GI
 {
-    public class SignalInfo : CallableInfo
+    public sealed class SignalInfo : CallableInfo
     {
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_signal_info_get_class_closure (IntPtr raw);

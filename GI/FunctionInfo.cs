@@ -2,9 +2,6 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Collections.Specialized;
 using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -15,7 +12,7 @@ using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class FunctionInfo : CallableInfo, IDynamicMetaObjectProvider
+    public sealed class FunctionInfo : CallableInfo, IDynamicMetaObjectProvider
     {
         static System.Reflection.MethodInfo invokeMethodInfo;
 
@@ -166,7 +163,7 @@ namespace GISharp.GI
                     switch (typeInfo.ArrayType) {
                     case ArrayType.C:
                         if (elementType.Tag == TypeTag.UTF8) {
-                            var strvPtr = MarshalG.StringArrayToGStrvPtr ((string [])obj.Value);
+                            var strvPtr = MarshalG.StringArrayToGStrvPtr ((string[])obj.Value);
                             arg.Pointer = strvPtr;
                             free += () => MarshalG.FreeGStrv (strvPtr);
                         } else {
@@ -273,7 +270,7 @@ namespace GISharp.GI
             }
         }
 
-        public object DynamicInvoke (CallInfo callInfo, dynamic instance, params DynamicMetaObject [] args)
+        public object DynamicInvoke (CallInfo callInfo, dynamic instance, params DynamicMetaObject[] args)
         {
             var methodOffset = IsMethod ? 1 : 0;
             if (instance == null && IsMethod) {
@@ -313,8 +310,8 @@ namespace GISharp.GI
                 }
             }
 
-            var inArgs = new Argument [InArgs.Count + methodOffset];
-            var outArgs = new Argument [OutArgs.Count];
+            var inArgs = new Argument[InArgs.Count + methodOffset];
+            var outArgs = new Argument[OutArgs.Count];
             var freeInArgs = default (Action);
             var freeOutArgs = default (Action);
 
@@ -323,7 +320,7 @@ namespace GISharp.GI
             }
             foreach (var arg in xp) {
                 if (arg.InIndex >= 0) {
-                    inArgs [arg.InIndex + methodOffset] = MarshalInArg (arg.TypeInfo, args [xp.IndexOf (arg)], ref freeInArgs);
+                    inArgs[arg.InIndex + methodOffset] = MarshalInArg (arg.TypeInfo, args[xp.IndexOf (arg)], ref freeInArgs);
                 }
             }
 
@@ -349,7 +346,7 @@ namespace GISharp.GI
             }
         }
 
-        public Expression GetInvokeExpression (CallInfo callInfo, Type returnType, dynamic instance, DynamicMetaObject [] args)
+        public Expression GetInvokeExpression (CallInfo callInfo, Type returnType, dynamic instance, DynamicMetaObject[] args)
         {
             var expression = Expression.Call (Expression.Constant (this),
                                               invokeMethodInfo,

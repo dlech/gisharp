@@ -2,17 +2,13 @@
 // It is now maintained by hand.
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
 using System.Runtime.InteropServices;
-
-using GISharp.Runtime;
 using GISharp.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.GI
 {
-    public class RegisteredTypeInfo : BaseInfo
+    public abstract class RegisteredTypeInfo : BaseInfo
     {
         readonly Lazy<string> _TypeInit;
         public string TypeInit { get { return _TypeInit.Value; } }
@@ -32,7 +28,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_registered_type_info_get_g_type (IntPtr info);
 
-        public RegisteredTypeInfo (IntPtr raw) : base (raw)
+        protected RegisteredTypeInfo (IntPtr raw) : base (raw)
         {
             _TypeInit = new Lazy<string> (() => {
                 IntPtr raw_ret = g_registered_type_info_get_type_init (Handle);
