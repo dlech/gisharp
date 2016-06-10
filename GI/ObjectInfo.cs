@@ -174,7 +174,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_constant (IntPtr raw, int index);
 
-        protected ConstantInfo GetConstant (int index)
+        ConstantInfo GetConstant (int index)
         {
             IntPtr raw_ret = g_object_info_get_constant (Handle, index);
             return MarshalPtr<ConstantInfo> (raw_ret);
@@ -183,7 +183,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_field (IntPtr raw, int index);
 
-        protected FieldInfo GetField (int index)
+        FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_object_info_get_field (Handle, index);
             return MarshalPtr<FieldInfo> (raw_ret);
@@ -214,7 +214,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_interface (IntPtr raw, int index);
 
-        protected InterfaceInfo GetInterface (int index)
+        InterfaceInfo GetInterface (int index)
         {
             IntPtr raw_ret = g_object_info_get_interface (Handle, index);
             return MarshalPtr<InterfaceInfo> (raw_ret);
@@ -223,7 +223,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_method (IntPtr raw, int index);
 
-        protected FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_object_info_get_method (Handle, index);
             return MarshalPtr<FunctionInfo> (raw_ret);
@@ -232,7 +232,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_constants (IntPtr raw);
 
-        protected int NConstants {
+        int NConstants {
             get {
                 return g_object_info_get_n_constants (Handle);
             }
@@ -241,7 +241,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_fields (IntPtr raw);
 
-        protected int NFields {
+        int NFields {
             get {
                 return g_object_info_get_n_fields (Handle);
             }
@@ -250,7 +250,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_interfaces (IntPtr raw);
 
-        protected int NInterfaces {
+        int NInterfaces {
             get {
                 return g_object_info_get_n_interfaces (Handle);
             }
@@ -259,7 +259,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_methods (IntPtr raw);
 
-        protected int NMethods {
+        int NMethods {
             get {
                 return g_object_info_get_n_methods (Handle);
             }
@@ -268,7 +268,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_properties (IntPtr raw);
 
-        protected int NProperties {
+        int NProperties {
             get {
                 return g_object_info_get_n_properties (Handle);
             }
@@ -277,7 +277,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_signals (IntPtr raw);
 
-        protected int NSignals {
+        int NSignals {
             get {
                 return g_object_info_get_n_signals (Handle);
             }
@@ -286,7 +286,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_object_info_get_n_vfuncs (IntPtr raw);
 
-        protected int NVfuncs {
+        int NVfuncs {
             get {
                 return g_object_info_get_n_vfuncs (Handle);
             }
@@ -305,7 +305,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_property (IntPtr raw, int index);
 
-        protected PropertyInfo GetProperty (int index)
+        PropertyInfo GetProperty (int index)
         {
             IntPtr raw_ret = g_object_info_get_property (Handle, index);
             return MarshalPtr<PropertyInfo> (raw_ret);
@@ -334,7 +334,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_signal (IntPtr raw, int index);
 
-        protected SignalInfo GetSignal (int index)
+        SignalInfo GetSignal (int index)
         {
             IntPtr raw_ret = g_object_info_get_signal (Handle, index);
             return MarshalPtr<SignalInfo> (raw_ret);
@@ -373,7 +373,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_vfunc (IntPtr raw, int index);
 
-        protected VFuncInfo GetVFunc (int index)
+        VFuncInfo GetVFunc (int index)
         {
             IntPtr raw_ret = g_object_info_get_vfunc (Handle, index);
             return MarshalPtr<VFuncInfo> (raw_ret);

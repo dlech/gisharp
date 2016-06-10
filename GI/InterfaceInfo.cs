@@ -90,7 +90,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_constants (IntPtr raw);
 
-        protected int NConstants {
+        int NConstants {
             get {
                 return g_interface_info_get_n_constants (Handle);
             }
@@ -108,7 +108,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_prerequisites (IntPtr raw);
 
-        protected int NPrerequisites {
+        int NPrerequisites {
             get {
                 return g_interface_info_get_n_prerequisites (Handle);
             }
@@ -117,7 +117,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_properties (IntPtr raw);
 
-        protected int NProperties {
+        int NProperties {
             get {
                 return g_interface_info_get_n_properties (Handle);
             }
@@ -126,7 +126,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_signals (IntPtr raw);
 
-        protected int NSignals {
+        int NSignals {
             get {
                 return g_interface_info_get_n_signals (Handle);
             }
@@ -135,7 +135,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_vfuncs (IntPtr raw);
 
-        protected int NVFuncs {
+        int NVFuncs {
             get {
                 return g_interface_info_get_n_vfuncs (Handle);
             }

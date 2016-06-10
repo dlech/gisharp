@@ -57,7 +57,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_enum_info_get_n_methods (IntPtr raw);
 
-        protected int NMethods {
+        int NMethods {
             get {
                 return g_enum_info_get_n_methods (Handle);
             }
@@ -66,7 +66,7 @@ namespace GISharp.GI
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_enum_info_get_n_values (IntPtr raw);
 
-        protected int NValues {
+        int NValues {
             get {
                 return g_enum_info_get_n_values (Handle);
             }

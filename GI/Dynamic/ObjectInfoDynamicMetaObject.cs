@@ -35,7 +35,6 @@ namespace GISharp.GI.Dynamic
                 i = i.Parent;
             }
             if (methodInfo != null) {
-                dynamic method = methodInfo;
                 var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, null, args);
                 return new DynamicMetaObject (expression, typeRestriction);
             }
