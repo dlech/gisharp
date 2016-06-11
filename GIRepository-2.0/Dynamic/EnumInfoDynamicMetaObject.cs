@@ -23,7 +23,7 @@ namespace GISharp.GIRepository.Dynamic
 
         public override DynamicMetaObject BindGetMember (GetMemberBinder binder)
         {
-            var value = Info.Values.SingleOrDefault<ValueInfo> (x => x.Name == binder.Name);
+            var value = Info.Values.SingleOrDefault (x => x.Name == binder.Name);
             if (value != null) {
                 var expression = Expression.Constant (value);
                 return new DynamicMetaObject (expression, typeRestriction);

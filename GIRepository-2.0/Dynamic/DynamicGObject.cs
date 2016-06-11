@@ -80,34 +80,37 @@ namespace GISharp.GIRepository.Dynamic
             return value.Get ();
         }
 
-        public void Connect (string signalSpec, Func<Value[], Value> callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect (string signalSpec, Func<Value[], Value> callback, ConnectFlags flags = default (ConnectFlags))
         {
             if (callback == null) {
                 throw new ArgumentNullException (nameof (callback));
             }
-            var closure = new Closure (callback);
-            Connect (signalSpec, closure, flags);
+            using (var closure = new Closure (callback)) {
+                return Connect (signalSpec, closure, flags);
+            }
         }
 
-        public void Connect (string signalSpec, Action<Value[]> callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect (string signalSpec, Action<Value[]> callback, ConnectFlags flags = default (ConnectFlags))
         {
             if (callback == null) {
                 throw new ArgumentNullException (nameof (callback));
             }
-            var closure = new Closure (callback);
-            Connect (signalSpec, closure, flags);
+            using (var closure = new Closure (callback)) {
+                return Connect (signalSpec, closure, flags);
+            }
         }
 
-        public void Connect (string signalSpec, Action callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect (string signalSpec, Action callback, ConnectFlags flags = default (ConnectFlags))
         {
             if (callback == null) {
                 throw new ArgumentNullException (nameof (callback));
             }
-            var closure = new Closure (callback);
-            Connect (signalSpec, closure, flags);
+            using (var closure = new Closure (callback)) {
+                return Connect (signalSpec, closure, flags);
+            }
         }
 
-        void Connect (string signalSpec, Closure closure, ConnectFlags flags)
+        ulong Connect (string signalSpec, Closure closure, ConnectFlags flags)
         {
             if (signalSpec == null) {
                 throw new ArgumentNullException (nameof (signalSpec));
@@ -116,9 +119,15 @@ namespace GISharp.GIRepository.Dynamic
                 throw new ArgumentNullException (nameof (closure));
             }
             var signalSpecPtr = MarshalG.StringToUtf8Ptr (signalSpec);
-            g_signal_connect_closure (Handle, signalSpecPtr, closure.Handle, flags);
+            var ret = g_signal_connect_closure (Handle, signalSpecPtr, closure.Handle, flags);
             MarshalG.Free (signalSpecPtr);
 
+            return ret;
+        }
+
+        public void Disconnect (ulong signalId)
+        {
+            g_signal_handler_disconnect (Handle, (NativeULong)signalId);
         }
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -134,7 +143,10 @@ namespace GISharp.GIRepository.Dynamic
         static extern void g_object_get_property (IntPtr obj, IntPtr name, out Value value);
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_signal_connect_closure (IntPtr obj, IntPtr detailedSignal, IntPtr closure, ConnectFlags flags);
+        static extern NativeULong g_signal_connect_closure (IntPtr obj, IntPtr detailedSignal, IntPtr closure, ConnectFlags flags);
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_signal_handler_disconnect (IntPtr obj, NativeULong id);
 
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_class_find_property (IntPtr oclass, IntPtr name);
@@ -167,6 +179,14 @@ namespace GISharp.GIRepository.Dynamic
                     break;
                 }
                 i = i.Parent;
+            }
+            if (methodInfo == null) {
+                foreach (var iface in Info.Interfaces) {
+                    methodInfo = iface.FindMethod (binder.Name);
+                    if (methodInfo != null) {
+                        break;
+                    }
+                }
             }
             if (methodInfo != null) {
                 var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, Object, args);

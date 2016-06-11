@@ -146,8 +146,12 @@ namespace GISharp.GIRepository
                     case InfoType.Object:
                     case InfoType.Struct:
                     case InfoType.Union:
-                        dynamic dObj = obj.Value;
-                        arg.Pointer = dObj.Handle;
+                        if (obj.Value == null) {
+                            arg.Pointer = IntPtr.Zero;
+                        } else {
+                            dynamic dObj = obj.Value;
+                            arg.Pointer = dObj.Handle;
+                        }
                         break;
                     default:
                         throw new NotImplementedException ();
@@ -230,10 +234,22 @@ namespace GISharp.GIRepository
         {
             if (info.IsPointer) {
                 switch (info.Tag) {
+                case TypeTag.UTF8:
+                    var ret = MarshalG.Utf8PtrToString (arg.Pointer);
+                    // TODO: free utf8 string if transfers ownership
+                    return ret;
                 case TypeTag.Interface:
                     switch (info.Interface.InfoType) {
                     case InfoType.Object:
+                        if (arg.Pointer == IntPtr.Zero) {
+                            return null;
+                        }
                         return new DynamicGObject (arg.Pointer);
+                    case InfoType.Struct:
+                        if (arg.Pointer == IntPtr.Zero) {
+                            return null;
+                        }
+                        return new DynamicStruct (arg.Pointer, (StructInfo)info.Interface);
                     default:
                         throw new NotImplementedException ();
                     }
@@ -285,28 +301,32 @@ namespace GISharp.GIRepository
                     throw new ArgumentException ("Invalid named parameter", name);
                 }
             }
-            var xp = Args.ToList ();
+
+            var matchArgs = Args.ToList ();
+            if (ReturnTypeInfo.ArrayLengthIndex >= 0) {
+                matchArgs.RemoveAt (ReturnTypeInfo.ArrayLengthIndex);
+            }
             foreach (var arg in Args) {
                 if (arg.Closure != null) {
-                    xp.Remove (arg.Closure);
+                    matchArgs.Remove (arg.Closure);
                 }
                 if (arg.Destroy != null) {
-                    xp.Remove (arg.Destroy);
+                    matchArgs.Remove (arg.Destroy);
                 }
                 if (arg.ArrayLength != null) {
-                    xp.Remove (arg.ArrayLength);
+                    matchArgs.Remove (arg.ArrayLength);
                 }
             }
-            if (xp.Count != args.Length) {
-                var names = string.Join (", ", xp.Select (x => x.Name));
-                var message = $"Bad arg count - expecting {xp.Count}: {names}";
+            if (matchArgs.Count != args.Length) {
+                var names = string.Join (", ", matchArgs.Select (x => x.Name));
+                var message = $"Bad arg count - expecting {matchArgs.Count}: {names}";
                 throw new ArgumentException (message);
             }
             foreach (var name in callInfo.ArgumentNames) {
-                var arg = xp.Find (x => x.Name == name);
+                var arg = matchArgs.Find (x => x.Name == name);
                 if (arg != null) {
-                    xp.Remove (arg);
-                    xp.Add (arg);
+                    matchArgs.Remove (arg);
+                    matchArgs.Add (arg);
                 }
             }
 
@@ -318,9 +338,9 @@ namespace GISharp.GIRepository
             if (IsMethod) {
                 inArgs[0].Pointer = instance.Handle;
             }
-            foreach (var arg in xp) {
+            foreach (var arg in matchArgs) {
                 if (arg.InIndex >= 0) {
-                    inArgs[arg.InIndex + methodOffset] = MarshalInArg (arg.TypeInfo, args[xp.IndexOf (arg)], ref freeInArgs);
+                    inArgs[arg.InIndex + methodOffset] = MarshalInArg (arg.TypeInfo, args[matchArgs.IndexOf (arg)], ref freeInArgs);
                 }
             }
 

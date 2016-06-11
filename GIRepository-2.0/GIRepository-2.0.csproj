@@ -78,6 +78,7 @@
     <Compile Include="Dynamic\NamespaceDynamicMetaObject.cs" />
     <Compile Include="Dynamic\ObjectInfoDynamicMetaObject.cs" />
     <Compile Include="Dynamic\DynamicGObject.cs" />
+    <Compile Include="Dynamic\DynamicStruct.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -28,6 +28,16 @@ namespace GISharp.GIRepository
             }
         }
 
+        public static explicit operator int (ValueInfo info)
+        {
+            return (int)info.Value;
+        }
+
+        public static explicit operator uint (ValueInfo info)
+        {
+            return (uint)info.Value;
+        }
+
         public ValueInfo (IntPtr raw) : base (raw)
         {
         }

@@ -66,7 +66,7 @@ namespace GISharp.GIRepository
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_field (IntPtr raw, int index);
 
-        public FieldInfo GetField (int index)
+        FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_struct_info_get_field (Handle, index);
             return MarshalPtr<FieldInfo> (raw_ret);
@@ -75,7 +75,7 @@ namespace GISharp.GIRepository
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_method (IntPtr raw, int index);
 
-        public FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_struct_info_get_method (Handle, index);
             return MarshalPtr<FunctionInfo> (raw_ret);
