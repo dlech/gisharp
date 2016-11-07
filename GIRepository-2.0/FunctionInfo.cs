@@ -230,16 +230,28 @@ namespace GISharp.GIRepository
             return arg;
         }
 
-        static object MarshalOutArg (Argument arg, TypeInfo info, ref Action free)
+        static object MarshalOutArg (Argument arg, TypeInfo info, Transfer ownership, ref Action free)
         {
             if (info.IsPointer) {
                 switch (info.Tag) {
+                case TypeTag.Array:
+                    switch (info.ArrayType) {
+                    case ArrayType.C:
+                        var arrayType = info.GetParamType (0);
+                        if (arrayType.Tag == TypeTag.UTF8 && info.IsZeroTerminated) {
+                            // This is a Strv
+                            return MarshalG.GStrvPtrToStringArray (arg.Pointer, ownership != Transfer.Nothing, ownership == Transfer.Everything);
+                        }
+                        throw new NotImplementedException ();
+                    default:
+                        throw new NotImplementedException ();
+                    }
                 case TypeTag.UTF8:
-                    var ret = MarshalG.Utf8PtrToString (arg.Pointer);
-                    // TODO: free utf8 string if transfers ownership
+                    var ret = MarshalG.Utf8PtrToString (arg.Pointer, ownership != Transfer.Nothing);
                     return ret;
                 case TypeTag.Interface:
                     switch (info.Interface.InfoType) {
+                    case InfoType.Interface:
                     case InfoType.Object:
                         if (arg.Pointer == IntPtr.Zero) {
                             return null;
@@ -353,7 +365,7 @@ namespace GISharp.GIRepository
                     return default (object);
                 }
 
-                var ret = MarshalOutArg (retArg, ReturnTypeInfo, ref freeOutArgs);
+                var ret = MarshalOutArg (retArg, ReturnTypeInfo, CallerOwns, ref freeOutArgs);
 
                 return ret;
             } finally {
