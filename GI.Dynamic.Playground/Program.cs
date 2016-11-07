@@ -65,7 +65,6 @@ namespace GI.Dynamic.Playground
                 Action quit = () => app.quit ();
                 quitAction.Connect ("activate", quit);
                 app.add_action (quitAction);
-                app.set_accels_for_action ("app.quit", new [] { "<Primary>q" });
 
                 // on macOS, the menu is created automatically, but still uses
                 // the actions above
@@ -75,6 +74,7 @@ namespace GI.Dynamic.Playground
 
                     var menu2 = Gio.Menu.@new ();
                     menu2.append ("_Quit", "app.quit");
+                    app.set_accels_for_action ("app.quit", new[] { "<Control>q" });
 
                     var appMenu = Gio.Menu.@new ();
                     appMenu.append_section (null, menu1);
