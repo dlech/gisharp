@@ -6,3 +6,4 @@ packages/
 *~
 Generated.cs
 TestResult.xml
+.DS_Store
