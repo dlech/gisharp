@@ -6,12 +6,15 @@ namespace GI.Dynamic.Playground
     public static class Program
     {
         internal static readonly dynamic Gio;
+        internal static readonly dynamic GdkPixbuf;
         internal static readonly dynamic Gtk;
 
         static Program () {
             Require ("Gio", "2.0");
+            Require ("GdkPixbuf", "2.0");
             Require ("Gtk", "3.0");
             Gio = Namespaces["Gio"];
+            GdkPixbuf = Namespaces["GdkPixbuf"];
             Gtk = Namespaces["Gtk"];
         }
 
@@ -26,10 +29,15 @@ namespace GI.Dynamic.Playground
                 window.set_default_size (400, 400);
                 window.set_position (Gtk.WindowPosition.center);
 
+                dynamic icon = GdkPixbuf.Pixbuf.@new (GdkPixbuf.Colorspace.rgb, true, 8, 32, 32);
+                icon.fill (0x0000ffffu);
+                window.set_icon (icon);
+
                 dynamic aboutAction = Gio.SimpleAction.@new ("about", null);
                 Action showAbout = () => {
                     var aboutDialog = Gtk.AboutDialog.@new ();
                     aboutDialog.set_transient_for (window);
+                    aboutDialog.set_logo (icon);
 
                     Action closeAboutDialog = () => aboutDialog.close ();
                     aboutDialog.Connect ("response", closeAboutDialog);
