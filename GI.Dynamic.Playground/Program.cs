@@ -5,14 +5,17 @@ namespace GI.Dynamic.Playground
 {
     public static class Program
     {
+        internal static readonly dynamic GLib;
         internal static readonly dynamic Gio;
         internal static readonly dynamic GdkPixbuf;
         internal static readonly dynamic Gtk;
 
         static Program () {
+            Require ("GLib", "2.0");
             Require ("Gio", "2.0");
             Require ("GdkPixbuf", "2.0");
             Require ("Gtk", "3.0");
+            GLib = Namespaces["GLib"];
             Gio = Namespaces["Gio"];
             GdkPixbuf = Namespaces["GdkPixbuf"];
             Gtk = Namespaces["Gtk"];
@@ -20,6 +23,9 @@ namespace GI.Dynamic.Playground
 
         public static void Main (string[] args)
         {
+            GLib.set_prgname ("HelloDynamic");
+            GLib.set_application_name ("Hello Dynamic!");
+
             var app = Gtk.Application.@new (null, Gio.ApplicationFlags.flags_none);
             dynamic window = null;
 
@@ -37,6 +43,13 @@ namespace GI.Dynamic.Playground
                 Action showAbout = () => {
                     var aboutDialog = Gtk.AboutDialog.@new ();
                     aboutDialog.set_transient_for (window);
+                    aboutDialog.set_version ("0.0");
+                    aboutDialog.set_copyright ("2016 David Lechner <david@lechnology.com>");
+                    aboutDialog.set_comments ("Demonstrates dynamic C# bindings for GObject introspection.");
+                    aboutDialog.set_license ("MIT");
+                    aboutDialog.set_website ("https://github.com/dlech/gisharp");
+                    aboutDialog.set_website_label ("GitHub");
+                    aboutDialog.set_authors (new[] { "David Lechner" });
                     aboutDialog.set_logo (icon);
 
                     Action closeAboutDialog = () => aboutDialog.close ();
