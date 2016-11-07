@@ -31,7 +31,6 @@ namespace GI.Dynamic.Playground
 
             Action startup = () => {
                 window = Gtk.ApplicationWindow.@new (app);
-                window.set_title ("Hello Dynamic!");
                 window.set_default_size (400, 400);
                 window.set_position (Gtk.WindowPosition.center);
 
