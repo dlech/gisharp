@@ -18,14 +18,13 @@ namespace GI.Dynamic.Playground
         public static void Main (string[] args)
         {
             var app = Gtk.Application.@new (null, Gio.ApplicationFlags.flags_none);
+            dynamic window = null;
+
             Action startup = () => {
-                dynamic window = Gtk.ApplicationWindow.@new (app);
+                window = Gtk.ApplicationWindow.@new (app);
                 window.set_title ("Hello Dynamic!");
                 window.set_default_size (400, 400);
                 window.set_position (Gtk.WindowPosition.center);
-                window.show_all ();
-
-                // bind to the default app menu actions
 
                 dynamic aboutAction = Gio.SimpleAction.@new ("about", null);
                 Action showAbout = () => {
@@ -46,10 +45,27 @@ namespace GI.Dynamic.Playground
                 Action quit = () => app.quit ();
                 quitAction.Connect ("activate", quit);
                 app.add_action (quitAction);
+
+                // on macOS, the menu is created automatically, but still uses
+                // the actions above
+                if (app.prefers_app_menu ()) {
+                    var menu1 = Gio.Menu.@new ();
+                    menu1.append ("_About", "app.about");
+
+                    var menu2 = Gio.Menu.@new ();
+                    menu2.append ("_Quit", "app.quit");
+
+                    var appMenu = Gio.Menu.@new ();
+                    appMenu.append_section (null, menu1);
+                    appMenu.append_section (null, menu2);
+                    app.set_app_menu (appMenu);
+                }
             };
             app.Connect ("startup", startup);
 
-            Action activate = () => { };
+            Action activate = () => {
+                window.present ();
+            };
             app.Connect ("activate", activate);
 
             app.run (args);
