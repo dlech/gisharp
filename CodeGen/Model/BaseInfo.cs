@@ -158,7 +158,7 @@ namespace GISharp.CodeGen.Model
 
                 yield return AttributeList ().AddAttributes (obsoleteAttribute);
 
-                var deprecatedAttribute = Attribute (ParseName (typeof(GISharp.Runtime.DeprecatedAttribute).FullName));
+                var deprecatedAttribute = Attribute (ParseName (typeof(GISharp.Runtime.DeprecatedSinceAttribute).FullName));
                 var deprecatedVersion = Element.Attribute ("deprecated-version");
                 if (deprecatedVersion != null) {
                     deprecatedAttribute = deprecatedAttribute.AddArgumentListArguments (

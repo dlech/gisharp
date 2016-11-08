@@ -95,7 +95,7 @@
     <Compile Include="GLib\VariantParseError.cs" />
     <Compile Include="GLib\VariantIter.cs" />
     <Compile Include="GLib\VariantClass.cs" />
-    <Compile Include="Runtime\DeprecatedAttribute.cs" />
+    <Compile Include="Runtime\DeprecatedSinceAttribute.cs" />
     <Compile Include="Runtime\IObject.cs" />
     <Compile Include="Runtime\CallbackScope.cs" />
     <Compile Include="GLib\Error.cs" />
