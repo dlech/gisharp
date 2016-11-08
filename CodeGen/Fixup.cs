@@ -578,14 +578,29 @@ namespace GISharp.CodeGen
             }
 
             var list = parameters.Elements (gi + "parameter").ToList ();
-                // hide parameters that are used internally
+
+            // hide parameters that are handled internally
 
             var indexesToRemove = new List<int> ();
+            var isMethod = parameters.Parent.Name == gi + "method";
+            // Closure args are tricky. Most of the time, the "closure" attribute
+            // is on the callback argument. But, sometimes the user data argument
+            // is annotated with (closure) or (closure <func>), in which case it
+            // will also have a "closure" attribute. We don't want to expose the
+            // user data args as a managed parameter but not accidentally hide
+            // the callback parameter.
+            //
+            // This should be read as: remove parmeters at indexes specified by
+            // closure attributes that are either callbacks (!= gpointer) or
+            // user data args that point to themselves (== i).
             indexesToRemove.AddRange (list
-                .Where (p => p.GetClosureIndex () >= 0)
+                .Where ((p, i) => p.GetClosureIndex () >= 0 &&
+                        (p.Element (gi + "type").Attribute ("name")?.Value != "gpointer" ||
+                         p.GetClosureIndex (isMethod) == i))
                 .Select (p => p.GetClosureIndex ()));
             indexesToRemove.AddRange (list
-                .Where (p => p.GetDestroyIndex () >= 0)
+                .Where (p => p.GetDestroyIndex () >= 0 &&
+                        p.Element (gi + "type").Attribute ("name")?.Value != "DestroyNotify")
                 .Select (p => p.GetDestroyIndex ()));
             indexesToRemove.AddRange (list
                 .Where (p => p.GetLengthIndex () >= 0)
