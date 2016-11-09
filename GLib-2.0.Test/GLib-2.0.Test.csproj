@@ -35,11 +35,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="VersionTests.cs" />
-    <Compile Include="MainLoopTests.cs" />
-    <Compile Include="MainContextTests.cs" />
-    <Compile Include="TimeoutTests.cs" />
-    <Compile Include="IdleTests.cs" />
-    <Compile Include="SourceTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

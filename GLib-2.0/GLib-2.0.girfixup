@@ -246,10 +246,26 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='List']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareDataFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Func']"
+# MainContext
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='main_depth']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='poll']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]"
+# MainLoop
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainLoop']"
 # Node
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CopyFunc']"
 # SList
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SList']"
+# Source
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[@name='SOURCE_CONTINUE']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[@name='SOURCE_REMOVE']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SourceFuncs']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SourceCallbackFuncs']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='main_current_source']"
 # Strv
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Strv']"
 
@@ -281,21 +297,6 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'prefix_')]" "gi
 move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'propagate_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
 move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'clear_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
 
-# Idle
-
-# add a static class for idle_ functions
-addelement "<gs:static-class name='Idle' />" "gi:repository/gi:namespace"
-# Move idle_ functions to Idle static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]" "gi:repository/gi:namespace/gs:static-class[@name='Idle']"
-# Drop the idle_ prefix from the function names
-chattr "name" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@name,'idle_')]"
-chattr "shadows" "idle_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[starts-with(@shadows,'idle_')]"
-# rename fuction to be more .NETish
-chattr "name" "" "create_source" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='source_new']"
-# default parameter values
-chattr "gs:default" "" "GISharp.GLib.Priority.DefaultIdle" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='add_full']/gi:parameters/gi:parameter[@name='priority']"
-# skip functions that require user_Data
-chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Idle']/gi:function[@name='remove_by_data']"
 
 # KeyFile
 
@@ -321,68 +322,6 @@ chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name=
 # valist is not supported yet
 chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='logv']"
 
-# MainContext
-
-# move some functions to MainContext record
-move "gi:repository/gi:namespace/gi:function[@name='main_depth']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
-move "gi:repository/gi:namespace/gi:function[@name='poll']" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
-# rename function so that is shows up as property
-chattr "name" "" "get_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='default']"
-# use ref_thread_default instead of get_thread_default
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='get_thread_default']"
-chattr "name" "" "get_thread_default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='ref_thread_default']"
-# fix parameter direction
-chattr "direction" "" "in" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='query']/gi:parameters/gi:parameter[@name='n_fds']"
-# add shadow for invoke methods
-chattr "shadowed-by" "" "invoke_full" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke']"
-chattr "shadows" "" "invoke" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']"
-chattr "gs:default" "" "GISharp.GLib.Priority.Default" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='invoke_full']/gi:parameters/gi:parameter[@name='priority']"
-# skip functions that use user_data
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='find_source_by_user_data']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:method[@name='find_source_by_funcs_user_data']"
-# make main_depth a property
-chattr "name" "" "get_depth" "gi:repository/gi:namespace/gi:record[@name='MainContext']/gi:function[@name='main_depth']"
-
-# MainLoop
-
-# set default parameters for constructor
-chattr "gs:default" "" "null" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='context']"
-chattr "gs:default" "" "false" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor/gi:parameters/gi:parameter[@name='is_running']"
-# requires special implementation
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:method[@name='run']"
-
-# Priority
-
-# add a static class for priority related stuff
-addelement "<gs:static-class name='Priority' />" "gi:repository/gi:namespace"
-# Move PRIORITY_ constants to Priority static-class
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]" "gi:repository/gi:namespace/gs:static-class[@name='Priority']"
-# Drop the PRIORITY_ prefix from the constant names
-chattr "name" "PRIORITY_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant[starts-with(@name,'PRIORITY_')]"
-
-# Source
-
-# Move SOURCE_ constants to Source record
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]" "gi:repository/gi:namespace/gi:record[@name='Source']"
-# Drop the SOURCE_ prefix from the constant names
-chattr "name" "SOURCE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constant[starts-with(@name,'SOURCE_')]"
-# rename function that conflicts with constant name
-chattr "name" "" "remove_by_id" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove']"
-# better parameter name
-chattr "name" "" "id" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_id']/gi:parameters/gi:parameter[@name='tag']"
-# ignore return value
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_id']/gi:return-value"
-# move main_current_source function to Source record and rename so it is a static property
-move "gi:repository/gi:namespace/gi:function[@name='main_current_source']" "gi:repository/gi:namespace/gi:record[@name='Source']"
-chattr "name" "" "get_current" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='main_current_source']"
-# custom checks
-chattr "gs:custom-arg-check" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:method[@name='attach']"
-# requires special handling
-chattr "gs:pinvoke-only" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:constructor[@name='new']"
-# ignore stuff that uses user_data
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_user_data']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']/gi:function[@name='remove_by_funcs_user_data']"
-
 # Variant
 
 # Implemented in Core
@@ -391,33 +330,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantClass']
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantIter']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']"
-
-# Timeout
-
-# add a static class for timeout_ functions
-addelement "<gs:static-class name='Timeout' />" "gi:repository/gi:namespace"
-# Move timeout_ functions to Timeout static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']"
-# Drop the timeout_ prefix from the function names
-chattr "name" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@name,'timeout_')]"
-chattr "shadows" "timeout_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[starts-with(@shadows,'timeout_')]"
-# set default value for priority parameter
-chattr "gs:default" "" "Priority.Default" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function/gi:parameters/gi:parameter[@name='priority']"
-# rename fuctions to be more .NETish
-chattr "name" "" "create_source" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[@name='source_new']"
-chattr "name" "" "create_source_seconds" "gi:repository/gi:namespace/gs:static-class[@name='Timeout']/gi:function[@name='source_new_seconds']"
-
-# UnixSignal
-
-# add a static class for unix_signal_ functions
-addelement "<gs:static-class name='UnixSignal' />" "gi:repository/gi:namespace"
-# Unhide the unix_signal_functions
-chattr "skip" "" "0" "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_')]"
-# Move unix_signal_ functions to UnixSignal static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_')]" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']"
-# Drop the unix_signal_ prefix from the function names
-chattr "name" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[starts-with(@name,'unix_signal_')]"
-chattr "shadows" "unix_signal_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[starts-with(@shadows,'unix_signal_')]"
 
 # Version
 

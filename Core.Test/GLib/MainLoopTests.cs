@@ -91,7 +91,7 @@ namespace GISharp.GLib.Test
                                 TaskCreationOptions.None,
                                 scheduler);
                         });
-                        return Source.Remove;
+                        return Source.Remove_;
                     });
                     mainLoop.Run ();
                 });

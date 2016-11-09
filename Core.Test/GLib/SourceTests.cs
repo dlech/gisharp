@@ -22,25 +22,28 @@ namespace GISharp.GLib.Test
                     var mainLoop = new MainLoop ();
                     Source source = null;
                     var id = Idle.Add (() => {
-                        mainLoop.Quit ();
-                        Assert.That (Source.Current, Is.EqualTo (source));
-                        callbackInvoked = true;
-                        return Source.Remove;
+                        try {
+                            Assert.That (Source.Current, Is.EqualTo (source));
+                            callbackInvoked = true;
+                            return Source.Remove_;
+                        } finally {
+                            mainLoop.Quit ();
+                        }
                     });
                     source = MainContext.Default.FindSourceById (id);
                     mainLoop.Run ();
-                }).Wait (100);
+                }).Wait (1000);
                 Assert.That (callbackInvoked, Is.True);
             }
         }
 
         [Test]
-        public void TestRemoveById ()
+        public void TestRemove ()
         {
             lock (MainLoopTests.MainLoopLock) {
-                var id = Idle.Add (() => Source.Remove);
+                var id = Idle.Add (() => Source.Remove_);
                 Assume.That (MainContext.Default.FindSourceById (id), Is.Not.Null);
-                Source.RemoveById (id);
+                Source.Remove (id);
                 Assert.That (MainContext.Default.FindSourceById (id), Is.Null);
             }
         }

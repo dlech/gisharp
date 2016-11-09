@@ -25,7 +25,7 @@ namespace GISharp.GLib.Test
                     var id = Idle.Add (() => {
                         mainLoop.Quit ();
                         idleInvoked = true;
-                        return Source.Remove;
+                        return Source.Remove_;
                     });
                     mainLoop.Run ();
                     Assert.That (id, Is.Not.EqualTo (0));

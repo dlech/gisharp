@@ -100,6 +100,14 @@
     <Compile Include="Runtime\CallbackScope.cs" />
     <Compile Include="GLib\Error.cs" />
     <Compile Include="GObject\Closure.cs" />
+    <Compile Include="GLib\Source.cs" />
+    <Compile Include="GLib\Idle.cs" />
+    <Compile Include="GLib\Timeout.cs" />
+    <Compile Include="GLib\Poll.cs" />
+    <Compile Include="GLib\Priority.cs" />
+    <Compile Include="GLib\MainContext.cs" />
+    <Compile Include="GLib\MainLoop.cs" />
+    <Compile Include="GLib\UnixSignal.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">

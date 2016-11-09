@@ -143,6 +143,17 @@ namespace GISharp.GLib
     }
 
     /// <summary>
+    /// Provides a default unmanged callback for freeing a GCHandle.
+    /// </summary>
+    public static class ManagedDestroyNotify
+    {
+        public static void Invoke (IntPtr userData)
+        {
+            GCHandle.FromIntPtr (userData).Free ();
+        }
+    }
+
+    /// <summary>
     /// Specifies the type of a function used to test two values for
     /// equality. The function should return <c>true</c> if both values are equal
     /// and <c>false</c> otherwise.
@@ -354,4 +365,74 @@ namespace GISharp.GLib
     // Analysis disable InconsistentNaming
     public delegate Boolean HRFunc<K,V> (K key, V value);
     // Analysis restore InconsistentNaming
+
+    /// <summary>
+    /// Specifies the type of function passed to <see cref="MainContext.PollFunc"/>.
+    /// The semantics of the function should match those of the poll() system call.
+    /// </summary>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate int NativePollFunc (
+        /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
+        /* transfer-ownership:none */
+        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] ufds,
+        /* <type name="guint" type="guint" managed-name="Guint" /> */
+        /* transfer-ownership:none */
+        uint nfsd,
+        /* <type name="gint" type="gint" managed-name="Gint" /> */
+        /* transfer-ownership:none */
+        int timeout);
+    
+    /// <summary>
+    /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
+    /// and <see cref="Idle.Add"/>.
+    /// </summary>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate bool NativeSourceFunc (
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 closure:0 */
+        IntPtr userData);
+
+    /// <summary>
+    /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
+    /// and <see cref="Idle.Add"/>.
+    /// </summary>
+    public delegate bool SourceFunc ();
+
+    /// <summary>
+    /// Provides default unmanaged callback for wrapping a managed <see cref="SourceFunc"/>.
+    /// </summary>
+    public static class ManagedSourceFunc
+    {
+        /// <summary>
+        /// Invoke the managage callback
+        /// </summary>
+        /// <param name="userData">GCHandle for the managed callback.</param>
+        /// <remarks>
+        /// This version of the callback does not free the GCHandle.
+        /// </remarks>
+        public static bool Invoke (IntPtr userData)
+        {
+            var sourceFunc = (SourceFunc)GCHandle.FromIntPtr (userData).Target;
+            return sourceFunc ();
+        }
+
+        /// <summary>
+        /// Invoke the managage callback
+        /// </summary>
+        /// <param name="userData">GCHandle for the managed callback.</param>
+        /// <remarks>
+        /// This version of the callback does frees the GCHandle, so it can only
+        /// be called once.
+        /// </remarks>
+        public static bool InvokeAndFree (IntPtr userData)
+        {
+            var gcHandle = GCHandle.FromIntPtr (userData);
+            var sourceFunc = (SourceFunc)gcHandle.Target;
+            try {
+                return sourceFunc ();
+            } finally {
+                gcHandle.Free ();
+            }
+        }
+    }
 }

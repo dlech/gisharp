@@ -53,6 +53,11 @@
     <Compile Include="GObject\InterfaceTest.cs" />
     <Compile Include="GLib\VariantTests.cs" />
     <Compile Include="GObject\ClosureTest.cs" />
+    <Compile Include="GLib\IdleTests.cs" />
+    <Compile Include="GLib\MainContextTests.cs" />
+    <Compile Include="GLib\MainLoopTests.cs" />
+    <Compile Include="GLib\SourceTests.cs" />
+    <Compile Include="GLib\TimeoutTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
