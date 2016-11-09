@@ -12,7 +12,7 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestAdd ()
         {
-            lock (MainLoopTests.MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 var idleInvoked = false;
 
                 // null function is not allowed

@@ -12,7 +12,7 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestAdd ()
         {
-            lock (MainLoopTests.MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 var timeoutInvoked = false;
 
                 Task.Run (() => {
@@ -33,7 +33,7 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestAddSeconds ()
         {
-            lock (MainLoopTests.MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 var timeoutInvoked = false;
 
                 Task.Run (() => {

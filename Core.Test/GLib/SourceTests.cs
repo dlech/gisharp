@@ -12,16 +12,18 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestCurrent ()
         {
-            lock (MainLoopTests.MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 // there is no main loop running, so there should be no curent source
                 Assert.That (Source.Current, Is.Null);
 
                 // if we are in a callback, there should be a source.
                 var callbackInvoked = false;
                 Task.Run (() => {
-                    var mainLoop = new MainLoop ();
-                    Source source = null;
-                    var id = Idle.Add (() => {
+                    var context = new MainContext ();
+                    context.PushThreadDefault ();
+                    var mainLoop = new MainLoop (context);
+                    var source = Idle.CreateSource ();
+                    source.SetCallback (() => {
                         try {
                             Assert.That (Source.Current, Is.EqualTo (source));
                             callbackInvoked = true;
@@ -30,8 +32,9 @@ namespace GISharp.GLib.Test
                             mainLoop.Quit ();
                         }
                     });
-                    source = MainContext.Default.FindSourceById (id);
+                    source.Attach (context);
                     mainLoop.Run ();
+                    context.PopThreadDefault ();
                 }).Wait (1000);
                 Assert.That (callbackInvoked, Is.True);
             }
@@ -40,7 +43,7 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestRemove ()
         {
-            lock (MainLoopTests.MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 var id = Idle.Add (() => Source.Remove_);
                 Assume.That (MainContext.Default.FindSourceById (id), Is.Not.Null);
                 Source.Remove (id);

@@ -1250,7 +1250,7 @@ namespace GISharp.GLib
             IntPtr source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:1 destroy:2 */
-            SourceFunc func,
+            NativeSourceFunc func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
@@ -1282,11 +1282,9 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            var func_ = default (SourceFunc);
-            throw new NotImplementedException ();
-            var funcHandle = GCHandle.Alloc (func);
-            var notify_ = NativeDestoryNotifyFactory.Create (funcHandle);
-            var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (notify_));
+            NativeSourceFunc func_ = ManagedSourceFunc.Invoke;
+            var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (func));
+            NativeDestroyNotify notify_ = ManagedDestroyNotify.Invoke;
             g_source_set_callback (Handle, func_, data_, notify_);
         }
 
@@ -1321,27 +1319,6 @@ namespace GISharp.GLib
             /* <type name="SourceCallbackFuncs" type="GSourceCallbackFuncs*" managed-name="SourceCallbackFuncs" /> */
             /* transfer-ownership:none */
             SourceCallbackFuncs callbackFuncs);
-
-        /// <summary>
-        /// Sets the callback function storing the data as a refcounted callback
-        /// "object". This is used internally. Note that calling
-        /// g_source_set_callback_indirect() assumes
-        /// an initial reference count on @callback_data, and thus
-        /// @callback_funcs-&gt;unref will eventually be called once more
-        /// than @callback_funcs-&gt;ref.
-        /// </summary>
-        /// <param name="callbackData">
-        /// pointer to callback data "object"
-        /// </param>
-        /// <param name="callbackFuncs">
-        /// functions for reference counting @callback_data
-        ///                  and getting the callback and data
-        /// </param>
-        void SetCallbackIndirect (IntPtr callbackData, SourceCallbackFuncs callbackFuncs)
-        {
-            AssertNotDisposed ();
-            g_source_set_callback_indirect (Handle, callbackData, callbackFuncs);
-        }
 
         /// <summary>
         /// Sets whether a source can be called recursively. If @can_recurse is

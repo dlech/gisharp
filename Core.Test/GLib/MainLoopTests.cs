@@ -10,15 +10,6 @@ namespace GISharp.GLib.Test
     [TestFixture]
     public class MainLoopTests
     {
-        /// <summary>
-        /// The main loop lock.
-        /// </summary>
-        /// <remarks>
-        /// Tests that use the main loop all use the same default context, so
-        /// we need a lock to make sure these tests don't run at the same time.
-        /// </remarks>
-        public static object MainLoopLock = new object ();
-
         [Test]
         public void TestGetContext ()
         {
@@ -42,7 +33,7 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestRunQuit ()
         {
-            lock (MainLoopLock) {
+            lock (MainContextTests.MainContextLock) {
                 var mainLoop = new MainLoop ();
                 Assume.That (!mainLoop.IsRunning);
                 var runTask = Task.Run (() => mainLoop.Run ());
@@ -59,15 +50,17 @@ namespace GISharp.GLib.Test
         [Test]
         public void TestSyncronizationContextPost ()
         {
-            lock (MainLoopTests.MainLoopLock) {
                 var invokedOnMainThread = false;
 
                 // start background task to run main loop
                 var task = Task.Run (() => {
-                    var mainLoop = new MainLoop ();
-                    // use Idle.Add to run stuff on the same thread as the main loop
-                    // after mainLoop.Run has been called.
-                    Idle.Add (() => {
+                    var context = new MainContext ();
+                    context.PushThreadDefault ();
+                    var mainLoop = new MainLoop (context);
+                    // use Idle.CreateSource to run stuff on the same thread as
+                    // the main loop after mainLoop.Run has been called.
+                    var source = Idle.CreateSource ();
+                    source.SetCallback (() => {
                         // this gets the MainLoopSyncronizationContext that was set
                         // when mainLoop.Run was called. If it wasn't set, this
                         // will throw an exception.
@@ -93,13 +86,14 @@ namespace GISharp.GLib.Test
                         });
                         return Source.Remove_;
                     });
+                    source.Attach (context);
                     mainLoop.Run ();
+                    context.PopThreadDefault ();
                 });
                 task.ConfigureAwait (false);
                 task.Wait (100);
 
                 Assert.That (invokedOnMainThread, Is.True);
             }
-        }
     }
 }
