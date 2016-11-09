@@ -375,7 +375,7 @@ namespace GISharp.GLib
         static extern int g_poll (
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            PollFD fds,
+            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] fds,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint nfds,
@@ -406,9 +406,6 @@ namespace GISharp.GLib
         /// <param name="fds">
         /// file descriptors to poll
         /// </param>
-        /// <param name="nfds">
-        /// the number of file descriptors in <paramref name="fds"/>
-        /// </param>
         /// <param name="timeout">
         /// amount of time to wait, in milliseconds, or -1 to wait forever
         /// </param>
@@ -418,9 +415,12 @@ namespace GISharp.GLib
         /// if the call was interrupted.
         /// </returns>
         [Since ("2.20")]
-        public static int Poll (PollFD fds, uint nfds, int timeout)
+        public static int Poll (PollFD[] fds, int timeout)
         {
-            var ret = g_poll (fds, nfds, timeout);
+            if (fds == null) {
+                throw new ArgumentNullException (nameof (fds));
+            }
+            var ret = g_poll (fds, (uint)fds.Length, timeout);
             return ret;
         }
 
