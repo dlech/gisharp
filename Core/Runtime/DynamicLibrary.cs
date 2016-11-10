@@ -1,14 +1,35 @@
 ﻿using System;
+using System.IO;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
     public class DynamicLibrary : Opaque
     {
-        const string LibraryPrefix = "lib";
-        const string LibrarySuffix = ".so";
+        static readonly string LibraryPrefix;
+        static readonly string LibrarySuffix;
 
         static object lockObj = new object ();
+
+        static DynamicLibrary () {
+            if (Environment.OSVersion.Platform == PlatformID.Unix) {
+                LibraryPrefix = "lib";
+                LibrarySuffix = ".so";
+                // Hack to detect macOS
+                if (File.Exists ("/usr/lib/libSystem.dylib")) {
+                    LibrarySuffix = ".dylib";
+                }
+            } else if (Environment.OSVersion.Platform == PlatformID.MacOSX) {
+                // Pretty sure that this case will never happen because of
+                // http://lists.ximian.com/pipermail/mono-devel-list/2011-November/038257.html
+                // ...but including it just in case.
+                LibraryPrefix = "lib";
+                LibrarySuffix = ".dylib";
+            } else {
+                LibraryPrefix = "";
+                LibrarySuffix = ".dll";
+            }
+        }
 
         [DllImport ("dl.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr dlopen (string path, Mode mode);
@@ -28,7 +49,6 @@ namespace GISharp.Runtime
                 throw new ArgumentException (message, nameof(mode));
             }
 
-            // TODO: need to make this platform-specific
             name = string.Format ($"{LibraryPrefix}{name}{LibrarySuffix}");
 
             lock (lockObj) {
@@ -58,6 +78,22 @@ namespace GISharp.Runtime
                 return null;
             }
             return(uint)Marshal.ReadInt32 (ptr);
+        }
+
+        public IntPtr GetPointer (string symbol)
+        {
+            AssertNotDisposed ();
+            return GetSymbol (symbol);
+        }
+
+        public T GetFunction<T> (string symbol)
+        {
+            AssertNotDisposed ();
+            var ptr = GetSymbol (symbol);
+            if (ptr == IntPtr.Zero) {
+                return default(T);
+            }
+            return Marshal.GetDelegateForFunctionPointer<T> (ptr);
         }
 
         [DllImport ("dl.dll", CallingConvention = CallingConvention.Cdecl)]
