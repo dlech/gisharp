@@ -1,11 +1,11 @@
 using System;
 using System.Runtime.InteropServices;
+using System.Threading;
 using GISharp.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.GLib
 {
-
     /// <summary>
     /// The `GMainContext` struct is an opaque data
     /// type representing a set of sources to be handled in a main loop.
@@ -1431,6 +1431,67 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             g_main_context_wakeup (Handle);
+        }
+
+        GSyncronizationContext _SynchronizationContext;
+        /// <summary>
+        /// Gets the .NET synchronization context for this context.
+        /// </summary>
+        /// <value>The synchronization context.</value>
+        /// <remarks>
+        /// This is used to integrate with .NET async.
+        ///
+        /// SynchronizationContext.SetSynchronizationContext (MainContext.Default.SynchronizationContext);
+        ///
+        /// ...should be called once at the begining of a program so that async
+        /// function callbacks will run in the default GLib main context.
+        /// </remarks>
+        public SynchronizationContext SynchronizationContext {
+            get {
+                if (_SynchronizationContext == null) {
+                    _SynchronizationContext = new GSyncronizationContext (this);
+                }
+                return _SynchronizationContext;
+            }
+        }
+    }
+
+    /// <summary>
+    /// .NET syncronization context for a GLib <see cref="MainContext"/>
+    /// </summary>
+    class GSyncronizationContext : SynchronizationContext
+    {
+        readonly MainContext context;
+
+        public GSyncronizationContext (MainContext context)
+        {
+            if (context == null) {
+                throw new ArgumentNullException (nameof (context));
+            }
+            this.context = context;
+        }
+
+        public override SynchronizationContext CreateCopy ()
+        {
+            return new GSyncronizationContext (context);
+        }
+
+        public override void Post (SendOrPostCallback d, object state)
+        {
+            var source = Idle.CreateSource ();
+            source.SetCallback (() => {
+                d.Invoke (state);
+                return Source.Remove_;
+            });
+            source.Attach (context);
+        }
+
+        public override void Send (SendOrPostCallback d, object state)
+        {
+            context.Invoke (() => {
+                d.Invoke (state);
+                return Source.Remove_;
+            });
         }
     }
 }

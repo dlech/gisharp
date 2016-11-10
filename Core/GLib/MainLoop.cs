@@ -6,39 +6,6 @@ using GISharp.Runtime;
 
 namespace GISharp.GLib
 {
-    class MainLoopSyncronizationContext : SynchronizationContext
-    {
-        readonly MainContext context;
-
-        public MainLoopSyncronizationContext (MainContext context = null)
-        {
-            this.context = context ?? MainContext.Default;
-        }
-
-        public override SynchronizationContext CreateCopy ()
-        {
-            return new MainLoopSyncronizationContext (context);
-        }
-
-        public override void Post (SendOrPostCallback d, object state)
-        {
-            var source = Idle.CreateSource ();
-            source.SetCallback (() => {
-                d.Invoke (state);
-                return Source.Remove_;
-            });
-            source.Attach (context);
-        }
-
-        public override void Send (SendOrPostCallback d, object state)
-        {
-            context.Invoke (() => {
-                d.Invoke (state);
-                return Source.Remove_;
-            });
-        }
-    }
-
     /// <summary>
     /// The `GMainLoop` struct is an opaque data type
     /// representing the main event loop of a GLib or GTK+ application.
@@ -253,12 +220,16 @@ namespace GISharp.GLib
         /// If this is called for the thread of the loop's <see cref="MainContext"/>
         /// it will process events from the loop, otherwise it will simply wait.
         /// </summary>
+        /// <remarks>
+        /// This also has the effect of setting the <see cref="SynchronizationContext"/>
+        /// so that .NET async works transparently with the <see cref="MainLoop"/>.
+        /// </remarks>
         public void Run ()
         {
             AssertNotDisposed ();
             var oldSyncContext = SynchronizationContext.Current;
             try {
-                var newSyncContext = new MainLoopSyncronizationContext (Context);
+                var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext (newSyncContext);
                 g_main_loop_run (Handle);
             } finally {
