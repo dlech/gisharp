@@ -53,6 +53,7 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeSpan']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeVal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='TimeVal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeZone']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='TimeType']"
 # environment
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='listenv']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='MODULE_SUFFIX']"
@@ -224,7 +225,10 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='PtrArray']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='DestroyNotify']"
 # Error
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Error']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='Error']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name, 'set_error')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name, 'clear_error')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name, 'prefix_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name, 'propagate_')]"
 # HashTable
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTable']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='HashFunc']"
@@ -250,6 +254,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='Func']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainContext']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='main_depth']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='poll']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='PollFD']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='PollFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]"
@@ -257,6 +263,10 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='MainLoop']"
 # Node
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CopyFunc']"
+# Quark
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]"
 # SList
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SList']"
 # Source
@@ -266,37 +276,24 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Source']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SourceFuncs']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='SourceCallbackFuncs']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='main_current_source']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='SourceFunc']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='SourceDummyMarshal']"
 # Strv
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Strv']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='strv_get_type']"
+# Type
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
+# Variant
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='variant_get_gtype']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:enumeration[@name='VariantClass']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantIter']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']"
 
 #########################
 # Fixup everything else #
 #########################
-
-# Type
-
-# ignore it since it is actually defined in GObject
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Type']"
-# ignore the two functions that use GType
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='strv_get_type']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='variant_get_gtype']"
-
-# Quark
-
-# Implemented in Core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:alias[@name='Quark']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]"
-# intern_* is related to Quark
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'intern_')]"
-
-# Error
-
-# Move some functions to the Error record
-move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'set_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'prefix_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'propagate_')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
-move "gi:repository/gi:namespace/gi:function[starts-with(@name, 'clear_error')]" "gi:repository/gi:namespace/gi:record[@name='Error']"
-
 
 # KeyFile
 
@@ -321,15 +318,6 @@ move "gi:repository/gi:namespace/gi:function[starts-with(@name,'log')]" "gi:repo
 chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[starts-with(@name,'log_')]"
 # valist is not supported yet
 chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='logv']"
-
-# Variant
-
-# Implemented in Core
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Variant']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantClass']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantIter']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='VariantType']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']"
 
 # Version
 
