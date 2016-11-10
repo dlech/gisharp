@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-
+using GISharp.GLib;
 using NUnit.Framework;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
     public class IdleTests

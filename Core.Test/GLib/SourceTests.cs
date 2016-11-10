@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
-
 using NUnit.Framework;
 using GISharp.GLib;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
     public class SourceTests

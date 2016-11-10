@@ -1,8 +1,9 @@
-﻿using NUnit.Framework;
+﻿using System;
 using System.Threading.Tasks;
-using System;
+using GISharp.GLib;
+using NUnit.Framework;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
     public class TimeoutTests
