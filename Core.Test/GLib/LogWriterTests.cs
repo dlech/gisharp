@@ -10,6 +10,9 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestFormatFields ()
         {
+            // support for structured logs was added in v2.50
+            Utility.IgnoreTestWhenGLibVersionIsLessThan ("2.50");
+
             var message = new Dictionary<string, string> {
                 { "MESSAGE", "Test message." },
                 { "MESSAGE_ID", "47bfe69d2c27ef0b4e06d4df59e6c246" },
