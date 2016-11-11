@@ -85,24 +85,28 @@ namespace GISharp.Runtime
             }
         }
 
+        static object getInstanceLock = new object ();
+
         public static T GetInstance<T> (IntPtr handle, Transfer ownership, Type typeHint = null) where T : Opaque
         {
             if (handle == IntPtr.Zero && !GetNullHandleIsInstance<T> ()) {
                 return null;
             }
-            var obj = ReferenceCountedOpaque.TryGetExisting (handle) as T;
-            if (obj != null) {
-                if (ownership != Transfer.None) {
-                    // we already have a reference, so we don't need another one.
-                    (obj as ReferenceCountedOpaque).Unref ();
+            lock (getInstanceLock) {
+                var obj = ReferenceCountedOpaque.TryGetExisting (handle) as T;
+                if (obj != null) {
+                    if (ownership != Transfer.None) {
+                        // we already have a reference, so we don't need another one.
+                        (obj as ReferenceCountedOpaque).Unref ();
+                    }
+                    return obj;
                 }
+
+                obj = (T)Activator.CreateInstance (typeHint ?? typeof (T),
+                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
+                    null, new object[] { handle, ownership }, null);
                 return obj;
             }
-
-            obj = (T)Activator.CreateInstance (typeHint ?? typeof(T),
-                System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
-                null, new object[] { handle, ownership }, null);
-            return obj;
         }
     }
 
