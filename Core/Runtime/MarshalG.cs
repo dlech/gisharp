@@ -126,6 +126,30 @@ namespace GISharp.Runtime
             return Encoding.UTF8.GetString (PtrToByteString (ptr, freePtr));
         }
 
+        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_locale_to_utf8 (IntPtr opsysstring, IntPtr len, UIntPtr bytesRead, UIntPtr bytesWritten, IntPtr error);
+
+        /// <summary>
+        /// Marshals a char* in the system locale to a managed string.
+        /// </summary>
+        /// <returns>The string.</returns>
+        /// <param name="ptr">Pointer to the unmanaged string.</param>
+        /// <param name="freePtr">If set to <c>true</c> free the pointer.</param>
+        public static string LocalePtrToString (IntPtr ptr, bool freePtr = false)
+        {
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
+            // FIXME: There are a couple of problems here. Using -1 for length
+            // can cause problems if the locale allows null bytes in the string.
+            // Also, we should throw an exception if there is an error.
+            var utf8Ptr = g_locale_to_utf8 (ptr, new IntPtr (-1), UIntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
+            if (freePtr) {
+                Free (ptr);
+            }
+            return Utf8PtrToString (utf8Ptr, true);
+        }
+
         /// <summary>
         /// Marshals a managed string to a GLib UTF8 char*.
         /// </summary>
