@@ -1,0 +1,14 @@
+language: csharp
+os: osx
+solution: GISharp.sln
+install:
+  - brew update
+  - brew install glib gobject-introspection
+  - nuget restore GISharp.sln
+  - nuget install Nunit.Runners -Version 2.6.4 -OutputDirectory packages
+script:
+  - xbuild /p:Configuration=Release GISharp.sln
+  - mono packages/Nunit.Runners.2.6.4/tools/nunit-console.exe Core.Test/bin/Release/Core.Test.dll -labels
+  - mono packages/Nunit.Runners.2.6.4/tools/nunit-console.exe Gio-2.0.Test/bin/Release/Gio-2.0.Test.dll -labels
+  - mono packages/Nunit.Runners.2.6.4/tools/nunit-console.exe GLib-2.0.Test/bin/Release/GLib-2.0.Test.dll -labels
+  - mono packages/Nunit.Runners.2.6.4/tools/nunit-console.exe GIRespository-2.0.Test/bin/Release/GIRespository-2.0.Test.dll -labels
