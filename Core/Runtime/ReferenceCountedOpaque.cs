@@ -21,11 +21,18 @@ namespace GISharp.Runtime
                 throw new NotSupportedException ();
             }
             Handle = handle;
+            if (ownership == Transfer.None) {
+                Ref ();
+            }
             lock (lockObj) {
-                    objectMap.Add (handle, new WeakReference (this));
-                    if (ownership == Transfer.None) {
-                        Ref ();
-                    }
+                // There could be an old object with the same handle that hasn't
+                // been disposed/finalized yet and is still in the objectMap;
+                if (objectMap.ContainsKey (handle) && !objectMap[handle].IsAlive) {
+                    objectMap.Remove (handle);
+                }
+                // Adding will throw an exception if there is an existing object
+                // with this handle that is still alive.
+                objectMap.Add (handle, new WeakReference (this));
             }
         }
 
