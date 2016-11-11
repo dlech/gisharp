@@ -58,6 +58,7 @@
     <Compile Include="GLib\MainLoopTests.cs" />
     <Compile Include="GLib\SourceTests.cs" />
     <Compile Include="GLib\TimeoutTests.cs" />
+    <Compile Include="GLib\LogWriterTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

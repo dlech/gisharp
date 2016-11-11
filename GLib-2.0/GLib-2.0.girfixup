@@ -245,6 +245,12 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int_hash']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int64_equal']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[@name='int64_hash']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='HashTableIter']"
+# Log
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:function[starts-with(@name,'log')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[starts-with(@name,'Log')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:bitfield[starts-with(@name,'Log')]"
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[starts-with(@name,'Log')]"
 # List
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='List']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:callback[@name='CompareFunc']"
@@ -303,21 +309,6 @@ move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]" "g
 chattr "name" "KEY_FILE_(.*)" "$1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]"
 # Hide the free function since this is reference counted
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='free']"
-
-# Log
-
-# add a static class for log_ functions
-addelement "<gs:static-class name='Log' />" "gi:repository/gi:namespace"
-# Move LOG_ constants to Log static-class
-move "gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]" "gi:repository/gi:namespace/gs:static-class[@name='Log']"
-# Drop the LOG_ prefix from the function names
-chattr "name" "LOG_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:constant[starts-with(@name,'LOG_')]"
-# Move log functions to Log static-class
-move "gi:repository/gi:namespace/gi:function[starts-with(@name,'log')]" "gi:repository/gi:namespace/gs:static-class[@name='Log']"
-# Drop the log_ prefix from the function names
-chattr "name" "log_(.*)" "$1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[starts-with(@name,'log_')]"
-# valist is not supported yet
-chattr "skip" "" "1" "gi:repository/gi:namespace/gs:static-class[@name='Log']/gi:function[@name='logv']"
 
 # Version
 

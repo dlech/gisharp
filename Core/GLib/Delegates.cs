@@ -367,6 +367,118 @@ namespace GISharp.GLib
     // Analysis restore InconsistentNaming
 
     /// <summary>
+    /// Specifies the prototype of log handler functions.
+    /// </summary>
+    /// <remarks>
+    /// The default log handler, g_log_default_handler(), automatically appends a
+    /// new-line character to @message when printing it. It is advised that any
+    /// custom log handler functions behave similarly, so that logging calls in user
+    /// code do not need modifying to add a new-line character to the message if the
+    /// log handler is changed.
+    /// 
+    /// This is not used if structured logging is enabled; see
+    /// [Using Structured Logging][using-structured-logging].
+    /// </remarks>
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate void NativeLogFunc (
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* transfer-ownership:none */
+        IntPtr logDomain,
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* transfer-ownership:none */
+        LogLevelFlags logLevel,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* transfer-ownership:none */
+        IntPtr message,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 closure:3 */
+        IntPtr userData);
+
+    /// <summary>
+    /// Specifies the prototype of log handler functions.
+    /// </summary>
+    /// <remarks>
+    /// The default log handler, g_log_default_handler(), automatically appends a
+    /// new-line character to @message when printing it. It is advised that any
+    /// custom log handler functions behave similarly, so that logging calls in user
+    /// code do not need modifying to add a new-line character to the message if the
+    /// log handler is changed.
+    /// 
+    /// This is not used if structured logging is enabled; see
+    /// [Using Structured Logging][using-structured-logging].
+    /// </remarks>
+    public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
+
+    static class ManagedLogFunc
+    {
+        public static void Invoke (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
+        {
+            var logDomain = MarshalG.Utf8PtrToString (logDomain_);
+            var message = MarshalG.Utf8PtrToString (message_);
+            var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
+            logFunc (logDomain, logLevel_, message);
+        }
+    }
+
+    /// <summary>
+    /// Writer function for log entries. A log entry is a collection of one or more
+    /// #GLogFields, using the standard [field names from journal
+    /// specification](https://www.freedesktop.org/software/systemd/man/systemd.journal-fields.html).
+    /// See g_log_structured() for more information.
+    /// </summary>
+    /// <remarks>
+    /// Writer functions must ignore fields which they do not recognise, unless they
+    /// can write arbitrary binary output, as field values may be arbitrary binary.
+    /// 
+    /// @log_level is guaranteed to be included in @fields as the `PRIORITY` field,
+    /// but is provided separately for convenience of deciding whether or where to
+    /// output the log entry.
+    /// </remarks>
+    [Since ("2.50")]
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate LogWriterOutput NativeLogWriterFunc (
+        /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+        /* transfer-ownership:none */
+        LogLevelFlags logLevel,
+        /* <array length="2" zero-terminated="0" type="GLogField*">
+            <type name="LogField" type="GLogField" managed-name="LogField" />
+            </array> */
+        /* transfer-ownership:none */
+        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
+        /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
+        /* transfer-ownership:none */
+        UIntPtr nFields,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 closure:3 */
+        IntPtr userData);
+
+    /// <summary>
+    /// Writer function for log entries. A log entry is a collection of one or more
+    /// #GLogFields, using the standard [field names from journal
+    /// specification](https://www.freedesktop.org/software/systemd/man/systemd.journal-fields.html).
+    /// See g_log_structured() for more information.
+    /// </summary>
+    /// <remarks>
+    /// Writer functions must ignore fields which they do not recognise, unless they
+    /// can write arbitrary binary output, as field values may be arbitrary binary.
+    /// 
+    /// @log_level is guaranteed to be included in @fields as the `PRIORITY` field,
+    /// but is provided separately for convenience of deciding whether or where to
+    /// output the log entry.
+    /// </remarks>
+    [Since ("2.50")]
+    public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
+
+    static class ManagedLogWriterFunc
+    {
+        public static LogWriterOutput Invoke (LogLevelFlags logLevel, LogField[] fields, UIntPtr nfields, IntPtr userData)
+        {
+            var logWriterFunc = (LogWriterFunc)GCHandle.FromIntPtr (userData).Target;
+            return logWriterFunc (logLevel, fields);
+        }
+    }
+
+    /// <summary>
     /// Specifies the type of function passed to <see cref="MainContext.PollFunc"/>.
     /// The semantics of the function should match those of the poll() system call.
     /// </summary>

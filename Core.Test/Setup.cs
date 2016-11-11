@@ -1,48 +1,25 @@
-﻿using System;
-using System.Runtime.InteropServices;
-
+﻿
+using GISharp.GLib;
 using NUnit.Framework;
-using GISharp.Runtime;
 
-namespace GISharp.Core.Test
+// no namespace, so this applies to all tests in the assembly
+
+[SetUpFixture]
+public class Setup
 {
-    [SetUpFixture]
-    public class Setup
+    static void FailOnLog (string logDomain, LogLevelFlags logLevel, string message)
     {
-        [Flags]
-        enum LogLevelFlags
-        {
-            Recursion   = 1,
-            Fatal       = 2,
-            Error       = 4,
-            Critical    = 8,
-            Warning     = 16,
-            Message     = 32,
-            Info        = 64,
-            Debug       = 128,
-        }
+        Assert.Fail ($"({logDomain}) {logLevel}: {message}");
+    }
 
-        delegate void LogFunc (IntPtr logDomainPtr, LogLevelFlags logLevel,
-                               IntPtr messagePtr, IntPtr userDataPtr);
-
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern uint g_log_set_default_handler (LogFunc logFunc, IntPtr userDataPtr);
-
-        static void Log (IntPtr logDomainPtr, LogLevelFlags logLevel,
-                         IntPtr messagePtr, IntPtr userDataPtr)
-        {
-            var logDomain = MarshalG.Utf8PtrToString (logDomainPtr);
-            var message = MarshalG.Utf8PtrToString (messagePtr);
-            Assert.Fail ($"({logDomain}) {logLevel}: {message}");
-        }
-
-        [SetUp]
-        public void SetupLogger ()
-        {
-            // this will cause any test that calls g_log in the test's thread
-            // to fail. If g_log is called in another thread, then there will
-            // probably be an unhandled exception.
-            g_log_set_default_handler (Log, IntPtr.Zero);
-        }
+    [SetUp]
+    public void SetupAssembly ()
+    {
+        Utility.ApplicationName = "Core Test";
+        Utility.ProgramName = "Core.Test";
+        // this will cause any test that calls g_log in the test's thread
+        // to fail. If g_log is called in another thread, then there will
+        // probably be an unhandled exception.
+        Log.SetDefaultHandler (FailOnLog);
     }
 }

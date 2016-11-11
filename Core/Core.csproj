@@ -108,6 +108,11 @@
     <Compile Include="GLib\MainContext.cs" />
     <Compile Include="GLib\MainLoop.cs" />
     <Compile Include="GLib\UnixSignal.cs" />
+    <Compile Include="GLib\Log.cs" />
+    <Compile Include="GLib\LogField.cs" />
+    <Compile Include="GLib\LogLevelFlags.cs" />
+    <Compile Include="GLib\LogWriterOutput.cs" />
+    <Compile Include="GLib\LogWriter.cs" />
     <Compile Include="GLib\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
