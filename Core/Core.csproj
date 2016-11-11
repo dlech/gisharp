@@ -108,6 +108,7 @@
     <Compile Include="GLib\MainContext.cs" />
     <Compile Include="GLib\MainLoop.cs" />
     <Compile Include="GLib\UnixSignal.cs" />
+    <Compile Include="GLib\Utility.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">
