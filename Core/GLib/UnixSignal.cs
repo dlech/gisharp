@@ -75,9 +75,9 @@ namespace GISharp.GLib
             if (handler == null) {
                 throw new ArgumentNullException (nameof(handler));
             }
-            NativeSourceFunc handler_ = ManagedSourceFunc.Invoke;
+            NativeSourceFunc handler_ = SourceFuncMarshaler.Invoke;
             var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (handler));
-            NativeDestroyNotify notify_ = ManagedDestroyNotify.Invoke;
+            NativeDestroyNotify notify_ = DestroyNotifyMarshaler.Invoke;
             var ret = g_unix_signal_add_full (priority, signum, handler_, userData_, notify_);
             return ret;
         }

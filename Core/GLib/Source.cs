@@ -1282,9 +1282,9 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            NativeSourceFunc func_ = ManagedSourceFunc.Invoke;
+            NativeSourceFunc func_ = SourceFuncMarshaler.Invoke;
             var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (func));
-            NativeDestroyNotify notify_ = ManagedDestroyNotify.Invoke;
+            NativeDestroyNotify notify_ = DestroyNotifyMarshaler.Invoke;
             g_source_set_callback (Handle, func_, data_, notify_);
         }
 

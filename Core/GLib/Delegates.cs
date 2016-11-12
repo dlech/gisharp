@@ -145,7 +145,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Provides a default unmanged callback for freeing a GCHandle.
     /// </summary>
-    public static class ManagedDestroyNotify
+    public static class DestroyNotifyMarshaler
     {
         public static void Invoke (IntPtr userData)
         {
@@ -409,7 +409,7 @@ namespace GISharp.GLib
     /// </remarks>
     public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
 
-    static class ManagedLogFunc
+    static class LogFuncMarshaler
     {
         public static void Invoke (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
         {
@@ -469,7 +469,7 @@ namespace GISharp.GLib
     [Since ("2.50")]
     public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
 
-    static class ManagedLogWriterFunc
+    static class LogWriterFuncMarshaler
     {
         public static LogWriterOutput Invoke (LogLevelFlags logLevel, LogField[] fields, UIntPtr nfields, IntPtr userData)
         {
@@ -513,7 +513,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Provides default unmanaged callback for wrapping a managed <see cref="SourceFunc"/>.
     /// </summary>
-    public static class ManagedSourceFunc
+    public static class SourceFuncMarshaler
     {
         /// <summary>
         /// Invoke the managage callback

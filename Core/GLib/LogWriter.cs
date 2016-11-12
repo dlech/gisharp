@@ -80,9 +80,9 @@ namespace GISharp.GLib
             } else if (func == StandardStreams) {
                 g_log_set_writer_func (g_log_writer_standard_streams, IntPtr.Zero, null);
             } else {
-                NativeLogWriterFunc func_ = ManagedLogWriterFunc.Invoke;
+                NativeLogWriterFunc func_ = LogWriterFuncMarshaler.Invoke;
                 var userData_ = (IntPtr)GCHandle.Alloc (func);
-                NativeDestroyNotify userDataFree_ = ManagedDestroyNotify.Invoke;
+                NativeDestroyNotify userDataFree_ = DestroyNotifyMarshaler.Invoke;
                 g_log_set_writer_func (func_, userData_, userDataFree_);
             }
             isFuncSet = true;

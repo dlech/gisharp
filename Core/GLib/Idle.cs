@@ -82,9 +82,9 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            NativeSourceFunc function_ = ManagedSourceFunc.Invoke;
+            NativeSourceFunc function_ = SourceFuncMarshaler.Invoke;
             var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (function));
-            NativeDestroyNotify notify_ = ManagedDestroyNotify.Invoke;
+            NativeDestroyNotify notify_ = DestroyNotifyMarshaler.Invoke;
             var ret = g_idle_add_full (priority, function_, data_, notify_);
 
             return ret;
