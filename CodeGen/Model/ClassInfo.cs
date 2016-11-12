@@ -169,36 +169,36 @@ namespace GISharp.CodeGen.Model
 
         MethodDeclarationSyntax GetGTypeStructCreateInterfaceInfoMethod ()
         {
-            var method = SyntaxFactory.MethodDeclaration (
-                SyntaxFactory.ParseTypeName (typeof(GISharp.GObject.InterfaceInfo).FullName),
+            var method = MethodDeclaration (
+                ParseTypeName (typeof(GISharp.GObject.InterfaceInfo).FullName),
                 nameof (GISharp.GObject.TypeInterface.CreateInterfaceInfo))
                 .AddModifiers (
-                             SyntaxFactory.Token (SyntaxKind.PublicKeyword),
-                             SyntaxFactory.Token (SyntaxKind.OverrideKeyword))
+                    Token (SyntaxKind.PublicKeyword),
+                    Token (SyntaxKind.OverrideKeyword))
                 .AddParameterListParameters (
-                             SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("type"))
-                    .WithType (SyntaxFactory.ParseTypeName (typeof(Type).FullName)))
+                             Parameter (ParseToken ("type"))
+                    .WithType (ParseTypeName (typeof(Type).FullName)))
                 .AddBodyStatements (
-                    SyntaxFactory.ParseStatement (@"var ret = new GISharp.GObject.InterfaceInfo {
+                    ParseStatement (@"var ret = new GISharp.GObject.InterfaceInfo {
                 InterfaceInit = InterfaceInit,
             };"),
-                    SyntaxFactory.ParseStatement ("return ret;"));
+                    ParseStatement ("return ret;"));
 
             return method;
         }
 
         MethodDeclarationSyntax GetGTypeStructInterfaceInitMethod()
         {
-            var method = SyntaxFactory.MethodDeclaration(
-                SyntaxFactory.PredefinedType(SyntaxFactory.Token (SyntaxKind.VoidKeyword)),
+            var method = MethodDeclaration(
+                PredefinedType(Token (SyntaxKind.VoidKeyword)),
                 "InterfaceInit")
-                .AddModifiers(SyntaxFactory.Token(SyntaxKind.StaticKeyword))
+                .AddModifiers(Token(SyntaxKind.StaticKeyword))
                 .AddParameterListParameters (
-                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("gIface"))
-                        .WithType (SyntaxFactory.ParseTypeName (typeof(IntPtr).FullName)),
-                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("userData"))
-                        .WithType (SyntaxFactory.ParseTypeName (typeof(IntPtr).FullName)))
-                .WithBody (SyntaxFactory.Block (GetGTypeStructInterfaceInitStatements ()));
+                    Parameter (ParseToken ("gIface"))
+                        .WithType (ParseTypeName (typeof(IntPtr).FullName)),
+                    Parameter (ParseToken ("userData"))
+                        .WithType (ParseTypeName (typeof(IntPtr).FullName)))
+                .WithBody (Block (GetGTypeStructInterfaceInitStatements ()));
 
             return method;
         }
@@ -214,15 +214,15 @@ namespace GISharp.CodeGen.Model
 
                 statement = string.Format ("var {0}Offset = {1}.OffsetOf<{2}> (nameof ({2}.{3}));\n",
                     prefix, typeof(Marshal).FullName, structName, methodName);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
 
                 statement = string.Format ("var {0}Ptr = {1}.GetFunctionPointerForDelegate<{2}.{3}> ({4});\n",
                     prefix, typeof(Marshal).FullName, structName, delegateName, methodName);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
 
                 statement = string.Format ("{0}.WriteIntPtr (gIface, (int){1}Offset, {1}Ptr);\n",
                     typeof(Marshal).FullName, prefix);
-                yield return SyntaxFactory.ParseStatement (statement);
+                yield return ParseStatement (statement);
             }
         }
 
@@ -232,10 +232,10 @@ namespace GISharp.CodeGen.Model
                 var methodName = f.ManagedName;
                 var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
 
-                var method = SyntaxFactory.MethodDeclaration (returnType, methodName)
-                    .AddModifiers (SyntaxFactory.Token (SyntaxKind.StaticKeyword))
+                var method = MethodDeclaration (returnType, methodName)
+                    .AddModifiers (Token (SyntaxKind.StaticKeyword))
                     .WithParameterList (f.CallbackInfo.MethodInfo.UnmanagedParameterList)
-                    .WithBody (SyntaxFactory.Block (f.CallbackInfo.MethodInfo.VirtualMethodImplStatements));
+                    .WithBody (Block (f.CallbackInfo.MethodInfo.VirtualMethodImplStatements));
 
                 yield return method;
             }
@@ -243,17 +243,17 @@ namespace GISharp.CodeGen.Model
 
         MethodDeclarationSyntax GetGTypeStructGetInfoMethod ()
         {
-            var method = SyntaxFactory.MethodDeclaration (
-                SyntaxFactory.ParseTypeName (typeof(GISharp.GObject.TypeInfo).FullName),
+            var method = MethodDeclaration (
+                ParseTypeName (typeof(GISharp.GObject.TypeInfo).FullName),
                 nameof (GISharp.GObject.TypeClass.GetTypeInfo))
                 .AddModifiers (
-                    SyntaxFactory.Token (SyntaxKind.PublicKeyword),
-                    SyntaxFactory.Token (SyntaxKind.OverrideKeyword))
+                    Token (SyntaxKind.PublicKeyword),
+                    Token (SyntaxKind.OverrideKeyword))
                 .AddParameterListParameters (
-                    SyntaxFactory.Parameter (SyntaxFactory.ParseToken ("type"))
-                    .WithType (SyntaxFactory.ParseTypeName (typeof(Type).FullName)))
+                    Parameter (ParseToken ("type"))
+                    .WithType (ParseTypeName (typeof(Type).FullName)))
                 .AddBodyStatements (
-                    SyntaxFactory.ParseStatement ($"throw new {typeof(NotImplementedException).FullName} ();"));
+                    ParseStatement ($"throw new {typeof(NotImplementedException).FullName} ();"));
 
             return method;
         }

@@ -18,7 +18,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<MemberDeclarationSyntax> StructMembers {
             get {
                 if (!_StructMembers.HasValue) {
-                    _StructMembers = SyntaxFactory.List<MemberDeclarationSyntax> (GetStructMemberDeclarations ());
+                    _StructMembers = List (GetStructMemberDeclarations ());
                 }
                 return _StructMembers.Value;
             }

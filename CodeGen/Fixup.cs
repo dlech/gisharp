@@ -9,6 +9,7 @@ using System.Xml.XPath;
 using System.Text.RegularExpressions;
 //using GISharp.Core;
 using Microsoft.CodeAnalysis.CSharp;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
@@ -963,7 +964,7 @@ namespace GISharp.CodeGen
             str = str.ToPascalCase ();
             str = ((str.Length > 0) ? str.Substring (0, 1).ToLower () : "")
                 + ((str.Length > 1) ? str.Substring (1) : "");
-            if (SyntaxFactory.ParseToken (str).IsReservedKeyword ()) {
+            if (ParseToken (str).IsReservedKeyword ()) {
                 str = "@" + str;
             }
             return str;

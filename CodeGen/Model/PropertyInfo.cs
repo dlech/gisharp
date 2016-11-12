@@ -1,9 +1,10 @@
 ﻿using System;
-using System.Xml.Linq;
 using System.Collections.Generic;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.CodeAnalysis.CSharp;
+using System.Xml.Linq;
 using GISharp.Runtime;
+using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen.Model
 {
@@ -73,15 +74,15 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var property = SyntaxFactory.PropertyDeclaration (TypeInfo.Type, ManagedName)
+            var property = PropertyDeclaration (TypeInfo.Type, ManagedName)
                 .WithAttributeLists (AttributeLists);
             if (IsReadable) {
-                property = property.AddAccessorListAccessors (SyntaxFactory.AccessorDeclaration (SyntaxKind.GetAccessorDeclaration)
-                    .WithSemicolonToken (SyntaxFactory.Token (SyntaxKind.SemicolonToken)));
+                property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.GetAccessorDeclaration)
+                    .WithSemicolonToken (Token (SyntaxKind.SemicolonToken)));
             }
             if (IsWriteable) {
-                property = property.AddAccessorListAccessors (SyntaxFactory.AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
-                    .WithSemicolonToken (SyntaxFactory.Token (SyntaxKind.SemicolonToken)));
+                property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
+                    .WithSemicolonToken (Token (SyntaxKind.SemicolonToken)));
             }
 
             yield return property;
@@ -89,9 +90,9 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
-            var property = SyntaxFactory.AttributeList ()
-                .AddAttributes (SyntaxFactory.Attribute (SyntaxFactory.ParseName (typeof(PropertyAttribute).FullName))
-                    .AddArgumentListArguments(SyntaxFactory.AttributeArgument (SyntaxFactory.ParseExpression ($"\"{GirName}\""))));
+            var property = AttributeList ()
+                .AddAttributes (Attribute (ParseName (typeof(PropertyAttribute).FullName))
+                    .AddArgumentListArguments(AttributeArgument (ParseExpression ($"\"{GirName}\""))));
             yield return property;
 
             foreach (var a in base.GetAttributeLists ()) {

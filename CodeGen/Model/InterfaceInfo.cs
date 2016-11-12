@@ -76,10 +76,10 @@ namespace GISharp.CodeGen.Model
                 .WithLeadingTrivia (DocumentationCommentTriviaList);
             yield return interfaceDeclaration;
 
-            var interfaceExtensionsModifiers = SyntaxFactory.TokenList ()
-                .Add (SyntaxFactory.Token (SyntaxKind.PublicKeyword))
-                .Add (SyntaxFactory.Token (SyntaxKind.StaticKeyword));
-            var interfaceExtenstionsDeclaration = SyntaxFactory.ClassDeclaration (Identifier)
+            var interfaceExtensionsModifiers = TokenList ()
+                .Add (Token (SyntaxKind.PublicKeyword))
+                .Add (Token (SyntaxKind.StaticKeyword));
+            var interfaceExtenstionsDeclaration = ClassDeclaration (Identifier)
                 .WithModifiers (interfaceExtensionsModifiers)
                 .WithMembers (InterfaceExtensionsMembers);
             yield return interfaceExtenstionsDeclaration;

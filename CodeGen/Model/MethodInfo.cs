@@ -397,8 +397,8 @@ namespace GISharp.CodeGen.Model
             }
             yield return GetPinvokeInvocationStatement ();
 
-            var tryStatement = SyntaxFactory.TryStatement ()
-                .WithFinally (SyntaxFactory.FinallyClause (SyntaxFactory.Block (freeStatements)));
+            var tryStatement = TryStatement ()
+                .WithFinally (FinallyClause (Block (freeStatements)));
 
             if (ThrowsGErrorException) {
                 var errorIdentifier = PinvokeParameterInfos.Single (x => x.IsErrorParameter).Identifier;
@@ -410,14 +410,14 @@ namespace GISharp.CodeGen.Model
                     typeof(GISharp.Runtime.GErrorException).FullName,
                     nameof(GISharp.Runtime.GErrorException.CreateInstance),
                     errorIdentifier);
-                tryStatement = tryStatement.AddBlockStatements (SyntaxFactory.IfStatement (
-                    SyntaxFactory.ParseExpression (conditionExpression),
-                    SyntaxFactory.Block (SyntaxFactory.ParseStatement (throwStatement))));
+                tryStatement = tryStatement.AddBlockStatements (IfStatement (
+                    ParseExpression (conditionExpression),
+                    Block (ParseStatement (throwStatement))));
             }
 
             // must marshal output parameters before freeing input parameters
             // in case input parameters are passed through as output parameters
-            tryStatement = tryStatement.AddBlockStatements (SyntaxFactory.Block (ManagedParameterInfos
+            tryStatement = tryStatement.AddBlockStatements (Block (ManagedParameterInfos
                 .Where (x => x.IsOutParam)
                 .SelectMany (p => GetMarshalNativeToManagedStatements (p, false))));
 
@@ -901,7 +901,7 @@ namespace GISharp.CodeGen.Model
                 if (p.IsOutParam) {
                     if (p.TypeInfo.RequiresMarshal) {
                         var statement = $"{p.TypeInfo.Type} {p.ManagedName};\n";
-                        yield return SyntaxFactory.ParseStatement (statement);
+                        yield return ParseStatement (statement);
                     }
                 } else {
                     foreach (var s in GetMarshalNativeToManagedStatements (p, true)) {
