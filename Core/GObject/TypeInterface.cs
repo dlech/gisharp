@@ -220,7 +220,7 @@ namespace GISharp.GObject
         {
             uint nPrerequisites_;
             var ret_ = g_type_interface_prerequisites (interfaceType, out nPrerequisites_);
-            var ret = MarshalG.PtrToCArray<GType> (ret_, (int)nPrerequisites_, true);
+            var ret = GMarshal.PtrToCArray<GType> (ret_, (int)nPrerequisites_, true);
             return ret;
         }
 

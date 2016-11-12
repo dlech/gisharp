@@ -46,7 +46,7 @@
     <Compile Include="GLib\HashTable.cs" />
     <Compile Include="GLib\List.cs" />
     <Compile Include="Runtime\IndexedCollection.cs" />
-    <Compile Include="Runtime\MarshalG.cs" />
+    <Compile Include="Runtime\GMarshal.cs" />
     <Compile Include="Runtime\NullHandleIsInstanceAttribute.cs" />
     <Compile Include="GObject\Object.cs" />
     <Compile Include="GObject\ObjectClass.cs" />

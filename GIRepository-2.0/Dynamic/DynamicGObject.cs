@@ -51,7 +51,7 @@ namespace GISharp.GIRepository.Dynamic
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
             var objectClassPtr = Marshal.ReadIntPtr (Handle);
             var pspecPtr = g_object_class_find_property (objectClassPtr, namePtr);
             try {
@@ -63,7 +63,7 @@ namespace GISharp.GIRepository.Dynamic
                 var gvalue = new Value (valueType, value);
                 g_object_set_property (Handle, namePtr, ref gvalue);
             } finally {
-                MarshalG.Free (namePtr);
+                GMarshal.Free (namePtr);
             }
         }
 
@@ -72,10 +72,10 @@ namespace GISharp.GIRepository.Dynamic
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
             Value value;
             g_object_get_property (Handle, namePtr, out value);
-            MarshalG.Free (namePtr);
+            GMarshal.Free (namePtr);
 
             return value.Get ();
         }
@@ -118,9 +118,9 @@ namespace GISharp.GIRepository.Dynamic
             if (closure == null) {
                 throw new ArgumentNullException (nameof (closure));
             }
-            var signalSpecPtr = MarshalG.StringToUtf8Ptr (signalSpec);
+            var signalSpecPtr = GMarshal.StringToUtf8Ptr (signalSpec);
             var ret = g_signal_connect_closure (Handle, signalSpecPtr, closure.Handle, flags);
-            MarshalG.Free (signalSpecPtr);
+            GMarshal.Free (signalSpecPtr);
 
             return ret;
         }

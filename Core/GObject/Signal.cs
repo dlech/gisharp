@@ -375,12 +375,12 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (handler));
             }
 
-            var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
+            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             NativeCallback nativeHandler = () => handler ();
             var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<NativeCallback> (nativeHandler);
             var data = GCHandle.ToIntPtr (GCHandle.Alloc (nativeHandler));
             var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, DestroyConnectData, connectFlags);
-            MarshalG.Free (detailedSignal_);
+            GMarshal.Free (detailedSignal_);
 
             if (ret == 0) {
                 // TODO: More specific exception
@@ -637,7 +637,7 @@ namespace GISharp.GObject
         {
             uint nIds_;
             var ret_ = g_signal_list_ids (itype, out nIds_);
-            var ret = MarshalG.PtrToCArray<uint> (ret_, (int)nIds_, false);
+            var ret = GMarshal.PtrToCArray<uint> (ret_, (int)nIds_, false);
             return ret;
         }
 
@@ -695,9 +695,9 @@ namespace GISharp.GObject
             if (name == null) {
                 throw new ArgumentNullException ("name");
             }
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             var ret = g_signal_lookup (name_, itype);
-            MarshalG.Free (name_);
+            GMarshal.Free (name_);
             return ret;
         }
 
@@ -736,7 +736,7 @@ namespace GISharp.GObject
         public static string Name (uint signalId)
         {
             var ret_ = g_signal_name (signalId);
-            var ret = MarshalG.Utf8PtrToString (ret_, false);
+            var ret = GMarshal.Utf8PtrToString (ret_, false);
             return ret;
         }
 
@@ -1031,9 +1031,9 @@ namespace GISharp.GObject
             if (detailedSignal == null) {
                 throw new ArgumentNullException ("detailedSignal");
             }
-            var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
+            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             var ret = g_signal_parse_name (detailedSignal_, itype, out signalIdP, out detailP, forceDetailQuark);
-            MarshalG.Free (detailedSignal_);
+            GMarshal.Free (detailedSignal_);
             return ret;
         }
 
@@ -1226,9 +1226,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException ("detailedSignal");
             }
             var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-            var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
+            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             g_signal_stop_emission_by_name (instance_, detailedSignal_);
-            MarshalG.Free (detailedSignal_);
+            GMarshal.Free (detailedSignal_);
         }
 
         /// <summary>

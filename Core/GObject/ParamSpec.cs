@@ -119,7 +119,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_blurb (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
         }
@@ -196,7 +196,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_name (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
         }
@@ -261,7 +261,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_nick (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
         }
@@ -580,9 +580,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_boolean (namePtr, nickPtr, blurbPtr, defaultValue, flags);
 
             return pspecPtr;
@@ -630,9 +630,9 @@ namespace GISharp.GObject
             if (!boxedType.IsA (GType.Boxed)) {
                 throw new ArgumentException ("Expecting boxed type.", nameof (boxedType));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             ;
             var pspecPtr = g_param_spec_boxed (namePtr, nickPtr, blurbPtr, boxedType, flags);
 
@@ -680,9 +680,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_char (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -729,9 +729,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_uchar (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -778,9 +778,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_double (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -830,9 +830,9 @@ namespace GISharp.GObject
             if (!enumType.IsA (GType.Enum)) {
                 throw new ArgumentException ("Expecting an enum type", nameof (enumType));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_enum (namePtr, nickPtr, blurbPtr, enumType, defaultValue, flags);
 
             return pspecPtr;
@@ -882,9 +882,9 @@ namespace GISharp.GObject
             if (!flagsType.IsA (GType.Flags)) {
                 throw new ArgumentException ("Expecting an enum type", nameof (flagsType));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_flags (namePtr, nickPtr, blurbPtr, flagsType, defaultValue, flags);
 
             return pspecPtr;
@@ -931,9 +931,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_float (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -979,9 +979,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
 
             return pspecPtr;
@@ -1028,9 +1028,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_int (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1077,9 +1077,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_uint (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1126,9 +1126,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_int64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1175,9 +1175,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_uint64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1224,9 +1224,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_long (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1273,9 +1273,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_ulong (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             return pspecPtr;
@@ -1320,10 +1320,10 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
-            var defaultValuePtr = MarshalG.StringToUtf8Ptr (defaultValue);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
+            var defaultValuePtr = GMarshal.StringToUtf8Ptr (defaultValue);
             var pspecPtr = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
 
             return pspecPtr;
@@ -1371,9 +1371,9 @@ namespace GISharp.GObject
             if (!objectType.IsA (GType.Object)) {
                 throw new ArgumentException ("Expecting object type.", nameof (objectType));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_object (namePtr, nickPtr, blurbPtr, objectType, flags);
 
             return pspecPtr;
@@ -1442,9 +1442,9 @@ namespace GISharp.GObject
             if (!paramType.IsA (GType.Param)) {
                 throw new ArgumentException ("Expecting param type.", nameof (paramType));
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_param (namePtr, nickPtr, blurbPtr, paramType, flags);
 
             return pspecPtr;
@@ -1488,9 +1488,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_pointer (namePtr, nickPtr, blurbPtr, flags);
 
             return pspecPtr;
@@ -1535,9 +1535,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_unichar (namePtr, nickPtr, blurbPtr, defaultValue, flags);
 
             return pspecPtr;
@@ -1582,9 +1582,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (blurb));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var pspecPtr = g_param_spec_value_array (namePtr, nickPtr, blurbPtr, elementSpec.Handle, flags);
 
             return pspecPtr;
@@ -1634,9 +1634,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (type));
 
             }
-            var namePtr = MarshalG.StringToUtf8Ptr (name);
-            var nickPtr = MarshalG.StringToUtf8Ptr (nick);
-            var blurbPtr = MarshalG.StringToUtf8Ptr (blurb);
+            var namePtr = GMarshal.StringToUtf8Ptr (name);
+            var nickPtr = GMarshal.StringToUtf8Ptr (nick);
+            var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var defaultValuePtr = defaultValue == null ? IntPtr.Zero : defaultValue.Handle;
             var pspecPtr = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValuePtr, flags);
 

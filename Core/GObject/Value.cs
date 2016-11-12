@@ -1351,15 +1351,15 @@ namespace GISharp.GObject
             get {
                 AssertType (GType.String);
                 var ret_ = g_value_get_string (ref this);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
 
             set {
                 AssertType (GType.String);
-                var value_ = MarshalG.StringToUtf8Ptr (value);
+                var value_ = GMarshal.StringToUtf8Ptr (value);
                 g_value_set_string (ref this, value_);
-                MarshalG.Free (value_);
+                GMarshal.Free (value_);
             }
         }
 
@@ -2766,7 +2766,7 @@ namespace GISharp.GObject
         public override string ToString ()
         {
             var ret_ = g_strdup_value_contents (ref this);
-            var ret = MarshalG.Utf8PtrToString (ret_, freePtr: true);
+            var ret = GMarshal.Utf8PtrToString (ret_, freePtr: true);
 
             return $"{ValueGType.Name}: {ret}";
         }

@@ -85,7 +85,7 @@ namespace GISharp.GLib
             if (data == null) {
                 throw new ArgumentNullException ("data");
             }
-            var dataPtr = MarshalG.Alloc (data.Length);
+            var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
             var retPtr = g_byte_array_new_take (dataPtr, (ulong)data.Length);
             return retPtr;

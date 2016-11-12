@@ -284,7 +284,7 @@ namespace GISharp.Core.Test.GObject
         {
             if (_dummyGType == GType.Invalid) {
                 _dummyGType = g_type_register_static_simple(GType.Object,
-                    MarshalG.StringToUtf8Ptr(dummyTypeName),
+                    GMarshal.StringToUtf8Ptr(dummyTypeName),
                     new UIntPtr (256), IntPtr.Zero, new UIntPtr (32), IntPtr.Zero, 0);
             }
 

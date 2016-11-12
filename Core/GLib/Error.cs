@@ -50,7 +50,7 @@ namespace GISharp.GLib
             get {
                 var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Message));
                 var messagePtr = Marshal.ReadIntPtr (Handle, (int)offset);
-                return MarshalG.Utf8PtrToString (messagePtr);
+                return GMarshal.Utf8PtrToString (messagePtr);
             }
         }
 
@@ -71,7 +71,7 @@ namespace GISharp.GLib
             if (message == null) {
                 throw new ArgumentNullException (nameof (message));
             }
-            var messagePtr = MarshalG.StringToUtf8Ptr (message);
+            var messagePtr = GMarshal.StringToUtf8Ptr (message);
             var ret = g_error_new_literal (domain, code, messagePtr);
             return ret;
         }
@@ -92,7 +92,7 @@ namespace GISharp.GLib
             if (message == null) {
                 throw new ArgumentNullException (nameof (message));
             }
-            var messagePtr = MarshalG.StringToUtf8Ptr (message);
+            var messagePtr = GMarshal.StringToUtf8Ptr (message);
             g_set_error_literal (error, domain, code, messagePtr);
         }
 

@@ -18,8 +18,8 @@ namespace GISharp.Gio.Test
 
         static void Log (IntPtr logDomainPtr, uint log_level, IntPtr messagePtr, IntPtr user_data)
         {
-            var logDomain = MarshalG.Utf8PtrToString (logDomainPtr);
-            var message = MarshalG.Utf8PtrToString (messagePtr);
+            var logDomain = GMarshal.Utf8PtrToString (logDomainPtr);
+            var message = GMarshal.Utf8PtrToString (messagePtr);
             Assert.Fail ($"({logDomain}) {log_level} {message}");
         }
 

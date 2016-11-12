@@ -60,7 +60,7 @@ namespace GISharp.GObject
         SignalHandler ConnectNotifiySignal ()
         {
             var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
-            var id = Signal.g_signal_connect_data (Handle, MarshalG.StringToUtf8Ptr ("notify"),
+            var id = Signal.g_signal_connect_data (Handle, GMarshal.StringToUtf8Ptr ("notify"),
                 nativeNotifyPtr, IntPtr.Zero, null, default(ConnectFlags));
 
             return new SignalHandler (this, id);
@@ -194,19 +194,19 @@ namespace GISharp.GObject
                 }
                 var value = new Value (paramSpec.ValueType, parameters[i + 1]);
                 paramArray[i / 2] = new Parameter {
-                    Name = MarshalG.StringToUtf8Ptr (name),
+                    Name = GMarshal.StringToUtf8Ptr (name),
                 };
                 Marshal.StructureToPtr<Value> (value, paramArray[i / 2].Value, false);
             }
-            var paramArrayPtr = MarshalG.CArrayToPtr<Parameter> (paramArray, false);
+            var paramArrayPtr = GMarshal.CArrayToPtr<Parameter> (paramArray, false);
             try {
                 var ret_ = g_object_newv (gtype, (uint)paramArray.Length, paramArrayPtr);
 
                 return ret_;
             } finally {
-                MarshalG.Free (paramArrayPtr);
+                GMarshal.Free (paramArrayPtr);
                 foreach (var p in paramArray) {
-                    MarshalG.Free (p.Name);
+                    GMarshal.Free (p.Name);
                 }
             }
         }
@@ -288,10 +288,10 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
+            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_interface_find_property (gIface, propertyName_);
             var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
-            MarshalG.Free (propertyName_);
+            GMarshal.Free (propertyName_);
             return ret;
         }
 
@@ -421,7 +421,7 @@ namespace GISharp.GObject
         {
             uint nPropertiesP_;
             var ret_ = g_object_interface_list_properties (gIface, out nPropertiesP_);
-            var ret = MarshalG.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nPropertiesP_, true);
+            var ret = GMarshal.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nPropertiesP_, true);
             return ret;
         }
 
@@ -845,9 +845,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (propertyName));
             }
             var value = new Value (type);
-            var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
+            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             g_object_get_property (Handle, propertyName_, ref value);
-            MarshalG.Free (propertyName_);
+            GMarshal.Free (propertyName_);
 
             return value;
         }
@@ -904,9 +904,9 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
+            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             g_object_notify (Handle, propertyName_);
-            MarshalG.Free (propertyName_);
+            GMarshal.Free (propertyName_);
         }
 
         /// <summary>
@@ -1120,9 +1120,9 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
+            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             g_object_set_property (Handle, propertyName_, ref value);
-            MarshalG.Free (propertyName_);
+            GMarshal.Free (propertyName_);
         }
 
         /// <summary>

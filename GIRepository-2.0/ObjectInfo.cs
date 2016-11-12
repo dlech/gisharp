@@ -95,10 +95,10 @@ namespace GISharp.GIRepository
 
         public FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_method (Handle, native_name);
             var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -107,10 +107,10 @@ namespace GISharp.GIRepository
 
         public FunctionInfo FindMethodUsingInterfaces (string name, ObjectInfo implementor)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_method_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
             var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -119,10 +119,10 @@ namespace GISharp.GIRepository
 
         public SignalInfo FindSignal (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_signal (Handle, native_name);
             var ret = MarshalPtr<SignalInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -131,10 +131,10 @@ namespace GISharp.GIRepository
 
         public VFuncInfo FindVFunc (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_vfunc (Handle, native_name);
             var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -143,10 +143,10 @@ namespace GISharp.GIRepository
 
         public VFuncInfo FindVFuncUsingInterfaces (string name, ObjectInfo implementor)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_vfunc_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
             var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -206,7 +206,7 @@ namespace GISharp.GIRepository
         public string GetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_get_value_function (Handle);
-                string ret = MarshalG.Utf8PtrToString (raw_ret);
+                string ret = GMarshal.Utf8PtrToString (raw_ret);
                 return ret;
             }
         }
@@ -317,7 +317,7 @@ namespace GISharp.GIRepository
         public string RefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_ref_function (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -327,7 +327,7 @@ namespace GISharp.GIRepository
         public string SetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_set_value_function (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -346,7 +346,7 @@ namespace GISharp.GIRepository
         public new string TypeInit {
             get {
                 IntPtr raw_ret = g_object_info_get_type_init (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -356,7 +356,7 @@ namespace GISharp.GIRepository
         public new string TypeName {
             get {
                 IntPtr raw_ret = g_object_info_get_type_name (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -366,7 +366,7 @@ namespace GISharp.GIRepository
         public string UnrefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_unref_function (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 

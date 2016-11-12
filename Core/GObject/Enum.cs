@@ -112,7 +112,7 @@ namespace GISharp.GObject
         /// </param>
         static void CompleteTypeInfo (GType gEnumType, out TypeInfo info, EnumValue[] constValues)
         {
-            var constValues_ = MarshalG.CArrayToPtr<EnumValue> (constValues, nullTerminated: true);
+            var constValues_ = GMarshal.CArrayToPtr<EnumValue> (constValues, nullTerminated: true);
             g_enum_complete_type_info (gEnumType, out info, constValues_);
         }
 
@@ -213,9 +213,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (name));
             }
 
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             var ret_ = g_enum_get_value_by_name (enumClass.Handle, name_);
-            MarshalG.Free (name_);
+            GMarshal.Free (name_);
             var ret = Marshal.PtrToStructure<EnumValue> (ret_);
 
             return ret;
@@ -269,9 +269,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (nick));
             }
 
-            var nick_ = MarshalG.StringToUtf8Ptr (nick);
+            var nick_ = GMarshal.StringToUtf8Ptr (nick);
             var ret_ = g_enum_get_value_by_nick (enumClass.Handle, nick_);
-            MarshalG.Free (nick_);
+            GMarshal.Free (nick_);
             var ret = Marshal.PtrToStructure<EnumValue> (ret_);
 
             return ret;
@@ -283,8 +283,8 @@ namespace GISharp.GObject
         public static GType RegisterStatic (string typeName, EnumValue[] values)
         {
             GType.AssertGTypeName (typeName);
-            var typeName_ = MarshalG.StringToUtf8Ptr (typeName);
-            var values_ = MarshalG.CArrayToPtr<EnumValue> (values, nullTerminated: true);
+            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
+            var values_ = GMarshal.CArrayToPtr<EnumValue> (values, nullTerminated: true);
             var ret = g_enum_register_static (typeName_, values_);
             // values are never freed for the liftime of the program
             return ret;

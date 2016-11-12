@@ -224,7 +224,7 @@ namespace GISharp.GObject
                 if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
                     // if this type did not declare the property, the we know
                     // we are overriding a property from a base class or interface
-                    g_object_class_override_property (classPtr, propId, MarshalG.StringToUtf8Ptr (name));
+                    g_object_class_override_property (classPtr, propId, GMarshal.StringToUtf8Ptr (name));
                 } else {
                     g_object_class_install_property (classPtr, propId, pspec.Handle);
                 }
@@ -262,8 +262,8 @@ namespace GISharp.GObject
                     parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
                 }
 
-                var namePtr = MarshalG.StringToUtf8Ptr (name);
-                var parameterGTypesPtr = MarshalG.CArrayToPtr<GType> (parameterGTypes, false);
+                var namePtr = GMarshal.StringToUtf8Ptr (name);
+                var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);
                 Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
                     null, IntPtr.Zero, null, returnGType,
                     (uint)parameterGTypes.Length, parameterGTypesPtr);
@@ -333,10 +333,10 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException ("propertyName");
             }
-            var propertyName_ = MarshalG.StringToUtf8Ptr (propertyName);
+            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_class_find_property (Handle, propertyName_);
             var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
-            MarshalG.Free (propertyName_);
+            GMarshal.Free (propertyName_);
             return ret;
         }
 
@@ -505,10 +505,10 @@ namespace GISharp.GObject
             if (pspecs == null) {
                 throw new ArgumentNullException ("pspecs");
             }
-            var pspecs_ = MarshalG.OpaqueCArrayToPtr<ParamSpec> (pspecs, false);
+            var pspecs_ = GMarshal.OpaqueCArrayToPtr<ParamSpec> (pspecs, false);
             var nPspecs_ = (UInt32)(pspecs == null ? 0 : pspecs.Length);
             g_object_class_install_properties (Handle, nPspecs_, pspecs_);
-            MarshalG.Free (pspecs_);
+            GMarshal.Free (pspecs_);
         }
 
         /// <summary>
@@ -612,7 +612,7 @@ namespace GISharp.GObject
         {
             UInt32 nProperties_;
             var ret_ = g_object_class_list_properties (Handle, out nProperties_);
-            var ret = MarshalG.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
+            var ret = GMarshal.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
             return ret;
         }
 

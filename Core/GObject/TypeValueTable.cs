@@ -113,9 +113,9 @@ namespace GISharp.GObject
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
                                                         uint collectFlags_) => {
-                    var collectValues = MarshalG.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
+                    var collectValues = GMarshal.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
                     var ret = method.Invoke (ref value, collectValues, collectFlags_);
-                    var ret_ = MarshalG.StringToUtf8Ptr (ret);
+                    var ret_ = GMarshal.StringToUtf8Ptr (ret);
                     return ret_;
                 };
                 return nativeCallback;
@@ -186,9 +186,9 @@ namespace GISharp.GObject
                     /* <type name="guint" type="guint" managed-name="Guint" /> */
                     /* transfer-ownership:none */
                                                       uint collectFlags_) => {
-                    var collectValue = MarshalG.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
+                    var collectValue = GMarshal.PtrToCArray<TypeCValue> (collectValues_, (int)nCollectValues_);
                     var ret = method.Invoke (ref value, collectValue, collectFlags_);
-                    var ret_ = MarshalG.StringToUtf8Ptr (ret);
+                    var ret_ = GMarshal.StringToUtf8Ptr (ret);
                     return ret_;
                 };
                 return nativeCallback;

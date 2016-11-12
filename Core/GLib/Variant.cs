@@ -615,10 +615,10 @@ namespace GISharp.GLib
         {
             AssertNewArrayArgs (childType, children);
             var childType_ = childType == null ? IntPtr.Zero : childType.Handle;
-            var children_ = MarshalG.OpaqueCArrayToPtr<Variant> (children, false);
+            var children_ = GMarshal.OpaqueCArrayToPtr<Variant> (children, false);
             var nChildren_ = (ulong)(children == null ? 0 : children.Length);
             var ret_ = g_variant_new_array (childType_, children_, nChildren_);
-            MarshalG.Free (children_);
+            GMarshal.Free (children_);
             return ret_;
         }
 
@@ -803,9 +803,9 @@ namespace GISharp.GLib
             if (@string == null) {
                 throw new ArgumentNullException (nameof (@string));
             }
-            var @string_ = MarshalG.CArrayToPtr<byte> (@string, true);
+            var @string_ = GMarshal.CArrayToPtr<byte> (@string, true);
             var ret_ = g_variant_new_bytestring (@string_);
-            MarshalG.Free (@string_);
+            GMarshal.Free (@string_);
             return ret_;
         }
 
@@ -865,10 +865,10 @@ namespace GISharp.GLib
         {
             var strv = IntPtr.Zero;
             if (value != null) {
-                strv = MarshalG.Alloc ((value.Length + 1) * IntPtr.Size);
+                strv = GMarshal.Alloc ((value.Length + 1) * IntPtr.Size);
                 var offset = 0;
                 foreach (var bytestring in value) {
-                    Marshal.WriteIntPtr (strv, offset, MarshalG.ByteStringToPtr (bytestring));
+                    Marshal.WriteIntPtr (strv, offset, GMarshal.ByteStringToPtr (bytestring));
                     offset += IntPtr.Size;
                 }
                 Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
@@ -1527,9 +1527,9 @@ namespace GISharp.GLib
             if (value == null) {
                 throw new ArgumentNullException (nameof (value));
             }
-            var valuePtr = MarshalG.StringToUtf8Ptr (value);
+            var valuePtr = GMarshal.StringToUtf8Ptr (value);
             var retPtr = g_variant_new_object_path (valuePtr);
-            MarshalG.Free (valuePtr);
+            GMarshal.Free (valuePtr);
             return retPtr;
         }
 
@@ -1582,9 +1582,9 @@ namespace GISharp.GLib
             for (int i = 0; i < value.Length; i++) {
                 strv[i] = value[i];
             }
-            var ptr = MarshalG.StringArrayToGStrvPtr (strv);
+            var ptr = GMarshal.StringArrayToGStrvPtr (strv);
             var retPtr = g_variant_new_objv (ptr, -1);
-            MarshalG.FreeGStrv (ptr);
+            GMarshal.FreeGStrv (ptr);
             return retPtr;
         }
 
@@ -1620,9 +1620,9 @@ namespace GISharp.GLib
             if (value == null) {
                 throw new ArgumentNullException (nameof (value));
             }
-            var valuePtr = MarshalG.StringToUtf8Ptr (value);
+            var valuePtr = GMarshal.StringToUtf8Ptr (value);
             var retPtr = g_variant_new_signature (valuePtr);
-            MarshalG.Free (valuePtr);
+            GMarshal.Free (valuePtr);
             return retPtr;
         }
 
@@ -1681,10 +1681,10 @@ namespace GISharp.GLib
             if (strv == null) {
                 throw new ArgumentNullException (nameof (strv));
             }
-            var strv_ = MarshalG.StringArrayToGStrvPtr (strv);
+            var strv_ = GMarshal.StringArrayToGStrvPtr (strv);
             var length_ = (long)(strv == null ? 0 : strv.Length);
             var ret_ = g_variant_new_strv (strv_, length_);
-            MarshalG.FreeGStrv (strv_);
+            GMarshal.FreeGStrv (strv_);
             return ret_;
         }
 
@@ -1764,7 +1764,7 @@ namespace GISharp.GLib
             if (@string == null) {
                 throw new ArgumentNullException (nameof (@string));
             }
-            var @string_ = MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GMarshal.StringToUtf8Ptr (@string);
             var ret_ = g_variant_new_take_string (@string_);
             return ret_;
         }
@@ -1854,10 +1854,10 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (children));
             }
             AssertNewTupleArgs (children);
-            var children_ = MarshalG.OpaqueCArrayToPtr<Variant> (children, false);
+            var children_ = GMarshal.OpaqueCArrayToPtr<Variant> (children, false);
             var nChildren_ = (ulong)(children == null ? 0 : children.Length);
             var ret_ = g_variant_new_tuple (children_, nChildren_);
-            MarshalG.Free (children_);
+            GMarshal.Free (children_);
             return ret_;
         }
 
@@ -2148,9 +2148,9 @@ namespace GISharp.GLib
             if (@string == null) {
                 throw new ArgumentNullException (nameof (@string));
             }
-            var @string_ = MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GMarshal.StringToUtf8Ptr (@string);
             var ret = g_variant_is_object_path (@string_);
-            MarshalG.Free (@string_);
+            GMarshal.Free (@string_);
             return ret;
         }
 
@@ -2199,9 +2199,9 @@ namespace GISharp.GLib
             if (@string == null) {
                 throw new ArgumentNullException (nameof (@string));
             }
-            var @string_ = MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GMarshal.StringToUtf8Ptr (@string);
             var ret = g_variant_is_signature (@string_);
-            MarshalG.Free (@string_);
+            GMarshal.Free (@string_);
             return ret;
         }
 
@@ -2332,15 +2332,15 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (text));
             }
             var type_ = type == null ? IntPtr.Zero : type.Handle;
-            var text_ = MarshalG.StringToUtf8Ptr (text);
-            var limit_ = MarshalG.StringToUtf8Ptr (limit);
-            var endptr_ = MarshalG.StringToUtf8Ptr (endptr);
+            var text_ = GMarshal.StringToUtf8Ptr (text);
+            var limit_ = GMarshal.StringToUtf8Ptr (limit);
+            var endptr_ = GMarshal.StringToUtf8Ptr (endptr);
             IntPtr error_;
             var ret_ = g_variant_parse (type_, text_, limit_, endptr_, out error_);
             var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
-            MarshalG.Free (text_);
-            MarshalG.Free (limit_);
-            MarshalG.Free (endptr_);
+            GMarshal.Free (text_);
+            GMarshal.Free (limit_);
+            GMarshal.Free (endptr_);
             return ret;
         }
 
@@ -2488,9 +2488,9 @@ namespace GISharp.GLib
             if (formatString == null) {
                 throw new ArgumentNullException (nameof (formatString));
             }
-            var formatString_ = MarshalG.StringToUtf8Ptr (formatString);
+            var formatString_ = GMarshal.StringToUtf8Ptr (formatString);
             var ret = g_variant_check_format_string (Handle, formatString_, copyOnly);
-            MarshalG.Free (formatString_);
+            GMarshal.Free (formatString_);
             return ret;
         }
 
@@ -2856,7 +2856,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_variant_get_bytestring (Handle);
-                var ret = MarshalG.PtrToCArray<byte> (ret_, null);
+                var ret = GMarshal.PtrToCArray<byte> (ret_, null);
                 return ret;
             }
         }
@@ -2908,7 +2908,7 @@ namespace GISharp.GLib
             var offset = 0;
             for (ulong i = 0; i < length; i++) {
                 var elementPtr = Marshal.ReadIntPtr (ptr, offset);
-                array.Add (MarshalG.PtrToByteString (elementPtr));
+                array.Add (GMarshal.PtrToByteString (elementPtr));
                 offset += IntPtr.Size;
             }
             return array.ToArray ();
@@ -3205,7 +3205,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             ulong nElements_;
             var ret_ = g_variant_get_fixed_array (Handle, out nElements_, elementSize);
-            var ret = MarshalG.PtrToCArray<IntPtr> (ret_, (int)nElements_);
+            var ret = GMarshal.PtrToCArray<IntPtr> (ret_, (int)nElements_);
             return ret;
         }
 
@@ -3527,7 +3527,7 @@ namespace GISharp.GLib
                 if (ptr == IntPtr.Zero) {
                     return null;
                 }
-                var strv = MarshalG.GStrvPtrToStringArray (ptr, freePtr: true, freeElements: false);
+                var strv = GMarshal.GStrvPtrToStringArray (ptr, freePtr: true, freeElements: false);
                 var objv = new DBusObjectPath[strv.Length];
                 for (int i = 0; i < strv.Length; i++) {
                     objv[i] = strv[i];
@@ -3659,7 +3659,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_get_string (Handle, out length);
-            var ret = MarshalG.Utf8PtrToString (ret_);
+            var ret = GMarshal.Utf8PtrToString (ret_);
             return ret;
         }
 
@@ -3721,7 +3721,7 @@ namespace GISharp.GLib
                 AssertNotDisposed ();
                 ulong length_;
                 var ret_ = g_variant_get_strv (Handle, out length_);
-                var ret = MarshalG.GStrvPtrToStringArray (ret_);
+                var ret = GMarshal.GStrvPtrToStringArray (ret_);
                 return ret;
             }
         }
@@ -3801,7 +3801,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_variant_get_type_string (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
         }
@@ -4286,11 +4286,11 @@ namespace GISharp.GLib
             if (key == null) {
                 throw new ArgumentNullException (nameof (key));
             }
-            var key_ = MarshalG.StringToUtf8Ptr (key);
+            var key_ = GMarshal.StringToUtf8Ptr (key);
             var expectedType_ = expectedType == null ? IntPtr.Zero : expectedType.Handle;
             var ret_ = g_variant_lookup_value (Handle, key_, expectedType_);
             var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
-            MarshalG.Free (key_);
+            GMarshal.Free (key_);
             return ret;
         }
 
@@ -4400,7 +4400,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_print (Handle, typeAnnotate);
-            var ret = MarshalG.Utf8PtrToString (ret_, true);
+            var ret = GMarshal.Utf8PtrToString (ret_, true);
             return ret;
         }
 

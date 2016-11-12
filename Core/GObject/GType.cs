@@ -598,7 +598,7 @@ namespace GISharp.GObject
         public string Name {
             get {
                 var ret_ = g_type_name (this);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
         }
@@ -675,7 +675,7 @@ namespace GISharp.GObject
             get {
                 uint nChildren_;
                 var ret_ = g_type_children (this, out nChildren_);
-                var ret = MarshalG.PtrToCArray<GType> (ret_, (int)nChildren_, freePtr: true);
+                var ret = GMarshal.PtrToCArray<GType> (ret_, (int)nChildren_, freePtr: true);
                 return ret;
             }
         }
@@ -727,9 +727,9 @@ namespace GISharp.GObject
         public static GType FromName (string name)
         {
             AssertGTypeName (name);
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             var ret = g_type_from_name (name_);
-            MarshalG.Free (name_);
+            GMarshal.Free (name_);
             return ret;
         }
 
@@ -787,9 +787,9 @@ namespace GISharp.GObject
         static GType RegisterStatic (GType parentType, string typeName, TypeInfo info, TypeFlags flags)
         {
             // this is static, so typeName_ is not freed
-            var typeName_ = MarshalG.StringToUtf8Ptr (typeName);
+            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
             // also, make a copy of info in unmanaged memory so that it always exists
-            var info_ = MarshalG.Alloc (Marshal.SizeOf (info));
+            var info_ = GMarshal.Alloc (Marshal.SizeOf (info));
             Marshal.StructureToPtr (info, info_, false);
             var ret = g_type_register_static (parentType, typeName_, info_, flags);
 
@@ -942,8 +942,8 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (valueName);
-                            gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (valueNick);
+                            gtypeValues[i].ValueName = GMarshal.StringToUtf8Ptr (valueName);
+                            gtypeValues[i].ValueNick = GMarshal.StringToUtf8Ptr (valueNick);
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -965,8 +965,8 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            gtypeValues[i].ValueName = MarshalG.StringToUtf8Ptr (valueName);
-                            gtypeValues[i].ValueNick = MarshalG.StringToUtf8Ptr (valueNick);
+                            gtypeValues[i].ValueName = GMarshal.StringToUtf8Ptr (valueName);
+                            gtypeValues[i].ValueNick = GMarshal.StringToUtf8Ptr (valueNick);
                         }
                         var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -1130,7 +1130,7 @@ namespace GISharp.GObject
         static void AddInterfaceStatic (GType instanceType, GType interfaceType, InterfaceInfo info)
         {
             // making a copy of info in unmanged memory that will never be freed
-            var infoPtr = MarshalG.Alloc (Marshal.SizeOf<InterfaceInfo> ());
+            var infoPtr = GMarshal.Alloc (Marshal.SizeOf<InterfaceInfo> ());
             Marshal.StructureToPtr<InterfaceInfo> (info, infoPtr, false);
 
             // also make sure the delegates are never GCed.

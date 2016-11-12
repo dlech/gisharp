@@ -603,10 +603,10 @@ namespace GISharp.GLib
             if (fds == null) {
                 throw new ArgumentNullException (nameof(fds));
             }
-            var fds_ = MarshalG.CArrayToPtr (fds, false);
+            var fds_ = GMarshal.CArrayToPtr (fds, false);
             var nFds_ = fds?.Length ?? 0;
             var ret = g_main_context_check (Handle, maxPriority, fds_, nFds_);
-            MarshalG.Free (fds_);
+            GMarshal.Free (fds_);
             return ret;
         }
 
@@ -1208,9 +1208,9 @@ namespace GISharp.GLib
             // call first time to get the size
             var ret = g_main_context_query (Handle, maxPriority, out timeout, IntPtr.Zero, 0);
             // then call again with appropriate storage space
-            var fds_ = MarshalG.Alloc (Marshal.SizeOf<PollFD> () * ret);
+            var fds_ = GMarshal.Alloc (Marshal.SizeOf<PollFD> () * ret);
             ret = g_main_context_query (Handle, maxPriority, out timeout, fds_, ret);
-            fds = MarshalG.PtrToCArray<PollFD> (fds_, ret, true);
+            fds = GMarshal.PtrToCArray<PollFD> (fds_, ret, true);
         }
 
         /// <summary>

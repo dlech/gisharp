@@ -55,9 +55,9 @@ namespace GISharp.Core.Test.GObject
             var flags4TypeClass = (FlagsClass)TypeClass.Ref (testFlags4GType);
             var value = Flags.GetFirstValue (flags4TypeClass, 1);
             Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));
-            var valueName = MarshalG.Utf8PtrToString (value.ValueName);
+            var valueName = GMarshal.Utf8PtrToString (value.ValueName);
             Assert.That (valueName, Is.EqualTo ("One"));
-            var valueNick = MarshalG.Utf8PtrToString (value.ValueNick);
+            var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
             Assert.That (valueNick, Is.EqualTo ("One"));
 
         }
@@ -71,16 +71,16 @@ namespace GISharp.Core.Test.GObject
             var flags5TypeClass = (FlagsClass)TypeClass.Ref (testFlags5GType);
             var value1 = Flags.GetFirstValue (flags5TypeClass, 1);
             Assert.That (value1.Value, Is.EqualTo ((int)TestFlags5.One));
-            var value1Name = MarshalG.Utf8PtrToString (value1.ValueName);
+            var value1Name = GMarshal.Utf8PtrToString (value1.ValueName);
             Assert.That (value1Name, Is.EqualTo ("test_flags_5_value_one"));
-            var value1Nick = MarshalG.Utf8PtrToString (value1.ValueNick);
+            var value1Nick = GMarshal.Utf8PtrToString (value1.ValueNick);
             Assert.That (value1Nick, Is.EqualTo ("One"));
 
             var value2 = Flags.GetFirstValue (flags5TypeClass, 2);
             Assert.That (value2.Value, Is.EqualTo ((int)TestFlags5.Two));
-            var value2Name = MarshalG.Utf8PtrToString (value2.ValueName);
+            var value2Name = GMarshal.Utf8PtrToString (value2.ValueName);
             Assert.That (value2Name, Is.EqualTo ("Two"));
-            var value2Nick = MarshalG.Utf8PtrToString (value2.ValueNick);
+            var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
             Assert.That (value2Nick, Is.EqualTo ("test_flags_5_value_two"));
         }
 

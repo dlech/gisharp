@@ -413,8 +413,8 @@ namespace GISharp.GLib
     {
         public static void Invoke (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
         {
-            var logDomain = MarshalG.Utf8PtrToString (logDomain_);
-            var message = MarshalG.Utf8PtrToString (message_);
+            var logDomain = GMarshal.Utf8PtrToString (logDomain_);
+            var message = GMarshal.Utf8PtrToString (message_);
             var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
             logFunc (logDomain, logLevel_, message);
         }

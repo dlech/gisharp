@@ -125,7 +125,7 @@ namespace GISharp.Runtime
         {
         }
 
-        public WrappedStruct () : this (MarshalG.Alloc (Marshal.SizeOf<T> ()), Transfer.All)
+        public WrappedStruct () : this (GMarshal.Alloc (Marshal.SizeOf<T> ()), Transfer.All)
         {
         }
 
@@ -136,7 +136,7 @@ namespace GISharp.Runtime
 
         protected override void Free ()
         {
-            MarshalG.Free (Handle);
+            GMarshal.Free (Handle);
         }
     }
 }

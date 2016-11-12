@@ -98,7 +98,7 @@ namespace GISharp.GObject
             if (boxedFree == null) {
                 throw new ArgumentNullException (nameof (boxedFree));
             }
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             return g_boxed_type_register_static (name_, boxedCopy, boxedFree);
         }
 

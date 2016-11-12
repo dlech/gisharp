@@ -73,10 +73,10 @@ namespace GISharp.GIRepository
 
         public string GetReturnAttribute (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_callable_info_get_return_attribute (Handle, native_name);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_name);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -119,8 +119,8 @@ namespace GISharp.GIRepository
             IntPtr namePtr;
             IntPtr valuePtr;
             var ret = g_callable_info_iterate_return_attributes (Handle, ref iterator, out namePtr, out valuePtr);
-            name = MarshalG.Utf8PtrToString (namePtr);
-            value = MarshalG.Utf8PtrToString (valuePtr);
+            name = GMarshal.Utf8PtrToString (namePtr);
+            value = GMarshal.Utf8PtrToString (valuePtr);
             return ret;
         }
 

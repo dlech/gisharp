@@ -31,13 +31,13 @@ namespace GISharp.GLib
         public static string ApplicationName {
             get {
                 var ret_ = g_get_application_name ();
-                var ret = MarshalG.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
             set {
-                var value_ = MarshalG.StringToUtf8Ptr (value);
+                var value_ = GMarshal.StringToUtf8Ptr (value);
                 g_set_application_name (value_);
-                MarshalG.Free (value_);
+                GMarshal.Free (value_);
             }
         }
 
@@ -60,13 +60,13 @@ namespace GISharp.GLib
         public static string ProgramName {
             get {
                 var ret_ = g_get_prgname ();
-                var ret = MarshalG.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
             set {
-                var value_ = MarshalG.StringToUtf8Ptr (value);
+                var value_ = GMarshal.StringToUtf8Ptr (value);
                 g_set_prgname (value_);
-                MarshalG.Free (value_);
+                GMarshal.Free (value_);
             }
         }
     }

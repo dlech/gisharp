@@ -265,7 +265,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof(fields));
             }
             var ret_ = g_log_writer_format_fields (logLevel, fields, (UIntPtr)fields.Length, useColor);
-            var ret = MarshalG.LocalePtrToString (ret_, true);
+            var ret = GMarshal.LocalePtrToString (ret_, true);
             return ret;
         }
 
@@ -303,8 +303,8 @@ namespace GISharp.GLib
             var fields_ = new LogField[fields.Count];
             var i = 0;
             foreach (var item in fields) {
-                fields_[i].Key = MarshalG.StringToUtf8Ptr (item.Key);
-                fields_[i].Value = MarshalG.StringToUtf8Ptr (item.Value);
+                fields_[i].Key = GMarshal.StringToUtf8Ptr (item.Key);
+                fields_[i].Value = GMarshal.StringToUtf8Ptr (item.Value);
                 fields_[i].Length = new IntPtr (-1);
                 i++;
             }
@@ -312,8 +312,8 @@ namespace GISharp.GLib
                 return FormatFields (logLevel, fields_, useColor);
             } finally {
                 foreach (var item in fields_) {
-                    MarshalG.Free (item.Key);
-                    MarshalG.Free (item.Value);
+                    GMarshal.Free (item.Key);
+                    GMarshal.Free (item.Value);
                 }
             }
         }
@@ -640,15 +640,15 @@ namespace GISharp.GLib
             var fields_ = new LogField[fields.Count];
             int i = 0;
             foreach (var item in fields) {
-                fields_[i].Key = MarshalG.StringToUtf8Ptr (item.Key);
-                fields_[i].Value = MarshalG.StringToUtf8Ptr (item.Value);
+                fields_[i].Key = GMarshal.StringToUtf8Ptr (item.Key);
+                fields_[i].Value = GMarshal.StringToUtf8Ptr (item.Value);
                 fields_[i].Length = new IntPtr (-1);
                 i++;
             }
             g_log_structured_array (logLevel, fields_, (UIntPtr)fields_.Length);
             foreach (var item in fields_) {
-                MarshalG.Free (item.Key);
-                MarshalG.Free (item.Value);
+                GMarshal.Free (item.Key);
+                GMarshal.Free (item.Value);
             }
         }
 
@@ -807,10 +807,10 @@ namespace GISharp.GLib
             if (fields.Type != VariantType.VarDict) {
                 throw new ArgumentException ("Requires VariantType.VarDict", nameof (fields));
             }
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
             var fields_ = fields.Handle;
             g_log_variant (logDomain_, logLevel, fields_);
-            MarshalG.Free (logDomain_);
+            GMarshal.Free (logDomain_);
         }
     }
 }

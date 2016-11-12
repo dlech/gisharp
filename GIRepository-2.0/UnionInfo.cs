@@ -40,10 +40,10 @@ namespace GISharp.GIRepository
 
         public FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_union_info_find_method (Handle, native_name);
             FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 

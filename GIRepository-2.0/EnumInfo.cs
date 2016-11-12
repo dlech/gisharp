@@ -41,7 +41,7 @@ namespace GISharp.GIRepository
         public string ErrorDomain {
             get {
                 IntPtr raw_ret = g_enum_info_get_error_domain (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 

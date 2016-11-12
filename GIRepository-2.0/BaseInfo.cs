@@ -153,10 +153,10 @@ namespace GISharp.GIRepository
         /// <param name="name">Name.</param>
         public string GetAttribute (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_base_info_get_attribute (Handle, native_name);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_name);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -243,8 +243,8 @@ namespace GISharp.GIRepository
             IntPtr native_name;
             IntPtr native_value;
             bool ret = g_base_info_iterate_attributes (Handle, ref iterator, out native_name, out native_value);
-            name = MarshalG.Utf8PtrToString (native_name);
-            value = MarshalG.Utf8PtrToString (native_value);
+            name = GMarshal.Utf8PtrToString (native_name);
+            value = GMarshal.Utf8PtrToString (native_value);
             return ret;
         }
 
@@ -253,7 +253,7 @@ namespace GISharp.GIRepository
             Handle = raw;
             _Namespace = new Lazy<string> (() => {
                 var ret = g_base_info_get_namespace (Handle);
-                return MarshalG.Utf8PtrToString (ret);
+                return GMarshal.Utf8PtrToString (ret);
             });
             _Name = new Lazy<string> (() => {
                 // calling g_base_info_get_name on a TypeInfo will cause a crash.
@@ -262,7 +262,7 @@ namespace GISharp.GIRepository
                     return null;
                 }
                 var ret = g_base_info_get_name (Handle);
-                return MarshalG.Utf8PtrToString (ret);
+                return GMarshal.Utf8PtrToString (ret);
             });
         }
 

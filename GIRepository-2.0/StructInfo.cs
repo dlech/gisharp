@@ -47,10 +47,10 @@ namespace GISharp.GIRepository
         [Obsolete ("Not really obsolete, but unreliable.")]
         public FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_struct_info_find_method (Handle, native_name);
             var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 

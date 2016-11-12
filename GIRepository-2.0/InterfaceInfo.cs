@@ -16,10 +16,10 @@ namespace GISharp.GIRepository
 
         public FunctionInfo FindMethod (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_method (Handle, native_name);
             var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -28,10 +28,10 @@ namespace GISharp.GIRepository
 
         public SignalInfo FindSignal (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_signal (Handle, native_name);
             var ret = MarshalPtr<SignalInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -40,10 +40,10 @@ namespace GISharp.GIRepository
 
         public VFuncInfo FindVFunc (string name)
         {
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_interface_info_find_vfunc (Handle, native_name);
             var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_name);
             return ret;
         }
 

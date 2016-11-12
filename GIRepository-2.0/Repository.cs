@@ -37,10 +37,10 @@ namespace GISharp.GIRepository
 
         public static void Dump (string arg)
         {
-            IntPtr native_arg = MarshalG.StringToUtf8Ptr (arg);
+            IntPtr native_arg = GMarshal.StringToUtf8Ptr (arg);
             IntPtr error = IntPtr.Zero;
             g_irepository_dump (native_arg, out error);
-            MarshalG.Free (native_arg);
+            GMarshal.Free (native_arg);
             if (error != IntPtr.Zero)
                 throw GErrorException.CreateInstance (error);
         }
@@ -50,10 +50,10 @@ namespace GISharp.GIRepository
 
         internal static string[] GetVersions (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_enumerate_versions (IntPtr.Zero, native_namespace);
-            var ret = MarshalG.GListToStringArray (raw_ret, freePtr: true);
-            MarshalG.Free (native_namespace);
+            var ret = GMarshal.GListToStringArray (raw_ret, freePtr: true);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -93,12 +93,12 @@ namespace GISharp.GIRepository
 
         internal static GISharp.GIRepository.BaseInfo FindByName (string @namespace, string name)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            IntPtr native_name = MarshalG.StringToUtf8Ptr (name);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
+            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace, native_name);
             GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            MarshalG.Free (native_namespace);
-            MarshalG.Free (native_name);
+            GMarshal.Free (native_namespace);
+            GMarshal.Free (native_name);
             return ret;
         }
 
@@ -118,10 +118,10 @@ namespace GISharp.GIRepository
 
         internal static string GetCPrefix (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_c_prefix (IntPtr.Zero, native_namespace);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_namespace);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -130,10 +130,10 @@ namespace GISharp.GIRepository
 
         internal static string[] GetDependencies (string @namespace)
         {
-            var native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             var raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
-            var ret = MarshalG.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
-            MarshalG.Free (native_namespace);
+            var ret = GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -142,10 +142,10 @@ namespace GISharp.GIRepository
 
         internal static GISharp.GIRepository.BaseInfo GetInfo (string @namespace, int index)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace, index);
             GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            MarshalG.Free (native_namespace);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -159,7 +159,7 @@ namespace GISharp.GIRepository
         public static string[] LoadedNamespaces {
             get {
                 IntPtr raw_ret = g_irepository_get_loaded_namespaces (IntPtr.Zero);
-                return MarshalG.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+                return GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
             }
         }
 
@@ -168,9 +168,9 @@ namespace GISharp.GIRepository
 
         static int GetNInfos (string @namespace)
         {
-            var native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             var ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace);
-            MarshalG.Free (native_namespace);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -192,7 +192,7 @@ namespace GISharp.GIRepository
                     g_irepository_get_default ();
                     raw_ret = g_irepository_get_search_path ();
                 }
-                var ret = MarshalG.GSListToStringArray (raw_ret);
+                var ret = GMarshal.GSListToStringArray (raw_ret);
                 return ret;
             }
         }
@@ -202,10 +202,10 @@ namespace GISharp.GIRepository
 
         internal static string GetSharedLibrary (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_shared_library (IntPtr.Zero, native_namespace);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_namespace);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -214,10 +214,10 @@ namespace GISharp.GIRepository
 
         internal static string GetTypelibPath (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_typelib_path (IntPtr.Zero, native_namespace);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_namespace);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -226,10 +226,10 @@ namespace GISharp.GIRepository
 
         internal static string GetVersion (string @namespace)
         {
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_version (IntPtr.Zero, native_namespace);
-            string ret = MarshalG.Utf8PtrToString (raw_ret);
-            MarshalG.Free (native_namespace);
+            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            GMarshal.Free (native_namespace);
             return ret;
         }
 
@@ -249,12 +249,12 @@ namespace GISharp.GIRepository
             if (@namespace == null) {
                 throw new ArgumentNullException ("namespace");
             }
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
             bool raw_ret = g_irepository_is_registered (IntPtr.Zero, native_namespace, native_version);
             bool ret = raw_ret;
-            MarshalG.Free (native_namespace);
-            MarshalG.Free (native_version);
+            GMarshal.Free (native_namespace);
+            GMarshal.Free (native_version);
             return ret;
         }
 
@@ -283,9 +283,9 @@ namespace GISharp.GIRepository
                 throw new ArgumentNullException ("directory");
             }
             // TODO: Marshal as filename, not UTF8
-            IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
+            IntPtr native_directory = GMarshal.StringToUtf8Ptr (directory);
             g_irepository_prepend_library_path (native_directory);
-            MarshalG.Free (native_directory);
+            GMarshal.Free (native_directory);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -301,9 +301,9 @@ namespace GISharp.GIRepository
             if (directory == null) {
                 throw new ArgumentNullException ("directory");
             }
-            IntPtr native_directory = MarshalG.StringToUtf8Ptr (directory);
+            IntPtr native_directory = GMarshal.StringToUtf8Ptr (directory);
             g_irepository_prepend_search_path (native_directory);
-            MarshalG.Free (native_directory);
+            GMarshal.Free (native_directory);
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -331,12 +331,12 @@ namespace GISharp.GIRepository
             if (@namespace == null) {
                 throw new ArgumentNullException (nameof(@namespace));
             }
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
             IntPtr error;
             g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error);
-            MarshalG.Free (native_namespace);
-            MarshalG.Free (native_version);
+            GMarshal.Free (native_namespace);
+            GMarshal.Free (native_version);
             if (error != IntPtr.Zero) {
                 throw GErrorException.CreateInstance (error);
             }
@@ -371,14 +371,14 @@ namespace GISharp.GIRepository
             if (@namespace == null) {
                 throw new ArgumentNullException ("namespace");
             }
-            IntPtr native_typelib_dir = MarshalG.StringToUtf8Ptr (typelibDir);
-            IntPtr native_namespace = MarshalG.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = MarshalG.StringToUtf8Ptr (version);
+            IntPtr native_typelib_dir = GMarshal.StringToUtf8Ptr (typelibDir);
+            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
+            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
             IntPtr error;
             g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error);
-            MarshalG.Free (native_typelib_dir);
-            MarshalG.Free (native_namespace);
-            MarshalG.Free (native_version);
+            GMarshal.Free (native_typelib_dir);
+            GMarshal.Free (native_namespace);
+            GMarshal.Free (native_version);
             if (error != IntPtr.Zero) {
                 throw GErrorException.CreateInstance (error);
             }

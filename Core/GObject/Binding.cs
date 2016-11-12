@@ -197,7 +197,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_source_property (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
         }
@@ -267,7 +267,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_target_property (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
         }

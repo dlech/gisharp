@@ -86,7 +86,7 @@ namespace GISharp.GIRepository
         public string Symbol {
             get {
                 IntPtr raw_ret = g_function_info_get_symbol (Handle);
-                return MarshalG.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString (raw_ret);
             }
         }
 
@@ -158,18 +158,18 @@ namespace GISharp.GIRepository
                     }
                     break;
                 case TypeTag.UTF8:
-                    var utf8Ptr = MarshalG.StringToUtf8Ptr ((string)obj.Value);
+                    var utf8Ptr = GMarshal.StringToUtf8Ptr ((string)obj.Value);
                     arg.Pointer = utf8Ptr;
-                    free += () => MarshalG.Free (utf8Ptr);
+                    free += () => GMarshal.Free (utf8Ptr);
                     break;
                 case TypeTag.Array:
                     var elementType = typeInfo.GetParamType (0);
                     switch (typeInfo.ArrayType) {
                     case ArrayType.C:
                         if (elementType.Tag == TypeTag.UTF8) {
-                            var strvPtr = MarshalG.StringArrayToGStrvPtr ((string[])obj.Value);
+                            var strvPtr = GMarshal.StringArrayToGStrvPtr ((string[])obj.Value);
                             arg.Pointer = strvPtr;
-                            free += () => MarshalG.FreeGStrv (strvPtr);
+                            free += () => GMarshal.FreeGStrv (strvPtr);
                         } else {
                             throw new NotImplementedException ();
                         }
@@ -240,14 +240,14 @@ namespace GISharp.GIRepository
                         var arrayType = info.GetParamType (0);
                         if (arrayType.Tag == TypeTag.UTF8 && info.IsZeroTerminated) {
                             // This is a Strv
-                            return MarshalG.GStrvPtrToStringArray (arg.Pointer, ownership != Transfer.Nothing, ownership == Transfer.Everything);
+                            return GMarshal.GStrvPtrToStringArray (arg.Pointer, ownership != Transfer.Nothing, ownership == Transfer.Everything);
                         }
                         throw new NotImplementedException ();
                     default:
                         throw new NotImplementedException ();
                     }
                 case TypeTag.UTF8:
-                    var ret = MarshalG.Utf8PtrToString (arg.Pointer, ownership != Transfer.Nothing);
+                    var ret = GMarshal.Utf8PtrToString (arg.Pointer, ownership != Transfer.Nothing);
                     return ret;
                 case TypeTag.Interface:
                     switch (info.Interface.InfoType) {

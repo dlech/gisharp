@@ -37,11 +37,11 @@ namespace GISharp.GLib
 
         static void Log_ (string logDomain, LogLevelFlags logLevel, string format, params object[] args)
         {
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
-            var format_ = MarshalG.StringToUtf8Ptr (string.Format (format, args));
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
+            var format_ = GMarshal.StringToUtf8Ptr (string.Format (format, args));
             g_log (logDomain_, logLevel, format_);
-            MarshalG.Free (logDomain_);
-            MarshalG.Free (format_);
+            GMarshal.Free (logDomain_);
+            GMarshal.Free (format_);
         }
 
         public static void Message (string format, params object[] args)
@@ -172,11 +172,11 @@ namespace GISharp.GLib
         /// </param>
         public static void DefaultHandler (string logDomain, LogLevelFlags logLevel, string message)
         {
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
-            var message_ = MarshalG.StringToUtf8Ptr (message);
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
+            var message_ = GMarshal.StringToUtf8Ptr (message);
             g_log_default_handler (logDomain_, logLevel, message_, IntPtr.Zero);
-            MarshalG.Free (logDomain_);
-            MarshalG.Free (message_);
+            GMarshal.Free (logDomain_);
+            GMarshal.Free (message_);
         }
 
         /// <summary>
@@ -223,9 +223,9 @@ namespace GISharp.GLib
             if (logDomain == null) {
                 throw new ArgumentNullException (nameof (logDomain));
             }
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
             g_log_remove_handler (logDomain_, handlerId);
-            MarshalG.Free (logDomain_);
+            GMarshal.Free (logDomain_);
         }
 
         /// <summary>
@@ -418,9 +418,9 @@ namespace GISharp.GLib
             if (logDomain == null) {
                 throw new ArgumentNullException (nameof (logDomain));
             }
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
             var ret = g_log_set_fatal_mask (logDomain_, fatalMask);
-            MarshalG.Free (logDomain_);
+            GMarshal.Free (logDomain_);
             return ret;
         }
 
@@ -528,12 +528,12 @@ namespace GISharp.GLib
             if (logFunc == null) {
                 throw new ArgumentNullException (nameof (logFunc));
             }
-            var logDomain_ = MarshalG.StringToUtf8Ptr (logDomain);
+            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
             NativeLogFunc logFunc_ = ManagedLogFunc.Invoke;
             var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (logFunc));
             NativeDestroyNotify destroy_ = ManagedDestroyNotify.Invoke;
             var ret = g_log_set_handler_full (logDomain_, logLevels, logFunc_, userData_, destroy_);
-            MarshalG.Free (logDomain_);
+            GMarshal.Free (logDomain_);
             return ret;
         }
     }

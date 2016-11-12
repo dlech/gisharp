@@ -10,7 +10,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Helper functions for marshaling GLib data structures.
     /// </summary>
-    public static class MarshalG
+    public static class GMarshal
     {
         [DllImport ("glib-2.0.dll")]
         extern static IntPtr g_malloc (UIntPtr nBytes);

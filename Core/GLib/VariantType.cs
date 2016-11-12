@@ -446,9 +446,9 @@ namespace GISharp.GLib
             if (typeString == null) {
                 throw new ArgumentNullException (nameof (typeString));
             }
-            var typeString_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (typeString);
+            var typeString_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (typeString);
             var ret_ = g_variant_type_new (typeString_);
-            GISharp.Runtime.MarshalG.Free (typeString_);
+            GISharp.Runtime.GMarshal.Free (typeString_);
             return ret_;
         }
 
@@ -688,10 +688,10 @@ namespace GISharp.GLib
             if (items == null) {
                 throw new ArgumentNullException (nameof (items));
             }
-            var items_ = GISharp.Runtime.MarshalG.OpaqueCArrayToPtr<VariantType> (items, false);
+            var items_ = GISharp.Runtime.GMarshal.OpaqueCArrayToPtr<VariantType> (items, false);
             var ret_ = g_variant_type_new_tuple (items_, items.Length);
             var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
-            GISharp.Runtime.MarshalG.Free (items_);
+            GISharp.Runtime.GMarshal.Free (items_);
             return ret;
         }
 
@@ -708,10 +708,10 @@ namespace GISharp.GLib
             if (arg0 == null) {
                 throw new ArgumentNullException (nameof (arg0));
             }
-            var arg0_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (arg0);
+            var arg0_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (arg0);
             var ret_ = g_variant_type_checked_ (arg0_);
             var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.None);
-            GISharp.Runtime.MarshalG.Free (arg0_);
+            GISharp.Runtime.GMarshal.Free (arg0_);
             return ret;
         }
 
@@ -754,9 +754,9 @@ namespace GISharp.GLib
             if (typeString == null) {
                 throw new ArgumentNullException (nameof (typeString));
             }
-            var typeString_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (typeString);
+            var typeString_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (typeString);
             var ret = g_variant_type_string_is_valid (typeString_);
-            GISharp.Runtime.MarshalG.Free (typeString_);
+            GISharp.Runtime.GMarshal.Free (typeString_);
             return ret;
         }
 
@@ -886,7 +886,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_type_dup_string (Handle);
-            var ret = GISharp.Runtime.MarshalG.Utf8PtrToString (ret_, true);
+            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_, true);
             return ret;
         }
 
@@ -1837,7 +1837,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_type_peek_string (Handle);
-            var ret = GISharp.Runtime.MarshalG.Utf8PtrToString (ret_);
+            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_);
             return ret;
         }
 

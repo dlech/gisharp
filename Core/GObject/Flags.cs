@@ -53,7 +53,7 @@ namespace GISharp.GObject
         /// </param>
         public static void CompleteTypeInfo (GType gFlagsType, out TypeInfo info, FlagsValue[] constValues)
         {
-            var constValues_ = MarshalG.CArrayToPtr<FlagsValue> (constValues, nullTerminated: true);
+            var constValues_ = GMarshal.CArrayToPtr<FlagsValue> (constValues, nullTerminated: true);
             g_flags_complete_type_info (gFlagsType, out info, constValues_);
         }
 
@@ -152,9 +152,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (name));
             }
 
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             var ret_ = g_flags_get_value_by_name (flagsClass.Handle, name_);
-            MarshalG.Free (name_);
+            GMarshal.Free (name_);
             var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
 
             return ret;
@@ -205,9 +205,9 @@ namespace GISharp.GObject
             if (nick == null) {
                 throw new ArgumentNullException (nameof (nick));
             }
-            var nick_ = MarshalG.StringToUtf8Ptr (nick);
+            var nick_ = GMarshal.StringToUtf8Ptr (nick);
             var ret_ = g_flags_get_value_by_nick (flagsClass.Handle, nick_);
-            MarshalG.Free (nick_);
+            GMarshal.Free (nick_);
             var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
 
             return ret;
@@ -219,8 +219,8 @@ namespace GISharp.GObject
         public static GType RegisterStatic (string typeName, FlagsValue[] values)
         {
             GType.AssertGTypeName (typeName);
-            var typeName_ = MarshalG.StringToUtf8Ptr (typeName);
-            var values_ = MarshalG.CArrayToPtr<FlagsValue> (values, nullTerminated: true);
+            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
+            var values_ = GMarshal.CArrayToPtr<FlagsValue> (values, nullTerminated: true);
             var ret = g_flags_register_static (typeName_, values_);
             // values are never freed for the liftime of the program
             return ret;

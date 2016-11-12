@@ -341,9 +341,9 @@ namespace GISharp.GLib
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
             }
-            var name_ = MarshalG.StringToUtf8Ptr (name);
+            var name_ = GMarshal.StringToUtf8Ptr (name);
             g_source_set_name_by_id (tag, name_);
-            MarshalG.Free (name_);
+            GMarshal.Free (name_);
         }
 
         /// <summary>
@@ -747,7 +747,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_source_get_name (Handle);
-                var ret = MarshalG.Utf8PtrToString (ret_, false);
+                var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
 
@@ -756,9 +756,9 @@ namespace GISharp.GLib
                 if (value == null) {
                     throw new ArgumentNullException (nameof (value));
                 }
-                var value_ = MarshalG.StringToUtf8Ptr (value);
+                var value_ = GMarshal.StringToUtf8Ptr (value);
                 g_source_set_name (Handle, value_);
-                MarshalG.Free (value_);
+                GMarshal.Free (value_);
             }
         }
 

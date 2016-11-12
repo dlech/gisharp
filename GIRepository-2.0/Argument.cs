@@ -95,12 +95,12 @@ namespace GISharp.GIRepository
 
         public string String {
             get {
-                return MarshalG.Utf8PtrToString (_v_string);
+                return GMarshal.Utf8PtrToString (_v_string);
             }
             set {
                 var oldString = _v_string;
-                _v_string = MarshalG.StringToUtf8Ptr (value);
-                MarshalG.Free (oldString);
+                _v_string = GMarshal.StringToUtf8Ptr (value);
+                GMarshal.Free (oldString);
             }
         }
 

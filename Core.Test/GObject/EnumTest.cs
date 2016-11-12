@@ -55,9 +55,9 @@ namespace GISharp.Core.Test.GObject
             var enum4TypeClass = (EnumClass)TypeClass.Ref (testEnum4GType);
             var value = GISharp.GObject.Enum.GetValue (enum4TypeClass, 1);
             Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
-            var valueName = MarshalG.Utf8PtrToString (value.ValueName);
+            var valueName = GMarshal.Utf8PtrToString (value.ValueName);
             Assert.That (valueName, Is.EqualTo ("One"));
-            var valueNick = MarshalG.Utf8PtrToString (value.ValueNick);
+            var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
             Assert.That (valueNick, Is.EqualTo ("One"));
 
         }
@@ -71,16 +71,16 @@ namespace GISharp.Core.Test.GObject
             var enum5TypeClass = (EnumClass)TypeClass.Ref (testEnum5GType);
             var value1 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 1);
             Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));
-            var value1Name = MarshalG.Utf8PtrToString (value1.ValueName);
+            var value1Name = GMarshal.Utf8PtrToString (value1.ValueName);
             Assert.That (value1Name, Is.EqualTo ("test_enum_5_value_one"));
-            var value1Nick = MarshalG.Utf8PtrToString (value1.ValueNick);
+            var value1Nick = GMarshal.Utf8PtrToString (value1.ValueNick);
             Assert.That (value1Nick, Is.EqualTo ("One"));
 
             var value2 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 2);
             Assert.That (value2.Value, Is.EqualTo ((int)TestEnum5.Two));
-            var value2Name = MarshalG.Utf8PtrToString (value2.ValueName);
+            var value2Name = GMarshal.Utf8PtrToString (value2.ValueName);
             Assert.That (value2Name, Is.EqualTo ("Two"));
-            var value2Nick = MarshalG.Utf8PtrToString (value2.ValueNick);
+            var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
             Assert.That (value2Nick, Is.EqualTo ("test_enum_5_value_two"));
         }
 

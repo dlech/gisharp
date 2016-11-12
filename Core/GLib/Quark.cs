@@ -64,9 +64,9 @@ namespace GISharp.GLib
         /// </returns>
         public static Quark FromString (string @string)
         {
-            var @string_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
             var ret = g_quark_from_string (@string_);
-            GISharp.Runtime.MarshalG.Free (@string_);
+            GISharp.Runtime.GMarshal.Free (@string_);
             return ret;
         }
 
@@ -110,9 +110,9 @@ namespace GISharp.GLib
         /// </returns>
         public static Quark TryString (string @string)
         {
-            var @string_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
             var ret = g_quark_try_string (@string_);
-            GISharp.Runtime.MarshalG.Free (@string_);
+            GISharp.Runtime.GMarshal.Free (@string_);
             return ret;
         }
 
@@ -150,9 +150,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute ("2.10")]
         public static IntPtr InternString (string @string)
         {
-            var @string_ = GISharp.Runtime.MarshalG.StringToUtf8Ptr (@string);
+            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
             var ret = g_intern_string (@string_);
-            GISharp.Runtime.MarshalG.Free (@string_);
+            GISharp.Runtime.GMarshal.Free (@string_);
             return ret;
         }
 
@@ -182,7 +182,7 @@ namespace GISharp.GLib
         public override string ToString ()
         {
             var ret_ = g_quark_to_string (value);
-            var ret = GISharp.Runtime.MarshalG.Utf8PtrToString (ret_);
+            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_);
 
             return ret;
         }
