@@ -7,7 +7,7 @@ using GISharp.Runtime;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class ByteArrayTest
+    public class ByteArrayTests
     {
         [Test]
         public void TestNew ()

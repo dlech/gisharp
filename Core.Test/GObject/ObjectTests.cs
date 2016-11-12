@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class ObjectTest
+    public class ObjectTests
     {
         [Test]
         public void TestReferences ()

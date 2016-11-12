@@ -15,7 +15,7 @@ using GISharp.GLib;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class GTypeTest
+    public class GTypeTests
     {
         [Test]
         public void TestNone ()

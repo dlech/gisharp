@@ -10,7 +10,7 @@ using nulong = GISharp.Runtime.NativeULong;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class ValueTest
+    public class ValueTests
     {
         [Test]
         public void TestBoolean ()

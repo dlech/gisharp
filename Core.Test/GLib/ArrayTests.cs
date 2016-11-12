@@ -7,7 +7,7 @@ using GISharp.GLib;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class ArrayTest
+    public class ArrayTests
     {
         [Test]
         public void TestElementSize ()

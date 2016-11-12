@@ -6,7 +6,7 @@ using GISharp.GLib;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class SListTest
+    public class SListTests
     {
         [Test]
         public void TestConstructor ()

@@ -6,7 +6,7 @@ using GISharp.GObject;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class BindingFlagsTest
+    public class BindingFlagsTests
     {
         [Test]
         public void TestGType ()

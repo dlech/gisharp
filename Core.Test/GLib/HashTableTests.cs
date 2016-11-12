@@ -6,7 +6,7 @@ using GISharp.GLib;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class HashTableTest
+    public class HashTableTests
     {
         [Test]
         public void TestConstructor ()

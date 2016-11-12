@@ -7,7 +7,7 @@ using GISharp.GLib;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class InterfaceTest
+    public class InterfaceTests
     {
         [Test]
         public void TestWrappedNativeTypeRegistration ()

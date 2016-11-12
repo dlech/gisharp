@@ -5,7 +5,7 @@ using GISharp.GObject;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class ClosureTest
+    public class ClosureTests
     {
         [Test]
         public void TestInvoke ()
