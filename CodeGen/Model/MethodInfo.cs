@@ -438,7 +438,7 @@ namespace GISharp.CodeGen.Model
             foreach (var p in ManagedParameterInfos.Where (x => x.NeedsNullCheck)) {
                 var statement = ParseStatement (
                     string.Format (@"if ({0} == null) {{
-                        throw new {1} (""{0}"");
+                        throw new {1} (nameof({0}));
                     }}", p.Identifier.Text,
                         typeof(ArgumentNullException).FullName));
                 yield return statement;
