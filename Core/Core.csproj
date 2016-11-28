@@ -114,6 +114,8 @@
     <Compile Include="GLib\LogWriterOutput.cs" />
     <Compile Include="GLib\LogWriter.cs" />
     <Compile Include="GLib\Utility.cs" />
+    <Compile Include="GModule\Module.cs" />
+    <Compile Include="GModule\ModuleFlags.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Core.dll.config">
@@ -126,5 +128,6 @@
     <Folder Include="GObject\" />
     <Folder Include="GLib\" />
     <Folder Include="Runtime\" />
+    <Folder Include="GModule\" />
   </ItemGroup>
 </Project>
