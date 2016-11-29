@@ -118,10 +118,11 @@ namespace GISharp.GIRepository
             int inArgsLength = inArgs?.Length ?? 0;
             int outArgsLength = outArgs?.Length ?? 0;
             Argument ret;
-            IntPtr err;
+            IntPtr err_;
 
-            if (!g_function_info_invoke (Handle, inArgs, inArgsLength, outArgs, outArgsLength, out ret, out err)) {
-                throw GErrorException.CreateInstance (err);
+            if (!g_function_info_invoke (Handle, inArgs, inArgsLength, outArgs, outArgsLength, out ret, out err_)) {
+                var err = Opaque.GetInstance<GLib.Error> (err_, Runtime.Transfer.All);
+                throw new GErrorException (err);
             }
 
             return ret;

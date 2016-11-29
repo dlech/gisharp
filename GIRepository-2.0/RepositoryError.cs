@@ -32,17 +32,4 @@ namespace GISharp.GIRepository
         /// </summary>
         LibraryNotFound,
     }
-
-    public sealed class RepositoryErrorException : GErrorException
-    {
-        public RepositoryError Code {
-            get {
-                return (RepositoryError)Error.Code;
-            }
-        }
-
-        public RepositoryErrorException (Error error) : base (error)
-        {
-        }
-    }
 }

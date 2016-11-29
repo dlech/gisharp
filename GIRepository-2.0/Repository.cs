@@ -38,11 +38,13 @@ namespace GISharp.GIRepository
         public static void Dump (string arg)
         {
             IntPtr native_arg = GMarshal.StringToUtf8Ptr (arg);
-            IntPtr error = IntPtr.Zero;
-            g_irepository_dump (native_arg, out error);
+            IntPtr error_ = IntPtr.Zero;
+            g_irepository_dump (native_arg, out error_);
             GMarshal.Free (native_arg);
-            if (error != IntPtr.Zero)
-                throw GErrorException.CreateInstance (error);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                throw new GErrorException (error);
+            }
         }
 
         [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
@@ -333,12 +335,13 @@ namespace GISharp.GIRepository
             }
             IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
-            IntPtr error;
-            g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error);
+            IntPtr error_;
+            g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error_);
             GMarshal.Free (native_namespace);
             GMarshal.Free (native_version);
-            if (error != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (error);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                throw new GErrorException (error);
             }
         }
 
@@ -374,13 +377,14 @@ namespace GISharp.GIRepository
             IntPtr native_typelib_dir = GMarshal.StringToUtf8Ptr (typelibDir);
             IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
-            IntPtr error;
-            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error);
+            IntPtr error_;
+            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error_);
             GMarshal.Free (native_typelib_dir);
             GMarshal.Free (native_namespace);
             GMarshal.Free (native_version);
-            if (error != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (error);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                throw new GErrorException (error);
             }
         }
     }

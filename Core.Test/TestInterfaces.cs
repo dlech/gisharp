@@ -62,7 +62,7 @@ namespace GISharp.Core.Test
                 var ret = initable.Init (cancellablePtr);
                 return ret;
             } catch (GErrorException ex) {
-                Error.Propogate (errorPtr, ex.Error);
+                GMarshal.PropogateError (errorPtr, ex.Error);
             }
             return false;
         }
@@ -90,7 +90,8 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (errorPtr);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                throw new GErrorException (error);
             }
             var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.All);
 
@@ -105,7 +106,8 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (errorPtr);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                throw new GErrorException (error);
             }
             return ret;
         }
@@ -200,7 +202,7 @@ namespace GISharp.Core.Test
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
             } catch (GErrorException ex) {
-                Error.Propogate (errorPtr, ex.Error);
+                GMarshal.PropogateError (errorPtr, ex.Error);
             }
             return false;
         }
@@ -220,7 +222,7 @@ namespace GISharp.Core.Test
             try {
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
-                Error.Propogate (errorPtr, ex.Error);
+                GMarshal.PropogateError (errorPtr, ex.Error);
             }
         }
 
@@ -268,7 +270,8 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (errorPtr);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                throw new GErrorException (error);
             }
 
             return ret;
@@ -287,7 +290,8 @@ namespace GISharp.Core.Test
                 IntPtr errorPtr;
                 var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
                 if (errorPtr != IntPtr.Zero) {
-                    completion.SetException (GErrorException.CreateInstance (errorPtr));
+                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                    completion.SetException (new GErrorException (error));
                 } else {
                     completion.SetResult (ret);
                 }

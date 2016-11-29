@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Reflection;
+using GISharp.GLib;
 
 namespace GISharp.Runtime
 {
@@ -10,6 +12,20 @@ namespace GISharp.Runtime
         public ErrorDomainAttribute (string errorDomain)
         {
             ErrorDomain = errorDomain;
+        }
+    }
+
+    public static class ErrorDomainAttributeExtensions
+    {
+        public static Quark GetErrorDomain (this Enum value)
+        {
+            var type = value.GetType ();
+            var attr = type.GetCustomAttribute<ErrorDomainAttribute> ();
+            if (attr == null) {
+                throw new ArgumentException ("Enum type must have ErrorDomainAttribute", nameof (value));
+            }
+            var quark = Quark.FromString (attr.ErrorDomain);
+            return quark;
         }
     }
 }

@@ -406,13 +406,21 @@ namespace GISharp.CodeGen.Model
                     errorIdentifier,
                     typeof(IntPtr).FullName,
                     nameof (IntPtr.Zero));
-                var throwStatement = string.Format ("throw {0}.{1} ({2}_);",
+                var marshalStatement = string.Format ("var {0} = {1}.{2}<{3}> ({0}_, {4}.{5});",
+                    errorIdentifier,
+                    typeof (GISharp.Runtime.Opaque).FullName,
+                    nameof (GISharp.Runtime.Opaque.GetInstance),
+                    typeof (GISharp.GLib.Error).FullName,
+                    typeof (GISharp.Runtime.Transfer).FullName,
+                    nameof (GISharp.Runtime.Transfer.All));
+                var throwStatement = string.Format ("throw new {0} ({1});",
                     typeof(GISharp.Runtime.GErrorException).FullName,
-                    nameof(GISharp.Runtime.GErrorException.CreateInstance),
                     errorIdentifier);
                 tryStatement = tryStatement.AddBlockStatements (IfStatement (
                     ParseExpression (conditionExpression),
-                    Block (ParseStatement (throwStatement))));
+                    Block (
+                        ParseStatement (marshalStatement + "\n"),
+                        ParseStatement (throwStatement))));
             }
 
             // must marshal output parameters before freeing input parameters

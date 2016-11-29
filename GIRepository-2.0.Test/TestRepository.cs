@@ -93,8 +93,8 @@ namespace GISharp.GIRepository.Test
             // so let's just test that it fails.
             TestDelegate require = () =>
                 Repository.Require ("DoesNotExist", "9.9");
-            Assert.That (require, Throws.Exception.TypeOf<RepositoryErrorException> ()
-                .With.Property (nameof (RepositoryErrorException.Code)).EqualTo (RepositoryError.TypelibNotFound));
+            var excpetion = Assert.Throws<GErrorException> (require);
+            Assert.True (excpetion.Matches (RepositoryError.TypelibNotFound));
         }
 
         [Test]
@@ -102,8 +102,8 @@ namespace GISharp.GIRepository.Test
         {
             TestDelegate require = () =>
                 Repository.RequirePrivate ("NonExistentDir", "DoesNotExist", "9.9");
-            Assert.That (require, Throws.Exception.TypeOf<RepositoryErrorException> ()
-                .With.Property (nameof (RepositoryErrorException.Code)).EqualTo (RepositoryError.TypelibNotFound));
+            var excpetion = Assert.Throws<GErrorException> (require);
+            Assert.True (excpetion.Matches (RepositoryError.TypelibNotFound));
         }
 
         [Test]
@@ -131,6 +131,8 @@ namespace GISharp.GIRepository.Test
         [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
         static extern Quark g_io_error_quark ();
 
+        const int G_IO_ERROR_NOT_FOUND = 1;
+
         [Test]
         public void TestFindByErrorDomain ()
         {
@@ -147,13 +149,13 @@ namespace GISharp.GIRepository.Test
             }
         }
 
-        [Test, Ignore ("exception is not implemented")]
+        [Test]
         public void TestDump ()
         {
             TestDelegate dump = () => Repository.Dump ("NonExistentFile");
-            Assert.That (dump, Throws.Exception.TypeOf<GErrorException> ()
-                .With.Property (nameof (GErrorException.Error)).EqualTo (g_io_error_quark ())
-                .And.Property (nameof (GErrorException.Error)).EqualTo (1 /* G_IO_ERROR_NOT_FOUND */));
+            var exception = Assert.Throws<GErrorException> (dump);
+            Assert.That (exception.Error.Domain, Is.EqualTo (g_io_error_quark ()));
+            Assert.That (exception.Error.Code, Is.EqualTo (G_IO_ERROR_NOT_FOUND));
         }
     }
 }

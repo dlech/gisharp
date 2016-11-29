@@ -4,6 +4,7 @@ using System.Linq;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
+using GISharp.GLib;
 
 namespace GISharp.Runtime
 {
@@ -175,13 +176,14 @@ namespace GISharp.Runtime
                 return null;
             }
             UIntPtr bytesWritten;
-            IntPtr error;
-            var utf8Ptr = g_filename_to_utf8 (ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error);
+            IntPtr error_;
+            var utf8Ptr = g_filename_to_utf8 (ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
             if (freePtr) {
                 g_free (ptr);
             }
-            if (error != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (error);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error> (error_, Transfer.All);
+                throw new GErrorException (error);
             }
             return Utf8PtrToString (utf8Ptr, freePtr: true);
         }
@@ -196,11 +198,12 @@ namespace GISharp.Runtime
             }
             var utf8Ptr = StringToUtf8Ptr (str);
             UIntPtr bytesWritten;
-            IntPtr error;
-            var ret = g_filename_from_utf8 (utf8Ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error);
+            IntPtr error_;
+            var ret = g_filename_from_utf8 (utf8Ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
             g_free (utf8Ptr);
-            if (error != IntPtr.Zero) {
-                throw GErrorException.CreateInstance (error);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error> (error_, Transfer.All);
+                throw new GErrorException (error);
             }
             return ret;
         }
@@ -428,6 +431,78 @@ namespace GISharp.Runtime
                 Marshal.WriteIntPtr (ptr, array.Length * IntPtr.Size, IntPtr.Zero);
             }
             return ptr;
+        }
+
+        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_set_error_literal (IntPtr err, Quark domain, int code, IntPtr message);
+
+        /// <summary>
+        /// Does nothing if err is NULL; if err is non-NULL, then *err must be NULL.
+        /// A new GError is created and assigned to *err.
+        /// </summary>
+        /// <param name="error">a return location for a GError.</param>
+        /// <param name="domain">error domain.</param>
+        /// <param name="code">error code.</param>
+        /// <param name="message">error message.</param>
+        public static void SetError (IntPtr error, Quark domain, int code, string message)
+        {
+            if (message == null) {
+                throw new ArgumentNullException (nameof (message));
+            }
+            var messagePtr = StringToUtf8Ptr (message);
+            g_set_error_literal (error, domain, code, messagePtr);
+            Free (messagePtr);
+        }
+
+        /// <summary>
+        /// Does nothing if err is NULL; if err is non-NULL, then *err must be NULL.
+        /// A new GError is created and assigned to *err.
+        /// </summary>
+        /// <param name="error">a return location for a GError.</param>
+        /// <param name="domain">error domain.</param>
+        /// <param name="code">error code.</param>
+        /// <param name="format">error message format string.</param>
+        /// <param name="args">error message format args.</param>
+        public static void SetError (IntPtr error, Quark domain, int code, string format, params object[] args)
+        {
+            SetError (error, domain, code, string.Format (format, args));
+        }
+
+        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_propagate_error (IntPtr dest, IntPtr src);
+
+        /// <summary>
+        /// If dest is NULL, free src; otherwise, moves src into *dest. The error
+        /// variable dest points to must be NULL.
+        /// </summary>
+        /// <param name="dest">Destination.</param>
+        /// <param name="src">Source.</param>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="src"/> is null.
+        /// </exception>
+        /// <remarks>
+        /// Note that src is no longer valid after this call.
+        /// </remarks>
+        public static void PropogateError (IntPtr dest, Error src)
+        {
+            if (src == null) {
+                throw new ArgumentNullException (nameof (src));
+            }
+            src.Invalidate ();
+            g_propagate_error (dest, src.Handle);
+        }
+
+        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_clear_error (IntPtr err);
+
+        /// <summary>
+        /// If err or *err is NULL, does nothing. Otherwise, calls g_error_free()
+        /// on *err and sets *err to NULL.
+        /// </summary>
+        /// <param name="err">Error.</param>
+        public static void ClearError (IntPtr err)
+        {
+            g_clear_error (err);
         }
     }
 }

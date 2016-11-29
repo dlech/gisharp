@@ -26,6 +26,7 @@ namespace GISharp.GLib
         /// <value>The domain value.</value>
         public Quark Domain {
             get {
+                AssertNotDisposed ();
                 var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Domain));
                 return new Quark ((uint)Marshal.ReadInt32 (Handle, (int)offset));
             }
@@ -37,6 +38,7 @@ namespace GISharp.GLib
         /// <value>The code.</value>
         public int Code {
             get {
+                AssertNotDisposed ();
                 var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Code));
                 return Marshal.ReadInt32 (Handle, (int)offset);
             }
@@ -48,14 +50,35 @@ namespace GISharp.GLib
         /// <value>The message.</value>
         public string Message {
             get {
+                AssertNotDisposed ();
                 var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Message));
                 var messagePtr = Marshal.ReadIntPtr (Handle, (int)offset);
                 return GMarshal.Utf8PtrToString (messagePtr);
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// <paramref name="code"/> and <paramref name="message"/>.
+        /// </summary>
+        /// <param name="domain">Error domain.</param>
+        /// <param name="code">Error code.</param>
+        /// <param name="message">Error message.</param>
         public Error (Quark domain, int code, string message)
             : this (New (domain, code, message), Transfer.All)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// <paramref name="code"/> and message.
+        /// </summary>
+        /// <param name="domain">Error domain.</param>
+        /// <param name="code">Error code.</param>
+        /// <param name="format">Message format string.</param>
+        /// <param name="args">Objects to format.</param>
+        public Error (Quark domain, int code, string format, params object[] args)
+            : this (domain, code, string.Format (format, args))
         {
         }
 
@@ -73,6 +96,7 @@ namespace GISharp.GLib
             }
             var messagePtr = GMarshal.StringToUtf8Ptr (message);
             var ret = g_error_new_literal (domain, code, messagePtr);
+            GMarshal.Free (messagePtr);
             return ret;
         }
 
@@ -85,27 +109,52 @@ namespace GISharp.GLib
         }
 
         [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_error_literal (IntPtr err, Quark domain, int code, IntPtr message);
+        static extern IntPtr g_error_copy (IntPtr err);
 
-        public static void Set (IntPtr error, Quark domain, int code, string message)
+        /// <summary>
+        /// Makes a copy of this <see cref="Error"/>.
+        /// </summary>
+        /// <returns>A new <see cref="Error"/>.</returns>
+        public Error Copy ()
         {
-            if (message == null) {
-                throw new ArgumentNullException (nameof (message));
-            }
-            var messagePtr = GMarshal.StringToUtf8Ptr (message);
-            g_set_error_literal (error, domain, code, messagePtr);
+            AssertNotDisposed ();
+            var ret_ = g_error_copy (Handle);
+            var ret = new Error (ret_, Transfer.All);
+            return ret;
         }
 
         [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error (IntPtr dest, IntPtr src);
+        static extern bool g_error_matches (IntPtr err, Quark domain, int code);
 
-        public static void Propogate (IntPtr dest, Error src)
+        /// <summary>
+        /// Returns <c>true</c> if error matches <paramref name="domain"/> and
+        /// <paramref name="code"/>, <c>false</c> otherwise.
+        /// </summary>
+        /// <returns>The matches.</returns>
+        /// <param name="domain">An error domain.</param>
+        /// <param name="code">An error code.</param>
+        /// <remarks>
+        /// If domain contains a <c>Failed</c> (or otherwise generic) error code,
+        /// you should generally not check for it explicitly, but should instead
+        /// treat any not-explicitly-recognized error code as being equivalent to
+        /// the <c>Failed</c> code. This way, if the domain is extended in the
+        /// future to provide a more specific error code for a certain case, your
+        /// code will still work.
+        /// </remarks>
+        public bool Matches (Quark domain, int code)
         {
-            if (src == null) {
-                throw new ArgumentNullException (nameof (src));
-            }
-            g_propagate_error (dest, src.Handle);
-            src.Owned = false;
+            AssertNotDisposed ();
+            var ret = g_error_matches (Handle, domain, code);
+            return ret;
+        }
+
+        /// <summary>
+        /// Invalidate this instance. Used by <see cref="GMarshal.PropogateError"/>.
+        /// </summary>
+        internal void Invalidate ()
+        {
+            Owned = false;
+            IsDisposed = true;
         }
     }
 }

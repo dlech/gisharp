@@ -82,17 +82,4 @@ namespace GISharp.GLib
         /// </summary>
         ValueExpected = 17
     }
-
-    public sealed class VariantParseErrorException : GErrorException
-    {
-        public VariantParseError Code {
-            get {
-                return (VariantParseError)Error.Code;
-            }
-        }
-
-        public VariantParseErrorException (Error err) : base (err)
-        {
-        }
-    }
 }

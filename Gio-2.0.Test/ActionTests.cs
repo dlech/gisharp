@@ -174,9 +174,10 @@ namespace GISharp.Gio.Test
         {
             string actionName;
             Variant target;
-            Assert.That (() => Action.ParseDetailedName ("invaid name", out actionName, out target),
-                Throws.InstanceOf<VariantParseErrorException> ()
-                .And.Property (nameof (VariantParseErrorException.Code)).EqualTo (VariantParseError.Failed));
+            TestDelegate parseDetailedName = () =>
+                Action.ParseDetailedName ("invaid name", out actionName, out target);
+            var exception = Assert.Throws<GErrorException> (parseDetailedName);
+            Assert.True (exception.Matches (VariantParseError.Failed));
         }
 
         [Test]

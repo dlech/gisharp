@@ -29,17 +29,4 @@ namespace GISharp.GIRepository
         /// </summary>
         ArgumentMismatch,
     }
-
-    public sealed class InvokeErrorException : GErrorException
-    {
-        public InvokeError Code {
-            get {
-                return (InvokeError)Error.Code;
-            }
-        }
-
-        public InvokeErrorException (Error error) : base (error)
-        {
-        }
-    }
 }
