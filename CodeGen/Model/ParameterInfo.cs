@@ -299,6 +299,13 @@ namespace GISharp.CodeGen.Model
                             builder.AppendLine ();
                         }
                         builder.AppendLine ("/// </param>");
+                        if (NeedsNullCheck) {
+                            builder.AppendFormat ("/// <exception name=\"{0}\">", typeof (ArgumentNullException).FullName);
+                            builder.AppendLine ();
+                            builder.AppendFormat ("/// If <paramref name=\"{0}\"/> is <c>null</c>.", ManagedName.Replace ("@", ""));
+                            builder.AppendLine ();
+                            builder.AppendLine ("///</exception>");
+                        }
                     }
                 }
             }
