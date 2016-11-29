@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 using System.Xml.Linq;
 
 using Microsoft.CodeAnalysis;
@@ -1116,7 +1117,8 @@ namespace GISharp.CodeGen.Model
         {
             var list = base.GetDocumentationCommentTriviaList ()
                 .AddRange (ManagedParameterInfos.SelectMany (x => x.DocumentationCommentTriviaList))
-                .AddRange (ManagedReturnParameterInfo.DocumentationCommentTriviaList);
+                .AddRange (ManagedReturnParameterInfo.DocumentationCommentTriviaList)
+                .AddRange (GetGErrorExceptionDocumentationCommentTriviaList ());
             return list;
         }
 
@@ -1161,6 +1163,21 @@ namespace GISharp.CodeGen.Model
                 .Where (x => x.ClosureIndex >= 0)
                 .Select (x => PinvokeParameterInfos[x.ClosureIndex])
                 .Distinct ();
+        }
+
+        SyntaxTriviaList GetGErrorExceptionDocumentationCommentTriviaList ()
+        {
+            if (!ThrowsGErrorException) {
+                return default (SyntaxTriviaList);
+            }
+            var builder = new StringBuilder ();
+            builder.AppendFormat ("/// <exception name=\"{0}\">",
+                                  typeof (GISharp.Runtime.GErrorException).FullName);
+            builder.AppendLine ();
+            builder.AppendLine ("/// On error");
+            builder.AppendLine ("/// </exception>");
+
+            return ParseLeadingTrivia (builder.ToString ());
         }
     }
 }
