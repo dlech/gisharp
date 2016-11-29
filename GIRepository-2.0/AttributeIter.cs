@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.GIRepository
 {
-    [StructLayout (LayoutKind.Sequential)]
     struct AttributeIter : IEquatable<AttributeIter>
     {
         private IntPtr _data;

@@ -50,7 +50,6 @@ using GISharp.Runtime;
 [GType ("GClosure", IsWrappedNativeType = true)]
 public sealed class Closure : ReferenceCountedOpaque
 {
-    [StructLayout (LayoutKind.Sequential)]
     struct ClosureStruct
     {
         public uint RefCount;

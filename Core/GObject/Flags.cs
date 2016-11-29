@@ -278,7 +278,6 @@ namespace GISharp.GObject
     /// A structure which contains a single flags value, its name, and its
     /// nickname.
     /// </summary>
-    [StructLayout (LayoutKind.Sequential)]
     struct FlagsValue
     {
         /// <summary>

@@ -259,7 +259,6 @@ namespace GISharp.Runtime
             g_strfreev (ptr);
         }
 
-        [StructLayout (LayoutKind.Sequential)]
         struct GList
         {
             public IntPtr Data;
@@ -291,7 +290,6 @@ namespace GISharp.Runtime
             return ret.ToArray ();
         }
 
-        [StructLayout (LayoutKind.Sequential)]
         struct GSList
         {
             public IntPtr Data;
