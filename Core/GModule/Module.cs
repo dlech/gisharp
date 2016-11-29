@@ -38,30 +38,38 @@ namespace GISharp.GModule
         public static readonly string Prefix;
 
         /// <summary>
-        /// The proper shared library suffix for the current platform without
+        /// The proper shared module suffix for the current platform without
         /// the leading dot. For most Unices and Linux this is "so", and for
         /// Windows this is "dll".
         /// </summary>
         public static readonly string Suffix;
 
+        /// <summary>
+        /// The proper shared library suffix for the current platform without
+        /// the leading dot. This is the same as <see cref="Suffix"/>, except
+        /// on macOS, where it is "dylib" instead of "so".
+        /// </summary>
+        public static readonly string LibrarySuffix;
+
         static Module ()
         {
-            if (Environment.OSVersion.Platform == PlatformID.Unix) {
-                Prefix = "lib";
-                Suffix = ".so";
-                // Hack to detect macOS
-                if (File.Exists ("/usr/lib/libSystem.dylib")) {
-                    Suffix = ".dylib";
-                }
-            } else if (Environment.OSVersion.Platform == PlatformID.MacOSX) {
-                // Pretty sure that this case will never happen because of
-                // http://lists.ximian.com/pipermail/mono-devel-list/2011-November/038257.html
-                // ...but including it just in case.
-                Prefix = "lib";
-                Suffix = ".dylib";
+            // Intialize the platform-specific "constants". Suffix should end
+            // up being the same as G_MODULE_SUFFIX in C code.
+
+            var emptyName = GMarshal.StringToUtf8Ptr (string.Empty);
+            var path_ = g_module_build_path (IntPtr.Zero, emptyName);
+            var path = GMarshal.Utf8PtrToString (path_, true);
+            GMarshal.Free (emptyName);
+
+            var parts = path.Split ('.');
+            Prefix = parts[0];
+            Suffix = parts[1];
+
+            // Hack to detect macOS
+            if (File.Exists ("/usr/lib/libSystem.dylib")) {
+                LibrarySuffix = "dylib";
             } else {
-                Prefix = "";
-                Suffix = ".dll";
+                LibrarySuffix = Suffix;
             }
         }
 
@@ -86,12 +94,13 @@ namespace GISharp.GModule
         /// prefix and suffix are added to the filename, if needed, and the result
         /// is added to the directory, using the correct separator character.
         /// </summary>
-        /// <returns>The complete path of the module, including the standard library
+        /// <returns>The complete path of the module, including the standard module
         /// prefix and suffix.</returns>
         /// <param name="directory">The directory where the module is. This can be
         /// <c>null</c> or the empty string to indicate that the standard platform-specific
         /// directories will be used, though that is not recommended.</param>
         /// <param name="moduleName">The name of the module.</param>
+        /// <param name="isSharedLibrary">Use the shared library suffix instead of the module suffix.</param>
         /// <remarks>
         /// The directory should specify the directory where the module can be
         /// found. It can be <c>null</c> or an empty string to indicate that the
@@ -102,22 +111,31 @@ namespace GISharp.GModule
         /// a <paramref name="directory"/> of <c>/lib</c> and a <paramref name="moduleName"/>
         /// of "mylibrary" will return <c>/lib/libmylibrary.so</c>.On a Windows system,
         /// using <c>\Windows</c> as the directory it will return <c>\Windows\mylibrary.dll</c>.
+        /// 
+        /// The <paramref name="isSharedLibrary"/> parameter only makes a difference
+        /// on macOS, where modules use the suffix "so" and shared libraries use
+        /// the suffix "dylib".
         /// </remarks>
-        public static string BuildPath (string directory, string moduleName)
+        public static string BuildPath (string directory, string moduleName, bool isSharedLibrary = false)
         {
             if (moduleName == null) {
                 throw new ArgumentNullException (nameof (moduleName));
             }
-            var directory_ = GMarshal.StringToUtf8Ptr (directory);
-            var moduleName_ = GMarshal.StringToUtf8Ptr (moduleName);
-            try {
-                var ret_ = g_module_build_path (directory_, moduleName_);
-                var ret = GMarshal.Utf8PtrToString (ret_, freePtr: true);
-                return ret;
-            } finally {
-                GMarshal.Free (directory_);
-                GMarshal.Free (moduleName_);
+
+            // BuildPath was originally a wrapper around g_module_build_path,
+            // but it is easy enough to implment it in managed code and we want
+            // to be able to handle both "so" and "dylib" suffixes on macOS.
+
+            var prefix = moduleName.StartsWith (Prefix, StringComparison.OrdinalIgnoreCase)
+                                   ? string.Empty : Prefix;
+            var suffix = isSharedLibrary ? LibrarySuffix : Suffix;
+            var fullName = prefix + moduleName + "." + suffix;
+
+            if (string.IsNullOrEmpty (directory)) {
+                return fullName;
             }
+
+            return Path.Combine (directory, fullName);
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]

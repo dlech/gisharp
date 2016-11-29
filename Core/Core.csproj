@@ -36,7 +36,6 @@
     <Compile Include="GObject\BindingFlags.cs" />
     <Compile Include="GLib\ByteArray.cs" />
     <Compile Include="GLib\Delegates.cs" />
-    <Compile Include="Runtime\DynamicLibrary.cs" />
     <Compile Include="GObject\Enum.cs" />
     <Compile Include="GObject\Flags.cs" />
     <Compile Include="Runtime\ErrorDomainAttribute.cs" />
@@ -118,9 +117,6 @@
     <Compile Include="GModule\ModuleFlags.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Core.dll.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Runtime\NativeLong32.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />

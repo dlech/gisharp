@@ -1,6 +1,6 @@
 ﻿using System;
-
-using GISharp.Runtime;
+using System.Runtime.InteropServices;
+using GISharp.GModule;
 
 namespace GISharp.GLib
 {
@@ -17,10 +17,10 @@ namespace GISharp.GLib
         }
 
         static Lazy<System.Version> _RunTime = new Lazy<System.Version> (() => {
-            using (var lib = new DynamicLibrary ("glib-2.0")) {
-                var major = lib.GetInt32 ("glib_major_version").Value;
-                var minor = lib.GetInt32 ("glib_minor_version").Value;
-                var micro = lib.GetInt32 ("glib_micro_version").Value;
+            using (var lib = new Module (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
+                var major = Marshal.ReadInt32 (lib.GetSymbol ("glib_major_version"));
+                var minor = Marshal.ReadInt32 (lib.GetSymbol ("glib_minor_version"));
+                var micro = Marshal.ReadInt32 (lib.GetSymbol ("glib_micro_version"));
                 return new System.Version (major, minor, micro, 0);
             }
         });
@@ -36,8 +36,8 @@ namespace GISharp.GLib
         }
 
         static Lazy<int> _BinaryAge = new Lazy<int> (() => {
-            using (var lib = new DynamicLibrary ("glib-2.0")) {
-                return lib.GetInt32 ("glib_binary_age").Value;
+            using (var lib = new Module (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
+                return Marshal.ReadInt32 (lib.GetSymbol ("glib_binary_age"));
             }
         });
 
@@ -56,8 +56,8 @@ namespace GISharp.GLib
         }
 
         static Lazy<int> _InterfaceAge = new Lazy<int> (() => {
-            using (var lib = new DynamicLibrary ("glib-2.0")) {
-                return lib.GetInt32 ("glib_interface_age").Value;
+            using (var lib = new Module (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
+                return Marshal.ReadInt32 (lib.GetSymbol ("glib_interface_age"));
             }
         });
 

@@ -1,5 +1,6 @@
 ﻿using System;
-using GISharp.Runtime;
+using System.Runtime.InteropServices;
+using GISharp.GModule;
 using NUnit.Framework;
 
 namespace GISharp.Core.Test
@@ -9,10 +10,10 @@ namespace GISharp.Core.Test
         static readonly Version runtimeVersion;
 
         static Utility () {
-            using (var lib = new DynamicLibrary ("glib-2.0")) {
-                var major = lib.GetInt32 ("glib_major_version").Value;
-                var minor = lib.GetInt32 ("glib_minor_version").Value;
-                var micro = lib.GetInt32 ("glib_micro_version").Value;
+            using (var lib = new Module (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
+                var major = Marshal.ReadInt32 (lib.GetSymbol ("glib_major_version"));
+                var minor = Marshal.ReadInt32 (lib.GetSymbol ("glib_minor_version"));
+                var micro = Marshal.ReadInt32 (lib.GetSymbol ("glib_micro_version"));
                 runtimeVersion = new Version (major, minor, micro);
             }
         }
