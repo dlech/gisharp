@@ -13,7 +13,7 @@ namespace GISharp.GLib
 
         public static Quark Null {
             get {
-                return new Quark ();
+                return default(Quark);
             }
         }
 
