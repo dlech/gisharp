@@ -28,7 +28,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Domain));
-                return new Quark ((uint)Marshal.ReadInt32 (Handle, (int)offset));
+                return (uint)Marshal.ReadInt32 (Handle, (int)offset);
             }
         }
 

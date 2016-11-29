@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.GLib
 {
@@ -11,22 +12,31 @@ namespace GISharp.GLib
     {
         readonly uint value;
 
-        public static Quark Null {
+        /// <summary>
+        /// A zero value <see cref="Quark"/>.
+        /// </summary>
+        public static Quark Zero {
             get {
                 return default(Quark);
             }
         }
 
-        internal Quark (uint value)
+        Quark (uint value)
         {
             this.value = value;
         }
 
+        /// <summary>
+        /// Convert <see cref="uint"/> to <see cref="Quark"/>
+        /// </summary>
         public static implicit operator Quark (uint value)
         {
             return new Quark (value);
         }
 
+        /// <summary>
+        /// Convert <see cref="Quark"/> to <see cref="uint"/>.
+        /// </summary>
         public static implicit operator uint (Quark value)
         {
             return value.value;
@@ -52,21 +62,20 @@ namespace GISharp.GLib
             IntPtr @string);
 
         /// <summary>
-        /// Gets the #GQuark identifying the given string. If the string does
-        /// not currently have an associated #GQuark, a new #GQuark is created,
-        /// using a copy of the string.
+        /// Gets the <see cref="Quark"/> identifying the given string. If the string does
+        /// not currently have an associated <see cref="Quark"/>, a new <see cref="Quark"/> is created.
         /// </summary>
         /// <param name="string">
-        /// a string
+        /// A string
         /// </param>
         /// <returns>
-        /// the #GQuark identifying the string, or 0 if @string is %NULL
+        /// The <see cref="Quark"/> identifying the string, or <see cref="Zero"/> if <paramref name="string"/> is <c>null</c>.
         /// </returns>
         public static Quark FromString (string @string)
         {
-            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_quark_from_string (@string_);
-            GISharp.Runtime.GMarshal.Free (@string_);
+            var string_ = GMarshal.StringToUtf8Ptr (@string);
+            var ret = g_quark_from_string (string_);
+            GMarshal.Free (string_);
             return ret;
         }
 
@@ -94,25 +103,25 @@ namespace GISharp.GLib
             IntPtr @string);
 
         /// <summary>
-        /// Gets the #GQuark associated with the given string, or 0 if string is
-        /// %NULL or it has no associated #GQuark.
+        /// Gets the <see cref="Quark"/> associated with the given string, or <see cref="Zero"/> if string is
+        /// <c>null</c> or it has no associated <see cref="Quark"/>.
         /// </summary>
         /// <remarks>
-        /// If you want the GQuark to be created if it doesn't already exist,
-        /// use g_quark_from_string() or g_quark_from_static_string().
+        /// If you want the <see cref="Quark"/> to be created if it doesn't already exist,
+        /// use <see cref="FromString"/>.
         /// </remarks>
         /// <param name="string">
         /// a string
         /// </param>
         /// <returns>
-        /// the #GQuark associated with the string, or 0 if @string is
-        ///     %NULL or there is no #GQuark associated with it
+        /// the <see cref="Quark"/> associated with the string, or <see cref="Zero"/> if <paramref name="string"/> is
+        /// <c>null</c> or there is no <see cref="Quark"/> associated with it
         /// </returns>
         public static Quark TryString (string @string)
         {
-            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_quark_try_string (@string_);
-            GISharp.Runtime.GMarshal.Free (@string_);
+            var string_ = GMarshal.StringToUtf8Ptr (@string);
+            var ret = g_quark_try_string (string_);
+            GMarshal.Free (string_);
             return ret;
         }
 
@@ -127,7 +136,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a canonical representation for the string
         /// </returns>
-        [GISharp.Runtime.SinceAttribute ("2.10")]
+        [Since ("2.10")]
         [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="const gchar*" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
@@ -137,9 +146,9 @@ namespace GISharp.GLib
             IntPtr @string);
 
         /// <summary>
-        /// Returns a canonical representation for @string. Interned strings
+        /// Returns a canonical representation for <paramref name="string"/>. Interned strings
         /// can be compared for equality by comparing the pointers, instead of
-        /// using strcmp().
+        /// using <see cref="string.=="/>.
         /// </summary>
         /// <param name="string">
         /// a string
@@ -147,12 +156,12 @@ namespace GISharp.GLib
         /// <returns>
         /// a canonical representation for the string
         /// </returns>
-        [GISharp.Runtime.SinceAttribute ("2.10")]
+        [Since ("2.10")]
         public static IntPtr InternString (string @string)
         {
-            var @string_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_intern_string (@string_);
-            GISharp.Runtime.GMarshal.Free (@string_);
+            var string_ = GMarshal.StringToUtf8Ptr (@string);
+            var ret = g_intern_string (string_);
+            GMarshal.Free (string_);
             return ret;
         }
 
@@ -174,15 +183,15 @@ namespace GISharp.GLib
             Quark quark);
 
         /// <summary>
-        /// Gets the string associated with the given #GQuark.
+        /// Gets the string associated with the given <see cref="Quark"/>.
         /// </summary>
         /// <returns>
-        /// the string associated with the #GQuark
+        /// the string associated with the <see cref="Quark"/>
         /// </returns>
         public override string ToString ()
         {
             var ret_ = g_quark_to_string (value);
-            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_);
+            var ret = GMarshal.Utf8PtrToString (ret_);
 
             return ret;
         }

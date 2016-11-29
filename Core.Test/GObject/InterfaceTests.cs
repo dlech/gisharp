@@ -43,7 +43,7 @@ namespace GISharp.Core.Test.GObject
             obj.NetworkChanged += (availible) => callbackCount++;
 
             var id = Signal.Lookup ("network-changed", typeof(INetworkMonitor).GetGType ());
-            Signal.Emit (obj, id, Quark.Null, new [] { (Value)true });
+            Signal.Emit (obj, id, Quark.Zero, new [] { (Value)true });
 
             Assert.That (callbackCount, Is.EqualTo (1));
         }
