@@ -182,9 +182,9 @@ namespace GISharp.GObject
                 } else if (fundamentalGType == GType.Float) {
                     pspec = new ParamSpecFloat (name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
                 } else if (fundamentalGType == GType.Enum) {
-                    pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (int)defaultValue, flags);
+                    pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
                 } else if (fundamentalGType == GType.Flags) {
-                    pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (int)defaultValue, flags);
+                    pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
                 } else if (fundamentalGType == GType.Int) {
                     pspec = new ParamSpecInt (name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
                 } else if (fundamentalGType == GType.UInt) {
@@ -278,7 +278,7 @@ namespace GISharp.GObject
             };
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);
+            var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             propInfo.SetValue (obj, value.Get ());
         }
 
@@ -290,7 +290,7 @@ namespace GISharp.GObject
             }
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = (PropertyInfo)pspec.GetUserData (managedClassPropertyInfoQuark);
+            var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             value.Set (propInfo.GetValue (obj));
         }
 

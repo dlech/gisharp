@@ -808,7 +808,7 @@ namespace GISharp.GObject
                 if (prop == null) {
                     throw new Exception ("Could not find matchng property.");
                 }
-                pspec.SetUserData (ObjectClass.managedClassPropertyInfoQuark, prop);
+                pspec.SetQData (ObjectClass.managedClassPropertyInfoQuark, prop);
             }
         }
 

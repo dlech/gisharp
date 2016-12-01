@@ -115,6 +115,29 @@
     <Compile Include="GLib\Utility.cs" />
     <Compile Include="GModule\Module.cs" />
     <Compile Include="GModule\ModuleFlags.cs" />
+    <Compile Include="GObject\ParamSpecBoolean.cs" />
+    <Compile Include="GObject\ParamSpecBoxed.cs" />
+    <Compile Include="GObject\ParamSpecChar.cs" />
+    <Compile Include="GObject\ParamSpecUChar.cs" />
+    <Compile Include="GObject\ParamSpecDouble.cs" />
+    <Compile Include="GObject\ParamSpecEnum.cs" />
+    <Compile Include="GObject\ParamSpecFlags.cs" />
+    <Compile Include="GObject\ParamSpecFloat.cs" />
+    <Compile Include="GObject\ParamSpecGType.cs" />
+    <Compile Include="GObject\ParamSpecInt.cs" />
+    <Compile Include="GObject\ParamSpecUInt.cs" />
+    <Compile Include="GObject\ParamSpecInt64.cs" />
+    <Compile Include="GObject\ParamSpecUInt64.cs" />
+    <Compile Include="GObject\ParamSpecLong.cs" />
+    <Compile Include="GObject\ParamSpecULong.cs" />
+    <Compile Include="GObject\ParamSpecString.cs" />
+    <Compile Include="GObject\ParamSpecObject.cs" />
+    <Compile Include="GObject\ParamSpecOverride.cs" />
+    <Compile Include="GObject\ParamSpecParam.cs" />
+    <Compile Include="GObject\ParamSpecPointer.cs" />
+    <Compile Include="GObject\ParamSpecUnichar.cs" />
+    <Compile Include="GObject\ParamSpecValueArray.cs" />
+    <Compile Include="GObject\ParamSpecVariant.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Runtime\NativeLong32.cs" />

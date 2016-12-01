@@ -4,42 +4,43 @@ using GISharp.Runtime;
 namespace GISharp.GObject
 {
     /// <summary>
-    /// Through the #GParamFlags flag values, certain aspects of parameters
-    /// can be configured. See also #G_PARAM_STATIC_STRINGS.
+    /// Through the <see cref="ParamFlags"/> flag values, certain aspects of parameters
+    /// can be configured.
     /// </summary>
+    /// <seealso cref="StaticStrings"/>
     [Flags]
-    public enum ParamFlags
+    public enum ParamFlags : uint
     {
         /// <summary>
         /// the parameter is readable
         /// </summary>
-        Readable = 1,
+        Readable = 0x01,
 
         /// <summary>
         /// the parameter is writable
         /// </summary>
-        Writable = 2,
+        Writable = 0x02,
 
         /// <summary>
-        /// alias for <see cref="Readable"/> | <see cref="Writable"/>
+        /// Alias for <see cref="Readable"/> | <see cref="Writable"/>
         /// </summary>
-        Readwrite = 3,
+        Readwrite = Readable | Writable,
 
         /// <summary>
-        /// the parameter will be set upon object construction
+        /// The parameter will be set upon object construction
         /// </summary>
-        Construct = 4,
+        Construct = 0x04,
 
         /// <summary>
-        /// the parameter can only be set upon object construction
+        /// The parameter can only be set upon object construction
         /// </summary>
-        ConstructOnly = 8,
+        ConstructOnly = 0x08,
 
         /// <summary>
-        /// upon parameter conversion (see g_param_value_convert())
-        ///  strict validation is not required
+        /// Upon parameter conversion (see g_param_value_convert())
+        /// strict validation is not required
         /// </summary>
-        LaxValidation = 16,
+        LaxValidation = 0x10,
 
         /// <summary>
         /// the string used as name when constructing the
@@ -47,7 +48,7 @@ namespace GISharp.GObject
         ///  unmodified for the lifetime of the parameter.
         /// </summary>
         [Since ("2.8")]
-        StaticName = 32,
+        StaticName = 0x20,
 
         ///// <summary>
         ///// internal
@@ -59,50 +60,51 @@ namespace GISharp.GObject
         ///  unmmodified for the lifetime of the parameter.
         /// </summary>
         [Since ("2.8")]
-        StaticNick = 64,
+        StaticNick = 0x40,
 
         /// <summary>
-        /// the string used as blurb when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmodified for the lifetime of the parameter.
+        /// The string used as blurb when constructing the
+        /// parameter is guaranteed to remain valid and
+        /// unmodified for the lifetime of the parameter.
         /// </summary>
         [Since ("2.8")]
-        StaticBlurb = 128,
+        StaticBlurb = 0x80,
 
         /// <summary>
-        /// calls to g_object_set_property() for this
-        ///   property will not automatically result in a "notify" signal being
-        ///   emitted: the implementation must call g_object_notify() themselves
-        ///   in case the property actually changes.
+        /// Calls to <seealso cref="Object.SetProperty"/> for this
+        /// property will not automatically result in a "notify" signal being
+        /// emitted: the implementation must call <see cref="Object.Notify"/>
+        /// themselves in case the property actually changes.
         /// </summary>
         [Since ("2.42")]
-        ExplicitNotify = 1073741824,
+        ExplicitNotify = 0x40000000,
 
         /// <summary>
-        /// the parameter is deprecated and will be removed
-        ///  in a future version. A warning will be generated if it is used
-        ///  while running with G_ENABLE_DIAGNOSTIC=1.
+        /// The parameter is deprecated and will be removed
+        /// in a future version. A warning will be generated if it is used
+        /// while running with G_ENABLE_DIAGNOSTIC=1.
         /// </summary>
         [Since ("2.26")]
-        Deprecated = -2147483648,
+        Deprecated = 0x80000000,
 
         /// <summary>
-        /// Mask containing the bits of #GParamSpec.flags which are reserved for GLib.
+        /// Mask containing the bits of <see cref="ParamSpec.Flags"/> which are reserved for GLib.
         /// </summary>
-        ParamMask = 255,
+        Mask = 0xFF,
 
         /// <summary>
-        /// #GParamFlags value alias for %G_PARAM_STATIC_NAME | %G_PARAM_STATIC_NICK | %G_PARAM_STATIC_BLURB.
+        /// <see cref="ParamFlags"/> value alias for <see cref="StaticName"/> |
+        /// <see cref="StaticNick"/> | <see cref="StaticBlurb"/>.
         /// </summary>
         /// <remarks>
         /// </remarks>
         [Since ("2.13")]
-        ParamStaticStrings = 0,
+        StaticStrings = StaticName | StaticNick | StaticBlurb,
 
         /// <summary>
         /// Minimum shift count to be used for user defined flags, to be stored in
-        /// #GParamSpec.flags. The maximum allowed is 10.
+        /// <see cref="ParamSpec.Flags"/>. The maximum allowed is 10.
         /// </summary>
-        ParamUserShift = 8
+        UserShift = 8
     }
 }

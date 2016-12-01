@@ -16,7 +16,7 @@ namespace GISharp.GObject
     /// </summary>
     [GType ("GObject", IsWrappedNativeType = true)]
     [GTypeStruct (typeof(ObjectClass))]
-    public class Object : ReferenceCountedOpaque, INotifyPropertyChanged, IObject
+    public class Object : TypeInstance, INotifyPropertyChanged, IObject
     {
         GCHandle toggleRefGCHandle;
         bool supressUnref;
@@ -49,7 +49,7 @@ namespace GISharp.GObject
         {
             var obj = Opaque.GetInstance<Object> (gobjectPtr, Transfer.None);
             var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
-            var propInfo = (PropertyInfo)pspec.GetUserData (ObjectClass.managedClassPropertyInfoQuark);
+            var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
             obj.OnPropertyChanged (propInfo.Name);
         }
 

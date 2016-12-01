@@ -60,6 +60,7 @@
     <Compile Include="GLib\TimeoutTests.cs" />
     <Compile Include="GLib\LogWriterTests.cs" />
     <Compile Include="Utility.cs" />
+    <Compile Include="GObject\ParamSpecTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
