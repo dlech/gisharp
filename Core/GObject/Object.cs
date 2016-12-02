@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 
 using nulong = GISharp.Runtime.NativeULong;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -18,8 +19,25 @@ namespace GISharp.GObject
     [GTypeStruct (typeof(ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged, IObject
     {
-        GCHandle toggleRefGCHandle;
+        const string toggleRefKey = "GISharp.GObject.toggleRefKey.";
+        static int nextId;
+
+        readonly int instanceId;
         bool supressUnref;
+
+        protected struct ObjectStruct
+        {
+            public TypeInstanceStruct GTypeInstance;
+            public uint RefCount;
+            public IntPtr Qdata;
+        }
+
+        public uint RefCount {
+            get {
+                var offset = Marshal.OffsetOf<ObjectStruct> (nameof (ObjectStruct.RefCount));
+                return (uint)Marshal.ReadInt32 (Handle + (int)offset);
+            }
+        }
 
         [DllImport("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_object_get_type ();
@@ -31,14 +49,16 @@ namespace GISharp.GObject
 
         protected Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
+            instanceId = nextId++;
             // We are guaranteed to own a reference at this point.
 
-            // This allocates a GCHandle in case someone else has a reference already.
-            handleToggleRef (false);
-            // use toggle reference so we don't get GCed when unmanaged code
-            // still has a reference
-            // This will free the GCHandle if we have the only reference
-            g_object_add_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
+            // Allocate a GCHandle in case someone else has a reference already.
+            this[toggleRefKey + instanceId] = this;
+            // Use toggle reference so we don't get GCed when unmanaged code
+            // still has a reference.
+            // This will free the managed reference by removing this from
+            // toggleRefMap if we have the only unmanaged reference.
+            g_object_add_toggle_ref (Handle, nativeToggleNotify, new IntPtr (instanceId));
             // release the original ref since we now have a toggle ref
             g_object_unref (Handle);
         }
@@ -103,8 +123,14 @@ namespace GISharp.GObject
         // or instance fields (delegates) could already be invalid.
         static void nativeToggleNotify (IntPtr dataPtr, IntPtr objectPtr, bool isLastRef)
         {
-            var obj = TryGetExisting<Object> (objectPtr);
-            obj.handleToggleRef (isLastRef);
+            if (isLastRef) {
+                var key_ = GMarshal.StringToUtf8Ptr (toggleRefKey + (int)dataPtr);
+                g_object_set_data (objectPtr, key_, IntPtr.Zero);
+                GMarshal.Free (key_);
+            } else {
+                var obj = TryGetExisting<Object> (objectPtr);
+                obj[toggleRefKey + obj.instanceId] = obj;
+            }
         }
 
         public override void Ref ()
@@ -126,18 +152,9 @@ namespace GISharp.GObject
         {
             if (!IsDisposed) {
                 supressUnref = true;
-                g_object_remove_toggle_ref (Handle, nativeToggleNotify, IntPtr.Zero);
+                g_object_remove_toggle_ref (Handle, nativeToggleNotify, new IntPtr (instanceId));
             }
             base.Dispose (disposing);
-        }
-
-        void handleToggleRef (bool isLastRef)
-        {
-            if (isLastRef) {
-                toggleRefGCHandle.Free ();
-            } else {
-                toggleRefGCHandle = GCHandle.Alloc (this);
-            }
         }
 
         /// <summary>
@@ -549,11 +566,15 @@ namespace GISharp.GObject
             BindingFlags flags);
 
         /// <summary>
-        /// Creates a binding between @source_property on @source and @target_property
-        /// on @target. Whenever the @source_property is changed the @target_property is
-        /// updated using the same value. For instance:
+        /// Creates a binding between <paramref name="sourceProperty"/> on
+        /// <paramref name="target"/> and <paramref name="targetProperty"/>
+        /// on <paramref name="target"/>.
         /// </summary>
         /// <remarks>
+        /// Whenever the <paramref name="sourceProperty"/>
+        /// is changed the <paramref name="targetProperty"/> is
+        /// updated using the same value. For instance:
+        /// 
         /// |[
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
@@ -574,88 +595,67 @@ namespace GISharp.GObject
         /// A #GObject can have multiple bindings.
         /// </remarks>
         /// <param name="sourceProperty">
-        /// the property on @source to bind
+        /// the property on this instance to bind
         /// </param>
         /// <param name="target">
-        /// the target #GObject
+        /// the target <see cref="Object"/>
         /// </param>
         /// <param name="targetProperty">
-        /// the property on @target to bind
+        /// the property on <paramref name="target"/> to bind
         /// </param>
         /// <param name="flags">
-        /// flags to pass to #GBinding
+        /// flags to pass to <see cref="Binding"/>
         /// </param>
         /// <returns>
-        /// the #GBinding instance representing the
-        ///     binding between the two #GObject instances. The binding is released
-        ///     whenever the #GBinding reference count reaches zero.
+        /// the <see cref="Binding"/> instance representing the binding between
+        /// the two <see cref="Object"/> instances. The binding is released
+        /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
-        //[SinceAttribute ("2.26")]
-        //public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags)
-        //{
-        //    AssertNotDisposed ();
-        //    if (sourceProperty == null) {
-        //        throw new System.ArgumentNullException ("sourceProperty");
-        //    }
-        //    if (target == null) {
-        //        throw new System.ArgumentNullException ("target");
-        //    }
-        //    if (targetProperty == null) {
-        //        throw new System.ArgumentNullException ("targetProperty");
-        //    }
-        //    var sourceProperty_ = MarshalG.StringToUtf8Ptr (sourceProperty);
-        //    var target_ = target == null ? IntPtr.Zero : target.Handle;
-        //    var targetProperty_ = MarshalG.StringToUtf8Ptr (targetProperty);
-        //    var ret_ = g_object_bind_property (Handle, sourceProperty_, target_, targetProperty_, flags);
-        //    var ret = Opaque.GetInstance<Binding> (ret_, Transfer.None);
-        //    MarshalG.Free (sourceProperty_);
-        //    MarshalG.Free (targetProperty_);
-        //    return ret;
-        //}
+        [Since ("2.26")]
+        public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags = BindingFlags.Default)
+        {
+            AssertNotDisposed ();
+            if (sourceProperty == null) {
+                throw new ArgumentNullException (nameof (sourceProperty));
+            }
+            if (target == null) {
+                throw new ArgumentNullException (nameof (target));
+            }
+            if (targetProperty == null) {
+                throw new ArgumentNullException (nameof (targetProperty));
+            }
 
-        /// <summary>
-        /// Creates a binding between @source_property on @source and @target_property
-        /// on @target, allowing you to set the transformation functions to be used by
-        /// the binding.
-        /// </summary>
-        /// <remarks>
-        /// This function is the language bindings friendly version of
-        /// g_object_bind_property_full(), using #GClosures instead of
-        /// function pointers.
-        /// </remarks>
-        /// <param name="source">
-        /// the source #GObject
-        /// </param>
-        /// <param name="sourceProperty">
-        /// the property on @source to bind
-        /// </param>
-        /// <param name="target">
-        /// the target #GObject
-        /// </param>
-        /// <param name="targetProperty">
-        /// the property on @target to bind
-        /// </param>
-        /// <param name="flags">
-        /// flags to pass to #GBinding
-        /// </param>
-        /// <param name="transformTo">
-        /// a #GClosure wrapping the transformation function
-        ///     from the @source to the @target, or %NULL to use the default
-        /// </param>
-        /// <param name="transformFrom">
-        /// a #GClosure wrapping the transformation function
-        ///     from the @target to the @source, or %NULL to use the default
-        /// </param>
-        /// <returns>
-        /// the #GBinding instance representing the
-        ///     binding between the two #GObject instances. The binding is released
-        ///     whenever the #GBinding reference count reaches zero.
-        /// </returns>
-        [SinceAttribute ("2.26")]
+            var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
+            if (sourcePropertyInfo == null) {
+                throw new ArgumentException ($"No matching property", nameof (sourceProperty));
+            }
+            sourceProperty = sourcePropertyInfo.TryGetGTypePropertyName ();
+
+            var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
+            if (targetPropertyInfo == null) {
+                throw new ArgumentException ($"No matching property", nameof (targetProperty));
+            }
+            targetProperty = targetPropertyInfo.TryGetGTypePropertyName ();
+
+            var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
+            var target_ = target == null ? IntPtr.Zero : target.Handle;
+            var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
+            var ret_ = g_object_bind_property (Handle, sourceProperty_, target_, targetProperty_, flags);
+            // This actually results in having two references. One owned by the managed
+            // instance and one extra. This is actually desirable, otherise we
+            // would always have to keep a managed reference to the binding object.
+            // Also, calling Binding.Unbind() will free the extra reference.
+            var ret = GetInstance<Binding> (ret_, Transfer.None);
+            GMarshal.Free (sourceProperty_);
+            GMarshal.Free (targetProperty_);
+            return ret;
+        }
+
+        [Since ("2.26")]
         [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_object_bind_property_with_closures (
+        static extern IntPtr g_object_bind_property_full (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr source,
@@ -671,78 +671,117 @@ namespace GISharp.GObject
             /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
             /* transfer-ownership:none */
             BindingFlags flags,
-            /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-            /* transfer-ownership:none */
-            IntPtr transformTo,
-            /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-            /* transfer-ownership:none */
-            IntPtr transformFrom);
+            NativeBindingTransformFunc transformTo,
+            NativeBindingTransformFunc transformFrom,
+            IntPtr userData,
+            NativeDestroyNotify notify);
 
         /// <summary>
-        /// Creates a binding between @source_property on @source and @target_property
-        /// on @target, allowing you to set the transformation functions to be used by
+        /// Creates a binding between <paramref name="sourceProperty"/> on 
+        /// this instance and <paramref name="targetProperty"/> on <paramref name="target"/>,
+        /// allowing you to set the transformation functions to be used by
         /// the binding.
         /// </summary>
         /// <remarks>
-        /// This function is the language bindings friendly version of
-        /// g_object_bind_property_full(), using #GClosures instead of
-        /// function pointers.
+        /// If flags contains <see cref="BindingFlags.Bidirectional"/> then the
+        /// binding will be mutual: if <paramref name="targetProperty"/> on
+        /// <paramref name="target"/> changes then the <paramref name="sourceProperty"/>
+        /// on this instance will be updated as well. The <paramref name="transformFrom"/>
+        /// function is only used in case of bidirectional bindings, otherwise it will be ignored.
+        ///
+        /// The binding will automatically be removed when either the this intance
+        /// or the <paramref name="target"/> instances are finalized. To remove the binding
+        /// without affecting this instance and the <paramref name="target"/> you can
+        /// just call <see cref="Binding.Unbind"/> on the returned <see cref="Binding"/> instance.
+        ///
+        /// An <see cref="Object"/> can have multiple bindings.
         /// </remarks>
         /// <param name="sourceProperty">
-        /// the property on @source to bind
+        /// the property on this instance to bind
         /// </param>
         /// <param name="target">
-        /// the target #GObject
+        /// the target <see cref="Object"/>
         /// </param>
         /// <param name="targetProperty">
-        /// the property on @target to bind
+        /// the property on <paramref name="target"/> to bind
         /// </param>
         /// <param name="flags">
-        /// flags to pass to #GBinding
+        /// flags to pass to <see cref="Binding"/>
         /// </param>
         /// <param name="transformTo">
-        /// a #GClosure wrapping the transformation function
-        ///     from the @source to the @target, or %NULL to use the default
+        /// the transformation function from this instance to the <paramref name="target"/>,
+        /// or <c>null</c> to use the default
         /// </param>
         /// <param name="transformFrom">
-        /// a #GClosure wrapping the transformation function
-        ///     from the @target to the @source, or %NULL to use the default
+        /// the transformation function from the <paramref name="target"/> to this
+        /// instance, or <c>null</c> to use the default
         /// </param>
         /// <returns>
-        /// the #GBinding instance representing the
-        ///     binding between the two #GObject instances. The binding is released
-        ///     whenever the #GBinding reference count reaches zero.
+        /// the <see cref="Binding"/> instance representing the binding between
+        /// the two <see cref="Object"/> instances. The binding is released
+        /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
-        //[SinceAttribute ("2.26")]
-        //public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags, Closure transformTo, Closure transformFrom)
-        //{
-        //    AssertNotDisposed ();
-        //    if (sourceProperty == null) {
-        //        throw new System.ArgumentNullException ("sourceProperty");
-        //    }
-        //    if (target == null) {
-        //        throw new System.ArgumentNullException ("target");
-        //    }
-        //    if (targetProperty == null) {
-        //        throw new System.ArgumentNullException ("targetProperty");
-        //    }
-        //    if (transformTo == null) {
-        //        throw new System.ArgumentNullException ("transformTo");
-        //    }
-        //    if (transformFrom == null) {
-        //        throw new System.ArgumentNullException ("transformFrom");
-        //    }
-        //    var sourceProperty_ = MarshalG.StringToUtf8Ptr (sourceProperty);
-        //    var target_ = target == null ? IntPtr.Zero : target.Handle;
-        //    var targetProperty_ = MarshalG.StringToUtf8Ptr (targetProperty);
-        //    var transformTo_ = transformTo == null ? IntPtr.Zero : transformTo.Handle;
-        //    var transformFrom_ = transformFrom == null ? IntPtr.Zero : transformFrom.Handle;
-        //    var ret_ = g_object_bind_property_with_closures (Handle, sourceProperty_, target_, targetProperty_, flags, transformTo_, transformFrom_);
-        //    var ret = Opaque.GetInstance<Binding> (ret_, Transfer.None);
-        //    MarshalG.Free (sourceProperty_);
-        //    MarshalG.Free (targetProperty_);
-        //    return ret;
-        //}
+        [Since ("2.26")]
+        public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+        {
+            AssertNotDisposed ();
+            if (sourceProperty == null) {
+                throw new ArgumentNullException (nameof (sourceProperty));
+            }
+            if (target == null) {
+                throw new ArgumentNullException (nameof (target));
+            }
+            if (targetProperty == null) {
+                throw new ArgumentNullException (nameof (targetProperty));
+            }
+            var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
+            var target_ = target == null ? IntPtr.Zero : target.Handle;
+            var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
+            var transformTo_ = transformTo == null ? (NativeBindingTransformFunc)null : TransformToFunc;
+            var transformFrom_ = transformFrom == null ? (NativeBindingTransformFunc)null : TransformFromFunc;
+            var userData = new BindingTransformFuncs (transformTo, transformFrom);
+            var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (userData));
+            var ret_ = g_object_bind_property_full (Handle, sourceProperty_, target_, targetProperty_, flags,
+                                                    transformTo_, transformFrom_, userData_, FreeBindingTransformFuncs);
+            var ret = GetInstance<Binding> (ret_, Transfer.None);
+            GMarshal.Free (sourceProperty_);
+            GMarshal.Free (targetProperty_);
+            return ret;
+        }
+
+        class BindingTransformFuncs
+        {
+            public readonly BindingTransformFunc TransformTo;
+            public readonly BindingTransformFunc TransformFrom;
+
+            public BindingTransformFuncs (BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+            {
+                TransformTo = transformTo;
+                TransformFrom = transformFrom;
+            }
+        }
+
+        static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
+        {
+            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+            var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
+            var ret = funcs.TransformTo (binding, ref toValue, ref fromValue);
+            return ret;
+        }
+
+        static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
+        {
+            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+            var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
+            var ret = funcs.TransformFrom (binding, ref toValue, ref fromValue);
+            return ret;
+        }
+
+        static void FreeBindingTransformFuncs (IntPtr userData)
+        {
+            var data = GCHandle.FromIntPtr (userData);
+            data.Free ();
+        }
 
         /// <summary>
         /// Increases the freeze count on @object. If the freeze count is
@@ -1164,6 +1203,55 @@ namespace GISharp.GObject
         {
             AssertNotDisposed ();
             g_object_thaw_notify (Handle);
+        }
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_get_data (
+            IntPtr @object,
+            IntPtr key);
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_set_data (
+            IntPtr @object,
+            IntPtr key,
+            IntPtr data);
+
+        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_set_data_full (
+            IntPtr @object,
+            IntPtr key,
+            IntPtr data,
+            NativeDestroyNotify destroy);
+
+        public object this[string key] {
+            get {
+                AssertNotDisposed ();
+                var key_ = GMarshal.StringToUtf8Ptr (key);
+                var data_ = g_object_get_data (Handle, key_);
+                GMarshal.Free (key_);
+                if (data_ == IntPtr.Zero) {
+                    return null;
+                }
+                var data = GCHandle.FromIntPtr (data_).Target;
+                return data;
+            }
+            set {
+                AssertNotDisposed ();
+                var key_ = GMarshal.StringToUtf8Ptr (key);
+                if (value == null) {
+                    g_object_set_data (Handle, key_, IntPtr.Zero);
+                } else {
+                    var data_ = value == null ? IntPtr.Zero : GCHandle.ToIntPtr (GCHandle.Alloc (value));
+                    g_object_set_data_full (Handle, key_, data_, FreeData);
+                }
+                GMarshal.Free (key_);
+            }
+        }
+
+        static void FreeData (IntPtr dataPtr)
+        {
+            var data = GCHandle.FromIntPtr (dataPtr);
+            data.Free ();
         }
 
         /// <summary>

@@ -100,4 +100,25 @@ namespace GISharp.GObject
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
+
+    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    public delegate bool NativeBindingTransformFunc (
+        IntPtr binding,
+        ref Value fromValue,
+        ref Value toValue,
+        IntPtr userData);
+
+    /// <summary>
+    /// A function to be called to transform <paramref name="fromValue"/> to <paramref name="toValue"/>.
+    /// </summary>
+    /// <remarks>
+    /// If this is the <c>transformTo</c> function of a binding, then <paramref name="fromValue"/>
+    /// is the <c>sourceProperty</c> on the source object, and <paramref name="toValue"/>
+    /// is the <c>targetProperty</c> on the target object. If this is the <c>transformFrom</c>
+    /// function of a <see cref="BindingFlags.Bidirectional"/> binding, then those roles are reversed.
+    /// </remarks>
+    public delegate bool BindingTransformFunc (
+        Binding binding,
+        ref Value fromValue,
+        ref Value toValue);
 }

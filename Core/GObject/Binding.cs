@@ -5,13 +5,15 @@ using System.Runtime.InteropServices;
 namespace GISharp.GObject
 {
     /// <summary>
-    /// #GBinding is the representation of a binding between a property on a
-    /// #GObject instance (or source) and another property on another #GObject
-    /// instance (or target). Whenever the source property changes, the same
-    /// value is applied to the target property; for instance, the following
-    /// binding:
+    /// <see cref="Binding"/> is the representation of a binding between a property on a
+    /// <see cref="Object"/> instance (or source) and another property on another <see cref="Object"/>
+    /// instance (or target).
     /// </summary>
     /// <remarks>
+    /// Whenever the source property changes, the same
+    /// value is applied to the target property; for instance, the following
+    /// binding:
+    /// 
     /// |[&lt;!-- language="C" --&gt;
     ///   g_object_bind_property (object1, "property-a",
     ///                           object2, "property-b",
@@ -81,8 +83,6 @@ namespace GISharp.GObject
     /// g_binding_unbind() to explicitly release a binding between the source
     /// and target properties, instead of relying on the last reference on the
     /// binding, source, and target instances to drop.
-    ///
-    /// #GBinding is available since GObject 2.26
     /// </remarks>
     [Since ("2.26")]
     [GType ("GBinding", IsWrappedNativeType = true)]
@@ -118,10 +118,10 @@ namespace GISharp.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the flags passed when constructing the #GBinding.
+        /// Retrieves the flags passed when constructing the <see cref="Binding"/>.
         /// </summary>
         /// <returns>
-        /// the #GBindingFlags used by the #GBinding
+        /// the <see cref="BindingFlags"/> used by the <see cref="Binding"/>
         /// </returns>
         [Since ("2.26")]
         public BindingFlags Flags {
@@ -151,17 +151,17 @@ namespace GISharp.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the #GObject instance used as the source of the binding.
+        /// Retrieves the <see cref="Object"/> instance used as the source of the binding.
         /// </summary>
         /// <returns>
-        /// the source #GObject
+        /// the source <see cref="Object"/>
         /// </returns>
         [Since ("2.26")]
         public Object Source {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_source (Handle);
-                var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
+                var ret = GetInstance<Object> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -186,7 +186,7 @@ namespace GISharp.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the name of the property of #GBinding:source used as the source
+        /// Retrieves the name of the property of <see cref="Source"/> used as the source
         /// of the binding.
         /// </summary>
         /// <returns>
@@ -221,17 +221,17 @@ namespace GISharp.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the #GObject instance used as the target of the binding.
+        /// Retrieves the <see cref="Object"/> instance used as the target of the binding.
         /// </summary>
         /// <returns>
-        /// the target #GObject
+        /// the target <see cref="Object"/>
         /// </returns>
         [Since ("2.26")]
         public Object Target {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_target (Handle);
-                var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
+                var ret = GetInstance<Object> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -256,7 +256,7 @@ namespace GISharp.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the name of the property of #GBinding:target used as the target
+        /// Retrieves the name of the property of <see cref="Target"/> used as the target
         /// of the binding.
         /// </summary>
         /// <returns>
@@ -296,18 +296,13 @@ namespace GISharp.GObject
 
         /// <summary>
         /// Explicitly releases the binding between the source and the target
-        /// property expressed by @binding.
+        /// property expressed by this instance.
         /// </summary>
-        /// <remarks>
-        /// This function will release the reference that is being held on
-        /// the @binding instance; if you want to hold on to the #GBinding instance
-        /// after calling g_binding_unbind(), you will need to hold a reference
-        /// to it.
-        /// </remarks>
         [Since ("2.38")]
         public void Unbind ()
         {
             AssertNotDisposed ();
+            // Note: this releases a reference to Handle
             g_binding_unbind (Handle);
         }
 
