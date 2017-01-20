@@ -426,9 +426,10 @@ namespace GISharp.CodeGen.Model
 
             // must marshal output parameters before freeing input parameters
             // in case input parameters are passed through as output parameters
-            tryStatement = tryStatement.AddBlockStatements (Block (ManagedParameterInfos
+            tryStatement = tryStatement.AddBlockStatements (ManagedParameterInfos
                 .Where (x => x.IsOutParam)
-                .SelectMany (p => GetMarshalNativeToManagedStatements (p, false))));
+                .SelectMany (p => GetMarshalNativeToManagedStatements (p, false))
+                                                            .ToArray());
 
             if (!IsConstructor) {
                 tryStatement = tryStatement.AddBlockStatements (
