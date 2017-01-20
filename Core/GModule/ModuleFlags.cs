@@ -2,7 +2,7 @@
 namespace GISharp.GModule
 {
     /// <summary>
-    /// Flags passed to <see cref="Module.Open"/>.
+    /// Flags passed to <see cref="Module.#ctor"/>.
     /// </summary>
     /// <remarks>
     /// Note that these flags are not supported on all platforms.

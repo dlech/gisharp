@@ -27,7 +27,7 @@ namespace GISharp.GModule
     /// program, e.g.through calling g_quark_from_static_string ("my-module-stuff"),
     /// it must ensure that it is never unloaded, by calling <see cref="MakeResident"/>.
     /// </remarks>
-    public class Module : Opaque
+    public sealed class Module : Opaque
     {
         static object errorLock = new object ();
 
@@ -139,7 +139,7 @@ namespace GISharp.GModule
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_open (IntPtr fileName, ModuleFlags flags = 0);
+        static extern IntPtr g_module_open (IntPtr fileName, ModuleFlags flags);
 
         /// <summary>
         /// Opens a module.
@@ -164,14 +164,14 @@ namespace GISharp.GModule
         /// <exception cref="ModuleErrorException">
         /// On failure
         /// </exception>
-        public Module (string fileName, ModuleFlags flags)
+        public Module (string fileName, ModuleFlags flags = 0)
         {
             var fileName_ = GMarshal.StringToUtf8Ptr (fileName);
             try {
                 lock (errorLock) {
                     Handle = g_module_open (fileName_, flags);
                     if (Handle == IntPtr.Zero) {
-                        throw new ModuleErrorException ();
+                        throw new ModuleErrorException (Error);
                     }
                 }
             } finally {
@@ -198,11 +198,10 @@ namespace GISharp.GModule
             }
             lock (errorLock) {
                 var symbolName_ = GMarshal.StringToUtf8Ptr (symbolName);
-                IntPtr symbol;
                 try {
-                    var ret = g_module_symbol (Handle, symbolName_, out symbol);
-                    if (!ret) {
-                        throw new ModuleErrorException ();
+                    IntPtr symbol;
+                    if (!g_module_symbol (Handle, symbolName_, out symbol)) {
+                        throw new ModuleErrorException (Error);
                     }
                     return symbol;
                 } finally {
@@ -255,7 +254,7 @@ namespace GISharp.GModule
                     var ret = g_module_close (Handle);
                     // don't throw error in finalizer
                     if (!ret && disposing) {
-                        throw new ModuleErrorException ();
+                        throw new ModuleErrorException (Error);
                     }
                 }
             }
@@ -269,7 +268,7 @@ namespace GISharp.GModule
         /// Gets a string describing the last module error.
         /// </summary>
         /// <value>A string describing the last module error.</value>
-        internal static string Error {
+        static string Error {
             get {
                 var ret_ = g_module_error ();
                 var ret = GMarshal.Utf8PtrToString (ret_);
@@ -278,9 +277,12 @@ namespace GISharp.GModule
         }
     }
 
+    /// <summary>
+    /// Module error exception.
+    /// </summary>
     public class ModuleErrorException : Exception
     {
-        internal ModuleErrorException () : base (Module.Error)
+        internal ModuleErrorException (string message) : base (message)
         {
         }
     }
