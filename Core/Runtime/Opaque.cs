@@ -46,8 +46,8 @@ namespace GISharp.Runtime
         /// Releases all resource used by the <see cref="Opaque"/> object.
         /// </summary>
         /// <remarks>
-        /// Call <see cref="Dispose"/> when you are finished using the <see cref="Opaque"/>. The <see cref="Dispose"/>
-        /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose"/>, you must
+        /// Call <see cref="Dispose()"/> when you are finished using the <see cref="Opaque"/>. The <see cref="Dispose()"/>
+        /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose()"/>, you must
         /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
         /// <see cref="Opaque"/> was occupying.
         ///
@@ -64,7 +64,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Dispose the specified disposing.
         /// </summary>
-        /// <param name="disposing"><c>true</c> if called from the <see cref="Dispose"/> method,
+        /// <param name="disposing"><c>true</c> if called from the <see cref="Dispose()"/> method,
         /// <c>false</c> if called from a finalizer.</param>
         protected virtual void Dispose (bool disposing)
         {

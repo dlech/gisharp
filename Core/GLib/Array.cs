@@ -10,12 +10,18 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
-    public sealed class Array<T> : ReferenceCountedOpaque, IList<T> where T : struct
+    [GType ("GArray", IsWrappedNativeType = true)]
+    public sealed class Array<T> : Opaque, IList<T> where T : struct
     {
         struct ArrayStruct
         {
             public IntPtr Data;
             public uint Len;
+        }
+
+        static GType getGType ()
+        {
+            return ArrayInternal.g_array_get_type ();
         }
 
         /// <summary>
@@ -35,25 +41,34 @@ namespace GISharp.GLib
         /// Size of each element, in bytes
         /// </returns>
         [Since("2.22")]
-        public Int32 ElementSize {
+        public int ElementSize {
             get {
                 AssertNotDisposed ();
                 return (int)ArrayInternal.g_array_get_element_size (Handle);
             }
         }
 
-        Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        Array (IntPtr handle, Transfer ownership)
         {
+            if (handle == IntPtr.Zero) {
+                throw new NotSupportedException ();
+            }
+            Handle = handle;
+            if (ownership == Transfer.None) {
+                Ref ();
+            }
         }
 
-        /// <summary>
-        /// Creates a new zero-terminated <see cref="Array{T}"/> with clear set to <c>true</c>.
-        /// </summary>
-        public Array () : this (true, true, 0)
+        protected override void Dispose (bool disposing)
         {
+            if (Handle != IntPtr.Zero) {
+                Unref ();
+                Handle = IntPtr.Zero;
+            }
+            base.Dispose (disposing);
         }
 
-        static IntPtr New (Boolean zeroTerminated, Boolean clear, UInt32 reservedSize)
+        static IntPtr New (bool zeroTerminated, bool clear, uint reservedSize)
         {
             var elementSize = Marshal.SizeOf<T> ();
             IntPtr retPtr;
@@ -82,7 +97,7 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of elements preallocated
         /// </param>
-        public Array (Boolean zeroTerminated, Boolean clear, UInt32 reservedSize)
+        public Array (bool zeroTerminated = false, bool clear = false, uint reservedSize = 0)
             : this (New (zeroTerminated, clear, reservedSize), Transfer.All)
         {
         }
@@ -95,7 +110,6 @@ namespace GISharp.GLib
         /// </param>
         public void Add (T data)
         {
-            AssertNotDisposed ();
             AddRange (data);
         }
 
@@ -108,14 +122,13 @@ namespace GISharp.GLib
         public void AddRange (params T[] data)
         {
             AssertNotDisposed ();
-            var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
-            var itemPtr = dataPtr;
-            foreach (var item in data) {
-                Marshal.StructureToPtr (item, itemPtr, false);
-                itemPtr += ElementSize;
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
             }
-            Handle = ArrayInternal.g_array_append_vals (Handle, dataPtr, (uint)data.Length);
-            Marshal.FreeHGlobal (dataPtr);
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            ArrayInternal.g_array_append_vals (Handle, dataPtr, (uint)data.Length);
+            gch.Free ();
         }
 
         /// <summary>
@@ -140,7 +153,7 @@ namespace GISharp.GLib
         /// the element data if @free_segment is <c>false</c>, otherwise
         ///     <c>null</c>. The element data should be freed using g_free().
         /// </returns>
-        IntPtr Free (Boolean freeSegment)
+        IntPtr Free (bool freeSegment)
         {
             AssertNotDisposed ();
             return ArrayInternal.g_array_free (Handle, freeSegment);
@@ -155,9 +168,8 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the element to insert
         /// </param>
-        public void Insert (Int32 index, T data)
+        public void Insert (int index, T data)
         {
-            AssertNotDisposed ();
             InsertRange (index, data);
         }
 
@@ -170,18 +182,17 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the elements to insert
         /// </param>
-        public void InsertRange (Int32 index, params T[] data)
+        public void InsertRange (int index, params T[] data)
         {
             AssertNotDisposed ();
-            AssertInsertIndexInRange (index);
-            var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
-            var itemPtr = dataPtr;
-            foreach (var item in data) {
-                Marshal.StructureToPtr (item, itemPtr, false);
-                itemPtr += ElementSize;
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
             }
-            Handle = ArrayInternal.g_array_insert_vals (Handle, (uint)index, dataPtr, (uint)data.Length);
-            Marshal.FreeHGlobal (dataPtr);
+            AssertInsertIndexInRange (index);
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            ArrayInternal.g_array_insert_vals (Handle, (uint)index, dataPtr, (uint)data.Length);
+            gch.Free ();
         }
 
         /// <summary>
@@ -198,42 +209,38 @@ namespace GISharp.GLib
         public void Prepend (params T[] data)
         {
             AssertNotDisposed ();
-            var dataPtr = Marshal.AllocHGlobal (ElementSize * data.Length);
-            var itemPtr = dataPtr;
-            foreach (var item in data) {
-                Marshal.StructureToPtr (item, itemPtr, false);
-                itemPtr += ElementSize;
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
             }
-            Handle = ArrayInternal.g_array_prepend_vals (Handle, dataPtr, (uint)data.Length);
-            Marshal.FreeHGlobal (dataPtr);
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            ArrayInternal.g_array_prepend_vals (Handle, dataPtr, (uint)data.Length);
+            gch.Free ();
         }
 
         /// <summary>
         /// Atomically increments the reference count of this array by one.
         /// This function is MT-safe and may be called from any thread.
         /// </summary>
-        /// <returns>
-        /// The passed in <see cref="Array{T}"/>
-        /// </returns>
         [Since("2.22")]
-        public override void Ref ()
+        public void Ref ()
         {
             AssertNotDisposed ();
             ArrayInternal.g_array_ref (Handle);
         }
 
         /// <summary>
-        /// Removes the element at the given index from a <see cref="Array{T}"/>. The following
-        /// elements are moved down one place.
+        /// Removes the element at the given index from a <see cref="Array{T}"/>.
+        /// The following elements are moved down one place.
         /// </summary>
         /// <param name="index">
         /// the index of the element to remove
         /// </param>
-        public void RemoveAt (Int32 index)
+        public void RemoveAt (int index)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
-            Handle = ArrayInternal.g_array_remove_index (Handle, (uint)index);
+            ArrayInternal.g_array_remove_index (Handle, (uint)index);
         }
 
         /// <summary>
@@ -245,16 +252,17 @@ namespace GISharp.GLib
         /// <param name="index">
         /// the index of the element to remove
         /// </param>
-        public void RemoveAtFast (Int32 index)
+        public void RemoveAtFast (int index)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
-            Handle = ArrayInternal.g_array_remove_index_fast (Handle, (uint)index);
+            ArrayInternal.g_array_remove_index_fast (Handle, (uint)index);
         }
 
         /// <summary>
         /// Removes the given number of elements starting at the given index
-        /// from a <see cref="Array{T}"/>.  The following elements are moved to close the gap.
+        /// from a <see cref="Array{T}"/>. The following elements are moved to
+        /// close the gap.
         /// </summary>
         /// <param name="index">
         /// the index of the first element to remove
@@ -263,14 +271,14 @@ namespace GISharp.GLib
         /// the number of elements to remove
         /// </param>
         [Since("2.4")]
-        public void RemoveAtRange (Int32 index, Int32 length)
+        public void RemoveAtRange (int index, int length)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
             if (length < 0 || index + length > Count) {
-                throw new ArgumentOutOfRangeException ("length");
+                throw new ArgumentOutOfRangeException (nameof(length));
             }
-            Handle = ArrayInternal.g_array_remove_range (Handle, (uint)index, (uint)length);
+            ArrayInternal.g_array_remove_range (Handle, (uint)index, (uint)length);
         }
 
         /// <summary>
@@ -296,22 +304,34 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
-        /// was created with @clear_ set to <c>true</c>, the new elements are set to 0.
+        /// was created with <paramref name="clear"/> set to <c>true</c>, the
+        /// new elements are set to 0.
         /// </summary>
         /// <param name="length">
         /// the new size of the <see cref="Array{T}"/>
         /// </param>
-        public void SetSize (Int32 length)
+        public void SetSize (int length)
         {
             AssertNotDisposed ();
             if (length < 0) {
-                throw new ArgumentOutOfRangeException ("length");
+                throw new ArgumentOutOfRangeException (nameof (length));
             }
-            Handle = ArrayInternal.g_array_set_size (Handle, (uint)length);
+            ArrayInternal.g_array_set_size (Handle, (uint)length);
+        }
+
+        static int ManagedCompareDataFunc (IntPtr aPtr, IntPtr bPtr, IntPtr data)
+        {
+            var a = Marshal.PtrToStructure<T> (aPtr);
+            var b = Marshal.PtrToStructure<T> (bPtr);
+            var gch = (GCHandle)data;
+            var func = (Comparison<T>)gch.Target;
+            var ret = func (a, b);
+            return ret;
         }
 
         /// <summary>
-        /// Sorts a <see cref="Array{T}"/> using @compare_func which should be a qsort()-style
+        /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
+        /// which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
         /// than second arg, zero for equal, greater zero if first arg is
         /// greater than second arg).
@@ -322,29 +342,16 @@ namespace GISharp.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-//        public void Sort(
-//            GISharp.GLib.CompareFunc compareFunc)
-//        {
-//        }
-
-        /// <summary>
-        /// Like g_array_sort(), but the comparison function receives an extra
-        /// user data argument.
-        /// </summary>
-        /// <remarks>
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// 
-        /// There used to be a comment here about making the sort stable by
-        /// using the addresses of the elements in the comparison function.
-        /// This did not actually work, so any such code should be removed.
-        /// </remarks>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-//        public void SortWithData(
-//            GISharp.GLib.CompareDataFunc compareFunc)
-//        {
-//        }
+        public void Sort(Comparison<T> compareFunc)
+        {
+            if (compareFunc == null) {
+                throw new ArgumentNullException (nameof (compareFunc));
+            }
+            AssertNotDisposed ();
+            var gch = GCHandle.Alloc (compareFunc);
+            ArrayInternal.g_array_sort_with_data (Handle, ManagedCompareDataFunc, (IntPtr)gch);
+            gch.Free ();
+        }
 
         /// <summary>
         /// Atomically decrements the reference count of this array by one. If the
@@ -352,7 +359,7 @@ namespace GISharp.GLib
         /// released. This function is MT-safe and may be called from any
         /// thread.
         [Since("2.22")]
-        public override void Unref ()
+        public void Unref ()
         {
             AssertNotDisposed ();
             ArrayInternal.g_array_unref (Handle);
@@ -403,11 +410,11 @@ namespace GISharp.GLib
             }
         }
 
+        /// <summary>
+        /// Removes all items from the <see cref="Array"/>.
+        /// </summary>
         public void Clear () {
-            AssertNotDisposed ();
-            var oldSize = Count;
-            SetSize (0);
-            SetSize (oldSize);
+            Free (true);
         }
 
         public bool Contains (T other)
@@ -421,14 +428,20 @@ namespace GISharp.GLib
             return false;
         }
 
-        public void CopyTo (T[] array, Int32 length)
+        public void CopyTo (T[] array, int arrayIndex)
         {
             AssertNotDisposed ();
-            if (length < 0 || length > Count) {
-                throw new ArgumentOutOfRangeException ("length");
+            if (array == null) {
+                throw new ArgumentNullException (nameof (array));
             }
-            for (int i = 1; i < length; i++) {
-                array[i] = this[i];
+            if (arrayIndex < 0) {
+                throw new ArgumentOutOfRangeException (nameof (arrayIndex));
+            }
+            if (arrayIndex + Count > array.Length) {
+                throw new ArgumentException ("Destination array is not long enough.");
+            }
+            for (int i = 0; i < Count; i++) {
+                array[i + arrayIndex] = this[i];
             }
         }
 
@@ -462,52 +475,24 @@ namespace GISharp.GLib
             }
         }
 
+        IEnumerator<T> GetEmumeratorImpl ()
+        {
+            for (int i = 0; i < Count; i++) {
+                yield return this[i];
+            }
+        }
+
         public IEnumerator<T> GetEnumerator ()
         {
             AssertNotDisposed ();
-            return new ArrayEnumerator (this);
+            // AssertNotDisposed will not run if we have yield return in this
+            // method body, so it is wrapped in another method.
+            return GetEmumeratorImpl ();
         }
 
         IEnumerator IEnumerable.GetEnumerator ()
         {
             return GetEnumerator ();
-        }
-
-        class ArrayEnumerator : IEnumerator<T>
-        {
-            readonly Array<T> array;
-            int index;
-
-            public T Current {
-                get {
-                    return array[index];
-                }
-            }
-
-            object IEnumerator.Current {
-                get { return Current; }
-            }
-
-            public ArrayEnumerator (Array<T> array)
-            {
-                this.array = array;
-                Reset ();
-            }
-
-            public bool MoveNext ()
-            {
-                index++;
-                return index < array.Count;
-            }
-
-            public void Reset ()
-            {
-                index = -1;
-            }
-
-            public void Dispose ()
-            {
-            }
         }
     }
 
@@ -515,6 +500,9 @@ namespace GISharp.GLib
     // like them in a generic class.
     static class ArrayInternal
     {
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern GType g_array_get_type ();
+
         /// <summary>
         /// Creates a new <see cref="Array{T}"/> with a reference count of 1.
         /// </summary>
@@ -534,9 +522,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_new(
-            [In] Boolean zeroTerminated,
-            [In] Boolean clear,
-            [In] UInt32 elementSize);
+            bool zeroTerminated,
+            bool clear,
+            uint elementSize);
 
         /// <summary>
         /// Creates a new <see cref="Array{T}"/> with @reserved_size elements preallocated and
@@ -563,10 +551,10 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_sized_new(
-            [In] Boolean zeroTerminated,
-            [In] Boolean clear,
-            [In] UInt32 elementSize,
-            [In] UInt32 reservedSize);
+            bool zeroTerminated,
+            bool clear,
+            uint elementSize,
+            uint reservedSize);
 
         /// <summary>
         /// Adds @len elements onto the end of the array.
@@ -585,9 +573,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_append_vals(
-            [In] IntPtr array,
-            [In] IntPtr data,
-            [In] UInt32 len);
+            IntPtr array,
+            IntPtr data,
+            uint len);
 
         /// <summary>
         /// Frees the memory allocated for the <see cref="Array{T}"/>. If @free_segment is
@@ -614,8 +602,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_free(
-            [In] IntPtr array,
-            [In] Boolean freeSegment);
+            IntPtr array,
+            bool freeSegment);
 
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -628,8 +616,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
-        internal static extern UInt32 g_array_get_element_size(
-            [In] IntPtr array);
+        internal static extern uint g_array_get_element_size(
+            IntPtr array);
 
         /// <summary>
         /// Inserts @len elements into a <see cref="Array{T}"/> at the given index.
@@ -651,10 +639,10 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_insert_vals(
-            [In] IntPtr array,
-            [In] UInt32 index,
-            [In] IntPtr data,
-            [In] UInt32 len);
+            IntPtr array,
+            uint index,
+            IntPtr data,
+            uint len);
 
         /// <summary>
         /// Adds @len elements onto the start of the array.
@@ -678,9 +666,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_prepend_vals(
-            [In] IntPtr array,
-            [In] IntPtr data,
-            [In] UInt32 len);
+            IntPtr array,
+            IntPtr data,
+            uint len);
 
         /// <summary>
         /// Atomically increments the reference count of this array by one.
@@ -695,7 +683,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern IntPtr g_array_ref(
-            [In] IntPtr array);
+            IntPtr array);
 
         /// <summary>
         /// Removes the element at the given index from a <see cref="Array{T}"/>. The following
@@ -712,8 +700,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_remove_index(
-            [In] IntPtr array,
-            [In] UInt32 index);
+            IntPtr array,
+            uint index);
 
         /// <summary>
         /// Removes the element at the given index from a <see cref="Array{T}"/>. The last
@@ -732,8 +720,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_remove_index_fast(
-            [In] IntPtr array,
-            [In] UInt32 index);
+            IntPtr array,
+            uint index);
 
         /// <summary>
         /// Removes the given number of elements starting at the given index
@@ -754,9 +742,9 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
         internal static extern IntPtr g_array_remove_range(
-            [In] IntPtr array,
-            [In] UInt32 index,
-            [In] UInt32 length);
+            IntPtr array,
+            uint index,
+            uint length);
 
         /// <summary>
         /// Sets a function to clear an element of this array.
@@ -779,8 +767,8 @@ namespace GISharp.GLib
         //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        [Since("2.32")]
         //        internal static extern void g_array_set_clear_func(
-        //            [In] IntPtr array,
-        //            [In] GISharp.GLib.DestroyNotify clearFunc);
+        //            IntPtr array,
+        //            GISharp.GLib.DestroyNotify clearFunc);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -797,8 +785,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_set_size(
-            [In] IntPtr array,
-            [In] UInt32 length);
+            IntPtr array,
+            uint length);
         
         /// <summary>
         /// Sorts a <see cref="Array{T}"/> using @compare_func which should be a qsort()-style
@@ -817,8 +805,8 @@ namespace GISharp.GLib
         /// </param>
         //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        internal static extern void g_array_sort(
-        //            [In] IntPtr array,
-        //            [In] GISharp.GLib.CompareFuncNative compareFunc);
+        //            IntPtr array,
+        //            NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Like g_array_sort(), but the comparison function receives an extra
@@ -840,11 +828,11 @@ namespace GISharp.GLib
         /// <param name="user_data">
         /// data to pass to @compare_func
         /// </param>
-        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        //        internal static extern void g_array_sort_with_data(
-        //            [In] IntPtr array,
-        //            [In] GISharp.GLib.CompareDataFuncNative compareFunc,
-        //            [In] IntPtr userData);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void g_array_sort_with_data(
+            IntPtr array,
+            NativeCompareDataFunc compareFunc,
+            IntPtr userData);
 
         /// <summary>
         /// Atomically decrements the reference count of this array by one. If the
@@ -858,6 +846,6 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern void g_array_unref(
-            [In] IntPtr array);
+            IntPtr array);
     }
 }

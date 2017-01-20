@@ -25,7 +25,7 @@ namespace GISharp.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Int32 NativeCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
+    public delegate int NativeCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -44,7 +44,7 @@ namespace GISharp.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Int32 NativeCompareFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate int NativeCompareFunc ([In] IntPtr a, [In] IntPtr b);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -62,7 +62,7 @@ namespace GISharp.GLib
     /// negative value if @a &lt; @b; zero if @a = @b; positive
     ///          value if @a &gt; @b
     /// </returns>
-    public delegate Int32 CompareFunc<T> (T a, T b) where T : Opaque;
+    public delegate int CompareFunc<T> (T a, T b);
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
