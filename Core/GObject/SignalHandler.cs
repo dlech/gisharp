@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using GISharp.GLib;
@@ -37,7 +37,7 @@ namespace GISharp.GObject
         /// <param name="handlerId">
         /// Handler id of the handler to be disconnected.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_handler_disconnect (
@@ -88,7 +88,7 @@ namespace GISharp.GObject
         /// <returns>
         /// A valid non-0 signal handler id for a successful match.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern nulong g_signal_handler_find (
@@ -169,7 +169,7 @@ namespace GISharp.GObject
         /// <returns>
         /// whether @handler_id identifies a handler connected to @instance.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_signal_handler_is_connected (
@@ -214,7 +214,7 @@ namespace GISharp.GObject
         /// <param name="handlerId">
         /// Handler id of the handler to be unblocked.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_handler_unblock (

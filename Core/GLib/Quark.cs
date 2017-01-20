@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -53,7 +53,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the #GQuark identifying the string, or 0 if @string is %NULL
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
         static extern Quark g_quark_from_string (
@@ -94,7 +94,7 @@ namespace GISharp.GLib
         /// the #GQuark associated with the string, or 0 if @string is
         ///     %NULL or there is no #GQuark associated with it
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
         static extern Quark g_quark_try_string (
@@ -137,7 +137,7 @@ namespace GISharp.GLib
         /// a canonical representation for the string
         /// </returns>
         [Since ("2.10")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="const gchar*" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_intern_string (
@@ -174,7 +174,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the string associated with the #GQuark
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_quark_to_string (

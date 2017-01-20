@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Reflection;
@@ -796,7 +796,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a pointer to the newly-allocated #GList element
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_alloc();
 
         /// <summary>
@@ -822,7 +822,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the start of the new #GList, which equals @list1 if not %NULL
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_concat(
             [In] IntPtr list1,
             [In] IntPtr list2);
@@ -861,7 +861,7 @@ namespace GISharp.GLib
         /// <returns>
         /// either @list or the new start of the #GList if @list was %NULL
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_append(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -881,7 +881,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the start of the new list that holds the same data as @list
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_copy(
             [In] IntPtr list);
 
@@ -920,7 +920,7 @@ namespace GISharp.GLib
         /// the start of the new list that holds a full copy of @list,
         ///     use g_list_free_full() to free it
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.34")]
         internal static extern IntPtr g_list_copy_deep(
             [In] IntPtr list,
@@ -941,7 +941,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_delete_link(
             [In] IntPtr list,
             [In] IntPtr link);
@@ -958,7 +958,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_find(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -984,7 +984,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_find_custom(
             [In] IntPtr list,
             [In] IntPtr data,
@@ -1000,7 +1000,7 @@ namespace GISharp.GLib
         /// the first element in the #GList,
         ///     or %NULL if the #GList has no elements
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_first(
             [In] IntPtr list);
 
@@ -1016,7 +1016,7 @@ namespace GISharp.GLib
         /// <param name="userData">
         /// user data to pass to the function
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_list_foreach(
             [In] IntPtr list,
             [In] NativeFunc func,
@@ -1033,7 +1033,7 @@ namespace GISharp.GLib
         /// <param name="list">
         /// a #GList
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_list_free(
             [In] IntPtr list);
 
@@ -1047,7 +1047,7 @@ namespace GISharp.GLib
         /// <param name="freeFunc">
         /// the function to be called to free each element's data
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.28")]
         internal static extern void g_list_free_full(
             [In] IntPtr list,
@@ -1067,7 +1067,7 @@ namespace GISharp.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Int32 g_list_index(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -1079,7 +1079,7 @@ namespace GISharp.GLib
         /// <param name="list">
         /// a #GList element
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_list_free_1(
             [In] IntPtr list);
 
@@ -1100,7 +1100,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_insert(
             [In] IntPtr list,
             [In] IntPtr data,
@@ -1122,7 +1122,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_insert_before(
             [In] IntPtr list,
             [In] IntPtr sibling,
@@ -1153,7 +1153,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_insert_sorted(
             [In] IntPtr list,
             [In] IntPtr data,
@@ -1187,7 +1187,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
         internal static extern IntPtr g_list_insert_sorted_with_data(
             [In] IntPtr list,
@@ -1205,7 +1205,7 @@ namespace GISharp.GLib
         /// the last element in the #GList,
         ///     or %NULL if the #GList has no elements
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_last(
             [In] IntPtr list);
 
@@ -1223,7 +1223,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the number of elements in the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_list_length(
             [In] IntPtr list);
 
@@ -1240,7 +1240,7 @@ namespace GISharp.GLib
         /// the element, or %NULL if the position is off
         ///     the end of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_nth(
             [In] IntPtr list,
             [In] UInt32 n);
@@ -1258,7 +1258,7 @@ namespace GISharp.GLib
         /// the element's data, or %NULL if the position
         ///     is off the end of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_nth_data(
             [In] IntPtr list,
             [In] UInt32 n);
@@ -1276,7 +1276,7 @@ namespace GISharp.GLib
         /// the element, or %NULL if the position is
         ///     off the end of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_nth_prev(
             [In] IntPtr list,
             [In] UInt32 n);
@@ -1295,7 +1295,7 @@ namespace GISharp.GLib
         /// the position of the element in the #GList,
         ///     or -1 if the element is not found
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Int32 g_list_position(
             [In] IntPtr list,
             [In] IntPtr llink);
@@ -1328,7 +1328,7 @@ namespace GISharp.GLib
         /// a pointer to the newly prepended element, which is the new
         ///     start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_prepend(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -1347,7 +1347,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_remove(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -1367,7 +1367,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_remove_all(
             [In] IntPtr list,
             [In] IntPtr data);
@@ -1396,7 +1396,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_remove_link(
             [In] IntPtr list,
             [In] IntPtr llink);
@@ -1411,7 +1411,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the start of the reversed #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_reverse(
             [In] IntPtr list);
 
@@ -1432,7 +1432,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_sort(
             [In] IntPtr list,
             [In] NativeCompareFunc compareFunc);
@@ -1453,7 +1453,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the (possibly changed) start of the #GList
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_list_sort_with_data(
             [In] IntPtr list,
             [In] NativeCompareDataFunc compareFunc,

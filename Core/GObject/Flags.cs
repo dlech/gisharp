@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -22,7 +22,7 @@ namespace GISharp.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_flags_complete_type_info (
@@ -70,7 +70,7 @@ namespace GISharp.GObject
         /// the first #GFlagsValue which is set in
         ///          @value, or %NULL if none is set
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_flags_get_first_value (
@@ -119,7 +119,7 @@ namespace GISharp.GObject
         /// the #GFlagsValue with name @name,
         ///          or %NULL if there is no flag with that name
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_flags_get_value_by_name (
@@ -173,7 +173,7 @@ namespace GISharp.GObject
         /// the #GFlagsValue with nickname @nick,
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_flags_get_value_by_nick (
@@ -213,7 +213,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_flags_register_static (IntPtr typeName, IntPtr values);
 
         public static GType RegisterStatic (string typeName, FlagsValue[] values)

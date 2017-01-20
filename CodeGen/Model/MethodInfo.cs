@@ -1136,7 +1136,7 @@ namespace GISharp.CodeGen.Model
             }
             var dllName = Element.Ancestors (gi + "repository")
                 .Single ().Element (gi + "package")
-                .Attribute ("name").Value + ".dll";
+                .Attribute ("name").Value;
             var dllImportAttrName = ParseName (typeof(DllImportAttribute).FullName);
             var dllImportAttrArgListText = string.Format (
                 "(\"{0}\", {1} = {2}.{3})",

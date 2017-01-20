@@ -38,7 +38,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_idle_add_full (
@@ -103,7 +103,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the newly-created idle source
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:full */
             static extern IntPtr g_idle_source_new ();

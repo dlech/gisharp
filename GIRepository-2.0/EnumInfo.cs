@@ -35,7 +35,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_error_domain (IntPtr raw);
 
         public string ErrorDomain {
@@ -45,7 +45,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_method (IntPtr raw, int index);
 
         public FunctionInfo GetMethod (int index)
@@ -54,7 +54,7 @@ namespace GISharp.GIRepository
             return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_enum_info_get_n_methods (IntPtr raw);
 
         int NMethods {
@@ -63,7 +63,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_enum_info_get_n_values (IntPtr raw);
 
         int NValues {
@@ -72,7 +72,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern TypeTag g_enum_info_get_storage_type (IntPtr raw);
 
         public TypeTag StorageType {
@@ -81,7 +81,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_value (IntPtr raw, int index);
 
         public ValueInfo GetValue (int index)

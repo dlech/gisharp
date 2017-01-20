@@ -1,4 +1,4 @@
-﻿
+
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -31,7 +31,7 @@ namespace GISharp.GLib
         /// </summary>
         public ushort Revents;
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_pollfd_get_type ();

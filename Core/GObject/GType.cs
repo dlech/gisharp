@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
@@ -359,7 +359,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_gtype_get_type ();
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_checksum_get_type ();
 
         /// <summary>
@@ -393,7 +393,7 @@ namespace GISharp.GObject
         /// <returns>
         /// fundamental type ID
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_fundamental (
@@ -415,7 +415,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_test_flags (
@@ -458,7 +458,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_is_value_type (
@@ -581,7 +581,7 @@ namespace GISharp.GObject
         /// <returns>
         /// static type name or %NULL
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_name (
@@ -613,7 +613,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the parent type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_parent (
@@ -652,7 +652,7 @@ namespace GISharp.GObject
         /// Newly allocated
         ///     and 0-terminated array of child types, free with g_free()
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GType*">
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
@@ -680,7 +680,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_type_is_a (GType type, GType is_a_type);
 
         public bool IsA (GType type)
@@ -701,7 +701,7 @@ namespace GISharp.GObject
         /// <returns>
         /// corresponding type ID or 0
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_from_name (
@@ -768,7 +768,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_type_register_static (
             GType parentType,
             IntPtr typeName,
@@ -1061,7 +1061,7 @@ namespace GISharp.GObject
         /// a user provided structure that is
         ///     filled in with constant values upon success
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_query (
@@ -1098,7 +1098,7 @@ namespace GISharp.GObject
         /// #GInterfaceInfo structure for this
         ///        (@instance_type, @interface_type) combination
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_add_interface_static (
@@ -1156,7 +1156,7 @@ namespace GISharp.GObject
         /// <param name="cacheFunc">
         /// a #GTypeClassCacheFunc
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_add_class_cache_func(
@@ -1212,7 +1212,7 @@ namespace GISharp.GObject
         /// size of private structure
         /// </param>
         [Since ("2.24")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_add_class_private(
@@ -1248,7 +1248,7 @@ namespace GISharp.GObject
             g_type_add_class_private(classType, privateSize);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_type_add_instance_private(
@@ -1285,7 +1285,7 @@ namespace GISharp.GObject
         ///     is initialized
         /// </param>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_add_interface_check(
@@ -1340,7 +1340,7 @@ namespace GISharp.GObject
         /// <param name="plugin">
         /// #GTypePlugin structure to retrieve the #GInterfaceInfo from
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_add_interface_dynamic(
@@ -1379,7 +1379,7 @@ namespace GISharp.GObject
             g_type_add_interface_dynamic(instanceType, interfaceType, plugin_);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
         /* */
         static extern IntPtr g_type_check_class_cast(
@@ -1402,7 +1402,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_class_is_a(
@@ -1434,7 +1434,7 @@ namespace GISharp.GObject
         /// <returns>
         /// %TRUE if @instance is valid, %FALSE otherwise
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_instance(
@@ -1463,7 +1463,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
         /* */
         static extern IntPtr g_type_check_instance_cast(
@@ -1486,7 +1486,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_instance_is_a(
@@ -1508,7 +1508,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_instance_is_fundamentally_a(
@@ -1530,7 +1530,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_value(
@@ -1549,7 +1549,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_check_value_holds(
@@ -1597,7 +1597,7 @@ namespace GISharp.GObject
         /// an allocated and initialized instance, subject to further
         ///     treatment by the fundamental type implementation
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
         /* */
         static extern IntPtr g_type_create_instance(
@@ -1648,7 +1648,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the depth of @type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_type_depth(
@@ -1691,7 +1691,7 @@ namespace GISharp.GObject
         /// a #GType
         /// </param>
         [Since ("2.34")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_ensure(
@@ -1734,7 +1734,7 @@ namespace GISharp.GObject
         /// <param name="instance">
         /// an instance of a type
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_free_instance(
@@ -1773,7 +1773,7 @@ namespace GISharp.GObject
         /// the next available fundamental type ID to be registered,
         ///     or 0 if the type system ran out of fundamental type IDs
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_fundamental_next();
@@ -1808,7 +1808,7 @@ namespace GISharp.GObject
         ///   if instance counts are not available, returns 0.
         /// </returns>
         [Since ("2.44")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_type_get_instance_count(
@@ -1846,7 +1846,7 @@ namespace GISharp.GObject
         /// the corresponding plugin
         ///     if @type is a dynamic type, %NULL otherwise
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_get_plugin(
@@ -1890,7 +1890,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the data, or %NULL if no data was found
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_get_qdata(
@@ -1936,7 +1936,7 @@ namespace GISharp.GObject
         /// An unsigned int, representing the state of type registrations
         /// </returns>
         [Since ("2.36")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_type_get_type_registration_serial();
@@ -1967,7 +1967,7 @@ namespace GISharp.GObject
         /// nothing.
         /// </summary>
         [System.ObsoleteAttribute("the type system is now initialised automatically")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_init();
@@ -1997,7 +1997,7 @@ namespace GISharp.GObject
         ///     debugging purposes
         /// </param>
         [System.ObsoleteAttribute("the type system is now initialised automatically")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_init_with_debug_flags(
@@ -2039,7 +2039,7 @@ namespace GISharp.GObject
         /// Newly allocated
         ///     and 0-terminated array of interface types, free with g_free()
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GType*">
 <type name="GType" type="GType" managed-name="GType" />
 </array> */
@@ -2086,7 +2086,7 @@ namespace GISharp.GObject
         /// <returns>
         /// %TRUE if @type is a @is_a_type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_type_is_a(
@@ -2118,7 +2118,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_name_from_class(
@@ -2138,7 +2138,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_name_from_instance(
@@ -2176,7 +2176,7 @@ namespace GISharp.GObject
         /// <returns>
         /// immediate child of @root_type and anchestor of @leaf_type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_next_base(
@@ -2220,7 +2220,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the type names quark or 0
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         /* transfer-ownership:none */
         static extern GISharp.GLib.Quark g_type_qname(
@@ -2265,7 +2265,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the new type identifier or #G_TYPE_INVALID if registration failed
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_register_dynamic(
@@ -2349,7 +2349,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the predefined type identifier
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_type_register_fundamental(
@@ -2419,7 +2419,7 @@ namespace GISharp.GObject
         /// <param name="cacheFunc">
         /// a #GTypeClassCacheFunc
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_remove_class_cache_func(
@@ -2462,7 +2462,7 @@ namespace GISharp.GObject
         /// callback function passed to g_type_add_interface_check()
         /// </param>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_remove_interface_check(
@@ -2506,7 +2506,7 @@ namespace GISharp.GObject
         /// <param name="data">
         /// the data
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_set_qdata(

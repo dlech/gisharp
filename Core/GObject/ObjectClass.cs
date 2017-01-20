@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
@@ -307,7 +307,7 @@ namespace GISharp.GObject
         /// the #GParamSpec for the property, or
         ///          %NULL if the class doesn't have a property of that name
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_object_class_find_property (
@@ -415,7 +415,7 @@ namespace GISharp.GObject
         ///   defining the new properties
         /// </param>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_object_class_install_properties (
@@ -533,7 +533,7 @@ namespace GISharp.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_object_class_install_property (
@@ -588,7 +588,7 @@ namespace GISharp.GObject
         /// an array of
         ///          #GParamSpec* which should be freed after use
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="GParamSpec**">
                <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
            </array> */
@@ -646,7 +646,7 @@ namespace GISharp.GObject
         ///  in an interface of this class.
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_object_class_override_property (

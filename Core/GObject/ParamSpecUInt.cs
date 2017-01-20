@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -57,7 +57,7 @@ namespace GISharp.GObject
         {
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         extern static IntPtr g_param_spec_uint (IntPtr name,
             IntPtr nick,
             IntPtr blurb,

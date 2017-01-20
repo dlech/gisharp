@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -213,7 +213,7 @@ namespace GISharp.GObject
         /// location of the #GTypeValueTable associated with @type or
         ///     %NULL if there is no #GTypeValueTable associated with @type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeValueTable" type="GTypeValueTable*" managed-name="TypeValueTable" /> */
         /* */
         static extern TypeValueTable g_type_value_table_peek (

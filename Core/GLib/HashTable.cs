@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Reflection;
 using GISharp.Runtime;
@@ -879,7 +879,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a new #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_hash_table_new(
             [In] NativeHashFunc hashFunc,
             [In] NativeEqualFunc keyEqualFunc);
@@ -909,7 +909,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a new #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_hash_table_new_full(
             [In] NativeHashFunc hashFunc,
             [In] NativeEqualFunc keyEqualFunc,
@@ -935,7 +935,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the two keys match.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_direct_equal(
             [In] IntPtr v1,
             [In] IntPtr v2);
@@ -956,7 +956,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_direct_hash(
             [In] IntPtr v);
 
@@ -976,7 +976,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the two keys match.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern Boolean g_double_equal(
             [In] IntPtr v1,
@@ -994,7 +994,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern UInt32 g_double_hash(
             [In] IntPtr v);
@@ -1020,7 +1020,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the two keys match.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_int_equal(
             [In] IntPtr v1,
             [In] IntPtr v2);
@@ -1041,7 +1041,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_int_hash(
             [In] IntPtr v);
 
@@ -1061,7 +1061,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the two keys match.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern Boolean g_int64_equal(
             [In] IntPtr v1,
@@ -1081,7 +1081,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern UInt32 g_int64_hash(
             [In] IntPtr v);
@@ -1106,7 +1106,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the two keys match
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_str_equal(
             [In] IntPtr v1,
             [In] IntPtr v2);
@@ -1130,7 +1130,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a hash value corresponding to the key
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_str_hash(
             [In] IntPtr v);
 
@@ -1153,7 +1153,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the key did not exist yet
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
         internal static extern Boolean g_hash_table_add(
             [In] IntPtr hashTable,
@@ -1168,7 +1168,7 @@ namespace GISharp.GLib
         /// <param name="key">
         /// a key to check
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
         internal static extern Boolean g_hash_table_contains(
             [In] IntPtr hashTable,
@@ -1185,7 +1185,7 @@ namespace GISharp.GLib
         /// <param name="hashTable">
         /// a #GHashTable
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_hash_table_destroy(
             [In] IntPtr hashTable);
 
@@ -1219,7 +1219,7 @@ namespace GISharp.GLib
         ///     for which @predicate evaluates to %TRUE. If no pair with the
         ///     requested property is found, %NULL is returned.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
         internal static extern IntPtr g_hash_table_find(
             [In] IntPtr hashTable,
@@ -1247,7 +1247,7 @@ namespace GISharp.GLib
         /// <param name="userData">
         /// user data to pass to the function
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_hash_table_foreach(
             [In] IntPtr hashTable,
             [In] NativeHFunc func,
@@ -1276,7 +1276,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the number of key/value pairs removed
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_hash_table_foreach_remove(
             [In] IntPtr hashTable,
             [In] NativeHRFunc func,
@@ -1304,7 +1304,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the number of key/value pairs removed.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_hash_table_foreach_steal(
             [In] IntPtr hashTable,
             [In] NativeHRFunc func,
@@ -1323,7 +1323,7 @@ namespace GISharp.GLib
         ///     should not be modified or freed. Use g_list_free() when done
         ///     using the list.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.14")]
         internal static extern IntPtr g_hash_table_get_keys(
             [In] IntPtr hashTable);
@@ -1354,7 +1354,7 @@ namespace GISharp.GLib
         /// a
         ///   %NULL-terminated array containing each key from the table.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.40")]
         [return: MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)]
         internal static extern IntPtr[] g_hash_table_get_keys_as_array(
@@ -1374,7 +1374,7 @@ namespace GISharp.GLib
         ///     should not be modified or freed. Use g_list_free() when done
         ///     using the list.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.14")]
         internal static extern IntPtr g_hash_table_get_values(
             [In] IntPtr hashTable);
@@ -1402,7 +1402,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the key did not exist yet
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_hash_table_insert(
             [In] IntPtr hashTable,
             [In] IntPtr key,
@@ -1423,7 +1423,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the associated value, or %NULL if the key is not found
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_hash_table_lookup(
             [In] IntPtr hashTable,
             [In] IntPtr key);
@@ -1454,7 +1454,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the key was found in the #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_hash_table_lookup_extended(
             [In] IntPtr hashTable,
             [In] IntPtr lookupKey,
@@ -1471,7 +1471,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the passed in #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
         internal static extern IntPtr g_hash_table_ref(
             [In] IntPtr hashTable);
@@ -1494,7 +1494,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_hash_table_remove(
             [In] IntPtr hashTable,
             [In] IntPtr key);
@@ -1511,7 +1511,7 @@ namespace GISharp.GLib
         /// <param name="hashTable">
         /// a #GHashTable
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.12")]
         internal static extern void g_hash_table_remove_all(
             [In] IntPtr hashTable);
@@ -1537,7 +1537,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE of the key did not exist yet
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_hash_table_replace(
             [In] IntPtr hashTable,
             [In] IntPtr key,
@@ -1552,7 +1552,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the number of key/value pairs in the #GHashTable.
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern UInt32 g_hash_table_size(
             [In] IntPtr hashTable);
 
@@ -1569,7 +1569,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern Boolean g_hash_table_steal(
             [In] IntPtr hashTable,
             [In] IntPtr key);
@@ -1581,7 +1581,7 @@ namespace GISharp.GLib
         /// <param name="hashTable">
         /// a #GHashTable
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.12")]
         internal static extern void g_hash_table_steal_all(
             [In] IntPtr hashTable);
@@ -1595,7 +1595,7 @@ namespace GISharp.GLib
         /// <param name="hashTable">
         /// a valid #GHashTable
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
         internal static extern void g_hash_table_unref(
             [In] IntPtr hashTable);

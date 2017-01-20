@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -31,7 +31,7 @@ namespace GISharp.GLib
         ///    finished with, if non-%NULL
         /// </param>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_log_set_writer_func (
@@ -124,7 +124,7 @@ namespace GISharp.GLib
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern LogWriterOutput g_log_writer_default (
@@ -214,7 +214,7 @@ namespace GISharp.GLib
         ///    the character set of the current locale
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_log_writer_format_fields (
@@ -330,7 +330,7 @@ namespace GISharp.GLib
         /// %TRUE if @output_fd points to the journal, %FALSE otherwise
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_log_writer_is_journald (
@@ -386,7 +386,7 @@ namespace GISharp.GLib
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern LogWriterOutput g_log_writer_journald (
@@ -471,7 +471,7 @@ namespace GISharp.GLib
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern LogWriterOutput g_log_writer_standard_streams (
@@ -538,7 +538,7 @@ namespace GISharp.GLib
         /// %TRUE if ANSI color escapes are supported, %FALSE otherwise
         /// </returns>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             static extern bool g_log_writer_supports_color (
@@ -589,7 +589,7 @@ namespace GISharp.GLib
         /// number of elements in the @fields array
         /// </param>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_log_structured_array (
@@ -756,7 +756,7 @@ namespace GISharp.GLib
         /// containing the key-value pairs of message data.
         /// </param>
         [Since ("2.50")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_log_variant (

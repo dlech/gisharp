@@ -185,7 +185,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the newly-created #GSource.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_source_new (
@@ -233,7 +233,7 @@ namespace GISharp.GLib
         /// <returns>
         /// For historical reasons, this function always returns %TRUE
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none skip:1 */
         static extern bool g_source_remove (
@@ -299,7 +299,7 @@ namespace GISharp.GLib
         /// debug name for the source
         /// </param>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_name_by_id (
@@ -353,7 +353,7 @@ namespace GISharp.GLib
         /// The currently firing source or %NULL.
         /// </returns>
         [Since ("2.12")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_main_current_source ();
@@ -373,7 +373,7 @@ namespace GISharp.GLib
             }
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         static extern GType g_source_get_type ();
 
@@ -410,7 +410,7 @@ namespace GISharp.GLib
         /// a second #GSource that @source should "poll"
         /// </param>
         [Since ("2.28")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_add_child_source (
@@ -477,7 +477,7 @@ namespace GISharp.GLib
         /// a #GPollFD structure holding information about a file
         ///      descriptor to watch.
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_add_poll (
@@ -527,7 +527,7 @@ namespace GISharp.GLib
         /// the ID (greater than 0) for the source within the
         ///   #GMainContext.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_source_attach (
@@ -569,7 +569,7 @@ namespace GISharp.GLib
         /// <param name="source">
         /// a #GSource
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_destroy (
@@ -599,7 +599,7 @@ namespace GISharp.GLib
         /// <returns>
         /// whether recursion is allowed.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_source_get_can_recurse (
@@ -646,7 +646,7 @@ namespace GISharp.GLib
         ///               source is associated, or %NULL if the context has not
         ///               yet been added to a source.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none nullable:1 */
         static extern IntPtr g_source_get_context (
@@ -691,7 +691,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the ID (greater than 0) for the source
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_source_get_id (
@@ -727,7 +727,7 @@ namespace GISharp.GLib
         /// the name of the source
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_source_get_name (
@@ -771,7 +771,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the priority of the source
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_source_get_priority (
@@ -812,7 +812,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the monotonic ready time, -1 for "never"
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
         static extern long g_source_get_ready_time (
@@ -861,7 +861,7 @@ namespace GISharp.GLib
         /// the monotonic time in microseconds
         /// </returns>
         [Since ("2.28")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
         static extern long g_source_get_time (
@@ -961,7 +961,7 @@ namespace GISharp.GLib
         /// %TRUE if the source has been destroyed
         /// </returns>
         [Since ("2.12")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_source_is_destroyed (
@@ -1053,7 +1053,7 @@ namespace GISharp.GLib
         /// <returns>
         /// @source
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full skip:1 */
         static extern IntPtr g_source_ref (
@@ -1085,7 +1085,7 @@ namespace GISharp.GLib
         ///     g_source_add_child_source().
         /// </param>
         [Since ("2.28")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_remove_child_source (
@@ -1132,7 +1132,7 @@ namespace GISharp.GLib
         /// <param name="fd">
         /// a #GPollFD structure previously passed to g_source_add_poll().
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_remove_poll (
@@ -1180,7 +1180,7 @@ namespace GISharp.GLib
         /// the tag from g_source_add_unix_fd()
         /// </param>
         [Since ("2.36")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_remove_unix_fd (
@@ -1241,7 +1241,7 @@ namespace GISharp.GLib
         /// <param name="notify">
         /// a function to call when @data is no longer in use, or %NULL.
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_callback (
@@ -1306,7 +1306,7 @@ namespace GISharp.GLib
         /// functions for reference counting @callback_data
         ///                  and getting the callback and data
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_callback_indirect (
@@ -1332,7 +1332,7 @@ namespace GISharp.GLib
         /// <param name="canRecurse">
         /// whether recursion is allowed for this source
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_can_recurse (
@@ -1354,7 +1354,7 @@ namespace GISharp.GLib
         /// the new #GSourceFuncs
         /// </param>
         [Since ("2.12")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_funcs (
@@ -1405,7 +1405,7 @@ namespace GISharp.GLib
         /// debug name for the source
         /// </param>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_name (
@@ -1433,7 +1433,7 @@ namespace GISharp.GLib
         /// <param name="priority">
         /// the new priority.
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_priority (
@@ -1474,7 +1474,7 @@ namespace GISharp.GLib
         ///              0 for "immediately", -1 for "never"
         /// </param>
         [Since ("2.36")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_set_ready_time (
@@ -1493,7 +1493,7 @@ namespace GISharp.GLib
         /// <param name="source">
         /// a #GSource
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_source_unref (

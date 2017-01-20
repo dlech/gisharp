@@ -9,7 +9,7 @@ namespace GISharp.GIRepository
     public sealed class FieldInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_field_info_get_field (IntPtr raw, IntPtr mem, out Argument value);
 
         public bool GetField (IntPtr mem, out Argument value)
@@ -17,7 +17,7 @@ namespace GISharp.GIRepository
             return g_field_info_get_field (Handle, mem, out value);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern FieldInfoFlags g_field_info_get_flags (IntPtr raw);
 
         public FieldInfoFlags Flags {
@@ -26,7 +26,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_field_info_get_offset (IntPtr raw);
 
         public int Offset {
@@ -35,7 +35,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_field_info_get_size (IntPtr raw);
 
         public int Size {
@@ -44,7 +44,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_field_info_get_type (IntPtr raw);
 
         public TypeInfo TypeInfo {
@@ -54,7 +54,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_field_info_set_field (IntPtr raw, IntPtr mem, ref Argument value);
 
         public bool SetField (IntPtr mem, Argument value)

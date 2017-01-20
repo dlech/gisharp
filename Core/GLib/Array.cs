@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Collections.Generic;
 using System.Collections;
@@ -532,7 +532,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_new(
             [In] Boolean zeroTerminated,
             [In] Boolean clear,
@@ -561,7 +561,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_sized_new(
             [In] Boolean zeroTerminated,
             [In] Boolean clear,
@@ -583,7 +583,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_append_vals(
             [In] IntPtr array,
             [In] IntPtr data,
@@ -612,7 +612,7 @@ namespace GISharp.GLib
         /// the element data if @free_segment is <c>false</c>, otherwise
         ///     <c>null</c>. The element data should be freed using g_free().
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_free(
             [In] IntPtr array,
             [In] Boolean freeSegment);
@@ -626,7 +626,7 @@ namespace GISharp.GLib
         /// <returns>
         /// Size of each element, in bytes
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern UInt32 g_array_get_element_size(
             [In] IntPtr array);
@@ -649,7 +649,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_insert_vals(
             [In] IntPtr array,
             [In] UInt32 index,
@@ -676,7 +676,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_prepend_vals(
             [In] IntPtr array,
             [In] IntPtr data,
@@ -692,7 +692,7 @@ namespace GISharp.GLib
         /// <returns>
         /// The passed in <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern IntPtr g_array_ref(
             [In] IntPtr array);
@@ -710,7 +710,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_remove_index(
             [In] IntPtr array,
             [In] UInt32 index);
@@ -730,7 +730,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_remove_index_fast(
             [In] IntPtr array,
             [In] UInt32 index);
@@ -751,7 +751,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
         internal static extern IntPtr g_array_remove_range(
             [In] IntPtr array,
@@ -776,7 +776,7 @@ namespace GISharp.GLib
         /// <param name="clearFunc">
         /// a function to clear an element of this array
         /// </param>
-        //        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        [Since("2.32")]
         //        internal static extern void g_array_set_clear_func(
         //            [In] IntPtr array,
@@ -795,7 +795,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the <see cref="Array{T}"/>
         /// </returns>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_array_set_size(
             [In] IntPtr array,
             [In] UInt32 length);
@@ -815,7 +815,7 @@ namespace GISharp.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        //        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        internal static extern void g_array_sort(
         //            [In] IntPtr array,
         //            [In] GISharp.GLib.CompareFuncNative compareFunc);
@@ -840,7 +840,7 @@ namespace GISharp.GLib
         /// <param name="user_data">
         /// data to pass to @compare_func
         /// </param>
-        //        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        internal static extern void g_array_sort_with_data(
         //            [In] IntPtr array,
         //            [In] GISharp.GLib.CompareDataFuncNative compareFunc,
@@ -855,7 +855,7 @@ namespace GISharp.GLib
         /// <param name="array">
         /// A <see cref="Array{T}"/>
         /// </param>
-        [DllImport("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         internal static extern void g_array_unref(
             [In] IntPtr array);

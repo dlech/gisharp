@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
@@ -33,7 +33,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the hook id, for later use with g_signal_remove_emission_hook().
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern nulong g_signal_add_emission_hook (
@@ -97,7 +97,7 @@ namespace GISharp.GObject
         /// <param name="returnValue">
         /// Location for the return value.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_chain_from_overridden (
@@ -157,7 +157,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern nulong g_signal_connect_closure (
@@ -234,7 +234,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern nulong g_signal_connect_closure_by_id (
@@ -318,7 +318,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         internal static extern nulong g_signal_connect_data (
@@ -418,7 +418,7 @@ namespace GISharp.GObject
         /// store the return value of the signal emission. This must be provided if the
         /// specified signal returns a value, but may be ignored otherwise.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_emitv (
@@ -477,7 +477,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the invocation hint of the innermost signal  emission.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
         static extern SignalInvocationHint g_signal_get_invocation_hint (
@@ -536,7 +536,7 @@ namespace GISharp.GObject
         /// %TRUE if a handler is connected to the signal, %FALSE
         ///          otherwise.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_signal_has_handler_pending (
@@ -609,7 +609,7 @@ namespace GISharp.GObject
         /// <returns>
         /// Newly allocated array of signal IDs.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="guint*">
 <type name="guint" type="guint" managed-name="Guint" />
 </array> */
@@ -660,7 +660,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_signal_lookup (
@@ -713,7 +713,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal name, or %NULL if the signal number was invalid.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_signal_name (
@@ -790,7 +790,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal id
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         internal static extern uint g_signal_newv (
@@ -847,7 +847,7 @@ namespace GISharp.GObject
         /// <param name="classClosure">
         /// the closure.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_override_class_closure (
@@ -912,7 +912,7 @@ namespace GISharp.GObject
         /// the handler.
         /// </param>
         [Since ("2.18")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_override_class_handler (
@@ -984,7 +984,7 @@ namespace GISharp.GObject
         /// <returns>
         /// Whether the signal name could successfully be parsed and @signal_id_p and @detail_p contain valid return values.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_signal_parse_name (
@@ -1052,7 +1052,7 @@ namespace GISharp.GObject
         /// A user provided structure that is
         ///  filled in with constant values upon success.
         /// </param>
-        //        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         //        /* <type name="none" type="void" managed-name="None" /> */
         //        /* transfer-ownership:none */
         //        static extern void g_signal_query (
@@ -1093,7 +1093,7 @@ namespace GISharp.GObject
         /// the id of the emission hook, as returned by
         ///  g_signal_add_emission_hook()
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_remove_emission_hook (
@@ -1138,7 +1138,7 @@ namespace GISharp.GObject
         /// <param name="detail">
         /// the detail which the signal was emitted with.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_stop_emission (
@@ -1193,7 +1193,7 @@ namespace GISharp.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_signal_stop_emission_by_name (
@@ -1246,7 +1246,7 @@ namespace GISharp.GObject
         /// <returns>
         /// a new #GCClosure
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_signal_type_cclosure_new (

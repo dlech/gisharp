@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
 
@@ -35,7 +35,7 @@ namespace GISharp.GObject
         /// the GTypeClass structure for the given type ID or NULL if the class
         /// does not currently exist.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_class_peek (
@@ -80,7 +80,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the parent class of @g_class
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_class_peek_parent (
@@ -121,7 +121,7 @@ namespace GISharp.GObject
         /// the #GTypeClass
         ///     structure for the given type ID
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
         /* transfer-ownership:none */
         internal static extern IntPtr g_type_class_ref (
@@ -150,7 +150,7 @@ namespace GISharp.GObject
         /// <param name="gClass">
         /// a #GTypeClass structure to unref
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_unref (
@@ -243,7 +243,7 @@ namespace GISharp.GObject
         /// size of private structure
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_add_private (
@@ -331,7 +331,7 @@ namespace GISharp.GObject
             g_type_class_add_private (gClass, privateSize);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_adjust_private_offset (
@@ -365,7 +365,7 @@ namespace GISharp.GObject
         /// the offset, in bytes
         /// </returns>
         [SinceAttribute ("2.38")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern Int32 g_type_class_get_instance_private_offset (
@@ -397,7 +397,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* */
         static extern IntPtr g_type_class_get_private (
@@ -423,7 +423,7 @@ namespace GISharp.GObject
         /// <param name="gClass">
         /// a #GTypeClass structure to unref
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_class_unref_uncached (

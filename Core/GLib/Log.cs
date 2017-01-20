@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -32,7 +32,7 @@ namespace GISharp.GLib
         /// </summary>
         public const int LogLevelUserShift = 8;
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format);
 
         static void Log_ (string logDomain, LogLevelFlags logLevel, string format, params object[] args)
@@ -115,7 +115,7 @@ namespace GISharp.GLib
         /// <param name="unusedData">
         /// data passed from g_log() which is unused
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_log_default_handler (
@@ -193,7 +193,7 @@ namespace GISharp.GLib
         /// the id of the handler, which was returned
         ///     in g_log_set_handler()
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_log_remove_handler (
@@ -254,7 +254,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the old fatal mask
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
         static extern LogLevelFlags g_log_set_always_fatal (
@@ -314,7 +314,7 @@ namespace GISharp.GLib
         /// the previous default log handler
         /// </returns>
         [Since ("2.6")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
         /* */
         static extern LogFunc g_log_set_default_handler (
@@ -382,7 +382,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the old fatal mask for the log domain
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
         static extern LogLevelFlags g_log_set_fatal_mask (
@@ -454,7 +454,7 @@ namespace GISharp.GLib
         /// the id of the new handler
         /// </returns>
         [Since ("2.46")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_log_set_handler_full (

@@ -10,7 +10,7 @@ namespace GISharp.GIRepository
     public sealed class PropertyInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern ParamFlags g_property_info_get_flags (IntPtr raw);
 
         public ParamFlags Flags {
@@ -19,7 +19,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Transfer g_property_info_get_ownership_transfer (IntPtr raw);
 
         public Transfer OwnershipTransfer {
@@ -28,7 +28,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_property_info_get_type (IntPtr raw);
 
         public TypeInfo TypeInfo {

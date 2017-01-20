@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
@@ -11,7 +11,7 @@ namespace GISharp.Gio.Test
     {
         delegate void LogFunc (IntPtr log_domain, uint log_level, IntPtr message, IntPtr user_data);
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern uint g_log_set_default_handler (
             LogFunc log_func,
             IntPtr user_data);

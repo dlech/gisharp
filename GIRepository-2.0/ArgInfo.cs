@@ -16,7 +16,7 @@ namespace GISharp.GIRepository
     /// </remarks>
     public sealed class ArgInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_closure (IntPtr raw);
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace GISharp.GIRepository
         readonly Lazy<ArgInfo> _Closure;
         public ArgInfo Closure { get { return _Closure.Value; } }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_destroy (IntPtr raw);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace GISharp.GIRepository
         readonly Lazy<ArgInfo> _ArrayLength;
         public ArgInfo ArrayLength { get { return _ArrayLength.Value; } }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Direction g_arg_info_get_direction (IntPtr raw);
 
         public Direction Direction {
@@ -63,7 +63,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Transfer g_arg_info_get_ownership_transfer (IntPtr raw);
 
         public Transfer OwnershipTransfer {
@@ -72,7 +72,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern ScopeType g_arg_info_get_scope (IntPtr raw);
 
         public ScopeType Scope {
@@ -81,7 +81,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_arg_info_get_type (IntPtr raw);
 
         public TypeInfo TypeInfo {
@@ -91,7 +91,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_arg_info_is_caller_allocates (IntPtr raw);
 
         public bool IsCallerAllocates {
@@ -100,7 +100,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_arg_info_is_optional (IntPtr raw);
 
         public bool IsOptional {
@@ -109,7 +109,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_arg_info_is_return_value (IntPtr raw);
 
         public bool IsReturnValue {
@@ -118,7 +118,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_arg_info_is_skip (IntPtr raw);
 
         public bool IsSkip {
@@ -127,7 +127,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_arg_info_load_type (IntPtr raw, IntPtr type);
 
         void LoadType (TypeInfo type)
@@ -135,7 +135,7 @@ namespace GISharp.GIRepository
             g_arg_info_load_type (Handle, type == null ? IntPtr.Zero : type.Handle);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_arg_info_may_be_null (IntPtr raw);
 
         public bool MayBeNull {

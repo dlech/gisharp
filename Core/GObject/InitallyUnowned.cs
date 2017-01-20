@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
 
@@ -13,7 +13,7 @@ namespace GISharp.GObject
     [GTypeStruct (typeof(InitiallyUnownedClass))]
     public class InitiallyUnowned : Object
     {
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initially_unowned_get_type ();
 
         static GType getGType ()

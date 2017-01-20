@@ -16,7 +16,7 @@ namespace GISharp.GIRepository
         /// </summary>
         public int UnknownOffset = 0xFFFF;
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_vfunc_info_get_flags (IntPtr raw);
 
         /// <summary>
@@ -31,7 +31,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_vfunc_info_get_invoker (IntPtr raw);
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_vfunc_info_get_offset (IntPtr raw);
 
         /// <summary>
@@ -67,7 +67,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_vfunc_info_get_signal (IntPtr raw);
 
         /// <summary>

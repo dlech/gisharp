@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using System.Threading;
 using GISharp.GObject;
@@ -31,7 +31,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a new #GMainLoop.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_main_loop_new (
@@ -65,7 +65,7 @@ namespace GISharp.GLib
         {
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_main_loop_get_type ();
@@ -85,7 +85,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the #GMainContext of @loop
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_main_loop_get_context (
@@ -117,7 +117,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if the mainloop is currently being run.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_loop_is_running (
@@ -150,7 +150,7 @@ namespace GISharp.GLib
         /// <param name="loop">
         /// a #GMainLoop
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_loop_quit (
@@ -181,7 +181,7 @@ namespace GISharp.GLib
         /// <returns>
         /// @loop
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
         /* transfer-ownership:full skip:1 */
         static extern IntPtr g_main_loop_ref (
@@ -207,7 +207,7 @@ namespace GISharp.GLib
         /// <param name="loop">
         /// a #GMainLoop
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_loop_run (
@@ -244,7 +244,7 @@ namespace GISharp.GLib
         /// <param name="loop">
         /// a #GMainLoop
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_loop_unref (

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -62,7 +62,7 @@ namespace GISharp.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_enum_complete_type_info (
@@ -129,7 +129,7 @@ namespace GISharp.GObject
         /// the #GEnumValue for @value, or %NULL
         ///          if @value is not a member of the enumeration
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_enum_get_value (
@@ -179,7 +179,7 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that name
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_enum_get_value_by_name (
@@ -235,7 +235,7 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that nickname
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="EnumValue" type="GEnumValue*" managed-name="EnumValue" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_enum_get_value_by_nick (
@@ -277,7 +277,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_enum_register_static (IntPtr typeName, IntPtr values);
 
         public static GType RegisterStatic (string typeName, EnumValue[] values)

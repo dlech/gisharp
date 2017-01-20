@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
@@ -455,7 +455,7 @@ namespace GISharp.GObject
         /// a function which transforms values of type @src_type
         ///  into value of type @dest_type
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_register_transform_func (
@@ -514,7 +514,7 @@ namespace GISharp.GObject
         /// <returns>
         /// %TRUE if g_value_copy() is possible with @src_type and @dest_type.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_value_type_compatible (
@@ -559,7 +559,7 @@ namespace GISharp.GObject
         /// <returns>
         /// %TRUE if the transformation is possible, %FALSE otherwise.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_value_type_transformable (
@@ -600,7 +600,7 @@ namespace GISharp.GObject
         /// <param name="destValue">
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_copy (
@@ -634,7 +634,7 @@ namespace GISharp.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* */
         static extern IntPtr g_value_dup_boxed (
@@ -670,7 +670,7 @@ namespace GISharp.GObject
         /// object content of @value,
         ///          should be unreferenced when no longer needed.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_value_dup_object (
@@ -707,7 +707,7 @@ namespace GISharp.GObject
         /// #GParamSpec content of @value, should be unreferenced when
         ///          no longer needed.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* */
         static extern IntPtr g_value_dup_param (
@@ -742,7 +742,7 @@ namespace GISharp.GObject
         ///   g_variant_unref() when no longer needed
         /// </returns>
         [SinceAttribute ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_value_dup_variant (
@@ -776,7 +776,7 @@ namespace GISharp.GObject
         /// <returns>
         /// %TRUE if @value will fit inside a pointer value.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_value_fits_pointer (
@@ -808,7 +808,7 @@ namespace GISharp.GObject
         /// <returns>
         /// boolean contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_value_get_boolean (
@@ -844,7 +844,7 @@ namespace GISharp.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_get_boxed (
@@ -896,7 +896,7 @@ namespace GISharp.GObject
         /// <returns>
         /// double contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
         /* transfer-ownership:none */
         static extern double g_value_get_double (
@@ -932,7 +932,7 @@ namespace GISharp.GObject
         /// <returns>
         /// enum contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_value_get_enum (
@@ -968,7 +968,7 @@ namespace GISharp.GObject
         /// <returns>
         /// flags contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_value_get_flags (
@@ -1005,7 +1005,7 @@ namespace GISharp.GObject
         /// <returns>
         /// float contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gfloat" type="gfloat" managed-name="Gfloat" /> */
         /* transfer-ownership:none */
         static extern float g_value_get_float (
@@ -1042,7 +1042,7 @@ namespace GISharp.GObject
         /// the #GType stored in @value
         /// </returns>
         [SinceAttribute ("2.12")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
         static extern GType g_value_get_gtype (
@@ -1079,7 +1079,7 @@ namespace GISharp.GObject
         /// <returns>
         /// integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_value_get_int (
@@ -1115,7 +1115,7 @@ namespace GISharp.GObject
         /// <returns>
         /// 64bit integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
         static extern long g_value_get_int64 (
@@ -1151,7 +1151,7 @@ namespace GISharp.GObject
         /// <returns>
         /// long integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" managed-name="Glong" /> */
         /* transfer-ownership:none */
         static extern nlong g_value_get_long (
@@ -1187,7 +1187,7 @@ namespace GISharp.GObject
         /// <returns>
         /// object contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_get_object (
@@ -1223,7 +1223,7 @@ namespace GISharp.GObject
         /// <returns>
         /// #GParamSpec content of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_get_param (
@@ -1259,7 +1259,7 @@ namespace GISharp.GObject
         /// <returns>
         /// pointer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_get_pointer (
@@ -1296,7 +1296,7 @@ namespace GISharp.GObject
         /// signed 8 bit integer contents of @value
         /// </returns>
         [SinceAttribute ("2.32")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint8" type="gint8" managed-name="Gint8" /> */
         /* transfer-ownership:none */
         static extern sbyte g_value_get_schar (
@@ -1333,7 +1333,7 @@ namespace GISharp.GObject
         /// <returns>
         /// string content of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_get_string (
@@ -1372,7 +1372,7 @@ namespace GISharp.GObject
         /// <returns>
         /// unsigned character contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint8" type="guchar" managed-name="Guint8" /> */
         /* transfer-ownership:none */
         static extern byte g_value_get_uchar (
@@ -1408,7 +1408,7 @@ namespace GISharp.GObject
         /// <returns>
         /// unsigned integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_value_get_uint (
@@ -1444,7 +1444,7 @@ namespace GISharp.GObject
         /// <returns>
         /// unsigned 64bit integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
         /* transfer-ownership:none */
         static extern ulong g_value_get_uint64 (
@@ -1480,7 +1480,7 @@ namespace GISharp.GObject
         /// <returns>
         /// unsigned long integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern nulong g_value_get_ulong (
@@ -1517,7 +1517,7 @@ namespace GISharp.GObject
         /// variant contents of @value
         /// </returns>
         [SinceAttribute ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_value_get_variant (
@@ -1556,7 +1556,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_init (
@@ -1598,7 +1598,7 @@ namespace GISharp.GObject
         /// the instance
         /// </param>
         [SinceAttribute ("2.42")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_init_from_instance (
@@ -1639,7 +1639,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the value contents as pointer
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_value_peek_pointer (
@@ -1671,7 +1671,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_value_reset (
@@ -1697,7 +1697,7 @@ namespace GISharp.GObject
         /// <param name="vBoolean">
         /// boolean value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_boolean (
@@ -1717,7 +1717,7 @@ namespace GISharp.GObject
         /// <param name="vBoxed">
         /// boxed value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_boxed (
@@ -1738,7 +1738,7 @@ namespace GISharp.GObject
         /// duplicated unowned boxed value to be set
         /// </param>
         //[Obsolete ("Use g_value_take_boxed() instead.")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_boxed_take_ownership (
@@ -1772,7 +1772,7 @@ namespace GISharp.GObject
         /// character value to be set
         /// </param>
         //[Obsolete ("This function's input type is broken, see g_value_set_schar()")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_char (
@@ -1792,7 +1792,7 @@ namespace GISharp.GObject
         /// <param name="vDouble">
         /// double value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_double (
@@ -1812,7 +1812,7 @@ namespace GISharp.GObject
         /// <param name="vEnum">
         /// enum value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_enum (
@@ -1832,7 +1832,7 @@ namespace GISharp.GObject
         /// <param name="vFlags">
         /// flags value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_flags (
@@ -1852,7 +1852,7 @@ namespace GISharp.GObject
         /// <param name="vFloat">
         /// float value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_float (
@@ -1873,7 +1873,7 @@ namespace GISharp.GObject
         /// #GType to be set
         /// </param>
         [SinceAttribute ("2.12")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_gtype (
@@ -1894,7 +1894,7 @@ namespace GISharp.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_instance (
@@ -1927,7 +1927,7 @@ namespace GISharp.GObject
         /// <param name="vInt">
         /// integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_int (
@@ -1947,7 +1947,7 @@ namespace GISharp.GObject
         /// <param name="vInt64">
         /// 64bit integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_int64 (
@@ -1967,7 +1967,7 @@ namespace GISharp.GObject
         /// <param name="vLong">
         /// long integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_long (
@@ -1998,7 +1998,7 @@ namespace GISharp.GObject
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_object (
@@ -2019,7 +2019,7 @@ namespace GISharp.GObject
         /// object value to be set
         /// </param>
         //[Obsolete ("Use g_value_take_object() instead.")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_object_take_ownership (
@@ -2052,7 +2052,7 @@ namespace GISharp.GObject
         /// <param name="param">
         /// the #GParamSpec to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_param (
@@ -2073,7 +2073,7 @@ namespace GISharp.GObject
         /// the #GParamSpec to be set
         /// </param>
         //[Obsolete ("Use g_value_take_param() instead.")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_param_take_ownership (
@@ -2107,7 +2107,7 @@ namespace GISharp.GObject
         /// <param name="vPointer">
         /// pointer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_pointer (
@@ -2128,7 +2128,7 @@ namespace GISharp.GObject
         /// signed 8 bit integer to be set
         /// </param>
         [SinceAttribute ("2.32")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_schar (
@@ -2150,7 +2150,7 @@ namespace GISharp.GObject
         /// <param name="vBoxed">
         /// static boxed value to be set
         /// </param>
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_static_boxed (
@@ -2186,7 +2186,7 @@ namespace GISharp.GObject
         /// <param name="vString">
         /// static string to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_static_string (
@@ -2222,7 +2222,7 @@ namespace GISharp.GObject
         /// <param name="vString">
         /// caller-owned string to be duplicated for the #GValue
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_string (
@@ -2243,7 +2243,7 @@ namespace GISharp.GObject
         /// duplicated unowned string to be set
         /// </param>
         //[Obsolete ("Use g_value_take_string() instead.")]
-        //[DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         ///* <type name="none" type="void" managed-name="None" /> */
         ///* transfer-ownership:none */
         //static extern void g_value_set_string_take_ownership(
@@ -2278,7 +2278,7 @@ namespace GISharp.GObject
         /// <param name="vUchar">
         /// unsigned character value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_uchar (
@@ -2298,7 +2298,7 @@ namespace GISharp.GObject
         /// <param name="vUint">
         /// unsigned integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_uint (
@@ -2318,7 +2318,7 @@ namespace GISharp.GObject
         /// <param name="vUint64">
         /// unsigned 64bit integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_uint64 (
@@ -2338,7 +2338,7 @@ namespace GISharp.GObject
         /// <param name="vUlong">
         /// unsigned long integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_ulong (
@@ -2360,7 +2360,7 @@ namespace GISharp.GObject
         /// a #GVariant, or %NULL
         /// </param>
         [SinceAttribute ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_variant (
@@ -2383,7 +2383,7 @@ namespace GISharp.GObject
         /// duplicated unowned boxed value to be set
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_take_boxed (
@@ -2426,7 +2426,7 @@ namespace GISharp.GObject
         /// object value to be set
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_take_object (
@@ -2469,7 +2469,7 @@ namespace GISharp.GObject
         /// the #GParamSpec to be set
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_take_param (
@@ -2506,7 +2506,7 @@ namespace GISharp.GObject
         /// string to take ownership of
         /// </param>
         [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_take_string (
@@ -2554,7 +2554,7 @@ namespace GISharp.GObject
         /// a #GVariant, or %NULL
         /// </param>
         [SinceAttribute ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_take_variant (
@@ -2610,7 +2610,7 @@ namespace GISharp.GObject
         /// Whether a transformation rule was found and could be applied.
         ///  Upon failing transformations, @dest_value is left untouched.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_value_transform (
@@ -2682,7 +2682,7 @@ namespace GISharp.GObject
         /// <param name="value">
         /// An initialized #GValue structure.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_unset (
@@ -2735,7 +2735,7 @@ namespace GISharp.GObject
             Set (value);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_value_get_type ();
 
         static GType getGType ()
@@ -2751,7 +2751,7 @@ namespace GISharp.GObject
             }
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_strdup_value_contents (ref Value value);
 
         /// <summary>

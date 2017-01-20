@@ -29,10 +29,10 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_default ();
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_dump (IntPtr arg, out IntPtr error);
 
         public static void Dump (string arg)
@@ -47,7 +47,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_enumerate_versions (IntPtr raw, IntPtr @namespace);
 
         internal static string[] GetVersions (string @namespace)
@@ -59,7 +59,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Quark g_irepository_error_quark ();
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, Quark domain);
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
         internal static GISharp.GIRepository.BaseInfo FindByName (string @namespace, string name)
@@ -104,7 +104,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_gtype (IntPtr raw, GType gtype);
 
         public static BaseInfo FindByGType (GType gtype)
@@ -115,7 +115,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_c_prefix (IntPtr raw, IntPtr @namespace);
 
         internal static string GetCPrefix (string @namespace)
@@ -127,7 +127,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_dependencies (IntPtr raw, IntPtr @namespace);
 
         internal static string[] GetDependencies (string @namespace)
@@ -139,7 +139,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_info (IntPtr raw, IntPtr @namespace, int index);
 
         internal static GISharp.GIRepository.BaseInfo GetInfo (string @namespace, int index)
@@ -151,7 +151,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_loaded_namespaces (IntPtr raw);
 
         /// <summary>
@@ -165,7 +165,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_irepository_get_n_infos (IntPtr raw, IntPtr @namespace);
 
         static int GetNInfos (string @namespace)
@@ -176,7 +176,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_search_path ();
 
         /// <summary>
@@ -199,7 +199,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_shared_library (IntPtr raw, IntPtr @namespace);
 
         internal static string GetSharedLibrary (string @namespace)
@@ -211,7 +211,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_typelib_path (IntPtr raw, IntPtr @namespace);
 
         internal static string GetTypelibPath (string @namespace)
@@ -223,7 +223,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_version (IntPtr raw, IntPtr @namespace);
 
         internal static string GetVersion (string @namespace)
@@ -235,7 +235,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_is_registered (IntPtr raw, IntPtr @namespace, IntPtr version);
 
         /// <summary>
@@ -260,7 +260,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_library_path (IntPtr directory);
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace GISharp.GIRepository
             GMarshal.Free (native_directory);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_search_path (IntPtr directory);
 
         /// <summary>
@@ -308,7 +308,7 @@ namespace GISharp.GIRepository
             GMarshal.Free (native_directory);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require (IntPtr raw, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
         /// <summary>
@@ -345,7 +345,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require_private (IntPtr raw, IntPtr typelibDir, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
         /// <summary>

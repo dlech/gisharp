@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
@@ -566,7 +566,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_array (
@@ -666,7 +666,7 @@ namespace GISharp.GLib
         /// a floating reference to a new boolean #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_boolean (
@@ -715,7 +715,7 @@ namespace GISharp.GLib
         /// a floating reference to a new byte #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_byte (
@@ -771,7 +771,7 @@ namespace GISharp.GLib
         /// a floating reference to a new bytestring #GVariant instance
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_bytestring (
@@ -848,7 +848,7 @@ namespace GISharp.GLib
         /// a new floating #GVariant instance
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_bytestring_array (
@@ -899,7 +899,7 @@ namespace GISharp.GLib
         /// a floating reference to a new dictionary entry #GVariant
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_dict_entry (
@@ -982,7 +982,7 @@ namespace GISharp.GLib
         /// a floating reference to a new double #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_double (
@@ -1054,7 +1054,7 @@ namespace GISharp.GLib
         /// a floating reference to a new array #GVariant instance
         /// </returns>
         [Since ("2.32")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_fixed_array (
@@ -1201,7 +1201,7 @@ namespace GISharp.GLib
         /// a new floating #GVariant of type @type
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_from_data (
@@ -1241,7 +1241,7 @@ namespace GISharp.GLib
         /// a floating reference to a new handle #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_handle (
@@ -1271,7 +1271,7 @@ namespace GISharp.GLib
         /// a floating reference to a new int16 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_int16 (
@@ -1320,7 +1320,7 @@ namespace GISharp.GLib
         /// a floating reference to a new int32 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_int32 (
@@ -1369,7 +1369,7 @@ namespace GISharp.GLib
         /// a floating reference to a new int64 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_int64 (
@@ -1431,7 +1431,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant maybe instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_maybe (
@@ -1513,7 +1513,7 @@ namespace GISharp.GLib
         /// a floating reference to a new object path #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_object_path (
@@ -1559,7 +1559,7 @@ namespace GISharp.GLib
         /// a new floating #GVariant instance
         /// </returns>
         [Since ("2.30")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_objv (
@@ -1606,7 +1606,7 @@ namespace GISharp.GLib
         /// a floating reference to a new signature #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_signature (
@@ -1649,7 +1649,7 @@ namespace GISharp.GLib
         /// a new floating #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_strv (
@@ -1729,7 +1729,7 @@ namespace GISharp.GLib
         ///   #GVariant instance
         /// </returns>
         [Since ("2.38")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_take_string (
@@ -1817,7 +1817,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_tuple (
@@ -1894,7 +1894,7 @@ namespace GISharp.GLib
         /// a floating reference to a new uint16 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_uint16 (
@@ -1943,7 +1943,7 @@ namespace GISharp.GLib
         /// a floating reference to a new uint32 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_uint32 (
@@ -1992,7 +1992,7 @@ namespace GISharp.GLib
         /// a floating reference to a new uint64 #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_uint64 (
@@ -2046,7 +2046,7 @@ namespace GISharp.GLib
         /// a floating reference to a new variant #GVariant instance
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_variant (
@@ -2117,7 +2117,7 @@ namespace GISharp.GLib
         /// %TRUE if @string is a D-Bus object path
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_is_object_path (
@@ -2170,7 +2170,7 @@ namespace GISharp.GLib
         /// %TRUE if @string is a D-Bus type signature
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_is_signature (
@@ -2257,7 +2257,7 @@ namespace GISharp.GLib
         /// <returns>
         /// a non-floating reference to a #GVariant, or %NULL
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_parse (
@@ -2344,7 +2344,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
         static extern Quark g_variant_parse_error_quark ();
@@ -2377,7 +2377,7 @@ namespace GISharp.GLib
         /// the byteswapped form of @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_byteswap (
@@ -2441,7 +2441,7 @@ namespace GISharp.GLib
         /// %TRUE if @format_string is safe to use
         /// </returns>
         [Since ("2.34")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_check_format_string (
@@ -2504,7 +2504,7 @@ namespace GISharp.GLib
         /// the #GVariantClass of @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantClass" type="GVariantClass" managed-name="VariantClass" /> */
         /* transfer-ownership:none */
         static extern VariantClass g_variant_classify (
@@ -2560,7 +2560,7 @@ namespace GISharp.GLib
         ///          positive value if a &gt; b.
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_variant_compare (
@@ -2654,7 +2654,7 @@ namespace GISharp.GLib
         /// %TRUE if @one and @two are equal
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_equal (
@@ -2725,7 +2725,7 @@ namespace GISharp.GLib
         /// %TRUE or %FALSE
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_get_boolean (
@@ -2766,7 +2766,7 @@ namespace GISharp.GLib
         /// a #guchar
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint8" type="guchar" managed-name="Guint8" /> */
         /* transfer-ownership:none */
         static extern byte g_variant_get_byte (
@@ -2819,7 +2819,7 @@ namespace GISharp.GLib
         ///          the constant string
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array type="gchar*" zero-terminated="1">
 <type name="guint8" managed-name="Guint8" />
 </array> */
@@ -2884,7 +2884,7 @@ namespace GISharp.GLib
         /// an array of constant strings
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -2939,7 +2939,7 @@ namespace GISharp.GLib
         /// the child at the specified index
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_get_child_value (
@@ -3015,7 +3015,7 @@ namespace GISharp.GLib
         /// the serialised form of @value, or %NULL
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_get_data (
@@ -3077,7 +3077,7 @@ namespace GISharp.GLib
         /// a #gdouble
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
         /* transfer-ownership:none */
         static extern double g_variant_get_double (
@@ -3147,7 +3147,7 @@ namespace GISharp.GLib
         ///     the fixed array
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gconstpointer">
             <type name="gpointer" type="gconstpointer" managed-name="Gpointer" />
             </array> */
@@ -3227,7 +3227,7 @@ namespace GISharp.GLib
         /// a #gint32
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
         /* transfer-ownership:none */
         static extern int g_variant_get_handle (
@@ -3272,7 +3272,7 @@ namespace GISharp.GLib
         /// a #gint16
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint16" type="gint16" managed-name="Gint16" /> */
         /* transfer-ownership:none */
         static extern short g_variant_get_int16 (
@@ -3313,7 +3313,7 @@ namespace GISharp.GLib
         /// a #gint32
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
         /* transfer-ownership:none */
         static extern int g_variant_get_int32 (
@@ -3354,7 +3354,7 @@ namespace GISharp.GLib
         /// a #gint64
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
         static extern long g_variant_get_int64 (
@@ -3392,7 +3392,7 @@ namespace GISharp.GLib
         /// the contents of @value, or %NULL
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_get_maybe (
@@ -3443,7 +3443,7 @@ namespace GISharp.GLib
         /// a trusted #GVariant
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_get_normal_form (
@@ -3506,7 +3506,7 @@ namespace GISharp.GLib
         /// an array of constant strings
         /// </returns>
         [Since ("2.30")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="1" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -3557,7 +3557,7 @@ namespace GISharp.GLib
         /// the serialised size of @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern ulong g_variant_get_size (
@@ -3619,7 +3619,7 @@ namespace GISharp.GLib
         /// the constant string, UTF-8 encoded
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_get_string (
@@ -3686,7 +3686,7 @@ namespace GISharp.GLib
         /// an array of constant strings
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="1" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -3740,7 +3740,7 @@ namespace GISharp.GLib
         /// a #GVariantType
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_get_type (
@@ -3780,7 +3780,7 @@ namespace GISharp.GLib
         /// the type string for the type of @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_get_type_string (
@@ -3820,7 +3820,7 @@ namespace GISharp.GLib
         /// a #guint16
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint16" type="guint16" managed-name="Guint16" /> */
         /* transfer-ownership:none */
         static extern ushort g_variant_get_uint16 (
@@ -3861,7 +3861,7 @@ namespace GISharp.GLib
         /// a #guint32
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint32" type="guint32" managed-name="Guint32" /> */
         /* transfer-ownership:none */
         static extern uint g_variant_get_uint32 (
@@ -3902,7 +3902,7 @@ namespace GISharp.GLib
         /// a #guint64
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
         /* transfer-ownership:none */
         static extern ulong g_variant_get_uint64 (
@@ -3940,7 +3940,7 @@ namespace GISharp.GLib
         /// the item contained in the variant
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_get_variant (
@@ -3984,7 +3984,7 @@ namespace GISharp.GLib
         /// a hash value corresponding to @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern int g_variant_hash (
@@ -4025,7 +4025,7 @@ namespace GISharp.GLib
         /// %TRUE if @value is a container
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_is_container (
@@ -4068,7 +4068,7 @@ namespace GISharp.GLib
         /// %TRUE if @value is in normal form
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_is_normal_form (
@@ -4114,7 +4114,7 @@ namespace GISharp.GLib
         /// %TRUE if the type of @value matches @type
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_variant_is_of_type (
@@ -4164,7 +4164,7 @@ namespace GISharp.GLib
         /// a new heap-allocated #GVariantIter
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_iter_new (
@@ -4232,7 +4232,7 @@ namespace GISharp.GLib
         /// the value of the dictionary key, or %NULL
         /// </returns>
         [Since ("2.28")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_lookup_value (
@@ -4315,7 +4315,7 @@ namespace GISharp.GLib
         /// the number of children in the container
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern ulong g_variant_n_children (
@@ -4368,7 +4368,7 @@ namespace GISharp.GLib
         /// a newly-allocated string holding the result.
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_print (
@@ -4436,7 +4436,7 @@ namespace GISharp.GLib
         /// the same @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full skip:1 */
         static extern IntPtr g_variant_ref_sink (
@@ -4498,7 +4498,7 @@ namespace GISharp.GLib
         /// the location to store the serialised data at
         /// </param>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_variant_store (
@@ -4542,7 +4542,7 @@ namespace GISharp.GLib
         /// a #GVariant
         /// </param>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_variant_unref (

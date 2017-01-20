@@ -9,7 +9,7 @@ namespace GISharp.GIRepository
 {
     public sealed class SignalInfo : CallableInfo
     {
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_signal_info_get_class_closure (IntPtr raw);
 
         public VFuncInfo ClassClosure {
@@ -19,7 +19,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern SignalFlags g_signal_info_get_flags (IntPtr raw);
 
         public SignalFlags Flags {
@@ -28,7 +28,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_signal_info_true_stops_emit (IntPtr raw);
 
         public bool TrueStopsEmit {

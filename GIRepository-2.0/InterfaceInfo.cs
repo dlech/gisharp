@@ -11,7 +11,7 @@ namespace GISharp.GIRepository
     public sealed class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
     {
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_method (IntPtr raw, IntPtr name);
 
         public FunctionInfo FindMethod (string name)
@@ -23,7 +23,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_signal (IntPtr raw, IntPtr name);
 
         public SignalInfo FindSignal (string name)
@@ -35,7 +35,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_vfunc (IntPtr raw, IntPtr name);
 
         public VFuncInfo FindVFunc (string name)
@@ -47,7 +47,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_constant (IntPtr raw, int index);
 
         ConstantInfo GetConstant (int index)
@@ -62,7 +62,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_iface_struct (IntPtr raw);
 
         public StructInfo IfaceStruct {
@@ -72,7 +72,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_method (IntPtr raw, int index);
 
         FunctionInfo GetMethod (int index)
@@ -87,7 +87,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_constants (IntPtr raw);
 
         int NConstants {
@@ -96,7 +96,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_methods (IntPtr raw);
 
         int NMethods {
@@ -105,7 +105,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_prerequisites (IntPtr raw);
 
         int NPrerequisites {
@@ -114,7 +114,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_properties (IntPtr raw);
 
         int NProperties {
@@ -123,7 +123,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_signals (IntPtr raw);
 
         int NSignals {
@@ -132,7 +132,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_interface_info_get_n_vfuncs (IntPtr raw);
 
         int NVFuncs {
@@ -141,7 +141,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_prerequisite (IntPtr raw, int index);
 
         BaseInfo GetPrerequisite (int index)
@@ -156,7 +156,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_property (IntPtr raw, int index);
 
         PropertyInfo GetProperty (int index)
@@ -171,7 +171,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_signal (IntPtr raw, int index);
 
         SignalInfo GetSignal (int index)
@@ -186,7 +186,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_get_vfunc (IntPtr raw, int index);
 
         VFuncInfo GetVFunc (int index)

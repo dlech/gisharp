@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -115,7 +115,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <returns>
     /// a newly allocated #GClosure
     /// </returns>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
     /* transfer-ownership:full */
     static extern IntPtr g_closure_new_object (
@@ -204,7 +204,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <returns>
     /// a newly allocated #GClosure
     /// </returns>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
     /* transfer-ownership:full */
     static extern IntPtr g_closure_new_simple (
@@ -296,7 +296,7 @@ public sealed class Closure : ReferenceCountedOpaque
         GCHandle.FromIntPtr (dataPtr).Free ();
     }
 
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     static extern GType g_closure_get_type ();
 
     static GType getGType ()
@@ -322,7 +322,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="notifyFunc">
     /// the callback function to register
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_add_finalize_notifier (
@@ -351,7 +351,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="notifyFunc">
     /// the callback function to register
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_add_invalidate_notifier (
@@ -386,7 +386,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="postMarshalNotify">
     /// a function to call after the closure callback
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_add_marshal_guards (
@@ -425,7 +425,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="closure">
     /// GClosure to invalidate
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_invalidate (
@@ -477,7 +477,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="invocationHint">
     /// a context-dependent invocation hint
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_invoke (
@@ -530,7 +530,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <returns>
     /// The @closure passed in, for convenience
     /// </returns>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
     /* transfer-ownership:none skip:1 */
     static extern IntPtr g_closure_ref (
@@ -565,7 +565,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="notifyFunc">
     /// the callback function to remove
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_remove_finalize_notifier (
@@ -595,7 +595,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="notifyFunc">
     /// the callback function to remove
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_remove_invalidate_notifier (
@@ -623,7 +623,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="marshal">
     /// a #GClosureMarshal function
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_set_marshal (
@@ -660,7 +660,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="metaMarshal">
     /// a #GClosureMarshal function
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_set_meta_marshal (
@@ -721,7 +721,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// #GClosure to decrement the initial reference count on, if it's
     ///           still being held
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_sink (
@@ -737,7 +737,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// <param name="closure">
     /// #GClosure to decrement the reference count on
     /// </param>
-    [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
     /* transfer-ownership:none */
     static extern void g_closure_unref (

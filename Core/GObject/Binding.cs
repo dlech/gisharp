@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
 
@@ -88,7 +88,7 @@ namespace GISharp.GObject
     [GType ("GBinding", IsWrappedNativeType = true)]
     public sealed class Binding : Object
     {
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_binding_get_type ();
@@ -109,7 +109,7 @@ namespace GISharp.GObject
         /// the #GBindingFlags used by the #GBinding
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
         /* transfer-ownership:none */
         static extern BindingFlags g_binding_get_flags (
@@ -142,7 +142,7 @@ namespace GISharp.GObject
         /// the source #GObject
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_binding_get_source (
@@ -177,7 +177,7 @@ namespace GISharp.GObject
         /// the name of the source property
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_binding_get_source_property (
@@ -212,7 +212,7 @@ namespace GISharp.GObject
         /// the target #GObject
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_binding_get_target (
@@ -247,7 +247,7 @@ namespace GISharp.GObject
         /// the name of the target property
         /// </returns>
         [Since ("2.26")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_binding_get_target_property (
@@ -286,7 +286,7 @@ namespace GISharp.GObject
         /// a #GBinding
         /// </param>
         [Since ("2.38")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_binding_unbind (

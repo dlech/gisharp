@@ -19,13 +19,13 @@ namespace GISharp.GIRepository
         readonly Lazy<GType> _GType;
         public GType GType { get { return _GType.Value; } }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_init (IntPtr raw);
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_name (IntPtr raw);
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_registered_type_info_get_g_type (IntPtr info);
 
         protected RegisteredTypeInfo (IntPtr raw) : base (raw)

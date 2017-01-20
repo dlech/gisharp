@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -44,7 +44,7 @@ namespace GISharp.GObject
         /// <param name="prerequisiteType">
         /// #GType value of an interface or instantiatable type
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_interface_add_prerequisite (
@@ -89,7 +89,7 @@ namespace GISharp.GObject
         /// the #GTypePlugin for the dynamic
         ///     interface @interface_type of @instance_type
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_interface_get_plugin (
@@ -139,7 +139,7 @@ namespace GISharp.GObject
         ///     structure of @iface_type if implemented by @instance_class, %NULL
         ///     otherwise
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_interface_peek (
@@ -191,7 +191,7 @@ namespace GISharp.GObject
         ///     the prerequisites of @interface_type
         /// </returns>
         [Since ("2.2")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GType*">
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
@@ -239,7 +239,7 @@ namespace GISharp.GObject
         ///     instance type to which @g_iface belongs, or %NULL if the parent
         ///     type doesn't conform to the interface
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_interface_peek_parent (
@@ -279,7 +279,7 @@ namespace GISharp.GObject
         ///     in use
         /// </returns>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_default_interface_peek (
@@ -329,7 +329,7 @@ namespace GISharp.GObject
         ///     when you are done using the interface.
         /// </returns>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_default_interface_ref (
@@ -356,7 +356,7 @@ namespace GISharp.GObject
         ///     structure for a interface, as returned by g_type_default_interface_ref()
         /// </param>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_default_interface_unref (

@@ -99,7 +99,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_equal (IntPtr raw, IntPtr info2);
 
         #region IEquatable implementation
@@ -143,7 +143,7 @@ namespace GISharp.GIRepository
             return !(info1 == info2);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_attribute (IntPtr raw, IntPtr name);
 
         /// <summary>
@@ -160,7 +160,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_container (IntPtr raw);
 
         /// <summary>
@@ -180,7 +180,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_name (IntPtr raw);
 
         Lazy<string> _Name;
@@ -195,7 +195,7 @@ namespace GISharp.GIRepository
         /// </remarks>
         public string Name { get { return _Name.Value; } }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_namespace (IntPtr raw);
 
         Lazy<string> _Namespace;
@@ -205,7 +205,7 @@ namespace GISharp.GIRepository
         /// <value>The namespace.</value>
         public string Namespace { get { return _Namespace.Value; } }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_base_info_get_type (IntPtr raw);
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_is_deprecated (IntPtr raw);
 
         /// <summary>
@@ -235,7 +235,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_iterate_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
         bool IterateAttributes (ref AttributeIter iterator, out string name, out string value)
@@ -266,10 +266,10 @@ namespace GISharp.GIRepository
             });
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_ref (IntPtr raw);
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_base_info_unref (IntPtr raw);
 
         ~BaseInfo ()

@@ -35,7 +35,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_find_method (IntPtr raw, IntPtr name);
 
         public FunctionInfo FindMethod (string name)
@@ -47,7 +47,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern UIntPtr g_union_info_get_alignment (IntPtr raw);
 
         public ulong Alignment {
@@ -56,7 +56,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_discriminator (IntPtr raw, int index);
 
         ConstantInfo GetDiscriminator (int index)
@@ -71,7 +71,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_union_info_get_discriminator_offset (IntPtr raw);
 
         public int DiscriminatorOffset {
@@ -80,7 +80,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_discriminator_type (IntPtr raw);
 
         public TypeInfo DiscriminatorType {
@@ -90,7 +90,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_field (IntPtr raw, int index);
 
         public FieldInfo GetField (int index)
@@ -99,7 +99,7 @@ namespace GISharp.GIRepository
             return MarshalPtr<FieldInfo> (raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_method (IntPtr raw, int index);
 
         public FunctionInfo GetMethod (int index)
@@ -108,7 +108,7 @@ namespace GISharp.GIRepository
             return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_union_info_get_n_fields (IntPtr raw);
 
         int NFields {
@@ -119,7 +119,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_union_info_get_n_methods (IntPtr raw);
 
         int NMethods {
@@ -130,7 +130,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern UIntPtr g_union_info_get_size (IntPtr raw);
 
         public ulong Size {
@@ -141,7 +141,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_union_info_is_discriminated (IntPtr raw);
 
         public bool IsDiscriminated {

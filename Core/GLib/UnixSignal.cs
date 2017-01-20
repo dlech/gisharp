@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -31,7 +31,7 @@ namespace GISharp.GLib
         /// An ID (greater than 0) for the event source
         /// </returns>
         [Since ("2.30")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_unix_signal_add_full (
@@ -115,7 +115,7 @@ namespace GISharp.GLib
         /// A newly created #GSource
         /// </returns>
         [Since ("2.30")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_unix_signal_source_new (

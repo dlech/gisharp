@@ -23,7 +23,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new #GMainContext
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_main_context_new ();
@@ -53,7 +53,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the global default main context.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_main_context_default ();
@@ -88,7 +88,7 @@ namespace GISharp.GLib
         ///     with g_main_context_unref() when you are done with it.
         /// </returns>
         [Since ("2.32")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_main_context_ref_thread_default ();
@@ -215,7 +215,7 @@ namespace GISharp.GLib
         /// <returns>
         /// The main loop recursion level in the current thread
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_main_depth ();
@@ -369,7 +369,7 @@ namespace GISharp.GLib
         /// if the call was interrupted.
         /// </returns>
         [Since ("2.20")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_poll (
@@ -424,7 +424,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_main_context_get_type ();
@@ -455,7 +455,7 @@ namespace GISharp.GLib
         /// %TRUE if the operation succeeded, and
         ///   this thread is now the owner of @context.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_context_acquire (
@@ -504,7 +504,7 @@ namespace GISharp.GLib
         ///      the same as the priority used for g_source_attach() to ensure that the
         ///      file descriptor is polled whenever the results may be needed.
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_add_poll (
@@ -561,7 +561,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if some sources are ready to be dispatched.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_main_context_check (
@@ -620,7 +620,7 @@ namespace GISharp.GLib
         /// <param name="context">
         /// a #GMainContext
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_dispatch (
@@ -665,7 +665,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the #GSource
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_main_context_find_source_by_id (
@@ -714,7 +714,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the poll function
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="PollFunc" type="GPollFunc" managed-name="PollFunc" /> */
         /* */
         static extern NativePollFunc g_main_context_get_poll_func (
@@ -779,7 +779,7 @@ namespace GISharp.GLib
         /// a function to call when @data is no longer in use, or %NULL.
         /// </param>
         [Since ("2.28")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_invoke_full (
@@ -835,7 +835,7 @@ namespace GISharp.GLib
         /// %TRUE if current thread is owner of @context.
         /// </returns>
         [Since ("2.10")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_context_is_owner (
@@ -885,7 +885,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if events were dispatched.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_context_iteration (
@@ -933,7 +933,7 @@ namespace GISharp.GLib
         /// <returns>
         /// %TRUE if events are pending.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_context_pending (
@@ -962,7 +962,7 @@ namespace GISharp.GLib
         /// a #GMainContext object, or %NULL
         /// </param>
         [Since ("2.22")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_pop_thread_default (
@@ -1000,7 +1000,7 @@ namespace GISharp.GLib
         /// %TRUE if some source is ready to be dispatched
         ///               prior to polling.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern bool g_main_context_prepare (
@@ -1079,7 +1079,7 @@ namespace GISharp.GLib
         /// a #GMainContext, or %NULL for the global default context
         /// </param>
         [Since ("2.22")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_push_thread_default (
@@ -1163,7 +1163,7 @@ namespace GISharp.GLib
         ///   or, if more than @n_fds records need to be stored, the number
         ///   of records that need to be stored.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern int g_main_context_query (
@@ -1222,7 +1222,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the @context that was passed in (since 2.6)
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:full skip:1 */
         static extern IntPtr g_main_context_ref (
@@ -1248,7 +1248,7 @@ namespace GISharp.GLib
         /// <param name="context">
         /// a #GMainContext
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_release (
@@ -1278,7 +1278,7 @@ namespace GISharp.GLib
         /// <param name="fd">
         /// a #GPollFD descriptor previously added with g_main_context_add_poll()
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_remove_poll (
@@ -1318,7 +1318,7 @@ namespace GISharp.GLib
         /// <param name="func">
         /// the function to call to poll all file descriptors
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_set_poll_func (
@@ -1336,7 +1336,7 @@ namespace GISharp.GLib
         /// <param name="context">
         /// a #GMainContext
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_unref (
@@ -1388,7 +1388,7 @@ namespace GISharp.GLib
         /// <param name="context">
         /// a #GMainContext
         /// </param>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_main_context_wakeup (

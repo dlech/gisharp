@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -13,7 +13,7 @@ namespace GISharp.Runtime
     /// </summary>
     public static class GMarshal
     {
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static IntPtr g_malloc (UIntPtr nBytes);
 
         /// <summary>
@@ -30,7 +30,7 @@ namespace GISharp.Runtime
             return g_malloc ((UIntPtr)(uint)size);
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static IntPtr g_malloc0 (UIntPtr nBytes);
 
         /// <summary>
@@ -47,7 +47,7 @@ namespace GISharp.Runtime
             return g_malloc0 ((UIntPtr)(uint)size);
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static void g_free (IntPtr ptr);
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace GISharp.Runtime
             return Encoding.UTF8.GetString (PtrToByteString (ptr, freePtr));
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         extern static IntPtr g_locale_to_utf8 (IntPtr opsysstring, IntPtr len, UIntPtr bytesRead, UIntPtr bytesWritten, IntPtr error);
 
         /// <summary>
@@ -167,7 +167,7 @@ namespace GISharp.Runtime
             return ByteStringToPtr (Encoding.UTF8.GetBytes (str));
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         static extern IntPtr g_filename_to_utf8 (IntPtr opsysstring, IntPtr len, IntPtr bytesRead, out UIntPtr bytesWritten, out IntPtr error);
 
         public static string FilenamePtrToString (IntPtr ptr, bool freePtr = false)
@@ -188,7 +188,7 @@ namespace GISharp.Runtime
             return Utf8PtrToString (utf8Ptr, freePtr: true);
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         static extern IntPtr g_filename_from_utf8 (IntPtr utf8string, IntPtr len, IntPtr bytesRead, out UIntPtr bytesWritten, out IntPtr error);
 
         public static IntPtr StringToFilenamePtr (string str)
@@ -247,7 +247,7 @@ namespace GISharp.Runtime
             return ptr;
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static void g_strfreev (IntPtr list);
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace GISharp.Runtime
             public IntPtr Prev;
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static void g_list_free (IntPtr list);
 
         /// <summary>
@@ -296,7 +296,7 @@ namespace GISharp.Runtime
             public IntPtr Next;
         }
 
-        [DllImport ("glib-2.0.dll")]
+        [DllImport ("glib-2.0")]
         extern static void g_slist_free (IntPtr list);
 
         /// <summary>
@@ -431,7 +431,7 @@ namespace GISharp.Runtime
             return ptr;
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_set_error_literal (IntPtr err, Quark domain, int code, IntPtr message);
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace GISharp.Runtime
             SetError (error, domain, code, string.Format (format, args));
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_propagate_error (IntPtr dest, IntPtr src);
 
         /// <summary>
@@ -490,7 +490,7 @@ namespace GISharp.Runtime
             g_propagate_error (dest, src.Handle);
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_clear_error (IntPtr err);
 
         /// <summary>

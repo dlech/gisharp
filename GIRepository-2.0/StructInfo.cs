@@ -33,7 +33,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_find_method (IntPtr raw, IntPtr name);
 
         /// <summary>
@@ -54,7 +54,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern UIntPtr g_struct_info_get_alignment (IntPtr raw);
 
         public ulong Alignment {
@@ -63,7 +63,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_field (IntPtr raw, int index);
 
         FieldInfo GetField (int index)
@@ -72,7 +72,7 @@ namespace GISharp.GIRepository
             return MarshalPtr<FieldInfo> (raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_struct_info_get_method (IntPtr raw, int index);
 
         FunctionInfo GetMethod (int index)
@@ -81,7 +81,7 @@ namespace GISharp.GIRepository
             return MarshalPtr<FunctionInfo> (raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_struct_info_get_n_fields (IntPtr raw);
 
         int NFields {
@@ -92,7 +92,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_struct_info_get_n_methods (IntPtr raw);
 
         int NMethods {
@@ -103,7 +103,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern UIntPtr g_struct_info_get_size (IntPtr raw);
 
         public ulong Size {
@@ -114,7 +114,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_struct_info_is_foreign (IntPtr raw);
 
         public bool IsForeign {
@@ -125,7 +125,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_struct_info_is_gtype_struct (IntPtr raw);
 
         public bool IsGTypeStruct {

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -86,7 +86,7 @@ namespace GISharp.GLib
         {
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_new_literal (Quark domain, int code, IntPtr message);
 
         static IntPtr New (Quark domain, int code, string message)
@@ -100,7 +100,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_error_free (IntPtr error);
 
         protected override void Free ()
@@ -108,7 +108,7 @@ namespace GISharp.GLib
             g_error_free (Handle);
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_copy (IntPtr err);
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_error_matches (IntPtr err, Quark domain, int code);
 
         /// <summary>

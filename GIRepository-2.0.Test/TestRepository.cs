@@ -1,4 +1,4 @@
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Linq;
 
@@ -128,7 +128,7 @@ namespace GISharp.GIRepository.Test
             Assert.That (version, Is.EqualTo ("2.0"));
         }
 
-        [System.Runtime.InteropServices.DllImport ("libgio-2.0.dll")]
+        [System.Runtime.InteropServices.DllImport ("libgio-2.0")]
         static extern Quark g_io_error_quark ();
 
         const int G_IO_ERROR_NOT_FOUND = 1;

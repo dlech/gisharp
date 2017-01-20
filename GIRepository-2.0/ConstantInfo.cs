@@ -8,10 +8,10 @@ namespace GISharp.GIRepository
 {
     public sealed class ConstantInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_constant_info_free_value (IntPtr raw, ref Argument value);
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_constant_info_get_type (IntPtr raw);
 
         public TypeInfo TypeInfo {
@@ -21,7 +21,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_constant_info_get_value (IntPtr raw, out Argument value);
 
         public object Value {

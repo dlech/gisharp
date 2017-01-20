@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using NUnit.Framework;
 using System.Runtime.InteropServices;
@@ -291,7 +291,7 @@ namespace GISharp.Core.Test.GObject
             return _dummyGType;
         }
 
-        [DllImport("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType
         g_type_register_static_simple (
             GType parentType,

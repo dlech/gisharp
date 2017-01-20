@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -30,7 +30,7 @@ namespace GISharp.GLib
         /// a new heap-allocated #GVariantIter
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_iter_copy (
@@ -72,7 +72,7 @@ namespace GISharp.GLib
         /// a heap-allocated #GVariantIter
         /// </param>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_variant_iter_free (
@@ -111,7 +111,7 @@ namespace GISharp.GLib
         /// the number of items in @value
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern ulong g_variant_iter_init (
@@ -164,7 +164,7 @@ namespace GISharp.GLib
         /// the number of children in the container
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern ulong g_variant_iter_n_children (
@@ -228,7 +228,7 @@ namespace GISharp.GLib
         /// a #GVariant, or %NULL
         /// </returns>
         [Since ("2.24")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_variant_iter_next_value (

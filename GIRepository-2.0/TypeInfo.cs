@@ -11,7 +11,7 @@ namespace GISharp.GIRepository
     public sealed class TypeInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_type_info_get_array_fixed_size (IntPtr raw);
 
         public int ArrayFixedSize {
@@ -22,7 +22,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_type_info_get_array_length (IntPtr raw);
 
         public int ArrayLengthIndex {
@@ -33,7 +33,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern ArrayType g_type_info_get_array_type (IntPtr raw);
 
         public ArrayType ArrayType {
@@ -45,7 +45,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_type_info_get_interface (IntPtr raw);
 
         public BaseInfo Interface {
@@ -56,7 +56,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_type_info_get_param_type (IntPtr raw, int index);
 
         public TypeInfo GetParamType (int index)
@@ -66,7 +66,7 @@ namespace GISharp.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern TypeTag g_type_info_get_tag (IntPtr raw);
 
         public TypeTag Tag {
@@ -75,7 +75,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_type_info_is_pointer (IntPtr raw);
 
         public bool IsPointer {
@@ -86,7 +86,7 @@ namespace GISharp.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_type_info_is_zero_terminated (IntPtr raw);
 
         public bool IsZeroTerminated {

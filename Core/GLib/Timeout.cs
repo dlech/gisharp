@@ -54,7 +54,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_timeout_add_full (
@@ -181,7 +181,7 @@ namespace GISharp.GLib
         /// the ID (greater than 0) of the event source.
         /// </returns>
         [Since ("2.14")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_timeout_add_seconds_full (
@@ -280,7 +280,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the newly-created timeout source
         /// </returns>
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_timeout_source_new (
@@ -333,7 +333,7 @@ namespace GISharp.GLib
         /// the newly-created timeout source
         /// </returns>
         [Since ("2.14")]
-        [DllImport ("glib-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_timeout_source_new_seconds (

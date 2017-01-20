@@ -11,7 +11,7 @@ namespace GISharp.GIRepository
     /// </summary>
     public sealed class ValueInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern long g_value_info_get_value (IntPtr raw);
 
         /// <summary>

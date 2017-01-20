@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -74,7 +74,7 @@ namespace GISharp.Core.Test
 
     public static class Initable
     {
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initable_get_type ();
 
         static GType getGType ()
@@ -82,7 +82,7 @@ namespace GISharp.Core.Test
             return g_initable_get_type ();
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
 
         public static GISharp.GObject.Object New (GType objectType, params object[] parameters)
@@ -98,7 +98,7 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_initable_init (IntPtr intitable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool Init (this IInitable intitable)
@@ -234,7 +234,7 @@ namespace GISharp.Core.Test
 
     public static class NetworkMonitor
     {
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_network_monitor_get_type ();
 
         static GType getGType ()
@@ -242,7 +242,7 @@ namespace GISharp.Core.Test
             return g_network_monitor_get_type ();
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_get_network_available (IntPtr monitor);
 
         public static bool GetNetworkAvailible (this INetworkMonitor monitor)
@@ -252,7 +252,7 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_get_network_metered (IntPtr monitor);
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
@@ -262,7 +262,7 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
@@ -277,10 +277,10 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_network_monitor_can_reach_async (IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
 
-        [DllImport ("gio-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, out IntPtr errorPtr);
 
         public static Task<bool> CanReachAsync (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))

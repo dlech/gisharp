@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -19,7 +19,7 @@ namespace GISharp.GObject
         /// <returns>
         /// The newly created copy of the boxed structure.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:full */
         static extern IntPtr g_boxed_copy (
@@ -57,7 +57,7 @@ namespace GISharp.GObject
         /// <param name="boxed">
         /// The boxed structure to be freed.
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_boxed_free (
@@ -82,7 +82,7 @@ namespace GISharp.GObject
             g_boxed_free (boxedType, boxed);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_boxed_type_register_static (IntPtr name,
             NativeBoxedCopyFunc boxedCopy,
             NativeBoxedFreeFunc boxedFree);

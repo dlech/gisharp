@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.GLib;
 using GISharp.GModule;
@@ -116,7 +116,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the short description of @pspec.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_blurb (
@@ -149,7 +149,7 @@ namespace GISharp.GObject
         /// a pointer to a #GValue which must not be modified
         /// </returns>
         [Since ("2.38")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="const GValue*" managed-name="Value" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_default_value (
@@ -189,7 +189,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the name of @pspec.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_name (
@@ -226,7 +226,7 @@ namespace GISharp.GObject
         /// the GQuark for @pspec-&gt;name.
         /// </returns>
         [Since ("2.46")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         /* transfer-ownership:none */
         static extern Quark g_param_spec_get_name_quark (
@@ -258,7 +258,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the nickname of @pspec.
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_nick (
@@ -293,7 +293,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the user data pointer set, or %NULL
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_qdata (
@@ -337,7 +337,7 @@ namespace GISharp.GObject
         ///          paramspec should be redirected, or %NULL if none.
         /// </returns>
         [Since ("2.4")]
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_param_spec_get_redirect_target (
@@ -376,7 +376,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GParamSpec that was passed into this function
         /// </returns>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* skip:1 */
         static extern IntPtr g_param_spec_ref (
@@ -393,7 +393,7 @@ namespace GISharp.GObject
             g_param_spec_ref (Handle);
         }
 
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* skip:1 */
         static extern IntPtr g_param_spec_sink (
@@ -421,7 +421,7 @@ namespace GISharp.GObject
         /// function to invoke with @data as argument, when @data needs to
         ///  be freed
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_param_spec_set_qdata_full (
@@ -468,7 +468,7 @@ namespace GISharp.GObject
         /// <param name="pspec">
         /// a valid #GParamSpec
         /// </param>
-        [DllImport ("gobject-2.0.dll", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_param_spec_unref (
