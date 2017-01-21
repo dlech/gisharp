@@ -62,6 +62,7 @@
     <Compile Include="Utility.cs" />
     <Compile Include="GObject\ParamSpecTests.cs" />
     <Compile Include="GObject\BindingTests.cs" />
+    <Compile Include="IListTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
