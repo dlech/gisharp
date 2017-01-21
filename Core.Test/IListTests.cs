@@ -106,6 +106,12 @@ namespace GISharp.Core.Test
             Assume.That (l.Count, Is.EqualTo (2));
 
             var a = new TItem[3];
+            // TItem may not be a value type, so we need to explicitly initialze
+            // the array with values.
+            for (int i = 0; i < 3; i++) {
+                a[i] = _ (0);
+                Assume.That (a[i], Is.EqualTo (_ (0)));
+            }
             l.CopyTo (a, 0);
             Assert.That (a[0], Is.EqualTo (_ (1)));
             Assert.That (a[1], Is.EqualTo (_ (2)));
@@ -212,14 +218,16 @@ namespace GISharp.Core.Test
             l.Add (_ (1));
             l.Add (_ (2));
             l.Add (_ (3));
-            Assume.That (l.Count, Is.EqualTo (3));
+            l.Add (_ (4));
+            Assume.That (l.Count, Is.EqualTo (4));
 
             Assert.That (l.Remove (_ (0)), Is.False);
-            Assert.That (l.Count, Is.EqualTo (3));
+            Assert.That (l.Count, Is.EqualTo (4));
             Assert.That (l.Remove (_ (2)), Is.True);
-            Assert.That (l.Count, Is.EqualTo (2));
+            Assert.That (l.Count, Is.EqualTo (3));
             Assert.That (getItemAt (l, 0), Is.EqualTo (_ (1)));
             Assert.That (getItemAt (l, 1), Is.EqualTo (_ (3)));
+            Assert.That (getItemAt (l, 2), Is.EqualTo (_ (4)));
 
             l.Dispose ();
             Assert.That (() => l.Remove (_ (0)), Throws.TypeOf<ObjectDisposedException> ());
@@ -238,15 +246,17 @@ namespace GISharp.Core.Test
             l.Add (_ (1));
             l.Add (_ (2));
             l.Add (_ (3));
-            Assume.That (l.Count, Is.EqualTo (3));
+            l.Add (_ (4));
+            Assume.That (l.Count, Is.EqualTo (4));
 
             l.RemoveAt (1);
-            Assert.That (l.Count, Is.EqualTo (2));
+            Assert.That (l.Count, Is.EqualTo (3));
             Assert.That (getItemAt (l, 0), Is.EqualTo (_ (1)));
             Assert.That (getItemAt (l, 1), Is.EqualTo (_ (3)));
+            Assert.That (getItemAt (l, 2), Is.EqualTo (_ (4)));
 
             Assert.That (() => l.RemoveAt (-1), Throws.TypeOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => l.RemoveAt (2), Throws.TypeOf<ArgumentOutOfRangeException> ());
+            Assert.That (() => l.RemoveAt (3), Throws.TypeOf<ArgumentOutOfRangeException> ());
 
             l.Dispose ();
             Assert.That (() => l.RemoveAt (0), Throws.TypeOf<ObjectDisposedException> ());
@@ -254,7 +264,8 @@ namespace GISharp.Core.Test
 
         TItem _ (int value)
         {
-            return (TItem)Convert.ChangeType (value, typeof (TItem));
+            dynamic d = value;
+            return (TItem)d;
         }
     }
 
