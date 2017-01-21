@@ -2,23 +2,40 @@ using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using GISharp.GObject;
+using System.Collections.Generic;
+using System.Collections;
 
 namespace GISharp.GLib
 {
     /// <summary>
     /// Contains the public fields of a GByteArray.
     /// </summary>
-    public sealed class ByteArray : ReferenceCountedOpaque
+    [GType ("GByteArray", IsWrappedNativeType = true)]
+    public sealed class ByteArray : Opaque, IList<byte>
     {
-        ByteArray (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_byte_array_get_type ();
+
+        static GType getGType ()
         {
+            return g_byte_array_get_type ();
+        }
+
+        ByteArray (IntPtr handle, Transfer ownership)
+        {
+            if (handle == IntPtr.Zero) {
+                throw new NotSupportedException ();
+            }
+            Handle = handle;
+            if (ownership == Transfer.None) {
+                Ref ();
+            }
         }
 
         /// <summary>
-        /// Creates a new #GByteArray.
+        /// Creates a new <see cref="ByteArray"/>.
         /// </summary>
-        public ByteArray () : base (New (), Transfer.All)
+        public ByteArray () : this (New (), Transfer.All)
         {
         }
 
@@ -29,20 +46,19 @@ namespace GISharp.GLib
         /// byte data for the array
         /// </param>
         [Since("2.32")]
-        public ByteArray (Byte[] data) : base (NewTake (data), Transfer.All)
+        public ByteArray (byte[] data) : this (NewTake (data), Transfer.All)
         {
         }
 
         /// <summary>
-        /// Creates a new #GByteArray with <paramref name="reservedSize"/> bytes preallocated.
+        /// Creates a new <see cref="ByteArray"/> with <paramref name="reservedSize"/> bytes preallocated.
         /// This avoids frequent reallocation, if you are going to add many
-        /// bytes to the array. Note however that the size of the array is still
-        /// 0.
+        /// bytes to the array. Note however that the size of the array is still 0.
         /// </summary>
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (UInt32 reservedSize) : base (SizedNew (reservedSize), Transfer.All)
+        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.All)
         {
         }
 
@@ -77,13 +93,13 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
         static extern IntPtr g_byte_array_new_take(
-            [In] IntPtr data,
-            [In] UInt64 len);
+            IntPtr data,
+            ulong len);
 
-        static IntPtr NewTake (Byte[] data)
+        static IntPtr NewTake (byte[] data)
         {
             if (data == null) {
-                throw new ArgumentNullException ("data");
+                throw new ArgumentNullException (nameof (data));
             }
             var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
@@ -105,9 +121,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_sized_new(
-            [In] UInt32 reservedSize);
+            uint reservedSize);
 
-        static IntPtr SizedNew (UInt32 reservedSize)
+        static IntPtr SizedNew (uint reservedSize)
         {
             var retPtr = g_byte_array_sized_new (reservedSize);
             return retPtr;
@@ -131,25 +147,33 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_append(
-            [In] IntPtr array,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] Byte[] data,
-            [In] UInt32 len);
+            IntPtr array,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
+            uint len);
 
         /// <summary>
-        /// Adds the given bytes to the end of the #GByteArray.
+        /// Adds the given bytes to the end of the <see cref="ByteArray"/>.
         /// The array will grow in size automatically if necessary.
         /// </summary>
         /// <param name="data">
         /// the byte data to be added
         /// </param>
-        public void Append (Byte[] data)
+        public void Append (params byte[] data)
         {
             AssertNotDisposed ();
-            AssertNotDisposed ();
             if (data == null) {
-                throw new ArgumentNullException ("data");
+                throw new ArgumentNullException (nameof (data));
             }
             g_byte_array_append (Handle, data, (uint)data.Length);
+        }
+
+        /// <summary>
+        /// Add the specified item.
+        /// </summary>
+        /// <param name="item">Item.</param>
+        void ICollection<byte>.Add (byte item)
+        {
+            Append (item);
         }
 
         /// <summary>
@@ -169,13 +193,13 @@ namespace GISharp.GLib
         ///          %NULL.  The element data should be freed using g_free().
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Byte g_byte_array_free(
-            [In] IntPtr array,
-            [In] Boolean freeSegment);
+        static extern IntPtr g_byte_array_free (
+            IntPtr array,
+            bool freeSegment);
 
         /// <summary>
-        /// Frees the memory allocated by the #GByteArray. If @freeSegment is
-        /// %TRUE it frees the actual byte data. If the reference count of
+        /// Frees the memory allocated by the <see cref="ByteArray"/>. If <paramref name="freeSegment"/> is
+        /// <c>true</c> it frees the actual byte data. If the reference count of
         /// @array is greater than one, the #GByteArray wrapper is preserved but
         /// the size of @array will be set to zero.
         /// </summary>
@@ -186,10 +210,18 @@ namespace GISharp.GLib
         /// the element data if @freeSegment is %FALSE, otherwise
         ///          %NULL.  The element data should be freed using g_free().
         /// </returns>
-        public Byte Free (Boolean freeSegment)
+        IntPtr Free (bool freeSegment)
         {
             AssertNotDisposed ();
-            throw new NotImplementedException ();
+            return g_byte_array_free (Handle, freeSegment);
+        }
+
+        /// <summary>
+        /// Removes all items from the array.
+        /// </summary>
+        public void Clear ()
+        {
+            Free (true);
         }
 
         /// <summary>
@@ -213,7 +245,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
         static extern IntPtr g_byte_array_free_to_bytes(
-            [In] IntPtr array);
+            IntPtr array);
 
         /// <summary>
         /// Transfers the data from the #GByteArray into a new immutable #GBytes.
@@ -257,9 +289,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_prepend(
-            [In] IntPtr array,
-            [In, MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] Byte[] data,
-            [In] UInt32 len);
+            IntPtr array,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
+            uint len);
 
         /// <summary>
         /// Adds the given data to the start of the #GByteArray.
@@ -268,13 +300,33 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the byte data to be added
         /// </param>
-        public void Prepend (Byte[] data)
+        public void Prepend (params byte[] data)
         {
             AssertNotDisposed ();
             if (data == null) {
-                throw new ArgumentNullException ("data");
+                throw new ArgumentNullException (nameof (data));
             }
             g_byte_array_prepend (Handle, data, (uint)data.Length);
+        }
+
+        /// <summary>
+        /// Insert the specified item at the specified index.
+        /// </summary>
+        /// <param name="index">Index.</param>
+        /// <param name="item">Item.</param>
+        public void Insert (int index, byte item)
+        {
+            AssertNotDisposed ();
+            if (index == Count) {
+                Append (item);
+                return;
+            }
+            AssertIndexInRange (index);
+            int i = Count;
+            for (SetSize (Count + 1); i > index; i--) {
+                this[i] = this[i - 1];
+            }
+            this[i] = item;
         }
 
         /// <summary>
@@ -290,14 +342,14 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         static extern IntPtr g_byte_array_ref(
-            [In] IntPtr array);
+            IntPtr array);
 
         /// <summary>
-        /// Atomically increments the reference count of @array by one.
+        /// Atomically increments the reference count of this array by one.
         /// This function is thread-safe and may be called from any thread.
         /// </summary>
         [Since("2.22")]
-        public override void Ref ()
+        public void Ref ()
         {
             AssertNotDisposed ();
             g_byte_array_ref (Handle);
@@ -318,8 +370,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_remove_index(
-            [In] IntPtr array,
-            [In] UInt32 index);
+            IntPtr array,
+            uint index);
 
         /// <summary>
         /// Removes the byte at the given index from a #GByteArray.
@@ -328,7 +380,7 @@ namespace GISharp.GLib
         /// <param name="index">
         /// the index of the byte to remove
         /// </param>
-        public void RemoveIndex (Int32 index)
+        public void RemoveAt (int index)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
@@ -352,8 +404,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_remove_index_fast(
-            [In] IntPtr array,
-            [In] UInt32 index);
+            IntPtr array,
+            uint index);
 
         /// <summary>
         /// Removes the byte at the given index from a #GByteArray. The last
@@ -364,7 +416,7 @@ namespace GISharp.GLib
         /// <param name="index">
         /// the index of the byte to remove
         /// </param>
-        public void RemoveIndexFast (Int32 index)
+        public void RemoveAtFast (int index)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
@@ -390,9 +442,9 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
         static extern IntPtr g_byte_array_remove_range(
-            [In] IntPtr array,
-            [In] UInt32 index,
-            [In] UInt32 length);
+            IntPtr array,
+            uint index,
+            uint length);
 
         /// <summary>
         /// Removes the given number of bytes starting at the given index from a
@@ -405,14 +457,31 @@ namespace GISharp.GLib
         /// the number of bytes to remove
         /// </param>
         [Since("2.4")]
-        public void RemoveRange (Int32 index, Int32 length)
+        public void RemoveRange (int index, int length)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
-            if (length < 0 || index + length > Length) {
-                throw new ArgumentOutOfRangeException ("length");
+            if (length < 0 || index + length > Count) {
+                throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_byte_array_remove_range (Handle, (uint)index, (uint)length);
+        }
+
+        /// <summary>
+        /// Remove the first instance of the specified item.
+        /// </summary>
+        /// <returns><c>true</c> if an item was removed.</returns>
+        /// <param name="item">The item to remove.</param>
+        public bool Remove (byte item)
+        {
+            for (int i = 0; i < Count; i++) {
+                if (this[i] == item) {
+                    RemoveAt (i);
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         /// <summary>
@@ -429,8 +498,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_set_size(
-            [In] IntPtr array,
-            [In] UInt32 length);
+            IntPtr array,
+            uint length);
 
         /// <summary>
         /// Sets the size of the #GByteArray, expanding it if necessary.
@@ -438,11 +507,11 @@ namespace GISharp.GLib
         /// <param name="length">
         /// the new size of the #GByteArray
         /// </param>
-        public void SetSize (Int32 length)
+        public void SetSize (int length)
         {
             AssertNotDisposed ();
             if (length < 0) {
-                throw new ArgumentOutOfRangeException ("length");
+                throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_byte_array_set_size (Handle, (uint)length);
         }
@@ -468,8 +537,8 @@ namespace GISharp.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_sort(
-            [In] IntPtr array,
-            [In] NativeCompareFunc compareFunc);
+            IntPtr array,
+            NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a byte array, using @compareFunc which should be a
@@ -487,19 +556,20 @@ namespace GISharp.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (CompareFunc<WrappedStruct<byte>> compareFunc)
+        public void Sort (Comparison<byte> compareFunc)
         {
             AssertNotDisposed ();
             if (compareFunc == null) {
-                throw new ArgumentNullException ("compareFunc");
+                throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = Opaque.GetInstance<WrappedStruct<byte>> (compareFuncBPtr, Transfer.None);
-                var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
-                return compareFuncRet;
+
+            NativeCompareFunc compareFunc_ = (a, b) => {
+                var x = Marshal.ReadByte (a);
+                var y = Marshal.ReadByte (b);
+                return compareFunc (x, y);
             };
-            g_byte_array_sort (Handle, compareFuncNative);
+            g_byte_array_sort (Handle, compareFunc_);
+            GC.KeepAlive (compareFunc_);
         }
 
         /// <summary>
@@ -514,7 +584,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         static extern void g_byte_array_unref(
-            [In] IntPtr array);
+            IntPtr array);
 
         /// <summary>
         /// Atomically decrements the reference count of @array by one. If the
@@ -523,23 +593,139 @@ namespace GISharp.GLib
         /// thread.
         /// </summary>
         [Since("2.22")]
-        public override void Unref ()
+        public void Unref ()
         {
             AssertNotDisposed ();
             g_byte_array_unref (Handle);
         }
 
-        public int Length {
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                Unref ();
+                Handle = IntPtr.Zero;
+            }
+            base.Dispose (disposing);
+        }
+
+        IntPtr Data {
+            get {
+                return Marshal.ReadIntPtr (Handle);
+            }
+        }
+
+        /// <summary>
+        /// Gets the number of elements in the <see cref="ByteArray"/>.
+        /// </summary>
+        /// <value>The count.</value>
+        public int Count {
             get {
                 AssertNotDisposed ();
                 return Marshal.ReadInt32 (Handle, IntPtr.Size);
             }
         }
 
+        /// <summary>
+        /// Gets a value indicating whether this <see cref="ByteArray"/> is read only.
+        /// </summary>
+        /// <value><c>true</c> if is read only; otherwise, <c>false</c>.</value>
+        bool ICollection<byte>.IsReadOnly {
+            get {
+                AssertNotDisposed ();
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Gets or sets the <see cref="ByteArray"/> at the specified index.
+        /// </summary>
+        /// <param name="index">Index.</param>
+        public byte this[int index] {
+            get {
+                AssertNotDisposed ();
+                AssertIndexInRange (index);
+                return Marshal.ReadByte (Data, index);
+            }
+            set {
+                AssertNotDisposed ();
+                AssertIndexInRange (index);
+                Marshal.WriteByte (Data, index, value);
+            }
+        }
+
+        /// <summary>
+        /// Checks if the array contains the specified item.
+        /// </summary>
+        /// <returns><c>true</c> if the array contains <paramref name="item"/>.</returns>
+        /// <param name="item">The item to search for.</param>
+        public bool Contains (byte item)
+        {
+            return IndexOf (item) >= 0;
+        }
+
+        /// <summary>
+        /// Indexs the of the first occurance of <paramref name="item"/>.
+        /// </summary>
+        /// <returns>The index or <c>-1</c> if <paramref name="item"/> was not found.</returns>
+        /// <param name="item">The item to search for.</param>
+        public int IndexOf (byte item)
+        {
+            AssertNotDisposed ();
+            for (int i = 0; i < Count; i++) {
+                if (this[i] == item) {
+                    return i;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>
+        /// Copies elements of this array to <paramref name="array"/>, starting
+        /// at a particular index.
+        /// </summary>
+        /// <param name="array">The destination array.</param>
+        /// <param name="arrayIndex">The starting index of <paramref name="array"/>.</param>
+        public void CopyTo (byte[] array, int arrayIndex)
+        {
+            AssertNotDisposed ();
+            if (array == null) {
+                throw new ArgumentNullException (nameof (array));
+            }
+            if (arrayIndex < 0) {
+                throw new ArgumentOutOfRangeException (nameof (arrayIndex));
+            }
+            if (arrayIndex + Count > array.Length) {
+                throw new ArgumentException ("Destination array is not long enough.");
+            }
+            for (int i = 0; i < Count; i++) {
+                array[i + arrayIndex] = this[i];
+            }
+        }
+
+        IEnumerable<byte> Enumerate ()
+        {
+            for (int i = 0; i < Count; i++) {
+                yield return this[i];
+            }
+        }
+
+        public IEnumerator<byte> GetEnumerator ()
+        {
+            AssertNotDisposed ();
+            return Enumerate ().GetEnumerator ();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator ()
+        {
+            AssertNotDisposed ();
+            return Enumerate ().GetEnumerator ();
+        }
+
         void AssertIndexInRange (int index)
         {
-            if (index < 0 || index >= Length) {
-                throw new IndexOutOfRangeException ();
+            if (index < 0 || index >= Count) {
+                throw new ArgumentOutOfRangeException ();
             }
         }
     }
