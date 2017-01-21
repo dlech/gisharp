@@ -585,7 +585,11 @@ namespace GISharp.GLib
         protected override void Dispose (bool disposing)
         {
             if (Handle != IntPtr.Zero) {
-                g_byte_array_free (Handle, ownsElements);
+                if (ownsElements) {
+                    g_byte_array_free (Handle, true);
+                } else {
+                    g_byte_array_unref (Handle);
+                }
                 Handle = IntPtr.Zero;
             }
             base.Dispose (disposing);

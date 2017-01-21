@@ -152,6 +152,15 @@ namespace GISharp.GLib
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
 
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_bytes_unref (Handle);
+                Handle = IntPtr.Zero;
+            }
+            base.Dispose (disposing);
+        }
+
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         static extern GType g_bytes_get_type ();
