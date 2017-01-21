@@ -459,9 +459,9 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof(instance));
             }
             using (var instanceAndParams = new GLib.Array<Value> (false, true, (uint)parameters.Length + 1)) {
-                instanceAndParams.Add (new Value (instance.GetGType (), instance));
+                instanceAndParams.Append (new Value (instance.GetGType (), instance));
                 foreach (var p in parameters) {
-                    instanceAndParams.Add (new Value (p.GetGType (), p));
+                    instanceAndParams.Append (new Value (p.GetGType (), p));
                 }
 
                 g_signal_emitv (instanceAndParams.Data, signalId, detail, IntPtr.Zero);

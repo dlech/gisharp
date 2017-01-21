@@ -97,8 +97,15 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of elements preallocated
         /// </param>
-        public Array (bool zeroTerminated = false, bool clear = false, uint reservedSize = 0)
+        public Array (bool zeroTerminated, bool clear, uint reservedSize = 0)
             : this (New (zeroTerminated, clear, reservedSize), Transfer.All)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Array{T}"/> class.
+        /// </summary>
+        public Array () : this (false, false, 0)
         {
         }
 
@@ -108,9 +115,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the element to append to the end of the array
         /// </param>
-        public void Add (T data)
+        void ICollection<T>.Add (T data)
         {
-            AddRange (data);
+            Append (data);
         }
 
         /// <summary>
@@ -119,7 +126,7 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the elements to append to the end of the array
         /// </param>
-        public void AddRange (params T[] data)
+        public void Append (params T[] data)
         {
             AssertNotDisposed ();
             if (data == null) {
@@ -168,9 +175,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the element to insert
         /// </param>
-        public void Insert (int index, T data)
+        void IList<T>.Insert (int index, T data)
         {
-            InsertRange (index, data);
+            Insert (index, data);
         }
 
         /// <summary>
@@ -182,7 +189,7 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the elements to insert
         /// </param>
-        public void InsertRange (int index, params T[] data)
+        public void Insert (int index, params T[] data)
         {
             AssertNotDisposed ();
             if (data == null) {
@@ -271,7 +278,7 @@ namespace GISharp.GLib
         /// the number of elements to remove
         /// </param>
         [Since("2.4")]
-        public void RemoveAtRange (int index, int length)
+        public void RemoveRange (int index, int length)
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
@@ -285,22 +292,31 @@ namespace GISharp.GLib
         /// Sets a function to clear an element of this array.
         /// </summary>
         /// <remarks>
-        /// The @clear_func will be called when an element in the array
+        /// The <paramref name="clearFunc"/> will be called when an element in the array
         /// data segment is removed and when the array is freed and data
         /// segment is deallocated as well.
         /// 
-        /// Note that in contrast with other uses of #GDestroyNotify
-        /// functions, @clear_func is expected to clear the contents of
+        /// Note that in contrast with other uses of <see cref="DestroyNotify{T}"/>
+        /// functions, <paramref name="clearFunc"/> is expected to clear the contents of
         /// the array element it is given, but not free the element itself.
         /// </remarks>
         /// <param name="clearFunc">
         /// a function to clear an element of this array
         /// </param>
-//        [Since("2.32")]
-//        public void SetClearFunc(
-//            GISharp.GLib.DestroyNotify clearFunc)
-//        {
-//        }
+        //[Since("2.32")]
+        //public void SetClearFunc (ClearFunc clearFunc)
+        //{
+        //    AssertNotDisposed ();
+        //    NativeDestroyNotify clearFunc_ = (data_) => {
+        //        var data = Marshal.PtrToStructure<T> (data_);
+        //        clearFunc (ref data);
+        //    };
+        //    // FIXME: this leaks the GCHandle, which leaks clearFunc
+        //    GCHandle.Alloc (clearFunc_);
+        //    ArrayInternal.g_array_set_clear_func (Handle, clearFunc_);
+        //}
+
+        public delegate void ClearFunc (ref T element);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -319,16 +335,6 @@ namespace GISharp.GLib
             ArrayInternal.g_array_set_size (Handle, (uint)length);
         }
 
-        static int ManagedCompareDataFunc (IntPtr aPtr, IntPtr bPtr, IntPtr data)
-        {
-            var a = Marshal.PtrToStructure<T> (aPtr);
-            var b = Marshal.PtrToStructure<T> (bPtr);
-            var gch = (GCHandle)data;
-            var func = (Comparison<T>)gch.Target;
-            var ret = func (a, b);
-            return ret;
-        }
-
         /// <summary>
         /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
         /// which should be a qsort()-style
@@ -344,13 +350,17 @@ namespace GISharp.GLib
         /// </param>
         public void Sort(Comparison<T> compareFunc)
         {
+            AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            AssertNotDisposed ();
-            var gch = GCHandle.Alloc (compareFunc);
-            ArrayInternal.g_array_sort_with_data (Handle, ManagedCompareDataFunc, (IntPtr)gch);
-            gch.Free ();
+            NativeCompareFunc compareFunc_ = (a, b) => {
+                var x = Marshal.PtrToStructure<T> (a);
+                var y = Marshal.PtrToStructure<T> (b);
+                return compareFunc (x, y);
+            };
+            ArrayInternal.g_array_sort (Handle, compareFunc_);
+            GC.KeepAlive (compareFunc_);
         }
 
         /// <summary>
@@ -377,7 +387,7 @@ namespace GISharp.GLib
             set {
                 AssertNotDisposed ();
                 RemoveAt (index);
-                InsertRange (index, value);
+                Insert (index, value);
             }
         }
 
@@ -395,7 +405,7 @@ namespace GISharp.GLib
         void AssertIndexInRange (int index)
         {
             if (index < 0 || index >= Count) {
-                throw new IndexOutOfRangeException ();
+                throw new ArgumentOutOfRangeException ();
             }
         }
 
@@ -406,7 +416,7 @@ namespace GISharp.GLib
         void AssertInsertIndexInRange (int index)
         {
             if (index < 0 || index > Count) {
-                throw new IndexOutOfRangeException ();
+                throw new ArgumentOutOfRangeException ();
             }
         }
 
@@ -764,11 +774,11 @@ namespace GISharp.GLib
         /// <param name="clearFunc">
         /// a function to clear an element of this array
         /// </param>
-        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        //        [Since("2.32")]
-        //        internal static extern void g_array_set_clear_func(
-        //            IntPtr array,
-        //            GISharp.GLib.DestroyNotify clearFunc);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        internal static extern void g_array_set_clear_func(
+            IntPtr array,
+            NativeDestroyNotify clearFunc);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -803,10 +813,10 @@ namespace GISharp.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        //        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        //        internal static extern void g_array_sort(
-        //            IntPtr array,
-        //            NativeCompareFunc compareFunc);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void g_array_sort(
+            IntPtr array,
+            NativeCompareFunc compareFunc);
 
         /// <summary>
         /// Like g_array_sort(), but the comparison function receives an extra
@@ -822,10 +832,10 @@ namespace GISharp.GLib
         /// <param name="array">
         /// a <see cref="Array{T}"/>
         /// </param>
-        /// <param name="compare_func">
+        /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        /// <param name="user_data">
+        /// <param name="userData">
         /// data to pass to @compare_func
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
