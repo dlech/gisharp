@@ -2337,7 +2337,7 @@ namespace GISharp.GLib
             var endptr_ = GMarshal.StringToUtf8Ptr (endptr);
             IntPtr error_;
             var ret_ = g_variant_parse (type_, text_, limit_, endptr_, out error_);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             GMarshal.Free (text_);
             GMarshal.Free (limit_);
             GMarshal.Free (endptr_);
@@ -2407,7 +2407,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_byteswap (Handle);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
 
@@ -2976,7 +2976,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_get_child_value (Handle, index);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
 
@@ -3412,7 +3412,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_variant_get_maybe (Handle);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -3478,7 +3478,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_variant_get_normal_form (Handle);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -3960,7 +3960,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_variant_get_variant (Handle);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -4191,7 +4191,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_iter_new (Handle);
-            var ret = Opaque.GetInstance<VariantIter> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<VariantIter> (ret_, Transfer.Full);
             return ret;
         }
 
@@ -4289,7 +4289,7 @@ namespace GISharp.GLib
             var key_ = GMarshal.StringToUtf8Ptr (key);
             var expectedType_ = expectedType == null ? IntPtr.Zero : expectedType.Handle;
             var ret_ = g_variant_lookup_value (Handle, key_, expectedType_);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             GMarshal.Free (key_);
             return ret;
         }

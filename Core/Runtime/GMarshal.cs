@@ -182,7 +182,7 @@ namespace GISharp.Runtime
                 g_free (ptr);
             }
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Transfer.All);
+                var error = Opaque.GetInstance<Error> (error_, Transfer.Full);
                 throw new GErrorException (error);
             }
             return Utf8PtrToString (utf8Ptr, freePtr: true);
@@ -202,7 +202,7 @@ namespace GISharp.Runtime
             var ret = g_filename_from_utf8 (utf8Ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
             g_free (utf8Ptr);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Transfer.All);
+                var error = Opaque.GetInstance<Error> (error_, Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;

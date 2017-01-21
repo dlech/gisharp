@@ -124,7 +124,7 @@ namespace GISharp.GLib
         public static Source CreateSource ()
         {
             var ret_ = g_idle_source_new ();
-            var ret = Opaque.GetInstance<Source> (ret_, Transfer.All, typeof(UnmanagedSource));
+            var ret = Opaque.GetInstance<Source> (ret_, Transfer.Full, typeof(UnmanagedSource));
             return ret;
         }
     }

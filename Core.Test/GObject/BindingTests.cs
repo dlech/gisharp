@@ -72,7 +72,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         public TestObject ()
-                : this (New<TestObject> (), Transfer.All)
+                : this (New<TestObject> (), Transfer.Full)
             {
         }
 

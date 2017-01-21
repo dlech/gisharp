@@ -35,7 +35,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecBoolean (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags), Transfer.All)
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.Full)
         {
         }
 

@@ -30,7 +30,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecValueArray (string name, string nick, string blurb, ParamSpec elementSpec, ParamFlags flags)
-            : this (New (name, nick, blurb, elementSpec, flags), Transfer.All)
+            : this (New (name, nick, blurb, elementSpec, flags), Transfer.Full)
         {
         }
 

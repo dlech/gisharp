@@ -112,7 +112,7 @@ namespace GISharp.Core.Test.GObject
         #endregion
 
         public TestNetworkMonitor ()
-            : this (New<TestNetworkMonitor> (), Transfer.All)
+            : this (New<TestNetworkMonitor> (), Transfer.Full)
         {
         }
 

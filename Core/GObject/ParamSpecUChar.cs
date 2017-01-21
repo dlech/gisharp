@@ -53,7 +53,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecUChar (string name, string nick, string blurb, byte min, byte max, byte defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.All)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.Full)
         {
         }
 

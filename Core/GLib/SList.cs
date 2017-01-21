@@ -14,7 +14,7 @@ namespace GISharp.GLib
     [NullHandleIsInstance]
     public sealed class SList<T> : OwnedOpaque where T : Opaque
     {
-        public SList () : this (IntPtr.Zero, Transfer.All)
+        public SList () : this (IntPtr.Zero, Transfer.Full)
         {
         }
 
@@ -55,7 +55,7 @@ namespace GISharp.GLib
             if (list2 != null) {
                 list2.Owned = false;
             }
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -97,7 +97,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_append (Handle, dataPtr);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -118,7 +118,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_copy (Handle);
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -166,7 +166,7 @@ namespace GISharp.GLib
                 return funcRet.Handle;
             };
             var retPtr = SListInternal.g_slist_copy_deep (Handle, funcNative, IntPtr.Zero);
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -204,7 +204,7 @@ namespace GISharp.GLib
             Owned = false;
             link.Owned = false;
             link.IsDisposed = true;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -385,7 +385,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_insert (Handle, dataPtr, position);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -412,7 +412,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_insert_before (Handle, siblingPtr, dataPtr);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -447,7 +447,7 @@ namespace GISharp.GLib
             };
             var retPtr = SListInternal.g_slist_insert_sorted (Handle, dataPtr, funcNative);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -583,7 +583,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_prepend (Handle, dataPtr);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -605,7 +605,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove (Handle, dataPtr);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -628,7 +628,7 @@ namespace GISharp.GLib
             var dataPtr = data == null ? IntPtr.Zero : data.Handle;
             var retPtr = SListInternal.g_slist_remove_all (Handle, dataPtr);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -663,7 +663,7 @@ namespace GISharp.GLib
             var retPtr = SListInternal.g_slist_remove_link (Handle, linkPtr);
             Owned = false;
             link.Owned = true;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -679,7 +679,7 @@ namespace GISharp.GLib
             AssertIsHeadOfList ();
             var retPtr = SListInternal.g_slist_reverse (Handle);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 
@@ -711,7 +711,7 @@ namespace GISharp.GLib
             };
             var retPtr = SListInternal.g_slist_sort (Handle, compareFuncNative);
             Owned = false;
-            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.All);
+            var ret = Opaque.GetInstance<SList<T>> (retPtr, Transfer.Full);
             return ret;
         }
 

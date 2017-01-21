@@ -97,7 +97,7 @@ namespace GISharp.GLib
         /// a new <see cref="Bytes"/>
         /// </returns>
         [Since ("2.32")]
-        public Bytes (byte[] data) : this (New (data), Transfer.All)
+        public Bytes (byte[] data) : this (New (data), Transfer.Full)
         {
         }
 
@@ -504,7 +504,7 @@ namespace GISharp.GLib
                 throw new ArgumentException ("offset + length exceeds size");
             }
             var ret_ = g_bytes_new_from_bytes (Handle, (UIntPtr)offset, (UIntPtr)length);
-            var ret = GetInstance<Bytes> (ret_, Transfer.All);
+            var ret = GetInstance<Bytes> (ret_, Transfer.Full);
             return ret;
         }
 

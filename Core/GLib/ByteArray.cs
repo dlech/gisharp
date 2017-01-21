@@ -32,7 +32,7 @@ namespace GISharp.GLib
             if (ownership == Transfer.None) {
                 Ref ();
             }
-            if (ownership == Transfer.All) {
+            if (ownership == Transfer.Full) {
                 ownsElements = true;
             }
         }
@@ -40,7 +40,7 @@ namespace GISharp.GLib
         /// <summary>
         /// Creates a new <see cref="ByteArray"/>.
         /// </summary>
-        public ByteArray () : this (New (), Transfer.All)
+        public ByteArray () : this (New (), Transfer.Full)
         {
         }
 
@@ -51,7 +51,7 @@ namespace GISharp.GLib
         /// byte data for the array
         /// </param>
         [Since("2.32")]
-        public ByteArray (byte[] data) : this (NewTake (data), Transfer.All)
+        public ByteArray (byte[] data) : this (NewTake (data), Transfer.Full)
         {
         }
 
@@ -63,7 +63,7 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.All)
+        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
         {
         }
 
@@ -250,7 +250,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             Ref ();
             var ret_ = g_byte_array_free_to_bytes (Handle);
-            var ret = GetInstance<Bytes> (ret_, Transfer.All);
+            var ret = GetInstance<Bytes> (ret_, Transfer.Full);
             return ret;
         }
 

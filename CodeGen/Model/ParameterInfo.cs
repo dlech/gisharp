@@ -68,7 +68,7 @@ namespace GISharp.CodeGen.Model
                 case "container":
                     return GISharp.Runtime.Transfer.Container;
                 case "full":
-                    return GISharp.Runtime.Transfer.All;
+                    return GISharp.Runtime.Transfer.Full;
                 }
                 var message = string.Format ("Unknown trasfer type '{0}'.", transfer);
                 throw new NotSupportedException (message);

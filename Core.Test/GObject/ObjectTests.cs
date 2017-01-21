@@ -38,7 +38,7 @@ namespace GISharp.Core.Test.GObject
             // Transfer.All means the new object takes ownership of the reference
             // from the manual call to g_object_ref(), so we don't need to call
             // g_object_unref() manually.
-            o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.All);
+            o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.Full);
 
             Assert.That (ReferenceEquals (o1, o2), Is.False);
 
@@ -250,7 +250,7 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObject3 : GISharp.GObject.Object
         {
-            public TestObject3 () : this (New<TestObject3> (), Transfer.All)
+            public TestObject3 () : this (New<TestObject3> (), Transfer.Full)
             {
             }
 
@@ -293,7 +293,7 @@ namespace GISharp.Core.Test.GObject
             public object ObjectProperty { get; set; }
 
             public TestObjectPropertiesBase ()
-                : this (New<TestObjectPropertiesBase> (), Transfer.All)
+                : this (New<TestObjectPropertiesBase> (), Transfer.Full)
             {
             }
 
@@ -317,7 +317,7 @@ namespace GISharp.Core.Test.GObject
             public override bool BoolValue { get; set; } = !BoolValuePropertyDefaultValue;
 
             public TestObjectPropertiesSubclass ()
-                : this (New<TestObjectPropertiesSubclass> (), Transfer.All)
+                : this (New<TestObjectPropertiesSubclass> (), Transfer.Full)
             {
             }
 
@@ -370,7 +370,7 @@ namespace GISharp.Core.Test.GObject
             }
 
             public TestObjectSignal ()
-                : this (New<TestObjectSignal> (), Transfer.All)
+                : this (New<TestObjectSignal> (), Transfer.Full)
             {
             }
 

@@ -52,7 +52,7 @@ namespace GISharp.CodeGen.Model
                 case "container":
                     return Transfer.Container;
                 case "all":
-                    return Transfer.All;
+                    return Transfer.Full;
                 default:
                     throw new ArgumentException ("Unknown transfer.");
                 }

@@ -90,10 +90,10 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
-            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.Full);
 
             return ret;
         }
@@ -106,7 +106,7 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;
@@ -270,7 +270,7 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
 
@@ -290,7 +290,7 @@ namespace GISharp.Core.Test
                 IntPtr errorPtr;
                 var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
                 if (errorPtr != IntPtr.Zero) {
-                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.All);
+                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                     completion.SetException (new GErrorException (error));
                 } else {
                     completion.SetResult (ret);

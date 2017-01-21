@@ -469,7 +469,7 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute ("2.24")]
         public VariantType (string typeString)
-            : this (New (typeString), GISharp.Runtime.Transfer.All)
+            : this (New (typeString), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -518,7 +518,7 @@ namespace GISharp.GLib
             }
             var element_ = element == null ? IntPtr.Zero : element.Handle;
             var ret_ = g_variant_type_new_array (element_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
+            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -580,7 +580,7 @@ namespace GISharp.GLib
             var key_ = key == null ? IntPtr.Zero : key.Handle;
             var value_ = value == null ? IntPtr.Zero : value.Handle;
             var ret_ = g_variant_type_new_dict_entry (key_, value_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
+            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -629,7 +629,7 @@ namespace GISharp.GLib
             }
             var element_ = element == null ? IntPtr.Zero : element.Handle;
             var ret_ = g_variant_type_new_maybe (element_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
+            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -690,7 +690,7 @@ namespace GISharp.GLib
             }
             var items_ = GISharp.Runtime.GMarshal.OpaqueCArrayToPtr<VariantType> (items, false);
             var ret_ = g_variant_type_new_tuple (items_, items.Length);
-            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
+            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.Full);
             GISharp.Runtime.GMarshal.Free (items_);
             return ret;
         }
@@ -847,7 +847,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_type_copy (Handle);
-            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.All);
+            var ret = GISharp.Runtime.Opaque.GetInstance<VariantType> (ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 

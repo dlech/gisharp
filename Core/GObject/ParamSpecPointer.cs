@@ -26,7 +26,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecPointer (string name, string nick, string blurb, ParamFlags flags)
-            : this (New (name, nick, blurb, flags), Transfer.All)
+            : this (New (name, nick, blurb, flags), Transfer.Full)
         {
         }
 

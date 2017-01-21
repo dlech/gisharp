@@ -30,7 +30,7 @@ namespace GISharp.GLib
             if (ownership == Transfer.None) {
                 Ref ();
             }
-            if (ownership == Transfer.All) {
+            if (ownership == Transfer.Full) {
                 ownsElements = true;
             }
         }
@@ -57,7 +57,7 @@ namespace GISharp.GLib
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/>.
         /// </summary>
-        public PtrArray () : this (New (), Transfer.All)
+        public PtrArray () : this (New (), Transfer.Full)
         {
         }
 
@@ -67,7 +67,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        public PtrArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.All)
+        public PtrArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
         {
         }
 

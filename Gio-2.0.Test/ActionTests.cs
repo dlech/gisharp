@@ -304,7 +304,7 @@ namespace GISharp.Gio.Test
             return VariantType.Int32;
         }
 
-        public ActionImpl () : this (New<ActionImpl> (), Transfer.All)
+        public ActionImpl () : this (New<ActionImpl> (), Transfer.Full)
         {
         }
 

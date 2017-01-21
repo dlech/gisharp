@@ -125,7 +125,7 @@ namespace GISharp.Runtime
         {
         }
 
-        public WrappedStruct () : this (GMarshal.Alloc (Marshal.SizeOf<T> ()), Transfer.All)
+        public WrappedStruct () : this (GMarshal.Alloc (Marshal.SizeOf<T> ()), Transfer.Full)
         {
         }
 

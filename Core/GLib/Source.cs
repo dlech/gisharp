@@ -57,7 +57,7 @@ namespace GISharp.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Attach"/> before it will be executed.
         /// </remarks>
-        Source () : this (New (), Transfer.All)
+        Source () : this (New (), Transfer.Full)
         {
             var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
             // This handle is freed in the Finalize callback.

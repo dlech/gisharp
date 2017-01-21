@@ -59,7 +59,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_iter_copy (Handle);
-            var ret = Opaque.GetInstance<VariantIter> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<VariantIter> (ret_, Transfer.Full);
             return ret;
         }
 
@@ -274,7 +274,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_iter_next_value (Handle);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
 

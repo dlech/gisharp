@@ -97,7 +97,7 @@ namespace GISharp.GIRepository
             IntPtr error_;
             bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<GLib.Error> (error_, Runtime.Transfer.All);
+                var error = Opaque.GetInstance<GLib.Error> (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;

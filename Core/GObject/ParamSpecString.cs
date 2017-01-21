@@ -82,7 +82,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags), Transfer.All)
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.Full)
         {
         }
 

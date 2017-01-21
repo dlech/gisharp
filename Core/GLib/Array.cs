@@ -59,7 +59,7 @@ namespace GISharp.GLib
             if (ownership == Transfer.None) {
                 Ref ();
             }
-            if (ownership == Transfer.All) {
+            if (ownership == Transfer.Full) {
                 ownsElements = true;
             }
         }
@@ -107,7 +107,7 @@ namespace GISharp.GLib
         /// number of elements preallocated
         /// </param>
         public Array (bool zeroTerminated, bool clear, uint reservedSize = 0)
-            : this (New (zeroTerminated, clear, reservedSize), Transfer.All)
+            : this (New (zeroTerminated, clear, reservedSize), Transfer.Full)
         {
         }
 

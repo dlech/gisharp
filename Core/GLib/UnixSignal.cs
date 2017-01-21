@@ -159,7 +159,7 @@ namespace GISharp.GLib
         public static Source CreateSource (int signum)
         {
             var ret_ = g_unix_signal_source_new (signum);
-            var ret = Opaque.GetInstance<Source> (ret_, Transfer.All);
+            var ret = Opaque.GetInstance<Source> (ret_, Transfer.Full);
             return ret;
         }
     }

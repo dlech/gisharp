@@ -24,6 +24,6 @@ namespace GISharp.Runtime
         /// For a refcounted type, this means the recipient owns a ref on the value.
         /// For a container type, this means the recipient owns both container and elements.
         /// </remarks>
-        All,
+        Full,
     }
 }

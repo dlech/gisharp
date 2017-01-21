@@ -27,7 +27,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecParam (string name, string nick, string blurb, GType paramType, ParamFlags flags)
-            : this (New (name, nick, blurb, paramType, flags), Transfer.All)
+            : this (New (name, nick, blurb, paramType, flags), Transfer.Full)
         {
         }
 

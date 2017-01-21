@@ -240,12 +240,12 @@ namespace GISharp.GObject
             var handle = New<T> (parameters);
             var instance = (T) Activator.CreateInstance (typeof(T),
               System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
-                null, new object [] { handle, Transfer.All });
+                null, new object [] { handle, Transfer.Full });
 
             return instance;
         }
 
-        public Object () : this (New<Object> (), Transfer.All)
+        public Object () : this (New<Object> (), Transfer.Full)
         {
         }
 

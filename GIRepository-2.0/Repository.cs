@@ -42,7 +42,7 @@ namespace GISharp.GIRepository
             g_irepository_dump (native_arg, out error_);
             GMarshal.Free (native_arg);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
         }
@@ -340,7 +340,7 @@ namespace GISharp.GIRepository
             GMarshal.Free (native_namespace);
             GMarshal.Free (native_version);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
         }
@@ -383,7 +383,7 @@ namespace GISharp.GIRepository
             GMarshal.Free (native_namespace);
             GMarshal.Free (native_version);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.All);
+                var error = Opaque.GetInstance<Error> (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
         }

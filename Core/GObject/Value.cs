@@ -1535,7 +1535,7 @@ namespace GISharp.GObject
         Variant Variant {
             get {
                 var ret_ = g_value_get_variant (ref this);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.All);
+                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
             set {

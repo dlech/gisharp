@@ -26,7 +26,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecBoxed (string name, string nick, string blurb, GType boxedType, ParamFlags flags)
-            : this (New (name, nick, blurb, boxedType, flags), Transfer.All)
+            : this (New (name, nick, blurb, boxedType, flags), Transfer.Full)
         {
         }
 

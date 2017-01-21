@@ -178,7 +178,7 @@ namespace GISharp.GLib
         /// </returns>
         public HashTable(HashFunc<K> hashFunc = null, EqualFunc<K> keyEqualFunc = null,
             DestroyNotify<K> keyDestroyFunc = null, DestroyNotify<V> valueDestroyFunc = null)
-            : base (NewFull (hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc), Transfer.All)
+            : base (NewFull (hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc), Transfer.Full)
         {
         }
 

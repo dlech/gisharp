@@ -65,7 +65,7 @@ namespace GISharp.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error (Quark domain, int code, string message)
-            : this (New (domain, code, message), Transfer.All)
+            : this (New (domain, code, message), Transfer.Full)
         {
         }
 
@@ -119,7 +119,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_error_copy (Handle);
-            var ret = new Error (ret_, Transfer.All);
+            var ret = new Error (ret_, Transfer.Full);
             return ret;
         }
 

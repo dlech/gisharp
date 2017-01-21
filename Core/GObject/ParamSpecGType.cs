@@ -37,7 +37,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
-            : this (New (name, nick, blurb, isAType, flags), Transfer.All)
+            : this (New (name, nick, blurb, isAType, flags), Transfer.Full)
         {
         }
 

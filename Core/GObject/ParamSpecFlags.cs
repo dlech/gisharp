@@ -51,7 +51,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecFlags (string name, string nick, string blurb, GType flagsType, System.Enum defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, flagsType, Convert.ToInt32 (defaultValue), flags), Transfer.All)
+            : this (New (name, nick, blurb, flagsType, Convert.ToInt32 (defaultValue), flags), Transfer.Full)
         {
         }
 

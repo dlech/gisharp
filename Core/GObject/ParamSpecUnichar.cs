@@ -35,7 +35,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecUnichar (string name, string nick, string blurb, int defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, (uint)defaultValue, flags), Transfer.All)
+            : this (New (name, nick, blurb, (uint)defaultValue, flags), Transfer.Full)
         {
         }
 

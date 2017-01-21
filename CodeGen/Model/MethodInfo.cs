@@ -413,7 +413,7 @@ namespace GISharp.CodeGen.Model
                     nameof (GISharp.Runtime.Opaque.GetInstance),
                     typeof (GISharp.GLib.Error).FullName,
                     typeof (GISharp.Runtime.Transfer).FullName,
-                    nameof (GISharp.Runtime.Transfer.All));
+                    nameof (GISharp.Runtime.Transfer.Full));
                 var throwStatement = string.Format ("throw new {0} ({1});",
                     typeof(GISharp.Runtime.GErrorException).FullName,
                     errorIdentifier);
@@ -834,7 +834,7 @@ namespace GISharp.CodeGen.Model
                     managedParameterInfo.Identifier,
                     typeof(GISharp.Runtime.GMarshal),
                     nameof(GISharp.Runtime.GMarshal.GStrvPtrToStringArray),
-                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.All ? "true" : "false");
+                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.Full ? "true" : "false");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
@@ -845,7 +845,7 @@ namespace GISharp.CodeGen.Model
                     managedParameterInfo.Identifier,
                     typeof(GISharp.Runtime.GMarshal),
                     nameof(GISharp.Runtime.GMarshal.Utf8PtrToString),
-                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.All ? "true" : "false");
+                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.Full ? "true" : "false");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }

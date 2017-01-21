@@ -61,7 +61,7 @@ namespace GISharp.GLib
         /// <c>true</c> anyway.
         /// </param>
         public MainLoop (MainContext context = null, bool isRunning = false)
-            : this (New (context, isRunning), Transfer.All)
+            : this (New (context, isRunning), Transfer.Full)
         {
         }
 

@@ -40,7 +40,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new <see cref="MainContext"/>
         /// </returns>
-        public MainContext () : this (New (), Transfer.All)
+        public MainContext () : this (New (), Transfer.Full)
         {
         }
 
@@ -103,7 +103,7 @@ namespace GISharp.GLib
         public static MainContext ThreadDefault {
             get {
                 var ret_ = g_main_context_ref_thread_default ();
-                var ret = GetInstance<MainContext> (ret_, Transfer.All);
+                var ret = GetInstance<MainContext> (ret_, Transfer.Full);
                 return ret;
             }
         }
