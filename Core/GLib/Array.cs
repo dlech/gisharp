@@ -13,6 +13,8 @@ namespace GISharp.GLib
     [GType ("GArray", IsWrappedNativeType = true)]
     public sealed class Array<T> : Opaque, IList<T> where T : struct
     {
+        readonly bool ownsElements;
+
         struct ArrayStruct
         {
             public IntPtr Data;
@@ -57,12 +59,15 @@ namespace GISharp.GLib
             if (ownership == Transfer.None) {
                 Ref ();
             }
+            if (ownership == Transfer.All) {
+                ownsElements = true;
+            }
         }
 
         protected override void Dispose (bool disposing)
         {
             if (Handle != IntPtr.Zero) {
-                Unref ();
+                ArrayInternal.g_array_free (Handle, ownsElements);
                 Handle = IntPtr.Zero;
             }
             base.Dispose (disposing);
@@ -136,34 +141,6 @@ namespace GISharp.GLib
             var dataPtr = gch.AddrOfPinnedObject ();
             ArrayInternal.g_array_append_vals (Handle, dataPtr, (uint)data.Length);
             gch.Free ();
-        }
-
-        /// <summary>
-        /// Frees the memory allocated for the <see cref="Array{T}"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="freeSegment"/> is
-        /// <c>true</c> it frees the memory block holding the elements as well and
-        /// also each element if this array has a @element_free_func set. Pass
-        /// <c>false</c> if you want to free the <see cref="Array{T}"/> wrapper but preserve the
-        /// underlying array for use elsewhere. If the reference count of this array
-        /// is greater than one, the <see cref="Array{T}"/> wrapper is preserved but the size
-        /// of this array will be set to zero.
-        /// 
-        /// If array elements contain dynamically-allocated memory, they should
-        /// be freed separately.
-        /// </remarks>
-        /// <param name="freeSegment">
-        /// if <c>true</c> the actual element data is freed as well
-        /// </param>
-        /// <returns>
-        /// the element data if @free_segment is <c>false</c>, otherwise
-        ///     <c>null</c>. The element data should be freed using g_free().
-        /// </returns>
-        IntPtr Free (bool freeSegment)
-        {
-            AssertNotDisposed ();
-            return ArrayInternal.g_array_free (Handle, freeSegment);
         }
 
         /// <summary>
@@ -316,7 +293,7 @@ namespace GISharp.GLib
         //    ArrayInternal.g_array_set_clear_func (Handle, clearFunc_);
         //}
 
-        public delegate void ClearFunc (ref T element);
+        //public delegate void ClearFunc (ref T element);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -424,7 +401,7 @@ namespace GISharp.GLib
         /// Removes all items from the <see cref="Array"/>.
         /// </summary>
         public void Clear () {
-            Free (true);
+            SetSize (0);
         }
 
         public bool Contains (T other)

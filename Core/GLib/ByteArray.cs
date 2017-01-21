@@ -13,6 +13,8 @@ namespace GISharp.GLib
     [GType ("GByteArray", IsWrappedNativeType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
+        readonly bool ownsElements;
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_byte_array_get_type ();
 
@@ -29,6 +31,9 @@ namespace GISharp.GLib
             Handle = handle;
             if (ownership == Transfer.None) {
                 Ref ();
+            }
+            if (ownership == Transfer.All) {
+                ownsElements = true;
             }
         }
 
@@ -198,31 +203,11 @@ namespace GISharp.GLib
             bool freeSegment);
 
         /// <summary>
-        /// Frees the memory allocated by the <see cref="ByteArray"/>. If <paramref name="freeSegment"/> is
-        /// <c>true</c> it frees the actual byte data. If the reference count of
-        /// @array is greater than one, the #GByteArray wrapper is preserved but
-        /// the size of @array will be set to zero.
-        /// </summary>
-        /// <param name="freeSegment">
-        /// if %TRUE the actual byte data is freed as well
-        /// </param>
-        /// <returns>
-        /// the element data if @freeSegment is %FALSE, otherwise
-        ///          %NULL.  The element data should be freed using g_free().
-        /// </returns>
-        IntPtr Free (bool freeSegment)
-        {
-            AssertNotDisposed ();
-            Ref ();
-            return g_byte_array_free (Handle, freeSegment);
-        }
-
-        /// <summary>
         /// Removes all items from the array.
         /// </summary>
         public void Clear ()
         {
-            Free (true);
+            SetSize (0);
         }
 
         /// <summary>
@@ -600,7 +585,7 @@ namespace GISharp.GLib
         protected override void Dispose (bool disposing)
         {
             if (Handle != IntPtr.Zero) {
-                Unref ();
+                g_byte_array_free (Handle, ownsElements);
                 Handle = IntPtr.Zero;
             }
             base.Dispose (disposing);
