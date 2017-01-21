@@ -138,6 +138,7 @@
     <Compile Include="GObject\ParamSpecUnichar.cs" />
     <Compile Include="GObject\ParamSpecValueArray.cs" />
     <Compile Include="GObject\ParamSpecVariant.cs" />
+    <Compile Include="GLib\Bytes.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Runtime\NativeLong32.cs" />

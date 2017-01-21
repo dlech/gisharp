@@ -24,9 +24,6 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'charset')]
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[contains(@name,'codeset')]"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='NormalizeMode']"
 # collections
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Bytes']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:parameters/gi:parameter/gi:type/@name ='Bytes']"
-chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*/gi:*[./gi:return-value/gi:type/@name ='Bytes']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Data']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='DataForeachFunc']"
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Node']"
@@ -217,6 +214,8 @@ chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name ='VA_COPY_AS_ARRAY']
 
 # ByteArray
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='ByteArray']"
+# Bytes
+chattr "skip" "" "1" "gi:repository/gi:namespace/gi:*[@name='Bytes']"
 # Array
 chattr "skip" "" "1" "gi:repository/gi:namespace/gi:record[@name='Array']"
 # PtrArray

@@ -213,6 +213,7 @@ namespace GISharp.GLib
         IntPtr Free (bool freeSegment)
         {
             AssertNotDisposed ();
+            Ref ();
             return g_byte_array_free (Handle, freeSegment);
         }
 
@@ -248,28 +249,25 @@ namespace GISharp.GLib
             IntPtr array);
 
         /// <summary>
-        /// Transfers the data from the #GByteArray into a new immutable #GBytes.
+        /// Transfers the data from the <see cref="ByteArray"/> into a new
+        /// immutable <see cref="Bytes"/>.
         /// </summary>
         /// <remarks>
-        /// The #GByteArray is freed unless the reference count of @array is greater
-        /// than one, the #GByteArray wrapper is preserved but the size of @array
-        /// will be set to zero.
-        /// 
-        /// This is identical to using g_bytes_new_take() and g_byte_array_free()
-        /// together.
+        /// This clears the <see cref="ByteArray"/>.
         /// </remarks>
-        /// <param name="array">
-        /// a #GByteArray
-        /// </param>
         /// <returns>
-        /// a new immutable #GBytes representing same
-        ///     byte data that was in the array
+        /// a new immutable <see cref="Bytes"/> representing same
+        /// byte data that was in the array
         /// </returns>
-//        [Since("2.32")]
-//        public GISharp.GLib.Bytes FreeToBytes()
-//        {
-//            return default(GISharp.GLib.Bytes);
-//        }
+        [Since("2.32")]
+        public Bytes ToBytes ()
+        {
+            AssertNotDisposed ();
+            Ref ();
+            var ret_ = g_byte_array_free_to_bytes (Handle);
+            var ret = GetInstance<Bytes> (ret_, Transfer.All);
+            return ret;
+        }
 
         /// <summary>
         /// Adds the given data to the start of the #GByteArray.
