@@ -102,9 +102,7 @@ namespace GISharp.Runtime
                     return obj;
                 }
 
-                obj = (T)Activator.CreateInstance (typeHint ?? typeof (T),
-                    System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
-                    null, new object[] { handle, ownership }, null);
+                obj = (T)Activator.CreateInstance (typeHint ?? typeof (T), handle, ownership);
                 return obj;
             }
         }
@@ -121,7 +119,7 @@ namespace GISharp.Runtime
             }
         }
 
-        WrappedStruct (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public WrappedStruct (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

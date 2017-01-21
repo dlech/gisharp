@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainLoop", IsWrappedNativeType = true)]
     public sealed class MainLoop : ReferenceCountedOpaque
     {
-        MainLoop (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public MainLoop (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

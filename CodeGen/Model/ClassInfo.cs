@@ -337,8 +337,10 @@ namespace GISharp.CodeGen.Model
         ConstructorDeclarationSyntax GetOpaqueDefaultConstructor ()
         {
             var modifiers = TokenList ();
-            if (!IsSealed) {
+            if (IsAbstract) {
                 modifiers = modifiers.Add (Token (SyntaxKind.ProtectedKeyword));
+            } else {
+                modifiers = modifiers.Add (Token (SyntaxKind.PublicKeyword));
             }
             var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
                 typeof(IntPtr).FullName,

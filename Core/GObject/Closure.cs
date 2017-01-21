@@ -94,7 +94,7 @@ public sealed class Closure : ReferenceCountedOpaque
         }
     }
 
-    Closure (IntPtr handle, Transfer ownership) : base (handle, ownership)
+    public Closure (IntPtr handle, Transfer ownership) : base (handle, ownership)
     {
     }
 

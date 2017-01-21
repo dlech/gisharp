@@ -308,7 +308,7 @@ namespace GISharp.Gio.Test
         {
         }
 
-        protected ActionImpl (IntPtr handle, Transfer ownership)
+        public ActionImpl (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

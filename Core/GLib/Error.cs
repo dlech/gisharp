@@ -82,7 +82,7 @@ namespace GISharp.GLib
         {
         }
 
-        protected Error (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public Error (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

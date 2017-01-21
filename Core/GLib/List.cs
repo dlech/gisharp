@@ -14,7 +14,7 @@ namespace GISharp.GLib
     [NullHandleIsInstance]
     public sealed class List<T> : OwnedOpaque where T : Opaque
     {
-        List (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public List (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

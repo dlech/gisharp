@@ -23,7 +23,7 @@ namespace GISharp.GLib
             return g_byte_array_get_type ();
         }
 
-        ByteArray (IntPtr handle, Transfer ownership)
+        public ByteArray (IntPtr handle, Transfer ownership)
         {
             if (handle == IntPtr.Zero) {
                 throw new NotSupportedException ();

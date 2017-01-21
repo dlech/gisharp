@@ -79,7 +79,7 @@ namespace GISharp.GLib
         [Since ("2.32")]
         public const bool Remove_ = false;
 
-        protected Source (IntPtr handle, Transfer ownership)
+        public Source (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }
@@ -1515,7 +1515,8 @@ namespace GISharp.GLib
 
     public sealed class UnmanagedSource : Source
     {
-        UnmanagedSource (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public UnmanagedSource (IntPtr handle, Transfer ownership)
+            : base (handle, ownership)
         {
         }
 

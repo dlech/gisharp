@@ -116,7 +116,7 @@ namespace GISharp.Core.Test.GObject
         {
         }
 
-        protected TestNetworkMonitor (IntPtr handle, Transfer ownership)
+        public TestNetworkMonitor (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

@@ -7,7 +7,7 @@ namespace GISharp.Core.Test
     {
         public int Value { get { return Handle.ToInt32 (); } }
 
-        TestOpaque (IntPtr handle, Transfer ownership)
+        public TestOpaque (IntPtr handle, Transfer ownership)
         {
             Handle = handle;
         }

@@ -4561,7 +4561,7 @@ namespace GISharp.GLib
             g_variant_unref (Handle);
         }
 
-        Variant (IntPtr handle, Transfer ownership)
+        public Variant (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
             if (Handle == IntPtr.Zero) {

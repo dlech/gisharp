@@ -485,7 +485,7 @@ namespace GISharp.GObject
             g_param_spec_unref (Handle);
         }
 
-        protected ParamSpec (IntPtr handle, Transfer ownership)
+        public ParamSpec (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
             if (ownership == Transfer.None) {

@@ -32,7 +32,7 @@ namespace GISharp.GObject
             return ret;
         }
 
-        protected TypeInstance (IntPtr handle, Transfer ownership)
+        public TypeInstance (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

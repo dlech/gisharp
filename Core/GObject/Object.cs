@@ -47,7 +47,7 @@ namespace GISharp.GObject
             return g_object_get_type ();
         }
 
-        protected Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public Object (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
             instanceId = nextId++;
             // We are guaranteed to own a reference at this point.
@@ -238,9 +238,7 @@ namespace GISharp.GObject
         public static T CreateInstance<T> (params object[] parameters)
         {
             var handle = New<T> (parameters);
-            var instance = (T) Activator.CreateInstance (typeof(T),
-              System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic,
-                null, new object [] { handle, Transfer.Full });
+            var instance = (T) Activator.CreateInstance (typeof(T), handle, Transfer.Full);
 
             return instance;
         }

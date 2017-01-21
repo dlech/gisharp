@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainContext", IsWrappedNativeType = true)]
     public sealed class MainContext : ReferenceCountedOpaque
     {
-        MainContext (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public MainContext (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

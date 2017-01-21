@@ -254,7 +254,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            protected TestObject3 (IntPtr handle, Transfer ownership)
+            public TestObject3 (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
             }
@@ -297,7 +297,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            protected TestObjectPropertiesBase (IntPtr handle, Transfer ownership)
+            public TestObjectPropertiesBase (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
             }
@@ -321,7 +321,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            protected TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership)
+            public TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
             }
@@ -374,7 +374,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            protected TestObjectSignal (IntPtr handle, Transfer ownership)
+            public TestObjectSignal (IntPtr handle, Transfer ownership)
                 : base (handle, ownership)
             {
                 eventHappendSignalId = Signal.Lookup (nameof(EventHappened), this.GetGType ());

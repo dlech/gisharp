@@ -48,7 +48,7 @@ namespace GISharp.GObject
             return paramSpecTypes[0];
         }
 
-        ParamSpecChar (IntPtr handle, Transfer ownership)
+        public ParamSpecChar (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

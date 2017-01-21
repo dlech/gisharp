@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.GLib
 {
@@ -1882,7 +1883,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        VariantType (IntPtr handle, GISharp.Runtime.Transfer ownership)
+        public VariantType (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

@@ -306,7 +306,7 @@ namespace GISharp.GObject
             g_binding_unbind (Handle);
         }
 
-        Binding (IntPtr handle, Transfer ownership)
+        public Binding (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

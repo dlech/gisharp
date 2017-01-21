@@ -50,7 +50,7 @@ namespace GISharp.GLib
             }
         }
 
-        Array (IntPtr handle, Transfer ownership)
+        public Array (IntPtr handle, Transfer ownership)
         {
             if (handle == IntPtr.Zero) {
                 throw new NotSupportedException ();

@@ -278,7 +278,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        VariantIter (IntPtr handle, Transfer ownership)
+        public VariantIter (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }

@@ -39,7 +39,7 @@ namespace GISharp.GLib
     [GType ("GBytes", IsWrappedNativeType = true)]
     public sealed class Bytes : Opaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
-        Bytes (IntPtr handle, Transfer ownership)
+        public Bytes (IntPtr handle, Transfer ownership)
         {
             if (handle == IntPtr.Zero) {
                 throw new NotSupportedException ();

@@ -18,7 +18,7 @@ namespace GISharp.GLib
         {
         }
 
-        SList (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public SList (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

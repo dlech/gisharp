@@ -21,7 +21,7 @@ namespace GISharp.GObject
             return g_initially_unowned_get_type ();
         }
 
-        protected InitiallyUnowned (IntPtr handle, Transfer ownership)
+        public InitiallyUnowned (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {
         }
