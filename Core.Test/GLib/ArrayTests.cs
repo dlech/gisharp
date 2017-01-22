@@ -18,7 +18,7 @@ namespace GISharp.Core.Test.GLib
         public void TestElementSize ()
         {
             var array = new Array<int> ();
-            Assert.That (array.ElementSize == sizeof(int));
+            Assert.That (array.ElementSize == sizeof (int));
 
             array.Dispose ();
             Assert.That (() => array.ElementSize, Throws.TypeOf<ObjectDisposedException> ());
@@ -51,7 +51,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
             Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
             Assert.That (array.Count, Is.EqualTo (2));
-            
+
             array.Dispose ();
             Assert.Throws<ObjectDisposedException> (() => array.Prepend (1));
         }
@@ -152,6 +152,34 @@ namespace GISharp.Core.Test.GLib
 
             array.Dispose ();
             Assert.Throws<ObjectDisposedException> (() => array.SetSize (0));
+        }
+
+        [Test]
+        public void TestSetClearFunc ()
+        {
+            var array = new Array<int> ();
+            array.Append (1);
+            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+
+            array.RemoveAt (0);
+            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+
+            array.SetSize (1);
+            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+
+            array.SetClearFunc ((ref int item) => item = 0);
+            array.RemoveAt (0);
+            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (0));
+
+            array.Append (1);
+            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+
+            array.SetClearFunc (null);
+            array.RemoveAt (0);
+            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+
+            array.Dispose ();
+            Assert.That (() => array.SetClearFunc (null), Throws.TypeOf<ObjectDisposedException> ());
         }
 
         [Test]

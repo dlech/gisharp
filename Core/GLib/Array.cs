@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using GISharp.Runtime;
 using GISharp.GObject;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.GLib
 {
@@ -269,35 +270,39 @@ namespace GISharp.GLib
             ArrayInternal.g_array_remove_range (Handle, (uint)index, (uint)length);
         }
 
+        public delegate void ClearFunc (ref T item);
+
+        static NativeDestroyNotify WrapClearFunc (Delegate d)
+        {
+            var clearFunc = (ClearFunc)d;
+            NativeDestroyNotify ret = data_ => {
+                var data = Marshal.PtrToStructure<T> (data_);
+                clearFunc (ref data);
+                Marshal.StructureToPtr (data, data_, false);
+            };
+            return ret;
+        }
+
         /// <summary>
-        /// Sets a function to clear an element of this array.
+        /// Sets a function to clear an element of this array. It is the callers
+        /// responsibility to hold a reference to <paramref name="clearFunc"/>
+        /// as long as this array is alive in either managed or unmanaged code.
         /// </summary>
         /// <remarks>
-        /// The <paramref name="clearFunc"/> will be called when an element in the array
-        /// data segment is removed and when the array is freed and data
-        /// segment is deallocated as well.
-        /// 
-        /// Note that in contrast with other uses of <see cref="DestroyNotify{T}"/>
-        /// functions, <paramref name="clearFunc"/> is expected to clear the contents of
-        /// the array element it is given, but not free the element itself.
+        /// The <paramref name="clearFunc"/> will be called when an element in
+        /// the array data segment is removed and when the array is freed and
+        /// data segment is deallocated as well.
         /// </remarks>
-        /// <param name="clearFunc">
-        /// a function to clear an element of this array
-        /// </param>
-        //[Since("2.32")]
-        //public void SetClearFunc (ClearFunc clearFunc)
-        //{
-        //    AssertNotDisposed ();
-        //    NativeDestroyNotify clearFunc_ = (data_) => {
-        //        var data = Marshal.PtrToStructure<T> (data_);
-        //        clearFunc (ref data);
-        //    };
-        //    // FIXME: this leaks the GCHandle, which leaks clearFunc
-        //    GCHandle.Alloc (clearFunc_);
-        //    ArrayInternal.g_array_set_clear_func (Handle, clearFunc_);
-        //}
-
-        //public delegate void ClearFunc (ref T element);
+        /// <param name="clearFunc">a function to clear an element of this array.</param>
+        public void SetClearFunc (ClearFunc clearFunc)
+        {
+            AssertNotDisposed ();
+            NativeDestroyNotify clearFunc_ = null;
+            if (clearFunc != null) {
+                clearFunc_ = ArrayInternal.ClearFuncTable.GetValue (clearFunc, WrapClearFunc);
+            }
+            ArrayInternal.g_array_set_clear_func (Handle, clearFunc_);
+        }
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -491,6 +496,13 @@ namespace GISharp.GLib
     // like them in a generic class.
     static class ArrayInternal
     {
+        internal static readonly ConditionalWeakTable<Delegate, NativeDestroyNotify> ClearFuncTable;
+
+        static ArrayInternal ()
+        {
+            ClearFuncTable = new ConditionalWeakTable<Delegate, NativeDestroyNotify> ();
+        }
+
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern GType g_array_get_type ();
 
