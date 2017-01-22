@@ -65,6 +65,7 @@
     <Compile Include="GObject\BindingTests.cs" />
     <Compile Include="IListTests.cs" />
     <Compile Include="GLib\BytesTests.cs" />
+    <Compile Include="GLib\ErrorTests.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using GISharp.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.GLib
@@ -11,6 +12,7 @@ namespace GISharp.GLib
     /// This is only indened for use in bindings. You probably want
     /// <see cref="GErrorException"/> instead.
     /// </remarks>
+    [GType ("GError", IsWrappedNativeType = true)]
     public class Error : OwnedOpaque
     {
         struct ErrorStruct
@@ -71,6 +73,18 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// <paramref name="code"/> and <paramref name="message"/>.
+        /// </summary>
+        /// <param name="domain">Error domain.</param>
+        /// <param name="code">Error code.</param>
+        /// <param name="message">Error message.</param>
+        public Error (Quark domain, System.Enum code, string message)
+            : this (New (domain, (int)(object)code, message), Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
         /// <paramref name="code"/> and message.
         /// </summary>
         /// <param name="domain">Error domain.</param>
@@ -79,6 +93,19 @@ namespace GISharp.GLib
         /// <param name="args">Objects to format.</param>
         public Error (Quark domain, int code, string format, params object[] args)
             : this (domain, code, string.Format (format, args))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// <paramref name="code"/> and message.
+        /// </summary>
+        /// <param name="domain">Error domain.</param>
+        /// <param name="code">Error code.</param>
+        /// <param name="format">Message format string.</param>
+        /// <param name="args">Objects to format.</param>
+        public Error (Quark domain, System.Enum code, string format, params object[] args)
+            : this (New (domain, (int)(object)code, string.Format (format, args)), Transfer.Full)
         {
         }
 
@@ -155,6 +182,14 @@ namespace GISharp.GLib
         {
             Owned = false;
             IsDisposed = true;
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_error_get_type ();
+
+        static GType getGType ()
+        {
+            return g_error_get_type ();
         }
     }
 }
