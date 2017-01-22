@@ -2,6 +2,8 @@
 
 using NUnit.Framework;
 using GISharp.GLib;
+using System.Collections.Generic;
+using GISharp.GObject;
 
 namespace GISharp.Core.Test.GLib
 {
@@ -12,16 +14,7 @@ namespace GISharp.Core.Test.GLib
         public void TestConstructor ()
         {
             var hashTable1 = new HashTable<TestOpaque, TestOpaque> ();
-            HashFunc<TestOpaque> hashFunc = (key) =>
-                (uint)key.GetHashCode ();
-            EqualFunc<TestOpaque> keyEqualFunc = (a, b) =>
-                a.Value == b.Value;
-            DestroyNotify<TestOpaque> keyDestroyFunc = (data) => {
-            };
-            DestroyNotify<TestOpaque> valueDestroyFunc = (data) => {
-            };
-            var hashTable2 = new HashTable<TestOpaque, TestOpaque> (
-                hashFunc, keyEqualFunc, keyDestroyFunc, valueDestroyFunc);
+            hashTable1.Dispose ();
         }
 
         [Test]
@@ -68,13 +61,13 @@ namespace GISharp.Core.Test.GLib
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             Assume.That (hashTable.Size, Is.EqualTo (0));
             // adding a new key returns true
-            var ret = hashTable.Add (new TestOpaque (0));
+            var ret = hashTable.TryAdd (new TestOpaque (0));
             Assert.That (ret, Is.True);
             // replacing a key returns false
-            ret = hashTable.Add (new TestOpaque (0));
+            ret = hashTable.TryAdd (new TestOpaque (0));
             Assert.That (ret, Is.False);
             // null key works
-            ret = hashTable.Add (null);
+            ret = hashTable.TryAdd (null);
             Assert.That (ret, Is.False);
         }
 
@@ -127,15 +120,15 @@ namespace GISharp.Core.Test.GLib
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
             TestOpaque key, value;
             // no match returns false
-            var ret = hashTable.LookupExtended (new TestOpaque (0), out key, out value);
+            var ret = hashTable.Lookup (new TestOpaque (0), out key, out value);
             Assert.That (ret, Is.False);
             // match returns true
             hashTable.Add (new TestOpaque (0));
             Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.LookupExtended (new TestOpaque (0), out key, out value);
+            ret = hashTable.Lookup (new TestOpaque (0), out key, out value);
             Assert.That (ret, Is.True);
             // null key works
-            ret = hashTable.LookupExtended (null, out key, out value);
+            ret = hashTable.Lookup (null, out key, out value);
             Assert.That (ret, Is.True);
         }
 
@@ -143,7 +136,7 @@ namespace GISharp.Core.Test.GLib
         public void TestForeach ()
         {
             var count = 0;
-            HFunc<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+            Action<TestOpaque,TestOpaque> foreachFunc = (k, v) => {
                 count++;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -160,7 +153,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestFind ()
         {
-            HRFunc<TestOpaque,TestOpaque> findFunc = (key, value) => {
+            Predicate<KeyValuePair<TestOpaque,TestOpaque>> findFunc = (p) => {
                 return true;
             };
             var hashTable = new HashTable<TestOpaque,TestOpaque> ();
@@ -194,28 +187,28 @@ namespace GISharp.Core.Test.GLib
             Assert.That (ret, Is.False);
         }
 
-        [Test]
-        public void TestSteal ()
-        {
-            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
-            // no match returns false
-            var ret = hashTable.Steal (new TestOpaque (0));
-            Assert.That (ret, Is.False);
-            // match returns true
-            hashTable.Add (new TestOpaque (0));
-            Assume.That (hashTable.Size, Is.EqualTo (1));
-            ret = hashTable.Steal (new TestOpaque (0));
-            Assert.That (ret, Is.True);
-            // null key works
-            ret = hashTable.Steal (null);
-            Assert.That (ret, Is.False);
-        }
+        //[Test]
+        //public void TestSteal ()
+        //{
+        //    var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+        //    // no match returns false
+        //    var ret = hashTable.Steal (new TestOpaque (0));
+        //    Assert.That (ret, Is.False);
+        //    // match returns true
+        //    hashTable.Add (new TestOpaque (0));
+        //    Assume.That (hashTable.Size, Is.EqualTo (1));
+        //    ret = hashTable.Steal (new TestOpaque (0));
+        //    Assert.That (ret, Is.True);
+        //    // null key works
+        //    ret = hashTable.Steal (null);
+        //    Assert.That (ret, Is.False);
+        //}
 
         [Test]
         public void TestForeachRemove ()
         {
             var count = 0;
-            HRFunc<TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+            Predicate<KeyValuePair<TestOpaque,TestOpaque>> foreachFunc = (p) => {
                 count++;
                 return true;
             };
@@ -230,24 +223,24 @@ namespace GISharp.Core.Test.GLib
                 Throws.InstanceOf<ArgumentNullException> ());
         }
 
-        [Test]
-        public void TestForeachSteal ()
-        {
-            var count = 0;
-            HRFunc <TestOpaque,TestOpaque> foreachFunc = (key, value) => {
-                count++;
-                return true;
-            };
-            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
-            hashTable.Add (new TestOpaque (0));
-            Assume.That (hashTable.Size, Is.EqualTo (1));
-            // function is called back
-            var ret = hashTable.ForeachSteal (foreachFunc);
-            Assert.That (ret, Is.EqualTo (count));
-            // null function is not OK
-            Assert.That (() => hashTable.ForeachSteal (null),
-                Throws.InstanceOf<ArgumentNullException> ());
-        }
+        //[Test]
+        //public void TestForeachSteal ()
+        //{
+        //    var count = 0;
+        //    HRFunc <TestOpaque,TestOpaque> foreachFunc = (key, value) => {
+        //        count++;
+        //        return true;
+        //    };
+        //    var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+        //    hashTable.Add (new TestOpaque (0));
+        //    Assume.That (hashTable.Size, Is.EqualTo (1));
+        //    // function is called back
+        //    var ret = hashTable.ForeachSteal (foreachFunc);
+        //    Assert.That (ret, Is.EqualTo (count));
+        //    // null function is not OK
+        //    Assert.That (() => hashTable.ForeachSteal (null),
+        //        Throws.InstanceOf<ArgumentNullException> ());
+        //}
 
         [Test]
         public void TestRemoveAll ()
@@ -260,16 +253,16 @@ namespace GISharp.Core.Test.GLib
             Assert.That (hashTable.Size, Is.EqualTo (0));
         }
 
-        [Test]
-        public void TestStealAll ()
-        {
-            var hashTable = new HashTable<TestOpaque,TestOpaque> ();
-            hashTable.Add (new TestOpaque (0));
-            Assume.That (hashTable.Size, Is.EqualTo (1));
-            // function is called back
-            hashTable.StealAll ();
-            Assert.That (hashTable.Size, Is.EqualTo (0));
-        }
+        //[Test]
+        //public void TestStealAll ()
+        //{
+        //    var hashTable = new HashTable<TestOpaque,TestOpaque> ();
+        //    hashTable.Add (new TestOpaque (0));
+        //    Assume.That (hashTable.Size, Is.EqualTo (1));
+        //    // function is called back
+        //    hashTable.StealAll ();
+        //    Assert.That (hashTable.Size, Is.EqualTo (0));
+        //}
 
         [Test]
         public void TestGetKeys ()
@@ -291,6 +284,14 @@ namespace GISharp.Core.Test.GLib
             // test case
             var ret = hashTable.Values;
             Assert.That (ret.Length, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void TestGType ()
+        {
+            var gtype = typeof (HashTable<TestOpaque, TestOpaque>).GetGType ();
+            Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
+            Assert.That (gtype.Name, Is.EqualTo ("GHashTable"));
         }
     }
 }
