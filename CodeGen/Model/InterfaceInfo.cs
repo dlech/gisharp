@@ -68,20 +68,30 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var interfaceDeclaration = InterfaceDeclaration ("I" + Identifier.Text)
-                .WithAttributeLists (AttributeLists)
-                .WithModifiers (Modifiers)
-                .WithBaseList (BaseList)
-                .WithMembers (InterfaceMembers)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
-            yield return interfaceDeclaration;
+            InterfaceDeclarationSyntax interfaceDeclaration;
+            ClassDeclarationSyntax interfaceExtenstionsDeclaration;
 
-            var interfaceExtensionsModifiers = TokenList ()
-                .Add (Token (SyntaxKind.PublicKeyword))
-                .Add (Token (SyntaxKind.StaticKeyword));
-            var interfaceExtenstionsDeclaration = ClassDeclaration (Identifier)
-                .WithModifiers (interfaceExtensionsModifiers)
-                .WithMembers (InterfaceExtensionsMembers);
+            try {
+                interfaceDeclaration = InterfaceDeclaration ("I" + Identifier.Text)
+                    .WithAttributeLists (AttributeLists)
+                    .WithModifiers (Modifiers)
+                    .WithBaseList (BaseList)
+                    .WithMembers (InterfaceMembers)
+                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+
+                var interfaceExtensionsModifiers = TokenList ()
+                    .Add (Token (SyntaxKind.PublicKeyword))
+                    .Add (Token (SyntaxKind.StaticKeyword));
+                interfaceExtenstionsDeclaration = ClassDeclaration (Identifier)
+                    .WithModifiers (interfaceExtensionsModifiers)
+                    .WithMembers (InterfaceExtensionsMembers);
+            } catch (Exception ex) {
+                Console.WriteLine ("Skipping {0} due to error {1}",
+                                   QualifiedName, ex.Message);
+                yield break;
+            }
+
+            yield return interfaceDeclaration;
             yield return interfaceExtenstionsDeclaration;
         }
 

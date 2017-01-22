@@ -59,11 +59,18 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var structDeclaration = StructDeclaration (Identifier)
-                .WithModifiers (Modifiers)
-                .WithMembers (StructMembers)
-                .WithAttributeLists (AttributeLists)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
+            MemberDeclarationSyntax structDeclaration;
+            try {
+                structDeclaration = StructDeclaration (Identifier)
+                    .WithModifiers (Modifiers)
+                    .WithMembers (StructMembers)
+                    .WithAttributeLists (AttributeLists)
+                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+            } catch (Exception ex) {
+                Console.WriteLine ("Skipping {0} due to exception: {1}",
+                                   QualifiedName, ex.Message);
+                yield break;
+            }
             yield return structDeclaration;
         }
 

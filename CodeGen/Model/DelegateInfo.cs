@@ -98,37 +98,45 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
-                .WithAttributeLists (NativeAttributeLists)
-                .WithModifiers (Modifiers)
-                .WithParameterList (MethodInfo.PinvokeParameterList)
-                .WithLeadingTrivia (NativeDocumentationCommentTriviaList);
-            yield return unmangedDeclaration;
+            MemberDeclarationSyntax unmangedDeclaration;
+            MemberDeclarationSyntax managedDeclaration;
 
-            var managedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
-                .WithAttributeLists (AttributeLists)
-                .WithModifiers (Modifiers)
-                .WithParameterList (MethodInfo.ParameterList)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
+            try {
+                unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
+                    .WithAttributeLists (NativeAttributeLists)
+                    .WithModifiers (Modifiers)
+                    .WithParameterList (MethodInfo.PinvokeParameterList)
+                    .WithLeadingTrivia (NativeDocumentationCommentTriviaList);
+
+                managedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+                    .WithAttributeLists (AttributeLists)
+                    .WithModifiers (Modifiers)
+                    .WithParameterList (MethodInfo.ParameterList)
+                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+            } catch (Exception ex) {
+                Console.WriteLine ("Skipping {0} due to error: {1}", QualifiedName, ex.Message);
+                yield break;
+            }
+            yield return unmangedDeclaration;
             yield return managedDeclaration;
 
-            var factoryDeclaration = ClassDeclaration (NativeIdentifier + "Factory")
-                .AddModifiers (
-                    Token (SyntaxKind.PublicKeyword),
-                    Token (SyntaxKind.StaticKeyword))
-                .AddMembers (
-                    MethodDeclaration (NativeQualifiedName, "Create")
-                    .AddModifiers (
-                        Token (SyntaxKind.PublicKeyword),
-                        Token (SyntaxKind.StaticKeyword))
-                    .AddParameterListParameters (
-                        Parameter (ParseToken ("method"))
-                            .WithType (QualifiedName),
-                        Parameter (ParseToken ("freeUserData"))
-                        .WithType (ParseTypeName (typeof(bool).FullName)))
-                    .WithBody (Block (GetFactoryStatements ()))
-                    .WithLeadingTrivia (GetFactoryCreateMethodDocumentationCommentTrivia ()))
-                .WithLeadingTrivia (GetFactoryDocumentationCommentTrivia ());
+            //var factoryDeclaration = ClassDeclaration (NativeIdentifier + "Factory")
+            //    .AddModifiers (
+            //        Token (SyntaxKind.PublicKeyword),
+            //        Token (SyntaxKind.StaticKeyword))
+            //    .AddMembers (
+            //        MethodDeclaration (NativeQualifiedName, "Create")
+            //        .AddModifiers (
+            //            Token (SyntaxKind.PublicKeyword),
+            //            Token (SyntaxKind.StaticKeyword))
+            //        .AddParameterListParameters (
+            //            Parameter (ParseToken ("method"))
+            //                .WithType (QualifiedName),
+            //            Parameter (ParseToken ("freeUserData"))
+            //            .WithType (ParseTypeName (typeof(bool).FullName)))
+            //        .WithBody (Block (GetFactoryStatements ()))
+            //        .WithLeadingTrivia (GetFactoryCreateMethodDocumentationCommentTrivia ()))
+            //    .WithLeadingTrivia (GetFactoryDocumentationCommentTrivia ());
             //yield return factoryDeclaration;
         }
 

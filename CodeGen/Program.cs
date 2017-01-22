@@ -114,6 +114,7 @@ namespace GISharp.CodeGen
             var xmlDoc = XDocument.Load (girFile);
             xmlDoc.ApplyFixupFile (fixupFile);
             xmlDoc.ApplyBuiltinFixup ();
+            xmlDoc.Validate ();
 
             var namespaceInfo = new NamespaceInfo (xmlDoc);
             var codeCompileUnit = CompilationUnit ()

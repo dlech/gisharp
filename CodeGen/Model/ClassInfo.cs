@@ -152,16 +152,24 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var classDeclaration = ClassDeclaration (Identifier)
-                .WithAttributeLists (AttributeLists)
-                .WithModifiers (Modifiers)
-                .WithMembers (ClassMembers)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
-            if (BaseList.Types.Any ()) {
-                classDeclaration = classDeclaration.WithIdentifier (
-                    classDeclaration.Identifier.WithTrailingTrivia (EndOfLine ("\n")));
-                classDeclaration = classDeclaration.WithBaseList (
-                    BaseList.WithLeadingTrivia (Whitespace ("\t")));
+            ClassDeclarationSyntax classDeclaration;
+
+            try {
+                classDeclaration = ClassDeclaration (Identifier)
+                    .WithAttributeLists (AttributeLists)
+                    .WithModifiers (Modifiers)
+                    .WithMembers (ClassMembers)
+                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+                if (BaseList.Types.Any ()) {
+                    classDeclaration = classDeclaration.WithIdentifier (
+                        classDeclaration.Identifier.WithTrailingTrivia (EndOfLine ("\n")));
+                    classDeclaration = classDeclaration.WithBaseList (
+                        BaseList.WithLeadingTrivia (Whitespace ("\t")));
+                }
+            } catch (Exception ex) {
+                Console.WriteLine ("Skipping {0} due to error {1}",
+                                   QualifiedName, ex.Message);
+                yield break;
             }
 
             yield return classDeclaration;

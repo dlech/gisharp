@@ -102,6 +102,7 @@
     <Compile Include="Model\InterfaceInfo.cs" />
     <Compile Include="TypeResolver.cs" />
     <Compile Include="Model\PropertyInfo.cs" />
+    <Compile Include="TypeNotFoundException.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

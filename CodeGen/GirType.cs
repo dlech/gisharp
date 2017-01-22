@@ -145,10 +145,7 @@ namespace GISharp.CodeGen
                 return ResolveType ($"{MainClass.parentNamespace}.{typeName}", document);
             }
 
-            var message = string.Format ("Failed to get type for '{0}'.", typeName);
-            Console.Error.WriteLine (message);
-
-            return null;
+            throw new TypeNotFoundException (typeName);
         }
 
         public static IEnumerable<GirType> GetTypes (XDocument document)

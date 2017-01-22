@@ -562,6 +562,23 @@ namespace GISharp.CodeGen
         }
 
         /// <summary>
+        /// Runs some tests to validate the XML before trying to use it
+        /// </summary>
+        /// <returns>The validate.</returns>
+        /// <param name="doc">Document.</param>
+        public static void Validate (this XDocument doc)
+        {
+            foreach (var e in doc.Descendants ().Where (d => ElementsThatDefineAType.Contains (d.Name))) {
+                if (e.Attribute ("name") == null) {
+                    Console.WriteLine ("Missing name attribute at {0}", e.GetXPath ());
+                }
+                if (e.Attribute (gs + "managed-name") == null) {
+                    Console.WriteLine ("Missing gs:managed-name attribute at {0}", e.GetXPath ());
+                }
+            }
+        }
+
+        /// <summary>
         /// Enumerates the 'parameter' child elements of a 'parameters' element,
         /// filtering and sorting them for use in managed code.
         /// </summary>
@@ -720,6 +737,25 @@ namespace GISharp.CodeGen
                 yield return "filename";
                 yield return "va_list";
             }
+        }
+
+        public static string GetXPath (this XElement element)
+        {
+            if (element == null) {
+                throw new ArgumentNullException (nameof (element));
+            }
+
+            var builder = new StringBuilder ();
+            foreach (var e in element.AncestorsAndSelf ().Reverse ()) {
+                builder.Append ("/");
+                builder.Append (e.Name.LocalName);
+                var nameAttr = e.Attribute ("name")?.Value;
+                if (nameAttr != null) {
+                    builder.AppendFormat ("[@name='{0}']", nameAttr);
+                }
+            }
+
+            return builder.ToString ();
         }
 
         public static string GetNamespace (this XElement element)

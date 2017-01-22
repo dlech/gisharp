@@ -75,19 +75,29 @@ namespace GISharp.CodeGen.Model
 
         protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
         {
-            var enumDeclaration = EnumDeclaration (Identifier)
-                .WithModifiers (Modifiers)
-                .WithAttributeLists (AttributeLists)
-                .WithMembers (EnumMembers)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
-            yield return enumDeclaration;
+            EnumDeclarationSyntax enumDeclaration;
+            ClassDeclarationSyntax enumExtenstionsDeclaration;
 
-            // Methods in an enum are not allowed, so using extension methods instead.
-            var enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Extensions")
-                .AddModifiers (
-                    Token (SyntaxKind.PublicKeyword),
-                    Token (SyntaxKind.StaticKeyword))
-                .WithMembers (List<MemberDeclarationSyntax> ().AddRange (GetExtensionMembers ()));
+            try {
+                enumDeclaration = EnumDeclaration (Identifier)
+                    .WithModifiers (Modifiers)
+                    .WithAttributeLists (AttributeLists)
+                    .WithMembers (EnumMembers)
+                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+
+                // Methods in an enum are not allowed, so using extension methods instead.
+                enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Extensions")
+                    .AddModifiers (
+                        Token (SyntaxKind.PublicKeyword),
+                        Token (SyntaxKind.StaticKeyword))
+                    .WithMembers (List<MemberDeclarationSyntax> ().AddRange (GetExtensionMembers ()));
+            } catch (Exception ex) {
+                Console.WriteLine ("Skipping {0} due to error {1}",
+                                   QualifiedName, ex.Message);
+                yield break;
+            }
+
+            yield return enumDeclaration;
             // only create a class if there are members
             if (enumExtenstionsDeclaration.Members.Any ()) {
                 yield return enumExtenstionsDeclaration;
