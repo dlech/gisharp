@@ -34,6 +34,7 @@ namespace GISharp.GObject
     {
         struct InitiallyUnownedClassStruct
         {
+            #pragma warning disable CS0649
             public TypeClassStruct GTypeClass;
             public IntPtr ConstructProperties;
             public NativeConstructor Constructor;
@@ -47,6 +48,7 @@ namespace GISharp.GObject
             public ulong Flags;
             [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
             public IntPtr[] PDummy;
+            #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);

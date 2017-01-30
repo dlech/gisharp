@@ -14,9 +14,11 @@ namespace GISharp.GObject
     {
         struct ParamSpecValueArrayStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public IntPtr ElementSpec;
             public uint FixedNElements;
+            #pragma warning restore CS0649
         }
 
         static GType getGType ()

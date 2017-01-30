@@ -27,9 +27,11 @@ namespace GISharp.GObject
 
         protected struct ObjectStruct
         {
+            #pragma warning disable CS0649
             public TypeInstanceStruct GTypeInstance;
             public uint RefCount;
             public IntPtr Qdata;
+            #pragma warning restore CS0649
         }
 
         public uint RefCount {
@@ -623,13 +625,13 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (targetProperty));
             }
 
-            var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
+            var sourcePropertyInfo = GetType ().GetTypeInfo ().GetProperty (sourceProperty);
             if (sourcePropertyInfo == null) {
                 throw new ArgumentException ($"No matching property", nameof (sourceProperty));
             }
             sourceProperty = sourcePropertyInfo.TryGetGTypePropertyName ();
 
-            var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
+            var targetPropertyInfo = target.GetType ().GetTypeInfo ().GetProperty (targetProperty);
             if (targetPropertyInfo == null) {
                 throw new ArgumentException ($"No matching property", nameof (targetProperty));
             }

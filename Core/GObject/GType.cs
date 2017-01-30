@@ -801,9 +801,10 @@ namespace GISharp.GObject
             // type registration has not been completed here, so have to use
             // pinvoke directly
             var objClass = new ObjectClass (TypeClass.g_type_class_ref (gtype), true);
+            var typeInfo = type.GetTypeInfo ();
 
             foreach (var pspec in objClass.ListProperties ()) {
-                var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
+                var prop = typeInfo.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
                     .SingleOrDefault (p => p.TryGetGTypePropertyName () == pspec.Name);
                 if (prop == null) {
                     throw new Exception ("Could not find matchng property.");
@@ -830,7 +831,8 @@ namespace GISharp.GObject
                     throw new ArgumentException ("This type is already registered.", nameof (type));
                 }
 
-                var gtypeAttribute = type.GetCustomAttributes ()
+                var typeInfo = type.GetTypeInfo ();
+                var gtypeAttribute = typeInfo.GetCustomAttributes ()
                     .OfType<GTypeAttribute> ().SingleOrDefault ();
                 if (gtypeAttribute == null) {
                     // if the type is not decorated with GTypeAttribute, then we
@@ -851,13 +853,13 @@ namespace GISharp.GObject
                     // so we need to find the associated static type for the
                     // actual implementation.
                     var implementationType = type;
-                    if (type.IsEnum) {
-                        implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
-                    } else if (type.IsInterface) {
+                    if (typeInfo.IsEnum) {
+                        implementationType = typeInfo.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+                    } else if (typeInfo.IsInterface) {
                         var nameWithoutIPrefix = type.FullName.Remove (type.FullName.LastIndexOf ('.') + 1, 1);
-                        implementationType = type.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
+                        implementationType = typeInfo.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
                     }
-                    var getGType = implementationType.GetMethod ("getGType",
+                    var getGType = implementationType.GetTypeInfo ().GetMethod ("getGType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
                     if (getGType == null) {
                         throw new ArgumentException ("Could not find getType() method.", nameof (type));
@@ -878,34 +880,34 @@ namespace GISharp.GObject
 
                 var gtypeName = type.GetGTypeName ();
                 AssertGTypeName (gtypeName);
-                if (type.IsClass) {
-                    if (!type.IsSubclassOf (typeof(Object))) {
+                if (typeInfo.IsClass) {
+                    if (!typeInfo.IsSubclassOf (typeof(Object))) {
                         var message = string.Format ("Class does not inherit from {0}",
                                           typeof(Object).FullName);
                         throw new ArgumentException (message, nameof (type));
                     }
-                    var parentGType = type.BaseType.GetGType ();
+                    var parentGType = typeInfo.BaseType.GetGType ();
                     var parentTypeclass = TypeClass.Ref (parentGType);
-                    var typeInfo = parentTypeclass.GetTypeInfo (type);
+                    var parentTypeInfo = parentTypeclass.GetTypeInfo (type);
 
                     TypeFlags flags = default(TypeFlags);
                     // TODO: do we need to set any flags?
 
-                    var gtype = RegisterStatic (parentGType, gtypeName, typeInfo, flags);
+                    var gtype = RegisterStatic (parentGType, gtypeName, parentTypeInfo, flags);
                     if (gtype == Invalid) {
                         throw new InvalidOperationException ("Something bad happend while registering object.");
                     }
 
                     // Install interfaces
 
-                    foreach (var ifaceType in type.GetInterfaces ()) {
+                    foreach (var ifaceType in typeInfo.GetInterfaces ()) {
                         var ifaceMap = type.GetInterfaceMap (ifaceType);
                         if (ifaceMap.TargetType != type) {
                             // only interested in interfaces that are actually
                             // implemented by this type and not inherited
                             continue;
                         }
-                        var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute> ();
+                        var gtypeAttr = ifaceType.GetTypeInfo ().GetCustomAttribute<GTypeAttribute> ();
                         if (gtypeAttr == null) {
                             // only care about interfaces registed with the GObject
                             // type system
@@ -924,19 +926,20 @@ namespace GISharp.GObject
 
                     return gtype;
                 }
-                if (type.IsEnum) {
-                    if (Marshal.SizeOf (type.GetEnumUnderlyingType ()) != 4) {
+                if (typeInfo.IsEnum) {
+                    var underlyingType = typeInfo.GetEnumUnderlyingType ();
+                    if (underlyingType != typeof(int) && underlyingType != typeof(uint)) {
                         throw new ArgumentException ("GType enums must be int/uint", nameof (type));
                     }
-                    var values = (int[])type.GetEnumValues ();
-                    var names = type.GetEnumNames ();
-                    var flagsAttribute = type.GetCustomAttributes ()
+                    var values = (int[])typeInfo.GetEnumValues ();
+                    var names = typeInfo.GetEnumNames ();
+                    var flagsAttribute = typeInfo.GetCustomAttributes ()
                         .OfType<FlagsAttribute> ().SingleOrDefault ();
                     if (flagsAttribute == null) {
                         var gtypeValues = new EnumValue[values.Length];
                         for (int i = 0; i < values.Length; i++) {
                             gtypeValues[i].Value = values[i];
-                            var enumValueField = type.GetField (names[i]);
+                            var enumValueField = typeInfo.GetField (names[i]);
                             var enumValueAttr = enumValueField.GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
@@ -958,7 +961,7 @@ namespace GISharp.GObject
                         var gtypeValues = new FlagsValue[values.Length];
                         for (int i = 0; i < values.Length; i++) {
                             gtypeValues[i].Value = (uint)values[i];
-                            var enumValueField = type.GetField (names[i]);
+                            var enumValueField = typeInfo.GetField (names[i]);
                             var enumValueAttr = enumValueField
                                 .GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
@@ -1015,15 +1018,16 @@ namespace GISharp.GObject
             lock (mapLock) {
                 if (!gtypeMap.ContainsKey (type)) {
                     Type matchingType = null;
-                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
-                        matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
-                            .FirstOrDefault (t => t.GetCustomAttributes ()
-                                .OfType<GTypeAttribute> ()
-                                .Any (a => a.Name == type.Name));
-                        if (matchingType != null) {
-                            break;
-                        }
-                    }
+                    // FIXME - AppDomain not available in .NET core
+                    // foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+                    //     matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
+                    //         .FirstOrDefault (t => t.GetCustomAttributes ()
+                    //             .OfType<GTypeAttribute> ()
+                    //             .Any (a => a.Name == type.Name));
+                    //     if (matchingType != null) {
+                    //         break;
+                    //     }
+                    // }
                     if (matchingType == null) {
                         // TODO: More specific exception type
                         var message = $"Could not find type for GType '{type.Name}' in loaded assemblies.";
@@ -2564,7 +2568,8 @@ namespace GISharp.GObject
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
             }
-            var gtypeAttr = type.GetCustomAttributes ()
+            var typeInfo = type.GetTypeInfo ();
+            var gtypeAttr = typeInfo.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
             var ret = gtypeAttr?.Name ?? type.FullName
@@ -2580,12 +2585,13 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (type));
             }
 
+            var typeInfo = type.GetTypeInfo ();
             Type gtypeStructType;
-            var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute> (true);
+            var gtypeStructAttr = typeInfo.GetCustomAttribute<GTypeStructAttribute> (true);
             if (gtypeStructAttr == null) {
-                if (type.IsEnum) {
+                if (typeInfo.IsEnum) {
                     // GTypeStructAttribute is not needed on Enums/Flags
-                    var flagsAttr = type.GetCustomAttribute<FlagsAttribute> ();
+                    var flagsAttr = typeInfo.GetCustomAttribute<FlagsAttribute> ();
                     if (flagsAttr == null) {
                         gtypeStructType = typeof(EnumClass);
                     } else {

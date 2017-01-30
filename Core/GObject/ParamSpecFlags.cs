@@ -13,9 +13,11 @@ namespace GISharp.GObject
     {
         struct ParamSpecFlagsStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public IntPtr FlagsClass;
             public int DefaultValue;
+            #pragma warning restore CS0649
         }
 
         public FlagsClass FlagsClass {

@@ -237,7 +237,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 if (childValues == null) {
-                    childValues = new IndexedCollection<Variant> (NChildren, getChildValue);
+                    childValues = new IndexedCollection<Variant> (nChildren, getChildValue);
                 }
                 return childValues;
             }
@@ -2972,10 +2972,13 @@ namespace GISharp.GLib
         /// the child at the specified index
         /// </returns>
         [Since ("2.24")]
-        Variant getChildValue (ulong index)
+        Variant getChildValue (int index)
         {
             AssertNotDisposed ();
-            var ret_ = g_variant_get_child_value (Handle, index);
+            if (index < 0) {
+                throw new ArgumentOutOfRangeException (nameof (index));
+            }
+            var ret_ = g_variant_get_child_value (Handle, (ulong)index);
             var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
@@ -4341,11 +4344,11 @@ namespace GISharp.GLib
         /// the number of children in the container
         /// </returns>
         [Since ("2.24")]
-        public ulong NChildren ()
+        int nChildren ()
         {
             AssertNotDisposed ();
             var ret = g_variant_n_children (Handle);
-            return ret;
+            return (int)ret;
         }
 
         /// <summary>

@@ -33,7 +33,7 @@ namespace GISharp.Runtime
         }
 
         static bool GetNullHandleIsInstance (Type type) {
-            var attr = type.GetCustomAttribute <NullHandleIsInstanceAttribute> ();
+            var attr = type.GetTypeInfo ().GetCustomAttribute <NullHandleIsInstanceAttribute> ();
             return attr != null;
         }
 

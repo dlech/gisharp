@@ -18,8 +18,10 @@ namespace GISharp.GLib
 
         struct ArrayStruct
         {
+            #pragma warning disable CS0649
             public IntPtr Data;
             public uint Len;
+            #pragma warning restore CS0649
         }
 
         static GType getGType ()

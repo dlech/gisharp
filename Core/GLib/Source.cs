@@ -39,8 +39,10 @@ namespace GISharp.GLib
         }
 
         struct ManagedSource {
+            #pragma warning disable CS0649
             public SourceStruct source;
             public IntPtr gcHandle;
+            #pragma warning restore CS0649
         }
 
         static SourceFuncs managedSourceFuncs = new SourceFuncs {

@@ -17,9 +17,11 @@ namespace GISharp.GLib
     {
         struct ErrorStruct
         {
+            #pragma warning disable CS0649
             public Quark Domain;
             public int Code;
             public IntPtr Message;
+            #pragma warning restore CS0649
         }
 
         /// <summary>

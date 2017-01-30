@@ -863,7 +863,7 @@ namespace GISharp.GObject
                 AssertType (GType.Boxed);
                 var managedType = GISharp.GObject.GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (ref this);
-                if (typeof(Opaque).IsAssignableFrom (managedType)) {
+                if (typeof(Opaque).GetTypeInfo ().IsAssignableFrom (managedType)) {
                     return Opaque.GetInstance<Opaque> (ret_, Transfer.None, managedType);
                 }
                 var gchandle = GCHandle.FromIntPtr (ret_);

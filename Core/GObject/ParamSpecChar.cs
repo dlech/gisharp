@@ -13,10 +13,12 @@ namespace GISharp.GObject
     {
         struct ParamSpecCharStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public sbyte Minimum;
             public sbyte Maximum;
             public sbyte DefaultValue;
+            #pragma warning restore CS0649
         }
 
         public sbyte Minimum {

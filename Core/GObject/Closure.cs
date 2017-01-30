@@ -52,6 +52,7 @@ public sealed class Closure : ReferenceCountedOpaque
 {
     struct ClosureStruct
     {
+        #pragma warning disable CS0649
         public uint RefCount;
         public uint MetaMarshalNouse;
         public uint NGuards;
@@ -76,6 +77,7 @@ public sealed class Closure : ReferenceCountedOpaque
         public IntPtr MarshalImpl;
         public IntPtr Data;
         public IntPtr Notifiers;
+        #pragma warning restore CS0649
     }
 
     public bool InMarshal {

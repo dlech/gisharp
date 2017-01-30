@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics.Contracts;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -492,7 +491,6 @@ namespace GISharp.GLib
         [Since ("2.32")]
         public Bytes NewFromBytes (int offset, int length)
         {
-            Contract.Ensures (Contract.Result<Bytes> () != null);
             AssertNotDisposed ();
             if (offset < 0) {
                 throw new ArgumentOutOfRangeException (nameof (offset));

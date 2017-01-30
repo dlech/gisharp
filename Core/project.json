@@ -1,0 +1,23 @@
+{
+    "version": "1.0.0-*",
+    "buildOptions": {
+        "debugType": "portable",
+        "compile": {
+            "exclude": "Runtime/NativeLong32.cs"
+        }
+    },
+    "dependencies": {},
+    "frameworks": {
+        "netstandard1.6": {
+            "dependencies": {
+                "NETStandard.Library": "1.6.0",
+                "System.ComponentModel.Primitives": "4.3.0"
+            }
+        },
+        "net4.5": {
+        }
+    },
+    "runtimes": {
+        "win": { }
+    }
+}

@@ -19,8 +19,10 @@ namespace GISharp.GObject
     {
         struct ParamSpecOverrideStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public IntPtr Overridden;
+            #pragma warning restore CS0649
         }
 
         static GType getGType ()

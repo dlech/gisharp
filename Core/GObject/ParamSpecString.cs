@@ -12,12 +12,14 @@ namespace GISharp.GObject
     {
         struct ParamSpecStringStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public IntPtr DefaultValue;
             public IntPtr CsetFirst;
             public IntPtr CsetNth;
             public sbyte Substitutor;
             public uint Flags;
+            #pragma warning restore CS0649
         }
 
         public new string DefaultValue {

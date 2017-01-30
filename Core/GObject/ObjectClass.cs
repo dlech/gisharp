@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
@@ -7,8 +6,6 @@ using System.Runtime.InteropServices;
 
 using GISharp.GLib;
 using GISharp.Runtime;
-
-using BindFlags = System.Reflection.BindingFlags;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 
@@ -73,7 +70,7 @@ namespace GISharp.GObject
         /// <param name="type">The managed type to register.</param>
         public override TypeInfo GetTypeInfo (Type type)
         {
-            var parentGType = type.BaseType.GetGType ();
+            var parentGType = type.GetTypeInfo ().BaseType.GetGType ();
             var parentTypeQuery = parentGType.Query ();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
@@ -113,7 +110,7 @@ namespace GISharp.GObject
             // Install Properties
 
             uint propId = 1; // propId 0 is used internally, so we start with 1
-            foreach (var propInfo in type.GetProperties ()) {
+            foreach (var propInfo in type.GetTypeInfo ().GetProperties ()) {
                 if (propInfo.DeclaringType != type) {
                     // only register properties declared in this type or in interfaces
                     continue;
@@ -125,14 +122,11 @@ namespace GISharp.GObject
                     continue;
                 }
                 // TODO: localize strings for nick and blurb
-                var nick = ((DisplayNameAttribute)Attribute
-                    .GetCustomAttribute (propInfo, typeof(DisplayNameAttribute), true))
+                var nick = propInfo.GetCustomAttribute<DisplayNameAttribute> (true)
                     ?.DisplayName ?? name;
-                var blurb = ((DescriptionAttribute)Attribute
-                    .GetCustomAttribute (propInfo, typeof(DescriptionAttribute), true))
+                var blurb = propInfo.GetCustomAttribute<DescriptionAttribute> (true)
                     ?.Description ?? nick;
-                var defaultValue = ((DefaultValueAttribute)Attribute
-                    .GetCustomAttribute (propInfo, typeof(DefaultValueAttribute), true))
+                var defaultValue = propInfo.GetCustomAttribute<DefaultValueAttribute> (true)
                     ?.Value;
 
                 // setup the flags
@@ -159,7 +153,7 @@ namespace GISharp.GObject
                 // ExplicitNotify was not set.
                 flags |= ParamFlags.ExplicitNotify;
 
-                if (Attribute.GetCustomAttribute (propInfo, typeof(ObsoleteAttribute), true) != null) {
+                if (propInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
                     flags |= ParamFlags.Deprecated;
                 }
 
@@ -231,15 +225,13 @@ namespace GISharp.GObject
                 propId++;
             }
 
-            foreach (var eventInfo in type.GetEvents ()) {
+            foreach (var eventInfo in type.GetTypeInfo ().GetEvents ()) {
                 if (eventInfo.DeclaringType != type) {
                     // only register events declared in this type
                     continue;
                 }
 
-                var signalAttr = (SignalAttribute)Attribute.GetCustomAttribute (eventInfo,
-                    typeof(SignalAttribute), true);
-
+                var signalAttr = eventInfo.GetCustomAttribute<SignalAttribute> (true);
                 if (signalAttr == null) {
                     // events without SignalAttribute are not installed
                     continue;
@@ -250,11 +242,11 @@ namespace GISharp.GObject
 
                 var flags = default(SignalFlags);
                 // TODO: which flags do we need to set?
-                if (Attribute.GetCustomAttribute (eventInfo, typeof(ObsoleteAttribute), true) != null) {
+                if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
                     flags |= SignalFlags.Deprecated;
                 }
 
-                var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
+                var methodInfo = eventInfo.EventHandlerType.GetTypeInfo ().GetMethod ("Invoke");
                 var returnGType = methodInfo.ReturnType.GetGType ();
                 var parameters = methodInfo.GetParameters ();
                 var parameterGTypes = new GType[parameters.Length];

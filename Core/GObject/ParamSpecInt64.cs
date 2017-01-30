@@ -12,10 +12,12 @@ namespace GISharp.GObject
     {
         struct ParamSpecInt64Struct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public long Minimum;
             public long Maximum;
             public long DefaultValue;
+            #pragma warning restore CS0649
         }
 
         public long Minimum {

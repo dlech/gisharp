@@ -235,6 +235,7 @@ namespace GISharp.GObject
     {
         struct FlagsClassStruct
         {
+            #pragma warning disable CS0649
             /// <summary>
             /// the parent class
             /// </summary>
@@ -255,6 +256,7 @@ namespace GISharp.GObject
             ///  individual values.
             /// </summary>
             public IntPtr Values;
+            #pragma warning restore CS0649
         }
 
         public override Type StructType {

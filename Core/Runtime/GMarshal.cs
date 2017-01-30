@@ -261,9 +261,11 @@ namespace GISharp.Runtime
 
         struct GList
         {
+            #pragma warning disable CS0649
             public IntPtr Data;
             public IntPtr Next;
             public IntPtr Prev;
+            #pragma warning restore CS0649
         }
 
         [DllImport ("glib-2.0")]
@@ -292,8 +294,10 @@ namespace GISharp.Runtime
 
         struct GSList
         {
+            #pragma warning disable CS0649
             public IntPtr Data;
             public IntPtr Next;
+            #pragma warning restore CS0649
         }
 
         [DllImport ("glib-2.0")]
@@ -334,7 +338,7 @@ namespace GISharp.Runtime
                 return null;
             }
             T[] array;
-            var elementSize = Marshal.SizeOf (typeof(T));
+            var elementSize = Marshal.SizeOf<T> ();
             if (length.HasValue) {
                 array = new T[length.Value];
                 var current = ptr;
@@ -377,7 +381,7 @@ namespace GISharp.Runtime
             var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
             var current = ptr;
             for (int i = 0; i < array.Length; i++) {
-                Marshal.StructureToPtr (array.GetValue (i), current, false);
+                Marshal.StructureToPtr<T> ((T)array.GetValue (i), current, false);
                 current += elementSize;
             }
             if (nullTerminated) {

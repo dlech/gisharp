@@ -12,10 +12,12 @@ namespace GISharp.GObject
     {
         struct ParamSpecUInt64Struct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public ulong Minimum;
             public ulong Maximum;
             public ulong DefaultValue;
+            #pragma warning restore CS0649
         }
 
         public ulong Minimum {

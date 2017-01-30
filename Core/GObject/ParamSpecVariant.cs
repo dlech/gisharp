@@ -13,9 +13,11 @@ namespace GISharp.GObject
     {
         struct ParamSpecVariantStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
             public IntPtr VariantType;
             public IntPtr DefaultValue;
+            #pragma warning restore CS0649
         }
 
         public VariantType VariantType {

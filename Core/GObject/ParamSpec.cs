@@ -22,6 +22,7 @@ namespace GISharp.GObject
     {
         protected struct ParamSpecStruct
         {
+            #pragma warning disable CS0649
             /// <summary>
             /// private GTypeInstance portion
             /// </summary>
@@ -46,14 +47,15 @@ namespace GISharp.GObject
             /// GType type that uses (introduces) this parameter
             /// </summary>
             public GType OwnerType;
+            #pragma warning disable CS0649
 
-#pragma warning disable CS0169
+            #pragma warning disable CS0169
             IntPtr name;
             IntPtr blurb;
             IntPtr qdata;
             uint refCount;
             uint paramId;
-#pragma warning restore CS0169
+            #pragma warning restore CS0169
         }
 
         protected static GType[] paramSpecTypes;

@@ -12,7 +12,9 @@ namespace GISharp.GObject
     {
         struct ParamSpecPointerStruct
         {
+            #pragma warning disable CS0649
             public ParamSpecStruct ParentInstance;
+            #pragma warning restore CS0649
         }
 
         static GType getGType ()
