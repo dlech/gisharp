@@ -241,41 +241,41 @@ namespace GISharp.Core.Test.GObject
 
             // then we dynamically generate a matching managed type
 
-            var asmBuilder = AppDomain.CurrentDomain.DefineDynamicAssembly (
+            var asmBuilder = AssemblyBuilder.DefineDynamicAssembly (
                 new AssemblyName(testName + "_assembly"),
                 AssemblyBuilderAccess.Run);
             var modBuilder = asmBuilder.DefineDynamicModule (testName + "_module");
             var typeBuilder = modBuilder.DefineType (testName + "_type",
                 TypeAttributes.Public);
-            var gtypeAttribute = typeof(GTypeAttribute);
+            var gtypeAttributeInfo = typeof(GTypeAttribute).GetTypeInfo ();
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
-                gtypeAttribute.GetConstructors ().Single (),
+                gtypeAttributeInfo.GetConstructors ().Single (),
                 new object [] { dummyTypeName },
                 new [] {
-                    gtypeAttribute.GetProperty ("IsWrappedNativeType"),
+                    gtypeAttributeInfo.GetProperty ("IsWrappedNativeType"),
                 },
                 new object [] {
                     true, // IsWrappedNativeType
                 }));
-            var gtypeStructAttribute = typeof(GTypeStructAttribute);
+            var gtypeStructAttributeInfo = typeof(GTypeStructAttribute).GetTypeInfo ();
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
-                gtypeStructAttribute.GetConstructors ().Single (),
+                gtypeStructAttributeInfo.GetConstructors ().Single (),
                 new object[] { typeof(TypeClass) },
                 new FieldInfo[0], new object[0]));
             var getTypeMethod = typeBuilder.DefineMethod ("getGType",
                 MethodAttributes.Private | MethodAttributes.Static);
             getTypeMethod.SetReturnType (typeof(GType));
-            var getDummyGType = GetType ().GetMethod (nameof (GetDummyGType));
+            var getDummyGType = GetType ().GetTypeInfo ().GetMethod (nameof (GetDummyGType));
             var generator = getTypeMethod.GetILGenerator ();
             generator.Emit (OpCodes.Call, getDummyGType);
             generator.Emit (OpCodes.Ret);
 
-            var expectedType = typeBuilder.CreateType ();
+            var expectedTypeInfo = typeBuilder.CreateTypeInfo ();
 
             // and try the test again
 
             var actualType = GType.TypeOf (gtype);
-            Assert.That (actualType, Is.EqualTo (expectedType));
+            Assert.That (actualType.GetTypeInfo (), Is.EqualTo (expectedTypeInfo));
         }
 
         const string dummyTypeName = "GTypeTestDummyType";

@@ -1,0 +1,23 @@
+{
+    "version": "1.0.0-*",
+    "dependencies": {
+        "Core": {
+            "target": "project"
+        },
+        "nunit": "3.6.0",
+        "dotnet-test-nunit": "3.4.0-beta-3"
+    },
+    "frameworks": {
+        "netcoreapp1.1": {
+            "dependencies": {
+                "System.Threading.Tasks": "4.3.0",
+                "System.Threading.Thread": "4.3.0",
+                "System.Reflection.Emit": "4.3.0"
+            }
+        }
+    },
+    "testRunner": "nunit",
+    "runtimes": {
+        "osx.10.12-x64": { }
+    }
+}

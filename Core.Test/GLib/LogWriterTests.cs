@@ -23,11 +23,11 @@ namespace GISharp.Core.Test.GLib
 
             const string expected = @"^\*\* \(Core\.Test:\d+\): DEBUG: Test message\.$";
             var actual = LogWriter.FormatFields (LogLevelFlags.Debug, message);
-            Assert.That (actual, Is.StringMatching (expected));
+            Assert.That (actual, Does.Match (expected));
 
             const string expectedColor = @"^\*\* \(Core\.Test:\d+\): \e\[1;32mDEBUG\e\[0m: Test message\.$";
             var actualColor = LogWriter.FormatFields (LogLevelFlags.Debug, message, true);
-            Assert.That (actualColor, Is.StringMatching (expectedColor));
+            Assert.That (actualColor, Does.Match (expectedColor));
         }
     }
 }

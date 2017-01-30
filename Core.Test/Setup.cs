@@ -12,7 +12,7 @@ public class Setup
         Assert.Fail ($"({logDomain}) {logLevel}: {message}");
     }
 
-    [SetUp]
+    [OneTimeSetUp]
     public void SetupAssembly ()
     {
         Utility.ApplicationName = "Core Test";

@@ -22,8 +22,10 @@ namespace GISharp.Core.Test
     {
         struct InitableIfaceStruct
         {
+            #pragma warning disable CS0649
             public TypeInterface.TypeInterfaceStruct GIface;
             public NativeInit Init;
+            #pragma warning restore CS0649
 
             public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
@@ -137,11 +139,13 @@ namespace GISharp.Core.Test
     {
         struct NetworkMonitorInterfaceStruct
         {
+            #pragma warning disable CS0649
             public TypeInterface.TypeInterfaceStruct GIface;
             public NativeNetworkChanged NetworkChanged;
             public NativeCanReach CanReach;
             public NativeCanReachAsync CanReachAsync;
             public NativeCanReachAsyncFinish CanReachAsyncFinish;
+            #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool availible);
