@@ -317,7 +317,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
         /* */
-        static extern LogFunc g_log_set_default_handler (
+        static extern IntPtr g_log_set_default_handler (
             /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
             /* transfer-ownership:none closure:1 */
             NativeLogFunc logFunc,
