@@ -48,55 +48,87 @@ using GISharp.Runtime;
 ///   automatically removed when the objects they point to go away.
 /// </remarks>
 [GType ("GClosure", IsWrappedNativeType = true)]
-public sealed class Closure : ReferenceCountedOpaque
+public sealed class Closure : Opaque
 {
-    struct ClosureStruct
+    public sealed class SafeClosureHandle : SafeHandleZeroIsInvalid
     {
-        #pragma warning disable CS0649
-        public uint RefCount;
-        public uint MetaMarshalNouse;
-        public uint NGuards;
-        public uint NFnotifiers;
-        public uint NInotifiers;
-        public uint InInotify;
-        public uint Floating;
-        public uint DerivativeFlag;
+        internal struct Closure
+        {
+            #pragma warning disable CS0649
+            public uint RefCount;
+            public uint MetaMarshalNouse;
+            public uint NGuards;
+            public uint NFnotifiers;
+            public int NInotifiers;
+            public uint InInotify;
+            public uint Floating;
+            public uint DerivativeFlag;
+            public uint BitFields;
+            public IntPtr Data;
+            public IntPtr Notifiers;
+            #pragma warning restore CS0649
+        }
 
-        /// <summary>
-        /// Indicates whether the closure is currently being invoked with
-        ///  g_closure_invoke()
-        /// </summary>
-        public uint InMarshal;
+        public uint BitFields {
+            get {
+                var offset = Marshal.OffsetOf<Closure> (nameof (Closure.BitFields));
+                var ret = Marshal.ReadInt32 (handle, offset.ToInt32 ());
+                return (uint)ret;
+            }
+        }
 
-        /// <summary>
-        /// Indicates whether the closure has been invalidated by
-        ///  g_closure_invalidate()
-        /// </summary>
-        public uint IsInvalid;
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_closure_ref (IntPtr closure);
 
-        public IntPtr MarshalImpl;
-        public IntPtr Data;
-        public IntPtr Notifiers;
-        #pragma warning restore CS0649
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_closure_sink (IntPtr closure);
+
+        public SafeClosureHandle (IntPtr handle, Transfer ownership)
+        {
+            if (ownership == Transfer.None) {
+                g_closure_ref (handle);
+            }
+            g_closure_sink (handle);
+            SetHandle (handle);
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_closure_unref (IntPtr closure);
+
+        protected override bool ReleaseHandle ()
+        {
+            try {
+                g_closure_unref (handle);
+                return true;
+            } catch {
+                return false;
+            }
+        }
+    }
+
+    public new SafeClosureHandle Handle {
+        get {
+            return (SafeClosureHandle)base.Handle;
+        }
     }
 
     public bool InMarshal {
         get {
-            var offset = Marshal.OffsetOf<ClosureStruct> (nameof (ClosureStruct.InMarshal));
-            var value = Marshal.ReadInt32 (Handle, offset.ToInt32 ());
-            return value != 0;
+            var ret_ = Handle.BitFields;
+            var ret = Convert.ToBoolean (ret_ & 0x1);
+            return ret;
         }
     }
 
     public bool IsInvalid {
         get {
-            var offset = Marshal.OffsetOf<ClosureStruct> (nameof (ClosureStruct.IsInvalid));
-            var value = Marshal.ReadInt32 (Handle, offset.ToInt32 ());
-            return value != 0;
+            var ret_ = Handle.BitFields;
+            var ret = Convert.ToBoolean (ret_ & 0x2);
+            return ret;
         }
     }
 
-    public Closure (IntPtr handle, Transfer ownership) : base (handle, ownership)
+    public Closure (SafeClosureHandle handle) : base (handle)
     {
     }
 
@@ -126,16 +158,16 @@ public sealed class Closure : ReferenceCountedOpaque
         uint sizeofClosure,
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
-        IntPtr @object);
+        GISharp.GObject.Object.SafeObjectHandle @object);
 
-    static IntPtr NewObject (uint sizeofClosure, GISharp.GObject.Object @object)
+    static SafeClosureHandle NewObject (uint sizeofClosure, GISharp.GObject.Object @object)
     {
-
         if (@object == null) {
             throw new ArgumentNullException (nameof (@object));
         }
         var ret_ = g_closure_new_object (sizeofClosure, @object.Handle);
-        return ret_;
+        var ret = new SafeClosureHandle (ret_, Transfer.Full);
+        return ret;
     }
 
     /// <summary>
@@ -152,7 +184,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// a newly allocated #GClosure
     /// </returns>
     public Closure (Func<Value[], Value> callback, GISharp.GObject.Object @object)
-        : this (NewObject ((uint)Marshal.SizeOf<ClosureStruct> (), @object), Transfer.None)
+        : this (NewObject ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), @object))
     {
         SetCallback (callback);
     }
@@ -217,17 +249,18 @@ public sealed class Closure : ReferenceCountedOpaque
         /* transfer-ownership:none */
         IntPtr data);
 
-    static IntPtr NewSimple (uint sizeofClosure, IntPtr data)
+    static SafeClosureHandle NewSimple (uint sizeofClosure, IntPtr data)
     {
         var ret_ = g_closure_new_simple (sizeofClosure, data);
-        return ret_;
+        var ret = new SafeClosureHandle (ret_, Transfer.Full);
+        return ret;
     }
 
     /// <summary>
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Func<Value[], Value> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<ClosureStruct> (), IntPtr.Zero), Transfer.None)
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -236,7 +269,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action<Value[]> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<ClosureStruct> (), IntPtr.Zero), Transfer.None)
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -245,7 +278,7 @@ public sealed class Closure : ReferenceCountedOpaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<ClosureStruct> (), IntPtr.Zero), Transfer.None)
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -330,7 +363,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_add_finalize_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -359,7 +392,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_add_invalidate_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -394,7 +427,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_add_marshal_guards (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr preMarshalData,
@@ -433,7 +466,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_invalidate (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure);
+        SafeClosureHandle closure);
 
     /// <summary>
     /// Sets a flag on the closure to indicate that its calling
@@ -485,7 +518,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_invoke (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         out Value returnValue,
@@ -538,18 +571,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern IntPtr g_closure_ref (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure);
-
-    /// <summary>
-    /// Increments the reference count on a closure to force it staying
-    /// alive while the caller holds a pointer to it.
-    /// </summary>
-    public override void Ref ()
-    {
-        AssertNotDisposed ();
-        g_closure_ref (Handle);
-        g_closure_sink (Handle);
-    }
+        SafeClosureHandle closure);
 
     /// <summary>
     /// Removes a finalization notifier.
@@ -573,7 +595,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_remove_finalize_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -603,7 +625,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_remove_invalidate_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -631,7 +653,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_set_marshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
         /* transfer-ownership:none */
         NativeClosureMarshal marshal);
@@ -668,7 +690,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_set_meta_marshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure,
+        SafeClosureHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr marshalData,
@@ -729,7 +751,7 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_sink (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure);
+        SafeClosureHandle closure);
 
     /// <summary>
     /// Decrements the reference count of a closure after it was previously
@@ -745,16 +767,5 @@ public sealed class Closure : ReferenceCountedOpaque
     static extern void g_closure_unref (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        IntPtr closure);
-
-    /// <summary>
-    /// Decrements the reference count of a closure after it was previously
-    /// incremented by the same caller. If no other callers are using the
-    /// closure, then the closure will be destroyed and freed.
-    /// </summary>
-    public override void Unref ()
-    {
-        AssertNotDisposed ();
-        g_closure_unref (Handle);
-    }
+        SafeClosureHandle closure);
 }

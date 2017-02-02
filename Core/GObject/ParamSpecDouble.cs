@@ -8,48 +8,98 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for double properties.
     /// </summary>
     [GType ("GParamDouble", IsWrappedNativeType = true)]
-    sealed class ParamSpecDouble : ParamSpec
+    public sealed class ParamSpecDouble : ParamSpec
     {
-        struct ParamSpecDoubleStruct
+        public sealed class SafeParamSpecDoubleHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public double Minimum;
-            public double Maximum;
-            public double DefaultValue;
-            public double Epsilon;
-            #pragma warning restore CS0649
+            struct ParamSpecDouble
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public double Minimum;
+                public double Maximum;
+                public double DefaultValue;
+                public double Epsilon;
+                #pragma warning restore CS0649
+            }
+
+            public double Minimum {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Minimum));
+                    var ret = Marshal.PtrToStructure<double> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public double Maximum {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Maximum));
+                    var ret = Marshal.PtrToStructure<double> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public double DefaultValue {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.DefaultValue));
+                    var ret = Marshal.PtrToStructure<double> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public double Epsilon {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Epsilon));
+                    var ret = Marshal.PtrToStructure<double> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public SafeParamSpecDoubleHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecDoubleHandle Handle {
+            get {
+                return (SafeParamSpecDoubleHandle)base.Handle;
+            }
         }
 
         public double Minimum {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecDoubleStruct> (nameof (ParamSpecDoubleStruct.Minimum));
-                var ret = Marshal.ReadInt64 (Handle, (int)offset);
-                return BitConverter.ToDouble (BitConverter.GetBytes (ret), 0);
+                return Handle.Minimum;
             }
         }
 
         public double Maximum {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecDoubleStruct> (nameof (ParamSpecDoubleStruct.Maximum));
-                var ret = Marshal.ReadInt64 (Handle, (int)offset);
-                return BitConverter.ToDouble (BitConverter.GetBytes (ret), 0);
+                return Handle.Maximum;
             }
         }
 
         public new double DefaultValue {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecDoubleStruct> (nameof (ParamSpecDoubleStruct.DefaultValue));
-                var ret = Marshal.ReadInt64 (Handle, (int)offset);
-                return BitConverter.ToDouble (BitConverter.GetBytes (ret), 0);
+                return Handle.DefaultValue;
             }
         }
 
         public double Epsilon {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecDoubleStruct> (nameof (ParamSpecDoubleStruct.Epsilon));
-                var ret = Marshal.ReadInt64 (Handle, (int)offset);
-                return BitConverter.ToDouble (BitConverter.GetBytes (ret), 0);
+                return Handle.Epsilon;
             }
         }
 
@@ -58,18 +108,13 @@ namespace GISharp.GObject
             return paramSpecTypes[13];
         }
 
-        public ParamSpecDouble (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecDouble (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.Full)
+        public ParamSpecDouble (SafeParamSpecDoubleHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_double (IntPtr name,
+        extern static IntPtr g_param_spec_double (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             double min,
@@ -77,7 +122,7 @@ namespace GISharp.GObject
             double defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
+        static SafeParamSpecDoubleHandle New (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -91,7 +136,8 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_double (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+            var ret_ = g_param_spec_double (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+            var ret = new SafeParamSpecDoubleHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -105,7 +151,12 @@ namespace GISharp.GObject
                 GMarshal.Free (blurbPtr);
             }
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecDouble (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags))
+        {
         }
     }
 }

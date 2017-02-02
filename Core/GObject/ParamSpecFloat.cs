@@ -8,48 +8,98 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for float properties.
     /// </summary>
     [GType ("GParamFloat", IsWrappedNativeType = true)]
-    sealed class ParamSpecFloat : ParamSpec
+    public sealed class ParamSpecFloat : ParamSpec
     {
-        struct ParamSpecFloatStruct
+        public sealed class SafeParamSpecFloatHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public float Minimum;
-            public float Maximum;
-            public float DefaultValue;
-            public float Epsilon;
-            #pragma warning restore CS0649
+            struct ParamSpecFloat
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public float Minimum;
+                public float Maximum;
+                public float DefaultValue;
+                public float Epsilon;
+                #pragma warning restore CS0649
+            }
+
+            public float Minimum {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecFloat> (nameof (ParamSpecFloat.Minimum));
+                    var ret = Marshal.PtrToStructure<float> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public float Maximum {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecFloat> (nameof (ParamSpecFloat.Maximum));
+                    var ret = Marshal.PtrToStructure<float> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public float DefaultValue {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecFloat> (nameof (ParamSpecFloat.DefaultValue));
+                    var ret = Marshal.PtrToStructure<float> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public float Epsilon {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecFloat> (nameof (ParamSpecFloat.Epsilon));
+                    var ret = Marshal.PtrToStructure<float> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public SafeParamSpecFloatHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecFloatHandle Handle {
+            get {
+                return (SafeParamSpecFloatHandle)base.Handle;
+            }
         }
 
         public float Minimum {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecFloatStruct> (nameof (ParamSpecFloatStruct.Minimum));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return BitConverter.ToSingle (BitConverter.GetBytes (ret), 0);
+                return Handle.Minimum;
             }
         }
 
         public float Maximum {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecFloatStruct> (nameof (ParamSpecFloatStruct.Maximum));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return BitConverter.ToSingle (BitConverter.GetBytes (ret), 0);
+                return Handle.Maximum;
             }
         }
 
         public new float DefaultValue {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecFloatStruct> (nameof (ParamSpecFloatStruct.DefaultValue));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return BitConverter.ToSingle (BitConverter.GetBytes (ret), 0);
+                return Handle.DefaultValue;
             }
         }
 
         public float Epsilon {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecFloatStruct> (nameof (ParamSpecFloatStruct.Epsilon));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return BitConverter.ToSingle (BitConverter.GetBytes (ret), 0);
+                return Handle.Epsilon;
             }
         }
 
@@ -58,18 +108,13 @@ namespace GISharp.GObject
             return paramSpecTypes[12];
         }
 
-        public ParamSpecFloat (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecFloat (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.Full)
+        public ParamSpecFloat (SafeParamSpecFloatHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_float (IntPtr name,
+        extern static IntPtr g_param_spec_float (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             float min,
@@ -77,7 +122,7 @@ namespace GISharp.GObject
             float defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
+        static SafeParamSpecFloatHandle New (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -91,7 +136,8 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_float (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+            var ret_ = g_param_spec_float (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
+            var ret = new SafeParamSpecFloatHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -105,7 +151,12 @@ namespace GISharp.GObject
                 GMarshal.Free (blurbPtr);
             }
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecFloat (string name, string nick, string blurb, float min, float max, float defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, min, max, defaultValue, flags))
+        {
         }
     }
 }

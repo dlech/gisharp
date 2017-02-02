@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Collections;
 using GISharp.Runtime;
 using GISharp.GObject;
-using System.Runtime.CompilerServices;
 
 namespace GISharp.GLib
 {
@@ -12,32 +11,270 @@ namespace GISharp.GLib
     /// Contains the public fields of a GArray.
     /// </summary>
     [GType ("GArray", IsWrappedNativeType = true)]
-    public sealed class Array<T> : Opaque, IList<T> where T : struct
+    public abstract class Array : Opaque
     {
-        readonly bool ownsElements;
-
-        struct ArrayStruct
+        public sealed class SafeArrayHandle : SafeHandleZeroIsInvalid
         {
-            #pragma warning disable CS0649
-            public IntPtr Data;
-            public uint Len;
-            #pragma warning restore CS0649
+            readonly bool ownsElements;
+
+            struct ArrayStruct
+            {
+                #pragma warning disable CS0649
+                public IntPtr Data;
+                public uint Len;
+                #pragma warning restore CS0649
+            }
+
+            public IntPtr Data {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    return Marshal.ReadIntPtr (handle);
+                }
+            }
+
+            public uint Len {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    return (uint)Marshal.ReadInt32 (handle, IntPtr.Size);
+                }
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_array_ref (IntPtr array);
+
+            public SafeArrayHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    g_array_ref (handle);
+                }
+                SetHandle (handle);
+                if (ownership == Transfer.Full) {
+                    ownsElements = true;
+                }
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_array_free (IntPtr array, bool freeSegment);
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_array_unref (IntPtr array);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    if (ownsElements) {
+                        g_array_free (handle, true);
+                    } else {
+                        g_array_unref (handle);
+                    }
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
         }
+
+        public new SafeArrayHandle Handle {
+            get {
+                return (SafeArrayHandle)base.Handle;
+            }
+        }
+
+        public int Count {
+            get {
+                return (int)Handle.Len;
+            }
+        }
+
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_array_get_type ();
 
         static GType getGType ()
         {
-            return ArrayInternal.g_array_get_type ();
+            return g_array_get_type ();
+        }
+
+        public Array (SafeArrayHandle handle) : base (handle)
+        {
         }
 
         /// <summary>
-        /// Gets the pointer to the unmanaged array data.
+        /// Creates a new #GArray with a reference count of 1.
         /// </summary>
-        public IntPtr Data {
-            get {
-                AssertNotDisposed ();
-                return Marshal.ReadIntPtr (Handle);
+        /// <param name="zeroTerminated">
+        /// <c>true</c> if the array should have an extra element at
+        ///     the end which is set to 0
+        /// </param>
+        /// <param name="clear">
+        /// <c>true</c> if #GArray elements should be automatically cleared
+        ///     to 0 when they are allocated
+        /// </param>
+        /// <param name="elementSize">
+        /// the size of each element in bytes
+        /// </param>
+        /// <returns>
+        /// the new #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_new (
+            bool zeroTerminated,
+            bool clear,
+            uint elementSize);
+
+        /// <summary>
+        /// Creates a new <see cref="Array"/> with a reference count of 1.
+        /// </summary>
+        /// <param name="zeroTerminated">
+        /// <c>true</c> if the array should have an extra element at
+        /// the end which is set to 0
+        /// </param>
+        /// <param name="clear">
+        /// <c>true</c> if <see cref="Array"/> elements should be automatically
+        /// cleared to 0 when they are allocated
+        /// </param>
+        /// <param name="elementSize">
+        /// the size of each element in bytes
+        /// </param>
+        /// <returns>
+        /// the new <see cref="Array"/>
+        /// </returns>
+        protected static SafeArrayHandle New (bool zeroTerminated, bool clear, int elementSize)
+        {
+            if (elementSize < 0) {
+                throw new ArgumentOutOfRangeException (nameof (elementSize));
             }
+            var ret_ = g_array_new (zeroTerminated, clear, (uint)elementSize);
+            var ret = new SafeArrayHandle (ret_, Transfer.Full);
+            return ret;
         }
+
+        /// <summary>
+        /// Creates a new #GArray with @reserved_size elements preallocated and
+        /// a reference count of 1. This avoids frequent reallocation, if you
+        /// are going to add many elements to the array. Note however that the
+        /// size of the array is still 0.
+        /// </summary>
+        /// <param name="zeroTerminated">
+        /// <c>true</c> if the array should have an extra element at
+        ///     the end with all bits cleared
+        /// </param>
+        /// <param name="clear">
+        /// <c>true</c> if all bits in the array should be cleared to 0 on
+        ///     allocation
+        /// </param>
+        /// <param name="elementSize">
+        /// size of each element in the array
+        /// </param>
+        /// <param name="reservedSize">
+        /// number of elements preallocated
+        /// </param>
+        /// <returns>
+        /// the new #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_sized_new (
+            bool zeroTerminated,
+            bool clear,
+            uint elementSize,
+            uint reservedSize);
+
+        protected static SafeArrayHandle SizedNew (bool zeroTerminated, bool clear, int elementSize, int reservedSize)
+        {
+            if (elementSize < 0) {
+                throw new ArgumentOutOfRangeException (nameof (elementSize));
+            }
+            if (reservedSize < 0) {
+                throw new ArgumentOutOfRangeException (nameof (reservedSize));
+            }
+            var ret_ = g_array_sized_new (zeroTerminated, clear, (uint)elementSize, (uint)reservedSize);
+            var ret = new SafeArrayHandle (ret_, Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Adds @len elements onto the end of the array.
+        /// </summary>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="data">
+        /// a pointer to the elements to append to the end of the array
+        /// </param>
+        /// <param name="len">
+        /// the number of elements to append
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_append_vals (
+            SafeArrayHandle array,
+            IntPtr data,
+            uint len);
+
+        /// <summary>
+        /// Adds elements onto the end of the array.
+        /// </summary>
+        /// <param name="data">
+        /// the elements to append to the end of the array
+        /// </param>
+        protected void Append<T> (T[] data) where T : struct
+        {
+            AssertNotDisposed ();
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
+            }
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            g_array_append_vals (Handle, dataPtr, (uint)data.Length);
+            gch.Free ();
+        }
+
+        /// <summary>
+        /// Frees the memory allocated for the #GArray. If @free_segment is
+        /// <c>true</c> it frees the memory block holding the elements as well and
+        /// also each element if this array has a @element_free_func set. Pass
+        /// <c>false</c> if you want to free the #GArray wrapper but preserve the
+        /// underlying array for use elsewhere. If the reference count of this array
+        /// is greater than one, the #GArray wrapper is preserved but the size
+        /// of this array will be set to zero.
+        /// </summary>
+        /// <remarks>
+        /// If array elements contain dynamically-allocated memory, they should
+        /// be freed separately.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="freeSegment">
+        /// if <c>true</c> the actual element data is freed as well
+        /// </param>
+        /// <returns>
+        /// the element data if @free_segment is <c>false</c>, otherwise
+        ///     <c>null</c>. The element data should be freed using g_free().
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_free (
+            SafeArrayHandle array,
+            bool freeSegment);
+
+        /// <summary>
+        /// Gets the size of the elements in this array.
+        /// </summary>
+        /// <param name="array">
+        /// A <see cref="Array{T}"/>
+        /// </param>
+        /// <returns>
+        /// Size of each element, in bytes
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.22")]
+        static extern uint g_array_get_element_size (
+            SafeArrayHandle array);
 
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -49,47 +286,373 @@ namespace GISharp.GLib
         public int ElementSize {
             get {
                 AssertNotDisposed ();
-                return (int)ArrayInternal.g_array_get_element_size (Handle);
+                var ret = g_array_get_element_size (Handle);
+                return (int)ret;
             }
         }
 
-        public Array (IntPtr handle, Transfer ownership)
+        /// <summary>
+        /// Inserts @len elements into a #GArray at the given index.
+        /// </summary>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="index">
+        /// the index to place the elements at
+        /// </param>
+        /// <param name="data">
+        /// a pointer to the elements to insert
+        /// </param>
+        /// <param name="len">
+        /// the number of elements to insert
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_insert_vals (
+            SafeArrayHandle array,
+            uint index,
+            IntPtr data,
+            uint len);
+
+        /// <summary>
+        /// Inserts elements into a <see cref="Array{T}"/> at the given index.
+        /// </summary>
+        /// <param name="index">
+        /// the index to place the elements at
+        /// </param>
+        /// <param name="data">
+        /// the elements to insert
+        /// </param>
+        protected void InsertVals<T> (int index, T[] data) where T : struct
         {
-            if (handle == IntPtr.Zero) {
-                throw new NotSupportedException ();
+            AssertNotDisposed ();
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
             }
-            Handle = handle;
-            if (ownership == Transfer.None) {
-                Ref ();
+            if (index < 0 || index > Count) {
+                throw new ArgumentOutOfRangeException (nameof (index));
             }
-            if (ownership == Transfer.Full) {
-                ownsElements = true;
-            }
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            g_array_insert_vals (Handle, (uint)index, dataPtr, (uint)data.Length);
+            gch.Free ();
         }
 
-        protected override void Dispose (bool disposing)
+        /// <summary>
+        /// Adds @len elements onto the start of the array.
+        /// </summary>
+        /// <remarks>
+        /// This operation is slower than g_array_append_vals() since the
+        /// existing elements in the array have to be moved to make space for
+        /// the new elements.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="data">
+        /// a pointer to the elements to prepend to the start of the array
+        /// </param>
+        /// <param name="len">
+        /// the number of elements to prepend
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_prepend_vals(
+            SafeArrayHandle array,
+            IntPtr data,
+            uint len);
+
+        /// <summary>
+        /// Adds elements onto the start of the array.
+        /// </summary>
+        /// <remarks>
+        /// This operation is slower than <see cref="Add"/> since the
+        /// existing elements in the array have to be moved to make space for
+        /// the new elements.
+        /// </remarks>
+        /// <param name="data">
+        /// the elements to prepend to the start of the array
+        /// </param>
+        protected void PrependVals<T> (params T[] data) where T : struct
         {
-            if (Handle != IntPtr.Zero) {
-                if (ownsElements) {
-                    ArrayInternal.g_array_free (Handle, true);
-                } else {
-                    ArrayInternal.g_array_unref (Handle);
-                }
-                Handle = IntPtr.Zero;
+            AssertNotDisposed ();
+            if (data == null) {
+                throw new ArgumentNullException (nameof (data));
             }
-            base.Dispose (disposing);
+            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
+            var dataPtr = gch.AddrOfPinnedObject ();
+            g_array_prepend_vals (Handle, dataPtr, (uint)data.Length);
+            gch.Free ();
         }
 
-        static IntPtr New (bool zeroTerminated, bool clear, uint reservedSize)
+        /// <summary>
+        /// Removes the element at the given index from a #GArray. The following
+        /// elements are moved down one place.
+        /// </summary>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the element to remove
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_remove_index (
+            SafeArrayHandle array,
+            uint index);
+
+        /// <summary>
+        /// Removes the element at the given index from a <see cref="Array{T}"/>.
+        /// The following elements are moved down one place.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the element to remove
+        /// </param>
+        public void RemoveAt (int index)
         {
-            var elementSize = Marshal.SizeOf<T> ();
-            IntPtr retPtr;
-            if (reservedSize == 0) {
-                retPtr = ArrayInternal.g_array_new (zeroTerminated, clear, (uint)elementSize);
-            } else {
-                retPtr = ArrayInternal.g_array_sized_new (zeroTerminated, clear, (uint)elementSize, reservedSize);
+            AssertNotDisposed ();
+            if (index < 0 || index >= Count) {
+                throw new ArgumentOutOfRangeException (nameof (index));
             }
-            return retPtr;
+            g_array_remove_index (Handle, (uint)index);
+        }
+
+        /// <summary>
+        /// Removes the element at the given index from a #GArray. The last
+        /// element in the array is used to fill in the space, so this function
+        /// does not preserve the order of the #GArray. But it is faster than
+        /// g_array_remove_index().
+        /// </summary>
+        /// <param name="array">
+        /// a @GArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the element to remove
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_remove_index_fast (
+            SafeArrayHandle array,
+            uint index);
+
+        /// <summary>
+        /// Removes the element at the given index from a <see cref="Array{T}"/>. The last
+        /// element in the array is used to fill in the space, so this function
+        /// does not preserve the order of the <see cref="Array{T}"/>. But it is faster than
+        /// g_array_remove_index().
+        /// </summary>
+        /// <param name="index">
+        /// the index of the element to remove
+        /// </param>
+        public void RemoveAtFast (int index)
+        {
+            AssertNotDisposed ();
+            if (index < 0 || index >= Count) {
+                throw new ArgumentOutOfRangeException (nameof (index));
+            }
+            g_array_remove_index_fast (Handle, (uint)index);
+        }
+
+        /// <summary>
+        /// Removes the given number of elements starting at the given index
+        /// from a #GArray.  The following elements are moved to close the gap.
+        /// </summary>
+        /// <param name="array">
+        /// a @GArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the first element to remove
+        /// </param>
+        /// <param name="length">
+        /// the number of elements to remove
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        static extern IntPtr g_array_remove_range (
+            SafeArrayHandle array,
+            uint index,
+            uint length);
+
+        /// <summary>
+        /// Removes the given number of elements starting at the given index
+        /// from a <see cref="Array{T}"/>. The following elements are moved to
+        /// close the gap.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the first element to remove
+        /// </param>
+        /// <param name="length">
+        /// the number of elements to remove
+        /// </param>
+        [Since("2.4")]
+        public void RemoveRange (int index, int length)
+        {
+            AssertNotDisposed ();
+            if (index < 0 || index >= Count) {
+                throw new ArgumentOutOfRangeException (nameof (index));
+            }
+            if (length < 0 || index + length > Count) {
+                throw new ArgumentOutOfRangeException (nameof(length));
+            }
+            g_array_remove_range (Handle, (uint)index, (uint)length);
+        }
+
+        /// <summary>
+        /// Sets a function to clear an element of this array.
+        /// </summary>
+        /// <remarks>
+        /// The @clear_func will be called when an element in the array
+        /// data segment is removed and when the array is freed and data
+        /// segment is deallocated as well.
+        /// 
+        /// Note that in contrast with other uses of #GDestroyNotify
+        /// functions, @clear_func is expected to clear the contents of
+        /// the array element it is given, but not free the element itself.
+        /// </remarks>
+        /// <param name="array">
+        /// A #GArray
+        /// </param>
+        /// <param name="clearFunc">
+        /// a function to clear an element of this array
+        /// </param>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        static extern void g_array_set_clear_func (
+            SafeArrayHandle array,
+            NativeDestroyNotify clearFunc);
+
+        /// <summary>
+        /// Sets the size of the array, expanding it if necessary. If the array
+        /// was created with @clear_ set to <c>true</c>, the new elements are set to 0.
+        /// </summary>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="length">
+        /// the new size of the #GArray
+        /// </param>
+        /// <returns>
+        /// the #GArray
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_set_size (
+            SafeArrayHandle array,
+            uint length);
+
+        /// <summary>
+        /// Sets the size of the array, expanding it if necessary. If the array
+        /// was created with <paramref name="clear"/> set to <c>true</c>, the
+        /// new elements are set to 0.
+        /// </summary>
+        /// <param name="length">
+        /// the new size of the <see cref="Array{T}"/>
+        /// </param>
+        public void SetSize (int length)
+        {
+            AssertNotDisposed ();
+            if (length < 0) {
+                throw new ArgumentOutOfRangeException (nameof (length));
+            }
+            g_array_set_size (Handle, (uint)length);
+        }
+
+        /// <summary>
+        /// Sorts a #GArray using @compare_func which should be a qsort()-style
+        /// comparison function (returns less than zero for first arg is less
+        /// than second arg, zero for equal, greater zero if first arg is
+        /// greater than second arg).
+        /// </summary>
+        /// <remarks>
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_array_sort (
+            SafeArrayHandle array,
+            NativeCompareFunc compareFunc);
+
+        /// <summary>
+        /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
+        /// which should be a qsort()-style
+        /// comparison function (returns less than zero for first arg is less
+        /// than second arg, zero for equal, greater zero if first arg is
+        /// greater than second arg).
+        /// </summary>
+        /// <remarks>
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// </remarks>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        protected void Sort<T> (Comparison<T> compareFunc) where T : struct
+        {
+            AssertNotDisposed ();
+            if (compareFunc == null) {
+                throw new ArgumentNullException (nameof (compareFunc));
+            }
+            NativeCompareFunc compareFunc_ = (a, b) => {
+                var x = Marshal.PtrToStructure<T> (a);
+                var y = Marshal.PtrToStructure<T> (b);
+                return compareFunc (x, y);
+            };
+            g_array_sort (Handle, compareFunc_);
+            GC.KeepAlive (compareFunc_);
+        }
+
+        /// <summary>
+        /// Like g_array_sort(), but the comparison function receives an extra
+        /// user data argument.
+        /// </summary>
+        /// <remarks>
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// 
+        /// There used to be a comment here about making the sort stable by
+        /// using the addresses of the elements in the comparison function.
+        /// This did not actually work, so any such code should be removed.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @compare_func
+        /// </param>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_array_sort_with_data (
+            SafeArrayHandle array,
+            NativeCompareDataFunc compareFunc,
+            IntPtr userData);
+
+        /// <summary>
+        /// Removes all items from the <see cref="Array"/>.
+        /// </summary>
+        public void Clear () {
+            SetSize (0);
+        }
+    }
+
+    public sealed class Array<T> : Array, IList<T> where T : struct
+    {
+        public Array (SafeArrayHandle handle) : base (handle)
+        {
         }
 
         /// <summary>
@@ -109,16 +672,28 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of elements preallocated
         /// </param>
-        public Array (bool zeroTerminated, bool clear, uint reservedSize = 0)
-            : this (New (zeroTerminated, clear, reservedSize), Transfer.Full)
+        public Array (bool zeroTerminated, bool clear, int reservedSize = 10)
+            : this (SizedNew (zeroTerminated, clear, Marshal.SizeOf<T> (), reservedSize))
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Array{T}"/> class.
         /// </summary>
-        public Array () : this (false, false, 0)
+        public Array ()
+            : this (New (false, false, Marshal.SizeOf<T> ()))
         {
+        }
+
+        /// <summary>
+        /// Adds elements onto the end of the array.
+        /// </summary>
+        /// <param name="data">
+        /// the elements to append to the end of the array
+        /// </param>
+        public void Append (params T[] data)
+        {
+            Append<T> (data);
         }
 
         /// <summary>
@@ -133,21 +708,17 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Adds elements onto the end of the array.
+        /// Inserts elements into a <see cref="Array{T}"/> at the given index.
         /// </summary>
-        /// <param name="data">
-        /// the elements to append to the end of the array
+        /// <param name="index">
+        /// the index to place the elements at
         /// </param>
-        public void Append (params T[] data)
+        /// <param name="data">
+        /// the elements to insert
+        /// </param>
+        public void Insert (int index, params T[] data)
         {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
-            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            ArrayInternal.g_array_append_vals (Handle, dataPtr, (uint)data.Length);
-            gch.Free ();
+            InsertVals<T> (index, data);
         }
 
         /// <summary>
@@ -165,28 +736,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Inserts elements into a <see cref="Array{T}"/> at the given index.
-        /// </summary>
-        /// <param name="index">
-        /// the index to place the elements at
-        /// </param>
-        /// <param name="data">
-        /// the elements to insert
-        /// </param>
-        public void Insert (int index, params T[] data)
-        {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
-            AssertInsertIndexInRange (index);
-            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            ArrayInternal.g_array_insert_vals (Handle, (uint)index, dataPtr, (uint)data.Length);
-            gch.Free ();
-        }
-
-        /// <summary>
         /// Adds elements onto the start of the array.
         /// </summary>
         /// <remarks>
@@ -199,128 +748,7 @@ namespace GISharp.GLib
         /// </param>
         public void Prepend (params T[] data)
         {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
-            var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            ArrayInternal.g_array_prepend_vals (Handle, dataPtr, (uint)data.Length);
-            gch.Free ();
-        }
-
-        /// <summary>
-        /// Atomically increments the reference count of this array by one.
-        /// This function is MT-safe and may be called from any thread.
-        /// </summary>
-        [Since("2.22")]
-        public void Ref ()
-        {
-            AssertNotDisposed ();
-            ArrayInternal.g_array_ref (Handle);
-        }
-
-        /// <summary>
-        /// Removes the element at the given index from a <see cref="Array{T}"/>.
-        /// The following elements are moved down one place.
-        /// </summary>
-        /// <param name="index">
-        /// the index of the element to remove
-        /// </param>
-        public void RemoveAt (int index)
-        {
-            AssertNotDisposed ();
-            AssertIndexInRange (index);
-            ArrayInternal.g_array_remove_index (Handle, (uint)index);
-        }
-
-        /// <summary>
-        /// Removes the element at the given index from a <see cref="Array{T}"/>. The last
-        /// element in the array is used to fill in the space, so this function
-        /// does not preserve the order of the <see cref="Array{T}"/>. But it is faster than
-        /// g_array_remove_index().
-        /// </summary>
-        /// <param name="index">
-        /// the index of the element to remove
-        /// </param>
-        public void RemoveAtFast (int index)
-        {
-            AssertNotDisposed ();
-            AssertIndexInRange (index);
-            ArrayInternal.g_array_remove_index_fast (Handle, (uint)index);
-        }
-
-        /// <summary>
-        /// Removes the given number of elements starting at the given index
-        /// from a <see cref="Array{T}"/>. The following elements are moved to
-        /// close the gap.
-        /// </summary>
-        /// <param name="index">
-        /// the index of the first element to remove
-        /// </param>
-        /// <param name="length">
-        /// the number of elements to remove
-        /// </param>
-        [Since("2.4")]
-        public void RemoveRange (int index, int length)
-        {
-            AssertNotDisposed ();
-            AssertIndexInRange (index);
-            if (length < 0 || index + length > Count) {
-                throw new ArgumentOutOfRangeException (nameof(length));
-            }
-            ArrayInternal.g_array_remove_range (Handle, (uint)index, (uint)length);
-        }
-
-        public delegate void ClearFunc (ref T item);
-
-        static NativeDestroyNotify WrapClearFunc (Delegate d)
-        {
-            var clearFunc = (ClearFunc)d;
-            NativeDestroyNotify ret = data_ => {
-                var data = Marshal.PtrToStructure<T> (data_);
-                clearFunc (ref data);
-                Marshal.StructureToPtr (data, data_, false);
-            };
-            return ret;
-        }
-
-        /// <summary>
-        /// Sets a function to clear an element of this array. It is the callers
-        /// responsibility to hold a reference to <paramref name="clearFunc"/>
-        /// as long as this array is alive in either managed or unmanaged code.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="clearFunc"/> will be called when an element in
-        /// the array data segment is removed and when the array is freed and
-        /// data segment is deallocated as well.
-        /// </remarks>
-        /// <param name="clearFunc">a function to clear an element of this array.</param>
-        public void SetClearFunc (ClearFunc clearFunc)
-        {
-            AssertNotDisposed ();
-            NativeDestroyNotify clearFunc_ = null;
-            if (clearFunc != null) {
-                clearFunc_ = ArrayInternal.ClearFuncTable.GetValue (clearFunc, WrapClearFunc);
-            }
-            ArrayInternal.g_array_set_clear_func (Handle, clearFunc_);
-        }
-
-        /// <summary>
-        /// Sets the size of the array, expanding it if necessary. If the array
-        /// was created with <paramref name="clear"/> set to <c>true</c>, the
-        /// new elements are set to 0.
-        /// </summary>
-        /// <param name="length">
-        /// the new size of the <see cref="Array{T}"/>
-        /// </param>
-        public void SetSize (int length)
-        {
-            AssertNotDisposed ();
-            if (length < 0) {
-                throw new ArgumentOutOfRangeException (nameof (length));
-            }
-            ArrayInternal.g_array_set_size (Handle, (uint)length);
+            PrependVals<T> (data);
         }
 
         /// <summary>
@@ -336,83 +764,38 @@ namespace GISharp.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort(Comparison<T> compareFunc)
+        public void Sort (Comparison<T> compareFunc)
         {
-            AssertNotDisposed ();
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
-            NativeCompareFunc compareFunc_ = (a, b) => {
-                var x = Marshal.PtrToStructure<T> (a);
-                var y = Marshal.PtrToStructure<T> (b);
-                return compareFunc (x, y);
-            };
-            ArrayInternal.g_array_sort (Handle, compareFunc_);
-            GC.KeepAlive (compareFunc_);
+            Sort<T> (compareFunc);
         }
 
-        /// <summary>
-        /// Atomically decrements the reference count of this array by one. If the
-        /// reference count drops to 0, all memory allocated by the array is
-        /// released. This function is MT-safe and may be called from any
-        /// thread.
-        [Since("2.22")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            ArrayInternal.g_array_unref (Handle);
+        bool ICollection<T>.IsReadOnly {
+            get {
+                AssertNotDisposed ();
+                return false;
+            }
         }
 
         public T this[int index] {
             get {
                 AssertNotDisposed ();
-                AssertIndexInRange (index);
-                var dataPtr = Marshal.ReadIntPtr (Handle);
+                if (index < 0 || index >= Count) {
+                    throw new ArgumentOutOfRangeException (nameof (index));
+                }
+                var dataPtr = Handle.Data;
                 dataPtr += Marshal.SizeOf<T> () * index;
                 var item = Marshal.PtrToStructure <T> (dataPtr);
                 return item;
             }
             set {
                 AssertNotDisposed ();
-                RemoveAt (index);
-                Insert (index, value);
+                if (index < 0 || index >= Count) {
+                    throw new ArgumentOutOfRangeException (nameof (index));
+                }
+                var dataPtr = Handle.Data;
+                dataPtr += Marshal.SizeOf<T> () * index;
+                Marshal.StructureToPtr<T> (value, dataPtr, false);
             }
-        }
-
-        public int Count {
-            get {
-                AssertNotDisposed ();
-                return Marshal.ReadInt32 (Handle, IntPtr.Size);
-            }
-        }
-
-        /// <summary>
-        /// Asserts that the index in range for accessing an existing element.
-        /// </summary>
-        /// <param name="index">Index.</param>
-        void AssertIndexInRange (int index)
-        {
-            if (index < 0 || index >= Count) {
-                throw new ArgumentOutOfRangeException ();
-            }
-        }
-
-        /// <summary>
-        /// Asserts the set index in range for inserting an element.
-        /// </summary>
-        /// <param name="index">Index.</param>
-        void AssertInsertIndexInRange (int index)
-        {
-            if (index < 0 || index > Count) {
-                throw new ArgumentOutOfRangeException ();
-            }
-        }
-
-        /// <summary>
-        /// Removes all items from the <see cref="Array"/>.
-        /// </summary>
-        public void Clear () {
-            SetSize (0);
         }
 
         public bool Contains (T other)
@@ -466,13 +849,6 @@ namespace GISharp.GLib
             return false;
         }
 
-        public bool IsReadOnly {
-            get {
-                AssertNotDisposed ();
-                return false;
-            }
-        }
-
         IEnumerator<T> GetEmumeratorImpl ()
         {
             for (int i = 0; i < Count; i++) {
@@ -492,365 +868,5 @@ namespace GISharp.GLib
         {
             return GetEnumerator ();
         }
-    }
-
-    // Have to have pinvoke methods in separate class because compiler doesn't
-    // like them in a generic class.
-    static class ArrayInternal
-    {
-        internal static readonly ConditionalWeakTable<Delegate, NativeDestroyNotify> ClearFuncTable;
-
-        static ArrayInternal ()
-        {
-            ClearFuncTable = new ConditionalWeakTable<Delegate, NativeDestroyNotify> ();
-        }
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern GType g_array_get_type ();
-
-        /// <summary>
-        /// Creates a new <see cref="Array{T}"/> with a reference count of 1.
-        /// </summary>
-        /// <param name="zeroTerminated">
-        /// <c>true</c> if the array should have an extra element at
-        ///     the end which is set to 0
-        /// </param>
-        /// <param name="clear">
-        /// <c>true</c> if <see cref="Array{T}"/> elements should be automatically cleared
-        ///     to 0 when they are allocated
-        /// </param>
-        /// <param name="elementSize">
-        /// the size of each element in bytes
-        /// </param>
-        /// <returns>
-        /// the new <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_new(
-            bool zeroTerminated,
-            bool clear,
-            uint elementSize);
-
-        /// <summary>
-        /// Creates a new <see cref="Array{T}"/> with @reserved_size elements preallocated and
-        /// a reference count of 1. This avoids frequent reallocation, if you
-        /// are going to add many elements to the array. Note however that the
-        /// size of the array is still 0.
-        /// </summary>
-        /// <param name="zeroTerminated">
-        /// <c>true</c> if the array should have an extra element at
-        ///     the end with all bits cleared
-        /// </param>
-        /// <param name="clear">
-        /// <c>true</c> if all bits in the array should be cleared to 0 on
-        ///     allocation
-        /// </param>
-        /// <param name="elementSize">
-        /// size of each element in the array
-        /// </param>
-        /// <param name="reservedSize">
-        /// number of elements preallocated
-        /// </param>
-        /// <returns>
-        /// the new <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_sized_new(
-            bool zeroTerminated,
-            bool clear,
-            uint elementSize,
-            uint reservedSize);
-
-        /// <summary>
-        /// Adds @len elements onto the end of the array.
-        /// </summary>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="data">
-        /// a pointer to the elements to append to the end of the array
-        /// </param>
-        /// <param name="len">
-        /// the number of elements to append
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_append_vals(
-            IntPtr array,
-            IntPtr data,
-            uint len);
-
-        /// <summary>
-        /// Frees the memory allocated for the <see cref="Array{T}"/>. If @free_segment is
-        /// <c>true</c> it frees the memory block holding the elements as well and
-        /// also each element if this array has a @element_free_func set. Pass
-        /// <c>false</c> if you want to free the <see cref="Array{T}"/> wrapper but preserve the
-        /// underlying array for use elsewhere. If the reference count of this array
-        /// is greater than one, the <see cref="Array{T}"/> wrapper is preserved but the size
-        /// of this array will be set to zero.
-        /// </summary>
-        /// <remarks>
-        /// If array elements contain dynamically-allocated memory, they should
-        /// be freed separately.
-        /// </remarks>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="freeSegment">
-        /// if <c>true</c> the actual element data is freed as well
-        /// </param>
-        /// <returns>
-        /// the element data if @free_segment is <c>false</c>, otherwise
-        ///     <c>null</c>. The element data should be freed using g_free().
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_free(
-            IntPtr array,
-            bool freeSegment);
-
-        /// <summary>
-        /// Gets the size of the elements in this array.
-        /// </summary>
-        /// <param name="array">
-        /// A <see cref="Array{T}"/>
-        /// </param>
-        /// <returns>
-        /// Size of each element, in bytes
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        internal static extern uint g_array_get_element_size(
-            IntPtr array);
-
-        /// <summary>
-        /// Inserts @len elements into a <see cref="Array{T}"/> at the given index.
-        /// </summary>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="index">
-        /// the index to place the elements at
-        /// </param>
-        /// <param name="data">
-        /// a pointer to the elements to insert
-        /// </param>
-        /// <param name="len">
-        /// the number of elements to insert
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_insert_vals(
-            IntPtr array,
-            uint index,
-            IntPtr data,
-            uint len);
-
-        /// <summary>
-        /// Adds @len elements onto the start of the array.
-        /// </summary>
-        /// <remarks>
-        /// This operation is slower than g_array_append_vals() since the
-        /// existing elements in the array have to be moved to make space for
-        /// the new elements.
-        /// </remarks>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="data">
-        /// a pointer to the elements to prepend to the start of the array
-        /// </param>
-        /// <param name="len">
-        /// the number of elements to prepend
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_prepend_vals(
-            IntPtr array,
-            IntPtr data,
-            uint len);
-
-        /// <summary>
-        /// Atomically increments the reference count of this array by one.
-        /// This function is MT-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// A <see cref="Array{T}"/>
-        /// </param>
-        /// <returns>
-        /// The passed in <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        internal static extern IntPtr g_array_ref(
-            IntPtr array);
-
-        /// <summary>
-        /// Removes the element at the given index from a <see cref="Array{T}"/>. The following
-        /// elements are moved down one place.
-        /// </summary>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="index">
-        /// the index of the element to remove
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_remove_index(
-            IntPtr array,
-            uint index);
-
-        /// <summary>
-        /// Removes the element at the given index from a <see cref="Array{T}"/>. The last
-        /// element in the array is used to fill in the space, so this function
-        /// does not preserve the order of the <see cref="Array{T}"/>. But it is faster than
-        /// g_array_remove_index().
-        /// </summary>
-        /// <param name="array">
-        /// a @GArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the element to remove
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_remove_index_fast(
-            IntPtr array,
-            uint index);
-
-        /// <summary>
-        /// Removes the given number of elements starting at the given index
-        /// from a <see cref="Array{T}"/>.  The following elements are moved to close the gap.
-        /// </summary>
-        /// <param name="array">
-        /// a @GArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the first element to remove
-        /// </param>
-        /// <param name="length">
-        /// the number of elements to remove
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.4")]
-        internal static extern IntPtr g_array_remove_range(
-            IntPtr array,
-            uint index,
-            uint length);
-
-        /// <summary>
-        /// Sets a function to clear an element of this array.
-        /// </summary>
-        /// <remarks>
-        /// The @clear_func will be called when an element in the array
-        /// data segment is removed and when the array is freed and data
-        /// segment is deallocated as well.
-        /// 
-        /// Note that in contrast with other uses of #GDestroyNotify
-        /// functions, @clear_func is expected to clear the contents of
-        /// the array element it is given, but not free the element itself.
-        /// </remarks>
-        /// <param name="array">
-        /// A <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="clearFunc">
-        /// a function to clear an element of this array
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.32")]
-        internal static extern void g_array_set_clear_func(
-            IntPtr array,
-            NativeDestroyNotify clearFunc);
-
-        /// <summary>
-        /// Sets the size of the array, expanding it if necessary. If the array
-        /// was created with @clear_ set to <c>true</c>, the new elements are set to 0.
-        /// </summary>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="length">
-        /// the new size of the <see cref="Array{T}"/>
-        /// </param>
-        /// <returns>
-        /// the <see cref="Array{T}"/>
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_array_set_size(
-            IntPtr array,
-            uint length);
-        
-        /// <summary>
-        /// Sorts a <see cref="Array{T}"/> using @compare_func which should be a qsort()-style
-        /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater zero if first arg is
-        /// greater than second arg).
-        /// </summary>
-        /// <remarks>
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// </remarks>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_array_sort(
-            IntPtr array,
-            NativeCompareFunc compareFunc);
-
-        /// <summary>
-        /// Like g_array_sort(), but the comparison function receives an extra
-        /// user data argument.
-        /// </summary>
-        /// <remarks>
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// 
-        /// There used to be a comment here about making the sort stable by
-        /// using the addresses of the elements in the comparison function.
-        /// This did not actually work, so any such code should be removed.
-        /// </remarks>
-        /// <param name="array">
-        /// a <see cref="Array{T}"/>
-        /// </param>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-        /// <param name="userData">
-        /// data to pass to @compare_func
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_array_sort_with_data(
-            IntPtr array,
-            NativeCompareDataFunc compareFunc,
-            IntPtr userData);
-
-        /// <summary>
-        /// Atomically decrements the reference count of this array by one. If the
-        /// reference count drops to 0, all memory allocated by the array is
-        /// released. This function is MT-safe and may be called from any
-        /// thread.
-        /// </summary>
-        /// <param name="array">
-        /// A <see cref="Array{T}"/>
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        internal static extern void g_array_unref(
-            IntPtr array);
     }
 }

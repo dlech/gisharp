@@ -7,787 +7,64 @@ using GISharp.GObject;
 
 namespace GISharp.GLib
 {
-
     /// <summary>
-    /// The <see cref="List{T}"/> struct is used for each element in a doubly-linked list.
+    /// The <see cref="List"/> struct is used for each element in a doubly-linked list.
     /// </summary>
-    [NullHandleIsInstance]
-    public sealed class List<T> : OwnedOpaque where T : Opaque
+    public abstract class List : Opaque
     {
-        public List (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public sealed class SafeListHandle : SafeHandleMinusOneIsInvalid
         {
+            public SafeListHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership != Transfer.Container) {
+                    throw new NotSupportedException ("Must own container");
+                }
+                SetHandle (handle);
+            }
+
+            // lists get a new head pointer, so we need to expose SetHandle() internally
+            internal void UpdateHead (IntPtr handle)
+            {
+                SetHandle (handle);
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_list_free (IntPtr array);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    g_list_free (handle);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafeListHandle Handle {
+            get {
+                return (SafeListHandle)base.Handle;
+            }
+        }
+
+        public List (SafeListHandle handle) : base (handle)
+        {
+        }
+
+        static SafeListHandle New ()
+        {
+            var ret = new SafeListHandle (IntPtr.Zero, Transfer.Container);
+            return ret;
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        public List () : this (IntPtr.Zero, Transfer.Full)
+        public List () : this (New ())
         {
         }
 
-        /// <summary>
-        /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
-        /// Note that the elements of the second <see cref="List{T}"/> are not copied.
-        /// They are used directly.
-        /// </summary>
-        /// <param name="list1">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
-        /// <param name="list2">
-        /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
-        ///     this must point  to the top of the list
-        /// </param>
-        /// <returns>
-        /// the new <see cref="List{T}"/>
-        /// </returns>
-        public static List<T> Concat (List<T> list1, List<T> list2)
-        {
-            if (list1 != null) {
-                list1.AssertNotDisposed ();
-                list1.AssertIsHeadOfList ();
-            }
-            if (list2 != null) {
-                list2.AssertNotDisposed ();
-                list2.AssertIsHeadOfList ();
-            }
-            var list1Ptr = list1 == null ? IntPtr.Zero : list1.Handle;
-            var list2Ptr = list2 == null ? IntPtr.Zero : list2.Handle;
-            var retPtr = ListInternal.g_list_concat (list1Ptr, list2Ptr);
-            if (list1 != null) {
-                list1.Owned = false;
-            }
-            if (list2 != null) {
-                list2.Owned = false;
-            }
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Adds a new element on to the end of the list.
-        /// </summary>
-        /// <remarks>
-        /// Note that the return value is the new start of the list,
-        /// if @list was empty; make sure you store the new value.
-        /// 
-        /// <see cref="Append"/> has to traverse the entire list to find the end,
-        /// which is inefficient when adding multiple elements. A common idiom
-        /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
-        /// the list with <see cref="Reverse"/> when all elements have been added.
-        /// </remarks>
-        /// <param name="data">
-        /// the data for the new element
-        /// </param>
-        /// <returns>
-        /// either this list or the new start of the <see cref="List{T}"/> if this list was <c>null</c>
-        /// </returns>
-        public List<T> Append (T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_append (Handle, dataPtr);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Copies a <see cref="List{T}"/>.
-        /// </summary>
-        /// <remarks>
-        /// Note that this is a "shallow" copy. If the list elements
-        /// consist of pointers to data, the pointers are copied but
-        /// the actual data is not. See <see cref="CopyDeep"/> if you need
-        /// to copy the data as well.
-        /// </remarks>
-        /// <returns>
-        /// the start of the new list that holds the same data as @list
-        /// </returns>
-        public List<T> Copy ()
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var retPtr = ListInternal.g_list_copy (Handle);
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Makes a full (deep) copy of a <see cref="List{T}"/>.
-        /// </summary>
-        /// <remarks>
-        /// In contrast with <see cref="Copy"/>, this function uses <paramref name="func"/> to make
-        /// a copy of each list element, in addition to copying the list
-        /// container itself.
-        /// 
-        /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
-        /// and a @user_data pointer. It's safe to pass <c>null</c> as user_data,
-        /// if the copy function takes only one argument.
-        /// 
-        /// For instance, if @list holds a list of GObjects, you can do:
-        /// |[&lt;!-- language="C" --&gt;
-        /// another_list = g_list_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
-        /// ]|
-        /// 
-        /// And, to entirely free the new list, you could do:
-        /// |[&lt;!-- language="C" --&gt;
-        /// g_list_free_full (another_list, g_object_unref);
-        /// ]|
-        /// </remarks>
-        /// <param name="func">
-        /// a copy function used to copy every element in the list
-        /// </param>
-        /// <returns>
-        /// the start of the new list that holds a full copy of @list,
-        ///     use g_list_free_full() to free it
-        /// </returns>
-        [Since("2.34")]
-        public List<T> CopyDeep(CopyFunc<T> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException ("func");
-            }
-            AssertIsHeadOfList ();
-            NativeCopyFunc funcNative = (funcSrcPtr, funcDataPtr) => {
-                var funcSrc = Opaque.GetInstance<T> (funcSrcPtr, Transfer.None);
-                var funcRet = func.Invoke (funcSrc);
-                if (funcRet == null) {
-                    return IntPtr.Zero;
-                }
-                return funcRet.Handle;
-            };
-            var retPtr = ListInternal.g_list_copy_deep (Handle, funcNative, IntPtr.Zero);
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Removes the node <paramref name="link"/> from the list and frees it.
-        /// Compare this to <see cref="RemoveLink"/> which removes the node
-        /// without freeing it.
-        /// </summary>
-        /// <param name="link">
-        /// node to delete from this list
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> DeleteLink (List<T> link)
-        {
-            AssertNotDisposed ();
-            if (link == null) {
-                throw new ArgumentNullException ("link");
-            }
-            AssertIsHeadOfList ();
-            link.AssertNotDisposed ();
-            var linkPtr = link == null ? IntPtr.Zero : link.Handle;
-            var retPtr = ListInternal.g_list_remove_link (Handle, linkPtr);
-            Owned = false;
-            link.Owned = false;
-            link.IsDisposed = true;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Finds the element in a <see cref="List{T}"/> which contains the given data.
-        /// </summary>
-        /// <param name="data">
-        /// the element data to find
-        /// </param>
-        /// <returns>
-        /// the found <see cref="List{T}"/> element, or <c>null</c> if it is not found
-        /// </returns>
-        public List<T> Find(T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_find (Handle, dataPtr);
-            if (retPtr == IntPtr.Zero) {
-                return null;
-            }
-            var ret = new List<T> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Finds an element in a <see cref="List{T}"/>, using a supplied function to
-        /// find the desired element. It iterates over the list, calling
-        /// the given function which should return 0 when the desired
-        /// element is found. The function takes two #gconstpointer arguments,
-        /// the <see cref="List{T}"/> element's data as the first argument and the
-        /// given user data.
-        /// </summary>
-        /// <param name="data">
-        /// user data passed to the function
-        /// </param>
-        /// <param name="func">
-        /// the function to call for each element.
-        ///     It should return 0 when the desired element is found
-        /// </param>
-        /// <returns>
-        /// the found <see cref="List{T}"/> element, or <c>null</c> if it is not found
-        /// </returns>
-        public List<T> FindCustom (T data, CompareFunc<T> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException ("func");
-            }
-            AssertIsHeadOfList ();
-            NativeCompareFunc funcNative = (funcAPtr, funcBPtr) => {
-                var funcA = Opaque.GetInstance<T> (funcAPtr, Transfer.None);
-                var funcB = Opaque.GetInstance<T> (funcBPtr, Transfer.None);
-                var funcRet = func.Invoke (funcA, funcB);
-                return funcRet;
-            };
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_find_custom (Handle, dataPtr, funcNative);
-            if (retPtr == IntPtr.Zero) {
-                return null;
-            }
-            var ret = new List<T> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Gets the first element in a <see cref="List{T}"/>.
-        /// </summary>
-        /// <returns>
-        /// the first element in the <see cref="List{T}"/>,
-        ///     or <c>null</c> if the <see cref="List{T}"/> has no elements
-        /// </returns>
-        public List<T> First {
-            get {
-                AssertNotDisposed ();
-                var retPtr = ListInternal.g_list_first (Handle);
-                if (retPtr == IntPtr.Zero) {
-                    return null;
-                }
-                var ret = new List<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Calls a function for each element of a <see cref="List{T}"/>.
-        /// </summary>
-        /// <param name="func">
-        /// the function to call with each element's data
-        /// </param>
-        public void Foreach (Func<T> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException ("func");
-            }
-            AssertIsHeadOfList ();
-            NativeFunc funcNative = (funcDataPtr, funcUserDataPtr) => {
-                var funcData = Opaque.GetInstance<T>(funcDataPtr, Transfer.None);
-                func.Invoke (funcData);
-            };
-            ListInternal.g_list_foreach (Handle, funcNative, IntPtr.Zero);
-        }
-
-        /// <summary>
-        /// Frees all of the memory used by a <see cref="List{T}"/>.
-        /// The freed elements are returned to the slice allocator.
-        /// </summary>
-        /// <remarks>
-        /// If list elements contain dynamically-allocated memory, you should
-        /// either use <see cref="FreeFull"/>  or free them manually first.
-        /// </remarks>
-        protected override void Free ()
-        {
-            ListInternal.g_list_free (Handle);
-            Owned = false;
-        }
-
-        /// <summary>
-        /// Frees one <see cref="List{T}"/> element.
-        /// It is usually used after <see cref="RemoveLink"/>.
-        /// </summary>
-        public void Free1 ()
-        {
-            AssertNotDisposed ();
-            ListInternal.g_list_free_1 (Handle);
-            Owned = false;
-            IsDisposed = true;
-        }
-
-        /// <summary>
-        /// Convenience method, which frees all the memory used by a <see cref="List{T}"/>,
-        /// and calls @free_func on every element's data.
-        /// </summary>
-        /// <param name="freeFunc">
-        /// the function to be called to free each element's data
-        /// </param>
-        [Since("2.28")]
-        public void FreeFull (DestroyNotify<T> freeFunc)
-        {
-            if (freeFunc == null) {
-                throw new ArgumentNullException ("freeFunc");
-            }
-            AssertNotDisposed ();
-            NativeDestroyNotify freeFuncNative = (freeFuncDataPtr) => {
-                var freeFuncData = Opaque.GetInstance<T> (freeFuncDataPtr, Transfer.None);
-                freeFunc.Invoke (freeFuncData);
-            };
-            ListInternal.g_list_free_full (Handle, freeFuncNative);
-            Owned = false;
-            IsDisposed = true;
-        }
-
-        /// <summary>
-        /// Gets the position of the element containing
-        /// the given data (starting from 0).
-        /// </summary>
-        /// <param name="list">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
-        /// <param name="data">
-        /// the data to find
-        /// </param>
-        /// <returns>
-        /// the index of the element containing the data,
-        ///     or -1 if the data is not found
-        /// </returns>
-        public Int32 IndexOf (T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var ret = ListInternal.g_list_index (Handle, dataPtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Inserts a new element into the list at the given position.
-        /// </summary>
-        /// <param name="data">
-        /// the data for the new element
-        /// </param>
-        /// <param name="position">
-        /// the position to insert the element. If this is
-        ///     negative, or is larger than the number of elements in the
-        ///     list, the new element is added on to the end of the list.
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Insert (T data, Int32 position)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_insert (Handle, dataPtr, position);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Inserts a new element into the list before the given position.
-        /// </summary>
-        /// <param name="sibling">
-        /// the list element before which the new element
-        ///     is inserted or <c>null</c> to insert at the end of the list
-        /// </param>
-        /// <param name="data">
-        /// the data for the new element
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> InsertBefore (List<T> sibling, T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            if (sibling != null) {
-                sibling.AssertNotDisposed ();
-            }
-            var siblingPtr = sibling == null ? IntPtr.Zero : sibling.Handle;
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_insert_before (Handle, siblingPtr, dataPtr);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Inserts a new element into the list, using the given comparison
-        /// function to determine its position.
-        /// </summary>
-        /// <remarks>
-        /// If you are adding many new elements to a list, and the number of
-        /// new elements is much larger than the length of the list, use
-        /// <see cref="Prepend"/> to add the new items and sort the list afterwards
-        /// with g_list_sort().
-        /// </remarks>
-        /// <param name="data">
-        /// the data for the new element
-        /// </param>
-        /// <param name="func">
-        /// the function to compare elements in the list. It should
-        ///     return a number &gt; 0 if the first parameter comes after the
-        ///     second parameter in the sort order.
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> InsertSorted (T data, CompareFunc<T> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException ("func");
-            }
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            NativeCompareFunc funcNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
-                var compareFuncRet = func.Invoke (compareFuncA, compareFuncB);
-                return compareFuncRet;
-            };
-            var retPtr = ListInternal.g_list_insert_sorted (Handle, dataPtr, funcNative);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Gets the last element in a <see cref="List{T}"/>.
-        /// </summary>
-        /// <param name="list">
-        /// any <see cref="List{T}"/> element
-        /// </param>
-        /// <returns>
-        /// the last element in the <see cref="List{T}"/>,
-        ///     or <c>null</c> if the <see cref="List{T}"/> has no elements
-        /// </returns>
-        public List<T> Last {
-            get {
-                AssertNotDisposed ();
-                var retPtr = ListInternal.g_list_last (Handle);
-                if (retPtr == IntPtr.Zero) {
-                    return null;
-                }
-                var ret = new List<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Gets the number of elements in a <see cref="List{T}"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function iterates over the whole list to count its elements.
-        /// Use a <see cref="GISharp.GLib.Queue"/> instead of a List if you regularly need the number
-        /// of items.
-        /// </remarks>
-        /// <returns>
-        /// the number of elements in the <see cref="List{T}"/>
-        /// </returns>
-        public Int32 Length {
-            get {
-                AssertNotDisposed ();
-                return (int)ListInternal.g_list_length (Handle);
-            }
-        }
-
-        /// <summary>
-        /// Gets the element at the given position in a <see cref="List{T}"/>.
-        /// </summary>
-        /// <param name="n">
-        /// the position of the element, counting from 0
-        /// </param>
-        /// <returns>
-        /// the element, or <c>null</c> if the position is off
-        ///     the end of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Nth (UInt32 n) {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var retPtr = ListInternal.g_list_nth (Handle, n);
-            if (retPtr == IntPtr.Zero) {
-                return null;
-            }
-            var ret = new List<T> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Gets the data of the element at the given position.
-        /// </summary>
-        /// <param name="n">
-        /// the position of the element
-        /// </param>
-        /// <returns>
-        /// the element's data, or <c>null</c> if the position
-        ///     is off the end of the <see cref="List{T}"/>
-        /// </returns>
-        public T this[UInt32 n] {
-            get {
-                AssertNotDisposed ();
-                AssertIsHeadOfList ();
-                var retPtr = ListInternal.g_list_nth_data (Handle, n);
-                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Gets the element @n places before @list.
-        /// </summary>
-        /// <param name="n">
-        /// the position of the element, counting from 0
-        /// </param>
-        /// <returns>
-        /// the element, or <c>null</c> if the position is
-        ///     off the end of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> NthPrev(UInt32 n)
-        {
-            AssertNotDisposed ();
-            var retPtr = ListInternal.g_list_nth_prev (Handle, n);
-            if (retPtr == IntPtr.Zero) {
-                return null;
-            }
-            var ret = new List<T> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Gets the position of the given element
-        /// in the <see cref="List{T}"/> (starting from 0).
-        /// </summary>
-        /// <param name="link">
-        /// an element in the <see cref="List{T}"/>
-        /// </param>
-        /// <returns>
-        /// the position of the element in the <see cref="List{T}"/>,
-        ///     or -1 if the element is not found
-        /// </returns>
-        public Int32 Position(List<T> link)
-        {
-            AssertNotDisposed ();
-            if (link == null) {
-                throw new ArgumentNullException ("link");
-            }
-            AssertIsHeadOfList ();
-            link.AssertNotDisposed ();
-            var linkPtr = link == null ? IntPtr.Zero : link.Handle;
-            var ret = ListInternal.g_list_position (Handle, linkPtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Prepends a new element on to the start of the list.
-        /// </summary>
-        /// <remarks>
-        /// Do not use this function to prepend a new element to a different
-        /// element than the start of the list. Use <see cref="InsertBefore"/> instead.
-        /// </remarks>
-        /// <param name="data">
-        /// the data for the new element
-        /// </param>
-        /// <returns>
-        /// the newly prepended element, which is the new
-        ///     start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Prepend (T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_prepend (Handle, dataPtr);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.None);
-            ret.Owned = true;
-            return ret;
-        }
-
-        /// <summary>
-        /// Removes an element from a <see cref="List{T}"/>.
-        /// If two elements contain the same data, only the first is removed.
-        /// If none of the elements contain the data, the <see cref="List{T}"/> is unchanged.
-        /// </summary>
-        /// <param name="data">
-        /// the data of the element to remove
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Remove (T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_remove (Handle, dataPtr);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Removes all list nodes with data equal to <paramref name="data"/>.
-        /// Returns the new head of the list. Contrast with
-        /// <see cref="Remove"/> which removes only the first node
-        /// matching the given data.
-        /// </summary>
-        /// <param name="data">
-        /// data to remove
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> RemoveAll (T data)
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var dataPtr = data == null ? IntPtr.Zero : data.Handle;
-            var retPtr = ListInternal.g_list_remove_all (Handle, dataPtr);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Removes an element from a <see cref="List{T}"/>, without freeing the element.
-        /// The removed element's prev and next links are set to <c>null</c>, so
-        /// that it becomes a self-contained list with one element.
-        /// </summary>
-        /// <param name="link">
-        /// an element in the <see cref="List{T}"/>
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> RemoveLink (List<T> link)
-        {
-            AssertNotDisposed ();
-            if (link == null) {
-                throw new ArgumentNullException ("link");
-            }
-            AssertIsHeadOfList ();
-            link.AssertNotDisposed ();
-            var linkPtr = link == null ? IntPtr.Zero : link.Handle;
-            var retPtr = ListInternal.g_list_remove_link (Handle, linkPtr);
-            Owned = false;
-            link.Owned = true;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Reverses a <see cref="List{T}"/>.
-        /// It simply switches the next and prev pointers of each element.
-        /// </summary>
-        /// <returns>
-        /// the start of the reversed <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Reverse ()
-        {
-            AssertNotDisposed ();
-            AssertIsHeadOfList ();
-            var retPtr = ListInternal.g_list_reverse (Handle);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Sorts a <see cref="List{T}"/> using the given comparison function. The algorithm
-        /// used is a stable sort.
-        /// </summary>
-        /// <param name="compareFunc">
-        /// the comparison function used to sort the <see cref="List{T}"/>.
-        ///     This function is passed the data from 2 elements of the <see cref="List{T}"/>
-        ///     and should return 0 if they are equal, a negative value if the
-        ///     first element comes before the second, or a positive value if
-        ///     the first element comes after the second.
-        /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Sort (CompareFunc<T> compareFunc)
-        {
-            AssertNotDisposed ();
-            if (compareFunc == null) {
-                throw new ArgumentNullException ("compareFunc");
-            }
-            AssertIsHeadOfList ();
-            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = Opaque.GetInstance<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = Opaque.GetInstance<T> (compareFuncBPtr, Transfer.None);
-                var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
-                return compareFuncRet;
-            };
-            var retPtr = ListInternal.g_list_sort (Handle, compareFuncNative);
-            Owned = false;
-            var ret = new List<T> (retPtr, Transfer.Full);
-            return ret;
-        }
-
-        public T Data {
-            get {
-                AssertNotDisposed ();
-                if (Handle == IntPtr.Zero) {
-                    return null;
-                }
-                var retPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 0);
-                var ret = Opaque.GetInstance<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        public List<T> Next {
-            get {
-                AssertNotDisposed ();
-                if (Handle == IntPtr.Zero) {
-                    return null;
-                }
-                var retPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 1);
-                if (retPtr == IntPtr.Zero) {
-                    return null;
-                }
-                var ret = new List<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        public List<T> Previous {
-            get {
-                AssertNotDisposed ();
-                if (Handle == IntPtr.Zero) {
-                    return null;
-                }
-                var retPtr = Marshal.ReadIntPtr (Handle, IntPtr.Size * 2);
-                if (retPtr == IntPtr.Zero) {
-                    return null;
-                }
-                var ret = new List<T> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        void AssertIsHeadOfList ()
-        {
-            if (!Owned) {
-                throw new InvalidOperationException ("This operation requires an owned list.");
-            }
-        }
-    }
-
-    /// <summary>
-    /// Contains all PInvoke methods since the compiler won't let them be in a
-    /// generic class.
-    /// </summary>
-    static class ListInternal
-    {
         /// <summary>
         /// Allocates space for one #GList element. It is called by
         /// g_list_append(), g_list_prepend(), g_list_insert() and
@@ -797,7 +74,7 @@ namespace GISharp.GLib
         /// a pointer to the newly-allocated #GList element
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_alloc();
+        static extern IntPtr g_list_alloc();
 
         /// <summary>
         /// Adds the second #GList onto the end of the first #GList.
@@ -823,9 +100,37 @@ namespace GISharp.GLib
         /// the start of the new #GList, which equals @list1 if not %NULL
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_concat(
-            [In] IntPtr list1,
-            [In] IntPtr list2);
+        static extern IntPtr g_list_concat (
+            SafeListHandle list1,
+            SafeListHandle list2);
+
+        /// <summary>
+        /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
+        /// Note that the elements of the second <see cref="List{T}"/> are not copied.
+        /// They are used directly.
+        /// </summary>
+        /// <param name="list1">
+        /// a <see cref="List{T}"/>, this must point to the top of the list
+        /// </param>
+        /// <param name="list2">
+        /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
+        ///     this must point  to the top of the list
+        /// </param>
+        /// <returns>
+        /// the new <see cref="List{T}"/>
+        /// </returns>
+        protected List Concat (List list2)
+        {
+            AssertNotDisposed ();
+            if (list2 == null) {
+                throw new ArgumentNullException (nameof (list2));
+            }
+            list2.AssertNotDisposed ();
+            var ret_ = g_list_concat (Handle, list2.Handle);
+            Handle.UpdateHead (ret_);
+            list2.Handle.SetHandleAsInvalid ();
+            return this;
+        }
 
         /// <summary>
         /// Adds a new element on to the end of the list.
@@ -862,9 +167,35 @@ namespace GISharp.GLib
         /// either @list or the new start of the #GList if @list was %NULL
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_append(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern IntPtr g_list_append (
+            SafeListHandle list,
+            IntPtr data);
+
+        /// <summary>
+        /// Adds a new element on to the end of the list.
+        /// </summary>
+        /// <remarks>
+        /// Note that the return value is the new start of the list,
+        /// if @list was empty; make sure you store the new value.
+        /// 
+        /// <see cref="Append"/> has to traverse the entire list to find the end,
+        /// which is inefficient when adding multiple elements. A common idiom
+        /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
+        /// the list with <see cref="Reverse"/> when all elements have been added.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <returns>
+        /// either this list or the new start of the <see cref="List"/> if this list was <c>null</c>
+        /// </returns>
+        protected List Append (IntPtr data)
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_append (Handle, data);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Copies a #GList.
@@ -882,8 +213,28 @@ namespace GISharp.GLib
         /// the start of the new list that holds the same data as @list
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_copy(
-            [In] IntPtr list);
+        static extern IntPtr g_list_copy (
+            SafeListHandle list);
+
+        /// <summary>
+        /// Copies a <see cref="List{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that this is a "shallow" copy. If the list elements
+        /// consist of pointers to data, the pointers are copied but
+        /// the actual data is not. See <see cref="CopyDeep"/> if you need
+        /// to copy the data as well.
+        /// </remarks>
+        /// <returns>
+        /// the start of the new list that holds the same data as @list
+        /// </returns>
+        protected List Copy ()
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_copy (Handle);
+            var ret = new SafeListHandle (ret_, Transfer.Container);
+            return (List)Activator.CreateInstance (GetType (), ret);
+        }
 
         /// <summary>
         /// Makes a full (deep) copy of a #GList.
@@ -922,10 +273,10 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.34")]
-        internal static extern IntPtr g_list_copy_deep(
-            [In] IntPtr list,
-            [In] NativeCopyFunc func,
-            [In] IntPtr userData);
+        static extern SafeListHandle g_list_copy_deep (
+            SafeListHandle list,
+            NativeCopyFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Removes the node link_ from the list and frees it.
@@ -942,9 +293,9 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_delete_link(
-            [In] IntPtr list,
-            [In] IntPtr link);
+        static extern IntPtr g_list_delete_link (
+            SafeListHandle list,
+            IntPtr link);
 
         /// <summary>
         /// Finds the element in a #GList which contains the given data.
@@ -959,9 +310,9 @@ namespace GISharp.GLib
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_find(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern IntPtr g_list_find (
+            SafeListHandle list,
+            IntPtr data);
 
         /// <summary>
         /// Finds an element in a #GList, using a supplied function to
@@ -985,10 +336,10 @@ namespace GISharp.GLib
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_find_custom(
-            [In] IntPtr list,
-            [In] IntPtr data,
-            [In] NativeCompareFunc func);
+        static extern IntPtr g_list_find_custom (
+            SafeListHandle list,
+            IntPtr data,
+            NativeCompareFunc func);
 
         /// <summary>
         /// Gets the first element in a #GList.
@@ -1001,8 +352,8 @@ namespace GISharp.GLib
         ///     or %NULL if the #GList has no elements
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_first(
-            [In] IntPtr list);
+        static extern IntPtr g_list_first (
+            SafeListHandle list);
 
         /// <summary>
         /// Calls a function for each element of a #GList.
@@ -1017,10 +368,10 @@ namespace GISharp.GLib
         /// user data to pass to the function
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_list_foreach(
-            [In] IntPtr list,
-            [In] NativeFunc func,
-            [In] IntPtr userData);
+        static extern void g_list_foreach (
+            SafeListHandle list,
+            NativeFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Frees all of the memory used by a #GList.
@@ -1034,8 +385,8 @@ namespace GISharp.GLib
         /// a #GList
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_list_free(
-            [In] IntPtr list);
+        static extern void g_list_free (
+            SafeListHandle list);
 
         /// <summary>
         /// Convenience method, which frees all the memory used by a #GList,
@@ -1049,9 +400,9 @@ namespace GISharp.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.28")]
-        internal static extern void g_list_free_full(
-            [In] IntPtr list,
-            [In] NativeDestroyNotify freeFunc);
+        static extern void g_list_free_full (
+            SafeListHandle list,
+            NativeDestroyNotify freeFunc);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -1068,9 +419,30 @@ namespace GISharp.GLib
         ///     or -1 if the data is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Int32 g_list_index(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern int g_list_index (
+            SafeListHandle list,
+            IntPtr data);
+
+        /// <summary>
+        /// Gets the position of the element containing
+        /// the given data (starting from 0).
+        /// </summary>
+        /// <param name="list">
+        /// a <see cref="List{T}"/>, this must point to the top of the list
+        /// </param>
+        /// <param name="data">
+        /// the data to find
+        /// </param>
+        /// <returns>
+        /// the index of the element containing the data,
+        ///     or -1 if the data is not found
+        /// </returns>
+        protected int IndexOf (IntPtr data)
+        {
+            AssertNotDisposed ();
+            var ret = g_list_index (Handle, data);
+            return ret;
+        }
 
         /// <summary>
         /// Frees one #GList element.
@@ -1080,8 +452,8 @@ namespace GISharp.GLib
         /// a #GList element
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_list_free_1(
-            [In] IntPtr list);
+        static extern void g_list_free_1 (
+            SafeListHandle list);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -1101,10 +473,32 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_insert(
-            [In] IntPtr list,
-            [In] IntPtr data,
-            [In] Int32 position);
+        static extern IntPtr g_list_insert (
+            SafeListHandle list,
+            IntPtr data,
+            int position);
+
+        /// <summary>
+        /// Inserts a new element into the list at the given position.
+        /// </summary>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="position">
+        /// the position to insert the element. If this is
+        ///     negative, or is larger than the number of elements in the
+        ///     list, the new element is added on to the end of the list.
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        protected List Insert (IntPtr data, int position)
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_insert (Handle, data, position);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Inserts a new element into the list before the given position.
@@ -1123,10 +517,10 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_insert_before(
-            [In] IntPtr list,
-            [In] IntPtr sibling,
-            [In] IntPtr data);
+        static extern IntPtr g_list_insert_before (
+            SafeListHandle list,
+            IntPtr sibling,
+            IntPtr data);
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -1154,10 +548,10 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_insert_sorted(
-            [In] IntPtr list,
-            [In] IntPtr data,
-            [In] NativeCompareFunc func);
+        static extern IntPtr g_list_insert_sorted (
+            SafeListHandle list,
+            IntPtr data,
+            NativeCompareFunc func);
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -1189,11 +583,11 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
-        internal static extern IntPtr g_list_insert_sorted_with_data(
-            [In] IntPtr list,
-            [In] IntPtr data,
-            [In] NativeCompareDataFunc func,
-            [In] IntPtr userData);
+        static extern IntPtr g_list_insert_sorted_with_data (
+            SafeListHandle list,
+            IntPtr data,
+            NativeCompareDataFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Gets the last element in a #GList.
@@ -1206,8 +600,8 @@ namespace GISharp.GLib
         ///     or %NULL if the #GList has no elements
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_last(
-            [In] IntPtr list);
+        static extern IntPtr g_list_last ( 
+            SafeListHandle list);
 
         /// <summary>
         /// Gets the number of elements in a #GList.
@@ -1224,8 +618,26 @@ namespace GISharp.GLib
         /// the number of elements in the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_list_length(
-            [In] IntPtr list);
+        static extern uint g_list_length (
+            SafeListHandle list);
+
+        /// <summary>
+        /// Gets the number of elements in a <see cref="List{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function iterates over the whole list to count its elements.
+        /// Use a <see cref="GISharp.GLib.Queue"/> instead of a List if you regularly need the number
+        /// of items.
+        /// </remarks>
+        /// <returns>
+        /// the number of elements in the <see cref="List{T}"/>
+        /// </returns>
+        public int Length {
+            get {
+                AssertNotDisposed ();
+                return (int)g_list_length (Handle);
+            }
+        }
 
         /// <summary>
         /// Gets the element at the given position in a #GList.
@@ -1241,9 +653,9 @@ namespace GISharp.GLib
         ///     the end of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_nth(
-            [In] IntPtr list,
-            [In] UInt32 n);
+        static extern IntPtr g_list_nth (
+            SafeListHandle list,
+            uint n);
 
         /// <summary>
         /// Gets the data of the element at the given position.
@@ -1259,9 +671,28 @@ namespace GISharp.GLib
         ///     is off the end of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_nth_data(
-            [In] IntPtr list,
-            [In] UInt32 n);
+        static extern IntPtr g_list_nth_data (
+            SafeListHandle list,
+            uint n);
+
+        /// <summary>
+        /// Gets the data of the element at the given position.
+        /// </summary>
+        /// <param name="n">
+        /// the position of the element
+        /// </param>
+        /// <returns>
+        /// the element's data, or <c>null</c> if the position
+        ///     is off the end of the <see cref="List{T}"/>
+        /// </returns>
+        protected IntPtr NthData (int n) {
+            AssertNotDisposed ();
+            if (n < 0) {
+                throw new ArgumentOutOfRangeException (nameof (n));
+            }
+            var ret = g_list_nth_data (Handle, (uint)n);
+            return ret;
+        }
 
         /// <summary>
         /// Gets the element @n places before @list.
@@ -1277,9 +708,9 @@ namespace GISharp.GLib
         ///     off the end of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_nth_prev(
-            [In] IntPtr list,
-            [In] UInt32 n);
+        static extern IntPtr g_list_nth_prev (
+            SafeListHandle list,
+            uint n);
 
         /// <summary>
         /// Gets the position of the given element
@@ -1296,9 +727,9 @@ namespace GISharp.GLib
         ///     or -1 if the element is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Int32 g_list_position(
-            [In] IntPtr list,
-            [In] IntPtr llink);
+        static extern int g_list_position (
+            SafeListHandle list,
+            IntPtr llink);
 
         /// <summary>
         /// Prepends a new element on to the start of the list.
@@ -1329,9 +760,31 @@ namespace GISharp.GLib
         ///     start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_prepend(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern IntPtr g_list_prepend (
+            SafeListHandle list,
+            IntPtr data);
+
+        /// <summary>
+        /// Prepends a new element on to the start of the list.
+        /// </summary>
+        /// <remarks>
+        /// Do not use this function to prepend a new element to a different
+        /// element than the start of the list. Use <see cref="InsertBefore"/> instead.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <returns>
+        /// the newly prepended element, which is the new
+        ///     start of the <see cref="List{T}"/>
+        /// </returns>
+        protected List Prepend (IntPtr data)
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_prepend (Handle, data);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Removes an element from a #GList.
@@ -1348,9 +801,28 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_remove(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern IntPtr g_list_remove (
+            SafeListHandle list,
+            IntPtr data);
+
+        /// <summary>
+        /// Removes an element from a <see cref="List{T}"/>.
+        /// If two elements contain the same data, only the first is removed.
+        /// If none of the elements contain the data, the <see cref="List{T}"/> is unchanged.
+        /// </summary>
+        /// <param name="data">
+        /// the data of the element to remove
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        protected List Remove (IntPtr data)
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_remove (Handle, data);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Removes all list nodes with data equal to @data.
@@ -1368,9 +840,29 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_remove_all(
-            [In] IntPtr list,
-            [In] IntPtr data);
+        static extern IntPtr g_list_remove_all (
+            SafeListHandle list,
+            IntPtr data);
+
+        /// <summary>
+        /// Removes all list nodes with data equal to <paramref name="data"/>.
+        /// Returns the new head of the list. Contrast with
+        /// <see cref="Remove"/> which removes only the first node
+        /// matching the given data.
+        /// </summary>
+        /// <param name="data">
+        /// data to remove
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        protected List RemoveAll (IntPtr data)
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_remove_all (Handle, data);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Removes an element from a #GList, without freeing the element.
@@ -1397,9 +889,9 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_remove_link(
-            [In] IntPtr list,
-            [In] IntPtr llink);
+        static extern IntPtr g_list_remove_link (
+            SafeListHandle list,
+            IntPtr llink);
 
         /// <summary>
         /// Reverses a #GList.
@@ -1412,8 +904,23 @@ namespace GISharp.GLib
         /// the start of the reversed #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_reverse(
-            [In] IntPtr list);
+        static extern IntPtr g_list_reverse (
+            SafeListHandle list);
+
+        /// <summary>
+        /// Reverses a <see cref="List{T}"/>.
+        /// It simply switches the next and prev pointers of each element.
+        /// </summary>
+        /// <returns>
+        /// the start of the reversed <see cref="List{T}"/>
+        /// </returns>
+        protected List Reverse ()
+        {
+            AssertNotDisposed ();
+            var ret_ = g_list_reverse (Handle);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
 
         /// <summary>
         /// Sorts a #GList using the given comparison function. The algorithm
@@ -1433,10 +940,35 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_sort(
-            [In] IntPtr list,
-            [In] NativeCompareFunc compareFunc);
+        static extern IntPtr g_list_sort (
+            SafeListHandle list,
+            NativeCompareFunc compareFunc);
 
+        /// <summary>
+        /// Sorts a <see cref="List{T}"/> using the given comparison function. The algorithm
+        /// used is a stable sort.
+        /// </summary>
+        /// <param name="compareFunc">
+        /// the comparison function used to sort the <see cref="List{T}"/>.
+        ///     This function is passed the data from 2 elements of the <see cref="List{T}"/>
+        ///     and should return 0 if they are equal, a negative value if the
+        ///     first element comes before the second, or a positive value if
+        ///     the first element comes after the second.
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        protected List Sort (NativeCompareFunc compareFunc)
+        {
+            AssertNotDisposed ();
+            if (compareFunc == null) {
+                throw new ArgumentNullException (nameof (compareFunc));
+            }
+            var ret_ = g_list_sort (Handle, compareFunc);
+            GC.KeepAlive (compareFunc);
+            Handle.UpdateHead (ret_);
+            return this;
+        }
         /// <summary>
         /// Like g_list_sort(), but the comparison function accepts
         /// a user data argument.
@@ -1454,9 +986,231 @@ namespace GISharp.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_list_sort_with_data(
-            [In] IntPtr list,
-            [In] NativeCompareDataFunc compareFunc,
-            [In] IntPtr userData);
+        static extern IntPtr g_list_sort_with_data (
+            SafeListHandle list,
+            NativeCompareDataFunc compareFunc,
+            IntPtr userData);
+    }
+
+    public sealed class List<T> : List where T : Opaque
+    {
+        /// <summary>
+        /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
+        /// Note that the elements of the second <see cref="List{T}"/> are not copied.
+        /// They are used directly.
+        /// </summary>
+        /// <param name="list1">
+        /// a <see cref="List{T}"/>, this must point to the top of the list
+        /// </param>
+        /// <param name="list2">
+        /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
+        ///     this must point  to the top of the list
+        /// </param>
+        /// <returns>
+        /// the new <see cref="List{T}"/>
+        /// </returns>
+        public List<T> Concat (List<T> list2)
+        {
+            var ret = base.Concat (list2);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Adds a new element on to the end of the list.
+        /// </summary>
+        /// <remarks>
+        /// Note that the return value is the new start of the list,
+        /// if @list was empty; make sure you store the new value.
+        /// 
+        /// <see cref="Append"/> has to traverse the entire list to find the end,
+        /// which is inefficient when adding multiple elements. A common idiom
+        /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
+        /// the list with <see cref="Reverse"/> when all elements have been added.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <returns>
+        /// either this list or the new start of the <see cref="List{T}"/> if this list was <c>null</c>
+        /// </returns>
+        public List<T> Append (T data)
+        {
+            var ret = Append (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Copies a <see cref="List{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that this is a "shallow" copy. If the list elements
+        /// consist of pointers to data, the pointers are copied but
+        /// the actual data is not. See <see cref="CopyDeep"/> if you need
+        /// to copy the data as well.
+        /// </remarks>
+        /// <returns>
+        /// the start of the new list that holds the same data as @list
+        /// </returns>
+        public new List<T> Copy ()
+        {
+            var ret = base.Copy ();
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Gets the position of the element containing
+        /// the given data (starting from 0).
+        /// </summary>
+        /// <param name="list">
+        /// a <see cref="List{T}"/>, this must point to the top of the list
+        /// </param>
+        /// <param name="data">
+        /// the data to find
+        /// </param>
+        /// <returns>
+        /// the index of the element containing the data,
+        ///     or -1 if the data is not found
+        /// </returns>
+        public int IndexOf (T data)
+        {
+            var ret = IndexOf (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return ret;
+        }
+
+        /// <summary>
+        /// Inserts a new element into the list at the given position.
+        /// </summary>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="position">
+        /// the position to insert the element. If this is
+        ///     negative, or is larger than the number of elements in the
+        ///     list, the new element is added on to the end of the list.
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        public List<T> Insert (T data, int position)
+        {
+            var ret = Insert (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero, position);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Gets the data of the element at the given position.
+        /// </summary>
+        /// <param name="n">
+        /// the position of the element
+        /// </param>
+        /// <returns>
+        /// the element's data, or <c>null</c> if the position
+        ///     is off the end of the <see cref="List{T}"/>
+        /// </returns>
+        public T this[int n] {
+            get {
+                var ret_ = NthData (n);
+                var ret = GetInstance<T> (ret_, Transfer.None);
+                return ret;
+            }
+        }
+
+        /// <summary>
+        /// Prepends a new element on to the start of the list.
+        /// </summary>
+        /// <remarks>
+        /// Do not use this function to prepend a new element to a different
+        /// element than the start of the list. Use <see cref="InsertBefore"/> instead.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <returns>
+        /// the newly prepended element, which is the new
+        ///     start of the <see cref="List{T}"/>
+        /// </returns>
+        public List<T> Prepend (T data)
+        {
+            var ret = Prepend (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Removes an element from a <see cref="List{T}"/>.
+        /// If two elements contain the same data, only the first is removed.
+        /// If none of the elements contain the data, the <see cref="List{T}"/> is unchanged.
+        /// </summary>
+        /// <param name="data">
+        /// the data of the element to remove
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        public List<T> Remove (T data)
+        {
+            var ret = Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Removes all list nodes with data equal to <paramref name="data"/>.
+        /// Returns the new head of the list. Contrast with
+        /// <see cref="Remove"/> which removes only the first node
+        /// matching the given data.
+        /// </summary>
+        /// <param name="data">
+        /// data to remove
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        public List<T> RemoveAll (T data)
+        {
+            var ret = RemoveAll (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Reverses a <see cref="List{T}"/>.
+        /// It simply switches the next and prev pointers of each element.
+        /// </summary>
+        /// <returns>
+        /// the start of the reversed <see cref="List{T}"/>
+        /// </returns>
+        public new List<T> Reverse ()
+        {
+            var ret = base.Reverse ();
+            return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Sorts a <see cref="List{T}"/> using the given comparison function. The algorithm
+        /// used is a stable sort.
+        /// </summary>
+        /// <param name="compareFunc">
+        /// the comparison function used to sort the <see cref="List{T}"/>.
+        ///     This function is passed the data from 2 elements of the <see cref="List{T}"/>
+        ///     and should return 0 if they are equal, a negative value if the
+        ///     first element comes before the second, or a positive value if
+        ///     the first element comes after the second.
+        /// </param>
+        /// <returns>
+        /// the (possibly changed) start of the <see cref="List{T}"/>
+        /// </returns>
+        public List<T> Sort (Comparison<T> compareFunc)
+        {
+            AssertNotDisposed ();
+            if (compareFunc == null) {
+                throw new ArgumentNullException (nameof (compareFunc));
+            }
+            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
+                var compareFuncA = GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = GetInstance<T> (compareFuncBPtr, Transfer.None);
+                var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
+                return compareFuncRet;
+            };
+            var ret = Sort (compareFuncNative);
+            return (List<T>)ret;
+        }
     }
 }

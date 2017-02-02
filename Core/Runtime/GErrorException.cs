@@ -25,6 +25,11 @@ namespace GISharp.Runtime
             Error = error;
         }
 
+        public GErrorException (Error.SafeErrorHandle handle)
+            : this (new Error (handle))
+        {
+        }
+
         public bool Matches (Enum value)
         {
             return Error.Matches (value.GetErrorDomain (), Convert.ToInt32 (value));

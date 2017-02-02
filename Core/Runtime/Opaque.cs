@@ -7,39 +7,26 @@ using GISharp.GObject;
 namespace GISharp.Runtime
 {
     /// <summary>
-    /// Managed objects that wrap a unmanaged GLib data structures must implement this.
+    /// Base type for wrapping unmanged pointers
     /// </summary>
     public abstract class Opaque : IDisposable
     {
-        protected bool IsDisposed;
-
-        IntPtr _Handle;
+        static Dictionary<IntPtr, WeakReference<Opaque>> instanceMap =
+            new Dictionary<IntPtr, WeakReference<Opaque>> ();
+        static object instanceMapLock = new object ();
+        
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public IntPtr Handle { 
-            get {
-                AssertNotDisposed ();
-                return _Handle;
-            }
-            protected set {
-                _Handle = value;
-            }
-        }
+        public SafeHandle Handle { get; protected set; }
 
-        static bool GetNullHandleIsInstance<T> () {
-            return GetNullHandleIsInstance (typeof(T));
-        }
-
-        static bool GetNullHandleIsInstance (Type type) {
-            var attr = type.GetTypeInfo ().GetCustomAttribute <NullHandleIsInstanceAttribute> ();
-            return attr != null;
-        }
-
-        ~Opaque ()
+        protected Opaque (SafeHandle handle)
         {
-            Dispose (false);
+            lock (instanceMapLock) {
+                instanceMap.Add (handle.DangerousGetHandle (), new WeakReference<Opaque> (this));
+                Handle = handle;
+            }
         }
 
         /// <summary>
@@ -50,10 +37,6 @@ namespace GISharp.Runtime
         /// method leaves the <see cref="Opaque"/> in an unusable state. After calling <see cref="Dispose()"/>, you must
         /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
         /// <see cref="Opaque"/> was occupying.
-        ///
-        /// For reference counted unmanaged types, the unmanged object will be unrefed.
-        /// If the unmanaged object has a free function and we owned the object, the
-        /// unmanaged object will be freed.
         /// </remarks>
         public void Dispose ()
         {
@@ -68,73 +51,63 @@ namespace GISharp.Runtime
         /// <c>false</c> if called from a finalizer.</param>
         protected virtual void Dispose (bool disposing)
         {
-            IsDisposed = true;
-        }
-
-        /// <summary>
-        /// Assert that the object has not been disposed.
-        /// </summary>
-        /// <exception cref="ObjectDisposedException">Thrown if this object has already been disposed.</exception>
-        /// <remarks>
-        /// All public methods should call this so we don't operate on a disposed object.
-        /// </remarks>
-        protected void AssertNotDisposed ()
-        {
-            if (IsDisposed) {
-                throw new ObjectDisposedException (GetType ().Name);
+            if (disposing) {
+                Handle.Dispose ();
             }
         }
 
-        static object getInstanceLock = new object ();
+        protected void AssertNotDisposed ()
+        {
+            if (Handle.IsClosed) {
+                throw new ObjectDisposedException (null);
+            }
+        }
+
+        public static T TryGetExisting<T> (IntPtr handle) where T : Opaque
+        {
+            lock (instanceMapLock) {
+                WeakReference<Opaque> value;
+                if (instanceMap.TryGetValue (handle, out value)) {
+                    Opaque instance;
+                    if (value.TryGetTarget (out instance)) {
+                        if (!instance.Handle.IsClosed) {
+                            return (T)instance;
+                        }
+                    }
+                }
+                return null;
+            }
+        }
 
         public static T GetInstance<T> (IntPtr handle, Transfer ownership, Type typeHint = null) where T : Opaque
         {
-            if (handle == IntPtr.Zero && !GetNullHandleIsInstance<T> ()) {
+            if (handle == IntPtr.Zero) {
                 return null;
             }
-            lock (getInstanceLock) {
-                var obj = ReferenceCountedOpaque.TryGetExisting (handle) as T;
-                if (obj != null) {
-                    if (ownership != Transfer.None) {
-                        // we already have a reference, so we don't need another one.
-                        (obj as ReferenceCountedOpaque).Unref ();
-                    }
-                    return obj;
+            lock (instanceMapLock) {
+                var instance = TryGetExisting<T> (handle);
+                if (instance != null) {
+                    return instance;
                 }
-
-                obj = (T)Activator.CreateInstance (typeHint ?? typeof (T), handle, ownership);
-                return obj;
+                throw new NotImplementedException ();
             }
         }
     }
 
-    public sealed class WrappedStruct<T> : OwnedOpaque where T : struct
+    public static class OpaqueExtensions
     {
-        public T Value {
-            get {
-                return Marshal.PtrToStructure<T> (Handle);
+        public static Type GetHandleType (this Type type)
+        {
+            if (type == null) {
+                throw new ArgumentNullException (nameof (type));
             }
-            set {
-                Marshal.StructureToPtr<T> (value, Handle, false);
+            var typeInfo = type.GetTypeInfo ();
+            if (!typeof(Opaque).GetTypeInfo ().IsAssignableFrom (typeInfo)) {
+                var msg = $"Type must inherit from {nameof (Opaque)}";
+                throw new ArgumentException (msg, nameof (type));
             }
-        }
-
-        public WrappedStruct (IntPtr handle, Transfer ownership) : base (handle, ownership)
-        {
-        }
-
-        public WrappedStruct () : this (GMarshal.Alloc (Marshal.SizeOf<T> ()), Transfer.Full)
-        {
-        }
-
-        public WrappedStruct (T value) : this ()
-        {
-            Value = value;
-        }
-
-        protected override void Free ()
-        {
-            GMarshal.Free (Handle);
+            var propInfo = typeInfo.GetProperty (nameof (Opaque.Handle));
+            return propInfo.PropertyType;
         }
     }
 }

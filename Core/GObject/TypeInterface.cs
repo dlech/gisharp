@@ -8,28 +8,92 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all interface types.
     /// </summary>
-    public abstract class TypeInterface : GTypeStruct
+    public abstract class TypeInterface : Opaque
     {
-        protected struct TypeInterfaceStruct
+        public abstract class SafeTypeInterfaceHandle : SafeHandleZeroIsInvalid
         {
-            public GType GType;
-            public GType GInstanceType;
-        }
+            internal struct TypeInterfaceStruct
+            {
+                public GType GType;
+                public GType GInstanceType;
+            }
 
-        public override Type StructType {
-            get {
-                return typeof(TypeInterfaceStruct);
+            public GType GType {
+                get {
+                    if (IsInvalid) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.PtrToStructure<GType> (handle);
+                    return ret;
+                }
+            }
+
+            public GType GInstanceType {
+                get {
+                    if (IsInvalid) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<TypeInterfaceStruct> (nameof (TypeInterfaceStruct.GInstanceType));
+                    var ret = Marshal.PtrToStructure<GType> (handle + (int)offset);
+                    return ret;
+                }
             }
         }
 
+        public sealed class SafeTypeDefaultInterfaceHandle : SafeTypeInterfaceHandle
+        {
+            public SafeTypeDefaultInterfaceHandle (GType type)
+            {
+                if (!type.IsInterface) {
+                    var msg = "Type must be an interface";
+                    throw new ArgumentException (msg, nameof (type));
+                }
+                var handle = g_type_default_interface_ref (type);
+                SetHandle (handle);
+            }
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    g_type_default_interface_unref (handle);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafeTypeInterfaceHandle Handle {
+            get {
+                return (SafeTypeInterfaceHandle)base.Handle;
+            }
+        }
+
+        public GType GType {
+            get {
+                return Handle.GType;
+            }
+        }
         public GType GInstanceType {
             get {
-                var offset = Marshal.OffsetOf<TypeInterfaceStruct> (nameof (TypeInterfaceStruct.GInstanceType));
-                return Marshal.PtrToStructure<GType> (Handle + (int)offset);
+                return Handle.GInstanceType;
             }
         }
 
+        public abstract Type StructType { get; }
+
         public abstract InterfaceInfo CreateInterfaceInfo (Type instanceType);
+
+        public TypeInterface (SafeTypeInterfaceHandle handle) : base (handle)
+        {
+        }
+
+        public static TypeInterface GetDefault (GType type)
+        {
+            var ret_ = new SafeTypeDefaultInterfaceHandle (type);
+            var ret = Activator.CreateInstance (type.GetGTypeStruct (), ret_);
+            return (TypeInterface)ret;
+        }
 
         /// <summary>
         /// Adds @prerequisite_type to the list of prerequisites of @interface_type.
@@ -142,38 +206,13 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_type_interface_peek (
+        internal static extern IntPtr g_type_interface_peek (
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             IntPtr instanceClass,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType ifaceType);
-
-        /// <summary>
-        /// Returns the #GTypeInterface structure of an interface to which the
-        /// passed in class conforms.
-        /// </summary>
-        /// <param name="instanceClass">
-        /// a #GTypeClass structure
-        /// </param>
-        /// <param name="ifaceType">
-        /// an interface ID which this class conforms to
-        /// </param>
-        /// <returns>
-        /// the #GTypeInterface
-        ///     structure of @iface_type if implemented by @instance_class, %NULL
-        ///     otherwise
-        /// </returns>
-        public static TypeInterface Peek (TypeClass instanceClass, GType ifaceType)
-        {
-            if (instanceClass == null) {
-                throw new ArgumentNullException ("instanceClass");
-            }
-            var ret_ = g_type_interface_peek (instanceClass.Handle, ifaceType);
-            var ret = CreateInstance (ret_, false);
-            return (TypeInterface)ret;
-        }
 
         /// <summary>
         /// Returns the prerequisites of an interfaces type.
@@ -242,29 +281,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_type_interface_peek_parent (
+        internal static extern IntPtr g_type_interface_peek_parent (
             /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
             /* transfer-ownership:none */
             IntPtr gIface);
-
-        /// <summary>
-        /// Returns the corresponding #GTypeInterface structure of the parent type
-        /// of the instance type to which @g_iface belongs. This is useful when
-        /// deriving the implementation of an interface from the parent type and
-        /// then possibly overriding some methods.
-        /// </summary>
-        /// <returns>
-        /// the
-        ///     corresponding #GTypeInterface structure of the parent type of the
-        ///     instance type to which @g_iface belongs, or %NULL if the parent
-        ///     type doesn't conform to the interface
-        /// </returns>
-        public TypeInterface PeekParent ()
-        {
-            var ret_ = g_type_interface_peek_parent (Handle);
-            var ret = CreateInstance (ret_, false);
-            return (TypeInterface)ret;
-        }
 
         /// <summary>
         /// If the interface type @g_type is currently in use, returns its
@@ -282,30 +302,10 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_type_default_interface_peek (
+        internal static extern IntPtr g_type_default_interface_peek (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gType);
-
-        /// <summary>
-        /// If the interface type @g_type is currently in use, returns its
-        /// default interface vtable.
-        /// </summary>
-        /// <param name="gType">
-        /// an interface type
-        /// </param>
-        /// <returns>
-        /// the default
-        ///     vtable for the interface, or %NULL if the type is not currently
-        ///     in use
-        /// </returns>
-        [Since ("2.4")]
-        public static TypeInterface PeekDefault (GType gType)
-        {
-            var ret_ = g_type_default_interface_peek (gType);
-            var ret = (TypeInterface)CreateInstance (ret_, false);
-            return ret;
-        }
 
         /// <summary>
         /// Increments the reference count for the interface type @g_type,
@@ -337,13 +337,6 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             GType gType);
         
-        public static TypeInterface GetDefault (GType gType)
-        {
-            var ret_ = g_type_default_interface_ref (gType);
-            var ret = (TypeInterface)CreateInstance (ret_, true);
-            return ret;
-        }
-
         /// <summary>
         /// Decrements the reference count for the type corresponding to the
         /// interface default vtable @g_iface. If the type is dynamic, then
@@ -363,16 +356,5 @@ namespace GISharp.GObject
             /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
             /* transfer-ownership:none */
             IntPtr gIface);
-
-        protected override void Dispose (bool disposing, bool ownsRef)
-        {
-            if (ownsRef) {
-                g_type_default_interface_unref (Handle);
-            }
-        }
-
-        public TypeInterface (IntPtr handle, bool ownsRef) : base (handle, ownsRef)
-        {
-        }
     }
 }

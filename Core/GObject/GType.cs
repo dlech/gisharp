@@ -39,7 +39,8 @@ namespace GISharp.GObject
         //
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
-        static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
+        static readonly Object.SafeObjectHandle eternalObject =
+            new Object.SafeObjectHandle (GObject.Object.g_object_newv (Object, 0, IntPtr.Zero), Transfer.Full);
 #pragma warning restore 414
 
         static GType ()
@@ -798,9 +799,9 @@ namespace GISharp.GObject
 
         static void MapPropertyInfo (GType gtype, Type type)
         {
-            // type registration has not been completed here, so have to use
-            // pinvoke directly
-            var objClass = new ObjectClass (TypeClass.g_type_class_ref (gtype), true);
+            // type registration has not been completed here, so have to get the
+            // object class the hard way
+            var objClass = new ObjectClass (new ObjectClass.SafeObjectClassHandle (gtype));
             var typeInfo = type.GetTypeInfo ();
 
             foreach (var pspec in objClass.ListProperties ()) {
@@ -887,7 +888,7 @@ namespace GISharp.GObject
                         throw new ArgumentException (message, nameof (type));
                     }
                     var parentGType = typeInfo.BaseType.GetGType ();
-                    var parentTypeclass = TypeClass.Ref (parentGType);
+                    var parentTypeclass = TypeClass.Get (parentGType);
                     var parentTypeInfo = parentTypeclass.GetTypeInfo (type);
 
                     TypeFlags flags = default(TypeFlags);

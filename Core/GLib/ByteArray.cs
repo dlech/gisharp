@@ -13,7 +13,78 @@ namespace GISharp.GLib
     [GType ("GByteArray", IsWrappedNativeType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
-        readonly bool ownsElements;
+        public sealed class SafeByteArrayHandle : SafeHandleZeroIsInvalid
+        {
+            readonly bool ownsElements;
+
+            struct ByteArrayStruct
+            {
+                #pragma warning disable CS0649
+                public IntPtr Data;
+                public uint Len;
+                #pragma warning restore CS0649
+            }
+
+            public IntPtr Data {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.ReadIntPtr (handle);
+                    return ret;
+                }
+            }
+
+            public uint Len {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.PtrToStructure<uint> (handle + IntPtr.Size);
+                    return ret;
+                }
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_byte_array_ref (IntPtr array);
+
+            public SafeByteArrayHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    g_byte_array_ref (handle);
+                }
+                SetHandle (handle);
+                if (ownership == Transfer.Full) {
+                    ownsElements = true;
+                }
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_byte_array_free (IntPtr array, bool freeSegment);
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_byte_array_unref (IntPtr array);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    if (ownsElements) {
+                        g_byte_array_free (handle, true);
+                    } else {
+                        g_byte_array_unref (handle);
+                    }
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafeByteArrayHandle Handle {
+            get {
+                return (SafeByteArrayHandle)base.Handle;
+            }
+        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_byte_array_get_type ();
@@ -23,24 +94,14 @@ namespace GISharp.GLib
             return g_byte_array_get_type ();
         }
 
-        public ByteArray (IntPtr handle, Transfer ownership)
+        public ByteArray (SafeByteArrayHandle handle) : base (handle)
         {
-            if (handle == IntPtr.Zero) {
-                throw new NotSupportedException ();
-            }
-            Handle = handle;
-            if (ownership == Transfer.None) {
-                Ref ();
-            }
-            if (ownership == Transfer.Full) {
-                ownsElements = true;
-            }
         }
 
         /// <summary>
         /// Creates a new <see cref="ByteArray"/>.
         /// </summary>
-        public ByteArray () : this (New (), Transfer.Full)
+        public ByteArray () : this (New ())
         {
         }
 
@@ -51,7 +112,7 @@ namespace GISharp.GLib
         /// byte data for the array
         /// </param>
         [Since("2.32")]
-        public ByteArray (byte[] data) : this (NewTake (data), Transfer.Full)
+        public ByteArray (byte[] data) : this (NewTake (data))
         {
         }
 
@@ -63,7 +124,7 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
+        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize))
         {
         }
 
@@ -76,10 +137,11 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_new();
 
-        static IntPtr New ()
+        static SafeByteArrayHandle New ()
         {
-            var retPtr = g_byte_array_new ();
-            return retPtr;
+            var ret_ = g_byte_array_new ();
+            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -97,19 +159,20 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
-        static extern IntPtr g_byte_array_new_take(
+        static extern IntPtr g_byte_array_new_take (
             IntPtr data,
             ulong len);
 
-        static IntPtr NewTake (byte[] data)
+        static SafeByteArrayHandle NewTake (byte[] data)
         {
             if (data == null) {
                 throw new ArgumentNullException (nameof (data));
             }
             var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
-            var retPtr = g_byte_array_new_take (dataPtr, (ulong)data.Length);
-            return retPtr;
+            var ret_ = g_byte_array_new_take (dataPtr, (ulong)data.Length);
+            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -125,13 +188,14 @@ namespace GISharp.GLib
         /// a new #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_sized_new(
+        static extern IntPtr g_byte_array_sized_new (
             uint reservedSize);
 
-        static IntPtr SizedNew (uint reservedSize)
+        static SafeByteArrayHandle SizedNew (uint reservedSize)
         {
-            var retPtr = g_byte_array_sized_new (reservedSize);
-            return retPtr;
+            var ret_ = g_byte_array_sized_new (reservedSize);
+            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -151,8 +215,8 @@ namespace GISharp.GLib
         /// the #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_append(
-            IntPtr array,
+        static extern IntPtr g_byte_array_append (
+            SafeByteArrayHandle array,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
             uint len);
 
@@ -182,27 +246,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Frees the memory allocated by the #GByteArray. If @freeSegment is
-        /// %TRUE it frees the actual byte data. If the reference count of
-        /// @array is greater than one, the #GByteArray wrapper is preserved but
-        /// the size of @array will be set to zero.
-        /// </summary>
-        /// <param name="array">
-        /// a #GByteArray
-        /// </param>
-        /// <param name="freeSegment">
-        /// if %TRUE the actual byte data is freed as well
-        /// </param>
-        /// <returns>
-        /// the element data if @freeSegment is %FALSE, otherwise
-        ///          %NULL.  The element data should be freed using g_free().
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_free (
-            IntPtr array,
-            bool freeSegment);
-
-        /// <summary>
         /// Removes all items from the array.
         /// </summary>
         public void Clear ()
@@ -230,29 +273,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
-        static extern IntPtr g_byte_array_free_to_bytes(
-            IntPtr array);
-
-        /// <summary>
-        /// Transfers the data from the <see cref="ByteArray"/> into a new
-        /// immutable <see cref="Bytes"/>.
-        /// </summary>
-        /// <remarks>
-        /// This clears the <see cref="ByteArray"/>.
-        /// </remarks>
-        /// <returns>
-        /// a new immutable <see cref="Bytes"/> representing same
-        /// byte data that was in the array
-        /// </returns>
-        [Since("2.32")]
-        public Bytes ToBytes ()
-        {
-            AssertNotDisposed ();
-            Ref ();
-            var ret_ = g_byte_array_free_to_bytes (Handle);
-            var ret = GetInstance<Bytes> (ret_, Transfer.Full);
-            return ret;
-        }
+        static extern Bytes.SafeBytesHandle g_byte_array_free_to_bytes (
+            SafeByteArrayHandle array);
 
         /// <summary>
         /// Adds the given data to the start of the #GByteArray.
@@ -271,8 +293,8 @@ namespace GISharp.GLib
         /// the #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_prepend(
-            IntPtr array,
+        static extern IntPtr g_byte_array_prepend (
+            SafeByteArrayHandle array,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
             uint len);
 
@@ -313,32 +335,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Atomically increments the reference count of @array by one.
-        /// This function is thread-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// A #GByteArray
-        /// </param>
-        /// <returns>
-        /// The passed in #GByteArray
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        static extern IntPtr g_byte_array_ref(
-            IntPtr array);
-
-        /// <summary>
-        /// Atomically increments the reference count of this array by one.
-        /// This function is thread-safe and may be called from any thread.
-        /// </summary>
-        [Since("2.22")]
-        public void Ref ()
-        {
-            AssertNotDisposed ();
-            g_byte_array_ref (Handle);
-        }
-
-        /// <summary>
         /// Removes the byte at the given index from a #GByteArray.
         /// The following bytes are moved down one place.
         /// </summary>
@@ -352,8 +348,8 @@ namespace GISharp.GLib
         /// the #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_remove_index(
-            IntPtr array,
+        static extern IntPtr g_byte_array_remove_index (
+            SafeByteArrayHandle array,
             uint index);
 
         /// <summary>
@@ -386,8 +382,8 @@ namespace GISharp.GLib
         /// the #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_remove_index_fast(
-            IntPtr array,
+        static extern IntPtr g_byte_array_remove_index_fast (
+            SafeByteArrayHandle array,
             uint index);
 
         /// <summary>
@@ -424,8 +420,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
-        static extern IntPtr g_byte_array_remove_range(
-            IntPtr array,
+        static extern IntPtr g_byte_array_remove_range (
+            SafeByteArrayHandle array,
             uint index,
             uint length);
 
@@ -480,8 +476,8 @@ namespace GISharp.GLib
         /// the #GByteArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_set_size(
-            IntPtr array,
+        static extern IntPtr g_byte_array_set_size (
+            SafeByteArrayHandle array,
             uint length);
 
         /// <summary>
@@ -519,8 +515,8 @@ namespace GISharp.GLib
         /// comparison function
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_byte_array_sort(
-            IntPtr array,
+        static extern void g_byte_array_sort (
+            SafeByteArrayHandle array,
             NativeCompareFunc compareFunc);
 
         /// <summary>
@@ -556,59 +552,12 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Atomically decrements the reference count of @array by one. If the
-        /// reference count drops to 0, all memory allocated by the array is
-        /// released. This function is thread-safe and may be called from any
-        /// thread.
-        /// </summary>
-        /// <param name="array">
-        /// A #GByteArray
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        static extern void g_byte_array_unref(
-            IntPtr array);
-
-        /// <summary>
-        /// Atomically decrements the reference count of @array by one. If the
-        /// reference count drops to 0, all memory allocated by the array is
-        /// released. This function is thread-safe and may be called from any
-        /// thread.
-        /// </summary>
-        [Since("2.22")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            g_byte_array_unref (Handle);
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (Handle != IntPtr.Zero) {
-                if (ownsElements) {
-                    g_byte_array_free (Handle, true);
-                } else {
-                    g_byte_array_unref (Handle);
-                }
-                Handle = IntPtr.Zero;
-            }
-            base.Dispose (disposing);
-        }
-
-        IntPtr Data {
-            get {
-                return Marshal.ReadIntPtr (Handle);
-            }
-        }
-
-        /// <summary>
         /// Gets the number of elements in the <see cref="ByteArray"/>.
         /// </summary>
         /// <value>The count.</value>
         public int Count {
             get {
-                AssertNotDisposed ();
-                return Marshal.ReadInt32 (Handle, IntPtr.Size);
+                return (int)Handle.Len;
             }
         }
 
@@ -631,12 +580,12 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 AssertIndexInRange (index);
-                return Marshal.ReadByte (Data, index);
+                return Marshal.ReadByte (Handle.Data, index);
             }
             set {
                 AssertNotDisposed ();
                 AssertIndexInRange (index);
-                Marshal.WriteByte (Data, index, value);
+                Marshal.WriteByte (Handle.Data, index, value);
             }
         }
 

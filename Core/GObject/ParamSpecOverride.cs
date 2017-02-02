@@ -15,14 +15,28 @@ namespace GISharp.GObject
     /// </summary>
     [Since ("2.4")]
     [GType ("GParamOverride", IsWrappedNativeType = true)]
-    sealed class ParamSpecOverride : ParamSpec
+    public sealed class ParamSpecOverride : ParamSpec
     {
-        struct ParamSpecOverrideStruct
+        public sealed class SafeParamSpecOverrideHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public IntPtr Overridden;
-            #pragma warning restore CS0649
+            struct ParamSpecOverride
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public IntPtr Overridden;
+                #pragma warning restore CS0649
+            }
+
+            public SafeParamSpecOverrideHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecOverrideHandle Handle {
+            get {
+                return (SafeParamSpecOverrideHandle)base.Handle;
+            }
         }
 
         static GType getGType ()
@@ -30,8 +44,7 @@ namespace GISharp.GObject
             return paramSpecTypes[20];
         }
 
-        public ParamSpecOverride (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public ParamSpecOverride (SafeParamSpecOverrideHandle handle) : base (handle)
         {
         }
     }

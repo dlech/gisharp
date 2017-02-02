@@ -13,516 +13,73 @@ namespace GISharp.GLib
     /// following functions.
     /// </summary>
     [GType ("GHashTable", IsWrappedNativeType = true)]
-    public sealed class HashTable<TKey, TValue> : Opaque
-        where TKey : Opaque
-        where TValue : Opaque
+    public abstract class HashTable : Opaque
     {
-        readonly bool ownsElements;
+        protected readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
+        protected readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
 
-        /// <summary>
-        /// Retrieves every key inside this HashTable. The returned data is valid
-        /// until changes to the hash release those keys.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="List{T}"/> containing all the keys inside the hash table.
-        /// </returns>
-        [Since ("2.14")]
-        public List<TKey> Keys {
-            get {
-                AssertNotDisposed ();
-                var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
-                // FIXME: thsoh should be Transfer.Container, but List does not support it yet
-                var ret = GetInstance<List<TKey>> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        /// <summary>
-        /// Retrieves every value inside this HashTable. The returned data
-        /// is valid until this HashTable is modified.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="List{T}"/> containing all the values inside the hash
-        ///     table. The content of the list is owned by the hash table and
-        ///     should not be modified or freed. Use g_list_free() when done
-        ///     using the list.
-        /// </returns>
-        [Since ("2.14")]
-        public List<TValue> Values {
-            get {
-                AssertNotDisposed ();
-                var retPtr = HashTableInternal.g_hash_table_get_keys (Handle);
-                var ret = GetInstance<List<TValue>> (retPtr, Transfer.None);
-                return ret;
-            }
-        }
-
-        public HashTable (IntPtr handle, Transfer ownership)
+        public sealed class SafeHashTableHandle : SafeHandleZeroIsInvalid
         {
-            if (handle == IntPtr.Zero) {
-                throw new NotSupportedException ();
-            }
-            if (ownership == Transfer.None) {
-                HashTableInternal.g_hash_table_ref (handle);
-            }
-            if (ownership == Transfer.Full) {
-                ownsElements = true;
-            }
-            Handle = handle;
-        }
+            readonly bool ownsElements;
 
-        static IntPtr NewDirect ()
-        {
-            return HashTableInternal.g_hash_table_new (
-                HashTableInternal.g_direct_hash,
-                HashTableInternal.g_direct_equal);
-        }
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_hash_table_ref (IntPtr hashTable);
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="T:GISharp.GLib.HashTable`2"/> class.
-        /// This instance does not maintain a reference to keys or values!
-        /// </summary>
-        public HashTable () : this (NewDirect (), Transfer.Container)
-        {
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (Handle != IntPtr.Zero) {
-                if (ownsElements) {
-                    HashTableInternal.g_hash_table_destroy (Handle);
-                } else {
-                    HashTableInternal.g_hash_table_unref (Handle);
+            public SafeHashTableHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    g_hash_table_ref (handle);
+                }
+                SetHandle (handle);
+                if (ownership == Transfer.Full) {
+                    ownsElements = true;
                 }
             }
-            base.Dispose (disposing);
-        }
 
-        /// <summary>
-        /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
-        /// is equivalent to calling <see cref="Replace"/> with <paramref name="key"/> as both the
-        /// key and the value.
-        /// </summary>
-        /// <remarks>
-        /// When a hash table only ever contains keys that have themselves as the
-        /// corresponding value it is able to be stored more efficiently.  See
-        /// the discussion in the section description.
-        /// </remarks>
-        /// <param name="key">
-        /// a key to insert
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key did not exist yet
-        /// </returns>
-        [Since ("2.32")]
-        public bool TryAdd (TKey key)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = HashTableInternal.g_hash_table_add (Handle, keyPtr);
-            return ret;
-        }
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_hash_table_destroy (IntPtr hashTable);
 
-        /// <summary>
-        /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
-        /// is equivalent to calling <see cref="Replace"/> with <paramref name="key"/> as both the
-        /// key and the value.
-        /// </summary>
-        /// <remarks>
-        /// When a hash table only ever contains keys that have themselves as the
-        /// corresponding value it is able to be stored more efficiently.  See
-        /// the discussion in the section description.
-        /// </remarks>
-        /// <param name="key">
-        /// a key to insert
-        /// </param>
-        public void Add (TKey key)
-        {
-            if (!TryAdd (key)) {
-                throw new ArgumentException ("key already exists");
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_hash_table_unref (IntPtr hashTable);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    if (ownsElements) {
+                        g_hash_table_destroy (handle);
+                    } else {
+                        g_hash_table_unref (handle);
+                    }
+                    return true;
+                } catch {
+                    return false;
+                }
             }
         }
 
-        /// <summary>
-        /// Checks if <paramref name="key"/> is in this HashTable.
-        /// </summary>
-        /// <param name="key">
-        /// a key to check
-        /// </param>
-        [Since ("2.32")]
-        public bool Contains (TKey key)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = HashTableInternal.g_hash_table_contains (Handle, keyPtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Calls the given function for key/value pairs in the <see cref="HashTable{K,V}"/>
-        /// until <paramref name="predicate"/> returns <c>true</c>. The function
-        /// is passed the key and value of each pair. The
-        /// hash table may not be modified while iterating over it (you can't
-        /// add/remove items).
-        /// </summary>
-        /// <remarks>
-        /// Note, that hash tables are really only optimized for forward
-        /// lookups, i.e. <see cref="Lookup(TKey)"/>. So code that frequently issues
-        /// <see cref="Find"/> or <see cref="Foreach"/> (e.g. in the order of
-        /// once per every entry in a hash table) should probably be reworked
-        /// to use additional or different data structures for reverse lookups
-        /// (keep in mind that an O(n) find/foreach operation issued for all n
-        /// values in a hash table ends up needing O(n*n) operations).
-        /// </remarks>
-        /// <param name="predicate">
-        /// function to test the key/value pairs for a certain property
-        /// </param>
-        /// <returns>
-        /// The value of the first key/value pair is returned,
-        /// for which <paramref name="predicate"/> evaluates to <c>true</c>.
-        /// If no pair with the
-        /// requested property is found, <c>null</c> is returned.
-        /// </returns>
-        [Since ("2.4")]
-        public TValue Find (Predicate<KeyValuePair<TKey, TValue>> predicate)
-        {
-            AssertNotDisposed ();
-            if (predicate == null) {
-                throw new ArgumentNullException (nameof (predicate));
-            }
-            NativeHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
-                var predicateKey = GetInstance<TKey> (predicateKeyPtr, Transfer.None);
-                var predicateValue = GetInstance<TValue> (predicateValuePtr, Transfer.None);
-                var predicateRet = predicate (new KeyValuePair<TKey, TValue> (predicateKey, predicateValue));
-                return predicateRet;
-            };
-            var retPtr = HashTableInternal.g_hash_table_find (Handle, predicate_, IntPtr.Zero);
-            GC.KeepAlive (predicate_);
-            var ret = GetInstance<TValue> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Calls the given function for each of the key/value pairs in the
-        /// <see cref="HashTable{K,V}"/>.  The function is passed the key and
-        /// value of each pair.  The hash table may not
-        /// be modified while iterating over it (you can't add/remove
-        /// items). To remove all items matching a predicate, use
-        /// <see cref="ForeachRemove"/>.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="Find"/> for performance caveats for linear
-        /// order searches in contrast to <see cref="Lookup(TKey)"/>.
-        /// </remarks>
-        /// <param name="func">
-        /// the function to call for each key/value pair
-        /// </param>
-        public void Foreach (Action<TKey, TValue> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
-            NativeHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
-                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
-                func (funcKey, funcValue);
-            };
-            HashTableInternal.g_hash_table_foreach (Handle, func_, IntPtr.Zero);
-            GC.KeepAlive (func_);
-        }
-
-        /// <summary>
-        /// Calls the given function for each key/value pair in the
-        /// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
-        /// pair is removed from the <see cref="HashTable{K,V}"/>. If you supplied key or
-        /// value destroy functions when creating the <see cref="HashTable{K,V}"/>, they are
-        /// used to free the memory allocated for the removed keys and values.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
-        /// key/value pairs in the hash table.
-        /// </remarks>
-        /// <param name="func">
-        /// the function to call for each key/value pair
-        /// </param>
-        /// <returns>
-        /// the number of key/value pairs removed
-        /// </returns>
-        public int ForeachRemove (Predicate<KeyValuePair<TKey, TValue>> func)
-        {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
-            NativeHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
-                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
-                var funcRet = func (new KeyValuePair<TKey, TValue> (funcKey, funcValue));
-                return funcRet;
-            };
-            var ret = HashTableInternal.g_hash_table_foreach_remove (Handle, func_, IntPtr.Zero);
-            return (int)ret;
-        }
-
-        /// <summary>
-        /// Calls the given function for each key/value pair in the
-        /// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
-        /// pair is removed from the <see cref="HashTable{K,V}"/>, but no key or value
-        /// destroy functions are called.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
-        /// key/value pairs in the hash table.
-        /// </remarks>
-        /// <param name="func">
-        /// the function to call for each key/value pair
-        /// </param>
-        /// <returns>
-        /// the number of key/value pairs removed.
-        /// </returns>
-        //public UInt32 ForeachSteal (HRFunc<TKey,TValue> func)
-        //{
-        //    AssertNotDisposed ();
-        //    if (func == null) {
-        //        throw new ArgumentNullException ("func");
-        //    }
-        //    NativeHRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
-        //        var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
-        //        var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
-        //        var funcRet = func.Invoke (funcKey, funcValue);
-        //        return funcRet;
-        //    };
-        //    var ret = HashTableInternal.g_hash_table_foreach_steal (Handle, funcNative, IntPtr.Zero);
-        //    return ret;
-        //}
-
-        /// <summary>
-        /// Inserts a new key and value into a <see cref="HashTable{K,V}"/>.
-        /// </summary>
-        /// <remarks>
-        /// If the key already exists in the <see cref="HashTable{K,V}"/> its current
-        /// value is replaced with the new value.
-        /// </remarks>
-        /// <param name="key">
-        /// a key to insert
-        /// </param>
-        /// <param name="value">
-        /// the value to associate with the key
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key did not exist yet
-        /// </returns>
-        public bool Insert (TKey key, TValue value)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var valuePtr = value == null ? IntPtr.Zero : value.Handle;
-            var ret = HashTableInternal.g_hash_table_insert (Handle, keyPtr, valuePtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Looks up a key in a <see cref="HashTable{K,V}"/>. Note that this function cannot
-        /// distinguish between a key that is not present and one which is present
-        /// and has the value <c>null</c>. If you need this distinction, use
-        /// <see cref="Lookup(TKey,out TKey,out TValue)"/>.
-        /// </summary>
-        /// <param name="key">
-        /// the key to look up
-        /// </param>
-        /// <returns>
-        /// the associated value, or <c>null</c> if the key is not found
-        /// </returns>
-        public TValue Lookup (TKey key)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var retPtr = HashTableInternal.g_hash_table_lookup (Handle, keyPtr);
-            var ret = GetInstance<TValue> (retPtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Looks up a key in the <see cref="HashTable{K,V}"/>, returning the original key and the
-        /// associated value and a <see cref="bool"/> which is <c>true</c> if the key was found. This
-        /// is useful if you need to free the memory allocated for the original key,
-        /// for example before calling <see cref="Remove"/>.
-        /// </summary>
-        /// <remarks>
-        /// You can actually pass <c>null</c> for <paramref name="lookupKey"/> to test
-        /// whether the <c>null</c> key exists, provided the hash and equal functions
-        /// of this HashTable are <c>null</c>-safe.
-        /// </remarks>
-        /// <param name="lookupKey">
-        /// the key to look up
-        /// </param>
-        /// <param name="origKey">
-        /// return location for the original key
-        /// </param>
-        /// <param name="value">
-        /// return location for the value associated with the key
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key was found in the <see cref="HashTable{K,V}"/>
-        /// </returns>
-        public bool Lookup (TKey lookupKey, out TKey origKey, out TValue value)
-        {
-            AssertNotDisposed ();
-            var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle;
-            IntPtr origKeyPtr, valuePtr;
-            var ret = HashTableInternal.g_hash_table_lookup_extended (Handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
-            origKey = GetInstance<TKey> (origKeyPtr, Transfer.None);
-            value = GetInstance<TValue> (valuePtr, Transfer.None);
-            return ret;
-        }
-
-        /// <summary>
-        /// Atomically increments the reference count of this HashTable by one.
-        /// This function is MT-safe and may be called from any thread.
-        /// </summary>
-        /// <returns>
-        /// the passed in <see cref="HashTable{K,V}"/>
-        /// </returns>
-        [Since ("2.10")]
-        public void Ref ()
-        {
-            AssertNotDisposed ();
-            HashTableInternal.g_hash_table_ref (Handle);
-        }
-
-        /// <summary>
-        /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>.
-        /// </summary>
-        /// <param name="key">
-        /// the key to remove
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
-        /// </returns>
-        public bool Remove (TKey key)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = HashTableInternal.g_hash_table_remove (Handle, keyPtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>.
-        /// </summary>
-        [Since ("2.12")]
-        public void RemoveAll ()
-        {
-            AssertNotDisposed ();
-            HashTableInternal.g_hash_table_remove_all (Handle);
-        }
-
-        /// <summary>
-        /// Inserts a new key and value into a <see cref="HashTable{K,V}"/> similar to
-        /// g_hash_table_insert(). The difference is that if the key
-        /// already exists in the <see cref="HashTable{K,V}"/>, it gets replaced by the
-        /// new key. If you supplied a @value_destroy_func when creating
-        /// the <see cref="HashTable{K,V}"/>, the old value is freed using that function.
-        /// If you supplied a @key_destroy_func when creating the
-        /// <see cref="HashTable{K,V}"/>, the old key is freed using that function.
-        /// </summary>
-        /// <param name="key">
-        /// a key to insert
-        /// </param>
-        /// <param name="value">
-        /// the value to associate with the key
-        /// </param>
-        /// <returns>
-        /// <c>true</c> of the key did not exist yet
-        /// </returns>
-        public bool Replace (TKey key, TValue value)
-        {
-            AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var valuePtr = value == null ? IntPtr.Zero : value.Handle;
-            var ret = HashTableInternal.g_hash_table_replace (Handle, keyPtr, valuePtr);
-            return ret;
-        }
-
-        /// <summary>
-        /// Returns the number of elements contained in the <see cref="HashTable{K,V}"/>.
-        /// </summary>
-        /// <returns>
-        /// the number of key/value pairs in the <see cref="HashTable{K,V}"/>.
-        /// </returns>
-        public int Size {
+        public new SafeHashTableHandle Handle {
             get {
-                AssertNotDisposed ();
-                var ret = HashTableInternal.g_hash_table_size (Handle);
-                return (int)ret;
+                return (SafeHashTableHandle)base.Handle;
             }
         }
 
-        /// <summary>
-        /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>  without
-        /// calling the key and value destroy functions.
-        /// </summary>
-        /// <param name="key">
-        /// the key to remove
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
-        /// </returns>
-        //public Boolean Steal (TKey key)
-        //{
-        //    AssertNotDisposed ();
-        //    var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-        //    var ret = HashTableInternal.g_hash_table_steal (Handle, keyPtr);
-        //    return ret;
-        //}
-
-        /// <summary>
-        /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>
-        /// without calling the key and value destroy functions.
-        /// </summary>
-        //[Since("2.12")]
-        //public void StealAll ()
-        //{
-        //    AssertNotDisposed ();
-        //    HashTableInternal.g_hash_table_steal_all (Handle);
-        //}
-
-        /// <summary>
-        /// Atomically decrements the reference count of this HashTable by one.
-        /// If the reference count drops to 0, all keys and values will be
-        /// destroyed, and all memory allocated by the hash table is released.
-        /// This function is MT-safe and may be called from any thread.
-        /// </summary>
-        [Since ("2.10")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            HashTableInternal.g_hash_table_unref (Handle);
-        }
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern GType g_hash_table_get_type ();
 
         static GType getGType ()
         {
-            return HashTableInternal.g_hash_table_get_type ();
+            return g_hash_table_get_type ();
         }
-    }
 
-    /// <summary>
-    /// PInvoke declarations can't be in a generic class
-    /// </summary>
-    static class HashTableInternal
-    {
-        internal readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
-        internal readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
-
-        static HashTableInternal ()
+        static HashTable ()
         {
             HashFuncTable = new ConditionalWeakTable<Delegate, NativeHashFunc> ();
             KeyEqualFuncTable = new ConditionalWeakTable<Delegate, NativeEqualFunc> ();
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern GType g_hash_table_get_type ();
+        protected HashTable (SafeHashTableHandle handle) : base (handle)
+        {
+        }
 
         /// <summary>
         /// Creates a new #GHashTable with a reference count of 1.
@@ -551,9 +108,9 @@ namespace GISharp.GLib
         /// a new #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_hash_table_new (
-            [In] NativeHashFunc hashFunc,
-            [In] NativeEqualFunc keyEqualFunc);
+        protected static extern IntPtr g_hash_table_new (
+            NativeHashFunc hashFunc,
+            NativeEqualFunc keyEqualFunc);
 
         /// <summary>
         /// Creates a new #GHashTable like g_hash_table_new() with a reference
@@ -581,229 +138,11 @@ namespace GISharp.GLib
         /// a new #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_hash_table_new_full (
-            [In] NativeHashFunc hashFunc,
-            [In] NativeEqualFunc keyEqualFunc,
-            [In] NativeDestroyNotify keyDestroyFunc,
-            [In] NativeDestroyNotify valueDestroyFunc);
-
-        /// <summary>
-        /// Compares two #gpointer arguments and returns %TRUE if they are equal.
-        /// It can be passed to g_hash_table_new() as the @key_equal_func
-        /// parameter, when using opaque pointers compared by pointer value as
-        /// keys in a #GHashTable.
-        /// </summary>
-        /// <remarks>
-        /// This equality function is also appropriate for keys that are integers
-        /// stored in pointers, such as `GINT_TO_POINTER (n)`.
-        /// </remarks>
-        /// <param name="v1">
-        /// a key
-        /// </param>
-        /// <param name="v2">
-        /// a key to compare with <paramref name="v1"/>
-        /// </param>
-        /// <returns>
-        /// %TRUE if the two keys match.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_direct_equal (
-            [In] IntPtr v1,
-            [In] IntPtr v2);
-
-        /// <summary>
-        /// Converts a gpointer to a hash value.
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// when using opaque pointers compared by pointer value as keys in a
-        /// #GHashTable.
-        /// </summary>
-        /// <remarks>
-        /// This hash function is also appropriate for keys that are integers
-        /// stored in pointers, such as `GINT_TO_POINTER (n)`.
-        /// </remarks>
-        /// <param name="v">
-        /// a #gpointer key
-        /// </param>
-        /// <returns>
-        /// a hash value corresponding to the key.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_direct_hash (
-            [In] IntPtr v);
-
-        /// <summary>
-        /// Compares the two #gdouble values being pointed to and returns
-        /// %TRUE if they are equal.
-        /// It can be passed to g_hash_table_new() as the @key_equal_func
-        /// parameter, when using non-%NULL pointers to doubles as keys in a
-        /// #GHashTable.
-        /// </summary>
-        /// <param name="v1">
-        /// a pointer to a #gdouble key
-        /// </param>
-        /// <param name="v2">
-        /// a pointer to a #gdouble key to compare with <paramref name="v1"/>
-        /// </param>
-        /// <returns>
-        /// %TRUE if the two keys match.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern Boolean g_double_equal (
-            [In] IntPtr v1,
-            [In] IntPtr v2);
-
-        /// <summary>
-        /// Converts a pointer to a #gdouble to a hash value.
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// when using non-%NULL pointers to doubles as keys in a #GHashTable.
-        /// </summary>
-        /// <param name="v">
-        /// a pointer to a #gdouble key
-        /// </param>
-        /// <returns>
-        /// a hash value corresponding to the key.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern UInt32 g_double_hash (
-            [In] IntPtr v);
-
-        /// <summary>
-        /// Compares the two #gint values being pointed to and returns
-        /// %TRUE if they are equal.
-        /// It can be passed to g_hash_table_new() as the @key_equal_func
-        /// parameter, when using non-%NULL pointers to integers as keys in a
-        /// #GHashTable.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function acts on pointers to #gint, not on #gint
-        /// directly: if your hash table's keys are of the form
-        /// `GINT_TO_POINTER (n)`, use g_direct_equal() instead.
-        /// </remarks>
-        /// <param name="v1">
-        /// a pointer to a #gint key
-        /// </param>
-        /// <param name="v2">
-        /// a pointer to a #gint key to compare with <paramref name="v1"/>
-        /// </param>
-        /// <returns>
-        /// %TRUE if the two keys match.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_int_equal (
-            [In] IntPtr v1,
-            [In] IntPtr v2);
-
-        /// <summary>
-        /// Converts a pointer to a #gint to a hash value.
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// when using non-%NULL pointers to integer values as keys in a #GHashTable.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function acts on pointers to #gint, not on #gint
-        /// directly: if your hash table's keys are of the form
-        /// `GINT_TO_POINTER (n)`, use g_direct_hash() instead.
-        /// </remarks>
-        /// <param name="v">
-        /// a pointer to a #gint key
-        /// </param>
-        /// <returns>
-        /// a hash value corresponding to the key.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_int_hash (
-            [In] IntPtr v);
-
-        /// <summary>
-        /// Compares the two #gint64 values being pointed to and returns
-        /// %TRUE if they are equal.
-        /// It can be passed to g_hash_table_new() as the @key_equal_func
-        /// parameter, when using non-%NULL pointers to 64-bit integers as keys in a
-        /// #GHashTable.
-        /// </summary>
-        /// <param name="v1">
-        /// a pointer to a #gint64 key
-        /// </param>
-        /// <param name="v2">
-        /// a pointer to a #gint64 key to compare with <paramref name="v1"/>
-        /// </param>
-        /// <returns>
-        /// %TRUE if the two keys match.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern Boolean g_int64_equal (
-            [In] IntPtr v1,
-            [In] IntPtr v2);
-
-        /// <summary>
-        /// Converts a pointer to a #gint64 to a hash value.
-        /// </summary>
-        /// <remarks>
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// when using non-%NULL pointers to 64-bit integer values as keys in a
-        /// #GHashTable.
-        /// </remarks>
-        /// <param name="v">
-        /// a pointer to a #gint64 key
-        /// </param>
-        /// <returns>
-        /// a hash value corresponding to the key.
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern UInt32 g_int64_hash (
-            [In] IntPtr v);
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality and returns %TRUE
-        /// if they are equal. It can be passed to g_hash_table_new() as the
-        /// @key_equal_func parameter, when using non-%NULL strings as keys in a
-        /// #GHashTable.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function is primarily meant as a hash table comparison
-        /// function. For a general-purpose, %NULL-safe string comparison function,
-        /// see g_strcmp0().
-        /// </remarks>
-        /// <param name="v1">
-        /// a key
-        /// </param>
-        /// <param name="v2">
-        /// a key to compare with <paramref name="v1"/>
-        /// </param>
-        /// <returns>
-        /// %TRUE if the two keys match
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_str_equal (
-            [In] IntPtr v1,
-            [In] IntPtr v2);
-
-        /// <summary>
-        /// Converts a string to a hash value.
-        /// </summary>
-        /// <remarks>
-        /// This function implements the widely used "djb" hash apparently
-        /// posted by Daniel Bernstein to comp.lang.c some time ago.  The 32
-        /// bit unsigned hash value starts at 5381 and for each byte 'c' in
-        /// the string, is updated: `hash = hash * 33 + c`. This function
-        /// uses the signed value of each byte.
-        /// 
-        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
-        /// when using non-%NULL strings as keys in a #GHashTable.
-        /// </remarks>
-        /// <param name="v">
-        /// a string key
-        /// </param>
-        /// <returns>
-        /// a hash value corresponding to the key
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_str_hash (
-            [In] IntPtr v);
+        protected static extern IntPtr g_hash_table_new_full (
+            NativeHashFunc hashFunc,
+            NativeEqualFunc keyEqualFunc,
+            NativeDestroyNotify keyDestroyFunc,
+            NativeDestroyNotify valueDestroyFunc);
 
         /// <summary>
         /// This is a convenience function for using a #GHashTable as a set.  It
@@ -826,9 +165,9 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.32")]
-        internal static extern Boolean g_hash_table_add (
-            [In] IntPtr hashTable,
-            [In] IntPtr key);
+        protected static extern bool g_hash_table_add (
+            SafeHashTableHandle hashTable,
+            IntPtr key);
 
         /// <summary>
         /// Checks if @key is in @hashTable.
@@ -841,24 +180,9 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.32")]
-        internal static extern Boolean g_hash_table_contains (
-            [In] IntPtr hashTable,
-            [In] IntPtr key);
-
-        /// <summary>
-        /// Destroys all keys and values in the #GHashTable and decrements its
-        /// reference count by 1. If keys and/or values are dynamically allocated,
-        /// you should either free them first or create the #GHashTable with destroy
-        /// notifiers using g_hash_table_new_full(). In the latter case the destroy
-        /// functions you supplied will be called on all keys and values during the
-        /// destruction phase.
-        /// </summary>
-        /// <param name="hashTable">
-        /// a #GHashTable
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_hash_table_destroy (
-            [In] IntPtr hashTable);
+        protected static extern Boolean g_hash_table_contains (
+            SafeHashTableHandle hashTable,
+            IntPtr key);
 
         /// <summary>
         /// Calls the given function for key/value pairs in the #GHashTable
@@ -892,10 +216,10 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.4")]
-        internal static extern IntPtr g_hash_table_find (
-            [In] IntPtr hashTable,
-            [In] NativeHRFunc predicate,
-            [In] IntPtr userData);
+        protected static extern IntPtr g_hash_table_find (
+            SafeHashTableHandle hashTable,
+            NativeHRFunc predicate,
+            IntPtr userData);
 
         /// <summary>
         /// Calls the given function for each of the key/value pairs in the
@@ -919,10 +243,10 @@ namespace GISharp.GLib
         /// user data to pass to the function
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_hash_table_foreach (
-            [In] IntPtr hashTable,
-            [In] NativeHFunc func,
-            [In] IntPtr userData);
+        protected static extern void g_hash_table_foreach (
+            SafeHashTableHandle hashTable,
+            NativeHFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Calls the given function for each key/value pair in the
@@ -948,10 +272,10 @@ namespace GISharp.GLib
         /// the number of key/value pairs removed
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_hash_table_foreach_remove (
-            [In] IntPtr hashTable,
-            [In] NativeHRFunc func,
-            [In] IntPtr userData);
+        protected static extern UInt32 g_hash_table_foreach_remove (
+            SafeHashTableHandle hashTable,
+            NativeHRFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Calls the given function for each key/value pair in the
@@ -976,10 +300,10 @@ namespace GISharp.GLib
         /// the number of key/value pairs removed.
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_hash_table_foreach_steal (
-            [In] IntPtr hashTable,
-            [In] NativeHRFunc func,
-            [In] IntPtr userData);
+        protected static extern UInt32 g_hash_table_foreach_steal (
+            SafeHashTableHandle hashTable,
+            NativeHRFunc func,
+            IntPtr userData);
 
         /// <summary>
         /// Retrieves every key inside @hashTable. The returned data is valid
@@ -996,8 +320,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.14")]
-        internal static extern IntPtr g_hash_table_get_keys (
-            [In] IntPtr hashTable);
+        protected static extern IntPtr g_hash_table_get_keys (
+            SafeHashTableHandle hashTable);
 
         /// <summary>
         /// Retrieves every key inside @hashTable, as an array.
@@ -1028,9 +352,9 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.40")]
         [return: MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)]
-        internal static extern IntPtr[] g_hash_table_get_keys_as_array (
-            [In] IntPtr hashTable,
-            [Out ()] out UInt32 length);
+        protected static extern IntPtr[] g_hash_table_get_keys_as_array (
+            SafeHashTableHandle hashTable,
+            out uint length);
 
         /// <summary>
         /// Retrieves every value inside @hashTable. The returned data
@@ -1047,8 +371,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.14")]
-        internal static extern IntPtr g_hash_table_get_values (
-            [In] IntPtr hashTable);
+        protected static extern IntPtr g_hash_table_get_values (
+            SafeHashTableHandle hashTable);
 
         /// <summary>
         /// Inserts a new key and value into a #GHashTable.
@@ -1074,10 +398,10 @@ namespace GISharp.GLib
         /// %TRUE if the key did not exist yet
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_hash_table_insert (
-            [In] IntPtr hashTable,
-            [In] IntPtr key,
-            [In] IntPtr value);
+        protected static extern Boolean g_hash_table_insert (
+            SafeHashTableHandle hashTable,
+            IntPtr key,
+            IntPtr value);
 
         /// <summary>
         /// Looks up a key in a #GHashTable. Note that this function cannot
@@ -1095,9 +419,9 @@ namespace GISharp.GLib
         /// the associated value, or %NULL if the key is not found
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_hash_table_lookup (
-            [In] IntPtr hashTable,
-            [In] IntPtr key);
+        protected static extern IntPtr g_hash_table_lookup (
+            SafeHashTableHandle hashTable,
+            IntPtr key);
 
         /// <summary>
         /// Looks up a key in the #GHashTable, returning the original key and the
@@ -1126,26 +450,11 @@ namespace GISharp.GLib
         /// %TRUE if the key was found in the #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_hash_table_lookup_extended (
-            [In] IntPtr hashTable,
-            [In] IntPtr lookupKey,
-            [Out] out IntPtr origKey,
-            [Out] out IntPtr value);
-
-        /// <summary>
-        /// Atomically increments the reference count of @hashTable by one.
-        /// This function is MT-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="hashTable">
-        /// a valid #GHashTable
-        /// </param>
-        /// <returns>
-        /// the passed in #GHashTable
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.10")]
-        internal static extern IntPtr g_hash_table_ref (
-            [In] IntPtr hashTable);
+        protected static extern Boolean g_hash_table_lookup_extended (
+            SafeHashTableHandle hashTable,
+            IntPtr lookupKey,
+            out IntPtr origKey,
+            out IntPtr value);
 
         /// <summary>
         /// Removes a key and its associated value from a #GHashTable.
@@ -1166,9 +475,9 @@ namespace GISharp.GLib
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_hash_table_remove (
-            [In] IntPtr hashTable,
-            [In] IntPtr key);
+        protected static extern Boolean g_hash_table_remove (
+            SafeHashTableHandle hashTable,
+            IntPtr key);
 
         /// <summary>
         /// Removes all keys and their associated values from a #GHashTable.
@@ -1184,8 +493,18 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.12")]
-        internal static extern void g_hash_table_remove_all (
-            [In] IntPtr hashTable);
+        protected static extern void g_hash_table_remove_all (
+            SafeHashTableHandle hashTable);
+
+        /// <summary>
+        /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>.
+        /// </summary>
+        [Since ("2.12")]
+        public void RemoveAll ()
+        {
+            AssertNotDisposed ();
+            g_hash_table_remove_all (Handle);
+        }
 
         /// <summary>
         /// Inserts a new key and value into a #GHashTable similar to
@@ -1209,10 +528,10 @@ namespace GISharp.GLib
         /// %TRUE of the key did not exist yet
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_hash_table_replace (
-            [In] IntPtr hashTable,
-            [In] IntPtr key,
-            [In] IntPtr value);
+        protected static extern Boolean g_hash_table_replace (
+            SafeHashTableHandle hashTable,
+            IntPtr key,
+            IntPtr value);
 
         /// <summary>
         /// Returns the number of elements contained in the #GHashTable.
@@ -1224,8 +543,22 @@ namespace GISharp.GLib
         /// the number of key/value pairs in the #GHashTable.
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern UInt32 g_hash_table_size (
-            [In] IntPtr hashTable);
+        protected static extern UInt32 g_hash_table_size (
+            SafeHashTableHandle hashTable);
+
+        /// <summary>
+        /// Returns the number of elements contained in the <see cref="HashTable{K,V}"/>.
+        /// </summary>
+        /// <returns>
+        /// the number of key/value pairs in the <see cref="HashTable{K,V}"/>.
+        /// </returns>
+        public int Size {
+            get {
+                AssertNotDisposed ();
+                var ret = g_hash_table_size (Handle);
+                return (int)ret;
+            }
+        }
 
         /// <summary>
         /// Removes a key and its associated value from a #GHashTable without
@@ -1241,9 +574,9 @@ namespace GISharp.GLib
         /// %TRUE if the key was found and removed from the #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern Boolean g_hash_table_steal (
-            [In] IntPtr hashTable,
-            [In] IntPtr key);
+        protected static extern Boolean g_hash_table_steal (
+            SafeHashTableHandle hashTable,
+            IntPtr key);
 
         /// <summary>
         /// Removes all keys and their associated values from a #GHashTable
@@ -1254,21 +587,640 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.12")]
-        internal static extern void g_hash_table_steal_all (
-            [In] IntPtr hashTable);
+        protected static extern void g_hash_table_steal_all (
+            SafeHashTableHandle hashTable);
 
         /// <summary>
-        /// Atomically decrements the reference count of @hashTable by one.
-        /// If the reference count drops to 0, all keys and values will be
-        /// destroyed, and all memory allocated by the hash table is released.
-        /// This function is MT-safe and may be called from any thread.
+        /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>
+        /// without calling the key and value destroy functions.
         /// </summary>
-        /// <param name="hashTable">
-        /// a valid #GHashTable
+        //[Since("2.12")]
+        //public void StealAll ()
+        //{
+        //    AssertNotDisposed ();
+        //    g_hash_table_steal_all (Handle);
+        //}
+
+        /// <summary>
+        /// Compares two #gpointer arguments and returns %TRUE if they are equal.
+        /// It can be passed to g_hash_table_new() as the @key_equal_func
+        /// parameter, when using opaque pointers compared by pointer value as
+        /// keys in a #GHashTable.
+        /// </summary>
+        /// <remarks>
+        /// This equality function is also appropriate for keys that are integers
+        /// stored in pointers, such as `GINT_TO_POINTER (n)`.
+        /// </remarks>
+        /// <param name="v1">
+        /// a key
         /// </param>
+        /// <param name="v2">
+        /// a key to compare with <paramref name="v1"/>
+        /// </param>
+        /// <returns>
+        /// %TRUE if the two keys match.
+        /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.10")]
-        internal static extern void g_hash_table_unref (
-            [In] IntPtr hashTable);
+        protected static extern Boolean g_direct_equal (
+            IntPtr v1,
+            IntPtr v2);
+
+        /// <summary>
+        /// Converts a gpointer to a hash value.
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// when using opaque pointers compared by pointer value as keys in a
+        /// #GHashTable.
+        /// </summary>
+        /// <remarks>
+        /// This hash function is also appropriate for keys that are integers
+        /// stored in pointers, such as `GINT_TO_POINTER (n)`.
+        /// </remarks>
+        /// <param name="v">
+        /// a #gpointer key
+        /// </param>
+        /// <returns>
+        /// a hash value corresponding to the key.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern UInt32 g_direct_hash (
+            IntPtr v);
+
+        /// <summary>
+        /// Compares the two #gdouble values being pointed to and returns
+        /// %TRUE if they are equal.
+        /// It can be passed to g_hash_table_new() as the @key_equal_func
+        /// parameter, when using non-%NULL pointers to doubles as keys in a
+        /// #GHashTable.
+        /// </summary>
+        /// <param name="v1">
+        /// a pointer to a #gdouble key
+        /// </param>
+        /// <param name="v2">
+        /// a pointer to a #gdouble key to compare with <paramref name="v1"/>
+        /// </param>
+        /// <returns>
+        /// %TRUE if the two keys match.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        protected static extern Boolean g_double_equal (
+            IntPtr v1,
+            IntPtr v2);
+
+        /// <summary>
+        /// Converts a pointer to a #gdouble to a hash value.
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// when using non-%NULL pointers to doubles as keys in a #GHashTable.
+        /// </summary>
+        /// <param name="v">
+        /// a pointer to a #gdouble key
+        /// </param>
+        /// <returns>
+        /// a hash value corresponding to the key.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        protected static extern UInt32 g_double_hash (
+            IntPtr v);
+
+        /// <summary>
+        /// Compares the two #gint values being pointed to and returns
+        /// %TRUE if they are equal.
+        /// It can be passed to g_hash_table_new() as the @key_equal_func
+        /// parameter, when using non-%NULL pointers to integers as keys in a
+        /// #GHashTable.
+        /// </summary>
+        /// <remarks>
+        /// Note that this function acts on pointers to #gint, not on #gint
+        /// directly: if your hash table's keys are of the form
+        /// `GINT_TO_POINTER (n)`, use g_direct_equal() instead.
+        /// </remarks>
+        /// <param name="v1">
+        /// a pointer to a #gint key
+        /// </param>
+        /// <param name="v2">
+        /// a pointer to a #gint key to compare with <paramref name="v1"/>
+        /// </param>
+        /// <returns>
+        /// %TRUE if the two keys match.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern Boolean g_int_equal (
+            IntPtr v1,
+            IntPtr v2);
+
+        /// <summary>
+        /// Converts a pointer to a #gint to a hash value.
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// when using non-%NULL pointers to integer values as keys in a #GHashTable.
+        /// </summary>
+        /// <remarks>
+        /// Note that this function acts on pointers to #gint, not on #gint
+        /// directly: if your hash table's keys are of the form
+        /// `GINT_TO_POINTER (n)`, use g_direct_hash() instead.
+        /// </remarks>
+        /// <param name="v">
+        /// a pointer to a #gint key
+        /// </param>
+        /// <returns>
+        /// a hash value corresponding to the key.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern UInt32 g_int_hash (
+            IntPtr v);
+
+        /// <summary>
+        /// Compares the two #gint64 values being pointed to and returns
+        /// %TRUE if they are equal.
+        /// It can be passed to g_hash_table_new() as the @key_equal_func
+        /// parameter, when using non-%NULL pointers to 64-bit integers as keys in a
+        /// #GHashTable.
+        /// </summary>
+        /// <param name="v1">
+        /// a pointer to a #gint64 key
+        /// </param>
+        /// <param name="v2">
+        /// a pointer to a #gint64 key to compare with <paramref name="v1"/>
+        /// </param>
+        /// <returns>
+        /// %TRUE if the two keys match.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        protected static extern Boolean g_int64_equal (
+            IntPtr v1,
+            IntPtr v2);
+
+        /// <summary>
+        /// Converts a pointer to a #gint64 to a hash value.
+        /// </summary>
+        /// <remarks>
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// when using non-%NULL pointers to 64-bit integer values as keys in a
+        /// #GHashTable.
+        /// </remarks>
+        /// <param name="v">
+        /// a pointer to a #gint64 key
+        /// </param>
+        /// <returns>
+        /// a hash value corresponding to the key.
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        protected static extern UInt32 g_int64_hash (
+            IntPtr v);
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns %TRUE
+        /// if they are equal. It can be passed to g_hash_table_new() as the
+        /// @key_equal_func parameter, when using non-%NULL strings as keys in a
+        /// #GHashTable.
+        /// </summary>
+        /// <remarks>
+        /// Note that this function is primarily meant as a hash table comparison
+        /// function. For a general-purpose, %NULL-safe string comparison function,
+        /// see g_strcmp0().
+        /// </remarks>
+        /// <param name="v1">
+        /// a key
+        /// </param>
+        /// <param name="v2">
+        /// a key to compare with <paramref name="v1"/>
+        /// </param>
+        /// <returns>
+        /// %TRUE if the two keys match
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern Boolean g_str_equal (
+            IntPtr v1,
+            IntPtr v2);
+
+        /// <summary>
+        /// Converts a string to a hash value.
+        /// </summary>
+        /// <remarks>
+        /// This function implements the widely used "djb" hash apparently
+        /// posted by Daniel Bernstein to comp.lang.c some time ago.  The 32
+        /// bit unsigned hash value starts at 5381 and for each byte 'c' in
+        /// the string, is updated: `hash = hash * 33 + c`. This function
+        /// uses the signed value of each byte.
+        /// 
+        /// It can be passed to g_hash_table_new() as the @hash_func parameter,
+        /// when using non-%NULL strings as keys in a #GHashTable.
+        /// </remarks>
+        /// <param name="v">
+        /// a string key
+        /// </param>
+        /// <returns>
+        /// a hash value corresponding to the key
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        protected static extern UInt32 g_str_hash (
+            IntPtr v);
+    }
+
+    public sealed class HashTable<TKey, TValue> : HashTable
+        where TKey : Opaque
+        where TValue : Opaque
+    {
+        public HashTable (SafeHashTableHandle handle) : base (handle)
+        {
+        }
+
+        static SafeHashTableHandle New ()
+        {
+            var ret_ = g_hash_table_new (g_direct_hash, g_direct_equal);
+            var ret = new SafeHashTableHandle (ret_, Transfer.Container);
+            return ret;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="T:GISharp.GLib.HashTable`2"/> class.
+        /// This instance does not maintain a reference to keys or values!
+        /// </summary>
+        public HashTable () : this (New ())
+        {
+        }
+
+        /// <summary>
+        /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
+        /// is equivalent to calling <see cref="Replace"/> with <paramref name="key"/> as both the
+        /// key and the value.
+        /// </summary>
+        /// <remarks>
+        /// When a hash table only ever contains keys that have themselves as the
+        /// corresponding value it is able to be stored more efficiently.  See
+        /// the discussion in the section description.
+        /// </remarks>
+        /// <param name="key">
+        /// a key to insert
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key did not exist yet
+        /// </returns>
+        [Since ("2.32")]
+        public bool TryAdd (TKey key)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var ret = g_hash_table_add (Handle, keyPtr);
+            return ret;
+        }
+
+        /// <summary>
+        /// This is a convenience function for using a <see cref="HashTable{K,V}"/> as a set.  It
+        /// is equivalent to calling <see cref="Replace"/> with <paramref name="key"/> as both the
+        /// key and the value.
+        /// </summary>
+        /// <remarks>
+        /// When a hash table only ever contains keys that have themselves as the
+        /// corresponding value it is able to be stored more efficiently.  See
+        /// the discussion in the section description.
+        /// </remarks>
+        /// <param name="key">
+        /// a key to insert
+        /// </param>
+        public void Add (TKey key)
+        {
+            if (!TryAdd (key)) {
+                throw new ArgumentException ("key already exists");
+            }
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="key"/> is in this HashTable.
+        /// </summary>
+        /// <param name="key">
+        /// a key to check
+        /// </param>
+        [Since ("2.32")]
+        public bool Contains (TKey key)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var ret = g_hash_table_contains (Handle, keyPtr);
+            return ret;
+        }
+
+        /// <summary>
+        /// Calls the given function for key/value pairs in the <see cref="HashTable`2"/>
+        /// until <paramref name="predicate"/> returns <c>true</c>. The function
+        /// is passed the key and value of each pair. The
+        /// hash table may not be modified while iterating over it (you can't
+        /// add/remove items).
+        /// </summary>
+        /// <remarks>
+        /// Note, that hash tables are really only optimized for forward
+        /// lookups, i.e. <see cref="Lookup'1"/>. So code that frequently issues
+        /// <see cref="Find"/> or <see cref="Foreach"/> (e.g. in the order of
+        /// once per every entry in a hash table) should probably be reworked
+        /// to use additional or different data structures for reverse lookups
+        /// (keep in mind that an O(n) find/foreach operation issued for all n
+        /// values in a hash table ends up needing O(n*n) operations).
+        /// </remarks>
+        /// <param name="predicate">
+        /// function to test the key/value pairs for a certain property
+        /// </param>
+        /// <returns>
+        /// The value of the first key/value pair is returned,
+        /// for which <paramref name="predicate"/> evaluates to <c>true</c>.
+        /// If no pair with the
+        /// requested property is found, <c>null</c> is returned.
+        /// </returns>
+        [Since ("2.4")]
+        public TValue Find (Predicate<KeyValuePair<TKey, TValue>> predicate)
+        {
+            AssertNotDisposed ();
+            if (predicate == null) {
+                throw new ArgumentNullException (nameof (predicate));
+            }
+            NativeHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
+                var predicateKey = GetInstance<TKey> (predicateKeyPtr, Transfer.None);
+                var predicateValue = GetInstance<TValue> (predicateValuePtr, Transfer.None);
+                var predicateRet = predicate (new KeyValuePair<TKey, TValue> (predicateKey, predicateValue));
+                return predicateRet;
+            };
+            var retPtr = g_hash_table_find (Handle, predicate_, IntPtr.Zero);
+            GC.KeepAlive (predicate_);
+            var ret = GetInstance<TValue> (retPtr, Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Calls the given function for each of the key/value pairs in the
+        /// <see cref="HashTable{K,V}"/>.  The function is passed the key and
+        /// value of each pair.  The hash table may not
+        /// be modified while iterating over it (you can't add/remove
+        /// items). To remove all items matching a predicate, use
+        /// <see cref="ForeachRemove"/>.
+        /// </summary>
+        /// <remarks>
+        /// See <see cref="Find"/> for performance caveats for linear
+        /// order searches in contrast to <see cref="Lookup(TKey)"/>.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call for each key/value pair
+        /// </param>
+        public void Foreach (Action<TKey, TValue> func)
+        {
+            AssertNotDisposed ();
+            if (func == null) {
+                throw new ArgumentNullException (nameof (func));
+            }
+            NativeHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
+                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
+                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
+                func (funcKey, funcValue);
+            };
+            g_hash_table_foreach (Handle, func_, IntPtr.Zero);
+            GC.KeepAlive (func_);
+        }
+
+        /// <summary>
+        /// Calls the given function for each key/value pair in the
+        /// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
+        /// pair is removed from the <see cref="HashTable{K,V}"/>. If you supplied key or
+        /// value destroy functions when creating the <see cref="HashTable{K,V}"/>, they are
+        /// used to free the memory allocated for the removed keys and values.
+        /// </summary>
+        /// <remarks>
+        /// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
+        /// key/value pairs in the hash table.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call for each key/value pair
+        /// </param>
+        /// <returns>
+        /// the number of key/value pairs removed
+        /// </returns>
+        public int ForeachRemove (Predicate<KeyValuePair<TKey, TValue>> func)
+        {
+            AssertNotDisposed ();
+            if (func == null) {
+                throw new ArgumentNullException (nameof (func));
+            }
+            NativeHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
+                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
+                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
+                var funcRet = func (new KeyValuePair<TKey, TValue> (funcKey, funcValue));
+                return funcRet;
+            };
+            var ret = g_hash_table_foreach_remove (Handle, func_, IntPtr.Zero);
+            return (int)ret;
+        }
+
+        /// <summary>
+        /// Calls the given function for each key/value pair in the
+        /// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
+        /// pair is removed from the <see cref="HashTable{K,V}"/>, but no key or value
+        /// destroy functions are called.
+        /// </summary>
+        /// <remarks>
+        /// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
+        /// key/value pairs in the hash table.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call for each key/value pair
+        /// </param>
+        /// <returns>
+        /// the number of key/value pairs removed.
+        /// </returns>
+        //public UInt32 ForeachSteal (HRFunc<TKey,TValue> func)
+        //{
+        //    AssertNotDisposed ();
+        //    if (func == null) {
+        //        throw new ArgumentNullException ("func");
+        //    }
+        //    NativeHRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
+        //        var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
+        //        var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
+        //        var funcRet = func.Invoke (funcKey, funcValue);
+        //        return funcRet;
+        //    };
+        //    var ret = g_hash_table_foreach_steal (Handle, funcNative, IntPtr.Zero);
+        //    return ret;
+        //}
+
+        /// <summary>
+        /// Retrieves every key inside this HashTable. The returned data is valid
+        /// until changes to the hash release those keys.
+        /// </summary>
+        /// <returns>
+        /// a <see cref="List{T}"/> containing all the keys inside the hash table.
+        /// </returns>
+        [Since ("2.14")]
+        public List<TKey> Keys {
+            get {
+                AssertNotDisposed ();
+                var retPtr = g_hash_table_get_keys (Handle);
+                // FIXME: this should be Transfer.Container, but List does not support it yet
+                var ret = GetInstance<List<TKey>> (retPtr, Transfer.None);
+                return ret;
+            }
+        }
+
+        /// <summary>
+        /// Retrieves every value inside this HashTable. The returned data
+        /// is valid until this HashTable is modified.
+        /// </summary>
+        /// <returns>
+        /// a <see cref="List{T}"/> containing all the values inside the hash
+        ///     table. The content of the list is owned by the hash table and
+        ///     should not be modified or freed. Use g_list_free() when done
+        ///     using the list.
+        /// </returns>
+        [Since ("2.14")]
+        public List<TValue> Values {
+            get {
+                AssertNotDisposed ();
+                var retPtr = g_hash_table_get_values (Handle);
+                // FIXME: This should be Transfer.Container
+                var ret = GetInstance<List<TValue>> (retPtr, Transfer.None);
+                return ret;
+            }
+        }
+
+        /// <summary>
+        /// Inserts a new key and value into a <see cref="HashTable{K,V}"/>.
+        /// </summary>
+        /// <remarks>
+        /// If the key already exists in the <see cref="HashTable{K,V}"/> its current
+        /// value is replaced with the new value.
+        /// </remarks>
+        /// <param name="key">
+        /// a key to insert
+        /// </param>
+        /// <param name="value">
+        /// the value to associate with the key
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key did not exist yet
+        /// </returns>
+        public bool Insert (TKey key, TValue value)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var valuePtr = value == null ? IntPtr.Zero : value.Handle.DangerousGetHandle ();
+            var ret = g_hash_table_insert (Handle, keyPtr, valuePtr);
+            return ret;
+        }
+
+        /// <summary>
+        /// Looks up a key in a <see cref="HashTable{K,V}"/>. Note that this function cannot
+        /// distinguish between a key that is not present and one which is present
+        /// and has the value <c>null</c>. If you need this distinction, use
+        /// <see cref="Lookup(TKey,out TKey,out TValue)"/>.
+        /// </summary>
+        /// <param name="key">
+        /// the key to look up
+        /// </param>
+        /// <returns>
+        /// the associated value, or <c>null</c> if the key is not found
+        /// </returns>
+        public TValue Lookup (TKey key)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var retPtr = g_hash_table_lookup (Handle, keyPtr);
+            var ret = GetInstance<TValue> (retPtr, Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Looks up a key in the <see cref="HashTable{K,V}"/>, returning the original key and the
+        /// associated value and a <see cref="bool"/> which is <c>true</c> if the key was found. This
+        /// is useful if you need to free the memory allocated for the original key,
+        /// for example before calling <see cref="Remove"/>.
+        /// </summary>
+        /// <remarks>
+        /// You can actually pass <c>null</c> for <paramref name="lookupKey"/> to test
+        /// whether the <c>null</c> key exists, provided the hash and equal functions
+        /// of this HashTable are <c>null</c>-safe.
+        /// </remarks>
+        /// <param name="lookupKey">
+        /// the key to look up
+        /// </param>
+        /// <param name="origKey">
+        /// return location for the original key
+        /// </param>
+        /// <param name="value">
+        /// return location for the value associated with the key
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key was found in the <see cref="HashTable{K,V}"/>
+        /// </returns>
+        public bool Lookup (TKey lookupKey, out TKey origKey, out TValue value)
+        {
+            AssertNotDisposed ();
+            var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle.DangerousGetHandle ();
+            IntPtr origKeyPtr, valuePtr;
+            var ret = g_hash_table_lookup_extended (Handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
+            origKey = GetInstance<TKey> (origKeyPtr, Transfer.None);
+            value = GetInstance<TValue> (valuePtr, Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>.
+        /// </summary>
+        /// <param name="key">
+        /// the key to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
+        /// </returns>
+        public bool Remove (TKey key)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var ret = g_hash_table_remove (Handle, keyPtr);
+            return ret;
+        }
+
+        /// <summary>
+        /// Inserts a new key and value into a <see cref="HashTable{K,V}"/> similar to
+        /// g_hash_table_insert(). The difference is that if the key
+        /// already exists in the <see cref="HashTable{K,V}"/>, it gets replaced by the
+        /// new key. If you supplied a @value_destroy_func when creating
+        /// the <see cref="HashTable{K,V}"/>, the old value is freed using that function.
+        /// If you supplied a @key_destroy_func when creating the
+        /// <see cref="HashTable{K,V}"/>, the old key is freed using that function.
+        /// </summary>
+        /// <param name="key">
+        /// a key to insert
+        /// </param>
+        /// <param name="value">
+        /// the value to associate with the key
+        /// </param>
+        /// <returns>
+        /// <c>true</c> of the key did not exist yet
+        /// </returns>
+        public bool Replace (TKey key, TValue value)
+        {
+            AssertNotDisposed ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var valuePtr = value == null ? IntPtr.Zero : value.Handle.DangerousGetHandle ();
+            var ret = g_hash_table_replace (Handle, keyPtr, valuePtr);
+            return ret;
+        }
+
+        /// <summary>
+        /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>  without
+        /// calling the key and value destroy functions.
+        /// </summary>
+        /// <param name="key">
+        /// the key to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
+        /// </returns>
+        //public Boolean Steal (TKey key)
+        //{
+        //    AssertNotDisposed ();
+        //    var keyPtr = key == null ? IntPtr.Zero : key.Handle;
+        //    var ret = g_hash_table_steal (Handle, keyPtr);
+        //    return ret;
+        //}
     }
 }

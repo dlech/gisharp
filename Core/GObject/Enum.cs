@@ -135,7 +135,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            IntPtr enumClass,
+            EnumClass.SafeEnumClassHandle enumClass,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int value);
@@ -185,7 +185,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value_by_name (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            IntPtr enumClass,
+            EnumClass.SafeEnumClassHandle enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -241,7 +241,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value_by_nick (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            IntPtr enumClass,
+            EnumClass.SafeEnumClassHandle enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);
@@ -288,60 +288,6 @@ namespace GISharp.GObject
             var ret = g_enum_register_static (typeName_, values_);
             // values are never freed for the liftime of the program
             return ret;
-        }
-    }
-
-    /// <summary>
-    /// The class of an enumeration type holds information about its
-    /// possible values.
-    /// </summary>
-    public sealed class EnumClass : TypeClass
-    {
-        struct EnumClassStruct
-        {
-            #pragma warning disable CS0649
-            /// <summary>
-            /// the parent class
-            /// </summary>
-            public TypeClassStruct GTypeClass;
-
-            /// <summary>
-            /// the smallest possible value.
-            /// </summary>
-            public int Minimum;
-
-            /// <summary>
-            /// the largest possible value.
-            /// </summary>
-            public int Maximum;
-
-            /// <summary>
-            /// the number of possible values.
-            /// </summary>
-            public uint NValues;
-
-            /// <summary>
-            /// an array of #GEnumValue structs describing the
-            ///  individual values.
-            /// </summary>
-            public IntPtr Values;
-            #pragma warning restore CS0649
-        }
-
-        public override Type StructType {
-            get {
-                return typeof(EnumClassStruct);
-            }
-        }
-
-        public EnumClass (IntPtr handle, bool ownsRef)
-            : base (handle, ownsRef)
-        {
-        }
-
-        public override TypeInfo GetTypeInfo (Type type)
-        {
-            throw new NotSupportedException ();
         }
     }
 

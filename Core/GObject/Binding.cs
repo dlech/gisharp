@@ -88,6 +88,20 @@ namespace GISharp.GObject
     [GType ("GBinding", IsWrappedNativeType = true)]
     public sealed class Binding : Object
     {
+        public sealed class SafeBindingHandle : SafeObjectHandle
+        {
+            public SafeBindingHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeBindingHandle Handle {
+            get {
+                return (SafeBindingHandle)base.Handle;
+            }
+        }
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
@@ -97,6 +111,10 @@ namespace GISharp.GObject
         {
             var ret = g_binding_get_type ();
             return ret;
+        }
+
+        public Binding (SafeBindingHandle handle) : base (handle)
+        {
         }
 
         /// <summary>
@@ -115,7 +133,7 @@ namespace GISharp.GObject
         static extern BindingFlags g_binding_get_flags (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Retrieves the flags passed when constructing the <see cref="Binding"/>.
@@ -148,7 +166,7 @@ namespace GISharp.GObject
         static extern IntPtr g_binding_get_source (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Retrieves the <see cref="Object"/> instance used as the source of the binding.
@@ -183,7 +201,7 @@ namespace GISharp.GObject
         static extern IntPtr g_binding_get_source_property (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Retrieves the name of the property of <see cref="Source"/> used as the source
@@ -218,7 +236,7 @@ namespace GISharp.GObject
         static extern IntPtr g_binding_get_target (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Retrieves the <see cref="Object"/> instance used as the target of the binding.
@@ -253,7 +271,7 @@ namespace GISharp.GObject
         static extern IntPtr g_binding_get_target_property (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Retrieves the name of the property of <see cref="Target"/> used as the target
@@ -292,7 +310,7 @@ namespace GISharp.GObject
         static extern void g_binding_unbind (
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
-            IntPtr binding);
+            SafeBindingHandle binding);
 
         /// <summary>
         /// Explicitly releases the binding between the source and the target
@@ -304,11 +322,6 @@ namespace GISharp.GObject
             AssertNotDisposed ();
             // Note: this releases a reference to Handle
             g_binding_unbind (Handle);
-        }
-
-        public Binding (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
         }
     }
 }

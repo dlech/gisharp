@@ -768,7 +768,7 @@ namespace GISharp.GLib
             LogLevelFlags logLevel,
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
-            IntPtr fields);
+            Variant.SafeVariantHandle fields);
 
         /// <summary>
         /// Log a message with structured data, accepting the data within a #GVariant. This
@@ -809,7 +809,7 @@ namespace GISharp.GLib
             }
             var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
             var fields_ = fields.Handle;
-            g_log_variant (logDomain_, logLevel, fields_);
+            g_log_variant (logDomain_, logLevel, fields.Handle);
             GMarshal.Free (logDomain_);
         }
     }

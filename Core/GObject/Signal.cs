@@ -324,7 +324,7 @@ namespace GISharp.GObject
         internal static extern nulong g_signal_connect_data (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            Object.SafeObjectHandle instance,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr detailedSignal,
@@ -458,13 +458,14 @@ namespace GISharp.GObject
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
             }
-            using (var instanceAndParams = new GLib.Array<Value> (false, true, (uint)parameters.Length + 1)) {
+            using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
                 instanceAndParams.Append (new Value (instance.GetGType (), instance));
                 foreach (var p in parameters) {
-                    instanceAndParams.Append (new Value (p.GetGType (), p));
+                    instanceAndParams.Prepend (new Value (p.GetGType (), p));
                 }
+                instanceAndParams.Reverse ();
 
-                g_signal_emitv (instanceAndParams.Data, signalId, detail, IntPtr.Zero);
+                g_signal_emitv (instanceAndParams.Handle.Data, signalId, detail, IntPtr.Zero);
             }
         }
 
@@ -483,7 +484,7 @@ namespace GISharp.GObject
         static extern SignalInvocationHint g_signal_get_invocation_hint (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance);
+            Object.SafeObjectHandle instance);
 
         /// <summary>
         /// Returns the invocation hint of the innermost signal emission of instance.
@@ -542,7 +543,7 @@ namespace GISharp.GObject
         static extern bool g_signal_has_handler_pending (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            Object.SafeObjectHandle instance,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -590,8 +591,7 @@ namespace GISharp.GObject
             if (instance == null) {
                 throw new ArgumentNullException ("instance");
             }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-            var ret = g_signal_has_handler_pending (instance_, signalId, detail, mayBeBlocked);
+            var ret = g_signal_has_handler_pending (instance.Handle, signalId, detail, mayBeBlocked);
             return ret;
         }
 
@@ -1144,7 +1144,7 @@ namespace GISharp.GObject
         static extern void g_signal_stop_emission (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            Object.SafeObjectHandle instance,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1176,8 +1176,7 @@ namespace GISharp.GObject
             if (instance == null) {
                 throw new ArgumentNullException ("instance");
             }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-            g_signal_stop_emission (instance_, signalId, detail);
+            g_signal_stop_emission (instance.Handle, signalId, detail);
         }
 
         /// <summary>
@@ -1199,7 +1198,7 @@ namespace GISharp.GObject
         static extern void g_signal_stop_emission_by_name (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            Object.SafeObjectHandle instance,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr detailedSignal);
@@ -1225,9 +1224,8 @@ namespace GISharp.GObject
             if (detailedSignal == null) {
                 throw new ArgumentNullException ("detailedSignal");
             }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            g_signal_stop_emission_by_name (instance_, detailedSignal_);
+            g_signal_stop_emission_by_name (instance.Handle, detailedSignal_);
             GMarshal.Free (detailedSignal_);
         }
 

@@ -11,9 +11,42 @@ namespace GISharp.GLib
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
     [GType ("GMainLoop", IsWrappedNativeType = true)]
-    public sealed class MainLoop : ReferenceCountedOpaque
+    public sealed class MainLoop : Opaque
     {
-        public MainLoop (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public sealed class SafeMainLoopHandle : SafeHandleZeroIsInvalid
+        {
+            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_main_loop_ref (IntPtr loop);
+
+            public SafeMainLoopHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    g_main_loop_ref (handle);
+                }
+                SetHandle (handle);
+            }
+
+            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_main_loop_unref (IntPtr loop);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    g_main_loop_unref (handle);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafeMainLoopHandle Handle {
+            get {
+                return (SafeMainLoopHandle)base.Handle;
+            }
+        }
+
+        public MainLoop (SafeMainLoopHandle handle) : base (handle)
         {
         }
 
@@ -37,16 +70,16 @@ namespace GISharp.GLib
         static extern IntPtr g_main_loop_new (
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            MainContext.SafeMainContextHandle context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             bool isRunning);
 
-        static IntPtr New (MainContext context = null, bool isRunning = false)
+        static SafeMainLoopHandle New (MainContext context = null, bool isRunning = false)
         {
-            var context_ = context?.Handle ?? IntPtr.Zero;
-            var ret_ = g_main_loop_new (context_, isRunning);
-            return ret_;
+            var ret_ = g_main_loop_new (context?.Handle, isRunning);
+            var ret = new SafeMainLoopHandle (ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -61,7 +94,7 @@ namespace GISharp.GLib
         /// <c>true</c> anyway.
         /// </param>
         public MainLoop (MainContext context = null, bool isRunning = false)
-            : this (New (context, isRunning), Transfer.Full)
+            : this (New (context, isRunning))
         {
         }
 
@@ -91,7 +124,7 @@ namespace GISharp.GLib
         static extern IntPtr g_main_loop_get_context (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            SafeMainLoopHandle loop);
 
         /// <summary>
         /// Returns the <see cref="MainContext"/> of this loop.
@@ -123,7 +156,7 @@ namespace GISharp.GLib
         static extern bool g_main_loop_is_running (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            SafeMainLoopHandle loop);
 
         /// <summary>
         /// Checks to see if the main loop is currently being run via <see cref="Run"/>.
@@ -156,7 +189,7 @@ namespace GISharp.GLib
         static extern void g_main_loop_quit (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            SafeMainLoopHandle loop);
 
         /// <summary>
         /// Stops a <see cref="MainLoop"/> from running. Any calls to <see cref="Run"/>
@@ -170,32 +203,6 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             g_main_loop_quit (Handle);
-        }
-
-        /// <summary>
-        /// Increases the reference count on a #GMainLoop object by one.
-        /// </summary>
-        /// <param name="loop">
-        /// a #GMainLoop
-        /// </param>
-        /// <returns>
-        /// @loop
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
-        /* transfer-ownership:full skip:1 */
-        static extern IntPtr g_main_loop_ref (
-            /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
-            /* transfer-ownership:none */
-            IntPtr loop);
-
-        /// <summary>
-        /// Increases the reference count on a <see cref="MainLoop"/> object by one.
-        /// </summary>
-        public override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_main_loop_ref (Handle);
         }
 
         /// <summary>
@@ -213,7 +220,7 @@ namespace GISharp.GLib
         static extern void g_main_loop_run (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            SafeMainLoopHandle loop);
 
         /// <summary>
         /// Runs a main loop until <see cref="Quit"/> is called on the loop.
@@ -235,31 +242,6 @@ namespace GISharp.GLib
             } finally {
                 SynchronizationContext.SetSynchronizationContext (oldSyncContext);
             }
-        }
-
-        /// <summary>
-        /// Decreases the reference count on a #GMainLoop object by one. If
-        /// the result is zero, free the loop and free all associated memory.
-        /// </summary>
-        /// <param name="loop">
-        /// a #GMainLoop
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_main_loop_unref (
-            /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
-            /* transfer-ownership:none */
-            IntPtr loop);
-
-        /// <summary>
-        /// Decreases the reference count on a <see cref="MainLoop"/> object by one. If
-        /// the result is zero, free the loop and free all associated memory.
-        /// </summary>
-        public override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_main_loop_unref (Handle);
         }
     }
 }

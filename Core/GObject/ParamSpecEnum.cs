@@ -9,36 +9,65 @@ namespace GISharp.GObject
     /// properties.
     /// </summary>
     [GType ("GParamEnum", IsWrappedNativeType = true)]
-    sealed class ParamSpecEnum : ParamSpec
+    public sealed class ParamSpecEnum : ParamSpec
     {
-        struct ParamSpecEnumStruct
+        public sealed class SafeParamSpecEnumHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public IntPtr EnumClass;
-            public int DefaultValue;
-            #pragma warning restore CS0649
+            struct ParamSpecEnum
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public IntPtr EnumClass;
+                public int DefaultValue;
+                #pragma warning restore CS0649
+            }
+
+            public IntPtr EnumClass {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecEnum> (nameof (ParamSpecEnum.EnumClass));
+                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
+                    return ret;
+                }
+            }
+
+            public int DefaultValue {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecEnum> (nameof (ParamSpecEnum.DefaultValue));
+                    var ret = Marshal.ReadInt32 (handle, (int)offset);
+                    return ret;
+                }
+            }
+
+            public SafeParamSpecEnumHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
         }
 
-        public EnumClass EnumClass {
+        public new SafeParamSpecEnumHandle Handle {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecEnumStruct> (nameof (ParamSpecEnumStruct.EnumClass));
-                var ret = Marshal.ReadIntPtr (Handle, (int)offset);
-                return (EnumClass)GTypeStruct.CreateInstance (ret, false);
+                return (SafeParamSpecEnumHandle)base.Handle;
             }
         }
 
         public Type EnumType {
             get {
-                return GType.TypeOf (EnumClass.GType);
+                var type = Marshal.PtrToStructure<GType> (Handle.EnumClass);
+                return GType.TypeOf (type);
             }
         }
 
         public new System.Enum DefaultValue {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecEnumStruct> (nameof (ParamSpecEnumStruct.DefaultValue));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return (System.Enum)System.Enum.ToObject (EnumType, ret);
+                var ret_ = Handle.DefaultValue;
+                var ret = (System.Enum)System.Enum.ToObject (EnumType, ret_);
+                return ret;
             }
         }
 
@@ -47,25 +76,20 @@ namespace GISharp.GObject
             return paramSpecTypes[10];
         }
 
-        public ParamSpecEnum (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecEnum (string name, string nick, string blurb, GType enumType, System.Enum defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, enumType, Convert.ToInt32 (defaultValue), flags), Transfer.Full)
+        public ParamSpecEnum (SafeParamSpecEnumHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_enum (IntPtr name,
+        extern static IntPtr g_param_spec_enum (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             GType enumType,
             int defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
+        static SafeParamSpecEnumHandle New (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -82,7 +106,8 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_enum (namePtr, nickPtr, blurbPtr, enumType, defaultValue, flags);
+            var ret_ = g_param_spec_enum (namePtr, nickPtr, blurbPtr, enumType, defaultValue, flags);
+            var ret = new SafeParamSpecEnumHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -96,7 +121,12 @@ namespace GISharp.GObject
                 GMarshal.Free (blurbPtr);
             }
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecEnum (string name, string nick, string blurb, GType enumType, System.Enum defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, enumType, Convert.ToInt32 (defaultValue), flags))
+        {
         }
     }
 }

@@ -8,11 +8,34 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all type instances.
     /// </summary>
-    public abstract class TypeInstance : ReferenceCountedOpaque
+    public abstract class TypeInstance : Opaque
     {
-        protected struct TypeInstanceStruct
+        public abstract class SafeTypeInstanceHandle : SafeHandleZeroIsInvalid
         {
-            public IntPtr GClass;
+            protected struct TypeInstanceStruct
+            {
+                public IntPtr GClass;
+            }
+
+            public IntPtr GClass {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.ReadIntPtr (handle);
+                    return ret;
+                }
+            }
+        }
+
+        public new SafeTypeInstanceHandle Handle {
+            get {
+                return (SafeTypeInstanceHandle)base.Handle;
+            }
+        }
+
+        protected TypeInstance (SafeTypeInstanceHandle handle) : base (handle)
+        {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -21,7 +44,7 @@ namespace GISharp.GObject
         static extern IntPtr g_type_instance_get_private (
             /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            SafeTypeInstanceHandle instance,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType privateType);
@@ -30,11 +53,6 @@ namespace GISharp.GObject
         {
             var ret = g_type_instance_get_private (Handle, privateType);
             return ret;
-        }
-
-        public TypeInstance (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
         }
     }
 }

@@ -10,21 +10,44 @@ namespace GISharp.GObject
     /// </summary>
     [Since ("2.10")]
     [GType ("GParamGType", IsWrappedNativeType = true)]
-    sealed class ParamSpecGType : ParamSpec
+    public sealed class ParamSpecGType : ParamSpec
     {
-        struct ParamSpecGTypeStruct
+        public sealed class SafeParamSpecGTypeHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public GType IsAType;
-            #pragma warning restore CS0649
+            struct ParamSpecGType
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public GType IsAType;
+                #pragma warning restore CS0649
+            }
+
+            public GType IsAType {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecGType> (nameof (ParamSpecGType.IsAType));
+                    var ret = Marshal.PtrToStructure<GType> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public SafeParamSpecGTypeHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecGTypeHandle Handle {
+            get {
+                return (SafeParamSpecGTypeHandle)base.Handle;
+            }
         }
 
         public GType IsAType {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecGTypeStruct> (nameof (ParamSpecGTypeStruct.IsAType));
-                var ret = Marshal.PtrToStructure<GType> (Handle + (int)offset);
-                return ret;
+                return Handle.IsAType;
             }
         }
 
@@ -33,24 +56,19 @@ namespace GISharp.GObject
             return paramSpecTypes[21];
         }
 
-        public ParamSpecGType (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
-            : this (New (name, nick, blurb, isAType, flags), Transfer.Full)
+        public ParamSpecGType (SafeParamSpecGTypeHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_gtype (IntPtr name,
+        extern static IntPtr g_param_spec_gtype (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             GType isAType,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+        static SafeParamSpecGTypeHandle New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -64,7 +82,8 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
+            var ret_ = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
+            var ret = new SafeParamSpecGTypeHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -78,7 +97,12 @@ namespace GISharp.GObject
                 GMarshal.Free (blurbPtr);
             }
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+            : this (New (name, nick, blurb, isAType, flags))
+        {
         }
     }
 }

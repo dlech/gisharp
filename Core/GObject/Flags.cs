@@ -76,7 +76,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_first_value (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            IntPtr flagsClass,
+            FlagsClass.SafeFlagsClassHandle flagsClass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint value);
@@ -125,7 +125,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_value_by_name (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            IntPtr flagsClass,
+            FlagsClass.SafeFlagsClassHandle flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -179,7 +179,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_value_by_nick (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            IntPtr flagsClass,
+            FlagsClass.SafeFlagsClassHandle flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);
@@ -224,55 +224,6 @@ namespace GISharp.GObject
             var ret = g_flags_register_static (typeName_, values_);
             // values are never freed for the liftime of the program
             return ret;
-        }
-    }
-
-    /// <summary>
-    /// The class of a flags type holds information about its
-    /// possible values.
-    /// </summary>
-    public sealed class FlagsClass : TypeClass
-    {
-        struct FlagsClassStruct
-        {
-            #pragma warning disable CS0649
-            /// <summary>
-            /// the parent class
-            /// </summary>
-            public TypeClassStruct GTypeClass;
-
-            /// <summary>
-            /// a mask covering all possible values.
-            /// </summary>
-            public uint Mask;
-
-            /// <summary>
-            /// the number of possible values.
-            /// </summary>
-            public uint NValues;
-
-            /// <summary>
-            /// an array of #GFlagsValue structs describing the
-            ///  individual values.
-            /// </summary>
-            public IntPtr Values;
-            #pragma warning restore CS0649
-        }
-
-        public override Type StructType {
-            get {
-                return typeof(FlagsClassStruct);
-            }
-        }
-
-        public FlagsClass (IntPtr handle, bool ownsRef)
-            : base (handle, ownsRef)
-        {
-        }
-
-        public override TypeInfo GetTypeInfo (Type type)
-        {
-            throw new NotSupportedException ();
         }
     }
 

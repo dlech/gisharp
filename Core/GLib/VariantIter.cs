@@ -8,88 +8,65 @@ namespace GISharp.GLib
     /// #GVariantIter is an opaque data structure and can only be accessed
     /// using the following functions.
     /// </summary>
-    public sealed class VariantIter : OwnedOpaque
+    public sealed class VariantIter : Opaque
     {
-        /// <summary>
-        /// Creates a new heap-allocated #GVariantIter to iterate over the
-        /// container that was being iterated over by @iter.  Iteration begins on
-        /// the new iterator from the current position of the old iterator but
-        /// the two copies are independent past that point.
-        /// </summary>
-        /// <remarks>
-        /// Use g_variant_iter_free() to free the return value when you no longer
-        /// need it.
-        ///
-        /// A reference is taken to the container that @iter is iterating over
-        /// and will be releated only when g_variant_iter_free() is called.
-        /// </remarks>
-        /// <param name="iter">
-        /// a #GVariantIter
-        /// </param>
-        /// <returns>
-        /// a new heap-allocated #GVariantIter
-        /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
-        /* transfer-ownership:full */
-        static extern IntPtr g_variant_iter_copy (
-            /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
-            /* transfer-ownership:none */
-            IntPtr iter);
+        public sealed class SafeVariantIterHandle : SafeHandleZeroIsInvalid
+        {
+            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_variant_iter_copy (IntPtr iter);
+
+            public SafeVariantIterHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    handle = g_variant_iter_copy (handle);
+                }
+                SetHandle (handle);
+            }
+
+            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_variant_iter_free (IntPtr iter);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    g_variant_iter_free (handle);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafeVariantIterHandle Handle {
+             get {
+                 return (SafeVariantIterHandle)base.Handle;
+             }
+        }
+
+        public VariantIter (SafeVariantIterHandle handle) : base (handle)
+        {
+        }
 
         /// <summary>
-        /// Creates a new heap-allocated #GVariantIter to iterate over the
+        /// Creates a new <see cref="VariantIter" /> to iterate over the
         /// container that was being iterated over by @iter.  Iteration begins on
         /// the new iterator from the current position of the old iterator but
         /// the two copies are independent past that point.
         /// </summary>
         /// <remarks>
-        /// Use g_variant_iter_free() to free the return value when you no longer
-        /// need it.
-        ///
-        /// A reference is taken to the container that @iter is iterating over
-        /// and will be releated only when g_variant_iter_free() is called.
+        /// A reference is taken to the container that this is iterating over
+        /// and will be released only when <see cref="Dispose" /> is called.
         /// </remarks>
         /// <returns>
-        /// a new heap-allocated #GVariantIter
+        /// a new <see cref="VariantIter" />
         /// </returns>
         [Since ("2.24")]
         public VariantIter Copy ()
         {
             AssertNotDisposed ();
-            var ret_ = g_variant_iter_copy (Handle);
-            var ret = Opaque.GetInstance<VariantIter> (ret_, Transfer.Full);
+            var ret_ = new SafeVariantIterHandle (Handle.DangerousGetHandle (), Transfer.None);
+            var ret = new VariantIter (ret_);
             return ret;
-        }
-
-        /// <summary>
-        /// Frees a heap-allocated #GVariantIter.  Only call this function on
-        /// iterators that were returned by g_variant_iter_new() or
-        /// g_variant_iter_copy().
-        /// </summary>
-        /// <param name="iter">
-        /// a heap-allocated #GVariantIter
-        /// </param>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_variant_iter_free (
-            /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
-            /* transfer-ownership:full */
-            IntPtr iter);
-
-        /// <summary>
-        /// Frees a heap-allocated #GVariantIter.  Only call this function on
-        /// iterators that were returned by g_variant_iter_new() or
-        /// g_variant_iter_copy().
-        /// </summary>
-        [Since ("2.24")]
-        protected override void Free ()
-        {
-            AssertNotDisposed ();
-            g_variant_iter_free (Handle);
         }
 
         /// <summary>
@@ -117,10 +94,10 @@ namespace GISharp.GLib
         static extern ulong g_variant_iter_init (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter,
+            SafeVariantIterHandle iter,
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
-            IntPtr value);
+            Variant.SafeVariantHandle value);
 
         /// <summary>
         /// Initialises (without allocating) a #GVariantIter.  @iter may be
@@ -144,8 +121,7 @@ namespace GISharp.GLib
             if (value == null) {
                 throw new ArgumentNullException (nameof(value));
             }
-            var value_ = value == null ? IntPtr.Zero : value.Handle;
-            var ret = g_variant_iter_init (Handle, value_);
+            var ret = g_variant_iter_init (Handle, value.Handle);
             return ret;
         }
 
@@ -170,7 +146,7 @@ namespace GISharp.GLib
         static extern ulong g_variant_iter_n_children (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter);
+            SafeVariantIterHandle iter);
 
         /// <summary>
         /// Queries the number of child items in the container that we are
@@ -184,11 +160,12 @@ namespace GISharp.GLib
         /// the number of children in the container
         /// </returns>
         [Since ("2.24")]
-        public ulong NChildren ()
-        {
-            AssertNotDisposed ();
-            var ret = g_variant_iter_n_children (Handle);
-            return ret;
+        public ulong NChildren {
+            get {
+                AssertNotDisposed ();
+                var ret = g_variant_iter_n_children (Handle);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -234,7 +211,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_iter_next_value (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter);
+            SafeVariantIterHandle iter);
 
         /// <summary>
         /// Gets the next item in the container.  If no more items remain then
@@ -270,17 +247,13 @@ namespace GISharp.GLib
         /// a #GVariant, or %NULL
         /// </returns>
         [Since ("2.24")]
-        public Variant NextValue ()
-        {
-            AssertNotDisposed ();
-            var ret_ = g_variant_iter_next_value (Handle);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
-            return ret;
-        }
-
-        public VariantIter (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
+        public Variant NextValue {
+            get {
+                AssertNotDisposed ();
+                var ret_ = g_variant_iter_next_value (Handle);
+                var ret = GetInstance<Variant> (ret_, Transfer.Full);
+                return ret;
+            }
         }
     }
 }

@@ -73,6 +73,32 @@ namespace GISharp.GModule
             }
         }
 
+        public sealed class SafeModuleHandle : SafeHandleZeroIsInvalid
+        {
+            public SafeModuleHandle (IntPtr handle)
+            {
+                SetHandle (handle);
+            }
+
+            [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern bool g_module_close (IntPtr module);
+
+            protected override bool ReleaseHandle ()
+            {
+                return g_module_close (handle);
+            }
+        }
+
+        public new SafeModuleHandle Handle {
+            get {
+                return (SafeModuleHandle)base.Handle;
+            }
+        }
+
+        public Module (SafeModuleHandle handle) : base (handle)
+        {
+        }
+
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_module_supported ();
 
@@ -164,15 +190,17 @@ namespace GISharp.GModule
         /// <exception cref="ModuleErrorException">
         /// On failure
         /// </exception>
-        public Module (string fileName, ModuleFlags flags = 0)
+        public static Module Open (string fileName, ModuleFlags flags = 0)
         {
             var fileName_ = GMarshal.StringToUtf8Ptr (fileName);
             try {
                 lock (errorLock) {
-                    Handle = g_module_open (fileName_, flags);
-                    if (Handle == IntPtr.Zero) {
+                    var ret_ = g_module_open (fileName_, flags);
+                    if (ret_ == IntPtr.Zero) {
                         throw new ModuleErrorException (Error);
                     }
+                    var ret = new SafeModuleHandle (ret_);
+                    return new Module (ret);
                 }
             } finally {
                 GMarshal.Free (fileName_);
@@ -180,7 +208,10 @@ namespace GISharp.GModule
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_module_symbol (IntPtr module, IntPtr symbolName, out IntPtr symbol);
+        static extern bool g_module_symbol (
+            SafeModuleHandle module,
+            IntPtr symbolName,
+            out IntPtr symbol);
 
         /// <summary>
         /// Gets a symbol pointer from a module.
@@ -211,7 +242,8 @@ namespace GISharp.GModule
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_name (IntPtr module);
+        static extern IntPtr g_module_name (
+            SafeModuleHandle module);
 
         /// <summary>
         /// Gets the filename that the module was opened with.
@@ -230,7 +262,8 @@ namespace GISharp.GModule
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_module_make_resident (IntPtr module);
+        static extern void g_module_make_resident (
+            SafeModuleHandle module);
 
         /// <summary>
         /// Ensures that a module will never be unloaded.
@@ -239,26 +272,6 @@ namespace GISharp.GModule
         {
             AssertNotDisposed ();
             g_module_make_resident (Handle);
-        }
-
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_module_close (IntPtr module);
-
-        /// <summary>
-        /// Closes a module.
-        /// </summary>
-        protected override void Dispose (bool disposing)
-        {
-            if (Handle != IntPtr.Zero) {
-                lock (errorLock) {
-                    var ret = g_module_close (Handle);
-                    // don't throw error in finalizer
-                    if (!ret && disposing) {
-                        throw new ModuleErrorException (Error);
-                    }
-                }
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]

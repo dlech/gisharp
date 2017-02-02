@@ -46,17 +46,13 @@
     <Compile Include="GLib\List.cs" />
     <Compile Include="Runtime\IndexedCollection.cs" />
     <Compile Include="Runtime\GMarshal.cs" />
-    <Compile Include="Runtime\NullHandleIsInstanceAttribute.cs" />
     <Compile Include="GObject\Object.cs" />
     <Compile Include="GObject\ObjectClass.cs" />
     <Compile Include="Runtime\Opaque.cs" />
-    <Compile Include="Runtime\OwnedOpaque.cs" />
     <Compile Include="GObject\ParamSpec.cs" />
     <Compile Include="GLib\PtrArray.cs" />
-    <Compile Include="Runtime\ReferenceCountedOpaque.cs" />
     <Compile Include="Runtime\SinceAttribute.cs" />
     <Compile Include="GLib\SList.cs" />
-    <Compile Include="Runtime\StaticOpaque.cs" />
     <Compile Include="GObject\TypeClass.cs" />
     <Compile Include="GObject\Value.cs" />
     <Compile Include="Runtime\Transfer.cs" />
@@ -86,7 +82,6 @@
     <Compile Include="GObject\TypeInterface.cs" />
     <Compile Include="GObject\InterfaceInfo.cs" />
     <Compile Include="Runtime\ReflectionExtensions.cs" />
-    <Compile Include="Runtime\GTypeStruct.cs" />
     <Compile Include="Runtime\GTypeStructAttribute.cs" />
     <Compile Include="GLib\Variant.cs" />
     <Compile Include="Runtime\VariantDbusTypes.cs" />
@@ -139,6 +134,8 @@
     <Compile Include="GObject\ParamSpecValueArray.cs" />
     <Compile Include="GObject\ParamSpecVariant.cs" />
     <Compile Include="GLib\Bytes.cs" />
+    <Compile Include="Runtime\SafeHandleZeroIsInvalid.cs" />
+    <Compile Include="Runtime\SafeHandleMinusOneIsInvalid.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Runtime\NativeLong32.cs" />

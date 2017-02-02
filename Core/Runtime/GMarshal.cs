@@ -427,7 +427,7 @@ namespace GISharp.Runtime
             }
             var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * IntPtr.Size);
             for (int i = 0; i < array.Length; i++) {
-                Marshal.WriteIntPtr (ptr, i * IntPtr.Size, array[i].Handle);
+                Marshal.WriteIntPtr (ptr, i * IntPtr.Size, array[i].Handle.DangerousGetHandle ());
             }
             if (nullTerminated) {
                 Marshal.WriteIntPtr (ptr, array.Length * IntPtr.Size, IntPtr.Zero);
@@ -471,7 +471,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error (IntPtr dest, IntPtr src);
+        static extern void g_propagate_error (IntPtr dest, Error.SafeErrorHandle src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error
@@ -485,13 +485,13 @@ namespace GISharp.Runtime
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
-        public static void PropogateError (IntPtr dest, Error src)
+        public static void PropagateError (IntPtr dest, Error src)
         {
             if (src == null) {
                 throw new ArgumentNullException (nameof (src));
             }
-            src.Invalidate ();
             g_propagate_error (dest, src.Handle);
+            src.Handle.SetHandleAsInvalid ();
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

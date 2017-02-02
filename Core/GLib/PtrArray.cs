@@ -7,82 +7,173 @@ using GISharp.GObject;
 
 namespace GISharp.GLib
 {
-
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
     [GType ("GPtrArray", IsWrappedNativeType = true)]
-    public sealed class PtrArray<T> : Opaque, IList<T> where T : Opaque
+    public abstract class PtrArray : Opaque
     {
         readonly bool ownsElements;
 
+        public sealed class SafePtrArrayHandle : SafeHandleZeroIsInvalid
+        {
+            struct PtrArray
+            {
+                #pragma warning disable CS0649
+                public IntPtr Data;
+                public uint Len;
+                #pragma warning restore CS0649
+            }
+
+            public IntPtr Data {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.ReadIntPtr (handle);
+                    return ret;
+                }
+            }
+
+            public uint Len {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var ret = Marshal.ReadInt32 (handle, IntPtr.Size);
+                    return (uint)ret;
+                }
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern IntPtr g_ptr_array_ref (IntPtr array);
+
+            public SafePtrArrayHandle (IntPtr handle, Transfer ownership)
+            {
+                if (ownership == Transfer.None) {
+                    g_ptr_array_ref (handle);
+                }
+                SetHandle (handle);
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern void g_ptr_array_unref (IntPtr array);
+
+            protected override bool ReleaseHandle ()
+            {
+                try {
+                    g_ptr_array_unref (handle);
+                    return true;
+                } catch {
+                    return false;
+                }
+            }
+        }
+
+        public new SafePtrArrayHandle Handle {
+            get {
+                return (SafePtrArrayHandle)base.Handle;
+            }
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_ptr_array_get_type ();
+
         static GType getGType ()
         {
-            return PtrArrayInternal.g_ptr_array_get_type ();
+            return g_ptr_array_get_type ();
         }
 
-        public PtrArray (IntPtr handle, Transfer ownership)
+        public PtrArray (SafePtrArrayHandle handle) : base (handle)
         {
-            if (handle == IntPtr.Zero) {
-                throw new NotSupportedException ();
-            }
-            Handle = handle;
-            if (ownership == Transfer.None) {
-                Ref ();
-            }
-            if (ownership == Transfer.Full) {
-                ownsElements = true;
-            }
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (Handle != IntPtr.Zero) {
-                if (ownsElements) {
-                    PtrArrayInternal.g_ptr_array_free (Handle, true);
-                } else {
-                    PtrArrayInternal.g_ptr_array_unref (Handle);
-                }
-                Handle = IntPtr.Zero;
-            }
-            base.Dispose (disposing);
-        }
-
-        static IntPtr New ()
-        {
-            var retPtr = PtrArrayInternal.g_ptr_array_new ();
-            return retPtr;
         }
 
         /// <summary>
-        /// Creates a new <see cref="PtrArray{T}"/>.
+        /// Creates a new #GPtrArray with a reference count of 1.
         /// </summary>
-        public PtrArray () : this (New (), Transfer.Full)
-        {
-        }
+        /// <returns>
+        /// the new #GPtrArray
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_new ();
 
-        static IntPtr SizedNew (uint reservedSize)
+        static SafePtrArrayHandle New ()
         {
-            var ret = PtrArrayInternal.g_ptr_array_sized_new (reservedSize);
+            var ret_ = g_ptr_array_new ();
+            var ret = new SafePtrArrayHandle (ret_, Transfer.Full);
             return ret;
         }
 
-        public PtrArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
+        /// <summary>
+        /// Creates a new <see cref="PtrArray`1"/>.
+        /// </summary>
+        protected PtrArray () : this (New ())
         {
         }
 
-        static IntPtr NewFull (uint reservedSize, DestroyNotify<T> elementFreeFunc)
+        /// <summary>
+        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
+        /// and a reference count of 1. This avoids frequent reallocation, if
+        /// you are going to add many pointers to the array. Note however that
+        /// the size of the array is still 0.
+        /// </summary>
+        /// <param name="reservedSize">
+        /// number of pointers preallocated
+        /// </param>
+        /// <returns>
+        /// the new #GPtrArray
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_sized_new (
+            uint reservedSize);
+
+        static SafePtrArrayHandle SizedNew (uint reservedSize)
+        {
+            var ret_ = g_ptr_array_sized_new (reservedSize);
+            var ret = new SafePtrArrayHandle (ret_, Transfer.Full);
+            return ret;
+        }
+
+        protected PtrArray (uint reservedSize) : this (SizedNew (reservedSize))
+        {
+        }
+
+        /// <summary>
+        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
+        /// and a reference count of 1. This avoids frequent reallocation, if
+        /// you are going to add many pointers to the array. Note however that
+        /// the size of the array is still 0. It also set @elementFreeFunc
+        /// for freeing each element when the array is destroyed either via
+        /// g_ptr_array_unref(), when g_ptr_array_free() is called with
+        /// @freeSegment set to %TRUE or when removing elements.
+        /// </summary>
+        /// <param name="reservedSize">
+        /// number of pointers preallocated
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// A function to free elements with
+        ///     destroy @array or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.30")]
+        static extern SafePtrArrayHandle g_ptr_array_new_full (
+            uint reservedSize,
+            NativeDestroyNotify elementFreeFunc);
+
+        static SafePtrArrayHandle NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
                 throw new ArgumentNullException (nameof (elementFreeFunc));
             }
             // TODO: this callback will be garbage collected before we are done with it
-            NativeDestroyNotify elementFreeFuncNative = (elementFreeFuncDataPtr) => {
-                var elementFreeFuncData = GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
-                elementFreeFunc (elementFreeFuncData);
+            NativeDestroyNotify elementFreeFuncNative = (data) => {
+                elementFreeFunc (data);
             };
-            var retPtr = PtrArrayInternal.g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
-            return retPtr;
+            var handle = g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
+            return handle;
         }
 
         /// <summary>
@@ -108,18 +199,117 @@ namespace GISharp.GLib
         //}
 
         /// <summary>
+        /// Creates a new #GPtrArray with a reference count of 1 and use
+        /// @elementFreeFunc for freeing each element when the array is destroyed
+        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called with
+        /// @freeSegment set to %TRUE or when removing elements.
+        /// </summary>
+        /// <param name="elementFreeFunc">
+        /// A function to free elements with
+        ///     destroy @array or %NULL
+        /// </param>
+        /// <returns>
+        /// A new #GPtrArray
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        static extern SafePtrArrayHandle g_ptr_array_new_with_free_func (
+            NativeDestroyNotify elementFreeFunc);
+
+        /// <summary>
+        /// Adds a pointer to the end of the pointer array. The array will grow
+        /// in size automatically if necessary.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="data">
+        /// the pointer to add
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_add (
+            SafePtrArrayHandle array,
+            IntPtr data);
+
+        /// <summary>
         /// Adds a pointer to the end of the pointer array. The array will grow
         /// in size automatically if necessary.
         /// </summary>
         /// <param name="data">
         /// the pointer to add
         /// </param>
-        public void Add (T data)
+        protected void Add (IntPtr data)
         {
             AssertNotDisposed ();
-            var data_ = data?.Handle ?? IntPtr.Zero;
-            PtrArrayInternal.g_ptr_array_add (Handle, data_);
+            g_ptr_array_add (Handle, data);
         }
+
+        /// <summary>
+        /// Calls a function for each element of a #GPtrArray.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="func">
+        /// the function to call for each array element
+        /// </param>
+        /// <param name="userData">
+        /// user data to pass to the function
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.4")]
+        static extern void g_ptr_array_foreach (
+            SafePtrArrayHandle array,
+            NativeFunc func,
+            IntPtr userData);
+
+        /// <summary>
+        /// Frees the memory allocated for the #GPtrArray. If @freeSeg is %TRUE
+        /// it frees the memory block holding the elements as well. Pass %FALSE
+        /// if you want to free the #GPtrArray wrapper but preserve the
+        /// underlying array for use elsewhere. If the reference count of @array
+        /// is greater than one, the #GPtrArray wrapper is preserved but the
+        /// size of @array will be set to zero.
+        /// </summary>
+        /// <remarks>
+        /// If array contents point to dynamically-allocated memory, they should
+        /// be freed separately if @freeSeg is %TRUE and no #GDestroyNotify
+        /// function has been set for @array.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="freeSeg">
+        /// if %TRUE the actual pointer array is freed as well
+        /// </param>
+        /// <returns>
+        /// the pointer array if @freeSeg is %FALSE, otherwise %NULL.
+        ///     The pointer array should be freed using g_free().
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_free (
+            SafePtrArrayHandle array,
+            bool freeSeg);
+
+        /// <summary>
+        /// Inserts an element into the pointer array at the given index. The
+        /// array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="index">
+        /// the index to place the new element at, or -1 to append
+        /// </param>
+        /// <param name="data">
+        /// the pointer to add.
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.40")]
+        static extern void g_ptr_array_insert (
+            SafePtrArrayHandle array,
+            int index,
+            IntPtr data);
 
         /// <summary>
         /// Inserts an element into the pointer array at the given index. The
@@ -132,15 +322,29 @@ namespace GISharp.GLib
         /// the pointer to add.
         /// </param>
         [Since ("2.40")]
-        public void Insert (int index, T data)
+        protected void Insert (int index, IntPtr data)
         {
             AssertNotDisposed ();
             if (index < 0 || index > Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            var data_ = data?.Handle ?? IntPtr.Zero;
-            PtrArrayInternal.g_ptr_array_insert (Handle, index, data_);
+            g_ptr_array_insert (Handle, index, data);
         }
+
+        /// <summary>
+        /// Atomically increments the reference count of @array by one.
+        /// This function is thread-safe and may be called from any thread.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <returns>
+        /// The passed in #GPtrArray
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        static extern IntPtr g_ptr_array_ref (
+            SafePtrArrayHandle array);
 
         /// <summary>
         /// Atomically increments the reference count of this array by one.
@@ -150,12 +354,36 @@ namespace GISharp.GLib
         /// The passed in <see cref="PtrArray{T}"/>
         /// </returns>
         [Since ("2.22")]
-        public PtrArray<T> Ref ()
+        public void Ref ()
         {
             AssertNotDisposed ();
-            PtrArrayInternal.g_ptr_array_ref (Handle);
-            return this;
+            g_ptr_array_ref (Handle);
         }
+
+        /// <summary>
+        /// Removes the first occurrence of the given pointer from the pointer
+        /// array. The following elements are moved down one place. If @array
+        /// has a non-%NULL #GDestroyNotify function it is called for the
+        /// removed element.
+        /// </summary>
+        /// <remarks>
+        /// It returns %TRUE if the pointer was removed, or %FALSE if the
+        /// pointer was not found.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="data">
+        /// the pointer to remove
+        /// </param>
+        /// <returns>
+        /// %TRUE if the pointer is removed, %FALSE if the pointer
+        ///     is not found in the array
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_ptr_array_remove (
+            SafePtrArrayHandle array,
+            IntPtr data);
 
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
@@ -174,13 +402,37 @@ namespace GISharp.GLib
         /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
         ///     is not found in the array
         /// </returns>
-        public bool Remove (T data)
+        protected bool Remove (IntPtr data)
         {
             AssertNotDisposed ();
-            var data_ = data?.Handle ?? IntPtr.Zero;
-            var ret = PtrArrayInternal.g_ptr_array_remove (Handle, data_);
+            var ret = g_ptr_array_remove (Handle, data);
             return ret;
         }
+
+        /// <summary>
+        /// Removes the first occurrence of the given pointer from the pointer
+        /// array. The last element in the array is used to fill in the space,
+        /// so this function does not preserve the order of the array. But it
+        /// is faster than g_ptr_array_remove(). If @array has a non-%NULL
+        /// #GDestroyNotify function it is called for the removed element.
+        /// </summary>
+        /// <remarks>
+        /// It returns %TRUE if the pointer was removed, or %FALSE if the
+        /// pointer was not found.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="data">
+        /// the pointer to remove
+        /// </param>
+        /// <returns>
+        /// %TRUE if the pointer was found in the array
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_ptr_array_remove_fast (
+            SafePtrArrayHandle array,
+            IntPtr data);
 
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
@@ -199,13 +451,32 @@ namespace GISharp.GLib
         /// <returns>
         /// <c>true</c> if the pointer was found in the array
         /// </returns>
-        public bool RemoveFast (T data)
+        protected bool RemoveFast (IntPtr data)
         {
             AssertNotDisposed ();
-            var data_ = data?.Handle ?? IntPtr.Zero;
-            var ret = PtrArrayInternal.g_ptr_array_remove_fast (Handle, data_);
+            var ret = g_ptr_array_remove_fast (Handle, data);
             return ret;
         }
+
+        /// <summary>
+        /// Removes the pointer at the given index from the pointer array.
+        /// The following elements are moved down one place. If @array has
+        /// a non-%NULL #GDestroyNotify function it is called for the removed
+        /// element.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the pointer to remove
+        /// </param>
+        /// <returns>
+        /// the pointer which was removed
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_remove_index (
+            SafePtrArrayHandle array,
+            uint index);
 
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
@@ -222,10 +493,31 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            PtrArrayInternal.g_ptr_array_remove_index (Handle, (uint)index);
+            g_ptr_array_remove_index (Handle, (uint)index);
             // Note: the pointer returned by g_ptr_array_remove_index may not be
             // valid because the free func is called on it so we always ignore it
         }
+
+        /// <summary>
+        /// Removes the pointer at the given index from the pointer array.
+        /// The last element in the array is used to fill in the space, so
+        /// this function does not preserve the order of the array. But it
+        /// is faster than g_ptr_array_remove_index(). If @array has a non-%NULL
+        /// #GDestroyNotify function it is called for the removed element.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the pointer to remove
+        /// </param>
+        /// <returns>
+        /// the pointer which was removed
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_remove_index_fast (
+            SafePtrArrayHandle array,
+            uint index);
 
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
@@ -243,10 +535,35 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            PtrArrayInternal.g_ptr_array_remove_index_fast (Handle, (uint)index);
+            g_ptr_array_remove_index_fast (Handle, (uint)index);
             // Note: the pointer returned by g_ptr_array_remove_index may not be
             // valid because the free func is called on it so we always ignore it
         }
+
+        /// <summary>
+        /// Removes the given number of pointers starting at the given index
+        /// from a #GPtrArray. The following elements are moved to close the
+        /// gap. If @array has a non-%NULL #GDestroyNotify function it is
+        /// called for the removed elements.
+        /// </summary>
+        /// <param name="array">
+        /// a @GPtrArray
+        /// </param>
+        /// <param name="index">
+        /// the index of the first pointer to remove
+        /// </param>
+        /// <param name="length">
+        /// the number of pointers to remove
+        /// </param>
+        /// <returns>
+        /// the @array
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.4")]
+        static extern IntPtr g_ptr_array_remove_range (
+            SafePtrArrayHandle array,
+            uint index,
+            uint length);
 
         /// <summary>
         /// Removes the given number of pointers starting at the given index
@@ -273,8 +590,26 @@ namespace GISharp.GLib
             if (index + length > Count) {
                 throw new ArgumentException ("index + length exceeds Count.");
             }
-            PtrArrayInternal.g_ptr_array_remove_range (Handle, (uint)index, (uint)length);
+            g_ptr_array_remove_range (Handle, (uint)index, (uint)length);
         }
+
+        /// <summary>
+        /// Sets a function for freeing each element when @array is destroyed
+        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called
+        /// with @freeSegment set to %TRUE or when removing elements.
+        /// </summary>
+        /// <param name="array">
+        /// A #GPtrArray
+        /// </param>
+        /// <param name="elementFreeFunc">
+        /// A function to free elements with
+        ///     destroy @array or %NULL
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        static extern void g_ptr_array_set_free_func (
+            SafePtrArrayHandle array,
+            NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Sets a function for freeing each element when this array is destroyed
@@ -297,8 +632,25 @@ namespace GISharp.GLib
         //            elementFreeFunc (elementFreeFuncData);
         //        };
         //    }
-        //    PtrArrayInternal.g_ptr_array_set_free_func (Handle, elementFreeFuncNative);
+        //    g_ptr_array_set_free_func (Handle, elementFreeFuncNative);
         //}
+
+        /// <summary>
+        /// Sets the size of the array. When making the array larger,
+        /// newly-added elements will be set to %NULL. When making it smaller,
+        /// if @array has a non-%NULL #GDestroyNotify function then it will be
+        /// called for the removed elements.
+        /// </summary>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="length">
+        /// the new length of the pointer array
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_set_size (
+            SafePtrArrayHandle array,
+            int length);
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
@@ -315,7 +667,197 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            PtrArrayInternal.g_ptr_array_set_size (Handle, length);
+            g_ptr_array_set_size (Handle, length);
+        }
+
+        /// <summary>
+        /// Sorts the array, using @compareFunc which should be a qsort()-style
+        /// comparison function (returns less than zero for first arg is less
+        /// than second arg, zero for equal, greater than zero if irst arg is
+        /// greater than second arg).
+        /// </summary>
+        /// <remarks>
+        /// Note that the comparison function for g_ptr_array_sort() doesn't
+        /// take the pointers from the array as arguments, it takes pointers to
+        /// the pointers in the array.
+        /// 
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_sort (
+            SafePtrArrayHandle array,
+            NativeCompareFunc compareFunc);
+
+        /// <summary>
+        /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
+        /// comparison function (returns less than zero for first arg is less
+        /// than second arg, zero for equal, greater than zero if irst arg is
+        /// greater than second arg).
+        /// </summary>
+        /// <remarks> 
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// </remarks>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        protected void Sort (Comparison<IntPtr> compareFunc)
+        {
+            AssertNotDisposed ();
+            if (compareFunc == null) {
+                throw new ArgumentNullException (nameof (compareFunc));
+            }
+            NativeCompareFunc compareFunc_ = (a, b) => {
+                var x = Marshal.ReadIntPtr (a);
+                var y = Marshal.ReadIntPtr (b);
+                var compareFuncRet = compareFunc (x, y);
+                return compareFuncRet;
+            };
+            g_ptr_array_sort (Handle, compareFunc_);
+            GC.KeepAlive (compareFunc_);
+        }
+
+        /// <summary>
+        /// Like g_ptr_array_sort(), but the comparison function has an extra
+        /// user data argument.
+        /// </summary>
+        /// <remarks>
+        /// Note that the comparison function for g_ptr_array_sort_with_data()
+        /// doesn't take the pointers from the array as arguments, it takes
+        /// pointers to the pointers in the array.
+        /// 
+        /// This is guaranteed to be a stable sort since version 2.32.
+        /// </remarks>
+        /// <param name="array">
+        /// a #GPtrArray
+        /// </param>
+        /// <param name="compareFunc">
+        /// comparison function
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @compareFunc
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_sort_with_data (
+            SafePtrArrayHandle array,
+            NativeCompareDataFunc compareFunc,
+            IntPtr userData);
+
+        /// <summary>
+        /// Atomically decrements the reference count of @array by one. If the
+        /// reference count drops to 0, the effect is the same as calling
+        /// g_ptr_array_free() with @freeSegment set to %TRUE. This function
+        /// is MT-safe and may be called from any thread.
+        /// </summary>
+        /// <param name="array">
+        /// A #GPtrArray
+        /// </param>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("2.22")]
+        static extern void g_ptr_array_unref (
+            SafePtrArrayHandle array);
+
+        /// <summary>
+        /// Atomically decrements the reference count of this array by one. If the
+        /// reference count drops to 0, the effect is the same as calling
+        /// g_ptr_array_free() with @freeSegment set to <c>true</c>. This function
+        /// is MT-safe and may be called from any thread.
+        /// </summary>
+        [Since ("2.22")]
+        public void Unref ()
+        {
+            AssertNotDisposed ();
+            g_ptr_array_unref (Handle);
+        }
+
+        /// <summary>
+        /// number of pointers in the array
+        /// </summary>
+        public int Count {
+            get {
+                return (int)Handle.Len;
+            }
+        }
+    }
+
+    public sealed class PtrArray<T> : PtrArray, IList<T>
+        where T : Opaque
+    {
+        /// <summary>
+        /// Adds a pointer to the end of the pointer array. The array will grow
+        /// in size automatically if necessary.
+        /// </summary>
+        /// <param name="data">
+        /// the pointer to add
+        /// </param>
+        public void Add (T data)
+        {
+            base.Add (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Inserts an element into the pointer array at the given index. The
+        /// array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="index">
+        /// the index to place the new element at, or -1 to append
+        /// </param>
+        /// <param name="data">
+        /// the pointer to add.
+        /// </param>
+        [Since ("2.40")]
+        public void Insert (int index, T data)
+        {
+            base.Insert (index, data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given pointer from the pointer
+        /// array. The following elements are moved down one place. If this array
+        /// has a non-<c>null</c> <see cref="DestroyNotify{T}"/>  function it is called for the
+        /// removed element.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
+        /// pointer was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the pointer to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
+        ///     is not found in the array
+        /// </returns>
+        public bool Remove (T data)
+        {
+            return base.Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given pointer from the pointer
+        /// array. The last element in the array is used to fill in the space,
+        /// so this function does not preserve the order of the array. But it
+        /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
+        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
+        /// pointer was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the pointer to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the pointer was found in the array
+        /// </returns>
+        public bool RemoveFast (T data)
+        {
+            return base.RemoveFast (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -336,29 +878,13 @@ namespace GISharp.GLib
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFunc_ = (a_, b_) => {
-                var a = Marshal.ReadIntPtr (a_);
-                var b = Marshal.ReadIntPtr (b_);
+            Comparison<IntPtr> compareFunc_ = (a, b) => {
                 var x = GetInstance<T> (a, Transfer.None);
                 var y = GetInstance<T> (b, Transfer.None);
                 var compareFuncRet = compareFunc (x, y);
                 return compareFuncRet;
             };
-            PtrArrayInternal.g_ptr_array_sort (Handle, compareFunc_);
-            GC.KeepAlive (compareFunc_);
-        }
-
-        /// <summary>
-        /// Atomically decrements the reference count of this array by one. If the
-        /// reference count drops to 0, the effect is the same as calling
-        /// g_ptr_array_free() with @freeSegment set to <c>true</c>. This function
-        /// is MT-safe and may be called from any thread.
-        /// </summary>
-        [Since ("2.22")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            PtrArrayInternal.g_ptr_array_unref (Handle);
+            base.Sort (compareFunc_);
         }
 
         public T this[int index] {
@@ -367,8 +893,7 @@ namespace GISharp.GLib
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var dataPtr = Marshal.ReadIntPtr (Handle);
-                var retPtr = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
+                var retPtr = Marshal.ReadIntPtr (Handle.Data, IntPtr.Size * index);
                 var ret = GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
@@ -381,22 +906,11 @@ namespace GISharp.GLib
                 Add (value);
                 // now we have swap the pointers so that the last item is last
                 // again and the new item is at index.
-                var dataPtr = Marshal.ReadIntPtr (Handle);
+                var dataPtr = Handle.Data;
                 var oldLast = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
                 var newItem = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * (Count - 1));
                 Marshal.WriteIntPtr (dataPtr, IntPtr.Size * index, newItem);
                 Marshal.WriteIntPtr (dataPtr, IntPtr.Size * Count, oldLast);
-            }
-        }
-
-        /// <summary>
-        /// number of pointers in the array
-        /// </summary>
-        public int Count {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, IntPtr.Size);
-                return ret;
             }
         }
 
@@ -428,7 +942,6 @@ namespace GISharp.GLib
         /// </summary>
         public void Clear ()
         {
-            AssertNotDisposed ();
             SetSize (0);
         }
 
@@ -479,392 +992,5 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             return Enumerate ().GetEnumerator ();
         }
-    }
-
-    // compiler doesn't allow pinvoke declarations in generic class
-    static class PtrArrayInternal
-    {
-        /// <summary>
-        /// Creates a new #GPtrArray with a reference count of 1.
-        /// </summary>
-        /// <returns>
-        /// the new #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_ptr_array_new ();
-
-        /// <summary>
-        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0. It also set @elementFreeFunc
-        /// for freeing each element when the array is destroyed either via
-        /// g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        /// <returns>
-        /// A new #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.30")]
-        internal static extern IntPtr g_ptr_array_new_full (
-            [In] uint reservedSize,
-            [In] NativeDestroyNotify elementFreeFunc);
-
-        /// <summary>
-        /// Creates a new #GPtrArray with a reference count of 1 and use
-        /// @elementFreeFunc for freeing each element when the array is destroyed
-        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        /// <returns>
-        /// A new #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern IntPtr g_ptr_array_new_with_free_func (
-            [In] NativeDestroyNotify elementFreeFunc);
-
-        /// <summary>
-        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <returns>
-        /// the new #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_ptr_array_sized_new (
-            [In] uint reservedSize);
-
-        /// <summary>
-        /// Adds a pointer to the end of the pointer array. The array will grow
-        /// in size automatically if necessary.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to add
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_ptr_array_add (
-            [In] IntPtr array,
-            [In] IntPtr data);
-
-        /// <summary>
-        /// Calls a function for each element of a #GPtrArray.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="func">
-        /// the function to call for each array element
-        /// </param>
-        /// <param name="userData">
-        /// user data to pass to the function
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.4")]
-        internal static extern void g_ptr_array_foreach (
-            [In] IntPtr array,
-            [In] NativeFunc func,
-            [In] IntPtr userData);
-
-        /// <summary>
-        /// Frees the memory allocated for the #GPtrArray. If @freeSeg is %TRUE
-        /// it frees the memory block holding the elements as well. Pass %FALSE
-        /// if you want to free the #GPtrArray wrapper but preserve the
-        /// underlying array for use elsewhere. If the reference count of @array
-        /// is greater than one, the #GPtrArray wrapper is preserved but the
-        /// size of @array will be set to zero.
-        /// </summary>
-        /// <remarks>
-        /// If array contents point to dynamically-allocated memory, they should
-        /// be freed separately if @freeSeg is %TRUE and no #GDestroyNotify
-        /// function has been set for @array.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="freeSeg">
-        /// if %TRUE the actual pointer array is freed as well
-        /// </param>
-        /// <returns>
-        /// the pointer array if @freeSeg is %FALSE, otherwise %NULL.
-        ///     The pointer array should be freed using g_free().
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_ptr_array_free (
-            [In] IntPtr array,
-            [In] bool freeSeg);
-
-        /// <summary>
-        /// Inserts an element into the pointer array at the given index. The
-        /// array will grow in size automatically if necessary.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index to place the new element at, or -1 to append
-        /// </param>
-        /// <param name="data">
-        /// the pointer to add.
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.40")]
-        internal static extern void g_ptr_array_insert (
-            [In] IntPtr array,
-            [In] int index,
-            [In] IntPtr data);
-
-        /// <summary>
-        /// Atomically increments the reference count of @array by one.
-        /// This function is thread-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <returns>
-        /// The passed in #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern IntPtr g_ptr_array_ref (
-            [In] IntPtr array);
-
-        /// <summary>
-        /// Removes the first occurrence of the given pointer from the pointer
-        /// array. The following elements are moved down one place. If @array
-        /// has a non-%NULL #GDestroyNotify function it is called for the
-        /// removed element.
-        /// </summary>
-        /// <remarks>
-        /// It returns %TRUE if the pointer was removed, or %FALSE if the
-        /// pointer was not found.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to remove
-        /// </param>
-        /// <returns>
-        /// %TRUE if the pointer is removed, %FALSE if the pointer
-        ///     is not found in the array
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern bool g_ptr_array_remove (
-            [In] IntPtr array,
-            [In] IntPtr data);
-
-        /// <summary>
-        /// Removes the first occurrence of the given pointer from the pointer
-        /// array. The last element in the array is used to fill in the space,
-        /// so this function does not preserve the order of the array. But it
-        /// is faster than g_ptr_array_remove(). If @array has a non-%NULL
-        /// #GDestroyNotify function it is called for the removed element.
-        /// </summary>
-        /// <remarks>
-        /// It returns %TRUE if the pointer was removed, or %FALSE if the
-        /// pointer was not found.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to remove
-        /// </param>
-        /// <returns>
-        /// %TRUE if the pointer was found in the array
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern bool g_ptr_array_remove_fast (
-            [In] IntPtr array,
-            [In] IntPtr data);
-
-        /// <summary>
-        /// Removes the pointer at the given index from the pointer array.
-        /// The following elements are moved down one place. If @array has
-        /// a non-%NULL #GDestroyNotify function it is called for the removed
-        /// element.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the pointer to remove
-        /// </param>
-        /// <returns>
-        /// the pointer which was removed
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_ptr_array_remove_index (
-            [In] IntPtr array,
-            [In] uint index);
-
-        /// <summary>
-        /// Removes the pointer at the given index from the pointer array.
-        /// The last element in the array is used to fill in the space, so
-        /// this function does not preserve the order of the array. But it
-        /// is faster than g_ptr_array_remove_index(). If @array has a non-%NULL
-        /// #GDestroyNotify function it is called for the removed element.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the pointer to remove
-        /// </param>
-        /// <returns>
-        /// the pointer which was removed
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_ptr_array_remove_index_fast (
-            [In] IntPtr array,
-            [In] uint index);
-
-        /// <summary>
-        /// Removes the given number of pointers starting at the given index
-        /// from a #GPtrArray. The following elements are moved to close the
-        /// gap. If @array has a non-%NULL #GDestroyNotify function it is
-        /// called for the removed elements.
-        /// </summary>
-        /// <param name="array">
-        /// a @GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the first pointer to remove
-        /// </param>
-        /// <param name="length">
-        /// the number of pointers to remove
-        /// </param>
-        /// <returns>
-        /// the @array
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.4")]
-        internal static extern IntPtr g_ptr_array_remove_range (
-            [In] IntPtr array,
-            [In] uint index,
-            [In] uint length);
-
-        /// <summary>
-        /// Sets a function for freeing each element when @array is destroyed
-        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called
-        /// with @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="array">
-        /// A #GPtrArray
-        /// </param>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern void g_ptr_array_set_free_func (
-            [In] IntPtr array,
-            [In] NativeDestroyNotify elementFreeFunc);
-
-        /// <summary>
-        /// Sets the size of the array. When making the array larger,
-        /// newly-added elements will be set to %NULL. When making it smaller,
-        /// if @array has a non-%NULL #GDestroyNotify function then it will be
-        /// called for the removed elements.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="length">
-        /// the new length of the pointer array
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_ptr_array_set_size (
-            [In] IntPtr array,
-            [In] int length);
-
-        /// <summary>
-        /// Sorts the array, using @compareFunc which should be a qsort()-style
-        /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater than zero if irst arg is
-        /// greater than second arg).
-        /// </summary>
-        /// <remarks>
-        /// Note that the comparison function for g_ptr_array_sort() doesn't
-        /// take the pointers from the array as arguments, it takes pointers to
-        /// the pointers in the array.
-        /// 
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_ptr_array_sort (
-            [In] IntPtr array,
-            [In] NativeCompareFunc compareFunc);
-
-        /// <summary>
-        /// Like g_ptr_array_sort(), but the comparison function has an extra
-        /// user data argument.
-        /// </summary>
-        /// <remarks>
-        /// Note that the comparison function for g_ptr_array_sort_with_data()
-        /// doesn't take the pointers from the array as arguments, it takes
-        /// pointers to the pointers in the array.
-        /// 
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-        /// <param name="userData">
-        /// data to pass to @compareFunc
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_ptr_array_sort_with_data (
-            [In] IntPtr array,
-            [In] NativeCompareDataFunc compareFunc,
-            [In] IntPtr userData);
-
-        /// <summary>
-        /// Atomically decrements the reference count of @array by one. If the
-        /// reference count drops to 0, the effect is the same as calling
-        /// g_ptr_array_free() with @freeSegment set to %TRUE. This function
-        /// is MT-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// A #GPtrArray
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        internal static extern void g_ptr_array_unref (
-            [In] IntPtr array);
-
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern GType g_ptr_array_get_type ();
     }
 }

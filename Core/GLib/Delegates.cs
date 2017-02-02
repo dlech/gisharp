@@ -44,7 +44,7 @@ namespace GISharp.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int NativeCompareFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate int NativeCompareFunc (IntPtr a, IntPtr b);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -112,35 +112,6 @@ namespace GISharp.GLib
     /// the data element.
     /// </param>
     public delegate void DestroyNotify<T> (T data);
-
-    public static class NativeDestoryNotifyFactory
-    {
-        /// <summary>
-        /// Creates a destroy notify function that can be passed to native methods
-        /// that frees the GCHandle when called.
-        /// </summary>
-        /// <param name="handle">Handle.</param>
-        public static NativeDestroyNotify Create (GCHandle handle)
-        {
-            NativeDestroyNotify method = (userData) => {
-                handle.Free ();
-                GCHandle.FromIntPtr (userData).Free ();
-            };
-            return method;
-        }
-
-        public static NativeDestroyNotify Create<T> (DestroyNotify<T> method, bool freeData) where T : Opaque
-        {
-            NativeDestroyNotify native = (userData_) => {
-                var userData = Opaque.GetInstance<T> (userData_, Transfer.None);
-                method.Invoke (userData);
-                if (freeData) {
-                    GCHandle.FromIntPtr (userData_).Free ();
-                }
-            };
-            return native;
-        }
-    }
 
     /// <summary>
     /// Provides a default unmanged callback for freeing a GCHandle.

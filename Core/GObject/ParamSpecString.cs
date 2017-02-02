@@ -8,24 +8,92 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for string properties.
     /// </summary>
     [GType ("GParamString", IsWrappedNativeType = true)]
-    sealed class ParamSpecString : ParamSpec
+    public sealed class ParamSpecString : ParamSpec
     {
-        struct ParamSpecStringStruct
+        public sealed class SafeParamSpecStringHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public IntPtr DefaultValue;
-            public IntPtr CsetFirst;
-            public IntPtr CsetNth;
-            public sbyte Substitutor;
-            public uint Flags;
-            #pragma warning restore CS0649
+            struct ParamSpecString
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public IntPtr DefaultValue;
+                public IntPtr CsetFirst;
+                public IntPtr CsetNth;
+                public sbyte Substitutor;
+                public uint Bitfield;
+                #pragma warning restore CS0649
+            }
+
+            public IntPtr DefaultValue {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.DefaultValue));
+                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
+                    return ret;
+                }
+            }
+
+            public IntPtr CsetFirst {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.CsetFirst));
+                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
+                    return ret;
+                }
+            }
+
+            public IntPtr CsetNth {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.CsetNth));
+                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
+                    return ret;
+                }
+            }
+
+            public sbyte Substitutor {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.Substitutor));
+                    var ret = Marshal.ReadByte (handle, (int)offset);
+                    return (sbyte)ret;
+                }
+            }
+
+            public uint Bitfield {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.Bitfield));
+                    var ret = Marshal.ReadInt32 (handle, (int)offset);
+                    return (uint)ret;
+                }
+            }
+
+            public SafeParamSpecStringHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecStringHandle Handle {
+            get {
+                return (SafeParamSpecStringHandle)base.Handle;
+            }
         }
 
         public new string DefaultValue {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.DefaultValue));
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)offset);
+                var ret_ = Handle.DefaultValue;
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -33,8 +101,7 @@ namespace GISharp.GObject
 
         public string CsetFirst {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.CsetFirst));
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)offset);
+                var ret_ = Handle.CsetFirst;
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -42,8 +109,7 @@ namespace GISharp.GObject
 
         public string CsetNth {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.CsetNth));
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)offset);
+                var ret_ = Handle.CsetNth;
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -51,25 +117,21 @@ namespace GISharp.GObject
 
         public sbyte Substitutor {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.Substitutor));
-                var ret = Marshal.ReadByte (Handle, (int)offset);
-                return (sbyte)ret;
+                return Handle.Substitutor;
             }
         }
 
         public bool NullFoldIfEmpty {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.Flags));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return Convert.ToBoolean (ret & 0x1);
+                var ret = Convert.ToBoolean (Handle.Bitfield & 0x1);
+                return ret;
             }
         }
 
         public bool EnsureNonNull {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecStringStruct> (nameof (ParamSpecStringStruct.Flags));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return Convert.ToBoolean (ret & 0x2);
+                var ret = Convert.ToBoolean (Handle.Bitfield & 0x2);
+                return ret;
             }
         }
 
@@ -78,24 +140,19 @@ namespace GISharp.GObject
             return paramSpecTypes[14];
         }
 
-        public ParamSpecString (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags), Transfer.Full)
+        public ParamSpecString (SafeParamSpecStringHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_string (IntPtr name,
+        extern static IntPtr g_param_spec_string (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             IntPtr defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+        static SafeParamSpecStringHandle New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -110,7 +167,8 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var defaultValuePtr = GMarshal.StringToUtf8Ptr (defaultValue);
-            var pspecPtr = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
+            var ret_ = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
+            var ret = new SafeParamSpecStringHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -125,7 +183,12 @@ namespace GISharp.GObject
             }
             GMarshal.Free (defaultValuePtr);
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, defaultValue, flags))
+        {
         }
     }
 }

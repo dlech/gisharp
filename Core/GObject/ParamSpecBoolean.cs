@@ -8,21 +8,44 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for boolean properties.
     /// </summary>
     [GType ("GParamBoolean", IsWrappedNativeType = true)]
-    sealed class ParamSpecBoolean : ParamSpec
+    public sealed class ParamSpecBoolean : ParamSpec
     {
-        struct ParamSpecBooleanStruct
+        public sealed class SafeParamSpecBooleanHandle : SafeParamSpecHandle
         {
-            #pragma warning disable CS0649
-            public ParamSpecStruct ParentInstance;
-            public bool DefaultValue;
-            #pragma warning restore CS0649
+            struct ParamSpecBoolean
+            {
+                #pragma warning disable CS0649
+                public ParamSpecStruct ParentInstance;
+                public bool DefaultValue;
+                #pragma warning restore CS0649
+            }
+            
+            public bool DefaultValue {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecBoolean> (nameof (ParamSpecBoolean.DefaultValue));
+                    var ret = Marshal.PtrToStructure<bool> (handle + (int)offset);
+                    return ret;
+                }
+            }
+
+            public SafeParamSpecBooleanHandle (IntPtr handle, Transfer ownership)
+                : base (handle, ownership)
+            {
+            }
+        }
+
+        public new SafeParamSpecBooleanHandle Handle {
+            get {
+                return (SafeParamSpecBooleanHandle)base.Handle;
+            }
         }
 
         public new bool DefaultValue {
             get {
-                var offset = Marshal.OffsetOf<ParamSpecBooleanStruct> (nameof (ParamSpecBooleanStruct.DefaultValue));
-                var ret = Marshal.ReadInt32 (Handle, (int)offset);
-                return Convert.ToBoolean (ret);
+                return Handle.DefaultValue;
             }
         }
 
@@ -31,24 +54,19 @@ namespace GISharp.GObject
             return paramSpecTypes[2];
         }
 
-        public ParamSpecBoolean (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
-        {
-        }
-
-        public ParamSpecBoolean (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags), Transfer.Full)
+        public ParamSpecBoolean (SafeParamSpecBooleanHandle handle) : base (handle)
         {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_boolean (IntPtr name,
+        extern static IntPtr g_param_spec_boolean (
+            IntPtr name,
             IntPtr nick,
             IntPtr blurb,
             bool defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
+        static SafeParamSpecBooleanHandle New (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -62,7 +80,8 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var pspecPtr = g_param_spec_boolean (namePtr, nickPtr, blurbPtr, defaultValue, flags);
+            var ret_ = g_param_spec_boolean (namePtr, nickPtr, blurbPtr, defaultValue, flags);
+            var ret = new SafeParamSpecBooleanHandle (ret_, Transfer.Full);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -76,7 +95,12 @@ namespace GISharp.GObject
                 GMarshal.Free (blurbPtr);
             }
 
-            return pspecPtr;
+            return ret;
+        }
+
+        public ParamSpecBoolean (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
+            : this (New (name, nick, blurb, defaultValue, flags))
+        {
         }
     }
 }
