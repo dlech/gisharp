@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
@@ -46,10 +46,6 @@
     </MonoDevelop>
   </ProjectExtensions>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
     <ProjectReference Include="..\CodeGen\CodeGen.csproj">
       <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
       <Name>CodeGen</Name>

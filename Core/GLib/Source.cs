@@ -1606,6 +1606,7 @@ namespace GISharp.GLib
     /// </summary>
     struct SourceCallbackFuncs
     {
+        #pragma warning disable CS0649
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void NativeRef (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
@@ -1647,5 +1648,6 @@ namespace GISharp.GLib
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
         public NativeGet GetImpl;
+        #pragma warning restore CS0649
     }
 }

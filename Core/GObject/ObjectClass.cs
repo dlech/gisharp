@@ -20,6 +20,7 @@ namespace GISharp.GObject
         {
             internal struct ObjectClassStruct
             {
+                #pragma warning disable CS0649
                 public TypeClassStruct GTypeClass;
 
                 public IntPtr ConstructProperties;
@@ -42,6 +43,7 @@ namespace GISharp.GObject
                 public ulong Flags;
                 [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
                 public IntPtr Dummy;
+                #pragma warning restore CS0649
 
                 [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
                 public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
@@ -82,7 +84,7 @@ namespace GISharp.GObject
 
         public override Type StructType {
             get {
-                return typeof (SafeObjectClassHandle.TypeClassStruct);
+                return typeof (SafeObjectClassHandle.ObjectClassStruct);
             }
         }
 
@@ -689,6 +691,7 @@ namespace GISharp.GObject
     /// </summary>
     struct ObjectConstructParam
     {
+        #pragma warning disable CS0649
         /// <summary>
         /// the GParamSpec of the construct parameter
         /// </summary>
@@ -698,5 +701,6 @@ namespace GISharp.GObject
         /// the value to set the parameter to
         /// </summary>
         public IntPtr Value;
+        #pragma warning restore CS0649
     }
 }

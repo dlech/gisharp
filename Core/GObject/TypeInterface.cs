@@ -14,8 +14,10 @@ namespace GISharp.GObject
         {
             internal struct TypeInterfaceStruct
             {
+                #pragma warning disable CS0649
                 public GType GType;
                 public GType GInstanceType;
+                #pragma warning restore CS0649
             }
 
             public GType GType {
@@ -48,8 +50,8 @@ namespace GISharp.GObject
                     var msg = "Type must be an interface";
                     throw new ArgumentException (msg, nameof (type));
                 }
-                var handle = g_type_default_interface_ref (type);
-                SetHandle (handle);
+                var ret = g_type_default_interface_ref (type);
+                SetHandle (ret);
             }
 
             protected override bool ReleaseHandle ()
@@ -84,7 +86,7 @@ namespace GISharp.GObject
 
         public abstract InterfaceInfo CreateInterfaceInfo (Type instanceType);
 
-        public TypeInterface (SafeTypeInterfaceHandle handle) : base (handle)
+        protected TypeInterface (SafeTypeInterfaceHandle handle) : base (handle)
         {
         }
 

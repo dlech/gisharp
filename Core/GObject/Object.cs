@@ -3,10 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using System.Reflection;
-using System.Collections.Generic;
-using System.Linq;
 
-using nulong = GISharp.Runtime.NativeULong;
 using GISharp.GLib;
 
 namespace GISharp.GObject
@@ -211,7 +208,7 @@ namespace GISharp.GObject
         }
 
         /// <summary>
-        /// Creates a new instance of type <paramref name="T"/> using the specified
+        /// Creates a new instance of type <typeparamref name="T"/> using the specified
         /// property names and values.
         /// </summary>
         /// <returns>The instance.</returns>
@@ -1039,32 +1036,6 @@ namespace GISharp.GObject
         }
 
         /// <summary>
-        /// Increase the reference count of @object, and possibly remove the
-        /// [floating][floating-ref] reference, if @object has a floating reference.
-        /// </summary>
-        /// <remarks>
-        /// In other words, if the object is floating, then this call "assumes
-        /// ownership" of the floating reference, converting it to a normal
-        /// reference by clearing the floating flag while leaving the reference
-        /// count unchanged.  If the object is not floating, then this call
-        /// adds a new normal reference increasing the reference count by one.
-        /// </remarks>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <returns>
-        /// @object
-        /// </returns>
-        [Since ("2.10")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Object" type="gpointer" managed-name="Object" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_object_ref_sink (
-            /* <type name="Object" type="gpointer" managed-name="Object" /> */
-            /* transfer-ownership:none */
-            SafeObjectHandle @object);
-
-        /// <summary>
         /// Removes a reference added with g_object_add_toggle_ref(). The
         /// reference count of the object is decreased by one.
         /// </summary>
@@ -1229,43 +1200,6 @@ namespace GISharp.GObject
             var data = GCHandle.FromIntPtr (dataPtr);
             data.Free ();
         }
-
-        /// <summary>
-        /// Increases the reference count of object.
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <returns>
-        /// the same object.
-        /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_object_ref (
-            /* <type name="Object" type="gpointer" managed-name="Object" /> */
-            /* transfer-ownership:none */
-            SafeObjectHandle @object);
-
-        /// <summary>
-        /// Decreases the reference count of @object. When its reference count
-        /// drops to 0, the object is finalized (i.e. its memory is freed).
-        /// </summary>
-        /// <remarks>
-        /// If the pointer to the #GObject may be reused in future (for example, if it is
-        /// an instance variable of another object), it is recommended to clear the
-        /// pointer to %NULL rather than retain a dangling pointer to a potentially
-        /// invalid #GObject instance. Use g_clear_object() for this.
-        /// </remarks>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_object_unref (
-            /* <type name="Object" type="gpointer" managed-name="Object" /> */
-            /* transfer-ownership:none */
-            SafeObjectHandle @object);
     }
 
     /// <summary>
@@ -1290,6 +1224,7 @@ namespace GISharp.GObject
     /// </summary>
     struct Parameter
     {
+        #pragma warning disable CS0649
         /// <summary>
         /// the parameter name
         /// </summary>
@@ -1299,5 +1234,6 @@ namespace GISharp.GObject
         /// the parameter value
         /// </summary>
         public IntPtr Value;
+        #pragma warning restore CS0649
     }
 }

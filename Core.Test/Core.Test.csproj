@@ -1,85 +1,29 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{85913FB2-05F7-4995-BD23-4B5FA58E6729}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>GISharp.Core.Test</RootNamespace>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+    <DebugType>portable</DebugType>
     <AssemblyName>Core.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <PackageId>Core.Test</PackageId>
+    <GenerateRuntimeConfigurationFiles>true</GenerateRuntimeConfigurationFiles>
+    <RuntimeFrameworkVersion>1.1</RuntimeFrameworkVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
-    <Reference Include="nunit.framework">
-      <HintPath>..\packages\NUnit.2.6.4\lib\nunit.framework.dll</HintPath>
-    </Reference>
-    <Reference Include="Microsoft.CSharp" />
+    <ProjectReference Include="../Core/Core.csproj" />
   </ItemGroup>
+
   <ItemGroup>
-    <Compile Include="Setup.cs" />
-    <Compile Include="GLib\ArrayTests.cs" />
-    <Compile Include="GObject\BindingFlagsTests.cs" />
-    <Compile Include="GLib\ByteArrayTests.cs" />
-    <Compile Include="GObject\EnumTests.cs" />
-    <Compile Include="GObject\FlagsTests.cs" />
-    <Compile Include="GObject\GTypeTests.cs" />
-    <Compile Include="GLib\HashTableTests.cs" />
-    <Compile Include="GLib\ListTests.cs" />
-    <Compile Include="GObject\ObjectTests.cs" />
-    <Compile Include="GLib\PtrArrayTests.cs" />
-    <Compile Include="GLib\SListTests.cs" />
-    <Compile Include="GObject\ValueTests.cs" />
-    <Compile Include="TestOpaque.cs" />
-    <Compile Include="GLib\QuarkTests.cs" />
-    <Compile Include="TestInterfaces.cs" />
-    <Compile Include="GObject\InterfaceTests.cs" />
-    <Compile Include="GLib\VariantTests.cs" />
-    <Compile Include="GObject\ClosureTests.cs" />
-    <Compile Include="GLib\IdleTests.cs" />
-    <Compile Include="GLib\MainContextTests.cs" />
-    <Compile Include="GLib\MainLoopTests.cs" />
-    <Compile Include="GLib\SourceTests.cs" />
-    <Compile Include="GLib\TimeoutTests.cs" />
-    <Compile Include="GLib\LogWriterTests.cs" />
-    <Compile Include="Utility.cs" />
-    <Compile Include="GObject\ParamSpecTests.cs" />
-    <Compile Include="GObject\BindingTests.cs" />
-    <Compile Include="IListTests.cs" />
-    <Compile Include="GLib\BytesTests.cs" />
-    <Compile Include="GLib\ErrorTests.cs" />
+    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170106-08" />
+    <PackageReference Include="nunit" Version="3.6.0" />
+    <PackageReference Include="dotnet-test-nunit" Version="3.4.0-beta-3" />
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <None Include="packages.config" />
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netcoreapp1.1' ">
+    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
+    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
+    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
+    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="GLib\" />
-    <Folder Include="GObject\" />
-    <Folder Include="Runtime\" />
-  </ItemGroup>
+
 </Project>

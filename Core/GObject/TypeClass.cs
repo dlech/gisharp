@@ -13,7 +13,9 @@ namespace GISharp.GObject
         {
             internal struct TypeClassStruct
             {
+                #pragma warning disable CS0649
                 public GType GType;
+                #pragma warning restore CS0649
             }
 
             public GType GType {

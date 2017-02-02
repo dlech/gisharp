@@ -1,150 +1,19 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C182ABF-3133-4742-AA1E-32016AEA22C8}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>GISharp</RootNamespace>
+    <TargetFramework>netstandard1.6</TargetFramework>
+    <DebugType>portable</DebugType>
     <AssemblyName>Core</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <PackageId>Core</PackageId>
+    <NetStandardImplicitPackageVersion>1.6.0</NetStandardImplicitPackageVersion>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
+
   <ItemGroup>
-    <Reference Include="System" />
+    <Compile Remove="Runtime\NativeLong32.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="GLib\Array.cs" />
-    <Compile Include="GObject\BindingFlags.cs" />
-    <Compile Include="GLib\ByteArray.cs" />
-    <Compile Include="GLib\Delegates.cs" />
-    <Compile Include="GObject\Enum.cs" />
-    <Compile Include="GObject\Flags.cs" />
-    <Compile Include="Runtime\ErrorDomainAttribute.cs" />
-    <Compile Include="Runtime\GErrorException.cs" />
-    <Compile Include="GObject\GType.cs" />
-    <Compile Include="Runtime\GirXmlAttribute.cs" />
-    <Compile Include="GLib\HashTable.cs" />
-    <Compile Include="GLib\List.cs" />
-    <Compile Include="Runtime\IndexedCollection.cs" />
-    <Compile Include="Runtime\GMarshal.cs" />
-    <Compile Include="GObject\Object.cs" />
-    <Compile Include="GObject\ObjectClass.cs" />
-    <Compile Include="Runtime\Opaque.cs" />
-    <Compile Include="GObject\ParamSpec.cs" />
-    <Compile Include="GLib\PtrArray.cs" />
-    <Compile Include="Runtime\SinceAttribute.cs" />
-    <Compile Include="GLib\SList.cs" />
-    <Compile Include="GObject\TypeClass.cs" />
-    <Compile Include="GObject\Value.cs" />
-    <Compile Include="Runtime\Transfer.cs" />
-    <Compile Include="Runtime\NativeLong64.cs" />
-    <Compile Include="GObject\Delegates.cs" />
-    <Compile Include="GObject\TypeCValue.cs" />
-    <Compile Include="GObject\TypeFlags.cs" />
-    <Compile Include="GObject\TypeInstance.cs" />
-    <Compile Include="GObject\TypeQuery.cs" />
-    <Compile Include="GObject\TypeValueTable.cs" />
-    <Compile Include="GObject\TypeInfo.cs" />
-    <Compile Include="Runtime\GTypeAttribute.cs" />
-    <Compile Include="Runtime\PropertyAttribute.cs" />
-    <Compile Include="GObject\ParamFlags.cs" />
-    <Compile Include="Runtime\SignalAttribute.cs" />
-    <Compile Include="GObject\Signal.cs" />
-    <Compile Include="GObject\Binding.cs" />
-    <Compile Include="GObject\ConnectFlags.cs" />
-    <Compile Include="GObject\InitallyUnowned.cs" />
-    <Compile Include="GObject\SignalHandler.cs" />
-    <Compile Include="GObject\SignalFlags.cs" />
-    <Compile Include="GObject\SignalInvocationHint.cs" />
-    <Compile Include="GLib\Quark.cs" />
-    <Compile Include="GObject\SignalMatchType.cs" />
-    <Compile Include="GObject\SignalCMarshaller.cs" />
-    <Compile Include="GObject\Boxed.cs" />
-    <Compile Include="GObject\TypeInterface.cs" />
-    <Compile Include="GObject\InterfaceInfo.cs" />
-    <Compile Include="Runtime\ReflectionExtensions.cs" />
-    <Compile Include="Runtime\GTypeStructAttribute.cs" />
-    <Compile Include="GLib\Variant.cs" />
-    <Compile Include="Runtime\VariantDbusTypes.cs" />
-    <Compile Include="GLib\VariantType.cs" />
-    <Compile Include="GLib\VariantParseError.cs" />
-    <Compile Include="GLib\VariantIter.cs" />
-    <Compile Include="GLib\VariantClass.cs" />
-    <Compile Include="Runtime\DeprecatedSinceAttribute.cs" />
-    <Compile Include="Runtime\IObject.cs" />
-    <Compile Include="Runtime\CallbackScope.cs" />
-    <Compile Include="GLib\Error.cs" />
-    <Compile Include="GObject\Closure.cs" />
-    <Compile Include="GLib\Source.cs" />
-    <Compile Include="GLib\Idle.cs" />
-    <Compile Include="GLib\Timeout.cs" />
-    <Compile Include="GLib\Poll.cs" />
-    <Compile Include="GLib\Priority.cs" />
-    <Compile Include="GLib\MainContext.cs" />
-    <Compile Include="GLib\MainLoop.cs" />
-    <Compile Include="GLib\UnixSignal.cs" />
-    <Compile Include="GLib\Log.cs" />
-    <Compile Include="GLib\LogField.cs" />
-    <Compile Include="GLib\LogLevelFlags.cs" />
-    <Compile Include="GLib\LogWriterOutput.cs" />
-    <Compile Include="GLib\LogWriter.cs" />
-    <Compile Include="GLib\Utility.cs" />
-    <Compile Include="GModule\Module.cs" />
-    <Compile Include="GModule\ModuleFlags.cs" />
-    <Compile Include="GObject\ParamSpecBoolean.cs" />
-    <Compile Include="GObject\ParamSpecBoxed.cs" />
-    <Compile Include="GObject\ParamSpecChar.cs" />
-    <Compile Include="GObject\ParamSpecUChar.cs" />
-    <Compile Include="GObject\ParamSpecDouble.cs" />
-    <Compile Include="GObject\ParamSpecEnum.cs" />
-    <Compile Include="GObject\ParamSpecFlags.cs" />
-    <Compile Include="GObject\ParamSpecFloat.cs" />
-    <Compile Include="GObject\ParamSpecGType.cs" />
-    <Compile Include="GObject\ParamSpecInt.cs" />
-    <Compile Include="GObject\ParamSpecUInt.cs" />
-    <Compile Include="GObject\ParamSpecInt64.cs" />
-    <Compile Include="GObject\ParamSpecUInt64.cs" />
-    <Compile Include="GObject\ParamSpecLong.cs" />
-    <Compile Include="GObject\ParamSpecULong.cs" />
-    <Compile Include="GObject\ParamSpecString.cs" />
-    <Compile Include="GObject\ParamSpecObject.cs" />
-    <Compile Include="GObject\ParamSpecOverride.cs" />
-    <Compile Include="GObject\ParamSpecParam.cs" />
-    <Compile Include="GObject\ParamSpecPointer.cs" />
-    <Compile Include="GObject\ParamSpecUnichar.cs" />
-    <Compile Include="GObject\ParamSpecValueArray.cs" />
-    <Compile Include="GObject\ParamSpecVariant.cs" />
-    <Compile Include="GLib\Bytes.cs" />
-    <Compile Include="Runtime\SafeHandleZeroIsInvalid.cs" />
-    <Compile Include="Runtime\SafeHandleMinusOneIsInvalid.cs" />
+
+  <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard1.6' ">
+    <PackageReference Include="System.ComponentModel.Primitives" Version="4.3.0" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="Runtime\NativeLong32.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="GObject\" />
-    <Folder Include="GLib\" />
-    <Folder Include="Runtime\" />
-    <Folder Include="GModule\" />
-  </ItemGroup>
+
 </Project>
