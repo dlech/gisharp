@@ -5,16 +5,47 @@ namespace GISharp.Core.Test
 {
     public sealed class TestOpaque : Opaque
     {
-        public int Value { get { return Handle.ToInt32 (); } }
-
-        public TestOpaque (IntPtr handle, Transfer ownership)
+        public sealed class SafeTestOpaqueHandle : SafeHandleZeroIsInvalid
         {
-            Handle = handle;
+            public int Value {
+                get {
+                    return handle.ToInt32 ();
+                }
+                set {
+                    SetHandle ((IntPtr)value);
+                }
+            }
+
+            public SafeTestOpaqueHandle (IntPtr handle, Transfer ownership)
+            {
+                SetHandle (handle);
+            }
+
+            protected override bool ReleaseHandle ()
+            {
+                return true;
+            }
         }
 
-        public TestOpaque (int value)
+        public new SafeTestOpaqueHandle Handle {
+            get {
+                return (SafeTestOpaqueHandle)base.Handle;
+            }
+        }
+
+        public int Value { get { return Handle.Value; } }
+
+        public TestOpaque (SafeTestOpaqueHandle handle) : base (handle)
         {
-            Handle = (IntPtr)value;
+        }
+
+        static SafeTestOpaqueHandle New (int value)
+        {
+            return new SafeTestOpaqueHandle ((IntPtr)value, Transfer.Full);
+        }
+
+        public TestOpaque (int value) : this (New (value))
+        {
         }
 
         public static explicit operator int (TestOpaque instance)

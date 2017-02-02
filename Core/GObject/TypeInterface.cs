@@ -12,7 +12,7 @@ namespace GISharp.GObject
     {
         public abstract class SafeTypeInterfaceHandle : SafeHandleZeroIsInvalid
         {
-            internal struct TypeInterfaceStruct
+            internal protected struct TypeInterfaceStruct
             {
                 #pragma warning disable CS0649
                 public GType GType;

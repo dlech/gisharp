@@ -11,7 +11,10 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestNew ()
         {
-            using (var b = new Bytes (null)) {
+            using (var b = new Bytes ((byte[])null)) {
+                Assert.That (b.Count, Is.EqualTo (0));
+            }
+            using (var b = new Bytes (new byte[0])) {
                 Assert.That (b.Count, Is.EqualTo (0));
             }
             using (var b = new Bytes (new byte[] { 1 })) {

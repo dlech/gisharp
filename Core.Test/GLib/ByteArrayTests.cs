@@ -16,7 +16,7 @@ namespace GISharp.Core.Test.GLib
 
         static byte getItemAt (ByteArray array, int index)
         {
-            var data = Marshal.ReadIntPtr (array.Handle);
+            var data = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
             return Marshal.ReadByte (data, index);
         }
 
@@ -36,7 +36,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (array.Count, Is.EqualTo (10));
 
             // null argument is not allowed
-            Assert.That (() => new ByteArray (null),
+            Assert.That (() => new ByteArray ((byte[])null),
                 Throws.InstanceOf<ArgumentNullException> ());
         }
 
@@ -148,7 +148,7 @@ namespace GISharp.Core.Test.GLib
             // null argument is not allowed
             Assert.That (() => array.Sort (null),
                 Throws.InstanceOf<ArgumentNullException> ());
-            
+
             array.Dispose ();
             Assert.That (() => array.Sort ((x, y) => 0),
                          Throws.TypeOf<ObjectDisposedException> ());
@@ -169,7 +169,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => array.SetSize (0),
                          Throws.TypeOf<ObjectDisposedException> ());
         }
-
+#if false
         [Test]
         public void TestToBytes ()
         {
@@ -187,9 +187,8 @@ namespace GISharp.Core.Test.GLib
 
             array.Dispose ();
             Assert.That (() => array.ToBytes (), Throws.TypeOf<ObjectDisposedException> ());
-
         }
-
+#endif
         [Test]
         public void TestGType ()
         {

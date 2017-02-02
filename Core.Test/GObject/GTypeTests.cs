@@ -1,16 +1,14 @@
 using System;
-
-using NUnit.Framework;
-using System.Runtime.InteropServices;
+using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
-using System.Linq;
-
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.GObject;
 using GISharp.Runtime;
-using GISharp.GLib;
+using NUnit.Framework;
+using nlong = GISharp.Runtime.NativeLong;
+using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.Core.Test.GObject
 {

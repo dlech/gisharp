@@ -153,7 +153,7 @@ namespace GISharp.Core.Test.GLib
             array.Dispose ();
             Assert.Throws<ObjectDisposedException> (() => array.SetSize (0));
         }
-
+#if false
         [Test]
         public void TestSetClearFunc ()
         {
@@ -181,7 +181,7 @@ namespace GISharp.Core.Test.GLib
             array.Dispose ();
             Assert.That (() => array.SetClearFunc (null), Throws.TypeOf<ObjectDisposedException> ());
         }
-
+#endif
         [Test]
         public void TestSort ()
         {
@@ -218,7 +218,7 @@ namespace GISharp.Core.Test.GLib
         /// </summary>
         public static T UnsafeItemAt<T> (this Array<T> array, int index) where T : struct
         {
-            var dataPtr = Marshal.ReadIntPtr (array.Handle);
+            var dataPtr = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
             dataPtr += Marshal.SizeOf<T> () * index;
             var item = Marshal.PtrToStructure <T> (dataPtr);
             return item;

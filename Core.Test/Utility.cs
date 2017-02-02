@@ -10,7 +10,7 @@ namespace GISharp.Core.Test
         static readonly Version runtimeVersion;
 
         static Utility () {
-            using (var lib = new Module (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
+            using (var lib = Module.Open (Module.BuildPath (null, "glib-2.0", true), ModuleFlags.BindLazy)) {
                 var major = Marshal.ReadInt32 (lib.GetSymbol ("glib_major_version"));
                 var minor = Marshal.ReadInt32 (lib.GetSymbol ("glib_minor_version"));
                 var micro = Marshal.ReadInt32 (lib.GetSymbol ("glib_micro_version"));

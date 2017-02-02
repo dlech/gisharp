@@ -26,7 +26,7 @@ namespace GISharp.GObject
         }
     }
 
-    static class Enum
+    public static class Enum
     {
         /// <summary>
         /// This function is meant to be called from the `complete_type_info`
@@ -295,7 +295,7 @@ namespace GISharp.GObject
     /// A structure which contains a single enum value, its name, and its
     /// nickname.
     /// </summary>
-    struct EnumValue
+    public struct EnumValue
     {
         /// <summary>
         /// the enum value

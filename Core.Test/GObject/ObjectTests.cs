@@ -15,7 +15,7 @@ namespace GISharp.Core.Test.GObject
         public void TestReferences ()
         {
             var o1 = new GISharp.GObject.Object ();
-            var handle = o1.Handle;
+            var handle = o1.Handle.DangerousGetHandle ();
 
             // getting an object that already exists should return that object
             var o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.None);
@@ -67,7 +67,7 @@ namespace GISharp.Core.Test.GObject
                 weakRef = new WeakReference (o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
-                handle = o.Handle;
+                handle = o.Handle.DangerousGetHandle ();
                 g_object_ref (handle);
             }).Invoke ();
 
@@ -138,10 +138,10 @@ namespace GISharp.Core.Test.GObject
 
             Assert.That (((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo (0));
 
-            var baseObjClass = (ObjectClass)TypeClass.Peek (typeof(TestObjectPropertiesBase).GetGType ());
+            var baseObjClass = (ObjectClass)TypeClass.Get (typeof(TestObjectPropertiesBase).GetGType ());
             var baseIntValueProp = baseObjClass.FindProperty (nameof (obj.IntValue));
 
-            var subclassObjClass = (ObjectClass)TypeClass.Peek (typeof(TestObjectPropertiesSubclass).GetGType ());
+            var subclassObjClass = (ObjectClass)TypeClass.Get (typeof(TestObjectPropertiesSubclass).GetGType ());
             var subclassIntValueProp = subclassObjClass.FindProperty (nameof (obj.IntValue));
 
             // ...so ParamSpecs should not be the same
@@ -201,7 +201,7 @@ namespace GISharp.Core.Test.GObject
         {
             // check that ComponentModel attributes map to ParamSpec
             var baseObj = new TestObjectPropertiesBase ();
-            var baseObjClass = (ObjectClass)TypeClass.Peek (baseObj.GetGType ());
+            var baseObjClass = (ObjectClass)TypeClass.Get (baseObj.GetGType ());
             var basePspec = baseObjClass.FindProperty ("bool-value");
             Assert.That (basePspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
             Assert.That (basePspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
@@ -213,7 +213,7 @@ namespace GISharp.Core.Test.GObject
             // If the subclass tries to declare an attribute again, it will
             // be ignored as is the case with DefaultValueAttribute here.
             var subObj = new TestObjectPropertiesSubclass ();
-            var subObjClass = (ObjectClass)TypeClass.Peek (subObj.GetGType ());
+            var subObjClass = (ObjectClass)TypeClass.Get (subObj.GetGType ());
             var subPspec = subObjClass.FindProperty ("bool-value");
             Assert.That (subPspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
             Assert.That (subPspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
@@ -250,12 +250,11 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObject3 : GISharp.GObject.Object
         {
-            public TestObject3 () : this (New<TestObject3> (), Transfer.Full)
+            public TestObject3 () : this (New<TestObject3> ())
             {
             }
 
-            public TestObject3 (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public TestObject3 (SafeObjectHandle handle) : base (handle)
             {
             }
         }
@@ -292,13 +291,11 @@ namespace GISharp.Core.Test.GObject
             [GISharp.Runtime.Property]
             public object ObjectProperty { get; set; }
 
-            public TestObjectPropertiesBase ()
-                : this (New<TestObjectPropertiesBase> (), Transfer.Full)
+            public TestObjectPropertiesBase () : this (New<TestObjectPropertiesBase> ())
             {
             }
 
-            public TestObjectPropertiesBase (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public TestObjectPropertiesBase (SafeObjectHandle handle) : base (handle)
             {
             }
         }
@@ -316,13 +313,11 @@ namespace GISharp.Core.Test.GObject
             [DefaultValue (!BoolValuePropertyDefaultValue)]
             public override bool BoolValue { get; set; } = !BoolValuePropertyDefaultValue;
 
-            public TestObjectPropertiesSubclass ()
-                : this (New<TestObjectPropertiesSubclass> (), Transfer.Full)
+            public TestObjectPropertiesSubclass () : this (New<TestObjectPropertiesSubclass> ())
             {
             }
 
-            public TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public TestObjectPropertiesSubclass (SafeObjectHandle handle) : base (handle)
             {
             }
         }
@@ -369,13 +364,11 @@ namespace GISharp.Core.Test.GObject
                 Signal.Emit (this, eventHappendSignalId);
             }
 
-            public TestObjectSignal ()
-                : this (New<TestObjectSignal> (), Transfer.Full)
+            public TestObjectSignal () : this (New<TestObjectSignal> ())
             {
             }
 
-            public TestObjectSignal (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public TestObjectSignal (SafeObjectHandle handle) : base (handle)
             {
                 eventHappendSignalId = Signal.Lookup (nameof(EventHappened), this.GetGType ());
             }

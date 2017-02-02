@@ -363,7 +363,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        internal static SignalHandler Connect (Object instance, string detailedSignal, Action handler, ConnectFlags connectFlags = default(ConnectFlags))
+        public static SignalHandler Connect (Object instance, string detailedSignal, Action handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof (instance));

@@ -4,7 +4,7 @@ using GISharp.Runtime;
 
 namespace GISharp.GObject
 {
-    static class Flags
+    public static class Flags
     {
         /// <summary>
         /// This function is meant to be called from the complete_type_info()
@@ -231,7 +231,7 @@ namespace GISharp.GObject
     /// A structure which contains a single flags value, its name, and its
     /// nickname.
     /// </summary>
-    struct FlagsValue
+    public struct FlagsValue
     {
         /// <summary>
         /// the flags value
