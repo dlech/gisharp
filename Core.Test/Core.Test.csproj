@@ -6,6 +6,7 @@
     <DebugType>portable</DebugType>
     <AssemblyName>Core.Test</AssemblyName>
     <PackageId>Core.Test</PackageId>
+    <StartupObject>Core.Test.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
