@@ -5,16 +5,16 @@ namespace GISharp.Runtime
 {
     public class IndexedCollection<T> : IEnumerable<T>
     {
-        System.Func<int> getCount;
-        System.Func<int, T> getInfoAtIndex;
+        Func<int> getCount;
+        Func<int, T> getInfoAtIndex;
 
-        public IndexedCollection (System.Func<int> getCount, System.Func<int, T> getInfoAtIndex)
+        public IndexedCollection (Func<int> getCount, Func<int, T> getInfoAtIndex)
         {
             if (getCount == null) {
-                throw new ArgumentException ("getCount");
+                throw new ArgumentNullException (nameof (getCount));
             }
             if (getInfoAtIndex == null) {
-                throw new ArgumentException ("getInfoAtIndex");
+                throw new ArgumentNullException (nameof (getInfoAtIndex));
             }
             this.getCount = getCount;
             this.getInfoAtIndex = getInfoAtIndex;

@@ -33,8 +33,8 @@ namespace GISharp.GObject
 
             public SafeTypeClassHandle (GType type)
             {
-                var handle = g_type_class_ref (type);
-                SetHandle (handle);
+                var ret = g_type_class_ref (type);
+                SetHandle (ret);
             }
 
             [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -125,45 +125,7 @@ namespace GISharp.GObject
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             SafeTypeClassHandle gClass);
-
-        /// <summary>
-        /// Increments the reference count of the class structure belonging to
-        /// @type. This function will demand-create the class if it doesn't
-        /// exist already.
-        /// </summary>
-        /// <param name="type">
-        /// type ID of a classed type
-        /// </param>
-        /// <returns>
-        /// the #GTypeClass
-        ///     structure for the given type ID
-        /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_class_ref (
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type);
-
-
-        /// <summary>
-        /// Decrements the reference count of the class structure being passed in.
-        /// Once the last reference count of a class has been released, classes
-        /// may be finalized by the type system, so further dereferencing of a
-        /// class pointer after g_type_class_unref() are invalid.
-        /// </summary>
-        /// <param name="gClass">
-        /// a #GTypeClass structure to unref
-        /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_class_unref (
-            /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
-            /* transfer-ownership:none */
-            SafeTypeClassHandle gClass);
-
+        
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
         /// Registers a private structure for an instantiatable type.

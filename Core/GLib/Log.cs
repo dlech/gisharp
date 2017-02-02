@@ -266,7 +266,7 @@ namespace GISharp.GLib
         /// Sets the message levels which are always fatal, in any log domain.
         /// When a message with any of these levels is logged the program terminates.
         /// You can only set the levels defined by GLib to be fatal.
-        /// <see cref="LogLevel.Error"/> is always fatal.
+        /// <see cref="LogLevelFlags.Error"/> is always fatal.
         /// </summary>
         /// <remarks>
         /// You can also make some message levels fatal at runtime by setting
@@ -395,7 +395,7 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Sets the log levels which are fatal in the given domain.
-        /// <see cref="LogLevel.Error"/> is always fatal.
+        /// <see cref="LogLevelFlags.Error"/> is always fatal.
         /// </summary>
         /// <remarks>
         /// This has no effect on structured log messages (using g_log_structured() or

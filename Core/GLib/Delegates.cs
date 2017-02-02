@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
-using GISharp.GObject;
 
 namespace GISharp.GLib
 {
@@ -139,7 +138,7 @@ namespace GISharp.GLib
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Boolean NativeEqualFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate bool NativeEqualFunc ([In] IntPtr a, [In] IntPtr b);
 
     /// <summary>
     /// Specifies the type of a function used to test two values for
@@ -155,7 +154,7 @@ namespace GISharp.GLib
     /// <returns>
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
-    public delegate Boolean EqualFunc<T> (T a, T b) where T : Opaque;
+    public delegate bool EqualFunc<T> (T a, T b) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -219,7 +218,7 @@ namespace GISharp.GLib
     /// the hash value corresponding to the key
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate UInt32 NativeHashFunc ([In] IntPtr key);
+    public delegate uint NativeHashFunc ([In] IntPtr key);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -260,7 +259,7 @@ namespace GISharp.GLib
     /// <returns>
     /// the hash value corresponding to the key
     /// </returns>
-    public delegate UInt32 HashFunc<T> (T key) where T : Opaque;
+    public delegate uint HashFunc<T> (T key) where T : Opaque;
 
 
     /// <summary>
@@ -315,7 +314,7 @@ namespace GISharp.GLib
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Boolean NativeHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate bool NativeHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to
@@ -334,7 +333,7 @@ namespace GISharp.GLib
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     // Analysis disable InconsistentNaming
-    public delegate Boolean HRFunc<K,V> (K key, V value);
+    public delegate bool HRFunc<K,V> (K key, V value);
     // Analysis restore InconsistentNaming
 
     /// <summary>

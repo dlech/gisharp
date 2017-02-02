@@ -29,7 +29,7 @@ namespace GISharp.Runtime
         public DBusObjectPath (string path)
         {
             if (!Variant.IsObjectPath (path)) {
-                throw new ArgumentException ("Not a valid object path.", "path");
+                throw new ArgumentException ("Not a valid object path.", nameof (path));
             }
             value = path;
         }
@@ -86,7 +86,7 @@ namespace GISharp.Runtime
         public DBusSignature (string signature)
         {
             if (!Variant.IsSignature (signature)) {
-                throw new ArgumentException ("Not a valid signature.", "signature");
+                throw new ArgumentException ("Not a valid signature.", nameof (signature));
             }
             value = signature;
         }

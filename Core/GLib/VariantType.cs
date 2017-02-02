@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using GISharp.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.GLib
@@ -437,9 +438,9 @@ namespace GISharp.GLib
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_variant_type_get_gtype ();
+        static extern GType g_variant_type_get_gtype ();
 
-        private static GISharp.GObject.GType getGType ()
+        static GType getGType ()
         {
             var ret = g_variant_type_get_gtype ();
             return ret;
@@ -494,9 +495,9 @@ namespace GISharp.GLib
             if (typeString == null) {
                 throw new ArgumentNullException (nameof (typeString));
             }
-            var typeString_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (typeString);
+            var typeString_ = GMarshal.StringToUtf8Ptr (typeString);
             var ret_ = g_variant_type_new (typeString_);
-            GISharp.Runtime.GMarshal.Free (typeString_);
+            GMarshal.Free (typeString_);
             var ret = new SafeVariantTypeHandle (ret_, Transfer.Full);
             return ret;
         }
@@ -778,9 +779,9 @@ namespace GISharp.GLib
             if (typeString == null) {
                 throw new ArgumentNullException (nameof (typeString));
             }
-            var typeString_ = GISharp.Runtime.GMarshal.StringToUtf8Ptr (typeString);
+            var typeString_ = GMarshal.StringToUtf8Ptr (typeString);
             var ret = g_variant_type_string_is_valid (typeString_);
-            GISharp.Runtime.GMarshal.Free (typeString_);
+            GMarshal.Free (typeString_);
             return ret;
         }
 
@@ -826,44 +827,7 @@ namespace GISharp.GLib
             /* <type name="utf8" type="const gchar**" managed-name="Utf8" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             out IntPtr endptr);
-
-        /// <summary>
-        /// Makes a copy of a #GVariantType.  It is appropriate to call
-        /// g_variant_type_free() on the return value.  @type may not be %NULL.
-        /// </summary>
-        /// <param name="type">
-        /// a #GVariantType
-        /// </param>
-        /// <returns>
-        /// a new #GVariantType
-        ///
-        /// Since 2.24
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
-        /* transfer-ownership:full */
-        static extern IntPtr g_variant_type_copy (
-            /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
-            /* transfer-ownership:none */
-            SafeVariantTypeHandle type);
-
-        /// <summary>
-        /// Makes a copy of a #GVariantType.  It is appropriate to call
-        /// g_variant_type_free() on the return value.  @type may not be %NULL.
-        /// </summary>
-        /// <returns>
-        /// a new #GVariantType
-        ///
-        /// Since 2.24
-        /// </returns>
-        public VariantType Copy ()
-        {
-            AssertNotDisposed ();
-            var ret_ = g_variant_type_copy (Handle);
-            var ret = GetInstance<VariantType> (ret_, Transfer.Full);
-            return ret;
-        }
-
+        
         /// <summary>
         /// Returns a newly-allocated copy of the type string corresponding to
         /// @type.  The returned string is nul-terminated.  It is appropriate to
@@ -899,7 +863,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_type_dup_string (Handle);
-            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_, true);
+            var ret = GMarshal.Utf8PtrToString (ret_, true);
             return ret;
         }
 
@@ -1812,7 +1776,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_variant_type_peek_string (Handle);
-            var ret = GISharp.Runtime.GMarshal.Utf8PtrToString (ret_);
+            var ret = GMarshal.Utf8PtrToString (ret_);
             return ret;
         }
 

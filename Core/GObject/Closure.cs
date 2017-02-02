@@ -556,24 +556,6 @@ public sealed class Closure : Opaque
     }
 
     /// <summary>
-    /// Increments the reference count on a closure to force it staying
-    /// alive while the caller holds a pointer to it.
-    /// </summary>
-    /// <param name="closure">
-    /// #GClosure to increment the reference count on
-    /// </param>
-    /// <returns>
-    /// The @closure passed in, for convenience
-    /// </returns>
-    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-    /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-    /* transfer-ownership:none skip:1 */
-    static extern IntPtr g_closure_ref (
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-        /* transfer-ownership:none */
-        SafeClosureHandle closure);
-
-    /// <summary>
     /// Removes a finalization notifier.
     /// </summary>
     /// <remarks>
@@ -697,75 +679,4 @@ public sealed class Closure : Opaque
         /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
         /* transfer-ownership:none */
         NativeClosureMarshal metaMarshal);
-
-    /// <summary>
-    /// Takes over the initial ownership of a closure.  Each closure is
-    /// initially created in a "floating" state, which means that the initial
-    /// reference count is not owned by any caller. g_closure_sink() checks
-    /// to see if the object is still floating, and if so, unsets the
-    /// floating state and decreases the reference count. If the closure
-    /// is not floating, g_closure_sink() does nothing. The reason for the
-    /// existence of the floating state is to prevent cumbersome code
-    /// sequences like:
-    /// |[&lt;!-- language="C" --&gt;
-    /// closure = g_cclosure_new (cb_func, cb_data);
-    /// g_source_set_closure (source, closure);
-    /// g_closure_unref (closure); // GObject doesn't really need this
-    /// ]|
-    /// Because g_source_set_closure() (and similar functions) take ownership of the
-    /// initial reference count, if it is unowned, we instead can write:
-    /// |[&lt;!-- language="C" --&gt;
-    /// g_source_set_closure (source, g_cclosure_new (cb_func, cb_data));
-    /// ]|
-    /// </summary>
-    /// <remarks>
-    /// Generally, this function is used together with g_closure_ref(). Ane example
-    /// of storing a closure for later notification looks like:
-    /// |[&lt;!-- language="C" --&gt;
-    /// static GClosure *notify_closure = NULL;
-    /// void
-    /// foo_notify_set_closure (GClosure *closure)
-    /// {
-    ///   if (notify_closure)
-    ///     g_closure_unref (notify_closure);
-    ///   notify_closure = closure;
-    ///   if (notify_closure)
-    ///     {
-    ///       g_closure_ref (notify_closure);
-    ///       g_closure_sink (notify_closure);
-    ///     }
-    /// }
-    /// ]|
-    ///
-    /// Because g_closure_sink() may decrement the reference count of a closure
-    /// (if it hasn't been called on @closure yet) just like g_closure_unref(),
-    /// g_closure_ref() should be called prior to this function.
-    /// </remarks>
-    /// <param name="closure">
-    /// #GClosure to decrement the initial reference count on, if it's
-    ///           still being held
-    /// </param>
-    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="None" /> */
-    /* transfer-ownership:none */
-    static extern void g_closure_sink (
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-        /* transfer-ownership:none */
-        SafeClosureHandle closure);
-
-    /// <summary>
-    /// Decrements the reference count of a closure after it was previously
-    /// incremented by the same caller. If no other callers are using the
-    /// closure, then the closure will be destroyed and freed.
-    /// </summary>
-    /// <param name="closure">
-    /// #GClosure to decrement the reference count on
-    /// </param>
-    [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-    /* <type name="none" type="void" managed-name="None" /> */
-    /* transfer-ownership:none */
-    static extern void g_closure_unref (
-        /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
-        /* transfer-ownership:none */
-        SafeClosureHandle closure);
 }

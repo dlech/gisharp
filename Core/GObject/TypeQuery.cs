@@ -21,11 +21,11 @@ namespace GISharp.GObject
         /// <summary>
         /// the size of the class structure
         /// </summary>
-        public UInt32 ClassSize;
+        public uint ClassSize;
 
         /// <summary>
         /// the size of the instance structure
         /// </summary>
-        public UInt32 InstanceSize;
+        public uint InstanceSize;
     }
 }

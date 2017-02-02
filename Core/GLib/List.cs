@@ -1,9 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
-using System.Collections.Generic;
-using System.Reflection;
 using GISharp.Runtime;
-using GISharp.GObject;
 
 namespace GISharp.GLib
 {
@@ -23,9 +20,9 @@ namespace GISharp.GLib
             }
 
             // lists get a new head pointer, so we need to expose SetHandle() internally
-            internal void UpdateHead (IntPtr handle)
+            internal void UpdateHead (IntPtr head)
             {
-                SetHandle (handle);
+                SetHandle (head);
             }
 
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -372,22 +369,7 @@ namespace GISharp.GLib
             SafeListHandle list,
             NativeFunc func,
             IntPtr userData);
-
-        /// <summary>
-        /// Frees all of the memory used by a #GList.
-        /// The freed elements are returned to the slice allocator.
-        /// </summary>
-        /// <remarks>
-        /// If list elements contain dynamically-allocated memory, you should
-        /// either use g_list_free_full() or free them manually first.
-        /// </remarks>
-        /// <param name="list">
-        /// a #GList
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_list_free (
-            SafeListHandle list);
-
+        
         /// <summary>
         /// Convenience method, which frees all the memory used by a #GList,
         /// and calls @free_func on every element's data.
@@ -427,9 +409,6 @@ namespace GISharp.GLib
         /// Gets the position of the element containing
         /// the given data (starting from 0).
         /// </summary>
-        /// <param name="list">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
         /// <param name="data">
         /// the data to find
         /// </param>
@@ -999,9 +978,6 @@ namespace GISharp.GLib
         /// Note that the elements of the second <see cref="List{T}"/> are not copied.
         /// They are used directly.
         /// </summary>
-        /// <param name="list1">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
         /// <param name="list2">
         /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
         ///     this must point  to the top of the list
@@ -1061,9 +1037,6 @@ namespace GISharp.GLib
         /// Gets the position of the element containing
         /// the given data (starting from 0).
         /// </summary>
-        /// <param name="list">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
         /// <param name="data">
         /// the data to find
         /// </param>

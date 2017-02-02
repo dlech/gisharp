@@ -1,6 +1,5 @@
 using System;
 using System.Runtime.InteropServices;
-using GISharp.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.GObject

@@ -2,7 +2,6 @@ using System;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
-using GISharp.GObject;
 
 namespace GISharp.GLib
 {
@@ -58,9 +57,9 @@ namespace GISharp.GLib
 
             // Many g_slist_* functions return a new pointer to the head of
             // the list, so we need to expose SetHandle() internally.
-            internal void UpdateHead (IntPtr handle)
+            internal void UpdateHead (IntPtr head)
             {
-                SetHandle (handle);
+                SetHandle (head);
             }
 
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -83,7 +82,7 @@ namespace GISharp.GLib
             }
         }
 
-        public SList (SafeSListHandle handle) : base (handle)
+        protected SList (SafeSListHandle handle) : base (handle)
         {
         }
 
@@ -93,7 +92,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        public SList () : this (New ())
+        protected SList () : this (New ())
         {
         }
 
@@ -434,7 +433,7 @@ namespace GISharp.GLib
         /// <param name="func">
         /// the function to call with each element's data
         /// </param>
-        /// <param name="user_data">
+        /// <param name="userData">
         /// user data to pass to the function
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -461,7 +460,7 @@ namespace GISharp.GLib
         /// <param name="list">
         /// a pointer to a #GSList
         /// </param>
-        /// <param name="free_func">
+        /// <param name="freeFunc">
         /// the function to be called to free each element's data
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -980,7 +979,7 @@ namespace GISharp.GLib
         /// <param name="list">
         /// a #GSList
         /// </param>
-        /// <param name=compareFunc>
+        /// <param name="compareFunc">
         /// the comparison function used to sort the #GSList.
         ///     This function is passed the data from 2 elements of the #GSList
         ///     and should return 0 if they are equal, a negative value if the
@@ -1065,7 +1064,7 @@ namespace GISharp.GLib
         /// </returns>
         public SList<T> Concat (SList<T> list2)
         {
-            var ret = Concat (list2);
+            var ret = base.Concat (list2);
             return (SList<T>)ret;
         }
 
@@ -1188,7 +1187,7 @@ namespace GISharp.GLib
                 var compareFuncRet = func (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
-            var ret = base.InsertSorted (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero, compareFunc);
+            var ret = InsertSorted (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero, compareFunc);
             return (SList<T>)ret;
         }
 
@@ -1311,7 +1310,7 @@ namespace GISharp.GLib
                 var compareFuncRet = compareFunc (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
-            var ret = base.Sort (func);
+            var ret = Sort (func);
             return (SList<T>)ret;
         }
     }

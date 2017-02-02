@@ -10,8 +10,8 @@ namespace GISharp.Runtime
         /// code.
         /// </summary>
         /// <remarks>
-        /// This type must be a derivitave of <see cref="GISharp.GObject.TypeClass"/>
-        /// for objects or <see cref="GISharp.GObject.TypeInterface"/> for interfaces.
+        /// This type must be a derivitave of <see cref="GObject.TypeClass"/>
+        /// for objects or <see cref="GObject.TypeInterface"/> for interfaces.
         /// </remarks>
         public Type GTypeStruct { get; private set; }
 

@@ -1,7 +1,5 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.GLib;
@@ -25,7 +23,7 @@ namespace GISharp.Runtime
         public static IntPtr Alloc (int size)
         {
             if (size < 0) {
-                throw new ArgumentException ("Size must be >= 0", "size");
+                throw new ArgumentException ("Size must be >= 0", nameof (size));
             }
             return g_malloc ((UIntPtr)(uint)size);
         }
@@ -42,7 +40,7 @@ namespace GISharp.Runtime
         public static IntPtr Alloc0 (int size)
         {
             if (size < 0) {
-                throw new ArgumentException ("Size must be >= 0", "size");
+                throw new ArgumentException ("Size must be >= 0", nameof (size));
             }
             return g_malloc0 ((UIntPtr)(uint)size);
         }
@@ -235,7 +233,7 @@ namespace GISharp.Runtime
                 return IntPtr.Zero;
             }
             if (strings.Any (s => s == null)) {
-                throw new ArgumentException ("All array elements must be non-null.", "strings");
+                throw new ArgumentException ("All array elements must be non-null.", nameof (strings));
             }
             var ptr = Alloc ((strings.Length + 1) * IntPtr.Size);
             var offset = 0;
@@ -282,7 +280,7 @@ namespace GISharp.Runtime
             var ret = new System.Collections.Generic.List<string> ();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
-                var item = (GList)Marshal.PtrToStructure<GList> (itemPtr);
+                var item = Marshal.PtrToStructure<GList> (itemPtr);
                 ret.Add (Utf8PtrToString (item.Data));
                 itemPtr = item.Next;
             }
@@ -314,7 +312,7 @@ namespace GISharp.Runtime
             var ret = new System.Collections.Generic.List<string> ();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
-                var item = (GSList)Marshal.PtrToStructure<GSList> (itemPtr);
+                var item = Marshal.PtrToStructure<GSList> (itemPtr);
                 ret.Add (Utf8PtrToString (item.Data));
                 itemPtr = item.Next;
             }
@@ -368,7 +366,7 @@ namespace GISharp.Runtime
         /// </summary>
         /// <returns>The pointer to the array in unmanged memory.</returns>
         /// <param name="array">The managed array.</param>
-        /// <param name="nullTerminated">Set to <c>true</c> to make the array null-terminated<./param>
+        /// <param name="nullTerminated">Set to <c>true</c> to make the array null-terminated</param>
         /// <exception cref="NotSupportedException">
         /// Thrown if array element type is not a value type
         /// </exception>

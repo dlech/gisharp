@@ -17,7 +17,7 @@ namespace GISharp.GModule
     /// supported on the platform by checking <see cref="Supported"/>.
     /// If it is, you can open a module with <see cref="#ctor"/>,
     /// find the module's symbols (e.g. function names) with <see cref="GetSymbol"/>,
-    /// and later close the module with <see cref="Dispose"/>. <see cref="Name"/>
+    /// and later close the module with <see cref="base.Dispose"/>. <see cref="Name"/>
     /// will return the file name of a currently opened module.
     ///
     /// If any of the above methods fail, a <see cref="ModuleErrorException"/>

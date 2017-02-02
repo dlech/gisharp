@@ -7,7 +7,6 @@ using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 using System.Collections.Generic;
 using GISharp.GLib;
-using System.Linq;
 using System.Reflection;
 
 namespace GISharp.GObject
@@ -741,7 +740,7 @@ namespace GISharp.GObject
         /// variant contents of @value, should be unrefed using
         ///   g_variant_unref() when no longer needed
         /// </returns>
-        [SinceAttribute ("2.26")]
+        [Since ("2.26")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
         /* transfer-ownership:full */
@@ -757,7 +756,7 @@ namespace GISharp.GObject
         /// variant contents of @value, should be unrefed using
         ///   g_variant_unref() when no longer needed
         /// </returns>
-        //[SinceAttribute("2.26")]
+        //[Since("2.26")]
         public GISharp.GLib.Variant DupVariant()
         {
             AssertNotDisposed();
@@ -861,7 +860,7 @@ namespace GISharp.GObject
         object Boxed {
             get {
                 AssertType (GType.Boxed);
-                var managedType = GISharp.GObject.GType.TypeOf (ValueGType);
+                var managedType = GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (ref this);
                 if (typeof(Opaque).GetTypeInfo ().IsAssignableFrom (managedType)) {
                     return Opaque.GetInstance<Opaque> (ret_, Transfer.None, managedType);
@@ -1041,7 +1040,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GType stored in @value
         /// </returns>
-        [SinceAttribute ("2.12")]
+        [Since ("2.12")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
@@ -1056,7 +1055,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GType stored in @value
         /// </returns>
-        [SinceAttribute ("2.12")]
+        [Since ("2.12")]
         GType GType {
             get {
                 AssertType (GType.Type);
@@ -1293,7 +1292,7 @@ namespace GISharp.GObject
         /// <returns>
         /// signed 8 bit integer contents of @value
         /// </returns>
-        [SinceAttribute ("2.32")]
+        [Since ("2.32")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint8" type="gint8" managed-name="Gint8" /> */
         /* transfer-ownership:none */
@@ -1308,7 +1307,7 @@ namespace GISharp.GObject
         /// <returns>
         /// signed 8 bit integer contents of @value
         /// </returns>
-        [SinceAttribute ("2.32")]
+        [Since ("2.32")]
         sbyte Char {
             get {
                 AssertType (GType.Char);
@@ -1514,7 +1513,7 @@ namespace GISharp.GObject
         /// <returns>
         /// variant contents of @value
         /// </returns>
-        [SinceAttribute ("2.26")]
+        [Since ("2.26")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
         /* transfer-ownership:full */
@@ -1529,7 +1528,7 @@ namespace GISharp.GObject
         /// <returns>
         /// variant contents of @value
         /// </returns>
-        [SinceAttribute ("2.26")]
+        [Since ("2.26")]
         Variant Variant {
             get {
                 var ret_ = g_value_get_variant (ref this);
@@ -1594,7 +1593,7 @@ namespace GISharp.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [SinceAttribute ("2.42")]
+        [Since ("2.42")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -1619,7 +1618,7 @@ namespace GISharp.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [SinceAttribute ("2.42")]
+        [Since ("2.42")]
         public void InitFromInstance (IntPtr instance)
         {
             g_value_init_from_instance (ref this, instance);
@@ -1869,7 +1868,7 @@ namespace GISharp.GObject
         /// <param name="vGType">
         /// #GType to be set
         /// </param>
-        [SinceAttribute ("2.12")]
+        [Since ("2.12")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2124,7 +2123,7 @@ namespace GISharp.GObject
         /// <param name="vChar">
         /// signed 8 bit integer to be set
         /// </param>
-        [SinceAttribute ("2.32")]
+        [Since ("2.32")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2356,7 +2355,7 @@ namespace GISharp.GObject
         /// <param name="variant">
         /// a #GVariant, or %NULL
         /// </param>
-        [SinceAttribute ("2.26")]
+        [Since ("2.26")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2379,7 +2378,7 @@ namespace GISharp.GObject
         /// <param name="vBoxed">
         /// duplicated unowned boxed value to be set
         /// </param>
-        [SinceAttribute ("2.4")]
+        [Since ("2.4")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2399,7 +2398,7 @@ namespace GISharp.GObject
         /// <param name="vBoxed">
         /// duplicated unowned boxed value to be set
         /// </param>
-        //        [SinceAttribute ("2.4")]
+        //        [Since ("2.4")]
         //        public void TakeBoxed (IntPtr vBoxed)
         //        {
         //            AssertNotDisposed ();
@@ -2422,7 +2421,7 @@ namespace GISharp.GObject
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        [SinceAttribute ("2.4")]
+        [Since ("2.4")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2447,7 +2446,7 @@ namespace GISharp.GObject
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        //        [SinceAttribute ("2.4")]
+        //        [Since ("2.4")]
         //        public void TakeObject (IntPtr vObject)
         //        {
         //            AssertNotDisposed ();
@@ -2465,7 +2464,7 @@ namespace GISharp.GObject
         /// <param name="param">
         /// the #GParamSpec to be set
         /// </param>
-        [SinceAttribute ("2.4")]
+        [Since ("2.4")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2485,7 +2484,7 @@ namespace GISharp.GObject
         /// <param name="param">
         /// the #GParamSpec to be set
         /// </param>
-        //[SinceAttribute("2.4")]
+        //[Since("2.4")]
         //public void TakeParam(ParamSpec param)
         //{
         //    AssertNotDisposed();
@@ -2502,7 +2501,7 @@ namespace GISharp.GObject
         /// <param name="vString">
         /// string to take ownership of
         /// </param>
-        [SinceAttribute ("2.4")]
+        [Since ("2.4")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2520,7 +2519,7 @@ namespace GISharp.GObject
         /// <param name="vString">
         /// string to take ownership of
         /// </param>
-        //        [SinceAttribute ("2.4")]
+        //        [Since ("2.4")]
         //        public void TakeString (string vString)
         //        {
         //            AssertNotDisposed ();
@@ -2550,7 +2549,7 @@ namespace GISharp.GObject
         /// <param name="variant">
         /// a #GVariant, or %NULL
         /// </param>
-        [SinceAttribute ("2.26")]
+        [Since ("2.26")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -2580,7 +2579,7 @@ namespace GISharp.GObject
         /// <param name="variant">
         /// a #GVariant, or %NULL
         /// </param>
-        //[SinceAttribute("2.26")]
+        //[Since("2.26")]
         //public void TakeVariant(GISharp.GLib.Variant variant)
         //{
         //    AssertNotDisposed();

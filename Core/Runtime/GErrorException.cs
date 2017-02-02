@@ -1,9 +1,5 @@
 ﻿using System;
-using System.Runtime.InteropServices;
-using System.Linq;
 using GISharp.GLib;
-using System.Collections.Generic;
-using System.Reflection;
 
 namespace GISharp.Runtime
 {

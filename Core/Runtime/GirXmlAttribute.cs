@@ -10,7 +10,7 @@ namespace GISharp.Runtime
         public GirXmlAttribute (string xml)
         {
             if (xml == null) {
-                throw new ArgumentNullException ("xml");
+                throw new ArgumentNullException (nameof (xml));
             }
             Xml = xml;
         }

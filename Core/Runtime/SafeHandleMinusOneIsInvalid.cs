@@ -11,7 +11,7 @@ namespace GISharp.Runtime
             }
         }
 
-        public SafeHandleMinusOneIsInvalid () : base ((IntPtr)(-1), true)
+        protected SafeHandleMinusOneIsInvalid () : base ((IntPtr)(-1), true)
         {
         }
     }

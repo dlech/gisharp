@@ -1,5 +1,4 @@
-﻿using System;
-using GISharp.GLib;
+﻿using GISharp.GLib;
 
 namespace GISharp.GObject
 {

@@ -20,7 +20,7 @@ namespace GISharp.GObject
     [GType ("GParam", IsWrappedNativeType = true)]
     public class ParamSpec : TypeInstance
     {
-        public class SafeParamSpecHandle : TypeInstance.SafeTypeInstanceHandle
+        public class SafeParamSpecHandle : SafeTypeInstanceHandle
         {
             protected struct ParamSpecStruct
             {

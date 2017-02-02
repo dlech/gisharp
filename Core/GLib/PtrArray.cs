@@ -84,7 +84,7 @@ namespace GISharp.GLib
             return g_ptr_array_get_type ();
         }
 
-        public PtrArray (SafePtrArrayHandle handle) : base (handle)
+        protected PtrArray (SafePtrArrayHandle handle) : base (handle)
         {
         }
 
@@ -329,35 +329,6 @@ namespace GISharp.GLib
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             g_ptr_array_insert (Handle, index, data);
-        }
-
-        /// <summary>
-        /// Atomically increments the reference count of @array by one.
-        /// This function is thread-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <returns>
-        /// The passed in #GPtrArray
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        static extern IntPtr g_ptr_array_ref (
-            SafePtrArrayHandle array);
-
-        /// <summary>
-        /// Atomically increments the reference count of this array by one.
-        /// This function is thread-safe and may be called from any thread.
-        /// </summary>
-        /// <returns>
-        /// The passed in <see cref="PtrArray{T}"/>
-        /// </returns>
-        [Since ("2.22")]
-        public void Ref ()
-        {
-            AssertNotDisposed ();
-            g_ptr_array_ref (Handle);
         }
 
         /// <summary>
@@ -747,34 +718,7 @@ namespace GISharp.GLib
             SafePtrArrayHandle array,
             NativeCompareDataFunc compareFunc,
             IntPtr userData);
-
-        /// <summary>
-        /// Atomically decrements the reference count of @array by one. If the
-        /// reference count drops to 0, the effect is the same as calling
-        /// g_ptr_array_free() with @freeSegment set to %TRUE. This function
-        /// is MT-safe and may be called from any thread.
-        /// </summary>
-        /// <param name="array">
-        /// A #GPtrArray
-        /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        static extern void g_ptr_array_unref (
-            SafePtrArrayHandle array);
-
-        /// <summary>
-        /// Atomically decrements the reference count of this array by one. If the
-        /// reference count drops to 0, the effect is the same as calling
-        /// g_ptr_array_free() with @freeSegment set to <c>true</c>. This function
-        /// is MT-safe and may be called from any thread.
-        /// </summary>
-        [Since ("2.22")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            g_ptr_array_unref (Handle);
-        }
-
+        
         /// <summary>
         /// number of pointers in the array
         /// </summary>
@@ -797,7 +741,7 @@ namespace GISharp.GLib
         /// </param>
         public void Add (T data)
         {
-            base.Add (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            Add (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -813,7 +757,7 @@ namespace GISharp.GLib
         [Since ("2.40")]
         public void Insert (int index, T data)
         {
-            base.Insert (index, data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            Insert (index, data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -835,7 +779,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Remove (T data)
         {
-            return base.Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -857,7 +801,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool RemoveFast (T data)
         {
-            return base.RemoveFast (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return RemoveFast (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -884,7 +828,7 @@ namespace GISharp.GLib
                 var compareFuncRet = compareFunc (x, y);
                 return compareFuncRet;
             };
-            base.Sort (compareFunc_);
+            Sort (compareFunc_);
         }
 
         public T this[int index] {

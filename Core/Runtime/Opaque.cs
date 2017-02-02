@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Reflection;
-using GISharp.GObject;
 
 namespace GISharp.Runtime
 {
@@ -11,9 +10,9 @@ namespace GISharp.Runtime
     /// </summary>
     public abstract class Opaque : IDisposable
     {
-        static Dictionary<IntPtr, WeakReference<Opaque>> instanceMap =
+        static readonly Dictionary<IntPtr, WeakReference<Opaque>> instanceMap =
             new Dictionary<IntPtr, WeakReference<Opaque>> ();
-        static object instanceMapLock = new object ();
+        static readonly object instanceMapLock = new object ();
         
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.

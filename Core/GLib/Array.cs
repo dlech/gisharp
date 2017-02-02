@@ -98,7 +98,7 @@ namespace GISharp.GLib
             return g_array_get_type ();
         }
 
-        public Array (SafeArrayHandle handle) : base (handle)
+        protected Array (SafeArrayHandle handle) : base (handle)
         {
         }
 
@@ -235,34 +235,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Frees the memory allocated for the #GArray. If @free_segment is
-        /// <c>true</c> it frees the memory block holding the elements as well and
-        /// also each element if this array has a @element_free_func set. Pass
-        /// <c>false</c> if you want to free the #GArray wrapper but preserve the
-        /// underlying array for use elsewhere. If the reference count of this array
-        /// is greater than one, the #GArray wrapper is preserved but the size
-        /// of this array will be set to zero.
-        /// </summary>
-        /// <remarks>
-        /// If array elements contain dynamically-allocated memory, they should
-        /// be freed separately.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GArray
-        /// </param>
-        /// <param name="freeSegment">
-        /// if <c>true</c> the actual element data is freed as well
-        /// </param>
-        /// <returns>
-        /// the element data if @free_segment is <c>false</c>, otherwise
-        ///     <c>null</c>. The element data should be freed using g_free().
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_free (
-            SafeArrayHandle array,
-            bool freeSegment);
-
-        /// <summary>
         /// Gets the size of the elements in this array.
         /// </summary>
         /// <param name="array">
@@ -370,7 +342,7 @@ namespace GISharp.GLib
         /// Adds elements onto the start of the array.
         /// </summary>
         /// <remarks>
-        /// This operation is slower than <see cref="Add"/> since the
+        /// This operation is slower than <see cref="Append"/> since the
         /// existing elements in the array have to be moved to make space for
         /// the new elements.
         /// </remarks>
@@ -739,7 +711,7 @@ namespace GISharp.GLib
         /// Adds elements onto the start of the array.
         /// </summary>
         /// <remarks>
-        /// This operation is slower than <see cref="Add"/> since the
+        /// This operation is slower than <see cref="Append"/> since the
         /// existing elements in the array have to be moved to make space for
         /// the new elements.
         /// </remarks>

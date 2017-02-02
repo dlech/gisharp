@@ -525,61 +525,6 @@ namespace GISharp.GLib
             return new Bytes (ret);
         }
 
-        /// <summary>
-        /// Increase the reference count on @bytes.
-        /// </summary>
-        /// <param name="bytes">
-        /// a #GBytes
-        /// </param>
-        /// <returns>
-        /// the #GBytes
-        /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
-        /* transfer-ownership:full skip:1 */
-        static extern IntPtr g_bytes_ref (
-            /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
-            /* transfer-ownership:none */
-            SafeBytesHandle bytes);
-
-        /// <summary>
-        /// Increase the reference count on @bytes.
-        /// </summary>
-        [Since ("2.32")]
-        public void Ref ()
-        {
-            AssertNotDisposed ();
-            g_bytes_ref (Handle);
-        }
-
-        /// <summary>
-        /// Releases a reference on @bytes.  This may result in the bytes being
-        /// freed.
-        /// </summary>
-        /// <param name="bytes">
-        /// a #GBytes
-        /// </param>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_bytes_unref (
-            /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeBytesHandle bytes);
-
-        /// <summary>
-        /// Releases a reference on @bytes.  This may result in the bytes being
-        /// freed.
-        /// </summary>
-        [Since ("2.32")]
-        public void Unref ()
-        {
-            AssertNotDisposed ();
-            g_bytes_unref (Handle);
-        }
-
         public byte this[int index] {
             get {
                 AssertNotDisposed ();

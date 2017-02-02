@@ -589,7 +589,7 @@ namespace GISharp.GObject
         public static bool HasHandlerPending (Object instance, uint signalId, Quark detail, bool mayBeBlocked)
         {
             if (instance == null) {
-                throw new ArgumentNullException ("instance");
+                throw new ArgumentNullException (nameof (instance));
             }
             var ret = g_signal_has_handler_pending (instance.Handle, signalId, detail, mayBeBlocked);
             return ret;
@@ -693,7 +693,7 @@ namespace GISharp.GObject
         public static uint Lookup (string name, GType itype)
         {
             if (name == null) {
-                throw new ArgumentNullException ("name");
+                throw new ArgumentNullException (nameof (name));
             }
             var name_ = GMarshal.StringToUtf8Ptr (name);
             var ret = g_signal_lookup (name_, itype);
@@ -1029,7 +1029,7 @@ namespace GISharp.GObject
         public static bool ParseName (string detailedSignal, GType itype, out uint signalIdP, out Quark detailP, bool forceDetailQuark)
         {
             if (detailedSignal == null) {
-                throw new ArgumentNullException ("detailedSignal");
+                throw new ArgumentNullException (nameof (detailedSignal));
             }
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             var ret = g_signal_parse_name (detailedSignal_, itype, out signalIdP, out detailP, forceDetailQuark);
@@ -1219,10 +1219,10 @@ namespace GISharp.GObject
         public static void StopEmissionByName (Object instance, string detailedSignal)
         {
             if (instance == null) {
-                throw new ArgumentNullException ("instance");
+                throw new ArgumentNullException (nameof (instance));
             }
             if (detailedSignal == null) {
-                throw new ArgumentNullException ("detailedSignal");
+                throw new ArgumentNullException (nameof (detailedSignal));
             }
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             g_signal_stop_emission_by_name (instance.Handle, detailedSignal_);

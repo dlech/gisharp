@@ -1136,12 +1136,6 @@ namespace GISharp.GLib
         /// <param name="elements">
         /// a pointer to the fixed array of contiguous elements
         /// </param>
-        /// <param name="nElements">
-        /// the number of elements
-        /// </param>
-        /// <param name="elementSize">
-        /// the size of each element
-        /// </param>
         /// <returns>
         /// a floating reference to a new array #GVariant instance
         /// </returns>
@@ -2409,7 +2403,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             var ret_ = g_variant_byteswap (Handle);
             var ret = new SafeVariantHandle (ret_, Transfer.Full);
-            return new Variant (ret);;
+            return new Variant (ret);
         }
 
         /// <summary>

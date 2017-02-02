@@ -300,8 +300,8 @@ namespace GISharp.GObject
             var obj = TryGetExisting <Object> (objPtr);
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-            };
-            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            }
+            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             propInfo.SetValue (obj, value.Get ());
@@ -313,7 +313,7 @@ namespace GISharp.GObject
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
-            var pspec = Opaque.GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             value.Set (propInfo.GetValue (obj));
@@ -353,14 +353,14 @@ namespace GISharp.GObject
         /// the #GParamSpec for the property, or
         ///          %NULL if the class doesn't have a property of that name
         /// </returns>
-        public ParamSpec FindProperty (String propertyName)
+        public ParamSpec FindProperty (string propertyName)
         {
             if (propertyName == null) {
-                throw new ArgumentNullException ("propertyName");
+                throw new ArgumentNullException (nameof (propertyName));
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_class_find_property (Handle, propertyName_);
-            var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
+            var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
             GMarshal.Free (propertyName_);
             return ret;
         }
@@ -449,7 +449,7 @@ namespace GISharp.GObject
             SafeObjectClassHandle oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
-            UInt32 nPspecs,
+            uint nPspecs,
             /* <array length="0" zero-terminated="0" type="GParamSpec**">
                  <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
                </array> */
@@ -528,10 +528,10 @@ namespace GISharp.GObject
         public void InstallProperties (ParamSpec[] pspecs)
         {
             if (pspecs == null) {
-                throw new ArgumentNullException ("pspecs");
+                throw new ArgumentNullException (nameof (pspecs));
             }
             var pspecs_ = GMarshal.OpaqueCArrayToPtr<ParamSpec> (pspecs, false);
-            var nPspecs_ = (UInt32)(pspecs == null ? 0 : pspecs.Length);
+            var nPspecs_ = (uint)(pspecs == null ? 0 : pspecs.Length);
             g_object_class_install_properties (Handle, nPspecs_, pspecs_);
             GMarshal.Free (pspecs_);
         }
@@ -567,7 +567,7 @@ namespace GISharp.GObject
             IntPtr oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
-            UInt32 propertyId,
+            uint propertyId,
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
             ParamSpec.SafeParamSpecHandle pspec);
@@ -591,7 +591,7 @@ namespace GISharp.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        public void InstallProperty (UInt32 propertyId, ParamSpec pspec)
+        public void InstallProperty (uint propertyId, ParamSpec pspec)
         {
             if (pspec == null) {
                 throw new ArgumentNullException (nameof (pspec));
@@ -623,7 +623,7 @@ namespace GISharp.GObject
             SafeObjectClassHandle oclass,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
-            out UInt32 nProperties);
+            out uint nProperties);
 
         /// <summary>
         /// Get an array of #GParamSpec* for all properties of a class.
@@ -634,7 +634,7 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec[] ListProperties ()
         {
-            UInt32 nProperties_;
+            uint nProperties_;
             var ret_ = g_object_class_list_properties (Handle, out nProperties_);
             var ret = GMarshal.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
             return ret;
@@ -669,7 +669,7 @@ namespace GISharp.GObject
         /// the name of a property registered in a parent class or
         ///  in an interface of this class.
         /// </param>
-        [SinceAttribute ("2.4")]
+        [Since ("2.4")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
@@ -679,7 +679,7 @@ namespace GISharp.GObject
             IntPtr oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
-            UInt32 propertyId,
+            uint propertyId,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
