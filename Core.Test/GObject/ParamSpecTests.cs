@@ -12,17 +12,17 @@ namespace GISharp.Core.Test.GObject
     [TestFixture]
     public class ParamSpecTests
     {
-        T TestParamSpec<T> (GType type, Func<string, string, string, ParamFlags, T> instanciate) where T : ParamSpec
+        T TestParamSpec<T> (GType type, Func<string, string, string, ParamFlags, T> instantiate) where T : ParamSpec
         {
             const ParamFlags flags = ParamFlags.Readwrite | ParamFlags.StaticStrings;
 
-            Assert.That (() => instanciate (null, "nick", "blurb", flags),
+            Assert.That (() => instantiate (null, "nick", "blurb", flags),
                          Throws.TypeOf<ArgumentNullException> ());
-            Assert.That (() => instanciate ("name", null, "blurb", flags),
+            Assert.That (() => instantiate ("name", null, "blurb", flags),
                          Throws.TypeOf<ArgumentNullException> ());
-            Assert.That (() => instanciate ("name", "nick", null, flags),
+            Assert.That (() => instantiate ("name", "nick", null, flags),
                          Throws.TypeOf<ArgumentNullException> ());
-            var param = instanciate ("name", "nick", "blurb", flags);
+            var param = instantiate ("name", "nick", "blurb", flags);
             Assert.That (param.Name, Is.EqualTo ("name"));
             Assert.That (param.Nick, Is.EqualTo ("nick"));
             Assert.That (param.Blurb, Is.EqualTo ("blurb"));
