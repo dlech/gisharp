@@ -20,11 +20,12 @@ namespace GISharp.Core.Test.GObject
 
                 return (Value)true;
             };
-            var closure = new Closure (callback);
-            var ret = closure.Invoke ((Value)1, (Value)"string");
+            using (var closure = new Closure (callback)) {
+                var ret = closure.Invoke ((Value)1, (Value)"string");
 
-            Assert.That (callbackInvoked, Is.True);
-            Assert.That ((bool)ret, Is.True);
+                Assert.That (callbackInvoked, Is.True);
+                Assert.That ((bool)ret, Is.True);
+            }
         }
     }
 }

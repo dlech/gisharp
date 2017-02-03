@@ -52,28 +52,50 @@ public sealed class Closure : Opaque
 {
     public sealed class SafeClosureHandle : SafeHandleZeroIsInvalid
     {
-        internal struct Closure
+        internal struct ClosureStruct
         {
             #pragma warning disable CS0649
-            public uint RefCount;
-            public uint MetaMarshalNouse;
-            public uint NGuards;
-            public uint NFnotifiers;
-            public int NInotifiers;
-            public uint InInotify;
-            public uint Floating;
-            public uint DerivativeFlag;
             public uint BitFields;
+            public NativeMarshal Marshal;
             public IntPtr Data;
             public IntPtr Notifiers;
             #pragma warning restore CS0649
+
+            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+            public delegate void NativeMarshal (
+                IntPtr closure,
+                out Value returnValue,
+                uint nParamValues,
+                [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] Value[] paramValues,
+                IntPtr invocationHint,
+                IntPtr marshalData);
         }
 
         public uint BitFields {
             get {
-                var offset = Marshal.OffsetOf<Closure> (nameof (Closure.BitFields));
+                if (IsClosed) {
+                    throw new ObjectDisposedException (null);
+                }
+                var offset = Marshal.OffsetOf<ClosureStruct> (nameof (ClosureStruct.BitFields));
                 var ret = Marshal.ReadInt32 (handle, offset.ToInt32 ());
                 return (uint)ret;
+            }
+        }
+
+        public uint RefCount {
+            get {
+                return BitFields & 0x7FFF;
+            }
+        }
+
+        public IntPtr Data {
+            get {
+                if (IsClosed) {
+                    throw new ObjectDisposedException (null);
+                }
+                var offset = Marshal.OffsetOf<ClosureStruct> (nameof (ClosureStruct.Data));
+                var ret = Marshal.ReadIntPtr (handle, offset.ToInt32 ());
+                return ret;
             }
         }
 
@@ -114,7 +136,7 @@ public sealed class Closure : Opaque
 
     public bool InMarshal {
         get {
-            var ret_ = Handle.BitFields;
+            var ret_ = Handle.BitFields >> 30;
             var ret = Convert.ToBoolean (ret_ & 0x1);
             return ret;
         }
@@ -122,8 +144,8 @@ public sealed class Closure : Opaque
 
     public bool IsInvalid {
         get {
-            var ret_ = Handle.BitFields;
-            var ret = Convert.ToBoolean (ret_ & 0x2);
+            var ret_ = Handle.BitFields >> 31;
+            var ret = Convert.ToBoolean (ret_ & 0x1);
             return ret;
         }
     }
@@ -166,7 +188,7 @@ public sealed class Closure : Opaque
             throw new ArgumentNullException (nameof (@object));
         }
         var ret_ = g_closure_new_object (sizeofClosure, @object.Handle);
-        var ret = new SafeClosureHandle (ret_, Transfer.Full);
+        var ret = new SafeClosureHandle (ret_, Transfer.None);
         return ret;
     }
 
@@ -184,7 +206,7 @@ public sealed class Closure : Opaque
     /// a newly allocated #GClosure
     /// </returns>
     public Closure (Func<Value[], Value> callback, GISharp.GObject.Object @object)
-        : this (NewObject ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), @object))
+        : this (NewObject ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), @object))
     {
         SetCallback (callback);
     }
@@ -252,7 +274,7 @@ public sealed class Closure : Opaque
     static SafeClosureHandle NewSimple (uint sizeofClosure, IntPtr data)
     {
         var ret_ = g_closure_new_simple (sizeofClosure, data);
-        var ret = new SafeClosureHandle (ret_, Transfer.Full);
+        var ret = new SafeClosureHandle (ret_, Transfer.None);
         return ret;
     }
 
@@ -260,7 +282,7 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Func<Value[], Value> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -269,7 +291,7 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action<Value[]> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -278,16 +300,19 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.Closure> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
 
     void SetCallback (Func<Value[], Value> callback)
     {
+        if (callback == null) {
+            throw new ArgumentNullException (nameof (callback));
+        }
         var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
         g_closure_set_meta_marshal (Handle, callbackPtr, NativeMarshalFunc);
-        g_closure_add_finalize_notifier (Handle, callbackPtr, FreeCallback);
+        g_closure_add_invalidate_notifier (Handle, callbackPtr, FreeCallback);
     }
 
     static void NativeMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
