@@ -49,15 +49,15 @@ namespace GISharp.GObject
                 /// GType type that uses (introduces) this parameter
                 /// </summary>
                 public GType OwnerType;
-                #pragma warning disable CS0649
 
                 #pragma warning disable CS0169
                 IntPtr name;
                 IntPtr blurb;
                 IntPtr qdata;
-                uint refCount;
+                public uint RefCount;
                 uint paramId;
                 #pragma warning restore CS0169
+                #pragma warning disable CS0649
             }
 
             public IntPtr Name {
@@ -101,6 +101,17 @@ namespace GISharp.GObject
                     var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.OwnerType));
                     var gtype = Marshal.PtrToStructure<GType> (handle + (int)offset);
                     return gtype;
+                }
+            }
+
+            public uint RefCount {
+                get {
+                    if (IsClosed) {
+                        throw new ObjectDisposedException (null);
+                    }
+                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.RefCount));
+                    var ret = Marshal.PtrToStructure<uint> (handle + (int)offset);
+                    return ret;
                 }
             }
 

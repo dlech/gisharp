@@ -168,7 +168,7 @@ namespace GISharp.GObject
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var defaultValuePtr = GMarshal.StringToUtf8Ptr (defaultValue);
             var ret_ = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
-            var ret = new SafeParamSpecStringHandle (ret_, Transfer.Full);
+            var ret = new SafeParamSpecStringHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
