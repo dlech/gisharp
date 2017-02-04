@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeClass : Opaque
     {
-        public class SafeTypeClassHandle : SafeHandleZeroIsInvalid
+        public class SafeTypeClassHandle : SafeOpaqueHandle
         {
             internal struct TypeClassStruct
             {

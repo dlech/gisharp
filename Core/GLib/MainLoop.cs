@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainLoop", IsWrappedNativeType = true)]
     public sealed class MainLoop : Opaque
     {
-        public sealed class SafeMainLoopHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeMainLoopHandle : SafeOpaqueHandle
         {
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_main_loop_ref (IntPtr loop);

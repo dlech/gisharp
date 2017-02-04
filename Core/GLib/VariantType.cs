@@ -157,7 +157,7 @@ namespace GISharp.GLib
     [DebuggerDisplay ("{FormatString}")]
     public sealed class VariantType : Opaque, IEquatable<VariantType>
     {
-        public sealed class SafeVariantTypeHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeVariantTypeHandle : SafeOpaqueHandle
         {
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_variant_type_copy (IntPtr type);

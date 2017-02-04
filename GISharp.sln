@@ -139,7 +139,7 @@ Global
 		$6.inheritsScope = application/xml
 		$6.scope = application/config+xml
 		$0.StandardHeader = $7
-		$7.Text =
+		$7.Text = 
 		$7.IncludeInNewFiles = True
 		$0.NameConventionPolicy = $8
 		$8.Rules = $9

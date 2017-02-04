@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainContext", IsWrappedNativeType = true)]
     public sealed class MainContext : Opaque
     {
-        public sealed class SafeMainContextHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeMainContextHandle : SafeOpaqueHandle
         {
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_main_context_ref (IntPtr context);

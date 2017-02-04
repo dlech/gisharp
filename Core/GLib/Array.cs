@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GArray", IsWrappedNativeType = true)]
     public abstract class Array : Opaque
     {
-        public sealed class SafeArrayHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeArrayHandle : SafeOpaqueHandle
         {
             readonly bool ownsElements;
 

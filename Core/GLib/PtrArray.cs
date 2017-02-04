@@ -15,7 +15,7 @@ namespace GISharp.GLib
     {
         readonly bool ownsElements;
 
-        public sealed class SafePtrArrayHandle : SafeHandleZeroIsInvalid
+        public sealed class SafePtrArrayHandle : SafeOpaqueHandle
         {
             struct PtrArray
             {

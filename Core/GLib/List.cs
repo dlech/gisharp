@@ -9,7 +9,7 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class List : Opaque
     {
-        public sealed class SafeListHandle : SafeHandleMinusOneIsInvalid
+        public sealed class SafeListHandle : SafeOpaqueHandle
         {
             public SafeListHandle (IntPtr handle, Transfer ownership)
             {
@@ -17,6 +17,12 @@ namespace GISharp.GLib
                     throw new NotSupportedException ("Must own container");
                 }
                 SetHandle (handle);
+            }
+
+            public override bool IsInvalid {
+                get {
+                    return false;
+                }
             }
 
             // lists get a new head pointer, so we need to expose SetHandle() internally

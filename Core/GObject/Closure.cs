@@ -50,7 +50,7 @@ using GISharp.Runtime;
 [GType ("GClosure", IsWrappedNativeType = true)]
 public sealed class Closure : Opaque
 {
-    public sealed class SafeClosureHandle : SafeHandleZeroIsInvalid
+    public sealed class SafeClosureHandle : SafeOpaqueHandle
     {
         internal struct ClosureStruct
         {

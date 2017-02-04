@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
@@ -39,7 +39,7 @@ namespace GISharp.GLib
     public sealed class Bytes
         : Opaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
-        public sealed class SafeBytesHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeBytesHandle : SafeOpaqueHandle
         {
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_bytes_ref (IntPtr array);

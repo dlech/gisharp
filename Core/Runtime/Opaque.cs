@@ -18,9 +18,9 @@ namespace GISharp.Runtime
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public SafeHandle Handle { get; protected set; }
+        public SafeOpaqueHandle Handle { get; protected set; }
 
-        protected Opaque (SafeHandle handle)
+        protected Opaque (SafeOpaqueHandle handle)
         {
             lock (instanceMapLock) {
                 instanceMap.Add (handle.DangerousGetHandle (), new WeakReference<Opaque> (this));

@@ -18,7 +18,7 @@ namespace GISharp.GLib
         protected readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
 
-        public sealed class SafeHashTableHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeHashTableHandle : SafeOpaqueHandle
         {
             readonly bool ownsElements;
 

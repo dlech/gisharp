@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -73,7 +73,7 @@ namespace GISharp.GModule
             }
         }
 
-        public sealed class SafeModuleHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeModuleHandle : SafeOpaqueHandle
         {
             public SafeModuleHandle (IntPtr handle)
             {

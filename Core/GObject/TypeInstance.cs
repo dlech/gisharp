@@ -10,7 +10,7 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeInstance : Opaque
     {
-        public abstract class SafeTypeInstanceHandle : SafeHandleZeroIsInvalid
+        public abstract class SafeTypeInstanceHandle : SafeOpaqueHandle
         {
             protected struct TypeInstanceStruct
             {

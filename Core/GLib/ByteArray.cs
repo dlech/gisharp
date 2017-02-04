@@ -13,7 +13,7 @@ namespace GISharp.GLib
     [GType ("GByteArray", IsWrappedNativeType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
-        public sealed class SafeByteArrayHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeByteArrayHandle : SafeOpaqueHandle
         {
             readonly bool ownsElements;
 

@@ -10,7 +10,7 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeInterface : Opaque
     {
-        public abstract class SafeTypeInterfaceHandle : SafeHandleZeroIsInvalid
+        public abstract class SafeTypeInterfaceHandle : SafeOpaqueHandle
         {
             internal protected struct TypeInterfaceStruct
             {

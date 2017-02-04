@@ -232,7 +232,7 @@ namespace GISharp.GLib
     {
         IndexedCollection<Variant> childValues;
 
-        public sealed class SafeVariantHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeVariantHandle : SafeOpaqueHandle
         {
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_variant_ref_sink (IntPtr value);

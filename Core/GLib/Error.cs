@@ -15,7 +15,7 @@ namespace GISharp.GLib
     [GType ("GError", IsWrappedNativeType = true)]
     public sealed class Error : Opaque
     {
-        public sealed class SafeErrorHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeErrorHandle : SafeOpaqueHandle
         {
             struct ErrorStruct
             {

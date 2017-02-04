@@ -11,7 +11,7 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class SList : Opaque
     {
-        public sealed class SafeSListHandle : SafeHandleMinusOneIsInvalid
+        public sealed class SafeSListHandle : SafeOpaqueHandle
         {
             struct SList
             {
@@ -44,6 +44,12 @@ namespace GISharp.GLib
                     }
                     var ret = Marshal.ReadIntPtr (handle, IntPtr.Size);
                     return ret;
+                }
+            }
+
+            public override bool IsInvalid {
+                get {
+                    return false;
                 }
             }
 

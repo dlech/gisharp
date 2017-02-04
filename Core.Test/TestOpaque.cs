@@ -1,11 +1,11 @@
-﻿using System;
+using System;
 using GISharp.Runtime;
 
 namespace GISharp.Core.Test
 {
     public sealed class TestOpaque : Opaque
     {
-        public sealed class SafeTestOpaqueHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeTestOpaqueHandle : SafeOpaqueHandle
         {
             public int Value {
                 get {

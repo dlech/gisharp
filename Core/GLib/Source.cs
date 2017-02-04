@@ -18,7 +18,7 @@ namespace GISharp.GLib
     [GType ("GSource", IsWrappedNativeType = true)]
     public abstract class Source : Opaque
     {
-        public sealed class SafeSourceHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeSourceHandle : SafeOpaqueHandle
         {
             internal struct Source {
                 // This is an opaque struct, so the fields should not be used. We

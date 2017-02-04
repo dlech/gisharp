@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// </summary>
     public sealed class VariantIter : Opaque
     {
-        public sealed class SafeVariantIterHandle : SafeHandleZeroIsInvalid
+        public sealed class SafeVariantIterHandle : SafeOpaqueHandle
         {
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_variant_iter_copy (IntPtr iter);
