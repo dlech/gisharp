@@ -30,6 +30,7 @@ namespace GISharp.Runtime
             public SafeOpaqueIntHandle (IntPtr handle, Transfer ownership)
             {
                 SetHandle (handle);
+                GC.SuppressFinalize (this);
             }
 
             protected override bool ReleaseHandle ()
@@ -55,6 +56,10 @@ namespace GISharp.Runtime
             return new SafeOpaqueIntHandle ((IntPtr)value, Transfer.Full);
         }
 
+        /// <summary>
+        /// Initializes a new instance of the <see cref="OpaqueInt"/> class.
+        /// </summary>
+        /// <param name="value">The value.</param>
         public OpaqueInt (int value) : this (New (value))
         {
         }
