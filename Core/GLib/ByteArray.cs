@@ -124,7 +124,7 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of bytes preallocated
         /// </param>
-        public ByteArray (uint reservedSize) : this (SizedNew (reservedSize))
+        public ByteArray (int reservedSize) : this (SizedNew (reservedSize))
         {
         }
 
@@ -191,9 +191,12 @@ namespace GISharp.GLib
         static extern IntPtr g_byte_array_sized_new (
             uint reservedSize);
 
-        static SafeByteArrayHandle SizedNew (uint reservedSize)
+        static SafeByteArrayHandle SizedNew (int reservedSize)
         {
-            var ret_ = g_byte_array_sized_new (reservedSize);
+            if (reservedSize < 0) {
+                throw new ArgumentOutOfRangeException (nameof (reservedSize));
+            }
+            var ret_ = g_byte_array_sized_new ((uint)reservedSize);
             var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
             return ret;
         }
