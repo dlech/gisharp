@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Reflection;
+using GISharp.GObject;
+using System.Linq;
 
 namespace GISharp.Runtime
 {
@@ -22,8 +24,20 @@ namespace GISharp.Runtime
 
         protected Opaque (SafeOpaqueHandle handle)
         {
+            var ptr = handle.DangerousGetHandle ();
+            if (ptr == IntPtr.Zero) {
+                throw new ArgumentException ("Handle cannot be null pointer");
+            }
             lock (instanceMapLock) {
-                instanceMap.Add (handle.DangerousGetHandle (), new WeakReference<Opaque> (this));
+                WeakReference<Opaque> value;
+                if (instanceMap.TryGetValue (ptr, out value)) {
+                    Opaque instance;
+                    if (value.TryGetTarget (out instance)) {
+                        throw new InvalidOperationException ("Instance already exists");
+                    }
+                    instanceMap.Remove (ptr);
+                }
+                instanceMap.Add (ptr, new WeakReference<Opaque> (this));
                 Handle = handle;
             }
         }
@@ -50,8 +64,11 @@ namespace GISharp.Runtime
         /// <c>false</c> if called from a finalizer.</param>
         protected virtual void Dispose (bool disposing)
         {
-            if (disposing) {
-                Handle.Dispose ();
+            lock (instanceMapLock) {
+                if (disposing) {
+                    Handle.Dispose ();
+                }
+                instanceMap.Remove (Handle.DangerousGetHandle ());
             }
         }
 
@@ -88,7 +105,15 @@ namespace GISharp.Runtime
                 if (instance != null) {
                     return instance;
                 }
-                throw new NotImplementedException ();
+                if (typeof (TypeInstance).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
+                    var gtype = Marshal.PtrToStructure<GType> (handle);
+                    typeHint = GType.TypeOf (gtype);
+                }
+                var type = typeHint ?? typeof (T);
+                var handleType = type.GetHandleType ();
+                var safeHandle = Activator.CreateInstance (handleType, handle, ownership);
+                instance = (T)Activator.CreateInstance (typeHint ?? typeof (T), safeHandle);
+                return instance;
             }
         }
     }
@@ -105,7 +130,8 @@ namespace GISharp.Runtime
                 var msg = $"Type must inherit from {nameof (Opaque)}";
                 throw new ArgumentException (msg, nameof (type));
             }
-            var propInfo = typeInfo.GetProperty (nameof (Opaque.Handle));
+            var propInfo = typeInfo.GetProperties ()
+                .Single (x => x.Name == nameof (Opaque.Handle) && x.DeclaringType == type);
             return propInfo.PropertyType;
         }
     }
