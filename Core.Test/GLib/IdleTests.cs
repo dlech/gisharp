@@ -21,20 +21,21 @@ namespace GISharp.Core.Test.GLib
             lock (MainContextTests.MainContextLock) {
                 var idleInvoked = false;
 
-                var mainLoop = new MainLoop ();
-                var id = Idle.Add (() => {
-                    mainLoop.Quit ();
-                    idleInvoked = true;
-                    return Source.Remove_;
-                });
+                using (var mainLoop = new MainLoop ()) {
+                    var id = Idle.Add (() => {
+                        mainLoop.Quit ();
+                        idleInvoked = true;
+                        return Source.Remove_;
+                    });
 
-                Assert.That (id, Is.Not.EqualTo (0));
-                
-                var source = MainContext.Default.FindSourceById (id);
-                Task.Run (() => {
-                    mainLoop.Run ();
-                }).Wait (100);
-                source.Destroy ();
+                    Assert.That (id, Is.Not.EqualTo (0));
+
+                    var source = MainContext.Default.FindSourceById (id);
+                    Task.Run (() => {
+                        mainLoop.Run ();
+                    }).Wait (100);
+                    source.Destroy ();
+                }
 
                 Assert.That (idleInvoked, Is.True);
             }
@@ -43,25 +44,29 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCreateSource ()
         {
-            var source = Idle.CreateSource ();
-            Assert.That (source, Is.Not.Null);
-
             var idleInvoked = false;
-            var context = new MainContext ();
-            var mainLoop = new MainLoop (context);
-            source.SetCallback (() => {
-                mainLoop.Quit ();
-                idleInvoked = true;
-                return Source.Remove_;
-            });
-            source.Attach (context);
+            using (var source = Idle.CreateSource ()) {
+                Assert.That (source, Is.Not.Null);
 
-            Task.Run (() => {
-                context.PushThreadDefault ();
-                mainLoop.Run ();
-                context.PopThreadDefault ();
-            }).Wait (100);
-            source.Destroy ();
+
+                using (var context = new MainContext ())
+                using (var mainLoop = new MainLoop (context)) {
+                    source.SetCallback (() => {
+                        mainLoop.Quit ();
+                        idleInvoked = true;
+                        return Source.Remove_;
+                    });
+                    source.Attach (context);
+
+                    Task.Run (() => {
+                        context.PushThreadDefault ();
+                        mainLoop.Run ();
+                        context.PopThreadDefault ();
+                    }).Wait (100);
+                }
+
+                source.Destroy ();
+            }
 
             Assert.That (idleInvoked, Is.True);
         }
