@@ -22,22 +22,26 @@ namespace GISharp.Runtime
         /// <value>The pointer.</value>
         public SafeOpaqueHandle Handle { get; protected set; }
 
-        protected Opaque (SafeOpaqueHandle handle)
+        protected Opaque (SafeOpaqueHandle handle, bool isInstance = true)
         {
-            var ptr = handle.DangerousGetHandle ();
-            if (ptr == IntPtr.Zero) {
-                throw new ArgumentException ("Handle cannot be null pointer");
-            }
-            lock (instanceMapLock) {
-                WeakReference<Opaque> value;
-                if (instanceMap.TryGetValue (ptr, out value)) {
-                    Opaque instance;
-                    if (value.TryGetTarget (out instance)) {
-                        throw new InvalidOperationException ("Instance already exists");
-                    }
-                    instanceMap.Remove (ptr);
+            if (isInstance) {
+                var ptr = handle.DangerousGetHandle ();
+                if (ptr == IntPtr.Zero) {
+                    throw new ArgumentException ("Handle cannot be null pointer");
                 }
-                instanceMap.Add (ptr, new WeakReference<Opaque> (this));
+                lock (instanceMapLock) {
+                    WeakReference<Opaque> value;
+                    if (instanceMap.TryGetValue (ptr, out value)) {
+                        Opaque instance;
+                        if (value.TryGetTarget (out instance)) {
+                            throw new InvalidOperationException ("Instance already exists");
+                        }
+                        instanceMap.Remove (ptr);
+                    }
+                    instanceMap.Add (ptr, new WeakReference<Opaque> (this));
+                    Handle = handle;
+                }
+            } else {
                 Handle = handle;
             }
         }
@@ -97,6 +101,10 @@ namespace GISharp.Runtime
 
         public static T GetInstance<T> (IntPtr handle, Transfer ownership, Type typeHint = null) where T : Opaque
         {
+            if (typeof (OpaqueInt).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
+                var ret = new OpaqueInt (handle.ToInt32 ());
+                return (T)(object)ret;
+            }
             if (handle == IntPtr.Zero) {
                 return null;
             }

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using NUnit.Framework;
 using GISharp.GLib;
@@ -11,14 +11,14 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestConstructor ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assert.That (list.Owned, Is.True);
         }
 
         [Test]
         public void TestAppend ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assume.That (list.Length, Is.EqualTo (0));
             // adding new item takes ownership of old pointer
             var newList = list.Append (null);
@@ -35,7 +35,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestPrepend ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assume.That (list.Length, Is.EqualTo (0));
             // adding new item takes ownership of old pointer
             var newList = list.Prepend (null);
@@ -52,7 +52,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestInsert ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assume.That (list.Length, Is.EqualTo (0));
             // adding new item takes ownership of old pointer
             var newList = list.Insert (null, 0);
@@ -69,7 +69,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestInsertBefore ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assume.That (list.Length, Is.EqualTo (0));
             // adding new item takes ownership of old pointer
             var newList = list.InsertBefore (null, null);
@@ -86,26 +86,26 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestInsertSorted ()
         {
-            CompareFunc<TestOpaque> compareFunc = (a, b) =>
+            CompareFunc<OpaqueInt> compareFunc = (a, b) =>
                 a.Value.CompareTo (b.Value);
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             Assume.That (list.Length, Is.EqualTo (0));
             // adding new item takes ownership of old pointer
-            var newList = list.InsertSorted (new TestOpaque (1), compareFunc);
+            var newList = list.InsertSorted (new OpaqueInt (1), compareFunc);
             Assert.That (list.Length, Is.EqualTo (0));
             Assert.That (list.Owned, Is.False);
             // return value is now owned head of list
             Assert.That (newList.Length, Is.EqualTo (1));
             Assert.That (newList.Owned, Is.True);
             // check that it actually sorts items
-            newList = newList.InsertSorted (new TestOpaque (3), compareFunc);
-            newList = newList.InsertSorted (new TestOpaque (2), compareFunc);
+            newList = newList.InsertSorted (new OpaqueInt (3), compareFunc);
+            newList = newList.InsertSorted (new OpaqueInt (2), compareFunc);
             Assert.That (newList.Length, Is.EqualTo (3));
             Assert.That (newList[0].Value, Is.EqualTo (1));
             Assert.That (newList[1].Value, Is.EqualTo (2));
             Assert.That (newList[2].Value, Is.EqualTo (3));
             // calling without a sort function is not allowed
-            Assert.That (() => newList.InsertSorted (new TestOpaque (4), null),
+            Assert.That (() => newList.InsertSorted (new OpaqueInt (4), null),
                 Throws.InstanceOf<ArgumentNullException> ());
             // calling insert on unowned pointer is not allowed
             Assert.That (() => list.InsertSorted (null, compareFunc),
@@ -115,7 +115,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestRemove ()
         {
-            var list = new List<TestOpaque> ().Append (null);
+            var list = new List<OpaqueInt> ().Append (null);
             Assume.That (list.Length, Is.EqualTo (1));
             // removing item takes ownership of old pointer
             var newList = list.Remove (null);
@@ -132,7 +132,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestRemoveLink ()
         {
-            var list = new List<TestOpaque> ().Append (null);
+            var list = new List<OpaqueInt> ().Append (null);
             Assume.That (list.Length, Is.EqualTo (1));
             // removing item does not take ownership of old pointer
             var newList = list.RemoveLink (list);
@@ -144,7 +144,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (newList.Owned, Is.True);
             Assert.That (() => list.RemoveLink (list),
                 Throws.InstanceOf<ObjectDisposedException> ());
-            list = new List<TestOpaque> ().Append (null);
+            list = new List<OpaqueInt> ().Append (null);
             // calling remove on unowned pointer is not allowed
             Assert.That (() => list.First.RemoveLink (newList),
                 Throws.InvalidOperationException);
@@ -156,9 +156,9 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestDeleteLink ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2));
             Assume.That (list.Length, Is.EqualTo (2));
             // removing item takes ownership of old pointer
             var newList = list.DeleteLink (list.Last);
@@ -168,13 +168,13 @@ namespace GISharp.Core.Test.GLib
             Assert.That (newList.Length, Is.EqualTo (1));
             Assert.That (newList.Owned, Is.True);
             // removing item disposes pointer to that item
-            list = new List<TestOpaque> ().Append (null);
+            list = new List<OpaqueInt> ().Append (null);
             newList = list.DeleteLink (list);
             // check that deleted link is disposed
             Assert.That (() => newList.DeleteLink (list),
                 Throws.InstanceOf<ObjectDisposedException> ());
             // calling remove on unowned pointer is not allowed
-            list = new List<TestOpaque> ().Append (null);
+            list = new List<OpaqueInt> ().Append (null);
             Assert.That (() => list.First.DeleteLink (list),
                 Throws.InvalidOperationException);
         }
@@ -182,7 +182,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestRemoveAll ()
         {
-            var list = new List<TestOpaque> ().Append (null);
+            var list = new List<OpaqueInt> ().Append (null);
             Assume.That (list.Length, Is.EqualTo (1));
             // removing item takes ownership of old pointer
             var newList = list.RemoveAll (null);
@@ -199,7 +199,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCopy ()
         {
-            var list = new List<TestOpaque> ().Append (null);
+            var list = new List<OpaqueInt> ().Append (null);
             Assume.That (list.Length, Is.EqualTo (1));
             // copying does not take ownership of old pointer
             var newList = list.Copy ();
@@ -217,15 +217,15 @@ namespace GISharp.Core.Test.GLib
         public void TestCopyDeep ()
         {
             var copyFuncWasCalled = false;
-            CopyFunc<TestOpaque> copyFunc = (src) => {
+            CopyFunc<OpaqueInt> copyFunc = (src) => {
                 copyFuncWasCalled = true;
                 if (src == null) {
                     return null;
                 }
-                var ret = new TestOpaque (src.Value);
+                var ret = new OpaqueInt (src.Value);
                 return ret;
             };
-            var list = new List<TestOpaque> ().Append (null);
+            var list = new List<OpaqueInt> ().Append (null);
             Assume.That (list.Length, Is.EqualTo (1));
             // copying does not take ownership of old pointer
             var newList = list.CopyDeep (copyFunc);
@@ -246,9 +246,9 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestReverse ()
         {
-            var list = new List<TestOpaque> ()
-                .Prepend (new TestOpaque (1))
-                .Prepend (new TestOpaque (2));
+            var list = new List<OpaqueInt> ()
+                .Prepend (new OpaqueInt (1))
+                .Prepend (new OpaqueInt (2));
             Assume.That (list.Length, Is.EqualTo (2));
             Assume.That (list[0].Handle, Is.EqualTo ((IntPtr)2));
             Assume.That (list[1].Handle, Is.EqualTo ((IntPtr)1));
@@ -269,13 +269,13 @@ namespace GISharp.Core.Test.GLib
         public void TestSort ()
         {
             var compareFuncWasCalled = false;
-            CompareFunc<TestOpaque> compareFunc = (a, b) => {
+            CompareFunc<OpaqueInt> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Handle.ToInt32 ().CompareTo (b.Handle.ToInt32 ());
             };
-            var list = new List<TestOpaque> ()
-                .Prepend (new TestOpaque (1))
-                .Prepend (new TestOpaque (2));
+            var list = new List<OpaqueInt> ()
+                .Prepend (new OpaqueInt (1))
+                .Prepend (new OpaqueInt (2));
             Assume.That (list.Length, Is.EqualTo (2));
             Assume.That (list[0].Handle, Is.EqualTo ((IntPtr)2));
             Assume.That (list[1].Handle, Is.EqualTo ((IntPtr)1));
@@ -299,14 +299,14 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestConcat ()
         {
-            var list1 = new List<TestOpaque> ().Append (null);
+            var list1 = new List<OpaqueInt> ().Append (null);
             Assume.That (list1.Length, Is.EqualTo (1));
             Assume.That (list1.Owned, Is.True);
-            var list2 = new List<TestOpaque> ().Append (null).Append (null);
+            var list2 = new List<OpaqueInt> ().Append (null).Append (null);
             Assume.That (list2.Length, Is.EqualTo (2));
             Assume.That (list2.Owned, Is.True);
             // concat takes ownership of both pointers
-            var newList = List<TestOpaque>.Concat (list1, list2);
+            var newList = List<OpaqueInt>.Concat (list1, list2);
             Assert.That (list1.Length, Is.EqualTo (3));
             Assert.That (list1.Owned, Is.False);
             Assert.That (list2.Length, Is.EqualTo (2));
@@ -315,10 +315,10 @@ namespace GISharp.Core.Test.GLib
             Assert.That (newList.Length, Is.EqualTo (3));
             Assert.That (newList.Owned, Is.True);
             // calling on unowned pointer is not allowed
-            Assert.That (() => List<TestOpaque>.Concat (list1, list2),
+            Assert.That (() => List<OpaqueInt>.Concat (list1, list2),
                 Throws.InvalidOperationException);
             // make sure null values are allowed
-            newList = List<TestOpaque>.Concat (null, null);
+            newList = List<OpaqueInt>.Concat (null, null);
             Assert.That (newList.Length, Is.EqualTo (0));
             Assert.That (newList.Owned, Is.True);
         }
@@ -327,13 +327,13 @@ namespace GISharp.Core.Test.GLib
         public void TestForeach ()
         {
             int foreachCallCount = 0;
-            GISharp.GLib.Func<TestOpaque> foreachFunc = (data) =>
+            GISharp.GLib.Func<OpaqueInt> foreachFunc = (data) =>
                 foreachCallCount++;
             // check that callback is called
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3));
             list.Foreach (foreachFunc);
             Assert.That (foreachCallCount, Is.EqualTo (3));
             // calling without a foreach function is not allowed
@@ -347,15 +347,15 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestFirst ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             // check that null is returned for empty list
             var first = list.First;
             Assert.That (first, Is.Null);
             // check that unowned item is returned for non-empty list
             list = list
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3));
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3));
             first = list.First;
             Assert.That (first.Data.Value, Is.EqualTo (1));
             Assert.That (first.Owned, Is.False);
@@ -364,15 +364,15 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestLast ()
         {
-            var list = new List<TestOpaque> ();
+            var list = new List<OpaqueInt> ();
             // check that null is returned for empty list
             var last = list.Last;
             Assert.That (last, Is.Null);
             // check that unowned item is returned for non-empty list
             list = list
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3));
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3));
             last = list.Last;
             Assert.That (last.Data.Value, Is.EqualTo (3));
             Assert.That (last.Owned, Is.False);
@@ -381,11 +381,11 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestPrevious ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that calling on head of list returns null
             var previous = list.Previous;
             Assert.That (previous, Is.Null);
@@ -398,11 +398,11 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestNext ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that calling on tail of list returns null
             var previous = list.Last.Next;
             Assert.That (previous, Is.Null);
@@ -415,11 +415,11 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestNth ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that calling out of bounds returns null
             var nth = list.Nth (4);
             Assert.That (nth, Is.Null);
@@ -435,11 +435,11 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestNthData ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that calling out of bounds returns null
             var nth = list[4];
             Assert.That (nth, Is.Null);
@@ -453,11 +453,11 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestNthPrev ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that calling out of bounds returns null
             var nth = list.NthPrev (1);
             Assert.That (nth, Is.Null);
@@ -470,13 +470,13 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestFind ()
         {
-            var itemInList = new TestOpaque (4);
-            var itemNotInList = new TestOpaque (5);
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var itemInList = new OpaqueInt (4);
+            var itemNotInList = new OpaqueInt (5);
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that finding item returns unowned item
             var found = list.Find (itemInList);
             Assert.That (found.Data.Value, Is.EqualTo (itemInList.Value));
@@ -485,7 +485,7 @@ namespace GISharp.Core.Test.GLib
             found = list.Find (itemNotInList);
             Assert.That (found, Is.Null);
             // calling on unowned pointer is not allowed
-            Assert.That (() => list.First.Find (new TestOpaque (1)),
+            Assert.That (() => list.First.Find (new OpaqueInt (1)),
                 Throws.InvalidOperationException);
         }
 
@@ -493,45 +493,45 @@ namespace GISharp.Core.Test.GLib
         public void TestFindCustom ()
         {
             var compareFuncWasCalled = false;
-            CompareFunc<TestOpaque> compareFunc = (a, b) => {
+            CompareFunc<OpaqueInt> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
                 return a.Value > b.Value ? 0 : -1;
             };
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that finding item returns unowned item
-            var found = list.FindCustom (new TestOpaque (1), compareFunc);
+            var found = list.FindCustom (new OpaqueInt (1), compareFunc);
             Assert.That (compareFuncWasCalled);
             Assert.That (found.Data.Value, Is.EqualTo (2));
             Assert.That (found.Owned, Is.False);
             // check that not finding item returns null
-            found = list.FindCustom (new TestOpaque (4), compareFunc);
+            found = list.FindCustom (new OpaqueInt (4), compareFunc);
             Assert.That (found, Is.Null);
             // calling without compare func is not allowed
-            Assert.That (() => list.FindCustom (new TestOpaque (1), null),
+            Assert.That (() => list.FindCustom (new OpaqueInt (1), null),
                 Throws.InstanceOf<ArgumentNullException> ());
             // calling on unowned pointer is not allowed
-            Assert.That (() => list.First.FindCustom (new TestOpaque (1), compareFunc),
+            Assert.That (() => list.First.FindCustom (new OpaqueInt (1), compareFunc),
                 Throws.InvalidOperationException);
         }
 
         [Test]
         public void TestPosition ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that finding an item returns the index
             var position = list.Position (list.Last);
             Assert.That (position, Is.EqualTo (3));
             // check that not finding an item returens -1
-            position = list.Position (new List<TestOpaque> ()
-                .Append (new TestOpaque (1)));
+            position = list.Position (new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1)));
             Assert.That (position, Is.EqualTo (-1));
             // calling on unowned pointer is not allowed
             Assert.That (() => list.First.Position (list.First),
@@ -544,16 +544,16 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestIndex ()
         {
-            var list = new List<TestOpaque> ()
-                .Append (new TestOpaque (1))
-                .Append (new TestOpaque (2))
-                .Append (new TestOpaque (3))
-                .Append (new TestOpaque (4));
+            var list = new List<OpaqueInt> ()
+                .Append (new OpaqueInt (1))
+                .Append (new OpaqueInt (2))
+                .Append (new OpaqueInt (3))
+                .Append (new OpaqueInt (4));
             // check that finding an item returns the index
-            var index = list.IndexOf (new TestOpaque (3));
+            var index = list.IndexOf (new OpaqueInt (3));
             Assert.That (index, Is.EqualTo (2));
             // check that not finding an item retures -1
-            index = list.IndexOf (new TestOpaque (5));
+            index = list.IndexOf (new OpaqueInt (5));
             Assert.That (index, Is.EqualTo (-1));
             // calling on unowned pointer is not allowed
             Assert.That (() => list.Last.IndexOf (null),

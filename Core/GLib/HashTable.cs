@@ -1054,8 +1054,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_keys (Handle);
-                // FIXME: this should be Transfer.Container, but List does not support it yet
-                var ret = GetInstance<List<TKey>> (retPtr, Transfer.None);
+                var ret = GetInstance<List<TKey>> (retPtr, Transfer.Container);
                 return ret;
             }
         }
@@ -1075,8 +1074,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_values (Handle);
-                // FIXME: This should be Transfer.Container
-                var ret = GetInstance<List<TValue>> (retPtr, Transfer.None);
+                var ret = GetInstance<List<TValue>> (retPtr, Transfer.Container);
                 return ret;
             }
         }

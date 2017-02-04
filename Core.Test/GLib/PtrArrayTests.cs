@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 using NUnit.Framework;
 using GISharp.GLib;
@@ -9,23 +9,23 @@ using GISharp.GObject;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class PtrArrayTests : IListTests<PtrArray<TestOpaque>, TestOpaque>
+    public class PtrArrayTests : IListTests<PtrArray<OpaqueInt>, OpaqueInt>
     {
         public PtrArrayTests () : base (getItemAt)
         {
         }
 
-        static TestOpaque getItemAt (PtrArray<TestOpaque> array, int index)
+        static OpaqueInt getItemAt (PtrArray<OpaqueInt> array, int index)
         {
             var dataPtr = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
             var data = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
-            return Opaque.GetInstance<TestOpaque> (data, Transfer.None);
+            return Opaque.GetInstance<OpaqueInt> (data, Transfer.None);
         }
 
         [Test]
         public void TestRemoveFast ()
         {
-            var a = new PtrArray<TestOpaque> ();
+            var a = new PtrArray<OpaqueInt> ();
             Assume.That (a.Count, Is.EqualTo (0));
 
             Assert.That (a.RemoveFast (_ (0)), Is.False);
@@ -60,7 +60,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestRemoveAtFast ()
         {
-            var a = new PtrArray<TestOpaque> ();
+            var a = new PtrArray<OpaqueInt> ();
             a.Add (_ (1));
             Assume.That (a.Count, Is.EqualTo (1));
 
@@ -90,7 +90,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestRemoveRange ()
         {
-            var a = new PtrArray<TestOpaque> ();
+            var a = new PtrArray<OpaqueInt> ();
             a.Add (_ (1));
             a.Add (_ (2));
             a.Add (_ (3));
@@ -120,7 +120,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestSort ()
         {
-            var a = new PtrArray<TestOpaque> ();
+            var a = new PtrArray<OpaqueInt> ();
             a.Add (_ (3));
             a.Add (_ (1));
             a.Add (_ (2));
@@ -142,7 +142,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestSetSize ()
         {
-            var a = new PtrArray<TestOpaque> ();
+            var a = new PtrArray<OpaqueInt> ();
             Assume.That (a.Count, Is.EqualTo (0));
 
             a.SetSize (5);
@@ -155,14 +155,14 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestGType ()
         {
-            var gtype = typeof (PtrArray<TestOpaque>).GetGType ();
+            var gtype = typeof (PtrArray<OpaqueInt>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GPtrArray"));
         }
 
-        static TestOpaque _ (int value)
+        static OpaqueInt _ (int value)
         {
-            return new TestOpaque (value);
+            return new OpaqueInt (value);
         }
     }
 }
