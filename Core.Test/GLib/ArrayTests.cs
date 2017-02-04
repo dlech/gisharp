@@ -17,189 +17,214 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestElementSize ()
         {
-            var array = new Array<int> ();
-            Assert.That (array.ElementSize == sizeof (int));
+            using (var array = new Array<int> ()) {
+                Assert.That (array.ElementSize == sizeof (int));
 
-            array.Dispose ();
-            Assert.That (() => array.ElementSize, Throws.TypeOf<ObjectDisposedException> ());
+                array.Dispose ();
+                Assert.That (() => array.ElementSize,
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestAppend ()
         {
-            var array = new Array<int> ();
-            array.Append (1, 2, 3);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-            Assert.That (array.Count, Is.EqualTo (3));
+            using (var array = new Array<int> ()) {
+                array.Append (1, 2, 3);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                Assert.That (array.Count, Is.EqualTo (3));
 
-            array.Dispose ();
-            Assert.That (() => array.Append (1), Throws.TypeOf<ObjectDisposedException> ());
+                array.Dispose ();
+                Assert.That (() => array.Append (1),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestPrepend ()
         {
-            var array = new Array<int> ();
+            using (var array = new Array<int> ()) {
+                array.Prepend (1);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.Count, Is.EqualTo (1));
 
-            array.Prepend (1);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.Count, Is.EqualTo (1));
+                array.Prepend (2);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
+                Assert.That (array.Count, Is.EqualTo (2));
 
-            array.Prepend (2);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-            Assert.That (array.Count, Is.EqualTo (2));
-
-            array.Dispose ();
-            Assert.Throws<ObjectDisposedException> (() => array.Prepend (1));
+                array.Dispose ();
+                Assert.That (() => array.Prepend (1),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestInsertVals ()
         {
-            var array = new Array<int> ();
+            using (var array = new Array<int> ()) {
+                array.Insert (0, 1);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.Count, Is.EqualTo (1));
 
-            array.Insert (0, 1);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.Count, Is.EqualTo (1));
+                array.Insert (0, 2);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
+                Assert.That (array.Count, Is.EqualTo (2));
 
-            array.Insert (0, 2);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-            Assert.That (array.Count, Is.EqualTo (2));
+                array.Insert (2, 3);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                Assert.That (array.Count, Is.EqualTo (3));
 
-            array.Insert (2, 3);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-            Assert.That (array.Count, Is.EqualTo (3));
+                Assert.That (() => array.Insert (-1, 0),
+                             Throws.TypeOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.Insert (5, 0),
+                             Throws.TypeOf<ArgumentOutOfRangeException> ());
 
-            Assert.That (() => array.Insert (-1, 0), Throws.TypeOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.Insert (5, 0), Throws.TypeOf<ArgumentOutOfRangeException> ());
-
-            array.Dispose ();
-            Assert.That (() => array.Insert (1), Throws.TypeOf<ObjectDisposedException> ());
+                array.Dispose ();
+                Assert.That (() => array.Insert (1),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestRemoveAtFast ()
         {
-            var array = new Array<int> ();
-            array.Append (1, 2, 3, 4, 5);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assume.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assume.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-            Assume.That (array.UnsafeItemAt (3), Is.EqualTo (4));
-            Assume.That (array.UnsafeItemAt (4), Is.EqualTo (5));
+            using (var array = new Array<int> ()) {
+                array.Append (1, 2, 3, 4, 5);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assume.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assume.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                Assume.That (array.UnsafeItemAt (3), Is.EqualTo (4));
+                Assume.That (array.UnsafeItemAt (4), Is.EqualTo (5));
 
-            Assert.That (() => array.RemoveAtFast (-1), Throws.InstanceOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.RemoveAtFast (5), Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveAtFast (-1),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveAtFast (5),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
 
-            array.RemoveAtFast (4);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-            Assert.That (array.UnsafeItemAt (3), Is.EqualTo (4));
+                array.RemoveAtFast (4);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                Assert.That (array.UnsafeItemAt (3), Is.EqualTo (4));
 
-            array.RemoveAtFast (0);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (4));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                array.RemoveAtFast (0);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (4));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
 
-            array.Dispose ();
-            Assert.Throws<ObjectDisposedException> (() => array.RemoveAtFast (0));
+                array.Dispose ();
+                Assert.That (() => array.RemoveAtFast (0),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestRemoveRange ()
         {
-            var array = new Array<int> ();
-            array.Append (1, 2, 3, 4, 5);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assume.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assume.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-            Assume.That (array.UnsafeItemAt (3), Is.EqualTo (4));
-            Assume.That (array.UnsafeItemAt (4), Is.EqualTo (5));
+            using (var array = new Array<int> ()) {
+                array.Append (1, 2, 3, 4, 5);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assume.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assume.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                Assume.That (array.UnsafeItemAt (3), Is.EqualTo (4));
+                Assume.That (array.UnsafeItemAt (4), Is.EqualTo (5));
 
-            Assert.That (() => array.RemoveRange (-1, 1), Throws.InstanceOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.RemoveRange (5, 1), Throws.InstanceOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.RemoveRange (0, -1), Throws.InstanceOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.RemoveRange (0, 6), Throws.InstanceOf<ArgumentOutOfRangeException> ());
-            Assert.That (() => array.RemoveRange (4, 2), Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveRange (-1, 1),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveRange (5, 1),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveRange (0, -1),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveRange (0, 6),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
+                Assert.That (() => array.RemoveRange (4, 2),
+                             Throws.InstanceOf<ArgumentOutOfRangeException> ());
 
-            array.RemoveRange (3, 2);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                array.RemoveRange (3, 2);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
 
-            array.RemoveRange (0, 2);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (3));
+                array.RemoveRange (0, 2);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (3));
 
-            array.Dispose ();
-            Assert.Throws<ObjectDisposedException> (() => array.RemoveRange (0, 1));
+                array.Dispose ();
+                Assert.That (() => array.RemoveRange (0, 1),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
         public void TestSetSize ()
         {
-            var array = new Array<int> ();
-            Assume.That (array.Count, Is.EqualTo (0));
+            using (var array = new Array<int> ()) {
+                Assume.That (array.Count, Is.EqualTo (0));
 
-            array.SetSize (1);
-            Assert.That (array.Count, Is.EqualTo (1));
+                array.SetSize (1);
+                Assert.That (array.Count, Is.EqualTo (1));
 
-            array.Dispose ();
-            Assert.Throws<ObjectDisposedException> (() => array.SetSize (0));
+                array.Dispose ();
+                Assert.That (() => array.SetSize (0),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 #if false
         [Test]
         public void TestSetClearFunc ()
         {
-            var array = new Array<int> ();
-            array.Append (1);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+            using (var array = new Array<int> ()) {
+                array.Append (1);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
 
-            array.RemoveAt (0);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                array.RemoveAt (0);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
 
-            array.SetSize (1);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                array.SetSize (1);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
 
-            array.SetClearFunc ((ref int item) => item = 0);
-            array.RemoveAt (0);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (0));
+                array.SetClearFunc ((ref int item) => item = 0);
+                array.RemoveAt (0);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (0));
 
-            array.Append (1);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                array.Append (1);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (1));
 
-            array.SetClearFunc (null);
-            array.RemoveAt (0);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                array.SetClearFunc (null);
+                array.RemoveAt (0);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
 
-            array.Dispose ();
-            Assert.That (() => array.SetClearFunc (null), Throws.TypeOf<ObjectDisposedException> ());
+                array.Dispose ();
+                Assert.That (() => array.SetClearFunc (null),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 #endif
         [Test]
         public void TestSort ()
         {
-            var array = new Array<int> ();
-            array.Append (3, 1, 2);
-            Assume.That (array.UnsafeItemAt (0), Is.EqualTo (3));
-            Assume.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-            Assume.That (array.UnsafeItemAt (2), Is.EqualTo (2));
+            using (var array = new Array<int> ()) {
+                array.Append (3, 1, 2);
+                Assume.That (array.UnsafeItemAt (0), Is.EqualTo (3));
+                Assume.That (array.UnsafeItemAt (1), Is.EqualTo (1));
+                Assume.That (array.UnsafeItemAt (2), Is.EqualTo (2));
 
-            array.Sort ((x, y) => x - y);
-            Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-            Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
-            Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
+                array.Sort ((x, y) => x - y);
+                Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
+                Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
+                Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
 
-            Assert.Throws<ArgumentNullException> (() => array.Sort (null));
+                Assert.That (() => array.Sort (null), Throws.ArgumentNullException);
 
-            array.Dispose ();
-            Assert.Throws<ObjectDisposedException> (() => array.Sort ((x, y) => x - y));
+                array.Dispose ();
+                Assert.That (() => array.Sort ((x, y) => x - y),
+                             Throws.TypeOf<ObjectDisposedException> ());
+            }
         }
 
         [Test]
