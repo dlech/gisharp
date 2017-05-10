@@ -76,6 +76,7 @@ namespace GISharp.CodeGen.Freedesktop.Xdg
         /// <remarks>
         /// Uses the <c>XDG_DATA_DIRS</c> environment variable if set and
         /// non-empty or <c>/usr/local/share</c>, <c>/usr/share</c> otherwise;
+        /// </remarks>
         public static string[] DataDirs {
             get {
                 return GetDirs ("XDG_DATA_DIRS", new [] {
