@@ -534,9 +534,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new array #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
@@ -557,9 +556,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new array #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public static VariantType NewArray (VariantType element)
         {
             if (element == null) {
@@ -585,9 +583,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new dictionary entry #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
@@ -614,9 +611,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new dictionary entry #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public static VariantType NewDictEntry (VariantType key, VariantType value)
         {
             if (key == null) {
@@ -642,9 +638,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new maybe #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
@@ -665,9 +660,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new maybe #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public static VariantType NewMaybe (VariantType element)
         {
             if (element == null) {
@@ -695,9 +689,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new tuple #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
@@ -725,9 +718,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// a new tuple #GVariantType
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public static VariantType NewTuple (VariantType[] items)
         {
             if (items == null) {
@@ -750,9 +742,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type_string is exactly one valid type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -771,9 +762,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type_string is exactly one valid type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public static bool StringIsValid (string typeString)
         {
             if (typeString == null) {
@@ -838,9 +828,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the corresponding type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
@@ -856,9 +845,8 @@ namespace GISharp.GLib
         /// </summary>
         /// <returns>
         /// the corresponding type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public override string ToString ()
         {
             AssertNotDisposed ();
@@ -878,9 +866,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the element type of @type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
@@ -897,9 +884,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the element type of @type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public VariantType Element ()
         {
             AssertNotDisposed ();
@@ -929,9 +915,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type1 and @type2 are exactly equal
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -961,9 +946,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type1 and @type2 are exactly equal
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool Equals (VariantType type2)
         {
             AssertNotDisposed ();
@@ -1017,9 +1001,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the first item type of @type, or %NULL
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
@@ -1047,9 +1030,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the first item type of @type, or %NULL
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public VariantType First ()
         {
             AssertNotDisposed ();
@@ -1068,9 +1050,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the length of the corresponding type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
@@ -1086,9 +1067,8 @@ namespace GISharp.GLib
         /// </summary>
         /// <returns>
         /// the length of the corresponding type string
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public ulong StringLength {
             get {
                 AssertNotDisposed ();
@@ -1110,9 +1090,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the hash value
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
@@ -1131,9 +1110,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the hash value
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public override int GetHashCode ()
         {
             AssertNotDisposed ();
@@ -1155,9 +1133,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is an array type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1177,9 +1154,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is an array type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsArray {
             get {
                 AssertNotDisposed ();
@@ -1205,9 +1181,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a basic type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1230,9 +1205,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is a basic type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsBasic {
             get {
                 AssertNotDisposed ();
@@ -1257,9 +1231,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a container type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1281,9 +1254,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is a container type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsContainer {
             get {
                 AssertNotDisposed ();
@@ -1310,9 +1282,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is definite
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1336,9 +1307,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is definite
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsDefinite {
             get {
                 AssertNotDisposed ();
@@ -1361,9 +1331,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a dictionary entry type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1383,9 +1352,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is a dictionary entry type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsDictEntry {
             get {
                 AssertNotDisposed ();
@@ -1408,9 +1376,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a maybe type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1430,9 +1397,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is a maybe type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsMaybe {
             get {
                 AssertNotDisposed ();
@@ -1457,9 +1423,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a subtype of @supertype
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1484,9 +1449,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a subtype of @supertype
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsSubtypeOf (VariantType supertype)
         {
             AssertNotDisposed ();
@@ -1512,9 +1476,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is a tuple type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1535,9 +1498,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// %TRUE if @type is a tuple type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsTuple {
             get {
                 AssertNotDisposed ();
@@ -1554,9 +1516,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// %TRUE if @type is the variant type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
@@ -1570,9 +1531,8 @@ namespace GISharp.GLib
         /// </summary>
         /// <returns>
         /// %TRUE if @type is the variant type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public bool IsVariant {
             get {
                 AssertNotDisposed ();
@@ -1594,9 +1554,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the key type of the dictionary entry
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
@@ -1615,9 +1574,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the key type of the dictionary entry
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public VariantType Key ()
         {
             AssertNotDisposed ();
@@ -1643,9 +1601,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the number of items in @type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
@@ -1668,9 +1625,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the number of items in @type
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public ulong NItems ()
         {
             AssertNotDisposed ();
@@ -1697,9 +1653,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the next #GVariantType after @type, or %NULL
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
@@ -1724,9 +1679,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the next #GVariantType after @type, or %NULL
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public VariantType Next ()
         {
             AssertNotDisposed ();
@@ -1748,9 +1702,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the corresponding type string (not nul-terminated)
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
@@ -1769,9 +1722,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the corresponding type string (not nul-terminated)
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public string PeekString ()
         {
             AssertNotDisposed ();
@@ -1791,9 +1743,8 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the value type of the dictionary entry
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
@@ -1810,9 +1761,8 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the value type of the dictionary entry
-        ///
-        /// Since 2.24
         /// </returns>
+        [Since ("2.24")]
         public VariantType Value ()
         {
             AssertNotDisposed ();
