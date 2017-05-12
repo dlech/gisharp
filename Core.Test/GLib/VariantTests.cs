@@ -171,7 +171,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastStringArray ()
         {
-            var expected = new [] { "string" };
+            var expected = new[] { "string" };
             var variant = (Variant)expected;
             Assert.That (variant.Type, Is.EqualTo (VariantType.StringArray));
             var actual = (string[])variant;
@@ -183,7 +183,7 @@ namespace GISharp.Core.Test.GLib
         {
             var expected = new DBusObjectPath ("/");
             var variant = (Variant)expected;
-            Assert.That (variant.Type, Is.EqualTo (VariantType.ObjectPath));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.DBusObjectPath));
             var actual = (DBusObjectPath)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -191,9 +191,9 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastObjectPathArray ()
         {
-            var expected = new [] { new DBusObjectPath ("/") };
+            var expected = new[] { new DBusObjectPath ("/") };
             var variant = (Variant)expected;
-            Assert.That (variant.Type, Is.EqualTo (VariantType.ObjectPathArray));
+            Assert.That (variant.Type, Is.EqualTo (VariantType.DBusObjectPathArray));
             var actual = (DBusObjectPath[])variant;
             Assert.That (actual, Is.EqualTo (expected));
         }
@@ -221,7 +221,7 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastBytestringArray ()
         {
-            var expected = new [] { Encoding.ASCII.GetBytes ("bytestring") };
+            var expected = new[] { Encoding.ASCII.GetBytes ("bytestring") };
             var variant = (Variant)expected;
             Assert.That (variant.Type, Is.EqualTo (VariantType.ByteStringArray));
             var actual = (byte[][])variant;
@@ -231,9 +231,9 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastArray ()
         {
-            var badArray = new [] { new Variant (false), null };
+            var badArray = new[] { new Variant (false), null };
             Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
-            badArray = new [] { new Variant (false), new Variant (0) };
+            badArray = new[] { new Variant (false), new Variant (0) };
             Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
             badArray = new Variant[0];
             Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
@@ -241,7 +241,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => new Variant (null, badArray), Throws.ArgumentException);
             Assert.That (() => new Variant (VariantType.Boolean, badArray), Throws.Nothing);
 
-            var expected = new [] { new Variant (false) };
+            var expected = new[] { new Variant (false) };
             var variant = new Variant (null, expected);
             Assert.That (variant.Type.IsArray, Is.True);
             var actual = (Variant[])variant;
@@ -251,12 +251,12 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastTuple ()
         {
-            var badTuple = new [] { new Variant (false), null };
+            var badTuple = new[] { new Variant (false), null };
             Assert.That (() => (Variant)badTuple, Throws.ArgumentException);
             badTuple = null;
             Assert.That (() => (Variant)badTuple, Throws.TypeOf<ArgumentNullException> ());
 
-            var expected = new [] { new Variant (false), new Variant (0) };
+            var expected = new[] { new Variant (false), new Variant (0) };
             var variant = (Variant)expected;
             Assert.That (variant.Type.IsTuple, Is.True);
             var actual = (Variant[])variant;
@@ -275,13 +275,13 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
 
             // only basic variant types are allowed as key
-            badKey = new KeyValuePair<Variant, Variant> (new Variant (new [] { "string" }), new Variant ("string"));
+            badKey = new KeyValuePair<Variant, Variant> (new Variant (new[] { "string" }), new Variant ("string"));
             Assert.That (() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in
             var expected = new KeyValuePair<Variant, Variant> (new Variant ("key"), new Variant ("value"));
             var variant = (Variant)expected;
-            Assert.That (variant.Type.IsDictEntry, Is.True);
+            Assert.That (variant.Type.IsDictionaryEntry, Is.True);
             var actual = (KeyValuePair<Variant, Variant>)variant;
             Assert.That (actual, Is.EqualTo (expected));
         }

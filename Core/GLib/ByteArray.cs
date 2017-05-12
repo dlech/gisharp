@@ -13,9 +13,12 @@ namespace GISharp.GLib
     [GType ("GByteArray", IsWrappedNativeType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
-        public sealed class SafeByteArrayHandle : SafeOpaqueHandle
-        {
-            readonly bool ownsElements;
+        public sealed class SafeHandle : SafeOpaqueHandle
+		{
+			public static SafeHandle Zero = _Zero.Value;
+			static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
+			readonly bool ownsElements;
 
             struct ByteArrayStruct
             {
@@ -48,7 +51,7 @@ namespace GISharp.GLib
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_byte_array_ref (IntPtr array);
 
-            public SafeByteArrayHandle (IntPtr handle, Transfer ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership)
             {
                 if (ownership == Transfer.None) {
                     g_byte_array_ref (handle);
@@ -57,6 +60,10 @@ namespace GISharp.GLib
                 if (ownership == Transfer.Full) {
                     ownsElements = true;
                 }
+            }
+
+            public SafeHandle ()
+            {
             }
 
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -80,11 +87,7 @@ namespace GISharp.GLib
             }
         }
 
-        public new SafeByteArrayHandle Handle {
-            get {
-                return (SafeByteArrayHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_byte_array_get_type ();
@@ -94,7 +97,7 @@ namespace GISharp.GLib
             return g_byte_array_get_type ();
         }
 
-        public ByteArray (SafeByteArrayHandle handle) : base (handle)
+        public ByteArray (SafeHandle handle) : base (handle)
         {
         }
 
@@ -137,10 +140,10 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_new();
 
-        static SafeByteArrayHandle New ()
+        static SafeHandle New ()
         {
             var ret_ = g_byte_array_new ();
-            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            var ret = new SafeHandle (ret_, Transfer.Full);
             return ret;
         }
 
@@ -163,7 +166,7 @@ namespace GISharp.GLib
             IntPtr data,
             ulong len);
 
-        static SafeByteArrayHandle NewTake (byte[] data)
+        static SafeHandle NewTake (byte[] data)
         {
             if (data == null) {
                 throw new ArgumentNullException (nameof (data));
@@ -171,7 +174,7 @@ namespace GISharp.GLib
             var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
             var ret_ = g_byte_array_new_take (dataPtr, (ulong)data.Length);
-            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            var ret = new SafeHandle (ret_, Transfer.Full);
             return ret;
         }
 
@@ -191,13 +194,13 @@ namespace GISharp.GLib
         static extern IntPtr g_byte_array_sized_new (
             uint reservedSize);
 
-        static SafeByteArrayHandle SizedNew (int reservedSize)
+        static SafeHandle SizedNew (int reservedSize)
         {
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (reservedSize));
             }
             var ret_ = g_byte_array_sized_new ((uint)reservedSize);
-            var ret = new SafeByteArrayHandle (ret_, Transfer.Full);
+            var ret = new SafeHandle (ret_, Transfer.Full);
             return ret;
         }
 
@@ -219,7 +222,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_append (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
             uint len);
 
@@ -276,8 +279,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
-        static extern Bytes.SafeBytesHandle g_byte_array_free_to_bytes (
-            SafeByteArrayHandle array);
+        static extern Bytes.SafeHandle g_byte_array_free_to_bytes (
+            SafeHandle array);
 
         /// <summary>
         /// Adds the given data to the start of the #GByteArray.
@@ -297,7 +300,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_prepend (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] byte[] data,
             uint len);
 
@@ -352,7 +355,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_remove_index (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             uint index);
 
         /// <summary>
@@ -386,7 +389,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_remove_index_fast (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             uint index);
 
         /// <summary>
@@ -424,7 +427,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.4")]
         static extern IntPtr g_byte_array_remove_range (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             uint index,
             uint length);
 
@@ -480,7 +483,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_set_size (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             uint length);
 
         /// <summary>
@@ -519,7 +522,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_sort (
-            SafeByteArrayHandle array,
+            SafeHandle array,
             NativeCompareFunc compareFunc);
 
         /// <summary>

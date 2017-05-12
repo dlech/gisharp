@@ -10,17 +10,20 @@ namespace GISharp.GObject
     [GType ("GParamDouble", IsWrappedNativeType = true)]
     public sealed class ParamSpecDouble : ParamSpec
     {
-        public sealed class SafeParamSpecDoubleHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecDouble
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
                 public double Minimum;
                 public double Maximum;
                 public double DefaultValue;
                 public double Epsilon;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public double Minimum {
@@ -67,17 +70,16 @@ namespace GISharp.GObject
                 }
             }
 
-            public SafeParamSpecDoubleHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecDoubleHandle Handle {
-            get {
-                return (SafeParamSpecDoubleHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public double Minimum {
             get {
@@ -108,7 +110,7 @@ namespace GISharp.GObject
             return paramSpecTypes[13];
         }
 
-        public ParamSpecDouble (SafeParamSpecDoubleHandle handle) : base (handle)
+        public ParamSpecDouble (SafeHandle handle) : base (handle)
         {
         }
 
@@ -122,7 +124,7 @@ namespace GISharp.GObject
             double defaultValue,
             ParamFlags flags);
 
-        static SafeParamSpecDoubleHandle New (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, double min, double max, double defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -137,7 +139,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var ret_ = g_param_spec_double (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
-            var ret = new SafeParamSpecDoubleHandle (ret_, Transfer.None);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

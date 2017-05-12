@@ -11,16 +11,19 @@ namespace GISharp.GObject
     [GType ("GParamChar", IsWrappedNativeType = true)]
     public sealed class ParamSpecChar : ParamSpec
     {
-        public sealed class SafeParamSpecCharHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecChar
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
                 public sbyte Minimum;
                 public sbyte Maximum;
                 public sbyte DefaultValue;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public sbyte Minimum {
@@ -56,17 +59,16 @@ namespace GISharp.GObject
                 }
             }
 
-            public SafeParamSpecCharHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecCharHandle Handle {
-            get {
-                return (SafeParamSpecCharHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public sbyte Minimum {
             get {
@@ -91,7 +93,7 @@ namespace GISharp.GObject
             return paramSpecTypes[0];
         }
 
-        public ParamSpecChar (SafeParamSpecCharHandle handle) : base (handle)
+        public ParamSpecChar (SafeHandle handle) : base (handle)
         {
         }
 
@@ -105,7 +107,7 @@ namespace GISharp.GObject
             sbyte defaultValue,
             ParamFlags flags);
 
-        static SafeParamSpecCharHandle New (string name, string nick, string blurb, sbyte min, sbyte max, sbyte defaultValue, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, sbyte min, sbyte max, sbyte defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -120,7 +122,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var ret_ = g_param_spec_char (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
-            var ret = new SafeParamSpecCharHandle (ret_, Transfer.None);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -136,6 +138,7 @@ namespace GISharp.GObject
 
             return ret;
         }
+
         public ParamSpecChar (string name, string nick, string blurb, sbyte min, sbyte max, sbyte defaultValue, ParamFlags flags)
             : this (New (name, nick, blurb, min, max, defaultValue, flags))
         {

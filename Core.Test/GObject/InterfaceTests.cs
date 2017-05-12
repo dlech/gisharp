@@ -115,7 +115,7 @@ namespace GISharp.Core.Test.GObject
         {
         }
 
-        public TestNetworkMonitor (SafeObjectHandle handle) : base (handle)
+        public TestNetworkMonitor (SafeHandle handle) : base (handle)
         {
         }
     }

@@ -15,15 +15,18 @@ namespace GISharp.GLib
     [GType ("GError", IsWrappedNativeType = true)]
     public sealed class Error : Opaque
     {
-        public sealed class SafeErrorHandle : SafeOpaqueHandle
+        public sealed class SafeHandle : SafeOpaqueHandle
         {
+            public static SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ErrorStruct
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public Quark Domain;
                 public int Code;
                 public IntPtr Message;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public Quark Domain {
@@ -62,12 +65,16 @@ namespace GISharp.GLib
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_error_copy (IntPtr error);
 
-            public SafeErrorHandle (IntPtr handle, Transfer ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership)
             {
                 if (ownership == Transfer.None) {
                     handle = g_error_copy (handle);
                 }
                 SetHandle (handle);
+            }
+
+            public SafeHandle ()
+            {
             }
 
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -78,17 +85,14 @@ namespace GISharp.GLib
                 try {
                     g_error_free (handle);
                     return true;
-                } catch {
+                }
+                catch {
                     return false;
                 }
             }
         }
 
-        public new SafeErrorHandle Handle {
-            get {
-                return (SafeErrorHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         /// <summary>
         /// Gets the error domain (aka error quark).
@@ -123,24 +127,23 @@ namespace GISharp.GLib
             }
         }
 
-        public Error (SafeErrorHandle handle) : base (handle)
+        public Error (SafeHandle handle) : base (handle)
         {
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_error_new_literal (
+        static extern SafeHandle g_error_new_literal (
             Quark domain,
             int code,
             IntPtr message);
 
-        static SafeErrorHandle NewLiteral (Quark domain, int code, string message)
+        static SafeHandle NewLiteral (Quark domain, int code, string message)
         {
             if (message == null) {
                 throw new ArgumentNullException (nameof (message));
             }
             var messagePtr = GMarshal.StringToUtf8Ptr (message);
-            var ret_ = g_error_new_literal (domain, code, messagePtr);
-            var ret = new SafeErrorHandle (ret_, Transfer.Full);
+            var ret = g_error_new_literal (domain, code, messagePtr);
             GMarshal.Free (messagePtr);
             return ret;
         }
@@ -197,7 +200,7 @@ namespace GISharp.GLib
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_error_matches (
-            SafeErrorHandle err,
+            SafeHandle err,
             Quark domain,
             int code);
 
@@ -220,6 +223,28 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret = g_error_matches (Handle, domain, code);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if error matches <paramref name="domain"/> and
+        /// <paramref name="code"/>, <c>false</c> otherwise.
+        /// </summary>
+        /// <returns>The matches.</returns>
+        /// <param name="domain">An error domain.</param>
+        /// <param name="code">An error code.</param>
+        /// <remarks>
+        /// If domain contains a <c>Failed</c> (or otherwise generic) error code,
+        /// you should generally not check for it explicitly, but should instead
+        /// treat any not-explicitly-recognized error code as being equivalent to
+        /// the <c>Failed</c> code. This way, if the domain is extended in the
+        /// future to provide a more specific error code for a certain case, your
+        /// code will still work.
+        /// </remarks>
+        public bool Matches (Quark domain, System.Enum code)
+        {
+            AssertNotDisposed ();
+            var ret = g_error_matches (Handle, domain, (int)(object)code);
             return ret;
         }
 

@@ -13,19 +13,11 @@ namespace GISharp.GObject
     [GTypeStruct (typeof(InitiallyUnownedClass))]
     public class InitiallyUnowned : Object
     {
-        public class SafeInitiallyUnownedHandle : SafeObjectHandle
+        public new class SafeHandle : Object.SafeHandle
         {
-            public SafeInitiallyUnownedHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
-            {
-            }
         }
 
-        public new SafeInitiallyUnownedHandle Handle {
-            get {
-                return (SafeInitiallyUnownedHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initially_unowned_get_type ();
@@ -35,7 +27,7 @@ namespace GISharp.GObject
             return g_initially_unowned_get_type ();
         }
 
-        public InitiallyUnowned (SafeInitiallyUnownedHandle handle) : base (handle)
+        public InitiallyUnowned (SafeHandle handle) : base (handle)
         {
         }
     }

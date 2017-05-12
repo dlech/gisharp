@@ -135,7 +135,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            EnumClass.SafeEnumClassHandle enumClass,
+            EnumClass.SafeHandle enumClass,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int value);
@@ -185,7 +185,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value_by_name (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            EnumClass.SafeEnumClassHandle enumClass,
+            EnumClass.SafeHandle enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -241,7 +241,7 @@ namespace GISharp.GObject
         static extern IntPtr g_enum_get_value_by_nick (
             /* <type name="EnumClass" type="GEnumClass*" managed-name="EnumClass" /> */
             /* transfer-ownership:none */
-            EnumClass.SafeEnumClassHandle enumClass,
+            EnumClass.SafeHandle enumClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);

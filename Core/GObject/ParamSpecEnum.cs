@@ -11,15 +11,18 @@ namespace GISharp.GObject
     [GType ("GParamEnum", IsWrappedNativeType = true)]
     public sealed class ParamSpecEnum : ParamSpec
     {
-        public sealed class SafeParamSpecEnumHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecEnum
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
                 public IntPtr EnumClass;
                 public int DefaultValue;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public IntPtr EnumClass {
@@ -44,17 +47,16 @@ namespace GISharp.GObject
                 }
             }
 
-            public SafeParamSpecEnumHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecEnumHandle Handle {
-            get {
-                return (SafeParamSpecEnumHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public Type EnumType {
             get {
@@ -76,7 +78,7 @@ namespace GISharp.GObject
             return paramSpecTypes[10];
         }
 
-        public ParamSpecEnum (SafeParamSpecEnumHandle handle) : base (handle)
+        public ParamSpecEnum (SafeHandle handle) : base (handle)
         {
         }
 
@@ -89,7 +91,7 @@ namespace GISharp.GObject
             int defaultValue,
             ParamFlags flags);
 
-        static SafeParamSpecEnumHandle New (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, GType enumType, int defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -107,7 +109,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var ret_ = g_param_spec_enum (namePtr, nickPtr, blurbPtr, enumType, defaultValue, flags);
-            var ret = new SafeParamSpecEnumHandle (ret_, Transfer.None);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

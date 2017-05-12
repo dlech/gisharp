@@ -10,8 +10,11 @@ namespace GISharp.Runtime
     /// </remarks>
     public sealed class OpaqueInt : Opaque
     {
-        public sealed class SafeOpaqueIntHandle : SafeOpaqueHandle
-        {
+        public sealed class SafeHandle : SafeOpaqueHandle
+		{
+			public static SafeHandle Zero = _Zero.Value;
+			static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             public int Value {
                 get {
                     return handle.ToInt32 ();
@@ -21,39 +24,32 @@ namespace GISharp.Runtime
                 }
             }
 
-            public override bool IsInvalid {
-                get {
-                    return false;
-                }
-            }
-
-            public SafeOpaqueIntHandle (IntPtr handle, Transfer ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : this ()
             {
                 SetHandle (handle);
+            }
+
+            public SafeHandle ()
+            {
                 GC.SuppressFinalize (this);
             }
 
-            protected override bool ReleaseHandle ()
-            {
-                return true;
-            }
+            public override bool IsInvalid => false;
+
+            protected override bool ReleaseHandle () => true;
         }
 
-        public new SafeOpaqueIntHandle Handle {
-            get {
-                return (SafeOpaqueIntHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
-        public int Value { get { return Handle.Value; } }
+        public int Value => Handle.Value;
 
-        public OpaqueInt (SafeOpaqueIntHandle handle) : base (handle, false)
+        public OpaqueInt (SafeHandle handle) : base (handle)
         {
         }
 
-        static SafeOpaqueIntHandle New (int value)
+        static SafeHandle New (int value)
         {
-            return new SafeOpaqueIntHandle ((IntPtr)value, Transfer.Full);
+            return new SafeHandle { Value = value };
         }
 
         /// <summary>

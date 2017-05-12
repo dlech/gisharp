@@ -10,33 +10,35 @@ namespace GISharp.GObject
     [GType ("GParamBoxed", IsWrappedNativeType = true)]
     public sealed class ParamSpecBoxed : ParamSpec
     {
-        public sealed class SafeParamSpecBoxedHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecBoxed
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
-            public SafeParamSpecBoxedHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecBoxedHandle Handle {
-            get {
-                return (SafeParamSpecBoxedHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         static GType getGType ()
         {
             return paramSpecTypes[16];
         }
 
-        public ParamSpecBoxed (SafeParamSpecBoxedHandle handle) : base (handle)
+        public ParamSpecBoxed (SafeHandle handle) : base (handle)
         {
         }
 
@@ -48,7 +50,7 @@ namespace GISharp.GObject
             GType boxedType,
             ParamFlags flags);
 
-        static SafeParamSpecBoxedHandle New (string name, string nick, string blurb, GType boxedType, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, GType boxedType, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -66,7 +68,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var ret_ = g_param_spec_boxed (namePtr, nickPtr, blurbPtr, boxedType, flags);
-            var ret = new SafeParamSpecBoxedHandle (ret_, Transfer.None);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

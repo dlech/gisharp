@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.GObject
 {
@@ -9,7 +10,7 @@ namespace GISharp.GObject
     /// </summary>
     sealed class InitiallyUnownedClass : TypeClass
     {
-        public class SafeInitiallyUnownedClassHandle : SafeTypeClassHandle
+        public new class SafeHandle : TypeClass.SafeHandle
         {
             internal struct InitiallyUnownedClassStruct
             {
@@ -47,24 +48,24 @@ namespace GISharp.GObject
                 public delegate void NativeConstructed (IntPtr @object);
             }
 
-            public SafeInitiallyUnownedClassHandle () : base (typeof (InitiallyUnowned).GetGType ())
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
         }
 
-        public new SafeInitiallyUnownedClassHandle Handle {
+        public new SafeHandle Handle {
             get {
-                return (SafeInitiallyUnownedClassHandle)base.Handle;
+                return (SafeHandle)base.Handle;
             }
         }
 
         public override Type StructType {
             get {
-                return typeof(SafeInitiallyUnownedClassHandle.InitiallyUnownedClassStruct);
+                return typeof(SafeHandle.InitiallyUnownedClassStruct);
             }
         }
 
-        public InitiallyUnownedClass (SafeInitiallyUnownedClassHandle handle)
+        public InitiallyUnownedClass (SafeHandle handle)
             : base (handle)
         {
         }

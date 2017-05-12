@@ -180,7 +180,7 @@ namespace GISharp.Runtime
                 g_free (ptr);
             }
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Transfer.Full);
+                var error = new Error.SafeHandle (error_, Transfer.Full);
                 throw new GErrorException (error);
             }
             return Utf8PtrToString (utf8Ptr, freePtr: true);
@@ -200,7 +200,7 @@ namespace GISharp.Runtime
             var ret = g_filename_from_utf8 (utf8Ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
             g_free (utf8Ptr);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (error_, Transfer.Full);
+                var error = new Error.SafeHandle (error_, Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;
@@ -398,14 +398,14 @@ namespace GISharp.Runtime
                 array = new T[length.Value];
                 for (int i = 0; i < array.Length; i++) {
                     var handle = Marshal.ReadIntPtr (ptr, i * IntPtr.Size);
-                    array[i] = Opaque.GetInstance<T> (handle, Transfer.None);
+                    array[i] = Opaque.GetOrCreate<T> (handle, Transfer.None);
                 }
             } else {
                 var list = new System.Collections.Generic.List<T> ();
                 IntPtr handle;
                 var current = ptr;
                 while ((handle = Marshal.ReadIntPtr (current)) != IntPtr.Zero) {
-                    var item = Opaque.GetInstance<T> (handle, Transfer.None);
+                    var item = Opaque.GetOrCreate<T> (handle, Transfer.None);
                     list.Add (item);
                     current += IntPtr.Size;
                 }
@@ -469,7 +469,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error (IntPtr dest, Error.SafeErrorHandle src);
+        static extern void g_propagate_error (IntPtr dest, Error.SafeHandle src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error

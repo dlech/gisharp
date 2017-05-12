@@ -25,8 +25,7 @@ namespace GISharp.Runtime
         // collector runs. This method runs in the GC Finalizer Thread.
         static bool ReleaseFinalizedHandles (object state)
         {
-            SafeOpaqueHandle handle;
-            while (finalizedHandles.TryTake (out handle)) {
+            while (finalizedHandles.TryTake (out var handle)) {
                 try {
                     // Note: the handle object here may not be fully initalized
                     // (e.g. the constructor threw an exception). It should be
@@ -62,11 +61,7 @@ namespace GISharp.Runtime
         /// </summary>
         static event EventHandler<UnhandledExceptionEventArgs> UnhandledFinalizerException;
 
-        public override bool IsInvalid {
-            get {
-                return handle == IntPtr.Zero;
-            }
-        }
+        public override bool IsInvalid => handle == IntPtr.Zero;
 
         protected SafeOpaqueHandle () : base (IntPtr.Zero, true)
         {

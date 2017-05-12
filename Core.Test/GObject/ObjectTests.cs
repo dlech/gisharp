@@ -18,7 +18,7 @@ namespace GISharp.Core.Test.GObject
             var handle = o1.Handle.DangerousGetHandle ();
 
             // getting an object that already exists should return that object
-            var o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.None);
+            var o2 = Opaque.GetOrCreate<GISharp.GObject.Object> (handle, Transfer.None);
             Assert.That (ReferenceEquals (o1, o2), Is.True);
 
             // Simulate unmanaged code taking a reference so that the handle is
@@ -38,8 +38,7 @@ namespace GISharp.Core.Test.GObject
             // Transfer.All means the new object takes ownership of the reference
             // from the manual call to g_object_ref(), so we don't need to call
             // g_object_unref() manually.
-            o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.Full);
-
+            o2 = Opaque.GetOrCreate<GISharp.GObject.Object> (handle, Transfer.Full);
             Assert.That (ReferenceEquals (o1, o2), Is.False);
 
             // This ensures that there are not any errors when finalizing
@@ -254,7 +253,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            public TestObject3 (SafeObjectHandle handle) : base (handle)
+            public TestObject3 (SafeHandle handle) : base (handle)
             {
             }
         }
@@ -295,7 +294,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            public TestObjectPropertiesBase (SafeObjectHandle handle) : base (handle)
+            public TestObjectPropertiesBase (SafeHandle handle) : base (handle)
             {
             }
         }
@@ -317,7 +316,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            public TestObjectPropertiesSubclass (SafeObjectHandle handle) : base (handle)
+            public TestObjectPropertiesSubclass (SafeHandle handle) : base (handle)
             {
             }
         }
@@ -368,7 +367,7 @@ namespace GISharp.Core.Test.GObject
             {
             }
 
-            public TestObjectSignal (SafeObjectHandle handle) : base (handle)
+            public TestObjectSignal (SafeHandle handle) : base (handle)
             {
                 eventHappendSignalId = Signal.Lookup (nameof(EventHappened), this.GetGType ());
             }

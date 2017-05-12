@@ -1,5 +1,6 @@
 
 using System;
+using GISharp.Runtime;
 
 namespace GISharp.GObject {
 
@@ -9,7 +10,7 @@ namespace GISharp.GObject {
     /// </summary>
     public sealed class EnumClass : TypeClass
     {
-        public sealed class SafeEnumClassHandle : SafeTypeClassHandle
+        public sealed new class SafeHandle : TypeClass.SafeHandle
         {
             internal struct EnumClassStruct
             {
@@ -42,24 +43,24 @@ namespace GISharp.GObject {
                 #pragma warning restore CS0649
             }
 
-            public SafeEnumClassHandle (GType type) : base (type)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
         }
 
-        public new SafeEnumClassHandle Handle {
+        public new SafeHandle Handle {
             get {
-                return (SafeEnumClassHandle)base.Handle;
+                return (SafeHandle)base.Handle;
             }
         }
 
         public override Type StructType {
             get {
-                return typeof(SafeEnumClassHandle.EnumClassStruct);
+                return typeof(SafeHandle.EnumClassStruct);
             }
         }
 
-        public EnumClass (SafeEnumClassHandle handle) : base (handle)
+        public EnumClass (SafeHandle handle) : base (handle)
         {
         }
 

@@ -11,15 +11,18 @@ namespace GISharp.GObject
     [GType ("GParamVariant", IsWrappedNativeType = true)]
     public sealed class ParamSpecVariant : ParamSpec
     {
-        public sealed class SafeParamSpecVariantHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecVariant
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
                 public IntPtr VariantType;
                 public IntPtr DefaultValue;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public IntPtr VariantType {
@@ -44,22 +47,21 @@ namespace GISharp.GObject
                 }
             }
 
-            public SafeParamSpecVariantHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecVariantHandle Handle {
-            get {
-                return (SafeParamSpecVariantHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public VariantType VariantType {
             get {
                 var ret_ = Handle.VariantType;
-                var ret = GetInstance<VariantType> (ret_, Transfer.None);
+                var ret = GetOrCreate<VariantType> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -67,7 +69,7 @@ namespace GISharp.GObject
         public new Variant DefaultValue {
             get {
                 var ret_ = Handle.DefaultValue;
-                var ret = GetInstance<Variant> (ret_, Transfer.None);
+                var ret = GetOrCreate<Variant> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -77,7 +79,7 @@ namespace GISharp.GObject
             return paramSpecTypes[22];
         }
 
-        public ParamSpecVariant (SafeParamSpecVariantHandle handle) : base (handle)
+        public ParamSpecVariant (SafeHandle handle) : base (handle)
         {
         }
 
@@ -86,11 +88,11 @@ namespace GISharp.GObject
             IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            VariantType.SafeVariantTypeHandle  type,
-            Variant.SafeVariantHandle defaultValue,
+            VariantType.SafeHandle type,
+            Variant.SafeHandle defaultValue,
             ParamFlags flags);
 
-        static SafeParamSpecVariantHandle New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -110,8 +112,9 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var ret_ = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValue?.Handle, flags);
-            var ret = new SafeParamSpecVariantHandle (ret_, Transfer.None);
+            var defaultValue_ = defaultValue?.Handle ?? Variant.SafeHandle.Zero;
+            var ret_ = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValue_, flags);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

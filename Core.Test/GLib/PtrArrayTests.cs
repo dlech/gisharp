@@ -19,7 +19,7 @@ namespace GISharp.Core.Test.GLib
         {
             var dataPtr = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
             var data = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
-            return Opaque.GetInstance<OpaqueInt> (data, Transfer.None);
+            return Opaque.GetOrCreate<OpaqueInt> (data, Transfer.None);
         }
 
         [Test]

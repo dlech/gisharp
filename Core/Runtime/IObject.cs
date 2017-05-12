@@ -10,6 +10,6 @@ namespace GISharp.Runtime
     /// </summary>
     public interface IObject
     {
-        Object.SafeObjectHandle Handle { get; }
+        Object.SafeHandle Handle { get; }
     }
 }

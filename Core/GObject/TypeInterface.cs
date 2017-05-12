@@ -22,7 +22,7 @@ namespace GISharp.GObject
 
             public GType GType {
                 get {
-                    if (IsInvalid) {
+                    if (IsClosed) {
                         throw new ObjectDisposedException (null);
                     }
                     var ret = Marshal.PtrToStructure<GType> (handle);
@@ -32,7 +32,7 @@ namespace GISharp.GObject
 
             public GType GInstanceType {
                 get {
-                    if (IsInvalid) {
+                    if (IsClosed) {
                         throw new ObjectDisposedException (null);
                     }
                     var offset = Marshal.OffsetOf<TypeInterfaceStruct> (nameof (TypeInterfaceStruct.GInstanceType));

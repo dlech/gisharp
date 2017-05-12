@@ -379,17 +379,6 @@ namespace GISharp.GLib
     /// </remarks>
     public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
 
-    static class LogFuncMarshaler
-    {
-        public static void Invoke (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
-        {
-            var logDomain = GMarshal.Utf8PtrToString (logDomain_);
-            var message = GMarshal.Utf8PtrToString (message_);
-            var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
-            logFunc (logDomain, logLevel_, message);
-        }
-    }
-
     /// <summary>
     /// Writer function for log entries. A log entry is a collection of one or more
     /// #GLogFields, using the standard [field names from journal

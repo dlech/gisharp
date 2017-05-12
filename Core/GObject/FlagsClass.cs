@@ -1,4 +1,5 @@
 using System;
+using GISharp.Runtime;
 
 namespace GISharp.GObject
 {
@@ -9,7 +10,7 @@ namespace GISharp.GObject
     /// </summary>
     public sealed class FlagsClass : TypeClass
     {
-        public sealed class SafeFlagsClassHandle : SafeTypeClassHandle
+        public sealed new class SafeHandle : TypeClass.SafeHandle
         {
             internal struct FlagsClassStruct
             {
@@ -37,24 +38,24 @@ namespace GISharp.GObject
                 #pragma warning restore CS0649
             }
 
-            public SafeFlagsClassHandle (GType type) : base (type)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
         }
 
-        public new SafeFlagsClassHandle Handle {
+        public new SafeHandle Handle {
             get {
-                return (SafeFlagsClassHandle)base.Handle;
+                return (SafeHandle)base.Handle;
             }
         }
 
         public override Type StructType {
             get {
-                return typeof(SafeFlagsClassHandle.FlagsClassStruct);
+                return typeof(SafeHandle.FlagsClassStruct);
             }
         }
 
-        public FlagsClass (SafeFlagsClassHandle handle) : base (handle)
+        public FlagsClass (SafeHandle handle) : base (handle)
         {
         }
 

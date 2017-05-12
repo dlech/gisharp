@@ -324,7 +324,7 @@ namespace GISharp.GObject
         internal static extern nulong g_signal_connect_data (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeObjectHandle instance,
+            Object.SafeHandle instance,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr detailedSignal,
@@ -484,7 +484,7 @@ namespace GISharp.GObject
         static extern SignalInvocationHint g_signal_get_invocation_hint (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeObjectHandle instance);
+            Object.SafeHandle instance);
 
         /// <summary>
         /// Returns the invocation hint of the innermost signal emission of instance.
@@ -543,7 +543,7 @@ namespace GISharp.GObject
         static extern bool g_signal_has_handler_pending (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeObjectHandle instance,
+            Object.SafeHandle instance,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1144,7 +1144,7 @@ namespace GISharp.GObject
         static extern void g_signal_stop_emission (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeObjectHandle instance,
+            Object.SafeHandle instance,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1198,7 +1198,7 @@ namespace GISharp.GObject
         static extern void g_signal_stop_emission_by_name (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeObjectHandle instance,
+            Object.SafeHandle instance,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr detailedSignal);

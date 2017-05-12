@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeClass : Opaque
     {
-        public class SafeTypeClassHandle : SafeOpaqueHandle
+        public class SafeHandle : SafeOpaqueHandle
         {
             internal struct TypeClassStruct
             {
@@ -28,13 +28,12 @@ namespace GISharp.GObject
                 }
             }
 
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_type_class_ref (GType type);
-
-            public SafeTypeClassHandle (GType type)
+            public SafeHandle (IntPtr handle, Transfer ownership)
             {
-                var ret = g_type_class_ref (type);
-                SetHandle (ret);
+                if (ownership == Transfer.None) {
+                    throw new NotSupportedException ();
+                }
+                SetHandle (handle);
             }
 
             [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -51,11 +50,7 @@ namespace GISharp.GObject
             }
         }
 
-        public new SafeTypeClassHandle Handle {
-            get {
-                return (SafeTypeClassHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public GType GType {
             get {
@@ -65,17 +60,29 @@ namespace GISharp.GObject
 
         public abstract Type StructType { get; }
 
-        protected TypeClass (SafeTypeClassHandle handle) : base (handle)
+        protected TypeClass (SafeHandle handle) : base (handle)
         {
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_type_class_ref (GType type);
+
+        internal static T Get<T> (GType type) where T : TypeClass
+        {
+            var managedType = typeof (T);
+			var handleType = managedType.GetSafeHandleType ();
+			var handle = g_type_class_ref (type);
+			var ret = Opaque.GetOrCreate<T> (handle, Transfer.Full);
+			return ret;
         }
 
         public static TypeClass Get (GType type)
         {
             var managedType = GType.TypeOf (type);
-            var handleType = managedType.GetHandleType ();
-            var handle = (SafeTypeClassHandle)Activator.CreateInstance (handleType);
-            var ret = Activator.CreateInstance (managedType, handle);
-            return (TypeClass)ret;
+            var handleType = managedType.GetSafeHandleType ();
+            var handle = g_type_class_ref (type);
+            var ret = Opaque.GetOrCreate<TypeClass> (handle, Transfer.Full);
+            return ret;
         }
 
         public abstract TypeInfo GetTypeInfo (Type type);
@@ -124,7 +131,7 @@ namespace GISharp.GObject
         internal static extern IntPtr g_type_class_peek_parent (
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle gClass);
+            SafeHandle gClass);
         
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
@@ -205,7 +212,7 @@ namespace GISharp.GObject
         static extern void g_type_class_add_private (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle gClass,
+            SafeHandle gClass,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UInt64 privateSize);
@@ -293,7 +300,7 @@ namespace GISharp.GObject
         static extern void g_type_class_adjust_private_offset (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle gClass,
+            SafeHandle gClass,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
             Int32 privateSizeOrOffset);
@@ -327,7 +334,7 @@ namespace GISharp.GObject
         static extern Int32 g_type_class_get_instance_private_offset (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle gClass);
+            SafeHandle gClass);
 
         /// <summary>
         /// Gets the offset of the private data for instances of @g_class.
@@ -359,7 +366,7 @@ namespace GISharp.GObject
         static extern IntPtr g_type_class_get_private (
             /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle klass,
+            SafeHandle klass,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType privateType);
@@ -385,7 +392,7 @@ namespace GISharp.GObject
         static extern void g_type_class_unref_uncached (
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeTypeClassHandle gClass);
+            SafeHandle gClass);
 
         /// <summary>
         /// A variant of g_type_class_unref() for use in #GTypeClassCacheFunc

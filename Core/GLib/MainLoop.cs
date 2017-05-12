@@ -13,17 +13,24 @@ namespace GISharp.GLib
     [GType ("GMainLoop", IsWrappedNativeType = true)]
     public sealed class MainLoop : Opaque
     {
-        public sealed class SafeMainLoopHandle : SafeOpaqueHandle
-        {
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        public sealed class SafeHandle : SafeOpaqueHandle
+		{
+			public static SafeHandle Zero = _Zero.Value;
+			static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
+			[DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             static extern IntPtr g_main_loop_ref (IntPtr loop);
 
-            public SafeMainLoopHandle (IntPtr handle, Transfer ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership)
             {
                 if (ownership == Transfer.None) {
                     g_main_loop_ref (handle);
                 }
                 SetHandle (handle);
+            }
+
+            public SafeHandle ()
+            {
             }
 
             [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -40,13 +47,9 @@ namespace GISharp.GLib
             }
         }
 
-        public new SafeMainLoopHandle Handle {
-            get {
-                return (SafeMainLoopHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
-        public MainLoop (SafeMainLoopHandle handle) : base (handle)
+        public MainLoop (SafeHandle handle) : base (handle)
         {
         }
 
@@ -70,15 +73,15 @@ namespace GISharp.GLib
         static extern IntPtr g_main_loop_new (
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            MainContext.SafeMainContextHandle context,
+            MainContext.SafeHandle context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             bool isRunning);
 
-        static SafeMainLoopHandle New (MainContext context = null, bool isRunning = false)
+        static SafeHandle New (MainContext context = null, bool isRunning = false)
         {
             var ret_ = g_main_loop_new (context?.Handle, isRunning);
-            var ret = new SafeMainLoopHandle (ret_, Transfer.Full);
+            var ret = new SafeHandle (ret_, Transfer.Full);
             return ret;
         }
 
@@ -124,7 +127,7 @@ namespace GISharp.GLib
         static extern IntPtr g_main_loop_get_context (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            SafeMainLoopHandle loop);
+            SafeHandle loop);
 
         /// <summary>
         /// Returns the <see cref="MainContext"/> of this loop.
@@ -136,7 +139,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_main_loop_get_context (Handle);
-                var ret = GetInstance<MainContext> (ret_, Transfer.None);
+                var ret = GetOrCreate<MainContext> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -156,7 +159,7 @@ namespace GISharp.GLib
         static extern bool g_main_loop_is_running (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            SafeMainLoopHandle loop);
+            SafeHandle loop);
 
         /// <summary>
         /// Checks to see if the main loop is currently being run via <see cref="Run"/>.
@@ -189,7 +192,7 @@ namespace GISharp.GLib
         static extern void g_main_loop_quit (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            SafeMainLoopHandle loop);
+            SafeHandle loop);
 
         /// <summary>
         /// Stops a <see cref="MainLoop"/> from running. Any calls to <see cref="Run"/>
@@ -220,7 +223,7 @@ namespace GISharp.GLib
         static extern void g_main_loop_run (
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            SafeMainLoopHandle loop);
+            SafeHandle loop);
 
         /// <summary>
         /// Runs a main loop until <see cref="Quit"/> is called on the loop.

@@ -76,7 +76,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_first_value (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            FlagsClass.SafeFlagsClassHandle flagsClass,
+            FlagsClass.SafeHandle flagsClass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint value);
@@ -125,7 +125,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_value_by_name (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            FlagsClass.SafeFlagsClassHandle flagsClass,
+            FlagsClass.SafeHandle flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -179,7 +179,7 @@ namespace GISharp.GObject
         static extern IntPtr g_flags_get_value_by_nick (
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
-            FlagsClass.SafeFlagsClassHandle flagsClass,
+            FlagsClass.SafeHandle flagsClass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr nick);

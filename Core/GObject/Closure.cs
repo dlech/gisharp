@@ -50,16 +50,16 @@ using GISharp.Runtime;
 [GType ("GClosure", IsWrappedNativeType = true)]
 public sealed class Closure : Opaque
 {
-    public sealed class SafeClosureHandle : SafeOpaqueHandle
+    public sealed class SafeHandle : SafeOpaqueHandle
     {
         internal struct ClosureStruct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public uint BitFields;
             public NativeMarshal Marshal;
             public IntPtr Data;
             public IntPtr Notifiers;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void NativeMarshal (
@@ -105,7 +105,7 @@ public sealed class Closure : Opaque
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_sink (IntPtr closure);
 
-        public SafeClosureHandle (IntPtr handle, Transfer ownership)
+        public SafeHandle (IntPtr handle, Transfer ownership)
         {
             if (ownership == Transfer.None) {
                 g_closure_ref (handle);
@@ -122,17 +122,14 @@ public sealed class Closure : Opaque
             try {
                 g_closure_unref (handle);
                 return true;
-            } catch {
+            }
+            catch {
                 return false;
             }
         }
     }
 
-    public new SafeClosureHandle Handle {
-        get {
-            return (SafeClosureHandle)base.Handle;
-        }
-    }
+    public new SafeHandle Handle => (SafeHandle)base.Handle;
 
     public bool InMarshal {
         get {
@@ -150,7 +147,7 @@ public sealed class Closure : Opaque
         }
     }
 
-    public Closure (SafeClosureHandle handle) : base (handle)
+    public Closure (SafeHandle handle) : base (handle)
     {
     }
 
@@ -180,15 +177,15 @@ public sealed class Closure : Opaque
         uint sizeofClosure,
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
-        GISharp.GObject.Object.SafeObjectHandle @object);
+        GISharp.GObject.Object.SafeHandle @object);
 
-    static SafeClosureHandle NewObject (uint sizeofClosure, GISharp.GObject.Object @object)
+    static SafeHandle NewObject (uint sizeofClosure, GISharp.GObject.Object @object)
     {
         if (@object == null) {
             throw new ArgumentNullException (nameof (@object));
         }
         var ret_ = g_closure_new_object (sizeofClosure, @object.Handle);
-        var ret = new SafeClosureHandle (ret_, Transfer.None);
+        var ret = new SafeHandle (ret_, Transfer.None);
         return ret;
     }
 
@@ -206,7 +203,7 @@ public sealed class Closure : Opaque
     /// a newly allocated #GClosure
     /// </returns>
     public Closure (Func<Value[], Value> callback, GISharp.GObject.Object @object)
-        : this (NewObject ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), @object))
+        : this (NewObject ((uint)Marshal.SizeOf<SafeHandle.ClosureStruct> (), @object))
     {
         SetCallback (callback);
     }
@@ -271,10 +268,10 @@ public sealed class Closure : Opaque
         /* transfer-ownership:none */
         IntPtr data);
 
-    static SafeClosureHandle NewSimple (uint sizeofClosure, IntPtr data)
+    static SafeHandle NewSimple (uint sizeofClosure, IntPtr data)
     {
         var ret_ = g_closure_new_simple (sizeofClosure, data);
-        var ret = new SafeClosureHandle (ret_, Transfer.None);
+        var ret = new SafeHandle (ret_, Transfer.None);
         return ret;
     }
 
@@ -282,7 +279,7 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Func<Value[], Value> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -291,7 +288,7 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action<Value[]> callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -300,7 +297,7 @@ public sealed class Closure : Opaque
     /// Initializes a new instance of the <see cref="T:Closure"/> class.
     /// </summary>
     public Closure (Action callback)
-        : this (NewSimple ((uint)Marshal.SizeOf<SafeClosureHandle.ClosureStruct> (), IntPtr.Zero))
+        : this (NewSimple ((uint)Marshal.SizeOf<SafeHandle.ClosureStruct> (), IntPtr.Zero))
     {
         SetCallback (callback);
     }
@@ -388,7 +385,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_add_finalize_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -417,7 +414,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_add_invalidate_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -452,7 +449,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_add_marshal_guards (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr preMarshalData,
@@ -491,7 +488,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_invalidate (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure);
+        SafeHandle closure);
 
     /// <summary>
     /// Sets a flag on the closure to indicate that its calling
@@ -543,7 +540,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_invoke (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         out Value returnValue,
@@ -602,7 +599,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_remove_finalize_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -632,7 +629,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_remove_invalidate_notifier (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr notifyData,
@@ -660,7 +657,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_set_marshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
         /* transfer-ownership:none */
         NativeClosureMarshal marshal);
@@ -697,7 +694,7 @@ public sealed class Closure : Opaque
     static extern void g_closure_set_meta_marshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
-        SafeClosureHandle closure,
+        SafeHandle closure,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr marshalData,

@@ -62,7 +62,7 @@ namespace GISharp.Core.Test
 
         static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
+            var initable = (IInitable)GetOrCreate<GISharp.GObject.Object> (initablePtr, Transfer.None);
             try {
                 var ret = initable.Init (cancellablePtr);
                 return ret;
@@ -95,23 +95,23 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
-            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.Full);
+            var ret = Opaque.GetOrCreate<GISharp.GObject.Object> (ret_, Transfer.Full);
 
             return ret;
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_initable_init (GISharp.GObject.Object.SafeObjectHandle intitable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern bool g_initable_init (GISharp.GObject.Object.SafeHandle intitable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool Init (this IInitable intitable)
         {
             IntPtr errorPtr;
             var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;
@@ -201,13 +201,13 @@ namespace GISharp.Core.Test
 
         static void NativeNetworkChanged (IntPtr monitorPtr, bool availible)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             monitor.OnNetworkChanged (availible);
         }
 
         static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
@@ -219,7 +219,7 @@ namespace GISharp.Core.Test
 
         static void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             Action<IntPtr> managedCallback = (result) => {
                 callback (monitorPtr, result, userData);
             };
@@ -228,7 +228,7 @@ namespace GISharp.Core.Test
 
         static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
@@ -252,7 +252,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_available (GISharp.GObject.Object.SafeObjectHandle monitor);
+        static extern bool g_network_monitor_get_network_available (GISharp.GObject.Object.SafeHandle monitor);
 
         public static bool GetNetworkAvailible (this INetworkMonitor monitor)
         {
@@ -262,7 +262,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_metered (GISharp.GObject.Object.SafeObjectHandle monitor);
+        static extern bool g_network_monitor_get_network_metered (GISharp.GObject.Object.SafeHandle monitor);
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
@@ -272,14 +272,14 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach (GISharp.GObject.Object.SafeObjectHandle monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern bool g_network_monitor_can_reach (GISharp.GObject.Object.SafeHandle monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             IntPtr errorPtr;
             var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
 
@@ -287,7 +287,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_network_monitor_can_reach_async (GISharp.GObject.Object.SafeObjectHandle monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+        static extern void g_network_monitor_can_reach_async (GISharp.GObject.Object.SafeHandle monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, out IntPtr errorPtr);
@@ -299,7 +299,7 @@ namespace GISharp.Core.Test
                 IntPtr errorPtr;
                 var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
                 if (errorPtr != IntPtr.Zero) {
-                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
+                    var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
                     completion.SetException (new GErrorException (error));
                 } else {
                     completion.SetResult (ret);

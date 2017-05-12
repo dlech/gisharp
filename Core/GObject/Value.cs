@@ -863,7 +863,7 @@ namespace GISharp.GObject
                 var managedType = GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (ref this);
                 if (typeof(Opaque).GetTypeInfo ().IsAssignableFrom (managedType)) {
-                    return Opaque.GetInstance<Opaque> (ret_, Transfer.None, managedType);
+                    return Opaque.GetOrCreate<TypeInstance> (ret_, Transfer.None);
                 }
                 var gchandle = GCHandle.FromIntPtr (ret_);
                 return gchandle.Target;
@@ -1203,7 +1203,7 @@ namespace GISharp.GObject
         Object Object {
             get {
                 var ret_ = g_value_get_object (ref this);
-                var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
+                var ret = Opaque.GetOrCreate<Object> (ret_, Transfer.None);
                 return ret;
             }
 
@@ -1238,7 +1238,7 @@ namespace GISharp.GObject
         ParamSpec Param {
             get {
                 var ret_ = g_value_get_param (ref this);
-                var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
+                var ret = Opaque.GetOrCreate<ParamSpec> (ret_, Transfer.None);
                 return ret;
             }
 
@@ -1532,7 +1532,7 @@ namespace GISharp.GObject
         Variant Variant {
             get {
                 var ret_ = g_value_get_variant (ref this);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
+                var ret = Opaque.GetOrCreate<Variant> (ret_, Transfer.None);
                 return ret;
             }
             set {
@@ -2003,7 +2003,7 @@ namespace GISharp.GObject
             ref Value value,
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            Object.SafeObjectHandle vObject);
+            Object.SafeHandle vObject);
 
         /// <summary>
         /// This is an internal function introduced mainly for C marshallers.
@@ -2057,7 +2057,7 @@ namespace GISharp.GObject
             ref Value value,
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            ParamSpec.SafeParamSpecHandle param);
+            ParamSpec.SafeHandle param);
 
         /// <summary>
         /// This is an internal function introduced mainly for C marshallers.
@@ -2365,7 +2365,7 @@ namespace GISharp.GObject
             ref Value value,
             /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            Variant.SafeVariantHandle variant);
+            Variant.SafeHandle variant);
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed

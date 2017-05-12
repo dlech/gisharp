@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 using GISharp.GLib;
 using NUnit.Framework;
 
@@ -20,6 +20,6 @@ public class Setup
         // this will cause any test that calls g_log in the test's thread
         // to fail. If g_log is called in another thread, then there will
         // probably be an unhandled exception.
-        Log.SetDefaultHandler (FailOnLog);
+        //Log.SetDefaultHandler (FailOnLog);
     }
 }

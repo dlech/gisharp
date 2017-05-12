@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>GISharp.GLib.Test</RootNamespace>
     <AssemblyName>GI.GLib.Test</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -44,6 +44,10 @@
     <ProjectReference Include="..\GLib-2.0\GLib-2.0.csproj">
       <Project>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</Project>
       <Name>GLib-2.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Core\Core.csproj">
+      <Project>{E3732A37-C368-422B-94DD-3161226D923B}</Project>
+      <Name>Core</Name>
     </ProjectReference>
   </ItemGroup>
 </Project>

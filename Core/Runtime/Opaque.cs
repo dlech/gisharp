@@ -12,37 +12,26 @@ namespace GISharp.Runtime
     /// </summary>
     public abstract class Opaque : IDisposable
     {
-        static readonly Dictionary<IntPtr, WeakReference<Opaque>> instanceMap =
-            new Dictionary<IntPtr, WeakReference<Opaque>> ();
-        static readonly object instanceMapLock = new object ();
-        
+        static readonly Dictionary<IntPtr, WeakReference<Opaque>> instanceMap;
+        static readonly object instanceMapLock;
+
+        static Opaque ()
+        {
+            instanceMap = new Dictionary<IntPtr, WeakReference<Opaque>> ();
+            instanceMapLock = new object ();
+        }
+
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
         public SafeOpaqueHandle Handle { get; protected set; }
 
-        protected Opaque (SafeOpaqueHandle handle, bool isInstance = true)
+        protected Opaque (SafeOpaqueHandle handle)
         {
-            if (isInstance) {
-                var ptr = handle.DangerousGetHandle ();
-                if (ptr == IntPtr.Zero) {
-                    throw new ArgumentException ("Handle cannot be null pointer");
-                }
-                lock (instanceMapLock) {
-                    WeakReference<Opaque> value;
-                    if (instanceMap.TryGetValue (ptr, out value)) {
-                        Opaque instance;
-                        if (value.TryGetTarget (out instance)) {
-                            throw new InvalidOperationException ("Instance already exists");
-                        }
-                        instanceMap.Remove (ptr);
-                    }
-                    instanceMap.Add (ptr, new WeakReference<Opaque> (this));
-                    Handle = handle;
-                }
-            } else {
+            lock (instanceMapLock) {
                 Handle = handle;
+                instanceMap.Add (handle.DangerousGetHandle (), new WeakReference<Opaque> (this));
             }
         }
 
@@ -57,22 +46,9 @@ namespace GISharp.Runtime
         /// </remarks>
         public void Dispose ()
         {
-            Dispose (true);
-            GC.SuppressFinalize (this);
-        }
-
-        /// <summary>
-        /// Dispose the specified disposing.
-        /// </summary>
-        /// <param name="disposing"><c>true</c> if called from the <see cref="Dispose()"/> method,
-        /// <c>false</c> if called from a finalizer.</param>
-        protected virtual void Dispose (bool disposing)
-        {
             lock (instanceMapLock) {
-                if (disposing) {
-                    Handle.Dispose ();
-                }
                 instanceMap.Remove (Handle.DangerousGetHandle ());
+                Handle.Dispose ();
             }
         }
 
@@ -86,20 +62,35 @@ namespace GISharp.Runtime
         public static T TryGetExisting<T> (IntPtr handle) where T : Opaque
         {
             lock (instanceMapLock) {
-                WeakReference<Opaque> value;
-                if (instanceMap.TryGetValue (handle, out value)) {
-                    Opaque instance;
-                    if (value.TryGetTarget (out instance)) {
-                        if (!instance.Handle.IsClosed) {
-                            return (T)instance;
-                        }
+                if (instanceMap.TryGetValue (handle, out var value)) {
+                    if (value.TryGetTarget (out var instance)) {
+                        return (T)instance;
                     }
+                    instanceMap.Remove (handle);
                 }
                 return null;
             }
         }
 
-        public static T GetInstance<T> (IntPtr handle, Transfer ownership, Type typeHint = null) where T : Opaque
+        public static T GetOrCreate<T> (SafeOpaqueHandle handle) where T : Opaque
+        {
+            var ptr = handle.DangerousGetHandle ();
+            if (ptr == IntPtr.Zero) {
+                return null;
+            }
+            lock (instanceMap) {
+                var instance = TryGetExisting<T> (ptr);
+                if (instance != null) {
+                    handle.Dispose ();
+                    return instance;
+                }
+                var type = handle.GetType ().DeclaringType;
+                instance = (T)Activator.CreateInstance (type, handle);
+                return instance;
+            }
+        }
+
+        public static T GetOrCreate<T> (IntPtr handle, Transfer ownership) where T : Opaque
         {
             if (typeof (OpaqueInt).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
                 var ret = new OpaqueInt (handle.ToInt32 ());
@@ -109,18 +100,20 @@ namespace GISharp.Runtime
                 return null;
             }
             lock (instanceMapLock) {
+                var safeHandleType = typeof (T).GetSafeHandleType ();
+                // FIXME: this could result in unnecessary copying if we already have an existing managed instance
+                var safeHandle = (SafeOpaqueHandle)Activator.CreateInstance (safeHandleType, handle, ownership);
                 var instance = TryGetExisting<T> (handle);
                 if (instance != null) {
+                    safeHandle.Dispose ();
                     return instance;
                 }
+                var type = typeof (T);
                 if (typeof (TypeInstance).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
-                    var gtype = Marshal.PtrToStructure<GType> (handle);
-                    typeHint = GType.TypeOf (gtype);
+                    var gtype = Marshal.PtrToStructure<GType> (Marshal.ReadIntPtr (handle));
+                    type = GType.TypeOf (gtype);
                 }
-                var type = typeHint ?? typeof (T);
-                var handleType = type.GetHandleType ();
-                var safeHandle = Activator.CreateInstance (handleType, handle, ownership);
-                instance = (T)Activator.CreateInstance (typeHint ?? typeof (T), safeHandle);
+                instance = (T)Activator.CreateInstance (type, safeHandle);
                 return instance;
             }
         }
@@ -128,19 +121,9 @@ namespace GISharp.Runtime
 
     public static class OpaqueExtensions
     {
-        public static Type GetHandleType (this Type type)
+        public static Type GetSafeHandleType (this Type type)
         {
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
-            var typeInfo = type.GetTypeInfo ();
-            if (!typeof(Opaque).GetTypeInfo ().IsAssignableFrom (typeInfo)) {
-                var msg = $"Type must inherit from {nameof (Opaque)}";
-                throw new ArgumentException (msg, nameof (type));
-            }
-            var propInfo = typeInfo.GetProperties ()
-                .Single (x => x.Name == nameof (Opaque.Handle) && x.DeclaringType == type);
-            return propInfo.PropertyType;
+            return type.GetTypeInfo ().GetNestedType ("SafeHandle");
         }
     }
 }

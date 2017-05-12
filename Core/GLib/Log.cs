@@ -327,20 +327,28 @@ namespace GISharp.GLib
 
         static bool isDefaultHandlerSet;
 
-        /// <summary>
-        /// Installs a default log handler which is used if no
-        /// log handler has been set for the particular log domain
-        /// and log level combination. By default, GLib uses
-        /// <see cref="DefaultHandler"/> as default log handler.
-        /// </summary>
-        /// <remarks>
-        /// This has no effect if structured logging is enabled; see
-        /// [Using Structured Logging][using-structured-logging].
-        /// </remarks>
-        /// <param name="logFunc">
-        /// the log handler function
-        /// </param>
-        [Since ("2.6")]
+        static void managedLogFuncCallback (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
+        {
+            var logDomain = GMarshal.Utf8PtrToString (logDomain_);
+            var message = GMarshal.Utf8PtrToString (message_);
+            var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
+            logFunc (logDomain, logLevel_, message);
+        }
+
+		/// <summary>
+		/// Installs a default log handler which is used if no
+		/// log handler has been set for the particular log domain
+		/// and log level combination. By default, GLib uses
+		/// <see cref="DefaultHandler"/> as default log handler.
+		/// </summary>
+		/// <remarks>
+		/// This has no effect if structured logging is enabled; see
+		/// [Using Structured Logging][using-structured-logging].
+		/// </remarks>
+		/// <param name="logFunc">
+		/// the log handler function
+		/// </param>
+		[Since ("2.6")]
         public static void SetDefaultHandler (LogFunc logFunc)
         {
             if (logFunc == null) {
@@ -355,9 +363,8 @@ namespace GISharp.GLib
             if (logFunc == DefaultHandler) {
                 g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
             } else {
-                NativeLogFunc logFunc_ = LogFuncMarshaler.Invoke;
                 var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (logFunc));
-                g_log_set_default_handler (logFunc_, userData_);
+                g_log_set_default_handler (managedLogFuncCallback, userData_);
             }
             isDefaultHandlerSet = true;
         }
@@ -529,10 +536,9 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (logFunc));
             }
             var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            NativeLogFunc logFunc_ = LogFuncMarshaler.Invoke;
             var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (logFunc));
             NativeDestroyNotify destroy_ = DestroyNotifyMarshaler.Invoke;
-            var ret = g_log_set_handler_full (logDomain_, logLevels, logFunc_, userData_, destroy_);
+            var ret = g_log_set_handler_full (logDomain_, logLevels, managedLogFuncCallback, userData_, destroy_);
             GMarshal.Free (logDomain_);
             return ret;
         }

@@ -12,14 +12,17 @@ namespace GISharp.GObject
     [GType ("GParamGType", IsWrappedNativeType = true)]
     public sealed class ParamSpecGType : ParamSpec
     {
-        public sealed class SafeParamSpecGTypeHandle : SafeParamSpecHandle
+        public sealed new class SafeHandle : ParamSpec.SafeHandle
         {
+            public static new SafeHandle Zero = _Zero.Value;
+            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+
             struct ParamSpecGType
             {
-                #pragma warning disable CS0649
+#pragma warning disable CS0649
                 public ParamSpecStruct ParentInstance;
                 public GType IsAType;
-                #pragma warning restore CS0649
+#pragma warning restore CS0649
             }
 
             public GType IsAType {
@@ -33,17 +36,16 @@ namespace GISharp.GObject
                 }
             }
 
-            public SafeParamSpecGTypeHandle (IntPtr handle, Transfer ownership)
-                : base (handle, ownership)
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
+            {
+            }
+
+            public SafeHandle ()
             {
             }
         }
 
-        public new SafeParamSpecGTypeHandle Handle {
-            get {
-                return (SafeParamSpecGTypeHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public GType IsAType {
             get {
@@ -56,7 +58,7 @@ namespace GISharp.GObject
             return paramSpecTypes[21];
         }
 
-        public ParamSpecGType (SafeParamSpecGTypeHandle handle) : base (handle)
+        public ParamSpecGType (SafeHandle handle) : base (handle)
         {
         }
 
@@ -68,7 +70,7 @@ namespace GISharp.GObject
             GType isAType,
             ParamFlags flags);
 
-        static SafeParamSpecGTypeHandle New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+        static SafeHandle New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -83,7 +85,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var ret_ = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
-            var ret = new SafeParamSpecGTypeHandle (ret_, Transfer.None);
+            var ret = new SafeHandle (ret_, Transfer.None);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

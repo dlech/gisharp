@@ -47,12 +47,6 @@ namespace GISharp.GLib
                 }
             }
 
-            public override bool IsInvalid {
-                get {
-                    return false;
-                }
-            }
-
             public SafeSListHandle (IntPtr handle, Transfer ownership)
             {
                 if (ownership != Transfer.Container) {
@@ -1188,8 +1182,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (func));
             }
             Comparison<IntPtr> compareFunc = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = GetInstance<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = GetInstance<T> (compareFuncBPtr, Transfer.None);
+                var compareFuncA = GetOrCreate<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = GetOrCreate<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = func (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };
@@ -1214,7 +1208,7 @@ namespace GISharp.GLib
                     throw new ArgumentOutOfRangeException (nameof (n));
                 }
                 var ret_ = NthData (n);
-                var ret = GetInstance<T> (ret_, Transfer.None);
+                var ret = GetOrCreate<T> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -1311,8 +1305,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (compareFunc));
             }
             Comparison<IntPtr> func = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = GetInstance<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = GetInstance<T> (compareFuncBPtr, Transfer.None);
+                var compareFuncA = GetOrCreate<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = GetOrCreate<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };

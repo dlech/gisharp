@@ -39,8 +39,8 @@ namespace GISharp.GObject
         //
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
-        static readonly Object.SafeObjectHandle eternalObject =
-            new Object.SafeObjectHandle (GObject.Object.g_object_newv (Object, 0, IntPtr.Zero), Transfer.Full);
+        static readonly Object.SafeHandle eternalObject =
+            GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
 #pragma warning restore 414
 
         static GType ()
@@ -801,7 +801,7 @@ namespace GISharp.GObject
         {
             // type registration has not been completed here, so have to get the
             // object class the hard way
-            var objClass = new ObjectClass (new ObjectClass.SafeObjectClassHandle (gtype));
+            var objClass = TypeClass.Get<ObjectClass> (gtype);
             var typeInfo = type.GetTypeInfo ();
 
             foreach (var pspec in objClass.ListProperties ()) {

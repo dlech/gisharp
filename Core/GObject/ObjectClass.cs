@@ -16,7 +16,7 @@ namespace GISharp.GObject
     /// </summary>
     public class ObjectClass : TypeClass
     {
-        public class SafeObjectClassHandle : SafeTypeClassHandle
+        public new class SafeHandle : TypeClass.SafeHandle
         {
             internal struct ObjectClassStruct
             {
@@ -63,32 +63,20 @@ namespace GISharp.GObject
                 public delegate void NativeConstructed (IntPtr @object);
             }
 
-            static GType AssertIsObjectType (GType type)
-            {
-                if (!type.IsA (GType.Object)) {
-                    throw new ArgumentException ("Type must be a GType.Object");
-                }
-                return type;
-            }
-
-            public SafeObjectClassHandle (GType type) : base (AssertIsObjectType(type))
+            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
         }
 
-        public new SafeObjectClassHandle Handle {
-            get {
-                return (SafeObjectClassHandle)base.Handle;
-            }
-        }
+        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public override Type StructType {
             get {
-                return typeof (SafeObjectClassHandle.ObjectClassStruct);
+                return typeof (SafeHandle.ObjectClassStruct);
             }
         }
 
-        public ObjectClass (SafeObjectClassHandle handle) : base (handle)
+        public ObjectClass (SafeHandle handle) : base (handle)
         {
         }
 
@@ -134,11 +122,11 @@ namespace GISharp.GObject
             // override property native accessors
 
             Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<SafeObjectClassHandle.ObjectClassStruct> (nameof (SafeObjectClassHandle.ObjectClassStruct.SetProperty)),
-                Marshal.GetFunctionPointerForDelegate<SafeObjectClassHandle.ObjectClassStruct.NativeSetProperty> (ManagedClassSetProperty));
+                (int)Marshal.OffsetOf<SafeHandle.ObjectClassStruct> (nameof (SafeHandle.ObjectClassStruct.SetProperty)),
+                Marshal.GetFunctionPointerForDelegate<SafeHandle.ObjectClassStruct.NativeSetProperty> (ManagedClassSetProperty));
             Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<SafeObjectClassHandle.ObjectClassStruct> (nameof (SafeObjectClassHandle.ObjectClassStruct.GetProperty)),
-                Marshal.GetFunctionPointerForDelegate<SafeObjectClassHandle.ObjectClassStruct.NativeSetProperty> (ManagedClassGetProperty));
+                (int)Marshal.OffsetOf<SafeHandle.ObjectClassStruct> (nameof (SafeHandle.ObjectClassStruct.GetProperty)),
+                Marshal.GetFunctionPointerForDelegate<SafeHandle.ObjectClassStruct.NativeSetProperty> (ManagedClassGetProperty));
 
             // Install Properties
 
@@ -301,7 +289,7 @@ namespace GISharp.GObject
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
-            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var pspec = GetOrCreate<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             propInfo.SetValue (obj, value.Get ());
@@ -313,7 +301,7 @@ namespace GISharp.GObject
             if (obj == null) {
                 throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
             }
-            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            var pspec = GetOrCreate<ParamSpec> (pspecPtr, Transfer.None);
 
             var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
             value.Set (propInfo.GetValue (obj));
@@ -338,7 +326,7 @@ namespace GISharp.GObject
         static extern IntPtr g_object_class_find_property (
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
-            SafeObjectClassHandle oclass,
+            SafeHandle oclass,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr propertyName);
@@ -360,7 +348,7 @@ namespace GISharp.GObject
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_class_find_property (Handle, propertyName_);
-            var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
+            var ret = GetOrCreate<ParamSpec> (ret_, Transfer.None);
             GMarshal.Free (propertyName_);
             return ret;
         }
@@ -446,7 +434,7 @@ namespace GISharp.GObject
         static extern void g_object_class_install_properties (
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
-            SafeObjectClassHandle oclass,
+            SafeHandle oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint nPspecs,
@@ -570,7 +558,7 @@ namespace GISharp.GObject
             uint propertyId,
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            ParamSpec.SafeParamSpecHandle pspec);
+            ParamSpec.SafeHandle pspec);
 
         /// <summary>
         /// Installs a new property.
@@ -620,7 +608,7 @@ namespace GISharp.GObject
         static extern IntPtr g_object_class_list_properties (
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
-            SafeObjectClassHandle oclass,
+            SafeHandle oclass,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
             out uint nProperties);

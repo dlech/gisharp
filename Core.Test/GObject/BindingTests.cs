@@ -75,7 +75,7 @@ namespace GISharp.Core.Test.GObject
         {
         }
 
-        public TestObject (SafeObjectHandle handle) : base (handle)
+        public TestObject (SafeHandle handle) : base (handle)
         {
         }
     }

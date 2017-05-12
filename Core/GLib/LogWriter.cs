@@ -768,7 +768,7 @@ namespace GISharp.GLib
             LogLevelFlags logLevel,
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
-            Variant.SafeVariantHandle fields);
+            Variant.SafeHandle fields);
 
         /// <summary>
         /// Log a message with structured data, accepting the data within a #GVariant. This
@@ -795,7 +795,7 @@ namespace GISharp.GLib
         /// level
         /// </param>
         /// <param name="fields">
-        /// a dictionary (<see cref="Variant"/> of the type <see cref="VariantType.VarDict"/>)
+        /// a dictionary (<see cref="Variant"/> of the type <see cref="VariantType.VariantDictionary"/>)
         /// containing the key-value pairs of message data.
         /// </param>
         [Since ("2.50")]
@@ -804,7 +804,7 @@ namespace GISharp.GLib
             if (fields == null) {
                 throw new ArgumentNullException (nameof (fields));
             }
-            if (fields.Type != VariantType.VarDict) {
+            if (fields.Type != VariantType.VariantDictionary) {
                 throw new ArgumentException ("Requires VariantType.VarDict", nameof (fields));
             }
             var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
