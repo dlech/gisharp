@@ -53,7 +53,7 @@ namespace GISharp.GModule
 
         static Module ()
         {
-            // Intialize the platform-specific "constants". Suffix should end
+            // Initialize the platform-specific "constants". Suffix should end
             // up being the same as G_MODULE_SUFFIX in C code.
 
             var emptyName = GMarshal.StringToUtf8Ptr (string.Empty);
