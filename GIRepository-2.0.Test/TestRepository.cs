@@ -1,131 +1,126 @@
-using NUnit.Framework;
 using System;
 using System.Linq;
+
+using FluentAssertions;
+using Xunit;
 
 using GISharp.Runtime;
 using GISharp.GLib;
 
 namespace GISharp.GIRepository.Test
 {
-    [TestFixture]
     public class TestRepository
     {
-        [TestFixtureSetUp ()]
-        public void TestGetDefault ()
+        public TestRepository ()
         {
             // Many test require that a namespace is already loaded.
             Repository.Require ("Gio", "2.0");
         }
 
-        [Test]
-        [Ignore ("This is not the same on all installs.")]
+        [Fact]
         public void TestGetDependencies ()
         {
             var deps = Repository.Namespaces ["Gio"].Dependencies;
-            Assert.That (deps, Is.EqualTo (new []{ "GObject-2.0" }));
+            deps.Should ().Contain ("GObject-2.0" );
         }
 
-        [Test]
+        [Fact]
         public void TestGetLoadedNamespaces ()
         {
             var namespaces = Repository.LoadedNamespaces;
-            Assert.That (namespaces, Is.EqualTo (new []{ "GLib", "GObject", "Gio" }));
+            namespaces.ShouldBeEquivalentTo (new []{ "GLib", "GObject", "Gio" });
         }
 
-        [Test]
+        [Fact]
         public void TestGetInfos ()
         {
             int count = 0;
             foreach (var info in Repository.Namespaces["Gio"].Infos) {
                 // make sure all infos are the proper subclass and not base
-                Assert.That (info.GetType (), Is.Not.EqualTo (typeof(BaseInfo)));
+                info.GetType ().Should ().NotBe (typeof(BaseInfo));
                 count++;
             }
-            Assert.That (count, Is.GreaterThan (0));
+            count.Should ().BeGreaterThan (0);
         }
 
-        [Test]
+        [Fact]
         public void TestEnumerateVersions ()
         {
             var versions = Repository.Namespaces ["Gio"].Versions;
-            Assert.That (versions, Is.EqualTo (new [] { "2.0", "2.0" }));
+            versions.ShouldBeEquivalentTo (new [] { "2.0", "2.0" });
         }
 
-        [Test]
+        [Fact]
         public void TestPrependLibraryPath ()
         {
             Repository.PrependLibraryPath ("dummy");
             // TODO: figure out how to verify this.
         }
 
-        [Test]
+        [Fact]
         public void TestPrependSearchPathAndGetSearchPath ()
         {
-            var startPath = Repository.SearchPaths;
-            Assert.That (startPath, Is.Not.Member ("dummy"));
+            Repository.SearchPaths.Should ().NotContain ("dummy");
             Repository.PrependSearchPath ("dummy");
-            var endPath = Repository.SearchPaths;
-            Assert.That (endPath, Contains.Item ("dummy"));
+            Repository.SearchPaths.Should ().Contain ("dummy");
         }
 
-        [Test]
-        [Ignore ("This is not the same on all installs.")]
+        [Fact]
         public void TestGetTypelibPath ()
         {
             var path = Repository.Namespaces ["Gio"].TypelibPath;
-            Assert.That (path, Is.EqualTo ("/usr/lib/girepository-1.0/Gio-2.0.typelib"));
+            path.Should ().EndWith ("Gio-2.0.typelib");
         }
 
-        [Test]
+        [Fact]
         public void TestIsRegistered ()
         {
             var registered = Repository.IsRegistered ("Gio", "2.0");
-            Assert.That (registered, Is.True);
+            registered.Should ().BeTrue ();
 
             registered = Repository.IsRegistered ("DoesNotExist", "9.9");
-            Assert.That (registered, Is.False);
+            registered.Should ().BeFalse ();
         }
 
-        [Test]
+        [Fact]
         public void TestRequire ()
         {
             // We already know that this works because it is used in the setup function
             // so let's just test that it fails.
-            TestDelegate require = () =>
+            Action require = () =>
                 Repository.Require ("DoesNotExist", "9.9");
             var excpetion = Assert.Throws<GErrorException> (require);
             Assert.True (excpetion.Matches (RepositoryError.TypelibNotFound));
         }
 
-        [Test]
+        [Fact]
         public void TestRequirePrivate ()
         {
-            TestDelegate require = () =>
+            Action require = () =>
                 Repository.RequirePrivate ("NonExistentDir", "DoesNotExist", "9.9");
-            var excpetion = Assert.Throws<GErrorException> (require);
-            Assert.True (excpetion.Matches (RepositoryError.TypelibNotFound));
+            var exception = Assert.Throws<GErrorException> (require);
+            Assert.True (exception.Matches (RepositoryError.TypelibNotFound));
         }
 
-        [Test]
+        [Fact]
         public void TestGetCPrefix ()
         {
             var prefix = Repository.Namespaces ["Gio"].CPrefix;
-            Assert.That (prefix, Is.EqualTo ("G"));
+            prefix.Should ().Be ("G");
         }
 
-        [Test]
-        [Ignore ("This is not the same on all installs.")]
+        [Fact (Skip = "This is not the same on all installs.")]
         public void TestGetSharedLibrary ()
         {
             var library = Repository.Namespaces ["Gio"].SharedLibraries;
-            Assert.That (library, Is.EqualTo (new [] { "libgio-2.0.so.0" }));
+            library.ShouldBeEquivalentTo (new [] { "libgio-2.0.so.0" });
         }
 
-        [Test]
+        [Fact]
         public void TestGetVersion ()
         {
             var version = Repository.Namespaces ["Gio"].Version;
-            Assert.That (version, Is.EqualTo ("2.0"));
+            version.Should ().Be ("2.0");
         }
 
         [System.Runtime.InteropServices.DllImport ("libgio-2.0")]
@@ -133,29 +128,29 @@ namespace GISharp.GIRepository.Test
 
         const int G_IO_ERROR_NOT_FOUND = 1;
 
-        [Test]
+        [Fact]
         public void TestFindByErrorDomain ()
         {
             using (var info = Repository.FindByErrorDomain (g_io_error_quark ())) {
-                Assert.That (info, Is.TypeOf<EnumInfo> ());
+                info.Should ().BeOfType<EnumInfo> ();
             }
         }
 
-        [Test]
+        [Fact]
         public void TestFindByName ()
         {
             using (var info = Repository.Namespaces ["Gio"].FindByName ("IOErrorEnum")) {
-                Assert.That (info, Is.TypeOf<EnumInfo> ());
+                info.Should ().BeOfType<EnumInfo> ();
             }
         }
 
-        [Test]
+        [Fact]
         public void TestDump ()
         {
-            TestDelegate dump = () => Repository.Dump ("NonExistentFile");
-            var exception = Assert.Throws<GErrorException> (dump);
-            Assert.That (exception.Error.Domain, Is.EqualTo (g_io_error_quark ()));
-            Assert.That (exception.Error.Code, Is.EqualTo (G_IO_ERROR_NOT_FOUND));
+            Action dump = () => Repository.Dump ("NonExistentFile");
+            dump.ShouldThrow<GErrorException> ().
+                Where (e => e.Error.Domain == g_io_error_quark ()
+                         && e.Error.Code == G_IO_ERROR_NOT_FOUND);
         }
     }
 }

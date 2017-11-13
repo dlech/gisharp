@@ -5,6 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GIRepository
@@ -90,14 +91,14 @@ namespace GISharp.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] inArgs, int nInArgs, Argument[] outArgs, int nOutArgs, out Argument returnValue, bool isMethod, bool throws, out IntPtr error);
+        static extern bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] inArgs, int nInArgs, Argument[] outArgs, int nOutArgs, out Argument returnValue, bool isMethod, bool throws, out IntPtr error);
 
-        public unsafe bool Invoke (IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
+        public bool Invoke (IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
             IntPtr error_;
             bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);
             if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<GLib.Error> (error_, Runtime.Transfer.Full);
+                var error = new Error.SafeHandle (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;
