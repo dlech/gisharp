@@ -51,9 +51,6 @@ namespace GI.Dynamic.Playground
                     aboutDialog.set_authors (new[] { "David Lechner" });
                     aboutDialog.set_logo (icon);
 
-                    Action closeAboutDialog = () => aboutDialog.close ();
-                    aboutDialog.Connect ("response", closeAboutDialog);
-
                     aboutDialog.run ();
                     aboutDialog.destroy ();
                 };
