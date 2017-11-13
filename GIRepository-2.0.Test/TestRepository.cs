@@ -25,6 +25,13 @@ namespace GISharp.GIRepository.Test
         }
 
         [Fact]
+        public void TestGetImmediateDependencies ()
+        {
+            var deps = Repository.Namespaces ["Gio"].ImmediateDependencies;
+            deps.Should ().Contain ("GObject-2.0" );
+        }
+
+        [Fact]
         public void TestGetLoadedNamespaces ()
         {
             var namespaces = Repository.LoadedNamespaces;

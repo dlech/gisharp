@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using GISharp.GIRepository.Dynamic;
+using GISharp.Runtime;
 
 namespace GISharp.GIRepository
 {
@@ -72,10 +73,10 @@ namespace GISharp.GIRepository
         }
 
         /// <summary>
-        /// Return an array of all (transitive) versioned dependencies for this Namespace.
+        /// Return an array of all (transitive) versioned dependencies for this namespace.
         /// Returned strings are of the form <code>namespace-version</code>.
         /// </summary>
-        /// <value>String array of all versioned dependencies. .</value>
+        /// <value>String array of all versioned dependencies.</value>
         /// <remarks>
         /// The Namespace must have already been loaded using a function such as
         /// <see cref="Repository.Require"/> before calling this function.
@@ -83,6 +84,22 @@ namespace GISharp.GIRepository
         public string[] Dependencies {
             get {
                 return Repository.GetDependencies (@namespace);
+            }
+        }
+
+        /// <summary>
+        /// Return an array of the immediate versioned dependencies for this namespace.
+        /// Returned strings are of the form <code>namespace-version</code>.
+        /// </summary>
+        /// <value>String array of immediate versioned dependencies.</value>
+        /// <remarks>
+        /// The Namespace must have already been loaded using a function such as
+        /// <see cref="Repository.Require"/> before calling this function.
+        /// </remarks>
+        [Since ("1.44")]
+        public string[] ImmediateDependencies {
+            get {
+                return Repository.GetImmediateDependencies (@namespace);
             }
         }
 

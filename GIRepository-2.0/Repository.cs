@@ -140,6 +140,20 @@ namespace GISharp.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since ("1.44")]
+        static extern IntPtr g_irepository_get_immediate_dependencies (IntPtr raw, IntPtr @namespace);
+
+        [Since ("1.44")]
+        internal static string[] GetImmediateDependencies (string @namespace)
+        {
+            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
+            var raw_ret = g_irepository_get_immediate_dependencies (IntPtr.Zero, native_namespace);
+            var ret = GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+            GMarshal.Free (native_namespace);
+            return ret;
+        }
+
+        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_info (IntPtr raw, IntPtr @namespace, int index);
 
         internal static GISharp.GIRepository.BaseInfo GetInfo (string @namespace, int index)
