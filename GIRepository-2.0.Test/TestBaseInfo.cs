@@ -1,16 +1,17 @@
 ﻿using System;
 using System.Linq;
 
-using FluentAssertions;
-using Xunit;
+using NUnit.Framework;
 
 namespace GISharp.GIRepository.Test
 {
+    [TestFixture]
     public class TestBaseInfo
     {
         InfoDictionary<BaseInfo> infos;
 
-        public TestBaseInfo ()
+        [OneTimeSetUp]
+        public void TestGetDefault ()
         {
             // The default repository is process global, so we must initialize it only once.
             // It will be used all of the tests
@@ -18,59 +19,59 @@ namespace GISharp.GIRepository.Test
             infos = Repository.Namespaces ["GLib"].Infos;
         }
 
-        [Fact]
+        [Test]
         public void TestEqual ()
         {
             var info1 = infos [0];
             var info2 = Repository.Namespaces["GLib"].FindByName (info1.Name);
             // want to make sure that we compare by value and not by reference
-            ReferenceEquals (info1, info2).Should ().BeFalse ();
-            (info1).Should ().Be (info2);
-            (info1 == info2).Should ().BeTrue ();
-            (info1 != info2).Should ().BeFalse ();
+            Assume.That (ReferenceEquals (info1, info2), Is.False);
+            Assert.That (info1, Is.EqualTo (info2));
+            Assert.That (info1 == info2, Is.True);
+            Assert.That (info1 != info2, Is.False);
 
             info2 = infos [1];
-            (info1).Should ().NotBe (info2);
-            (info1 == info2).Should ().BeFalse ();
-            (info1 != info2).Should ().BeTrue ();
+            Assert.That (info1, Is.Not.EqualTo (info2));
+            Assert.That (info1 == info2, Is.False);
+            Assert.That (info1 != info2, Is.True);
 
-            (info1 == null).Should ().BeFalse ();
-            (info1 != null).Should ().BeTrue ();
-            (null == info1).Should ().BeFalse ();
-            (null != info1).Should ().BeTrue ();
+            Assert.That (info1 == null, Is.False);
+            Assert.That (info1 != null, Is.True);
+            Assert.That (null == info1, Is.False);
+            Assert.That (null != info1, Is.True);
 
             info1 = null;
             info2 = null;
-            (info1 == info2).Should ().BeTrue ();
-            (info1 != info2).Should ().BeFalse ();
+            Assert.That (info1 == info2, Is.True);
+            Assert.That (info1 != info2, Is.False);
         }
 
-        [Fact]
+        [Test]
         public void TestGetType ()
         {
-            infos.First ().InfoType.Should ().Be (InfoType.Constant);
+            Assert.That (infos.First ().InfoType, Is.EqualTo (InfoType.Constant));
         }
 
-        [Fact]
+        [Test]
         public void TestGetNameSpace ()
         {
-            infos.First ().Namespace.Should ().Be ("GLib");
+            Assert.That (infos.First ().Namespace, Is.EqualTo ("GLib"));
         }
 
-        [Fact]
+        [Test]
         public void TestGetName ()
         {
-            infos.First ().Name.Should ().Be ("ANALYZER_ANALYZING");
+            Assert.That (infos.First ().Name, Is.EqualTo ("ANALYZER_ANALYZING"));
         }
 
-        [Fact]
+        [Test]
         public void TestGetAttribute ()
         {
             // TODO: Need to figure out how to add attributes.
-            //(infos.First ().GetAttribute("type")).Should ().Equal ("");
+            //Assert.That (infos.First ().GetAttribute("type"), Is.EqualTo (""));
         }
 
-        [Fact]
+        [Test]
         public void TestIterateAttributes ()
         {
             // TODO: Need to figure out how to add attributes.
@@ -81,21 +82,21 @@ namespace GISharp.GIRepository.Test
             }
         }
 
-        [Fact]
+        [Test]
         public void TestGetContainer ()
         {
             var function = infos
                 .First (i => i.InfoType == InfoType.Function && (i as FunctionInfo).Args.Count > 0) as FunctionInfo;
             var arg = function.Args.First ();
             var container = arg.Container;
-            container.Should ().Be (function);
+            Assert.That (container, Is.EqualTo (function));
         }
 
-        [Fact]
+        [Test]
         public void TestIsDeprecated ()
         {
             var count = infos.Count (i => i.IsDeprecated == true);
-            count.Should ().BeGreaterThan (0);
+            Assert.That (count, Is.GreaterThan (0));
         }
     }
 }
