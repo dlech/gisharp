@@ -24,14 +24,14 @@ namespace GISharp.GLib
 #pragma warning restore CS0649
         }
 
-        internal protected IntPtr Data {
+        internal IntPtr Data {
             get {
                 AssertNotDisposed ();
                 return Marshal.ReadIntPtr (Handle, (int)dataOffset);
             }
         }
 
-        protected uint Len {
+        uint Len {
             get {
                 AssertNotDisposed ();
                 return (uint)Marshal.ReadInt32 (Handle, (int)lenOffset);
