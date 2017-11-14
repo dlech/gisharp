@@ -21,8 +21,8 @@ namespace GISharp.Runtime
             Error = error;
         }
 
-        public GErrorException (Error.SafeHandle handle)
-            : this (new Error (handle))
+        public GErrorException (IntPtr handle)
+            : this (new Error (handle, Transfer.Full))
         {
         }
 

@@ -111,11 +111,11 @@ namespace GISharp.Core.Test.GObject
 
         #endregion
 
-        public TestNetworkMonitor () : this (New<TestNetworkMonitor> ())
+        public TestNetworkMonitor () : this (New<TestNetworkMonitor> (), Transfer.Full)
         {
         }
 
-        public TestNetworkMonitor (SafeHandle handle) : base (handle)
+        public TestNetworkMonitor (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
     }

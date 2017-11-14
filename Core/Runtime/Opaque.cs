@@ -12,27 +12,20 @@ namespace GISharp.Runtime
     /// </summary>
     public abstract class Opaque : IDisposable
     {
-        static readonly Dictionary<IntPtr, WeakReference<Opaque>> instanceMap;
-        static readonly object instanceMapLock;
-
-        static Opaque ()
-        {
-            instanceMap = new Dictionary<IntPtr, WeakReference<Opaque>> ();
-            instanceMapLock = new object ();
-        }
-
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public SafeOpaqueHandle Handle { get; protected set; }
+        public IntPtr Handle { get; protected set; }
 
-        protected Opaque (SafeOpaqueHandle handle)
+        protected Opaque (IntPtr handle)
         {
-            lock (instanceMapLock) {
-                Handle = handle;
-                instanceMap.Add (handle.DangerousGetHandle (), new WeakReference<Opaque> (this));
-            }
+            Handle = handle;
+        }
+
+        ~Opaque ()
+        {
+            Dispose (false);
         }
 
         /// <summary>
@@ -46,84 +39,41 @@ namespace GISharp.Runtime
         /// </remarks>
         public void Dispose ()
         {
-            lock (instanceMapLock) {
-                instanceMap.Remove (Handle.DangerousGetHandle ());
-                Handle.Dispose ();
-            }
+            Dispose (true);
+            GC.SuppressFinalize (this);
+        }
+
+        protected virtual void Dispose (bool disposing)
+        {
+            Handle = IntPtr.Zero;
         }
 
         protected void AssertNotDisposed ()
         {
-            if (Handle.IsClosed) {
+            if (Handle == IntPtr.Zero) {
                 throw new ObjectDisposedException (null);
             }
         }
 
-        public static T TryGetExisting<T> (IntPtr handle) where T : Opaque
+        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque
         {
-            lock (instanceMapLock) {
-                if (instanceMap.TryGetValue (handle, out var value)) {
-                    if (value.TryGetTarget (out var instance)) {
-                        return (T)instance;
-                    }
-                    instanceMap.Remove (handle);
-                }
-                return null;
-            }
-        }
+            var type = typeof(T);
 
-        public static T GetOrCreate<T> (SafeOpaqueHandle handle) where T : Opaque
-        {
-            var ptr = handle.DangerousGetHandle ();
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            lock (instanceMap) {
-                var instance = TryGetExisting<T> (ptr);
-                if (instance != null) {
-                    handle.Dispose ();
-                    return instance;
-                }
-                var type = handle.GetType ().DeclaringType;
-                instance = (T)Activator.CreateInstance (type, handle);
-                return instance;
-            }
-        }
-
-        public static T GetOrCreate<T> (IntPtr handle, Transfer ownership) where T : Opaque
-        {
-            if (typeof (OpaqueInt).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
-                var ret = new OpaqueInt (handle.ToInt32 ());
+            // special case for OpaqueInt so 0 doesn't become null
+            if (type == typeof(OpaqueInt)) {
+                var ret = new OpaqueInt ((int)handle);
                 return (T)(object)ret;
             }
+
             if (handle == IntPtr.Zero) {
                 return null;
             }
-            lock (instanceMapLock) {
-                var safeHandleType = typeof (T).GetSafeHandleType ();
-                // FIXME: this could result in unnecessary copying if we already have an existing managed instance
-                var safeHandle = (SafeOpaqueHandle)Activator.CreateInstance (safeHandleType, handle, ownership);
-                var instance = TryGetExisting<T> (handle);
-                if (instance != null) {
-                    safeHandle.Dispose ();
-                    return instance;
-                }
-                var type = typeof (T);
-                if (typeof (TypeInstance).GetTypeInfo ().IsAssignableFrom (typeof (T))) {
-                    var gtype = Marshal.PtrToStructure<GType> (Marshal.ReadIntPtr (handle));
-                    type = GType.TypeOf (gtype);
-                }
-                instance = (T)Activator.CreateInstance (type, safeHandle);
-                return instance;
-            }
-        }
-    }
 
-    public static class OpaqueExtensions
-    {
-        public static Type GetSafeHandleType (this Type type)
-        {
-            return type.GetTypeInfo ().GetNestedType ("SafeHandle");
+            if (typeof(ReferenceCountedOpaque).GetTypeInfo ().IsAssignableFrom (type)) {
+                return ReferenceCountedOpaque.GetOrCreate<T> (handle, ownership);
+            }
+
+            return (T)Activator.CreateInstance (type, handle, ownership);
         }
     }
 }

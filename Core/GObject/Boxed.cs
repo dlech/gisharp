@@ -33,7 +33,7 @@ namespace GISharp.GObject
         /// Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
         /// </summary>
         /// <param name="boxedType">
-        /// The type of @src_boxed.
+        /// The type of <paramref name="srcBoxed" />.
         /// </param>
         /// <param name="srcBoxed">
         /// The boxed structure to be copied.
@@ -41,10 +41,16 @@ namespace GISharp.GObject
         /// <returns>
         /// The newly created copy of the boxed structure.
         /// </returns>
-        public static IntPtr Copy (GType boxedType, IntPtr srcBoxed)
+        public static T Copy<T> (GType boxedType, T srcBoxed) where T : TypeInstance
         {
-            var ret = g_boxed_copy (boxedType, srcBoxed);
-            return ret;
+            if (!boxedType.IsA (GType.Boxed)) {
+                throw new ArgumentException ("Not a boxed type", nameof(boxedType));
+            }
+            if (srcBoxed == null) {
+                throw new ArgumentNullException (nameof (srcBoxed));
+            }
+            var ret_ = g_boxed_copy (boxedType, srcBoxed.Handle);
+            return (T)Activator.CreateInstance (typeof(T), ret_, Transfer.Full);
         }
 
         /// <summary>
@@ -76,9 +82,15 @@ namespace GISharp.GObject
         /// <param name="boxed">
         /// The boxed structure to be freed.
         /// </param>
-        public static void Free (GType boxedType, IntPtr boxed)
+        public static void Free (GType boxedType, TypeInstance boxed)
         {
-            g_boxed_free (boxedType, boxed);
+            if (!boxedType.IsA (GType.Boxed)) {
+                throw new ArgumentException ("Not a boxed type", nameof(boxedType));
+            }
+            if (boxed == null) {
+                throw new ArgumentNullException (nameof (boxed));
+            }
+            g_boxed_free (boxedType, boxed.Handle);
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]

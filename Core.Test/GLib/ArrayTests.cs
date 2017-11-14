@@ -243,7 +243,7 @@ namespace GISharp.Core.Test.GLib
         /// </summary>
         public static T UnsafeItemAt<T> (this Array<T> array, int index) where T : struct
         {
-            var dataPtr = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
+            var dataPtr = Marshal.ReadIntPtr (array.Handle);
             dataPtr += Marshal.SizeOf<T> () * index;
             var item = Marshal.PtrToStructure <T> (dataPtr);
             return item;

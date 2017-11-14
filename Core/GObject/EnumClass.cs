@@ -10,59 +10,42 @@ namespace GISharp.GObject {
     /// </summary>
     public sealed class EnumClass : TypeClass
     {
-        public sealed new class SafeHandle : TypeClass.SafeHandle
+        new struct Struct
         {
-            internal struct EnumClassStruct
-            {
-                #pragma warning disable CS0649
-                /// <summary>
-                /// the parent class
-                /// </summary>
-                public TypeClass GTypeClass;
+            #pragma warning disable CS0649
+            /// <summary>
+            /// the parent class
+            /// </summary>
+            public TypeClass GTypeClass;
 
-                /// <summary>
-                /// the smallest possible value.
-                /// </summary>
-                public int Minimum;
+            /// <summary>
+            /// the smallest possible value.
+            /// </summary>
+            public int Minimum;
 
-                /// <summary>
-                /// the largest possible value.
-                /// </summary>
-                public int Maximum;
+            /// <summary>
+            /// the largest possible value.
+            /// </summary>
+            public int Maximum;
 
-                /// <summary>
-                /// the number of possible values.
-                /// </summary>
-                public uint NValues;
+            /// <summary>
+            /// the number of possible values.
+            /// </summary>
+            public uint NValues;
 
-                /// <summary>
-                /// an array of #GEnumValue structs describing the
-                ///  individual values.
-                /// </summary>
-                public IntPtr Values;
-                #pragma warning restore CS0649
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
+            /// <summary>
+            /// an array of #GEnumValue structs describing the
+            ///  individual values.
+            /// </summary>
+            public IntPtr Values;
+            #pragma warning restore CS0649
         }
 
-        public new SafeHandle Handle {
-            get {
-                return (SafeHandle)base.Handle;
-            }
-        }
-
-        public override Type StructType {
-            get {
-                return typeof(SafeHandle.EnumClassStruct);
-            }
-        }
-
-        public EnumClass (SafeHandle handle) : base (handle)
+        public EnumClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
+
+        public override Type StructType => typeof(Struct);
 
         public override TypeInfo GetTypeInfo (Type type)
         {

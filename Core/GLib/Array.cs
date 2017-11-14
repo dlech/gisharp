@@ -11,100 +11,81 @@ namespace GISharp.GLib
     /// Contains the public fields of a GArray.
     /// </summary>
     [GType ("GArray", IsWrappedNativeType = true)]
-    public abstract class Array : Opaque
+    public abstract class Array : ReferenceCountedOpaque
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
+        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
+
+        struct Struct
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            readonly bool ownsElements;
-
-            struct ArrayStruct
-            {
 #pragma warning disable CS0649
-                public IntPtr Data;
-                public uint Len;
+            public IntPtr Data;
+            public uint Len;
 #pragma warning restore CS0649
-            }
+        }
 
-            public IntPtr Data {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    return Marshal.ReadIntPtr (handle);
-                }
-            }
-
-            public uint Len {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    return (uint)Marshal.ReadInt32 (handle, IntPtr.Size);
-                }
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_array_ref (IntPtr array);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_array_ref (handle);
-                }
-                SetHandle (handle);
-                if (ownership == Transfer.Full) {
-                    ownsElements = true;
-                }
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_array_free (IntPtr array, bool freeSegment);
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_array_unref (IntPtr array);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    if (ownsElements) {
-                        g_array_free (handle, true);
-                    }
-                    else {
-                        g_array_unref (handle);
-                    }
-                    return true;
-                }
-                catch {
-                    return false;
-                }
+        internal protected IntPtr Data {
+            get {
+                AssertNotDisposed ();
+                return Marshal.ReadIntPtr (Handle, (int)dataOffset);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        protected uint Len {
+            get {
+                AssertNotDisposed ();
+                return (uint)Marshal.ReadInt32 (Handle, (int)lenOffset);
+            }
+        }
+
+        public Array (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_array_ref (handle);
+            }
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_array_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_ref (IntPtr array);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_array_ref (Handle);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_free (IntPtr array, bool freeSegment);
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_array_unref (IntPtr array);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_array_unref (Handle);
+        }
 
         public int Count {
             get {
-                return (int)Handle.Len;
+                return (int)Len;
             }
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern GType g_array_get_type ();
+        static extern GType g_array_get_type ();
 
         static GType getGType ()
         {
             return g_array_get_type ();
-        }
-
-        protected Array (SafeHandle handle) : base (handle)
-        {
         }
 
         /// <summary>
@@ -125,7 +106,7 @@ namespace GISharp.GLib
         /// the new #GArray
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_array_new (
+        static extern IntPtr g_array_new (
             bool zeroTerminated,
             bool clear,
             uint elementSize);
@@ -147,7 +128,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new <see cref="Array"/>
         /// </returns>
-        protected static SafeHandle New (bool zeroTerminated, bool clear, int elementSize)
+        protected static IntPtr New (bool zeroTerminated, bool clear, int elementSize)
         {
             if (elementSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (elementSize));
@@ -180,13 +161,13 @@ namespace GISharp.GLib
         /// the new #GArray
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_array_sized_new (
+        static extern IntPtr g_array_sized_new (
             bool zeroTerminated,
             bool clear,
             uint elementSize,
             uint reservedSize);
 
-        protected static SafeHandle SizedNew (bool zeroTerminated, bool clear, int elementSize, int reservedSize)
+        protected static IntPtr SizedNew (bool zeroTerminated, bool clear, int elementSize, int reservedSize)
         {
             if (elementSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (elementSize));
@@ -215,7 +196,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_append_vals (
-            SafeHandle array,
+            IntPtr array,
             IntPtr data,
             uint len);
 
@@ -225,7 +206,7 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the elements to append to the end of the array
         /// </param>
-        protected void Append<T> (T[] data) where T : struct
+        protected void AppendVals<T> (T[] data) where T : struct
         {
             AssertNotDisposed ();
             if (data == null) {
@@ -249,7 +230,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.22")]
         static extern uint g_array_get_element_size (
-            SafeHandle array);
+            IntPtr array);
 
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -286,7 +267,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_insert_vals (
-            SafeHandle array,
+            IntPtr array,
             uint index,
             IntPtr data,
             uint len);
@@ -337,7 +318,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_prepend_vals (
-            SafeHandle array,
+            IntPtr array,
             IntPtr data,
             uint len);
 
@@ -345,7 +326,7 @@ namespace GISharp.GLib
         /// Adds elements onto the start of the array.
         /// </summary>
         /// <remarks>
-        /// This operation is slower than <see cref="Append"/> since the
+        /// This operation is slower than <see cref="AppendVals"/> since the
         /// existing elements in the array have to be moved to make space for
         /// the new elements.
         /// </remarks>
@@ -379,7 +360,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_remove_index (
-            SafeHandle array,
+            IntPtr array,
             uint index);
 
         /// <summary>
@@ -415,7 +396,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_remove_index_fast (
-            SafeHandle array,
+            IntPtr array,
             uint index);
 
         /// <summary>
@@ -455,7 +436,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.4")]
         static extern IntPtr g_array_remove_range (
-            SafeHandle array,
+            IntPtr array,
             uint index,
             uint length);
 
@@ -490,7 +471,7 @@ namespace GISharp.GLib
         /// The @clear_func will be called when an element in the array
         /// data segment is removed and when the array is freed and data
         /// segment is deallocated as well.
-        /// 
+        ///
         /// Note that in contrast with other uses of #GDestroyNotify
         /// functions, @clear_func is expected to clear the contents of
         /// the array element it is given, but not free the element itself.
@@ -504,7 +485,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.32")]
         static extern void g_array_set_clear_func (
-            SafeHandle array,
+            IntPtr array,
             NativeDestroyNotify clearFunc);
 
         /// <summary>
@@ -522,7 +503,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_set_size (
-            SafeHandle array,
+            IntPtr array,
             uint length);
 
         /// <summary>
@@ -559,7 +540,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_sort (
-            SafeHandle array,
+            IntPtr array,
             NativeCompareFunc compareFunc);
 
         /// <summary>
@@ -596,7 +577,7 @@ namespace GISharp.GLib
         /// </summary>
         /// <remarks>
         /// This is guaranteed to be a stable sort since version 2.32.
-        /// 
+        ///
         /// There used to be a comment here about making the sort stable by
         /// using the addresses of the elements in the comparison function.
         /// This did not actually work, so any such code should be removed.
@@ -612,7 +593,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_sort_with_data (
-            SafeHandle array,
+            IntPtr array,
             NativeCompareDataFunc compareFunc,
             IntPtr userData);
 
@@ -628,9 +609,7 @@ namespace GISharp.GLib
     [GType ("GArray", IsWrappedNativeType = true)]
     public sealed class Array<T> : Array, IList<T> where T : struct
     {
-        static GType getGType () => g_array_get_type ();
-
-        public Array (SafeHandle handle) : base (handle)
+        public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 
@@ -652,7 +631,7 @@ namespace GISharp.GLib
         /// number of elements preallocated
         /// </param>
         public Array (bool zeroTerminated, bool clear, int reservedSize = 10)
-            : this (SizedNew (zeroTerminated, clear, Marshal.SizeOf<T> (), reservedSize))
+            : this (SizedNew (zeroTerminated, clear, Marshal.SizeOf<T> (), reservedSize), Transfer.Full)
         {
         }
 
@@ -660,7 +639,7 @@ namespace GISharp.GLib
         /// Initializes a new instance of the <see cref="Array{T}"/> class.
         /// </summary>
         public Array ()
-            : this (New (false, false, Marshal.SizeOf<T> ()))
+            : this (New (false, false, Marshal.SizeOf<T> ()), Transfer.Full)
         {
         }
 
@@ -672,7 +651,7 @@ namespace GISharp.GLib
         /// </param>
         public void Append (params T[] data)
         {
-            Append<T> (data);
+            AppendVals<T> (data);
         }
 
         /// <summary>
@@ -761,7 +740,7 @@ namespace GISharp.GLib
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var dataPtr = Handle.Data;
+                var dataPtr = Data;
                 dataPtr += Marshal.SizeOf<T> () * index;
                 var item = Marshal.PtrToStructure<T> (dataPtr);
                 return item;
@@ -771,7 +750,7 @@ namespace GISharp.GLib
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var dataPtr = Handle.Data;
+                var dataPtr = Data;
                 dataPtr += Marshal.SizeOf<T> () * index;
                 Marshal.StructureToPtr<T> (value, dataPtr, false);
             }
@@ -828,7 +807,7 @@ namespace GISharp.GLib
             return false;
         }
 
-        IEnumerator<T> GetEmumeratorImpl ()
+        IEnumerator<T> GetEnumeratorImpl ()
         {
             for (int i = 0; i < Count; i++) {
                 yield return this[i];
@@ -840,7 +819,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             // AssertNotDisposed will not run if we have yield return in this
             // method body, so it is wrapped in another method.
-            return GetEmumeratorImpl ();
+            return GetEnumeratorImpl ();
         }
 
         IEnumerator IEnumerable.GetEnumerator ()

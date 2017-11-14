@@ -1,4 +1,5 @@
-﻿
+﻿using System;
+
 using GISharp.GObject;
 
 namespace GISharp.Runtime
@@ -10,6 +11,6 @@ namespace GISharp.Runtime
     /// </summary>
     public interface IObject
     {
-        Object.SafeHandle Handle { get; }
+        IntPtr Handle { get; }
     }
 }

@@ -20,30 +20,24 @@ namespace GISharp.Core.Test
 
     sealed class InitableIface : TypeInterface
     {
-        public abstract class SafeInitableIfaceHandle : SafeTypeInterfaceHandle
+        static readonly IntPtr initOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Init));
+        
+        new struct Struct
         {
-            internal struct InitableIfaceStruct
-            {
-                #pragma warning disable CS0649
-                TypeInterfaceStruct GIface;
-                public NativeInit Init;
-                #pragma warning restore CS0649
+            #pragma warning disable CS0649
+            public TypeInterface.Struct GIface;
+            public NativeInit Init;
+            #pragma warning restore CS0649
 
-                public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
-            }
+            public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
 
-        public override Type StructType {
-            get {
-                return typeof(SafeInitableIfaceHandle.InitableIfaceStruct);
-            }
-        }
+        public override Type StructType => typeof(Struct);
 
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
-            var offset = Marshal.OffsetOf<SafeInitableIfaceHandle.InitableIfaceStruct> (nameof (SafeInitableIfaceHandle.InitableIfaceStruct.Init));
-            var initPtr = Marshal.GetFunctionPointerForDelegate<SafeInitableIfaceHandle.InitableIfaceStruct.NativeInit> (NativeInit);
-            Marshal.WriteIntPtr (gIface, (int)offset, initPtr);
+            var initPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeInit> (NativeInit);
+            Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
         }
 
         static void InterfaceFinalize (IntPtr gIface, IntPtr userData)
@@ -62,7 +56,7 @@ namespace GISharp.Core.Test
 
         static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var initable = (IInitable)GetOrCreate<GISharp.GObject.Object> (initablePtr, Transfer.None);
+            var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
             try {
                 var ret = initable.Init (cancellablePtr);
                 return ret;
@@ -72,7 +66,7 @@ namespace GISharp.Core.Test
             return false;
         }
 
-        public InitableIface (SafeInitableIfaceHandle handle) : base (handle)
+        public InitableIface (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
     }
@@ -95,23 +89,23 @@ namespace GISharp.Core.Test
             IntPtr errorPtr;
             var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
-            var ret = Opaque.GetOrCreate<GISharp.GObject.Object> (ret_, Transfer.Full);
+            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.Full);
 
             return ret;
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_initable_init (GISharp.GObject.Object.SafeHandle intitable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern bool g_initable_init (IntPtr intitable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool Init (this IInitable intitable)
         {
             IntPtr errorPtr;
             var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
             return ret;
@@ -140,48 +134,42 @@ namespace GISharp.Core.Test
 
     sealed class NetworkMonitorInterface : TypeInterface
     {
-        public abstract class SafeNetworkMonitorInterfaceHandle : SafeTypeInterfaceHandle
+        static readonly IntPtr networkChangedOffset = Marshal.OffsetOf<Struct> (nameof (Struct.NetworkChanged));
+        static readonly IntPtr canReachOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReach));
+        static readonly IntPtr canReachAsyncOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsync));
+        static readonly IntPtr canReachAsyncFinishOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsyncFinish));
+
+        new struct Struct
         {
-            internal struct NetworkMonitorInterfaceStruct
-            {
 #pragma warning disable CS0649
-                TypeInterfaceStruct GIface;
-                public NativeNetworkChanged NetworkChanged;
-                public NativeCanReach CanReach;
-                public NativeCanReachAsync CanReachAsync;
-                public NativeCanReachAsyncFinish CanReachAsyncFinish;
+            public TypeInterface.Struct GIface;
+            public NativeNetworkChanged NetworkChanged;
+            public NativeCanReach CanReach;
+            public NativeCanReachAsync CanReachAsync;
+            public NativeCanReachAsyncFinish CanReachAsyncFinish;
 #pragma warning restore CS0649
 
-                [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-                public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool availible);
-                [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-                public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
-                [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-                public delegate void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
-                [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-                public delegate void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
-            }
+            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+            public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool availble);
+            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+            public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
+            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+            public delegate void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+            public delegate void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
         }
 
-        public override Type StructType {
-            get {
-                return typeof(SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct);
-            }
-        }
+        public override Type StructType => typeof(Struct);
 
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
-            var networkChangedOffset = Marshal.OffsetOf<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct> (nameof (SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.NetworkChanged));
-            var networkChangedPtr = Marshal.GetFunctionPointerForDelegate<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.NativeNetworkChanged> (NativeNetworkChanged);
+            var networkChangedPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeNetworkChanged> (NativeNetworkChanged);
             Marshal.WriteIntPtr (gIface, (int)networkChangedOffset, networkChangedPtr);
-            var canReachOffset = Marshal.OffsetOf<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct> (nameof (SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.CanReach));
-            var canReachPtr = Marshal.GetFunctionPointerForDelegate<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.NativeCanReach> (NativeCanReach);
+            var canReachPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReach> (NativeCanReach);
             Marshal.WriteIntPtr (gIface, (int)canReachOffset, canReachPtr);
-            var canReachAsyncOffset = Marshal.OffsetOf<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct> (nameof (SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.CanReachAsync));
-            var canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.NativeCanReachAsync> (NativeCanReachAsync);
+            var canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsync> (NativeCanReachAsync);
             Marshal.WriteIntPtr (gIface, (int)canReachAsyncOffset, canReachAsyncPtr);
-            var canReachAsyncFinishOffset = Marshal.OffsetOf<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct> (nameof (SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.CanReachAsyncFinish));
-            var canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate<SafeNetworkMonitorInterfaceHandle.NetworkMonitorInterfaceStruct.NativeCanReachAsyncFinish> (NativeCanReachAsyncFinish);
+            var canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsyncFinish> (NativeCanReachAsyncFinish);
             Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
         }
 
@@ -199,15 +187,15 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        static void NativeNetworkChanged (IntPtr monitorPtr, bool availible)
+        static void NativeNetworkChanged (IntPtr monitorPtr, bool availble)
         {
-            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
-            monitor.OnNetworkChanged (availible);
+            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            monitor.OnNetworkChanged (availble);
         }
 
         static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
@@ -219,7 +207,7 @@ namespace GISharp.Core.Test
 
         static void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
         {
-            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             Action<IntPtr> managedCallback = (result) => {
                 callback (monitorPtr, result, userData);
             };
@@ -228,7 +216,7 @@ namespace GISharp.Core.Test
 
         static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetOrCreate<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
@@ -236,7 +224,7 @@ namespace GISharp.Core.Test
             }
         }
 
-        public NetworkMonitorInterface (SafeNetworkMonitorInterfaceHandle handle) : base (handle)
+        public NetworkMonitorInterface (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
     }
@@ -252,7 +240,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_available (GISharp.GObject.Object.SafeHandle monitor);
+        static extern bool g_network_monitor_get_network_available (IntPtr monitor);
 
         public static bool GetNetworkAvailible (this INetworkMonitor monitor)
         {
@@ -262,7 +250,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_metered (GISharp.GObject.Object.SafeHandle monitor);
+        static extern bool g_network_monitor_get_network_metered (IntPtr monitor);
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
@@ -272,14 +260,14 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach (GISharp.GObject.Object.SafeHandle monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern bool g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             IntPtr errorPtr;
             var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
+                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
 
@@ -287,7 +275,7 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_network_monitor_can_reach_async (GISharp.GObject.Object.SafeHandle monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+        static extern void g_network_monitor_can_reach_async (IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, out IntPtr errorPtr);
@@ -299,7 +287,7 @@ namespace GISharp.Core.Test
                 IntPtr errorPtr;
                 var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
                 if (errorPtr != IntPtr.Zero) {
-                    var error = Opaque.GetOrCreate<Error> (errorPtr, Transfer.Full);
+                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                     completion.SetException (new GErrorException (error));
                 } else {
                     completion.SetResult (ret);

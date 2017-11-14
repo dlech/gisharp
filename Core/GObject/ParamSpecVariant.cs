@@ -11,67 +11,38 @@ namespace GISharp.GObject
     [GType ("GParamVariant", IsWrappedNativeType = true)]
     public sealed class ParamSpecVariant : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr variantTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.VariantType));
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecVariant
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public IntPtr VariantType;
-                public IntPtr DefaultValue;
+            public ParamSpec.Struct ParentInstance;
+            public IntPtr VariantType;
+            public IntPtr DefaultValue;
 #pragma warning restore CS0649
-            }
-
-            public IntPtr VariantType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecVariant> (nameof (ParamSpecVariant.VariantType));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public IntPtr DefaultValue {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecVariant> (nameof (ParamSpecVariant.DefaultValue));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public VariantType VariantType {
             get {
-                var ret_ = Handle.VariantType;
-                var ret = GetOrCreate<VariantType> (ret_, Transfer.None);
+                AssertNotDisposed ();
+                var ret_ = Marshal.ReadIntPtr (Handle, (int)variantTypeOffset);
+                var ret = GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
         }
 
         public new Variant DefaultValue {
             get {
-                var ret_ = Handle.DefaultValue;
-                var ret = GetOrCreate<Variant> (ret_, Transfer.None);
+                AssertNotDisposed ();
+                var ret_ = Marshal.ReadIntPtr (Handle, (int)defaultValueOffset);
+                var ret = GetInstance<Variant> (ret_, Transfer.None);
                 return ret;
             }
+        }
+
+        public ParamSpecVariant (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         static GType getGType ()
@@ -79,20 +50,16 @@ namespace GISharp.GObject
             return paramSpecTypes[22];
         }
 
-        public ParamSpecVariant (SafeHandle handle) : base (handle)
-        {
-        }
-
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_param_spec_variant (
             IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            VariantType.SafeHandle type,
-            Variant.SafeHandle defaultValue,
+            IntPtr type,
+            IntPtr defaultValue,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -112,9 +79,10 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var defaultValue_ = defaultValue?.Handle ?? Variant.SafeHandle.Zero;
-            var ret_ = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValue_, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var defaultValuePtr = defaultValue?.Handle ?? IntPtr.Zero;
+            var ret = g_param_spec_variant (namePtr, nickPtr, blurbPtr, type.Handle, defaultValuePtr, flags);
+            GC.KeepAlive (type);
+            GC.KeepAlive (defaultValue);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -132,7 +100,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecVariant (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, type, defaultValue, flags))
+            : this (New (name, nick, blurb, type, defaultValue, flags), Transfer.None)
         {
         }
     }

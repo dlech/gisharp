@@ -12,90 +12,51 @@ namespace GISharp.GObject
     [GType ("GParamULong", IsWrappedNativeType = true)]
     public sealed class ParamSpecULong : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));
+        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Maximum));
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecULong
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public nulong Minimum;
-                public nulong Maximum;
-                public nulong DefaultValue;
+            public ParamSpec.Struct ParentInstance;
+            public nulong Minimum;
+            public nulong Maximum;
+            public nulong DefaultValue;
 #pragma warning restore CS0649
-            }
-
-            public nulong Minimum {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecULong> (nameof (ParamSpecULong.Minimum));
-                    var ret = Marshal.PtrToStructure<nulong> (handle + (int)offset);
-                    return ret;
-                }
-            }
-
-            public nulong Maximum {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecULong> (nameof (ParamSpecULong.Maximum));
-                    var ret = Marshal.PtrToStructure<nulong> (handle + (int)offset);
-                    return ret;
-                }
-            }
-
-            public nulong DefaultValue {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecULong> (nameof (ParamSpecULong.DefaultValue));
-                    var ret = Marshal.PtrToStructure<nulong> (handle + (int)offset);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public nulong Minimum {
             get {
-                return Handle.Minimum;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<nulong> (Handle + (int)minimumOffset);
+                return ret;
             }
         }
 
         public nulong Maximum {
             get {
-                return Handle.Maximum;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<nulong> (Handle + (int)maximumOffset);
+                return ret;
             }
         }
 
         public new nulong DefaultValue {
             get {
-                return Handle.DefaultValue;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<nulong> (Handle + (int)defaultValueOffset);
+                return ret;
             }
+        }
+
+        public ParamSpecULong (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         static GType getGType ()
         {
             return paramSpecTypes[6];
-        }
-
-        public ParamSpecULong (SafeHandle handle) : base (handle)
-        {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -108,7 +69,7 @@ namespace GISharp.GObject
             nulong defaultValue,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, nulong min, nulong max, nulong defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, nulong min, nulong max, nulong defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -122,8 +83,7 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var ret_ = g_param_spec_ulong (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var ret = g_param_spec_ulong (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -141,7 +101,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecULong (string name, string nick, string blurb, nulong min, nulong max, nulong defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags))
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.None)
         {
         }
     }

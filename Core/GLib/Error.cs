@@ -15,84 +15,18 @@ namespace GISharp.GLib
     [GType ("GError", IsWrappedNativeType = true)]
     public sealed class Error : Opaque
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Domain));
+        static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Code));
+        static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Message));
+
+        struct Struct
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ErrorStruct
-            {
 #pragma warning disable CS0649
-                public Quark Domain;
-                public int Code;
-                public IntPtr Message;
+            public Quark Domain;
+            public int Code;
+            public IntPtr Message;
 #pragma warning restore CS0649
-            }
-
-            public Quark Domain {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Domain));
-                    var ret = Marshal.ReadInt32 (handle, (int)offset);
-                    return (uint)ret;
-                }
-            }
-
-            public int Code {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Code));
-                    var ret = Marshal.ReadInt32 (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public IntPtr Message {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ErrorStruct> (nameof (ErrorStruct.Message));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_error_copy (IntPtr error);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    handle = g_error_copy (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_error_free (IntPtr error);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_error_free (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         /// <summary>
         /// Gets the error domain (aka error quark).
@@ -100,7 +34,9 @@ namespace GISharp.GLib
         /// <value>The domain value.</value>
         public Quark Domain {
             get {
-                return Handle.Domain;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt32 (Handle, (int)domainOffset);
+                return (uint)ret;
             }
         }
 
@@ -110,7 +46,9 @@ namespace GISharp.GLib
         /// <value>The code.</value>
         public int Code {
             get {
-                return Handle.Code;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt32 (Handle, (int)codeOffset);
+                return ret;
             }
         }
 
@@ -121,23 +59,39 @@ namespace GISharp.GLib
         public string Message {
             get {
                 AssertNotDisposed ();
-                var retPtr = Handle.Message;
-                var ret = GMarshal.Utf8PtrToString (retPtr);
-                return ret;
+                var ret = Marshal.ReadIntPtr (Handle, (int)messageOffset);
+                return GMarshal.Utf8PtrToString (ret);
             }
         }
 
-        public Error (SafeHandle handle) : base (handle)
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_error_copy (IntPtr error);
+
+        public Error (IntPtr handle, Transfer ownership) : base (handle)
         {
+            if (ownership == Transfer.None) {
+                handle = g_error_copy (handle);
+            }
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_error_new_literal (
+        static extern void g_error_free (IntPtr error);
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_error_free (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_error_new_literal (
             Quark domain,
             int code,
             IntPtr message);
 
-        static SafeHandle NewLiteral (Quark domain, int code, string message)
+        static IntPtr NewLiteral (Quark domain, int code, string message)
         {
             if (message == null) {
                 throw new ArgumentNullException (nameof (message));
@@ -156,7 +110,7 @@ namespace GISharp.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error (Quark domain, int code, string message)
-            : this (NewLiteral (domain, code, message))
+            : this (NewLiteral (domain, code, message), Transfer.Full)
         {
         }
 
@@ -168,7 +122,7 @@ namespace GISharp.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error (Quark domain, System.Enum code, string message)
-            : this (NewLiteral (domain, (int)(object)code, message))
+            : this (NewLiteral (domain, (int)(object)code, message), Transfer.Full)
         {
         }
 
@@ -200,7 +154,7 @@ namespace GISharp.GLib
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_error_matches (
-            SafeHandle err,
+            IntPtr err,
             Quark domain,
             int code);
 

@@ -3,7 +3,6 @@
   <PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
-    <StartupObject>Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
@@ -12,17 +11,10 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="dotnet-test-nunit" Version="3.4.0-beta-3" />
-    <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170125-04" />
+    <!-- <PackageReference Include="dotnet-test-nunit" Version="3.4.0-beta-3" /> -->
+    <!-- <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.0.0-preview-20170125-04" /> -->
     <PackageReference Include="NUnit" Version="3.6.1" />
     <PackageReference Include="NUnitLite" Version="3.6.1" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="System.Threading.Tasks" Version="4.3.0" />
-    <PackageReference Include="System.Threading.Thread" Version="4.3.0" />
-    <PackageReference Include="System.Reflection.Emit" Version="4.3.0" />
-    <PackageReference Include="Microsoft.CSharp" Version="4.3.0" />
   </ItemGroup>
 
   <ItemGroup>

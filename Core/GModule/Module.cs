@@ -73,33 +73,23 @@ namespace GISharp.GModule
             }
         }
 
-        public sealed class SafeHandle : SafeOpaqueHandle
+        public Module (IntPtr handle, Transfer ownership) : base (handle)
         {
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    throw new NotSupportedException ();
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern bool g_module_close (IntPtr module);
-
-            protected override bool ReleaseHandle ()
-            {
-                return g_module_close (handle);
+            if (ownership == Transfer.None) {
+                throw new NotSupportedException ();
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_module_close (IntPtr module);
 
-        public Module (SafeHandle handle) : base (handle)
+        protected override void Dispose (bool disposing)
         {
+            if (Handle != IntPtr.Zero) {
+                // TODO: this could fail (if return false)
+                g_module_close (Handle);
+            }
+            base.Dispose (disposing);
         }
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -202,7 +192,7 @@ namespace GISharp.GModule
                     if (ret_ == IntPtr.Zero) {
                         throw new ModuleErrorException (Error);
                     }
-                    var ret = Opaque.GetOrCreate<Module> (ret_, Transfer.Full);
+                    var ret = Opaque.GetInstance<Module> (ret_, Transfer.Full);
                     return ret;
                 }
             } finally {
@@ -212,7 +202,7 @@ namespace GISharp.GModule
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_module_symbol (
-            SafeHandle module,
+            IntPtr module,
             IntPtr symbolName,
             out IntPtr symbol);
 
@@ -246,7 +236,7 @@ namespace GISharp.GModule
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_module_name (
-            SafeHandle module);
+            IntPtr module);
 
         /// <summary>
         /// Gets the filename that the module was opened with.
@@ -266,7 +256,7 @@ namespace GISharp.GModule
 
         [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_module_make_resident (
-            SafeHandle module);
+            IntPtr module);
 
         /// <summary>
         /// Ensures that a module will never be unloaded.

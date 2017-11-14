@@ -17,9 +17,9 @@ namespace GISharp.Core.Test.GLib
 
         static OpaqueInt getItemAt (PtrArray<OpaqueInt> array, int index)
         {
-            var dataPtr = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
+            var dataPtr = Marshal.ReadIntPtr (array.Handle);
             var data = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
-            return Opaque.GetOrCreate<OpaqueInt> (data, Transfer.None);
+            return Opaque.GetInstance<OpaqueInt> (data, Transfer.None);
         }
 
         [Test]

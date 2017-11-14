@@ -121,7 +121,7 @@ namespace GISharp.GIRepository
             IntPtr err_;
 
             if (!g_function_info_invoke (Handle, inArgs, inArgsLength, outArgs, outArgsLength, out ret, out err_)) {
-                var err = new GLib.Error.SafeHandle (err_, Runtime.Transfer.Full);
+                var err = new GLib.Error (err_, Runtime.Transfer.Full);
                 throw new GErrorException (err);
             }
 

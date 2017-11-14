@@ -12,53 +12,33 @@ namespace GISharp.GLib
     /// </summary>
     public sealed class VariantIter : Opaque, IEnumerator<Variant>
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_iter_copy (IntPtr iter);
+
+        public VariantIter (IntPtr handle, Transfer ownership) : base (handle)
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_variant_iter_copy (IntPtr iter);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    handle = g_variant_iter_copy (handle);
-                }
-                SetHandle (handle);
+            if (ownership == Transfer.None) {
+                Handle = g_variant_iter_copy (handle);
             }
+        }
 
-            public SafeHandle ()
-            {
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_variant_iter_free (IntPtr iter);
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_variant_iter_free (Handle);
             }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_variant_iter_free (IntPtr iter);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_variant_iter_free (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
-            }
+            base.Dispose (disposing);
         }
 
         readonly Variant value;
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
-
-        public VariantIter (SafeHandle handle) : base (handle)
-        {
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_variant_iter_new (Variant.SafeHandle value);
+        static extern IntPtr g_variant_iter_new (IntPtr value);
 
-        static SafeHandle New (Variant value)
+        static IntPtr New (Variant value)
         {
             if (value == null) {
                 throw new ArgumentNullException (nameof (value));
@@ -111,10 +91,10 @@ namespace GISharp.GLib
         static extern ulong g_variant_iter_init (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            SafeHandle iter,
+            IntPtr iter,
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
-            Variant.SafeHandle value);
+            IntPtr value);
 
         public void Reset ()
         {
@@ -143,7 +123,7 @@ namespace GISharp.GLib
         static extern ulong g_variant_iter_n_children (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            SafeHandle iter);
+            IntPtr iter);
 
         /// <summary>
         /// Gets the number of child items in the container that we are
@@ -205,19 +185,19 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern Variant.SafeHandle g_variant_iter_next_value (
+        static extern IntPtr g_variant_iter_next_value (
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            SafeHandle iter);
+            IntPtr iter);
 
         public bool MoveNext ()
         {
             AssertNotDisposed ();
             var ret_ = g_variant_iter_next_value (Handle);
-            if (ret_.IsInvalid) {
+            if (ret_ == IntPtr.Zero) {
                 return false;
             }
-            Current = Opaque.GetOrCreate<Variant> (ret_);
+            Current = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return true;
         }
 

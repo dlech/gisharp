@@ -16,70 +16,66 @@ namespace GISharp.GLib
     /// Data type representing an event source.
     /// </summary>
     [GType ("GSource", IsWrappedNativeType = true)]
-    public abstract class Source : Opaque
+    public abstract class Source : ReferenceCountedOpaque
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        internal struct Struct
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
+            #pragma warning disable CS0649
+            // This is an opaque struct, so the fields should not be used. We
+            // just need them to get the correct struct size.
+            public IntPtr CallbackData;
+            public IntPtr CallbackFuncs;
+            public IntPtr SourceFuncs;
+            public uint RefCount;
+            public IntPtr Context;
+            public int Priority;
+            public uint Flags;
+            public uint SourceId;
+            public IntPtr PollFds;
+            public IntPtr Prev;
+            public IntPtr Next;
+            public IntPtr Name;
+            public IntPtr Priv;
+            #pragma warning restore CS0649
+        }
 
-            internal struct Source
-            {
-                // This is an opaque struct, so the fields should not be used. We
-                // just need them to get the correct struct size.
-#pragma warning disable CS0169
-                IntPtr callbackData;
-                IntPtr callbackFuncs;
-                IntPtr sourceFuncs;
-                uint refCount;
-                IntPtr context;
-                int priority;
-                uint flags;
-                uint sourceId;
-                IntPtr pollFds;
-                IntPtr prev;
-                IntPtr next;
-                IntPtr name;
-                IntPtr priv;
-#pragma warning restore CS0169
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_source_ref (IntPtr source);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_source_ref (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_source_unref (IntPtr source);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_source_unref (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
+        public Source (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_source_ref (handle);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_source_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_source_ref (IntPtr source);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_source_ref (Handle);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_source_unref (IntPtr source);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_source_unref (Handle);
+        }
 
         struct ManagedSource
         {
 #pragma warning disable CS0649
-            public SafeHandle.Source source;
+            public Struct source;
             public IntPtr gcHandle;
 #pragma warning restore CS0649
         }
@@ -90,10 +86,6 @@ namespace GISharp.GLib
             DispatchImpl = DispatchManagedSource,
             FinalizeImpl = FinalizeManagedSource,
         };
-
-        protected Source (SafeHandle handle) : base (handle)
-        {
-        }
 
         /// <summary>
         /// Use this value as the return value of a <see cref="SourceFunc"/> to leave
@@ -213,7 +205,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_source_new (
+        static extern IntPtr g_source_new (
             /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" /> */
             /* transfer-ownership:none */
             ref SourceFuncs sourceFuncs,
@@ -221,7 +213,7 @@ namespace GISharp.GLib
             /* transfer-ownership:none */
             uint structSize);
 
-        static SafeHandle NewManagedSource ()
+        static IntPtr NewManagedSource ()
         {
             var structSize = Marshal.SizeOf<ManagedSource> ();
             var ret = g_source_new (ref managedSourceFuncs, (uint)structSize);
@@ -235,12 +227,12 @@ namespace GISharp.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Attach"/> before it will be executed.
         /// </remarks>
-        Source () : this (NewManagedSource ())
+        Source () : this (NewManagedSource (), Transfer.Full)
         {
             var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
             // This handle is freed from unmanged code in the FinalizeManagedSource callback.
             var gcHandle = GCHandle.ToIntPtr (GCHandle.Alloc (this));
-            Marshal.WriteIntPtr (Handle.DangerousGetHandle (), (int)offset, gcHandle);
+            Marshal.WriteIntPtr (Handle, (int)offset, gcHandle);
         }
 
         /// <summary>
@@ -415,7 +407,7 @@ namespace GISharp.GLib
         public static Source Current {
             get {
                 var ret_ = g_main_current_source ();
-                var ret = GetOrCreate<Source> (ret_, Transfer.None);
+                var ret = GetInstance<Source> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -463,10 +455,10 @@ namespace GISharp.GLib
         static extern void g_source_add_child_source (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle childSource);
+            IntPtr childSource);
 
         /// <summary>
         /// Adds <paramref name="childSource"/> to this source as a "polled" source; when this source is
@@ -529,7 +521,7 @@ namespace GISharp.GLib
         static extern void g_source_add_poll (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
             PollFD fd);
@@ -579,10 +571,10 @@ namespace GISharp.GLib
         static extern uint g_source_attach (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            MainContext.SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Adds a <see cref="Source"/> to <paramref name="context"/> so that it will be executed within
@@ -601,7 +593,7 @@ namespace GISharp.GLib
             if (IsDestroyed) {
                 throw new InvalidOperationException ("Source has already been destroyed.");
             }
-            var ret = g_source_attach (Handle, context?.Handle ?? MainContext.SafeHandle.Zero);
+            var ret = g_source_attach (Handle, context?.Handle ?? IntPtr.Zero);
             return ret;
         }
 
@@ -620,7 +612,7 @@ namespace GISharp.GLib
         static extern void g_source_destroy (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Removes a source from its #GMainContext, if any, and mark it as
@@ -650,7 +642,7 @@ namespace GISharp.GLib
         static extern bool g_source_get_can_recurse (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Checks whether a source is allowed to be called recursively.
@@ -697,7 +689,7 @@ namespace GISharp.GLib
         static extern IntPtr g_source_get_context (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Gets the #GMainContext with which the source is associated.
@@ -719,7 +711,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var ret_ = g_source_get_context (Handle);
-                var ret = GetOrCreate<MainContext> (ret_, Transfer.None);
+                var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -742,7 +734,7 @@ namespace GISharp.GLib
         static extern uint g_source_get_id (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Returns the numeric ID for a particular source. The ID of a source
@@ -778,7 +770,7 @@ namespace GISharp.GLib
         static extern IntPtr g_source_get_name (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Gets a name for the source, used in debugging and profiling.  The
@@ -822,7 +814,7 @@ namespace GISharp.GLib
         static extern int g_source_get_priority (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Gets the priority of a source.
@@ -863,7 +855,7 @@ namespace GISharp.GLib
         static extern long g_source_get_ready_time (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Gets the "ready time" of @source, as set by
@@ -912,7 +904,7 @@ namespace GISharp.GLib
         static extern long g_source_get_time (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Gets the time to be used when checking this source. The advantage of
@@ -1012,7 +1004,7 @@ namespace GISharp.GLib
         static extern bool g_source_is_destroyed (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source);
+            IntPtr source);
 
         /// <summary>
         /// Returns whether @source has been destroyed.
@@ -1110,10 +1102,10 @@ namespace GISharp.GLib
         static extern void g_source_remove_child_source (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle childSource);
+            IntPtr childSource);
 
         /// <summary>
         /// Detaches @child_source from @source and destroys it.
@@ -1157,7 +1149,7 @@ namespace GISharp.GLib
         static extern void g_source_remove_poll (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
             PollFD fd);
@@ -1205,7 +1197,7 @@ namespace GISharp.GLib
         static extern void g_source_remove_unix_fd (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr tag);
@@ -1266,7 +1258,7 @@ namespace GISharp.GLib
         static extern void g_source_set_callback (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:1 destroy:2 */
             NativeSourceFunc func,
@@ -1331,7 +1323,7 @@ namespace GISharp.GLib
         static extern void g_source_set_callback_indirect (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr callbackData,
@@ -1357,7 +1349,7 @@ namespace GISharp.GLib
         static extern void g_source_set_can_recurse (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             bool canRecurse);
@@ -1379,7 +1371,7 @@ namespace GISharp.GLib
         static extern void g_source_set_funcs (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" /> */
             /* transfer-ownership:none */
             SourceFuncs funcs);
@@ -1430,7 +1422,7 @@ namespace GISharp.GLib
         static extern void g_source_set_name (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="utf8" type="const char*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -1458,7 +1450,7 @@ namespace GISharp.GLib
         static extern void g_source_set_priority (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority);
@@ -1499,7 +1491,7 @@ namespace GISharp.GLib
         static extern void g_source_set_ready_time (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
             /* transfer-ownership:none */
             long readyTime);
@@ -1507,7 +1499,7 @@ namespace GISharp.GLib
 
     public sealed class UnmanagedSource : Source
     {
-        public UnmanagedSource (SafeHandle handle) : base (handle)
+        public UnmanagedSource (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 

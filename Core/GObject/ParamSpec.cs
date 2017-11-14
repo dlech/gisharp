@@ -20,136 +20,122 @@ namespace GISharp.GObject
     [GType ("GParam", IsWrappedNativeType = true)]
     public class ParamSpec : TypeInstance
     {
-        public class SafeHandle : SafeTypeInstanceHandle
+        static readonly IntPtr flagsOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Flags));
+        static readonly IntPtr valueTypeOffset = Marshal.OffsetOf<Struct> (nameof(Struct.ValueType));
+        static readonly IntPtr ownerTypeOffset = Marshal.OffsetOf<Struct> (nameof(Struct.OwnerType));
+        static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
+
+        protected new struct Struct
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            protected struct ParamSpecStruct
-            {
 #pragma warning disable CS0649
-                /// <summary>
-                /// private GTypeInstance portion
-                /// </summary>
-                public TypeInstanceStruct GTypeInstance;
+            /// <summary>
+            /// private GTypeInstance portion
+            /// </summary>
+            public TypeInstance.Struct GTypeInstance;
 
-                /// <summary>
-                /// name of this parameter: always an interned string
-                /// </summary>
-                public IntPtr Name;
+            /// <summary>
+            /// name of this parameter: always an interned string
+            /// </summary>
+            public IntPtr Name;
 
-                /// <summary>
-                /// GParamFlags flags for this parameter
-                /// </summary>
-                public ParamFlags Flags;
+            /// <summary>
+            /// GParamFlags flags for this parameter
+            /// </summary>
+            public ParamFlags Flags;
 
-                /// <summary>
-                /// the GValue type for this parameter
-                /// </summary>
-                public GType ValueType;
+            /// <summary>
+            /// the GValue type for this parameter
+            /// </summary>
+            public GType ValueType;
 
-                /// <summary>
-                /// GType type that uses (introduces) this parameter
-                /// </summary>
-                public GType OwnerType;
+            /// <summary>
+            /// GType type that uses (introduces) this parameter
+            /// </summary>
+            public GType OwnerType;
 
 #pragma warning disable CS0169
-                IntPtr name;
-                IntPtr blurb;
-                IntPtr qdata;
-                public uint RefCount;
-                uint paramId;
+            IntPtr name;
+            IntPtr blurb;
+            IntPtr qdata;
+            public uint RefCount;
+            uint paramId;
 #pragma warning restore CS0169
 #pragma warning disable CS0649
+        }
+
+        ParamFlags Flags {
+            get {
+                AssertNotDisposed ();
+                var flags = Marshal.PtrToStructure<ParamFlags> (Handle + (int)flagsOffset);
+                return flags;
             }
+        }
 
-            public IntPtr Name {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.Name));
-                    var name = Marshal.ReadIntPtr (handle, (int)offset);
-                    return name;
-                }
+        /// <summary>
+        /// The <see cref="Value"/> type for this parameter
+        /// </summary>
+        public GType ValueType {
+            get {
+                AssertNotDisposed ();
+                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)valueTypeOffset);
+                return gtype;
             }
+        }
 
-            public ParamFlags Flags {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.Flags));
-                    var flags = Marshal.PtrToStructure<ParamFlags> (handle + (int)offset);
-                    return flags;
-                }
+        /// <summary>
+        /// <see cref="GType"/> type that uses (introduces) this parameter
+        /// </summary>
+        GType OwnerType {
+            get {
+                AssertNotDisposed ();
+                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)ownerTypeOffset);
+                return gtype;
             }
+        }
 
-            public GType ValueType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.ValueType));
-                    var gtype = Marshal.PtrToStructure<GType> (handle + (int)offset);
-                    return gtype;
-                }
+        uint RefCount {
+            get {
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<uint> (Handle + (int)refCountOffset);
+                return ret;
             }
+        }
 
-            public GType OwnerType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.OwnerType));
-                    var gtype = Marshal.PtrToStructure<GType> (handle + (int)offset);
-                    return gtype;
-                }
+        public ParamSpec (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_param_spec_ref (handle);
             }
+            g_param_spec_sink (handle);
+        }
 
-            public uint RefCount {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecStruct> (nameof (ParamSpecStruct.RefCount));
-                    var ret = Marshal.PtrToStructure<uint> (handle + (int)offset);
-                    return ret;
-                }
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_param_spec_unref (Handle);
             }
+            base.Dispose (disposing);
+        }
 
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_param_spec_ref (IntPtr pspec);
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_param_spec_ref (IntPtr pspec);
 
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_param_spec_sink (IntPtr pspec);
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_param_spec_ref (Handle);
+        }
 
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_param_spec_ref (handle);
-                }
-                g_param_spec_sink (handle);
-                SetHandle (handle);
-            }
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_param_spec_sink (IntPtr pspec);
 
-            public SafeHandle ()
-            {
-            }
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_param_spec_unref (IntPtr pspec);
 
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_param_spec_unref (IntPtr pspec);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_param_spec_unref (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
-            }
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_param_spec_unref (Handle);
         }
 
         protected static GType[] paramSpecTypes;
@@ -168,39 +154,6 @@ namespace GISharp.GObject
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
-
-        public ParamSpec (SafeHandle handle) : base (handle)
-        {
-        }
-
-        /// <summary>
-        /// The <see cref="Value"/> type for this parameter
-        /// </summary>
-        internal ParamFlags Flags {
-            get {
-                return Handle.Flags;
-            }
-        }
-
-        /// <summary>
-        /// The <see cref="Value"/> type for this parameter
-        /// </summary>
-        public GType ValueType {
-            get {
-                return Handle.ValueType;
-            }
-        }
-
-        /// <summary>
-        /// <see cref="GType"/> type that uses (introduces) this parameter
-        /// </summary>
-        public GType OwnerType {
-            get {
-                return Handle.OwnerType;
-            }
-        }
-
         /// <summary>
         /// Get the short description of a #GParamSpec.
         /// </summary>
@@ -216,7 +169,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_blurb (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// Get the short description of a <see cref="ParamSpec"/>.
@@ -249,7 +202,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_default_value (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle param);
+            IntPtr param);
 
         /// <summary>
         /// Gets the default value of this instance as a pointer to a <see cref="Value"/>.
@@ -289,7 +242,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_name (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// Get the name of a <see cref="ParamSpec"/>.
@@ -326,7 +279,7 @@ namespace GISharp.GObject
         static extern Quark g_param_spec_get_name_quark (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle param);
+            IntPtr param);
 
         /// <summary>
         /// Gets the <see cref="Quark"/> for the name.
@@ -358,7 +311,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_nick (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// Get the nickname of a <see cref="ParamSpec"/>.
@@ -393,7 +346,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_qdata (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec,
+            IntPtr pspec,
             /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
             /* transfer-ownership:none */
             Quark quark);
@@ -437,7 +390,7 @@ namespace GISharp.GObject
         static extern IntPtr g_param_spec_get_redirect_target (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// If the paramspec redirects operations to another paramspec,
@@ -456,7 +409,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_redirect_target (Handle);
-                var ret = GetOrCreate<ParamSpec> (ret_, Transfer.None);
+                var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -487,7 +440,7 @@ namespace GISharp.GObject
         static extern void g_param_spec_set_qdata_full (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            SafeHandle pspec,
+            IntPtr pspec,
             /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
             /* transfer-ownership:none */
             Quark quark,

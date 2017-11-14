@@ -11,74 +11,67 @@ namespace GISharp.GLib
     /// Contains the public fields of a pointer array.
     /// </summary>
     [GType ("GPtrArray", IsWrappedNativeType = true)]
-    public abstract class PtrArray : Opaque
+    public abstract class PtrArray : ReferenceCountedOpaque
     {
-        readonly bool ownsElements;
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
+        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
 
-        public sealed class SafeHandle : SafeOpaqueHandle
-		{
-			public static SafeHandle Zero = _Zero.Value;
-			static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct PtrArray
-            {
+        struct Struct
+        {
 #pragma warning disable CS0649
-                public IntPtr Data;
-                public uint Len;
+            public IntPtr Data;
+            public uint Len;
 #pragma warning restore CS0649
-            }
+        }
 
-            public IntPtr Data {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var ret = Marshal.ReadIntPtr (handle);
-                    return ret;
-                }
-            }
-
-            public uint Len {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var ret = Marshal.ReadInt32 (handle, IntPtr.Size);
-                    return (uint)ret;
-                }
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_ptr_array_ref (IntPtr array);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_ptr_array_ref (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_ptr_array_unref (IntPtr array);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_ptr_array_unref (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
+        protected IntPtr Data {
+            get {
+                AssertNotDisposed ();
+                var ret = Marshal.ReadIntPtr (Handle, (int)dataOffset);
+                return ret;
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        public uint Len {
+            get {
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt32 (Handle, (int)lenOffset);
+                return (uint)ret;
+            }
+        }
+
+        public PtrArray (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_ptr_array_ref (handle);
+            }
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_ptr_array_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_ref (IntPtr array);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_ptr_array_ref (Handle);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_unref (IntPtr array);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_ptr_array_unref (Handle);
+        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_ptr_array_get_type ();
@@ -88,10 +81,6 @@ namespace GISharp.GLib
             return g_ptr_array_get_type ();
         }
 
-        protected PtrArray (SafeHandle handle) : base (handle)
-        {
-        }
-
         /// <summary>
         /// Creates a new #GPtrArray with a reference count of 1.
         /// </summary>
@@ -99,18 +88,18 @@ namespace GISharp.GLib
         /// the new #GPtrArray
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_ptr_array_new ();
+        static extern IntPtr g_ptr_array_new ();
 
-        static SafeHandle New ()
+        static IntPtr New ()
         {
             var ret = g_ptr_array_new ();
             return ret;
         }
 
         /// <summary>
-        /// Creates a new <see cref="PtrArray`1"/>.
+        /// Creates a new <see cref="PtrArray"/>.
         /// </summary>
-        protected PtrArray () : this (New ())
+        protected PtrArray () : this (New (), Transfer.Full)
         {
         }
 
@@ -127,16 +116,16 @@ namespace GISharp.GLib
         /// the new #GPtrArray
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_ptr_array_sized_new (
+        static extern IntPtr g_ptr_array_sized_new (
             uint reservedSize);
 
-        static SafeHandle SizedNew (uint reservedSize)
+        static IntPtr SizedNew (uint reservedSize)
         {
             var ret = g_ptr_array_sized_new (reservedSize);
             return ret;
         }
 
-        protected PtrArray (uint reservedSize) : this (SizedNew (reservedSize))
+        protected PtrArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
         {
         }
 
@@ -161,11 +150,11 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.30")]
-        static extern SafeHandle g_ptr_array_new_full (
+        static extern IntPtr g_ptr_array_new_full (
             uint reservedSize,
             NativeDestroyNotify elementFreeFunc);
 
-        static SafeHandle NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
+        static IntPtr NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
         {
             if (elementFreeFunc == null) {
                 throw new ArgumentNullException (nameof (elementFreeFunc));
@@ -215,7 +204,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.22")]
-        static extern SafeHandle g_ptr_array_new_with_free_func (
+        static extern IntPtr g_ptr_array_new_with_free_func (
             NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
@@ -230,7 +219,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_add (
-            SafeHandle array,
+            IntPtr array,
             IntPtr data);
 
         /// <summary>
@@ -261,7 +250,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.4")]
         static extern void g_ptr_array_foreach (
-            SafeHandle array,
+            IntPtr array,
             NativeFunc func,
             IntPtr userData);
 
@@ -290,7 +279,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_ptr_array_free (
-            SafeHandle array,
+            IntPtr array,
             bool freeSeg);
 
         /// <summary>
@@ -309,7 +298,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.40")]
         static extern void g_ptr_array_insert (
-            SafeHandle array,
+            IntPtr array,
             int index,
             IntPtr data);
 
@@ -355,7 +344,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_ptr_array_remove (
-            SafeHandle array,
+            IntPtr array,
             IntPtr data);
 
         /// <summary>
@@ -404,7 +393,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_ptr_array_remove_fast (
-            SafeHandle array,
+            IntPtr array,
             IntPtr data);
 
         /// <summary>
@@ -448,7 +437,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_ptr_array_remove_index (
-            SafeHandle array,
+            IntPtr array,
             uint index);
 
         /// <summary>
@@ -489,7 +478,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_ptr_array_remove_index_fast (
-            SafeHandle array,
+            IntPtr array,
             uint index);
 
         /// <summary>
@@ -534,7 +523,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.4")]
         static extern IntPtr g_ptr_array_remove_range (
-            SafeHandle array,
+            IntPtr array,
             uint index,
             uint length);
 
@@ -581,7 +570,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.22")]
         static extern void g_ptr_array_set_free_func (
-            SafeHandle array,
+            IntPtr array,
             NativeDestroyNotify elementFreeFunc);
 
         /// <summary>
@@ -622,7 +611,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_set_size (
-            SafeHandle array,
+            IntPtr array,
             int length);
 
         /// <summary>
@@ -664,7 +653,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_sort (
-            SafeHandle array,
+            IntPtr array,
             NativeCompareFunc compareFunc);
 
         /// <summary>
@@ -717,7 +706,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_sort_with_data (
-            SafeHandle array,
+            IntPtr array,
             NativeCompareDataFunc compareFunc,
             IntPtr userData);
 
@@ -726,7 +715,7 @@ namespace GISharp.GLib
         /// </summary>
         public int Count {
             get {
-                return (int)Handle.Len;
+                return (int)Len;
             }
         }
     }
@@ -743,7 +732,7 @@ namespace GISharp.GLib
         /// </param>
         public void Add (T data)
         {
-            Add (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            Add (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -759,7 +748,7 @@ namespace GISharp.GLib
         [Since ("2.40")]
         public void Insert (int index, T data)
         {
-            Insert (index, data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            Insert (index, data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -781,7 +770,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Remove (T data)
         {
-            return Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return Remove (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -803,7 +792,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool RemoveFast (T data)
         {
-            return RemoveFast (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            return RemoveFast (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -825,8 +814,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (compareFunc));
             }
             Comparison<IntPtr> compareFunc_ = (a, b) => {
-                var x = GetOrCreate<T> (a, Transfer.None);
-                var y = GetOrCreate<T> (b, Transfer.None);
+                var x = GetInstance<T> (a, Transfer.None);
+                var y = GetInstance<T> (b, Transfer.None);
                 var compareFuncRet = compareFunc (x, y);
                 return compareFuncRet;
             };
@@ -839,8 +828,8 @@ namespace GISharp.GLib
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var retPtr = Marshal.ReadIntPtr (Handle.Data, IntPtr.Size * index);
-                var ret = GetOrCreate<T> (retPtr, Transfer.None);
+                var retPtr = Marshal.ReadIntPtr (Data, IntPtr.Size * index);
+                var ret = GetInstance<T> (retPtr, Transfer.None);
                 return ret;
             }
             set {
@@ -852,7 +841,7 @@ namespace GISharp.GLib
                 Add (value);
                 // now we have swap the pointers so that the last item is last
                 // again and the new item is at index.
-                var dataPtr = Handle.Data;
+                var dataPtr = Data;
                 var oldLast = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * index);
                 var newItem = Marshal.ReadIntPtr (dataPtr, IntPtr.Size * (Count - 1));
                 Marshal.WriteIntPtr (dataPtr, IntPtr.Size * index, newItem);

@@ -7,81 +7,72 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all classes.
     /// </summary>
-    public abstract class TypeClass : Opaque
+    public abstract class TypeClass : ReferenceCountedOpaque
     {
-        public class SafeHandle : SafeOpaqueHandle
+        internal struct Struct
         {
-            internal struct TypeClassStruct
-            {
-                #pragma warning disable CS0649
-                public GType GType;
-                #pragma warning restore CS0649
-            }
-
-            public GType GType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var ret = Marshal.PtrToStructure<GType> (handle);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    throw new NotSupportedException ();
-                }
-                SetHandle (handle);
-            }
-
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_type_class_unref (IntPtr gClass);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_type_class_unref (handle);
-                    return true;
-                } catch {
-                    return false;
-                }
-            }
+            #pragma warning disable CS0649
+            public GType GType;
+            #pragma warning restore CS0649
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public GType GType {
             get {
-                return Handle.GType;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<GType> (Handle);
+                return ret;
             }
+        }
+
+        public TypeClass (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                throw new NotSupportedException ();
+            }
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_type_class_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            throw new NotSupportedException ();
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_type_class_unref (IntPtr gClass);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_type_class_unref (Handle);
         }
 
         public abstract Type StructType { get; }
 
-        protected TypeClass (SafeHandle handle) : base (handle)
-        {
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_type_class_ref (GType type);
 
         internal static T Get<T> (GType type) where T : TypeClass
         {
-            var managedType = typeof (T);
-			var handleType = managedType.GetSafeHandleType ();
+            var managedType = typeof(T);
 			var handle = g_type_class_ref (type);
-			var ret = Opaque.GetOrCreate<T> (handle, Transfer.Full);
+			var ret = Opaque.GetInstance<T> (handle, Transfer.Full);
 			return ret;
         }
 
         public static TypeClass Get (GType type)
         {
             var managedType = GType.TypeOf (type);
-            var handleType = managedType.GetSafeHandleType ();
             var handle = g_type_class_ref (type);
-            var ret = Opaque.GetOrCreate<TypeClass> (handle, Transfer.Full);
+            var ret = Opaque.GetInstance<TypeClass> (handle, Transfer.Full);
             return ret;
         }
 
@@ -131,7 +122,7 @@ namespace GISharp.GObject
         internal static extern IntPtr g_type_class_peek_parent (
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeHandle gClass);
+            IntPtr gClass);
         
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
@@ -212,7 +203,7 @@ namespace GISharp.GObject
         static extern void g_type_class_add_private (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeHandle gClass,
+            IntPtr gClass,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UInt64 privateSize);
@@ -300,7 +291,7 @@ namespace GISharp.GObject
         static extern void g_type_class_adjust_private_offset (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeHandle gClass,
+            IntPtr gClass,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
             Int32 privateSizeOrOffset);
@@ -334,7 +325,7 @@ namespace GISharp.GObject
         static extern Int32 g_type_class_get_instance_private_offset (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            SafeHandle gClass);
+            IntPtr gClass);
 
         /// <summary>
         /// Gets the offset of the private data for instances of @g_class.
@@ -366,7 +357,7 @@ namespace GISharp.GObject
         static extern IntPtr g_type_class_get_private (
             /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeHandle klass,
+            IntPtr klass,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType privateType);
@@ -392,7 +383,7 @@ namespace GISharp.GObject
         static extern void g_type_class_unref_uncached (
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
-            SafeHandle gClass);
+            IntPtr gClass);
 
         /// <summary>
         /// A variant of g_type_class_unref() for use in #GTypeClassCacheFunc

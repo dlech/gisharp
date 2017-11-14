@@ -32,15 +32,14 @@ namespace GISharp.GObject
         // fail to install properties because class_init of GObject has not
         // been run yet to create the param spec pool.
         //
-        // The error is "g_param_spec_pool_lookup: assertaion 'pool != NULL' failed"
+        // The error is "g_param_spec_pool_lookup: assertion 'pool != NULL' failed"
         //
         // creating an object here and keeping it around forever will ensure
         // that class_init is run before we try to add any interfaces.
         //
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
-        static readonly Object.SafeHandle eternalObject =
-            GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
+        static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
 #pragma warning restore 414
 
         static GType ()
@@ -859,11 +858,14 @@ namespace GISharp.GObject
                     } else if (typeInfo.IsInterface) {
                         var nameWithoutIPrefix = type.FullName.Remove (type.FullName.LastIndexOf ('.') + 1, 1);
                         implementationType = typeInfo.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
+                    } else if (typeInfo.IsGenericType) {
+                        implementationType = typeInfo.BaseType;
                     }
                     var getGType = implementationType.GetTypeInfo ().GetMethod ("getGType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
                     if (getGType == null) {
-                        throw new ArgumentException ("Could not find getType() method.", nameof (type));
+                        var message = $"Could not find getType() method for {implementationType.FullName}.";
+                        throw new ArgumentException (message, nameof (type));
                     }
                     var gtype = (GType)getGType.Invoke (null, null);
                     if (gtype == Invalid) {
@@ -910,12 +912,12 @@ namespace GISharp.GObject
                         }
                         var gtypeAttr = ifaceType.GetTypeInfo ().GetCustomAttribute<GTypeAttribute> ();
                         if (gtypeAttr == null) {
-                            // only care about interfaces registed with the GObject
-                            // type system
+                            // only care about interfaces registered with the
+                            // GObject type system
                             continue;
                         }
                         var ifaceGType = ifaceType.GetGType ();
-                        var typeInterface = TypeInterface.GetDefault (ifaceGType);
+                        var typeInterface = new DefaultTypeInterface (ifaceGType);
                         var interfaceInfo = typeInterface.CreateInterfaceInfo (type);
                         AddInterfaceStatic (gtype, ifaceGType, interfaceInfo);
                     }
@@ -2658,5 +2660,8 @@ namespace GISharp.GObject
             }
             return GType.TypeOf (obj.GetType ());
         }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_type_default_interface_peek (GType type);
     }
 }

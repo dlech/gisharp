@@ -13,61 +13,49 @@ namespace GISharp.GLib
     /// following functions.
     /// </summary>
     [GType ("GHashTable", IsWrappedNativeType = true)]
-    public abstract class HashTable : Opaque
+    public abstract class HashTable : ReferenceCountedOpaque
     {
         protected readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
 
-        public sealed class SafeHandle : SafeOpaqueHandle
-		{
-			public static SafeHandle Zero = _Zero.Value;
-			static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-			readonly bool ownsElements;
-
-            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_hash_table_ref (IntPtr hashTable);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_hash_table_ref (handle);
-                }
-                SetHandle (handle);
-                if (ownership == Transfer.Full) {
-                    ownsElements = true;
-                }
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_hash_table_destroy (IntPtr hashTable);
-
-            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_hash_table_unref (IntPtr hashTable);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    if (ownsElements) {
-                        g_hash_table_destroy (handle);
-                    } else {
-                        g_hash_table_unref (handle);
-                    }
-                    return true;
-                } catch {
-                    return false;
-                }
+        public HashTable (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_hash_table_ref (handle);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_hash_table_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_hash_table_ref (IntPtr hashTable);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_hash_table_ref (Handle);
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_hash_table_destroy (IntPtr hashTable);
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_hash_table_unref (IntPtr hashTable);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_hash_table_unref (Handle);
+        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern GType g_hash_table_get_type ();
+        static extern GType g_hash_table_get_type ();
 
         static GType getGType ()
         {
@@ -78,10 +66,6 @@ namespace GISharp.GLib
         {
             HashFuncTable = new ConditionalWeakTable<Delegate, NativeHashFunc> ();
             KeyEqualFuncTable = new ConditionalWeakTable<Delegate, NativeEqualFunc> ();
-        }
-
-        protected HashTable (SafeHandle handle) : base (handle)
-        {
         }
 
         /// <summary>
@@ -169,7 +153,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.32")]
         protected static extern bool g_hash_table_add (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key);
 
         /// <summary>
@@ -184,7 +168,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.32")]
         protected static extern bool g_hash_table_contains (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key);
 
         /// <summary>
@@ -220,7 +204,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.4")]
         protected static extern IntPtr g_hash_table_find (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             NativeHRFunc predicate,
             IntPtr userData);
 
@@ -247,7 +231,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void g_hash_table_foreach (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             NativeHFunc func,
             IntPtr userData);
 
@@ -276,7 +260,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint g_hash_table_foreach_remove (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             NativeHRFunc func,
             IntPtr userData);
 
@@ -304,7 +288,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint g_hash_table_foreach_steal (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             NativeHRFunc func,
             IntPtr userData);
 
@@ -324,7 +308,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.14")]
         protected static extern IntPtr g_hash_table_get_keys (
-            SafeHandle hashTable);
+            IntPtr hashTable);
 
         /// <summary>
         /// Retrieves every key inside @hashTable, as an array.
@@ -356,7 +340,7 @@ namespace GISharp.GLib
         [Since ("2.40")]
         [return: MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)]
         protected static extern IntPtr[] g_hash_table_get_keys_as_array (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             out uint length);
 
         /// <summary>
@@ -375,7 +359,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.14")]
         protected static extern IntPtr g_hash_table_get_values (
-            SafeHandle hashTable);
+            IntPtr hashTable);
 
         /// <summary>
         /// Inserts a new key and value into a #GHashTable.
@@ -402,7 +386,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern bool g_hash_table_insert (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key,
             IntPtr value);
 
@@ -423,7 +407,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern IntPtr g_hash_table_lookup (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key);
 
         /// <summary>
@@ -454,7 +438,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern bool g_hash_table_lookup_extended (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr lookupKey,
             out IntPtr origKey,
             out IntPtr value);
@@ -479,7 +463,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern bool g_hash_table_remove (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key);
 
         /// <summary>
@@ -497,7 +481,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.12")]
         protected static extern void g_hash_table_remove_all (
-            SafeHandle hashTable);
+            IntPtr hashTable);
 
         /// <summary>
         /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>.
@@ -532,7 +516,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern bool g_hash_table_replace (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key,
             IntPtr value);
 
@@ -547,7 +531,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint g_hash_table_size (
-            SafeHandle hashTable);
+            IntPtr hashTable);
 
         /// <summary>
         /// Returns the number of elements contained in the <see cref="HashTable{K,V}"/>.
@@ -578,7 +562,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern bool g_hash_table_steal (
-            SafeHandle hashTable,
+            IntPtr hashTable,
             IntPtr key);
 
         /// <summary>
@@ -591,7 +575,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.12")]
         protected static extern void g_hash_table_steal_all (
-            SafeHandle hashTable);
+            IntPtr hashTable);
 
         /// <summary>
         /// Removes all keys and their associated values from a <see cref="HashTable{K,V}"/>
@@ -827,14 +811,13 @@ namespace GISharp.GLib
         where TKey : Opaque
         where TValue : Opaque
     {
-        public HashTable (SafeHandle handle) : base (handle)
+        public HashTable (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
 
-        static SafeHandle New ()
+        static IntPtr New ()
         {
-            var ret_ = g_hash_table_new (g_direct_hash, g_direct_equal);
-            var ret = new SafeHandle (ret_, Transfer.Container);
+            var ret = g_hash_table_new (g_direct_hash, g_direct_equal);
             return ret;
         }
 
@@ -842,7 +825,7 @@ namespace GISharp.GLib
         /// Initializes a new instance of the <see cref="T:GISharp.GLib.HashTable`2"/> class.
         /// This instance does not maintain a reference to keys or values!
         /// </summary>
-        public HashTable () : this (New ())
+        public HashTable () : this (New (), Transfer.Full)
         {
         }
 
@@ -866,7 +849,7 @@ namespace GISharp.GLib
         public bool TryAdd (TKey key)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = g_hash_table_add (Handle, keyPtr);
             return ret;
         }
@@ -901,7 +884,7 @@ namespace GISharp.GLib
         public bool Contains (TKey key)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = g_hash_table_contains (Handle, keyPtr);
             return ret;
         }
@@ -939,14 +922,14 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (predicate));
             }
             NativeHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
-                var predicateKey = GetOrCreate<TKey> (predicateKeyPtr, Transfer.None);
-                var predicateValue = GetOrCreate<TValue> (predicateValuePtr, Transfer.None);
+                var predicateKey = GetInstance<TKey> (predicateKeyPtr, Transfer.None);
+                var predicateValue = GetInstance<TValue> (predicateValuePtr, Transfer.None);
                 var predicateRet = predicate (new KeyValuePair<TKey, TValue> (predicateKey, predicateValue));
                 return predicateRet;
             };
             var retPtr = g_hash_table_find (Handle, predicate_, IntPtr.Zero);
             GC.KeepAlive (predicate_);
-            var ret = GetOrCreate<TValue> (retPtr, Transfer.None);
+            var ret = GetInstance<TValue> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -972,8 +955,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (func));
             }
             NativeHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = GetOrCreate<TKey> (funcKeyPtr, Transfer.None);
-                var funcValue = GetOrCreate<TValue> (funcValuePtr, Transfer.None);
+                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
+                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
                 func (funcKey, funcValue);
             };
             g_hash_table_foreach (Handle, func_, IntPtr.Zero);
@@ -1004,8 +987,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (func));
             }
             NativeHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
-                var funcKey = GetOrCreate<TKey> (funcKeyPtr, Transfer.None);
-                var funcValue = GetOrCreate<TValue> (funcValuePtr, Transfer.None);
+                var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
+                var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
                 var funcRet = func (new KeyValuePair<TKey, TValue> (funcKey, funcValue));
                 return funcRet;
             };
@@ -1057,7 +1040,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_keys (Handle);
-                var ret = GetOrCreate<List<TKey>> (retPtr, Transfer.Container);
+                var ret = GetInstance<List<TKey>> (retPtr, Transfer.Container);
                 return ret;
             }
         }
@@ -1077,7 +1060,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_values (Handle);
-                var ret = GetOrCreate<List<TValue>> (retPtr, Transfer.Container);
+                var ret = GetInstance<List<TValue>> (retPtr, Transfer.Container);
                 return ret;
             }
         }
@@ -1101,8 +1084,8 @@ namespace GISharp.GLib
         public bool Insert (TKey key, TValue value)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
-            var valuePtr = value == null ? IntPtr.Zero : value.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
+            var valuePtr = value == null ? IntPtr.Zero : value.Handle;
             var ret = g_hash_table_insert (Handle, keyPtr, valuePtr);
             return ret;
         }
@@ -1122,9 +1105,9 @@ namespace GISharp.GLib
         public TValue Lookup (TKey key)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var retPtr = g_hash_table_lookup (Handle, keyPtr);
-            var ret = GetOrCreate<TValue> (retPtr, Transfer.None);
+            var ret = GetInstance<TValue> (retPtr, Transfer.None);
             return ret;
         }
 
@@ -1154,11 +1137,11 @@ namespace GISharp.GLib
         public bool Lookup (TKey lookupKey, out TKey origKey, out TValue value)
         {
             AssertNotDisposed ();
-            var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle.DangerousGetHandle ();
+            var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle;
             IntPtr origKeyPtr, valuePtr;
             var ret = g_hash_table_lookup_extended (Handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
-            origKey = GetOrCreate<TKey> (origKeyPtr, Transfer.None);
-            value = GetOrCreate<TValue> (valuePtr, Transfer.None);
+            origKey = GetInstance<TKey> (origKeyPtr, Transfer.None);
+            value = GetInstance<TValue> (valuePtr, Transfer.None);
             return ret;
         }
 
@@ -1174,7 +1157,7 @@ namespace GISharp.GLib
         public bool Remove (TKey key)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var ret = g_hash_table_remove (Handle, keyPtr);
             return ret;
         }
@@ -1200,8 +1183,8 @@ namespace GISharp.GLib
         public bool Replace (TKey key, TValue value)
         {
             AssertNotDisposed ();
-            var keyPtr = key == null ? IntPtr.Zero : key.Handle.DangerousGetHandle ();
-            var valuePtr = value == null ? IntPtr.Zero : value.Handle.DangerousGetHandle ();
+            var keyPtr = key == null ? IntPtr.Zero : key.Handle;
+            var valuePtr = value == null ? IntPtr.Zero : value.Handle;
             var ret = g_hash_table_replace (Handle, keyPtr, valuePtr);
             return ret;
         }

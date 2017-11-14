@@ -10,81 +10,51 @@ namespace GISharp.GObject
     [GType ("GParamInt64", IsWrappedNativeType = true)]
     public sealed class ParamSpecInt64 : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));
+        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Maximum));
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecInt64
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public long Minimum;
-                public long Maximum;
-                public long DefaultValue;
+            public ParamSpec.Struct ParentInstance;
+            public long Minimum;
+            public long Maximum;
+            public long DefaultValue;
 #pragma warning restore CS0649
-            }
-
-            public long Minimum {
-                get {
-                    var offset = Marshal.OffsetOf<ParamSpecInt64> (nameof (ParamSpecInt64.Minimum));
-                    var ret = Marshal.ReadInt64 (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public long Maximum {
-                get {
-                    var offset = Marshal.OffsetOf<ParamSpecInt64> (nameof (ParamSpecInt64.Maximum));
-                    var ret = Marshal.ReadInt64 (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public long DefaultValue {
-                get {
-                    var offset = Marshal.OffsetOf<ParamSpecInt64> (nameof (ParamSpecInt64.DefaultValue));
-                    var ret = Marshal.ReadInt64 (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public long Minimum {
             get {
-                return Handle.Minimum;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt64 (Handle, (int)minimumOffset);
+                return ret;
             }
         }
 
         public long Maximum {
             get {
-                return Handle.Maximum;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt64 (Handle, (int)maximumOffset);
+                return ret;
             }
         }
 
         public new long DefaultValue {
             get {
-                return Handle.DefaultValue;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt64 (Handle, (int)defaultValueOffset);
+                return ret;
             }
+        }
+
+        public ParamSpecInt64 (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         static GType getGType ()
         {
             return paramSpecTypes[7];
-        }
-
-        public ParamSpecInt64 (SafeHandle handle) : base (handle)
-        {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -97,7 +67,7 @@ namespace GISharp.GObject
             long defaultValue,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -111,8 +81,7 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var ret_ = g_param_spec_int64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var ret = g_param_spec_int64 (namePtr, nickPtr, blurbPtr, min, max, defaultValue, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -130,7 +99,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecInt64 (string name, string nick, string blurb, long min, long max, long defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags))
+            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.None)
         {
         }
     }

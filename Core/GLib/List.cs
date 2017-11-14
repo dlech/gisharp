@@ -9,44 +9,38 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class List : Opaque
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
-		{
-			// lists get a new head pointer, so we need to expose SetHandle() internally
-			internal void UpdateHead (IntPtr head)
-            {
-                SetHandle (head);
-            }
-
-            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_list_free (IntPtr array);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_list_free (handle);
-                    return true;
-                } catch {
-                    return false;
-                }
-            }
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
+        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Next));
+        static readonly IntPtr prevOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Prev));
+        
+        struct Struct
+        {
+            #pragma warning disable CS0649
+            public IntPtr Data;
+            public IntPtr Next;
+            public IntPtr Prev;
+            #pragma warning restore CS0649
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_list_free (IntPtr array);
 
-        protected List (SafeHandle handle) : base (handle)
+        protected override void Dispose (bool disposing)
         {
+            if (Handle != IntPtr.Zero) {
+                g_list_free (Handle);
+            }
+            base.Dispose (disposing);
         }
 
-        static SafeHandle New ()
+        protected List (IntPtr handle, Transfer ownership) : base (handle)
         {
-            var ret = new SafeHandle ();
-            return ret;
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        protected List () : this (New ())
+        protected List () : this (IntPtr.Zero, Transfer.Full)
         {
         }
 
@@ -86,8 +80,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_concat (
-            SafeHandle list1,
-            SafeHandle list2);
+            IntPtr list1,
+            IntPtr list2);
 
         /// <summary>
         /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
@@ -106,14 +100,11 @@ namespace GISharp.GLib
         /// </returns>
         protected List Concat (List list2)
         {
-            AssertNotDisposed ();
             if (list2 == null) {
                 throw new ArgumentNullException (nameof (list2));
             }
-            list2.AssertNotDisposed ();
-            var ret_ = g_list_concat (Handle, list2.Handle);
-            Handle.UpdateHead (ret_);
-            list2.Handle.SetHandleAsInvalid ();
+            Handle = g_list_concat (Handle, list2.Handle);
+            list2.Handle = IntPtr.Zero;
             return this;
         }
 
@@ -153,7 +144,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_append (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -176,9 +167,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Append (IntPtr data)
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_append (Handle, data);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_append (Handle, data);
             return this;
         }
 
@@ -198,8 +187,8 @@ namespace GISharp.GLib
         /// the start of the new list that holds the same data as @list
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SafeHandle g_list_copy (
-            SafeHandle list);
+        static extern IntPtr g_list_copy (
+            IntPtr list);
 
         /// <summary>
         /// Copies a <see cref="List{T}"/>.
@@ -215,7 +204,6 @@ namespace GISharp.GLib
         /// </returns>
         protected List Copy ()
         {
-            AssertNotDisposed ();
             var ret_ = g_list_copy (Handle);
             var ret = Activator.CreateInstance (GetType (), ret_);
             return (List)ret;
@@ -258,8 +246,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.34")]
-        static extern SafeHandle g_list_copy_deep (
-            SafeHandle list,
+        static extern IntPtr g_list_copy_deep (
+            IntPtr list,
             NativeCopyFunc func,
             IntPtr userData);
 
@@ -279,7 +267,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_delete_link (
-            SafeHandle list,
+            IntPtr list,
             IntPtr link);
 
         /// <summary>
@@ -296,7 +284,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_find (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -322,7 +310,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_find_custom (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data,
             NativeCompareFunc func);
 
@@ -338,7 +326,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_first (
-            SafeHandle list);
+            IntPtr list);
 
         /// <summary>
         /// Calls a function for each element of a #GList.
@@ -354,7 +342,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_foreach (
-            SafeHandle list,
+            IntPtr list,
             NativeFunc func,
             IntPtr userData);
         
@@ -371,7 +359,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.28")]
         static extern void g_list_free_full (
-            SafeHandle list,
+            IntPtr list,
             NativeDestroyNotify freeFunc);
 
         /// <summary>
@@ -390,7 +378,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_list_index (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -406,7 +394,6 @@ namespace GISharp.GLib
         /// </returns>
         protected int IndexOf (IntPtr data)
         {
-            AssertNotDisposed ();
             var ret = g_list_index (Handle, data);
             return ret;
         }
@@ -420,7 +407,7 @@ namespace GISharp.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_free_1 (
-            SafeHandle list);
+            IntPtr list);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -441,7 +428,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_insert (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data,
             int position);
 
@@ -461,9 +448,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Insert (IntPtr data, int position)
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_insert (Handle, data, position);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_insert (Handle, data, position);
             return this;
         }
 
@@ -485,7 +470,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_insert_before (
-            SafeHandle list,
+            IntPtr list,
             IntPtr sibling,
             IntPtr data);
 
@@ -516,7 +501,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_insert_sorted (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data,
             NativeCompareFunc func);
 
@@ -551,7 +536,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
         static extern IntPtr g_list_insert_sorted_with_data (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data,
             NativeCompareDataFunc func,
             IntPtr userData);
@@ -568,7 +553,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_last ( 
-            SafeHandle list);
+            IntPtr list);
 
         /// <summary>
         /// Gets the number of elements in a #GList.
@@ -586,7 +571,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern uint g_list_length (
-            SafeHandle list);
+            IntPtr list);
 
         /// <summary>
         /// Gets the number of elements in a <see cref="List{T}"/>.
@@ -601,7 +586,6 @@ namespace GISharp.GLib
         /// </returns>
         public int Length {
             get {
-                AssertNotDisposed ();
                 return (int)g_list_length (Handle);
             }
         }
@@ -621,7 +605,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_nth (
-            SafeHandle list,
+            IntPtr list,
             uint n);
 
         /// <summary>
@@ -639,7 +623,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_nth_data (
-            SafeHandle list,
+            IntPtr list,
             uint n);
 
         /// <summary>
@@ -653,7 +637,6 @@ namespace GISharp.GLib
         ///     is off the end of the <see cref="List{T}"/>
         /// </returns>
         protected IntPtr NthData (int n) {
-            AssertNotDisposed ();
             if (n < 0) {
                 throw new ArgumentOutOfRangeException (nameof (n));
             }
@@ -676,7 +659,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_nth_prev (
-            SafeHandle list,
+            IntPtr list,
             uint n);
 
         /// <summary>
@@ -695,7 +678,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_list_position (
-            SafeHandle list,
+            IntPtr list,
             IntPtr llink);
 
         /// <summary>
@@ -728,7 +711,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_prepend (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -747,9 +730,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Prepend (IntPtr data)
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_prepend (Handle, data);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_prepend (Handle, data);
             return this;
         }
 
@@ -769,7 +750,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_remove (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -785,9 +766,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Remove (IntPtr data)
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_remove (Handle, data);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_remove (Handle, data);
             return this;
         }
 
@@ -808,7 +787,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_remove_all (
-            SafeHandle list,
+            IntPtr list,
             IntPtr data);
 
         /// <summary>
@@ -825,9 +804,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List RemoveAll (IntPtr data)
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_remove_all (Handle, data);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_remove_all (Handle, data);
             return this;
         }
 
@@ -857,7 +834,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_remove_link (
-            SafeHandle list,
+            IntPtr list,
             IntPtr llink);
 
         /// <summary>
@@ -872,7 +849,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_reverse (
-            SafeHandle list);
+            IntPtr list);
 
         /// <summary>
         /// Reverses a <see cref="List{T}"/>.
@@ -883,9 +860,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Reverse ()
         {
-            AssertNotDisposed ();
-            var ret_ = g_list_reverse (Handle);
-            Handle.UpdateHead (ret_);
+            Handle = g_list_reverse (Handle);
             return this;
         }
 
@@ -908,7 +883,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_sort (
-            SafeHandle list,
+            IntPtr list,
             NativeCompareFunc compareFunc);
 
         /// <summary>
@@ -927,13 +902,11 @@ namespace GISharp.GLib
         /// </returns>
         protected List Sort (NativeCompareFunc compareFunc)
         {
-            AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            var ret_ = g_list_sort (Handle, compareFunc);
+            Handle = g_list_sort (Handle, compareFunc);
             GC.KeepAlive (compareFunc);
-            Handle.UpdateHead (ret_);
             return this;
         }
         /// <summary>
@@ -954,7 +927,7 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_sort_with_data (
-            SafeHandle list,
+            IntPtr list,
             NativeCompareDataFunc compareFunc,
             IntPtr userData);
     }
@@ -999,7 +972,7 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> Append (T data)
         {
-            var ret = Append (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            var ret = Append (data?.Handle ?? IntPtr.Zero);
             return (List<T>)ret;
         }
 
@@ -1034,7 +1007,7 @@ namespace GISharp.GLib
         /// </returns>
         public int IndexOf (T data)
         {
-            var ret = IndexOf (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            var ret = IndexOf (data?.Handle ?? IntPtr.Zero);
             return ret;
         }
 
@@ -1054,7 +1027,7 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> Insert (T data, int position)
         {
-            var ret = Insert (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero, position);
+            var ret = Insert (data?.Handle ?? IntPtr.Zero, position);
             return (List<T>)ret;
         }
 
@@ -1071,7 +1044,7 @@ namespace GISharp.GLib
         public T this[int n] {
             get {
                 var ret_ = NthData (n);
-                var ret = GetOrCreate<T> (ret_, Transfer.None);
+                var ret = GetInstance<T> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -1092,7 +1065,7 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> Prepend (T data)
         {
-            var ret = Prepend (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            var ret = Prepend (data?.Handle ?? IntPtr.Zero);
             return (List<T>)ret;
         }
 
@@ -1109,7 +1082,7 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> Remove (T data)
         {
-            var ret = Remove (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            var ret = Remove (data?.Handle ?? IntPtr.Zero);
             return (List<T>)ret;
         }
 
@@ -1127,7 +1100,7 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> RemoveAll (T data)
         {
-            var ret = RemoveAll (data?.Handle.DangerousGetHandle () ?? IntPtr.Zero);
+            var ret = RemoveAll (data?.Handle ?? IntPtr.Zero);
             return (List<T>)ret;
         }
 
@@ -1160,13 +1133,12 @@ namespace GISharp.GLib
         /// </returns>
         public List<T> Sort (Comparison<T> compareFunc)
         {
-            AssertNotDisposed ();
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
             NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = GetOrCreate<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = GetOrCreate<T> (compareFuncBPtr, Transfer.None);
+                var compareFuncA = GetInstance<T> (compareFuncAPtr, Transfer.None);
+                var compareFuncB = GetInstance<T> (compareFuncBPtr, Transfer.None);
                 var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
                 return compareFuncRet;
             };

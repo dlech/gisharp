@@ -159,42 +159,26 @@ namespace GISharp.GLib
     [DebuggerDisplay ("{FormatString}")]
     public sealed class VariantType : Opaque, IEquatable<VariantType>
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_type_copy (IntPtr type);
+
+        public VariantType (IntPtr handle, Transfer ownership) : base (handle)
         {
-            public static SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-	        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_variant_type_copy (IntPtr type);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    handle = g_variant_type_copy (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_variant_type_free (IntPtr type);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_variant_type_free (handle);
-                    return true;
-                }
-                catch {
-                    return false;
-                }
+            if (ownership == Transfer.None) {
+                Handle = g_variant_type_copy (handle);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_variant_type_free (IntPtr type);
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_variant_type_free (Handle);
+            }
+            base.Dispose (disposing);
+        }
 
         // these static properties take the place of the G_VARIANT_TYPE_* macros
 
@@ -421,10 +405,6 @@ namespace GISharp.GLib
             return ret;
         }
 
-        public VariantType (SafeHandle handle) : base (handle)
-        {
-        }
-
         /// <summary>
         /// Creates a new #GVariantType corresponding to the type string given
         /// by @type_string.  It is appropriate to call g_variant_type_free() on
@@ -444,7 +424,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_variant_type_new (
+        static extern IntPtr g_variant_type_new (
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr typeString);
@@ -460,7 +440,7 @@ namespace GISharp.GLib
         /// a new #GVariantType
         /// </returns>
         [Since ("2.24")]
-        static SafeHandle New (string typeString)
+        static IntPtr New (string typeString)
         {
             if (typeString == null) {
                 throw new ArgumentNullException (nameof (typeString));
@@ -492,7 +472,7 @@ namespace GISharp.GLib
         /// if <paramref name="typeString"/> is not a vaild type string
         /// </exception>
         [Since ("2.24")]
-        public VariantType (string typeString) : this (New (typeString))
+        public VariantType (string typeString) : this (New (typeString), Transfer.Full)
         {
         }
 
@@ -513,10 +493,10 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_variant_type_new_array (
+        static extern IntPtr g_variant_type_new_array (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle element);
+            IntPtr element);
 
         /// <summary>
         /// Constructs the type corresponding to an array of elements of the
@@ -538,7 +518,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (element));
             }
             var ret_ = g_variant_type_new_array (element.Handle);
-            var ret = new VariantType (ret_);
+            var ret = new VariantType (ret_, Transfer.Full);
             return ret;
         }
 
@@ -562,13 +542,13 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_variant_type_new_dict_entry (
+        static extern IntPtr g_variant_type_new_dict_entry (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle key,
+            IntPtr key,
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle value);
+            IntPtr value);
 
         /// <summary>
         /// Constructs the type corresponding to a dictionary entry with a key
@@ -596,7 +576,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (value));
             }
             var ret_ = g_variant_type_new_dict_entry (key.Handle, value.Handle);
-            var ret = new VariantType (ret_);
+            var ret = new VariantType (ret_, Transfer.Full);
             return ret;
         }
 
@@ -617,10 +597,10 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_variant_type_new_maybe (
+        static extern IntPtr g_variant_type_new_maybe (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle element);
+            IntPtr element);
 
         /// <summary>
         /// Constructs the type corresponding to a maybe instance containing
@@ -642,7 +622,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (element));
             }
             var ret_ = g_variant_type_new_maybe (element.Handle);
-            var ret = new VariantType (ret_);
+            var ret = new VariantType (ret_, Transfer.Full);
             return ret;
         }
 
@@ -668,7 +648,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:full */
-        static extern SafeHandle g_variant_type_new_tuple (
+        static extern IntPtr g_variant_type_new_tuple (
             /* <array length="1" zero-terminated="0" type="GVariantType**">
                 <type name="VariantType" type="GVariantType*" managed-name="VariantType" />
                 </array> */
@@ -705,7 +685,7 @@ namespace GISharp.GLib
             var items_ = GMarshal.OpaqueCArrayToPtr<VariantType> (items, false);
             try {
                 var ret_ = g_variant_type_new_tuple (items_, items.Length);
-                var ret = new VariantType (ret_);
+                var ret = new VariantType (ret_, Transfer.Full);
                 return ret;
             }
             finally {
@@ -820,7 +800,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_dup_string (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Returns a newly-allocated copy of the type string corresponding to
@@ -860,7 +840,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_element (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines the element type of an array or maybe type.
@@ -882,7 +862,7 @@ namespace GISharp.GLib
                     throw new InvalidOperationException ();
                 }
                 var ret_ = g_variant_type_element (Handle);
-                var ret = Opaque.GetOrCreate<VariantType> (ret_, Transfer.None);
+                var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -916,10 +896,10 @@ namespace GISharp.GLib
         static extern bool g_variant_type_equal (
             /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type1,
+            IntPtr type1,
             /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type2);
+            IntPtr type2);
 
         /// <summary>
         /// Compares this type and <paramref name="type2"/> for equality.
@@ -1005,7 +985,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_first (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Gets the items type of a tuple or dictionary entry type.
@@ -1037,7 +1017,7 @@ namespace GISharp.GLib
                     throw new InvalidOperationException ("only valid for non-generic tuple types");
                 }
                 for (var ret_ = g_variant_type_first (Handle); ret_ != IntPtr.Zero; ret_ = g_variant_type_next (ret_)) {
-                    var ret = Opaque.GetOrCreate<VariantType> (ret_, Transfer.None);
+                    var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
                     yield return ret;
                 }
             }
@@ -1061,7 +1041,7 @@ namespace GISharp.GLib
         static extern ulong g_variant_type_get_string_length (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Hashes @type.
@@ -1084,7 +1064,7 @@ namespace GISharp.GLib
         static extern uint g_variant_type_hash (
             /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Hashes this variant type.
@@ -1122,7 +1102,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_array (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is an array type.  This is true if the
@@ -1170,7 +1150,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_basic (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is a basic type.
@@ -1220,7 +1200,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_container (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is a container type.
@@ -1271,7 +1251,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_definite (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is definite (i.e. not indefinite).
@@ -1320,7 +1300,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_dict_entry (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is a dictionary entry type.  This is
@@ -1365,7 +1345,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_maybe (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is a maybe type.  This is true if the
@@ -1412,10 +1392,10 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_subtype_of (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type,
+            IntPtr type,
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle supertype);
+            IntPtr supertype);
 
         /// <summary>
         /// Checks if this variant type is a subtype of <paramref name="supertype"/>.
@@ -1468,7 +1448,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_tuple (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is a tuple type.  This is true if the
@@ -1508,7 +1488,7 @@ namespace GISharp.GLib
         static extern bool g_variant_type_is_variant (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines if this variant type is the variant type.
@@ -1546,7 +1526,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_key (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Gets the key type of a dictionary entry type.
@@ -1568,7 +1548,7 @@ namespace GISharp.GLib
                     throw new InvalidOperationException ("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_key (Handle);
-                var ret = Opaque.GetOrCreate<VariantType> (ret_, Transfer.None);
+                var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -1599,7 +1579,7 @@ namespace GISharp.GLib
         static extern ulong g_variant_type_n_items (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines the number of items contained in a tuple or
@@ -1678,7 +1658,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_peek_string (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Determines the value type of a dictionary entry type.
@@ -1699,7 +1679,7 @@ namespace GISharp.GLib
         static extern IntPtr g_variant_type_value (
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
-            SafeHandle type);
+            IntPtr type);
 
         /// <summary>
         /// Gets the value type of a dictionary entry type.
@@ -1718,7 +1698,7 @@ namespace GISharp.GLib
                     throw new InvalidOperationException ("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_value (Handle);
-                var ret = Opaque.GetOrCreate<VariantType> (ret_, Transfer.None);
+                var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
         }

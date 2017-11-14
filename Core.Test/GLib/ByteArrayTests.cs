@@ -16,7 +16,7 @@ namespace GISharp.Core.Test.GLib
 
         static byte getItemAt (ByteArray array, int index)
         {
-            var data = Marshal.ReadIntPtr (array.Handle.DangerousGetHandle ());
+            var data = Marshal.ReadIntPtr (array.Handle);
             return Marshal.ReadByte (data, index);
         }
 

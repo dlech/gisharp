@@ -71,11 +71,11 @@ namespace GISharp.Core.Test.GObject
             }
         }
 
-        public TestObject () : this (New<TestObject> ())
+        public TestObject () : this (New<TestObject> (), Transfer.Full)
         {
         }
 
-        public TestObject (SafeHandle handle) : base (handle)
+        public TestObject (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
     }

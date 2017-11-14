@@ -12,7 +12,7 @@ namespace GISharp.Core.Test.GLib
         public void TestCurrent ()
         {
             lock (MainContextTests.MainContextLock) {
-                // there is no main loop running, so there should be no curent source
+                // there is no main loop running, so there should be no current source
                 Assert.That (Source.Current, Is.Null);
 
                 // if we are in a callback, there should be a source.

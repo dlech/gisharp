@@ -10,92 +10,40 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeInterface : Opaque
     {
-        public abstract class SafeTypeInterfaceHandle : SafeOpaqueHandle
+        static readonly IntPtr gTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.GType));
+        static readonly IntPtr gInstanceTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.GInstanceType));
+
+        protected struct Struct
         {
-            internal protected struct TypeInterfaceStruct
-            {
-                #pragma warning disable CS0649
-                public GType GType;
-                public GType GInstanceType;
-                #pragma warning restore CS0649
-            }
-
-            public GType GType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var ret = Marshal.PtrToStructure<GType> (handle);
-                    return ret;
-                }
-            }
-
-            public GType GInstanceType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<TypeInterfaceStruct> (nameof (TypeInterfaceStruct.GInstanceType));
-                    var ret = Marshal.PtrToStructure<GType> (handle + (int)offset);
-                    return ret;
-                }
-            }
-        }
-
-        public sealed class SafeTypeDefaultInterfaceHandle : SafeTypeInterfaceHandle
-        {
-            public SafeTypeDefaultInterfaceHandle (GType type)
-            {
-                if (!type.IsInterface) {
-                    var msg = "Type must be an interface";
-                    throw new ArgumentException (msg, nameof (type));
-                }
-                var ret = g_type_default_interface_ref (type);
-                SetHandle (ret);
-            }
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_type_default_interface_unref (handle);
-                    return true;
-                } catch {
-                    return false;
-                }
-            }
-        }
-
-        public new SafeTypeInterfaceHandle Handle {
-            get {
-                return (SafeTypeInterfaceHandle)base.Handle;
-            }
+            #pragma warning disable CS0649
+            public GType GType;
+            public GType GInstanceType;
+            #pragma warning restore CS0649
         }
 
         public GType GType {
             get {
-                return Handle.GType;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<GType> (Handle + (int)gTypeOffset);
+                return ret;
             }
         }
+
         public GType GInstanceType {
             get {
-                return Handle.GInstanceType;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<GType> (Handle + (int)gInstanceTypeOffset);
+                return ret;
             }
+        }
+
+        protected TypeInterface (IntPtr handle, Transfer ownership) : base (handle)
+        {
         }
 
         public abstract Type StructType { get; }
 
         public abstract InterfaceInfo CreateInterfaceInfo (Type instanceType);
-
-        protected TypeInterface (SafeTypeInterfaceHandle handle) : base (handle)
-        {
-        }
-
-        public static TypeInterface GetDefault (GType type)
-        {
-            var ret_ = new SafeTypeDefaultInterfaceHandle (type);
-            var ret = Activator.CreateInstance (type.GetGTypeStruct (), ret_);
-            return (TypeInterface)ret;
-        }
 
         /// <summary>
         /// Adds @prerequisite_type to the list of prerequisites of @interface_type.
@@ -287,6 +235,29 @@ namespace GISharp.GObject
             /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
             /* transfer-ownership:none */
             IntPtr gIface);
+    }
+
+    class DefaultTypeInterface : TypeInterface
+    {
+        static IntPtr New (GType type) => g_type_default_interface_ref (type);
+
+        public DefaultTypeInterface(GType type) : base (New (type), Transfer.Full)
+        {
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                g_type_default_interface_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        public override Type StructType => throw new NotImplementedException ();
+
+        public override InterfaceInfo CreateInterfaceInfo (Type instanceType) =>
+            throw new NotImplementedException ();
+
 
         /// <summary>
         /// If the interface type @g_type is currently in use, returns its

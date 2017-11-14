@@ -106,7 +106,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern Source.SafeHandle g_idle_source_new ();
+        static extern IntPtr g_idle_source_new ();
 
         /// <summary>
         /// Creates a new idle source.
@@ -124,7 +124,7 @@ namespace GISharp.GLib
         public static Source CreateSource ()
         {
             var ret_ = g_idle_source_new ();
-            var ret = new UnmanagedSource (ret_);
+            var ret = new UnmanagedSource (ret_, Transfer.Full);
             return ret;
         }
     }

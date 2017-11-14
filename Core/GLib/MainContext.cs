@@ -11,46 +11,39 @@ namespace GISharp.GLib
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
     [GType ("GMainContext", IsWrappedNativeType = true)]
-    public sealed class MainContext : Opaque
+    public sealed class MainContext : ReferenceCountedOpaque
     {
-        public sealed class SafeHandle : SafeOpaqueHandle
+        public MainContext (IntPtr handle, Transfer ownership) : base (handle)
         {
-            public static SafeHandle Zero => _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-	        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_main_context_ref (IntPtr context);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_main_context_ref (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_main_context_unref (IntPtr context);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    g_main_context_unref (handle);
-                    return true;
-                } catch {
-                    return false;
-                }
+            if (ownership == Transfer.None) {
+                g_main_context_ref (handle);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
-
-        public MainContext (SafeHandle handle) : base (handle)
+        protected override void Dispose (bool disposing)
         {
+            if (Handle != IntPtr.Zero) {
+                g_main_context_unref (Handle);
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_main_context_ref (IntPtr context);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_main_context_ref (Handle);
+        }
+
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_main_context_unref (IntPtr context);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_main_context_unref (Handle);
         }
 
         /// <summary>
@@ -64,10 +57,9 @@ namespace GISharp.GLib
         /* transfer-ownership:full */
         static extern IntPtr g_main_context_new ();
 
-        static SafeHandle New ()
+        static IntPtr New ()
         {
-            var ret_ = g_main_context_new ();
-            var ret = new SafeHandle (ret_, Transfer.Full);
+            var ret = g_main_context_new ();
             return ret;
         }
 
@@ -77,7 +69,7 @@ namespace GISharp.GLib
         /// <returns>
         /// the new <see cref="MainContext"/>
         /// </returns>
-        public MainContext () : this (New ())
+        public MainContext () : this (New (), Transfer.Full)
         {
         }
 
@@ -107,7 +99,7 @@ namespace GISharp.GLib
         public static MainContext Default {
             get {
                 var ret_ = g_main_context_default ();
-                var ret = GetOrCreate<MainContext> (ret_, Transfer.None);
+                var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
         }
@@ -140,7 +132,7 @@ namespace GISharp.GLib
         public static MainContext ThreadDefault {
             get {
                 var ret_ = g_main_context_ref_thread_default ();
-                var ret = GetOrCreate<MainContext> (ret_, Transfer.Full);
+                var ret = GetInstance<MainContext> (ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -498,7 +490,7 @@ namespace GISharp.GLib
         static extern bool g_main_context_acquire (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Tries to become the owner of the specified context.
@@ -547,7 +539,7 @@ namespace GISharp.GLib
         static extern void g_main_context_add_poll (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
             PollFD fd,
@@ -604,7 +596,7 @@ namespace GISharp.GLib
         static extern int g_main_context_check (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int maxPriority,
@@ -663,7 +655,7 @@ namespace GISharp.GLib
         static extern void g_main_context_dispatch (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Dispatches all pending sources.
@@ -708,7 +700,7 @@ namespace GISharp.GLib
         static extern IntPtr g_main_context_find_source_by_id (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint sourceId);
@@ -738,7 +730,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var ret_ = g_main_context_find_source_by_id (Handle, sourceId);
-            var ret = GetOrCreate<Source> (ret_, Transfer.None);
+            var ret = GetInstance<Source> (ret_, Transfer.None);
             return ret;
         }
 
@@ -757,7 +749,7 @@ namespace GISharp.GLib
         static extern NativePollFunc g_main_context_get_poll_func (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Gets and sets the function to use to handle polling of file descriptors.
@@ -822,7 +814,7 @@ namespace GISharp.GLib
         static extern void g_main_context_invoke_full (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
@@ -878,7 +870,7 @@ namespace GISharp.GLib
         static extern bool g_main_context_is_owner (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Determines whether this thread holds the (recursive)
@@ -928,7 +920,7 @@ namespace GISharp.GLib
         static extern bool g_main_context_iteration (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             bool mayBlock);
@@ -976,7 +968,7 @@ namespace GISharp.GLib
         static extern bool g_main_context_pending (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Checks if any sources have pending events for the given context.
@@ -1005,7 +997,7 @@ namespace GISharp.GLib
         static extern void g_main_context_pop_thread_default (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Pops this context off the thread-default context stack (verifying that
@@ -1043,7 +1035,7 @@ namespace GISharp.GLib
         static extern bool g_main_context_prepare (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
             out int priority);
@@ -1122,7 +1114,7 @@ namespace GISharp.GLib
         static extern void g_main_context_push_thread_default (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Acquires this context and sets it as the thread-default context for the
@@ -1206,7 +1198,7 @@ namespace GISharp.GLib
         static extern int g_main_context_query (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int maxPriority,
@@ -1265,7 +1257,7 @@ namespace GISharp.GLib
         static extern void g_main_context_release (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// Releases ownership of a context previously acquired by this thread
@@ -1295,7 +1287,7 @@ namespace GISharp.GLib
         static extern void g_main_context_remove_poll (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
             PollFD fd);
@@ -1335,7 +1327,7 @@ namespace GISharp.GLib
         static extern void g_main_context_set_poll_func (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context,
+            IntPtr context,
             /* <type name="PollFunc" type="GPollFunc" managed-name="PollFunc" /> */
             /* transfer-ownership:none */
             NativePollFunc func);
@@ -1380,7 +1372,7 @@ namespace GISharp.GLib
         static extern void g_main_context_wakeup (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            SafeHandle context);
+            IntPtr context);
 
         /// <summary>
         /// If this context is currently blocking in <see cref="Iteration"/>

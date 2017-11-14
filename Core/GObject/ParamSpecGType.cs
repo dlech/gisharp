@@ -12,54 +12,31 @@ namespace GISharp.GObject
     [GType ("GParamGType", IsWrappedNativeType = true)]
     public sealed class ParamSpecGType : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr isATypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.IsAType));
+        
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecGType
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public GType IsAType;
+            public ParamSpec.Struct ParentInstance;
+            public GType IsAType;
 #pragma warning restore CS0649
-            }
-
-            public GType IsAType {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecGType> (nameof (ParamSpecGType.IsAType));
-                    var ret = Marshal.PtrToStructure<GType> (handle + (int)offset);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public GType IsAType {
             get {
-                return Handle.IsAType;
+                AssertNotDisposed ();
+                var ret = Marshal.PtrToStructure<GType> (Handle + (int)isATypeOffset);
+                return ret;
             }
+        }
+
+        public ParamSpecGType (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         static GType getGType ()
         {
             return paramSpecTypes[21];
-        }
-
-        public ParamSpecGType (SafeHandle handle) : base (handle)
-        {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -70,7 +47,7 @@ namespace GISharp.GObject
             GType isAType,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, GType isAType, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -84,8 +61,7 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var ret_ = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var ret = g_param_spec_gtype (namePtr, nickPtr, blurbPtr, isAType, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -103,7 +79,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
-            : this (New (name, nick, blurb, isAType, flags))
+            : this (New (name, nick, blurb, isAType, flags), Transfer.None)
         {
         }
     }

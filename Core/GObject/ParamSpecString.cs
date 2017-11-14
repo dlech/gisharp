@@ -10,92 +10,28 @@ namespace GISharp.GObject
     [GType ("GParamString", IsWrappedNativeType = true)]
     public sealed class ParamSpecString : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+        static readonly IntPtr csetFirstOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CsetFirst));
+        static readonly IntPtr csetNthOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CsetNth));
+        static readonly IntPtr substitutorOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Substitutor));
+        static readonly IntPtr bitfieldOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Bitfield));
+
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecString
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public IntPtr DefaultValue;
-                public IntPtr CsetFirst;
-                public IntPtr CsetNth;
-                public sbyte Substitutor;
-                public uint Bitfield;
+            public ParamSpec.Struct ParentInstance;
+            public IntPtr DefaultValue;
+            public IntPtr CsetFirst;
+            public IntPtr CsetNth;
+            public sbyte Substitutor;
+            public uint Bitfield;
 #pragma warning restore CS0649
-            }
-
-            public IntPtr DefaultValue {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.DefaultValue));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public IntPtr CsetFirst {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.CsetFirst));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public IntPtr CsetNth {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.CsetNth));
-                    var ret = Marshal.ReadIntPtr (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public sbyte Substitutor {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.Substitutor));
-                    var ret = Marshal.ReadByte (handle, (int)offset);
-                    return (sbyte)ret;
-                }
-            }
-
-            public uint Bitfield {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecString> (nameof (ParamSpecString.Bitfield));
-                    var ret = Marshal.ReadInt32 (handle, (int)offset);
-                    return (uint)ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public new string DefaultValue {
             get {
-                var ret_ = Handle.DefaultValue;
+                AssertNotDisposed ();
+                var ret_ = Marshal.ReadIntPtr (Handle, (int)defaultValueOffset);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -103,7 +39,8 @@ namespace GISharp.GObject
 
         public string CsetFirst {
             get {
-                var ret_ = Handle.CsetFirst;
+                AssertNotDisposed ();
+                var ret_ = Marshal.ReadIntPtr (Handle, (int)csetFirstOffset);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -111,7 +48,8 @@ namespace GISharp.GObject
 
         public string CsetNth {
             get {
-                var ret_ = Handle.CsetNth;
+                AssertNotDisposed ();
+                var ret_ = Marshal.ReadIntPtr (Handle, (int)csetNthOffset);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -119,20 +57,34 @@ namespace GISharp.GObject
 
         public sbyte Substitutor {
             get {
-                return Handle.Substitutor;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadByte (Handle, (int)substitutorOffset);
+                return (sbyte)ret;
             }
+        }
+
+        uint Bitfield {
+            get {
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt32 (Handle, (int)bitfieldOffset);
+                return (uint)ret;
+            }
+        }
+
+        public ParamSpecString (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         public bool NullFoldIfEmpty {
             get {
-                var ret = Convert.ToBoolean (Handle.Bitfield & 0x1);
+                var ret = Convert.ToBoolean (Bitfield & 0x1);
                 return ret;
             }
         }
 
         public bool EnsureNonNull {
             get {
-                var ret = Convert.ToBoolean (Handle.Bitfield & 0x2);
+                var ret = Convert.ToBoolean (Bitfield & 0x2);
                 return ret;
             }
         }
@@ -140,10 +92,6 @@ namespace GISharp.GObject
         static GType getGType ()
         {
             return paramSpecTypes[14];
-        }
-
-        public ParamSpecString (SafeHandle handle) : base (handle)
-        {
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -154,7 +102,7 @@ namespace GISharp.GObject
             IntPtr defaultValue,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -169,8 +117,7 @@ namespace GISharp.GObject
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
             var defaultValuePtr = GMarshal.StringToUtf8Ptr (defaultValue);
-            var ret_ = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var ret = g_param_spec_string (namePtr, nickPtr, blurbPtr, defaultValuePtr, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -189,7 +136,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags))
+            : this (New (name, nick, blurb, defaultValue, flags), Transfer.None)
         {
         }
     }

@@ -43,7 +43,7 @@ namespace GISharp.GObject
         static extern void g_signal_handler_disconnect (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeHandle instance,
+            IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
             nulong handlerId);
@@ -175,7 +175,7 @@ namespace GISharp.GObject
         static extern bool g_signal_handler_is_connected (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeHandle instance,
+            IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
             nulong handlerId);
@@ -220,7 +220,7 @@ namespace GISharp.GObject
         static extern void g_signal_handler_unblock (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            Object.SafeHandle instance,
+            IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
             nulong handlerId);

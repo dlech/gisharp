@@ -16,109 +16,98 @@ namespace GISharp.GObject
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {
-        public class SafeHandle : SafeTypeInstanceHandle
+        static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
+
+        // this is a pointer to a GCHandle, not just the GCHandle cast as an IntPtr
+        IntPtr gcHandlePtr;
+        
+        protected new struct Struct
         {
-            protected struct Object
-            {
 #pragma warning disable CS0649
-                public TypeInstanceStruct GTypeInstance;
-                public uint RefCount;
-                public IntPtr Qdata;
+            public TypeInstance.Struct GTypeInstance;
+            public uint RefCount;
+            public IntPtr Qdata;
 #pragma warning restore CS0649
-            }
+        }
 
-            public uint RefCount {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<Object> (nameof (Object.RefCount));
-                    return (uint)Marshal.ReadInt32 (handle + (int)offset);
-                }
-            }
-
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern IntPtr g_object_ref (IntPtr @object);
-
-            public SafeHandle (IntPtr handle, Transfer ownership)
-            {
-                if (ownership == Transfer.None) {
-                    g_object_ref (handle);
-                }
-                SetHandle (handle);
-            }
-
-            public SafeHandle ()
-            {
-            }
-
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_object_unref (IntPtr @object);
-
-            protected override bool ReleaseHandle ()
-            {
-                try {
-                    // we either have a toggle reference or a regular reference, but not both
-                    if (gcHandlePtr != IntPtr.Zero) {
-                        g_object_remove_toggle_ref (handle, toggleNotifyCallback, gcHandlePtr);
-                        var gcHandle = (GCHandle)Marshal.ReadIntPtr (gcHandlePtr);
-                        gcHandle.Free ();
-                        GMarshal.Free (gcHandlePtr);
-                    }
-                    else {
-                        g_object_unref (handle);
-                    }
-                    return true;
-                }
-                catch {
-                    return false;
-                }
-            }
-
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_object_add_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
-
-            [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-            static extern void g_object_remove_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
-
-            static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
-            {
-                // free the existing GCHandle
-                var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (data));
-                var obj = gcHandle.Target;
-                gcHandle.Free ();
-
-                // alloc a new GCHandle with weak/strong reference depending on isLastRef
-                gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
-                Marshal.WriteIntPtr (data, (IntPtr)gcHandle);
-            }
-
-            // this is a pointer to a GCHandle, not just the GCHandle cast as an IntPtr
-            IntPtr gcHandlePtr;
-
-            internal void AddToggleRef (GObject.Object obj)
-            {
-                if (IsClosed) {
-                    throw new ObjectDisposedException (null);
-                }
-                if (gcHandlePtr != IntPtr.Zero) {
-                    throw new InvalidOperationException ("AddToggleRef has already been called for this SafeHandle");
-                }
-
-                // always start with a strong reference to the managed object
-                gcHandlePtr = GMarshal.Alloc (IntPtr.Size);
-                var gcHandle = GCHandle.Alloc (obj);
-                Marshal.WriteIntPtr (gcHandlePtr, (IntPtr)gcHandle);
-                g_object_add_toggle_ref (handle, toggleNotifyCallback, gcHandlePtr);
-
-                // SafeHandle always owns a reference so release it now that we have a toogle reference instead.
-                // If this is the last normal refernece, toggleNotifyCallback will be called immediatly
-                // to convert the strong reference to a weak reference
-                g_object_unref (handle);
+        uint RefCount {
+            get {
+                AssertNotDisposed ();
+                return (uint)Marshal.ReadInt32 (Handle + (int)refCountOffset);
             }
         }
 
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
+        public Object (IntPtr handle, Transfer ownership) : base (handle)
+        {
+            if (ownership == Transfer.None) {
+                g_object_ref (handle);
+            }
+
+            // always start with a strong reference to the managed object
+            gcHandlePtr = GMarshal.Alloc (IntPtr.Size);
+            var gcHandle = GCHandle.Alloc (this);
+            Marshal.WriteIntPtr (gcHandlePtr, (IntPtr)gcHandle);
+            g_object_add_toggle_ref (Handle, toggleNotifyCallback, gcHandlePtr);
+
+            // IntPtr always owns a reference so release it now that we have a toggle reference instead.
+            // If this is the last normal reference, toggleNotifyCallback will be called immediately
+            // to convert the strong reference to a weak reference
+            g_object_unref (Handle);
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            if (Handle != IntPtr.Zero) {
+                // we either have a toggle reference or a regular reference, but not both
+                if (gcHandlePtr != IntPtr.Zero) {
+                    g_object_remove_toggle_ref (Handle, toggleNotifyCallback, gcHandlePtr);
+                    var gcHandle = (GCHandle)Marshal.ReadIntPtr (gcHandlePtr);
+                    gcHandle.Free ();
+                    GMarshal.Free (gcHandlePtr);
+                    gcHandlePtr = IntPtr.Zero;
+                }
+                else {
+                    g_object_unref (Handle);
+                }
+            }
+            base.Dispose (disposing);
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_ref (IntPtr @object);
+
+        protected override void Ref ()
+        {
+            AssertNotDisposed ();
+            g_object_ref (Handle);
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_unref (IntPtr @object);
+
+        protected override void Unref ()
+        {
+            AssertNotDisposed ();
+            g_object_unref (Handle);
+        }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_add_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_remove_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+
+        static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
+        {
+            // free the existing GCHandle
+            var gcHandle = (GCHandle)Marshal.ReadIntPtr (data);
+            var obj = gcHandle.Target;
+            gcHandle.Free ();
+
+            // alloc a new GCHandle with weak/strong reference depending on isLastRef
+            gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
+            Marshal.WriteIntPtr (data, (IntPtr)gcHandle);
+        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_object_get_type ();
@@ -128,17 +117,12 @@ namespace GISharp.GObject
             return g_object_get_type ();
         }
 
-        public Object (SafeHandle handle) : base (handle)
-        {
-            handle.AddToggleRef (this);
-        }
-
         delegate void NativeNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
 
         static void NativeOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
-            var obj = GetOrCreate<Object> (gobjectPtr, Transfer.None);
-            var pspec = GetOrCreate<ParamSpec> (pspecPtr, Transfer.None);
+            var obj = GetInstance<Object> (gobjectPtr, Transfer.None);
+            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
             var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
             obj.OnPropertyChanged (propInfo.Name);
         }
@@ -211,7 +195,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:full */
-        internal static extern SafeHandle g_object_newv (
+        internal static extern IntPtr g_object_newv (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType objectType,
@@ -224,7 +208,7 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr parameters);
 
-        protected static SafeHandle New<T> (params object[] parameters) where T : Object
+        protected static IntPtr New<T> (params object[] parameters) where T : Object
         {
             var gtype = GType.TypeOf<T> ();
             var paramArray = new Parameter[parameters.Length / 2];
@@ -274,7 +258,7 @@ namespace GISharp.GObject
             return instance;
         }
 
-        public Object () : this (New<Object> ())
+        public Object () : this (New<Object> (), Transfer.Full)
         {
         }
 
@@ -336,7 +320,7 @@ namespace GISharp.GObject
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_interface_find_property (gIface, propertyName_);
-            var ret = GetOrCreate<ParamSpec> (ret_, Transfer.None);
+            var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
             GMarshal.Free (propertyName_);
             return ret;
         }
@@ -375,7 +359,7 @@ namespace GISharp.GObject
             IntPtr gIface,
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            ParamSpec.SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// Add a property to an interface; this is only useful for interfaces
@@ -407,7 +391,8 @@ namespace GISharp.GObject
             if (pspec == null) {
                 throw new ArgumentNullException (nameof (pspec));
             }
-            g_object_interface_install_property (gIface, pspec?.Handle);
+            g_object_interface_install_property (gIface, pspec.Handle);
+            GC.KeepAlive (pspec);
         }
 
         /// <summary>
@@ -522,13 +507,13 @@ namespace GISharp.GObject
         static extern IntPtr g_object_bind_property (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr sourceProperty,
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle target,
+            IntPtr target,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr targetProperty,
@@ -615,7 +600,7 @@ namespace GISharp.GObject
             // instance and one extra. This is actually desirable, otherise we
             // would always have to keep a managed reference to the binding object.
             // Also, calling Binding.Unbind() will free the extra reference.
-            var ret = GetOrCreate<Binding> (ret_, Transfer.None);
+            var ret = GetInstance<Binding> (ret_, Transfer.None);
             GMarshal.Free (sourceProperty_);
             GMarshal.Free (targetProperty_);
             return ret;
@@ -628,13 +613,13 @@ namespace GISharp.GObject
         static extern IntPtr g_object_bind_property_full (
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle source,
+            IntPtr source,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr sourceProperty,
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle target,
+            IntPtr target,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr targetProperty,
@@ -712,7 +697,7 @@ namespace GISharp.GObject
             var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (userData));
             var ret_ = g_object_bind_property_full (Handle, sourceProperty_, target.Handle, targetProperty_, flags,
                                                     transformTo_, transformFrom_, userData_, FreeBindingTransformFuncs);
-            var ret = GetOrCreate<Binding> (ret_, Transfer.None);
+            var ret = GetInstance<Binding> (ret_, Transfer.None);
             GMarshal.Free (sourceProperty_);
             GMarshal.Free (targetProperty_);
             return ret;
@@ -732,7 +717,7 @@ namespace GISharp.GObject
 
         static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
         {
-            var binding = GetOrCreate<Binding> (bindingPtr, Transfer.None);
+            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
             var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
             var ret = funcs.TransformTo (binding, ref toValue, ref fromValue);
             return ret;
@@ -740,7 +725,7 @@ namespace GISharp.GObject
 
         static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
         {
-            var binding = GetOrCreate<Binding> (bindingPtr, Transfer.None);
+            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
             var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
             var ret = funcs.TransformFrom (binding, ref toValue, ref fromValue);
             return ret;
@@ -773,7 +758,7 @@ namespace GISharp.GObject
         static extern void g_object_freeze_notify (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object);
+            IntPtr @object);
 
         /// <summary>
         /// Increases the freeze count on @object. If the freeze count is
@@ -820,7 +805,7 @@ namespace GISharp.GObject
         static extern void g_object_get_property (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object,
+            IntPtr @object,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr propertyName,
@@ -885,7 +870,7 @@ namespace GISharp.GObject
         static extern void g_object_notify (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object,
+            IntPtr @object,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr propertyName);
@@ -971,10 +956,10 @@ namespace GISharp.GObject
         static extern void g_object_notify_by_pspec (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object,
+            IntPtr @object,
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
-            ParamSpec.SafeHandle pspec);
+            IntPtr pspec);
 
         /// <summary>
         /// Emits a "notify" signal for the property specified by @pspec on @object.
@@ -1028,6 +1013,7 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (pspec));
             }
             g_object_notify_by_pspec (Handle, pspec.Handle);
+            GC.KeepAlive (pspec);
         }
 
         /// <summary>
@@ -1048,7 +1034,7 @@ namespace GISharp.GObject
         static extern void g_object_set_property (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object,
+            IntPtr @object,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr propertyName,
@@ -1097,7 +1083,7 @@ namespace GISharp.GObject
         static extern void g_object_thaw_notify (
             /* <type name="Object" type="GObject*" managed-name="Object" /> */
             /* transfer-ownership:none */
-            SafeHandle @object);
+            IntPtr @object);
 
         /// <summary>
         /// Reverts the effect of a previous call to
@@ -1119,18 +1105,18 @@ namespace GISharp.GObject
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_get_data (
-            SafeHandle @object,
+            IntPtr @object,
             IntPtr key);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_set_data (
-            SafeHandle @object,
+            IntPtr @object,
             IntPtr key,
             IntPtr data);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_set_data_full (
-            SafeHandle @object,
+            IntPtr @object,
             IntPtr key,
             IntPtr data,
             NativeDestroyNotify destroy);

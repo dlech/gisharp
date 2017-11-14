@@ -10,45 +10,26 @@ namespace GISharp.GObject
     [GType ("GParamUnichar", IsWrappedNativeType = true)]
     public sealed class ParamSpecUnichar : ParamSpec
     {
-        public sealed new class SafeHandle : ParamSpec.SafeHandle
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+        
+        new struct Struct
         {
-            public static new SafeHandle Zero = _Zero.Value;
-            static Lazy<SafeHandle> _Zero = new Lazy<SafeHandle> (() => new SafeHandle ());
-
-            struct ParamSpecUnichar
-            {
 #pragma warning disable CS0649
-                public ParamSpecStruct ParentInstance;
-                public uint DefaultValue;
+            public ParamSpec.Struct ParentInstance;
+            public uint DefaultValue;
 #pragma warning restore CS0649
-            }
-
-            public int DefaultValue {
-                get {
-                    if (IsClosed) {
-                        throw new ObjectDisposedException (null);
-                    }
-                    var offset = Marshal.OffsetOf<ParamSpecUnichar> (nameof (ParamSpecUnichar.DefaultValue));
-                    var ret = Marshal.ReadInt32 (handle, (int)offset);
-                    return ret;
-                }
-            }
-
-            public SafeHandle (IntPtr handle, Transfer ownership) : base (handle, ownership)
-            {
-            }
-
-            public SafeHandle ()
-            {
-            }
         }
-
-        public new SafeHandle Handle => (SafeHandle)base.Handle;
 
         public new int DefaultValue {
             get {
-                return Handle.DefaultValue;
+                AssertNotDisposed ();
+                var ret = Marshal.ReadInt32 (Handle, (int)defaultValueOffset);
+                return ret;
             }
+        }
+
+        public ParamSpecUnichar (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
         }
 
         static GType getGType ()
@@ -56,9 +37,6 @@ namespace GISharp.GObject
             return paramSpecTypes[9];
         }
 
-        public ParamSpecUnichar (SafeHandle handle) : base (handle)
-        {
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         extern static IntPtr g_param_spec_unichar (
@@ -68,7 +46,7 @@ namespace GISharp.GObject
             uint defaultValue,
             ParamFlags flags);
 
-        static SafeHandle New (string name, string nick, string blurb, uint defaultValue, ParamFlags flags)
+        static IntPtr New (string name, string nick, string blurb, uint defaultValue, ParamFlags flags)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -82,8 +60,7 @@ namespace GISharp.GObject
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);
-            var ret_ = g_param_spec_unichar (namePtr, nickPtr, blurbPtr, defaultValue, flags);
-            var ret = new SafeHandle (ret_, Transfer.None);
+            var ret = g_param_spec_unichar (namePtr, nickPtr, blurbPtr, defaultValue, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
@@ -101,7 +78,7 @@ namespace GISharp.GObject
         }
 
         public ParamSpecUnichar (string name, string nick, string blurb, int defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, (uint)defaultValue, flags))
+            : this (New (name, nick, blurb, (uint)defaultValue, flags), Transfer.None)
         {
         }
     }
