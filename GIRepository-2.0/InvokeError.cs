@@ -9,7 +9,7 @@ namespace GISharp.GIRepository
     /// <summary>
     /// An error occuring while invoking a function via <see cref="FunctionInfo.Invoke"/>
     /// </summary>
-    [ErrorDomain ("g-invoke-error-quark")]
+    [GErrorDomain ("g-invoke-error-quark")]
     public enum InvokeError
     {
         /// <summary>

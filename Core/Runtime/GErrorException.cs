@@ -8,27 +8,36 @@ namespace GISharp.Runtime
     /// </summary>
     public sealed class GErrorException : Exception
     {
-        public Error Error { get; private set; }
+        /// <summary>
+        /// The GError.
+        /// </summary>
+        public readonly Error Error;
 
-        public override string Message {
-            get {
-                return Error.Message;
-            }
-        }
-
-        public GErrorException (Error error)
+        /// <summary>
+        /// Create a new instance from a GError.
+        /// </summary>
+        public GErrorException (Error error) : base (error.Message)
         {
             Error = error;
         }
 
-        public GErrorException (IntPtr handle)
-            : this (new Error (handle, Transfer.Full))
-        {
-        }
-
+        /// <summary>
+        /// Test if the exception matches a GError type
+        /// </summary>
+        /// <param name="value">
+        /// An enum member of an enum type decorated with <see cref="GErrorDomainAttribute" />.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the exception matches the error domain and code
+        /// of the <paramref name="value" />.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Thrown if the type of <paramref name="value" /> does not have an
+        /// <see cref="GErrorDomainAttribute" />.
+        /// </exception>
         public bool Matches (Enum value)
         {
-            return Error.Matches (value.GetErrorDomain (), Convert.ToInt32 (value));
+            return Error.Matches (value.GetGErrorDomain (), Convert.ToInt32 (value));
         }
     }
 }

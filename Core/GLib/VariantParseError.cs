@@ -5,7 +5,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Error codes returned by parsing text-format GVariants.
     /// </summary>
-    [ErrorDomain ("g-variant-parse-error-quark")]
+    [GErrorDomain ("g-variant-parse-error-quark")]
     public enum VariantParseError
     {
         /// <summary>

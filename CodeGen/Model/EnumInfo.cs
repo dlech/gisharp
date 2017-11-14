@@ -64,7 +64,7 @@ namespace GISharp.CodeGen.Model
 
             var errorDomain = Element.Attribute (glib + "error-domain")?.Value;
             if (errorDomain != null) {
-                var errorDomainAttrName = ParseName (typeof(GISharp.Runtime.ErrorDomainAttribute).FullName);
+                var errorDomainAttrName = ParseName (typeof(GISharp.Runtime.GErrorDomainAttribute).FullName);
                 var errorDomainAttrArgListText = string.Format ("(\"{0}\")", errorDomain);
                 var errorDomainAttrArgList = ParseAttributeArgumentList (errorDomainAttrArgListText);
                 var errorDomainAttr = Attribute (errorDomainAttrName)

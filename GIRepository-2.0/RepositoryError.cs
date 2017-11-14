@@ -9,7 +9,7 @@ namespace GISharp.GIRepository
     /// <summary>
     /// An error code returned from a Repository method.
     /// </summary>
-    [ErrorDomain ("g-irepository-error-quark")]
+    [GErrorDomain ("g-irepository-error-quark")]
     public enum RepositoryError
     {
         /// <summary>
