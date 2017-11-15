@@ -13,14 +13,14 @@ namespace GISharp.Runtime
     /// set to the actual value assigned in unmanaged code.
     /// </remarks>
     [AttributeUsage (AttributeTargets.Property, Inherited = true)]
-    public sealed class PropertyAttribute : Attribute
+    public sealed class GTypePropertyAttribute : Attribute
     {
         /// <summary>
-        /// The name of the property that will be registed with the GObject type system.
+        /// The name of the property that will be registered with the GObject type system.
         /// </summary>
         public string Name { get; private set; }
 
-        public PropertyAttribute (string name = null)
+        public GTypePropertyAttribute (string name = null)
         {
             Name = name;
         }

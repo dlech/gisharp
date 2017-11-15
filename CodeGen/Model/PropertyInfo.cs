@@ -91,7 +91,7 @@ namespace GISharp.CodeGen.Model
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
             var property = AttributeList ()
-                .AddAttributes (Attribute (ParseName (typeof(PropertyAttribute).FullName))
+                .AddAttributes (Attribute (ParseName (typeof(GTypePropertyAttribute).FullName))
                     .AddArgumentListArguments(AttributeArgument (ParseExpression ($"\"{GirName}\""))));
             yield return property;
 

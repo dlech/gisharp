@@ -128,7 +128,7 @@ namespace GISharp.GObject
         /// <value>
         /// the <see cref="T:BindingFlags"/> used by the <see cref="T:Binding"/>
         /// </value>
-        [Property ("flags")]
+        [GTypeProperty ("flags")]
         [Since ("2.26")]
         public BindingFlags Flags {
             get {
@@ -162,7 +162,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the source <see cref="T:Object"/>
         /// </returns>
-        [Property ("source")]
+        [GTypeProperty ("source")]
         [Since ("2.26")]
         public Object Source {
             get {
@@ -199,7 +199,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the name of the source property
         /// </returns>
-        [Property ("source-property")]
+        [GTypeProperty ("source-property")]
         [Since ("2.26")]
         public string SourceProperty {
             get {
@@ -234,7 +234,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the target <see cref="T:Object"/>
         /// </returns>
-        [Property ("target")]
+        [GTypeProperty ("target")]
         [Since ("2.26")]
         public Object Target {
             get {
@@ -271,7 +271,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the name of the target property
         /// </returns>
-        [Property ("target-property")]
+        [GTypeProperty ("target-property")]
         [Since ("2.26")]
         public string TargetProperty {
             get {

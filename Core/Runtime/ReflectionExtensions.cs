@@ -50,10 +50,10 @@ namespace GISharp.Runtime
             if (info == null) {
                 throw new ArgumentNullException (nameof (info));
             }
-            var propAttr = info.GetCustomAttribute<PropertyAttribute> (true);
+            var propAttr = info.GetCustomAttribute<GTypePropertyAttribute> (true);
             if (propAttr == null) {
                 propAttr = info.TryGetMatchingInterfacePropertyInfo ()
-                    ?.GetCustomAttribute<PropertyAttribute> ();
+                    ?.GetCustomAttribute<GTypePropertyAttribute> ();
             }
             return propAttr?.Name ?? info.Name;
         }
