@@ -200,7 +200,7 @@ namespace GISharp.GObject
         /// a newly allocated #GClosure
         /// </returns>
         public Closure (Func<Value[], Value> callback, GISharp.GObject.Object @object)
-            : this (NewObject ((uint)Marshal.SizeOf<Struct> (), @object), Transfer.Full)
+            : this (NewObject ((uint)Marshal.SizeOf<Struct> (), @object), Transfer.None)
         {
             SetCallback (callback);
         }
@@ -275,7 +275,7 @@ namespace GISharp.GObject
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
         public Closure (Func<Value[], Value> callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.Full)
+            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
         {
             SetCallback (callback);
         }
@@ -284,7 +284,7 @@ namespace GISharp.GObject
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
         public Closure (Action<Value[]> callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.Full)
+            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
         {
             SetCallback (callback);
         }
@@ -293,7 +293,7 @@ namespace GISharp.GObject
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
         public Closure (Action callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.Full)
+            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
         {
             SetCallback (callback);
         }
@@ -309,11 +309,10 @@ namespace GISharp.GObject
         }
 
         static void NativeMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-                                    Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
+            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             var callback = (Func<Value[], Value>)GCHandle.FromIntPtr (marshalDataPtr).Target;
             returnValue = callback.Invoke (paramValues);
-
         }
 
         void SetCallback (Action<Value[]> callback)
@@ -324,7 +323,7 @@ namespace GISharp.GObject
         }
 
         static void NativeMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-                                            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
+            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             var callback = (Action<Value[]>)GCHandle.FromIntPtr (marshalDataPtr).Target;
             callback.Invoke (paramValues);
@@ -338,7 +337,7 @@ namespace GISharp.GObject
         }
 
         static void NativeMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-                                            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
+            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             var callback = (Action)GCHandle.FromIntPtr (marshalDataPtr).Target;
             callback.Invoke ();
