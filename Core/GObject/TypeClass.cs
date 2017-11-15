@@ -62,18 +62,14 @@ namespace GISharp.GObject
 
         internal static T Get<T> (GType type) where T : TypeClass
         {
-            var managedType = typeof(T);
-			var handle = g_type_class_ref (type);
-			var ret = Opaque.GetInstance<T> (handle, Transfer.Full);
-			return ret;
+            var handle = g_type_class_ref (type);
+            var ret = Opaque.GetInstance<T> (handle, Transfer.Full);
+            return ret;
         }
 
         public static TypeClass Get (GType type)
         {
-            var managedType = GType.TypeOf (type);
-            var handle = g_type_class_ref (type);
-            var ret = Opaque.GetInstance<TypeClass> (handle, Transfer.Full);
-            return ret;
+            return Get<TypeClass> (type);
         }
 
         public abstract TypeInfo GetTypeInfo (Type type);

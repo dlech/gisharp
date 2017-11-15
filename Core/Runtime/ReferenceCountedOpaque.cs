@@ -99,9 +99,15 @@ namespace GISharp.Runtime
                 }
 
                 // We can use introspection to get the actual type of a TypeInstance
-                if (typeof(TypeInstance).GetTypeInfo ().IsAssignableFrom (type)) {
+                else if (typeof(TypeInstance).GetTypeInfo ().IsAssignableFrom (type)) {
                     var gtype = Marshal.PtrToStructure<GType> (Marshal.ReadIntPtr (handle));
                     type = GType.TypeOf (gtype);
+                }
+
+                // We also need to look up the exact type for TypeClass
+                else if (typeof(TypeClass).GetTypeInfo ().IsAssignableFrom (type)) {
+                    var gtype = Marshal.PtrToStructure<GType> (Marshal.ReadIntPtr (handle));
+                    type = gtype.GetGTypeStruct ();
                 }
 
                 instance = (ReferenceCountedOpaque)Activator.CreateInstance (type, handle, ownership);
