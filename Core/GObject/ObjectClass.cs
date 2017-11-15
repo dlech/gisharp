@@ -82,7 +82,7 @@ namespace GISharp.GObject
         /// <param name="type">The managed type to register.</param>
         public override TypeInfo GetTypeInfo (Type type)
         {
-            var parentGType = type.GetTypeInfo ().BaseType.GetGType ();
+            var parentGType = type.BaseType.GetGType ();
             var parentTypeQuery = parentGType.Query ();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
@@ -122,7 +122,7 @@ namespace GISharp.GObject
             // Install Properties
 
             uint propId = 1; // propId 0 is used internally, so we start with 1
-            foreach (var propInfo in type.GetTypeInfo ().GetProperties ()) {
+            foreach (var propInfo in type.GetProperties ()) {
                 if (propInfo.DeclaringType != type) {
                     // only register properties declared in this type or in interfaces
                     continue;
@@ -238,7 +238,7 @@ namespace GISharp.GObject
                 propId++;
             }
 
-            foreach (var eventInfo in type.GetTypeInfo ().GetEvents ()) {
+            foreach (var eventInfo in type.GetEvents ()) {
                 if (eventInfo.DeclaringType != type) {
                     // only register events declared in this type
                     continue;
@@ -259,7 +259,7 @@ namespace GISharp.GObject
                     flags |= SignalFlags.Deprecated;
                 }
 
-                var methodInfo = eventInfo.EventHandlerType.GetTypeInfo ().GetMethod ("Invoke");
+                var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
                 var returnGType = methodInfo.ReturnType.GetGType ();
                 var parameters = methodInfo.GetParameters ();
                 var parameterGTypes = new GType[parameters.Length];

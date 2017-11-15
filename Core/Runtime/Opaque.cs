@@ -69,7 +69,7 @@ namespace GISharp.Runtime
                 return null;
             }
 
-            if (typeof(ReferenceCountedOpaque).GetTypeInfo ().IsAssignableFrom (type)) {
+            if (typeof(ReferenceCountedOpaque).IsAssignableFrom (type)) {
                 return ReferenceCountedOpaque.GetOrCreate<T> (handle, ownership);
             }
 

@@ -864,7 +864,7 @@ namespace GISharp.GObject
                     } else if (type.IsGenericType) {
                         implementationType = type.BaseType;
                     }
-                    var getGType = implementationType.GetTypeInfo ().GetMethod ("getGType",
+                    var getGType = implementationType.GetMethod ("getGType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
                     if (getGType == null) {
                         var message = $"Could not find getType() method for {implementationType.FullName}.";
@@ -2590,8 +2590,7 @@ namespace GISharp.GObject
             if (type == null) {
                 throw new ArgumentNullException (nameof (type));
             }
-            var typeInfo = type.GetTypeInfo ();
-            var gtypeAttr = typeInfo.GetCustomAttributes ()
+            var gtypeAttr = type.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
             var ret = gtypeAttr?.Name ?? type.FullName
@@ -2607,13 +2606,12 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (type));
             }
 
-            var typeInfo = type.GetTypeInfo ();
             Type gtypeStructType;
-            var gtypeStructAttr = typeInfo.GetCustomAttribute<GTypeStructAttribute> (true);
+            var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute> (true);
             if (gtypeStructAttr == null) {
-                if (typeInfo.IsEnum) {
+                if (type.IsEnum) {
                     // GTypeStructAttribute is not needed on Enums/Flags
-                    var flagsAttr = typeInfo.GetCustomAttribute<FlagsAttribute> ();
+                    var flagsAttr = type.GetCustomAttribute<FlagsAttribute> ();
                     if (flagsAttr == null) {
                         gtypeStructType = typeof(EnumClass);
                     } else {

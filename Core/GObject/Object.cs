@@ -581,13 +581,13 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (targetProperty));
             }
 
-            var sourcePropertyInfo = GetType ().GetTypeInfo ().GetProperty (sourceProperty);
+            var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
             if (sourcePropertyInfo == null) {
                 throw new ArgumentException ($"No matching property", nameof (sourceProperty));
             }
             sourceProperty = sourcePropertyInfo.TryGetGTypePropertyName ();
 
-            var targetPropertyInfo = target.GetType ().GetTypeInfo ().GetProperty (targetProperty);
+            var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
             if (targetPropertyInfo == null) {
                 throw new ArgumentException ($"No matching property", nameof (targetProperty));
             }

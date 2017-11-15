@@ -46,7 +46,7 @@ namespace GISharp.Runtime
         public static Quark GetGErrorDomain (this Enum value)
         {
             var type = value.GetType ();
-            var attr = type.GetTypeInfo ().GetCustomAttribute<GErrorDomainAttribute> ();
+            var attr = type.GetCustomAttribute<GErrorDomainAttribute> ();
             if (attr == null) {
                 throw new ArgumentException ("Enum type must have ErrorDomainAttribute", nameof (value));
             }
