@@ -11,6 +11,9 @@ namespace GISharp.GObject
     [GType ("GParamFlags", IsWrappedNativeType = true)]
     public sealed class ParamSpecFlags : ParamSpec
     {
+        static readonly IntPtr flagsClassOffset = Marshal.OffsetOf<Struct> (nameof (Struct.FlagsClass));
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+
         new struct Struct
         {
 #pragma warning disable CS0649
@@ -23,8 +26,7 @@ namespace GISharp.GObject
         public IntPtr FlagsClass {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecFlags> (nameof (ParamSpecFlags.FlagsClass));
-                var ret = Marshal.ReadIntPtr (Handle, (int)offset);
+                var ret = Marshal.ReadIntPtr (Handle, (int)flagsClassOffset);
                 return ret;
             }
         }
@@ -32,8 +34,7 @@ namespace GISharp.GObject
         public new System.Enum DefaultValue {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecFlags> (nameof (ParamSpecFlags.DefaultValue));
-                var ret_ = Marshal.ReadInt32 (Handle, (int)offset);
+                var ret_ = Marshal.ReadInt32 (Handle, (int)defaultValueOffset);
                 var ret = (System.Enum)System.Enum.ToObject (FlagsType, ret_);
                 return ret;
             }

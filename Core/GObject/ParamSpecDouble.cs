@@ -10,6 +10,11 @@ namespace GISharp.GObject
     [GType ("GParamDouble", IsWrappedNativeType = true)]
     public sealed class ParamSpecDouble : ParamSpec
     {
+        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));
+        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Maximum));
+        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));
+        static readonly IntPtr epsilonOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Epsilon));
+
         new struct Struct
         {
 #pragma warning disable CS0649
@@ -24,8 +29,7 @@ namespace GISharp.GObject
         public double Minimum {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Minimum));
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)offset);
+                var ret = Marshal.PtrToStructure<double> (Handle + (int)minimumOffset);
                 return ret;
             }
         }
@@ -33,8 +37,7 @@ namespace GISharp.GObject
         public double Maximum {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Maximum));
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)offset);
+                var ret = Marshal.PtrToStructure<double> (Handle + (int)maximumOffset);
                 return ret;
             }
         }
@@ -42,8 +45,7 @@ namespace GISharp.GObject
         public new double DefaultValue {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.DefaultValue));
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)offset);
+                var ret = Marshal.PtrToStructure<double> (Handle + (int)defaultValueOffset);
                 return ret;
             }
         }
@@ -51,8 +53,7 @@ namespace GISharp.GObject
         public double Epsilon {
             get {
                 AssertNotDisposed ();
-                var offset = Marshal.OffsetOf<ParamSpecDouble> (nameof (ParamSpecDouble.Epsilon));
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)offset);
+                var ret = Marshal.PtrToStructure<double> (Handle + (int)epsilonOffset);
                 return ret;
             }
         }
