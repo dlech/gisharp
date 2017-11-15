@@ -18,34 +18,35 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestVirtualMethod ()
         {
-            var obj = new TestNetworkMonitor ();
-
-            Assume.That (obj.CanReachCallCount, Is.EqualTo (0));
-            obj.CanReach (IntPtr.Zero);
-            Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
+            using (var obj = new TestNetworkMonitor ()) {
+                Assume.That (obj.CanReachCallCount, Is.EqualTo (0));
+                obj.CanReach (IntPtr.Zero);
+                Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
+            }
         }
 
         [Test]
         public void TestProperty ()
         {
-            var obj = new TestNetworkMonitor ();
-
-            var value = obj.GetProperty ("connectivity", GType.Int);
-            Assert.That (value.Get (), Is.EqualTo (1));
+            using (var obj = new TestNetworkMonitor ()) {
+                var value = obj.GetProperty ("connectivity", GType.Int);
+                Assert.That (value.Get (), Is.EqualTo (1));
+            }
         }
 
         [Test]
         public void TestSignal ()
         {
-            var obj = new TestNetworkMonitor ();
+            using (var obj = new TestNetworkMonitor ()) {
+                var callbackCount = 0;
+                obj.NetworkChanged += available => callbackCount++;
 
-            var callbackCount = 0;
-            obj.NetworkChanged += (availible) => callbackCount++;
+                var id = Signal.Lookup<INetworkMonitor> ("network-changed");
+                Assume.That (id, Is.Not.EqualTo (0));
+                Signal.Emit (obj, id, Quark.Zero, new [] { (Value)true });
 
-            var id = Signal.Lookup ("network-changed", typeof(INetworkMonitor).GetGType ());
-            Signal.Emit (obj, id, Quark.Zero, new [] { (Value)true });
-
-            Assert.That (callbackCount, Is.EqualTo (1));
+                Assert.That (callbackCount, Is.EqualTo (1));
+            }
         }
     }
 
@@ -75,10 +76,10 @@ namespace GISharp.Core.Test.GObject
             throw new InvalidOperationException ();
         }
 
-        void INetworkMonitor.OnNetworkChanged (bool availible)
+        void INetworkMonitor.OnNetworkChanged (bool available)
         {
             if (NetworkChanged != null) {
-                NetworkChanged (availible);
+                NetworkChanged (available);
             }
         }
 

@@ -20,8 +20,8 @@ namespace GISharp.Runtime
             if (info == null) {
                 throw new ArgumentNullException (nameof (info));
             }
-            var accessor = info.GetAccessors ().First ();
-            var interfaceMapping = info.DeclaringType.GetTypeInfo ().GetInterfaces ()
+            var accessor = info.GetGetMethod () ?? info.GetSetMethod ();
+            var interfaceMapping = info.DeclaringType.GetInterfaces ()
                 .Select (t => info.DeclaringType.GetInterfaceMap (t))
                 .SingleOrDefault (m => m.TargetMethods.Contains (accessor));
             if (interfaceMapping.Equals (default(InterfaceMapping))) {
@@ -31,7 +31,7 @@ namespace GISharp.Runtime
             MethodInfo match = interfaceMapping.InterfaceMethods
                 .Select ((m, i) => new Tuple<MethodInfo, MethodInfo> (m, interfaceMapping.TargetMethods[i]))
                 .Single (t => t.Item2 == accessor).Item1;
-            var propInfo = interfaceMapping.InterfaceType.GetTypeInfo ().GetProperties ()
+            var propInfo = interfaceMapping.InterfaceType.GetProperties ()
                 .Single (p => p.GetAccessors ().Contains (match));
 
             return propInfo;
@@ -56,26 +56,6 @@ namespace GISharp.Runtime
                     ?.GetCustomAttribute<PropertyAttribute> ();
             }
             return propAttr?.Name ?? info.Name;
-        }
-
-        public static InterfaceMapping GetInterfaceMap (this Type type, Type ifaceType)
-        {
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
-            if (type.IsGenericParameter) {
-                throw new InvalidOperationException ("type cannot be a generic parameter");
-            }
-            if (ifaceType == null) {
-                throw new ArgumentNullException (nameof (ifaceType));
-            }
-            var ifaceTypeInfo = ifaceType.GetTypeInfo ();
-            if (!ifaceTypeInfo.IsInterface) {
-                throw new ArgumentException ("Type is not an interface", nameof (ifaceType));
-            }
-
-            throw new NotImplementedException ();
-            // FIXME!
         }
     }
 }

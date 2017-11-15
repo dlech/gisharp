@@ -12,10 +12,11 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestRegister1 ()
         {
-            // invalid because it does not have [GType] attribute.
+            // invalid because TestEnum1 does not have [GType] attribute so it
+            // gets registered as a boxed type instead of as a flags type.
             var testFlags1GType = typeof(TestFlags1).GetGType ();
             Assert.That (() => (FlagsClass)TypeClass.Get (testFlags1GType),
-                Throws.InvalidOperationException);
+                Throws.ArgumentException);
         }
 
         [Test]
@@ -84,8 +85,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (value2Nick, Is.EqualTo ("test_flags_5_value_two"));
         }
 
-        // This type is not registered with the GType system since it does not
-        // have the [GType] attribute.
+        // This type is registered as a boxed type with the GType system since
+        // it does not have the [GType] attribute.
         [Flags]
         public enum TestFlags1
         {
@@ -114,7 +115,7 @@ namespace GISharp.Core.Test.GObject
             Three,
         }
 
-        // This type will be regiseted with the GObject type system
+        // This type will be registered with the GObject type system
         [Flags, GType]
         public enum TestFlags4
         {
@@ -123,7 +124,7 @@ namespace GISharp.Core.Test.GObject
             Four = 4,
         }
 
-        // This type will be regiseted with the GObject type system
+        // This type will be registered with the GObject type system
         // It has attributes set to check that we can override the default names
         [Flags, GType ("TestFlags5GTypeName")]
         public enum TestFlags5

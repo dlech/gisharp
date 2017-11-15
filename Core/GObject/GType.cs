@@ -445,7 +445,7 @@ namespace GISharp.GObject
         /// </summary>
         public bool IsDerived {
             get {
-                return value.ToUInt32 () > FundamentalMax;
+                return (int)value > FundamentalMax;
             }
         }
 
@@ -454,7 +454,7 @@ namespace GISharp.GObject
         /// </summary>
         public bool IsFundamental {
             get {
-                return value.ToUInt32 () <= FundamentalMax;
+                return (int)value <= FundamentalMax;
             }
         }
 
@@ -799,17 +799,21 @@ namespace GISharp.GObject
         static void MapPropertyInfo (GType gtype, Type type)
         {
             // type registration has not been completed here, so have to get the
-            // object class the hard way
-            var objClass = TypeClass.Get<ObjectClass> (gtype);
-            var typeInfo = type.GetTypeInfo ();
-
-            foreach (var pspec in objClass.ListProperties ()) {
-                var prop = typeInfo.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
-                    .SingleOrDefault (p => p.TryGetGTypePropertyName () == pspec.Name);
-                if (prop == null) {
-                    throw new Exception ("Could not find matchng property.");
+            // object class the hard way by not using our nice wrapper class
+            var objClassPtr = TypeClass.g_type_class_ref (gtype);
+            try {
+                foreach (var pspec in ObjectClass.ListProperties (objClassPtr)) {
+                    var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
+                        .SingleOrDefault (p => p.TryGetGTypePropertyName () == pspec.Name);
+                    if (prop == null) {
+                        var message = $"Could not find matching property for \"{pspec.Name}\" in type {type.FullName}";
+                        throw new ArgumentException (message, nameof(type));
+                    }
+                    pspec.SetQData (ObjectClass.managedClassPropertyInfoQuark, prop);
                 }
-                pspec.SetQData (ObjectClass.managedClassPropertyInfoQuark, prop);
+            }
+            finally {
+                TypeClass.g_type_class_unref (objClassPtr);
             }
         }
 
@@ -831,8 +835,7 @@ namespace GISharp.GObject
                     throw new ArgumentException ("This type is already registered.", nameof (type));
                 }
 
-                var typeInfo = type.GetTypeInfo ();
-                var gtypeAttribute = typeInfo.GetCustomAttributes ()
+                var gtypeAttribute = type.GetCustomAttributes ()
                     .OfType<GTypeAttribute> ().SingleOrDefault ();
                 if (gtypeAttribute == null) {
                     // if the type is not decorated with GTypeAttribute, then we
@@ -853,13 +856,13 @@ namespace GISharp.GObject
                     // so we need to find the associated static type for the
                     // actual implementation.
                     var implementationType = type;
-                    if (typeInfo.IsEnum) {
-                        implementationType = typeInfo.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
-                    } else if (typeInfo.IsInterface) {
+                    if (type.IsEnum) {
+                        implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
+                    } else if (type.IsInterface) {
                         var nameWithoutIPrefix = type.FullName.Remove (type.FullName.LastIndexOf ('.') + 1, 1);
-                        implementationType = typeInfo.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
-                    } else if (typeInfo.IsGenericType) {
-                        implementationType = typeInfo.BaseType;
+                        implementationType = type.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
+                    } else if (type.IsGenericType) {
+                        implementationType = type.BaseType;
                     }
                     var getGType = implementationType.GetTypeInfo ().GetMethod ("getGType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
@@ -883,13 +886,13 @@ namespace GISharp.GObject
 
                 var gtypeName = type.GetGTypeName ();
                 AssertGTypeName (gtypeName);
-                if (typeInfo.IsClass) {
-                    if (!typeInfo.IsSubclassOf (typeof(Object))) {
+                if (type.IsClass) {
+                    if (!type.IsSubclassOf (typeof(Object))) {
                         var message = string.Format ("Class does not inherit from {0}",
                                           typeof(Object).FullName);
                         throw new ArgumentException (message, nameof (type));
                     }
-                    var parentGType = typeInfo.BaseType.GetGType ();
+                    var parentGType = type.BaseType.GetGType ();
                     var parentTypeclass = TypeClass.Get (parentGType);
                     var parentTypeInfo = parentTypeclass.GetTypeInfo (type);
 
@@ -903,23 +906,40 @@ namespace GISharp.GObject
 
                     // Install interfaces
 
-                    foreach (var ifaceType in typeInfo.GetInterfaces ()) {
+                    // The order matters here. When we have multiple GType interfaces
+                    // we need to make sure the prerequisites of an interface get
+                    // installed before that interface itself gets installed.
+                    // Sorting by number of inherited interfaces works because
+                    // if interface B inherits interface A, B.GetInterfaces ().Length
+                    // will be greater than A.GetInterfaces ().Length because it
+                    // includes A in addition to all of A's interfaces.
+                    var ifaces = type.GetInterfaces ().OrderBy (i => i.GetInterfaces ().Length);
+                    foreach (var ifaceType in ifaces) {
                         var ifaceMap = type.GetInterfaceMap (ifaceType);
                         if (ifaceMap.TargetType != type) {
                             // only interested in interfaces that are actually
                             // implemented by this type and not inherited
                             continue;
                         }
-                        var gtypeAttr = ifaceType.GetTypeInfo ().GetCustomAttribute<GTypeAttribute> ();
+                        var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute> ();
                         if (gtypeAttr == null) {
                             // only care about interfaces registered with the
                             // GObject type system
                             continue;
                         }
                         var ifaceGType = ifaceType.GetGType ();
-                        var typeInterface = new DefaultTypeInterface (ifaceGType);
-                        var interfaceInfo = typeInterface.CreateInterfaceInfo (type);
-                        AddInterfaceStatic (gtype, ifaceGType, interfaceInfo);
+                        var prereqs = TypeInterface.Prerequisites (ifaceGType);
+                        foreach (var p in prereqs) {
+                            if (!GType.TypeOf (p).IsAssignableFrom (type)) {
+                                var message = $"Type {type.FullName} is missing prerequisite {ifaceType.FullName} ({p})";
+                                throw new ArgumentException (message, nameof(type));
+                            }
+                        }
+                        using (var defaultTypeInterface = new DefaultTypeInterface (ifaceGType)) {
+                            var typeInterface = Opaque.GetInstance<TypeInterface> (defaultTypeInterface.Handle, Transfer.None);
+                            var interfaceInfo = typeInterface.CreateInterfaceInfo (type);
+                            AddInterfaceStatic (gtype, ifaceGType, interfaceInfo);
+                        }
                     }
 
                     MapPropertyInfo (gtype, type);
@@ -929,20 +949,20 @@ namespace GISharp.GObject
 
                     return gtype;
                 }
-                if (typeInfo.IsEnum) {
-                    var underlyingType = typeInfo.GetEnumUnderlyingType ();
+                if (type.IsEnum) {
+                    var underlyingType = type.GetEnumUnderlyingType ();
                     if (underlyingType != typeof(int) && underlyingType != typeof(uint)) {
                         throw new ArgumentException ("GType enums must be int/uint", nameof (type));
                     }
-                    var values = (int[])typeInfo.GetEnumValues ();
-                    var names = typeInfo.GetEnumNames ();
-                    var flagsAttribute = typeInfo.GetCustomAttributes ()
+                    var values = (int[])type.GetEnumValues ();
+                    var names = type.GetEnumNames ();
+                    var flagsAttribute = type.GetCustomAttributes ()
                         .OfType<FlagsAttribute> ().SingleOrDefault ();
                     if (flagsAttribute == null) {
                         var gtypeValues = new EnumValue[values.Length];
                         for (int i = 0; i < values.Length; i++) {
                             gtypeValues[i].Value = values[i];
-                            var enumValueField = typeInfo.GetField (names[i]);
+                            var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField.GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
@@ -964,7 +984,7 @@ namespace GISharp.GObject
                         var gtypeValues = new FlagsValue[values.Length];
                         for (int i = 0; i < values.Length; i++) {
                             gtypeValues[i].Value = (uint)values[i];
-                            var enumValueField = typeInfo.GetField (names[i]);
+                            var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField
                                 .GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
@@ -1021,16 +1041,15 @@ namespace GISharp.GObject
             lock (mapLock) {
                 if (!gtypeMap.ContainsKey (type)) {
                     Type matchingType = null;
-                    // FIXME - AppDomain not available in .NET core
-                    // foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
-                    //     matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
-                    //         .FirstOrDefault (t => t.GetCustomAttributes ()
-                    //             .OfType<GTypeAttribute> ()
-                    //             .Any (a => a.Name == type.Name));
-                    //     if (matchingType != null) {
-                    //         break;
-                    //     }
-                    // }
+                    foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+                        matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
+                            .FirstOrDefault (t => t.GetCustomAttributes ()
+                                .OfType<GTypeAttribute> ()
+                                .Any (a => a.Name == type.Name));
+                        if (matchingType != null) {
+                            break;
+                        }
+                    }
                     if (matchingType == null) {
                         // TODO: More specific exception type
                         var message = $"Could not find type for GType '{type.Name}' in loaded assemblies.";

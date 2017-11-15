@@ -40,7 +40,7 @@ namespace GISharp.GObject
 
             public ulong Flags;
             [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
-            public IntPtr Dummy;
+            public IntPtr[] Dummy;
             #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -615,8 +615,14 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec[] ListProperties ()
         {
+            AssertNotDisposed ();
+            return ListProperties (Handle);
+        }
+
+        internal static ParamSpec[] ListProperties (IntPtr handle)
+        {
             uint nProperties_;
-            var ret_ = g_object_class_list_properties (Handle, out nProperties_);
+            var ret_ = g_object_class_list_properties (handle, out nProperties_);
             var ret = GMarshal.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
             return ret;
         }

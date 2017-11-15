@@ -73,6 +73,11 @@ namespace GISharp.Runtime
                 return ReferenceCountedOpaque.GetOrCreate<T> (handle, ownership);
             }
 
+            if (typeof(TypeInterface).IsAssignableFrom (type)) {
+                var gtype = Marshal.PtrToStructure<GType> (handle);
+                type = gtype.GetGTypeStruct ();
+            }
+
             return (T)Activator.CreateInstance (type, handle, ownership);
         }
     }

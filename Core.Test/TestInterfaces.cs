@@ -6,14 +6,15 @@ using System.Threading.Tasks;
 
 // using GNetworkMonitor for testing since it is in gio, which is likely to
 // be installed and it has methods, properties and a signal as well as having
-// GInitable as a prerequsite.
+// GInitable as a prerequisite.
 using GISharp.GLib;
 
 namespace GISharp.Core.Test
 {
     [GType ("GInitable", IsWrappedNativeType = true)]
     [GTypeStruct (typeof(InitableIface))]
-    public interface IInitable : IObject
+    [GTypePrerequisite (typeof(GISharp.GObject.Object))]
+    public interface IInitable
     {
         bool Init (IntPtr cancellable);
     }
@@ -98,12 +99,16 @@ namespace GISharp.Core.Test
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_initable_init (IntPtr intitable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern bool g_initable_init (IntPtr initable, IntPtr cancellable, out IntPtr errorPtr);
 
-        public static bool Init (this IInitable intitable)
+        public static bool Init (this IInitable initable)
         {
-            IntPtr errorPtr;
-            var ret = g_initable_init (intitable.Handle, IntPtr.Zero, out errorPtr);
+            if (initable == null) {
+                throw new ArgumentNullException (nameof(initable));
+            }
+            var instance = (GISharp.GObject.Object)initable;
+            var ret = g_initable_init (instance.Handle, IntPtr.Zero, out var errorPtr);
+            GC.KeepAlive (instance);
             if (errorPtr != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
@@ -119,7 +124,7 @@ namespace GISharp.Core.Test
         bool CanReach (IntPtr connectable, IntPtr cancellable);
         void CanReachAsync (IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
         bool CanReachFinish (IntPtr result);
-        void OnNetworkChanged (bool availible);
+        void OnNetworkChanged (bool available);
 
         [Property ("connectivity")]
         int Connectivity { get; }
@@ -150,7 +155,7 @@ namespace GISharp.Core.Test
 #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool availble);
+            public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool available);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -187,10 +192,10 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        static void NativeNetworkChanged (IntPtr monitorPtr, bool availble)
+        static void NativeNetworkChanged (IntPtr monitorPtr, bool available)
         {
             var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
-            monitor.OnNetworkChanged (availble);
+            monitor.OnNetworkChanged (available);
         }
 
         static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
@@ -242,9 +247,14 @@ namespace GISharp.Core.Test
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_get_network_available (IntPtr monitor);
 
-        public static bool GetNetworkAvailible (this INetworkMonitor monitor)
+        public static bool GetNetworkAvailable (this INetworkMonitor monitor)
         {
-            var ret = g_network_monitor_get_network_available (monitor.Handle);
+            if (monitor == null) {
+                throw new ArgumentNullException (nameof(monitor));
+            }
+            var instance = (GISharp.GObject.Object)monitor;
+            var ret = g_network_monitor_get_network_available (instance.Handle);
+            GC.KeepAlive (instance);
 
             return ret;
         }
@@ -254,7 +264,12 @@ namespace GISharp.Core.Test
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
-            var ret = g_network_monitor_get_network_metered (monitor.Handle);
+            if (monitor == null) {
+                throw new ArgumentNullException (nameof(monitor));
+            }
+            var instance = (GISharp.GObject.Object)monitor;
+            var ret = g_network_monitor_get_network_metered (instance.Handle);
+            GC.KeepAlive (instance);
 
             return ret;
         }
@@ -264,8 +279,12 @@ namespace GISharp.Core.Test
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
-            IntPtr errorPtr;
-            var ret = g_network_monitor_can_reach (monitor.Handle, connectable, cancellable, out errorPtr);
+            if (monitor == null) {
+                throw new ArgumentNullException (nameof(monitor));
+            }
+            var instance = (GISharp.GObject.Object)monitor;
+            var ret = g_network_monitor_can_reach (instance.Handle, connectable, cancellable, out var errorPtr);
+            GC.KeepAlive (instance);
             if (errorPtr != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
@@ -282,6 +301,10 @@ namespace GISharp.Core.Test
 
         public static Task<bool> CanReachAsync (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
+            if (monitor == null) {
+                throw new ArgumentNullException (nameof(monitor));
+            }
+            var instance = (GISharp.GObject.Object)monitor;
             var completion = new TaskCompletionSource<bool> ();
             Action<IntPtr, IntPtr, IntPtr> nativeCallback = (sourceObjectPtr, resultPtr, userDataPtr) => {
                 IntPtr errorPtr;
@@ -295,7 +318,8 @@ namespace GISharp.Core.Test
                 GCHandle.FromIntPtr (userDataPtr).Free ();
             };
             var callbackGCHandle = GCHandle.Alloc (nativeCallback);
-            g_network_monitor_can_reach_async (monitor.Handle, connectable, cancellable, nativeCallback, GCHandle.ToIntPtr (callbackGCHandle));
+            g_network_monitor_can_reach_async (instance.Handle, connectable, cancellable, nativeCallback, (IntPtr)callbackGCHandle);
+            GC.KeepAlive (instance);
 
             return completion.Task;
         }

@@ -127,8 +127,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestParam ()
         {
-            // TODO: ParamSpec is currently not public
-            //Assert.That ((Type)GType.Param, Is.EqualTo (typeof (ParamSpec)));
+            Assert.That ((Type)GType.Param, Is.EqualTo (typeof (ParamSpec)));
         }
 
         [Test]
@@ -290,8 +289,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType
-        g_type_register_static_simple (
+        static extern GType g_type_register_static_simple (
             GType parentType,
             IntPtr typeName,
             UIntPtr classSize,

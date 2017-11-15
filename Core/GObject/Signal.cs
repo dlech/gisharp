@@ -435,7 +435,7 @@ namespace GISharp.GObject
             Quark detail,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
-            IntPtr returnValue);
+            out Value returnValue);
 
         /// <summary>
         /// Emits a signal.
@@ -453,7 +453,7 @@ namespace GISharp.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static void Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        public static Value Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
@@ -461,11 +461,11 @@ namespace GISharp.GObject
             using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
                 instanceAndParams.Append (new Value (instance.GetGType (), instance));
                 foreach (var p in parameters) {
-                    instanceAndParams.Prepend (new Value (p.GetGType (), p));
+                    instanceAndParams.Append (new Value (p.GetGType (), p));
                 }
-                instanceAndParams.Reverse ();
 
-                g_signal_emitv (instanceAndParams.Data, signalId, detail, IntPtr.Zero);
+                g_signal_emitv (instanceAndParams.Data, signalId, detail, out var returnValue);
+                return returnValue;
             }
         }
 
@@ -699,6 +699,11 @@ namespace GISharp.GObject
             var ret = g_signal_lookup (name_, itype);
             GMarshal.Free (name_);
             return ret;
+        }
+
+        public static uint Lookup<T> (string name)
+        {
+            return Lookup (name, typeof(T).GetGType ());
         }
 
         /// <summary>
