@@ -244,7 +244,7 @@ namespace GISharp.GObject
                     continue;
                 }
 
-                var signalAttr = eventInfo.GetCustomAttribute<SignalAttribute> (true);
+                var signalAttr = eventInfo.GetCustomAttribute<GTypeSignalAttribute> (true);
                 if (signalAttr == null) {
                     // events without SignalAttribute are not installed
                     continue;

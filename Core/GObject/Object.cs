@@ -142,7 +142,7 @@ namespace GISharp.GObject
 
         #region INotifyPropertyChanged implementation
 
-        [Signal ("notify")]
+        [GTypeSignal ("notify")]
         public event PropertyChangedEventHandler PropertyChanged {
             add {
                 lock (propertyChangedHandlerLock) {
