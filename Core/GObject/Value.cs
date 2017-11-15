@@ -143,9 +143,9 @@ namespace GISharp.GObject
             if (gtype == GType.String) {
                 return String;
             }
-//                if (gtype == GType.Variant) {
-//                    return Variant;
-//                }
+            if (gtype == GType.Variant) {
+                return Variant;
+            }
             // TODO: Need more specific exception
             throw new Exception ("unhandled GType");
         }
