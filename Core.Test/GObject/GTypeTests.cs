@@ -222,14 +222,14 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
-        public void TestTypeOfUnregistedManagedType ()
+        public void TestTypeOfUnregisteredManagedType ()
         {
             // This tests that if a GType is received from unmanged code
             // that has never been initialized in managed code.
 
-            const string testName = "TestTypeOfUnregistedManagedType";
+            const string testName = "TestTypeOfUnregisteredManagedType";
 
-            // first we register the type in unmaged code and make sure that
+            // first we register the type in unmanged code and make sure that
             // it throws an exception because there is no matching type in
             // managed code.
 
@@ -245,35 +245,35 @@ namespace GISharp.Core.Test.GObject
             var modBuilder = asmBuilder.DefineDynamicModule (testName + "_module");
             var typeBuilder = modBuilder.DefineType (testName + "_type",
                 TypeAttributes.Public);
-            var gtypeAttributeInfo = typeof(GTypeAttribute).GetTypeInfo ();
+            var gtypeAttribute = typeof(GTypeAttribute);
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
-                gtypeAttributeInfo.GetConstructors ().Single (),
+                gtypeAttribute.GetConstructors ().Single (),
                 new object [] { dummyTypeName },
                 new [] {
-                    gtypeAttributeInfo.GetProperty ("IsWrappedNativeType"),
+                    gtypeAttribute.GetProperty ("IsWrappedNativeType"),
                 },
                 new object [] {
                     true, // IsWrappedNativeType
                 }));
-            var gtypeStructAttributeInfo = typeof(GTypeStructAttribute).GetTypeInfo ();
+            var gtypeStructAttribute = typeof(GTypeStructAttribute);
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
-                gtypeStructAttributeInfo.GetConstructors ().Single (),
-                new object[] { typeof(TypeClass) },
+                gtypeStructAttribute.GetConstructors ().Single (),
+                new object[] { typeof(ObjectClass) },
                 new FieldInfo[0], new object[0]));
             var getTypeMethod = typeBuilder.DefineMethod ("getGType",
                 MethodAttributes.Private | MethodAttributes.Static);
             getTypeMethod.SetReturnType (typeof(GType));
-            var getDummyGType = GetType ().GetTypeInfo ().GetMethod (nameof (GetDummyGType));
+            var getDummyGType = GetType ().GetMethod (nameof (GetDummyGType));
             var generator = getTypeMethod.GetILGenerator ();
             generator.Emit (OpCodes.Call, getDummyGType);
             generator.Emit (OpCodes.Ret);
 
-            var expectedTypeInfo = typeBuilder.CreateTypeInfo ();
+            var expectedType = typeBuilder.CreateType ();
 
             // and try the test again
 
             var actualType = GType.TypeOf (gtype);
-            Assert.That (actualType.GetTypeInfo (), Is.EqualTo (expectedTypeInfo));
+            Assert.That (actualType, Is.EqualTo (expectedType));
         }
 
         const string dummyTypeName = "GTypeTestDummyType";
