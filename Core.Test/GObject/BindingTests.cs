@@ -11,21 +11,22 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestBindProperty ()
         {
-            var obj1 = new TestObject ();
-            var obj2 = new TestObject ();
-            var binding = obj1.BindProperty (nameof (TestObject.IntValue),
-                                             obj2, nameof (TestObject.IntValue));
-            Assume.That (obj1.IntValue, Is.EqualTo (0));
-            Assume.That (obj2.IntValue, Is.EqualTo (0));
+            using (var obj1 = new TestObject ())
+            using (var obj2 = new TestObject ())
+            using (var binding = obj1.BindProperty (nameof(TestObject.IntValue),
+                                                    obj2, nameof(TestObject.IntValue))) {
+                Assume.That (obj1.IntValue, Is.EqualTo (0));
+                Assume.That (obj2.IntValue, Is.EqualTo (0));
 
-            // test that binding is in effect
-            obj1.IntValue = 1;
-            Assert.That (obj2.IntValue, Is.EqualTo (1));
+                // test that binding is in effect
+                obj1.IntValue = 1;
+                Assert.That (obj2.IntValue, Is.EqualTo (1));
 
-            // test that binding is no longer effect
-            binding.Unbind ();
-            obj1.IntValue = 2;
-            Assert.That (obj2.IntValue, Is.EqualTo (1));
+                // test that binding is no longer effect
+                binding.Unbind ();
+                obj1.IntValue = 2;
+                Assert.That (obj2.IntValue, Is.EqualTo (1));
+            }
         }
 
         static bool Plus5 (Binding binding, ref Value fromValue, ref Value toValue)
@@ -37,22 +38,23 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestBindPropertyFull ()
         {
-            var obj1 = new TestObject ();
-            var obj2 = new TestObject ();
-            var binding = obj1.BindProperty (nameof (TestObject.IntValue),
-                                             obj2, nameof (TestObject.IntValue),
-                                             BindingFlags.Default, Plus5, null);
-            Assume.That (obj1.IntValue, Is.EqualTo (0));
-            Assume.That (obj2.IntValue, Is.EqualTo (0));
+            using (var obj1 = new TestObject ())
+            using (var obj2 = new TestObject ())
+            using (var binding = obj1.BindProperty (nameof(TestObject.IntValue),
+                                                    obj2, nameof(TestObject.IntValue),
+                                                    BindingFlags.Default, Plus5, null)) {
+                Assume.That (obj1.IntValue, Is.EqualTo (0));
+                Assume.That (obj2.IntValue, Is.EqualTo (0));
 
-            // test that binding is in effect
-            obj1.IntValue = 1;
-            Assert.That (obj2.IntValue, Is.EqualTo (6));
+                // test that binding is in effect
+                obj1.IntValue = 1;
+                Assert.That (obj2.IntValue, Is.EqualTo (6));
 
-            // test that binding is no longer effect
-            binding.Unbind ();
-            obj1.IntValue = 2;
-            Assert.That (obj2.IntValue, Is.EqualTo (6));
+                // test that binding is no longer effect
+                binding.Unbind ();
+                obj1.IntValue = 2;
+                Assert.That (obj2.IntValue, Is.EqualTo (6));
+            }
         }
     }
 

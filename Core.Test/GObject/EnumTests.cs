@@ -53,14 +53,14 @@ namespace GISharp.Core.Test.GObject
 
             // make sure that we set the typename, value name and value nick
             Assert.That (testEnum4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-EnumTests+TestEnum4"));
-            var enum4TypeClass = (EnumClass)TypeClass.Get (testEnum4GType);
-            var value = GISharp.GObject.Enum.GetValue (enum4TypeClass, 1);
-            Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
-            var valueName = GMarshal.Utf8PtrToString (value.ValueName);
-            Assert.That (valueName, Is.EqualTo ("One"));
-            var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
-            Assert.That (valueNick, Is.EqualTo ("One"));
-
+            using (var enum4TypeClass = (EnumClass)TypeClass.Get (testEnum4GType)) {
+                var value = GISharp.GObject.Enum.GetValue (enum4TypeClass, 1);
+                Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
+                var valueName = GMarshal.Utf8PtrToString (value.ValueName);
+                Assert.That (valueName, Is.EqualTo ("One"));
+                var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
+                Assert.That (valueNick, Is.EqualTo ("One"));
+            }
         }
 
         [Test]
@@ -69,20 +69,21 @@ namespace GISharp.Core.Test.GObject
             // make sure that we can override name and nick with attributes
             var testEnum5GType = typeof(TestEnum5).GetGType ();
             Assert.That (testEnum5GType.Name, Is.EqualTo ("TestEnum5GTypeName"));
-            var enum5TypeClass = (EnumClass)TypeClass.Get (testEnum5GType);
-            var value1 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 1);
-            Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));
-            var value1Name = GMarshal.Utf8PtrToString (value1.ValueName);
-            Assert.That (value1Name, Is.EqualTo ("test_enum_5_value_one"));
-            var value1Nick = GMarshal.Utf8PtrToString (value1.ValueNick);
-            Assert.That (value1Nick, Is.EqualTo ("One"));
+            using (var enum5TypeClass = (EnumClass)TypeClass.Get (testEnum5GType)) {
+                var value1 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 1);
+                Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));
+                var value1Name = GMarshal.Utf8PtrToString (value1.ValueName);
+                Assert.That (value1Name, Is.EqualTo ("test_enum_5_value_one"));
+                var value1Nick = GMarshal.Utf8PtrToString (value1.ValueNick);
+                Assert.That (value1Nick, Is.EqualTo ("One"));
 
-            var value2 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 2);
-            Assert.That (value2.Value, Is.EqualTo ((int)TestEnum5.Two));
-            var value2Name = GMarshal.Utf8PtrToString (value2.ValueName);
-            Assert.That (value2Name, Is.EqualTo ("Two"));
-            var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
-            Assert.That (value2Nick, Is.EqualTo ("test_enum_5_value_two"));
+                var value2 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 2);
+                Assert.That (value2.Value, Is.EqualTo ((int)TestEnum5.Two));
+                var value2Name = GMarshal.Utf8PtrToString (value2.ValueName);
+                Assert.That (value2Name, Is.EqualTo ("Two"));
+                var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
+                Assert.That (value2Nick, Is.EqualTo ("test_enum_5_value_two"));
+            }
         }
 
         // This type is registered as a boxed type with the GType system since
