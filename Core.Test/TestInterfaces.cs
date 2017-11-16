@@ -37,8 +37,13 @@ namespace GISharp.Core.Test
 
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
-            var initPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeInit> (NativeInit);
-            Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
+            try {
+                var initPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeInit> (NativeInit);
+                Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static void InterfaceFinalize (IntPtr gIface, IntPtr userData)
@@ -57,12 +62,17 @@ namespace GISharp.Core.Test
 
         static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
             try {
+                var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
                 var ret = initable.Init (cancellablePtr);
                 return ret;
-            } catch (GErrorException ex) {
+            }
+            catch (GErrorException ex) {
                 GMarshal.PropagateError (errorPtr, ex.Error);
+            }
+            catch (Exception ex) {
+                // FIXME: we should convert managed exception to GError
+                ex.DumpUnhandledException ();
             }
             return false;
         }
@@ -168,14 +178,19 @@ namespace GISharp.Core.Test
 
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
-            var networkChangedPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeNetworkChanged> (NativeNetworkChanged);
-            Marshal.WriteIntPtr (gIface, (int)networkChangedOffset, networkChangedPtr);
-            var canReachPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReach> (NativeCanReach);
-            Marshal.WriteIntPtr (gIface, (int)canReachOffset, canReachPtr);
-            var canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsync> (NativeCanReachAsync);
-            Marshal.WriteIntPtr (gIface, (int)canReachAsyncOffset, canReachAsyncPtr);
-            var canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsyncFinish> (NativeCanReachAsyncFinish);
-            Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
+            try {
+                var networkChangedPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeNetworkChanged> (NativeNetworkChanged);
+                Marshal.WriteIntPtr (gIface, (int)networkChangedOffset, networkChangedPtr);
+                var canReachPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReach> (NativeCanReach);
+                Marshal.WriteIntPtr (gIface, (int)canReachOffset, canReachPtr);
+                var canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsync> (NativeCanReachAsync);
+                Marshal.WriteIntPtr (gIface, (int)canReachAsyncOffset, canReachAsyncPtr);
+                var canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsyncFinish> (NativeCanReachAsyncFinish);
+                Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static void InterfaceFinalize (IntPtr gIface, IntPtr userData)
@@ -194,38 +209,57 @@ namespace GISharp.Core.Test
 
         static void NativeNetworkChanged (IntPtr monitorPtr, bool available)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
-            monitor.OnNetworkChanged (available);
+            try {
+                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                monitor.OnNetworkChanged (available);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
+                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
-            } catch (GErrorException ex) {
+            }
+            catch (GErrorException ex) {
                 GMarshal.PropagateError (errorPtr, ex.Error);
+            }
+            catch (Exception ex) {
+                // FIXME: convert managed exception to GError
+                ex.DumpUnhandledException ();
             }
             return false;
         }
 
         static void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
-            Action<IntPtr> managedCallback = (result) => {
-                callback (monitorPtr, result, userData);
-            };
-            monitor.CanReachAsync (connectablePtr, cancellablePtr, managedCallback);
+            try {
+                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                Action<IntPtr> managedCallback = (result) => {
+                    callback (monitorPtr, result, userData);
+                };
+                monitor.CanReachAsync (connectablePtr, cancellablePtr, managedCallback);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
-            var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
             try {
+                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
                 GMarshal.PropagateError (errorPtr, ex.Error);
+            }
+            catch (Exception ex) {
+                // FIXME: convert managed exception to GError
+                ex.DumpUnhandledException ();
             }
         }
 

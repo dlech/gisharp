@@ -392,7 +392,12 @@ namespace GISharp.GObject
 
         static void DestroyConnectData (IntPtr dataPtr, IntPtr closurePtr)
         {
-            GCHandle.FromIntPtr (dataPtr).Free ();
+            try {
+                GCHandle.FromIntPtr (dataPtr).Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         /// <summary>

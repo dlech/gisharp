@@ -105,198 +105,213 @@ namespace GISharp.GObject
         /// </remarks>
         static void NativeInitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
-            // Can't use type.GetGType () here since the type registration has
-            // not finished. So, we get the GType this way instead.
-            var gtype = Marshal.PtrToStructure<GType> (classPtr);
-            var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
+            try {
+                // Can't use type.GetGType () here since the type registration has
+                // not finished. So, we get the GType this way instead.
+                var gtype = Marshal.PtrToStructure<GType> (classPtr);
+                var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
 
-            // override property native accessors
+                // override property native accessors
 
-            Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<Struct> (nameof (Struct.SetProperty)),
-                Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassSetProperty));
-            Marshal.WriteIntPtr (classPtr,
-                (int)Marshal.OffsetOf<Struct> (nameof (Struct.GetProperty)),
-                Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassGetProperty));
+                Marshal.WriteIntPtr (classPtr,
+                    (int)Marshal.OffsetOf<Struct> (nameof (Struct.SetProperty)),
+                    Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassSetProperty));
+                Marshal.WriteIntPtr (classPtr,
+                    (int)Marshal.OffsetOf<Struct> (nameof (Struct.GetProperty)),
+                    Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassGetProperty));
 
-            // Install Properties
+                // Install Properties
 
-            uint propId = 1; // propId 0 is used internally, so we start with 1
-            foreach (var propInfo in type.GetProperties ()) {
-                if (propInfo.DeclaringType != type) {
-                    // only register properties declared in this type or in interfaces
-                    continue;
+                uint propId = 1; // propId 0 is used internally, so we start with 1
+                foreach (var propInfo in type.GetProperties ()) {
+                    if (propInfo.DeclaringType != type) {
+                        // only register properties declared in this type or in interfaces
+                        continue;
+                    }
+
+                    var name = propInfo.TryGetGTypePropertyName ();
+                    if (name == null) {
+                        // this property is not to be registered with the GObject type system
+                        continue;
+                    }
+                    // TODO: localize strings for nick and blurb
+                    var nick = propInfo.GetCustomAttribute<DisplayNameAttribute> (true)
+                        ?.DisplayName ?? name;
+                    var blurb = propInfo.GetCustomAttribute<DescriptionAttribute> (true)
+                        ?.Description ?? nick;
+                    var defaultValue = propInfo.GetCustomAttribute<DefaultValueAttribute> (true)
+                        ?.Value;
+
+                    // setup the flags
+
+                    var flags = default(ParamFlags);
+
+                    if (propInfo.CanRead) {
+                        flags |= ParamFlags.Readable;
+                    }
+                    if (propInfo.CanWrite) {
+                        flags |= ParamFlags.Writable;
+                    }
+                    // Construct properties don't work with managed types because they
+                    // require setting the property before the class has been instantiated.
+                    // So, we don't ever set ParamFlags.Construct or ParamFlags.ConstructOnly
+
+                    flags |= ParamFlags.StaticName;
+                    flags |= ParamFlags.StaticNick;
+                    flags |= ParamFlags.StaticBlurb;
+
+                    // Always explicit notify. Setting properties from managed code
+                    // must manually call notify, so if a property was set via
+                    // unmanaged code, it would result in double notification if
+                    // ExplicitNotify was not set.
+                    flags |= ParamFlags.ExplicitNotify;
+
+                    if (propInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
+                        flags |= ParamFlags.Deprecated;
+                    }
+
+                    // create the pspec instance based on type
+
+                    ParamSpec pspec;
+                    // TODO: Need to create special boxed type for non-GType objects
+                    var propertyGType = (GType)propInfo.PropertyType;
+                    var fundamentalGType = propertyGType.Fundamental;
+                    if (fundamentalGType == GType.Boolean) {
+                        pspec = new ParamSpecBoolean (name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);
+                    } else if (fundamentalGType == GType.Boxed) {
+                        pspec = new ParamSpecBoxed (name, nick, blurb, propertyGType, flags);
+                    } else if (fundamentalGType == GType.Char) {
+                        pspec = new ParamSpecChar (name, nick, blurb, sbyte.MinValue, sbyte.MaxValue, (sbyte)(defaultValue ?? default(sbyte)), flags);
+                    } else if (fundamentalGType == GType.UChar) {
+                        pspec = new ParamSpecUChar (name, nick, blurb, byte.MinValue, byte.MaxValue, (byte)(defaultValue ?? default(byte)), flags);
+                    } else if (fundamentalGType == GType.Double) {
+                        pspec = new ParamSpecDouble (name, nick, blurb, double.MinValue, double.MaxValue, (double)(defaultValue ?? default(double)), flags);
+                    } else if (fundamentalGType == GType.Float) {
+                        pspec = new ParamSpecFloat (name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
+                    } else if (fundamentalGType == GType.Enum) {
+                        pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
+                    } else if (fundamentalGType == GType.Flags) {
+                        pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
+                    } else if (fundamentalGType == GType.Int) {
+                        pspec = new ParamSpecInt (name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
+                    } else if (fundamentalGType == GType.UInt) {
+                        pspec = new ParamSpecUInt (name, nick, blurb, uint.MinValue, uint.MaxValue, (uint)(defaultValue ?? default(uint)), flags);
+                    } else if (fundamentalGType == GType.Int64) {
+                        pspec = new ParamSpecInt64 (name, nick, blurb, long.MinValue, long.MaxValue, (long)(defaultValue ?? default(long)), flags);
+                    } else if (fundamentalGType == GType.UInt64) {
+                        pspec = new ParamSpecUInt64 (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
+                    } else if (fundamentalGType == GType.Long) {
+                        pspec = new ParamSpecLong (name, nick, blurb, nlong.MinValue, nlong.MaxValue, (nlong)(defaultValue ?? default(nlong)), flags);
+                    } else if (fundamentalGType == GType.ULong) {
+                        pspec = new ParamSpecULong (name, nick, blurb, nulong.MinValue, nulong.MaxValue, (nulong)(defaultValue ?? default(nulong)), flags);
+                    } else if (fundamentalGType == GType.Object) {
+                        pspec = new ParamSpecObject (name, nick, blurb, propertyGType, flags);
+                    }
+                    // TODO: do we need this one?
+    //                else if (fundamentalGType == GType.Param) {
+    //                    pspec = new ParamSpecParam (name, nick, blurb, ?, flags);
+    //                }
+                    else if (fundamentalGType == GType.Pointer) {
+                        pspec = new ParamSpecPointer (name, nick, blurb, flags);
+                    } else if (fundamentalGType == GType.String) {
+                        pspec = new ParamSpecString (name, nick, blurb, (string)defaultValue, flags);
+                    } else if (fundamentalGType == GType.Type) {
+                        pspec = new ParamSpecGType (name, nick, blurb, propertyGType, flags);
+                    } else if (fundamentalGType == GType.Variant) {
+                        // TODO: need to pass variant type using attribute?
+                        // for now, always using any type
+                        var variantType = VariantType.Any;
+                        pspec = new ParamSpecVariant (name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
+                    } else {
+                        // TODO: Need more specific exception
+                        throw new Exception ("unhandled GType");
+                    }
+
+                    var methodInfo = propInfo.GetAccessors ().First ();
+                    if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
+                        // if this type did not declare the property, the we know
+                        // we are overriding a property from a base class or interface
+                        g_object_class_override_property (classPtr, propId, GMarshal.StringToUtf8Ptr (name));
+                    } else {
+                        g_object_class_install_property (classPtr, propId, pspec.Handle);
+                        GC.KeepAlive (pspec);
+                    }
+                    propId++;
                 }
 
-                var name = propInfo.TryGetGTypePropertyName ();
-                if (name == null) {
-                    // this property is not to be registered with the GObject type system
-                    continue;
+                foreach (var eventInfo in type.GetEvents ()) {
+                    if (eventInfo.DeclaringType != type) {
+                        // only register events declared in this type
+                        continue;
+                    }
+
+                    var signalAttr = eventInfo.GetCustomAttribute<GTypeSignalAttribute> (true);
+                    if (signalAttr == null) {
+                        // events without SignalAttribute are not installed
+                        continue;
+                    }
+                    // TODO: convert eventInfo.Name to a more glib friendly name?
+                    // e.g. "MyEvent" becomes "my-event"
+                    var name = signalAttr.Name ?? eventInfo.Name;
+
+                    var flags = default(SignalFlags);
+                    // TODO: which flags do we need to set?
+                    if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
+                        flags |= SignalFlags.Deprecated;
+                    }
+
+                    var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
+                    var returnGType = methodInfo.ReturnType.GetGType ();
+                    var parameters = methodInfo.GetParameters ();
+                    var parameterGTypes = new GType[parameters.Length];
+                    for (int i = 0; i < parameters.Length; i++) {
+                        parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
+                    }
+
+                    var namePtr = GMarshal.StringToUtf8Ptr (name);
+                    var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);
+                    Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
+                        null, IntPtr.Zero, null, returnGType,
+                        (uint)parameterGTypes.Length, parameterGTypesPtr);
                 }
-                // TODO: localize strings for nick and blurb
-                var nick = propInfo.GetCustomAttribute<DisplayNameAttribute> (true)
-                    ?.DisplayName ?? name;
-                var blurb = propInfo.GetCustomAttribute<DescriptionAttribute> (true)
-                    ?.Description ?? nick;
-                var defaultValue = propInfo.GetCustomAttribute<DefaultValueAttribute> (true)
-                    ?.Value;
-
-                // setup the flags
-
-                var flags = default(ParamFlags);
-
-                if (propInfo.CanRead) {
-                    flags |= ParamFlags.Readable;
-                }
-                if (propInfo.CanWrite) {
-                    flags |= ParamFlags.Writable;
-                }
-                // Construct properties don't work with managed types because they
-                // require setting the property before the class has been instantiated.
-                // So, we don't ever set ParamFlags.Construct or ParamFlags.ConstructOnly
-
-                flags |= ParamFlags.StaticName;
-                flags |= ParamFlags.StaticNick;
-                flags |= ParamFlags.StaticBlurb;
-
-                // Always explicit notify. Setting properties from managed code
-                // must manually call notify, so if a property was set via
-                // unmanaged code, it would result in double notification if
-                // ExplicitNotify was not set.
-                flags |= ParamFlags.ExplicitNotify;
-
-                if (propInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
-                    flags |= ParamFlags.Deprecated;
-                }
-
-                // create the pspec instance based on type
-
-                ParamSpec pspec;
-                // TODO: Need to create special boxed type for non-GType objects
-                var propertyGType = (GType)propInfo.PropertyType;
-                var fundamentalGType = propertyGType.Fundamental;
-                if (fundamentalGType == GType.Boolean) {
-                    pspec = new ParamSpecBoolean (name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);
-                } else if (fundamentalGType == GType.Boxed) {
-                    pspec = new ParamSpecBoxed (name, nick, blurb, propertyGType, flags);
-                } else if (fundamentalGType == GType.Char) {
-                    pspec = new ParamSpecChar (name, nick, blurb, sbyte.MinValue, sbyte.MaxValue, (sbyte)(defaultValue ?? default(sbyte)), flags);
-                } else if (fundamentalGType == GType.UChar) {
-                    pspec = new ParamSpecUChar (name, nick, blurb, byte.MinValue, byte.MaxValue, (byte)(defaultValue ?? default(byte)), flags);
-                } else if (fundamentalGType == GType.Double) {
-                    pspec = new ParamSpecDouble (name, nick, blurb, double.MinValue, double.MaxValue, (double)(defaultValue ?? default(double)), flags);
-                } else if (fundamentalGType == GType.Float) {
-                    pspec = new ParamSpecFloat (name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
-                } else if (fundamentalGType == GType.Enum) {
-                    pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
-                } else if (fundamentalGType == GType.Flags) {
-                    pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
-                } else if (fundamentalGType == GType.Int) {
-                    pspec = new ParamSpecInt (name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
-                } else if (fundamentalGType == GType.UInt) {
-                    pspec = new ParamSpecUInt (name, nick, blurb, uint.MinValue, uint.MaxValue, (uint)(defaultValue ?? default(uint)), flags);
-                } else if (fundamentalGType == GType.Int64) {
-                    pspec = new ParamSpecInt64 (name, nick, blurb, long.MinValue, long.MaxValue, (long)(defaultValue ?? default(long)), flags);
-                } else if (fundamentalGType == GType.UInt64) {
-                    pspec = new ParamSpecUInt64 (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
-                } else if (fundamentalGType == GType.Long) {
-                    pspec = new ParamSpecLong (name, nick, blurb, nlong.MinValue, nlong.MaxValue, (nlong)(defaultValue ?? default(nlong)), flags);
-                } else if (fundamentalGType == GType.ULong) {
-                    pspec = new ParamSpecULong (name, nick, blurb, nulong.MinValue, nulong.MaxValue, (nulong)(defaultValue ?? default(nulong)), flags);
-                } else if (fundamentalGType == GType.Object) {
-                    pspec = new ParamSpecObject (name, nick, blurb, propertyGType, flags);
-                }
-                // TODO: do we need this one?
-//                else if (fundamentalGType == GType.Param) {
-//                    pspec = new ParamSpecParam (name, nick, blurb, ?, flags);
-//                }
-                else if (fundamentalGType == GType.Pointer) {
-                    pspec = new ParamSpecPointer (name, nick, blurb, flags);
-                } else if (fundamentalGType == GType.String) {
-                    pspec = new ParamSpecString (name, nick, blurb, (string)defaultValue, flags);
-                } else if (fundamentalGType == GType.Type) {
-                    pspec = new ParamSpecGType (name, nick, blurb, propertyGType, flags);
-                } else if (fundamentalGType == GType.Variant) {
-                    // TODO: need to pass variant type using attribute?
-                    // for now, always using any type
-                    var variantType = VariantType.Any;
-                    pspec = new ParamSpecVariant (name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
-                } else {
-                    // TODO: Need more specific exception
-                    throw new Exception ("unhandled GType");
-                }
-
-                var methodInfo = propInfo.GetAccessors ().First ();
-                if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
-                    // if this type did not declare the property, the we know
-                    // we are overriding a property from a base class or interface
-                    g_object_class_override_property (classPtr, propId, GMarshal.StringToUtf8Ptr (name));
-                } else {
-                    g_object_class_install_property (classPtr, propId, pspec.Handle);
-                    GC.KeepAlive (pspec);
-                }
-                propId++;
             }
-
-            foreach (var eventInfo in type.GetEvents ()) {
-                if (eventInfo.DeclaringType != type) {
-                    // only register events declared in this type
-                    continue;
-                }
-
-                var signalAttr = eventInfo.GetCustomAttribute<GTypeSignalAttribute> (true);
-                if (signalAttr == null) {
-                    // events without SignalAttribute are not installed
-                    continue;
-                }
-                // TODO: convert eventInfo.Name to a more glib friendly name?
-                // e.g. "MyEvent" becomes "my-event"
-                var name = signalAttr.Name ?? eventInfo.Name;
-
-                var flags = default(SignalFlags);
-                // TODO: which flags do we need to set?
-                if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
-                    flags |= SignalFlags.Deprecated;
-                }
-
-                var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
-                var returnGType = methodInfo.ReturnType.GetGType ();
-                var parameters = methodInfo.GetParameters ();
-                var parameterGTypes = new GType[parameters.Length];
-                for (int i = 0; i < parameters.Length; i++) {
-                    parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
-                }
-
-                var namePtr = GMarshal.StringToUtf8Ptr (name);
-                var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);
-                Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
-                    null, IntPtr.Zero, null, returnGType,
-                    (uint)parameterGTypes.Length, parameterGTypesPtr);
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
             }
         }
 
         static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
-            var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
-            if (obj == null) {
-                throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-            }
-            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            try {
+                var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
+                if (obj == null) {
+                    throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
+                }
+                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
-            propInfo.SetValue (obj, value.Get ());
+                var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
+                propInfo.SetValue (obj, value.Get ());
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
-            var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
-            if (obj == null) {
-                throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-            }
-            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+            try {
+                var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
+                if (obj == null) {
+                    throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
+                }
+                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
 
-            var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
-            value.Set (propInfo.GetValue (obj));
+                var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
+                value.Set (propInfo.GetValue (obj));
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         /// <summary>

@@ -311,8 +311,13 @@ namespace GISharp.GObject
         static void NativeMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
-            var callback = (Func<Value[], Value>)GCHandle.FromIntPtr (marshalDataPtr).Target;
-            returnValue = callback.Invoke (paramValues);
+            try {
+                var callback = (Func<Value[], Value>)GCHandle.FromIntPtr (marshalDataPtr).Target;
+                returnValue = callback.Invoke (paramValues);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         void SetCallback (Action<Value[]> callback)
@@ -325,8 +330,13 @@ namespace GISharp.GObject
         static void NativeMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
-            var callback = (Action<Value[]>)GCHandle.FromIntPtr (marshalDataPtr).Target;
-            callback.Invoke (paramValues);
+            try {
+                var callback = (Action<Value[]>)GCHandle.FromIntPtr (marshalDataPtr).Target;
+                callback.Invoke (paramValues);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         void SetCallback (Action callback)
@@ -339,13 +349,23 @@ namespace GISharp.GObject
         static void NativeMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
-            var callback = (Action)GCHandle.FromIntPtr (marshalDataPtr).Target;
-            callback.Invoke ();
+            try {
+                var callback = (Action)GCHandle.FromIntPtr (marshalDataPtr).Target;
+                callback.Invoke ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         static void FreeCallback (IntPtr dataPtr, IntPtr closurePtr)
         {
-            GCHandle.FromIntPtr (dataPtr).Free ();
+            try {
+                GCHandle.FromIntPtr (dataPtr).Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]

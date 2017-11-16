@@ -471,8 +471,13 @@ namespace GISharp.GObject
 
         static void FreeQData (IntPtr userData)
         {
-            var data = GCHandle.FromIntPtr (userData);
-            data.Free ();
+            try {
+                var data = GCHandle.FromIntPtr (userData);
+                data.Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
     }
 }

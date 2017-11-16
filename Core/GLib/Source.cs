@@ -103,10 +103,17 @@ namespace GISharp.GLib
 
         static bool PrepareManagedSource (IntPtr sourcePtr, out int timeout)
         {
-            var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
-            var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-            var source = gcHandle.Target as Source;
-            return source.Prepare (out timeout);
+            try {
+                var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
+                var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
+                var source = gcHandle.Target as Source;
+                return source.Prepare (out timeout);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                timeout = default(int);
+                return default(bool);
+            }
         }
 
         /// <summary>
@@ -128,10 +135,16 @@ namespace GISharp.GLib
 
         static bool CheckManagedSource (IntPtr sourcePtr)
         {
-            var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
-            var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-            var source = gcHandle.Target as Source;
-            return source.Check ();
+            try {
+                var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
+                var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
+                var source = gcHandle.Target as Source;
+                return source.Check ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                return default(bool);
+            }
         }
 
         /// <summary>
@@ -146,10 +159,16 @@ namespace GISharp.GLib
 
         static bool DispatchManagedSource (IntPtr sourcePtr, NativeSourceFunc callback, IntPtr userData)
         {
-            var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
-            var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-            var source = gcHandle.Target as Source;
-            return source.Dispatch (() => callback (userData));
+            try {
+                var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
+                var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
+                var source = gcHandle.Target as Source;
+                return source.Dispatch (() => callback (userData));
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                return default(bool);
+            }
         }
 
         /// <summary>
@@ -169,11 +188,16 @@ namespace GISharp.GLib
 
         static void FinalizeManagedSource (IntPtr sourcePtr)
         {
-            var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
-            var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-            var source = gcHandle.Target as Source;
-            source.Finalize_ ();
-            gcHandle.Free ();
+            try {
+                var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
+                var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
+                var source = gcHandle.Target as Source;
+                source.Finalize_ ();
+                gcHandle.Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         /// <summary>

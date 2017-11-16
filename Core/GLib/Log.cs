@@ -329,10 +329,15 @@ namespace GISharp.GLib
 
         static void managedLogFuncCallback (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
         {
-            var logDomain = GMarshal.Utf8PtrToString (logDomain_);
-            var message = GMarshal.Utf8PtrToString (message_);
-            var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
-            logFunc (logDomain, logLevel_, message);
+            try {
+                var logDomain = GMarshal.Utf8PtrToString (logDomain_);
+                var message = GMarshal.Utf8PtrToString (message_);
+                var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
+                logFunc (logDomain, logLevel_, message);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
 		/// <summary>

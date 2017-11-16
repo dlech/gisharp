@@ -99,14 +99,19 @@ namespace GISharp.GObject
 
         static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
         {
-            // free the existing GCHandle
-            var gcHandle = (GCHandle)Marshal.ReadIntPtr (data);
-            var obj = gcHandle.Target;
-            gcHandle.Free ();
+            try {
+                // free the existing GCHandle
+                var gcHandle = (GCHandle)Marshal.ReadIntPtr (data);
+                var obj = gcHandle.Target;
+                gcHandle.Free ();
 
-            // alloc a new GCHandle with weak/strong reference depending on isLastRef
-            gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
-            Marshal.WriteIntPtr (data, (IntPtr)gcHandle);
+                // alloc a new GCHandle with weak/strong reference depending on isLastRef
+                gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
+                Marshal.WriteIntPtr (data, (IntPtr)gcHandle);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -121,10 +126,15 @@ namespace GISharp.GObject
 
         static void NativeOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
-            var obj = GetInstance<Object> (gobjectPtr, Transfer.None);
-            var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
-            var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
-            obj.OnPropertyChanged (propInfo.Name);
+            try {
+                var obj = GetInstance<Object> (gobjectPtr, Transfer.None);
+                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+                var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
+                obj.OnPropertyChanged (propInfo.Name);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         PropertyChangedEventHandler propertyChangedHandler;
@@ -717,24 +727,41 @@ namespace GISharp.GObject
 
         static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
         {
-            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
-            var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
-            var ret = funcs.TransformTo (binding, ref toValue, ref fromValue);
-            return ret;
+            try {
+                var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
+                var ret = funcs.TransformTo (binding, ref toValue, ref fromValue);
+                return ret;
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                return default(bool);
+            }
         }
 
         static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
         {
-            var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
-            var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
-            var ret = funcs.TransformFrom (binding, ref toValue, ref fromValue);
-            return ret;
+            try {
+                var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
+                var ret = funcs.TransformFrom (binding, ref toValue, ref fromValue);
+                return ret;
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                return default(bool);
+            }
         }
 
         static void FreeBindingTransformFuncs (IntPtr userData)
         {
-            var data = GCHandle.FromIntPtr (userData);
-            data.Free ();
+            try {
+                var data = GCHandle.FromIntPtr (userData);
+                data.Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         /// <summary>
@@ -1149,8 +1176,13 @@ namespace GISharp.GObject
 
         static void FreeData (IntPtr dataPtr)
         {
-            var data = GCHandle.FromIntPtr (dataPtr);
-            data.Free ();
+            try {
+                var data = GCHandle.FromIntPtr (dataPtr);
+                data.Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
     }
 
