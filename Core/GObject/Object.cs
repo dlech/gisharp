@@ -272,6 +272,17 @@ namespace GISharp.GObject
         {
         }
 
+        [Since ("2.10")]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_object_is_floating (IntPtr @object);
+
+        bool IsFloating {
+            get {
+                AssertNotDisposed ();
+                return g_object_is_floating (Handle);
+            }
+        }
+
         /// <summary>
         /// Find the #GParamSpec with the given name for an
         /// interface. Generally, the interface vtable passed in as @g_iface
