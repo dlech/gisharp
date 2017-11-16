@@ -141,7 +141,7 @@ namespace GISharp.GObject
         object propertyChangedHandlerLock = new object ();
         SignalHandler notifySignalHandler;
 
-        SignalHandler ConnectNotifiySignal ()
+        SignalHandler ConnectNotifySignal ()
         {
             var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
             var id = Signal.g_signal_connect_data (Handle, GMarshal.StringToUtf8Ptr ("notify"),
@@ -157,7 +157,7 @@ namespace GISharp.GObject
             add {
                 lock (propertyChangedHandlerLock) {
                     if (propertyChangedHandler == null) {
-                        notifySignalHandler = ConnectNotifiySignal ();
+                        notifySignalHandler = ConnectNotifySignal ();
                     }
                     propertyChangedHandler += value;
                 }
