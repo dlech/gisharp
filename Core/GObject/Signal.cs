@@ -458,19 +458,30 @@ namespace GISharp.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static Value Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        public static object Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
             }
+            var query = Signal.Query (signalId);
+            if (!instance.GetGType ().IsA (query.IType)) {
+                throw new ArgumentException ("Instance type does not match signal type");
+            }
+            if (query.ParamTypes.Length != parameters.Length) {
+                var message = $"Incorrect number of parameters, expecting {query.ParamTypes.Length}, but got {parameters.Length}";
+                throw new ArgumentException (message);
+            }
             using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
                 instanceAndParams.Append (new Value (instance.GetGType (), instance));
-                foreach (var p in parameters) {
-                    instanceAndParams.Append (new Value (p.GetGType (), p));
+                for (var i = 0; i < parameters.Length; i++) {
+                    instanceAndParams.Append (new Value (query.ParamTypes[i], parameters[i]));
                 }
 
                 g_signal_emitv (instanceAndParams.Data, signalId, detail, out var returnValue);
-                return returnValue;
+                if (query.ReturnType == GType.None) {
+                    return null;
+                }
+                return returnValue.Get();
             }
         }
 
@@ -616,8 +627,8 @@ namespace GISharp.GObject
         /// </returns>
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="guint*">
-<type name="guint" type="guint" managed-name="Guint" />
-</array> */
+            <type name="guint" type="guint" managed-name="Guint" />
+            </array> */
         /* transfer-ownership:none */
         static extern IntPtr g_signal_list_ids (
             /* <type name="GType" type="GType" managed-name="GType" /> */
@@ -1062,36 +1073,38 @@ namespace GISharp.GObject
         /// A user provided structure that is
         ///  filled in with constant values upon success.
         /// </param>
-        //        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        //        /* <type name="none" type="void" managed-name="None" /> */
-        //        /* transfer-ownership:none */
-        //        static extern void g_signal_query (
-        //            /* <type name="guint" type="guint" managed-name="Guint" /> */
-        //            /* transfer-ownership:none */
-        //            uint signalId,
-        //            /* <type name="SignalQuery" type="GSignalQuery*" managed-name="SignalQuery" /> */
-        //            /* direction:out caller-allocates:1 transfer-ownership:none */
-        //            ref SignalQuery query);
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_signal_query (
+            /* <type name="guint" type="guint" managed-name="Guint" /> */
+            /* transfer-ownership:none */
+            uint signalId,
+            /* <type name="SignalQuery" type="GSignalQuery*" managed-name="SignalQuery" /> */
+            /* direction:out caller-allocates:1 transfer-ownership:none */
+            out SignalQuery query);
 
         /// <summary>
         /// Queries the signal system for in-depth information about a
-        /// specific signal. This function will fill in a user-provided
-        /// structure to hold signal-specific information. If an invalid
-        /// signal id is passed in, the @signal_id member of the #GSignalQuery
-        /// is 0. All members filled into the #GSignalQuery structure should
-        /// be considered constant and have to be left untouched.
+        /// specific signal.
         /// </summary>
         /// <param name="signalId">
         /// The signal id of the signal to query information for.
         /// </param>
-        /// <param name="query">
-        /// A user provided structure that is
-        ///  filled in with constant values upon success.
-        /// </param>
-        //        public static void Query (uint signalId, ref SignalQuery query)
-        //        {
-        //            g_signal_query (signalId, ref query);
-        //        }
+        /// <returns>
+        /// A structure with signal-specific information.
+        /// </returns>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// Throw if and invalid signal id is passed in.
+        /// </exception>
+        public static SignalQuery Query (uint signalId)
+        {
+            g_signal_query (signalId, out var query);
+            if (query.SignalId == 0) {
+                throw new ArgumentOutOfRangeException (nameof (signalId));
+            }
+            return query;
+        }
 
         /// <summary>
         /// Deletes an emission hook.
