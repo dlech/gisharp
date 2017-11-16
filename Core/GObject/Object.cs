@@ -16,6 +16,7 @@ namespace GISharp.GObject
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {
+        static readonly IntPtr toggleNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeToggleNotify> (toggleNotifyCallback);
         static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
 
         // this is a pointer to a GCHandle, not just the GCHandle cast as an IntPtr
@@ -47,7 +48,7 @@ namespace GISharp.GObject
             gcHandlePtr = GMarshal.Alloc (IntPtr.Size);
             var gcHandle = GCHandle.Alloc (this);
             Marshal.WriteIntPtr (gcHandlePtr, (IntPtr)gcHandle);
-            g_object_add_toggle_ref (Handle, toggleNotifyCallback, gcHandlePtr);
+            g_object_add_toggle_ref (Handle, toggleNotifyPtr, gcHandlePtr);
 
             // IntPtr always owns a reference so release it now that we have a toggle reference instead.
             // If this is the last normal reference, toggleNotifyCallback will be called immediately
@@ -58,16 +59,18 @@ namespace GISharp.GObject
         protected override void Dispose (bool disposing)
         {
             if (Handle != IntPtr.Zero) {
+                var oldHandle = Handle;
+                Handle = IntPtr.Zero;
                 // we either have a toggle reference or a regular reference, but not both
                 if (gcHandlePtr != IntPtr.Zero) {
-                    g_object_remove_toggle_ref (Handle, toggleNotifyCallback, gcHandlePtr);
+                    g_object_remove_toggle_ref (oldHandle, toggleNotifyPtr, gcHandlePtr);
                     var gcHandle = (GCHandle)Marshal.ReadIntPtr (gcHandlePtr);
                     gcHandle.Free ();
                     GMarshal.Free (gcHandlePtr);
                     gcHandlePtr = IntPtr.Zero;
                 }
                 else {
-                    g_object_unref (Handle);
+                    g_object_unref (oldHandle);
                 }
             }
             base.Dispose (disposing);
@@ -92,10 +95,10 @@ namespace GISharp.GObject
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_add_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+        static extern void g_object_add_toggle_ref (IntPtr @object, IntPtr notify, IntPtr data);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_remove_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+        static extern void g_object_remove_toggle_ref (IntPtr @object, IntPtr notify, IntPtr data);
 
         static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
         {
