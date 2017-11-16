@@ -2708,7 +2708,7 @@ namespace GISharp.GObject
         /// An unset value is the same as an uninitialized (zero-filled)
         /// #GValue structure.
         /// </summary>
-        void Unset ()
+        public void Unset ()
         {
             AssertInitialized ();
             g_value_unset (ref this);

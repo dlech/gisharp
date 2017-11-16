@@ -478,6 +478,9 @@ namespace GISharp.GObject
                 }
 
                 g_signal_emitv (instanceAndParams.Data, signalId, detail, out var returnValue);
+                foreach (var p in instanceAndParams) {
+                    p.Unset ();
+                }
                 if (query.ReturnType == GType.None) {
                     return null;
                 }

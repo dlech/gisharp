@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using NUnit.Framework;
 using GISharp.Runtime;
 using GISharp.GObject;
@@ -43,7 +43,7 @@ namespace GISharp.Core.Test.GObject
 
                 var id = Signal.Lookup<TestNetworkMonitor> ("network-changed");
                 Assume.That (id, Is.Not.EqualTo (0));
-                Signal.Emit (obj, id, Quark.Zero, new [] { (Value)true });
+                Signal.Emit (obj, id, Quark.Zero, true);
 
                 Assert.That (callbackCount, Is.EqualTo (1));
             }
