@@ -80,6 +80,7 @@ namespace GISharp.GObject
 
         public object Get ()
         {
+            AssertInitialized ();
             var gtype = ValueGType.Fundamental;
             if (gtype == GType.Boolean) {
                 return Boolean;
@@ -152,7 +153,8 @@ namespace GISharp.GObject
 
         public void Set (object obj)
         {
-            var gtype = ValueGType.Fundamental;
+            AssertInitialized ();
+            var gtype = type.Fundamental;
             try {
                 if (gtype == GType.Boolean) {
                     Boolean = (bool)obj;
@@ -618,6 +620,7 @@ namespace GISharp.GObject
         /// </param>
         public void Copy (Value destValue)
         {
+            AssertInitialized ();
             g_value_copy (ref this, ref destValue);
         }
 
@@ -650,8 +653,9 @@ namespace GISharp.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        public IntPtr DupBoxed ()
+        IntPtr DupBoxed ()
         {
+            AssertInitialized ();
             var ret = g_value_dup_boxed (ref this);
             return ret;
         }
@@ -688,7 +692,7 @@ namespace GISharp.GObject
         /// </returns>
         public Object DupObject()
         {
-            AssertNotDisposed();
+            AssertInitialized ();
             var ret_ = g_value_dup_object(Handle);
             var ret = Opaque.GetInstance<Object>(ret_, Transfer.All);
             return ret;
@@ -724,7 +728,7 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec DupParam()
         {
-            AssertNotDisposed();
+            AssertInitialized ();
             var ret_ = g_value_dup_param(Handle);
             var ret = Opaque.GetInstance<ParamSpec>(ret_, Transfer.All);
             return ret;
@@ -759,7 +763,7 @@ namespace GISharp.GObject
         //[Since("2.26")]
         public GISharp.GLib.Variant DupVariant()
         {
-            AssertNotDisposed();
+            AssertInitialized ();
             var ret_ = g_value_dup_variant(Handle);
             var ret = Opaque.GetInstance<GISharp.GLib.Variant>(ret_, Transfer.All);
             return ret;
@@ -792,7 +796,7 @@ namespace GISharp.GObject
         /// </returns>
         public bool FitsPointer ()
         {
-            AssertNotDisposed ();
+            AssertInitialized ();
             var ret = g_value_fits_pointer (Handle);
             return ret;
         }
@@ -1202,12 +1206,14 @@ namespace GISharp.GObject
         /// </returns>
         Object Object {
             get {
+                AssertType (GType.Object);
                 var ret_ = g_value_get_object (ref this);
                 var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
                 return ret;
             }
 
             set {
+                AssertType (GType.Object);
                 g_value_set_object (ref this, value?.Handle ?? IntPtr.Zero);
                 GC.KeepAlive (value);
             }
@@ -1238,12 +1244,14 @@ namespace GISharp.GObject
         /// </returns>
         ParamSpec Param {
             get {
+                AssertType (GType.Param);
                 var ret_ = g_value_get_param (ref this);
                 var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
                 return ret;
             }
 
             set {
+                AssertType (GType.Param);
                 g_value_set_param (ref this, value?.Handle ?? IntPtr.Zero);
                 GC.KeepAlive (value);
             }
@@ -1533,11 +1541,13 @@ namespace GISharp.GObject
         [Since ("2.26")]
         Variant Variant {
             get {
+                AssertType (GType.Variant);
                 var ret_ = g_value_get_variant (ref this);
                 var ret = Opaque.GetInstance<Variant> (ret_, Transfer.None);
                 return ret;
             }
             set {
+                AssertType (GType.Variant);
                 g_value_set_variant (ref this, value?.Handle ?? IntPtr.Zero);
                 GC.KeepAlive (value);
             }
@@ -1575,7 +1585,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        public void Init (GType gType)
+        void Init (GType gType)
         {
             g_value_init (ref this, gType);
         }
@@ -1621,11 +1631,11 @@ namespace GISharp.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [Since ("2.42")]
-        public void InitFromInstance (IntPtr instance)
-        {
-            g_value_init_from_instance (ref this, instance);
-        }
+        // [Since ("2.42")]
+        // public void InitFromInstance (IntPtr instance)
+        // {
+        //     g_value_init_from_instance (ref this, instance);
+        // }
 
         /// <summary>
         /// Returns the value contents as pointer. This function asserts that
@@ -1654,11 +1664,12 @@ namespace GISharp.GObject
         /// <returns>
         /// the value contents as pointer
         /// </returns>
-        public IntPtr PeekPointer ()
-        {
-            var ret = g_value_peek_pointer (ref this);
-            return ret;
-        }
+        // public IntPtr PeekPointer ()
+        // {
+        //     AssertInitialized ();
+        //     var ret = g_value_peek_pointer (ref this);
+        //     return ret;
+        // }
 
         /// <summary>
         /// Clears the current value in @value and resets it to the default value
@@ -1684,6 +1695,7 @@ namespace GISharp.GObject
         /// </summary>
         public void Reset ()
         {
+            AssertInitialized ();
             g_value_reset (ref this);
         }
 
@@ -1757,7 +1769,7 @@ namespace GISharp.GObject
         //[Obsolete ("Use g_value_take_boxed() instead.")]
         //public void SetBoxedTakeOwnership (IntPtr vBoxed)
         //{
-        //    AssertNotDisposed ();
+        //    AssertInitialized ();
         //    g_value_set_boxed_take_ownership (Handle, vBoxed);
         //}
 
@@ -1913,7 +1925,7 @@ namespace GISharp.GObject
         /// </param>
         //        public void SetInstance (IntPtr instance)
         //        {
-        //            AssertNotDisposed ();
+        //            AssertInitialized ();
         //            g_value_set_instance (Handle, instance);
         //        }
 
@@ -2038,7 +2050,7 @@ namespace GISharp.GObject
         //[Obsolete ("Use g_value_take_object() instead.")]
         //public void SetObjectTakeOwnership (IntPtr vObject)
         //{
-        //    AssertNotDisposed ();
+        //    AssertInitialized ();
         //    g_value_set_object_take_ownership (Handle, vObject);
         //}
 
@@ -2092,7 +2104,7 @@ namespace GISharp.GObject
         //[Obsolete ("Use g_value_take_param() instead.")]
         //public void SetParamTakeOwnership(ParamSpec param)
         //{
-        //    AssertNotDisposed();
+        //    AssertInitialized ();
         //    var param_ = param == null ? IntPtr.Zero : param.Handle;
         //    g_value_set_param_take_ownership(Handle, param_);
         //}
@@ -2170,7 +2182,7 @@ namespace GISharp.GObject
         /// </param>
         //public void SetStaticBoxed (IntPtr vBoxed)
         //{
-        //    AssertNotDisposed ();
+        //    AssertInitialized ();
         //    g_value_set_static_boxed (Handle, vBoxed);
         //}
 
@@ -2206,7 +2218,7 @@ namespace GISharp.GObject
         /// </param>
         //public void SetStaticString (string vString)
         //{
-        //    AssertNotDisposed ();
+        //    AssertInitialized ();
         //    var vString_ = MarshalG.StringToUtf8Ptr (vString);
         //    g_value_set_static_string (Handle, vString_);
         //    MarshalG.Free (vString_);
@@ -2262,7 +2274,7 @@ namespace GISharp.GObject
         //[Obsolete ("Use g_value_take_string() instead.")]
         //public void SetStringTakeOwnership(string vString)
         //{
-        //    AssertNotDisposed();
+        //    AssertInitialized ();
         //    var vString_ = MarshalG.StringToUtf8Ptr(vString);
         //    g_value_set_string_take_ownership(Handle, vString_);
         //    MarshalG.Free(vString_);
@@ -2404,7 +2416,7 @@ namespace GISharp.GObject
         //        [Since ("2.4")]
         //        public void TakeBoxed (IntPtr vBoxed)
         //        {
-        //            AssertNotDisposed ();
+        //            AssertInitialized ();
         //            g_value_take_boxed (Handle, vBoxed);
         //        }
 
@@ -2452,7 +2464,7 @@ namespace GISharp.GObject
         //        [Since ("2.4")]
         //        public void TakeObject (IntPtr vObject)
         //        {
-        //            AssertNotDisposed ();
+        //            AssertInitialized ();
         //            g_value_take_object (Handle, vObject);
         //        }
 
@@ -2490,7 +2502,7 @@ namespace GISharp.GObject
         //[Since("2.4")]
         //public void TakeParam(ParamSpec param)
         //{
-        //    AssertNotDisposed();
+        //    AssertInitialized ();
         //    var param_ = param == null ? IntPtr.Zero : param.Handle;
         //    g_value_take_param(Handle, param_);
         //}
@@ -2525,7 +2537,7 @@ namespace GISharp.GObject
         //        [Since ("2.4")]
         //        public void TakeString (string vString)
         //        {
-        //            AssertNotDisposed ();
+        //            AssertInitialized ();
         //            var vString_ = MarshalG.StringToUtf8Ptr (vString);
         //            g_value_take_string (Handle, vString_);
         //            MarshalG.Free (vString_);
@@ -2585,7 +2597,7 @@ namespace GISharp.GObject
         //[Since("2.26")]
         //public void TakeVariant(GISharp.GLib.Variant variant)
         //{
-        //    AssertNotDisposed();
+        //    AssertInitialized ();
         //    var variant_ = variant == null ? IntPtr.Zero : variant.Handle;
         //    g_value_take_variant(Handle, variant_);
         //}
@@ -2641,6 +2653,7 @@ namespace GISharp.GObject
         /// </remarks>
         public bool TryTransform (ref Value destValue)
         {
+            AssertInitialized ();
             var ret = g_value_transform (ref this, ref destValue);
 
             return ret;
@@ -2654,7 +2667,7 @@ namespace GISharp.GObject
         /// <param name="destValue">
         /// Target value.
         /// </param>
-        /// <exception cref="InvalidOperationException">
+        /// <exception cref="InvalidCastException">
         /// If a transformation rule was not found and or could not be applied.
         ///  Upon failing transformations, <paramref name="destValue"/> is left untouched.
         /// </exception>
@@ -2668,7 +2681,7 @@ namespace GISharp.GObject
         public void Transform (ref Value destValue)
         {
             if (!TryTransform (ref destValue)) {
-                throw new InvalidOperationException ();
+                throw new InvalidCastException ();
             }
         }
 
@@ -2697,6 +2710,7 @@ namespace GISharp.GObject
         /// </summary>
         void Unset ()
         {
+            AssertInitialized ();
             g_value_unset (ref this);
         }
 
@@ -2744,9 +2758,17 @@ namespace GISharp.GObject
 
         void AssertType (GType type)
         {
+            AssertInitialized ();
             if (!this.type.IsA (type)) {
                 var message = $"Expecting {type.Name} but have {this.type.Name}";
                 throw new InvalidOperationException (message);
+            }
+        }
+
+        void AssertInitialized ()
+        {
+            if (type == GType.Invalid) {
+                throw new InvalidOperationException ("Value type has not been initialized.");
             }
         }
 
@@ -2764,6 +2786,7 @@ namespace GISharp.GObject
         /// </remarks>
         public override string ToString ()
         {
+            AssertInitialized ();
             var ret_ = g_strdup_value_contents (ref this);
             var ret = GMarshal.Utf8PtrToString (ret_, freePtr: true);
 
