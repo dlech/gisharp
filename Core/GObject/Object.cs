@@ -621,7 +621,7 @@ namespace GISharp.GObject
             var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
             var ret_ = g_object_bind_property (Handle, sourceProperty_, target.Handle, targetProperty_, flags);
             // This actually results in having two references. One owned by the managed
-            // instance and one extra. This is actually desirable, otherise we
+            // instance and one extra. This is actually desirable, otherwise we
             // would always have to keep a managed reference to the binding object.
             // Also, calling Binding.Unbind() will free the extra reference.
             var ret = GetInstance<Binding> (ret_, Transfer.None);
@@ -668,7 +668,7 @@ namespace GISharp.GObject
         /// on this instance will be updated as well. The <paramref name="transformFrom"/>
         /// function is only used in case of bidirectional bindings, otherwise it will be ignored.
         ///
-        /// The binding will automatically be removed when either the this intance
+        /// The binding will automatically be removed when either the this instance
         /// or the <paramref name="target"/> instances are finalized. To remove the binding
         /// without affecting this instance and the <paramref name="target"/> you can
         /// just call <see cref="Binding.Unbind"/> on the returned <see cref="Binding"/> instance.
