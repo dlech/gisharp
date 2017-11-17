@@ -35,7 +35,7 @@ namespace GISharp.GObject
         /// <summary>
         /// Location of the class initialization function for
         /// classed and instantiatable types. Location of the default vtable
-        /// inititalization function for interface types. (optional) This function
+        /// initialization function for interface types. (optional) This function
         /// is used both to fill in virtual functions in the class or default vtable,
         /// and to do type-specific setup such as registering signals and object
         /// properties.
@@ -83,7 +83,7 @@ namespace GISharp.GObject
         /// For example, class members (such as strings) that are not sufficiently
         /// handled by a plain memory copy of the parent class into the derived class
         /// have to be altered. See GClassInitFunc() for a discussion of the class
-        /// intialization process.
+        /// initialization process.
         /// </summary>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void NativeBaseInitFunc (
@@ -95,8 +95,8 @@ namespace GISharp.GObject
         /// A callback function used by the type system to finalize those portions
         /// of a derived types class structure that were setup from the corresponding
         /// GBaseInitFunc() function. Class finalization basically works the inverse
-        /// way in which class intialization is performed.
-        /// See GClassInitFunc() for a discussion of the class intialization process.
+        /// way in which class initialization is performed.
+        /// See GClassInitFunc() for a discussion of the class initialization process.
         /// </summary>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void NativeBaseFinalizeFunc (
