@@ -18,7 +18,8 @@ namespace GISharp.GObject
     public struct TypeInfo
     {
         /// <summary>
-        /// Size of the class structure (required for interface, classed and instantiatable types)
+        /// Size of the class structure (required for interface, classed and
+        /// instantiatable types)
         /// </summary>
         public ushort ClassSize;
 
@@ -55,17 +56,22 @@ namespace GISharp.GObject
         public IntPtr ClassData;
 
         /// <summary>
-        /// Size of the instance (object) structure (required for instantiatable types only)
+        /// Size of the instance (object) structure (required for instantiatable
+        /// types only)
         /// </summary>
         public ushort InstanceSize;
 
         /// <summary>
-        /// Prior to GLib 2.10, it specified the number of pre-allocated (cached) instances to reserve memory for (0 indicates no caching). Since GLib 2.10, it is ignored, since instances are allocated with the [slice allocator][glib-Memory-Slices] now.
+        /// Prior to GLib 2.10, it specified the number of pre-allocated (cached)
+        /// instances to reserve memory for (0 indicates no caching). Since GLib
+        /// 2.10, it is ignored, since instances are allocated with the [slice
+        /// allocator][glib-Memory-Slices] now.
         /// </summary>
         public ushort NPreallocs;
 
         /// <summary>
-        /// Location of the instance initialization function (optional, for instantiatable types only)
+        /// Location of the instance initialization function (optional, for
+        /// instantiatable types only)
         /// </summary>
         public NativeInstanceInitFunc InstanceInit;
 
