@@ -47,7 +47,7 @@ namespace GISharp.TypelibBrowser
                                 @namespace, Repository.Namespaces[@namespace].Version));
                         }
                     } catch (Exception ex) {
-                        Debug.WriteLine (ex.Message);
+                        Console.Error.WriteLine (ex.Message);
                     }
                 }
             }
@@ -64,7 +64,7 @@ namespace GISharp.TypelibBrowser
             if (@namespace == null) {
                 throw new ArgumentNullException ("namespace");
             }
-            if (@namespace == null) {
+            if (version == null) {
                 throw new ArgumentNullException ("version");
             }
             Namespace = @namespace;

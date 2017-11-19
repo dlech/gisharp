@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.InteropServices;
 
 using Gtk;
@@ -67,7 +68,10 @@ namespace GISharp.TypelibBrowser
 
             namespaceNodeview.AppendColumn ("Namespace", new CellRendererText (), "text", 0);
             namespaceNodeview.AppendColumn ("Version", new CellRendererText (), "text", 1);
-            namespaceNodeview.NodeStore = new NodeStore (typeof(NamespaceTreeNode));
+            var nodeStore = new NodeStore (typeof (NamespaceTreeNode));
+            namespaceNodeview.NodeStore = nodeStore;
+            // work around https://bugzilla.xamarin.com/show_bug.cgi?id=51688
+            typeof (NodeView).GetField ("store", BindingFlags.Instance | BindingFlags.NonPublic).SetValue (namespaceNodeview, nodeStore);
             namespaceNodeview.NodeSelection.Changed += (sender, e) => {
                 if (SelectedNamespaceChanged != null) {
                     var selectedNode = namespaceNodeview.NodeSelection.SelectedNode as NamespaceTreeNode;
