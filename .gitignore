@@ -11,3 +11,4 @@ TestResult.xml
 .DS_Store
 .vscode/
 *.lock.json
+.vs/
