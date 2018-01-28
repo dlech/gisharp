@@ -378,8 +378,8 @@ namespace GISharp.GObject
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
             NativeCallback nativeHandler = () => handler ();
             var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<NativeCallback> (nativeHandler);
-            var data = GCHandle.ToIntPtr (GCHandle.Alloc (nativeHandler));
-            var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, DestroyConnectData, connectFlags);
+            var data = (IntPtr)GCHandle.Alloc (nativeHandler);
+            var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, destroyConnectDataDelegate, connectFlags);
             GMarshal.Free (detailedSignal_);
 
             if (ret == 0) {
@@ -390,10 +390,13 @@ namespace GISharp.GObject
             return new SignalHandler (instance, ret);
         }
 
+        static NativeClosureNotify destroyConnectDataDelegate = DestroyConnectData;
+
         static void DestroyConnectData (IntPtr dataPtr, IntPtr closurePtr)
         {
             try {
-                GCHandle.FromIntPtr (dataPtr).Free ();
+                var gcHandle = (GCHandle)dataPtr;
+                gcHandle.Free ();
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException ();

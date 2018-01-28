@@ -16,14 +16,14 @@ namespace GISharp.GLib
         public MainLoop (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_main_loop_ref (handle);
+                this.handle = g_main_loop_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_main_loop_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_main_loop_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -118,7 +118,7 @@ namespace GISharp.GLib
         public MainContext Context {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_main_loop_get_context (Handle);
+                var ret_ = g_main_loop_get_context (handle);
                 var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
@@ -150,7 +150,7 @@ namespace GISharp.GLib
         public bool IsRunning {
             get {
                 AssertNotDisposed ();
-                var ret = g_main_loop_is_running (Handle);
+                var ret = g_main_loop_is_running (handle);
                 return ret;
             }
         }
@@ -185,7 +185,7 @@ namespace GISharp.GLib
         public void Quit ()
         {
             AssertNotDisposed ();
-            g_main_loop_quit (Handle);
+            g_main_loop_quit (handle);
         }
 
         /// <summary>
@@ -221,7 +221,7 @@ namespace GISharp.GLib
             try {
                 var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext (newSyncContext);
-                g_main_loop_run (Handle);
+                g_main_loop_run (handle);
             } finally {
                 SynchronizationContext.SetSynchronizationContext (oldSyncContext);
             }

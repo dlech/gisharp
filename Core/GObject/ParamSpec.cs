@@ -66,7 +66,7 @@ namespace GISharp.GObject
         ParamFlags Flags {
             get {
                 AssertNotDisposed ();
-                var flags = Marshal.ReadInt32 (Handle, (int)flagsOffset);
+                var flags = Marshal.ReadInt32 (handle, (int)flagsOffset);
                 return (ParamFlags)flags;
             }
         }
@@ -77,7 +77,7 @@ namespace GISharp.GObject
         public GType ValueType {
             get {
                 AssertNotDisposed ();
-                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)valueTypeOffset);
+                var gtype = Marshal.PtrToStructure<GType> (handle + (int)valueTypeOffset);
                 return gtype;
             }
         }
@@ -88,7 +88,7 @@ namespace GISharp.GObject
         GType OwnerType {
             get {
                 AssertNotDisposed ();
-                var gtype = Marshal.PtrToStructure<GType> (Handle + (int)ownerTypeOffset);
+                var gtype = Marshal.PtrToStructure<GType> (handle + (int)ownerTypeOffset);
                 return gtype;
             }
         }
@@ -96,7 +96,7 @@ namespace GISharp.GObject
         uint RefCount {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<uint> (Handle + (int)refCountOffset);
+                var ret = Marshal.PtrToStructure<uint> (handle + (int)refCountOffset);
                 return ret;
             }
         }
@@ -104,15 +104,15 @@ namespace GISharp.GObject
         public ParamSpec (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_param_spec_ref (handle);
+                this.handle = g_param_spec_ref (handle);
             }
             g_param_spec_sink (handle);
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_param_spec_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_param_spec_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -168,7 +168,7 @@ namespace GISharp.GObject
         public string Blurb {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_param_spec_get_blurb (Handle);
+                var ret_ = g_param_spec_get_blurb (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
@@ -205,7 +205,7 @@ namespace GISharp.GObject
         public Value DefaultValue {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_param_spec_get_default_value (Handle);
+                var ret_ = g_param_spec_get_default_value (handle);
                 var ret = Marshal.PtrToStructure<Value> (ret_);
                 return ret;
             }
@@ -245,7 +245,7 @@ namespace GISharp.GObject
         public string Name {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_param_spec_get_name (Handle);
+                var ret_ = g_param_spec_get_name (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
@@ -279,7 +279,7 @@ namespace GISharp.GObject
         public Quark NameQuark {
             get {
                 AssertNotDisposed ();
-                var ret = g_param_spec_get_name_quark (Handle);
+                var ret = g_param_spec_get_name_quark (handle);
                 return ret;
             }
         }
@@ -310,7 +310,7 @@ namespace GISharp.GObject
         public string Nick {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_param_spec_get_nick (Handle);
+                var ret_ = g_param_spec_get_nick (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
@@ -351,7 +351,7 @@ namespace GISharp.GObject
         public object GetQData (Quark quark)
         {
             AssertNotDisposed ();
-            var ret = g_param_spec_get_qdata (Handle, quark);
+            var ret = g_param_spec_get_qdata (handle, quark);
             return ret == IntPtr.Zero ? null : GCHandle.FromIntPtr (ret).Target;
         }
 
@@ -396,7 +396,7 @@ namespace GISharp.GObject
         public ParamSpec RedirectTarget {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_param_spec_get_redirect_target (Handle);
+                var ret_ = g_param_spec_get_redirect_target (handle);
                 var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
                 return ret;
             }
@@ -454,7 +454,7 @@ namespace GISharp.GObject
             AssertNotDisposed ();
             var newData = data == null ? IntPtr.Zero
                 : GCHandle.ToIntPtr (GCHandle.Alloc (data));
-            g_param_spec_set_qdata_full (Handle, quark, newData, FreeQData);
+            g_param_spec_set_qdata_full (handle, quark, newData, FreeQData);
         }
 
         static void FreeQData (IntPtr userData)

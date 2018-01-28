@@ -16,12 +16,11 @@ namespace GISharp.GObject
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {
-        static readonly IntPtr toggleNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeToggleNotify> (toggleNotifyCallback);
+        internal static readonly Quark ToggleRefGCHandleQuark = Quark.FromString ("gisharp-gobject-toggle-ref-gc-handle-quark");
         static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
 
-        // this is a pointer to a GCHandle, not just the GCHandle cast as an IntPtr
-        IntPtr gcHandlePtr;
-        
+        NativeToggleNotify toggleNotifyDelegate;
+
         protected new struct Struct
         {
 #pragma warning disable CS0649
@@ -34,44 +33,41 @@ namespace GISharp.GObject
         uint RefCount {
             get {
                 AssertNotDisposed ();
-                return (uint)Marshal.ReadInt32 (Handle + (int)refCountOffset);
+                return (uint)Marshal.ReadInt32 (handle + (int)refCountOffset);
             }
         }
 
         public Object (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_object_ref (handle);
+                this.handle = g_object_ref_sink (handle);
             }
 
+            // by creating a new delegate for each instance, we are in effect
+            // creating a unique identifier for this instance that will be used
+            // when removing the toggle reference in Dispose().
+            toggleNotifyDelegate = toggleNotifyCallback;
+
             // always start with a strong reference to the managed object
-            gcHandlePtr = GMarshal.Alloc (IntPtr.Size);
             var gcHandle = GCHandle.Alloc (this);
-            Marshal.WriteIntPtr (gcHandlePtr, (IntPtr)gcHandle);
-            g_object_add_toggle_ref (Handle, toggleNotifyPtr, gcHandlePtr);
+            g_object_set_qdata (handle, ToggleRefGCHandleQuark, (IntPtr)gcHandle);
+            g_object_add_toggle_ref (handle, toggleNotifyDelegate, IntPtr.Zero);
 
             // IntPtr always owns a reference so release it now that we have a toggle reference instead.
             // If this is the last normal reference, toggleNotifyCallback will be called immediately
             // to convert the strong reference to a weak reference
-            g_object_unref (Handle);
+            g_object_unref (handle);
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                var oldHandle = Handle;
-                Handle = IntPtr.Zero;
-                // we either have a toggle reference or a regular reference, but not both
-                if (gcHandlePtr != IntPtr.Zero) {
-                    g_object_remove_toggle_ref (oldHandle, toggleNotifyPtr, gcHandlePtr);
-                    var gcHandle = (GCHandle)Marshal.ReadIntPtr (gcHandlePtr);
-                    gcHandle.Free ();
-                    GMarshal.Free (gcHandlePtr);
-                    gcHandlePtr = IntPtr.Zero;
-                }
-                else {
-                    g_object_unref (oldHandle);
-                }
+            if (handle != IntPtr.Zero) {
+                g_object_ref (handle);
+                g_object_remove_toggle_ref (handle, toggleNotifyDelegate, IntPtr.Zero);
+                var gcHandle = (GCHandle)g_object_get_qdata (handle, ToggleRefGCHandleQuark);
+                g_object_set_qdata(handle, ToggleRefGCHandleQuark, IntPtr.Zero);
+                gcHandle.Free ();
+                g_object_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -80,25 +76,28 @@ namespace GISharp.GObject
         static extern IntPtr g_object_ref (IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_unref (IntPtr @object);
+        internal static extern void g_object_unref (IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_add_toggle_ref (IntPtr @object, IntPtr notify, IntPtr data);
+        static extern IntPtr g_object_ref_sink (IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_remove_toggle_ref (IntPtr @object, IntPtr notify, IntPtr data);
+        static extern void g_object_add_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_remove_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
 
         static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
         {
             try {
                 // free the existing GCHandle
-                var gcHandle = (GCHandle)Marshal.ReadIntPtr (data);
-                var obj = gcHandle.Target;
+                var gcHandle = (GCHandle)g_object_get_qdata (@object, ToggleRefGCHandleQuark);
+                var obj = (Object)gcHandle.Target;
                 gcHandle.Free ();
 
                 // alloc a new GCHandle with weak/strong reference depending on isLastRef
                 gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
-                Marshal.WriteIntPtr (data, (IntPtr)gcHandle);
+                g_object_set_qdata (@object, ToggleRefGCHandleQuark, (IntPtr)gcHandle);
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException ();
@@ -113,7 +112,11 @@ namespace GISharp.GObject
             return g_object_get_type ();
         }
 
+        [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         delegate void NativeNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
+
+        static readonly NativeNotify nativeNotifyDelegate = NativeOnNotify;
+        static readonly IntPtr nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate (nativeNotifyDelegate);
 
         static void NativeOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
@@ -134,9 +137,10 @@ namespace GISharp.GObject
 
         SignalHandler ConnectNotifySignal ()
         {
-            var nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate<NativeNotify> (NativeOnNotify);
-            var id = Signal.g_signal_connect_data (Handle, GMarshal.StringToUtf8Ptr ("notify"),
+            var detailedSignalPtr = GMarshal.StringToUtf8Ptr ("notify");
+            var id = Signal.g_signal_connect_data (handle, detailedSignalPtr,
                 nativeNotifyPtr, IntPtr.Zero, null, default (ConnectFlags));
+            GMarshal.Free (detailedSignalPtr);
 
             return new SignalHandler (this, id);
         }
@@ -270,7 +274,7 @@ namespace GISharp.GObject
         bool IsFloating {
             get {
                 AssertNotDisposed ();
-                return g_object_is_floating (Handle);
+                return g_object_is_floating (handle);
             }
         }
 
@@ -595,23 +599,27 @@ namespace GISharp.GObject
 
             var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
             if (sourcePropertyInfo == null) {
-                throw new ArgumentException ($"No matching property", nameof (sourceProperty));
+                throw new ArgumentException ("No matching property", nameof (sourceProperty));
             }
             sourceProperty = sourcePropertyInfo.TryGetGTypePropertyName ();
+            if (sourceProperty == null) {
+                var message = $"{sourcePropertyInfo.Name} is not a registered GType property";
+                throw new ArgumentException (message, nameof(sourceProperty));
+            }
 
             var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
             if (targetPropertyInfo == null) {
-                throw new ArgumentException ($"No matching property", nameof (targetProperty));
+                throw new ArgumentException ("No matching property", nameof (targetProperty));
             }
             targetProperty = targetPropertyInfo.TryGetGTypePropertyName ();
+            if (targetProperty == null) {
+                var message = $"{targetPropertyInfo.Name} is not a registered GType property";
+                throw new ArgumentException (message, nameof(targetProperty));
+            }
 
             var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
             var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
-            var ret_ = g_object_bind_property (Handle, sourceProperty_, target.Handle, targetProperty_, flags);
-            // This actually results in having two references. One owned by the managed
-            // instance and one extra. This is actually desirable, otherwise we
-            // would always have to keep a managed reference to the binding object.
-            // Also, calling Binding.Unbind() will free the extra reference.
+            var ret_ = g_object_bind_property (handle, sourceProperty_, target.handle, targetProperty_, flags);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
             GMarshal.Free (sourceProperty_);
             GMarshal.Free (targetProperty_);
@@ -703,66 +711,75 @@ namespace GISharp.GObject
             }
             var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
             var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
-            var transformTo_ = transformTo == null ? (NativeBindingTransformFunc)null : TransformToFunc;
-            var transformFrom_ = transformFrom == null ? (NativeBindingTransformFunc)null : TransformFromFunc;
-            var userData = new BindingTransformFuncs (transformTo, transformFrom);
-            var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (userData));
-            var ret_ = g_object_bind_property_full (Handle, sourceProperty_, target.Handle, targetProperty_, flags,
-                                                    transformTo_, transformFrom_, userData_, FreeBindingTransformFuncs);
+            var (transformTo_, transformFrom_, notify_, userData_) = BindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
+            var ret_ = g_object_bind_property_full (handle, sourceProperty_, target.handle, targetProperty_, flags,
+                                                    transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
             GMarshal.Free (sourceProperty_);
             GMarshal.Free (targetProperty_);
             return ret;
         }
 
-        class BindingTransformFuncs
+        static class BindingTransformFuncFactory
         {
-            public readonly BindingTransformFunc TransformTo;
-            public readonly BindingTransformFunc TransformFrom;
-
-            public BindingTransformFuncs (BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+            class BindingTransformFuncs
             {
-                TransformTo = transformTo;
-                TransformFrom = transformFrom;
+                public BindingTransformFunc TransformTo;
+                public NativeBindingTransformFunc UnmangedTransformTo;
+                public BindingTransformFunc TransformFrom;
+                public NativeBindingTransformFunc UnmanagedTransformFrom;
+                public NativeDestroyNotify UnmanagedNotify;
             }
-        }
 
-        static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
-        {
-            try {
-                var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
-                var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
-                var ret = funcs.TransformTo (binding, ref toValue, ref fromValue);
-                return ret;
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-                return default(bool);
-            }
-        }
+            public static ValueTuple<NativeBindingTransformFunc, NativeBindingTransformFunc, NativeDestroyNotify, IntPtr>
+                CreateNotifyDelegate (BindingTransformFunc transformTo, BindingTransformFunc transformFrom) {
+                    var userData = new BindingTransformFuncs ();
 
-        static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
-        {
-            try {
-                var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
-                var funcs = (BindingTransformFuncs)GCHandle.FromIntPtr (userDataPtr).Target;
-                var ret = funcs.TransformFrom (binding, ref toValue, ref fromValue);
-                return ret;
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-                return default(bool);
-            }
-        }
+                    if (transformTo != null) {
+                        userData.TransformTo = transformTo;
+                        userData.UnmangedTransformTo = TransformToFunc;
+                    }
 
-        static void FreeBindingTransformFuncs (IntPtr userData)
-        {
-            try {
-                var data = GCHandle.FromIntPtr (userData);
-                data.Free ();
+                    if (transformFrom != null) {
+                        userData.TransformFrom = transformFrom;
+                        userData.UnmanagedTransformFrom = TransformFromFunc;
+                    }
+
+                    userData.UnmanagedNotify = NativeDelegate.Free;
+
+                    var userData_ = GCHandle.Alloc (userData);
+
+                    return (userData.UnmangedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify, (IntPtr)userData_);
+                }
+
+            static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
+            {
+                try {
+                    var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                    var gcHandle = (GCHandle)userDataPtr;
+                    var userData = (BindingTransformFuncs)gcHandle.Target;
+                    var ret = userData.TransformTo (binding, ref toValue, ref fromValue);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException ();
+                    return default(bool);
+                }
             }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
+
+            static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
+            {
+                try {
+                    var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                    var gcHandle = (GCHandle)userDataPtr;
+                    var userData = (BindingTransformFuncs)gcHandle.Target;
+                    var ret = userData.TransformFrom (binding, ref toValue, ref fromValue);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException ();
+                    return default(bool);
+                }
             }
         }
 
@@ -804,7 +821,7 @@ namespace GISharp.GObject
         public void FreezeNotify ()
         {
             AssertNotDisposed ();
-            g_object_freeze_notify (Handle);
+            g_object_freeze_notify (handle);
         }
 
         /// <summary>
@@ -868,7 +885,7 @@ namespace GISharp.GObject
             }
             var value = new Value (type);
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_get_property (Handle, propertyName_, ref value);
+            g_object_get_property (handle, propertyName_, ref value);
             GMarshal.Free (propertyName_);
 
             return value;
@@ -926,8 +943,11 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
+            var a = TypeClass.Get<ObjectClass>(GType.Object);
+            var b = TypeClass.Get<ObjectClass>(GetType ().GetGType ());
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_notify (Handle, propertyName_);
+            var x = Marshal.PtrToStructure<ObjectClass.Struct> (Marshal.ReadIntPtr (handle));
+            g_object_notify (handle, propertyName_);
             GMarshal.Free (propertyName_);
         }
 
@@ -1035,13 +1055,13 @@ namespace GISharp.GObject
         /// the #GParamSpec of a property installed on the class of @object.
         /// </param>
         [Since ("2.26")]
-        void Notify (ParamSpec pspec)
+        public void Notify (ParamSpec pspec)
         {
             AssertNotDisposed ();
             if (pspec == null) {
                 throw new ArgumentNullException (nameof (pspec));
             }
-            g_object_notify_by_pspec (Handle, pspec.Handle);
+            g_object_notify_by_pspec (handle, pspec.Handle);
             GC.KeepAlive (pspec);
         }
 
@@ -1087,7 +1107,7 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (propertyName));
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_set_property (Handle, propertyName_, ref value);
+            g_object_set_property (handle, propertyName_, ref value);
             GMarshal.Free (propertyName_);
         }
 
@@ -1129,7 +1149,7 @@ namespace GISharp.GObject
         public void ThawNotify ()
         {
             AssertNotDisposed ();
-            g_object_thaw_notify (Handle);
+            g_object_thaw_notify (handle);
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -1154,7 +1174,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var key_ = GMarshal.StringToUtf8Ptr (key);
-                var data_ = g_object_get_data (Handle, key_);
+                var data_ = g_object_get_data (handle, key_);
                 GMarshal.Free (key_);
                 if (data_ == IntPtr.Zero) {
                     return null;
@@ -1166,11 +1186,11 @@ namespace GISharp.GObject
                 AssertNotDisposed ();
                 var key_ = GMarshal.StringToUtf8Ptr (key);
                 if (value == null) {
-                    g_object_set_data (Handle, key_, IntPtr.Zero);
+                    g_object_set_data (handle, key_, IntPtr.Zero);
                 }
                 else {
                     var data_ = value == null ? IntPtr.Zero : GCHandle.ToIntPtr (GCHandle.Alloc (value));
-                    g_object_set_data_full (Handle, key_, data_, FreeData);
+                    g_object_set_data_full (handle, key_, data_, FreeData);
                 }
                 GMarshal.Free (key_);
             }
@@ -1186,6 +1206,24 @@ namespace GISharp.GObject
                 ex.DumpUnhandledException ();
             }
         }
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr g_object_get_qdata (
+            IntPtr @object,
+            Quark quark);
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_set_qdata (
+            IntPtr @object,
+            Quark quark,
+            IntPtr data);
+
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_object_set_qdata_full (
+            IntPtr @object,
+            Quark quark,
+            IntPtr data,
+            NativeDestroyNotify destroy);
     }
 
     /// <summary>

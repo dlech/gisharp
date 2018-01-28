@@ -8,7 +8,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Core.Test.GObject
 {
-    [TestFixture (Ignore = "breaks stuff")]
+    [TestFixture]
     public class ObjectTests
     {
         [Test]

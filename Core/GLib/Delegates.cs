@@ -113,17 +113,6 @@ namespace GISharp.GLib
     public delegate void DestroyNotify<T> (T data);
 
     /// <summary>
-    /// Provides a default unmanged callback for freeing a GCHandle.
-    /// </summary>
-    public static class DestroyNotifyMarshaler
-    {
-        public static void Invoke (IntPtr userData)
-        {
-            GCHandle.FromIntPtr (userData).Free ();
-        }
-    }
-
-    /// <summary>
     /// Specifies the type of a function used to test two values for
     /// equality. The function should return <c>true</c> if both values are equal
     /// and <c>false</c> otherwise.
@@ -379,6 +368,35 @@ namespace GISharp.GLib
     /// </remarks>
     public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
 
+    public static class NativeLogFuncFactory
+    {
+        public static NativeLogFunc CreateDelegate (LogFunc func) {
+            return (logDomain_, logLevel_, message_, userData_) => NativeDelegate.Invoke (() => {
+                var logDomain = GMarshal.Utf8PtrToString (logDomain_);
+                var message = GMarshal.Utf8PtrToString (message_);
+                func (logDomain, logLevel_, message);
+            });
+        }
+
+        public static ValueTuple<NativeLogFunc, IntPtr> CreateAsyncDelegate (LogFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeLogFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
+                func_ (logDomain_, logLevel_, message_, userData_);
+                NativeDelegate.Free (userData_);
+            };
+            var gcHandle = GCHandle.Alloc (asyncFunc_);
+            return (asyncFunc_, (IntPtr)gcHandle);
+        }
+
+        public static ValueTuple<NativeLogFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (LogFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
+            var userData = new Tuple<NativeLogFunc, NativeDestroyNotify> (func_, notify_);
+            var gcHandle = GCHandle.Alloc (userData);
+            return (func_, notify_, (IntPtr)gcHandle);
+        }
+    }
+
     /// <summary>
     /// Writer function for log entries. A log entry is a collection of one or more
     /// #GLogFields, using the standard [field names from journal
@@ -428,6 +446,34 @@ namespace GISharp.GLib
     [Since ("2.50")]
     public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
 
+    public static class NativeLogWriterFuncFactory
+    {
+        public static NativeLogWriterFunc CreateDelegate (LogWriterFunc func) {
+            return (logLevel_, fields_, nFields_, userData_) => NativeDelegate.Invoke (() => {
+                return func (logLevel_, fields_);
+            });
+        }
+
+        public static ValueTuple<NativeLogWriterFunc, IntPtr> CreateAsyncDelegate (LogWriterFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeLogWriterFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
+                var ret = func_ (logDomain_, logLevel_, message_, userData_);
+                NativeDelegate.Free (userData_);
+                return ret;
+            };
+            var gcHandle = GCHandle.Alloc (asyncFunc_);
+            return (asyncFunc_, (IntPtr)gcHandle);
+        }
+
+        public static ValueTuple<NativeLogWriterFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (LogWriterFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
+            var userData = new Tuple<NativeLogWriterFunc, NativeDestroyNotify> (func_, notify_);
+            var gcHandle = GCHandle.Alloc (userData);
+            return (func_, notify_, (IntPtr)gcHandle);
+        }
+    }
+
     static class LogWriterFuncMarshaler
     {
         public static LogWriterOutput Invoke (LogLevelFlags logLevel, LogField[] fields, UIntPtr nfields, IntPtr userData)
@@ -469,40 +515,96 @@ namespace GISharp.GLib
     /// </summary>
     public delegate bool SourceFunc ();
 
+    public static class NativeSourceFuncFactory
+    {
+        public static NativeSourceFunc CreateDelegate (SourceFunc func) {
+            return (userData) => NativeDelegate.Invoke (() => func());
+        }
+
+        public static ValueTuple<NativeSourceFunc, IntPtr> CreateAsyncDelegate (SourceFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeSourceFunc asyncFunc_ = (userData) => {
+                var ret = func_ (userData);
+                NativeDelegate.Free (userData);
+                return ret;
+            };
+            var gcHandle = GCHandle.Alloc (asyncFunc_);
+            return (asyncFunc_, (IntPtr)gcHandle);
+        }
+
+        public static ValueTuple<NativeSourceFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (SourceFunc func) {
+            var func_ = CreateDelegate (func);
+            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
+            var userData = new Tuple<NativeSourceFunc, NativeDestroyNotify> (func_, notify_);
+            var gcHandle = GCHandle.Alloc (userData);
+            return (func_, notify_, (IntPtr)gcHandle);
+        }
+    }
+
     /// <summary>
-    /// Provides default unmanaged callback for wrapping a managed <see cref="SourceFunc"/>.
+    /// Helper class for safely invoking managed code in an unmanaged callback
     /// </summary>
-    public static class SourceFuncMarshaler
+    /// <remarks>
+    /// We cannot let managed code throw an exception inside of an unmanaged
+    /// callback. So, this class provides wrappers for managed callbacks that
+    /// catch all exceptions.
+    /// </remarks>
+    public static class NativeDelegate
     {
         /// <summary>
-        /// Invoke the managage callback
+        /// Invoke <paramref name="func" /> and catch all exceptions.
         /// </summary>
-        /// <param name="userData">GCHandle for the managed callback.</param>
-        /// <remarks>
-        /// This version of the callback does not free the GCHandle.
-        /// </remarks>
-        public static bool Invoke (IntPtr userData)
-        {
-            var sourceFunc = (SourceFunc)GCHandle.FromIntPtr (userData).Target;
-            return sourceFunc ();
+        public static void Invoke (Action func) {
+            try {
+                func ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
         }
 
         /// <summary>
-        /// Invoke the managage callback
+        /// Invoke <paramref name="func" /> and catch all exceptions.
         /// </summary>
-        /// <param name="userData">GCHandle for the managed callback.</param>
-        /// <remarks>
-        /// This version of the callback does frees the GCHandle, so it can only
-        /// be called once.
-        /// </remarks>
-        public static bool InvokeAndFree (IntPtr userData)
-        {
-            var gcHandle = GCHandle.FromIntPtr (userData);
-            var sourceFunc = (SourceFunc)gcHandle.Target;
+        public static T Invoke<T> (System.Func<T> func) {
             try {
-                return sourceFunc ();
-            } finally {
+                return func ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
+                return default(T);
+            }
+        }
+
+        /// <summary>
+        /// Invoke <paramref name="func" /> and catch all exceptions, then
+        /// free the <paramref name="userData" /> <see cref="GCHandle" />.
+        /// </summary>
+        public static void InvokeAndFree (Action func, IntPtr userData) {
+            Invoke (func);
+            Free (userData);
+        }
+
+        /// <summary>
+        /// Invoke <paramref name="func" /> and catch all exceptions, then
+        /// free the <paramref name="userData" /> <see cref="GCHandle" />.
+        /// </summary>
+
+        public static T InvokeAndFree<T> (System.Func<T> func, IntPtr userData) {
+            var ret = Invoke (func);
+            Free (userData);
+            return ret;
+        }
+
+        /// <summary>
+        /// Free the <paramref name="userData" /> <see cref="GCHandle" />.
+        public static void Free (IntPtr userData) {
+            try {
+                var gcHandle = (GCHandle)userData;
                 gcHandle.Free ();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException ();
             }
         }
     }

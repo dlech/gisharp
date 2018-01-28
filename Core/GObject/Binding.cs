@@ -133,7 +133,7 @@ namespace GISharp.GObject
         public BindingFlags Flags {
             get {
                 AssertNotDisposed ();
-                var ret = g_binding_get_flags (Handle);
+                var ret = g_binding_get_flags (handle);
                 return ret;
             }
         }
@@ -167,7 +167,7 @@ namespace GISharp.GObject
         public Object Source {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_binding_get_source (Handle);
+                var ret_ = g_binding_get_source (handle);
                 var ret = GetInstance<Object> (ret_, Transfer.None);
                 return ret;
             }
@@ -204,7 +204,7 @@ namespace GISharp.GObject
         public string SourceProperty {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_binding_get_source_property (Handle);
+                var ret_ = g_binding_get_source_property (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -239,7 +239,7 @@ namespace GISharp.GObject
         public Object Target {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_binding_get_target (Handle);
+                var ret_ = g_binding_get_target (handle);
                 var ret = GetInstance<Object> (ret_, Transfer.None);
                 return ret;
             }
@@ -276,7 +276,7 @@ namespace GISharp.GObject
         public string TargetProperty {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_binding_get_target_property (Handle);
+                var ret_ = g_binding_get_target_property (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
             }
@@ -312,9 +312,9 @@ namespace GISharp.GObject
         public void Unbind ()
         {
             AssertNotDisposed ();
-            // Note: this releases a reference to Handle
-            g_binding_unbind (Handle);
-            Handle = IntPtr.Zero;
+            // Note: this releases a reference to handle
+            g_binding_unbind (handle);
+            handle = IntPtr.Zero;
         }
     }
 }

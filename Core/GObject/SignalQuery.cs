@@ -51,6 +51,6 @@ namespace GISharp.GObject
         /// ReturnType callback (IntPtr data1, [ParamTypes paramNames,] IntPtr data2);
         /// </code>
         /// </remarks>
-        public GType[] ParamTypes => GMarshal.PtrToCArray<GType> (paramTypes, (int)nParams);
+        public GType[] ParamTypes => GMarshal.PtrToCArray<GType> (paramTypes, (int)nParams) ?? new GType[0];
     }
 }

@@ -35,7 +35,7 @@ namespace GISharp.GLib
         public Quark Domain {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)domainOffset);
+                var ret = Marshal.ReadInt32 (handle, (int)domainOffset);
                 return (uint)ret;
             }
         }
@@ -47,7 +47,7 @@ namespace GISharp.GLib
         public int Code {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)codeOffset);
+                var ret = Marshal.ReadInt32 (handle, (int)codeOffset);
                 return ret;
             }
         }
@@ -59,7 +59,7 @@ namespace GISharp.GLib
         public string Message {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle, (int)messageOffset);
+                var ret = Marshal.ReadIntPtr (handle, (int)messageOffset);
                 return GMarshal.Utf8PtrToString (ret);
             }
         }
@@ -70,7 +70,7 @@ namespace GISharp.GLib
         public Error (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                handle = g_error_copy (handle);
+                this.handle = g_error_copy (handle);
             }
         }
 
@@ -79,8 +79,8 @@ namespace GISharp.GLib
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_error_free (Handle);
+            if (handle != IntPtr.Zero) {
+                g_error_free (handle);
             }
             base.Dispose (disposing);
         }
@@ -176,7 +176,7 @@ namespace GISharp.GLib
         public bool Matches (Quark domain, int code)
         {
             AssertNotDisposed ();
-            var ret = g_error_matches (Handle, domain, code);
+            var ret = g_error_matches (handle, domain, code);
             return ret;
         }
 
@@ -198,7 +198,7 @@ namespace GISharp.GLib
         public bool Matches (Quark domain, System.Enum code)
         {
             AssertNotDisposed ();
-            var ret = g_error_matches (Handle, domain, (int)(object)code);
+            var ret = g_error_matches (handle, domain, (int)(object)code);
             return ret;
         }
 

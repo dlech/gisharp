@@ -79,7 +79,7 @@ namespace GISharp.GObject
         /// A #GTypeValueTable function table for generic handling of GValues
         /// of this type (usually only useful for fundamental types)
         /// </summary>
-        public TypeValueTable ValueTable;
+        public IntPtr ValueTable;
 
         /// <summary>
         /// A callback function used by the type system to do base initialization

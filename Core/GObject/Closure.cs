@@ -77,7 +77,7 @@ namespace GISharp.GObject
         uint BitFields {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)bitFieldsOffset);
+                var ret = Marshal.ReadInt32 (handle, (int)bitFieldsOffset);
                 return (uint)ret;
             }
         }
@@ -91,7 +91,7 @@ namespace GISharp.GObject
         IntPtr Data {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle, (int)dataOffset);
+                var ret = Marshal.ReadIntPtr (handle, (int)dataOffset);
                 return ret;
             }
         }
@@ -99,15 +99,15 @@ namespace GISharp.GObject
         public Closure (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_closure_ref (handle);
+                this.handle = g_closure_ref (handle);
             }
             g_closure_sink (handle);
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_closure_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_closure_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -292,9 +292,11 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (callback));
             }
             var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (Handle, callbackPtr, NativeMarshalFunc);
-            g_closure_add_invalidate_notifier (Handle, callbackPtr, FreeCallback);
+            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalFuncDelagate);
+            g_closure_add_invalidate_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
+
+        static readonly NativeClosureMarshal nativeMarshalFuncDelagate = NativeMarshalFunc;
 
         static void NativeMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
@@ -311,9 +313,11 @@ namespace GISharp.GObject
         void SetCallback (Action<Value[]> callback)
         {
             var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (Handle, callbackPtr, NativeMarshalNoReturnFunc);
-            g_closure_add_finalize_notifier (Handle, callbackPtr, FreeCallback);
+            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalNoReturnFuncDelegate);
+            g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
+
+        static readonly NativeClosureMarshal nativeMarshalNoReturnFuncDelegate = NativeMarshalNoReturnFunc;
 
         static void NativeMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
@@ -330,9 +334,11 @@ namespace GISharp.GObject
         void SetCallback (Action callback)
         {
             var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (Handle, callbackPtr, NativeMarshalNoArgsFunc);
-            g_closure_add_finalize_notifier (Handle, callbackPtr, FreeCallback);
+            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalNoArgsFuncDelegate);
+            g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
+
+        static readonly NativeClosureMarshal nativeMarshalNoArgsFuncDelegate = NativeMarshalNoArgsFunc;
 
         static void NativeMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
@@ -345,6 +351,8 @@ namespace GISharp.GObject
                 ex.DumpUnhandledException ();
             }
         }
+
+        static readonly NativeClosureNotify freeCallbackDelegate = FreeCallback;
 
         static void FreeCallback (IntPtr dataPtr, IntPtr closurePtr)
         {
@@ -512,7 +520,7 @@ namespace GISharp.GObject
         public void Invalidate ()
         {
             AssertNotDisposed ();
-            g_closure_invalidate (Handle);
+            g_closure_invalidate (handle);
         }
 
         /// <summary>
@@ -575,7 +583,7 @@ namespace GISharp.GObject
                 throw new ArgumentNullException (nameof (paramValues));
             }
             Value returnValue;
-            g_closure_invoke (Handle, out returnValue, (uint)paramValues.Length, paramValues, IntPtr.Zero);
+            g_closure_invoke (handle, out returnValue, (uint)paramValues.Length, paramValues, IntPtr.Zero);
 
             return returnValue;
         }

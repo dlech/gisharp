@@ -22,6 +22,8 @@ namespace GISharp.Core.Test
     sealed class InitableIface : TypeInterface
     {
         static readonly IntPtr initOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Init));
+        static readonly Struct.NativeInit initDelegate = NativeInit;
+        static readonly IntPtr initPtr = Marshal.GetFunctionPointerForDelegate (initDelegate);
         
         new struct Struct
         {
@@ -38,7 +40,6 @@ namespace GISharp.Core.Test
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
             try {
-                var initPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeInit> (NativeInit);
                 Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
             }
             catch (Exception ex) {
@@ -150,9 +151,17 @@ namespace GISharp.Core.Test
     sealed class NetworkMonitorInterface : TypeInterface
     {
         static readonly IntPtr networkChangedOffset = Marshal.OffsetOf<Struct> (nameof (Struct.NetworkChanged));
+        static readonly Struct.NativeNetworkChanged networkChangedDelegate = NativeNetworkChanged;
+        static readonly IntPtr networkChangedPtr = Marshal.GetFunctionPointerForDelegate (networkChangedDelegate);
         static readonly IntPtr canReachOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReach));
+        static readonly Struct.NativeCanReach canReachDelegate = NativeCanReach;
+        static readonly IntPtr canReachPtr = Marshal.GetFunctionPointerForDelegate (canReachDelegate);
         static readonly IntPtr canReachAsyncOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsync));
+        static readonly Struct.NativeCanReachAsync canReachAsyncDelegate = NativeCanReachAsync;
+        static readonly IntPtr canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncDelegate);
         static readonly IntPtr canReachAsyncFinishOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsyncFinish));
+        static readonly Struct.NativeCanReachAsyncFinish canReachAsyncFinishDelegate = NativeCanReachAsyncFinish;
+        static readonly IntPtr canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncFinishDelegate);
 
         new struct Struct
         {
@@ -179,13 +188,9 @@ namespace GISharp.Core.Test
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
             try {
-                var networkChangedPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeNetworkChanged> (NativeNetworkChanged);
                 Marshal.WriteIntPtr (gIface, (int)networkChangedOffset, networkChangedPtr);
-                var canReachPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReach> (NativeCanReach);
                 Marshal.WriteIntPtr (gIface, (int)canReachOffset, canReachPtr);
-                var canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsync> (NativeCanReachAsync);
                 Marshal.WriteIntPtr (gIface, (int)canReachAsyncOffset, canReachAsyncPtr);
-                var canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate<Struct.NativeCanReachAsyncFinish> (NativeCanReachAsyncFinish);
                 Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
             }
             catch (Exception ex) {

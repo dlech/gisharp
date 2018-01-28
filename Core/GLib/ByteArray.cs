@@ -27,7 +27,7 @@ namespace GISharp.GLib
         IntPtr Data {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle, (int)dataOffset);
+                var ret = Marshal.ReadIntPtr (handle, (int)dataOffset);
                 return ret;
             }
         }
@@ -35,7 +35,7 @@ namespace GISharp.GLib
         uint Len {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<uint> (Handle + (int)lenOffset);
+                var ret = Marshal.PtrToStructure<uint> (handle + (int)lenOffset);
                 return ret;
             }
         }
@@ -43,14 +43,14 @@ namespace GISharp.GLib
         public ByteArray (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_byte_array_ref (handle);
+                this.handle = g_byte_array_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_byte_array_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_byte_array_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -207,7 +207,7 @@ namespace GISharp.GLib
             if (data == null) {
                 throw new ArgumentNullException (nameof (data));
             }
-            g_byte_array_append (Handle, data, (uint)data.Length);
+            g_byte_array_append (handle, data, (uint)data.Length);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace GISharp.GLib
             if (data == null) {
                 throw new ArgumentNullException (nameof (data));
             }
-            g_byte_array_prepend (Handle, data, (uint)data.Length);
+            g_byte_array_prepend (handle, data, (uint)data.Length);
         }
 
         /// <summary>
@@ -337,7 +337,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
-            g_byte_array_remove_index (Handle, (uint)index);
+            g_byte_array_remove_index (handle, (uint)index);
         }
 
         /// <summary>
@@ -373,7 +373,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             AssertIndexInRange (index);
-            g_byte_array_remove_index_fast (Handle, (uint)index);
+            g_byte_array_remove_index_fast (handle, (uint)index);
         }
 
         /// <summary>
@@ -417,7 +417,7 @@ namespace GISharp.GLib
             if (length < 0 || index + length > Count) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_byte_array_remove_range (Handle, (uint)index, (uint)length);
+            g_byte_array_remove_range (handle, (uint)index, (uint)length);
         }
 
         /// <summary>
@@ -466,7 +466,7 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_byte_array_set_size (Handle, (uint)length);
+            g_byte_array_set_size (handle, (uint)length);
         }
 
         /// <summary>
@@ -521,7 +521,7 @@ namespace GISharp.GLib
                 var y = Marshal.ReadByte (b);
                 return compareFunc (x, y);
             };
-            g_byte_array_sort (Handle, compareFunc_);
+            g_byte_array_sort (handle, compareFunc_);
             GC.KeepAlive (compareFunc_);
         }
 

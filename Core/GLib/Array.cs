@@ -27,28 +27,28 @@ namespace GISharp.GLib
         internal IntPtr Data {
             get {
                 AssertNotDisposed ();
-                return Marshal.ReadIntPtr (Handle, (int)dataOffset);
+                return Marshal.ReadIntPtr (handle, (int)dataOffset);
             }
         }
 
         uint Len {
             get {
                 AssertNotDisposed ();
-                return (uint)Marshal.ReadInt32 (Handle, (int)lenOffset);
+                return (uint)Marshal.ReadInt32 (handle, (int)lenOffset);
             }
         }
 
         public Array (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_array_ref (handle);
+                this.handle = g_array_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_array_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_array_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -202,7 +202,7 @@ namespace GISharp.GLib
             }
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
             var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_append_vals (Handle, dataPtr, (uint)data.Length);
+            g_array_append_vals (handle, dataPtr, (uint)data.Length);
             gch.Free ();
         }
 
@@ -230,7 +230,7 @@ namespace GISharp.GLib
         public int ElementSize {
             get {
                 AssertNotDisposed ();
-                var ret = g_array_get_element_size (Handle);
+                var ret = g_array_get_element_size (handle);
                 return (int)ret;
             }
         }
@@ -280,7 +280,7 @@ namespace GISharp.GLib
             }
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
             var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_insert_vals (Handle, (uint)index, dataPtr, (uint)data.Length);
+            g_array_insert_vals (handle, (uint)index, dataPtr, (uint)data.Length);
             gch.Free ();
         }
 
@@ -329,7 +329,7 @@ namespace GISharp.GLib
             }
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
             var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_prepend_vals (Handle, dataPtr, (uint)data.Length);
+            g_array_prepend_vals (handle, dataPtr, (uint)data.Length);
             gch.Free ();
         }
 
@@ -364,7 +364,7 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_array_remove_index (Handle, (uint)index);
+            g_array_remove_index (handle, (uint)index);
         }
 
         /// <summary>
@@ -402,7 +402,7 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_array_remove_index_fast (Handle, (uint)index);
+            g_array_remove_index_fast (handle, (uint)index);
         }
 
         /// <summary>
@@ -449,7 +449,7 @@ namespace GISharp.GLib
             if (length < 0 || index + length > Count) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_array_remove_range (Handle, (uint)index, (uint)length);
+            g_array_remove_range (handle, (uint)index, (uint)length);
         }
 
         /// <summary>
@@ -508,7 +508,7 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_array_set_size (Handle, (uint)length);
+            g_array_set_size (handle, (uint)length);
         }
 
         /// <summary>
@@ -555,7 +555,7 @@ namespace GISharp.GLib
                 var y = Marshal.PtrToStructure<T> (b);
                 return compareFunc (x, y);
             };
-            g_array_sort (Handle, compareFunc_);
+            g_array_sort (handle, compareFunc_);
             GC.KeepAlive (compareFunc_);
         }
 

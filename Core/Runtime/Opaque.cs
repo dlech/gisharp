@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Reflection;
+
 using GISharp.GObject;
-using System.Linq;
+using GISharp.GLib;
 
 namespace GISharp.Runtime
 {
@@ -12,15 +11,17 @@ namespace GISharp.Runtime
     /// </summary>
     public abstract class Opaque : IDisposable
     {
+        protected IntPtr handle;
+
         /// <summary>
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public IntPtr Handle { get; protected set; }
+        public IntPtr Handle => handle;
 
         protected Opaque (IntPtr handle)
         {
-            Handle = handle;
+            this.handle = handle;
         }
 
         ~Opaque ()
@@ -45,12 +46,12 @@ namespace GISharp.Runtime
 
         protected virtual void Dispose (bool disposing)
         {
-            Handle = IntPtr.Zero;
+            handle = IntPtr.Zero;
         }
 
         protected void AssertNotDisposed ()
         {
-            if (Handle == IntPtr.Zero) {
+            if (handle == IntPtr.Zero) {
                 throw new ObjectDisposedException (null);
             }
         }
@@ -69,8 +70,29 @@ namespace GISharp.Runtime
                 return null;
             }
 
-            if (typeof(ReferenceCountedOpaque).IsAssignableFrom (type)) {
-                return ReferenceCountedOpaque.GetOrCreate<T> (handle, ownership);
+            if (typeof(GObject.Object).IsAssignableFrom (type)) {
+                var ptr = GObject.Object.g_object_get_qdata (handle, GObject.Object.ToggleRefGCHandleQuark);
+                if (ptr != IntPtr.Zero) {
+                    var gcHandle = (GCHandle)ptr;
+                    if (gcHandle.IsAllocated) {
+                        var target = (GObject.Object)gcHandle.Target;
+                        if (target.handle != IntPtr.Zero) {
+                            if (ownership != Transfer.None) {
+                                GObject.Object.g_object_unref (handle);
+                            }
+                            return (T)(object)target;
+                        }
+                    }
+                }
+            }
+
+            if (typeof (Source).IsAssignableFrom (type)) {
+                type = typeof (UnmanagedSource);
+            }
+
+            if (typeof (TypeClass).IsAssignableFrom (type)) {
+                var gtype = Marshal.PtrToStructure<GType> (handle);
+                type = gtype.GetGTypeStruct ();
             }
 
             if (typeof(TypeInterface).IsAssignableFrom (type)) {

@@ -27,8 +27,8 @@ namespace GISharp.GLib
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_list_free (Handle);
+            if (handle != IntPtr.Zero) {
+                g_list_free (handle);
             }
             base.Dispose (disposing);
         }
@@ -103,8 +103,8 @@ namespace GISharp.GLib
             if (list2 == null) {
                 throw new ArgumentNullException (nameof (list2));
             }
-            Handle = g_list_concat (Handle, list2.Handle);
-            list2.Handle = IntPtr.Zero;
+            handle = g_list_concat (handle, list2.handle);
+            list2.handle = IntPtr.Zero;
             return this;
         }
 
@@ -167,7 +167,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Append (IntPtr data)
         {
-            Handle = g_list_append (Handle, data);
+            handle = g_list_append (handle, data);
             return this;
         }
 
@@ -204,7 +204,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Copy ()
         {
-            var ret_ = g_list_copy (Handle);
+            var ret_ = g_list_copy (handle);
             var ret = Activator.CreateInstance (GetType (), ret_);
             return (List)ret;
         }
@@ -394,7 +394,7 @@ namespace GISharp.GLib
         /// </returns>
         protected int IndexOf (IntPtr data)
         {
-            var ret = g_list_index (Handle, data);
+            var ret = g_list_index (handle, data);
             return ret;
         }
 
@@ -448,7 +448,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Insert (IntPtr data, int position)
         {
-            Handle = g_list_insert (Handle, data, position);
+            handle = g_list_insert (handle, data, position);
             return this;
         }
 
@@ -586,7 +586,7 @@ namespace GISharp.GLib
         /// </returns>
         public int Length {
             get {
-                return (int)g_list_length (Handle);
+                return (int)g_list_length (handle);
             }
         }
 
@@ -640,7 +640,7 @@ namespace GISharp.GLib
             if (n < 0) {
                 throw new ArgumentOutOfRangeException (nameof (n));
             }
-            var ret = g_list_nth_data (Handle, (uint)n);
+            var ret = g_list_nth_data (handle, (uint)n);
             return ret;
         }
 
@@ -730,7 +730,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Prepend (IntPtr data)
         {
-            Handle = g_list_prepend (Handle, data);
+            handle = g_list_prepend (handle, data);
             return this;
         }
 
@@ -766,7 +766,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Remove (IntPtr data)
         {
-            Handle = g_list_remove (Handle, data);
+            handle = g_list_remove (handle, data);
             return this;
         }
 
@@ -804,7 +804,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List RemoveAll (IntPtr data)
         {
-            Handle = g_list_remove_all (Handle, data);
+            handle = g_list_remove_all (handle, data);
             return this;
         }
 
@@ -860,7 +860,7 @@ namespace GISharp.GLib
         /// </returns>
         protected List Reverse ()
         {
-            Handle = g_list_reverse (Handle);
+            handle = g_list_reverse (handle);
             return this;
         }
 
@@ -905,7 +905,7 @@ namespace GISharp.GLib
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            Handle = g_list_sort (Handle, compareFunc);
+            handle = g_list_sort (handle, compareFunc);
             GC.KeepAlive (compareFunc);
             return this;
         }

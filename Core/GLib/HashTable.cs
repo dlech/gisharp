@@ -21,14 +21,14 @@ namespace GISharp.GLib
         public HashTable (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_hash_table_ref (handle);
+                this.handle = g_hash_table_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_hash_table_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_hash_table_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -478,7 +478,7 @@ namespace GISharp.GLib
         public void RemoveAll ()
         {
             AssertNotDisposed ();
-            g_hash_table_remove_all (Handle);
+            g_hash_table_remove_all (handle);
         }
 
         /// <summary>
@@ -530,7 +530,7 @@ namespace GISharp.GLib
         public int Size {
             get {
                 AssertNotDisposed ();
-                var ret = g_hash_table_size (Handle);
+                var ret = g_hash_table_size (handle);
                 return (int)ret;
             }
         }
@@ -573,7 +573,7 @@ namespace GISharp.GLib
         //public void StealAll ()
         //{
         //    AssertNotDisposed ();
-        //    g_hash_table_steal_all (Handle);
+        //    g_hash_table_steal_all (handle);
         //}
 
         /// <summary>
@@ -838,7 +838,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = g_hash_table_add (Handle, keyPtr);
+            var ret = g_hash_table_add (handle, keyPtr);
             return ret;
         }
 
@@ -873,7 +873,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = g_hash_table_contains (Handle, keyPtr);
+            var ret = g_hash_table_contains (handle, keyPtr);
             return ret;
         }
 
@@ -915,7 +915,7 @@ namespace GISharp.GLib
                 var predicateRet = predicate (new KeyValuePair<TKey, TValue> (predicateKey, predicateValue));
                 return predicateRet;
             };
-            var retPtr = g_hash_table_find (Handle, predicate_, IntPtr.Zero);
+            var retPtr = g_hash_table_find (handle, predicate_, IntPtr.Zero);
             GC.KeepAlive (predicate_);
             var ret = GetInstance<TValue> (retPtr, Transfer.None);
             return ret;
@@ -947,7 +947,7 @@ namespace GISharp.GLib
                 var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
                 func (funcKey, funcValue);
             };
-            g_hash_table_foreach (Handle, func_, IntPtr.Zero);
+            g_hash_table_foreach (handle, func_, IntPtr.Zero);
             GC.KeepAlive (func_);
         }
 
@@ -980,7 +980,8 @@ namespace GISharp.GLib
                 var funcRet = func (new KeyValuePair<TKey, TValue> (funcKey, funcValue));
                 return funcRet;
             };
-            var ret = g_hash_table_foreach_remove (Handle, func_, IntPtr.Zero);
+            var ret = g_hash_table_foreach_remove (handle, func_, IntPtr.Zero);
+            GC.KeepAlive(func_);
             return (int)ret;
         }
 
@@ -1012,7 +1013,7 @@ namespace GISharp.GLib
         //        var funcRet = func.Invoke (funcKey, funcValue);
         //        return funcRet;
         //    };
-        //    var ret = g_hash_table_foreach_steal (Handle, funcNative, IntPtr.Zero);
+        //    var ret = g_hash_table_foreach_steal (handle, funcNative, IntPtr.Zero);
         //    return ret;
         //}
 
@@ -1027,7 +1028,7 @@ namespace GISharp.GLib
         public List<TKey> Keys {
             get {
                 AssertNotDisposed ();
-                var retPtr = g_hash_table_get_keys (Handle);
+                var retPtr = g_hash_table_get_keys (handle);
                 var ret = GetInstance<List<TKey>> (retPtr, Transfer.Container);
                 return ret;
             }
@@ -1047,7 +1048,7 @@ namespace GISharp.GLib
         public List<TValue> Values {
             get {
                 AssertNotDisposed ();
-                var retPtr = g_hash_table_get_values (Handle);
+                var retPtr = g_hash_table_get_values (handle);
                 var ret = GetInstance<List<TValue>> (retPtr, Transfer.Container);
                 return ret;
             }
@@ -1074,7 +1075,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var valuePtr = value == null ? IntPtr.Zero : value.Handle;
-            var ret = g_hash_table_insert (Handle, keyPtr, valuePtr);
+            var ret = g_hash_table_insert (handle, keyPtr, valuePtr);
             return ret;
         }
 
@@ -1094,7 +1095,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var retPtr = g_hash_table_lookup (Handle, keyPtr);
+            var retPtr = g_hash_table_lookup (handle, keyPtr);
             var ret = GetInstance<TValue> (retPtr, Transfer.None);
             return ret;
         }
@@ -1127,7 +1128,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             var lookupKeyPtr = lookupKey == null ? IntPtr.Zero : lookupKey.Handle;
             IntPtr origKeyPtr, valuePtr;
-            var ret = g_hash_table_lookup_extended (Handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
+            var ret = g_hash_table_lookup_extended (handle, lookupKeyPtr, out origKeyPtr, out valuePtr);
             origKey = GetInstance<TKey> (origKeyPtr, Transfer.None);
             value = GetInstance<TValue> (valuePtr, Transfer.None);
             return ret;
@@ -1146,7 +1147,7 @@ namespace GISharp.GLib
         {
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-            var ret = g_hash_table_remove (Handle, keyPtr);
+            var ret = g_hash_table_remove (handle, keyPtr);
             return ret;
         }
 
@@ -1173,7 +1174,7 @@ namespace GISharp.GLib
             AssertNotDisposed ();
             var keyPtr = key == null ? IntPtr.Zero : key.Handle;
             var valuePtr = value == null ? IntPtr.Zero : value.Handle;
-            var ret = g_hash_table_replace (Handle, keyPtr, valuePtr);
+            var ret = g_hash_table_replace (handle, keyPtr, valuePtr);
             return ret;
         }
 
@@ -1190,8 +1191,8 @@ namespace GISharp.GLib
         //public bool Steal (TKey key)
         //{
         //    AssertNotDisposed ();
-        //    var keyPtr = key == null ? IntPtr.Zero : key.Handle;
-        //    var ret = g_hash_table_steal (Handle, keyPtr);
+        //    var keyPtr = key == null ? IntPtr.Zero : key.handle;
+        //    var ret = g_hash_table_steal (handle, keyPtr);
         //    return ret;
         //}
     }

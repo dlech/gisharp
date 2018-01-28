@@ -16,7 +16,17 @@ namespace GISharp.GObject
     /// </summary>
     public class ObjectClass : TypeClass
     {
-        new struct Struct
+        static readonly IntPtr setPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.SetProperty));
+        static readonly IntPtr getPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.GetProperty));
+        static readonly IntPtr notifyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Notify));
+        static readonly Struct.NativeSetProperty setPropertyDelegate = ManagedClassSetProperty;
+        static readonly IntPtr setPropertyPtr = Marshal.GetFunctionPointerForDelegate (setPropertyDelegate);
+        static readonly Struct.NativeSetProperty getPropertyDelegate = ManagedClassGetProperty;
+        static readonly IntPtr getPropertyPtr = Marshal.GetFunctionPointerForDelegate (getPropertyDelegate);
+        static readonly Struct.NativeNotify notifyDelegate = ManagedNotify;
+        static readonly IntPtr notifyPtr = Marshal.GetFunctionPointerForDelegate (notifyDelegate);
+
+        new internal struct Struct
         {
             #pragma warning disable CS0649
             public TypeClass.Struct GTypeClass;
@@ -38,9 +48,13 @@ namespace GISharp.GObject
             /* called when done constructing */
             public NativeConstructed Constructed;
 
-            public ulong Flags;
-            [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
-            public IntPtr[] Dummy;
+            public UIntPtr Flags;
+            public IntPtr Dummy0;
+            public IntPtr Dummy1;
+            public IntPtr Dummy2;
+            public IntPtr Dummy3;
+            public IntPtr Dummy4;
+            public IntPtr Dummy5;
             #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
@@ -113,12 +127,9 @@ namespace GISharp.GObject
 
                 // override property native accessors
 
-                Marshal.WriteIntPtr (classPtr,
-                    (int)Marshal.OffsetOf<Struct> (nameof (Struct.SetProperty)),
-                    Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassSetProperty));
-                Marshal.WriteIntPtr (classPtr,
-                    (int)Marshal.OffsetOf<Struct> (nameof (Struct.GetProperty)),
-                    Marshal.GetFunctionPointerForDelegate<Struct.NativeSetProperty> (ManagedClassGetProperty));
+                Marshal.WriteIntPtr (classPtr, (int)setPropertyOffset, setPropertyPtr);
+                Marshal.WriteIntPtr (classPtr, (int)getPropertyOffset, getPropertyPtr);
+                Marshal.WriteIntPtr (classPtr, (int)notifyOffset, notifyPtr);
 
                 // Install Properties
 
@@ -231,7 +242,9 @@ namespace GISharp.GObject
                     if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
                         // if this type did not declare the property, the we know
                         // we are overriding a property from a base class or interface
-                        g_object_class_override_property (classPtr, propId, GMarshal.StringToUtf8Ptr (name));
+                        var namePtr = GMarshal.StringToUtf8Ptr (name);
+                        g_object_class_override_property (classPtr, propId, namePtr);
+                        GMarshal.Free (namePtr);
                     } else {
                         g_object_class_install_property (classPtr, propId, pspec.Handle);
                         GC.KeepAlive (pspec);
@@ -283,7 +296,8 @@ namespace GISharp.GObject
         static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             try {
-                var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
+                var gcHandle = (GCHandle)Object.g_object_get_qdata (objPtr, Object.ToggleRefGCHandleQuark);
+                var obj = gcHandle.IsAllocated ? gcHandle.Target : null;
                 if (obj == null) {
                     throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
                 }
@@ -300,7 +314,8 @@ namespace GISharp.GObject
         static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             try {
-                var obj = ReferenceCountedOpaque.TryGetExisting<Object> (objPtr);
+                var gcHandle = (GCHandle)Object.g_object_get_qdata (objPtr, Object.ToggleRefGCHandleQuark);
+                var obj = gcHandle.IsAllocated ? gcHandle.Target : null;
                 if (obj == null) {
                     throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
                 }
@@ -310,6 +325,17 @@ namespace GISharp.GObject
                 value.Set (propInfo.GetValue (obj));
             }
             catch (Exception ex) {
+                ex.DumpUnhandledException ();
+            }
+        }
+
+        static void ManagedNotify (IntPtr object_, IntPtr pspec_)
+        {
+            try {
+                var obj = Opaque.GetInstance<Object> (object_, Transfer.None);
+                var pspec = Opaque.GetInstance<ParamSpec> (pspec_, Transfer.None);
+                // FIXME
+            } catch (Exception ex) {
                 ex.DumpUnhandledException ();
             }
         }

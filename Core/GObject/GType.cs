@@ -842,8 +842,7 @@ namespace GISharp.GObject
                     // register it as a boxed type.
                     var name = type.GetGTypeName ();
                     AssertGTypeName (name);
-                    var gtype = GObject.Boxed.Register (name,
-                                    GObject.Boxed.CopyManagedType, GObject.Boxed.FreeManagedType);
+                    var gtype = GObject.Boxed.Register (name, GObject.Boxed.CopyManagedTypeDelegate, GObject.Boxed.FreeManagedTypeDelegate);
 
                     typeMap.Add (type, gtype);
                     gtypeMap.Add (gtype, type);

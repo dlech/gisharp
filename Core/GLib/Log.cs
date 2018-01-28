@@ -325,53 +325,40 @@ namespace GISharp.GLib
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
 
-        static bool isDefaultHandlerSet;
+        static GCHandle defaultHandler;
 
-        static void managedLogFuncCallback (IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
-        {
-            try {
-                var logDomain = GMarshal.Utf8PtrToString (logDomain_);
-                var message = GMarshal.Utf8PtrToString (message_);
-                var logFunc = (LogFunc)GCHandle.FromIntPtr (userData_).Target;
-                logFunc (logDomain, logLevel_, message);
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
-        }
-
-		/// <summary>
-		/// Installs a default log handler which is used if no
-		/// log handler has been set for the particular log domain
-		/// and log level combination. By default, GLib uses
-		/// <see cref="DefaultHandler"/> as default log handler.
-		/// </summary>
-		/// <remarks>
-		/// This has no effect if structured logging is enabled; see
-		/// [Using Structured Logging][using-structured-logging].
-		/// </remarks>
-		/// <param name="logFunc">
-		/// the log handler function
-		/// </param>
-		[Since ("2.6")]
+        /// <summary>
+        /// Installs a default log handler which is used if no
+        /// log handler has been set for the particular log domain
+        /// and log level combination. By default, GLib uses
+        /// <see cref="DefaultHandler"/> as default log handler.
+        /// </summary>
+        /// <remarks>
+        /// This has no effect if structured logging is enabled; see
+        /// [Using Structured Logging][using-structured-logging].
+        /// </remarks>
+        /// <param name="logFunc">
+        /// the log handler function
+        /// </param>
+        [Since ("2.6")]
         public static void SetDefaultHandler (LogFunc logFunc)
         {
             if (logFunc == null) {
                 throw new ArgumentNullException (nameof (logFunc));
             }
-            if (isDefaultHandlerSet) {
-                // technically, we could probably set this more than once, but
-                // we will leak userData unless we add some sort of special
-                // handling.
-                throw new InvalidOperationException ("Default handler can only be set once.");
-            }
+            var oldHandler = defaultHandler;
             if (logFunc == DefaultHandler) {
                 g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
+                defaultHandler = default(GCHandle);
             } else {
-                var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (logFunc));
-                g_log_set_default_handler (managedLogFuncCallback, userData_);
+                var logFunc_ = NativeLogFuncFactory.CreateDelegate (logFunc);
+                var userData_ = (IntPtr)GCHandle.Alloc (logFunc_);
+                g_log_set_default_handler (logFunc_, userData_);
+                defaultHandler = (GCHandle)userData_;
             }
-            isDefaultHandlerSet = true;
+            if (oldHandler.IsAllocated) {
+                oldHandler.Free ();
+            }
         }
 
         /// <summary>
@@ -541,9 +528,8 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (logFunc));
             }
             var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var userData_ = GCHandle.ToIntPtr (GCHandle.Alloc (logFunc));
-            NativeDestroyNotify destroy_ = DestroyNotifyMarshaler.Invoke;
-            var ret = g_log_set_handler_full (logDomain_, logLevels, managedLogFuncCallback, userData_, destroy_);
+            var (logFunc_, destroy_, userData_) = NativeLogFuncFactory.CreateNotifyDelegate (logFunc);
+            var ret = g_log_set_handler_full (logDomain_, logLevels, logFunc_, userData_, destroy_);
             GMarshal.Free (logDomain_);
             return ret;
         }

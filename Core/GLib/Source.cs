@@ -42,14 +42,14 @@ namespace GISharp.GLib
         public Source (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_source_ref (handle);
+                this.handle = g_source_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_source_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_source_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -244,7 +244,7 @@ namespace GISharp.GLib
             var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
             // This handle is freed from unmanged code in the FinalizeManagedSource callback.
             var gcHandle = GCHandle.ToIntPtr (GCHandle.Alloc (this));
-            Marshal.WriteIntPtr (Handle, (int)offset, gcHandle);
+            Marshal.WriteIntPtr (handle, (int)offset, gcHandle);
         }
 
         /// <summary>
@@ -502,7 +502,7 @@ namespace GISharp.GLib
             if (childSource == null) {
                 throw new ArgumentNullException (nameof (childSource));
             }
-            g_source_add_child_source (Handle, childSource.Handle);
+            g_source_add_child_source (handle, childSource.handle);
         }
 
         /// <summary>
@@ -560,7 +560,7 @@ namespace GISharp.GLib
         public void AddPoll (PollFD fd)
         {
             AssertNotDisposed ();
-            g_source_add_poll (Handle, fd);
+            g_source_add_poll (handle, fd);
         }
 
         /// <summary>
@@ -605,7 +605,7 @@ namespace GISharp.GLib
             if (IsDestroyed) {
                 throw new InvalidOperationException ("Source has already been destroyed.");
             }
-            var ret = g_source_attach (Handle, context?.Handle ?? IntPtr.Zero);
+            var ret = g_source_attach (handle, context?.Handle ?? IntPtr.Zero);
             return ret;
         }
 
@@ -635,7 +635,7 @@ namespace GISharp.GLib
         public void Destroy ()
         {
             AssertNotDisposed ();
-            g_source_destroy (Handle);
+            g_source_destroy (handle);
         }
 
         /// <summary>
@@ -666,13 +666,13 @@ namespace GISharp.GLib
         public bool CanRecurse {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_get_can_recurse (Handle);
+                var ret = g_source_get_can_recurse (handle);
                 return ret;
             }
 
             set {
                 AssertNotDisposed ();
-                g_source_set_can_recurse (Handle, value);
+                g_source_set_can_recurse (handle, value);
             }
         }
 
@@ -722,7 +722,7 @@ namespace GISharp.GLib
         public MainContext Context {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_source_get_context (Handle);
+                var ret_ = g_source_get_context (handle);
                 var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
@@ -760,7 +760,7 @@ namespace GISharp.GLib
         public uint Id {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_get_id (Handle);
+                var ret = g_source_get_id (handle);
                 return ret;
             }
         }
@@ -795,7 +795,7 @@ namespace GISharp.GLib
         public string Name {
             get {
                 AssertNotDisposed ();
-                var ret_ = g_source_get_name (Handle);
+                var ret_ = g_source_get_name (handle);
                 var ret = GMarshal.Utf8PtrToString (ret_, false);
                 return ret;
             }
@@ -806,7 +806,7 @@ namespace GISharp.GLib
                     throw new ArgumentNullException (nameof (value));
                 }
                 var value_ = GMarshal.StringToUtf8Ptr (value);
-                g_source_set_name (Handle, value_);
+                g_source_set_name (handle, value_);
                 GMarshal.Free (value_);
             }
         }
@@ -837,13 +837,13 @@ namespace GISharp.GLib
         public int Priority {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_get_priority (Handle);
+                var ret = g_source_get_priority (handle);
                 return ret;
             }
 
             set {
                 AssertNotDisposed ();
-                g_source_set_priority (Handle, value);
+                g_source_set_priority (handle, value);
             }
         }
 
@@ -883,13 +883,13 @@ namespace GISharp.GLib
         public long ReadyTime {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_get_ready_time (Handle);
+                var ret = g_source_get_ready_time (handle);
                 return ret;
             }
 
             set {
                 AssertNotDisposed ();
-                g_source_set_ready_time (Handle, value);
+                g_source_set_ready_time (handle, value);
             }
         }
 
@@ -935,7 +935,7 @@ namespace GISharp.GLib
         public long Time {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_get_time (Handle);
+                var ret = g_source_get_time (handle);
                 return ret;
             }
         }
@@ -1088,7 +1088,7 @@ namespace GISharp.GLib
         public bool IsDestroyed {
             get {
                 AssertNotDisposed ();
-                var ret = g_source_is_destroyed (Handle);
+                var ret = g_source_is_destroyed (handle);
                 return ret;
             }
         }
@@ -1137,8 +1137,8 @@ namespace GISharp.GLib
             if (childSource == null) {
                 throw new ArgumentNullException (nameof (childSource));
             }
-            var childSource_ = childSource.Handle;
-            g_source_remove_child_source (Handle, childSource_);
+            var childSource_ = childSource.handle;
+            g_source_remove_child_source (handle, childSource_);
         }
 
         /// <summary>
@@ -1180,7 +1180,7 @@ namespace GISharp.GLib
         public void RemovePoll (PollFD fd)
         {
             AssertNotDisposed ();
-            g_source_remove_poll (Handle, fd);
+            g_source_remove_poll (handle, fd);
         }
 
         /// <summary>
@@ -1234,7 +1234,7 @@ namespace GISharp.GLib
         public void RemoveUnixFd (IntPtr tag)
         {
             AssertNotDisposed ();
-            g_source_remove_unix_fd (Handle, tag);
+            g_source_remove_unix_fd (handle, tag);
         }
 
         /// <summary>
@@ -1305,10 +1305,8 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            NativeSourceFunc func_ = SourceFuncMarshaler.Invoke;
-            var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (func));
-            NativeDestroyNotify notify_ = DestroyNotifyMarshaler.Invoke;
-            g_source_set_callback (Handle, func_, data_, notify_);
+            var (func_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate (func);
+            g_source_set_callback (handle, func_, data_, notify_);
         }
 
         /// <summary>
@@ -1399,7 +1397,7 @@ namespace GISharp.GLib
         void SetFuncs (SourceFuncs funcs)
         {
             AssertNotDisposed ();
-            g_source_set_funcs (Handle, funcs);
+            g_source_set_funcs (handle, funcs);
         }
 
         /// <summary>

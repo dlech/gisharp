@@ -18,7 +18,7 @@ namespace GISharp.GLib
         public VariantIter (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_variant_iter_copy (handle);
+                this.handle = g_variant_iter_copy (handle);
             }
         }
 
@@ -27,8 +27,8 @@ namespace GISharp.GLib
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_variant_iter_free (Handle);
+            if (handle != IntPtr.Zero) {
+                g_variant_iter_free (handle);
             }
             base.Dispose (disposing);
         }
@@ -99,7 +99,7 @@ namespace GISharp.GLib
         public void Reset ()
         {
             AssertNotDisposed ();
-            g_variant_iter_init (Handle, value.Handle);
+            g_variant_iter_init (handle, value.Handle);
         }
 
         /// <summary>
@@ -140,7 +140,7 @@ namespace GISharp.GLib
         public int Count {
             get {
                 AssertNotDisposed ();
-                var ret = g_variant_iter_n_children (Handle);
+                var ret = g_variant_iter_n_children (handle);
                 return (int)ret;
             }
         }
@@ -193,7 +193,7 @@ namespace GISharp.GLib
         public bool MoveNext ()
         {
             AssertNotDisposed ();
-            var ret_ = g_variant_iter_next_value (Handle);
+            var ret_ = g_variant_iter_next_value (handle);
             if (ret_ == IntPtr.Zero) {
                 return false;
             }

@@ -42,14 +42,14 @@ namespace GISharp.GLib
         public Bytes (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_bytes_ref (handle);
+                this.handle = g_bytes_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_bytes_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_bytes_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -224,8 +224,8 @@ namespace GISharp.GLib
             if (bytes2 == null) {
                 throw new ArgumentNullException (nameof (bytes2));
             }
-            var bytes2_ = bytes2.Handle;
-            var ret = g_bytes_compare (Handle, bytes2_);
+            var bytes2_ = bytes2.handle;
+            var ret = g_bytes_compare (handle, bytes2_);
             return ret;
         }
 
@@ -302,8 +302,8 @@ namespace GISharp.GLib
             if (bytes2 == null) {
                 throw new ArgumentNullException (nameof (bytes2));
             }
-            var bytes2_ = bytes2.Handle;
-            var ret = g_bytes_equal (Handle, bytes2_);
+            var bytes2_ = bytes2.handle;
+            var ret = g_bytes_equal (handle, bytes2_);
             return ret;
         }
 
@@ -396,7 +396,7 @@ namespace GISharp.GLib
         public int Count {
             get {
                 AssertNotDisposed ();
-                var ret = g_bytes_get_size (Handle);
+                var ret = g_bytes_get_size (handle);
                 return (int)ret;
             }
         }
@@ -437,7 +437,7 @@ namespace GISharp.GLib
         public override int GetHashCode ()
         {
             AssertNotDisposed ();
-            var ret = g_bytes_hash (Handle);
+            var ret = g_bytes_hash (handle);
             return ret;
         }
 
@@ -503,7 +503,7 @@ namespace GISharp.GLib
             if (offset + length > Count) {
                 throw new ArgumentException ("offset + length exceeds size");
             }
-            var ret = g_bytes_new_from_bytes (Handle, (UIntPtr)offset, (UIntPtr)length);
+            var ret = g_bytes_new_from_bytes (handle, (UIntPtr)offset, (UIntPtr)length);
             return new Bytes (ret, Transfer.Full);
         }
 
@@ -511,7 +511,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 UIntPtr size;
-                var dataPtr = g_bytes_get_data (Handle, out size);
+                var dataPtr = g_bytes_get_data (handle, out size);
                 if (index < 0 || index >= (int)size) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }

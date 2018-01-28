@@ -27,7 +27,7 @@ namespace GISharp.GLib
         protected IntPtr Data {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle, (int)dataOffset);
+                var ret = Marshal.ReadIntPtr (handle, (int)dataOffset);
                 return ret;
             }
         }
@@ -35,7 +35,7 @@ namespace GISharp.GLib
         public uint Len {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)lenOffset);
+                var ret = Marshal.ReadInt32 (handle, (int)lenOffset);
                 return (uint)ret;
             }
         }
@@ -43,14 +43,14 @@ namespace GISharp.GLib
         public PtrArray (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                Handle = g_ptr_array_ref (handle);
+                this.handle = g_ptr_array_ref (handle);
             }
         }
 
         protected override void Dispose (bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_ptr_array_unref (Handle);
+            if (handle != IntPtr.Zero) {
+                g_ptr_array_unref (handle);
             }
             base.Dispose (disposing);
         }
@@ -142,18 +142,18 @@ namespace GISharp.GLib
             uint reservedSize,
             NativeDestroyNotify elementFreeFunc);
 
-        static IntPtr NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
-        {
-            if (elementFreeFunc == null) {
-                throw new ArgumentNullException (nameof (elementFreeFunc));
-            }
-            // TODO: this callback will be garbage collected before we are done with it
-            NativeDestroyNotify elementFreeFuncNative = (data) => {
-                elementFreeFunc (data);
-            };
-            var handle = g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
-            return handle;
-        }
+        // static IntPtr NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
+        // {
+        //     if (elementFreeFunc == null) {
+        //         throw new ArgumentNullException (nameof (elementFreeFunc));
+        //     }
+        //     // TODO: this callback will be garbage collected before we are done with it
+        //     NativeDestroyNotify elementFreeFuncNative = (data) => {
+        //         elementFreeFunc (data);
+        //     };
+        //     var handle = g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
+        //     return handle;
+        // }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> with <paramref name="reservedSize"/> pointers preallocated
@@ -220,7 +220,7 @@ namespace GISharp.GLib
         protected void Add (IntPtr data)
         {
             AssertNotDisposed ();
-            g_ptr_array_add (Handle, data);
+            g_ptr_array_add (handle, data);
         }
 
         /// <summary>
@@ -307,7 +307,7 @@ namespace GISharp.GLib
             if (index < 0 || index > Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_ptr_array_insert (Handle, index, data);
+            g_ptr_array_insert (handle, index, data);
         }
 
         /// <summary>
@@ -355,7 +355,7 @@ namespace GISharp.GLib
         protected bool Remove (IntPtr data)
         {
             AssertNotDisposed ();
-            var ret = g_ptr_array_remove (Handle, data);
+            var ret = g_ptr_array_remove (handle, data);
             return ret;
         }
 
@@ -404,7 +404,7 @@ namespace GISharp.GLib
         protected bool RemoveFast (IntPtr data)
         {
             AssertNotDisposed ();
-            var ret = g_ptr_array_remove_fast (Handle, data);
+            var ret = g_ptr_array_remove_fast (handle, data);
             return ret;
         }
 
@@ -443,7 +443,7 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_ptr_array_remove_index (Handle, (uint)index);
+            g_ptr_array_remove_index (handle, (uint)index);
             // Note: the pointer returned by g_ptr_array_remove_index may not be
             // valid because the free func is called on it so we always ignore it
         }
@@ -485,7 +485,7 @@ namespace GISharp.GLib
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_ptr_array_remove_index_fast (Handle, (uint)index);
+            g_ptr_array_remove_index_fast (handle, (uint)index);
             // Note: the pointer returned by g_ptr_array_remove_index may not be
             // valid because the free func is called on it so we always ignore it
         }
@@ -540,7 +540,7 @@ namespace GISharp.GLib
             if (index + length > Count) {
                 throw new ArgumentException ("index + length exceeds Count.");
             }
-            g_ptr_array_remove_range (Handle, (uint)index, (uint)length);
+            g_ptr_array_remove_range (handle, (uint)index, (uint)length);
         }
 
         /// <summary>
@@ -582,7 +582,7 @@ namespace GISharp.GLib
         //            elementFreeFunc (elementFreeFuncData);
         //        };
         //    }
-        //    g_ptr_array_set_free_func (Handle, elementFreeFuncNative);
+        //    g_ptr_array_set_free_func (handle, elementFreeFuncNative);
         //}
 
         /// <summary>
@@ -617,7 +617,7 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_ptr_array_set_size (Handle, length);
+            g_ptr_array_set_size (handle, length);
         }
 
         /// <summary>
@@ -668,7 +668,7 @@ namespace GISharp.GLib
                 var compareFuncRet = compareFunc (x, y);
                 return compareFuncRet;
             };
-            g_ptr_array_sort (Handle, compareFunc_);
+            g_ptr_array_sort (handle, compareFunc_);
             GC.KeepAlive (compareFunc_);
         }
 
