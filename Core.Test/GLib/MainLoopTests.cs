@@ -10,37 +10,39 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestGetContext ()
         {
-            var mainLoop = new MainLoop ();
-            var context = mainLoop.Context;
-            Assert.That (context, Is.EqualTo (MainContext.Default));
+            using (var mainLoop = new MainLoop ()) {
+                var context = mainLoop.Context;
+                Assert.That (context.Handle, Is.EqualTo (MainContext.Default.Handle));
+            }
         }
 
         [Test]
         public void TestIsRunning ()
         {
-            MainLoop mainLoop;
+            using (var mainLoop = new MainLoop (null, false)) {
+                Assert.That (mainLoop.IsRunning, Is.False);
+            }
 
-            mainLoop = new MainLoop (null, false);
-            Assert.That (mainLoop.IsRunning, Is.False);
-
-            mainLoop = new MainLoop (null, true);
-            Assert.That (mainLoop.IsRunning, Is.True);
+            using (var mainLoop = new MainLoop (null, true)) {
+                Assert.That (mainLoop.IsRunning, Is.True);
+            }
         }
 
         [Test]
         public void TestRunQuit ()
         {
             lock (MainContextTests.MainContextLock) {
-                var mainLoop = new MainLoop ();
-                Assume.That (!mainLoop.IsRunning);
-                var runTask = Task.Run (() => mainLoop.Run ());
-                Task.Delay (100).Wait ();
-                Assume.That (mainLoop.IsRunning);
-                Assert.That (runTask.IsCompleted, Is.False);
-                mainLoop.Quit ();
-                Task.Delay (100).Wait ();
-                Assume.That (!mainLoop.IsRunning);
-                Assert.That (runTask.IsCompleted, Is.True);
+                using (var mainLoop = new MainLoop ()) {
+                    Assume.That (!mainLoop.IsRunning);
+                    var runTask = Task.Run (() => mainLoop.Run ());
+                    Task.Delay (100).Wait ();
+                    Assume.That (mainLoop.IsRunning);
+                    Assert.That (runTask.IsCompleted, Is.False);
+                    mainLoop.Quit ();
+                    Task.Delay (100).Wait ();
+                    Assume.That (!mainLoop.IsRunning);
+                    Assert.That (runTask.IsCompleted, Is.True);
+                }
             }
         }
     }

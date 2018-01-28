@@ -24,7 +24,7 @@ namespace GISharp.Core.Test.GLib
                     var source = Idle.CreateSource ();
                     source.SetCallback (() => {
                         try {
-                            Assert.That (Source.Current, Is.EqualTo (source));
+                            Assert.That (Source.Current.Handle, Is.EqualTo (source.Handle));
                             callbackInvoked = true;
                             return Source.Remove_;
                         } finally {

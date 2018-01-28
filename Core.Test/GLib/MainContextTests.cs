@@ -49,97 +49,101 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestAquire ()
         {
-            var context = new MainContext ();
-            var ret = context.Acquire ();
-            Assert.That (ret, Is.True);
+            using (var context = new MainContext ()) {
+                var ret = context.Acquire ();
+                Assert.That (ret, Is.True);
 
-            var threadAquiredContext = false;
-            Task.Run (() => {
-                threadAquiredContext = context.Acquire ();
-            }).Wait ();
-            Assert.That (threadAquiredContext, Is.False);
+                var threadAquiredContext = false;
+                Task.Run (() => {
+                    threadAquiredContext = context.Acquire ();
+                }).Wait ();
+                Assert.That (threadAquiredContext, Is.False);
+            }
         }
 
         [Test]
         public void TestFindSourceById ()
         {
-            var context = new MainContext ();
-            var source = Idle.CreateSource ();
-            var id = source.Attach (context);
-            var foundSource = context.FindSourceById (id);
-            Assert.That (foundSource, Is.EqualTo (source));
+            using (var context = new MainContext ()) {
+                var source = Idle.CreateSource ();
+                var id = source.Attach (context);
+                var foundSource = context.FindSourceById (id);
+                Assert.That (foundSource.Handle, Is.EqualTo (source.Handle));
+            }
         }
 
         [Test]
         public void TestInvoke ()
         {
-            var context = new MainContext ();
-            var mainLoop = new MainLoop (context);
-            var invoked = false;
-            context.Invoke (() => {
-                mainLoop.Quit ();
-                invoked = true;
-                return Source.Remove_;
-            });
+            using (var context = new MainContext ())
+            using (var mainLoop = new MainLoop (context)) {
+                var invoked = false;
+                context.Invoke (() => {
+                    mainLoop.Quit ();
+                    invoked = true;
+                    return Source.Remove_;
+                });
 
-            Assert.That (invoked, Is.False);
+                Assert.That (invoked, Is.False);
 
-            Task.Run (() => {
-                context.PushThreadDefault ();
-                mainLoop.Run ();
-                context.PopThreadDefault ();
-            }).Wait (100);
+                Task.Run (() => {
+                    context.PushThreadDefault ();
+                    mainLoop.Run ();
+                    context.PopThreadDefault ();
+                }).Wait (100);
 
-            Assert.That (invoked, Is.True);
+                Assert.That (invoked, Is.True);
+            }
         }
 
         [Test]
         public void TestIsOwner ()
         {
-            var context = new MainContext ();
-
-            Assert.That (context.IsOwner, Is.False);
-
-            context.Acquire ();
-
-            Assert.That (context.IsOwner, Is.True);
+            using (var context = new MainContext ()) {
+                Assert.That (context.IsOwner, Is.False);
+                context.Acquire ();
+                Assert.That (context.IsOwner, Is.True);
+            }
         }
 
         [Test]
         public void TestCheckPending ()
         {
-            var context = new MainContext ();
-            var pending = context.CheckPending ();
-            Assert.That (pending, Is.False);
+            using (var context = new MainContext ()) {
+                var pending = context.CheckPending ();
+                Assert.That (pending, Is.False);
+            }
         }
 
         [Test]
         public void TestRelease ()
         {
-            var context = new MainContext ();
-            Assume.That (context.IsOwner, Is.False);
-            var ret = context.Acquire ();
-            Assume.That (ret, Is.True);
-            Assume.That (context.IsOwner, Is.True);
+            using (var context = new MainContext ()) {
+                Assume.That (context.IsOwner, Is.False);
+                var ret = context.Acquire ();
+                Assume.That (ret, Is.True);
+                Assume.That (context.IsOwner, Is.True);
 
-            context.Release ();
-            Assert.That (context.IsOwner, Is.False);
+                context.Release ();
+                Assert.That (context.IsOwner, Is.False);
+            }
         }
 
         [Test]
         public void TestWakeup ()
         {
-            var context = new MainContext ();
-            var awake = false;
-            var task = Task.Run (() => {
-                context.PushThreadDefault ();
-                context.Iteration (true);
-                awake = true;
-                context.PopThreadDefault ();
-            });
-            context.Wakeup ();
-            task.Wait (100);
-            Assert.That (awake, Is.True);
+            using (var context = new MainContext ()) {
+                var awake = false;
+                var task = Task.Run (() => {
+                    context.PushThreadDefault ();
+                    context.Iteration (true);
+                    awake = true;
+                    context.PopThreadDefault ();
+                });
+                context.Wakeup ();
+                task.Wait (100);
+                Assert.That (awake, Is.True);
+            }
         }
 
         [Test]
