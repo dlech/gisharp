@@ -66,8 +66,8 @@ namespace GISharp.GObject
         ParamFlags Flags {
             get {
                 AssertNotDisposed ();
-                var flags = Marshal.PtrToStructure<ParamFlags> (Handle + (int)flagsOffset);
-                return flags;
+                var flags = Marshal.ReadInt32 (Handle, (int)flagsOffset);
+                return (ParamFlags)flags;
             }
         }
 
@@ -104,7 +104,7 @@ namespace GISharp.GObject
         public ParamSpec (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_param_spec_ref (handle);
+                Handle = g_param_spec_ref (handle);
             }
             g_param_spec_sink (handle);
         }
@@ -120,23 +120,11 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_param_spec_ref (IntPtr pspec);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_param_spec_ref (Handle);
-        }
-
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_sink (IntPtr pspec);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_unref (IntPtr pspec);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_param_spec_unref (Handle);
-        }
 
         protected static GType[] paramSpecTypes;
 

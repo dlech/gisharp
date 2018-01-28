@@ -16,7 +16,7 @@ namespace GISharp.GLib
     /// Data type representing an event source.
     /// </summary>
     [GType ("GSource", IsWrappedNativeType = true)]
-    public abstract class Source : ReferenceCountedOpaque
+    public abstract class Source : Opaque
     {
         internal struct Struct
         {
@@ -42,7 +42,7 @@ namespace GISharp.GLib
         public Source (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_source_ref (handle);
+                Handle = g_source_ref (handle);
             }
         }
 
@@ -57,20 +57,8 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_source_ref (IntPtr source);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_source_ref (Handle);
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_source_unref (IntPtr source);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_source_unref (Handle);
-        }
 
         struct ManagedSource
         {

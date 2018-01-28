@@ -41,7 +41,7 @@ namespace GISharp.GObject
         public Object (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_object_ref (handle);
+                Handle = g_object_ref (handle);
             }
 
             // always start with a strong reference to the managed object
@@ -79,20 +79,8 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_ref (IntPtr @object);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_object_ref (Handle);
-        }
-
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_unref (IntPtr @object);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_object_unref (Handle);
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_add_toggle_ref (IntPtr @object, IntPtr notify, IntPtr data);

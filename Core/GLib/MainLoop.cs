@@ -11,12 +11,12 @@ namespace GISharp.GLib
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
     [GType ("GMainLoop", IsWrappedNativeType = true)]
-    public sealed class MainLoop : ReferenceCountedOpaque
+    public sealed class MainLoop : Opaque
     {
         public MainLoop (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_main_loop_ref (handle);
+                Handle = g_main_loop_ref (handle);
             }
         }
 
@@ -31,20 +31,8 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_main_loop_ref (IntPtr loop);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_main_loop_ref (Handle);
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_main_loop_unref (IntPtr loop);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_main_loop_unref (Handle);
-        }
 
         /// <summary>
         /// Creates a new #GMainLoop structure.

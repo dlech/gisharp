@@ -37,12 +37,12 @@ namespace GISharp.GLib
     [Since ("2.32")]
     [GType ("GBytes", IsWrappedNativeType = true)]
     public sealed class Bytes
-        : ReferenceCountedOpaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
+        : Opaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
         public Bytes (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_bytes_ref (handle);
+                Handle = g_bytes_ref (handle);
             }
         }
 
@@ -57,20 +57,8 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_bytes_ref (IntPtr array);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_bytes_ref (Handle);
-        }
-
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_bytes_unref (IntPtr array);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_bytes_unref (Handle);
-        }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */

@@ -11,7 +11,7 @@ namespace GISharp.GLib
     /// Contains the public fields of a GByteArray.
     /// </summary>
     [GType ("GByteArray", IsWrappedNativeType = true)]
-    public sealed class ByteArray : ReferenceCountedOpaque, IList<byte>
+    public sealed class ByteArray : Opaque, IList<byte>
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
@@ -43,7 +43,7 @@ namespace GISharp.GLib
         public ByteArray (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_byte_array_ref (handle);
+                Handle = g_byte_array_ref (handle);
             }
         }
 
@@ -58,23 +58,11 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_ref (IntPtr array);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_byte_array_ref (Handle);
-        }
-
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_free (IntPtr array, bool freeSegment);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_unref (IntPtr array);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_byte_array_unref (Handle);
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_byte_array_get_type ();

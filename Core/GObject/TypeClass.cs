@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all classes.
     /// </summary>
-    public abstract class TypeClass : ReferenceCountedOpaque
+    public abstract class TypeClass : Opaque
     {
         internal struct Struct
         {
@@ -39,21 +39,8 @@ namespace GISharp.GObject
             base.Dispose (disposing);
         }
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            throw new NotSupportedException ();
-        }
-
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_type_class_unref (IntPtr gClass);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_type_class_unref (Handle);
-        }
-
         public abstract Type StructType { get; }
 
 

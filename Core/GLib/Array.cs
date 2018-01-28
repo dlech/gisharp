@@ -11,7 +11,7 @@ namespace GISharp.GLib
     /// Contains the public fields of a GArray.
     /// </summary>
     [GType ("GArray", IsWrappedNativeType = true)]
-    public abstract class Array : ReferenceCountedOpaque
+    public abstract class Array : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
@@ -41,7 +41,7 @@ namespace GISharp.GLib
         public Array (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_array_ref (handle);
+                Handle = g_array_ref (handle);
             }
         }
 
@@ -56,23 +56,11 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_ref (IntPtr array);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_array_ref (Handle);
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_free (IntPtr array, bool freeSegment);
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_unref (IntPtr array);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_array_unref (Handle);
-        }
 
         public int Count {
             get {

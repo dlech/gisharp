@@ -10,7 +10,7 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used as the base of all type instances.
     /// </summary>
-    public abstract class TypeInstance : ReferenceCountedOpaque
+    public abstract class TypeInstance : Opaque
     {
         protected struct Struct
         {

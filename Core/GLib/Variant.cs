@@ -230,14 +230,14 @@ namespace GISharp.GLib
     [Since ("2.24")]
     [GType ("GVariant", IsWrappedNativeType = true)]
     public sealed class Variant
-        : ReferenceCountedOpaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
+        : Opaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
     {
         IndexedCollection<Variant> childValues;
 
         public Variant (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_variant_ref (handle);
+                Handle = g_variant_ref (handle);
             }
         }
 
@@ -252,20 +252,8 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_ref (IntPtr value);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_variant_ref (Handle);
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_unref (IntPtr value);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_variant_unref (Handle);
-        }
 
         public IndexedCollection<Variant> ChildValues {
             get {

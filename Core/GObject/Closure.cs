@@ -50,7 +50,7 @@ namespace GISharp.GObject
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
     [GType ("GClosure", IsWrappedNativeType = true)]
-    public sealed class Closure : ReferenceCountedOpaque
+    public sealed class Closure : Opaque
     {
         static readonly IntPtr bitFieldsOffset = Marshal.OffsetOf<Struct> (nameof (Struct.BitFields));
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Data));
@@ -99,7 +99,7 @@ namespace GISharp.GObject
         public Closure (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_closure_ref (handle);
+                Handle = g_closure_ref (handle);
             }
             g_closure_sink (handle);
         }
@@ -115,23 +115,11 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_ref (IntPtr closure);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_closure_ref (Handle);
-        }
-
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_sink (IntPtr closure);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_closure_unref (IntPtr closure);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_closure_unref (Handle);
-        }
 
         public bool InMarshal {
             get {

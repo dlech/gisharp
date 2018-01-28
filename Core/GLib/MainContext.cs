@@ -11,12 +11,12 @@ namespace GISharp.GLib
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
     [GType ("GMainContext", IsWrappedNativeType = true)]
-    public sealed class MainContext : ReferenceCountedOpaque
+    public sealed class MainContext : Opaque
     {
         public MainContext (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_main_context_ref (handle);
+                Handle = g_main_context_ref (handle);
             }
         }
 
@@ -31,20 +31,8 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_main_context_ref (IntPtr context);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_main_context_ref (Handle);
-        }
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_main_context_unref (IntPtr context);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_main_context_unref (Handle);
-        }
 
         /// <summary>
         /// Creates a new #GMainContext structure.

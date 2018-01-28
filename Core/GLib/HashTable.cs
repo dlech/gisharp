@@ -13,7 +13,7 @@ namespace GISharp.GLib
     /// following functions.
     /// </summary>
     [GType ("GHashTable", IsWrappedNativeType = true)]
-    public abstract class HashTable : ReferenceCountedOpaque
+    public abstract class HashTable : Opaque
     {
         protected readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
@@ -21,7 +21,7 @@ namespace GISharp.GLib
         public HashTable (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                g_hash_table_ref (handle);
+                Handle = g_hash_table_ref (handle);
             }
         }
 
@@ -36,23 +36,11 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_hash_table_ref (IntPtr hashTable);
 
-        protected override void Ref ()
-        {
-            AssertNotDisposed ();
-            g_hash_table_ref (Handle);
-        }
-
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_hash_table_destroy (IntPtr hashTable);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_hash_table_unref (IntPtr hashTable);
-
-        protected override void Unref ()
-        {
-            AssertNotDisposed ();
-            g_hash_table_unref (Handle);
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_hash_table_get_type ();
