@@ -4,8 +4,8 @@ using GISharp.Runtime;
 namespace GISharp.GObject
 {
     /// <summary>
-    /// Through the <see cref="ParamFlags"/> flag values, certain aspects of parameters
-    /// can be configured.
+    /// Through the <see cref="ParamFlags"/> flag values, certain aspects of
+    /// parameters can be configured.
     /// </summary>
     /// <seealso cref="StaticStrings"/>
     [Flags]
@@ -22,7 +22,7 @@ namespace GISharp.GObject
         Writable = 0x02,
 
         /// <summary>
-        /// Alias for <see cref="Readable"/> | <see cref="Writable"/>
+        /// Alias for <c>Readable | Writable</c>
         /// </summary>
         Readwrite = Readable | Writable,
 
@@ -44,20 +44,16 @@ namespace GISharp.GObject
 
         /// <summary>
         /// the string used as name when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmodified for the lifetime of the parameter.
+        /// parameter is guaranteed to remain valid and
+        /// unmodified for the lifetime of the parameter.
         /// </summary>
         [Since ("2.8")]
         StaticName = 0x20,
 
-        ///// <summary>
-        ///// internal
-        ///// </summary>
-        //Private = 32,
         /// <summary>
         /// the string used as nick when constructing the
-        ///  parameter is guaranteed to remain valid and
-        ///  unmmodified for the lifetime of the parameter.
+        /// parameter is guaranteed to remain valid and
+        /// unmodified for the lifetime of the parameter.
         /// </summary>
         [Since ("2.8")]
         StaticNick = 0x40,
@@ -82,28 +78,27 @@ namespace GISharp.GObject
         /// <summary>
         /// The parameter is deprecated and will be removed
         /// in a future version. A warning will be generated if it is used
-        /// while running with G_ENABLE_DIAGNOSTIC=1.
+        /// while running with <c>G_ENABLE_DIAGNOSTIC=1</c>.
         /// </summary>
         [Since ("2.26")]
         Deprecated = 0x80000000,
 
         /// <summary>
-        /// Mask containing the bits of <see cref="ParamSpec.Flags"/> which are reserved for GLib.
+        /// Mask containing the bits of <see cref="ParamSpec.Flags"/> which are
+        /// reserved for GLib.
         /// </summary>
         Mask = 0xFF,
 
         /// <summary>
-        /// <see cref="ParamFlags"/> value alias for <see cref="StaticName"/> |
-        /// <see cref="StaticNick"/> | <see cref="StaticBlurb"/>.
+        /// <see cref="ParamFlags"/> value alias for <c>StaticName | StaticNick
+        /// | StaticBlurb</c>.
         /// </summary>
-        /// <remarks>
-        /// </remarks>
         [Since ("2.13")]
         StaticStrings = StaticName | StaticNick | StaticBlurb,
 
         /// <summary>
-        /// Minimum shift count to be used for user defined flags, to be stored in
-        /// <see cref="ParamSpec.Flags"/>. The maximum allowed is 10.
+        /// Minimum shift count to be used for user defined flags, to be stored
+        /// in <see cref="ParamSpec.Flags"/>. The maximum allowed is 10.
         /// </summary>
         UserShift = 8
     }
