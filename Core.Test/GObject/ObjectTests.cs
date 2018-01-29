@@ -175,11 +175,11 @@ namespace GISharp.Core.Test.GObject
                     notificationCount++;
                 };
 
-                // IntValue does not notifiy of property change
+                // IntValue does not notify of property change
                 obj.IntValue = 1;
                 Assert.That (notificationCount, Is.EqualTo (0));
 
-                // likewise, setting the property from unmange code should not
+                // likewise, setting the property from unmanged code should not
                 // trigger a change either
                 var intValue = new Value (GType.Int, 1);
                 obj.SetProperty (nameof(obj.IntValue), intValue);
@@ -189,8 +189,8 @@ namespace GISharp.Core.Test.GObject
                 obj.DoubleValue = 1;
                 Assert.That (notificationCount, Is.EqualTo (1));
 
-                // also make sure changing the propery from unmanged code notifies
-                // and that it only notifies once
+                // also make sure changing the property from unmanged code
+                // notifies and that it only notifies once
                 var doubleValue = new Value (GType.Double, 1.0);
                 obj.SetProperty (nameof(obj.DoubleValue), doubleValue);
                 Assert.That (notificationCount, Is.EqualTo (2));
