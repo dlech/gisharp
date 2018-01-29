@@ -1189,12 +1189,14 @@ namespace GISharp.GObject
                     g_object_set_data (handle, key_, IntPtr.Zero);
                 }
                 else {
-                    var data_ = value == null ? IntPtr.Zero : GCHandle.ToIntPtr (GCHandle.Alloc (value));
-                    g_object_set_data_full (handle, key_, data_, FreeData);
+                    var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (value));
+                    g_object_set_data_full (handle, key_, data_, freeDataDelegate);
                 }
                 GMarshal.Free (key_);
             }
         }
+
+        static UnmanagedDestroyNotify freeDataDelegate = FreeData;
 
         static void FreeData (IntPtr dataPtr)
         {

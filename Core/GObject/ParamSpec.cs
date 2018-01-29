@@ -398,6 +398,12 @@ namespace GISharp.GObject
             }
         }
 
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_param_spec_set_qdata (
+            IntPtr pspec,
+            Quark quark,
+            IntPtr data);
+
         /// <summary>
         /// This function works like g_param_spec_set_qdata(), but in addition,
         /// a `void (*destroy) (gpointer)` function may be
@@ -448,9 +454,16 @@ namespace GISharp.GObject
         public void SetQData (Quark quark, object data)
         {
             AssertNotDisposed ();
-            var newData = data == null ? IntPtr.Zero : (IntPtr)GCHandle.Alloc (data);
-            g_param_spec_set_qdata_full (handle, quark, newData, FreeQData);
+            if (data == null) {
+                g_param_spec_set_qdata (handle, quark, IntPtr.Zero);
+            }
+            else {
+                var data_ = (IntPtr)GCHandle.Alloc (data);
+                g_param_spec_set_qdata_full (handle, quark, data_, freeQDataDelegate);
+            }
         }
+
+        static UnmanagedDestroyNotify freeQDataDelegate = FreeQData;
 
         static void FreeQData (IntPtr userData)
         {
