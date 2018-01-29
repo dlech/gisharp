@@ -165,13 +165,13 @@ namespace GISharp.Core.Test
 
         new struct Struct
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             public TypeInterface.Struct GIface;
             public UnmanagedNetworkChanged NetworkChanged;
             public UnmanagedCanReach CanReach;
             public UnmanagedCanReachAsync CanReachAsync;
             public UnmanagedCanReachAsyncFinish CanReachAsyncFinish;
-#pragma warning restore CS0649
+            #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available);

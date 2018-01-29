@@ -23,11 +23,11 @@ namespace GISharp.GObject
 
         protected new struct Struct
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             public TypeInstance.Struct GTypeInstance;
             public uint RefCount;
             public IntPtr Qdata;
-#pragma warning restore CS0649
+            #pragma warning restore CS0649
         }
 
         uint RefCount {
@@ -1250,7 +1250,7 @@ namespace GISharp.GObject
     /// </summary>
     struct Parameter
     {
-#pragma warning disable CS0649
+        #pragma warning disable CS0649
         /// <summary>
         /// the parameter name
         /// </summary>
@@ -1260,6 +1260,6 @@ namespace GISharp.GObject
         /// the parameter value
         /// </summary>
         public IntPtr Value;
-#pragma warning restore CS0649
+        #pragma warning restore CS0649
     }
 }

@@ -14,10 +14,10 @@ namespace GISharp.GObject
         
         new struct Struct
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             public ParamSpec.Struct ParentInstance;
             public bool DefaultValue;
-#pragma warning restore CS0649
+            #pragma warning restore CS0649
         }
 
         public new bool DefaultValue {

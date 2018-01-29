@@ -20,7 +20,7 @@ namespace GISharp.GObject
     {
         GType type;
 
-#pragma warning disable 414
+        #pragma warning disable 414
         // this should never be accessed directly
         //[MarshalAs (UnmanagedType.ByValArray, SizeConst = 2)]
         //ValueDataUnion[] data;
@@ -59,7 +59,7 @@ namespace GISharp.GObject
             [FieldOffset (0)]
             IntPtr vPointer;
         }
-#pragma warning restore 414
+        #pragma warning restore 414
 
         /// <summary>
         /// The maximum number of #GTypeCValues which can be collected for a

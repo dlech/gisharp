@@ -17,11 +17,11 @@ namespace GISharp.GObject
 
         new struct Struct
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             public ParamSpec.Struct ParentInstance;
             public IntPtr ElementSpec;
             public uint FixedNElements;
-#pragma warning restore CS0649
+            #pragma warning restore CS0649
         }
 
         public ParamSpec ElementSpec {

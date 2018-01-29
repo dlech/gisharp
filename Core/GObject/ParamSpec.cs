@@ -27,7 +27,7 @@ namespace GISharp.GObject
 
         protected new struct Struct
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             /// <summary>
             /// private GTypeInstance portion
             /// </summary>
@@ -53,14 +53,14 @@ namespace GISharp.GObject
             /// </summary>
             public GType OwnerType;
 
-#pragma warning disable CS0169
+            #pragma warning disable CS0169
             IntPtr name;
             IntPtr blurb;
             IntPtr qdata;
             public uint RefCount;
             uint paramId;
-#pragma warning restore CS0169
-#pragma warning disable CS0649
+            #pragma warning restore CS0169
+            #pragma warning disable CS0649
         }
 
         /// <summary>

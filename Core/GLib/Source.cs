@@ -62,10 +62,10 @@ namespace GISharp.GLib
 
         struct ManagedSource
         {
-#pragma warning disable CS0649
+            #pragma warning disable CS0649
             public Struct source;
             public IntPtr gcHandle;
-#pragma warning restore CS0649
+            #pragma warning restore CS0649
         }
 
         static SourceFuncs managedSourceFuncs = new SourceFuncs {
@@ -1605,12 +1605,12 @@ namespace GISharp.GLib
         public UnmanagedFinalize FinalizeImpl;
 
         // private fields
-#pragma warning disable CS0169
+        #pragma warning disable CS0169
         [MarshalAs (UnmanagedType.FunctionPtr)]
         UnmanagedSourceFunc ClosureCallback;
         [MarshalAs (UnmanagedType.FunctionPtr)]
         UnmanagedClosureMarshal ClosureMarshal;
-#pragma warning restore CS0169
+        #pragma warning restore CS0169
     }
 
     /// <summary>
@@ -1619,7 +1619,7 @@ namespace GISharp.GLib
     /// </summary>
     struct SourceCallbackFuncs
     {
-#pragma warning disable CS0649
+        #pragma warning disable CS0649
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void UnmanagedRef (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
@@ -1661,6 +1661,6 @@ namespace GISharp.GLib
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
         public UnmanagedGet GetImpl;
-#pragma warning restore CS0649
+        #pragma warning restore CS0649
     }
 }

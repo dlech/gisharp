@@ -27,7 +27,7 @@ namespace GISharp.GObject
         static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
 
-#pragma warning disable 414
+        #pragma warning disable 414
         // There is an unfortunate bug that g_type_add_interface_static() will
         // fail to install properties because class_init of GObject has not
         // been run yet to create the param spec pool.
@@ -40,7 +40,7 @@ namespace GISharp.GObject
         // Since the GISharp.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
         static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
-#pragma warning restore 414
+        #pragma warning restore 414
 
         static GType ()
         {
