@@ -63,6 +63,9 @@ namespace GISharp.GObject
 #pragma warning disable CS0649
         }
 
+        /// <summary>
+        /// <see cref="ParamFlags"/> flags for this parameter
+        /// </summary>
         ParamFlags Flags {
             get {
                 AssertNotDisposed ();
@@ -178,7 +181,7 @@ namespace GISharp.GObject
         /// Gets the default value of @pspec as a pointer to a #GValue.
         /// </summary>
         /// <remarks>
-        /// The <see cref="Value"/> will remain value for the life of this ParamSpec.
+        /// #GValue will remain value for the life of this ParamSpec.
         /// </remarks>
         /// <returns>
         /// a pointer to a #GValue which must not be modified
@@ -193,14 +196,11 @@ namespace GISharp.GObject
             IntPtr param);
 
         /// <summary>
-        /// Gets the default value of this instance as a pointer to a <see cref="Value"/>.
+        /// Gets the default value of this instance.
         /// </summary>
         /// <remarks>
         /// The <see cref="Value"/> will remain value for the life of this instance.
         /// </remarks>
-        /// <returns>
-        /// a pointer to a <see cref="Value"/> which must not be modified
-        /// </returns>
         [Since ("2.38")]
         public Value DefaultValue {
             get {
@@ -441,27 +441,26 @@ namespace GISharp.GObject
 
         /// <summary>
         /// Sets arbitrary user data associated with this instance.
-        /// The data can be retreived using <see cref="GetQData"/>.
+        /// The data can be retrieved using <see cref="GetQData"/>.
         /// </summary>
         /// <param name="quark">
         /// a <see cref="Quark"/>, naming the user data
         /// </param>
         /// <param name="data">
-        /// an opaque user data pointer
+        /// user data
         /// </param>
         public void SetQData (Quark quark, object data)
         {
             AssertNotDisposed ();
-            var newData = data == null ? IntPtr.Zero
-                : GCHandle.ToIntPtr (GCHandle.Alloc (data));
+            var newData = data == null ? IntPtr.Zero : (IntPtr)GCHandle.Alloc (data);
             g_param_spec_set_qdata_full (handle, quark, newData, FreeQData);
         }
 
         static void FreeQData (IntPtr userData)
         {
             try {
-                var data = GCHandle.FromIntPtr (userData);
-                data.Free ();
+                var gcHandle = (GCHandle)userData;
+                gcHandle.Free ();
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException ();
