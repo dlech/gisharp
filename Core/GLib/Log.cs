@@ -471,7 +471,7 @@ namespace GISharp.GLib
             IntPtr userData,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify destroy);
+            UnmanagedDestroyNotify destroy);
 
         /// <summary>
         /// Sets the log handler for a domain and a set of log levels. To handle

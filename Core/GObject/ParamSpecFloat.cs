@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for float properties.
     /// </summary>
-    [GType ("GParamFloat", IsWrappedNativeType = true)]
+    [GType ("GParamFloat", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecFloat : ParamSpec
     {
         static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));

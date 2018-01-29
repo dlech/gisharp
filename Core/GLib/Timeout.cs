@@ -66,13 +66,13 @@ namespace GISharp.GLib
             uint interval,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            NativeSourceFunc function,
+            UnmanagedSourceFunc function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Sets a function to be called at regular intervals, with the given
@@ -115,7 +115,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate (function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
             var ret = g_timeout_add_full (priority, interval, function_, data_, notify_);
             return ret;
         }
@@ -191,13 +191,13 @@ namespace GISharp.GLib
             uint interval,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            NativeSourceFunc function,
+            UnmanagedSourceFunc function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Sets a function to be called at regular intervals, with <paramref name="priority"/>.
@@ -254,7 +254,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate (function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
             var ret = g_timeout_add_seconds_full (priority, interval, function_, data_, notify_);
             return ret;
         }

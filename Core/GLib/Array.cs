@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
-    [GType ("GArray", IsWrappedNativeType = true)]
+    [GType ("GArray", IsWrappedUnmanagedType = true)]
     public abstract class Array : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
@@ -474,7 +474,7 @@ namespace GISharp.GLib
         [Since ("2.32")]
         static extern void g_array_set_clear_func (
             IntPtr array,
-            NativeDestroyNotify clearFunc);
+            UnmanagedDestroyNotify clearFunc);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -529,7 +529,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_sort (
             IntPtr array,
-            NativeCompareFunc compareFunc);
+            UnmanagedCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
@@ -550,7 +550,7 @@ namespace GISharp.GLib
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFunc_ = (a, b) => {
+            UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.PtrToStructure<T> (a);
                 var y = Marshal.PtrToStructure<T> (b);
                 return compareFunc (x, y);
@@ -582,7 +582,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_sort_with_data (
             IntPtr array,
-            NativeCompareDataFunc compareFunc,
+            UnmanagedCompareDataFunc compareFunc,
             IntPtr userData);
 
         /// <summary>
@@ -594,7 +594,7 @@ namespace GISharp.GLib
         }
     }
 
-    [GType ("GArray", IsWrappedNativeType = true)]
+    [GType ("GArray", IsWrappedUnmanagedType = true)]
     public sealed class Array<T> : Array, IList<T> where T : struct
     {
         public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)

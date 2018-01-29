@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for double properties.
     /// </summary>
-    [GType ("GParamDouble", IsWrappedNativeType = true)]
+    [GType ("GParamDouble", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecDouble : ParamSpec
     {
         static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));

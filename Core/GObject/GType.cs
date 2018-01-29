@@ -19,7 +19,7 @@ namespace GISharp.GObject
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
-    [GType ("GType", IsWrappedNativeType = true)]
+    [GType ("GType", IsWrappedUnmanagedType = true)]
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
@@ -850,7 +850,7 @@ namespace GISharp.GObject
                     return gtype;
                 }
 
-                if (gtypeAttribute.IsWrappedNativeType) {
+                if (gtypeAttribute.IsWrappedUnmanagedType) {
                     // enums and interfaces can't have method implementations,
                     // so we need to find the associated static type for the
                     // actual implementation.
@@ -1190,7 +1190,7 @@ namespace GISharp.GObject
             IntPtr cacheData,
             /* <type name="TypeClassCacheFunc" type="GTypeClassCacheFunc" managed-name="TypeClassCacheFunc" /> */
             /* transfer-ownership:none */
-            NativeTypeClassCacheFunc cacheFunc);
+            UnmanagedTypeClassCacheFunc cacheFunc);
 
         /// <summary>
         /// Adds a #GTypeClassCacheFunc to be called before the reference count of a
@@ -1213,7 +1213,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("cacheFunc");
             }
-            var cacheFunc_ = NativeTypeClassCacheFuncFactory.Create(cacheFunc, false);
+            var cacheFunc_ = UnmanagedTypeClassCacheFuncFactory.Create(cacheFunc, false);
             g_type_add_class_cache_func(cacheData, cacheFunc_);
         }
 
@@ -1319,7 +1319,7 @@ namespace GISharp.GObject
             IntPtr checkData,
             /* <type name="TypeInterfaceCheckFunc" type="GTypeInterfaceCheckFunc" managed-name="TypeInterfaceCheckFunc" /> */
             /* transfer-ownership:none */
-            NativeTypeInterfaceCheckFunc checkFunc);
+            UnmanagedTypeInterfaceCheckFunc checkFunc);
 
         /// <summary>
         /// Adds a function to be called after an interface vtable is
@@ -1347,7 +1347,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("checkFunc");
             }
-            var checkFunc_ = NativeTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
+            var checkFunc_ = UnmanagedTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_add_interface_check(checkData, checkFunc_);
         }
 
@@ -2453,7 +2453,7 @@ namespace GISharp.GObject
             IntPtr cacheData,
             /* <type name="TypeClassCacheFunc" type="GTypeClassCacheFunc" managed-name="TypeClassCacheFunc" /> */
             /* transfer-ownership:none */
-            NativeTypeClassCacheFunc cacheFunc);
+            UnmanagedTypeClassCacheFunc cacheFunc);
 
         /// <summary>
         /// Removes a previously installed #GTypeClassCacheFunc. The cache
@@ -2472,7 +2472,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("cacheFunc");
             }
-            var cacheFunc_ = NativeTypeClassCacheFuncFactory.Create(cacheFunc, false);
+            var cacheFunc_ = UnmanagedTypeClassCacheFuncFactory.Create(cacheFunc, false);
             g_type_remove_class_cache_func(cacheData, cacheFunc_);
         }
 
@@ -2496,7 +2496,7 @@ namespace GISharp.GObject
             IntPtr checkData,
             /* <type name="TypeInterfaceCheckFunc" type="GTypeInterfaceCheckFunc" managed-name="TypeInterfaceCheckFunc" /> */
             /* transfer-ownership:none */
-            NativeTypeInterfaceCheckFunc checkFunc);
+            UnmanagedTypeInterfaceCheckFunc checkFunc);
 
         /// <summary>
         /// Removes an interface check function added with
@@ -2515,7 +2515,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("checkFunc");
             }
-            var checkFunc_ = NativeTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
+            var checkFunc_ = UnmanagedTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_remove_interface_check(checkData, checkFunc_);
         }
 

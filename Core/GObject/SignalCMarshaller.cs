@@ -10,19 +10,19 @@ namespace GISharp.GObject
     /// </summary>
     struct SignalCMarshaller
     {
-        readonly NativeClosureMarshal value;
+        readonly UnmanagedClosureMarshal value;
 
-        public SignalCMarshaller (NativeClosureMarshal value)
+        public SignalCMarshaller (UnmanagedClosureMarshal value)
         {
             this.value = value;
         }
 
-        public static implicit operator SignalCMarshaller (NativeClosureMarshal value)
+        public static implicit operator SignalCMarshaller (UnmanagedClosureMarshal value)
         {
             return new SignalCMarshaller (value);
         }
 
-        public static implicit operator NativeClosureMarshal (SignalCMarshaller value)
+        public static implicit operator UnmanagedClosureMarshal (SignalCMarshaller value)
         {
             return value.value;
         }

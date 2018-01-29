@@ -228,7 +228,7 @@ namespace GISharp.GLib
     /// be shared.
     /// </remarks>
     [Since ("2.24")]
-    [GType ("GVariant", IsWrappedNativeType = true)]
+    [GType ("GVariant", IsWrappedUnmanagedType = true)]
     public sealed class Variant
         : Opaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
     {
@@ -1214,7 +1214,7 @@ namespace GISharp.GLib
             bool trusted,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify notify,
+            UnmanagedDestroyNotify notify,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr userData);

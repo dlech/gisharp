@@ -8,7 +8,7 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for enum
     /// properties.
     /// </summary>
-    [GType ("GParamEnum", IsWrappedNativeType = true)]
+    [GType ("GParamEnum", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecEnum : ParamSpec
     {
         static readonly IntPtr enumClassOffset = Marshal.OffsetOf<Struct> (nameof (Struct.EnumClass));

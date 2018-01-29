@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a GByteArray.
     /// </summary>
-    [GType ("GByteArray", IsWrappedNativeType = true)]
+    [GType ("GByteArray", IsWrappedUnmanagedType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
@@ -491,7 +491,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_sort (
             IntPtr array,
-            NativeCompareFunc compareFunc);
+            UnmanagedCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a byte array, using @compareFunc which should be a
@@ -516,7 +516,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (compareFunc));
             }
 
-            NativeCompareFunc compareFunc_ = (a, b) => {
+            UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadByte (a);
                 var y = Marshal.ReadByte (b);
                 return compareFunc (x, y);

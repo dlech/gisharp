@@ -12,12 +12,12 @@ namespace GISharp.GObject
         /// <summary>
         /// location of the interface initialization function
         /// </summary>
-        public NativeInterfaceInitFunc InterfaceInit;
+        public UnmanagedInterfaceInitFunc InterfaceInit;
 
         /// <summary>
         /// location of the interface finalization function
         /// </summary>
-        public NativeInterfaceFinalizeFunc InterfaceFinalize;
+        public UnmanagedInterfaceFinalizeFunc InterfaceFinalize;
 
         /// <summary>
         /// user-supplied data passed to the interface init/finalize functions
@@ -35,7 +35,7 @@ namespace GISharp.GObject
     /// zeros before this function is called.
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeInterfaceInitFunc (
+    public delegate void UnmanagedInterfaceInitFunc (
     /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
     /* transfer-ownership:none */
         IntPtr gIface,
@@ -49,7 +49,7 @@ namespace GISharp.GObject
     /// allocated by the corresponding GInterfaceInitFunc() function.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeInterfaceFinalizeFunc (
+    public delegate void UnmanagedInterfaceFinalizeFunc (
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
     /* transfer-ownership:none */
         IntPtr gIface,

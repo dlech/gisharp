@@ -15,35 +15,35 @@ namespace GISharp.GObject
             #pragma warning disable CS0649
             public TypeClass.Struct GTypeClass;
             public IntPtr ConstructProperties;
-            public NativeConstructor Constructor;
-            public NativeSetProperty SetProperty;
-            public NativeGetProperty GetProperty;
-            public NativeDispose Dispose;
-            public NativeFinalize Finalize;
-            public NativeDispatchPropertiesChanged DispatchPropertiesChanged;
-            public NativeNotify Notify;
-            public NativeConstructed Constructed;
+            public UnmanagedConstructor Constructor;
+            public UnmanagedSetProperty SetProperty;
+            public UnmanagedGetProperty GetProperty;
+            public UnmanagedDispose Dispose;
+            public UnmanagedFinalize Finalize;
+            public UnmanagedDispatchPropertiesChanged DispatchPropertiesChanged;
+            public UnmanagedNotify Notify;
+            public UnmanagedConstructed Constructed;
             public ulong Flags;
             [MarshalAs (UnmanagedType.ByValArray, SizeConst = 6)]
             public IntPtr[] PDummy;
             #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
+            public delegate IntPtr UnmanagedConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeSetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
+            public delegate void UnmanagedSetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeGetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
+            public delegate void UnmanagedGetProperty (IntPtr @object, uint propertyId, IntPtr value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeDispose (IntPtr @object);
+            public delegate void UnmanagedDispose (IntPtr @object);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeFinalize (IntPtr @object);
+            public delegate void UnmanagedFinalize (IntPtr @object);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeDispatchPropertiesChanged (IntPtr @object, uint nPspecs, IntPtr pspec);
+            public delegate void UnmanagedDispatchPropertiesChanged (IntPtr @object, uint nPspecs, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeNotify (IntPtr @object, IntPtr pspec);
+            public delegate void UnmanagedNotify (IntPtr @object, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeConstructed (IntPtr @object);
+            public delegate void UnmanagedConstructed (IntPtr @object);
         }
 
         public InitiallyUnownedClass (IntPtr handle, Transfer ownership) : base (handle, ownership)

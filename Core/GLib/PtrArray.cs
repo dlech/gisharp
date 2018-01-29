@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
-    [GType ("GPtrArray", IsWrappedNativeType = true)]
+    [GType ("GPtrArray", IsWrappedUnmanagedType = true)]
     public abstract class PtrArray : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
@@ -140,7 +140,7 @@ namespace GISharp.GLib
         [Since ("2.30")]
         static extern IntPtr g_ptr_array_new_full (
             uint reservedSize,
-            NativeDestroyNotify elementFreeFunc);
+            UnmanagedDestroyNotify elementFreeFunc);
 
         // static IntPtr NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
         // {
@@ -148,7 +148,7 @@ namespace GISharp.GLib
         //         throw new ArgumentNullException (nameof (elementFreeFunc));
         //     }
         //     // TODO: this callback will be garbage collected before we are done with it
-        //     NativeDestroyNotify elementFreeFuncNative = (data) => {
+        //     UnmanagedDestroyNotify elementFreeFuncUnmanaged = (data) => {
         //         elementFreeFunc (data);
         //     };
         //     var handle = g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
@@ -193,7 +193,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.22")]
         static extern IntPtr g_ptr_array_new_with_free_func (
-            NativeDestroyNotify elementFreeFunc);
+            UnmanagedDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Adds a pointer to the end of the pointer array. The array will grow
@@ -239,7 +239,7 @@ namespace GISharp.GLib
         [Since ("2.4")]
         static extern void g_ptr_array_foreach (
             IntPtr array,
-            NativeFunc func,
+            UnmanagedFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -559,7 +559,7 @@ namespace GISharp.GLib
         [Since ("2.22")]
         static extern void g_ptr_array_set_free_func (
             IntPtr array,
-            NativeDestroyNotify elementFreeFunc);
+            UnmanagedDestroyNotify elementFreeFunc);
 
         /// <summary>
         /// Sets a function for freeing each element when this array is destroyed
@@ -575,9 +575,9 @@ namespace GISharp.GLib
         //{
         //    AssertNotDisposed ();
         //    if (elementFreeFunc == null) {
-        //        elementFreeFuncNative = default(NativeDestroyNotify);
+        //        elementFreeFuncUnmanaged = default(UnmanagedDestroyNotify);
         //    } else {
-        //        elementFreeFuncNative = (elementFreeFuncDataPtr) => {
+        //        elementFreeFuncUnmanaged = (elementFreeFuncDataPtr) => {
         //            var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
         //            elementFreeFunc (elementFreeFuncData);
         //        };
@@ -642,7 +642,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_sort (
             IntPtr array,
-            NativeCompareFunc compareFunc);
+            UnmanagedCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
@@ -662,7 +662,7 @@ namespace GISharp.GLib
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFunc_ = (a, b) => {
+            UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadIntPtr (a);
                 var y = Marshal.ReadIntPtr (b);
                 var compareFuncRet = compareFunc (x, y);
@@ -695,7 +695,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_sort_with_data (
             IntPtr array,
-            NativeCompareDataFunc compareFunc,
+            UnmanagedCompareDataFunc compareFunc,
             IntPtr userData);
 
         /// <summary>

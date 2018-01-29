@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for integer properties.
     /// </summary>
-    [GType ("GParamInt", IsWrappedNativeType = true)]
+    [GType ("GParamInt", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecInt : ParamSpec
     {
         static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));

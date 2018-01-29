@@ -12,11 +12,11 @@ namespace GISharp.GLib
     /// [Hash Table][glib-Hash-Tables]. It should only be accessed via the
     /// following functions.
     /// </summary>
-    [GType ("GHashTable", IsWrappedNativeType = true)]
+    [GType ("GHashTable", IsWrappedUnmanagedType = true)]
     public abstract class HashTable : Opaque
     {
-        protected readonly static ConditionalWeakTable<Delegate, NativeHashFunc> HashFuncTable;
-        protected readonly static ConditionalWeakTable<Delegate, NativeEqualFunc> KeyEqualFuncTable;
+        protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
+        protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
 
         public HashTable (IntPtr handle, Transfer ownership) : base (handle)
         {
@@ -52,8 +52,8 @@ namespace GISharp.GLib
 
         static HashTable ()
         {
-            HashFuncTable = new ConditionalWeakTable<Delegate, NativeHashFunc> ();
-            KeyEqualFuncTable = new ConditionalWeakTable<Delegate, NativeEqualFunc> ();
+            HashFuncTable = new ConditionalWeakTable<Delegate, UnmanagedHashFunc> ();
+            KeyEqualFuncTable = new ConditionalWeakTable<Delegate, UnmanagedEqualFunc> ();
         }
 
         /// <summary>
@@ -84,8 +84,8 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern IntPtr g_hash_table_new (
-            NativeHashFunc hashFunc,
-            NativeEqualFunc keyEqualFunc);
+            UnmanagedHashFunc hashFunc,
+            UnmanagedEqualFunc keyEqualFunc);
 
         /// <summary>
         /// Creates a new #GHashTable like g_hash_table_new() with a reference
@@ -114,10 +114,10 @@ namespace GISharp.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern IntPtr g_hash_table_new_full (
-            NativeHashFunc hashFunc,
-            NativeEqualFunc keyEqualFunc,
-            NativeDestroyNotify keyDestroyFunc,
-            NativeDestroyNotify valueDestroyFunc);
+            UnmanagedHashFunc hashFunc,
+            UnmanagedEqualFunc keyEqualFunc,
+            UnmanagedDestroyNotify keyDestroyFunc,
+            UnmanagedDestroyNotify valueDestroyFunc);
 
         /// <summary>
         /// This is a convenience function for using a #GHashTable as a set.  It
@@ -193,7 +193,7 @@ namespace GISharp.GLib
         [Since ("2.4")]
         protected static extern IntPtr g_hash_table_find (
             IntPtr hashTable,
-            NativeHRFunc predicate,
+            UnmanagedHRFunc predicate,
             IntPtr userData);
 
         /// <summary>
@@ -220,7 +220,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern void g_hash_table_foreach (
             IntPtr hashTable,
-            NativeHFunc func,
+            UnmanagedHFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -249,7 +249,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint g_hash_table_foreach_remove (
             IntPtr hashTable,
-            NativeHRFunc func,
+            UnmanagedHRFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -277,7 +277,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         protected static extern uint g_hash_table_foreach_steal (
             IntPtr hashTable,
-            NativeHRFunc func,
+            UnmanagedHRFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -909,7 +909,7 @@ namespace GISharp.GLib
             if (predicate == null) {
                 throw new ArgumentNullException (nameof (predicate));
             }
-            NativeHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
+            UnmanagedHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
                 var predicateKey = GetInstance<TKey> (predicateKeyPtr, Transfer.None);
                 var predicateValue = GetInstance<TValue> (predicateValuePtr, Transfer.None);
                 var predicateRet = predicate (new KeyValuePair<TKey, TValue> (predicateKey, predicateValue));
@@ -942,7 +942,7 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            NativeHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
+            UnmanagedHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
                 func (funcKey, funcValue);
@@ -974,7 +974,7 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            NativeHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
+            UnmanagedHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
                 var funcRet = func (new KeyValuePair<TKey, TValue> (funcKey, funcValue));
@@ -1007,13 +1007,13 @@ namespace GISharp.GLib
         //    if (func == null) {
         //        throw new ArgumentNullException ("func");
         //    }
-        //    NativeHRFunc funcNative = (funcKeyPtr, funcValuePtr, funcUserData) => {
+        //    UnmanagedHRFunc funcUnmanaged = (funcKeyPtr, funcValuePtr, funcUserData) => {
         //        var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
         //        var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
         //        var funcRet = func.Invoke (funcKey, funcValue);
         //        return funcRet;
         //    };
-        //    var ret = g_hash_table_foreach_steal (handle, funcNative, IntPtr.Zero);
+        //    var ret = g_hash_table_foreach_steal (handle, funcUnmanaged, IntPtr.Zero);
         //    return ret;
         //}
 

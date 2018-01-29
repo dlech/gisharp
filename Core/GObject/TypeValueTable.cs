@@ -60,7 +60,7 @@ namespace GISharp.GObject
             ref Value value);
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate IntPtr NativeCollectValue (
+        public delegate IntPtr UnmanagedCollectValue (
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none */
             ref Value value,
@@ -77,9 +77,9 @@ namespace GISharp.GObject
         public delegate string CollectValue (ref Value value, TypeCValue[] collectValues, uint collectFlags);
 
         /// <summary>
-        /// Factory for creating <see cref="NativeCollectValue"/> methods.
+        /// Factory for creating <see cref="UnmanagedCollectValue"/> methods.
         /// </summary>
-        public static class NativeCollectValueFactory
+        public static class UnmanagedCollectValueFactory
         {
             /// <summary>
             /// Wraps <see cref="CollectValue"/> in an anonymous method that can be passed
@@ -97,9 +97,9 @@ namespace GISharp.GObject
             /// not have closure user data, then the <paramref name="freeUserData"/>
             /// parameter has no effect.
             /// </remarks>
-            public static NativeCollectValue Create (CollectValue method, bool freeUserData)
+            public static UnmanagedCollectValue Create (CollectValue method, bool freeUserData)
             {
-                NativeCollectValue nativeCallback = (
+                UnmanagedCollectValue nativeCallback = (
                     /* <type name="Value" type="GValue*" managed-name="Value" /> */
                     /* transfer-ownership:none */
                     ref
@@ -123,7 +123,7 @@ namespace GISharp.GObject
         }
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeCollectValue CollectValueImpl;
+        public UnmanagedCollectValue CollectValueImpl;
 
         /// <summary>
         /// Format description of the arguments to collect for @lcopy_value,

@@ -49,7 +49,7 @@ namespace GISharp.GObject
     /// - g_closure_invalidate() and invalidation notifiers allow callbacks to be
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
-    [GType ("GClosure", IsWrappedNativeType = true)]
+    [GType ("GClosure", IsWrappedUnmanagedType = true)]
     public sealed class Closure : Opaque
     {
         static readonly IntPtr bitFieldsOffset = Marshal.OffsetOf<Struct> (nameof (Struct.BitFields));
@@ -59,13 +59,13 @@ namespace GISharp.GObject
         {
     #pragma warning disable CS0649
             public uint BitFields;
-            public NativeMarshal Marshal;
+            public UnmanagedMarshal Marshal;
             public IntPtr Data;
             public IntPtr Notifiers;
     #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeMarshal (
+            public delegate void UnmanagedMarshal (
                 IntPtr closure,
                 out Value returnValue,
                 uint nParamValues,
@@ -296,9 +296,9 @@ namespace GISharp.GObject
             g_closure_add_invalidate_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
 
-        static readonly NativeClosureMarshal nativeMarshalFuncDelagate = NativeMarshalFunc;
+        static readonly UnmanagedClosureMarshal nativeMarshalFuncDelagate = UnmanagedMarshalFunc;
 
-        static void NativeMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
+        static void UnmanagedMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             try {
@@ -317,9 +317,9 @@ namespace GISharp.GObject
             g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
 
-        static readonly NativeClosureMarshal nativeMarshalNoReturnFuncDelegate = NativeMarshalNoReturnFunc;
+        static readonly UnmanagedClosureMarshal nativeMarshalNoReturnFuncDelegate = UnmanagedMarshalNoReturnFunc;
 
-        static void NativeMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
+        static void UnmanagedMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             try {
@@ -338,9 +338,9 @@ namespace GISharp.GObject
             g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
         }
 
-        static readonly NativeClosureMarshal nativeMarshalNoArgsFuncDelegate = NativeMarshalNoArgsFunc;
+        static readonly UnmanagedClosureMarshal nativeMarshalNoArgsFuncDelegate = UnmanagedMarshalNoArgsFunc;
 
-        static void NativeMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
+        static void UnmanagedMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
             Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
         {
             try {
@@ -352,7 +352,7 @@ namespace GISharp.GObject
             }
         }
 
-        static readonly NativeClosureNotify freeCallbackDelegate = FreeCallback;
+        static readonly UnmanagedClosureNotify freeCallbackDelegate = FreeCallback;
 
         static void FreeCallback (IntPtr dataPtr, IntPtr closurePtr)
         {
@@ -402,7 +402,7 @@ namespace GISharp.GObject
             IntPtr notifyData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify notifyFunc);
+            UnmanagedClosureNotify notifyFunc);
 
         /// <summary>
         /// Registers an invalidation notifier which will be called when the
@@ -431,7 +431,7 @@ namespace GISharp.GObject
             IntPtr notifyData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify notifyFunc);
+            UnmanagedClosureNotify notifyFunc);
 
         /// <summary>
         /// Adds a pair of notifiers which get invoked before and after the
@@ -466,13 +466,13 @@ namespace GISharp.GObject
             IntPtr preMarshalData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none closure:2 */
-            NativeClosureNotify preMarshalNotify,
+            UnmanagedClosureNotify preMarshalNotify,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr postMarshalData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify postMarshalNotify);
+            UnmanagedClosureNotify postMarshalNotify);
 
         /// <summary>
         /// Sets a flag on the closure to indicate that its calling
@@ -616,7 +616,7 @@ namespace GISharp.GObject
             IntPtr notifyData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify notifyFunc);
+            UnmanagedClosureNotify notifyFunc);
 
         /// <summary>
         /// Removes an invalidation notifier.
@@ -646,7 +646,7 @@ namespace GISharp.GObject
             IntPtr notifyData,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify notifyFunc);
+            UnmanagedClosureNotify notifyFunc);
 
         /// <summary>
         /// Sets the marshaller of @closure. The `marshal_data`
@@ -671,7 +671,7 @@ namespace GISharp.GObject
             IntPtr closure,
             /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
             /* transfer-ownership:none */
-            NativeClosureMarshal marshal);
+            UnmanagedClosureMarshal marshal);
 
         /// <summary>
         /// Sets the meta marshaller of @closure.  A meta marshaller wraps
@@ -711,6 +711,6 @@ namespace GISharp.GObject
             IntPtr marshalData,
             /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
             /* transfer-ownership:none */
-            NativeClosureMarshal metaMarshal);
+            UnmanagedClosureMarshal metaMarshal);
     }
 }

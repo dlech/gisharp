@@ -17,7 +17,7 @@ namespace GISharp.GObject
     /// The result of this replacement is called the canonical name of
     /// the parameter.
     /// </remarks>
-    [GType ("GParam", IsWrappedNativeType = true)]
+    [GType ("GParam", IsWrappedUnmanagedType = true)]
     public class ParamSpec : TypeInstance
     {
         static readonly IntPtr flagsOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Flags));
@@ -437,7 +437,7 @@ namespace GISharp.GObject
             IntPtr data,
             /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GLib.DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify destroy);
+            UnmanagedDestroyNotify destroy);
 
         /// <summary>
         /// Sets arbitrary user data associated with this instance.

@@ -47,13 +47,13 @@ namespace GISharp.GLib
             int priority,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:2 destroy:3 */
-            NativeSourceFunc function,
+            UnmanagedSourceFunc function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Adds a function to be called whenever there are no higher priority
@@ -82,7 +82,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate(function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(function);
             var ret = g_idle_add_full (priority, function_, data_, notify_);
 
             return ret;

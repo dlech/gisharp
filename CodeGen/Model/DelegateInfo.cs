@@ -24,62 +24,62 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxToken? _NativeIdentifier;
-        public SyntaxToken NativeIdentifier {
+        SyntaxToken? _UnmanagedIdentifier;
+        public SyntaxToken UnmanagedIdentifier {
             get {
-                if (!_NativeIdentifier.HasValue) {
-                    _NativeIdentifier = Identifier ("Native" + Identifier);
+                if (!_UnmanagedIdentifier.HasValue) {
+                    _UnmanagedIdentifier = Identifier ("Unmanaged" + Identifier);
                 }
-                return _NativeIdentifier.Value;
+                return _UnmanagedIdentifier.Value;
             }
         }
 
-        QualifiedNameSyntax _NativeQualifiedName;
-        public QualifiedNameSyntax NativeQualifiedName {
+        QualifiedNameSyntax _UnmanagedQualifiedName;
+        public QualifiedNameSyntax UnmanagedQualifiedName {
             get {
-                if (_NativeQualifiedName == null) {
-                    _NativeQualifiedName = QualifiedName (
+                if (_UnmanagedQualifiedName == null) {
+                    _UnmanagedQualifiedName = QualifiedName (
                         NamespaceInfo.Name,
-                        IdentifierName (NativeIdentifier));
+                        IdentifierName (UnmanagedIdentifier));
                     // callbacks can be declared by fields, in which case they
                     // are a child type.
                     var declaringType = DeclaringMember.DeclaringMember as TypeDeclarationInfo;
                     if (declaringType != null) {
-                        _NativeQualifiedName = QualifiedName (
+                        _UnmanagedQualifiedName = QualifiedName (
                             QualifiedName (
-                                _NativeQualifiedName.Left,
+                                _UnmanagedQualifiedName.Left,
                                 IdentifierName (declaringType.Identifier)),
-                            _NativeQualifiedName.Right);
+                            _UnmanagedQualifiedName.Right);
                     }
                 }
-                return _NativeQualifiedName;
+                return _UnmanagedQualifiedName;
             }
         }
 
-        SyntaxList<AttributeListSyntax>? _NativeAttributeLists;
-        public SyntaxList<AttributeListSyntax> NativeAttributeLists {
+        SyntaxList<AttributeListSyntax>? _UnmanagedAttributeLists;
+        public SyntaxList<AttributeListSyntax> UnmanagedAttributeLists {
             get {
-                if (!_NativeAttributeLists.HasValue) {
+                if (!_UnmanagedAttributeLists.HasValue) {
                     var unmanagedFuncPtrAttrName = ParseName (typeof(UnmanagedFunctionPointerAttribute).FullName);
                     var unmangedFuncPtrAttrArgListText = string.Format ("({0}.{1})", typeof(CallingConvention), CallingConvention.Cdecl);
                     var unmanagedFuncPtrAttrArgList = ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
                     var unmanagedFuncPtrAttr = Attribute (unmanagedFuncPtrAttrName)
                         .WithArgumentList (unmanagedFuncPtrAttrArgList);
-                    _NativeAttributeLists = List<AttributeListSyntax> ()
+                    _UnmanagedAttributeLists = List<AttributeListSyntax> ()
                         .AddRange (base.GetAttributeLists ())
                         .Add (AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
                 }
-                return _NativeAttributeLists.Value;
+                return _UnmanagedAttributeLists.Value;
             }
         }
 
-        SyntaxTriviaList? _NativeDocumentationCommentTriviaList;
-        public SyntaxTriviaList NativeDocumentationCommentTriviaList {
+        SyntaxTriviaList? _UnmanagedDocumentationCommentTriviaList;
+        public SyntaxTriviaList UnmanagedDocumentationCommentTriviaList {
             get {
-                if (!_NativeDocumentationCommentTriviaList.HasValue) {
-                    _NativeDocumentationCommentTriviaList = base.GetDocumentationCommentTriviaList ();
+                if (!_UnmanagedDocumentationCommentTriviaList.HasValue) {
+                    _UnmanagedDocumentationCommentTriviaList = base.GetDocumentationCommentTriviaList ();
                 }
-                return _NativeDocumentationCommentTriviaList.Value;
+                return _UnmanagedDocumentationCommentTriviaList.Value;
             }
         }
 
@@ -102,11 +102,11 @@ namespace GISharp.CodeGen.Model
             MemberDeclarationSyntax managedDeclaration;
 
             try {
-                unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, NativeIdentifier)
-                    .WithAttributeLists (NativeAttributeLists)
+                unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, UnmanagedIdentifier)
+                    .WithAttributeLists (UnmanagedAttributeLists)
                     .WithModifiers (Modifiers)
                     .WithParameterList (MethodInfo.PinvokeParameterList)
-                    .WithLeadingTrivia (NativeDocumentationCommentTriviaList);
+                    .WithLeadingTrivia (UnmanagedDocumentationCommentTriviaList);
 
                 managedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
                     .WithAttributeLists (AttributeLists)
@@ -120,12 +120,12 @@ namespace GISharp.CodeGen.Model
             yield return unmangedDeclaration;
             yield return managedDeclaration;
 
-            //var factoryDeclaration = ClassDeclaration (NativeIdentifier + "Factory")
+            //var factoryDeclaration = ClassDeclaration (UnmanagedIdentifier + "Factory")
             //    .AddModifiers (
             //        Token (SyntaxKind.PublicKeyword),
             //        Token (SyntaxKind.StaticKeyword))
             //    .AddMembers (
-            //        MethodDeclaration (NativeQualifiedName, "Create")
+            //        MethodDeclaration (UnmanagedQualifiedName, "Create")
             //        .AddModifiers (
             //            Token (SyntaxKind.PublicKeyword),
             //            Token (SyntaxKind.StaticKeyword))
@@ -151,7 +151,7 @@ namespace GISharp.CodeGen.Model
                     .WithParameters (SeparatedList<ParameterSyntax> (
                         MethodInfo.PinvokeParameterList.Parameters
                             .Select (x => x.WithIdentifier (Identifier (x.Identifier + "_"))))));
-            var declarationStatement = VariableDeclaration (NativeQualifiedName)
+            var declarationStatement = VariableDeclaration (UnmanagedQualifiedName)
                 .AddVariables (
                     VariableDeclarator (nativeCallback)
                     .WithInitializer (
@@ -165,7 +165,7 @@ namespace GISharp.CodeGen.Model
             var comments = string.Format (@"/// <summary>
 /// Factory for creating <see cref=""{0}""/> methods.
 /// </summary>
-", NativeIdentifier);
+", UnmanagedIdentifier);
             return ParseLeadingTrivia (comments);
         }
 

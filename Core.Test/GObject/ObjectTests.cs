@@ -339,7 +339,7 @@ namespace GISharp.Core.Test.GObject
                     lock (eventHappendHandlerLock) {
                         if (eventHappend == null) {
                             eventHappendedHandler = Signal.Connect (this,
-                                nameof(EventHappened), NativeEventHappened);
+                                nameof(EventHappened), UnmanagedEventHappened);
                         }
                         eventHappend += value;
                     }
@@ -355,7 +355,7 @@ namespace GISharp.Core.Test.GObject
                 }
             }
 
-            void NativeEventHappened ()
+            void UnmanagedEventHappened ()
             {
                 if (eventHappend != null) {
                     eventHappend ();

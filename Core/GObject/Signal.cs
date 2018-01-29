@@ -45,13 +45,13 @@ namespace GISharp.GObject
             Quark detail,
             /* <type name="SignalEmissionHook" type="GSignalEmissionHook" managed-name="SignalEmissionHook" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            NativeSignalEmissionHook hookFunc,
+            UnmanagedSignalEmissionHook hookFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr hookData,
             /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GLib.DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify dataDestroy);
+            UnmanagedDestroyNotify dataDestroy);
 
         /// <summary>
         /// Adds an emission hook for a signal, which will get called for any emission
@@ -75,9 +75,9 @@ namespace GISharp.GObject
         //            if (hookFunc == null) {
         //                throw new ArgumentNullException ("hookFunc");
         //            }
-        //            var hookFunc_ = NativeSignalEmissionHookFactory.Create (hookFunc, false);
+        //            var hookFunc_ = UnmanagedSignalEmissionHookFactory.Create (hookFunc, false);
         //            var hookFuncHandle = GCHandle.Alloc (hookFunc);
-        //            var dataDestroy_ = NativeDestoryNotifyFactory.Create (hookFuncHandle);
+        //            var dataDestroy_ = UnmanagedDestoryNotifyFactory.Create (hookFuncHandle);
         //            var hookData_ = GCHandle.ToIntPtr (GCHandle.Alloc (dataDestroy_));
         //            var ret = g_signal_add_emission_hook (signalId, detail, hookFunc_, hookData_, dataDestroy_);
         //            return ret;
@@ -336,7 +336,7 @@ namespace GISharp.GObject
             IntPtr data,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            NativeClosureNotify destroyData,
+            UnmanagedClosureNotify destroyData,
             /* <type name="ConnectFlags" type="GConnectFlags" managed-name="ConnectFlags" /> */
             /* transfer-ownership:none */
             ConnectFlags connectFlags);
@@ -376,8 +376,8 @@ namespace GISharp.GObject
             }
 
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            NativeCallback nativeHandler = () => handler ();
-            var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<NativeCallback> (nativeHandler);
+            UnmanagedCallback nativeHandler = () => handler ();
+            var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<UnmanagedCallback> (nativeHandler);
             var data = (IntPtr)GCHandle.Alloc (nativeHandler);
             var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, destroyConnectDataDelegate, connectFlags);
             GMarshal.Free (detailedSignal_);
@@ -390,7 +390,7 @@ namespace GISharp.GObject
             return new SignalHandler (instance, ret);
         }
 
-        static NativeClosureNotify destroyConnectDataDelegate = DestroyConnectData;
+        static UnmanagedClosureNotify destroyConnectDataDelegate = DestroyConnectData;
 
         static void DestroyConnectData (IntPtr dataPtr, IntPtr closurePtr)
         {
@@ -835,7 +835,7 @@ namespace GISharp.GObject
             IntPtr classClosure,
             /* <type name="SignalAccumulator" type="GSignalAccumulator" managed-name="SignalAccumulator" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 closure:5 */
-            NativeSignalAccumulator accumulator,
+            UnmanagedSignalAccumulator accumulator,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr accuData,
@@ -951,7 +951,7 @@ namespace GISharp.GObject
             GType instanceType,
             /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
             /* transfer-ownership:none */
-            NativeCallback classHandler);
+            UnmanagedCallback classHandler);
 
         /// <summary>
         /// Overrides the class closure (i.e. the default handler) for the
@@ -984,7 +984,7 @@ namespace GISharp.GObject
         //                throw new ArgumentNullException ("classHandler");
         //            }
         //            var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
-        //            var classHandler_ = NativeCallbackFactory.Create (classHandler, false);
+        //            var classHandler_ = UnmanagedCallbackFactory.Create (classHandler, false);
         //            g_signal_override_class_handler (signalName_, instanceType, classHandler_);
         //            MarshalG.Free (signalName_);
         //        }

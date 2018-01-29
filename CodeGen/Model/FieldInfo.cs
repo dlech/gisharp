@@ -101,7 +101,7 @@ namespace GISharp.CodeGen.Model
                 foreach (var callbackDeclaration in CallbackInfo.Declarations) {
                     yield return callbackDeclaration;
                 }
-                type = ParseTypeName (CallbackInfo.NativeIdentifier.Text);
+                type = ParseTypeName (CallbackInfo.UnmanagedIdentifier.Text);
 
             } else if (Element.Parent.Parent.Attribute (glib + "is-gtype-struct-for") != null
                 && !Element.ElementsBeforeSelf ().Any ())

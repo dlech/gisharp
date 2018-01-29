@@ -12,14 +12,14 @@ namespace GISharp.GObject
     /// All the fields in the GObject structure are private
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
-    [GType ("GObject", IsWrappedNativeType = true)]
+    [GType ("GObject", IsWrappedUnmanagedType = true)]
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {
         internal static readonly Quark ToggleRefGCHandleQuark = Quark.FromString ("gisharp-gobject-toggle-ref-gc-handle-quark");
         static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
 
-        NativeToggleNotify toggleNotifyDelegate;
+        UnmanagedToggleNotify toggleNotifyDelegate;
 
         protected new struct Struct
         {
@@ -82,10 +82,10 @@ namespace GISharp.GObject
         static extern IntPtr g_object_ref_sink (IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_add_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+        static extern void g_object_add_toggle_ref (IntPtr @object, UnmanagedToggleNotify notify, IntPtr data);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_remove_toggle_ref (IntPtr @object, NativeToggleNotify notify, IntPtr data);
+        static extern void g_object_remove_toggle_ref (IntPtr @object, UnmanagedToggleNotify notify, IntPtr data);
 
         static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
         {
@@ -113,12 +113,12 @@ namespace GISharp.GObject
         }
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        delegate void NativeNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
+        delegate void UnmanagedNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
 
-        static readonly NativeNotify nativeNotifyDelegate = NativeOnNotify;
+        static readonly UnmanagedNotify nativeNotifyDelegate = UnmanagedOnNotify;
         static readonly IntPtr nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate (nativeNotifyDelegate);
 
-        static void NativeOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
+        static void UnmanagedOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
             try {
                 var obj = GetInstance<Object> (gobjectPtr, Transfer.None);
@@ -646,10 +646,10 @@ namespace GISharp.GObject
             /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
             /* transfer-ownership:none */
             BindingFlags flags,
-            NativeBindingTransformFunc transformTo,
-            NativeBindingTransformFunc transformFrom,
+            UnmanagedBindingTransformFunc transformTo,
+            UnmanagedBindingTransformFunc transformFrom,
             IntPtr userData,
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Creates a binding between <paramref name="sourceProperty"/> on 
@@ -725,13 +725,13 @@ namespace GISharp.GObject
             class BindingTransformFuncs
             {
                 public BindingTransformFunc TransformTo;
-                public NativeBindingTransformFunc UnmangedTransformTo;
+                public UnmanagedBindingTransformFunc UnmangedTransformTo;
                 public BindingTransformFunc TransformFrom;
-                public NativeBindingTransformFunc UnmanagedTransformFrom;
-                public NativeDestroyNotify UnmanagedNotify;
+                public UnmanagedBindingTransformFunc UnmanagedTransformFrom;
+                public UnmanagedDestroyNotify UnmanagedNotify;
             }
 
-            public static ValueTuple<NativeBindingTransformFunc, NativeBindingTransformFunc, NativeDestroyNotify, IntPtr>
+            public static ValueTuple<UnmanagedBindingTransformFunc, UnmanagedBindingTransformFunc, UnmanagedDestroyNotify, IntPtr>
                 CreateNotifyDelegate (BindingTransformFunc transformTo, BindingTransformFunc transformFrom) {
                     var userData = new BindingTransformFuncs ();
 
@@ -745,7 +745,7 @@ namespace GISharp.GObject
                         userData.UnmanagedTransformFrom = TransformFromFunc;
                     }
 
-                    userData.UnmanagedNotify = NativeDelegate.Free;
+                    userData.UnmanagedNotify = UnmanagedDelegate.Free;
 
                     var userData_ = GCHandle.Alloc (userData);
 
@@ -1168,7 +1168,7 @@ namespace GISharp.GObject
             IntPtr @object,
             IntPtr key,
             IntPtr data,
-            NativeDestroyNotify destroy);
+            UnmanagedDestroyNotify destroy);
 
         public object this[string key] {
             get {
@@ -1223,7 +1223,7 @@ namespace GISharp.GObject
             IntPtr @object,
             Quark quark,
             IntPtr data,
-            NativeDestroyNotify destroy);
+            UnmanagedDestroyNotify destroy);
     }
 
     /// <summary>
@@ -1231,7 +1231,7 @@ namespace GISharp.GObject
     /// of a toggle reference changes. See g_object_add_toggle_ref().
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeToggleNotify (
+    delegate void UnmanagedToggleNotify (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr data,

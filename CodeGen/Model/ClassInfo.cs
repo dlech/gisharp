@@ -216,7 +216,7 @@ namespace GISharp.CodeGen.Model
             string statement;
             foreach (var f in NestedTypeInfos.Single (x => x.ManagedName == ManagedName + "Struct").FieldInfos.Where (x => x.IsCallback)) {
                 var methodName = f.ManagedName;
-                var delegateName = "Native" + f.CallbackInfo.ManagedName;
+                var delegateName = "Unmanaged" + f.CallbackInfo.ManagedName;
                 var prefix = methodName.ToCamelCase ();
                 var structName = ManagedName + "Struct";
 

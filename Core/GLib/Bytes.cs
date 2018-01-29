@@ -35,7 +35,7 @@ namespace GISharp.GLib
     /// a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.ToBytes"/> function.
     /// </remarks>
     [Since ("2.32")]
-    [GType ("GBytes", IsWrappedNativeType = true)]
+    [GType ("GBytes", IsWrappedUnmanagedType = true)]
     public sealed class Bytes
         : Opaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
@@ -167,7 +167,7 @@ namespace GISharp.GLib
             UIntPtr size,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify freeFunc,
+            UnmanagedDestroyNotify freeFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);

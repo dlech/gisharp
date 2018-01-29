@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// The `GMainContext` struct is an opaque data
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
-    [GType ("GMainContext", IsWrappedNativeType = true)]
+    [GType ("GMainContext", IsWrappedUnmanagedType = true)]
     public sealed class MainContext : Opaque
     {
         public MainContext (IntPtr handle, Transfer ownership) : base (handle)
@@ -734,7 +734,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="PollFunc" type="GPollFunc" managed-name="PollFunc" /> */
         /* */
-        static extern NativePollFunc g_main_context_get_poll_func (
+        static extern UnmanagedPollFunc g_main_context_get_poll_func (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context);
@@ -755,7 +755,7 @@ namespace GISharp.GLib
         /// This function could possibly be used to integrate the GLib event loop
         /// with an external event loop.
         /// </remarks>
-        public NativePollFunc PollFunc {
+        public UnmanagedPollFunc PollFunc {
             get {
                 AssertNotDisposed ();
                 var ret = g_main_context_get_poll_func (handle);
@@ -808,13 +808,13 @@ namespace GISharp.GLib
             int priority,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:2 destroy:3 */
-            NativeSourceFunc function,
+            UnmanagedSourceFunc function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Invokes a function in such a way that this context is owned during the
@@ -833,7 +833,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate (function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
             g_main_context_invoke_full (handle, priority, function_, data_, notify_);
         }
 
@@ -1316,7 +1316,7 @@ namespace GISharp.GLib
             IntPtr context,
             /* <type name="PollFunc" type="GPollFunc" managed-name="PollFunc" /> */
             /* transfer-ownership:none */
-            NativePollFunc func);
+            UnmanagedPollFunc func);
 
         /// <summary>
         /// If @context is currently blocking in g_main_context_iteration()

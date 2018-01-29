@@ -95,10 +95,10 @@ namespace GISharp.GObject
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_boxed_type_register_static (IntPtr name,
-            NativeBoxedCopyFunc boxedCopy,
-            NativeBoxedFreeFunc boxedFree);
+            UnmanagedBoxedCopyFunc boxedCopy,
+            UnmanagedBoxedFreeFunc boxedFree);
 
-        internal static GType Register (string name, NativeBoxedCopyFunc boxedCopy, NativeBoxedFreeFunc boxedFree)
+        internal static GType Register (string name, UnmanagedBoxedCopyFunc boxedCopy, UnmanagedBoxedFreeFunc boxedFree)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -113,7 +113,7 @@ namespace GISharp.GObject
             return g_boxed_type_register_static (name_, boxedCopy, boxedFree);
         }
 
-        internal static readonly NativeBoxedCopyFunc CopyManagedTypeDelegate = CopyManagedType;
+        internal static readonly UnmanagedBoxedCopyFunc CopyManagedTypeDelegate = CopyManagedType;
 
         static IntPtr CopyManagedType (IntPtr boxed)
         {
@@ -124,7 +124,7 @@ namespace GISharp.GObject
             return GCHandle.ToIntPtr (GCHandle.Alloc (target));
         }
 
-        internal static readonly NativeBoxedFreeFunc FreeManagedTypeDelegate = FreeManagedType;
+        internal static readonly UnmanagedBoxedFreeFunc FreeManagedTypeDelegate = FreeManagedType;
 
         static void FreeManagedType (IntPtr boxed)
         {
@@ -140,7 +140,7 @@ namespace GISharp.GObject
     /// of the passed in boxed structure.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate IntPtr NativeBoxedCopyFunc (
+    delegate IntPtr UnmanagedBoxedCopyFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr boxed);
@@ -150,7 +150,7 @@ namespace GISharp.GObject
     /// structure passed.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeBoxedFreeFunc (
+    delegate void UnmanagedBoxedFreeFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr boxed);

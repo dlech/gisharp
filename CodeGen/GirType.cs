@@ -112,9 +112,9 @@ namespace GISharp.CodeGen
                         .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
                         .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     if (typeDefinitionElement == null) {
-                        // special case for callbacks since there is a "Native" version of each of those as well.
+                        // special case for callbacks since there is a "Unmanaged" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
-                            .SingleOrDefault (d => "Native" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
+                            .SingleOrDefault (d => "Unmanaged" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
                     }
                     if (typeDefinitionElement == null) {
                         // special case for interfaces since we add the "I" prefix.

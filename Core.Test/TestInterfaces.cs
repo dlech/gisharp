@@ -11,7 +11,7 @@ using GISharp.GLib;
 
 namespace GISharp.Core.Test
 {
-    [GType ("GInitable", IsWrappedNativeType = true)]
+    [GType ("GInitable", IsWrappedUnmanagedType = true)]
     [GTypeStruct (typeof(InitableIface))]
     [GTypePrerequisite (typeof(GISharp.GObject.Object))]
     public interface IInitable
@@ -22,17 +22,17 @@ namespace GISharp.Core.Test
     sealed class InitableIface : TypeInterface
     {
         static readonly IntPtr initOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Init));
-        static readonly Struct.NativeInit initDelegate = NativeInit;
+        static readonly Struct.UnmanagedInit initDelegate = UnmanagedInit;
         static readonly IntPtr initPtr = Marshal.GetFunctionPointerForDelegate (initDelegate);
         
         new struct Struct
         {
             #pragma warning disable CS0649
             public TypeInterface.Struct GIface;
-            public NativeInit Init;
+            public UnmanagedInit Init;
             #pragma warning restore CS0649
 
-            public delegate bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
+            public delegate bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
 
         public override Type StructType => typeof(Struct);
@@ -61,7 +61,7 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        static bool NativeInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
+        static bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             try {
                 var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
@@ -128,7 +128,7 @@ namespace GISharp.Core.Test
         }
     }
 
-    [GType ("GNetworkMonitor", IsWrappedNativeType = true)]
+    [GType ("GNetworkMonitor", IsWrappedUnmanagedType = true)]
     [GTypeStruct (typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable
     {
@@ -151,36 +151,36 @@ namespace GISharp.Core.Test
     sealed class NetworkMonitorInterface : TypeInterface
     {
         static readonly IntPtr networkChangedOffset = Marshal.OffsetOf<Struct> (nameof (Struct.NetworkChanged));
-        static readonly Struct.NativeNetworkChanged networkChangedDelegate = NativeNetworkChanged;
+        static readonly Struct.UnmanagedNetworkChanged networkChangedDelegate = UnmanagedNetworkChanged;
         static readonly IntPtr networkChangedPtr = Marshal.GetFunctionPointerForDelegate (networkChangedDelegate);
         static readonly IntPtr canReachOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReach));
-        static readonly Struct.NativeCanReach canReachDelegate = NativeCanReach;
+        static readonly Struct.UnmanagedCanReach canReachDelegate = UnmanagedCanReach;
         static readonly IntPtr canReachPtr = Marshal.GetFunctionPointerForDelegate (canReachDelegate);
         static readonly IntPtr canReachAsyncOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsync));
-        static readonly Struct.NativeCanReachAsync canReachAsyncDelegate = NativeCanReachAsync;
+        static readonly Struct.UnmanagedCanReachAsync canReachAsyncDelegate = UnmanagedCanReachAsync;
         static readonly IntPtr canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncDelegate);
         static readonly IntPtr canReachAsyncFinishOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsyncFinish));
-        static readonly Struct.NativeCanReachAsyncFinish canReachAsyncFinishDelegate = NativeCanReachAsyncFinish;
+        static readonly Struct.UnmanagedCanReachAsyncFinish canReachAsyncFinishDelegate = UnmanagedCanReachAsyncFinish;
         static readonly IntPtr canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncFinishDelegate);
 
         new struct Struct
         {
 #pragma warning disable CS0649
             public TypeInterface.Struct GIface;
-            public NativeNetworkChanged NetworkChanged;
-            public NativeCanReach CanReach;
-            public NativeCanReachAsync CanReachAsync;
-            public NativeCanReachAsyncFinish CanReachAsyncFinish;
+            public UnmanagedNetworkChanged NetworkChanged;
+            public UnmanagedCanReach CanReach;
+            public UnmanagedCanReachAsync CanReachAsync;
+            public UnmanagedCanReachAsyncFinish CanReachAsyncFinish;
 #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeNetworkChanged (IntPtr monitorPtr, bool available);
+            public delegate void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
+            public delegate bool UnmanagedCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+            public delegate void UnmanagedCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
+            public delegate void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
         }
 
         public override Type StructType => typeof(Struct);
@@ -212,7 +212,7 @@ namespace GISharp.Core.Test
             return ret;
         }
 
-        static void NativeNetworkChanged (IntPtr monitorPtr, bool available)
+        static void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available)
         {
             try {
                 var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
@@ -223,7 +223,7 @@ namespace GISharp.Core.Test
             }
         }
 
-        static bool NativeCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
+        static bool UnmanagedCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             try {
                 var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
@@ -240,7 +240,7 @@ namespace GISharp.Core.Test
             return false;
         }
 
-        static void NativeCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
+        static void UnmanagedCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
         {
             try {
                 var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
@@ -254,7 +254,7 @@ namespace GISharp.Core.Test
             }
         }
 
-        static void NativeCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
+        static void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
             try {
                 var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);

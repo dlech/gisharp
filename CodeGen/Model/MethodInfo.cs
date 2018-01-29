@@ -373,7 +373,7 @@ namespace GISharp.CodeGen.Model
             var freeStatements = new List<StatementSyntax> ();
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 if (p.IsInParam) {
-                    foreach (var s in GetMarshalManagedToNativeParameterStatements (p, true)) {
+                    foreach (var s in GetMarshalManagedToUnmanagedParameterStatements (p, true)) {
                         yield return s.Item1;
                         if (s.Item2 != null) {
                             freeStatements.Add (s.Item2);
@@ -428,12 +428,12 @@ namespace GISharp.CodeGen.Model
             // in case input parameters are passed through as output parameters
             tryStatement = tryStatement.AddBlockStatements (ManagedParameterInfos
                 .Where (x => x.IsOutParam)
-                .SelectMany (p => GetMarshalNativeToManagedStatements (p, false))
+                .SelectMany (p => GetMarshalUnmanagedToManagedStatements (p, false))
                                                             .ToArray());
 
             if (!IsConstructor) {
                 tryStatement = tryStatement.AddBlockStatements (
-                    GetMarshalNativeToManagedStatements (ManagedReturnParameterInfo, true).ToArray ());
+                    GetMarshalUnmanagedToManagedStatements (ManagedReturnParameterInfo, true).ToArray ());
             }
 
             tryStatement = tryStatement.AddBlockStatements (GetReturnStatements ().ToArray ());
@@ -465,7 +465,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<Tuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToNativeParameterStatements (ParameterInfo managedParameter, bool declareVariable)
+        IEnumerable<Tuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToUnmanagedParameterStatements (ParameterInfo managedParameter, bool declareVariable)
         {
             if (!managedParameter.TypeInfo.RequiresMarshal) {
                 yield break;
@@ -536,8 +536,8 @@ namespace GISharp.CodeGen.Model
                         var notifyStatement = string.Format (
                             "var {0}_ = {1}.{2} ({3});\n",
                             notifyParameter.Identifier,
-                            typeof(GISharp.GLib.NativeDestoryNotifyFactory).FullName,
-                            nameof(GISharp.GLib.NativeDestoryNotifyFactory.Create),
+                            typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
+                            nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
                             closureHandle);
                         yield return new Tuple<StatementSyntax, StatementSyntax> (
                             ParseStatement (notifyStatement), null);
@@ -754,7 +754,7 @@ namespace GISharp.CodeGen.Model
             yield return ParseStatement (string.Format ("return {0};", ret));
         }
 
-        IEnumerable<StatementSyntax> GetMarshalNativeToManagedStatements (ParameterInfo managedParameterInfo, bool declareVariable)
+        IEnumerable<StatementSyntax> GetMarshalUnmanagedToManagedStatements (ParameterInfo managedParameterInfo, bool declareVariable)
         {
             if (!managedParameterInfo.TypeInfo.RequiresMarshal) {
                 yield break;
@@ -869,7 +869,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<StatementSyntax> GetCallbackStatements ()
         {
             foreach (var p in ManagedParameterInfos) {
-                foreach (var s in GetMarshalNativeToManagedStatements (p, true)) {
+                foreach (var s in GetMarshalUnmanagedToManagedStatements (p, true)) {
                     yield return s;
                 }
             }
@@ -890,7 +890,7 @@ namespace GISharp.CodeGen.Model
                 yield return IfStatement (ParseExpression ("freeUserData"),ifBody);
             }
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var s in  GetMarshalManagedToNativeParameterStatements (ManagedReturnParameterInfo, true)) {
+                foreach (var s in  GetMarshalManagedToUnmanagedParameterStatements (ManagedReturnParameterInfo, true)) {
                     yield return s.Item1;
                     if (s.Item2 != null) {
                         yield return s.Item2;
@@ -914,7 +914,7 @@ namespace GISharp.CodeGen.Model
                         yield return ParseStatement (statement);
                     }
                 } else {
-                    foreach (var s in GetMarshalNativeToManagedStatements (p, true)) {
+                    foreach (var s in GetMarshalUnmanagedToManagedStatements (p, true)) {
                         yield return s;
                     }
                 }
@@ -923,7 +923,7 @@ namespace GISharp.CodeGen.Model
             yield return GetInvocationStatement ($"{instanceParam.ManagedName}.{ManagedName}", true);
 
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
-                foreach (var s in GetMarshalManagedToNativeParameterStatements (p, false)) {
+                foreach (var s in GetMarshalManagedToUnmanagedParameterStatements (p, false)) {
                     yield return s.Item1;
                     if (s.Item2 != null) {
                         // TODO: how to prevent memory leak?
@@ -933,7 +933,7 @@ namespace GISharp.CodeGen.Model
             }
 
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var s in  GetMarshalManagedToNativeParameterStatements (ManagedReturnParameterInfo, true)) {
+                foreach (var s in  GetMarshalManagedToUnmanagedParameterStatements (ManagedReturnParameterInfo, true)) {
                     yield return s.Item1;
                     if (s.Item2 != null) {
                         // TODO: how to prevent memory leak?

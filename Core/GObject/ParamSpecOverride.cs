@@ -14,7 +14,7 @@ namespace GISharp.GObject
     /// unless you are implementing a new base type similar to GObject.
     /// </summary>
     [Since ("2.4")]
-    [GType ("GParamOverride", IsWrappedNativeType = true)]
+    [GType ("GParamOverride", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecOverride : ParamSpec
     {
         new struct Struct

@@ -15,7 +15,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Data type representing an event source.
     /// </summary>
-    [GType ("GSource", IsWrappedNativeType = true)]
+    [GType ("GSource", IsWrappedUnmanagedType = true)]
     public abstract class Source : Opaque
     {
         internal struct Struct
@@ -145,7 +145,7 @@ namespace GISharp.GLib
         /// </remarks>
         protected abstract bool Check ();
 
-        static bool DispatchManagedSource (IntPtr sourcePtr, NativeSourceFunc callback, IntPtr userData)
+        static bool DispatchManagedSource (IntPtr sourcePtr, UnmanagedSourceFunc callback, IntPtr userData)
         {
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
@@ -1273,13 +1273,13 @@ namespace GISharp.GLib
             IntPtr source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:1 destroy:2 */
-            NativeSourceFunc func,
+            UnmanagedSourceFunc func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// Sets the callback function for a source. The callback for a source is
@@ -1305,7 +1305,7 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof (func));
             }
-            var (func_, notify_, data_) = NativeSourceFuncFactory.CreateNotifyDelegate (func);
+            var (func_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (func);
             g_source_set_callback (handle, func_, data_, notify_);
         }
 
@@ -1560,7 +1560,7 @@ namespace GISharp.GLib
     struct SourceFuncs
     {
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate bool NativePrepare (
+        public delegate bool UnmanagedPrepare (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source,
@@ -1569,47 +1569,47 @@ namespace GISharp.GLib
             out int timeout);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativePrepare PrepareImpl;
+        public UnmanagedPrepare PrepareImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate bool NativeCheck (
+        public delegate bool UnmanagedCheck (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeCheck CheckImpl;
+        public UnmanagedCheck CheckImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate bool NativeDispatch (
+        public delegate bool UnmanagedDispatch (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none closure:2 */
-            NativeSourceFunc callback,
+            UnmanagedSourceFunc callback,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
             IntPtr userData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeDispatch DispatchImpl;
+        public UnmanagedDispatch DispatchImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeFinalize (
+        public delegate void UnmanagedFinalize (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeFinalize FinalizeImpl;
+        public UnmanagedFinalize FinalizeImpl;
 
         // private fields
 #pragma warning disable CS0169
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        NativeSourceFunc ClosureCallback;
+        UnmanagedSourceFunc ClosureCallback;
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        NativeClosureMarshal ClosureMarshal;
+        UnmanagedClosureMarshal ClosureMarshal;
 #pragma warning restore CS0169
     }
 
@@ -1621,7 +1621,7 @@ namespace GISharp.GLib
     {
 #pragma warning disable CS0649
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeRef (
+        public delegate void UnmanagedRef (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr cbData);
@@ -1629,7 +1629,7 @@ namespace GISharp.GLib
         public delegate void Ref (IntPtr cbData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeRef RefImpl;
+        public UnmanagedRef RefImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void NativeUnref (
@@ -1643,7 +1643,7 @@ namespace GISharp.GLib
         public NativeUnref UnrefImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeGet (
+        public delegate void UnmanagedGet (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr cbData,
@@ -1660,7 +1660,7 @@ namespace GISharp.GLib
         public delegate void Get (IntPtr cbData, Source source, SourceFunc func);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeGet GetImpl;
+        public UnmanagedGet GetImpl;
 #pragma warning restore CS0649
     }
 }

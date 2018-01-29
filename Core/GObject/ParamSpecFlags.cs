@@ -8,7 +8,7 @@ namespace GISharp.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for flags
     /// properties.
     /// </summary>
-    [GType ("GParamFlags", IsWrappedNativeType = true)]
+    [GType ("GParamFlags", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecFlags : ParamSpec
     {
         static readonly IntPtr flagsClassOffset = Marshal.OffsetOf<Struct> (nameof (Struct.FlagsClass));

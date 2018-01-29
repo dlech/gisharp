@@ -7,7 +7,7 @@ namespace GISharp.Runtime
     /// glib code.
     /// </summary>
     /// <remarks>
-    /// If <see cref="IsWrappedNativeType"/> is true, then the type wraps an
+    /// If <see cref="IsWrappedUnmanagedType"/> is true, then the type wraps an
     /// unmanaged type. Otherwise, the type will be registered with the GObject
     /// type system so that it can be used in unmanged code.
     /// </remarks>
@@ -33,7 +33,7 @@ namespace GISharp.Runtime
         /// to <c>true</c> (default). If you are binding a type implemented in
         /// unmanged code, then this should be set to false.
         /// </remarks>
-        public bool IsWrappedNativeType { get; set; }
+        public bool IsWrappedUnmanagedType { get; set; }
 
         public GTypeAttribute (string name = null)
         {

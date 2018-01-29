@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for object properties.
     /// </summary>
-    [GType ("GParamObject", IsWrappedNativeType = true)]
+    [GType ("GParamObject", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecObject : ParamSpec
     {
         new struct Struct

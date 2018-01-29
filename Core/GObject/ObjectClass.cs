@@ -19,11 +19,11 @@ namespace GISharp.GObject
         static readonly IntPtr setPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.SetProperty));
         static readonly IntPtr getPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.GetProperty));
         static readonly IntPtr notifyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Notify));
-        static readonly Struct.NativeSetProperty setPropertyDelegate = ManagedClassSetProperty;
+        static readonly Struct.UnmanagedSetProperty setPropertyDelegate = ManagedClassSetProperty;
         static readonly IntPtr setPropertyPtr = Marshal.GetFunctionPointerForDelegate (setPropertyDelegate);
-        static readonly Struct.NativeSetProperty getPropertyDelegate = ManagedClassGetProperty;
+        static readonly Struct.UnmanagedSetProperty getPropertyDelegate = ManagedClassGetProperty;
         static readonly IntPtr getPropertyPtr = Marshal.GetFunctionPointerForDelegate (getPropertyDelegate);
-        static readonly Struct.NativeNotify notifyDelegate = ManagedNotify;
+        static readonly Struct.UnmanagedNotify notifyDelegate = ManagedNotify;
         static readonly IntPtr notifyPtr = Marshal.GetFunctionPointerForDelegate (notifyDelegate);
 
         new internal struct Struct
@@ -34,19 +34,19 @@ namespace GISharp.GObject
             public IntPtr ConstructProperties;
 
             /* seldom overidden */
-            public NativeConstructor Constructor;
+            public UnmanagedConstructor Constructor;
             /* overridable methods */
-            public NativeSetProperty SetProperty;
-            public NativeGetProperty GetProperty;
-            public NativeDispose Dispose;
-            public NativeFinalize Finalize;
+            public UnmanagedSetProperty SetProperty;
+            public UnmanagedGetProperty GetProperty;
+            public UnmanagedDispose Dispose;
+            public UnmanagedFinalize Finalize;
             /* seldom overidden */
-            public NativeDispatchPropertiesChanged DispatchPropertiesChanged;
+            public UnmanagedDispatchPropertiesChanged DispatchPropertiesChanged;
             /* signals */
-            public NativeNotify Notify;
+            public UnmanagedNotify Notify;
 
             /* called when done constructing */
-            public NativeConstructed Constructed;
+            public UnmanagedConstructed Constructed;
 
             public UIntPtr Flags;
             public IntPtr Dummy0;
@@ -58,21 +58,21 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
 
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate IntPtr NativeConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
+            public delegate IntPtr UnmanagedConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeSetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
+            public delegate void UnmanagedSetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeGetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
+            public delegate void UnmanagedGetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeDispose (IntPtr @object);
+            public delegate void UnmanagedDispose (IntPtr @object);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeFinalize (IntPtr @object);
+            public delegate void UnmanagedFinalize (IntPtr @object);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeDispatchPropertiesChanged (IntPtr @object, uint nPspecs, IntPtr pspec);
+            public delegate void UnmanagedDispatchPropertiesChanged (IntPtr @object, uint nPspecs, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeNotify (IntPtr @object, IntPtr pspec);
+            public delegate void UnmanagedNotify (IntPtr @object, IntPtr pspec);
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void NativeConstructed (IntPtr @object);
+            public delegate void UnmanagedConstructed (IntPtr @object);
         }
 
         public ObjectClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
@@ -100,7 +100,7 @@ namespace GISharp.GObject
             var parentTypeQuery = parentGType.Query ();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
-                ClassInit = NativeInitManagedClass,
+                ClassInit = UnmanagedInitManagedClass,
                 ClassData = GCHandle.ToIntPtr (GCHandle.Alloc (type)),
                 InstanceSize = (ushort)parentTypeQuery.InstanceSize,
             };
@@ -117,7 +117,7 @@ namespace GISharp.GObject
         /// This takes care of overriding the methods to make the managed type
         /// interop with the GObject type system.
         /// </remarks>
-        static void NativeInitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
+        static void UnmanagedInitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
         {
             try {
                 // Can't use type.GetGType () here since the type registration has

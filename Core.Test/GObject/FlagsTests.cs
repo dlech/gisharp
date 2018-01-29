@@ -30,7 +30,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestRegister3 ()
         {
-            // invalid because IsWrappedNativeType = true but there is not
+            // invalid because IsWrappedUnmanagedType = true but there is not
             // a matching getGType method.
             Assert.That (() => typeof (TestFlags3).GetGType (),
                 Throws.ArgumentException);
@@ -106,10 +106,10 @@ namespace GISharp.Core.Test.GObject
             Three,
         }
 
-        // This type should not be allowed because of IsWrappedNativeType = true
+        // This type should not be allowed because of IsWrappedUnmanagedType = true
         // but there is no matching getGType method (or TestFlags3Extensions class
         // for that matter)
-        [Flags, GType (IsWrappedNativeType = true)]
+        [Flags, GType (IsWrappedUnmanagedType = true)]
         public enum TestFlags3
         {
             One,

@@ -37,10 +37,10 @@ namespace GISharp.GIRepository
         static extern int g_arg_info_get_destroy (IntPtr raw);
 
         /// <summary>
-        /// Obtains the index of the <see cref="GLib.NativeDestroyNotify"/>
+        /// Obtains the index of the <see cref="GLib.UnmanagedDestroyNotify"/>
         /// argument. This is only valid for arguments which are callbacks.
         /// </summary>
-        /// <value>Index of the <see cref="GLib.NativeDestroyNotify"/> argument
+        /// <value>Index of the <see cref="GLib.UnmanagedDestroyNotify"/> argument
         /// or -1 if there is none.</value>
         public int DestroyIndex {
             get {

@@ -245,7 +245,7 @@ namespace GISharp.GLib
         [Since("2.34")]
         static extern IntPtr g_list_copy_deep (
             IntPtr list,
-            NativeCopyFunc func,
+            UnmanagedCopyFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -309,7 +309,7 @@ namespace GISharp.GLib
         static extern IntPtr g_list_find_custom (
             IntPtr list,
             IntPtr data,
-            NativeCompareFunc func);
+            UnmanagedCompareFunc func);
 
         /// <summary>
         /// Gets the first element in a #GList.
@@ -340,7 +340,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_foreach (
             IntPtr list,
-            NativeFunc func,
+            UnmanagedFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -357,7 +357,7 @@ namespace GISharp.GLib
         [Since("2.28")]
         static extern void g_list_free_full (
             IntPtr list,
-            NativeDestroyNotify freeFunc);
+            UnmanagedDestroyNotify freeFunc);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -514,7 +514,7 @@ namespace GISharp.GLib
         static extern IntPtr g_list_insert_sorted (
             IntPtr list,
             IntPtr data,
-            NativeCompareFunc func);
+            UnmanagedCompareFunc func);
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -534,7 +534,7 @@ namespace GISharp.GLib
         /// return a number &gt; 0 if the first parameter comes after the
         /// second parameter in the sort order.
         /// </param>
-        protected void InsertSorted (IntPtr data, NativeCompareFunc func)
+        protected void InsertSorted (IntPtr data, UnmanagedCompareFunc func)
         {
             handle = g_list_insert_sorted (handle, data, func);
             GC.KeepAlive (func);
@@ -573,7 +573,7 @@ namespace GISharp.GLib
         static extern IntPtr g_list_insert_sorted_with_data (
             IntPtr list,
             IntPtr data,
-            NativeCompareDataFunc func,
+            UnmanagedCompareDataFunc func,
             IntPtr userData);
 
         /// <summary>
@@ -903,7 +903,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_sort (
             IntPtr list,
-            NativeCompareFunc compareFunc);
+            UnmanagedCompareFunc compareFunc);
 
         /// <summary>
         /// Sorts a <see cref="List{T}"/> using the given comparison function. The algorithm
@@ -916,7 +916,7 @@ namespace GISharp.GLib
         /// first element comes before the second, or a positive value if
         /// the first element comes after the second.
         /// </param>
-        protected void Sort (NativeCompareFunc compareFunc)
+        protected void Sort (UnmanagedCompareFunc compareFunc)
         {
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
@@ -944,7 +944,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_sort_with_data (
             IntPtr list,
-            NativeCompareDataFunc compareFunc,
+            UnmanagedCompareDataFunc compareFunc,
             IntPtr userData);
     }
 
@@ -960,7 +960,7 @@ namespace GISharp.GLib
         public new ListNode<T> Prev => new ListNode<T> (base.Prev);
     }
 
-    [GType ("GList", IsWrappedNativeType = true)]
+    [GType ("GList", IsWrappedUnmanagedType = true)]
     public sealed class List<T> : List, IEnumerable<T> where T : Opaque
     {
         public List () : this (IntPtr.Zero, Transfer.Container)
@@ -1092,7 +1092,7 @@ namespace GISharp.GLib
             if (func == null) {
                 throw new ArgumentNullException (nameof(func));
             }
-            NativeCompareFunc func_ = (a_, b_) => {
+            UnmanagedCompareFunc func_ = (a_, b_) => {
                 try {
                     var a = GetInstance<T> (a_, Transfer.None);
                     var b = GetInstance<T> (b_, Transfer.None);
@@ -1186,7 +1186,7 @@ namespace GISharp.GLib
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFunc_ = (a_, b_) => {
+            UnmanagedCompareFunc compareFunc_ = (a_, b_) => {
                 try {
                     var a = GetInstance<T> (a_, Transfer.None);
                     var b = GetInstance<T> (b_, Transfer.None);

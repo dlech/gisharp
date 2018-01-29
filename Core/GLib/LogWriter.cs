@@ -43,7 +43,7 @@ namespace GISharp.GLib
             IntPtr userData,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async destroy:0 */
-            NativeDestroyNotify userDataFree);
+            UnmanagedDestroyNotify userDataFree);
 
         static bool isFuncSet;
 

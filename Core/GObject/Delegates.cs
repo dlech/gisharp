@@ -12,7 +12,7 @@ namespace GISharp.GObject
     /// You may not attach these to signals created with the #G_SIGNAL_NO_HOOKS flag.
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate bool NativeSignalEmissionHook (
+    delegate bool UnmanagedSignalEmissionHook (
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
         SignalInvocationHint ihint,
@@ -36,14 +36,14 @@ namespace GISharp.GObject
     /// is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeCallback ();
+    delegate void UnmanagedCallback ();
 
     /// <summary>
     /// The type used for the various notification callbacks which can be registered
     /// on closures.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeClosureNotify (
+    delegate void UnmanagedClosureNotify (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr data,
@@ -60,7 +60,7 @@ namespace GISharp.GObject
     /// value returned by the last callback.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate bool NativeSignalAccumulator (
+    delegate bool UnmanagedSignalAccumulator (
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
         SignalInvocationHint ihint,
@@ -78,7 +78,7 @@ namespace GISharp.GObject
     /// The type used for marshaller functions.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void NativeClosureMarshal (
+    delegate void UnmanagedClosureMarshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
         IntPtr closure,
@@ -102,7 +102,7 @@ namespace GISharp.GObject
         IntPtr marshalData);
 
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate bool NativeBindingTransformFunc (
+    public delegate bool UnmanagedBindingTransformFunc (
         IntPtr binding,
         ref Value fromValue,
         ref Value toValue,

@@ -856,16 +856,16 @@ namespace GISharp.CodeGen
                 case "GLib.CompareDataFunc":
                 case "CompareFunc":
                 case "GLib.CompareFunc":
-                    return typeof(GISharp.GLib.NativeCompareFunc).FullName;
+                    return typeof(GISharp.GLib.UnmanagedCompareFunc).FullName;
                 case "CopyFunc":
                 case "GLib.CopyFunc":
-                    return typeof(GISharp.GLib.NativeCopyFunc).FullName;
+                    return typeof(GISharp.GLib.UnmanagedCopyFunc).FullName;
                 case "DestroyNotify":
                 case "GLib.DestroyNotify":
-                    return typeof(GISharp.GLib.NativeDestroyNotify).FullName;
+                    return typeof(GISharp.GLib.UnmanagedDestroyNotify).FullName;
                 case "Func":
                 case "GLib.Func":
-                    return typeof(GISharp.GLib.NativeFunc).FullName;
+                    return typeof(GISharp.GLib.UnmanagedFunc).FullName;
 
                 case "GType":
                     return typeof(GISharp.GObject.GType).FullName;

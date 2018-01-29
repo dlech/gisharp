@@ -85,7 +85,7 @@ namespace GISharp.GObject
     /// binding, source, and target instances to drop.
     /// </remarks>
     [Since ("2.26")]
-    [GType ("GBinding", IsWrappedNativeType = true)]
+    [GType ("GBinding", IsWrappedUnmanagedType = true)]
     public sealed class Binding : Object
     {
         public Binding (IntPtr handle, Transfer ownership)

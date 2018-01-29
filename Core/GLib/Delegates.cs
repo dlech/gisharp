@@ -24,7 +24,7 @@ namespace GISharp.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int NativeCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
+    public delegate int UnmanagedCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -43,7 +43,7 @@ namespace GISharp.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int NativeCompareFunc (IntPtr a, IntPtr b);
+    public delegate int UnmanagedCompareFunc (IntPtr a, IntPtr b);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -77,7 +77,7 @@ namespace GISharp.GLib
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [Since("2.4")]
-    public delegate IntPtr NativeCopyFunc ([In] IntPtr src, [In] IntPtr data);
+    public delegate IntPtr UnmanagedCopyFunc ([In] IntPtr src, [In] IntPtr data);
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -100,7 +100,7 @@ namespace GISharp.GLib
     /// the data element.
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void NativeDestroyNotify ([In] IntPtr data);
+    public delegate void UnmanagedDestroyNotify ([In] IntPtr data);
 
     /// <summary>
     /// Specifies the type of function which is called when a data element
@@ -127,7 +127,7 @@ namespace GISharp.GLib
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool NativeEqualFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate bool UnmanagedEqualFunc ([In] IntPtr a, [In] IntPtr b);
 
     /// <summary>
     /// Specifies the type of a function used to test two values for
@@ -156,7 +156,7 @@ namespace GISharp.GLib
     /// user data passed to g_list_foreach() or g_slist_foreach()
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void NativeFunc ([In] IntPtr data, [In] IntPtr userData);
+    public delegate void UnmanagedFunc ([In] IntPtr data, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -207,7 +207,7 @@ namespace GISharp.GLib
     /// the hash value corresponding to the key
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate uint NativeHashFunc ([In] IntPtr key);
+    public delegate uint UnmanagedHashFunc ([In] IntPtr key);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -266,7 +266,7 @@ namespace GISharp.GLib
     /// user data passed to <see cref="HashTable{K,V}.Foreach"/>
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void NativeHFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate void UnmanagedHFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to <see cref="HashTable{K,V}.Foreach"/>.
@@ -303,7 +303,7 @@ namespace GISharp.GLib
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool NativeHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate bool UnmanagedHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to
@@ -371,7 +371,7 @@ namespace GISharp.GLib
     public static class NativeLogFuncFactory
     {
         public static NativeLogFunc CreateDelegate (LogFunc func) {
-            return (logDomain_, logLevel_, message_, userData_) => NativeDelegate.Invoke (() => {
+            return (logDomain_, logLevel_, message_, userData_) => UnmanagedDelegate.Invoke (() => {
                 var logDomain = GMarshal.Utf8PtrToString (logDomain_);
                 var message = GMarshal.Utf8PtrToString (message_);
                 func (logDomain, logLevel_, message);
@@ -382,16 +382,16 @@ namespace GISharp.GLib
             var func_ = CreateDelegate (func);
             NativeLogFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
                 func_ (logDomain_, logLevel_, message_, userData_);
-                NativeDelegate.Free (userData_);
+                UnmanagedDelegate.Free (userData_);
             };
             var gcHandle = GCHandle.Alloc (asyncFunc_);
             return (asyncFunc_, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<NativeLogFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (LogFunc func) {
+        public static ValueTuple<NativeLogFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (LogFunc func) {
             var func_ = CreateDelegate (func);
-            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
-            var userData = new Tuple<NativeLogFunc, NativeDestroyNotify> (func_, notify_);
+            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
+            var userData = new Tuple<NativeLogFunc, UnmanagedDestroyNotify> (func_, notify_);
             var gcHandle = GCHandle.Alloc (userData);
             return (func_, notify_, (IntPtr)gcHandle);
         }
@@ -449,7 +449,7 @@ namespace GISharp.GLib
     public static class NativeLogWriterFuncFactory
     {
         public static NativeLogWriterFunc CreateDelegate (LogWriterFunc func) {
-            return (logLevel_, fields_, nFields_, userData_) => NativeDelegate.Invoke (() => {
+            return (logLevel_, fields_, nFields_, userData_) => UnmanagedDelegate.Invoke (() => {
                 return func (logLevel_, fields_);
             });
         }
@@ -458,17 +458,17 @@ namespace GISharp.GLib
             var func_ = CreateDelegate (func);
             NativeLogWriterFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
                 var ret = func_ (logDomain_, logLevel_, message_, userData_);
-                NativeDelegate.Free (userData_);
+                UnmanagedDelegate.Free (userData_);
                 return ret;
             };
             var gcHandle = GCHandle.Alloc (asyncFunc_);
             return (asyncFunc_, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<NativeLogWriterFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (LogWriterFunc func) {
+        public static ValueTuple<NativeLogWriterFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (LogWriterFunc func) {
             var func_ = CreateDelegate (func);
-            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
-            var userData = new Tuple<NativeLogWriterFunc, NativeDestroyNotify> (func_, notify_);
+            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
+            var userData = new Tuple<NativeLogWriterFunc, UnmanagedDestroyNotify> (func_, notify_);
             var gcHandle = GCHandle.Alloc (userData);
             return (func_, notify_, (IntPtr)gcHandle);
         }
@@ -488,7 +488,7 @@ namespace GISharp.GLib
     /// The semantics of the function should match those of the poll() system call.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate int NativePollFunc (
+    public delegate int UnmanagedPollFunc (
         /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
         /* transfer-ownership:none */
         [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] ufds,
@@ -504,7 +504,7 @@ namespace GISharp.GLib
     /// and <see cref="Idle.Add"/>.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate bool NativeSourceFunc (
+    public delegate bool UnmanagedSourceFunc (
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:0 */
         IntPtr userData);
@@ -515,27 +515,27 @@ namespace GISharp.GLib
     /// </summary>
     public delegate bool SourceFunc ();
 
-    public static class NativeSourceFuncFactory
+    public static class UnmanagedSourceFuncFactory
     {
-        public static NativeSourceFunc CreateDelegate (SourceFunc func) {
-            return (userData) => NativeDelegate.Invoke (() => func());
+        public static UnmanagedSourceFunc CreateDelegate (SourceFunc func) {
+            return (userData) => UnmanagedDelegate.Invoke (() => func());
         }
 
-        public static ValueTuple<NativeSourceFunc, IntPtr> CreateAsyncDelegate (SourceFunc func) {
+        public static ValueTuple<UnmanagedSourceFunc, IntPtr> CreateAsyncDelegate (SourceFunc func) {
             var func_ = CreateDelegate (func);
-            NativeSourceFunc asyncFunc_ = (userData) => {
+            UnmanagedSourceFunc asyncFunc_ = (userData) => {
                 var ret = func_ (userData);
-                NativeDelegate.Free (userData);
+                UnmanagedDelegate.Free (userData);
                 return ret;
             };
             var gcHandle = GCHandle.Alloc (asyncFunc_);
             return (asyncFunc_, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<NativeSourceFunc, NativeDestroyNotify, IntPtr> CreateNotifyDelegate (SourceFunc func) {
+        public static ValueTuple<UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (SourceFunc func) {
             var func_ = CreateDelegate (func);
-            NativeDestroyNotify notify_ = (userData_) => NativeDelegate.Free (userData_);
-            var userData = new Tuple<NativeSourceFunc, NativeDestroyNotify> (func_, notify_);
+            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
+            var userData = new Tuple<UnmanagedSourceFunc, UnmanagedDestroyNotify> (func_, notify_);
             var gcHandle = GCHandle.Alloc (userData);
             return (func_, notify_, (IntPtr)gcHandle);
         }
@@ -549,7 +549,7 @@ namespace GISharp.GLib
     /// callback. So, this class provides wrappers for managed callbacks that
     /// catch all exceptions.
     /// </remarks>
-    public static class NativeDelegate
+    public static class UnmanagedDelegate
     {
         /// <summary>
         /// Invoke <paramref name="func" /> and catch all exceptions.

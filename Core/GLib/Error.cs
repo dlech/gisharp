@@ -12,7 +12,7 @@ namespace GISharp.GLib
     /// This is only intended for use in bindings. You probably want
     /// <see cref="GErrorException"/> instead.
     /// </remarks>
-    [GType ("GError", IsWrappedNativeType = true)]
+    [GType ("GError", IsWrappedUnmanagedType = true)]
     public sealed class Error : Opaque
     {
         static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Domain));

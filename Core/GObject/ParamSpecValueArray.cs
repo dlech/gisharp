@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// </summary>
     [DeprecatedSince ("2.32")]
     [Obsolete ("Use Array instead of ValueArray")]
-    [GType ("GParamValueArray", IsWrappedNativeType = true)]
+    [GType ("GParamValueArray", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecValueArray : ParamSpec
     {
         static readonly IntPtr elementSpecOffset = Marshal.OffsetOf<Struct> (nameof (Struct.ElementSpec));

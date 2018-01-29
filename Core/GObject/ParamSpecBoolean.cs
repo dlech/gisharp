@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for boolean properties.
     /// </summary>
-    [GType ("GParamBoolean", IsWrappedNativeType = true)]
+    [GType ("GParamBoolean", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecBoolean : ParamSpec
     {
         static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));

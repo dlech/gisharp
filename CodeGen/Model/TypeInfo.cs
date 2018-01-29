@@ -204,7 +204,7 @@ namespace GISharp.CodeGen.Model
             if (typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate))) {
                 if (!managed && type is GirType) {
                     var split = typeName.Split ('.');
-                    split[split.Length -1] = "Native" + split[split.Length -1];
+                    split[split.Length -1] = "Unmanaged" + split[split.Length -1];
                     typeName = string.Join (".", split);
                 }
                 RequiresMarshal = true;

@@ -9,7 +9,7 @@ namespace GISharp.GLib
     /// Represents a file descriptor, which events to poll for, and which events
     /// occurred.
     /// </summary>
-    [GType ("GPollFD", IsWrappedNativeType = true)]
+    [GType ("GPollFD", IsWrappedUnmanagedType = true)]
     public partial struct PollFD
     {
         /// <summary>

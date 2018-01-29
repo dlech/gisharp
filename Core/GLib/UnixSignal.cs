@@ -43,13 +43,13 @@ namespace GISharp.GLib
             int signum,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            NativeSourceFunc handler,
+            UnmanagedSourceFunc handler,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            NativeDestroyNotify notify);
+            UnmanagedDestroyNotify notify);
 
         /// <summary>
         /// A convenience function for <see cref="CreateSource"/>, which
@@ -75,7 +75,7 @@ namespace GISharp.GLib
             if (handler == null) {
                 throw new ArgumentNullException (nameof(handler));
             }
-            var (handler_, notify_, userData_) = NativeSourceFuncFactory.CreateNotifyDelegate (handler);
+            var (handler_, notify_, userData_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (handler);
             var ret = g_unix_signal_add_full (priority, signum, handler_, userData_, notify_);
             return ret;
         }

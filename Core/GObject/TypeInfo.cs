@@ -26,12 +26,12 @@ namespace GISharp.GObject
         /// <summary>
         /// Location of the base initialization function (optional)
         /// </summary>
-        public NativeBaseInitFunc BaseInit;
+        public UnmanagedBaseInitFunc BaseInit;
 
         /// <summary>
         /// Location of the base finalization function (optional)
         /// </summary>
-        public NativeBaseFinalizeFunc BaseFinalize;
+        public UnmanagedBaseFinalizeFunc BaseFinalize;
 
         /// <summary>
         /// Location of the class initialization function for
@@ -41,14 +41,14 @@ namespace GISharp.GObject
         /// and to do type-specific setup such as registering signals and object
         /// properties.
         /// </summary>
-        public NativeClassInitFunc ClassInit;
+        public UnmanagedClassInitFunc ClassInit;
 
         /// <summary>
         /// Location of the class finalization function for
         /// classed and instantiatable types. Location of the default vtable
         /// finalization function for interface types. (optional)
         /// </summary>
-        public NativeClassFinalizeFunc ClassFinalize;
+        public UnmanagedClassFinalizeFunc ClassFinalize;
 
         /// <summary>
         /// User-supplied data passed to the class init/finalize functions
@@ -73,7 +73,7 @@ namespace GISharp.GObject
         /// Location of the instance initialization function (optional, for
         /// instantiatable types only)
         /// </summary>
-        public NativeInstanceInitFunc InstanceInit;
+        public UnmanagedInstanceInitFunc InstanceInit;
 
         /// <summary>
         /// A #GTypeValueTable function table for generic handling of GValues
@@ -92,7 +92,7 @@ namespace GISharp.GObject
         /// initialization process.
         /// </summary>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeBaseInitFunc (
+        public delegate void UnmanagedBaseInitFunc (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass);
@@ -105,7 +105,7 @@ namespace GISharp.GObject
         /// See GClassInitFunc() for a discussion of the class initialization process.
         /// </summary>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeBaseFinalizeFunc (
+        public delegate void UnmanagedBaseFinalizeFunc (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass);
@@ -209,7 +209,7 @@ namespace GISharp.GObject
         /// time.
         /// </remarks>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeClassInitFunc (
+        public delegate void UnmanagedClassInitFunc (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass,
@@ -227,7 +227,7 @@ namespace GISharp.GObject
         /// reference count drops to zero).
         /// </summary>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeClassFinalizeFunc (
+        public delegate void UnmanagedClassFinalizeFunc (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass,
@@ -250,7 +250,7 @@ namespace GISharp.GObject
         /// zeros before this function is called.
         /// </remarks>
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeInstanceInitFunc (
+        public delegate void UnmanagedInstanceInitFunc (
             /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
             /* transfer-ownership:none */
             IntPtr instance,

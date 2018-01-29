@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for boxed properties.
     /// </summary>
-    [GType ("GParamBoxed", IsWrappedNativeType = true)]
+    [GType ("GParamBoxed", IsWrappedUnmanagedType = true)]
     public sealed class ParamSpecBoxed : ParamSpec
     {
         new struct Struct
