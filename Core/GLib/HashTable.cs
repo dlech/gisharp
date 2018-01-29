@@ -1029,7 +1029,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_keys (handle);
-                var ret = GetInstance<List<TKey>> (retPtr, Transfer.Container);
+                var ret = GetInstance<List<TKey>> (retPtr, Transfer.Container) ?? new List<TKey> ();
                 return ret;
             }
         }
@@ -1049,7 +1049,7 @@ namespace GISharp.GLib
             get {
                 AssertNotDisposed ();
                 var retPtr = g_hash_table_get_values (handle);
-                var ret = GetInstance<List<TValue>> (retPtr, Transfer.Container);
+                var ret = GetInstance<List<TValue>> (retPtr, Transfer.Container) ?? new List<TValue> ();
                 return ret;
             }
         }

@@ -1,5 +1,8 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
+
 using GISharp.Runtime;
 
 namespace GISharp.GLib
@@ -22,26 +25,31 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_list_free (IntPtr array);
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_list_free (handle);
-            }
-            base.Dispose (disposing);
-        }
+        protected IntPtr Data => Marshal.ReadIntPtr (handle, (int)dataOffset);
+        protected IntPtr Next => Marshal.ReadIntPtr (handle, (int)nextOffset);
+        protected IntPtr Prev => Marshal.ReadIntPtr (handle, (int)prevOffset);
 
         protected List (IntPtr handle, Transfer ownership) : base (handle)
         {
+            if (ownership != Transfer.Container) {
+                throw new NotSupportedException ();
+            }
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        protected List () : this (IntPtr.Zero, Transfer.Full)
+        protected List () : this (IntPtr.Zero, Transfer.Container)
         {
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_list_free (IntPtr list);
+
+        protected override void Dispose (bool disposing)
+        {
+            g_list_free (handle);
+            base.Dispose (disposing);
         }
 
         /// <summary>
@@ -84,28 +92,21 @@ namespace GISharp.GLib
             IntPtr list2);
 
         /// <summary>
-        /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
-        /// Note that the elements of the second <see cref="List{T}"/> are not copied.
+        /// Adds the second <see cref="List"/> onto the end of the first <see cref="List"/>.
+        /// Note that the elements of the second <see cref="List"/> are not copied.
         /// They are used directly.
         /// </summary>
-        /// <param name="list1">
-        /// a <see cref="List{T}"/>, this must point to the top of the list
-        /// </param>
         /// <param name="list2">
-        /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
+        /// the <see cref="List"/> to add to the end of the first <see cref="List"/>,
         ///     this must point  to the top of the list
         /// </param>
-        /// <returns>
-        /// the new <see cref="List{T}"/>
-        /// </returns>
-        protected List Concat (List list2)
+        protected void Concat (List list2)
         {
             if (list2 == null) {
                 throw new ArgumentNullException (nameof (list2));
             }
             handle = g_list_concat (handle, list2.handle);
             list2.handle = IntPtr.Zero;
-            return this;
         }
 
         /// <summary>
@@ -162,13 +163,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        /// <returns>
-        /// either this list or the new start of the <see cref="List"/> if this list was <c>null</c>
-        /// </returns>
-        protected List Append (IntPtr data)
+        protected void Append (IntPtr data)
         {
             handle = g_list_append (handle, data);
-            return this;
         }
 
         /// <summary>
@@ -205,7 +202,7 @@ namespace GISharp.GLib
         protected List Copy ()
         {
             var ret_ = g_list_copy (handle);
-            var ret = Activator.CreateInstance (GetType (), ret_);
+            var ret = Activator.CreateInstance (GetType (), ret_, Transfer.Container);
             return (List)ret;
         }
 
@@ -345,7 +342,7 @@ namespace GISharp.GLib
             IntPtr list,
             NativeFunc func,
             IntPtr userData);
-        
+
         /// <summary>
         /// Convenience method, which frees all the memory used by a #GList,
         /// and calls @free_func on every element's data.
@@ -440,16 +437,12 @@ namespace GISharp.GLib
         /// </param>
         /// <param name="position">
         /// the position to insert the element. If this is
-        ///     negative, or is larger than the number of elements in the
-        ///     list, the new element is added on to the end of the list.
+        /// negative, or is larger than the number of elements in the
+        /// list, the new element is added on to the end of the list.
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        protected List Insert (IntPtr data, int position)
+        protected void Insert (IntPtr data, int position)
         {
             handle = g_list_insert (handle, data, position);
-            return this;
         }
 
         /// <summary>
@@ -473,6 +466,24 @@ namespace GISharp.GLib
             IntPtr list,
             IntPtr sibling,
             IntPtr data);
+
+        /// <summary>
+        /// Inserts a new element into the list before the given position.
+        /// </summary>
+        /// <param name="list">
+        /// a pointer to a #GList, this must point to the top of the list
+        /// </param>
+        /// <param name="sibling">
+        /// the list element before which the new element
+        ///     is inserted or %NULL to insert at the end of the list
+        /// </param>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        protected void InsertBefore (IntPtr sibling, IntPtr data)
+        {
+            handle = g_list_insert_before (handle, sibling, data);
+        }
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -504,6 +515,30 @@ namespace GISharp.GLib
             IntPtr list,
             IntPtr data,
             NativeCompareFunc func);
+
+        /// <summary>
+        /// Inserts a new element into the list, using the given comparison
+        /// function to determine its position.
+        /// </summary>
+        /// <remarks>
+        /// If you are adding many new elements to a list, and the number of
+        /// new elements is much larger than the length of the list, use
+        /// g_list_prepend() to add the new items and sort the list afterwards
+        /// with g_list_sort().
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="func">
+        /// the function to compare elements in the list. It should
+        /// return a number &gt; 0 if the first parameter comes after the
+        /// second parameter in the sort order.
+        /// </param>
+        protected void InsertSorted (IntPtr data, NativeCompareFunc func)
+        {
+            handle = g_list_insert_sorted (handle, data, func);
+            GC.KeepAlive (func);
+        }
 
         /// <summary>
         /// Inserts a new element into the list, using the given comparison
@@ -574,19 +609,20 @@ namespace GISharp.GLib
             IntPtr list);
 
         /// <summary>
-        /// Gets the number of elements in a <see cref="List{T}"/>.
+        /// Gets the number of elements in a <see cref="List"/>.
         /// </summary>
         /// <remarks>
-        /// This function iterates over the whole list to count its elements.
-        /// Use a <see cref="GISharp.GLib.Queue"/> instead of a List if you regularly need the number
-        /// of items.
+        /// This iterates over the whole list to count its elements.
+        /// Use a <see cref="GISharp.GLib.Queue"/> instead of a List if you
+        /// regularly need the number of items.
         /// </remarks>
         /// <returns>
-        /// the number of elements in the <see cref="List{T}"/>
+        /// the number of elements in the <see cref="List"/>
         /// </returns>
         public int Length {
             get {
-                return (int)g_list_length (handle);
+                var ret = g_list_length (handle);
+                return (int)ret;
             }
         }
 
@@ -724,14 +760,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        /// <returns>
-        /// the newly prepended element, which is the new
-        ///     start of the <see cref="List{T}"/>
-        /// </returns>
-        protected List Prepend (IntPtr data)
+        protected void Prepend (IntPtr data)
         {
             handle = g_list_prepend (handle, data);
-            return this;
         }
 
         /// <summary>
@@ -761,13 +792,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        protected List Remove (IntPtr data)
+        protected void Remove (IntPtr data)
         {
             handle = g_list_remove (handle, data);
-            return this;
         }
 
         /// <summary>
@@ -799,13 +826,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        protected List RemoveAll (IntPtr data)
+        protected void RemoveAll (IntPtr data)
         {
             handle = g_list_remove_all (handle, data);
-            return this;
         }
 
         /// <summary>
@@ -855,13 +878,9 @@ namespace GISharp.GLib
         /// Reverses a <see cref="List{T}"/>.
         /// It simply switches the next and prev pointers of each element.
         /// </summary>
-        /// <returns>
-        /// the start of the reversed <see cref="List{T}"/>
-        /// </returns>
-        protected List Reverse ()
+        public void Reverse ()
         {
             handle = g_list_reverse (handle);
-            return this;
         }
 
         /// <summary>
@@ -892,23 +911,20 @@ namespace GISharp.GLib
         /// </summary>
         /// <param name="compareFunc">
         /// the comparison function used to sort the <see cref="List{T}"/>.
-        ///     This function is passed the data from 2 elements of the <see cref="List{T}"/>
-        ///     and should return 0 if they are equal, a negative value if the
-        ///     first element comes before the second, or a positive value if
-        ///     the first element comes after the second.
+        /// This function is passed the data from 2 elements of the <see cref="List{T}"/>
+        /// and should return 0 if they are equal, a negative value if the
+        /// first element comes before the second, or a positive value if
+        /// the first element comes after the second.
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        protected List Sort (NativeCompareFunc compareFunc)
+        protected void Sort (NativeCompareFunc compareFunc)
         {
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
             handle = g_list_sort (handle, compareFunc);
             GC.KeepAlive (compareFunc);
-            return this;
         }
+
         /// <summary>
         /// Like g_list_sort(), but the comparison function accepts
         /// a user data argument.
@@ -932,8 +948,29 @@ namespace GISharp.GLib
             IntPtr userData);
     }
 
-    public sealed class List<T> : List where T : Opaque
+    public sealed class ListNode<T> : List where T : Opaque
     {
+        internal ListNode (IntPtr handle)
+        {
+            this.handle = handle;
+        }
+
+        public new T Data => GetInstance<T> (base.Data, Transfer.None);
+        public new ListNode<T> Next => new ListNode<T> (base.Next);
+        public new ListNode<T> Prev => new ListNode<T> (base.Prev);
+    }
+
+    [GType ("GList", IsWrappedNativeType = true)]
+    public sealed class List<T> : List, IEnumerable<T> where T : Opaque
+    {
+        public List () : this (IntPtr.Zero, Transfer.Container)
+        {
+        }
+
+        public List (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        {
+        }
+
         /// <summary>
         /// Adds the second <see cref="List{T}"/> onto the end of the first <see cref="List{T}"/>.
         /// Note that the elements of the second <see cref="List{T}"/> are not copied.
@@ -941,24 +978,17 @@ namespace GISharp.GLib
         /// </summary>
         /// <param name="list2">
         /// the <see cref="List{T}"/> to add to the end of the first <see cref="List{T}"/>,
-        ///     this must point  to the top of the list
+        /// this must point to the top of the list
         /// </param>
-        /// <returns>
-        /// the new <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Concat (List<T> list2)
+        public void Concat (List<T> list2)
         {
-            var ret = base.Concat (list2);
-            return (List<T>)ret;
+            base.Concat (list2);
         }
 
         /// <summary>
         /// Adds a new element on to the end of the list.
         /// </summary>
         /// <remarks>
-        /// Note that the return value is the new start of the list,
-        /// if @list was empty; make sure you store the new value.
-        /// 
         /// <see cref="Append"/> has to traverse the entire list to find the end,
         /// which is inefficient when adding multiple elements. A common idiom
         /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
@@ -967,17 +997,13 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        /// <returns>
-        /// either this list or the new start of the <see cref="List{T}"/> if this list was <c>null</c>
-        /// </returns>
-        public List<T> Append (T data)
+        public void Append (T data)
         {
-            var ret = Append (data?.Handle ?? IntPtr.Zero);
-            return (List<T>)ret;
+            Append (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
-        /// Copies a <see cref="List{T}"/>.
+        /// Copies a <see cref="List{T}" />.
         /// </summary>
         /// <remarks>
         /// Note that this is a "shallow" copy. If the list elements
@@ -986,7 +1012,8 @@ namespace GISharp.GLib
         /// to copy the data as well.
         /// </remarks>
         /// <returns>
-        /// the start of the new list that holds the same data as @list
+        /// the start of the new list that holds the same data as
+        /// <paramref name="list"/>
         /// </returns>
         public new List<T> Copy ()
         {
@@ -1019,16 +1046,65 @@ namespace GISharp.GLib
         /// </param>
         /// <param name="position">
         /// the position to insert the element. If this is
-        ///     negative, or is larger than the number of elements in the
-        ///     list, the new element is added on to the end of the list.
+        /// negative, or is larger than the number of elements in the
+        /// list, the new element is added on to the end of the list.
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Insert (T data, int position)
+        public void Insert (T data, int position)
         {
-            var ret = Insert (data?.Handle ?? IntPtr.Zero, position);
-            return (List<T>)ret;
+            Insert (data?.Handle ?? IntPtr.Zero, position);
+        }
+
+        /// <summary>
+        /// Inserts a new element into the list before the given position.
+        /// </summary>
+        /// <param name="sibling">
+        /// the list element before which the new element
+        /// is inserted or <c>null</c> to insert at the end of the list
+        /// </param>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        public void InsertBefore (ListNode<T> sibling, T data)
+        {
+            InsertBefore (sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Inserts a new element into the list, using the given comparison
+        /// function to determine its position.
+        /// </summary>
+        /// <remarks>
+        /// If you are adding many new elements to a list, and the number of
+        /// new elements is much larger than the length of the list, use
+        /// <see cref="Prepend" /> to add the new items and sort the list
+        /// afterwards with <see cref="Sort" />.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="func">
+        /// the function to compare elements in the list. It should
+        /// return a number &gt; 0 if the first parameter comes after the
+        /// second parameter in the sort order.
+        /// </param>
+        public void InsertSorted (T data, Comparison<T> func)
+        {
+            if (func == null) {
+                throw new ArgumentNullException (nameof(func));
+            }
+            NativeCompareFunc func_ = (a_, b_) => {
+                try {
+                    var a = GetInstance<T> (a_, Transfer.None);
+                    var b = GetInstance<T> (b_, Transfer.None);
+                    var ret = func (a, b);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException ();
+                    return default (int);
+                }
+            };
+            InsertSorted (data?.Handle ?? IntPtr.Zero, func_);
         }
 
         /// <summary>
@@ -1039,10 +1115,13 @@ namespace GISharp.GLib
         /// </param>
         /// <returns>
         /// the element's data, or <c>null</c> if the position
-        ///     is off the end of the <see cref="List{T}"/>
+        /// is off the end of the <see cref="List{T}"/>
         /// </returns>
         public T this[int n] {
             get {
+                if (n < 0) {
+                    throw new ArgumentOutOfRangeException (nameof(n));
+                }
                 var ret_ = NthData (n);
                 var ret = GetInstance<T> (ret_, Transfer.None);
                 return ret;
@@ -1059,14 +1138,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        /// <returns>
-        /// the newly prepended element, which is the new
-        ///     start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Prepend (T data)
+        public void Prepend (T data)
         {
-            var ret = Prepend (data?.Handle ?? IntPtr.Zero);
-            return (List<T>)ret;
+            Prepend (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1077,13 +1151,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Remove (T data)
+        public void Remove (T data)
         {
-            var ret = Remove (data?.Handle ?? IntPtr.Zero);
-            return (List<T>)ret;
+            Remove (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1095,26 +1165,9 @@ namespace GISharp.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> RemoveAll (T data)
+        public void RemoveAll (T data)
         {
-            var ret = RemoveAll (data?.Handle ?? IntPtr.Zero);
-            return (List<T>)ret;
-        }
-
-        /// <summary>
-        /// Reverses a <see cref="List{T}"/>.
-        /// It simply switches the next and prev pointers of each element.
-        /// </summary>
-        /// <returns>
-        /// the start of the reversed <see cref="List{T}"/>
-        /// </returns>
-        public new List<T> Reverse ()
-        {
-            var ret = base.Reverse ();
-            return (List<T>)ret;
+            RemoveAll (data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1123,27 +1176,39 @@ namespace GISharp.GLib
         /// </summary>
         /// <param name="compareFunc">
         /// the comparison function used to sort the <see cref="List{T}"/>.
-        ///     This function is passed the data from 2 elements of the <see cref="List{T}"/>
-        ///     and should return 0 if they are equal, a negative value if the
-        ///     first element comes before the second, or a positive value if
-        ///     the first element comes after the second.
+        /// This function is passed the data from 2 elements of the <see cref="List{T}"/>
+        /// and should return 0 if they are equal, a negative value if the
+        /// first element comes before the second, or a positive value if
+        /// the first element comes after the second.
         /// </param>
-        /// <returns>
-        /// the (possibly changed) start of the <see cref="List{T}"/>
-        /// </returns>
-        public List<T> Sort (Comparison<T> compareFunc)
+        public void Sort (Comparison<T> compareFunc)
         {
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
-            NativeCompareFunc compareFuncNative = (compareFuncAPtr, compareFuncBPtr) => {
-                var compareFuncA = GetInstance<T> (compareFuncAPtr, Transfer.None);
-                var compareFuncB = GetInstance<T> (compareFuncBPtr, Transfer.None);
-                var compareFuncRet = compareFunc.Invoke (compareFuncA, compareFuncB);
-                return compareFuncRet;
+            NativeCompareFunc compareFunc_ = (a_, b_) => {
+                try {
+                    var a = GetInstance<T> (a_, Transfer.None);
+                    var b = GetInstance<T> (b_, Transfer.None);
+                    var ret = compareFunc.Invoke (a, b);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException ();
+                    return default(int);
+                }
             };
-            var ret = Sort (compareFuncNative);
-            return (List<T>)ret;
+            Sort (compareFunc_);
         }
+
+        IEnumerator<T> GetEnumerator () {
+            for (var node = new ListNode<T> (handle); node.Handle != IntPtr.Zero; node = node.Next) {
+                yield return node.Data;
+            }
+        }
+
+        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator ();
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator () => GetEnumerator ();
     }
 }

@@ -377,7 +377,7 @@ namespace GISharp.Core.Test.GLib
             }
         }
 #endif
-        [Test, Ignore ("List<T> is broken")]
+        [Test]
         public void TestGetKeys ()
         {
             using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
@@ -393,7 +393,7 @@ namespace GISharp.Core.Test.GLib
             }
         }
 
-        [Test, Ignore ("List<T> is broken")]
+        [Test]
         public void TestGetValues ()
         {
             using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {

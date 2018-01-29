@@ -98,7 +98,7 @@ namespace GISharp.GObject
         {
             AssertNotDisposed ();
             var retPtr = g_param_spec_pool_list_owned (Handle, ownerType);
-            var ret = GetInstance<List<ParamSpec>> (retPtr, Transfer.Container);
+            var ret = GetInstance<List<ParamSpec>> (retPtr, Transfer.Container) ?? new List<ParamSpec> ();
             return ret;
         }
     }
