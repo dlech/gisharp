@@ -235,18 +235,14 @@ namespace GISharp.GObject
         /// <summary>
         /// Get the name of a <see cref="ParamSpec"/>.
         /// </summary>
-        /// <remarks>
-        /// The name is always an "interned" string (as per g_intern_string()).
-        /// This allows for pointer-value comparisons.
-        /// </remarks>
         /// <returns>
         /// the name of this instance.
         /// </returns>
-        public string Name {
+        public InternString Name {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_name (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_, false);
+                var ret = new InternString (ret_, Transfer.None);
                 return ret;
             }
         }

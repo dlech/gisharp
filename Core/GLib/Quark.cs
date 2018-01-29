@@ -126,46 +126,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Returns a canonical representation for @string. Interned strings
-        /// can be compared for equality by comparing the pointers, instead of
-        /// using strcmp().
-        /// </summary>
-        /// <param name="string">
-        /// a string
-        /// </param>
-        /// <returns>
-        /// a canonical representation for the string
-        /// </returns>
-        [Since ("2.10")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="const gchar*" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_intern_string (
-            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr @string);
-
-        /// <summary>
-        /// Returns a canonical representation for <paramref name="string"/>. Interned strings
-        /// can be compared for equality by comparing the pointers, instead of
-        /// using <see cref="string.=="/>.
-        /// </summary>
-        /// <param name="string">
-        /// a string
-        /// </param>
-        /// <returns>
-        /// a canonical representation for the string
-        /// </returns>
-        [Since ("2.10")]
-        public static IntPtr InternString (string @string)
-        {
-            var string_ = GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_intern_string (string_);
-            GMarshal.Free (string_);
-            return ret;
-        }
-
-        /// <summary>
         /// Gets the string associated with the given #GQuark.
         /// </summary>
         /// <param name="quark">
