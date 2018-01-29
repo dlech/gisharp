@@ -884,7 +884,7 @@ namespace GISharp.GLib
         public new SListNode<T> Next => new SListNode<T> (base.Next);
     }
 
-    [GType ("GSList", IsWrappedUnmanagedType = true)]
+    [GType ("GSList", IsProxyForUnmanagedType = true)]
     public sealed class SList<T> : SList, IEnumerable<T> where T : Opaque
     {
         public SList () : this (IntPtr.Zero, Transfer.Container)

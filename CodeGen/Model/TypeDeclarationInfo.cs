@@ -162,7 +162,7 @@ namespace GISharp.CodeGen.Model
                 var nameArgument = string.Format ("\"{0}\"", GTypeName);
                 var registerArgument = string.Format (
                     "{0} = true",
-                    nameof (GISharp.Runtime.GTypeAttribute.IsWrappedUnmanagedType));
+                    nameof (GISharp.Runtime.GTypeAttribute.IsProxyForUnmanagedType));
                 yield return AttributeList ().AddAttributes (
                     Attribute (ParseName (typeof (GISharp.Runtime.GTypeAttribute).FullName))
                     .AddArgumentListArguments(

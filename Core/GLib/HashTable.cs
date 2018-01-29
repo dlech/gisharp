@@ -12,7 +12,7 @@ namespace GISharp.GLib
     /// [Hash Table][glib-Hash-Tables]. It should only be accessed via the
     /// following functions.
     /// </summary>
-    [GType ("GHashTable", IsWrappedUnmanagedType = true)]
+    [GType ("GHashTable", IsProxyForUnmanagedType = true)]
     public abstract class HashTable : Opaque
     {
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;

@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
-    [GType ("GArray", IsWrappedUnmanagedType = true)]
+    [GType ("GArray", IsProxyForUnmanagedType = true)]
     public abstract class Array : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
@@ -594,7 +594,7 @@ namespace GISharp.GLib
         }
     }
 
-    [GType ("GArray", IsWrappedUnmanagedType = true)]
+    [GType ("GArray", IsProxyForUnmanagedType = true)]
     public sealed class Array<T> : Array, IList<T> where T : struct
     {
         public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)

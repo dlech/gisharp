@@ -11,7 +11,7 @@ namespace GISharp.GObject
     /// This enumeration can be extended at later date.
     /// </remarks>
     [Since ("2.26")]
-    [Flags, GType ("GBindingFlags", IsWrappedUnmanagedType = true)]
+    [Flags, GType ("GBindingFlags", IsProxyForUnmanagedType = true)]
     public enum BindingFlags
     {
         /// <summary>

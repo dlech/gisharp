@@ -35,7 +35,7 @@ namespace GISharp.GLib
     /// a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.ToBytes"/> function.
     /// </remarks>
     [Since ("2.32")]
-    [GType ("GBytes", IsWrappedUnmanagedType = true)]
+    [GType ("GBytes", IsProxyForUnmanagedType = true)]
     public sealed class Bytes
         : Opaque, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {

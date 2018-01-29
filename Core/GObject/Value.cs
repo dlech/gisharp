@@ -14,7 +14,7 @@ namespace GISharp.GObject
     /// <summary>
     /// An opaque structure used to hold different types of values.
     /// </summary>
-    [GType ("GValue", IsWrappedUnmanagedType = true)]
+    [GType ("GValue", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay ("{ToString ()}")]
     public struct Value
     {

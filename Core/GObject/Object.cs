@@ -12,7 +12,7 @@ namespace GISharp.GObject
     /// All the fields in the GObject structure are private
     /// to the #GObject implementation and should never be accessed directly.
     /// </summary>
-    [GType ("GObject", IsWrappedUnmanagedType = true)]
+    [GType ("GObject", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {

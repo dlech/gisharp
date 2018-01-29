@@ -49,7 +49,7 @@ namespace GISharp.GObject
     /// - g_closure_invalidate() and invalidation notifiers allow callbacks to be
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
-    [GType ("GClosure", IsWrappedUnmanagedType = true)]
+    [GType ("GClosure", IsProxyForUnmanagedType = true)]
     public sealed class Closure : Opaque
     {
         static readonly IntPtr bitFieldsOffset = Marshal.OffsetOf<Struct> (nameof (Struct.BitFields));

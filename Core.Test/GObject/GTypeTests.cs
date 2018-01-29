@@ -249,10 +249,10 @@ namespace GISharp.Core.Test.GObject
                 gtypeAttribute.GetConstructors ().Single (),
                 new object [] { dummyTypeName },
                 new [] {
-                    gtypeAttribute.GetProperty ("IsWrappedUnmanagedType"),
+                    gtypeAttribute.GetProperty ("IsProxyForUnmanagedType"),
                 },
                 new object [] {
-                    true, // IsWrappedUnmanagedType
+                    true, // IsProxyForUnmanagedType
                 }));
             var gtypeStructAttribute = typeof(GTypeStructAttribute);
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (

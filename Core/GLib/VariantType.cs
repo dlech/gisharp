@@ -155,7 +155,7 @@ namespace GISharp.GLib
     /// that, due to the restriction that the key of a dictionary entry must
     /// be a basic type, "{**}" is not a valid type string.
     /// </remarks>
-    [GType ("GVariantType", IsWrappedUnmanagedType = true)]
+    [GType ("GVariantType", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay ("{FormatString}")]
     public sealed class VariantType : Opaque, IEquatable<VariantType>
     {

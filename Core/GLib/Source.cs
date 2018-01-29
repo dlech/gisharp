@@ -15,7 +15,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Data type representing an event source.
     /// </summary>
-    [GType ("GSource", IsWrappedUnmanagedType = true)]
+    [GType ("GSource", IsProxyForUnmanagedType = true)]
     public abstract class Source : Opaque
     {
         internal struct Struct

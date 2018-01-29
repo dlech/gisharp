@@ -8,7 +8,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType ("GParamChar", IsWrappedUnmanagedType = true)]
+    [GType ("GParamChar", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecChar : ParamSpec
     {
         static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));

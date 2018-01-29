@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// for <see cref="GType"/> properties.
     /// </summary>
     [Since ("2.10")]
-    [GType ("GParamGType", IsWrappedUnmanagedType = true)]
+    [GType ("GParamGType", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecGType : ParamSpec
     {
         static readonly IntPtr isATypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.IsAType));

@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// are private to the #GInitiallyUnowned implementation and should never be
     /// accessed directly.
     /// </summary>
-    [GType ("GInitiallyUnowned", IsWrappedUnmanagedType = true)]
+    [GType ("GInitiallyUnowned", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(InitiallyUnownedClass))]
     public class InitiallyUnowned : Object
     {

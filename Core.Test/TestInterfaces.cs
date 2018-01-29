@@ -11,7 +11,7 @@ using GISharp.GLib;
 
 namespace GISharp.Core.Test
 {
-    [GType ("GInitable", IsWrappedUnmanagedType = true)]
+    [GType ("GInitable", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(InitableIface))]
     [GTypePrerequisite (typeof(GISharp.GObject.Object))]
     public interface IInitable
@@ -128,7 +128,7 @@ namespace GISharp.Core.Test
         }
     }
 
-    [GType ("GNetworkMonitor", IsWrappedUnmanagedType = true)]
+    [GType ("GNetworkMonitor", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable
     {

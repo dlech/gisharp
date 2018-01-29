@@ -960,7 +960,7 @@ namespace GISharp.GLib
         public new ListNode<T> Prev => new ListNode<T> (base.Prev);
     }
 
-    [GType ("GList", IsWrappedUnmanagedType = true)]
+    [GType ("GList", IsProxyForUnmanagedType = true)]
     public sealed class List<T> : List, IEnumerable<T> where T : Opaque
     {
         public List () : this (IntPtr.Zero, Transfer.Container)

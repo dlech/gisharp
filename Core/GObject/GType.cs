@@ -19,7 +19,7 @@ namespace GISharp.GObject
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
-    [GType ("GType", IsWrappedUnmanagedType = true)]
+    [GType ("GType", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
@@ -850,7 +850,7 @@ namespace GISharp.GObject
                     return gtype;
                 }
 
-                if (gtypeAttribute.IsWrappedUnmanagedType) {
+                if (gtypeAttribute.IsProxyForUnmanagedType) {
                     // enums and interfaces can't have method implementations,
                     // so we need to find the associated static type for the
                     // actual implementation.

@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// The `GMainContext` struct is an opaque data
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
-    [GType ("GMainContext", IsWrappedUnmanagedType = true)]
+    [GType ("GMainContext", IsProxyForUnmanagedType = true)]
     public sealed class MainContext : Opaque
     {
         public MainContext (IntPtr handle, Transfer ownership) : base (handle)

@@ -16,7 +16,7 @@ namespace GISharp.Runtime
     /// This shows the declaration of the GNetworkMonitor interface. It has
     /// prerequisites of GInitable and GObject.
     /// <code>
-    ///     [GType ("GNetworkMonitor", IsWrappedUnmanagedType = true)]
+    ///     [GType ("GNetworkMonitor", IsProxyForUnmanagedType = true)]
     ///     [GTypeStruct (typeof(NetworkMonitorInterface))]
     ///     [GTypePrerequisite (typeof(GISharp.GObject.Object))]
     ///     public interface INetworkMonitor : IInitable

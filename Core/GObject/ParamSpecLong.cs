@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for long integer properties.
     /// </summary>
-    [GType ("GParamLong", IsWrappedUnmanagedType = true)]
+    [GType ("GParamLong", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecLong : ParamSpec
     {
         static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Minimum));

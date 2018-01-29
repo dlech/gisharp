@@ -10,7 +10,7 @@ namespace GISharp.Core.Test.GObject
     public class InterfaceTests
     {
         [Test]
-        public void TestWrappedUnmanagedTypeRegistration ()
+        public void TestUnmanagedTypeRegistration ()
         {
             Assert.That (() => typeof(INetworkMonitor).GetGType (), Throws.Nothing);
         }

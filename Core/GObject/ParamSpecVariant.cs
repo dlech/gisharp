@@ -8,7 +8,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType ("GParamVariant", IsWrappedUnmanagedType = true)]
+    [GType ("GParamVariant", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecVariant : ParamSpec
     {
         static readonly IntPtr variantTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.VariantType));

@@ -17,7 +17,7 @@ namespace GISharp.GObject
     /// The result of this replacement is called the canonical name of
     /// the parameter.
     /// </remarks>
-    [GType ("GParam", IsWrappedUnmanagedType = true)]
+    [GType ("GParam", IsProxyForUnmanagedType = true)]
     public class ParamSpec : TypeInstance
     {
         static readonly IntPtr flagsOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Flags));

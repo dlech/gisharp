@@ -7,7 +7,7 @@ namespace GISharp.GObject
     /// <summary>
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
-    [GType ("GParamUnichar", IsWrappedUnmanagedType = true)]
+    [GType ("GParamUnichar", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecUnichar : ParamSpec
     {
         static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct> (nameof (Struct.DefaultValue));

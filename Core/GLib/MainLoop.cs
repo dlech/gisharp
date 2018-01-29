@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// The `GMainLoop` struct is an opaque data type
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
-    [GType ("GMainLoop", IsWrappedUnmanagedType = true)]
+    [GType ("GMainLoop", IsProxyForUnmanagedType = true)]
     public sealed class MainLoop : Opaque
     {
         public MainLoop (IntPtr handle, Transfer ownership) : base (handle)

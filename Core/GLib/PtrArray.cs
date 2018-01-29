@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
-    [GType ("GPtrArray", IsWrappedUnmanagedType = true)]
+    [GType ("GPtrArray", IsProxyForUnmanagedType = true)]
     public abstract class PtrArray : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));

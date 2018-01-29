@@ -228,7 +228,7 @@ namespace GISharp.GLib
     /// be shared.
     /// </remarks>
     [Since ("2.24")]
-    [GType ("GVariant", IsWrappedUnmanagedType = true)]
+    [GType ("GVariant", IsProxyForUnmanagedType = true)]
     public sealed class Variant
         : Opaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
     {

@@ -10,7 +10,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Contains the public fields of a GByteArray.
     /// </summary>
-    [GType ("GByteArray", IsWrappedUnmanagedType = true)]
+    [GType ("GByteArray", IsProxyForUnmanagedType = true)]
     public sealed class ByteArray : Opaque, IList<byte>
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));

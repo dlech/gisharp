@@ -30,7 +30,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestRegister3 ()
         {
-            // invalid because IsWrappedUnmanagedType = true but there is no
+            // invalid because IsProxyForUnmanagedType = true but there is no
             // matching getGType method.
             Assert.That (() => typeof (TestEnum3).GetGType (),
                 Throws.ArgumentException);
@@ -104,10 +104,10 @@ namespace GISharp.Core.Test.GObject
             Three,
         }
 
-        // This type should not be allowed because of IsWrappedUnmanagedType = true
+        // This type should not be allowed because of IsProxyForUnmanagedType = true
         // but there is no getGType method (or a matching TestEnum3Extension class
         // for that matter).
-        [GType (IsWrappedUnmanagedType = true)]
+        [GType (IsProxyForUnmanagedType = true)]
         public enum TestEnum3
         {
             One,
