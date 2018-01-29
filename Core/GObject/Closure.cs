@@ -101,7 +101,7 @@ namespace GISharp.GObject
             if (ownership == Transfer.None) {
                 this.handle = g_closure_ref (handle);
             }
-            g_closure_sink (handle);
+            g_closure_sink (this.handle);
         }
 
         protected override void Dispose (bool disposing)

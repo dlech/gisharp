@@ -109,7 +109,7 @@ namespace GISharp.GObject
             if (ownership == Transfer.None) {
                 this.handle = g_param_spec_ref (handle);
             }
-            g_param_spec_sink (handle);
+            g_param_spec_sink (this.handle);
         }
 
         protected override void Dispose (bool disposing)
