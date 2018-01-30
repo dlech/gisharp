@@ -515,7 +515,8 @@ namespace GISharp.GObject
             using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
                 instanceAndParams.Append (new Value (instance.GetGType (), instance));
                 for (var i = 0; i < parameters.Length; i++) {
-                    instanceAndParams.Append (new Value (query.ParamTypes[i], parameters[i]));
+                    var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];
+                    instanceAndParams.Append(new Value(paramGType, parameters[i]));
                 }
 
                 g_signal_emitv (instanceAndParams.Data, signalId, detail, out var returnValue);
@@ -741,7 +742,7 @@ namespace GISharp.GObject
         /// <remarks>
         /// Also tries the ancestors of the given type.
         ///
-        /// See g_signal_new() for details on allowed signal names.
+        /// See <see cref="ValidateName"/> for details on allowed signal names.
         /// </remarks>
         /// <param name="name">
         /// the signal's name.
@@ -752,7 +753,7 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
-        public static uint Lookup (string name, GType itype)
+        public static uint TryLookup (string name, GType itype)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -763,9 +764,9 @@ namespace GISharp.GObject
             return ret;
         }
 
-        public static uint Lookup<T> (string name)
+        public static uint TryLookup<T> (string name)
         {
-            return Lookup (name, typeof(T).GetGType ());
+            return TryLookup (name, typeof(T).GetGType ());
         }
 
         /// <summary>
@@ -1276,8 +1277,8 @@ namespace GISharp.GObject
         /// Stops a signal's current emission.
         /// </summary>
         /// <remarks>
-        /// This is just like g_signal_stop_emission() except it will look up the
-        /// signal id for you.
+        /// This is just like <see cref="StopEmission"/> except it will look up
+        /// the signal id for you.
         /// </remarks>
         /// <param name="instance">
         /// the object whose signal handlers you wish to stop.
@@ -1285,7 +1286,7 @@ namespace GISharp.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        public static void StopEmissionByName (Object instance, string detailedSignal)
+        public static void StopEmissionByName(this Object instance, string detailedSignal)
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof (instance));

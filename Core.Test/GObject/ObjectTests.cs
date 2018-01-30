@@ -368,7 +368,7 @@ namespace GISharp.Core.Test.GObject
 
             public TestObjectSignal (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
-                eventHappendSignalId = Signal.Lookup (nameof(EventHappened), this.GetGType ());
+                eventHappendSignalId = Signal.TryLookup<TestObjectSignal>(nameof(EventHappened));
             }
         }
 
