@@ -694,7 +694,7 @@ namespace GISharp.GObject
         {
             AssertInitialized ();
             var ret_ = g_value_dup_object(Handle);
-            var ret = Opaque.GetInstance<Object>(ret_, Transfer.All);
+            var ret = Object.GetInstance(ret_, Transfer.All);
             return ret;
         }
 
@@ -730,7 +730,7 @@ namespace GISharp.GObject
         {
             AssertInitialized ();
             var ret_ = g_value_dup_param(Handle);
-            var ret = Opaque.GetInstance<ParamSpec>(ret_, Transfer.All);
+            var ret = ParamSpec.GetInstance(ret_, Transfer.All);
             return ret;
         }
 
@@ -1208,7 +1208,7 @@ namespace GISharp.GObject
             get {
                 AssertType (GType.Object);
                 var ret_ = g_value_get_object (ref this);
-                var ret = Opaque.GetInstance<Object> (ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 
@@ -1246,7 +1246,7 @@ namespace GISharp.GObject
             get {
                 AssertType (GType.Param);
                 var ret_ = g_value_get_param (ref this);
-                var ret = Opaque.GetInstance<ParamSpec> (ret_, Transfer.None);
+                var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 

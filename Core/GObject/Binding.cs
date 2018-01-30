@@ -168,7 +168,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_source (handle);
-                var ret = GetInstance<Object> (ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -240,7 +240,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_target (handle);
-                var ret = GetInstance<Object> (ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
         }

@@ -9,11 +9,13 @@ using System.Threading.Tasks;
 // GInitable as a prerequisite.
 using GISharp.GLib;
 
+using Object = GISharp.GObject.Object;
+
 namespace GISharp.Core.Test
 {
     [GType ("GInitable", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(InitableIface))]
-    [GTypePrerequisite (typeof(GISharp.GObject.Object))]
+    [GTypePrerequisite(typeof(Object))]
     public interface IInitable
     {
         bool Init (IntPtr cancellable);
@@ -64,7 +66,7 @@ namespace GISharp.Core.Test
         static bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             try {
-                var initable = (IInitable)GetInstance<GISharp.GObject.Object> (initablePtr, Transfer.None);
+                var initable = (IInitable)Object.GetInstance(initablePtr, Transfer.None);
                 var ret = initable.Init (cancellablePtr);
                 return ret;
             }
@@ -96,7 +98,7 @@ namespace GISharp.Core.Test
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
 
-        public static GISharp.GObject.Object New (GType objectType, params object[] parameters)
+        public static Object New(GType objectType, params object[] parameters)
         {
             IntPtr errorPtr;
             var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
@@ -104,7 +106,7 @@ namespace GISharp.Core.Test
                 var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
-            var ret = Opaque.GetInstance<GISharp.GObject.Object> (ret_, Transfer.Full);
+            var ret = Object.GetInstance(ret_, Transfer.Full);
 
             return ret;
         }
@@ -117,7 +119,7 @@ namespace GISharp.Core.Test
             if (initable == null) {
                 throw new ArgumentNullException (nameof(initable));
             }
-            var instance = (GISharp.GObject.Object)initable;
+            var instance = (Object)initable;
             var ret = g_initable_init (instance.Handle, IntPtr.Zero, out var errorPtr);
             GC.KeepAlive (instance);
             if (errorPtr != IntPtr.Zero) {
@@ -236,7 +238,7 @@ namespace GISharp.Core.Test
         static void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available)
         {
             try {
-                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
                 monitor.OnNetworkChanged (available);
             }
             catch (Exception ex) {
@@ -247,7 +249,7 @@ namespace GISharp.Core.Test
         static bool UnmanagedCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
         {
             try {
-                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
                 var ret = monitor.CanReach (connectablePtr, cancellablePtr);
                 return ret;
             }
@@ -264,7 +266,7 @@ namespace GISharp.Core.Test
         static void UnmanagedCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
         {
             try {
-                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
                 Action<IntPtr> managedCallback = (result) => {
                     callback (monitorPtr, result, userData);
                 };
@@ -278,7 +280,7 @@ namespace GISharp.Core.Test
         static void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
         {
             try {
-                var monitor = (INetworkMonitor)Opaque.GetInstance<GISharp.GObject.Object> (monitorPtr, Transfer.None);
+                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
                 GMarshal.PropagateError (errorPtr, ex.Error);
@@ -312,7 +314,7 @@ namespace GISharp.Core.Test
             if (monitor == null) {
                 throw new ArgumentNullException (nameof(monitor));
             }
-            var instance = (GISharp.GObject.Object)monitor;
+            var instance = (Object)monitor;
             var ret = g_network_monitor_get_network_available (instance.Handle);
             GC.KeepAlive (instance);
 
@@ -327,7 +329,7 @@ namespace GISharp.Core.Test
             if (monitor == null) {
                 throw new ArgumentNullException (nameof(monitor));
             }
-            var instance = (GISharp.GObject.Object)monitor;
+            var instance = (Object)monitor;
             var ret = g_network_monitor_get_network_metered (instance.Handle);
             GC.KeepAlive (instance);
 
@@ -342,7 +344,7 @@ namespace GISharp.Core.Test
             if (monitor == null) {
                 throw new ArgumentNullException (nameof(monitor));
             }
-            var instance = (GISharp.GObject.Object)monitor;
+            var instance = (Object)monitor;
             var ret = g_network_monitor_can_reach (instance.Handle, connectable, cancellable, out var errorPtr);
             GC.KeepAlive (instance);
             if (errorPtr != IntPtr.Zero) {
@@ -364,7 +366,7 @@ namespace GISharp.Core.Test
             if (monitor == null) {
                 throw new ArgumentNullException (nameof(monitor));
             }
-            var instance = (GISharp.GObject.Object)monitor;
+            var instance = (Object)monitor;
             var completion = new TaskCompletionSource<bool> ();
             Action<IntPtr, IntPtr, IntPtr> nativeCallback = (sourceObjectPtr, resultPtr, userDataPtr) => {
                 IntPtr errorPtr;

@@ -6,6 +6,8 @@ using NUnit.Framework;
 using GISharp.GObject;
 using GISharp.Runtime;
 
+using Object = GISharp.GObject.Object;
+
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
@@ -14,11 +16,11 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestReferences ()
         {
-            using (var o1 = new GISharp.GObject.Object ()) {
+            using (var o1 = new Object()) {
                 var handle = o1.Handle;
 
                 // getting an object that already exists should return that object
-                var o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.None);
+                var o2 = Object.GetInstance(handle, Transfer.None);
                 try {
                     Assert.That (ReferenceEquals (o1, o2), Is.True);
 
@@ -39,7 +41,7 @@ namespace GISharp.Core.Test.GObject
                     // Transfer.All means the new object takes ownership of the reference
                     // from the manual call to g_object_ref(), so we don't need to call
                     // g_object_unref() manually.
-                    o2 = Opaque.GetInstance<GISharp.GObject.Object> (handle, Transfer.Full);
+                    o2 = Object.GetInstance(handle, Transfer.Full);
                     Assert.That (ReferenceEquals (o1, o2), Is.False);
                 }
                 finally {
@@ -55,7 +57,7 @@ namespace GISharp.Core.Test.GObject
         {
             WeakReference weakRef = null;
 
-            new Action (() => weakRef = new WeakReference (new GISharp.GObject.Object ())).Invoke ();
+            new Action (() => weakRef = new WeakReference(new Object())).Invoke();
 
             // first make sure our testing method is sane and Object is really GC'ed
             GC.Collect ();
@@ -66,7 +68,7 @@ namespace GISharp.Core.Test.GObject
 
             IntPtr handle = IntPtr.Zero;
             new Action (() => {
-                var o = new GISharp.GObject.Object ();
+                var o = new Object();
                 weakRef = new WeakReference (o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
@@ -251,7 +253,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         // This will fail because it lacks the GTypeAttribute
-        class TestObject1 : GISharp.GObject.Object
+        class TestObject1 : Object
         {
         }
 
@@ -262,7 +264,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         [GType]
-        class TestObject3 : GISharp.GObject.Object
+        class TestObject3 : Object
         {
             public TestObject3 () : this (New<TestObject3> (), Transfer.Full)
             {
@@ -274,7 +276,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         [GType]
-        class TestObjectPropertiesBase : GISharp.GObject.Object
+        class TestObjectPropertiesBase : Object
         {
             [GTypeProperty]
             public int IntValue { get; set; }
@@ -337,7 +339,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         [GType]
-        class TestObjectSignal : GISharp.GObject.Object
+        class TestObjectSignal : Object
         {
             Action eventHappend;
             object eventHappendHandlerLock = new object ();

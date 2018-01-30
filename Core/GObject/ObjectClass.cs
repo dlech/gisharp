@@ -333,12 +333,8 @@ namespace GISharp.GObject
         static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             try {
-                var gcHandle = (GCHandle)Object.g_object_get_qdata (objPtr, Object.ToggleRefGCHandleQuark);
-                var obj = gcHandle.IsAllocated ? gcHandle.Target : null;
-                if (obj == null) {
-                    throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-                }
-                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+                var obj = Object.GetInstance(objPtr, Transfer.None);
+                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
 
                 var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
                 propInfo.SetValue (obj, value.Get ());
@@ -351,12 +347,8 @@ namespace GISharp.GObject
         static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
         {
             try {
-                var gcHandle = (GCHandle)Object.g_object_get_qdata (objPtr, Object.ToggleRefGCHandleQuark);
-                var obj = gcHandle.IsAllocated ? gcHandle.Target : null;
-                if (obj == null) {
-                    throw new ArgumentException ("Object has not been instantiated", nameof (objPtr));
-                }
-                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+                var obj = Object.GetInstance(objPtr, Transfer.None);
+                var pspec = ParamSpec.GetInstance (pspecPtr, Transfer.None);
 
                 var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
                 value.Set (propInfo.GetValue (obj));
@@ -369,8 +361,8 @@ namespace GISharp.GObject
         static void ManagedNotify (IntPtr object_, IntPtr pspec_)
         {
             try {
-                var obj = Opaque.GetInstance<Object> (object_, Transfer.None);
-                var pspec = Opaque.GetInstance<ParamSpec> (pspec_, Transfer.None);
+                var obj = Object.GetInstance(object_, Transfer.None);
+                var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
                 // FIXME
             } catch (Exception ex) {
                 ex.DumpUnhandledException ();
@@ -421,7 +413,7 @@ namespace GISharp.GObject
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_class_find_property (Handle, propertyName_);
-            var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
+            var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             GMarshal.Free (propertyName_);
             return ret;
         }

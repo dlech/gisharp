@@ -28,7 +28,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = Marshal.ReadIntPtr (Handle, (int)elementSpecOffset);
-                var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
+                var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
         }

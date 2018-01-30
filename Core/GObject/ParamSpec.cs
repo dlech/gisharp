@@ -20,6 +20,8 @@ namespace GISharp.GObject
     [GType ("GParam", IsProxyForUnmanagedType = true)]
     public class ParamSpec : TypeInstance
     {
+        static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
+
         static readonly IntPtr flagsOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Flags));
         static readonly IntPtr valueTypeOffset = Marshal.OffsetOf<Struct> (nameof(Struct.ValueType));
         static readonly IntPtr ownerTypeOffset = Marshal.OffsetOf<Struct> (nameof(Struct.OwnerType));
@@ -110,11 +112,16 @@ namespace GISharp.GObject
                 this.handle = g_param_spec_ref (handle);
             }
             g_param_spec_sink (this.handle);
+
+            // attach this managed instance to the unmanaged instanace
+            var data = (IntPtr)GCHandle.Alloc(this, GCHandleType.Weak);
+            g_param_spec_set_qdata_full(this.handle, managedProxyGCHandleQuark, data, freeQDataDelegate);
         }
 
         protected override void Dispose (bool disposing)
         {
             if (handle != IntPtr.Zero) {
+                g_param_spec_set_qdata(handle, managedProxyGCHandleQuark, IntPtr.Zero);
                 g_param_spec_unref (handle);
             }
             base.Dispose (disposing);
@@ -396,7 +403,7 @@ namespace GISharp.GObject
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_redirect_target (handle);
-                var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
+                var ret = GetInstance(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -477,6 +484,71 @@ namespace GISharp.GObject
             catch (Exception ex) {
                 ex.DumpUnhandledException ();
             }
+        }
+
+        /// <summary>
+        /// Gets a managed proxy for a an unmanged GParamSpec.
+        /// </summary>
+        /// <param name="handle">
+        /// The pointer to the unmanaged instance
+        /// </param>
+        /// <param name="ownership">
+        /// Indicates if we already have a reference to the unmanged instance
+        /// or not.
+        /// </param>
+        /// <returns>
+        /// A managed proxy instance
+        /// </returns>
+        /// <remarks>
+        /// This method tries to get an existing managed proxy instance by
+        /// looking for a GC handle attached to the unmanaged instance (using
+        /// QData). If one is found, it returns the existing managed instance,
+        /// otherwise a new instance is created.
+        /// </remarks>
+        public static new T GetInstance<T>(IntPtr handle, Transfer ownership) where T : ParamSpec
+        {
+            if (handle == IntPtr.Zero) {
+                return null;
+            }
+
+            // see if the unmanaged object has a managed GC handle
+            var ptr = g_param_spec_get_qdata(handle, managedProxyGCHandleQuark);
+            if (ptr != IntPtr.Zero) {
+                var gcHandle = (GCHandle)ptr;
+                if (gcHandle.IsAllocated) {
+                    // the GC handle looks good, so we should have the managed
+                    // proxy for the unmanged object here
+                    var target = (ParamSpec)gcHandle.Target;
+                    // make sure the managed object has not been disposed
+                    if (target.handle == handle) {
+                        // release the extra reference, if there is one
+                        if (ownership != Transfer.None) {
+                            g_param_spec_unref(handle);
+                        }
+                        // return the existing managed proxy
+                        return (T)(object)target;
+                    }
+                }
+            }
+
+            // if we get here, that means that there wasn't a viable existing
+            // proxy, so we need to create a new managed instance
+
+            // get the exact type of the object
+            ptr = Marshal.ReadIntPtr(handle);
+            var gtype = Marshal.PtrToStructure<GType>(ptr);
+            var type = GType.TypeOf(gtype);
+
+            return (T)Activator.CreateInstance(type, handle, ownership);
+        }
+
+        /// <summary>
+        /// Gets a managed proxy for a an unmanged GParamSpec.
+        /// </summary>
+        /// <seealso cref="GetInstance{T}"/>
+        public static ParamSpec GetInstance(IntPtr handle, Transfer ownership)
+        {
+            return GetInstance<ParamSpec>(handle, ownership);
         }
     }
 }

@@ -71,31 +71,26 @@ namespace GISharp.Runtime
             }
 
             if (typeof(GObject.Object).IsAssignableFrom (type)) {
-                var ptr = GObject.Object.g_object_get_qdata (handle, GObject.Object.ToggleRefGCHandleQuark);
-                if (ptr != IntPtr.Zero) {
-                    var gcHandle = (GCHandle)ptr;
-                    if (gcHandle.IsAllocated) {
-                        var target = (GObject.Object)gcHandle.Target;
-                        if (target.handle != IntPtr.Zero) {
-                            if (ownership != Transfer.None) {
-                                GObject.Object.g_object_unref (handle);
-                            }
-                            return (T)(object)target;
-                        }
-                    }
-                }
+                return (T)(object)GObject.Object.GetInstance(handle, ownership);
+            }
+
+            if (typeof(ParamSpec).IsAssignableFrom (type)) {
+                return (T)(object)ParamSpec.GetInstance(handle, ownership);
             }
 
             if (typeof (Source).IsAssignableFrom (type)) {
                 type = typeof (UnmanagedSource);
             }
-
-            if (typeof (TypeClass).IsAssignableFrom (type)) {
+            else if (typeof(TypeInstance).IsAssignableFrom(type)) {
+                var gclassPtr = Marshal.ReadIntPtr(handle);
+                var gtype = Marshal.PtrToStructure<GType>(gclassPtr);
+                type = gtype.GetGTypeStruct ();
+            }
+            else if (typeof(TypeClass).IsAssignableFrom(type)) {
                 var gtype = Marshal.PtrToStructure<GType> (handle);
                 type = gtype.GetGTypeStruct ();
             }
-
-            if (typeof(TypeInterface).IsAssignableFrom (type)) {
+            else if (typeof(TypeInterface).IsAssignableFrom(type)) {
                 var gtype = Marshal.PtrToStructure<GType> (handle);
                 type = gtype.GetGTypeStruct ();
             }

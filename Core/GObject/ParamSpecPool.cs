@@ -71,7 +71,7 @@ namespace GISharp.GObject
             var paramNamePtr = GMarshal.StringToUtf8Ptr (paramName);
             var retPtr = g_param_spec_pool_lookup (Handle, paramNamePtr, ownerType, walkAncestors);
             GMarshal.Free (paramNamePtr);
-            var ret = GetInstance<ParamSpec> (retPtr, Transfer.None);
+            var ret = ParamSpec.GetInstance(retPtr, Transfer.None);
             return ret;
         }
 

@@ -16,7 +16,7 @@ namespace GISharp.GObject
     [GTypeStruct (typeof (ObjectClass))]
     public class Object : TypeInstance, INotifyPropertyChanged
     {
-        internal static readonly Quark ToggleRefGCHandleQuark = Quark.FromString ("gisharp-gobject-toggle-ref-gc-handle-quark");
+        static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
         static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
 
         UnmanagedToggleNotify toggleNotifyDelegate;
@@ -50,7 +50,7 @@ namespace GISharp.GObject
 
             // always start with a strong reference to the managed object
             var gcHandle = GCHandle.Alloc (this);
-            g_object_set_qdata (handle, ToggleRefGCHandleQuark, (IntPtr)gcHandle);
+            g_object_set_qdata(handle, toggleRefGCHandleQuark, (IntPtr)gcHandle);
             g_object_add_toggle_ref (handle, toggleNotifyDelegate, IntPtr.Zero);
 
             // IntPtr always owns a reference so release it now that we have a toggle reference instead.
@@ -64,8 +64,8 @@ namespace GISharp.GObject
             if (handle != IntPtr.Zero) {
                 g_object_ref (handle);
                 g_object_remove_toggle_ref (handle, toggleNotifyDelegate, IntPtr.Zero);
-                var gcHandle = (GCHandle)g_object_get_qdata (handle, ToggleRefGCHandleQuark);
-                g_object_set_qdata(handle, ToggleRefGCHandleQuark, IntPtr.Zero);
+                var gcHandle = (GCHandle)g_object_get_qdata(handle, toggleRefGCHandleQuark);
+                g_object_set_qdata(handle, toggleRefGCHandleQuark, IntPtr.Zero);
                 gcHandle.Free ();
                 g_object_unref (handle);
             }
@@ -76,7 +76,7 @@ namespace GISharp.GObject
         static extern IntPtr g_object_ref (IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_object_unref (IntPtr @object);
+        static extern void g_object_unref(IntPtr @object);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_ref_sink (IntPtr @object);
@@ -91,13 +91,13 @@ namespace GISharp.GObject
         {
             try {
                 // free the existing GCHandle
-                var gcHandle = (GCHandle)g_object_get_qdata (@object, ToggleRefGCHandleQuark);
+                var gcHandle = (GCHandle)g_object_get_qdata(@object, toggleRefGCHandleQuark);
                 var obj = (Object)gcHandle.Target;
                 gcHandle.Free ();
 
                 // alloc a new GCHandle with weak/strong reference depending on isLastRef
                 gcHandle = GCHandle.Alloc (obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
-                g_object_set_qdata (@object, ToggleRefGCHandleQuark, (IntPtr)gcHandle);
+                g_object_set_qdata(@object, toggleRefGCHandleQuark, (IntPtr)gcHandle);
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException ();
@@ -121,8 +121,8 @@ namespace GISharp.GObject
         static void UnmanagedOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
             try {
-                var obj = GetInstance<Object> (gobjectPtr, Transfer.None);
-                var pspec = GetInstance<ParamSpec> (pspecPtr, Transfer.None);
+                var obj = GetInstance(gobjectPtr, Transfer.None);
+                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
                 var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
                 obj.OnPropertyChanged (propInfo.Name);
             }
@@ -336,7 +336,7 @@ namespace GISharp.GObject
             }
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
             var ret_ = g_object_interface_find_property (gIface, propertyName_);
-            var ret = GetInstance<ParamSpec> (ret_, Transfer.None);
+            var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             GMarshal.Free (propertyName_);
             return ret;
         }
@@ -1231,6 +1231,71 @@ namespace GISharp.GObject
             Quark quark,
             IntPtr data,
             UnmanagedDestroyNotify destroy);
+
+        /// <summary>
+        /// Gets a managed proxy for a an unmanged GObject.
+        /// </summary>
+        /// <param name="handle">
+        /// The pointer to the unmanaged instance
+        /// </param>
+        /// <param name="ownership">
+        /// Indicates if we already have a reference to the unmanged instance
+        /// or not.
+        /// </param>
+        /// <returns>
+        /// A managed proxy instance
+        /// </returns>
+        /// <remarks>
+        /// This method tries to get an existing managed proxy instance by
+        /// looking for a GC handle attached to the unmanaged instance (using
+        /// QData). If one is found, it returns the existing managed instance,
+        /// otherwise a new instance is created.
+        /// </remarks>
+        public static new T GetInstance<T>(IntPtr handle, Transfer ownership) where T : Object
+        {
+            if (handle == IntPtr.Zero) {
+                return null;
+            }
+
+            // see if the unmanaged object has a managed GC handle
+            var ptr = g_object_get_qdata(handle, toggleRefGCHandleQuark);
+            if (ptr != IntPtr.Zero) {
+                var gcHandle = (GCHandle)ptr;
+                if (gcHandle.IsAllocated) {
+                    // the GC handle looks good, so we should have the managed
+                    // proxy for the unmanged object here
+                    var target = (Object)gcHandle.Target;
+                    // make sure the managed object has not been disposed
+                    if (target.handle == handle) {
+                        // release the extra reference, if there is one
+                        if (ownership != Transfer.None) {
+                            g_object_unref(handle);
+                        }
+                        // return the existing managed proxy
+                        return (T)(object)target;
+                    }
+                }
+            }
+
+            // if we get here, that means that there wasn't a viable existing
+            // proxy, so we need to create a new managed instance
+
+            // get the exact type of the object
+            ptr = Marshal.ReadIntPtr(handle);
+            var gtype = Marshal.PtrToStructure<GType>(ptr);
+            var type = GType.TypeOf(gtype);
+
+            return (T)Activator.CreateInstance(type, handle, ownership);
+        }
+
+        /// <summary>
+        /// Gets a managed proxy for a an unmanged GObject.
+        /// </summary>
+        /// <seealso cref="GetInstance{T}"/>
+        public static Object GetInstance(IntPtr handle, Transfer ownership)
+        {
+            return GetInstance<Object>(handle, ownership);
+        }
     }
 
     /// <summary>
