@@ -17,13 +17,17 @@ namespace GISharp.GObject
             public IntPtr GClass;
         }
 
-        internal IntPtr GClass {
+        protected ObjectClass GClass {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle);
-                return ret;
+                if (_GClass == null) {
+                    var ptr = Marshal.ReadIntPtr(Handle);
+                    _GClass = new ObjectClass(ptr, Transfer.None);
+                }
+                return _GClass;
             }
         }
+        ObjectClass _GClass;
 
         protected TypeInstance (IntPtr handle) : base (handle)
         {

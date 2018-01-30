@@ -860,35 +860,34 @@ namespace GISharp.GObject
             ref Value value);
 
         /// <summary>
-        /// Gets a property of an object. @value must have been initialized to the
-        /// expected type of the property (or a type to which the expected type can be
-        /// transformed) using g_value_init().
+        /// Gets a property of an object.
         /// </summary>
-        /// <remarks>
-        /// In general, a copy is made of the property contents and the caller is
-        /// responsible for freeing the memory by calling g_value_unset().
-        ///
-        /// Note that g_object_get_property() is really intended for language
-        /// bindings, g_object_get() is much more convenient for C programming.
-        /// </remarks>
         /// <param name="propertyName">
-        /// the name of the property to get
+        /// the GType system name of the property to get
         /// </param>
         /// <returns>
         /// the property value
         /// </returns>
-        public Value GetProperty (string propertyName, GType type)
+        /// <exception cref="ArgumentNullException">
+        /// Throw when <paramref name="propertyName"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Throw when <paramref name="propertyName"/> is not a valid property name
+        /// </exception>
+        public object GetProperty(string propertyName)
         {
             AssertNotDisposed ();
-            if (propertyName == null) {
-                throw new ArgumentNullException (nameof (propertyName));
+            var pspec = GClass.FindProperty(propertyName);
+            if (pspec == null) {
+                var message = $"No such property \"{propertyName}\"";
+                throw new ArgumentException(message, nameof(propertyName));
             }
-            var value = new Value (type);
-            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_get_property (handle, propertyName_, ref value);
-            GMarshal.Free (propertyName_);
+            var value = new Value(pspec.ValueType);
+            g_object_get_property(handle, pspec.Name.Handle, ref value);
+            var ret = value.Get();
+            value.Unset();
 
-            return value;
+            return ret;
         }
 
         /// <summary>

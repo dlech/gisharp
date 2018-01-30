@@ -365,15 +365,18 @@ namespace GISharp.GObject
             IntPtr propertyName);
 
         /// <summary>
-        /// Looks up the #GParamSpec for a property of a class.
+        /// Looks up the <see cref="ParamSpec"/> for a property of a class.
         /// </summary>
         /// <param name="propertyName">
         /// the name of the property to look up
         /// </param>
         /// <returns>
-        /// the #GParamSpec for the property, or
-        ///          %NULL if the class doesn't have a property of that name
+        /// the <see cref="ParamSpec"/> for the property, or
+        /// <c>null</c> if the class doesn't have a property of that name
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// Throw when <paramref name="propertyName"/> is <c>null</c>
+        /// </exception>
         public ParamSpec FindProperty (string propertyName)
         {
             if (propertyName == null) {

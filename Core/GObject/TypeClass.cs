@@ -27,7 +27,8 @@ namespace GISharp.GObject
         public TypeClass (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                throw new NotSupportedException ();
+                var gtype = Marshal.PtrToStructure<GType>(handle);
+                g_type_class_ref(gtype);
             }
         }
 

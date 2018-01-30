@@ -26,11 +26,11 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
-        public void TestProperty ()
+        public void TestProperty()
         {
-            using (var obj = new TestNetworkMonitor ()) {
-                var value = obj.GetProperty ("connectivity", GType.Int);
-                Assert.That (value.Get (), Is.EqualTo (1));
+            using (var obj = new TestNetworkMonitor()) {
+                var value = obj.GetProperty("connectivity");
+                Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
             }
         }
 
@@ -83,11 +83,7 @@ namespace GISharp.Core.Test.GObject
             }
         }
 
-        public int Connectivity {
-            get {
-                return 1;
-            }
-        }
+        public NetworkConnectivity Connectivity => NetworkConnectivity.Local;
 
         public bool NetworkAvailable {
             get {

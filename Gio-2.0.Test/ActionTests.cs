@@ -17,7 +17,7 @@ namespace GISharp.Gio.Test
             var obj = new ActionImpl ();
 
             Assert.That (obj.Enabled, Is.True);
-            Assert.That ((bool)obj.GetProperty ("enabled", GType.Boolean), Is.True);
+            Assert.That(obj.GetProperty("enabled"), Is.True);
         }
 
         [Test]
@@ -26,7 +26,7 @@ namespace GISharp.Gio.Test
             var obj = new ActionImpl ();
 
             Assert.That (obj.Name, Is.EqualTo ("TestActionName"));
-            Assert.That ((string)obj.GetProperty ("name", GType.String), Is.EqualTo ("TestActionName"));
+            Assert.That(obj.GetProperty("name"), Is.EqualTo("TestActionName"));
         }
 
         [Test]
@@ -35,7 +35,7 @@ namespace GISharp.Gio.Test
             var obj = new ActionImpl ();
 
             Assert.That (obj.ParameterType, Is.EqualTo (VariantType.Int32));
-            Assert.That ((VariantType)obj.GetProperty ("parameter-type", typeof(VariantType).GetGType ()).Get (), Is.EqualTo (VariantType.Int32));
+            Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Int32));
         }
 
         [Test]
@@ -44,7 +44,7 @@ namespace GISharp.Gio.Test
             var obj = new ActionImpl ();
 
             Assert.That ((int)obj.State, Is.EqualTo (2));
-            Assert.That ((int)(Variant)obj.GetProperty ("state", GType.Variant), Is.EqualTo (2));
+            Assert.That((int)obj.GetProperty ("state"), Is.EqualTo(2));
         }
 
         [Test]
@@ -53,7 +53,7 @@ namespace GISharp.Gio.Test
             var obj = new ActionImpl ();
 
             Assert.That (obj.StateType, Is.EqualTo (VariantType.Int32));
-            Assert.That ((VariantType)obj.GetProperty ("state-type", typeof(VariantType).GetGType ()).Get (), Is.EqualTo (VariantType.Int32));
+            Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
         }
 
         [Test]

@@ -138,14 +138,35 @@ namespace GISharp.Core.Test
         void OnNetworkChanged (bool available);
 
         [GTypeProperty ("connectivity")]
-        int Connectivity { get; }
+        NetworkConnectivity Connectivity { get; }
         [GTypeProperty ("network-available")]
         bool NetworkAvailable { get; }
         [GTypeProperty ("network-metered")]
         bool NetworkMetered { get; }
 
-        [GTypeSignal ("network-changed")]
+        [GTypeSignal("network-changed", When = EmissionStage.Last)]
+        [Since("2.32")]
         event Action<bool> NetworkChanged;
+    }
+
+    [GType ("GNetworkConnectivity", IsProxyForUnmanagedType = true)]
+    public enum NetworkConnectivity
+    {
+        Local = 1,
+        Limited = 2,
+        Portal = 3,
+        Full = 4,
+    }
+
+    public static class NetworkConnectivityExtensions
+    {
+        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_network_connectivity_get_type();
+
+        static GType getGType()
+        {
+            return g_network_connectivity_get_type();
+        }
     }
 
     sealed class NetworkMonitorInterface : TypeInterface

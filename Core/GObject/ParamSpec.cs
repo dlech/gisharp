@@ -240,12 +240,15 @@ namespace GISharp.GObject
         /// </returns>
         public InternString Name {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_param_spec_get_name (handle);
-                var ret = new InternString (ret_, Transfer.None);
-                return ret;
+                AssertNotDisposed();
+                if (_Name == null) {
+                    var ptr = g_param_spec_get_name(handle);
+                    _Name = new InternString(ptr, Transfer.None);
+                }
+                return _Name;
             }
         }
+        InternString _Name;
 
         /// <summary>
         /// Gets the GQuark for the name.
