@@ -144,7 +144,7 @@ namespace GISharp.Core.Test
         [GTypeProperty ("network-metered")]
         bool NetworkMetered { get; }
 
-        [GTypeSignal("network-changed", When = EmissionStage.Last)]
+        [GSignal("network-changed", When = EmissionStage.Last)]
         [Since("2.32")]
         event Action<bool> NetworkChanged;
     }

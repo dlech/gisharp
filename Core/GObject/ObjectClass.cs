@@ -258,20 +258,55 @@ namespace GISharp.GObject
                         continue;
                     }
 
-                    var signalAttr = eventInfo.GetCustomAttribute<GTypeSignalAttribute> (true);
+                    var signalAttr = eventInfo.GetCustomAttribute<GSignalAttribute>(true);
                     if (signalAttr == null) {
                         // events without SignalAttribute are not installed
                         continue;
                     }
-                    // TODO: convert eventInfo.Name to a more glib friendly name?
-                    // e.g. "MyEvent" becomes "my-event"
+
+                    // figure out the name
+
                     var name = signalAttr.Name ?? eventInfo.Name;
+                    Signal.ValidateName(name);
+
+                    // figure out the flags
 
                     var flags = default(SignalFlags);
-                    // TODO: which flags do we need to set?
+
+                    switch (signalAttr.When) {
+                    case EmissionStage.First:
+                        flags |= SignalFlags.RunFirst;
+                        break;
+                    case EmissionStage.Last:
+                    default:
+                        flags |= SignalFlags.RunLast;
+                        break;
+                    case EmissionStage.Cleanup:
+                        flags |= SignalFlags.RunCleanup;
+                        break;
+                    }
+
+                    if (signalAttr.NoRecurse) {
+                        flags |= SignalFlags.NoRecurse;
+                    }
+
+                    if (signalAttr.Detailed) {
+                        flags |= SignalFlags.Detailed;
+                    }
+
+                    if (signalAttr.Action) {
+                        flags |= SignalFlags.Action;
+                    }
+
+                    if (signalAttr.NoHooks) {
+                        flags |= SignalFlags.NoHooks;
+                    }
+
                     if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
                         flags |= SignalFlags.Deprecated;
                     }
+
+                    // figure out the parameter types
 
                     var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
                     var returnGType = methodInfo.ReturnType.GetGType ();
@@ -280,6 +315,8 @@ namespace GISharp.GObject
                     for (int i = 0; i < parameters.Length; i++) {
                         parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
                     }
+
+                    // register the signal
 
                     var namePtr = GMarshal.StringToUtf8Ptr (name);
                     var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);

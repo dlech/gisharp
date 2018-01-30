@@ -1,6 +1,8 @@
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text.RegularExpressions;
+
 using GISharp.Runtime;
 using GISharp.GLib;
 
@@ -10,6 +12,35 @@ namespace GISharp.GObject
 {
     public static class Signal
     {
+        static Regex signalNameRegex = new Regex("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$", RegexOptions.CultureInvariant);
+
+        ///<summary>
+        /// Tests if a signal name is valid.
+        /// </summary>
+        /// <remarks>
+        /// A signal name consists of segments consisting of ASCII letters and
+        /// digits, separated by either the '-' or '_' character. The first
+        /// character of a signal name must be a letter. Names which violate
+        /// these rules lead to undefined behavior of the GSignal system.
+        ///
+        /// When registering a signal and looking up a signal, either separator
+        /// can be used, but they cannot be mixed.
+        /// </remarks>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown if <paramref name="name"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Thrown if <paramref name="name"/> does not meet the criteria
+        /// specified in the remarks.
+        /// </exception>
+        public static void ValidateName(string name)
+        {
+            if (!signalNameRegex.IsMatch(name)) {
+                var msg = "does not meet GSignal name criteria";
+                throw new ArgumentException(msg, nameof(name));
+            }
+        }
+
         /// <summary>
         /// Adds an emission hook for a signal, which will get called for any emission
         /// of that signal, independent of the instance. This is possible only

@@ -327,7 +327,7 @@ namespace GISharp.Core.Test.GObject
             object eventHappendHandlerLock = new object ();
             SignalHandler eventHappendedHandler;
 
-            [GTypeSignal]
+            [GSignal]
             public event Action EventHappened {
                 add {
                     lock (eventHappendHandlerLock) {
