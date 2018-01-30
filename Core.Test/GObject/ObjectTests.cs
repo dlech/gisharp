@@ -112,15 +112,13 @@ namespace GISharp.Core.Test.GObject
             using (var obj = new TestObjectPropertiesBase ()) {
                 // check if setting properties from unmanged code works
                 Assume.That (obj.IntValue, Is.EqualTo (0));
-                var value = new Value (GType.Int, 1);
-                obj.SetProperty (nameof (obj.IntValue), value);
+                obj.SetProperty(nameof(obj.IntValue), 1);
                 Assert.That (obj.IntValue, Is.EqualTo (1));
 
                 // also make sure that non-GTypes get boxed
                 Assume.That (obj.ObjectProperty, Is.Null);
                 var expectedObj = new object ();
-                var objValue = new Value (typeof(object), expectedObj);
-                obj.SetProperty (nameof (obj.ObjectProperty), objValue);
+                obj.SetProperty(nameof(obj.ObjectProperty), expectedObj);
                 Assert.That (obj.ObjectProperty, Is.SameAs (expectedObj));
             }
         }
@@ -132,8 +130,7 @@ namespace GISharp.Core.Test.GObject
                 // the new keyword does not override a property, just hides it...
 
                 Assume.That (obj.IntValue, Is.EqualTo (0));
-                var intValue = new Value (GType.Int, 1);
-                obj.SetProperty (nameof (obj.IntValue), intValue);
+                obj.SetProperty(nameof(obj.IntValue), 1);
                 Assert.That (obj.IntValue, Is.EqualTo (1));
 
                 Assert.That (((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo (0));
@@ -149,8 +146,7 @@ namespace GISharp.Core.Test.GObject
                     // But the override keyword replaces property...
 
                     Assume.That (obj.BoolValue, Is.False);
-                    var value = new Value (GType.Boolean, true);
-                    obj.SetProperty ("bool-value", value);
+                    obj.SetProperty("bool-value", true);
                     Assert.That (obj.BoolValue, Is.True);
 
                     Assert.That (((TestObjectPropertiesBase)obj).BoolValue, Is.True);
@@ -181,8 +177,7 @@ namespace GISharp.Core.Test.GObject
 
                 // likewise, setting the property from unmanged code should not
                 // trigger a change either
-                var intValue = new Value (GType.Int, 1);
-                obj.SetProperty (nameof(obj.IntValue), intValue);
+                obj.SetProperty(nameof(obj.IntValue), 1);
                 Assert.That (notificationCount, Is.EqualTo (0));
 
                 // DoubleValue does notify
@@ -191,8 +186,7 @@ namespace GISharp.Core.Test.GObject
 
                 // also make sure changing the property from unmanged code
                 // notifies and that it only notifies once
-                var doubleValue = new Value (GType.Double, 1.0);
-                obj.SetProperty (nameof(obj.DoubleValue), doubleValue);
+                obj.SetProperty(nameof(obj.DoubleValue), 1.0);
                 Assert.That (notificationCount, Is.EqualTo (2));
             }
         }

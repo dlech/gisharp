@@ -1099,15 +1099,24 @@ namespace GISharp.GObject
         /// <param name="value">
         /// the value
         /// </param>
-        public void SetProperty (string propertyName, Value value)
+        /// <exception cref="ArgumentNullException">
+        /// Throw when <paramref name="propertyName"/> is <c>null</c>
+        /// </exception>
+        /// <exception cref="ArgumentException">
+        /// Throw when <paramref name="propertyName"/> is not a valid property name
+        /// </exception>
+        public void SetProperty(string propertyName, object value)
         {
-            AssertNotDisposed ();
-            if (propertyName == null) {
-                throw new ArgumentNullException (nameof (propertyName));
+            AssertNotDisposed();
+            var pspec = GClass.FindProperty(propertyName);
+            if (pspec == null) {
+                var message = $"No such property \"{propertyName}\"";
+                throw new ArgumentException(message, nameof(propertyName));
             }
-            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_set_property (handle, propertyName_, ref value);
-            GMarshal.Free (propertyName_);
+            var value_ = new Value(pspec.ValueType);
+            value_.Set(value);
+            g_object_set_property(handle, pspec.Name.Handle, ref value_);
+            value_.Unset();
         }
 
         /// <summary>
