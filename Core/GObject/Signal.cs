@@ -407,7 +407,14 @@ namespace GISharp.GObject
             }
 
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            UnmanagedCallback nativeHandler = () => handler ();
+            UnmanagedCallback nativeHandler = () => {
+                try {
+                    handler ();
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException();
+                }
+            };
             var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<UnmanagedCallback> (nativeHandler);
             var data = (IntPtr)GCHandle.Alloc (nativeHandler);
             var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, destroyConnectDataDelegate, connectFlags);
