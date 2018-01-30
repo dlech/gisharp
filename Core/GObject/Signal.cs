@@ -1073,8 +1073,8 @@ namespace GISharp.GObject
             bool forceDetailQuark);
 
         /// <summary>
-        /// Internal function to parse a signal name into its @signal_id
-        /// and @detail quark.
+        /// Internal function to parse a signal name into its <paramref name="signalId"/>
+        /// and <paramref name="detail"/> quark.
         /// </summary>
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
@@ -1082,27 +1082,53 @@ namespace GISharp.GObject
         /// <param name="itype">
         /// The interface/instance type that introduced "signal-name".
         /// </param>
-        /// <param name="signalIdP">
+        /// <param name="signalId">
         /// Location to store the signal id.
         /// </param>
-        /// <param name="detailP">
+        /// <param name="detail">
         /// Location to store the detail quark.
         /// </param>
         /// <param name="forceDetailQuark">
-        /// %TRUE forces creation of a #GQuark for the detail.
+        /// <c>true</c> forces creation of a <see cref="Quark"/> for the detail.
         /// </param>
         /// <returns>
-        /// Whether the signal name could successfully be parsed and @signal_id_p and @detail_p contain valid return values.
+        /// Whether the signal name could successfully be parsed and
+        /// <paramref name="signalId"/> and <paramref name="detail"/> contain
+        /// valid return values.
         /// </returns>
-        public static bool ParseName (string detailedSignal, GType itype, out uint signalIdP, out Quark detailP, bool forceDetailQuark)
+        public static bool TryParseName(string detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
             if (detailedSignal == null) {
                 throw new ArgumentNullException (nameof (detailedSignal));
             }
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            var ret = g_signal_parse_name (detailedSignal_, itype, out signalIdP, out detailP, forceDetailQuark);
+            var ret = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
             GMarshal.Free (detailedSignal_);
             return ret;
+        }
+
+        /// <summary>
+        /// Internal function to parse a signal name into its signal id
+        /// and detail quark.
+        /// </summary>
+        /// <param name="detailedSignal">
+        /// a string of the form "signal-name::detail".
+        /// </param>
+        /// <param name="itype">
+        /// The interface/instance type that introduced "signal-name".
+        /// </param>
+        /// <param name="forceDetailQuark">
+        /// <c>true</c> forces creation of a <see cref="Quark"/> for the detail.
+        /// </param>
+        /// <returns>
+        /// A tuple containing the signal id and detail quark.
+        /// </returns>
+        public static ValueTuple<uint, Quark> ParseName(string detailedSignal, GType itype, bool forceDetailQuark = false)
+        {
+            if (TryParseName(detailedSignal, itype, out var signalId, out var detail, forceDetailQuark)) {
+                return (signalId, detail);
+            }
+            throw new ArgumentException("matching signal could not be found");
         }
 
         /// <summary>

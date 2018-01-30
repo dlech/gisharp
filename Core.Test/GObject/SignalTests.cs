@@ -29,6 +29,40 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
+        public void TestParseName()
+        {
+            var id = Signal.TryLookup("notify", GType.Object);
+            Assume.That(id, Is.Not.Zero);
+
+            uint signalId;
+            Quark detail;
+
+            // try a real signal name
+            if (Signal.TryParseName("notify", GType.Object, out signalId, out detail)) {
+                Assert.That(signalId, Is.EqualTo(id));
+                Assert.That(detail, Is.EqualTo(Quark.Zero));
+            }
+            else {
+                Assert.Fail("Should have returned true");
+            }
+
+            // again with the exception throwing version
+            (signalId, detail) = Signal.ParseName("notify", GType.Object);
+            Assert.That(signalId, Is.EqualTo(id));
+            Assert.That(detail, Is.EqualTo(Quark.Zero));
+
+            // A bad signal name returns false
+            if (Signal.TryParseName("does-not-exist", GType.Object, out signalId, out detail)) {
+                Assert.Fail("Should have returned false");
+            }
+
+            // again with the exception throwing version
+            Assert.That(() => Signal.ParseName("does-not-exist", GType.Object), Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
+        }
+
+        [Test]
         public void TestStopEmission()
         {
             bool stopEmission = false;
