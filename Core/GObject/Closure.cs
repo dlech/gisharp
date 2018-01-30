@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -187,10 +188,10 @@ namespace GISharp.GObject
         /// <returns>
         /// a newly allocated #GClosure
         /// </returns>
-        public Closure (Func<Value[], Value> callback, GISharp.GObject.Object @object)
-            : this (NewObject ((uint)Marshal.SizeOf<Struct> (), @object), Transfer.None)
+        public Closure(Func<object[], object> callback, GISharp.GObject.Object @object)
+            : this(NewObject((uint)Marshal.SizeOf<ManagedClosure> (), @object), Transfer.None)
         {
-            SetCallback (callback);
+            SetCallback(callback, ManagedClosureFuncCallback);
         }
 
         /// <summary>
@@ -262,106 +263,61 @@ namespace GISharp.GObject
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
-        public Closure (Func<Value[], Value> callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
+        public Closure (Func<object[], object> callback)
+            : this(NewSimple ((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
-            SetCallback (callback);
+            SetCallback(callback, ManagedClosureFuncCallback);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
-        public Closure (Action<Value[]> callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
+        public Closure (Action<object[]> callback)
+            : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
-            SetCallback (callback);
+            SetCallback(callback, ManagedClosureActionCallback);
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:Closure"/> class.
         /// </summary>
         public Closure (Action callback)
-            : this (NewSimple ((uint)Marshal.SizeOf<Struct> (), IntPtr.Zero), Transfer.None)
+            : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
-            SetCallback (callback);
+            SetCallback(callback, ManagedClosureVoidActionCallback);
         }
 
-        void SetCallback (Func<Value[], Value> callback)
+        void SetCallback (Delegate callback, ClosureMarshal callbackWrapper)
         {
-            if (callback == null) {
-                throw new ArgumentNullException (nameof (callback));
+            var gcHandle = GCHandle.Alloc(callback, GCHandleType.Weak);
+            Marshal.WriteIntPtr(handle, (int)callbackGCHandleOffset, (IntPtr)gcHandle);
+            var (callback_, notify_, userData_) = UnmanagedClosureMarshalDelegateFactory.CreateNotifyDelegate(callbackWrapper);
+            g_closure_set_meta_marshal(handle, userData_, callback_);
+            g_closure_add_invalidate_notifier(handle, userData_, notify_);
             }
-            var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalFuncDelagate);
-            g_closure_add_invalidate_notifier (handle, callbackPtr, freeCallbackDelegate);
+
+        static void ManagedClosureFuncCallback(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHintPtr)
+        {
+            var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
+            var callback = (Func<object[], object>)gcHandle.Target;
+            var paramObjs = paramValues.Select(p => p.Get()).ToArray();
+            var ret = callback(paramObjs);
+            returnValue.Set(ret);
+            }
+
+        static void ManagedClosureActionCallback(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHintPtr)
+        {
+            var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
+            var callback = (Action<object[]>)gcHandle.Target;
+            var paramObjs = paramValues.Select(p => p.Get()).ToArray();
+            callback(paramObjs);
         }
 
-        static readonly UnmanagedClosureMarshal nativeMarshalFuncDelagate = UnmanagedMarshalFunc;
-
-        static void UnmanagedMarshalFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
+        static void ManagedClosureVoidActionCallback(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
-            try {
-                var callback = (Func<Value[], Value>)GCHandle.FromIntPtr (marshalDataPtr).Target;
-                returnValue = callback.Invoke (paramValues);
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
-        }
-
-        void SetCallback (Action<Value[]> callback)
-        {
-            var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalNoReturnFuncDelegate);
-            g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
-        }
-
-        static readonly UnmanagedClosureMarshal nativeMarshalNoReturnFuncDelegate = UnmanagedMarshalNoReturnFunc;
-
-        static void UnmanagedMarshalNoReturnFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
-        {
-            try {
-                var callback = (Action<Value[]>)GCHandle.FromIntPtr (marshalDataPtr).Target;
-                callback.Invoke (paramValues);
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
-        }
-
-        void SetCallback (Action callback)
-        {
-            var callbackPtr = (IntPtr)GCHandle.Alloc (callback);
-            g_closure_set_meta_marshal (handle, callbackPtr, nativeMarshalNoArgsFuncDelegate);
-            g_closure_add_finalize_notifier (handle, callbackPtr, freeCallbackDelegate);
-        }
-
-        static readonly UnmanagedClosureMarshal nativeMarshalNoArgsFuncDelegate = UnmanagedMarshalNoArgsFunc;
-
-        static void UnmanagedMarshalNoArgsFunc (IntPtr closurePtr, ref Value returnValue, uint nParamValues,
-            Value[] paramValues, IntPtr invocationHintPtr, IntPtr marshalDataPtr)
-        {
-            try {
-                var callback = (Action)GCHandle.FromIntPtr (marshalDataPtr).Target;
-                callback.Invoke ();
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
-        }
-
-        static readonly UnmanagedClosureNotify freeCallbackDelegate = FreeCallback;
-
-        static void FreeCallback (IntPtr dataPtr, IntPtr closurePtr)
-        {
-            try {
-                GCHandle.FromIntPtr (dataPtr).Free ();
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
+            var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
+            var callback = (Action)gcHandle.Target;
+            callback();
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -554,7 +510,7 @@ namespace GISharp.GObject
             IntPtr closure,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            out Value returnValue,
+            ref Value returnValue,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint nParamValues,
@@ -576,16 +532,24 @@ namespace GISharp.GObject
         /// invoke the callback of this closure
         /// </param>
         /// <returns>The return value of the closure invocation</returns>
-        public Value Invoke (params Value[] paramValues)
+        public T Invoke<T>(params object[] paramValues)
         {
             AssertNotDisposed ();
             if (paramValues == null) {
                 throw new ArgumentNullException (nameof (paramValues));
             }
-            Value returnValue;
-            g_closure_invoke (handle, out returnValue, (uint)paramValues.Length, paramValues, IntPtr.Zero);
 
-            return returnValue;
+            var returnValue = new Value(GType.TypeOf<T>());
+            var values = paramValues.Select(p => new Value(p?.GetType(), p)).ToArray();
+            g_closure_invoke(handle, ref returnValue, (uint)values.Length, values, IntPtr.Zero);
+            foreach (var v in values) {
+                v.Unset();
+            }
+
+            var ret = returnValue.Get();
+            returnValue.Unset();
+
+            return (T)ret;
         }
 
         /// <summary>
@@ -712,5 +676,17 @@ namespace GISharp.GObject
             /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
             /* transfer-ownership:none */
             UnmanagedClosureMarshal metaMarshal);
+
+        struct ManagedClosure
+        {
+            #pragma warning disable CS0649
+            public Struct Closure;
+            public IntPtr ManagedClosureGCHandle;
+            public IntPtr CallbackGCHandle;
+            #pragma warning restore CS0649
+        }
+
+        static IntPtr managedClosureGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.ManagedClosureGCHandle));
+        static IntPtr callbackGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.CallbackGCHandle));
     }
 }

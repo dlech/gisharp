@@ -8,23 +8,23 @@ namespace GISharp.Core.Test.GObject
     public class ClosureTests
     {
         [Test]
-        public void TestInvoke ()
+        public void TestInvoke()
         {
             var callbackInvoked = false;
 
-            Func<Value[], Value> callback = (arg) => {
-                Assert.That (arg.Length, Is.EqualTo (2));
-                Assert.That ((int)arg[0], Is.EqualTo (1));
-                Assert.That ((string)arg[1], Is.EqualTo ("string"));
+            Func<object[], object> callback = (arg) => {
+                Assert.That(arg.Length, Is.EqualTo(2));
+                Assert.That(arg[0], Is.EqualTo(1));
+                Assert.That(arg[1], Is.EqualTo("string"));
                 callbackInvoked = true;
 
-                return (Value)true;
+                return true;
             };
-            using (var closure = new Closure (callback)) {
-                var ret = closure.Invoke ((Value)1, (Value)"string");
+            using (var closure = new Closure(callback)) {
+                var ret = closure.Invoke<bool>(1, "string");
 
-                Assert.That (callbackInvoked, Is.True);
-                Assert.That ((bool)ret, Is.True);
+                Assert.That(callbackInvoked, Is.True);
+                Assert.That(ret, Is.True);
             }
 
             Utility.AssertNoGLibLog();

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.GObject
 {
@@ -77,6 +78,11 @@ namespace GISharp.GObject
     /// <summary>
     /// The type used for marshaller functions.
     /// </summary>
+    public delegate void ClosureMarshal (Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHint);
+
+    /// <summary>
+    /// The type used for marshaller functions.
+    /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     delegate void UnmanagedClosureMarshal (
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
@@ -100,6 +106,58 @@ namespace GISharp.GObject
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
+
+    static class UnmanagedClosureMarshalDelegateFactory
+    {
+        class UnmanagedClosureMarshalData {
+            public ClosureMarshal ClosureMarshal;
+            public UnmanagedClosureMarshal UnmanagedClosureMarshal;
+            public UnmanagedClosureNotify UnmanagedClosureNotify;
+        }
+
+        public static ValueTuple<UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr> CreateNotifyDelegate(ClosureMarshal closureMarshal)
+        {
+            if (closureMarshal == null) {
+                throw new ArgumentNullException(nameof(closureMarshal));
+            }
+            var userData = new UnmanagedClosureMarshalData {
+                ClosureMarshal = closureMarshal,
+                UnmanagedClosureMarshal = UnmanagedClosureMarshal,
+                UnmanagedClosureNotify = UnmanagedClosureNotify,
+            };
+            var userData_ = GCHandle.Alloc(userData);
+
+            return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
+        }
+
+        static void UnmanagedClosureMarshal(IntPtr closure_, ref Value returnValue_, uint nParamValues_, Value[] paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
+        {
+            try {
+                var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);
+                SignalInvocationHint? invocationHint = null;
+                if (invocationHint_ != IntPtr.Zero) {
+                    invocationHint = Marshal.PtrToStructure<SignalInvocationHint>(invocationHint_);
+                }
+                var gcHandle = (GCHandle)marshalData_;
+                var marshalData = (UnmanagedClosureMarshalData)gcHandle.Target;
+                marshalData.ClosureMarshal(closure, ref returnValue_, paramValues_, invocationHint);
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+            }
+        }
+
+        static void UnmanagedClosureNotify(IntPtr data_, IntPtr closure_)
+        {
+            try {
+                var gcHandle = (GCHandle)data_;
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+            }
+        }
+    }
 
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate bool UnmanagedBindingTransformFunc (
