@@ -11,11 +11,8 @@ public class Setup
 {
     static void LogToTestContext (string logDomain, LogLevelFlags logLevel, string message)
     {
-        try {
-            TestContext.WriteLine($"({logDomain}) {logLevel}: {message}");
-        } catch (Exception) {
-            // we tried.
-        }
+        TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
+        TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
     }
 
     [OneTimeSetUp]
@@ -23,6 +20,6 @@ public class Setup
     {
         Utility.ApplicationName = "Core Test";
         Utility.ProgramName = "Core.Test";
-        // Log.SetDefaultHandler (LogToTestContext);
+        Log.SetDefaultHandler(LogToTestContext);
     }
 }
