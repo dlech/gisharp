@@ -525,7 +525,9 @@ namespace GISharp.GObject
                 if (query.ReturnType == GType.None) {
                     return null;
                 }
-                return returnValue.Get();
+                var ret = returnValue.Get();
+                returnValue.Unset();
+                return ret;
             }
         }
 
