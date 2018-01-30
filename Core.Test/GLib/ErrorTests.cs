@@ -14,6 +14,8 @@ namespace GISharp.Core.Test.GLib
             var gtype = typeof (Error).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GError"));
+
+            Utility.AssertNoGLibLog();
         }
 
         static Quark ErrorQuark {

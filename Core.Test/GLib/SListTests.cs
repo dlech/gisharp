@@ -16,6 +16,8 @@ namespace GISharp.Core.Test.GLib
             using (var list = new SList<OpaqueInt> ()) {
                 Assert.That (list, Is.Not.Null);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -26,6 +28,8 @@ namespace GISharp.Core.Test.GLib
                 list.Append (null);
                 Assert.That (list.Length, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -36,6 +40,8 @@ namespace GISharp.Core.Test.GLib
                 list.Prepend (null);
                 Assert.That (list.Length, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -46,6 +52,8 @@ namespace GISharp.Core.Test.GLib
                 list.Insert (null, 0);
                 Assert.That (list.Length, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -56,6 +64,8 @@ namespace GISharp.Core.Test.GLib
                 list.InsertBefore (null, null);
                 Assert.That (list.Length, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -80,6 +90,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => list.InsertSorted (new OpaqueInt (4), null),
                     Throws.ArgumentNullException);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -91,6 +103,8 @@ namespace GISharp.Core.Test.GLib
                 list.Remove (null);
                 Assert.That (list.Length, Is.EqualTo (0));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -102,6 +116,8 @@ namespace GISharp.Core.Test.GLib
                 list.RemoveAll (null);
                 Assert.That (list.Length, Is.EqualTo (0));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -114,6 +130,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (1));
                 Assert.That (newList.Length, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -130,6 +148,8 @@ namespace GISharp.Core.Test.GLib
                 Assume.That (list[0].Handle, Is.EqualTo ((IntPtr)1));
                 Assume.That (list[1].Handle, Is.EqualTo ((IntPtr)2));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -155,6 +175,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => list.Sort (null),
                     Throws.InstanceOf<ArgumentNullException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -172,6 +194,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list2.Length, Is.EqualTo (0));
                 Assert.That (() => list1.Concat (null), Throws.ArgumentNullException);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -187,6 +211,8 @@ namespace GISharp.Core.Test.GLib
                     Assert.That (n.Value, Is.EqualTo (i++));
                 }
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -204,6 +230,8 @@ namespace GISharp.Core.Test.GLib
                 index = list.IndexOf (new OpaqueInt (5));
                 Assert.That (index, Is.EqualTo (-1));
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

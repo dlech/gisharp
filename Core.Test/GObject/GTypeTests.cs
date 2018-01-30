@@ -19,102 +19,136 @@ namespace GISharp.Core.Test.GObject
         public void TestNone ()
         {
             Assert.That ((Type)GType.None, Is.EqualTo (typeof (void)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestInterface ()
         {
             Assert.That (() => (Type)GType.Interface, Throws.Exception);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestChar ()
         {
             Assert.That ((Type)GType.Char, Is.EqualTo (typeof (sbyte)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestUChar ()
         {
             Assert.That ((Type)GType.UChar, Is.EqualTo (typeof (byte)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestBoolean ()
         {
             Assert.That ((Type)GType.Boolean, Is.EqualTo (typeof (bool)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestInt ()
         {
             Assert.That ((Type)GType.Int, Is.EqualTo (typeof (int)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestUInt ()
         {
             Assert.That ((Type)GType.UInt, Is.EqualTo (typeof (uint)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestLong ()
         {
             Assert.That (() => (Type)GType.Long, Is.EqualTo (typeof (nlong)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestULong ()
         {
             Assert.That (() => (Type)GType.ULong, Is.EqualTo (typeof (nulong)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestInt64 ()
         {
             Assert.That ((Type)GType.Int64, Is.EqualTo (typeof (long)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestUInt64 ()
         {
             Assert.That ((Type)GType.UInt64, Is.EqualTo (typeof (ulong)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestEnum ()
         {
             Assert.That ((Type)GType.Enum, Is.EqualTo (typeof (System.Enum)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestFlags ()
         {
             Assert.That (() => (Type)GType.Flags, Throws.Exception);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestFloat ()
         {
             Assert.That ((Type)GType.Float, Is.EqualTo (typeof (float)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestDouble ()
         {
             Assert.That ((Type)GType.Double, Is.EqualTo (typeof (double)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestString ()
         {
             Assert.That ((Type)GType.String, Is.EqualTo (typeof (string)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestPointer ()
         {
             Assert.That ((Type)GType.Pointer, Is.EqualTo (typeof (IntPtr)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -122,36 +156,48 @@ namespace GISharp.Core.Test.GObject
         {
             // TODO: Boxed is not implemented yet
             Assert.That (() => (Type)GType.Boxed, Throws.Exception);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestParam ()
         {
             Assert.That ((Type)GType.Param, Is.EqualTo (typeof (ParamSpec)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestObject ()
         {
             Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GISharp.GObject.Object)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestGType ()
         {
             Assert.That ((Type)GType.Type, Is.EqualTo (typeof (GType)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestVariant ()
         {
             Assert.That ((Type)GType.Variant, Is.EqualTo (typeof (Variant)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestGetGTypeName ()
         {
             Assert.That (typeof (GType).GetGTypeName (), Is.EqualTo ("GType"));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -159,6 +205,8 @@ namespace GISharp.Core.Test.GObject
         {
             Assert.That (GType.Invalid.Name, Is.Null);
             Assert.That (GType.None.Name, Is.EqualTo ("void"));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -167,6 +215,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (GType.Invalid.Parent, Is.EqualTo (GType.Invalid));
             Assert.That (GType.None.Parent, Is.EqualTo (GType.Invalid));
             // TODO: would be nice to have a test case that does not return Invalid
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -175,6 +225,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (GType.Invalid.Children, Is.Null);
             Assert.That (GType.None.Children, Is.Empty);
             // TODO: would be nice to have a test case that does not return Null or Empty
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -183,6 +235,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (GType.Invalid.IsA (GType.Invalid), Is.True);
             Assert.That (GType.None.IsA (GType.None), Is.True);
             Assert.That (GType.None.IsA (GType.Boolean), Is.False);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -195,6 +249,8 @@ namespace GISharp.Core.Test.GObject
                          Throws.TypeOf<InvalidGTypeNameException> ());
             Assert.That (() => GType.FromName (null),
                          Throws.TypeOf<ArgumentNullException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -202,6 +258,8 @@ namespace GISharp.Core.Test.GObject
         {
             Assert.That (GType.Invalid == GType.Invalid, Is.True);
             Assert.That (GType.Invalid == GType.None, Is.False);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -209,6 +267,8 @@ namespace GISharp.Core.Test.GObject
         {
             Assert.That (GType.Invalid != GType.None, Is.True);
             Assert.That (GType.Invalid != GType.Invalid, Is.False);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -218,6 +278,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (GType.Invalid.Equals (GType.None), Is.False);
             Assert.That (GType.Invalid.Equals (new object ()), Is.False);
             Assert.That (GType.Invalid.Equals (null), Is.False);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -273,6 +335,8 @@ namespace GISharp.Core.Test.GObject
 
             var actualType = GType.TypeOf (gtype);
             Assert.That (actualType, Is.EqualTo (expectedType));
+
+            Utility.AssertNoGLibLog();
         }
 
         const string dummyTypeName = "GTypeTestDummyType";

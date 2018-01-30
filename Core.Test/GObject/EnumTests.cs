@@ -17,6 +17,8 @@ namespace GISharp.Core.Test.GObject
             var testEnum1GType = typeof(TestEnum1).GetGType ();
             Assert.That (() => (EnumClass)TypeClass.Get (testEnum1GType),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -25,6 +27,8 @@ namespace GISharp.Core.Test.GObject
             // invalid because underlying type is too big.
             Assert.That (() => typeof (TestEnum2).GetGType (),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -34,6 +38,8 @@ namespace GISharp.Core.Test.GObject
             // matching getGType method.
             Assert.That (() => typeof (TestEnum3).GetGType (),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -61,6 +67,8 @@ namespace GISharp.Core.Test.GObject
                 var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
                 Assert.That (valueNick, Is.EqualTo ("One"));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -84,6 +92,8 @@ namespace GISharp.Core.Test.GObject
                 var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
                 Assert.That (value2Nick, Is.EqualTo ("test_enum_5_value_two"));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         // This type is registered as a boxed type with the GType system since

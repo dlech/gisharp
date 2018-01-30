@@ -25,6 +25,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.Throws<ObjectDisposedException> (() => l.Count.GetType ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -35,6 +37,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.IsReadOnly, Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -54,6 +58,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l[0], Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -68,6 +74,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.Count, Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -82,6 +90,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.Clear (), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -95,6 +105,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.Contains (_ (0)), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -128,6 +140,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.CopyTo (a, 0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -147,6 +161,8 @@ namespace GISharp.Core.Test
             l.Dispose ();
             Assert.That (() => l.GetEnumerator (), Throws.TypeOf<ObjectDisposedException> ());
             Assert.That (() => ((IEnumerable)l).GetEnumerator (), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -161,6 +177,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.IndexOf (_ (0)), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -196,6 +214,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.Insert (0, _ (0)), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -231,6 +251,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.Remove (_ (0)), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -260,6 +282,8 @@ namespace GISharp.Core.Test
 
             l.Dispose ();
             Assert.That (() => l.RemoveAt (0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         TItem _ (int value)

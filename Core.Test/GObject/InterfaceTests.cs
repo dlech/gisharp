@@ -13,6 +13,8 @@ namespace GISharp.Core.Test.GObject
         public void TestUnmanagedTypeRegistration ()
         {
             Assert.That (() => typeof(INetworkMonitor).GetGType (), Throws.Nothing);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -23,6 +25,8 @@ namespace GISharp.Core.Test.GObject
                 obj.CanReach (IntPtr.Zero);
                 Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -32,6 +36,8 @@ namespace GISharp.Core.Test.GObject
                 var value = obj.GetProperty("connectivity");
                 Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -47,6 +53,8 @@ namespace GISharp.Core.Test.GObject
 
                 Assert.That (callbackCount, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 

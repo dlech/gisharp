@@ -37,6 +37,8 @@ namespace GISharp.Core.Test.GLib
                 }).Wait (1000);
                 Assert.That (callbackInvoked, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -48,6 +50,8 @@ namespace GISharp.Core.Test.GLib
                 Source.Remove (id);
                 Assert.That (MainContext.Default.FindSourceById (id), Is.Null);
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

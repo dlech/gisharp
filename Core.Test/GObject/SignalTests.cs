@@ -24,6 +24,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That(() => Signal.ValidateName("s1"), Throws.Nothing);
             Assert.That(() => Signal.ValidateName("s-s"), Throws.Nothing);
             Assert.That(() => Signal.ValidateName("s_s"), Throws.Nothing);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -62,10 +64,9 @@ namespace GISharp.Core.Test.GObject
 
                 Assert.That(handler1Count, Is.EqualTo(2));
                 Assert.That(handler2Count, Is.EqualTo(1));
-
-                // try an invalid name
-                obj.StopEmissionByName("there-is-no-way-there-is-a-signal-with-this-name");
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

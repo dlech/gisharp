@@ -17,6 +17,8 @@ namespace GISharp.Core.Test.GObject
             var testFlags1GType = typeof(TestFlags1).GetGType ();
             Assert.That (() => (FlagsClass)TypeClass.Get (testFlags1GType),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -25,6 +27,8 @@ namespace GISharp.Core.Test.GObject
             // invalid because underlying type is too big.
             Assert.That (() => typeof (TestFlags2).GetGType (),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -34,6 +38,8 @@ namespace GISharp.Core.Test.GObject
             // a matching getGType method.
             Assert.That (() => typeof (TestFlags3).GetGType (),
                 Throws.ArgumentException);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -62,6 +68,8 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (valueNick, Is.EqualTo ("One"));
             }
 
+            Utility.AssertNoGLibLog();
+
         }
 
         [Test]
@@ -85,6 +93,8 @@ namespace GISharp.Core.Test.GObject
                 var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
                 Assert.That (value2Nick, Is.EqualTo ("test_flags_5_value_two"));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         // This type is registered as a boxed type with the GType system since

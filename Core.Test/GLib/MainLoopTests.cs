@@ -14,6 +14,8 @@ namespace GISharp.Core.Test.GLib
                 var context = mainLoop.Context;
                 Assert.That (context.Handle, Is.EqualTo (MainContext.Default.Handle));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -26,6 +28,8 @@ namespace GISharp.Core.Test.GLib
             using (var mainLoop = new MainLoop (null, true)) {
                 Assert.That (mainLoop.IsRunning, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -44,6 +48,8 @@ namespace GISharp.Core.Test.GLib
                     Assert.That (runTask.IsCompleted, Is.True);
                 }
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

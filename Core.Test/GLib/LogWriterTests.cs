@@ -28,6 +28,8 @@ namespace GISharp.Core.Test.GLib
             const string expectedColor = @"^\*\* \(Core\.Test:\d+\): \e\[1;32mDEBUG\e\[0m: Test message\.$";
             var actualColor = LogWriter.FormatFields (LogLevelFlags.Debug, message, true);
             Assert.That (actualColor, Does.Match (expectedColor));
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

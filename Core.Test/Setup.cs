@@ -13,6 +13,7 @@ public class Setup
     {
         TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
         TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
+        TestContext.CurrentContext.Test.Properties.Set(logLevel.ToString(), message);
     }
 
     [OneTimeSetUp]

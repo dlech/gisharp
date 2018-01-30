@@ -46,6 +46,8 @@ namespace GISharp.Core.Test.GObject
                     o2.Dispose ();
                 }
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -83,6 +85,8 @@ namespace GISharp.Core.Test.GObject
             GC.Collect ();
             GC.WaitForPendingFinalizers ();
             Assert.That (weakRef.IsAlive, Is.False);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -104,6 +108,8 @@ namespace GISharp.Core.Test.GObject
             Assert.That (testObject3GType, Is.Not.EqualTo (GType.Invalid));
 
             Assert.That(() => new TestObject3 (), Throws.Nothing);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -121,6 +127,8 @@ namespace GISharp.Core.Test.GObject
                 obj.SetProperty(nameof(obj.ObjectProperty), expectedObj);
                 Assert.That (obj.ObjectProperty, Is.SameAs (expectedObj));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -158,6 +166,8 @@ namespace GISharp.Core.Test.GObject
                     }
                 }
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -189,6 +199,8 @@ namespace GISharp.Core.Test.GObject
                 obj.SetProperty(nameof(obj.DoubleValue), 1.0);
                 Assert.That (notificationCount, Is.EqualTo (2));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -217,6 +229,8 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (subPspec.DefaultValue.Get (),
                     Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -232,6 +246,8 @@ namespace GISharp.Core.Test.GObject
 
                 Assert.That (eventCount, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         // This will fail because it lacks the GTypeAttribute

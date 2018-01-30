@@ -23,18 +23,24 @@ namespace GISharp.Core.Test.GLib
         public void TestDefault ()
         {
             Assert.That (MainContext.Default, Is.Not.Null);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestThreadDefault ()
         {
             Assert.That (MainContext.ThreadDefault, Is.Not.Null);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
         public void TestDepth ()
         {
             Assert.That (MainContext.Depth, Is.EqualTo (0));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -44,6 +50,8 @@ namespace GISharp.Core.Test.GLib
                 Throws.TypeOf<ArgumentNullException> ());
             var ret = MainContext.Poll (new PollFD[0], 0);
             Assert.That (ret, Is.EqualTo (0));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -59,6 +67,8 @@ namespace GISharp.Core.Test.GLib
                 }).Wait ();
                 Assert.That (threadAquiredContext, Is.False);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -70,6 +80,8 @@ namespace GISharp.Core.Test.GLib
                 var foundSource = context.FindSourceById (id);
                 Assert.That (foundSource.Handle, Is.EqualTo (source.Handle));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -94,6 +106,8 @@ namespace GISharp.Core.Test.GLib
 
                 Assert.That (invoked, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -104,6 +118,8 @@ namespace GISharp.Core.Test.GLib
                 context.Acquire ();
                 Assert.That (context.IsOwner, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -113,6 +129,8 @@ namespace GISharp.Core.Test.GLib
                 var pending = context.CheckPending ();
                 Assert.That (pending, Is.False);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -127,6 +145,8 @@ namespace GISharp.Core.Test.GLib
                 context.Release ();
                 Assert.That (context.IsOwner, Is.False);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -144,6 +164,8 @@ namespace GISharp.Core.Test.GLib
                 task.Wait (100);
                 Assert.That (awake, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -196,6 +218,8 @@ namespace GISharp.Core.Test.GLib
             source.Destroy ();
 
             Assert.That (invokedOnMainThread, Is.True);
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

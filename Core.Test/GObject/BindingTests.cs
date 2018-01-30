@@ -27,6 +27,8 @@ namespace GISharp.Core.Test.GObject
                 obj1.IntValue = 2;
                 Assert.That (obj2.IntValue, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         static bool Plus5 (Binding binding, ref Value fromValue, ref Value toValue)
@@ -55,6 +57,8 @@ namespace GISharp.Core.Test.GObject
                 obj1.IntValue = 2;
                 Assert.That (obj2.IntValue, Is.EqualTo (6));
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 

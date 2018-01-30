@@ -20,6 +20,8 @@ namespace GISharp.Core.Test.GLib
             using (var b = new Bytes (new byte[] { 1 })) {
                 Assert.That (b.Count, Is.EqualTo (1));
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -50,6 +52,8 @@ namespace GISharp.Core.Test.GLib
                     }
                 }
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -61,6 +65,8 @@ namespace GISharp.Core.Test.GLib
                 b.Dispose ();
                 Assert.That (() => b.Count, Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -74,6 +80,8 @@ namespace GISharp.Core.Test.GLib
                 b.Dispose ();
                 Assert.That (() => b[0], Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -92,6 +100,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => ((IEnumerable)bytes).GetEnumerator (),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

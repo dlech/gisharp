@@ -17,6 +17,8 @@ namespace GISharp.Core.Test.GLib
             Quark quark = expected;
             uint actual = quark;
             Assert.That (actual, Is.EqualTo (expected));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -31,6 +33,8 @@ namespace GISharp.Core.Test.GLib
             // this creates a new quark if it does not exist
             actual = Quark.FromString (testQuarkPrefix + "test-from-string");
             Assert.That (actual, Is.Not.EqualTo (default(Quark)));
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -49,6 +53,8 @@ namespace GISharp.Core.Test.GLib
             Assume.That (quark, Is.Not.EqualTo (default(Quark)));
             actual = quark.ToString ();
             Assert.That (actual, Is.EqualTo (quarkString));
+
+            Utility.AssertNoGLibLog();
         }
 
 
@@ -70,6 +76,8 @@ namespace GISharp.Core.Test.GLib
             var quark = Quark.FromString (quarkString);
             actual = Quark.TryString (quarkString);
             Assert.That (actual, Is.EqualTo (quark));
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

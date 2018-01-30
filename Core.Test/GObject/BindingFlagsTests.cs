@@ -13,6 +13,8 @@ namespace GISharp.Core.Test.GObject
         {
             var gtype = typeof (BindingFlags).GetGType ();
             Assert.That (gtype.Name, Is.EqualTo ("GBindingFlags"));
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

@@ -55,6 +55,8 @@ namespace GISharp.Core.Test.GLib
 
             a.Dispose ();
             Assert.That (() => a.RemoveFast (_ (0)), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -84,6 +86,8 @@ namespace GISharp.Core.Test.GLib
 
             a.Dispose ();
             Assert.That (() => a.RemoveAtFast (0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
 
@@ -115,6 +119,8 @@ namespace GISharp.Core.Test.GLib
 
             a.Dispose ();
             Assert.That (() => a.RemoveRange (0, 0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -137,6 +143,8 @@ namespace GISharp.Core.Test.GLib
 
             a.Dispose ();
             Assert.That (() => a.Sort ((x, y) => 0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -150,6 +158,8 @@ namespace GISharp.Core.Test.GLib
 
             a.Dispose ();
             Assert.That (() => a.SetSize (0), Throws.TypeOf<ObjectDisposedException> ());
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -158,6 +168,8 @@ namespace GISharp.Core.Test.GLib
             var gtype = typeof (PtrArray<OpaqueInt>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GPtrArray"));
+
+            Utility.AssertNoGLibLog();
         }
 
         static OpaqueInt _ (int value)

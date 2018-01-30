@@ -39,6 +39,8 @@ namespace GISharp.Core.Test.GLib
 
                 Assert.That (idleInvoked, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -69,6 +71,8 @@ namespace GISharp.Core.Test.GLib
             }
 
             Assert.That (idleInvoked, Is.True);
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

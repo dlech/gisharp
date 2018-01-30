@@ -37,6 +37,8 @@ namespace GISharp.Core.Test.GLib
 
                 Assert.That (timeoutInvoked, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -68,6 +70,8 @@ namespace GISharp.Core.Test.GLib
 
                 Assert.That (timeoutInvoked, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -95,6 +99,8 @@ namespace GISharp.Core.Test.GLib
             source.Destroy ();
 
             Assert.That (timeoutInvoked, Is.True);
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -122,6 +128,8 @@ namespace GISharp.Core.Test.GLib
             source.Destroy ();
 
             Assert.That (timeoutInvoked, Is.True);
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

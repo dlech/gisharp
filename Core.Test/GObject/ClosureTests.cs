@@ -26,6 +26,8 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (callbackInvoked, Is.True);
                 Assert.That ((bool)ret, Is.True);
             }
+
+            Utility.AssertNoGLibLog();
         }
     }
 }

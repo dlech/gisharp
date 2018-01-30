@@ -24,6 +24,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.ElementSize,
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -40,6 +42,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.Append (1),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -59,6 +63,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.Prepend (1),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -89,6 +95,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.Insert (1),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -122,6 +130,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.RemoveAtFast (0),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -158,6 +168,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.RemoveRange (0, 1),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -173,6 +185,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.SetSize (0),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 #if false
         [Test]
@@ -203,6 +217,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.SetClearFunc (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 #endif
         [Test]
@@ -225,6 +241,8 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => array.Sort ((x, y) => x - y),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
+
+            Utility.AssertNoGLibLog();
         }
 
         [Test]
@@ -233,6 +251,8 @@ namespace GISharp.Core.Test.GLib
             var gtype = typeof (Array<int>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GArray"));
+
+            Utility.AssertNoGLibLog();
         }
     }
 
