@@ -3,6 +3,7 @@ using NUnit.Framework;
 using GISharp.Runtime;
 using GISharp.GObject;
 using GISharp.GLib;
+using System.ComponentModel;
 
 namespace GISharp.Core.Test.GObject
 {
@@ -91,6 +92,7 @@ namespace GISharp.Core.Test.GObject
             }
         }
 
+        [DefaultValue(NetworkConnectivity.Local)]
         public NetworkConnectivity Connectivity => NetworkConnectivity.Local;
 
         public bool NetworkAvailable {
