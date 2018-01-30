@@ -43,6 +43,19 @@ namespace GISharp.GLib
         }
 
         /// <summary>
+        /// Convert <see cref="string"/> to <see cref="Quark"/>.
+        /// </summary>
+        public static explicit operator Quark(string value)
+        {
+            var ret = Quark.TryString(value);
+            if (ret == 0) {
+                var msg = $"Quark does not exist for \"{value}\"";
+                throw new InvalidCastException(msg);
+            }
+            return ret;
+        }
+
+        /// <summary>
         /// Gets the #GQuark identifying the given string. If the string does
         /// not currently have an associated #GQuark, a new #GQuark is created,
         /// using a copy of the string.
