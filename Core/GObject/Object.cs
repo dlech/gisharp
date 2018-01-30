@@ -942,10 +942,7 @@ namespace GISharp.GObject
             if (propertyName == null) {
                 throw new ArgumentNullException (nameof (propertyName));
             }
-            var a = TypeClass.Get<ObjectClass>(GType.Object);
-            var b = TypeClass.Get<ObjectClass>(GetType ().GetGType ());
             var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            var x = Marshal.PtrToStructure<ObjectClass.Struct> (Marshal.ReadIntPtr (handle));
             g_object_notify (handle, propertyName_);
             GMarshal.Free (propertyName_);
         }
