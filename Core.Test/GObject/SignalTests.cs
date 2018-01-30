@@ -29,6 +29,48 @@ namespace GISharp.Core.Test.GObject
         }
 
         [Test]
+        public void TestStopEmission()
+        {
+            bool stopEmission = false;
+            int handler1Count = 0;
+            int handler2Count = 0;
+
+            using (var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
+                false, ParamFlags.Readwrite | ParamFlags.StaticStrings))
+            using (var obj = new GISharp.GObject.Object()) {
+                var id = Signal.TryLookup("notify", GType.Object);
+                Assume.That(id, Is.Not.EqualTo(0));
+
+                Action handler1 = () => {
+                    handler1Count++;
+                    if (stopEmission) {
+                        obj.StopEmission(id);
+                    }
+                };
+
+                Action handler2 = () => handler2Count++;
+
+                Signal.Connect(obj, "notify", handler1);
+                Signal.Connect(obj, "notify", handler2);
+
+
+                // make sure our callbacks are working
+                Signal.Emit(obj, id, 0, pspec);
+                Assume.That(handler1Count, Is.EqualTo(1));
+                Assume.That(handler2Count, Is.EqualTo(1));
+
+                // now try to stop the emission
+                stopEmission = true;
+                Signal.Emit(obj, id, 0, pspec);
+
+                Assert.That(handler1Count, Is.EqualTo(2));
+                Assert.That(handler2Count, Is.EqualTo(1));
+            }
+
+            Utility.AssertNoGLibLog();
+        }
+
+        [Test]
         public void TestStopEmissionByName()
         {
             bool stopEmission = false;

@@ -1227,8 +1227,8 @@ namespace GISharp.GObject
         /// </summary>
         /// <remarks>
         /// This will prevent the default method from running, if the signal was
-        /// %G_SIGNAL_RUN_LAST and you connected normally (i.e. without the "after"
-        /// flag).
+        /// <see cref="SignalFlags.RunLast"/> and you connected normally (i.e.
+        /// without the "after" flag).
         ///
         /// Prints a warning if used on a signal which isn't being emitted.
         /// </remarks>
@@ -1236,12 +1236,12 @@ namespace GISharp.GObject
         /// the object whose signal handlers you wish to stop.
         /// </param>
         /// <param name="signalId">
-        /// the signal identifier, as returned by g_signal_lookup().
+        /// the signal identifier, as returned by <see cref="Lookup"/>
         /// </param>
         /// <param name="detail">
         /// the detail which the signal was emitted with.
         /// </param>
-        public static void StopEmission (Object instance, uint signalId, Quark detail)
+        public static void StopEmission(this Object instance, uint signalId, Quark detail = default(Quark))
         {
             if (instance == null) {
                 throw new ArgumentNullException ("instance");
