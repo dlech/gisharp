@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GObject
@@ -150,7 +151,7 @@ namespace GISharp.GObject
                 }
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
 
@@ -161,7 +162,7 @@ namespace GISharp.GObject
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
     }

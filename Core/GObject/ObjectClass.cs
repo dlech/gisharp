@@ -336,7 +336,7 @@ namespace GISharp.GObject
                 }
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -350,7 +350,7 @@ namespace GISharp.GObject
                 propInfo.SetValue (obj, value.Get ());
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -364,7 +364,7 @@ namespace GISharp.GObject
                 value.Set (propInfo.GetValue (obj));
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -375,7 +375,7 @@ namespace GISharp.GObject
                 var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
                 // FIXME
             } catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 

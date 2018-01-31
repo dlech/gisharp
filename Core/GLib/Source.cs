@@ -98,7 +98,7 @@ namespace GISharp.GLib
                 return source.Prepare (out timeout);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
                 timeout = default(int);
                 return default(bool);
             }
@@ -130,7 +130,7 @@ namespace GISharp.GLib
                 return source.Check ();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
                 return default(bool);
             }
         }
@@ -154,7 +154,7 @@ namespace GISharp.GLib
                 return source.Dispatch (() => callback (userData));
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
                 return default(bool);
             }
         }
@@ -184,7 +184,7 @@ namespace GISharp.GLib
                 gcHandle.Free ();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 

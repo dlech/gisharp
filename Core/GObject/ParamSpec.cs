@@ -473,7 +473,7 @@ namespace GISharp.GObject
                 gcHandle.Free ();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 

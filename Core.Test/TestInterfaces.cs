@@ -45,7 +45,7 @@ namespace GISharp.Core.Test
                 Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -75,7 +75,7 @@ namespace GISharp.Core.Test
             }
             catch (Exception ex) {
                 // FIXME: we should convert managed exception to GError
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
             return false;
         }
@@ -217,7 +217,7 @@ namespace GISharp.Core.Test
                 Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -242,7 +242,7 @@ namespace GISharp.Core.Test
                 monitor.OnNetworkChanged (available);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -258,7 +258,7 @@ namespace GISharp.Core.Test
             }
             catch (Exception ex) {
                 // FIXME: convert managed exception to GError
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
             return false;
         }
@@ -273,7 +273,7 @@ namespace GISharp.Core.Test
                 monitor.CanReachAsync (connectablePtr, cancellablePtr, managedCallback);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -287,7 +287,7 @@ namespace GISharp.Core.Test
             }
             catch (Exception ex) {
                 // FIXME: convert managed exception to GError
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 

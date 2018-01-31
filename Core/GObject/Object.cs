@@ -101,7 +101,7 @@ namespace GISharp.GObject
                 g_object_set_qdata(@object, toggleRefGCHandleQuark, (IntPtr)gcHandle);
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -177,7 +177,7 @@ namespace GISharp.GObject
                     data.Handler(gobject, args);
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException();
+                    ex.LogUnhandledException();
                 }
             }
 
@@ -188,7 +188,7 @@ namespace GISharp.GObject
                     gcHandle.Free();
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException();
+                    ex.LogUnhandledException();
                 }
             }
         }
@@ -208,7 +208,7 @@ namespace GISharp.GObject
                 obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 
@@ -835,7 +835,7 @@ namespace GISharp.GObject
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException ();
+                    ex.LogUnhandledException ();
                     return default(bool);
                 }
             }
@@ -850,7 +850,7 @@ namespace GISharp.GObject
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException ();
+                    ex.LogUnhandledException ();
                     return default(bool);
                 }
             }
@@ -862,7 +862,7 @@ namespace GISharp.GObject
                     gcHandle.Free();
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException();
+                    ex.LogUnhandledException();
                 }
             }
         }
@@ -1294,7 +1294,7 @@ namespace GISharp.GObject
                 data.Free ();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.LogUnhandledException ();
             }
         }
 

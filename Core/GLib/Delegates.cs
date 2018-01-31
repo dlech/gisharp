@@ -415,7 +415,7 @@ namespace GISharp.GLib
                 }
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
 
@@ -426,7 +426,7 @@ namespace GISharp.GLib
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
     }
@@ -526,7 +526,7 @@ namespace GISharp.GLib
                 return ret;
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
                 return default(LogWriterOutput);
             }
         }
@@ -538,7 +538,7 @@ namespace GISharp.GLib
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
     }
@@ -630,7 +630,7 @@ namespace GISharp.GLib
                 return ret;
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
                 return default(bool);
             }
         }
@@ -642,7 +642,7 @@ namespace GISharp.GLib
                 gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException();
+                ex.LogUnhandledException();
             }
         }
     }

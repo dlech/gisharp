@@ -1019,7 +1019,7 @@ namespace GISharp.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException ();
+                    ex.LogUnhandledException ();
                     return default (int);
                 }
             };
@@ -1108,7 +1108,7 @@ namespace GISharp.GLib
                     return ret;
                 }
                 catch (Exception ex) {
-                    ex.DumpUnhandledException ();
+                    ex.LogUnhandledException ();
                     return default(int);
                 }
             };
