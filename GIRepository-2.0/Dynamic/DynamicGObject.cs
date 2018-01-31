@@ -80,7 +80,7 @@ namespace GISharp.GIRepository.Dynamic
             return value.Get ();
         }
 
-        public ulong Connect (string signalSpec, Func<Value[], Value> callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect(string signalSpec, Func<object[], object> callback, ConnectFlags flags = default(ConnectFlags))
         {
             if (callback == null) {
                 throw new ArgumentNullException (nameof (callback));
@@ -90,7 +90,7 @@ namespace GISharp.GIRepository.Dynamic
             }
         }
 
-        public ulong Connect (string signalSpec, Action<Value[]> callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect(string signalSpec, Action<object[]> callback, ConnectFlags flags = default(ConnectFlags))
         {
             if (callback == null) {
                 throw new ArgumentNullException (nameof (callback));
