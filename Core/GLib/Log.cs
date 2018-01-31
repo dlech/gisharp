@@ -50,7 +50,7 @@ namespace GISharp.GLib
             Log_ (DefaultDomain, LogLevelFlags.Message, format, args);
         }
 
-        public static void Warining (string format, params object[] args)
+        public static void Warning (string format, params object[] args)
         {
             Log_ (DefaultDomain, LogLevelFlags.Warning, format, args);
         }
