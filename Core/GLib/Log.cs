@@ -86,7 +86,7 @@ namespace GISharp.GLib
         public static void LogUnhandledException (this Exception ex, [CallerMemberName]string caller = "")
         {
             try {
-                var domain = ex.TargetSite.Module.Name;
+                var domain = ex?.TargetSite?.Module?.Name;
                 Log_(domain, LogLevelFlags.Critical, "Unhandled exception in {0}\n{1}", caller, ex);
             } catch {
                 // This must absolutely not throw an exception
