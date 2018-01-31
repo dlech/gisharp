@@ -1106,7 +1106,7 @@ namespace GISharp.GObject
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_object_get_qdata (
+        static extern IntPtr g_object_get_qdata(
             IntPtr @object,
             Quark quark);
 
@@ -1122,6 +1122,25 @@ namespace GISharp.GObject
             Quark quark,
             IntPtr data,
             UnmanagedDestroyNotify destroy);
+
+        public object this[Quark quark] {
+            get {
+                AssertNotDisposed();
+                var ret_ = g_object_get_qdata(handle, quark);
+                var ret = GCHandle.FromIntPtr(ret_).Target;
+                return ret;
+            }
+            set {
+                AssertNotDisposed();
+                if (value == null) {
+                    g_object_set_qdata(handle, quark, IntPtr.Zero);
+                }
+                else {
+                    var data = (IntPtr)GCHandle.Alloc(value);
+                    g_object_set_qdata_full(handle, quark, data, freeDataDelegate);
+                }
+            }
+        }
 
         /// <summary>
         /// Gets a managed proxy for a an unmanged GObject.
