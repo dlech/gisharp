@@ -784,7 +784,7 @@ namespace GISharp.GObject
             }
             var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
             var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
-            var (transformTo_, transformFrom_, notify_, userData_) = BindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
+            var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
             var ret_ = g_object_bind_property_full (handle, sourceProperty_, target.handle, targetProperty_, flags,
                                                     transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
@@ -793,9 +793,9 @@ namespace GISharp.GObject
             return ret;
         }
 
-        static class BindingTransformFuncFactory
+        static class UnmangedBindingTransformFuncFactory
         {
-            class BindingTransformFuncs
+            class BindingTransformFuncData
             {
                 public BindingTransformFunc TransformTo;
                 public UnmanagedBindingTransformFunc UnmangedTransformTo;
@@ -806,7 +806,7 @@ namespace GISharp.GObject
 
             public static ValueTuple<UnmanagedBindingTransformFunc, UnmanagedBindingTransformFunc, UnmanagedDestroyNotify, IntPtr>
                 CreateNotifyDelegate (BindingTransformFunc transformTo, BindingTransformFunc transformFrom) {
-                    var userData = new BindingTransformFuncs ();
+                    var userData = new BindingTransformFuncData();
 
                     if (transformTo != null) {
                         userData.TransformTo = transformTo;
@@ -818,7 +818,7 @@ namespace GISharp.GObject
                         userData.UnmanagedTransformFrom = TransformFromFunc;
                     }
 
-                    userData.UnmanagedNotify = UnmanagedDelegate.Free;
+                    userData.UnmanagedNotify = UnmanagedNotify;
 
                     var userData_ = GCHandle.Alloc (userData);
 
@@ -830,7 +830,7 @@ namespace GISharp.GObject
                 try {
                     var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
                     var gcHandle = (GCHandle)userDataPtr;
-                    var userData = (BindingTransformFuncs)gcHandle.Target;
+                    var userData = (BindingTransformFuncData)gcHandle.Target;
                     var ret = userData.TransformTo (binding, ref toValue, ref fromValue);
                     return ret;
                 }
@@ -845,13 +845,24 @@ namespace GISharp.GObject
                 try {
                     var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
                     var gcHandle = (GCHandle)userDataPtr;
-                    var userData = (BindingTransformFuncs)gcHandle.Target;
+                    var userData = (BindingTransformFuncData)gcHandle.Target;
                     var ret = userData.TransformFrom (binding, ref toValue, ref fromValue);
                     return ret;
                 }
                 catch (Exception ex) {
                     ex.DumpUnhandledException ();
                     return default(bool);
+                }
+            }
+
+            static void UnmanagedNotify(IntPtr userData_)
+            {
+                try {
+                    var gcHandle = (GCHandle)userData_;
+                    gcHandle.Free();
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException();
                 }
             }
         }

@@ -37,7 +37,7 @@ namespace GISharp.GLib
         static extern void g_log_set_writer_func (
             /* <type name="LogWriterFunc" type="GLogWriterFunc" managed-name="LogWriterFunc" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 */
-            NativeLogWriterFunc func,
+            UnmanagedLogWriterFunc func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 closure:0 */
             IntPtr userData,
@@ -80,7 +80,7 @@ namespace GISharp.GLib
             } else if (func == StandardStreams) {
                 g_log_set_writer_func (g_log_writer_standard_streams, IntPtr.Zero, null);
             } else {
-                var (func_, userDataFree_, userData_) = NativeLogWriterFuncFactory.CreateNotifyDelegate (func);
+                var (func_, userDataFree_, userData_) = UnmanagedLogWriterFuncFactory.CreateNotifyDelegate (func);
                 g_log_set_writer_func (func_, userData_, userDataFree_);
             }
             isFuncSet = true;

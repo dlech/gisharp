@@ -320,7 +320,7 @@ namespace GISharp.GLib
         static extern IntPtr g_log_set_default_handler (
             /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
             /* transfer-ownership:none closure:1 */
-            NativeLogFunc logFunc,
+            UnmanagedLogFunc logFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
@@ -351,8 +351,7 @@ namespace GISharp.GLib
                 g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
                 defaultHandler = default(GCHandle);
             } else {
-                var logFunc_ = NativeLogFuncFactory.CreateDelegate (logFunc);
-                var userData_ = (IntPtr)GCHandle.Alloc (logFunc_);
+                var (logFunc_, userData_) = UnmanagedLogFuncFactory.CreateDelegate(logFunc);
                 g_log_set_default_handler (logFunc_, userData_);
                 defaultHandler = (GCHandle)userData_;
             }
@@ -465,7 +464,7 @@ namespace GISharp.GLib
             LogLevelFlags logLevels,
             /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            NativeLogFunc logFunc,
+            UnmanagedLogFunc logFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData,
@@ -528,7 +527,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (logFunc));
             }
             var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var (logFunc_, destroy_, userData_) = NativeLogFuncFactory.CreateNotifyDelegate (logFunc);
+            var (logFunc_, destroy_, userData_) = UnmanagedLogFuncFactory.CreateNotifyDelegate (logFunc);
             var ret = g_log_set_handler_full (logDomain_, logLevels, logFunc_, userData_, destroy_);
             GMarshal.Free (logDomain_);
             return ret;

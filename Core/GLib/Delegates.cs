@@ -339,7 +339,7 @@ namespace GISharp.GLib
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void NativeLogFunc (
+    public delegate void UnmanagedLogFunc(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
         IntPtr logDomain,
@@ -368,32 +368,66 @@ namespace GISharp.GLib
     /// </remarks>
     public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
 
-    public static class NativeLogFuncFactory
+    public static class UnmanagedLogFuncFactory
     {
-        public static NativeLogFunc CreateDelegate (LogFunc func) {
-            return (logDomain_, logLevel_, message_, userData_) => UnmanagedDelegate.Invoke (() => {
-                var logDomain = GMarshal.Utf8PtrToString (logDomain_);
-                var message = GMarshal.Utf8PtrToString (message_);
-                func (logDomain, logLevel_, message);
-            });
+        class UnmanagedLogFuncFuncData
+        {
+            public bool IsAsync;
+            public LogFunc Func;
+            public UnmanagedLogFunc UnmanagedFunc;
+            public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<NativeLogFunc, IntPtr> CreateAsyncDelegate (LogFunc func) {
-            var func_ = CreateDelegate (func);
-            NativeLogFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
-                func_ (logDomain_, logLevel_, message_, userData_);
-                UnmanagedDelegate.Free (userData_);
+        public static ValueTuple<UnmanagedLogFunc, IntPtr> CreateDelegate(LogFunc func, bool isAsync = false) {
+            var data = new UnmanagedLogFuncFuncData {
+                IsAsync = isAsync,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = null,
             };
-            var gcHandle = GCHandle.Alloc (asyncFunc_);
-            return (asyncFunc_, (IntPtr)gcHandle);
+            var gcHandle = GCHandle.Alloc(data);
+
+            return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<NativeLogFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (LogFunc func) {
-            var func_ = CreateDelegate (func);
-            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
-            var userData = new Tuple<NativeLogFunc, UnmanagedDestroyNotify> (func_, notify_);
-            var gcHandle = GCHandle.Alloc (userData);
-            return (func_, notify_, (IntPtr)gcHandle);
+        public static ValueTuple<UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(LogFunc func) {
+            var data = new UnmanagedLogFuncFuncData {
+                IsAsync = false,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = UnmanagedNotify,
+            };
+            var gcHandle = GCHandle.Alloc(data);
+
+            return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
+        }
+
+        static void UnmanagedFunc(IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
+        {
+            try {
+                var gcHandle = (GCHandle)userData_;
+                var userData = (UnmanagedLogFuncFuncData)gcHandle.Target;
+                var logDomain = GMarshal.Utf8PtrToString(logDomain_);
+                var message = GMarshal.Utf8PtrToString(message_);
+                userData.Func(logDomain, logLevel_, message);
+                if (userData.IsAsync) {
+                    gcHandle.Free();
+                }
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+            }
+        }
+
+        static void UnmanagedNotify(IntPtr userData_)
+        {
+            try {
+                var gcHandle = (GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+            }
         }
     }
 
@@ -413,7 +447,7 @@ namespace GISharp.GLib
     /// </remarks>
     [Since ("2.50")]
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate LogWriterOutput NativeLogWriterFunc (
+    public delegate LogWriterOutput UnmanagedLogWriterFunc(
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
         LogLevelFlags logLevel,
@@ -446,31 +480,66 @@ namespace GISharp.GLib
     [Since ("2.50")]
     public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
 
-    public static class NativeLogWriterFuncFactory
+    public static class UnmanagedLogWriterFuncFactory
     {
-        public static NativeLogWriterFunc CreateDelegate (LogWriterFunc func) {
-            return (logLevel_, fields_, nFields_, userData_) => UnmanagedDelegate.Invoke (() => {
-                return func (logLevel_, fields_);
-            });
+        class UnmanagedLogWriterFuncData
+        {
+            public bool IsAsync;
+            public LogWriterFunc Func;
+            public UnmanagedLogWriterFunc UnmanagedFunc;
+            public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<NativeLogWriterFunc, IntPtr> CreateAsyncDelegate (LogWriterFunc func) {
-            var func_ = CreateDelegate (func);
-            NativeLogWriterFunc asyncFunc_ = (logDomain_, logLevel_, message_, userData_) => {
-                var ret = func_ (logDomain_, logLevel_, message_, userData_);
-                UnmanagedDelegate.Free (userData_);
-                return ret;
+        public static ValueTuple<UnmanagedLogWriterFunc, IntPtr> CreateDelegate(LogWriterFunc func, bool isAsync = false) {
+            var data = new UnmanagedLogWriterFuncData {
+                IsAsync = isAsync,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = null,
             };
-            var gcHandle = GCHandle.Alloc (asyncFunc_);
-            return (asyncFunc_, (IntPtr)gcHandle);
+            var gcHandle = GCHandle.Alloc(data);
+
+            return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<NativeLogWriterFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (LogWriterFunc func) {
-            var func_ = CreateDelegate (func);
-            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
-            var userData = new Tuple<NativeLogWriterFunc, UnmanagedDestroyNotify> (func_, notify_);
-            var gcHandle = GCHandle.Alloc (userData);
-            return (func_, notify_, (IntPtr)gcHandle);
+        public static ValueTuple<UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(LogWriterFunc func) {
+            var data = new UnmanagedLogWriterFuncData {
+                IsAsync = false,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = UnmanagedNotify,
+            };
+            var gcHandle = GCHandle.Alloc(data);
+
+            return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
+        }
+
+        static LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, LogField[] fields_, UIntPtr nFields_, IntPtr userData_)
+        {
+            try {
+                var gcHandle = (GCHandle)userData_;
+                var userData = (UnmanagedLogWriterFuncData)gcHandle.Target;
+                var ret = userData.Func(logLevel_, fields_);
+                if (userData.IsAsync) {
+                    gcHandle.Free();
+                }
+                return ret;
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+                return default(LogWriterOutput);
+            }
+        }
+
+        static void UnmanagedNotify(IntPtr userData_)
+        {
+            try {
+                var gcHandle = (GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.DumpUnhandledException();
+            }
         }
     }
 
@@ -517,94 +586,63 @@ namespace GISharp.GLib
 
     public static class UnmanagedSourceFuncFactory
     {
-        public static UnmanagedSourceFunc CreateDelegate (SourceFunc func) {
-            return (userData) => UnmanagedDelegate.Invoke (() => func());
+        class UnmanagedSourceData
+        {
+            public bool IsAsync;
+            public SourceFunc Func;
+            public UnmanagedSourceFunc UnmanagedFunc;
+            public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<UnmanagedSourceFunc, IntPtr> CreateAsyncDelegate (SourceFunc func) {
-            var func_ = CreateDelegate (func);
-            UnmanagedSourceFunc asyncFunc_ = (userData) => {
-                var ret = func_ (userData);
-                UnmanagedDelegate.Free (userData);
-                return ret;
+        public static ValueTuple<UnmanagedSourceFunc, IntPtr> CreateDelegate(SourceFunc func, bool isAsync = false) {
+            var data = new UnmanagedSourceData {
+                IsAsync = isAsync,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = null,
             };
-            var gcHandle = GCHandle.Alloc (asyncFunc_);
-            return (asyncFunc_, (IntPtr)gcHandle);
+            var gcHandle = GCHandle.Alloc(data);
+
+            return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate (SourceFunc func) {
-            var func_ = CreateDelegate (func);
-            UnmanagedDestroyNotify notify_ = (userData_) => UnmanagedDelegate.Free (userData_);
-            var userData = new Tuple<UnmanagedSourceFunc, UnmanagedDestroyNotify> (func_, notify_);
-            var gcHandle = GCHandle.Alloc (userData);
-            return (func_, notify_, (IntPtr)gcHandle);
-        }
-    }
+        public static ValueTuple<UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(SourceFunc func) {
+            var data = new UnmanagedSourceData {
+                IsAsync = false,
+                Func = func,
+                UnmanagedFunc = UnmanagedFunc,
+                UnmanagedNotify = UnmanagedNotify,
+            };
+            var gcHandle = GCHandle.Alloc(data);
 
-    /// <summary>
-    /// Helper class for safely invoking managed code in an unmanaged callback
-    /// </summary>
-    /// <remarks>
-    /// We cannot let managed code throw an exception inside of an unmanaged
-    /// callback. So, this class provides wrappers for managed callbacks that
-    /// catch all exceptions.
-    /// </remarks>
-    public static class UnmanagedDelegate
-    {
-        /// <summary>
-        /// Invoke <paramref name="func" /> and catch all exceptions.
-        /// </summary>
-        public static void Invoke (Action func) {
+            return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
+        }
+
+        static bool UnmanagedFunc(IntPtr userData_)
+        {
             try {
-                func ();
+                var gcHandle = (GCHandle)userData_;
+                var userData = (UnmanagedSourceData)gcHandle.Target;
+                var ret = userData.Func();
+                if (userData.IsAsync) {
+                    gcHandle.Free();
+                }
+                return ret;
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.DumpUnhandledException();
+                return default(bool);
             }
         }
 
-        /// <summary>
-        /// Invoke <paramref name="func" /> and catch all exceptions.
-        /// </summary>
-        public static T Invoke<T> (System.Func<T> func) {
+        static void UnmanagedNotify(IntPtr userData_)
+        {
             try {
-                return func ();
+                var gcHandle = (GCHandle)userData_;
+                gcHandle.Free();
             }
             catch (Exception ex) {
-                ex.DumpUnhandledException ();
-                return default(T);
-            }
-        }
-
-        /// <summary>
-        /// Invoke <paramref name="func" /> and catch all exceptions, then
-        /// free the <paramref name="userData" /> <see cref="GCHandle" />.
-        /// </summary>
-        public static void InvokeAndFree (Action func, IntPtr userData) {
-            Invoke (func);
-            Free (userData);
-        }
-
-        /// <summary>
-        /// Invoke <paramref name="func" /> and catch all exceptions, then
-        /// free the <paramref name="userData" /> <see cref="GCHandle" />.
-        /// </summary>
-
-        public static T InvokeAndFree<T> (System.Func<T> func, IntPtr userData) {
-            var ret = Invoke (func);
-            Free (userData);
-            return ret;
-        }
-
-        /// <summary>
-        /// Free the <paramref name="userData" /> <see cref="GCHandle" />.
-        public static void Free (IntPtr userData) {
-            try {
-                var gcHandle = (GCHandle)userData;
-                gcHandle.Free ();
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
+                ex.DumpUnhandledException();
             }
         }
     }
