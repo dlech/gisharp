@@ -124,7 +124,7 @@ namespace GISharp.GObject
                 var obj = GetInstance(gobjectPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
                 var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark];
-                obj.OnPropertyChanged (propInfo.Name);
+                obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException ();
@@ -169,13 +169,6 @@ namespace GISharp.GObject
         }
 
         #endregion
-
-        void OnPropertyChanged (string name)
-        {
-            if (propertyChangedHandler != null) {
-                propertyChangedHandler (this, new PropertyChangedEventArgs (name));
-            }
-        }
 
         /// <summary>
         /// Creates a new instance of a #GObject subtype and sets its properties.
