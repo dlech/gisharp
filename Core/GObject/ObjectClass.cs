@@ -336,7 +336,7 @@ namespace GISharp.GObject
                 var obj = Object.GetInstance(objPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
 
-                var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
+                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark];
                 propInfo.SetValue (obj, value.Get ());
             }
             catch (Exception ex) {
@@ -350,7 +350,7 @@ namespace GISharp.GObject
                 var obj = Object.GetInstance(objPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance (pspecPtr, Transfer.None);
 
-                var propInfo = (PropertyInfo)pspec.GetQData (managedClassPropertyInfoQuark);
+                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark];
                 value.Set (propInfo.GetValue (obj));
             }
             catch (Exception ex) {

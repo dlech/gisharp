@@ -346,22 +346,6 @@ namespace GISharp.GObject
             Quark quark);
 
         /// <summary>
-        /// Gets back user data stored via <see cref="SetQData"/>.
-        /// </summary>
-        /// <param name="quark">
-        /// a <see cref="Quark"/>, naming the user data
-        /// </param>
-        /// <returns>
-        /// the user data if set, or <c>null</c>
-        /// </returns>
-        public object GetQData (Quark quark)
-        {
-            AssertNotDisposed ();
-            var ret = g_param_spec_get_qdata (handle, quark);
-            return ret == IntPtr.Zero ? null : GCHandle.FromIntPtr (ret).Target;
-        }
-
-        /// <summary>
         /// If the paramspec redirects operations to another paramspec,
         /// returns that paramspec. Redirect is used typically for
         /// providing a new implementation of a property in a derived
@@ -452,24 +436,31 @@ namespace GISharp.GObject
             UnmanagedDestroyNotify destroy);
 
         /// <summary>
-        /// Sets arbitrary user data associated with this instance.
-        /// The data can be retrieved using <see cref="GetQData"/>.
+        /// Gets and sets arbitrary user data associated with this instance.
         /// </summary>
         /// <param name="quark">
         /// a <see cref="Quark"/>, naming the user data
         /// </param>
-        /// <param name="data">
-        /// user data
-        /// </param>
-        public void SetQData (Quark quark, object data)
-        {
-            AssertNotDisposed ();
-            if (data == null) {
-                g_param_spec_set_qdata (handle, quark, IntPtr.Zero);
+        public object this[Quark quark] {
+            get {
+                AssertNotDisposed();
+                var ret = g_param_spec_get_qdata(handle, quark);
+                if (ret == IntPtr.Zero) {
+                    return null;
+                }
+                var gcHandle = (GCHandle)ret;
+                var data = gcHandle.Target;
+                return data;
             }
-            else {
-                var data_ = (IntPtr)GCHandle.Alloc (data);
-                g_param_spec_set_qdata_full (handle, quark, data_, freeQDataDelegate);
+            set {
+                AssertNotDisposed();
+                if (value == null) {
+                    g_param_spec_set_qdata (handle, quark, IntPtr.Zero);
+                }
+                else {
+                    var data_ = (IntPtr)GCHandle.Alloc (value);
+                    g_param_spec_set_qdata_full (handle, quark, data_, freeQDataDelegate);
+                }
             }
         }
 

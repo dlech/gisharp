@@ -809,7 +809,7 @@ namespace GISharp.GObject
                         var message = $"Could not find matching property for \"{pspec.Name}\" in type {type.FullName}";
                         throw new ArgumentException (message, nameof(type));
                     }
-                    pspec.SetQData (ObjectClass.managedClassPropertyInfoQuark, prop);
+                    pspec[ObjectClass.managedClassPropertyInfoQuark] = prop;
                 }
             }
             finally {

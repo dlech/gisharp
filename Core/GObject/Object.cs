@@ -123,7 +123,7 @@ namespace GISharp.GObject
             try {
                 var obj = GetInstance(gobjectPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
-                var propInfo = (PropertyInfo)pspec.GetQData (ObjectClass.managedClassPropertyInfoQuark);
+                var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark];
                 obj.OnPropertyChanged (propInfo.Name);
             }
             catch (Exception ex) {
