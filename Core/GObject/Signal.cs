@@ -394,7 +394,9 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static SignalHandler Connect (Object instance, string detailedSignal, Action handler, ConnectFlags connectFlags = default(ConnectFlags))
+        public static SignalHandler Connect<T, U>(this Object instance, string detailedSignal,
+            System.Func<T, ValueTuple<U, UnmanagedClosureNotify, IntPtr>> unmanagedCallbackFactory,
+            T handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof (instance));
@@ -402,22 +404,14 @@ namespace GISharp.GObject
             if (detailedSignal == null) {
                 throw new ArgumentNullException (nameof (detailedSignal));
             }
-            if (handler == null) {
-                throw new ArgumentNullException (nameof (handler));
+            if (unmanagedCallbackFactory == null) {
+                throw new ArgumentNullException(nameof(unmanagedCallbackFactory));
             }
 
             var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            UnmanagedCallback nativeHandler = () => {
-                try {
-                    handler ();
-                }
-                catch (Exception ex) {
-                    ex.DumpUnhandledException();
-                }
-            };
-            var nativeHandlerPtr = Marshal.GetFunctionPointerForDelegate<UnmanagedCallback> (nativeHandler);
-            var data = (IntPtr)GCHandle.Alloc (nativeHandler);
-            var ret = g_signal_connect_data (instance.Handle, detailedSignal_, nativeHandlerPtr, data, destroyConnectDataDelegate, connectFlags);
+            var (handler_, notify_, data_) = unmanagedCallbackFactory(handler);
+            var handlerPtr = Marshal.GetFunctionPointerForDelegate(handler_);
+            var ret = g_signal_connect_data(instance.Handle, detailedSignal_, handlerPtr, data_, notify_, connectFlags);
             GMarshal.Free (detailedSignal_);
 
             if (ret == 0) {

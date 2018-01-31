@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
@@ -112,6 +113,86 @@ namespace GISharp.GObject
             return g_object_get_type ();
         }
 
+        public class NotifyEventArgs : EventArgs
+        {
+            public ParamSpec Pspec { get; private set; }
+
+            public NotifyEventArgs(ParamSpec pspec)
+            {
+                Pspec = pspec;
+            }
+        }
+
+        public delegate void NotifyEventHandler(Object sender, NotifyEventArgs pspec);
+        
+        delegate void UnmangedNotify(IntPtr gobject, IntPtr pspec, IntPtr userData);
+
+        ConcurrentDictionary<NotifyEventHandler, SignalHandler> notifiedHandlers =
+            new ConcurrentDictionary<NotifyEventHandler, SignalHandler>();
+
+        [GSignal("notify", When = EmissionStage.First, NoRecurse = true, Detailed = true, Action = true, NoHooks = true)]
+        public event NotifyEventHandler Notify {
+            add {
+                notifiedHandlers.AddOrUpdate(value,
+                    v => this.Connect("notify", UnmanagedNotifyCallbackFactory.CreateNotifyCallback, v),
+                    (v, h) => { throw new NotSupportedException(); });
+            }
+            remove {
+                if (notifiedHandlers.TryRemove(value, out var handler)) {
+                    handler.Disconnect();
+                }
+            }
+        }
+
+        static class UnmanagedNotifyCallbackFactory
+        {
+            class UnmanagedNotifyData
+            {
+                public NotifyEventHandler Handler;
+                public UnmangedNotify UnmanagedHandler;
+                public UnmanagedClosureNotify UnmangedNotify;
+            }
+
+            public static ValueTuple<Delegate, UnmanagedClosureNotify, IntPtr> CreateNotifyCallback(NotifyEventHandler handler)
+            {
+                var data = new UnmanagedNotifyData {
+                    Handler = handler,
+                    UnmanagedHandler = UnmanagedHandler,
+                    UnmangedNotify = UnmanagedNotify,
+                };
+                var gcHandle = GCHandle.Alloc(data);
+
+                return (data.UnmanagedHandler, data.UnmangedNotify, (IntPtr)gcHandle);
+            }
+
+            static void UnmanagedHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
+            {
+                try {
+                    var gobject = Object.GetInstance(gobject_, Transfer.None);
+                    var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
+                    var gcHandle = (GCHandle)userData_;
+                    var data = (UnmanagedNotifyData)gcHandle.Target;
+
+                    var args = new NotifyEventArgs(pspec);
+                    data.Handler(gobject, args);
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException();
+                }
+            }
+
+            static void UnmanagedNotify(IntPtr data_, IntPtr closure_)
+            {
+                try {
+                    var gcHandle = (GCHandle)data_;
+                    gcHandle.Free();
+                }
+                catch (Exception ex) {
+                    ex.DumpUnhandledException();
+                }
+            }
+        }
+
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         delegate void UnmanagedNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
 
@@ -147,7 +228,6 @@ namespace GISharp.GObject
 
         #region INotifyPropertyChanged implementation
 
-        [GSignal("notify", When = EmissionStage.First, NoRecurse = true, Detailed = true, Action = true, NoHooks = true)]
         public event PropertyChangedEventHandler PropertyChanged {
             add {
                 lock (propertyChangedHandlerLock) {
@@ -929,7 +1009,7 @@ namespace GISharp.GObject
         /// <param name="propertyName">
         /// the name of a property installed on the class of @object.
         /// </param>
-        public void Notify (string propertyName)
+        public void EmitNotify(string propertyName)
         {
             AssertNotDisposed ();
             if (propertyName == null) {
@@ -1044,7 +1124,7 @@ namespace GISharp.GObject
         /// the #GParamSpec of a property installed on the class of @object.
         /// </param>
         [Since ("2.26")]
-        public void Notify (ParamSpec pspec)
+        public void EmitNotify(ParamSpec pspec)
         {
             AssertNotDisposed ();
             if (pspec == null) {

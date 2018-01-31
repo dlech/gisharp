@@ -7,6 +7,7 @@ using GISharp.GObject;
 using GISharp.Runtime;
 
 using Object = GISharp.GObject.Object;
+using System.Collections.Generic;
 
 namespace GISharp.Core.Test.GObject
 {
@@ -300,7 +301,7 @@ namespace GISharp.Core.Test.GObject
                 }
                 set {
                     _DoubleValue = value;
-                    Notify (nameof (DoubleValue));
+                    EmitNotify(nameof(DoubleValue));
                 }
             }
 
@@ -341,36 +342,51 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObjectSignal : Object
         {
-            Action eventHappend;
             object eventHappendHandlerLock = new object ();
-            SignalHandler eventHappendedHandler;
+            Dictionary<Action, SignalHandler> eventHappendHandlers = new Dictionary<Action, SignalHandler>();
 
             [GSignal]
             public event Action EventHappened {
                 add {
                     lock (eventHappendHandlerLock) {
-                        if (eventHappend == null) {
-                            eventHappendedHandler = Signal.Connect (this,
-                                nameof(EventHappened), UnmanagedEventHappened);
-                        }
-                        eventHappend += value;
+                        eventHappendHandlers[value] = this.Connect(nameof(EventHappened),
+                            UnmanagedEventHappenedCallbackFactory.CreateNotifyCallback, value);
                     }
                 }
                 remove {
                     lock (eventHappendHandlerLock) {
-                        eventHappend -= value;
-                        if (eventHappend == null) {
-                            eventHappendedHandler.Disconnect ();
-                            eventHappendedHandler = null;
-                        }
+                        eventHappendHandlers[value].Disconnect();
                     }
                 }
             }
-
-            void UnmanagedEventHappened ()
+            static class UnmanagedEventHappenedCallbackFactory
             {
-                if (eventHappend != null) {
-                    eventHappend ();
+                public static ValueTuple<Delegate, UnmanagedClosureNotify, IntPtr> CreateNotifyCallback(Action handler)
+                {
+                    Action unmangedHandler = () => {
+                        try {
+                            handler();
+                        }
+                        catch (Exception ex) {
+                            ex.DumpUnhandledException();
+                        }
+                    };
+                    var gcHandle = GCHandle.Alloc(unmangedHandler);
+
+                    return (unmangedHandler, unmanagedNotifyDelegate, (IntPtr)gcHandle);
+                }
+
+                static UnmanagedClosureNotify unmanagedNotifyDelegate = UnmanagedNotify;
+
+                static void UnmanagedNotify(IntPtr data_, IntPtr closure_)
+                {
+                    try {
+                        var gcHandle = (GCHandle)data_;
+                        gcHandle.Free();
+                    }
+                    catch (Exception ex) {
+                        ex.DumpUnhandledException();
+                    }
                 }
             }
 

@@ -73,7 +73,7 @@ namespace GISharp.Core.Test.GObject
             }
             set {
                 _IntValue = value;
-                Notify (nameof (IntValue));
+                EmitNotify(nameof(IntValue));
             }
         }
 

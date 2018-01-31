@@ -37,14 +37,14 @@ namespace GISharp.GObject
     /// is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void UnmanagedCallback ();
+    public delegate void UnmanagedCallback();
 
     /// <summary>
     /// The type used for the various notification callbacks which can be registered
     /// on closures.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void UnmanagedClosureNotify (
+    public delegate void UnmanagedClosureNotify(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr data,
