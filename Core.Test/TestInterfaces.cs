@@ -139,11 +139,11 @@ namespace GISharp.Core.Test
         bool CanReachFinish (IntPtr result);
         void OnNetworkChanged (bool available);
 
-        [GTypeProperty ("connectivity")]
+        [GProperty("connectivity")]
         NetworkConnectivity Connectivity { get; }
-        [GTypeProperty ("network-available")]
+        [GProperty("network-available")]
         bool NetworkAvailable { get; }
-        [GTypeProperty ("network-metered")]
+        [GProperty("network-metered")]
         bool NetworkMetered { get; }
 
         [GSignal("network-changed", When = EmissionStage.Last)]

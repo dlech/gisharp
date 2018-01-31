@@ -674,7 +674,7 @@ namespace GISharp.GObject
             if (sourcePropertyInfo == null) {
                 throw new ArgumentException ("No matching property", nameof (sourceProperty));
             }
-            sourceProperty = sourcePropertyInfo.TryGetGTypePropertyName ();
+            sourceProperty = sourcePropertyInfo.TryGetGPropertyName();
             if (sourceProperty == null) {
                 var message = $"{sourcePropertyInfo.Name} is not a registered GType property";
                 throw new ArgumentException (message, nameof(sourceProperty));
@@ -684,7 +684,7 @@ namespace GISharp.GObject
             if (targetPropertyInfo == null) {
                 throw new ArgumentException ("No matching property", nameof (targetProperty));
             }
-            targetProperty = targetPropertyInfo.TryGetGTypePropertyName ();
+            targetProperty = targetPropertyInfo.TryGetGPropertyName();
             if (targetProperty == null) {
                 var message = $"{targetPropertyInfo.Name} is not a registered GType property";
                 throw new ArgumentException (message, nameof(targetProperty));

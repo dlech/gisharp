@@ -279,7 +279,7 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObjectPropertiesBase : Object
         {
-            [GTypeProperty]
+            [GProperty]
             public int IntValue { get; set; }
 
             public const string BoolValuePropertyName = "bool-value";
@@ -287,14 +287,14 @@ namespace GISharp.Core.Test.GObject
             public const string BoolValuePropertyBlurb = "A boolean value for testing stuff.";
             public const bool BoolValuePropertyDefaultValue = true;
 
-            [GTypeProperty (BoolValuePropertyName)]
+            [GProperty(BoolValuePropertyName)]
             [DisplayName (BoolValuePropertyNick)]
             [System.ComponentModel.Description (BoolValuePropertyBlurb)]
             [DefaultValue (BoolValuePropertyDefaultValue)]
             public virtual bool BoolValue { get; set; } = BoolValuePropertyDefaultValue;
 
             double _DoubleValue;
-            [GTypeProperty]
+            [GProperty]
             public double DoubleValue {
                 get {
                     return _DoubleValue;
@@ -305,7 +305,7 @@ namespace GISharp.Core.Test.GObject
                 }
             }
 
-            [GTypeProperty]
+            [GProperty]
             public object ObjectProperty { get; set; }
 
             public TestObjectPropertiesBase () : this (New<TestObjectPropertiesBase> (), Transfer.Full)
@@ -320,7 +320,7 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObjectPropertiesSubclass : TestObjectPropertiesBase
         {
-            [GTypeProperty]
+            [GProperty]
             public new int IntValue { get; set; }
 
             // PropertyAttribute is inherited, so GObject property name will be "bool-value"

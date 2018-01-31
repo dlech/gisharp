@@ -140,7 +140,7 @@ namespace GISharp.GObject
                         continue;
                     }
 
-                    var name = propInfo.TryGetGTypePropertyName ();
+                    var name = propInfo.TryGetGPropertyName();
                     if (name == null) {
                         // this property is not to be registered with the GObject type system
                         continue;

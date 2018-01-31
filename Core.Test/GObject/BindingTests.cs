@@ -66,7 +66,7 @@ namespace GISharp.Core.Test.GObject
     class TestObject : GISharp.GObject.Object
     {
         int _IntValue;
-        [GTypeProperty]
+        [GProperty]
         public int IntValue {
             get {
                 return _IntValue;

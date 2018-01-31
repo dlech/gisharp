@@ -804,7 +804,7 @@ namespace GISharp.GObject
             try {
                 foreach (var pspec in ObjectClass.ListProperties (objClassPtr)) {
                     var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
-                        .SingleOrDefault (p => p.TryGetGTypePropertyName () == pspec.Name);
+                        .SingleOrDefault(p => p.TryGetGPropertyName() == pspec.Name);
                     if (prop == null) {
                         var message = $"Could not find matching property for \"{pspec.Name}\" in type {type.FullName}";
                         throw new ArgumentException (message, nameof(type));

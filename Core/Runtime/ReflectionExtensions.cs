@@ -45,15 +45,15 @@ namespace GISharp.Runtime
         /// property is not registered with the GType system.
         /// </returns>
         /// <param name="info">The property to inspect.</param>
-        public static string TryGetGTypePropertyName (this PropertyInfo info)
+        public static string TryGetGPropertyName(this PropertyInfo info)
         {
             if (info == null) {
                 throw new ArgumentNullException (nameof (info));
             }
-            var propAttr = info.GetCustomAttribute<GTypePropertyAttribute> (true);
+            var propAttr = info.GetCustomAttribute<GPropertyAttribute>(true);
             if (propAttr == null) {
                 propAttr = info.TryGetMatchingInterfacePropertyInfo ()
-                    ?.GetCustomAttribute<GTypePropertyAttribute> ();
+                    ?.GetCustomAttribute<GPropertyAttribute>();
             }
             return propAttr?.Name ?? info.Name;
         }
