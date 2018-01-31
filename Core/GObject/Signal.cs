@@ -422,19 +422,6 @@ namespace GISharp.GObject
             return new SignalHandler (instance, ret);
         }
 
-        static UnmanagedClosureNotify destroyConnectDataDelegate = DestroyConnectData;
-
-        static void DestroyConnectData (IntPtr dataPtr, IntPtr closurePtr)
-        {
-            try {
-                var gcHandle = (GCHandle)dataPtr;
-                gcHandle.Free ();
-            }
-            catch (Exception ex) {
-                ex.DumpUnhandledException ();
-            }
-        }
-
         /// <summary>
         /// Emits a signal.
         /// </summary>
