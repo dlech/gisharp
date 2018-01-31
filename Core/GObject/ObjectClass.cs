@@ -316,11 +316,21 @@ namespace GISharp.GObject
                         parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
                     }
 
+                    // create a closure that will be called when the signal is emitted
+
+                    var fieldInfo = type.GetField(eventInfo.Name,
+                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+
+                    var closure = new Closure((p) => {
+                        var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(p[0]);
+                        return eventDelegate?.DynamicInvoke(p.Skip(1).ToArray());
+                    });
+
                     // register the signal
 
                     var namePtr = GMarshal.StringToUtf8Ptr (name);
                     var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);
-                    Signal.g_signal_newv (namePtr, gtype, flags, IntPtr.Zero,
+                    Signal.g_signal_newv(namePtr, gtype, flags, closure.Handle,
                         null, IntPtr.Zero, null, returnGType,
                         (uint)parameterGTypes.Length, parameterGTypesPtr);
                 }

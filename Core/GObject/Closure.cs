@@ -294,7 +294,7 @@ namespace GISharp.GObject
             var (callback_, notify_, userData_) = UnmanagedClosureMarshalDelegateFactory.CreateNotifyDelegate(callbackWrapper);
             g_closure_set_meta_marshal(handle, userData_, callback_);
             g_closure_add_invalidate_notifier(handle, userData_, notify_);
-            }
+        }
 
         static void ManagedClosureFuncCallback(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
@@ -302,8 +302,10 @@ namespace GISharp.GObject
             var callback = (Func<object[], object>)gcHandle.Target;
             var paramObjs = paramValues.Select(p => p.Get()).ToArray();
             var ret = callback(paramObjs);
-            returnValue.Set(ret);
+            if (!returnValue.Equals(default(Value))) {
+                returnValue.Set(ret);
             }
+        }
 
         static void ManagedClosureActionCallback(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHintPtr)
         {

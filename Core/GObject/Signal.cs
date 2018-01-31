@@ -462,7 +462,34 @@ namespace GISharp.GObject
             Quark detail,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
-            out Value returnValue);
+            IntPtr returnValue);
+
+        [DllImport("gobject-2.0", EntryPoint = "g_signal_emitv", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_signal_emitv_with_return(IntPtr instanceAndParams, uint signalId, Quark detail, ref Value returnValue);
+
+        /// <summary>
+        /// Emits a signal.
+        /// </summary>
+        /// <typeparam name="T">
+        /// The return type
+        /// </typeparam>
+        /// <param name="instance">
+        /// the object the signal is being emitted on
+        /// </param>
+        /// <param name="signalId">
+        /// the signal id
+        /// </param>
+        /// <param name="detail">
+        /// the detail
+        /// </param>
+        /// <param name="parameters">
+        /// argument list for the signal emission.
+        ///  The arguments to be passed to the signal.
+        /// </param>
+        public static T Emit<T>(this Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        {
+            return (T)Emit(typeof(T), instance, signalId, detail, parameters);
+        }
 
         /// <summary>
         /// Emits a signal.
@@ -480,7 +507,12 @@ namespace GISharp.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static object Emit (Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        public static void Emit(this Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        {
+            Emit(typeof(void), instance, signalId, detail, parameters);
+        }
+
+        static object Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
@@ -500,15 +532,22 @@ namespace GISharp.GObject
                     instanceAndParams.Append(new Value(paramGType, parameters[i]));
                 }
 
-                g_signal_emitv (instanceAndParams.Data, signalId, detail, out var returnValue);
+                var ret = default(object);
+
+                if (query.ReturnType == GType.None) {
+                    g_signal_emitv(instanceAndParams.Data, signalId, detail, IntPtr.Zero);
+                }
+                else {
+                    var returnValue = new Value(GType.TypeOf(type));
+                    g_signal_emitv_with_return(instanceAndParams.Data, signalId, detail, ref returnValue);
+                    ret = returnValue.Get();
+                    returnValue.Unset();
+                }
+
                 foreach (var p in instanceAndParams) {
                     p.Unset ();
                 }
-                if (query.ReturnType == GType.None) {
-                    return null;
-                }
-                var ret = returnValue.Get();
-                returnValue.Unset();
+
                 return ret;
             }
         }

@@ -90,7 +90,7 @@ namespace GISharp.GObject
         IntPtr closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
-        ref Value returnValue,
+        IntPtr returnValue,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nParamValues,
@@ -130,17 +130,24 @@ namespace GISharp.GObject
             return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
         }
 
-        static void UnmanagedClosureMarshal(IntPtr closure_, ref Value returnValue_, uint nParamValues_, Value[] paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
+        static void UnmanagedClosureMarshal(IntPtr closure_, IntPtr returnValue_, uint nParamValues_, Value[] paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
         {
             try {
                 var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);
+                var returnValue = default(Value);
+                if (returnValue_ != IntPtr.Zero) {
+                    returnValue = Marshal.PtrToStructure<Value>(returnValue_);
+                }
                 SignalInvocationHint? invocationHint = null;
                 if (invocationHint_ != IntPtr.Zero) {
                     invocationHint = Marshal.PtrToStructure<SignalInvocationHint>(invocationHint_);
                 }
                 var gcHandle = (GCHandle)marshalData_;
                 var marshalData = (UnmanagedClosureMarshalData)gcHandle.Target;
-                marshalData.ClosureMarshal(closure, ref returnValue_, paramValues_, invocationHint);
+                marshalData.ClosureMarshal(closure, ref returnValue, paramValues_, invocationHint);
+                if (returnValue_ != IntPtr.Zero) {
+                    Marshal.StructureToPtr<Value>(returnValue, returnValue_, false);
+                }
             }
             catch (Exception ex) {
                 ex.DumpUnhandledException();

@@ -342,58 +342,13 @@ namespace GISharp.Core.Test.GObject
         [GType]
         class TestObjectSignal : Object
         {
-            object eventHappendHandlerLock = new object ();
-            Dictionary<Action, SignalHandler> eventHappendHandlers = new Dictionary<Action, SignalHandler>();
-
             [GSignal]
-            public event Action EventHappened {
-                add {
-                    lock (eventHappendHandlerLock) {
-                        eventHappendHandlers[value] = this.Connect(nameof(EventHappened),
-                            UnmanagedEventHappenedCallbackFactory.CreateNotifyCallback, value);
-                    }
-                }
-                remove {
-                    lock (eventHappendHandlerLock) {
-                        eventHappendHandlers[value].Disconnect();
-                    }
-                }
-            }
-            static class UnmanagedEventHappenedCallbackFactory
-            {
-                public static ValueTuple<Delegate, UnmanagedClosureNotify, IntPtr> CreateNotifyCallback(Action handler)
-                {
-                    Action unmangedHandler = () => {
-                        try {
-                            handler();
-                        }
-                        catch (Exception ex) {
-                            ex.DumpUnhandledException();
-                        }
-                    };
-                    var gcHandle = GCHandle.Alloc(unmangedHandler);
-
-                    return (unmangedHandler, unmanagedNotifyDelegate, (IntPtr)gcHandle);
-                }
-
-                static UnmanagedClosureNotify unmanagedNotifyDelegate = UnmanagedNotify;
-
-                static void UnmanagedNotify(IntPtr data_, IntPtr closure_)
-                {
-                    try {
-                        var gcHandle = (GCHandle)data_;
-                        gcHandle.Free();
-                    }
-                    catch (Exception ex) {
-                        ex.DumpUnhandledException();
-                    }
-                }
-            }
+            public event Action EventHappened;
 
             readonly uint eventHappendSignalId;
             public void OnEventHappened ()
             {
-                Signal.Emit (this, eventHappendSignalId);
+                this.Emit(eventHappendSignalId);
             }
 
             public TestObjectSignal () : this (New<TestObjectSignal> (), Transfer.Full)
