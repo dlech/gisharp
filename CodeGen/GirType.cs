@@ -342,18 +342,18 @@ namespace GISharp.CodeGen
                 if (parentAttribute != null) {
                     return ResolveType (parentAttribute.Value, element.Document);
                 } else if (element.Name == gi + "class") {
-                    return typeof(ReferenceCountedOpaque);
+                    return typeof(Opaque);
                 }
                 if (element.Name == gi + "record") {
                     var opaqueAttr = element.Attribute (gs + "opaque");
                     if (opaqueAttr != null) {
                         switch (opaqueAttr.Value) {
                         case "ref-counted":
-                            return typeof(ReferenceCountedOpaque);
+                            return typeof(Opaque);
                         case "owned":
-                            return typeof(OwnedOpaque);
+                            return typeof(Opaque);
                         case "static":
-                            return typeof(StaticOpaque);
+                            return typeof(Opaque);
                         default:
                             var message = string.Format ("Unknown opaque type '{0}'.",
                                           opaqueAttr.Value);

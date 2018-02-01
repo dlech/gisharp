@@ -272,13 +272,13 @@ namespace GISharp.CodeGen.Model
             if (opaqueTypeName != null) {
                 switch (opaqueTypeName) {
                 case "ref-counted":
-                    opaqueTypeName = typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName;
+                    opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;
                     break;
                 case "owned":
-                    opaqueTypeName = typeof(GISharp.Runtime.OwnedOpaque).FullName;
+                    opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;
                     break;
                 case "static":
-                    opaqueTypeName = typeof(GISharp.Runtime.StaticOpaque).FullName;
+                    opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;
                     break;
                 case "gtype-struct":
                     opaqueTypeName = GTypeStructParent.FullName;
@@ -293,7 +293,7 @@ namespace GISharp.CodeGen.Model
                 var parent = Element.Attribute ("parent")?.Value;
                 if (parent == null) {
                     yield return SimpleBaseType (
-                        ParseTypeName (typeof(GISharp.Runtime.ReferenceCountedOpaque).FullName));
+                        ParseTypeName (typeof(GISharp.Runtime.Opaque).FullName));
                 } else {
                     var parentType = GirType.ResolveType (parent, Element.Document);
                     yield return SimpleBaseType (ParseTypeName (parentType.FullName));

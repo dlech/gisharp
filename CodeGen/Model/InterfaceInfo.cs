@@ -103,7 +103,8 @@ namespace GISharp.CodeGen.Model
                     yield return SimpleBaseType (ParseTypeName (type.FullName));
                 }
             } else {
-                yield return SimpleBaseType (ParseTypeName (typeof(GISharp.Runtime.IObject).FullName));
+                // FIXME: use an attribute for this
+                // yield return SimpleBaseType (ParseTypeName (typeof(GISharp.Runtime.IObject).FullName));
             }
         }
 

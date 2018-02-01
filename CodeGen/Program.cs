@@ -12,7 +12,7 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Formatting;
-using Microsoft.CodeAnalysis.MSBuild;
+using Microsoft.CodeAnalysis.Workspaces;
 using Mono.Options;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -121,7 +121,7 @@ namespace GISharp.CodeGen
                 .AddMembers (namespaceInfo.Syntax);
             using (var outFileStream = File.Open (outputFile, FileMode.Create))
             using (var writer = new StreamWriter (outFileStream)) {
-                var workspace = MSBuildWorkspace.Create ();
+                var workspace = new AdhocWorkspace();
                 Formatter.Format (codeCompileUnit, workspace).GetText ().Write (writer);
             }
         }

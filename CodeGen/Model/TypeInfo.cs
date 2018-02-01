@@ -86,7 +86,7 @@ namespace GISharp.CodeGen.Model
                         _Classification = TypeClassification.Void;
                     } else if (TypeObject.IsInterface) {
                         _Classification = TypeClassification.Interface;
-                    } else if (Element.Attribute (glib + "is-gtype-struct-for") != null || typeof(GISharp.Runtime.GTypeStruct).IsAssignableFrom (TypeObject)) {
+                    } else if (Element.Attribute(glib + "is-gtype-struct-for") != null || typeof(GISharp.GObject.TypeClass).IsAssignableFrom(TypeObject)) {
                         _Classification = TypeClassification.GTypeStruct;
                     } else if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
                         // GirType always returns false for IsAssignableFrom when type is a RuntimeType

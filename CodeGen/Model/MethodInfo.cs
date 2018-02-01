@@ -536,8 +536,10 @@ namespace GISharp.CodeGen.Model
                         var notifyStatement = string.Format (
                             "var {0}_ = {1}.{2} ({3});\n",
                             notifyParameter.Identifier,
-                            typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
-                            nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
+                            // FIXME:
+                            "factory", "create",
+                            // typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
+                            // nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
                             closureHandle);
                         yield return new Tuple<StatementSyntax, StatementSyntax> (
                             ParseStatement (notifyStatement), null);
@@ -941,7 +943,7 @@ namespace GISharp.CodeGen.Model
                     }
                 }
                 if (ManagedReturnParameterInfo.Transfer != GISharp.Runtime.Transfer.None) {
-                    if (typeof(GISharp.Runtime.ReferenceCountedOpaque).IsAssignableFrom (ManagedReturnParameterInfo.TypeInfo.TypeObject)) {
+                    if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom (ManagedReturnParameterInfo.TypeInfo.TypeObject)) {
                         var refStatement = ParseStatement ("ret.Ref ();\n");
                         if (ManagedReturnParameterInfo.CanBeNull) {
                             refStatement = IfStatement (ParseExpression ("ret != null"), Block(refStatement));
