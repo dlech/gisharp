@@ -130,8 +130,6 @@ Global
 		$3.NewLinesForBracesInAnonymousTypes = False
 		$3.NewLinesForBracesInObjectCollectionArrayInitializers = False
 		$3.NewLinesForBracesInLambdaExpressionBody = False
-		$3.SpacingAfterMethodDeclarationName = True
-		$3.SpaceAfterMethodCallName = True
 		$0.TextStylePolicy = $4
 		$4.NoTabsAfterNonTabs = True
 		$4.scope = text/plain
