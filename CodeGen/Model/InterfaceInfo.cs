@@ -46,7 +46,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<MemberDeclarationSyntax> InterfaceExtensionsMembers {
             get {
                 if (!_InterfaceExtensionsMembers.HasValue) {
-                    _InterfaceExtensionsMembers = List<MemberDeclarationSyntax> (MethodInfos.SelectMany (mi => mi.Declarations));
+                    _InterfaceExtensionsMembers = List<MemberDeclarationSyntax> (MethodInfos.SelectMany (mi => mi.AllDeclarations));
                 }
                 return _InterfaceExtensionsMembers.Value;
             }
@@ -66,7 +66,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             InterfaceDeclarationSyntax interfaceDeclaration;
             ClassDeclarationSyntax interfaceExtenstionsDeclaration;
@@ -110,8 +110,8 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetInterfaceMembers ()
         {
-            return PropertyInfos.SelectMany (x => x.Declarations)
-                .Concat (VirtualMethodInfos.SelectMany (x => x.Declarations));
+            return PropertyInfos.SelectMany (x => x.AllDeclarations)
+                .Concat (VirtualMethodInfos.SelectMany (x => x.AllDeclarations));
         }
     }
 }

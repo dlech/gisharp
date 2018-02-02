@@ -9,10 +9,15 @@ namespace GISharp.CodeGen
         static readonly Dictionary<string, Assembly> assemblyCache =
             new Dictionary<string, Assembly> ();
 
-        public static void LoadAssembly (string path)
+        public static void LoadAssembly(Assembly assembly)
         {
-            var assembly = Assembly.LoadFrom (path);
-            assemblyCache.Add (assembly.FullName, assembly);
+            assemblyCache.Add(assembly.FullName, assembly);
+        }
+
+        public static void LoadAssembly(string path)
+        {
+            var assembly = Assembly.LoadFrom(path);
+            LoadAssembly(assembly);
         }
 
         public static Assembly Resolve (object sender, ResolveEventArgs e)

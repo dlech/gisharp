@@ -94,11 +94,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             TypeSyntax type;
             if (IsCallback) {
-                foreach (var callbackDeclaration in CallbackInfo.Declarations) {
+                foreach (var callbackDeclaration in CallbackInfo.AllDeclarations) {
                     yield return callbackDeclaration;
                 }
                 type = ParseTypeName (CallbackInfo.UnmanagedIdentifier.Text);

@@ -1,0 +1,1761 @@
+
+# KeyFile
+
+# Move KEY_FILE_* constants to KeyFile record
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']
+# Drop the KEY_FILE_ prefix from the constant names
+- !change-attribute
+  name: name
+  regex: KEY_FILE_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]
+
+
+# skip everything else
+
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='DateDay']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='DateYear']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='MutexLocker']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='Pid']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='Quark']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='Strv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='Time']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='Type']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='ANALYZER_ANALYZING']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='ASCII_DTOSTR_BUF_SIZE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Array']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='AsciiType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AsyncQueue']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='BIG_ENDIAN']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BookmarkFile']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='BookmarkFileError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ByteArray']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Bytes']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'CSET_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Checksum']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ChecksumType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ChildWatchFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='CompareDataFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='CompareFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Cond']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ConvertError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='CopyFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='DATALIST_FLAGS_MASK']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'DATE_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'DIR_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Data']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DataForeachFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Date']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DateDMY']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DateMonth']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DateWeekday']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DebugKey']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DestroyNotify']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:union[@name='DoubleIEEE754']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DuplicateFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='E']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='EqualFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Error']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ErrorType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileTest']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:union[@name='FloatIEEE754']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FormatSizeFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='FreeFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='Func']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT16_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT16_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT32_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT32_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT64_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINT64_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINTPTR_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GINTPTR_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GNUC_FUNCTION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GNUC_PRETTY_FUNCTION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GSIZE_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GSIZE_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GSSIZE_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GSSIZE_MODIFIER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GUINT16_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GUINT32_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GUINT64_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='GUINTPTR_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HAVE_GINT64']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HAVE_GNUC_VARARGS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HAVE_GNUC_VISIBILITY']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HAVE_GROWING_STACK']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HAVE_ISO_VARARGS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='HOOK_FLAG_USER_SHIFT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HRFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HashFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='HashTable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='HashTableIter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Hmac']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Hook']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookCheckFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookCheckMarshaller']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookCompareFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookFinalizeFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookFindFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='HookFlagMask']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='HookList']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='HookMarshaller']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IConv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='IEEE754_DOUBLE_BIAS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='IEEE754_FLOAT_BIAS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOChannel']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOChannelError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='IOCondition']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='IOFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='IOFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOFuncs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOStatus']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LITTLE_ENDIAN']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LN10']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LN2']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LOG_2_BASE_10']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LOG_DOMAIN']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LOG_FATAL_MASK']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='LOG_LEVEL_USER_SHIFT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='List']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='LogFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='LogLevelFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAJOR_VERSION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXINT16']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXINT32']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXINT64']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXINT8']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXUINT16']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXUINT32']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXUINT64']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAXUINT8']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MICRO_VERSION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MININT16']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MININT32']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MININT64']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MININT8']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MINOR_VERSION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MODULE_SUFFIX']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainContext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainLoop']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MappedFile']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='MarkupCollectType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='MarkupError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MarkupParseContext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='MarkupParseFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MarkupParser']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MatchInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MemVTable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:union[@name='Mutex']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Node']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='NodeForeachFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='NodeTraverseFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NormalizeMode']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='OPTION_REMAINING']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Once']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='OnceStatus']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionArg']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionArgFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionEntry']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionErrorFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='OptionFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionParseFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PDP_ENDIAN']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PI']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PI_2']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PI_4']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='POLLFD_FORMAT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PatternSpec']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PollFD']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='PollFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='PrintFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Private']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Queue']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='RWLock']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Rand']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='RecMutex']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Regex']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='RegexCompileFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='RegexError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='RegexEvalCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='RegexMatchFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SEARCHPATH_SEPARATOR']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SEARCHPATH_SEPARATOR_S']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SIZEOF_LONG']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SIZEOF_SIZE_T']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SIZEOF_SSIZE_T']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SIZEOF_VOID_P']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SList']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'SOURCE_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='SQRT2']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='STR_DELIMITERS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'SYSDEF_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Scanner']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ScannerConfig']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ScannerMsgFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SeekType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Sequence']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SequenceIter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SequenceIterCompareFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ShellError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SliceConfig']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Source']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SourceCallbackFuncs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SourceDummyMarshal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SourceFuncs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SourcePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SpawnChildSetupFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SpawnError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='SpawnFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='StatBuf']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='String']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='StringChunk']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TestCase']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TestConfig']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TestDataFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TestFileType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TestFixtureFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TestFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TestLogBuffer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TestLogFatalFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TestLogMsg']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TestLogType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TestSubprocessFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TestSuite']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TestTrapFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Thread']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ThreadError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ThreadFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ThreadPool']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TimeType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TimeVal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Timer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TokenType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:union[@name='TokenValue']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TranslateFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TrashStack']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TraverseFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TraverseFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TraverseType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Tree']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='UNICHAR_MAX_DECOMPOSITION_LENGTH']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='URI_RESERVED_CHARS_GENERIC_DELIMITERS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='URI_RESERVED_CHARS_SUBCOMPONENT_DELIMITERS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='USEC_PER_SEC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeBreakType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeScript']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='UnixFDSourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UserDirectory']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VA_COPY_AS_ARRAY']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VERSION_MIN_REQUIRED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantBuilder']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='VariantClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantIter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='VariantParseError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='VoidFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='WIN32_MSG_HANDLE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='access']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'ascii_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='assert_warning']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'assertion_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='atexit']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'atomic_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'base64_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='basename']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'bit_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='build_filenamev']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='build_pathv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='chdir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='check_version']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'child_watch_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='clear_error']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='clear_pointer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='close']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'compute_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='convert']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='convert_error_quark']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='convert_with_fallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='convert_with_iconv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'datalist_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'dataset_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dcgettext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dgettext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='direct_equal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='direct_hash']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dngettext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='double_equal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='double_hash']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dpgettext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dpgettext2']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'environ_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'file_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'filename_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='find_program_in_path']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='format_size']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='format_size_for_display']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='format_size_full']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='free']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_application_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_charset']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_codeset']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_current_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_current_time']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_environ']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_filename_charsets']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_home_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_host_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_language_names']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_locale_variants']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_monotonic_time']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_num_processors']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_prgname']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_real_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_real_time']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_system_config_dirs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_system_data_dirs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_tmp_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_cache_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_config_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_data_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_runtime_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_user_special_dir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='getenv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'hostname_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='iconv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'idle_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='int64_equal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='int64_hash']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='int_equal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='int_hash']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='intern_static_string']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='intern_string']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_add_watch_full']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_create_watch']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='listenv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='locale_from_utf8']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='locale_to_utf8']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'log_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'main_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='malloc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='malloc0']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='malloc0_n']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='malloc_n']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='markup_error_quark']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='markup_escape_text']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mem_is_system_malloc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mem_profile']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mem_set_vtable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='memdup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mkdir_with_parents']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mkdtemp']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mkdtemp_full']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mkstemp']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='mkstemp_full']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='nullify_pointer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='on_error_query']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='on_error_stack_trace']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='option_error_quark']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='parse_debug_string']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'path_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'pattern_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pointer_bit_lock']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pointer_bit_trylock']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pointer_bit_unlock']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='poll']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='propagate_error']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='qsort_with_data']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'quark_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'random_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='realloc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='realloc_n']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='reload_user_special_dirs_cache']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='return_if_fail_warning']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='rmdir']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='set_application_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='set_error_literal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='set_prgname']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='set_print_handler']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='set_printerr_handler']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='setenv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'shell_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'slice_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='spaced_primes_closest']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'spawn_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='stpcpy']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'str_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strcanon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strcasecmp']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strchomp']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strchug']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strcmp0']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strcompress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdelimit']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdown']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strdupv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strerror']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strescape']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strfreev']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'string_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strip_context']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strjoinv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strlcat']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strlcpy']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strncasecmp']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strndup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strnfill']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strreverse']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strrstr']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strrstr_len']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strsignal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strsplit']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strsplit_set']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strstr_len']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strtod']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='strup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'strv_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'test_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'try_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'ucs4_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unichar_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unicode_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unlink']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unsetenv']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'uri_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='usleep']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'utf16_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'utf8_')]
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='variant_get_gtype']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='warn_message']

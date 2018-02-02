@@ -12,97 +12,65 @@ namespace GISharp.CodeGen.Model
 {
     public class NamespaceInfo : MemberInfo
     {
-        public const string GlobalPrefix = "GISharp";
-
-        readonly XElement namespaceElement;
-
-        public string Version { get; private set; }
-
-        public string FullManagedName {
-            get { return string.Join (".", GlobalPrefix, ManagedName); }
-        }
-
-        public NameSyntax Name {
-            get {
-                return ParseName (FullManagedName);
-            }
-        }
-
-        NamespaceDeclarationSyntax _Syntax;
-        public NamespaceDeclarationSyntax Syntax { get
-            {
-                if (_Syntax == null) {
-                    var globalNamespaceNameSyntax = ParseName (GlobalPrefix);
-                    var namespaceNameSyntax = IdentifierName (ManagedName);
-                    var nameSyntax = QualifiedName (globalNamespaceNameSyntax, namespaceNameSyntax);
-                    var members = List<MemberDeclarationSyntax> ()
-                        .AddRange (Declarations);
-                    _Syntax = NamespaceDeclaration (nameSyntax)
-                        .WithMembers (members);
-                }
-                return _Syntax;
-            }
-        }
-
-        List<MemberInfo> _TypeDeclarationInfos;
-        public IReadOnlyList<MemberInfo> TypeDeclarationInfos {
-            get {
-                if (_TypeDeclarationInfos == null) {
-                    _TypeDeclarationInfos = GetTypeDeclarationInfos ().ToList ();
-                }
-                return _TypeDeclarationInfos.AsReadOnly ();
-            }
-        }
-
-        public NamespaceInfo (XDocument document) 
-            : base (document.Element (gi + "repository").Element (gi + "namespace"), null)
-        {
-            if (document == null) {
-                throw new ArgumentNullException (nameof(document));
-            }
-            var repositoryElement = document.Element (gi + "repository");
-            if (repositoryElement == null) {
-                throw new ArgumentException ("Missing <repository> element.", nameof(document));
-            }
-            var girVersion = repositoryElement.Attribute ("version").Value;
-            if (girVersion != "1.2") {
-                throw new ArgumentException ("Expecting gir version 1.2.", nameof(document));
-            }
-            namespaceElement = repositoryElement.Element (gi + "namespace");
-            if (namespaceElement == null) {
-                throw new ArgumentException ("Missing <namespace> element.", nameof(document));
-            }
-
-            Version = namespaceElement.Attribute ("version").Value;
-        }
+        /// <summary>
+        /// Gets the GIR namespace version
+        /// </summary>
+        public string Version { get; }
 
         /// <summary>
-        /// Finds the info for the specified element.
+        /// Gets the name of the namespace
         /// </summary>
-        /// <returns>The info or <c>null</c> if the element was not found.</returns>
-        /// <param name="element">The element to search for.</param>
-        public BaseInfo FindInfo (XElement element)
+        public NameSyntax Name { get; }
+
+        /// <summary>
+        /// Gets the namespace declaration (no members)
+        /// </summary>
+        public NamespaceDeclarationSyntax NamespaceDeclaration => _NamespaceDeclaration.Value;
+        Lazy<NamespaceDeclarationSyntax> _NamespaceDeclaration;
+
+        /// <summary>
+        /// Gets a list of child type declarations
+        /// </summary>
+        public IReadOnlyList<MemberInfo> TypeDeclarations => _TypeDeclarations.Value;
+        readonly Lazy<IReadOnlyList<MemberInfo>> _TypeDeclarations;
+
+        public NamespaceInfo(XElement element, ModuleInfo declaringMember) : base(element, declaringMember)
         {
-            var info = element.Annotation<BaseInfo> ();
-            if (info != null) {
-                return info;
+            if (element == null) {
+                throw new ArgumentNullException(nameof(element));
             }
-            return InternalFindInfo (element);
+            if (declaringMember == null) {
+                throw new ArgumentNullException(nameof(declaringMember));
+            }
+            if (element.Name != gi + "namespace") {
+                throw new ArgumentException("Requrires 'namespace' element", nameof(element));
+            }
+
+            Version = element.Attribute("version").Value;
+            Name = ParseName($"GISharp.{ManagedName}");
+            _NamespaceDeclaration = new Lazy<NamespaceDeclarationSyntax>(GetNamespaceDeclaration);
+            _TypeDeclarations = new Lazy<IReadOnlyList<MemberInfo>>(() => GetTypeDeclarations().ToList().AsReadOnly());
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
         {
-            return TypeDeclarationInfos;
+            return TypeDeclarations;
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
-            return TypeDeclarationInfos.SelectMany (x => x.Declarations);
+            var members = TypeDeclarations.SelectMany (x => x.AllDeclarations);
+            yield return NamespaceDeclaration.WithMembers(List(members));
         }
 
-        IEnumerable<MemberInfo> GetTypeDeclarationInfos ()
+        NamespaceDeclarationSyntax GetNamespaceDeclaration()
         {
-            foreach (var child in namespaceElement.Elements ().Where (x => !x.Attribute ("disguised").AsBool ())) {
+            return NamespaceDeclaration(Name);
+        }
+
+        IEnumerable<MemberInfo> GetTypeDeclarations()
+        {
+            foreach (var child in Element.Elements().Where (x => !x.Attribute("disguised").AsBool())) {
                 var childName = child.Attribute ("name").Value;
                 if (child.Name == gi + "callback") {
                     yield return new DelegateInfo (child, this);

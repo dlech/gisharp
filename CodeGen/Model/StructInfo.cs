@@ -57,7 +57,7 @@ namespace GISharp.CodeGen.Model
             yield return Token (SyntaxKind.PartialKeyword);
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             MemberDeclarationSyntax structDeclaration;
             try {
@@ -76,9 +76,9 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetStructMemberDeclarations ()
         {
-            return NestedTypeInfos.SelectMany (x => x.Declarations)
-                .Concat(FieldInfos.SelectMany (x => x.Declarations))
-                .Concat (MethodInfos.SelectMany (x => x.Declarations));
+            return NestedTypeInfos.SelectMany (x => x.AllDeclarations)
+                .Concat(FieldInfos.SelectMany (x => x.AllDeclarations))
+                .Concat (MethodInfos.SelectMany (x => x.AllDeclarations));
         }
     }
 }

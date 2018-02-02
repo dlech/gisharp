@@ -1,18 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Xml;
 using System.Xml.Linq;
 using System.IO;
 using System.Text;
 using System.Xml.XPath;
 using System.Text.RegularExpressions;
-//using GISharp.Core;
+
 using Microsoft.CodeAnalysis.CSharp;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
+using YamlDotNet.Serialization;
+using YamlDotNet.Serialization.NamingConventions;
 
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
+
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 namespace GISharp.CodeGen
 {
@@ -40,183 +45,217 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static void ApplyFixupFile (this XDocument document, string filename)
+        /// <summary>
+        /// Creates a new gir-fixup.yml file that skips everything in the GIR
+        /// XML file.
+        /// </summary>
+        /// <param name="gir">The GIR XML document</param>
+        /// <param name="writer">TextWriter where the YAML will be written</param>
+        public static void Generate(this XDocument gir, TextWriter writer)
+        {
+            if (gir == null) {
+                throw new ArgumentNullException(nameof(gir));
+            }
+            if (writer == null) {
+                throw new ArgumentNullException(nameof(writer));
+            }
+
+            // we want everything lower-case and hyphenated
+            var hyphenator = new HyphenatedNamingConvention();
+
+            var builder = new SerializerBuilder().WithNamingConvention(hyphenator);
+
+            // Since each command has a unique type, we need to add a
+            // type discriminator. This is done by adding a tag mapping
+            // for each type that inherits from Command.
+            var commandTypes = typeof(Fixup).GetNestedTypes()
+                .Where(t => t.BaseType == typeof(Command));
+            foreach (var type in commandTypes) {
+                var name = hyphenator.Apply(type.Name);
+                builder.WithTagMapping("!" + name, type);
+            }
+
+            var serializer = builder.Build();
+
+            var commands = gir.Element(gi + "repository").Element(gi + "namespace").Elements()
+                .Where(e => !e.IsSkipped()) // these will be handled by ApplyBuiltinFixup()
+                .Select(e => new SetAttribute {
+                    Name = "skip",
+                    Value = "1",
+                    Xpath = $"gi:repository/gi:namespace/gi:{e.Name.LocalName}[@name='{e.Attribute("name").Value}']"
+                }).ToList<Command>();
+
+            serializer.Serialize(writer, commands);
+        }
+
+        /// <summary>
+        /// Parses data from a gir-fixup.yml file
+        /// </summary>
+        /// <param name="yaml"/>YAML text data</param>
+        public static Command[] Parse(TextReader reader)
+        {
+            if (reader == null) {
+                throw new ArgumentNullException(nameof(reader));
+            }
+
+            // we expect everything lower-case and hyphenated
+            var hyphenator = new HyphenatedNamingConvention();
+
+            var builder = new DeserializerBuilder().WithNamingConvention(hyphenator);
+
+            // Since each command has a unique type, we need to add a
+            // type discriminator. This is done by adding a tag mapping
+            // for each type that inherits from Command.
+            var commandTypes = typeof(Fixup).GetNestedTypes()
+                .Where(t => t.BaseType == typeof(Command));
+            foreach (var type in commandTypes) {
+                var name = hyphenator.Apply(type.Name);
+                builder.WithTagMapping("!" + name, type);
+            }
+
+            var deserializer = builder.Build();
+
+            var commands = deserializer.Deserialize<Command[]>(reader);
+
+            return commands;
+        }
+
+        public static void ApplyFixup(this XDocument document, Command[] commands)
         {
             if (document == null) {
-                throw new ArgumentNullException ("document");
+                throw new ArgumentNullException(nameof(document));
             }
-            if (filename == null) {
-                throw new ArgumentNullException ("filename");
+            if (commands == null) {
+                throw new ArgumentNullException (nameof(commands));
             }
 
-            // Helpful for creating a .girfixup that skips everything
-//            foreach (var e in document.Element (gi + "repository").Element (gi + "namespace").Elements ()) {
-//                Console.WriteLine ($"chattr \"skip\" \"\" \"1\" \"gi:repository/gi:namespace/gi:{e.Name.LocalName}[@name='{e.Attribute ("name").Value}']\"");
-//            }
-
-            var quoteCount = 0;
-            var lastCharWasEscape = false;
-            var builder = new StringBuilder ();
-            string command = null;
-            var parameters = new List<string> ();
-
-            var commands = new List<Tuple<string,List<string>>> ();
-            var lineNo = 0;
-            foreach (var line in File.ReadLines (filename)) {
-                lineNo++;
-                if (string.IsNullOrWhiteSpace (line) || line.StartsWith ("#", StringComparison.Ordinal)) {
-                    // ignore empty lines and comments
-                    continue;
-                }
-                var charNo = 0;
-                if (!lastCharWasEscape) {
-                    // if the previous line did not end with a backslash, then reset for next command
-                    quoteCount = 0;
-                    builder.Clear ();
-                    command = null;
-                    parameters = new List<string> ();
-                }
-                lastCharWasEscape = false;
-                foreach (var c in line) {
-                    charNo++;
-
-                    // read the command - it is not quoted
-
-                    if (command == null) {
-                        if (char.IsWhiteSpace (c)) {
-                            command = builder.ToString ();
-                            builder.Clear ();
-                        } else {
-                            builder.Append (c);
-                        }
-                        continue;
-                    }
-
-                    // then read all of the parameters - they are all in quotes
-
-                    if (c == '"' && !lastCharWasEscape) {
-                        quoteCount++;
-                        if ((quoteCount % 2) == 0) {
-                            parameters.Add (builder.ToString ());
-                            builder.Clear ();
-                        }
-                    } else {
-                        if ((quoteCount % 2) == 0) {
-                            if (!char.IsWhiteSpace (c) && (c != '\\')) {
-                                throw new Exception (string.Format ("Expecting whitespace at {0}:{1}", lineNo, charNo));
-                            }
-                        } else {
-                            builder.Append (c);
-                        }
-                    }
-                    lastCharWasEscape = (c == '\\');
-                }
-                if (lastCharWasEscape) {
-                    continue;
-                }
-                int paramCount;
+            foreach (var command in commands) {
                 switch (command) {
-                case "addelement":
-                case "chelement":
-                case "move":
-                    paramCount = 2;
-                    break;
-                case "chattr":
-                    paramCount = 4;
-                    break;
-                default:
-                    throw new Exception (string.Format ("Unknown command '{0}'", command));
-                }
-                if (parameters.Count != paramCount) {
-                    throw new Exception (string.Format ("{0} command on line {1} requires {3} parameters", command, lineNo, paramCount));
-                }
-                commands.Add (new Tuple<string,List<string>> (command, parameters));
-            }
-            if (commands.Count == 0) {
-                Console.Error.WriteLine ("Warning: File '{0}' is empty.", filename);
-            }
-            foreach (var tuple in commands) {
-                command = tuple.Item1;
-                parameters = tuple.Item2;
-                switch (command) {
-                case "addelement":
-                    var newElement = parseElement (parameters [0]);
-                    var addParent = document.XPathSelectElement (parameters [1], Manager);
+                case AddElement addElement:
+                    var newElement = parseElement(addElement.Xml);
+                    var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
                     if (addParent == null) {
-                        Console.Error.WriteLine ("Could not find element at '{0}'", parameters [1]);
+                        Console.Error.WriteLine($"Could not find element at '{addElement.Xpath}'");
                         break;
                     }
-                    addParent.Add (newElement);
+                    addParent.Add(newElement);
                     break;
-                case "chattr":
-                    var attributeParts = parameters [0].Split (':');
-                    var localName = attributeParts [0];
-                    var @namespace = XNamespace.None;
-                    if (attributeParts.Length > 1) {
-                        localName = attributeParts [1];
-                        @namespace = (XNamespace)Manager.LookupNamespace (attributeParts [0]);
+                case SetAttribute setAttr:
+                    var setAttrNameParts = setAttr.Name.Split(':');
+                    var setAttrLocalName = setAttrNameParts[0];
+                    var setAttrNamespace = XNamespace.None;
+                    if (setAttrNameParts.Length > 1) {
+                        setAttrLocalName = setAttrNameParts[1];
+                        setAttrNamespace = (XNamespace)Manager.LookupNamespace(setAttrNameParts[0]);
                     }
-                    var chattrElements = document.XPathSelectElements (parameters[3], Manager).ToList ();
-                    if (chattrElements.Count == 0) {
-                        Console.Error.WriteLine ("Could not find any elements matching '{0}'", parameters[3]);
+                    var setAttrElements = document.XPathSelectElements(setAttr.Xpath, Manager).ToList();
+                    if (setAttrElements.Count == 0) {
+                        Console.Error.WriteLine($"Could not find any elements matching '{setAttr.Xpath}'");
                         break;
                     }
-                    foreach (var element in chattrElements) {
-                        var attribute = element.Attribute (@namespace + localName);
+                    foreach (var element in setAttrElements) {
+                        var attribute = element.Attribute(setAttrNamespace + setAttrLocalName);
+                        element.SetAttributeValue(setAttrNamespace + setAttrLocalName, setAttr.Value);
+                    }
+                    break;
+                case ChangeAttribute changeAttr:
+                    var changeAttrNameParts = changeAttr.Name.Split(':');
+                    var changeAttrLocalName = changeAttrNameParts[0];
+                    var changeAttrNamespace = XNamespace.None;
+                    if (changeAttrNameParts.Length > 1) {
+                        setAttrLocalName = changeAttrNameParts[1];
+                        setAttrNamespace = (XNamespace)Manager.LookupNamespace(changeAttrNameParts[0]);
+                    }
+                    var changeAttrElements = document.XPathSelectElements(changeAttr.Xpath, Manager).ToList();
+                    if (changeAttrElements.Count == 0) {
+                        Console.Error.WriteLine($"Could not find any elements matching '{changeAttr.Xpath}'");
+                        break;
+                    }
+                    foreach (var element in changeAttrElements) {
+                        var attribute = element.Attribute(changeAttrNamespace + changeAttrLocalName);
                         var oldValue = attribute == null ? string.Empty : attribute.Value;
-                        var newValue = parameters[1] == string.Empty ? parameters[2]
-                            : Regex.Replace (oldValue, parameters[1], parameters[2]);
-                        element.SetAttributeValue (@namespace + localName, newValue);
+                        var newValue = string.IsNullOrEmpty(changeAttr.Regex) ? changeAttr.Replace
+                            : Regex.Replace(oldValue, changeAttr.Regex, changeAttr.Replace);
+                        element.SetAttributeValue(changeAttrNamespace + changeAttrLocalName, newValue);
                     }
                     break;
-                case "chelement":
-                    var elementParts = parameters [0].Split (':');
-                    var elementLocalName = elementParts [0];
+                case ChangeElement changeElement:
+                    var elementParts = changeElement.NewName.Split(':');
+                    var elementLocalName = elementParts[0];
                     var elementNamespace = XNamespace.None;
                     if (elementParts.Length > 1) {
-                        elementLocalName = elementParts [1];
-                        elementNamespace = (XNamespace)Manager.LookupNamespace (elementParts [0]);
+                        elementLocalName = elementParts[1];
+                        elementNamespace = (XNamespace)Manager.LookupNamespace(elementParts[0]);
                     }
-                    var elementsToChange = document.XPathSelectElements (parameters [1], Manager);
+                    var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
                     if (elementsToChange == null) {
-                        Console.Error.WriteLine ("Could not find elements matching '{0}'", parameters [1]);
+                        Console.Error.WriteLine($"Could not find elements matching '{changeElement.Xpath}'");
                         break;
                     }
                     foreach (var element in elementsToChange) {
                         element.Name = elementNamespace + elementLocalName;
                     }
                     break;
-                case "move":
-                    var moveElements = document.XPathSelectElements (parameters[0], Manager).ToList ();
+                case MoveElement moveElement:
+                    var moveElements = document.XPathSelectElements(moveElement.Xpath, Manager).ToList();
                     if (moveElements.Count == 0) {
-                        Console.Error.WriteLine ("Could not find any elements matching '{0}'", parameters[0]);
+                        Console.Error.WriteLine($"Could not find any elements matching '{moveElement.Xpath}'");
                     }
-                    var moveParent = document.XPathSelectElement (parameters[1], Manager);
+                    var moveParent = document.XPathSelectElement(moveElement.NewParentXpath, Manager);
                     if (moveParent == null) {
-                        Console.Error.WriteLine ("Could not find element at '{0}'", parameters[1]);
+                        Console.Error.WriteLine($"Could not find element at '{moveElement.NewParentXpath}'");
                         break;
                     }
                     foreach (var element in moveElements) {
-                        element.Remove ();
-                        moveParent.Add (element);
+                        element.Remove();
+                        moveParent.Add(element);
                     }
                     break;
                 }
             }
         }
 
-        static bool IsCallableWithVarArgs (this XElement element)
+        /// <summary>
+        /// Tests if an element should be ignored/removed.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the element is marked as "skip", "moved-to" or
+        /// "shadowed-by or if the element is a function/method with varargs
+        /// or if the element is an alias that ends with _autoptr.
+        /// </returns>
+        static bool IsSkipped(this XElement element)
         {
-            element = element.Element (gi + "parameters");
-            if (element == null) {
+            return element.Attribute("skip").AsBool()
+                || element.Attribute("moved-to") != null
+                || element.Attribute ("shadowed-by") != null
+                || IsCallableWithVarArgs()
+                || IsAutoptrAlias();
+
+            bool IsCallableWithVarArgs()
+            {
+                var parameters = element.Element(gi + "parameters");
+                if (parameters == null) {
+                    return false;
+                }
+                foreach (var child in parameters.Elements(gi + "parameter")) {
+                    if (child.Element(gi + "type")?.Attribute("name").AsString() == "va_list") {
+                        return true;
+                    }
+                    if (child.Element(gi + "varargs") != null) {
+                        return true;
+                    }
+                }
                 return false;
             }
-            foreach (var child in element.Elements (gi + "parameter")) {
-                if (child.Element (gi + "varargs") != null) {
-                    return true;
+
+            bool IsAutoptrAlias()
+            {
+                if (element.Name != gi + "alias") {
+                    return false;
                 }
+
+                return element.Attribute("name").AsString("").EndsWith("_autoptr", StringComparison.Ordinal);
             }
-            return false;
         }
 
         public static void ApplyBuiltinFixup (this XDocument document)
@@ -225,17 +264,9 @@ namespace GISharp.CodeGen
 
             document.Root.SetAttributeValue (XNamespace.Xmlns + "gs", gs.NamespaceName);
 
-            // remove all elements marked as "skip", "moved-to" or "shadowed-by"
-            // and functions/methods with varagrs. On OS X/homebrew, there are
-            // aliases that end with _autoptr that need to be ignored too.
-
             var elementsToRemove = document.Descendants ()
                 .Where (d => d.Name != gi + "return-value" && d.Name != gi + "parameter")
-                .Where (d => d.Attribute ("skip").AsBool ()
-                    || d.Attribute ("moved-to") != null
-                    || d.Attribute ("shadowed-by") != null
-                    || d.IsCallableWithVarArgs ()
-                    || d.Attribute ("name").AsString ("").EndsWith ("_autoptr", StringComparison.Ordinal))
+                .Where (d => d.IsSkipped())
                 .ToList ();
             foreach (var element in elementsToRemove) {
                 element.Remove ();
@@ -360,9 +391,8 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute ("name").Value == "ref"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithRefMethod) {
-                element.SetAttributeValue (gs + "special-func", "ref");
-                element.SetAttributeValue (gs + "access-modifiers", "public override");
-                element.Element (gi + "return-value").SetAttributeValue ("skip", "1");
+                element.SetAttributeValue (gs + "special-func", "copy");
+                element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
             // flag unref functions
@@ -371,8 +401,18 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute ("name").Value == "unref"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithUnrefMethod) {
-                element.SetAttributeValue (gs + "special-func", "unref");
-                element.SetAttributeValue (gs + "access-modifiers", "public override");
+                element.SetAttributeValue (gs + "special-func", "free");
+                element.SetAttributeValue (gs + "pinvoke-only", "1");
+            }
+
+            // flag free functions
+
+            var elementsWithCopyMethod = document.Descendants (gi + "method")
+                .Where (d => d.Attribute ("name").Value == "copy"
+                    && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
+            foreach (var element in elementsWithCopyMethod) {
+                element.SetAttributeValue (gs + "special-func", "copy");
+                element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
             // flag free functions
@@ -382,7 +422,7 @@ namespace GISharp.CodeGen
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithFreeMethod) {
                 element.SetAttributeValue (gs + "special-func", "free");
-                element.SetAttributeValue (gs + "access-modifiers", "protected override");
+                element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
             // flag equals functions
@@ -431,19 +471,10 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "access-modifiers", "public override");
             }
 
-            // flag reference-counted opaques
-
-            var recordsThatAreRefCounted = document.Descendants (gi + "record")
-                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "ref")
-                    && d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "unref"));
-            foreach (var element in recordsThatAreRefCounted) {
-                element.SetAttributeValue (gs + "opaque", "ref-counted");
-            }
-
             // flag owned opaques
 
             var recordsThatAreOwned = document.Descendants (gi + "record")
-                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "free"));
+                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "copy"));
             foreach (var element in recordsThatAreOwned) {
                 element.SetAttributeValue (gs + "opaque", "owned");
             }
@@ -463,33 +494,6 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute (glib + "is-gtype-struct-for") != null);
             foreach (var element in recordsThatAreGTypeStructs) {
                 element.SetAttributeValue (gs+ "opaque", "gtype-struct");
-            }
-
-            // move fields to internal struct in opaques
-
-            var recordsThatAreOpaque = document.Descendants (gi + "record")
-                .Where (d => d.Attribute (gs + "opaque") != null);
-            foreach (var element in recordsThatAreOpaque) {
-                var innerStruct = new XElement (gi + "record",
-                    new XAttribute ("name", element.Attribute ("name").Value + "Struct"),
-                    new XAttribute (gs + "managed-name", element.Attribute (gs + "managed-name").Value + "Struct"),
-                    new XAttribute (gs + "access-modifiers", "protected"));
-                var fields = element.Elements (gi + "field").ToList ();
-                foreach (var field in fields) {
-                    field.Remove ();
-                    innerStruct.Add (field);
-                }
-                element.AddFirst (innerStruct);
-            }
-
-            // remove fields from classes
-
-            var classes = document.Descendants (gi + "class");
-            foreach (var element in classes) {
-                var fields = element.Elements (gi + "field").ToList ();
-                foreach (var field in fields) {
-                    field.Remove ();
-                }
             }
 
             // add managed-type attribute (skipping existing managed-type attributes)
@@ -908,7 +912,7 @@ namespace GISharp.CodeGen
                 }
 
                 return string.Format ("{0}.{1}", MainClass.parentNamespace, typeName);
-            } 
+            }
 
             var arrayElement = element.Element (gi + "array");
             if (arrayElement != null) {
@@ -944,7 +948,7 @@ namespace GISharp.CodeGen
                 // TODO: implment fields with callback
                 //typeName = element.Attribute ("name") + "Func";
             }
-            
+
             throw new ArgumentException ("element must have <type>, <array> or <callback> child");
         }
 
@@ -1013,5 +1017,46 @@ namespace GISharp.CodeGen
             var reader = XmlReader.Create (new StringReader (xml), null, context);
             return XElement.Load (reader);
         }
+
+        // YAML data structures
+
+        #pragma warning disable CS0649
+        public abstract class Command
+        {
+        }
+
+        public class AddElement : Command
+        {
+            public string Xml { get; set; }
+            public string Xpath { get; set; }
+        }
+
+        public class SetAttribute: Command
+        {
+            public string Name { get; set; }
+            public string Value { get; set; }
+            public string Xpath { get; set; }
+        }
+
+        public class ChangeAttribute : Command
+        {
+            public string Name { get; set; }
+            public string Regex { get; set; }
+            public string Replace { get; set; }
+            public string Xpath { get; set; }
+        }
+
+        public class ChangeElement : Command
+        {
+            public string NewName { get; set; }
+            public string Xpath { get; set; }
+        }
+
+        public class MoveElement : Command
+        {
+            public string Xpath { get; set; }
+            public string NewParentXpath { get; set; }
+        }
+        #pragma warning restore CS0649
     }
 }

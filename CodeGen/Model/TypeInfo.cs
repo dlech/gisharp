@@ -240,7 +240,7 @@ namespace GISharp.CodeGen.Model
                     .Where(a => !a.IsNamespaceDeclaration)
                     .Select (a => new XAttribute(a.Name.LocalName, a.Value)));
             }
-            var comment = string.Format ($"/* {copy.Elements ().Single ()} */");
+            var comment = $"/* {copy.Elements().Single()} */".Replace("\n", "\n * ");
             return Comment (comment);
         }
     }

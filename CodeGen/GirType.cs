@@ -348,8 +348,6 @@ namespace GISharp.CodeGen
                     var opaqueAttr = element.Attribute (gs + "opaque");
                     if (opaqueAttr != null) {
                         switch (opaqueAttr.Value) {
-                        case "ref-counted":
-                            return typeof(Opaque);
                         case "owned":
                             return typeof(Opaque);
                         case "static":

@@ -73,7 +73,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             EnumDeclarationSyntax enumDeclaration;
             ClassDeclarationSyntax enumExtenstionsDeclaration;
@@ -107,7 +107,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<MemberDeclarationSyntax> GetExtensionMembers ()
         {
             foreach (var method in MethodInfos) {
-                foreach (var decl in method.Declarations) {
+                foreach (var decl in method.AllDeclarations) {
                     yield return decl;
                 }
             }

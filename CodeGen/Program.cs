@@ -6,8 +6,11 @@ using System.Reflection;
 using System.Text;
 using System.Xml.Linq;
 
+using Buildalyzer;
+using Buildalyzer.Workspaces;
 using GISharp.Runtime;
 using GISharp.CodeGen.Model;
+using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -23,10 +26,18 @@ namespace GISharp.CodeGen
     {
         internal const string parentNamespace = "GISharp";
 
+        enum Command
+        {
+            // create a new gir-fixup.yml file
+            NewFixup,
+            // generate source code files
+            Generate,
+        }
+
         static void PrintHelpAndExit (OptionSet options, int exitCode = 0)
         {
             var writer = exitCode == 0 ? Console.Out : Console.Error;
-            writer.WriteLine ("Usage: mono GICodeGen.exe -r <repository-name> [-g <gir-directory>] [-f <fixup-file>] [-o <output-file>] [-a <path1[:path2[...]] | -h | -v]");
+            writer.WriteLine("Usage: mono GICodeGen.exe { -c <command> -p <project> [ -g <gir-path> ] [ -f ] | -h | -v }");
             writer.WriteLine ();
             options.WriteOptionDescriptions (writer);
             Environment.Exit (exitCode);
@@ -42,11 +53,10 @@ namespace GISharp.CodeGen
 
         public static void Main (string[] args)
         {
-            string repositoryName = null;
-            string girDirectory = null;
-            string fixupFile = null;
-            string outputFile = null;
-            string paths = null;
+            string commandArg = null;
+            string projectArg = null;
+            string girDirectoryArg = null;
+            bool forceArg = false;
 
             OptionSet options = null;
             options = new OptionSet () { {
@@ -58,72 +68,181 @@ namespace GISharp.CodeGen
                     "Print the program version infomation.",
                     v => PrintVersionAndExit ()
                 }, {
-                    "r=|repository=",
-                    "The repository to generate. Essentially this is the name of the .gir file without the .gir extension.",
-                    v => repositoryName = v
+                    "c|command=",
+                    "The command to run.",
+                    v => commandArg = v
                 }, {
-                    "g=|gir-dir=",
+                    "p|project=",
+                    "The .NET project to use.",
+                    v => projectArg = v
+                }, {
+                    "g|gir-dir=",
                     "The directory where the .gir file is located. By default /usr/share/gir-1.0/ will be used.",
-                    v => girDirectory = v
+                    v => girDirectoryArg = v
                 }, {
-                    "f=|fixup=",
-                    "The name of the .girfixup file. By default '<namespace>.girfixup' will be used.",
-                    v => fixupFile = v
-                }, {
-                    "a=|assemblies=",
-                    "A colon separated list of dependant assembly paths.",
-                    v => paths = v
-                }, {
-                    "o=|output=",
-                    "The name of the output file. By default './<namespace>/Generated.cs' will be used.",
-                    v => outputFile = v
+                    "f|force",
+                    "Overwrite existing files.",
+                    v => forceArg = true
                 },
             };
-            var extraArgs = options.Parse (args);
-            if (repositoryName == null || extraArgs.Any ()) {
-                Console.Error.WriteLine ("Bad arguments.");
+            var extraArgs = options.Parse(args);
+            if (extraArgs.Any()) {
+                var argList = string.Join(", ", extraArgs.ToArray());
+                Console.Error.WriteLine($"Unknown arguments: {argList}");
                 Console.Error.WriteLine ();
-                PrintHelpAndExit (options, 1);
+                PrintHelpAndExit(options, 1);
+                return;
             }
 
-            // Analysis disable ConstantNullCoalescingCondition
-            var girFile = Path.Combine (girDirectory ?? "gir-1.0", repositoryName + ".gir");
-            if (!Path.IsPathRooted (girFile)) {
-                girFile = Freedesktop.Xdg.BaseDirectory.FindDataFile (girFile) ?? girFile;
+            if (commandArg == null) {
+                Console.Error.WriteLine("Command option is required");
+                Console.Error.WriteLine();
+                PrintHelpAndExit(options, 1);
+                return;
             }
 
-            fixupFile = fixupFile ?? repositoryName + ".girfixup";
-            outputFile = outputFile ?? Path.Combine (repositoryName, "Generated");
-
-            var pathList = (paths?.Split (':') ?? new string[0] )
-                .Select (x => Path.GetFullPath(x)).ToList ();
-            // Analysis restore ConstantNullCoalescingCondition
-
-            Console.WriteLine ("Generating code for '{0}'.", Path.GetFullPath (girFile));
-            Console.WriteLine ("Using fixup file '{0}'.", Path.GetFullPath (fixupFile));
-            Console.WriteLine ("Creating output file '{0}'.", Path.GetFullPath (outputFile));
-            Console.WriteLine ("With assemblies: {0}.",
-                string.Join (", ", pathList.Select (x => string.Format ("'{0}'", x))));
-
-            // Preload the specified assemblies for lookup later
-            foreach (var path in pathList) {
-                TypeResolver.LoadAssembly (path);
+            if (projectArg == null) {
+                Console.Error.WriteLine("Project option is required");
+                Console.Error.WriteLine();
+                PrintHelpAndExit(options, 1);
+                return;
             }
+
+            Command command;
+            switch (commandArg.ToLower()) {
+            case "new-fixup":
+                command = Command.NewFixup;
+                break;
+            case "generate":
+                command = Command.Generate;
+                break;
+            default:
+                Console.Error.WriteLine($"Unknown command: {commandArg}");
+                Console.Error.WriteLine();
+                PrintHelpAndExit(options, 1);
+                return;
+            }
+
+            // load the project given by the --project option
+
+            ProjectAnalyzer projectAnalyzer;
+
+            try {
+                // If the --project argument is a directory, find the .csproj inside
+                if (Directory.Exists(projectArg)) {
+                    projectArg = Directory.EnumerateFiles(projectArg, "*.csproj").FirstOrDefault() ?? projectArg;
+                }
+
+                var manager = new AnalyzerManager(Console.Error, LoggerVerbosity.Quiet);
+                projectAnalyzer = manager.GetProject(projectArg);
+
+            }
+            catch (Exception ex) {
+                Console.Error.WriteLine($"Failed to load project: {ex.Message}");
+                Environment.Exit(1);
+                return;
+            }
+
+            var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFilePath);
+            var girFilePath = Path.Combine(girDirectoryArg ?? "gir-1.0", repositoryName + ".gir");
+            if (!Path.IsPathRooted(girFilePath)) {
+                girFilePath = Freedesktop.Xdg.BaseDirectory.FindDataFile(girFilePath) ?? girFilePath;
+            }
+
+            // load the GIR XML file
+
+            Console.WriteLine($"Loading GIR XML file '{girFilePath}'...");
+            XDocument girXml;
+
+            try {
+                girXml = XDocument.Load(girFilePath);
+            }
+            catch (Exception ex) {
+                Console.Error.WriteLine($"Failed to load GIR XML: {ex.Message}");
+                Environment.Exit(1);
+                return;
+            }
+
+            // load the gir-fixup.yml file
+
+            const string fixupFileName = "gir-fixup.yml";
+
+            var fixupFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupFileName);
+
+            // for most commands, we need an existing fixup file
+            if (command != Command.NewFixup && fixupFilePath == null) {
+                Console.Error.WriteLine("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
+                Environment.Exit(1);
+                return;
+            }
+            // for the new-fixup command, we want to make sure we aren't overwriting an existing file
+            else if (command == Command.NewFixup == !forceArg && fixupFilePath != null) {
+                Console.Error.WriteLine("gir-fixup.yml already exists in project. Use --force to overwrite.");
+                Environment.Exit(1);
+                return;
+            }
+
+            // Handle the new-fixup command
+
+            if (command == Command.NewFixup) {
+                Console.WriteLine ($"Generating '{fixupFilePath}'");
+                try {
+                    using (var writer = new StreamWriter(fixupFilePath)) {
+                        girXml.Generate(writer);
+                    }
+                }
+                catch (Exception ex) {
+                    var msg = $"Failed to create fixup file: {ex.Message}";
+                    Console.Error.WriteLine(msg);
+                    Environment.Exit(1);
+                }
+                return;
+            }
+
+            // Parse the fixup file
+
+            Console.WriteLine($"Loading fixup file '{fixupFilePath}'...");
+            Fixup.Command[] commands;
+            try {
+                using (var reader = new StreamReader(fixupFilePath)) {
+                    commands = Fixup.Parse(reader);
+                }
+            }
+            catch (Exception ex) {
+                var msg = $"Fixup file error: {ex.Message}";
+                Console.Error.WriteLine(msg);
+                Environment.Exit(1);
+                return;
+            }
+
+            // Apply the fixups to the GIR XML
+
+            Console.WriteLine("Applying fixup data...");
+
+            girXml.ApplyFixup(commands);
+            girXml.ApplyBuiltinFixup();
+            girXml.Validate();
+
+            Console.WriteLine("Generating code...");
+
+            // FIXME: need to load assemblies of dependencies
+
+            TypeResolver.LoadAssembly(Assembly.GetAssembly(typeof(GISharp.Runtime.Opaque)));
             AppDomain.CurrentDomain.TypeResolve += TypeResolver.Resolve;
 
-            var xmlDoc = XDocument.Load (girFile);
-            xmlDoc.ApplyFixupFile (fixupFile);
-            xmlDoc.ApplyBuiltinFixup ();
-            xmlDoc.Validate ();
+            var moduleInfo = new ModuleInfo(girXml.Root);
+            var codeCompileUnit = CompilationUnit().WithMembers(moduleInfo.AllDeclarations);
+            var workspace = new AdhocWorkspace();
 
-            var namespaceInfo = new NamespaceInfo (xmlDoc);
-            var codeCompileUnit = CompilationUnit ()
-                .AddMembers (namespaceInfo.Syntax);
-            using (var outFileStream = File.Open (outputFile, FileMode.Create))
-            using (var writer = new StreamWriter (outFileStream)) {
-                var workspace = new AdhocWorkspace();
-                Formatter.Format (codeCompileUnit, workspace).GetText ().Write (writer);
+            // write the generate code file
+
+            var generatedFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), "Generated.cs");
+            Console.WriteLine($"Writing '{generatedFilePath}'...");
+            using (var generatedFile = new StreamWriter(generatedFilePath)) {
+                Formatter.Format(codeCompileUnit, workspace).WriteTo(generatedFile);
             }
+
+            Console.WriteLine("Done.");
         }
     }
 
@@ -137,7 +256,7 @@ namespace GISharp.CodeGen
         #pragma warning restore 0414
 
         /// <summary>
-        /// Converts an object to an approprate ExpressionSyntax
+        /// Converts an object to an appropriate ExpressionSyntax
         /// </summary>
         /// <returns>The expression.</returns>
         /// <param name="obj">Object.</param>

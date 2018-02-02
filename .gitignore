@@ -6,7 +6,6 @@ backup/
 *.userprefs
 *.orig
 *~
-Generated.cs
 TestResult.xml
 .DS_Store
 .vscode/

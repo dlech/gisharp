@@ -24,49 +24,37 @@ namespace GISharp.CodeGen.Model
         protected static readonly XNamespace gs = Globals.GISharpNamespace;
         // Analysis restore InconsistentNaming
 
+        /// <summary>
+        /// The GIR XML element.
+        /// </summary>
         protected readonly XElement Element;
 
         /// <summary>
-        /// Gets the "name" xml attribute from the fixed up xml element associated with this item.
+        /// Gets the "name" attribute of <see cref="Element"/>.
         /// </summary>
-        /// <value>The name.</value>
         public string GirName {
-            get { return Element.Attribute ("name").Value; }
+            get { return Element.Attribute("name").Value; }
         }
 
         /// <summary>
-        /// Gets the "gs:managed-name" attribute for xml element associated with this item.
+        /// Gets the "gs:managed-name" attribute of <see cref="Element"/>.
         /// </summary>
-        /// <value>The name of the managed.</value>
         public virtual string ManagedName {
-            get { return Element.Attribute (gs + "managed-name").Value; }
+            get { return Element.Attribute(gs + "managed-name").Value; }
         }
 
         /// <summary>
         /// Gets the namespace info associated with this item.
         /// </summary>
-        /// <value>The namespace info.</value>
-        public NamespaceInfo NamespaceInfo {
-            get {
-                MemberInfo info = DeclaringMember;
-                while (info != null) {
-                    var namespaceInfo = info as NamespaceInfo;
-                    if (namespaceInfo != null) {
-                        return namespaceInfo;
-                    }
-                    info = info.DeclaringMember;
-                }
-                throw new InvalidOperationException ("Missing NamespaceInfo ancestor");
-            }
-        }
+        public NamespaceInfo NamespaceInfo => _NamespaceInfo.Value;
+        readonly Lazy<NamespaceInfo> _NamespaceInfo;
 
         /// <summary>
         /// Gets the parent member info that declares this item.
         /// </summary>
         /// <value>The declaring member or <c>null</c> if this is a top level element.</value>
-        public MemberInfo DeclaringMember { get; private set; }
+        public MemberInfo DeclaringMember { get; }
 
-        SyntaxList<AttributeListSyntax> _AttributeLists;
         /// <summary>
         /// Gets the custom attribute syntax for this item.
         /// </summary>
@@ -74,17 +62,9 @@ namespace GISharp.CodeGen.Model
         /// <remarks>
         /// Implementing members can modify this value by overriding <see cref="GetAttributeLists"/>.
         /// </remarks>
-        public SyntaxList<AttributeListSyntax> AttributeLists {
-            get {
-                if (_AttributeLists == default(SyntaxList<AttributeListSyntax>)) {
-                    _AttributeLists = List<AttributeListSyntax> ()
-                        .AddRange (GetAttributeLists ());
-                }
-                return _AttributeLists;
-            }
-        }
+        public SyntaxList<AttributeListSyntax> AttributeLists => _AttributeLists.Value;
+        readonly Lazy<SyntaxList<AttributeListSyntax>> _AttributeLists;
 
-        SyntaxTriviaList? _DocumentationCommentTriviaList;
         /// <summary>
         /// Gets the documentation comment syntax for this item.
         /// </summary>
@@ -93,14 +73,8 @@ namespace GISharp.CodeGen.Model
         /// Implementing members can modify this value by overriding
         /// <see cref="GetDocumentationCommentTriviaList"/>.
         /// </remarks>
-        public SyntaxTriviaList DocumentationCommentTriviaList {
-            get {
-                if (!_DocumentationCommentTriviaList.HasValue) {
-                    _DocumentationCommentTriviaList = GetDocumentationCommentTriviaList ();
-                }
-                return _DocumentationCommentTriviaList.Value;
-            }
-        }
+        public SyntaxTriviaList DocumentationCommentTriviaList => _DocumentationCommentTriviaList.Value;
+        readonly Lazy<SyntaxTriviaList> _DocumentationCommentTriviaList;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="T:GISharp.CodeGen.Model.BaseInfo"/> class.
@@ -115,6 +89,23 @@ namespace GISharp.CodeGen.Model
             }
             Element = element;
             DeclaringMember = declaringMember;
+
+            _NamespaceInfo = new Lazy<NamespaceInfo>(GetNamespaceInfo);
+            _AttributeLists = new Lazy<SyntaxList<AttributeListSyntax>>(() => List<AttributeListSyntax>(GetAttributeLists()));
+            _DocumentationCommentTriviaList = new Lazy<SyntaxTriviaList>(GetDocumentationCommentTriviaList);
+        }
+
+        NamespaceInfo GetNamespaceInfo()
+        {
+            MemberInfo info = DeclaringMember;
+            while (info != null) {
+                var namespaceInfo = info as NamespaceInfo;
+                if (namespaceInfo != null) {
+                    return namespaceInfo;
+                }
+                info = info.DeclaringMember;
+            }
+            throw new InvalidOperationException("Missing NamespaceInfo ancestor");
         }
 
         internal abstract IEnumerable<BaseInfo> GetChildInfos ();
@@ -145,8 +136,14 @@ namespace GISharp.CodeGen.Model
         /// </remarks>
         protected virtual IEnumerable<AttributeListSyntax> GetAttributeLists ()
         {
+            // Translate GIR "deprecated" annotation to .NET ObsoleteAttribute
+            // and possibly a GISharp DeprecatedSinceAttribute
+
             if (Element.Attribute ("deprecated").AsBool ()) {
                 var obsoleteAttribute = Attribute (ParseName (typeof(ObsoleteAttribute).FullName));
+
+                // if there is a "doc-deprecated" annotation, use it as the
+                // message parameter of ObsoleteAttribute
 
                 var docDeprecated = Element.Element (gi + "doc-deprecated");
                 if (docDeprecated != null) {
@@ -158,17 +155,20 @@ namespace GISharp.CodeGen.Model
 
                 yield return AttributeList ().AddAttributes (obsoleteAttribute);
 
-                var deprecatedAttribute = Attribute (ParseName (typeof(GISharp.Runtime.DeprecatedSinceAttribute).FullName));
+                // translate the "deprecated-version" annotation to a DeprecatedSinceAttribute
+
                 var deprecatedVersion = Element.Attribute ("deprecated-version");
                 if (deprecatedVersion != null) {
+                    var deprecatedAttribute = Attribute(ParseName(typeof(GISharp.Runtime.DeprecatedSinceAttribute).FullName));
                     deprecatedAttribute = deprecatedAttribute.AddArgumentListArguments (
                         AttributeArgument (
                             LiteralExpression (SyntaxKind.StringLiteralExpression,
                                 Literal (deprecatedVersion.Value))));
+                    yield return AttributeList().AddAttributes(deprecatedAttribute);
                 }
-
-                yield return AttributeList ().AddAttributes (deprecatedAttribute);
             }
+
+            // If there is a "version" GIR annotation, convert it to a GISharp SinceAttribute
 
             if (Element.Attribute ("version") != null) {
                 var sinceAttributeName = ParseName (typeof(GISharp.Runtime.SinceAttribute).FullName);

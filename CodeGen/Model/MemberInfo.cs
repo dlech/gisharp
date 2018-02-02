@@ -13,61 +13,37 @@ namespace GISharp.CodeGen.Model
 {
     public abstract class MemberInfo : BaseInfo
     {
-        SyntaxToken? _Identifier;
-        public SyntaxToken Identifier {
-            get {
-                if (!_Identifier.HasValue) {
-                    _Identifier = Identifier (ManagedName);
-                }
-                return _Identifier.Value;
-            }
-        }
+        /// <summary>
+        /// Gets the identifier for this member
+        /// </summary>
+        public SyntaxToken Identifier => _Identifier.Value;
+        readonly Lazy<SyntaxToken> _Identifier;
 
-        QualifiedNameSyntax _QualifiedName;
-        public QualifiedNameSyntax QualifiedName {
-            get {
-                if (_QualifiedName == null) {
-                    _QualifiedName = QualifiedName (
-                        NamespaceInfo.Name,
-                        IdentifierName (Identifier));
-                    // callbacks can be declared by fields, in which case they
-                    // are a child type.
-                    var declaringType = DeclaringMember.DeclaringMember as TypeDeclarationInfo;
-                    if (declaringType != null) {
-                        _QualifiedName = QualifiedName (
-                            QualifiedName (
-                                _QualifiedName.Left,
-                                IdentifierName (declaringType.Identifier)),
-                            _QualifiedName.Right);
-                    }
-                }
-                return _QualifiedName;
-            }
-        }
+        /// <summary>
+        /// Gets the qualified name for this member
+        /// </summary>
+        public QualifiedNameSyntax QualifiedName => _QualifiedName.Value;
+        readonly Lazy<QualifiedNameSyntax> _QualifiedName;
 
-        SyntaxTokenList? _Modifiers;
-        public SyntaxTokenList Modifiers {
-            get {
-                if (!_Modifiers.HasValue) {
-                    _Modifiers = TokenList (GetModifiers ());
-                }
-                return _Modifiers.Value;
-            }
-        }
+        /// <summary>
+        /// Gets the access modifiers for this member
+        /// </summary>
+        public SyntaxTokenList Modifiers => _Modifiers.Value;
+        readonly Lazy<SyntaxTokenList> _Modifiers;
 
-        List<MemberDeclarationSyntax> _Declarations;
-        public IReadOnlyList<MemberDeclarationSyntax> Declarations {
-            get {
-                if (_Declarations == null) {
-                    _Declarations = GetDeclarations ().ToList ();
-                }
-                return _Declarations.AsReadOnly ();
-            }
-        }
+        /// <summary>
+        /// Gets the list of all child member declarations for this member
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> AllDeclarations => _AllDeclarations.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _AllDeclarations;
 
         protected MemberInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
+            _Identifier = new Lazy<SyntaxToken>(() => Identifier(ManagedName));
+            _QualifiedName = new Lazy<QualifiedNameSyntax>(GetQualifiedName);
+            _Modifiers = new Lazy<SyntaxTokenList>(() => TokenList(GetModifiers()));
+            _AllDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetAllDeclarations()));
         }
 
         protected virtual IEnumerable<SyntaxToken> GetModifiers ()
@@ -77,7 +53,19 @@ namespace GISharp.CodeGen.Model
             var tokens = ParseTokens (accessModifierAttr?.Value ?? "public");
             return tokens;
         }
+        QualifiedNameSyntax GetQualifiedName()
+        {
+            var name = QualifiedName(NamespaceInfo.Name, IdentifierName(Identifier));
 
-        protected abstract IEnumerable<MemberDeclarationSyntax> GetDeclarations ();
+            // callbacks can be declared by fields, in which case they are a child type.
+            var declaringType = DeclaringMember.DeclaringMember as TypeDeclarationInfo;
+            if (declaringType != null) {
+                name = QualifiedName(QualifiedName(name.Left, IdentifierName(declaringType.Identifier)), name.Right);
+            }
+
+            return name;
+        }
+
+        protected abstract IEnumerable<MemberDeclarationSyntax> GetAllDeclarations();
     }
 }

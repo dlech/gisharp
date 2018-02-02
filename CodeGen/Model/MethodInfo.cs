@@ -65,6 +65,10 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public bool IsCopy => Element.Attribute(gs + "special-func").AsString() == "copy";
+
+        public bool IsFree => Element.Attribute(gs + "special-func").AsString() == "free";
+
         public bool IsEquals {
             get {
                 return Element.Attribute (gs + "special-func").AsString () == "equal";
@@ -146,13 +150,13 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        ConstructorInitializerSyntax _ConstructorInitalizer;
-        public ConstructorInitializerSyntax ConstructorInitalizer {
+        ConstructorInitializerSyntax _ConstructorInitializer;
+        public ConstructorInitializerSyntax ConstructorInitializer {
             get {
-                if (_ConstructorInitalizer == null) {
-                    _ConstructorInitalizer = GetConstructorInitalizer ();
+                if (_ConstructorInitializer == null) {
+                    _ConstructorInitializer = GetConstructorInitializer();
                 }
-                return _ConstructorInitalizer;
+                return _ConstructorInitializer;
             }
         }
 
@@ -210,8 +214,7 @@ namespace GISharp.CodeGen.Model
         public SyntaxList<AttributeListSyntax> PinvokeAttributeLists {
             get {
                 if (!_PinvokeAttributeLists.HasValue) {
-                    _PinvokeAttributeLists = List<AttributeListSyntax> ()
-                        .AddRange (GetPinvokeAttributeLists ());
+                    _PinvokeAttributeLists = List<AttributeListSyntax>(GetPinvokeAttributeLists());
                 }
                 return _PinvokeAttributeLists.Value;
             }
@@ -267,7 +270,7 @@ namespace GISharp.CodeGen.Model
                 .Concat (ManagedParameterInfos);
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             if (IsVirtualMethod) {
                 var iface = DeclaringMember as InterfaceInfo;
@@ -350,10 +353,8 @@ namespace GISharp.CodeGen.Model
                     var constructorDeclaration = ConstructorDeclaration (DeclaringMember.Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithModifiers (Modifiers)
-                        .WithParameterList (ParameterList.WithTrailingTrivia (
-                            EndOfLine ("\n")))
-                        .WithInitializer (ConstructorInitalizer.WithLeadingTrivia (
-                            Whitespace ("\t")))
+                        .WithParameterList(ParameterList)
+                        .WithInitializer(ConstructorInitializer)
                         .WithBody (Block ())
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
                     yield return constructorDeclaration;
@@ -1084,7 +1085,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        ConstructorInitializerSyntax GetConstructorInitalizer ()
+        ConstructorInitializerSyntax GetConstructorInitializer()
         {
             if (!IsConstructor) {
                 throw new NotSupportedException ();

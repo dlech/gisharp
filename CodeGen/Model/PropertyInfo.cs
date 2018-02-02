@@ -72,7 +72,7 @@ namespace GISharp.CodeGen.Model
             yield break;
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             var property = PropertyDeclaration (TypeInfo.Type, ManagedName)
                 .WithAttributeLists (AttributeLists);

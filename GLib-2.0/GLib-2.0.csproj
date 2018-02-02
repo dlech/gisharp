@@ -1,72 +1,9 @@
-<?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project Sdk="Microsoft.NET.Sdk">
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.csproj" />
+  </ItemGroup>
   <PropertyGroup>
-    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
-    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{177DD4B3-658C-48DC-AC1E-30E2F170A34F}</ProjectGuid>
-    <OutputType>Library</OutputType>
-    <RootNamespace>GISharp.GLib</RootNamespace>
-    <AssemblyName>GLib-2.0</AssemblyName>
-    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFramework>netstandard2.0</TargetFramework>
+    <RootNamespace>GISharp</RootNamespace>
   </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <DebugSymbols>true</DebugSymbols>
-    <DebugType>full</DebugType>
-    <Optimize>false</Optimize>
-    <OutputPath>bin\Debug</OutputPath>
-    <DefineConstants>DEBUG;</DefineConstants>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
-    <DebugType>full</DebugType>
-    <Optimize>true</Optimize>
-    <OutputPath>bin\Release</OutputPath>
-    <ErrorReport>prompt</ErrorReport>
-    <WarningLevel>4</WarningLevel>
-    <ConsolePause>false</ConsolePause>
-  </PropertyGroup>
-  <ItemGroup>
-    <Reference Include="System" />
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Version.cs" />
-    <Compile Include="Generated.cs" />
-  </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <Policies>
-          <DotNetNamingPolicy ResourceNamePolicy="FileFormatDefault" DirectoryNamespaceAssociation="PrefixedFlat" />
-        </Policies>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
-  <ItemGroup>
-    <ProjectReference Include="..\CodeGen\CodeGen.csproj">
-      <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
-      <Name>CodeGen</Name>
-      <ReferenceOutputAssembly>False</ReferenceOutputAssembly>
-    </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
-      <Project>{E3732A37-C368-422B-94DD-3161226D923B}</Project>
-      <Name>Core</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="GLib-2.0.girfixup" />
-  </ItemGroup>
-  <PropertyGroup Condition=" '$(OS)' != 'Windows_NT' ">
-    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/usr/local/bin/mono')">/usr/local/bin/mono</MonoPath>
-    <MonoPath Condition="'$(MonoPath)' == '' And Exists('/Library/Frameworks/Mono.framework/Commands/mono')">/Library/Frameworks/Mono.framework/Commands/mono</MonoPath>
-    <MonoPath Condition="'$(MonoPath)' == ''">mono</MonoPath>
-  </PropertyGroup>
-  <Target Name="BeforeCompile">
-    <Delete Files="Generated.cs" />
-    <Message Text="Generating Generated.cs..." />
-    <Exec Command="$(MonoPath) $(MSBuildProjectDirectory)/../CodeGen/bin/$(Configuration)/GICodeGen.exe -r GLib-2.0 -f GLib-2.0.girfixup -o Generated.cs -a $(MSBuildProjectDirectory)/../Core/bin/$(Configuration)/Core.dll" />
-  </Target>
 </Project>

@@ -65,8 +65,7 @@ namespace GISharp.CodeGen.Model
                     var unmanagedFuncPtrAttrArgList = ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
                     var unmanagedFuncPtrAttr = Attribute (unmanagedFuncPtrAttrName)
                         .WithArgumentList (unmanagedFuncPtrAttrArgList);
-                    _UnmanagedAttributeLists = List<AttributeListSyntax> ()
-                        .AddRange (base.GetAttributeLists ())
+                    _UnmanagedAttributeLists = base.AttributeLists
                         .Add (AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
                 }
                 return _UnmanagedAttributeLists.Value;
@@ -96,7 +95,7 @@ namespace GISharp.CodeGen.Model
             return MethodInfo.GetChildInfos ();
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetDeclarations ()
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             MemberDeclarationSyntax unmangedDeclaration;
             MemberDeclarationSyntax managedDeclaration;
