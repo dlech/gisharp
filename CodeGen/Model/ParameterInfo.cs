@@ -70,7 +70,7 @@ namespace GISharp.CodeGen.Model
                 case "full":
                     return GISharp.Runtime.Transfer.Full;
                 }
-                var message = string.Format ("Unknown trasfer type '{0}'.", transfer);
+                var message = $"Unknown transfer type '{transfer}'.";
                 throw new NotSupportedException (message);
             }
         }
