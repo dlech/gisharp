@@ -11,21 +11,12 @@ namespace GISharp.GLib
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
     [GType ("GMainLoop", IsProxyForUnmanagedType = true)]
-    public sealed class MainLoop : Opaque
+    public sealed class MainLoop : Boxed
     {
-        public MainLoop (IntPtr handle, Transfer ownership) : base (handle)
-        {
-            if (ownership == Transfer.None) {
-                this.handle = g_main_loop_ref (handle);
-            }
-        }
+       static readonly GType GType = g_main_loop_get_type();
 
-        protected override void Dispose (bool disposing)
+        public MainLoop(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (handle != IntPtr.Zero) {
-                g_main_loop_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -81,7 +72,7 @@ namespace GISharp.GLib
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_main_loop_get_type ();

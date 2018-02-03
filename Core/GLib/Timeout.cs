@@ -304,7 +304,7 @@ namespace GISharp.GLib
         public static Source CreateSource (uint interval)
         {
             var ret_ = g_timeout_source_new (interval);
-            var ret = Opaque.GetInstance<Source> (ret_, Transfer.Full);
+            var ret = new UnmanagedSource(ret_, Transfer.Full);
             return ret;
         }
 
@@ -360,7 +360,7 @@ namespace GISharp.GLib
         public static Source CreateSourceSeconds (uint interval)
         {
             var ret_ = g_timeout_source_new_seconds (interval);
-            var ret = Opaque.GetInstance<Source> (ret_, Transfer.Full);
+            var ret = new UnmanagedSource(ret_, Transfer.Full);
             return ret;
         }
     }

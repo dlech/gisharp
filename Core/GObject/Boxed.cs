@@ -4,8 +4,35 @@ using GISharp.Runtime;
 
 namespace GISharp.GObject
 {
-    static class Boxed
+    [GType("GBoxed", IsProxyForUnmanagedType = true)]
+    public abstract class Boxed : Opaque
     {
+        GType gType;
+
+        protected Boxed(GType gType, IntPtr handle, Transfer ownership)
+            : base(handle)
+        {
+            if (!gType.IsA(GType.Boxed)) {
+                this.handle = IntPtr.Zero;
+                throw new ArgumentException("GType does not inherit from GBoxed", nameof(gType));
+            }
+            this.gType = gType;
+            if (ownership == Transfer.None) {
+                this.handle = g_boxed_copy(gType, handle);
+            }
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (!disposing) {
+                Console.Error.WriteLine("hi");
+            }
+            if (handle != IntPtr.Zero) {
+                g_boxed_free(gType, handle);
+            }
+            base.Dispose(disposing);
+        }
+
         /// <summary>
         /// Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
         /// </summary>
@@ -30,30 +57,6 @@ namespace GISharp.GObject
             IntPtr srcBoxed);
 
         /// <summary>
-        /// Provide a copy of a boxed structure @src_boxed which is of type @boxed_type.
-        /// </summary>
-        /// <param name="boxedType">
-        /// The type of <paramref name="srcBoxed" />.
-        /// </param>
-        /// <param name="srcBoxed">
-        /// The boxed structure to be copied.
-        /// </param>
-        /// <returns>
-        /// The newly created copy of the boxed structure.
-        /// </returns>
-        public static T Copy<T> (GType boxedType, T srcBoxed) where T : TypeInstance
-        {
-            if (!boxedType.IsA (GType.Boxed)) {
-                throw new ArgumentException ("Not a boxed type", nameof(boxedType));
-            }
-            if (srcBoxed == null) {
-                throw new ArgumentNullException (nameof (srcBoxed));
-            }
-            var ret_ = g_boxed_copy (boxedType, srcBoxed.Handle);
-            return (T)Activator.CreateInstance (typeof(T), ret_, Transfer.Full);
-        }
-
-        /// <summary>
         /// Free the boxed structure @boxed which is of type @boxed_type.
         /// </summary>
         /// <param name="boxedType">
@@ -72,26 +75,6 @@ namespace GISharp.GObject
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr boxed);
-
-        /// <summary>
-        /// Free the boxed structure @boxed which is of type @boxed_type.
-        /// </summary>
-        /// <param name="boxedType">
-        /// The type of @boxed.
-        /// </param>
-        /// <param name="boxed">
-        /// The boxed structure to be freed.
-        /// </param>
-        public static void Free (GType boxedType, TypeInstance boxed)
-        {
-            if (!boxedType.IsA (GType.Boxed)) {
-                throw new ArgumentException ("Not a boxed type", nameof(boxedType));
-            }
-            if (boxed == null) {
-                throw new ArgumentNullException (nameof (boxed));
-            }
-            g_boxed_free (boxedType, boxed.Handle);
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_boxed_type_register_static (IntPtr name,

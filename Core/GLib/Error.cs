@@ -13,8 +13,10 @@ namespace GISharp.GLib
     /// <see cref="GErrorException"/> instead.
     /// </remarks>
     [GType ("GError", IsProxyForUnmanagedType = true)]
-    public sealed class Error : Opaque
+    public sealed class Error : Boxed
     {
+        static readonly GType GType = g_error_get_type();
+        
         static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Domain));
         static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Code));
         static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Message));
@@ -67,23 +69,12 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_copy (IntPtr error);
 
-        public Error (IntPtr handle, Transfer ownership) : base (handle)
+        public Error(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_error_copy (handle);
-            }
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_error_free (IntPtr error);
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_error_free (handle);
-            }
-            base.Dispose (disposing);
-        }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_new_literal (

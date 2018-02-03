@@ -11,8 +11,10 @@ namespace GISharp.GLib
     /// Contains the public fields of a pointer array.
     /// </summary>
     [GType ("GPtrArray", IsProxyForUnmanagedType = true)]
-    public abstract class PtrArray : Opaque
+    public abstract class PtrArray : Boxed
     {
+        static readonly GType GType = g_ptr_array_get_type();
+
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
 
@@ -40,19 +42,8 @@ namespace GISharp.GLib
             }
         }
 
-        public PtrArray (IntPtr handle, Transfer ownership) : base (handle)
+        public PtrArray(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_ptr_array_ref (handle);
-            }
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_ptr_array_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

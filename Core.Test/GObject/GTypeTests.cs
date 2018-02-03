@@ -154,8 +154,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestBoxed ()
         {
-            // TODO: Boxed is not implemented yet
-            Assert.That (() => (Type)GType.Boxed, Throws.Exception);
+            Assert.That ((Type)GType.Boxed, Is.EqualTo(typeof(Boxed)));
 
             Utility.AssertNoGLibLog();
         }

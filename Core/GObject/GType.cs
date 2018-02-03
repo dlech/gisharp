@@ -86,9 +86,8 @@ namespace GISharp.GObject
                 gtypeMap.Add (String, typeof(string));
                 typeMap.Add (typeof(IntPtr), Pointer);
                 gtypeMap.Add (Pointer, typeof(IntPtr));
-                // TODO: Boxed is not implemented yet
-                //typeMap.Add (typeof (Boxed), Boxed);
-                //gtypeMap.Add (Boxed, typeof (Boxed));
+                typeMap.Add (typeof (Boxed), Boxed);
+                gtypeMap.Add (Boxed, typeof (Boxed));
                 typeMap.Add (typeof(ParamSpec), Param);
                 gtypeMap.Add (Param, typeof(ParamSpec));
                 typeMap.Add (typeof(Object), Object);

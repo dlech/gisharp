@@ -11,8 +11,10 @@ namespace GISharp.GLib
     /// Contains the public fields of a GByteArray.
     /// </summary>
     [GType ("GByteArray", IsProxyForUnmanagedType = true)]
-    public sealed class ByteArray : Opaque, IList<byte>
+    public sealed class ByteArray : Boxed, IList<byte>
     {
+        static readonly GType GType = g_byte_array_get_type();
+
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
 
@@ -40,19 +42,8 @@ namespace GISharp.GLib
             }
         }
 
-        public ByteArray (IntPtr handle, Transfer ownership) : base (handle)
+        public ByteArray(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_byte_array_ref (handle);
-            }
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_byte_array_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

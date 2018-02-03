@@ -16,8 +16,10 @@ namespace GISharp.GLib
     /// Data type representing an event source.
     /// </summary>
     [GType ("GSource", IsProxyForUnmanagedType = true)]
-    public abstract class Source : Opaque
+    public abstract class Source : Boxed
     {
+        static readonly GType GType = g_source_get_type();
+
         internal struct Struct
         {
             #pragma warning disable CS0649
@@ -39,19 +41,8 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        public Source (IntPtr handle, Transfer ownership) : base (handle)
+        public Source(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_source_ref (handle);
-            }
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_source_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -424,7 +415,7 @@ namespace GISharp.GLib
             }
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         static extern GType g_source_get_type ();
 

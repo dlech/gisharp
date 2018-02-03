@@ -13,24 +13,15 @@ namespace GISharp.GLib
     /// following functions.
     /// </summary>
     [GType ("GHashTable", IsProxyForUnmanagedType = true)]
-    public abstract class HashTable : Opaque
+    public abstract class HashTable : Boxed
     {
+        static readonly GType GType = g_hash_table_get_type();
+
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
 
-        public HashTable (IntPtr handle, Transfer ownership) : base (handle)
+        protected HashTable(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_hash_table_ref (handle);
-            }
-        }
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_hash_table_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

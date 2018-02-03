@@ -11,21 +11,12 @@ namespace GISharp.GLib
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
     [GType ("GMainContext", IsProxyForUnmanagedType = true)]
-    public sealed class MainContext : Opaque
+    public sealed class MainContext : Boxed
     {
-        public MainContext (IntPtr handle, Transfer ownership) : base (handle)
-        {
-            if (ownership == Transfer.None) {
-                this.handle = g_main_context_ref (handle);
-            }
-        }
+       static  readonly GType GType = g_main_context_get_type();
 
-        protected override void Dispose (bool disposing)
+        public MainContext(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (handle != IntPtr.Zero) {
-                g_main_context_unref (handle);
-            }
-            base.Dispose (disposing);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -441,7 +432,7 @@ namespace GISharp.GLib
             return ret;
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GType g_main_context_get_type ();

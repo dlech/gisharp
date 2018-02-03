@@ -157,28 +157,19 @@ namespace GISharp.GLib
     /// </remarks>
     [GType ("GVariantType", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay ("{FormatString}")]
-    public sealed class VariantType : Opaque, IEquatable<VariantType>
+    public sealed class VariantType : Boxed, IEquatable<VariantType>
     {
+        static readonly GType GType = g_variant_type_get_gtype();
+
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_type_copy (IntPtr type);
 
-        public VariantType (IntPtr handle, Transfer ownership) : base (handle)
+        public VariantType(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
         {
-            if (ownership == Transfer.None) {
-                this.handle = g_variant_type_copy (handle);
-            }
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_type_free (IntPtr type);
-
-        protected override void Dispose (bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_variant_type_free (handle);
-            }
-            base.Dispose (disposing);
-        }
 
         // these static properties take the place of the G_VARIANT_TYPE_* macros
 
