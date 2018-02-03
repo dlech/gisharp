@@ -13,20 +13,6 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class SList : Opaque
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
-        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Next));
-
-        struct Struct
-        {
-            #pragma warning disable CS0649
-            public IntPtr Data;
-            public IntPtr Next;
-            #pragma warning restore CS0649
-        }
-
-        protected IntPtr Data => Marshal.ReadIntPtr (handle, (int)dataOffset);
-        protected IntPtr Next => Marshal.ReadIntPtr (handle, (int)nextOffset);
-
         protected SList (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership != Transfer.Container) {
@@ -873,15 +859,25 @@ namespace GISharp.GLib
             IntPtr userData);
     }
 
-    public sealed class SListNode<T> : SList where T : Opaque
+    public sealed class SListNode<T> : Opaque where T : Opaque
     {
-        internal SListNode (IntPtr handle)
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
+        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
+        
+        struct Struct
         {
-            this.handle = handle;
+            #pragma warning disable CS0649
+            public IntPtr Data;
+            public IntPtr Next;
+            #pragma warning restore CS0649
         }
 
-        public new T Data => GetInstance<T> (base.Data, Transfer.None);
-        public new SListNode<T> Next => new SListNode<T> (base.Next);
+        internal SListNode(IntPtr handle) : base(handle)
+        {
+        }
+
+        public T Data => GetInstance<T>(Marshal.ReadIntPtr(handle, (int)dataOffset), Transfer.None);
+        public SListNode<T> Next => new SListNode<T>(Marshal.ReadIntPtr(handle, (int)nextOffset));
     }
 
     [GType ("GSList", IsProxyForUnmanagedType = true)]
@@ -1116,7 +1112,7 @@ namespace GISharp.GLib
         }
 
         IEnumerator<T> GetEnumerator () {
-            for (var node = new ListNode<T> (handle); node.Handle != IntPtr.Zero; node = node.Next) {
+            for (var node = new SListNode<T> (handle); node.Handle != IntPtr.Zero; node = node.Next) {
                 yield return node.Data;
             }
         }

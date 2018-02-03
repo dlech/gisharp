@@ -12,23 +12,6 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class List : Opaque
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
-        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Next));
-        static readonly IntPtr prevOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Prev));
-        
-        struct Struct
-        {
-            #pragma warning disable CS0649
-            public IntPtr Data;
-            public IntPtr Next;
-            public IntPtr Prev;
-            #pragma warning restore CS0649
-        }
-
-        protected IntPtr Data => Marshal.ReadIntPtr (handle, (int)dataOffset);
-        protected IntPtr Next => Marshal.ReadIntPtr (handle, (int)nextOffset);
-        protected IntPtr Prev => Marshal.ReadIntPtr (handle, (int)prevOffset);
-
         protected List (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership != Transfer.Container) {
@@ -948,16 +931,28 @@ namespace GISharp.GLib
             IntPtr userData);
     }
 
-    public sealed class ListNode<T> : List where T : Opaque
+    public sealed class ListNode<T> : Opaque where T : Opaque
     {
-        internal ListNode (IntPtr handle)
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
+        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
+        static readonly IntPtr prevOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Prev));
+        
+        struct Struct
         {
-            this.handle = handle;
+            #pragma warning disable CS0649
+            public IntPtr Data;
+            public IntPtr Next;
+            public IntPtr Prev;
+            #pragma warning restore CS0649
         }
 
-        public new T Data => GetInstance<T> (base.Data, Transfer.None);
-        public new ListNode<T> Next => new ListNode<T> (base.Next);
-        public new ListNode<T> Prev => new ListNode<T> (base.Prev);
+        internal ListNode(IntPtr handle) : base(handle)
+        {
+        }
+
+        public T Data => GetInstance<T>(Marshal.ReadIntPtr(handle, (int)dataOffset), Transfer.None);
+        public ListNode<T> Next => new ListNode<T>(Marshal.ReadIntPtr(handle, (int)nextOffset));
+        public ListNode<T> Prev => new ListNode<T>(Marshal.ReadIntPtr (handle, (int)prevOffset));
     }
 
     [GType ("GList", IsProxyForUnmanagedType = true)]
