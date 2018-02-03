@@ -859,7 +859,7 @@ namespace GISharp.GLib
             IntPtr userData);
     }
 
-    public sealed class SListNode<T> : Opaque where T : Opaque
+    public sealed class SListIter<T> : Opaque where T : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
         static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
@@ -872,12 +872,12 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        internal SListNode(IntPtr handle) : base(handle)
+        internal SListIter(IntPtr handle) : base(handle)
         {
         }
 
         public T Data => GetInstance<T>(Marshal.ReadIntPtr(handle, (int)dataOffset), Transfer.None);
-        public SListNode<T> Next => new SListNode<T>(Marshal.ReadIntPtr(handle, (int)nextOffset));
+        public void MoveNext() => handle = Marshal.ReadIntPtr(handle, (int)nextOffset);
     }
 
     [GType ("GSList", IsProxyForUnmanagedType = true)]
@@ -985,7 +985,7 @@ namespace GISharp.GLib
         /// <param name="data">
         /// data to put in the newly-inserted node
         /// </param>
-        public void InsertBefore (SListNode<T> sibling, T data)
+        public void InsertBefore (SListIter<T> sibling, T data)
         {
             base.InsertBefore (sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
         }
@@ -1112,8 +1112,8 @@ namespace GISharp.GLib
         }
 
         IEnumerator<T> GetEnumerator () {
-            for (var node = new SListNode<T> (handle); node.Handle != IntPtr.Zero; node = node.Next) {
-                yield return node.Data;
+            for (var iter = new SListIter<T>(handle); iter.Handle != IntPtr.Zero; iter.MoveNext()) {
+                yield return iter.Data;
             }
         }
 
