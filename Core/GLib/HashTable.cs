@@ -15,12 +15,10 @@ namespace GISharp.GLib
     [GType ("GHashTable", IsProxyForUnmanagedType = true)]
     public abstract class HashTable : Boxed
     {
-        static readonly GType GType = g_hash_table_get_type();
-
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
 
-        protected HashTable(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        protected HashTable(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -36,10 +34,7 @@ namespace GISharp.GLib
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_hash_table_get_type ();
 
-        static GType getGType ()
-        {
-            return g_hash_table_get_type ();
-        }
+        static readonly GType _GType = g_hash_table_get_type();
 
         static HashTable ()
         {

@@ -98,11 +98,7 @@ namespace GISharp.GObject
         /* */
         static extern GType g_binding_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_binding_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_binding_get_type();
 
         /// <summary>
         /// Retrieves the flags passed when constructing the #GBinding.

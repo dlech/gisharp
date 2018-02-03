@@ -862,13 +862,13 @@ namespace GISharp.GObject
                     } else if (type.IsGenericType) {
                         implementationType = type.BaseType;
                     }
-                    var getGType = implementationType.GetMethod ("getGType",
+                    var gtypeField = implementationType.GetField("_GType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
-                    if (getGType == null) {
-                        var message = $"Could not find getType() method for {implementationType.FullName}.";
+                    if (gtypeField == null) {
+                        var message = $"Could not find _GType field for {implementationType.FullName}.";
                         throw new ArgumentException (message, nameof (type));
                     }
-                    var gtype = (GType)getGType.Invoke (null, null);
+                    var gtype = (GType)gtypeField.GetValue(null);
                     if (gtype == Invalid) {
                         throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
                     }

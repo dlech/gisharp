@@ -38,9 +38,7 @@ namespace GISharp.GLib
     [GType ("GBytes", IsProxyForUnmanagedType = true)]
     public sealed class Bytes : Boxed, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
-        static readonly GType GType = g_bytes_get_type();
-
-        public Bytes(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public Bytes(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -54,11 +52,7 @@ namespace GISharp.GLib
         /* <type name="GType" managed-name="GType" /> */
         static extern GType g_bytes_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_bytes_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_bytes_get_type();
 
         /// <summary>
         /// Creates a new #GBytes from @data.

@@ -51,10 +51,7 @@ namespace GISharp.GObject
             }
         }
 
-        static GType getGType ()
-        {
-            return paramSpecTypes[10];
-        }
+        static readonly GType _GType = paramSpecTypes[10];
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         extern static IntPtr g_param_spec_enum (

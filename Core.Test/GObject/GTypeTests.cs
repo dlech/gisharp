@@ -320,13 +320,21 @@ namespace GISharp.Core.Test.GObject
                 gtypeStructAttribute.GetConstructors ().Single (),
                 new object[] { typeof(ObjectClass) },
                 new FieldInfo[0], new object[0]));
-            var getTypeMethod = typeBuilder.DefineMethod ("getGType",
-                MethodAttributes.Private | MethodAttributes.Static);
-            getTypeMethod.SetReturnType (typeof(GType));
+
+            // define a private static readonly field named _GType
+            var gtypeField = typeBuilder.DefineField("_GType", typeof(GType),
+                FieldAttributes.Private | FieldAttributes.Static | FieldAttributes.InitOnly);
+
+            // define a static constructor that sets the value of _GType to GetDummyGType()
+            var staticCtor = typeBuilder.DefineConstructor(MethodAttributes.Private |
+                MethodAttributes.HideBySig | MethodAttributes.SpecialName |
+                MethodAttributes.RTSpecialName | MethodAttributes.Static,
+                CallingConventions.Standard, null);
             var getDummyGType = GetType ().GetMethod (nameof (GetDummyGType));
-            var generator = getTypeMethod.GetILGenerator ();
-            generator.Emit (OpCodes.Call, getDummyGType);
-            generator.Emit (OpCodes.Ret);
+            var generator = staticCtor.GetILGenerator();
+            generator.Emit(OpCodes.Call, getDummyGType);
+            generator.Emit(OpCodes.Stsfld, gtypeField);
+            generator.Emit(OpCodes.Ret);
 
             var expectedType = typeBuilder.CreateType ();
 

@@ -29,9 +29,6 @@ namespace GISharp.GObject
         {
         }
 
-        static GType getGType ()
-        {
-            return paramSpecTypes[20];
-        }
+        static readonly GType _GType = paramSpecTypes[20];
     }
 }

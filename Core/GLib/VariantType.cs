@@ -159,12 +159,10 @@ namespace GISharp.GLib
     [DebuggerDisplay ("{FormatString}")]
     public sealed class VariantType : Boxed, IEquatable<VariantType>
     {
-        static readonly GType GType = g_variant_type_get_gtype();
-
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_type_copy (IntPtr type);
 
-        public VariantType(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public VariantType(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -390,11 +388,7 @@ namespace GISharp.GLib
         /* */
         static extern GType g_variant_type_get_gtype ();
 
-        static GType getGType ()
-        {
-            var ret = g_variant_type_get_gtype ();
-            return ret;
-        }
+        static readonly GType _GType = g_variant_type_get_gtype();
 
         /// <summary>
         /// Creates a new #GVariantType corresponding to the type string given

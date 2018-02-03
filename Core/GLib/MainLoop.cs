@@ -13,9 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainLoop", IsProxyForUnmanagedType = true)]
     public sealed class MainLoop : Boxed
     {
-       static readonly GType GType = g_main_loop_get_type();
-
-        public MainLoop(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public MainLoop(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -77,11 +75,7 @@ namespace GISharp.GLib
         /* */
         static extern GType g_main_loop_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_main_loop_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_main_loop_get_type();
 
         /// <summary>
         /// Returns the #GMainContext of @loop.

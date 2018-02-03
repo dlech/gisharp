@@ -15,8 +15,6 @@ namespace GISharp.GLib
     [GType ("GError", IsProxyForUnmanagedType = true)]
     public sealed class Error : Boxed
     {
-        static readonly GType GType = g_error_get_type();
-        
         static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Domain));
         static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Code));
         static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Message));
@@ -69,7 +67,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_copy (IntPtr error);
 
-        public Error(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public Error(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -196,9 +194,6 @@ namespace GISharp.GLib
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_error_get_type ();
 
-        static GType getGType ()
-        {
-            return g_error_get_type ();
-        }
+        static readonly GType _GType = g_error_get_type();
     }
 }

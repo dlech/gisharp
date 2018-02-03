@@ -16,10 +16,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initially_unowned_get_type ();
 
-        static GType getGType ()
-        {
-            return g_initially_unowned_get_type ();
-        }
+        static readonly GType _GType = g_initially_unowned_get_type ();
 
         public InitiallyUnowned (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

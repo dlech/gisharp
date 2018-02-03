@@ -13,8 +13,6 @@ namespace GISharp.GLib
     [GType ("GByteArray", IsProxyForUnmanagedType = true)]
     public sealed class ByteArray : Boxed, IList<byte>
     {
-        static readonly GType GType = g_byte_array_get_type();
-
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
 
@@ -42,7 +40,7 @@ namespace GISharp.GLib
             }
         }
 
-        public ByteArray(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -58,10 +56,7 @@ namespace GISharp.GLib
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_byte_array_get_type ();
 
-        static GType getGType ()
-        {
-            return g_byte_array_get_type ();
-        }
+        static readonly GType _GType = g_byte_array_get_type();
 
         /// <summary>
         /// Creates a new <see cref="ByteArray"/>.

@@ -49,9 +49,6 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_binding_flags_get_type ();
 
-        static GType getGType ()
-        {
-            return g_binding_flags_get_type ();
-        }
+        static readonly GType _GType = g_binding_flags_get_type();
     }
 }

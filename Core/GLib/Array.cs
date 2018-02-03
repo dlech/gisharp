@@ -13,8 +13,6 @@ namespace GISharp.GLib
     [GType ("GArray", IsProxyForUnmanagedType = true)]
     public abstract class Array : Boxed
     {
-        static readonly GType GType = g_array_get_type();
-
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
 
@@ -40,7 +38,7 @@ namespace GISharp.GLib
             }
         }
 
-        public Array(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -62,10 +60,7 @@ namespace GISharp.GLib
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_array_get_type ();
 
-        static GType getGType ()
-        {
-            return g_array_get_type ();
-        }
+        static readonly GType _GType = g_array_get_type();
 
         /// <summary>
         /// Creates a new #GArray with a reference count of 1.

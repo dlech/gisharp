@@ -53,7 +53,6 @@ namespace GISharp.GObject
     [GType ("GClosure", IsProxyForUnmanagedType = true)]
     public sealed class Closure : Boxed
     {
-        static readonly GType GType = g_closure_get_type();
         static readonly IntPtr bitFieldsOffset = Marshal.OffsetOf<Struct> (nameof (Struct.BitFields));
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Data));
 
@@ -98,7 +97,7 @@ namespace GISharp.GObject
             }
         }
 
-        public Closure(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
             g_closure_sink (this.handle);
         }
@@ -315,11 +314,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_closure_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_closure_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_closure_get_type();
 
         /// <summary>
         /// Registers a finalization notifier which will be called when the

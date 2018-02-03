@@ -36,10 +36,6 @@ namespace GISharp.GLib
         /* */
         static extern GType g_pollfd_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_pollfd_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_pollfd_get_type();
     }
 }

@@ -2751,10 +2751,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_value_get_type ();
 
-        static GType getGType ()
-        {
-            return g_value_get_type ();
-        }
+        static readonly GType _GType = g_value_get_type ();
 
         void AssertType (GType type)
         {

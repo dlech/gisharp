@@ -90,10 +90,7 @@ namespace GISharp.Core.Test
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_initable_get_type ();
 
-        static GType getGType ()
-        {
-            return g_initable_get_type ();
-        }
+        static readonly GType _GType = g_initable_get_type();
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
@@ -165,10 +162,7 @@ namespace GISharp.Core.Test
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_network_connectivity_get_type();
 
-        static GType getGType()
-        {
-            return g_network_connectivity_get_type();
-        }
+        static readonly GType _GType = g_network_connectivity_get_type();
     }
 
     sealed class NetworkMonitorInterface : TypeInterface
@@ -301,10 +295,7 @@ namespace GISharp.Core.Test
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_network_monitor_get_type ();
 
-        static GType getGType ()
-        {
-            return g_network_monitor_get_type ();
-        }
+        static readonly GType _GType = g_network_monitor_get_type();
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_network_monitor_get_network_available (IntPtr monitor);

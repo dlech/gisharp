@@ -18,8 +18,6 @@ namespace GISharp.GLib
     [GType ("GSource", IsProxyForUnmanagedType = true)]
     public abstract class Source : Boxed
     {
-        static readonly GType GType = g_source_get_type();
-
         internal struct Struct
         {
             #pragma warning disable CS0649
@@ -41,7 +39,7 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        public Source(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public Source(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -419,11 +417,7 @@ namespace GISharp.GLib
         /* <type name="GType" managed-name="GType" /> */
         static extern GType g_source_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_source_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_source_get_type();
 
         /// <summary>
         /// Adds @child_source to @source as a "polled" source; when @source is

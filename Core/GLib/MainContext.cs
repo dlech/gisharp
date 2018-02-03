@@ -13,9 +13,7 @@ namespace GISharp.GLib
     [GType ("GMainContext", IsProxyForUnmanagedType = true)]
     public sealed class MainContext : Boxed
     {
-       static  readonly GType GType = g_main_context_get_type();
-
-        public MainContext(IntPtr handle, Transfer ownership) : base(GType, handle, ownership)
+        public MainContext(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -437,11 +435,7 @@ namespace GISharp.GLib
         /* */
         static extern GType g_main_context_get_type ();
 
-        static GType getGType ()
-        {
-            var ret = g_main_context_get_type ();
-            return ret;
-        }
+        static readonly GType _GType = g_main_context_get_type();
 
         /// <summary>
         /// Tries to become the owner of the specified context.
