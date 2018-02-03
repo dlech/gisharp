@@ -699,7 +699,7 @@ namespace GISharp.GLib
             IntPtr typeString);
 
         /// <summary>
-        /// Checks if <paramref name="typeString"/> is a valid <see cref="T"Variant"/>
+        /// Checks if <paramref name="typeString"/> is a valid <see cref="Variant"/>
         /// type string.
         /// </summary>
         /// <param name="typeString">
