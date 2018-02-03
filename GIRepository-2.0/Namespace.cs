@@ -3,6 +3,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using GISharp.GIRepository.Dynamic;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GIRepository
@@ -81,7 +82,7 @@ namespace GISharp.GIRepository
         /// The Namespace must have already been loaded using a function such as
         /// <see cref="Repository.Require"/> before calling this function.
         /// </remarks>
-        public string[] Dependencies {
+        public Strv Dependencies {
             get {
                 return Repository.GetDependencies (@namespace);
             }
@@ -97,7 +98,7 @@ namespace GISharp.GIRepository
         /// <see cref="Repository.Require"/> before calling this function.
         /// </remarks>
         [Since ("1.44")]
-        public string[] ImmediateDependencies {
+        public Strv ImmediateDependencies {
             get {
                 return Repository.GetImmediateDependencies (@namespace);
             }

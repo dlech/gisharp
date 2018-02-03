@@ -130,11 +130,11 @@ namespace GISharp.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_dependencies (IntPtr raw, IntPtr @namespace);
 
-        internal static string[] GetDependencies (string @namespace)
+        internal static Strv GetDependencies(string @namespace)
         {
             var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             var raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+            var ret = Opaque.GetInstance<Strv>(raw_ret, Runtime.Transfer.Full);
             GMarshal.Free (native_namespace);
             return ret;
         }
@@ -144,11 +144,11 @@ namespace GISharp.GIRepository
         static extern IntPtr g_irepository_get_immediate_dependencies (IntPtr raw, IntPtr @namespace);
 
         [Since ("1.44")]
-        internal static string[] GetImmediateDependencies (string @namespace)
+        internal static Strv GetImmediateDependencies (string @namespace)
         {
             var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             var raw_ret = g_irepository_get_immediate_dependencies (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+            var ret = Opaque.GetInstance<Strv>(raw_ret, Runtime.Transfer.Full);
             GMarshal.Free (native_namespace);
             return ret;
         }
@@ -172,10 +172,11 @@ namespace GISharp.GIRepository
         /// Return the list of currently loaded namespaces.
         /// </summary>
         /// <value>List of namespaces.</value>
-        public static string[] LoadedNamespaces {
+        public static Strv LoadedNamespaces {
             get {
                 IntPtr raw_ret = g_irepository_get_loaded_namespaces (IntPtr.Zero);
-                return GMarshal.GStrvPtrToStringArray (raw_ret, freePtr: true, freeElements: true);
+                var ret = Opaque.GetInstance<Strv>(raw_ret, Runtime.Transfer.Full);
+                return ret;
             }
         }
 

@@ -20,12 +20,6 @@ namespace GISharp.GIRepository
             return namespaceMap[@namespace];
         }
 
-        public Namespace this[int index] {
-            get {
-                return EnsureNamespace (Repository.LoadedNamespaces[index]);
-            }
-        }
-
         public Namespace this[string @namespace] {
             get {
                 return EnsureNamespace (@namespace);

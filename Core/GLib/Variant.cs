@@ -454,12 +454,20 @@ namespace GISharp.GLib
             return new Variant (value);
         }
 
+        public static explicit operator Strv(Variant v)
+        {
+            if (v.Type != VariantType.StringArray) {
+                throw new InvalidCastException();
+            }
+            return v.Strv;
+        }
+
         public static explicit operator string[] (Variant v)
         {
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException ();
             }
-            return v.Strv;
+            return v.Strv.ToArray();
         }
 
         public static explicit operator Variant (string[] value)
@@ -3777,7 +3785,7 @@ namespace GISharp.GLib
         /// an array of constant strings
         /// </returns>
         [Since ("2.24")]
-        string[] Strv {
+        Strv Strv {
             get {
                 AssertNotDisposed ();
                 if (!IsOfType (VariantType.StringArray)) {
@@ -3785,7 +3793,8 @@ namespace GISharp.GLib
                 }
                 ulong length_;
                 var ret_ = g_variant_get_strv (handle, out length_);
-                var ret = GMarshal.GStrvPtrToStringArray (ret_);
+                var ret = Opaque.GetInstance<Strv>(ret_, Transfer.None);
+                GMarshal.Free(ret_);
                 return ret;
             }
         }

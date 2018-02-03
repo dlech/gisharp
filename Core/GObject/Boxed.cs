@@ -9,12 +9,15 @@ namespace GISharp.GObject
     {
         GType gType;
 
-        protected Boxed(GType gType, IntPtr handle, Transfer ownership)
-            : base(handle)
+        protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle)
         {
             if (!gType.IsA(GType.Boxed)) {
                 this.handle = IntPtr.Zero;
                 throw new ArgumentException("GType does not inherit from GBoxed", nameof(gType));
+            }
+            if (ownership == Transfer.Container) {
+                this.handle = IntPtr.Zero;
+                throw new NotSupportedException("Don't know how to handle containers yet");
             }
             this.gType = gType;
             if (ownership == Transfer.None) {
@@ -24,9 +27,6 @@ namespace GISharp.GObject
 
         protected override void Dispose(bool disposing)
         {
-            if (!disposing) {
-                Console.Error.WriteLine("hi");
-            }
             if (handle != IntPtr.Zero) {
                 g_boxed_free(gType, handle);
             }
