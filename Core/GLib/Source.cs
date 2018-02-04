@@ -1605,7 +1605,7 @@ namespace GISharp.GLib
         public UnmanagedRef RefImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate void NativeUnref (
+        public delegate void UnmanagedUnref (
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr cbData);
@@ -1613,7 +1613,7 @@ namespace GISharp.GLib
         public delegate void Unref (IntPtr cbData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public NativeUnref UnrefImpl;
+        public UnmanagedUnref UnrefImpl;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void UnmanagedGet (
