@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GObject
@@ -143,19 +144,12 @@ namespace GISharp.GObject
         /// the #GFlagsValue with name @name,
         ///          or %NULL if there is no flag with that name
         /// </returns>
-        public static FlagsValue GetValueByName (FlagsClass flagsClass, string name)
+        public static FlagsValue GetValueByName(FlagsClass flagsClass, Utf8 name)
         {
-            if (flagsClass == null) {
-                throw new ArgumentNullException (nameof (flagsClass));
-            }
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-
-            var name_ = GMarshal.StringToUtf8Ptr (name);
-            var ret_ = g_flags_get_value_by_name (flagsClass.Handle, name_);
-            GMarshal.Free (name_);
-            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+            var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
+            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
+            var ret_ = g_flags_get_value_by_name(flagsClass_, name_);
+            var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
             return ret;
         }
@@ -197,18 +191,12 @@ namespace GISharp.GObject
         /// the #GFlagsValue with nickname @nick,
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
-        public static FlagsValue GetValueByNick (FlagsClass flagsClass, string nick)
+        public static FlagsValue GetValueByNick(FlagsClass flagsClass, Utf8 nick)
         {
-            if (flagsClass == null) {
-                throw new ArgumentNullException (nameof (flagsClass));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            var nick_ = GMarshal.StringToUtf8Ptr (nick);
-            var ret_ = g_flags_get_value_by_nick (flagsClass.Handle, nick_);
-            GMarshal.Free (nick_);
-            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+            var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
+            var nick_ = nick?.Handle ?? throw new ArgumentNullException(nameof(nick));
+            var ret_ = g_flags_get_value_by_nick(flagsClass_, nick_);
+            var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
             return ret;
         }

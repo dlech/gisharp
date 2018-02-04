@@ -1354,19 +1354,17 @@ namespace GISharp.GObject
         /// <returns>
         /// string content of @value
         /// </returns>
-        string String {
+        Utf8 String {
             get {
                 AssertType (GType.String);
                 var ret_ = g_value_get_string (ref this);
-                var ret = GMarshal.Utf8PtrToString (ret_, false);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
 
             set {
                 AssertType (GType.String);
-                var value_ = GMarshal.StringToUtf8Ptr (value);
-                g_value_set_string (ref this, value_);
-                GMarshal.Free (value_);
+                g_value_set_string(ref this, value?.Handle ?? IntPtr.Zero);
             }
         }
 

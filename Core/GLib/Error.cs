@@ -56,11 +56,12 @@ namespace GISharp.GLib
         /// Gets the error message.
         /// </summary>
         /// <value>The message.</value>
-        public string Message {
+        public Utf8 Message {
             get {
                 AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (handle, (int)messageOffset);
-                return GMarshal.Utf8PtrToString (ret);
+                var ret_ = Marshal.ReadIntPtr(handle, (int)messageOffset);
+                var ret = GetInstance<Utf8>(ret_, Transfer.None);
+                return ret;
             }
         }
 
@@ -80,14 +81,12 @@ namespace GISharp.GLib
             int code,
             IntPtr message);
 
-        static IntPtr NewLiteral (Quark domain, int code, string message)
+        static IntPtr NewLiteral(Quark domain, int code, Utf8 message)
         {
             if (message == null) {
                 throw new ArgumentNullException (nameof (message));
             }
-            var messagePtr = GMarshal.StringToUtf8Ptr (message);
-            var ret = g_error_new_literal (domain, code, messagePtr);
-            GMarshal.Free (messagePtr);
+            var ret = g_error_new_literal(domain, code, message.Handle);
             return ret;
         }
 
@@ -98,7 +97,7 @@ namespace GISharp.GLib
         /// <param name="domain">Error domain.</param>
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
-        public Error (Quark domain, int code, string message)
+        public Error(Quark domain, int code, Utf8 message)
             : this (NewLiteral (domain, code, message), Transfer.Full)
         {
         }
@@ -110,7 +109,7 @@ namespace GISharp.GLib
         /// <param name="domain">Error domain.</param>
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
-        public Error (Quark domain, System.Enum code, string message)
+        public Error(Quark domain, System.Enum code, Utf8 message)
             : this (NewLiteral (domain, (int)(object)code, message), Transfer.Full)
         {
         }
@@ -124,7 +123,7 @@ namespace GISharp.GLib
         /// <param name="format">Message format string.</param>
         /// <param name="args">Objects to format.</param>
         public Error (Quark domain, int code, string format, params object[] args)
-            : this (domain, code, string.Format (format, args))
+            : this(domain, code, (Utf8)string.Format(format, args))
         {
         }
 
@@ -137,7 +136,7 @@ namespace GISharp.GLib
         /// <param name="format">Message format string.</param>
         /// <param name="args">Objects to format.</param>
         public Error (Quark domain, System.Enum code, string format, params object[] args)
-            : this (domain, (int)(object)code, string.Format (format, args))
+            : this(domain, (int)(object)code, (Utf8)string.Format(format, args))
         {
         }
 

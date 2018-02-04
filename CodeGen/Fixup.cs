@@ -848,7 +848,7 @@ namespace GISharp.CodeGen
                     return typeof(UIntPtr).FullName;
                 case "filename":
                 case "utf8":
-                    return typeof(string).FullName;
+                    return typeof(GISharp.GLib.Utf8).FullName;
                 case "va_list":
                     return typeof(object[]).FullName;
                 case "none":
@@ -916,9 +916,14 @@ namespace GISharp.CodeGen
 
             var arrayElement = element.Element (gi + "array");
             if (arrayElement != null) {
-                var arrayNameAttr = element.Element (gi + "array").Attribute ("name");
+                var arrayNameAttr = arrayElement.Attribute("name");
                 if (arrayNameAttr == null) {
-                    return string.Format ("{0}[]", element.Element (gi + "array").GetManagedTypeName ());
+                    var managedType = arrayElement.GetManagedTypeName();
+                    if (managedType == typeof(GISharp.GLib.Utf8).FullName && arrayElement.Attribute("zero-terminated").AsBool()) {
+                        // zero-terminated string of utf8 == GStrv
+                        return typeof(GISharp.GLib.Strv).FullName;
+                    }
+                    return string.Format("{0}[]", managedType);
                 } else {
                     var arrayName = arrayNameAttr.Value;
                     switch (arrayName) {

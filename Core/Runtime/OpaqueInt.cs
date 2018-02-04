@@ -13,6 +13,8 @@ namespace GISharp.Runtime
     {
         public int Value => (int)Handle;
 
+        public override IntPtr Handle => handle;
+
         public OpaqueInt (IntPtr handle) : base (handle)
         {
         }

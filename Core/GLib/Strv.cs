@@ -15,6 +15,15 @@ namespace GISharp.GLib
         public string[] Value => _Value.Value;
         readonly Lazy<string[]> _Value;
 
+        static IntPtr New(string[] value)
+        {
+            return GMarshal.StringArrayToGStrvPtr(value);
+        }
+
+        public Strv(params string[] value) : this(New(value), Transfer.Full)
+        {
+        }
+
         public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
             _Value = new Lazy<string[]>(() => this.ToArray());

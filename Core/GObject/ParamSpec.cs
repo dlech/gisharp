@@ -175,11 +175,11 @@ namespace GISharp.GObject
         /// <returns>
         /// the short description of this instance.
         /// </returns>
-        public string Blurb {
+        public Utf8 Blurb {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_blurb (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_, false);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -313,11 +313,11 @@ namespace GISharp.GObject
         /// <returns>
         /// the nickname of this instance.
         /// </returns>
-        public string Nick {
+        public Utf8 Nick {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_param_spec_get_nick (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_, false);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }

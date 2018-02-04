@@ -603,42 +603,6 @@ namespace GISharp.CodeGen.Model
                 yield return new Tuple<StatementSyntax, StatementSyntax> (
                     ParseStatement (statement), ParseStatement (freeStatement));
                 break;
-            case TypeClassification.Strv:
-                statement = string.Format ("{0}_ = {1}.{2} ({0});\n",
-                    managedParameter.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.StringArrayToGStrvPtr));
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
-                freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
-                    freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Runtime.GMarshal),
-                        nameof(GISharp.Runtime.GMarshal.FreeGStrv),
-                        managedParameter.Identifier);
-                }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), ParseStatement (freeStatement));
-                break;
-            case TypeClassification.Utf8String:
-                statement = string.Format ("{0}_ = {1}.{2} ({0});\n",
-                    managedParameter.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.StringToUtf8Ptr));
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
-                freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
-                    freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Runtime.GMarshal),
-                        nameof(GISharp.Runtime.GMarshal.Free),
-                        managedParameter.Identifier);
-                }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), ParseStatement (freeStatement));
-                break;
             default:
                 // TODO: need to add more implementations
                 statement = string.Format ("{0}_ = default({1});\n",
@@ -827,28 +791,6 @@ namespace GISharp.CodeGen.Model
                     managedParameterInfo.TypeInfo.Type,
                     typeof(GISharp.Runtime.Transfer).FullName,
                     managedParameterInfo.Transfer);
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
-                yield return ParseStatement (statement);
-                break;
-            case TypeClassification.Strv:
-                statement = string.Format ("{0} = {1}.{2} ({0}_, {3});\n",
-                    managedParameterInfo.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.GStrvPtrToStringArray),
-                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.Full ? "true" : "false");
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
-                yield return ParseStatement (statement);
-                break;
-            case TypeClassification.Utf8String:
-                statement = string.Format ("{0} = {1}.{2} ({0}_, {3});\n",
-                    managedParameterInfo.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.Utf8PtrToString),
-                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.Full ? "true" : "false");
                 if (declareVariable) {
                     statement = "var " + statement;
                 }

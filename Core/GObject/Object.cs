@@ -464,7 +464,7 @@ namespace GISharp.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags = BindingFlags.Default)
+        public Binding BindProperty(Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags = BindingFlags.Default)
         {
             AssertNotDisposed ();
             if (sourceProperty == null) {
@@ -497,12 +497,8 @@ namespace GISharp.GObject
                 throw new ArgumentException (message, nameof(targetProperty));
             }
 
-            var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
-            var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
-            var ret_ = g_object_bind_property (handle, sourceProperty_, target.handle, targetProperty_, flags);
+            var ret_ = g_object_bind_property (handle, sourceProperty.Handle, target.handle, targetProperty.Handle, flags);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
-            GMarshal.Free (sourceProperty_);
-            GMarshal.Free (targetProperty_);
             return ret;
         }
 
@@ -577,26 +573,17 @@ namespace GISharp.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty (string sourceProperty, Object target, string targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+        public Binding BindProperty (Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
         {
             AssertNotDisposed ();
-            if (sourceProperty == null) {
-                throw new ArgumentNullException (nameof (sourceProperty));
-            }
-            if (target == null) {
-                throw new ArgumentNullException (nameof (target));
-            }
-            if (targetProperty == null) {
-                throw new ArgumentNullException (nameof (targetProperty));
-            }
-            var sourceProperty_ = GMarshal.StringToUtf8Ptr (sourceProperty);
-            var targetProperty_ = GMarshal.StringToUtf8Ptr (targetProperty);
+            var sourceProperty_ = sourceProperty?.Handle ?? throw new ArgumentNullException(nameof(sourceProperty));
+            var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
+            var targetProperty_ = targetProperty?.Handle ?? throw new ArgumentNullException(nameof(targetProperty));
+            
             var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
-            var ret_ = g_object_bind_property_full (handle, sourceProperty_, target.handle, targetProperty_, flags,
+            var ret_ = g_object_bind_property_full (handle, sourceProperty_, target_, targetProperty_, flags,
                                                     transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
-            GMarshal.Free (sourceProperty_);
-            GMarshal.Free (targetProperty_);
             return ret;
         }
 
@@ -765,7 +752,7 @@ namespace GISharp.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public object GetProperty(string propertyName)
+        public object GetProperty(Utf8 propertyName)
         {
             AssertNotDisposed ();
             var pspec = GClass.FindProperty(propertyName);
@@ -827,15 +814,11 @@ namespace GISharp.GObject
         /// <param name="propertyName">
         /// the name of a property installed on the class of @object.
         /// </param>
-        public void EmitNotify(string propertyName)
+        public void EmitNotify(Utf8 propertyName)
         {
             AssertNotDisposed ();
-            if (propertyName == null) {
-                throw new ArgumentNullException (nameof (propertyName));
-            }
-            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            g_object_notify (handle, propertyName_);
-            GMarshal.Free (propertyName_);
+            var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
+            g_object_notify(handle, propertyName_);
         }
 
         /// <summary>
@@ -993,7 +976,7 @@ namespace GISharp.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public void SetProperty(string propertyName, object value)
+        public void SetProperty(Utf8 propertyName, object value)
         {
             AssertNotDisposed();
             var pspec = GClass.FindProperty(propertyName);

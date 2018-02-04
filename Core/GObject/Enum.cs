@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GObject
@@ -204,19 +205,12 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that name
         /// </returns>
-        public static EnumValue GetValueByName (EnumClass enumClass, string name)
+        public static EnumValue GetValueByName(EnumClass enumClass, Utf8 name)
         {
-            if (enumClass == null) {
-                throw new ArgumentNullException (nameof (enumClass));
-            }
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-
-            var name_ = GMarshal.StringToUtf8Ptr (name);
-            var ret_ = g_enum_get_value_by_name (enumClass.Handle, name_);
-            GMarshal.Free (name_);
-            var ret = Marshal.PtrToStructure<EnumValue> (ret_);
+            var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
+            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
+            var ret_ = g_enum_get_value_by_name(enumClass_, name_);
+            var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
             return ret;
         }
@@ -260,19 +254,12 @@ namespace GISharp.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that nickname
         /// </returns>
-        public static EnumValue GetValueByNick (EnumClass enumClass, string nick)
+        public static EnumValue GetValueByNick(EnumClass enumClass, Utf8 nick)
         {
-            if (enumClass == null) {
-                throw new ArgumentNullException (nameof (enumClass));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-
-            var nick_ = GMarshal.StringToUtf8Ptr (nick);
-            var ret_ = g_enum_get_value_by_nick (enumClass.Handle, nick_);
-            GMarshal.Free (nick_);
-            var ret = Marshal.PtrToStructure<EnumValue> (ret_);
+            var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
+            var nick_ = nick?.Handle ?? throw new ArgumentNullException(nameof(nick));
+            var ret_ = g_enum_get_value_by_nick(enumClass_, nick_);
+            var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
             return ret;
         }

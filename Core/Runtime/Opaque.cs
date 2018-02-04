@@ -17,7 +17,12 @@ namespace GISharp.Runtime
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public IntPtr Handle => handle;
+        public virtual IntPtr Handle {
+            get {
+                AssertNotDisposed();
+                return handle;
+            }
+        }
 
         protected Opaque (IntPtr handle)
         {
@@ -96,6 +101,19 @@ namespace GISharp.Runtime
             }
 
             return (T)Activator.CreateInstance (type, handle, ownership);
+        }
+
+        public override int GetHashCode()
+        {
+            return handle.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Opaque opaque) {
+                return handle == opaque.handle;
+            }
+            return base.Equals(obj);
         }
     }
 }

@@ -11,7 +11,15 @@
   regex: KEY_FILE_(.*)
   replace: $1
   xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]
-
+# Add missing array annotations
+- !set-attribute
+  name: zero-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_groups']/gi:return-value/gi:array
+- !set-attribute
+  name: zero-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_keys']/gi:return-value/gi:array
 
 # skip everything else
 

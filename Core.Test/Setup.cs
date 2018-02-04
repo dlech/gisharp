@@ -9,7 +9,7 @@ using GISharp.GLib;
 [SetUpFixture]
 public class Setup
 {
-    static void LogToTestContext (string logDomain, LogLevelFlags logLevel, string message)
+    static void LogToTestContext(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message)
     {
         // FIXME: messages on the GC finalizer thread are lost
         TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);

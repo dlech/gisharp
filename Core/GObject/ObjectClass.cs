@@ -416,15 +416,11 @@ namespace GISharp.GObject
         /// <exception cref="ArgumentNullException">
         /// Throw when <paramref name="propertyName"/> is <c>null</c>
         /// </exception>
-        public ParamSpec FindProperty (string propertyName)
+        public ParamSpec FindProperty(Utf8 propertyName)
         {
-            if (propertyName == null) {
-                throw new ArgumentNullException (nameof (propertyName));
-            }
-            var propertyName_ = GMarshal.StringToUtf8Ptr (propertyName);
-            var ret_ = g_object_class_find_property (Handle, propertyName_);
+            var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
+            var ret_ = g_object_class_find_property(Handle, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
-            GMarshal.Free (propertyName_);
             return ret;
         }
 

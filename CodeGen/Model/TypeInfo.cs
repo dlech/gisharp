@@ -53,17 +53,9 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         OpaqueCArray,
         /// <summary>
-        /// A null-terminated array of UTF-8 strings.
-        /// </summary>
-        Strv,
-        /// <summary>
         /// A UTF-32/UCS-4 character.
         /// </summary>
         Utf32Char,
-        /// <summary>
-        /// A null-terminated UTF-8 string.
-        /// </summary>
-        Utf8String,
         /// <summary>
         /// A value type (struct).
         /// </summary>
@@ -95,14 +87,16 @@ namespace GISharp.CodeGen.Model
                     } else if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
                         _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
-                        _Classification = TypeClassification.Utf8String;
+                        _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
                         _Classification = TypeClassification.FilenameString;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "gunichar") {
                         _Classification = TypeClassification.Utf32Char;
                     } else if (TypeObject.IsArray) {
-                        if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
-                            _Classification = TypeClassification.Strv;
+                        // null-terminated arrays of utf8 are GStrv
+                        if (Element.Element(gi + "array")?.Attribute(gi + "zero-terminated").AsBool() == true &&
+                                Element.Element(gi + "array")?.Element(gi + "type")?.Attribute("name").AsString() == "utf8") {
+                            _Classification = TypeClassification.Opaque;
                         } else if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
                             _Classification = TypeClassification.FilenameStrv;
                         } else if (TypeObject.GetElementType ().IsValueType) {
@@ -128,7 +122,7 @@ namespace GISharp.CodeGen.Model
             get {
                 var arrayElement = Element.Element (gi + "array");
                 if (arrayElement == null) {
-                    throw new NotSupportedException ();
+                    throw new InvalidOperationException("Not an array");
                 }
                 return arrayElement.Attribute ("zero-terminated").AsBool ();
             }

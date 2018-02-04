@@ -1,6 +1,7 @@
 using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 
 namespace GISharp.GObject
 {
@@ -197,11 +198,11 @@ namespace GISharp.GObject
         /// </returns>
         [GProperty("source-property")]
         [Since ("2.26")]
-        public string SourceProperty {
+        public Utf8 SourceProperty {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_source_property (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -269,11 +270,11 @@ namespace GISharp.GObject
         /// </returns>
         [GProperty("target-property")]
         [Since ("2.26")]
-        public string TargetProperty {
+        public Utf8 TargetProperty {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_binding_get_target_property (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }

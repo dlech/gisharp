@@ -366,7 +366,7 @@ namespace GISharp.GLib
     /// This is not used if structured logging is enabled; see
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
-    public delegate void LogFunc (string logDomain, LogLevelFlags logLevel, string message);
+    public delegate void LogFunc(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message);
 
     public static class UnmanagedLogFuncFactory
     {
@@ -407,8 +407,8 @@ namespace GISharp.GLib
             try {
                 var gcHandle = (GCHandle)userData_;
                 var userData = (UnmanagedLogFuncFuncData)gcHandle.Target;
-                var logDomain = GMarshal.Utf8PtrToString(logDomain_);
-                var message = GMarshal.Utf8PtrToString(message_);
+                var logDomain = Opaque.GetInstance<Utf8>(logDomain_, Transfer.None);
+                var message = Opaque.GetInstance<Utf8>(message_, Transfer.None);
                 userData.Func(logDomain, logLevel_, message);
                 if (userData.IsAsync) {
                     gcHandle.Free();

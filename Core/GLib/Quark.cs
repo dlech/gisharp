@@ -84,11 +84,10 @@ namespace GISharp.GLib
         /// <returns>
         /// The <see cref="Quark"/> identifying the string, or <see cref="Zero"/> if <paramref name="string"/> is <c>null</c>.
         /// </returns>
-        public static Quark FromString (string @string)
+        public static Quark FromString(Utf8 @string)
         {
-            var string_ = GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_quark_from_string (string_);
-            GMarshal.Free (string_);
+            var string_ = @string?.Handle ?? IntPtr.Zero;
+            var ret = g_quark_from_string(string_);
             return ret;
         }
 
@@ -130,11 +129,10 @@ namespace GISharp.GLib
         /// the <see cref="Quark"/> associated with the string, or <see cref="Zero"/> if <paramref name="string"/> is
         /// <c>null</c> or there is no <see cref="Quark"/> associated with it
         /// </returns>
-        public static Quark TryString (string @string)
+        public static Quark TryString(Utf8 @string)
         {
-            var string_ = GMarshal.StringToUtf8Ptr (@string);
-            var ret = g_quark_try_string (string_);
-            GMarshal.Free (string_);
+            var string_ = @string?.Handle ?? IntPtr.Zero;
+            var ret = g_quark_try_string(string_);
             return ret;
         }
 

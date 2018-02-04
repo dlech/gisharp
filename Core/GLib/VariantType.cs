@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.GObject;
 using GISharp.Runtime;
 
@@ -425,22 +426,13 @@ namespace GISharp.GLib
         /// a new #GVariantType
         /// </returns>
         [Since ("2.24")]
-        static IntPtr New (string typeString)
+        static IntPtr New(Utf8 typeString)
         {
-            if (typeString == null) {
-                throw new ArgumentNullException (nameof (typeString));
+            if (!StringIsValid(typeString)) {
+                throw new ArgumentException ("Invalid type string", nameof (typeString));
             }
-            var typeString_ = GMarshal.StringToUtf8Ptr (typeString);
-            try {
-                if (!g_variant_type_string_is_valid (typeString_)) {
-                    throw new ArgumentException ("Invalid type string", nameof (typeString));
-                }
-                var ret = g_variant_type_new (typeString_);
-                return ret;
-            }
-            finally {
-                GMarshal.Free (typeString_);
-            }
+            var ret = g_variant_type_new(typeString.Handle);
+            return ret;
         }
 
         /// <summary>
@@ -709,19 +701,11 @@ namespace GISharp.GLib
         /// <c>true</c> if <paramref name="typeString"/> is exactly one valid type string
         /// </returns>
         [Since ("2.24")]
-        public static bool StringIsValid (string typeString)
+        public static bool StringIsValid(Utf8 typeString)
         {
-            if (typeString == null) {
-                throw new ArgumentNullException (nameof (typeString));
-            }
-            var typeString_ = GMarshal.StringToUtf8Ptr (typeString);
-            try {
-                var ret = g_variant_type_string_is_valid (typeString_);
-                return ret;
-            }
-            finally {
-                GMarshal.Free (typeString_);
-            }
+            var typeString_ = typeString?.Handle ?? throw new ArgumentNullException(nameof(typeString));
+            var ret = g_variant_type_string_is_valid(typeString_);
+            return ret;
         }
 
         /// <summary>

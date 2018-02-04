@@ -120,6 +120,9 @@ namespace GISharp.CodeGen.Model
                 var value = GetValueAsLiteralExpression ();
                 var equalsValueClause = EqualsValueClause (value);
                 variable = variable.WithInitializer (equalsValueClause);
+                if (TypeInfo.TypeObject == typeof(GISharp.GLib.Utf8)) {
+                    type = ParseTypeName(typeof(string).FullName);
+                }
             }
             var variableDeclaration = VariableDeclaration (type)
                 .AddVariables (variable);
@@ -229,6 +232,7 @@ namespace GISharp.CodeGen.Model
                     Literal (double.Parse (value)));
             case "string":
             case "System.String":
+            case "GISharp.GLib.Utf8":
                 return LiteralExpression (SyntaxKind.StringLiteralExpression,
                     Literal (value));
             default:

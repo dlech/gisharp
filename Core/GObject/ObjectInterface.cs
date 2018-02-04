@@ -1,6 +1,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GObject
@@ -57,16 +58,12 @@ namespace GISharp.GObject
         /// <c>null</c> if no such property exists.
         /// </returns>
         [Since("2.4")]
-        public ParamSpec FindProperty(string propertyName)
+        public ParamSpec FindProperty(Utf8 propertyName)
         {
             AssertNotDisposed();
-            if(propertyName == null) {
-                throw new ArgumentNullException(nameof(propertyName));
-            }
-            var propertyName_ = GMarshal.StringToUtf8Ptr(propertyName);
+            var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
             var ret_ = g_object_interface_find_property(handle, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
-            GMarshal.Free(propertyName_);
             return ret;
         }
 

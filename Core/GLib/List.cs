@@ -12,6 +12,13 @@ namespace GISharp.GLib
     /// </summary>
     public abstract class List : Opaque
     {
+        public override IntPtr Handle {
+            get {
+                // null handle is OK here
+                return handle;
+            }
+        }
+
         protected List (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership != Transfer.Container) {
@@ -931,7 +938,7 @@ namespace GISharp.GLib
             IntPtr userData);
     }
 
-    public sealed class ListIter<T> : Opaque where T : Opaque
+    public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
         static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
@@ -946,13 +953,30 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        internal ListIter(IntPtr handle) : base(handle)
+        IntPtr start;
+        IntPtr next;
+
+        internal ListEnumerator(IntPtr start) : base(IntPtr.Zero)
         {
+            this.start = start;
+            Reset();
         }
 
-        public T Data => GetInstance<T>(Marshal.ReadIntPtr(handle, (int)dataOffset), Transfer.None);
-        public void MoveNext() => handle = Marshal.ReadIntPtr(handle, (int)nextOffset);
-        public void MovePrev() => handle = Marshal.ReadIntPtr(handle, (int)prevOffset);
+        public void Reset() => next = start;
+
+        public T Current => GetInstance<T>(Marshal.ReadIntPtr(Handle, (int)dataOffset), Transfer.None);
+
+        object IEnumerator.Current => Current;
+
+        public bool MoveNext()
+        {
+            if (next == IntPtr.Zero) {
+                return false;
+            }
+            handle = next;
+            next = Marshal.ReadIntPtr(Handle, (int)nextOffset);
+            return true;
+        }
     }
 
     [GType ("GList", IsProxyForUnmanagedType = true)]
@@ -1059,7 +1083,7 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        public void InsertBefore (ListIter<T> sibling, T data)
+        public void InsertBefore (ListEnumerator<T> sibling, T data)
         {
             InsertBefore (sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
         }
@@ -1195,15 +1219,8 @@ namespace GISharp.GLib
             };
             Sort (compareFunc_);
         }
+        IEnumerator IEnumerable.GetEnumerator () => new ListEnumerator<T>(Handle);
 
-        IEnumerator<T> GetEnumerator () {
-            for (var iter = new ListIter<T>(handle); iter.Handle != IntPtr.Zero; iter.MoveNext()) {
-                yield return iter.Data;
-            }
-        }
-
-        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator ();
-
-        IEnumerator<T> IEnumerable<T>.GetEnumerator () => GetEnumerator ();
+        IEnumerator<T> IEnumerable<T>.GetEnumerator () => new ListEnumerator<T>(Handle);
     }
 }

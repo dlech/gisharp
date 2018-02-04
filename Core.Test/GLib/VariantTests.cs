@@ -329,7 +329,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
 
             // only basic variant types are allowed as key
-            badKey = new KeyValuePair<Variant, Variant> (new Variant (new[] { "string" }), new Variant ("string"));
+            badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv("string")), new Variant("string"));
             Assert.That (() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in

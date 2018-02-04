@@ -372,18 +372,10 @@ namespace GISharp.GLib
         /// if <paramref name="name"/> is <c>null</c>
         /// </exception>
         [Since ("2.26")]
-        public static void SetNameById (uint tag, string name)
+        public static void SetNameById (uint tag, Utf8 name)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            var name_ = GMarshal.StringToUtf8Ptr (name);
-            try {
-                g_source_set_name_by_id (tag, name_);
-            }
-            finally {
-                GMarshal.Free (name_);
-            }
+            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
+            g_source_set_name_by_id(tag, name_);
         }
 
         /// <summary>
@@ -777,22 +769,18 @@ namespace GISharp.GLib
         /// the name of the source
         /// </returns>
         [Since ("2.26")]
-        public string Name {
+        public Utf8 Name {
             get {
                 AssertNotDisposed ();
                 var ret_ = g_source_get_name (handle);
-                var ret = GMarshal.Utf8PtrToString (ret_, false);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
 
             set {
                 AssertNotDisposed ();
-                if (value == null) {
-                    throw new ArgumentNullException (nameof (value));
-                }
-                var value_ = GMarshal.StringToUtf8Ptr (value);
-                g_source_set_name (handle, value_);
-                GMarshal.Free (value_);
+                var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
+                g_source_set_name (handle, value.Handle);
             }
         }
 

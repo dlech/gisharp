@@ -166,7 +166,7 @@ namespace GISharp.GLib
         /// 
         /// - `G_MESSAGES_PREFIXED`: A :-separated list of log levels for which
         ///   messages should be prefixed by the program name and PID of the
-        ///   aplication.
+        ///   application.
         /// 
         /// - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
         ///   which debug and informational messages are printed. By default
@@ -189,13 +189,11 @@ namespace GISharp.GLib
         /// <param name="message">
         /// the message
         /// </param>
-        public static void DefaultHandler (string logDomain, LogLevelFlags logLevel, string message)
+        public static void DefaultHandler(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message)
         {
-            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var message_ = GMarshal.StringToUtf8Ptr (message);
-            g_log_default_handler (logDomain_, logLevel, message_, IntPtr.Zero);
-            GMarshal.Free (logDomain_);
-            GMarshal.Free (message_);
+            var logDomain_ = logDomain?.Handle ?? IntPtr.Zero;
+            var message_ = message?.Handle ?? IntPtr.Zero;
+            g_log_default_handler(logDomain_, logLevel, message_, IntPtr.Zero);
         }
 
         /// <summary>
@@ -237,14 +235,10 @@ namespace GISharp.GLib
         /// the id of the handler, which was returned
         /// in <see cref="SetHandler"/>
         /// </param>
-        public static void RemoveHandler (string logDomain, uint handlerId)
+        public static void RemoveHandler(Utf8 logDomain, uint handlerId)
         {
-            if (logDomain == null) {
-                throw new ArgumentNullException (nameof (logDomain));
-            }
-            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            g_log_remove_handler (logDomain_, handlerId);
-            GMarshal.Free (logDomain_);
+            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
+            g_log_remove_handler(logDomain_, handlerId);
         }
 
         /// <summary>
@@ -430,14 +424,10 @@ namespace GISharp.GLib
         /// <returns>
         /// the old fatal mask for the log domain
         /// </returns>
-        public static LogLevelFlags SetFatalMask (string logDomain, LogLevelFlags fatalMask)
+        public static LogLevelFlags SetFatalMask(Utf8 logDomain, LogLevelFlags fatalMask)
         {
-            if (logDomain == null) {
-                throw new ArgumentNullException (nameof (logDomain));
-            }
-            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var ret = g_log_set_fatal_mask (logDomain_, fatalMask);
-            GMarshal.Free (logDomain_);
+            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
+            var ret = g_log_set_fatal_mask(logDomain_, fatalMask);
             return ret;
         }
 
@@ -540,15 +530,11 @@ namespace GISharp.GLib
         /// the id of the new handler
         /// </returns>
         [Since ("2.46")]
-        public static uint SetHandler (string logDomain, LogLevelFlags logLevels, LogFunc logFunc)
+        public static uint SetHandler(Utf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
-            if (logFunc == null) {
-                throw new ArgumentNullException (nameof (logFunc));
-            }
-            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var (logFunc_, destroy_, userData_) = UnmanagedLogFuncFactory.CreateNotifyDelegate (logFunc);
-            var ret = g_log_set_handler_full (logDomain_, logLevels, logFunc_, userData_, destroy_);
-            GMarshal.Free (logDomain_);
+            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logFunc));;
+            var (logFunc_, destroy_, userData_) = UnmanagedLogFuncFactory.CreateNotifyDelegate(logFunc);
+            var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;
         }
     }

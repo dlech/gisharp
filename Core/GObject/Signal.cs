@@ -394,25 +394,16 @@ namespace GISharp.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static SignalHandler Connect<T, U>(this Object instance, string detailedSignal,
+        public static SignalHandler Connect<T, U>(this Object instance, Utf8 detailedSignal,
             System.Func<T, ValueTuple<U, UnmanagedClosureNotify, IntPtr>> unmanagedCallbackFactory,
             T handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof (instance));
-            }
-            if (detailedSignal == null) {
-                throw new ArgumentNullException (nameof (detailedSignal));
-            }
-            if (unmanagedCallbackFactory == null) {
+            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
+            var (handler_, notify_, data_) = unmanagedCallbackFactory?.Invoke(handler) ??
                 throw new ArgumentNullException(nameof(unmanagedCallbackFactory));
-            }
-
-            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            var (handler_, notify_, data_) = unmanagedCallbackFactory(handler);
             var handlerPtr = Marshal.GetFunctionPointerForDelegate(handler_);
-            var ret = g_signal_connect_data(instance.Handle, detailedSignal_, handlerPtr, data_, notify_, connectFlags);
-            GMarshal.Free (detailedSignal_);
+            var ret = g_signal_connect_data(instance_, detailedSignal_, handlerPtr, data_, notify_, connectFlags);
 
             if (ret == 0) {
                 // TODO: More specific exception
@@ -773,14 +764,10 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
-        public static uint TryLookup (string name, GType itype)
+        public static uint TryLookup (Utf8 name, GType itype)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            var name_ = GMarshal.StringToUtf8Ptr (name);
+            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
             var ret = g_signal_lookup (name_, itype);
-            GMarshal.Free (name_);
             return ret;
         }
 
@@ -821,10 +808,10 @@ namespace GISharp.GObject
         /// <returns>
         /// the signal name, or %NULL if the signal number was invalid.
         /// </returns>
-        public static string Name (uint signalId)
+        public static Utf8 Name(uint signalId)
         {
             var ret_ = g_signal_name (signalId);
-            var ret = GMarshal.Utf8PtrToString (ret_, false);
+            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
             return ret;
         }
 
@@ -1116,14 +1103,10 @@ namespace GISharp.GObject
         /// <paramref name="signalId"/> and <paramref name="detail"/> contain
         /// valid return values.
         /// </returns>
-        public static bool TryParseName(string detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
+        public static bool TryParseName(Utf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
-            if (detailedSignal == null) {
-                throw new ArgumentNullException (nameof (detailedSignal));
-            }
-            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
+            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
             var ret = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
-            GMarshal.Free (detailedSignal_);
             return ret;
         }
 
@@ -1332,17 +1315,11 @@ namespace GISharp.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        public static void StopEmissionByName(this Object instance, string detailedSignal)
+        public static void StopEmissionByName(this Object instance, Utf8 detailedSignal)
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof (instance));
-            }
-            if (detailedSignal == null) {
-                throw new ArgumentNullException (nameof (detailedSignal));
-            }
-            var detailedSignal_ = GMarshal.StringToUtf8Ptr (detailedSignal);
-            g_signal_stop_emission_by_name (instance.Handle, detailedSignal_);
-            GMarshal.Free (detailedSignal_);
+            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
+            g_signal_stop_emission_by_name(instance_, detailedSignal_);
         }
 
         /// <summary>
