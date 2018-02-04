@@ -446,7 +446,7 @@ namespace GISharp.GLib
         /// if <paramref name="typeString"/> is <c>null</c>
         /// </exception>
         /// <exception cref="ArgumentException">
-        /// if <paramref name="typeString"/> is not a vaild type string
+        /// if <paramref name="typeString"/> is not a valid type string
         /// </exception>
         [Since ("2.24")]
         public VariantType (string typeString) : this (New (typeString), Transfer.Full)

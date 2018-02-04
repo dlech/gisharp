@@ -4,7 +4,7 @@ using GISharp.GObject;
 using GISharp.Runtime;
 
 // GSource is special. It is a GType, but it uses private data appended to the
-// GSource stuct instead of the usual way of subclassing a GType. So, we are
+// GSource struct instead of the usual way of subclassing a GType. So, we are
 // making source an abstract class in managed code with a default implementation
 // so that it is easy to create new sources in managed code. However, this means
 // when wrapping a GSource from unmanaged code, we will have to use a different

@@ -510,11 +510,11 @@ namespace GISharp.CodeGen
 
             var parameterElements = document.Descendants (gi + "parameters");
             foreach (var element in parameterElements) {
-                var managedParamtersElement = new XElement (gs + "managed-parameters");
+                var managedParametersElement = new XElement(gs + "managed-parameters");
                 foreach (var managedParameterElement in element.EnumerateManagedParameters ()) {
-                    managedParamtersElement.Add (new XElement (managedParameterElement));
+                    managedParametersElement.Add(new XElement(managedParameterElement));
                 }
-                element.Parent.Add (managedParamtersElement);
+                element.Parent.Add(managedParametersElement);
             }
 
             // flag getters as properties

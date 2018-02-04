@@ -192,7 +192,7 @@ namespace GISharp.GLib
     /// a more secure hash function when using a GHashTable with keys
     /// that originate in untrusted data (such as HTTP requests).
     /// Using g_str_hash() in that situation might make your application
-    /// vulerable to
+    /// vulnerable to
     /// [Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
     /// 
     /// The key to choosing a good hash is unpredictability.  Even
@@ -234,7 +234,7 @@ namespace GISharp.GLib
     /// a more secure hash function when using a GHashTable with keys
     /// that originate in untrusted data (such as HTTP requests).
     /// Using g_str_hash() in that situation might make your application
-    /// vulerable to
+    /// vulnerable to
     /// [Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
     /// 
     /// The key to choosing a good hash is unpredictability.  Even

@@ -83,7 +83,7 @@ namespace GISharp.GObject
         {
             /// <summary>
             /// Wraps <see cref="CollectValue"/> in an anonymous method that can be passed
-            /// to unmaged code.
+            /// to unmanaged code.
             /// </summary>
             /// <param name="method">The managed method to wrap.</param>
             /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user
@@ -156,7 +156,7 @@ namespace GISharp.GObject
         {
             /// <summary>
             /// Wraps <see cref="LcopyValue"/> in an anonymous method that can be passed
-            /// to unmaged code.
+            /// to unmanaged code.
             /// </summary>
             /// <param name="method">The managed method to wrap.</param>
             /// <param name="freeUserData">Frees the <see cref="GCHandle"/> for any user

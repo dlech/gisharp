@@ -210,7 +210,7 @@ namespace GISharp.GObject
             var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
             var values_ = GMarshal.CArrayToPtr<FlagsValue> (values, nullTerminated: true);
             var ret = g_flags_register_static (typeName_, values_);
-            // values are never freed for the liftime of the program
+            // values are never freed for the lifetime of the program
             return ret;
         }
     }

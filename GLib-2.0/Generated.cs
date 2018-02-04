@@ -2046,7 +2046,7 @@ namespace GISharp.GLib
         /// return location for a #GError
         /// </param>
         /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE othewise
+        /// %TRUE if a key file could be loaded, %FALSE otherwise
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2090,7 +2090,7 @@ namespace GISharp.GLib
         /// flags from #GKeyFileFlags
         /// </param>
         /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE othewise
+        /// %TRUE if a key file could be loaded, %FALSE otherwise
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error

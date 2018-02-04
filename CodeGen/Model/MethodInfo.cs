@@ -256,7 +256,7 @@ namespace GISharp.CodeGen.Model
             : base (element, declaringMember)
         {
             if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "virtual-method" && element.Name != gi + "constructor" && element.Name != gi + "callback") {
-                throw new ArgumentException ("Requires <fuction>, <method>, <virtual-method> <constructor> or <callback> element.", nameof(element));
+                throw new ArgumentException("Requires <function>, <method>, <virtual-method> <constructor> or <callback> element.", nameof(element));
             }
         }
 
@@ -992,7 +992,7 @@ namespace GISharp.CodeGen.Model
                 if (Element.Element (gi + "return-value") != null) {
                     // if we have a <return-value>, then we can assume that this is a
                     // proper node and just does not have any parameters.
-                    // Alternatly, we could check if this is function/method/constructor/callback
+                    // Alternately, we could check if this is function/method/constructor/callback
                     yield break;
                 }
                 var message = string.Format ("Expecting element with <{0}> child element.", childElementName.LocalName);

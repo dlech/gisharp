@@ -108,7 +108,7 @@ namespace GISharp.GLib
         /// 
         /// - `G_MESSAGES_PREFIXED`: A :-separated list of log levels for which
         ///   messages should be prefixed by the program name and PID of the
-        ///   aplication.
+        ///   application.
         /// 
         /// - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
         ///   which debug and informational messages are printed. By default

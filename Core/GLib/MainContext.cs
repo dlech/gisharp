@@ -915,7 +915,7 @@ namespace GISharp.GLib
         /// whether the call may block.
         /// </param>
         /// <returns>
-        /// <c>ture</c> if events were dispatched.
+        /// <c>true</c> if events were dispatched.
         /// </returns>
         public bool Iteration (bool mayBlock)
         {
@@ -1382,7 +1382,7 @@ namespace GISharp.GLib
             g_main_context_wakeup (handle);
         }
 
-        GSyncronizationContext _SynchronizationContext;
+        GSynchronizationContext _SynchronizationContext;
         /// <summary>
         /// Gets the .NET synchronization context for this context.
         /// </summary>
@@ -1398,7 +1398,7 @@ namespace GISharp.GLib
         public SynchronizationContext SynchronizationContext {
             get {
                 if (_SynchronizationContext == null) {
-                    _SynchronizationContext = new GSyncronizationContext (this);
+                    _SynchronizationContext = new GSynchronizationContext(this);
                 }
                 return _SynchronizationContext;
             }
@@ -1406,13 +1406,13 @@ namespace GISharp.GLib
     }
 
     /// <summary>
-    /// .NET syncronization context for a GLib <see cref="MainContext"/>
+    /// .NET synchronization context for a GLib <see cref="MainContext"/>
     /// </summary>
-    class GSyncronizationContext : SynchronizationContext
+    class GSynchronizationContext : SynchronizationContext
     {
         readonly MainContext context;
 
-        public GSyncronizationContext (MainContext context)
+        public GSynchronizationContext(MainContext context)
         {
             if (context == null) {
                 throw new ArgumentNullException (nameof (context));
@@ -1422,7 +1422,7 @@ namespace GISharp.GLib
 
         public override SynchronizationContext CreateCopy ()
         {
-            return new GSyncronizationContext (context);
+            return new GSynchronizationContext(context);
         }
 
         public override void Post (SendOrPostCallback d, object state)
