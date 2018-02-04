@@ -374,10 +374,10 @@ namespace GISharp.CodeGen.Model
             var freeStatements = new List<StatementSyntax> ();
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 if (p.IsInParam) {
-                    foreach (var s in GetMarshalManagedToUnmanagedParameterStatements (p, true)) {
-                        yield return s.Item1;
-                        if (s.Item2 != null) {
-                            freeStatements.Add (s.Item2);
+                    foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(p, true)) {
+                        yield return statement;
+                        if (freeStatement != null) {
+                            freeStatements.Add(freeStatement);
                         }
                     }
                 } else {
@@ -471,7 +471,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<Tuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToUnmanagedParameterStatements (ParameterInfo managedParameter, bool declareVariable)
+        IEnumerable<ValueTuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToUnmanagedParameterStatements(ParameterInfo managedParameter, bool declareVariable)
         {
             if (!managedParameter.TypeInfo.RequiresMarshal) {
                 yield break;
@@ -498,8 +498,7 @@ namespace GISharp.CodeGen.Model
                         nameof(GISharp.Runtime.GMarshal.Free),
                         managedParameter.Identifier);
                 }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), ParseStatement (freeStatement));
+                yield return (ParseStatement(statement), ParseStatement(freeStatement));
                 break;
             case TypeClassification.Delegate:
                 statement = string.Format (
@@ -514,11 +513,9 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), null);
+                yield return (ParseStatement(statement), null);
                 statement = string.Format ("throw new {0} ();", typeof(NotImplementedException).FullName);
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), null);
+                yield return (ParseStatement(statement), null);
                 if (pinvokeParameter.ClosureIndex >= 0) {
                     var closureParameter = PinvokeParameterInfos[pinvokeParameter.ClosureIndex];
                     var closureHandle = Identifier (pinvokeParameter.Identifier + "Handle");
@@ -532,8 +529,7 @@ namespace GISharp.CodeGen.Model
                         "{0}.{1} ();\n",
                         closureHandle,
                         nameof(GCHandle.Free));
-                    yield return new Tuple<StatementSyntax, StatementSyntax> (
-                        ParseStatement (closureHandleStatement),
+                    yield return (ParseStatement(closureHandleStatement),
                         pinvokeParameter.Scope == GISharp.Runtime.CallbackScope.Call
                         ? ParseStatement (closureHandleFreeStatement) : null);
                     
@@ -547,8 +543,7 @@ namespace GISharp.CodeGen.Model
                             // typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
                             // nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
                             closureHandle);
-                        yield return new Tuple<StatementSyntax, StatementSyntax> (
-                            ParseStatement (notifyStatement), null);
+                        yield return (ParseStatement(notifyStatement), null);
                         
                         var closureParameterStatement = string.Format (
                             "var {0}_ = {1}.{2} ({1}.{3} ({4}_));\n",
@@ -557,8 +552,7 @@ namespace GISharp.CodeGen.Model
                             nameof(GCHandle.ToIntPtr),
                             nameof(GCHandle.Alloc),
                             notifyParameter.Identifier);
-                        yield return new Tuple<StatementSyntax, StatementSyntax> (
-                            ParseStatement (closureParameterStatement), null);
+                        yield return (ParseStatement(closureParameterStatement), null);
                     } else {
                         var closureParameterStatement = string.Format (
                             "var {0}_ = {1}.{2} ({3});\n",
@@ -566,8 +560,7 @@ namespace GISharp.CodeGen.Model
                             typeof(GCHandle).FullName,
                             nameof(GCHandle.ToIntPtr),
                             closureHandle);
-                        yield return new Tuple<StatementSyntax, StatementSyntax> (
-                            ParseStatement (closureParameterStatement), null);
+                        yield return (ParseStatement(closureParameterStatement), null);
                     }
                 }
                 break;
@@ -585,8 +578,7 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), null);
+                yield return (ParseStatement(statement), null);
                 break;
             case TypeClassification.OpaqueCArray:
                 statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
@@ -605,8 +597,7 @@ namespace GISharp.CodeGen.Model
                         nameof(GISharp.Runtime.GMarshal.Free),
                         managedParameter.Identifier);
                 }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), ParseStatement (freeStatement));
+                yield return (ParseStatement(statement), ParseStatement(freeStatement));
                 break;
             default:
                 // TODO: need to add more implementations
@@ -616,11 +607,9 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (statement), null);
-                yield return new Tuple<StatementSyntax, StatementSyntax> (
-                    ParseStatement (string.Format ("throw new {0} ();\n",
-                        typeof(NotImplementedException).FullName)), null);
+                yield return (ParseStatement(statement), null);
+                yield return (ParseStatement(string.Format("throw new {0} ();\n",
+                    typeof(NotImplementedException).FullName)), null);
                 break;
             }
         }
@@ -840,10 +829,10 @@ namespace GISharp.CodeGen.Model
                 yield return IfStatement (ParseExpression ("freeUserData"),ifBody);
             }
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var s in  GetMarshalManagedToUnmanagedParameterStatements (ManagedReturnParameterInfo, true)) {
-                    yield return s.Item1;
-                    if (s.Item2 != null) {
-                        yield return s.Item2;
+                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
+                    yield return statement;
+                    if (freeStatement != null) {
+                        yield return freeStatement;
                     }
                 }
                 var ret = "ret";
@@ -873,21 +862,21 @@ namespace GISharp.CodeGen.Model
             yield return GetInvocationStatement ($"{instanceParam.ManagedName}.{ManagedName}", true);
 
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
-                foreach (var s in GetMarshalManagedToUnmanagedParameterStatements (p, false)) {
-                    yield return s.Item1;
-                    if (s.Item2 != null) {
+                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(p, false)) {
+                    yield return statement;
+                    if (freeStatement != null) {
                         // TODO: how to prevent memory leak?
-                        //yield return s.Item2;
+                        //yield return freeStatement;
                     }
                 }
             }
 
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var s in  GetMarshalManagedToUnmanagedParameterStatements (ManagedReturnParameterInfo, true)) {
-                    yield return s.Item1;
-                    if (s.Item2 != null) {
+                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
+                    yield return statement;
+                    if (freeStatement != null) {
                         // TODO: how to prevent memory leak?
-                        //yield return s.Item2;
+                        //yield return freeStatement;
                     }
                 }
                 if (ManagedReturnParameterInfo.Transfer != GISharp.Runtime.Transfer.None) {
