@@ -2362,7 +2362,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean LoadFromDataDirs(GISharp.GLib.Utf8 file, out GISharp.GLib.Utf8 fullPath, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean LoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
             AssertNotDisposed();
             if (file == null)
@@ -2381,7 +2381,7 @@ namespace GISharp.GLib
                     throw new GISharp.Runtime.GErrorException(error);
                 }
 
-                fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(fullPath_, GISharp.Runtime.Transfer.Full);
+                fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Filename>(fullPath_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
             finally
@@ -2477,7 +2477,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public System.Boolean LoadFromDirs(GISharp.GLib.Utf8 file, GISharp.GLib.Utf8[] searchDirs, out GISharp.GLib.Utf8 fullPath, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean LoadFromDirs(GISharp.GLib.Filename file, GISharp.GLib.Filename[] searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
             AssertNotDisposed();
             if (file == null)
@@ -2502,7 +2502,7 @@ namespace GISharp.GLib
                     throw new GISharp.Runtime.GErrorException(error);
                 }
 
-                fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(fullPath_, GISharp.Runtime.Transfer.Full);
+                fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Filename>(fullPath_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
             finally
@@ -2569,7 +2569,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean LoadFromFile(GISharp.GLib.Utf8 file, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean LoadFromFile(GISharp.GLib.Filename file, GISharp.GLib.KeyFileFlags flags)
         {
             AssertNotDisposed();
             if (file == null)

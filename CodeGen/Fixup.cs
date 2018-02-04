@@ -847,6 +847,7 @@ namespace GISharp.CodeGen
                 case "gsize":
                     return typeof(UIntPtr).FullName;
                 case "filename":
+                    return typeof(GISharp.GLib.Filename).FullName;
                 case "utf8":
                     return typeof(GISharp.GLib.Utf8).FullName;
                 case "va_list":

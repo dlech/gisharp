@@ -27,10 +27,6 @@ namespace GISharp.CodeGen.Model
         /// <summary>
         /// A string encoded using filesystem encoding.
         /// </summary>
-        FilenameString,
-        /// <summary>
-        /// A null-terminated array of filename strings.
-        /// </summary>
         FilenameStrv,
         /// <summary>
         /// A GObject.
@@ -89,7 +85,7 @@ namespace GISharp.CodeGen.Model
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
                         _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
-                        _Classification = TypeClassification.FilenameString;
+                        _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "gunichar") {
                         _Classification = TypeClassification.Utf32Char;
                     } else if (TypeObject.IsArray) {
