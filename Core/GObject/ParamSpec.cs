@@ -511,7 +511,7 @@ namespace GISharp.GObject
                     // proxy for the unmanged object here
                     var target = (ParamSpec)gcHandle.Target;
                     // make sure the managed object has not been disposed
-                    if (target.handle == handle) {
+                    if (target?.handle == handle) {
                         // release the extra reference, if there is one
                         if (ownership != Transfer.None) {
                             g_param_spec_unref(handle);
