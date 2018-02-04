@@ -950,7 +950,7 @@ namespace GISharp.CodeGen
             if (element.Element (gi + "callback") != null) {
                 // fields can have a callback instead of a type
                 return typeof(IntPtr).FullName;
-                // TODO: implment fields with callback
+                // TODO: implement fields with callback
                 //typeName = element.Attribute ("name") + "Func";
             }
 
