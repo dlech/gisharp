@@ -245,17 +245,17 @@ namespace GISharp.GObject
         /// <returns>
         /// the name of this instance.
         /// </returns>
-        public InternString Name {
+        public Utf8 Name {
             get {
                 AssertNotDisposed();
                 if (_Name == null) {
                     var ptr = g_param_spec_get_name(handle);
-                    _Name = new InternString(ptr, Transfer.None);
+                    _Name = Opaque.GetInstance<Utf8>(ptr, Transfer.None);
                 }
                 return _Name;
             }
         }
-        InternString _Name;
+        Utf8 _Name;
 
         /// <summary>
         /// Gets the GQuark for the name.
