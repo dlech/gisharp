@@ -376,19 +376,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean GetBoolean(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_get_boolean(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_get_boolean(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -486,20 +478,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean[] GetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.UIntPtr length_;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_boolean_list(Handle, groupName_, key_,out length_,out error_);
+            var ret_ = g_key_file_get_boolean_list(this_, groupName_, key_,out length_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -579,15 +563,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName == null ? System.IntPtr.Zero : groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret_ = g_key_file_get_comment(Handle, groupName_, key_,out error_);
+            var ret_ = g_key_file_get_comment(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -674,19 +654,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public System.Double GetDouble(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_get_double(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_get_double(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -784,20 +756,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public System.Double[] GetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.UIntPtr length_;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_double_list(Handle, groupName_, key_,out length_,out error_);
+            var ret_ = g_key_file_get_double_list(this_, groupName_, key_,out length_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -852,8 +816,8 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetGroups(out System.UIntPtr length)
         {
-            AssertNotDisposed();
-            var ret_ = g_key_file_get_groups(Handle,out length);
+            var this_ = this.Handle;
+            var ret_ = g_key_file_get_groups(this_,out length);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -924,19 +888,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int64 GetInt64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_get_int64(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_get_int64(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1022,19 +978,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Int32 GetInteger(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_get_integer(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_get_integer(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1132,20 +1080,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Int32[] GetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.UIntPtr length_;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_integer_list(Handle, groupName_, key_,out length_,out error_);
+            var ret_ = g_key_file_get_integer_list(this_, groupName_, key_,out length_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1225,14 +1165,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetKeys(GISharp.GLib.Utf8 groupName, out System.UIntPtr length)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            var groupName_ = groupName.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             System.IntPtr error_;
-            var ret_ = g_key_file_get_keys(Handle, groupName_,out length,out error_);
+            var ret_ = g_key_file_get_keys(this_, groupName_,out length,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1330,20 +1266,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetLocaleString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale == null ? System.IntPtr.Zero : locale.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_locale_string(Handle, groupName_, key_, locale_,out error_);
+            var ret_ = g_key_file_get_locale_string(this_, groupName_, key_, locale_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1455,21 +1383,13 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetLocaleStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale == null ? System.IntPtr.Zero : locale.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
             System.UIntPtr length_;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_locale_string_list(Handle, groupName_, key_, locale_,out length_,out error_);
+            var ret_ = g_key_file_get_locale_string_list(this_, groupName_, key_, locale_,out length_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1509,8 +1429,8 @@ namespace GISharp.GLib
         {
             get
             {
-                AssertNotDisposed();
-                var ret_ = g_key_file_get_start_group(Handle);
+                var this_ = this.Handle;
+                var ret_ = g_key_file_get_start_group(this_);
                 var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
                 return ret;
             }
@@ -1594,19 +1514,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret_ = g_key_file_get_string(Handle, groupName_, key_,out error_);
+            var ret_ = g_key_file_get_string(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1701,20 +1613,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.UIntPtr length_;
             System.IntPtr error_;
-            var ret_ = g_key_file_get_string_list(Handle, groupName_, key_,out length_,out error_);
+            var ret_ = g_key_file_get_string_list(this_, groupName_, key_,out length_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1791,19 +1695,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.UInt64 GetUint64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_get_uint64(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_get_uint64(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1889,19 +1785,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetValue(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret_ = g_key_file_get_value(Handle, groupName_, key_,out error_);
+            var ret_ = g_key_file_get_value(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1953,13 +1841,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HasGroup(GISharp.GLib.Utf8 groupName)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            var groupName_ = groupName.Handle;
-            var ret = g_key_file_has_group(Handle, groupName_);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var ret = g_key_file_has_group(this_, groupName_);
             return ret;
         }
 
@@ -2043,19 +1927,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HasKey(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_has_key(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_has_key(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2133,14 +2009,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean LoadFromData(GISharp.GLib.Utf8 data, System.UIntPtr length, GISharp.GLib.KeyFileFlags flags)
         {
-            AssertNotDisposed();
-            if (data == null)
-            {
-                throw new System.ArgumentNullException(nameof(data));
-            }
-            var data_ = data.Handle;
+            var this_ = this.Handle;
+            var data_ = data?.Handle ?? throw new System.ArgumentException(nameof(data));
             System.IntPtr error_;
-            var ret = g_key_file_load_from_data(Handle, data_, length, flags,out error_);
+            var ret = g_key_file_load_from_data(this_, data_, length, flags,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2226,15 +2098,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean LoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
-            AssertNotDisposed();
-            if (file == null)
-            {
-                throw new System.ArgumentNullException(nameof(file));
-            }
-            var file_ = file.Handle;
+            var this_ = this.Handle;
+            var file_ = file?.Handle ?? throw new System.ArgumentException(nameof(file));
             System.IntPtr fullPath_;
             System.IntPtr error_;
-            var ret = g_key_file_load_from_data_dirs(Handle, file_,out fullPath_, flags,out error_);
+            var ret = g_key_file_load_from_data_dirs(this_, file_,out fullPath_, flags,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2335,21 +2203,13 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         public System.Boolean LoadFromDirs(GISharp.GLib.Filename file, GISharp.GLib.Filename[] searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
-            AssertNotDisposed();
-            if (file == null)
-            {
-                throw new System.ArgumentNullException(nameof(file));
-            }
-            if (searchDirs == null)
-            {
-                throw new System.ArgumentNullException(nameof(searchDirs));
-            }
-            var file_ = file.Handle;
+            var this_ = this.Handle;
+            var file_ = file?.Handle ?? throw new System.ArgumentException(nameof(file));
             var searchDirs_ = default(System.IntPtr);
             throw new System.NotImplementedException();
             System.IntPtr fullPath_;
             System.IntPtr error_;
-            var ret = g_key_file_load_from_dirs(Handle, file_, searchDirs_,out fullPath_, flags,out error_);
+            var ret = g_key_file_load_from_dirs(this_, file_, searchDirs_,out fullPath_, flags,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2421,14 +2281,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean LoadFromFile(GISharp.GLib.Filename file, GISharp.GLib.KeyFileFlags flags)
         {
-            AssertNotDisposed();
-            if (file == null)
-            {
-                throw new System.ArgumentNullException(nameof(file));
-            }
-            var file_ = file.Handle;
+            var this_ = this.Handle;
+            var file_ = file?.Handle ?? throw new System.ArgumentException(nameof(file));
             System.IntPtr error_;
-            var ret = g_key_file_load_from_file(Handle, file_, flags,out error_);
+            var ret = g_key_file_load_from_file(this_, file_, flags,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2516,11 +2372,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean RemoveComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            var groupName_ = groupName == null ? System.IntPtr.Zero : groupName.Handle;
-            var key_ = key == null ? System.IntPtr.Zero : key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
+            var key_ = key?.Handle ?? System.IntPtr.Zero;
             System.IntPtr error_;
-            var ret = g_key_file_remove_comment(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_remove_comment(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2580,14 +2436,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean RemoveGroup(GISharp.GLib.Utf8 groupName)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            var groupName_ = groupName.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             System.IntPtr error_;
-            var ret = g_key_file_remove_group(Handle, groupName_,out error_);
+            var ret = g_key_file_remove_group(this_, groupName_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2657,19 +2509,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean RemoveKey(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             System.IntPtr error_;
-            var ret = g_key_file_remove_key(Handle, groupName_, key_,out error_);
+            var ret = g_key_file_remove_key(this_, groupName_, key_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2737,14 +2581,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         public System.Boolean SaveToFile(GISharp.GLib.Utf8 filename)
         {
-            AssertNotDisposed();
-            if (filename == null)
-            {
-                throw new System.ArgumentNullException(nameof(filename));
-            }
-            var filename_ = filename.Handle;
+            var this_ = this.Handle;
+            var filename_ = filename?.Handle ?? throw new System.ArgumentException(nameof(filename));
             System.IntPtr error_;
-            var ret = g_key_file_save_to_file(Handle, filename_,out error_);
+            var ret = g_key_file_save_to_file(this_, filename_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2810,18 +2650,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetBoolean(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Boolean value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            g_key_file_set_boolean(Handle, groupName_, key_, value);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            g_key_file_set_boolean(this_, groupName_, key_, value);
         }
 
         /// <summary>
@@ -2893,24 +2725,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Boolean[] list)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (list == null)
-            {
-                throw new System.ArgumentNullException(nameof(list));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Boolean>(list, false);
             var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
-            g_key_file_set_boolean_list(Handle, groupName_, key_, list_, length_);
+            g_key_file_set_boolean_list(this_, groupName_, key_, list_, length_);
             GISharp.Runtime.GMarshal.Free(list_);
         }
 
@@ -2996,16 +2816,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean SetComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 comment)
         {
-            AssertNotDisposed();
-            if (comment == null)
-            {
-                throw new System.ArgumentNullException(nameof(comment));
-            }
-            var groupName_ = groupName == null ? System.IntPtr.Zero : groupName.Handle;
-            var key_ = key == null ? System.IntPtr.Zero : key.Handle;
-            var comment_ = comment.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
+            var key_ = key?.Handle ?? System.IntPtr.Zero;
+            var comment_ = comment?.Handle ?? throw new System.ArgumentException(nameof(comment));
             System.IntPtr error_;
-            var ret = g_key_file_set_comment(Handle, groupName_, key_, comment_,out error_);
+            var ret = g_key_file_set_comment(this_, groupName_, key_, comment_,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3071,18 +2887,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetDouble(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Double value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            g_key_file_set_double(Handle, groupName_, key_, value);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            g_key_file_set_double(this_, groupName_, key_, value);
         }
 
         /// <summary>
@@ -3152,24 +2960,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Double[] list)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (list == null)
-            {
-                throw new System.ArgumentNullException(nameof(list));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Double>(list, false);
             var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
-            g_key_file_set_double_list(Handle, groupName_, key_, list_, length_);
+            g_key_file_set_double_list(this_, groupName_, key_, list_, length_);
             GISharp.Runtime.GMarshal.Free(list_);
         }
 
@@ -3229,18 +3025,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public void SetInt64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int64 value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            g_key_file_set_int64(Handle, groupName_, key_, value);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            g_key_file_set_int64(this_, groupName_, key_, value);
         }
 
         /// <summary>
@@ -3299,18 +3087,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetInteger(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int32 value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            g_key_file_set_integer(Handle, groupName_, key_, value);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            g_key_file_set_integer(this_, groupName_, key_, value);
         }
 
         /// <summary>
@@ -3380,24 +3160,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int32[] list)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (list == null)
-            {
-                throw new System.ArgumentNullException(nameof(list));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Int32>(list, false);
             var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
-            g_key_file_set_integer_list(Handle, groupName_, key_, list_, length_);
+            g_key_file_set_integer_list(this_, groupName_, key_, list_, length_);
             GISharp.Runtime.GMarshal.Free(list_);
         }
 
@@ -3435,8 +3203,8 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetListSeparator(System.SByte separator)
         {
-            AssertNotDisposed();
-            g_key_file_set_list_separator(Handle, separator);
+            var this_ = this.Handle;
+            g_key_file_set_list_separator(this_, separator);
         }
 
         /// <summary>
@@ -3510,28 +3278,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetLocaleString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale, GISharp.GLib.Utf8 @string)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (locale == null)
-            {
-                throw new System.ArgumentNullException(nameof(locale));
-            }
-            if (@string == null)
-            {
-                throw new System.ArgumentNullException(nameof(@string));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
-            var @string_ = @string.Handle;
-            g_key_file_set_locale_string(Handle, groupName_, key_, locale_, @string_);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var locale_ = locale?.Handle ?? throw new System.ArgumentException(nameof(locale));
+            var @string_ = @string?.Handle ?? throw new System.ArgumentException(nameof(@string));
+            g_key_file_set_locale_string(this_, groupName_, key_, locale_, @string_);
         }
 
         /// <summary>
@@ -3615,29 +3367,13 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetLocaleStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale, GISharp.GLib.Strv list)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (locale == null)
-            {
-                throw new System.ArgumentNullException(nameof(locale));
-            }
-            if (list == null)
-            {
-                throw new System.ArgumentNullException(nameof(list));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
-            var list_ = list.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var locale_ = locale?.Handle ?? throw new System.ArgumentException(nameof(locale));
+            var list_ = list?.Handle ?? throw new System.ArgumentException(nameof(list));
             var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
-            g_key_file_set_locale_string_list(Handle, groupName_, key_, locale_, list_, length_);
+            g_key_file_set_locale_string_list(this_, groupName_, key_, locale_, list_, length_);
         }
 
         /// <summary>
@@ -3705,23 +3441,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 @string)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (@string == null)
-            {
-                throw new System.ArgumentNullException(nameof(@string));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var @string_ = @string.Handle;
-            g_key_file_set_string(Handle, groupName_, key_, @string_);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var @string_ = @string?.Handle ?? throw new System.ArgumentException(nameof(@string));
+            g_key_file_set_string(this_, groupName_, key_, @string_);
         }
 
         /// <summary>
@@ -3793,24 +3517,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Strv list)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (list == null)
-            {
-                throw new System.ArgumentNullException(nameof(list));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var list_ = list.Handle;
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var list_ = list?.Handle ?? throw new System.ArgumentException(nameof(list));
             var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
-            g_key_file_set_string_list(Handle, groupName_, key_, list_, length_);
+            g_key_file_set_string_list(this_, groupName_, key_, list_, length_);
         }
 
         /// <summary>
@@ -3869,18 +3581,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public void SetUint64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.UInt64 value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            g_key_file_set_uint64(Handle, groupName_, key_, value);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            g_key_file_set_uint64(this_, groupName_, key_, value);
         }
 
         /// <summary>
@@ -3952,23 +3656,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetValue(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 value)
         {
-            AssertNotDisposed();
-            if (groupName == null)
-            {
-                throw new System.ArgumentNullException(nameof(groupName));
-            }
-            if (key == null)
-            {
-                throw new System.ArgumentNullException(nameof(key));
-            }
-            if (value == null)
-            {
-                throw new System.ArgumentNullException(nameof(value));
-            }
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var value_ = value.Handle;
-            g_key_file_set_value(Handle, groupName_, key_, value_);
+            var this_ = this.Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
+            var value_ = value?.Handle ?? throw new System.ArgumentException(nameof(value));
+            g_key_file_set_value(this_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -4028,9 +3720,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 ToData(out System.UIntPtr length)
         {
-            AssertNotDisposed();
+            var this_ = this.Handle;
             System.IntPtr error_;
-            var ret_ = g_key_file_to_data(Handle,out length,out error_);
+            var ret_ = g_key_file_to_data(this_,out length,out error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

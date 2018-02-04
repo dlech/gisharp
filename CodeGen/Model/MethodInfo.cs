@@ -365,7 +365,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<StatementSyntax> GetStatements ()
         {
             if (IsInstanceMethod && DeclaringMember is ClassInfo) {
-                var statement = "AssertNotDisposed ();\n";
+                var statement = "var this_ = this.Handle;\n";
                 yield return ParseStatement (statement);
             }
             foreach (var s in GetArgumentCheckStatements ()) {
@@ -449,16 +449,6 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<StatementSyntax> GetArgumentCheckStatements ()
         {
-            // check for parameters where null is not allowed
-
-            foreach (var p in ManagedParameterInfos.Where (x => x.NeedsNullCheck)) {
-                var statement = ParseStatement (
-                    string.Format (@"if ({0} == null) {{
-                        throw new {1} (nameof({0}));
-                    }}", p.Identifier.Text,
-                        typeof(ArgumentNullException).FullName));
-                yield return statement;
-            }
             if (HasCustomArgCheck) {
                 var invocation = InvocationExpression (
                     ParseExpression (string.Format ("Assert{0}Args", Identifier)));
@@ -567,10 +557,11 @@ namespace GISharp.CodeGen.Model
             case TypeClassification.Interface:
             case TypeClassification.Opaque:
                 if (managedParameter.NeedsNullCheck) {
-                    statement = string.Format ("{0}_ = {0}.Handle;\n",
-                        managedParameter.Identifier);
+                    statement = string.Format("{0}_ = {0}?.Handle ?? throw new {1}(nameof({0}));\n",
+                        managedParameter.Identifier,
+                        typeof(ArgumentException).FullName);
                 } else {
-                    statement = string.Format ("{0}_ = {0} == null ? {1}.{2} : {0}.Handle;\n",
+                    statement = string.Format("{0}_ = {0}?.Handle ?? {1}.{2};\n",
                         managedParameter.Identifier,
                         typeof(IntPtr).FullName,
                         nameof (IntPtr.Zero));
@@ -677,8 +668,7 @@ namespace GISharp.CodeGen.Model
                     if (IsExtensionMethod) {
                         name = $"{p.ManagedName}_";
                     } else {
-                        var declaringTypeInfo = (TypeDeclarationInfo)p.DeclaringMember.DeclaringMember;
-                        name = declaringTypeInfo.InstanceIdentifier.Text;
+                        name = "this_";
                     }
                 } else if (p.TypeInfo.RequiresMarshal || ManagedParameterInfos.All (x => x.GirName != p.GirName)) {
                     // add suffix unless the parameter is also a managed parameter and does not need to be marshaled
