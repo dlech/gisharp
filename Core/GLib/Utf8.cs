@@ -445,7 +445,12 @@ namespace GISharp.GLib
         {
             AssertNotDisposed();
             for (var ptr = handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
-                yield return g_utf8_get_char(ptr);
+                var ret = g_utf8_get_char(ptr);
+                if (ret == 0) {
+                    // don't return the null terminator
+                    yield break;
+                }
+                yield return ret;
             }
         }
 

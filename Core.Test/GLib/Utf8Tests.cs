@@ -25,7 +25,7 @@ namespace GISharp.Core.Test
             using (var utf8 = new Utf8(testString)) {
                 var expected = testString.GetEnumerator();
                 foreach (var c in utf8) {
-                    Assume.That(expected.MoveNext(), Is.True);
+                    Assert.That(expected.MoveNext(), Is.True);
                     Assert.That(c, Is.EqualTo(expected.Current));
                 }
             }
