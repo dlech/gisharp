@@ -10,7 +10,7 @@ namespace GISharp.Core.Test.GLib
     [TestFixture]
     public class ArrayTests : IListTests<Array<int>, int>
     {
-        public ArrayTests () : base (ArrayTestExtensions.UnsafeItemAt)
+        public ArrayTests() : base(ArrayTestExtensions.UnsafeItemAt, 0, 1, 2, 3, 4)
         {
         }
 

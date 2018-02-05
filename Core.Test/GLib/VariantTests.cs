@@ -5,12 +5,17 @@ using System.Text;
 
 using GISharp.GLib;
 using GISharp.Runtime;
+using System.Runtime.InteropServices;
 
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class VariantTests
+    public class VariantTests : IListTests<VariantArray, Variant>
     {
+        public VariantTests() : base(getItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4)
+        {
+        }
+
         [SetUp]
         public void SetUp ()
         {
@@ -340,6 +345,36 @@ namespace GISharp.Core.Test.GLib
             Assert.That (actual, Is.EqualTo (expected));
 
             Utility.AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestVariantArrayRefCount()
+        {
+            using (var array = new VariantArray())
+            using (var item = new Variant(false)) {
+                // The only reference belongs to the managed proxy
+                Assume.That(GetRefCount(item), Is.EqualTo(1));
+
+                // The VariantArray takes a reference to the Variant when it is
+                /// added to the array
+                array.Add(item);
+                Assert.That(GetRefCount(item), Is.EqualTo(2));
+
+                // And releases the reference when the Variant is removed
+                array.Remove(item);
+                Assert.That(GetRefCount(item), Is.EqualTo(1));
+            }
+        }
+
+        static Variant getItemAt(VariantArray array, int index) {
+            var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
+            return Opaque.GetInstance<Variant>(ptr, Transfer.None);
+        }
+
+        static int GetRefCount(Variant variant)
+        {
+            // WARNING: GVariant is a private structure, so this could break!
+            return Marshal.ReadInt32(variant.Handle, IntPtr.Size * 4 + sizeof(int));
         }
     }
 }

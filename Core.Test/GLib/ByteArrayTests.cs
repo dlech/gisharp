@@ -10,7 +10,7 @@ namespace GISharp.Core.Test.GLib
     [TestFixture]
     public class ByteArrayTests : IListTests<ByteArray, byte>
     {
-        public ByteArrayTests () : base (getItemAt)
+        public ByteArrayTests() : base(getItemAt, 0, 1, 2, 3, 4)
         {
         }
 

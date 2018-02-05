@@ -11,7 +11,7 @@ namespace GISharp.Core.Test.GLib
     [TestFixture]
     public class PtrArrayTests : IListTests<PtrArray<OpaqueInt>, OpaqueInt>
     {
-        public PtrArrayTests () : base (getItemAt)
+        public PtrArrayTests() : base(getItemAt, 0, 1, 2, 3, 4)
         {
         }
 

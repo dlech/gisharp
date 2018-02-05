@@ -4461,7 +4461,11 @@ namespace GISharp.GLib
 
     public sealed class VariantArray : PtrArray, IList<Variant>
     {
-        public VariantArray(int reservedSize = 0) : base(reservedSize, Variant.UnrefDelegate)
+        public VariantArray() : this(0)
+        {
+        }
+
+        public VariantArray(int reservedSize) : base(reservedSize, Variant.UnrefDelegate)
         {
         }
 
