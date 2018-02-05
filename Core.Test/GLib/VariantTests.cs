@@ -286,9 +286,6 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastArray ()
         {
-            using (var badArray = new VariantArray { new Variant(false), null }) {
-                Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
-            }
             using (var badArray = new VariantArray { new Variant(false), new Variant(0) }) {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
             }
@@ -313,9 +310,6 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastTuple ()
         {
-            using (var badTuple = new VariantArray { new Variant(false), null }) {
-                Assert.That(() => (Variant)badTuple, Throws.ArgumentException);
-            }
             using (var badTuple = default(VariantArray)) {
                 Assert.That(() => (Variant)badTuple, Throws.TypeOf<ArgumentNullException>());
             }

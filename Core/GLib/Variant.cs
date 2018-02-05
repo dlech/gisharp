@@ -4478,7 +4478,7 @@ namespace GISharp.GLib
         /// </param>
         public void Add(Variant data)
         {
-            Add(data?.Ref() ?? IntPtr.Zero);
+            Add(data?.Ref() ?? throw new ArgumentNullException(nameof(data)));
         }
 
         /// <summary>
@@ -4494,7 +4494,7 @@ namespace GISharp.GLib
         [Since ("2.40")]
         public void Insert(int index, Variant data)
         {
-            Insert(index, data?.Ref() ?? IntPtr.Zero);
+            Insert(index, data?.Ref() ?? throw new ArgumentNullException(nameof(data)));
         }
 
         /// <summary>
@@ -4514,7 +4514,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Remove(Variant data)
         {
-            return Remove(data?.Handle ?? IntPtr.Zero);
+            return Remove(data?.Handle ?? throw new ArgumentNullException(nameof(data)));
         }
 
         /// <summary>
@@ -4547,7 +4547,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool RemoveFast(Variant data)
         {
-            return RemoveFast(data?.Handle ?? IntPtr.Zero);
+            return RemoveFast(data?.Handle ?? throw new ArgumentNullException(nameof(data)));
         }
 
         /// <summary>
@@ -4614,7 +4614,8 @@ namespace GISharp.GLib
         {
             // TODO: replace with base.Find() eventually
             for (int i = 0; i < Count; i++) {
-                if (Marshal.ReadIntPtr(Data, IntPtr.Size * i) == data.Handle) {
+                var ptr = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+                if (Marshal.ReadIntPtr(Data, IntPtr.Size * i) == ptr) {
                     return i;
                 }
             }
