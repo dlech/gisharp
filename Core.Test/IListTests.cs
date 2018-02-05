@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+
 using NUnit.Framework;
 
 namespace GISharp.Core.Test
@@ -159,8 +161,7 @@ namespace GISharp.Core.Test
             Assert.That (expected, Is.EqualTo (4));
 
             l.Dispose ();
-            Assert.That (() => l.GetEnumerator (), Throws.TypeOf<ObjectDisposedException> ());
-            Assert.That (() => ((IEnumerable)l).GetEnumerator (), Throws.TypeOf<ObjectDisposedException> ());
+            Assert.That(() => l.Any(), Throws.TypeOf<ObjectDisposedException>());
 
             Utility.AssertNoGLibLog();
         }
