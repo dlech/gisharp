@@ -38,9 +38,6 @@ namespace GISharp.Core.Test
             var l = new TList ();
             Assert.That (l.IsReadOnly, Is.False);
 
-            l.Dispose ();
-            Assert.That (() => l.IsReadOnly, Throws.TypeOf<ObjectDisposedException> ());
-
             Utility.AssertNoGLibLog();
         }
 
