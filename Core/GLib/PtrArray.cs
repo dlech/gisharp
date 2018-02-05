@@ -24,21 +24,12 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        protected IntPtr Data {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (handle, (int)dataOffset);
-                return ret;
-            }
-        }
+        public IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
-        public uint Len {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (handle, (int)lenOffset);
-                return (uint)ret;
-            }
-        }
+        /// <summary>
+        /// number of pointers in the array
+        /// </summary>
+        public int Count => Marshal.ReadInt32(Handle, (int)lenOffset);
 
         public PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -93,13 +84,16 @@ namespace GISharp.GLib
         static extern IntPtr g_ptr_array_sized_new (
             uint reservedSize);
 
-        static IntPtr SizedNew (uint reservedSize)
+        static IntPtr SizedNew (int reservedSize)
         {
-            var ret = g_ptr_array_sized_new (reservedSize);
+            if (reservedSize < 0) {
+                throw new ArgumentOutOfRangeException(nameof(reservedSize));
+            }
+            var ret = g_ptr_array_sized_new((uint)reservedSize);
             return ret;
         }
 
-        protected PtrArray (uint reservedSize) : this (SizedNew (reservedSize), Transfer.Full)
+        protected PtrArray(int reservedSize) : this(SizedNew(reservedSize), Transfer.Full)
         {
         }
 
@@ -128,18 +122,22 @@ namespace GISharp.GLib
             uint reservedSize,
             UnmanagedDestroyNotify elementFreeFunc);
 
-        // static IntPtr NewFull (uint reservedSize, DestroyNotify<IntPtr> elementFreeFunc)
-        // {
-        //     if (elementFreeFunc == null) {
-        //         throw new ArgumentNullException (nameof (elementFreeFunc));
-        //     }
-        //     // TODO: this callback will be garbage collected before we are done with it
-        //     UnmanagedDestroyNotify elementFreeFuncUnmanaged = (data) => {
-        //         elementFreeFunc (data);
-        //     };
-        //     var handle = g_ptr_array_new_full (reservedSize, elementFreeFuncNative);
-        //     return handle;
-        // }
+        static IntPtr NewFull(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
+        {
+            if (reservedSize < 0) {
+                throw new ArgumentOutOfRangeException(nameof(reservedSize));
+            }
+            if (elementFreeFunc == null) {
+                throw new ArgumentNullException(nameof(elementFreeFunc));
+            }
+            var ret = g_ptr_array_new_full((uint)reservedSize, elementFreeFunc);
+            return ret;
+        }
+        // IMPORTANT: elementFreeFunc cannot be allowed to be GCed
+        protected PtrArray(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
+            : this(NewFull(reservedSize, elementFreeFunc), Transfer.Full)
+        {
+        }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> with <paramref name="reservedSize"/> pointers preallocated
@@ -423,15 +421,16 @@ namespace GISharp.GLib
         /// <param name="index">
         /// the index of the pointer to remove
         /// </param>
-        public void RemoveAt (int index)
+        /// <returns>
+        /// the pointer which was removed
+        /// </returns>
+        protected IntPtr RemoveAt(int index)
         {
-            AssertNotDisposed ();
             if (index < 0 || index >= Count) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
-            g_ptr_array_remove_index (handle, (uint)index);
-            // Note: the pointer returned by g_ptr_array_remove_index may not be
-            // valid because the free func is called on it so we always ignore it
+            var ret = g_ptr_array_remove_index(Handle, (uint)index);
+            return ret;
         }
 
         /// <summary>
@@ -465,15 +464,16 @@ namespace GISharp.GLib
         /// <param name="index">
         /// the index of the pointer to remove
         /// </param>
-        public void RemoveAtFast (int index)
+        /// <returns>
+        /// the pointer which was removed
+        /// </returns>
+        protected IntPtr RemoveAtFast(int index)
         {
-            AssertNotDisposed ();
             if (index < 0 || index >= Count) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
-            g_ptr_array_remove_index_fast (handle, (uint)index);
-            // Note: the pointer returned by g_ptr_array_remove_index may not be
-            // valid because the free func is called on it so we always ignore it
+            var ret = g_ptr_array_remove_index_fast(Handle, (uint)index);
+            return ret;
         }
 
         /// <summary>
@@ -658,6 +658,11 @@ namespace GISharp.GLib
             GC.KeepAlive (compareFunc_);
         }
 
+        protected void Sort(UnmanagedCompareFunc compareFunc)
+        {
+            g_ptr_array_sort(Handle, compareFunc);
+        }
+
         /// <summary>
         /// Like g_ptr_array_sort(), but the comparison function has an extra
         /// user data argument.
@@ -685,12 +690,62 @@ namespace GISharp.GLib
             IntPtr userData);
 
         /// <summary>
-        /// number of pointers in the array
+        /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
+        /// returned and the element’s index is returned in @index_ (if non-%NULL).
+        /// Otherwise, %FALSE is returned and @index_ is undefined. If @needle exists
+        /// multiple times in @haystack, the index of the first instance is returned.
         /// </summary>
-        public int Count {
-            get {
-                return (int)Len;
-            }
+        /// <remarks>
+        /// This does pointer comparisons only. If you want to use more complex equality
+        /// checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
+        /// </remarks>
+        /// <param name="haystack">
+        /// pointer array to be searched
+        /// </param>
+        /// <param name="needle">
+        /// pointer to look for
+        /// </param>
+        /// <param name="index">
+        /// return location for the index of the element, if found
+        /// </param>
+        /// <returns>
+        /// %TRUE if @needle is one of the elements of @haystack
+        /// </returns>
+        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.54")]
+        static extern bool g_ptr_array_find(    // gboolean
+            IntPtr haystack,                    // GPtrArray*
+            IntPtr needle,                      // gconstpointer
+            out uint index);                    // guint* (optional) (out caller-allocates)
+
+        /// <summary>
+        /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
+        /// returned and the element’s index is returned in @index_ (if non-%NULL).
+        /// Otherwise, %FALSE is returned and @index_ is undefined. If @needle exists
+        /// multiple times in @haystack, the index of the first instance is returned.
+        /// </summary>
+        /// <remarks>
+        /// This does pointer comparisons only. If you want to use more complex equality
+        /// checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
+        /// </remarks>
+        /// <param name="haystack">
+        /// pointer array to be searched
+        /// </param>
+        /// <param name="needle">
+        /// pointer to look for
+        /// </param>
+        /// <param name="index">
+        /// return location for the index of the element, if found
+        /// </param>
+        /// <returns>
+        /// %TRUE if @needle is one of the elements of @haystack
+        /// </returns>
+        [Since("2.54")]
+        protected bool Find(IntPtr needle, out int index)
+        {
+            var ret = g_ptr_array_find(Handle, needle, out var index_);
+            index = (int)index_;
+            return ret;
         }
     }
 
@@ -748,6 +803,20 @@ namespace GISharp.GLib
         }
 
         /// <summary>
+        /// Removes the pointer at the given index from the pointer array.
+        /// The following elements are moved down one place. If this array has
+        /// a non-<c>null</c> <see cref="DestroyNotify{T}"/> function it is called for the removed
+        /// element.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the pointer to remove
+        /// </param>
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+        }
+
+        /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
@@ -767,6 +836,21 @@ namespace GISharp.GLib
         public bool RemoveFast (T data)
         {
             return RemoveFast (data?.Handle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the pointer at the given index from the pointer array.
+        /// The last element in the array is used to fill in the space, so
+        /// this function does not preserve the order of the array. But it
+        /// is faster than <see cref="RemoveAt"/>. If this array has a non-<c>null</c>
+        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the pointer to remove
+        /// </param>
+        public new void RemoveAtFast(int index)
+        {
+            base.RemoveAtFast(index);
         }
 
         /// <summary>

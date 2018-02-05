@@ -252,8 +252,15 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_ref (IntPtr value);
 
+        internal IntPtr Ref()
+        {
+            return g_variant_ref(Handle);
+        }
+
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_unref (IntPtr value);
+
+        internal static readonly UnmanagedDestroyNotify UnrefDelegate = g_variant_unref;
 
         public IndexedCollection<Variant> ChildValues {
             get {
@@ -414,15 +421,15 @@ namespace GISharp.GLib
 
         // TODO cast Maybe to nullable types
 
-        public static explicit operator Variant[] (Variant v)
+        public static explicit operator VariantArray(Variant v)
         {
             if (!v.Type.IsContainer) {
                 throw new InvalidCastException ();
             }
-            return v.ChildValues.ToArray ();
+            return v.ChildValues.ToVariantArray();
         }
 
-        public static explicit operator Variant (Variant[] value)
+        public static explicit operator Variant(VariantArray value)
         {
             return new Variant (value);
         }
@@ -527,9 +534,9 @@ namespace GISharp.GLib
             return new Variant (value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs (VariantType childType, Variant[] children)
+        static void AssertNewArrayArgs(VariantType childType, VariantArray children)
         {
-            if (childType == null && (children == null || children.Length == 0)) {
+            if (childType == null && (children == null || children.Count == 0)) {
                 throw new ArgumentException ("Must specify child type when no children", nameof (childType));
             }
             if (childType == null && children == null) {
@@ -625,20 +632,15 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewArray (VariantType childType, Variant[] children)
+        static IntPtr NewArray(VariantType childType, VariantArray children)
         {
-            AssertNewArrayArgs (childType, children);
+            AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
-            var children_ = GMarshal.OpaqueCArrayToPtr<Variant> (children, false);
-            try {
-                var nChildren_ = (ulong)(children?.Length ?? 0);
-                var ret_ = g_variant_new_array (childType_, children_, nChildren_);
-                var ret = g_variant_ref_sink (ret_);
-                return ret;
-            }
-            finally {
-                GMarshal.Free (children_);
-            }
+            var children_ = children?.Data ?? IntPtr.Zero;
+            var nChildren_ = (ulong)(children?.Count ?? 0);
+            var ret_ = g_variant_new_array(childType_, children_, nChildren_);
+            var ret = g_variant_ref_sink(ret_);
+            return ret;
         }
 
         /// <summary>
@@ -670,7 +672,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        public Variant (VariantType childType, Variant[] children)
+        public Variant(VariantType childType, VariantArray children)
             : this (NewArray (childType, children), Transfer.Full)
         {
         }
@@ -1856,24 +1858,16 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewTuple (Variant[] children)
+        static IntPtr NewTuple(VariantArray children)
         {
-            if (children == null) {
-                throw new ArgumentNullException (nameof (children));
-            }
+            var children_ = children?.Data ?? throw new ArgumentNullException(nameof(children));
             if (children.Any (x => x == null)) {
-                throw new ArgumentException ("Tuple cannot have null elements", nameof (children));
+                throw new ArgumentException("Tuple cannot have null elements", nameof(children));
             }
-            var children_ = GMarshal.OpaqueCArrayToPtr<Variant> (children, false);
-            try {
-                var nChildren_ = (ulong)(children?.Length ?? 0);
-                var ret_ = g_variant_new_tuple (children_, nChildren_);
-                var ret = g_variant_ref_sink (ret_);
-                return ret;
-            }
-            finally {
-                GMarshal.Free (children_);
-            }
+            var nChildren_ = (ulong)(children?.Count ?? 0);
+            var ret_ = g_variant_new_tuple(children_, nChildren_);
+            var ret = g_variant_ref_sink(ret_);
+            return ret;
         }
 
         /// <summary>
@@ -1894,7 +1888,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        public Variant (Variant[] children) : this (NewTuple (children), Transfer.Full)
+        public Variant(VariantArray children) : this(NewTuple(children), Transfer.Full)
         {
         }
 
@@ -2567,6 +2561,8 @@ namespace GISharp.GLib
             /* <type name="Variant" type="gconstpointer" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr two);
+
+        internal static readonly UnmanagedCompareFunc CompareDelegate = g_variant_compare;
 
         /// <summary>
         /// Compares @one and @two.
@@ -4461,5 +4457,230 @@ namespace GISharp.GLib
 
         public IEnumerator<Variant> GetEnumerator () => new VariantIter (this);
         IEnumerator IEnumerable.GetEnumerator () => GetEnumerator ();
+    }
+
+    public sealed class VariantArray : PtrArray, IList<Variant>
+    {
+        public VariantArray(int reservedSize = 0) : base(reservedSize, Variant.UnrefDelegate)
+        {
+        }
+
+        /// <summary>
+        /// Adds a <see cref="Variant"/> to the end of the array.
+        /// The array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="data">
+        /// the <see cref="Variant"/> to add
+        /// </param>
+        public void Add(Variant data)
+        {
+            Add(data?.Ref() ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Inserts an element into the <see cref="Variant"/> array at the given index. The
+        /// array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="index">
+        /// the index to place the new element at, or -1 to append
+        /// </param>
+        /// <param name="data">
+        /// the <see cref="Variant"/> to add.
+        /// </param>
+        [Since ("2.40")]
+        public void Insert(int index, Variant data)
+        {
+            Insert(index, data?.Ref() ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given <see cref="Variant"/> from the <see cref="Variant"/>
+        /// array. The following elements are moved down one place.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the <see cref="Variant"/> was removed, or <c>false</c> if the
+        /// <see cref="Variant"/> was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the <see cref="Variant"/> to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <see cref="Variant"/> is removed, <c>false</c> if the <see cref="Variant"/>
+        /// is not found in the array
+        /// </returns>
+        public bool Remove(Variant data)
+        {
+            return Remove(data?.Handle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the <see cref="Variant"/> at the given index from the <see cref="Variant"/> array.
+        /// The following elements are moved down one place.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the <see cref="Variant"/> to remove
+        /// </param>
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given <see cref="Variant"/> from the <see cref="Variant"/>
+        /// array. The last element in the array is used to fill in the space,
+        /// so this function does not preserve the order of the array. But it
+        /// is faster than <see cref="Remove"/>.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the <see cref="Variant"/> was removed, or <c>false</c> if the
+        /// <see cref="Variant"/> was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the <see cref="Variant"/> to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <see cref="Variant"/> was found in the array
+        /// </returns>
+        public bool RemoveFast(Variant data)
+        {
+            return RemoveFast(data?.Handle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes the <see cref="Variant"/> at the given index from the <see cref="Variant"/> array.
+        /// The last element in the array is used to fill in the space, so
+        /// this function does not preserve the order of the array. But it
+        /// is faster than <see cref="RemoveAt"/>.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the <see cref="Variant"/> to remove
+        /// </param>
+        public new void RemoveAtFast(int index)
+        {
+            base.RemoveAtFast(index);
+        }
+
+        /// <summary>
+        /// Sorts the array
+        /// </summary>
+        /// <remarks> 
+        /// Comparison is only defined for basic types (ie: booleans, numbers,
+        /// strings).  For booleans, <c>false</c> is less than <c>true</c>.  Numbers are
+        /// ordered in the usual way.  Strings are in ASCII lexicographical order.
+        ///
+        /// It is a programmer error to attempt to compare container values or
+        /// two values that have types that are not exactly equal.  For example,
+        /// you cannot compare a 32-bit signed integer with a 32-bit unsigned
+        /// integer.  Also note that this function is not particularly
+        /// well-behaved when it comes to comparison of doubles; in particular,
+        /// the handling of incomparable values (ie: NaN) is undefined.
+        /// </remarks>
+        public void Sort()
+        {
+            Sort(Variant.CompareDelegate);
+        }
+
+        public Variant this[int index] {
+            get {
+                if (index < 0 || index >= Count) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                }
+                var ret_ = Marshal.ReadIntPtr(Data, IntPtr.Size * index);
+                var ret = GetInstance<Variant>(ret_, Transfer.None);
+                return ret;
+            }
+            set {
+                // Doing some tricks to make this faster..
+                // Add the value to the end
+                Add(value);
+                // Then this will remove the element at index and replace it
+                // with the last element that we just added
+                RemoveAtFast(index);
+            }
+        }
+
+        bool ICollection<Variant>.IsReadOnly => false;
+
+        /// <summary>
+        /// Returns the first index of <paramref name="data"/> in this array.
+        /// </summary>
+        /// <returns>The index or -1 if <paramref name="data"/> was not found.</returns>
+        /// <param name="data">Data.</param>
+        public int IndexOf(Variant data)
+        {
+            // TODO: replace with base.Find() eventually
+            for (int i = 0; i < Count; i++) {
+                if (Marshal.ReadIntPtr(Data, IntPtr.Size * i) == data.Handle) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="Variant"/>s from the array.
+        /// </summary>
+        public void Clear()
+        {
+            SetSize(0);
+        }
+
+        /// <summary>
+        /// Checks if the array contains <paramref name="data"/>.
+        /// </summary>
+        /// <returns><c>true</c> if <paramref name="data"/> was found, otherwise
+        /// <c>false</c>.</returns>
+        /// <param name="data">The item to search for.</param>
+        public bool Contains(Variant data)
+        {
+            return IndexOf(data) >= 0;
+        }
+
+        void ICollection<Variant>.CopyTo(Variant[] array, int arrayIndex)
+        {
+            AssertNotDisposed ();
+            if (array == null) {
+                throw new ArgumentNullException(nameof(array));
+            }
+            if (arrayIndex < 0) {
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+            }
+            if (Count > array.Length - arrayIndex) {
+                throw new ArgumentException("Destination array is not long enough.");
+            }
+            for (int i = 0; i < Count; i++) {
+                array[i + arrayIndex] = this[i];
+            }
+        }
+
+        IEnumerator<Variant> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++) {
+                yield return this[i];
+            }
+        }
+
+        IEnumerator<Variant> IEnumerable<Variant>.GetEnumerator() => GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public static class VariantArrayExtensions
+    {
+        public static VariantArray ToVariantArray(this IEnumerable<Variant> source)
+        {
+            var size = 0;
+            if (source is ICollection<Variant> collection) {
+                size = collection.Count;
+            }
+            else if (source is IReadOnlyCollection<Variant> readOnlyCollection) {
+                size = readOnlyCollection.Count;
+            }
+            var array = new VariantArray(size);
+            foreach (var item in source) {
+                array.Add(item);
+            }
+            return array;
+        }
     }
 }

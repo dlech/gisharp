@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace GISharp.Runtime
 {
-    public class IndexedCollection<T> : IEnumerable<T>
+    public class IndexedCollection<T> : IReadOnlyList<T>
     {
         Func<int> getCount;
         Func<int, T> getInfoAtIndex;
