@@ -6,6 +6,7 @@ using System.Text;
 using GISharp.GLib;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
+using System.Reflection;
 
 namespace GISharp.Core.Test.GLib
 {
@@ -26,6 +27,88 @@ namespace GISharp.Core.Test.GLib
             // tests to fail unexpectedly. So, we add a value formatter for
             // Variant so that it does not try to use the built-in IEnumerable.
             TestContext.AddFormatter<Variant> (v => ((Variant)v).Print (true));
+        }
+
+        [Test]
+        public void TestCtor()
+        {
+            // make sure we got the floating reference thing right
+            using (var v = new Variant(false)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((byte)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((short)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((ushort)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((int)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((uint)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((long)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((ulong)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new DBusHandle())) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((double)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((Utf8)"")) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant("")) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new DBusObjectPath("/"))) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new DBusSignature("i"))) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant((Variant)0)) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new Strv(""))) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new DBusObjectPath[0])) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new byte[0])) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
+            using (var v = new Variant(new byte[0][])) {
+                Assert.That(GetIsFloating(v), Is.False);
+                Assert.That(GetRefCount(v), Is.EqualTo(1));
+            }
         }
 
         [Test]
@@ -376,6 +459,13 @@ namespace GISharp.Core.Test.GLib
         {
             // WARNING: GVariant is a private structure, so this could break!
             return Marshal.ReadInt32(variant.Handle, IntPtr.Size * 4 + sizeof(int));
+        }
+
+        static PropertyInfo isFloatingProp = typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic);
+
+        static bool GetIsFloating(Variant variant)
+        {
+            return (bool)isFloatingProp.GetValue(variant);
         }
     }
 }

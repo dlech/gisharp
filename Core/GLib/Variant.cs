@@ -237,7 +237,10 @@ namespace GISharp.GLib
         public Variant (IntPtr handle, Transfer ownership) : base (handle)
         {
             if (ownership == Transfer.None) {
-                this.handle = g_variant_ref (handle);
+                g_variant_ref_sink(handle);
+            }
+            else {
+                g_variant_take_ref(handle);
             }
         }
 
@@ -261,6 +264,17 @@ namespace GISharp.GLib
         static extern void g_variant_unref (IntPtr value);
 
         internal static readonly UnmanagedDestroyNotify UnrefDelegate = g_variant_unref;
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_ref_sink(IntPtr value);
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_take_ref(IntPtr value);
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_variant_is_floating(IntPtr value);
+
+        bool IsFloating => g_variant_is_floating(Handle);
 
         public IndexedCollection<Variant> ChildValues {
             get {
@@ -638,8 +652,7 @@ namespace GISharp.GLib
             var childType_ = childType?.Handle ?? IntPtr.Zero;
             var children_ = children?.Data ?? IntPtr.Zero;
             var nChildren_ = (ulong)(children?.Count ?? 0);
-            var ret_ = g_variant_new_array(childType_, children_, nChildren_);
-            var ret = g_variant_ref_sink(ret_);
+            var ret = g_variant_new_array(childType_, children_, nChildren_);
             return ret;
         }
 
@@ -668,12 +681,9 @@ namespace GISharp.GLib
         /// an array of
         ///            #GVariant pointers, the children
         /// </param>
-        /// <returns>
-        /// a floating reference to a new #GVariant array
-        /// </returns>
         [Since ("2.24")]
         public Variant(VariantType childType, VariantArray children)
-            : this (NewArray (childType, children), Transfer.Full)
+            : this(NewArray(childType, children), Transfer.None)
         {
         }
 
@@ -707,8 +717,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewBoolean (bool value)
         {
-            var ret_ = g_variant_new_boolean (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_boolean(value);
             return ret;
         }
 
@@ -718,11 +727,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #gboolean value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new boolean #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (bool value) : this (NewBoolean (value), Transfer.Full)
+        public Variant(bool value) : this (NewBoolean(value), Transfer.None)
         {
         }
 
@@ -756,8 +762,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewByte (byte value)
         {
-            var ret_ = g_variant_new_byte (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_byte(value);
             return ret;
         }
 
@@ -767,11 +772,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #guint8 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new byte #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (byte value) : this (NewByte (value), Transfer.Full)
+        public Variant(byte value) : this(NewByte(value), Transfer.None)
         {
         }
 
@@ -826,8 +828,7 @@ namespace GISharp.GLib
             }
             var @string_ = GMarshal.CArrayToPtr<byte> (@string, true);
             try {
-                var ret_ = g_variant_new_bytestring (@string_);
-                var ret = g_variant_ref_sink (ret_);
+                var ret = g_variant_new_bytestring(@string_);
                 return ret;
             }
             finally {
@@ -848,11 +849,8 @@ namespace GISharp.GLib
         /// a normal
         ///          nul-terminated string in no particular encoding
         /// </param>
-        /// <returns>
-        /// a floating reference to a new bytestring #GVariant instance
-        /// </returns>
         [Since ("2.26")]
-        public Variant (byte[] @string) : this (NewBytestring (@string), Transfer.Full)
+        public Variant(byte[] @string) : this(NewBytestring(@string), Transfer.None)
         {
         }
 
@@ -900,8 +898,7 @@ namespace GISharp.GLib
                 }
                 Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
 
-                var ret_ = g_variant_new_bytestring_array (strv, -1);
-                var ret = g_variant_ref_sink (ret_);
+                var ret = g_variant_new_bytestring_array(strv, -1);
                 return ret;
             }
             finally {
@@ -909,7 +906,7 @@ namespace GISharp.GLib
             }
         }
 
-        public Variant (byte[][] value) : this (NewBytestringArray (value), Transfer.Full)
+        public Variant(byte[][] value) : this(NewBytestringArray(value), Transfer.None)
         {
         }
 
@@ -962,17 +959,12 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewDictEntry (Variant key, Variant value)
         {
-            if (key == null) {
-                throw new ArgumentNullException (nameof (key));
-            }
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
+            var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
+            var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
             if (!key.Type.IsBasic) {
                 throw new ArgumentException ("Key must be a basic variant type.", nameof (key));
             }
-            var ret_ = g_variant_new_dict_entry (key.handle, value.handle);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_dict_entry(key_, value_);
             return ret;
         }
 
@@ -990,12 +982,9 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #GVariant, the value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new dictionary entry #GVariant
-        /// </returns>
         [Since ("2.24")]
         public Variant (Variant key, Variant value)
-            : this (NewDictEntry (key, value), Transfer.Full)
+            : this(NewDictEntry(key, value), Transfer.None)
         {
         }
 
@@ -1035,8 +1024,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewDouble (double value)
         {
-            var ret_ = g_variant_new_double (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_double(value);
             return ret;
         }
 
@@ -1046,11 +1034,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #gdouble floating point value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new double #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (double value) : this (NewDouble (value), Transfer.Full)
+        public Variant(double value) : this(NewDouble(value), Transfer.None)
         {
         }
 
@@ -1144,9 +1129,8 @@ namespace GISharp.GLib
                 var elements_ = gch.AddrOfPinnedObject ();
                 var nElements = elements.Length;
                 var elementSize = Marshal.SizeOf<T> ();
-                var ret_ = g_variant_new_fixed_array (elementType.Handle, elements_, (uint)nElements, (uint)elementSize);
-                var ret = g_variant_ref_sink (ret_);
-                return new Variant (ret, Transfer.Full);
+                var ret = g_variant_new_fixed_array (elementType.Handle, elements_, (uint)nElements, (uint)elementSize);
+                return new Variant(ret, Transfer.None);
             }
             finally {
                 gch.Free ();
@@ -1253,13 +1237,12 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewDBusHandle (DBusHandle value) // new_handle
         {
-            var ret_ = g_variant_new_handle (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_handle(value);
             return ret;
         }
 
         [Since ("2.24")]
-        public Variant (DBusHandle value) : this (NewDBusHandle (value), Transfer.Full)
+        public Variant(DBusHandle value) : this(NewDBusHandle(value), Transfer.None)
         {
         }
 
@@ -1293,8 +1276,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewInt16 (short value)
         {
-            var ret_ = g_variant_new_int16 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_int16(value);
             return ret;
         }
 
@@ -1304,11 +1286,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #gint16 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new int16 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (short value) : this (NewInt16 (value), Transfer.Full)
+        public Variant(short value) : this(NewInt16(value), Transfer.None)
         {
         }
 
@@ -1342,8 +1321,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewInt32 (int value)
         {
-            var ret_ = g_variant_new_int32 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_int32(value);
             return ret;
         }
 
@@ -1353,11 +1331,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #gint32 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new int32 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (int value) : this (NewInt32 (value), Transfer.Full)
+        public Variant(int value) : this(NewInt32(value), Transfer.None)
         {
         }
 
@@ -1391,8 +1366,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewInt64 (long value)
         {
-            var ret_ = g_variant_new_int64 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_int64(value);
             return ret;
         }
 
@@ -1402,11 +1376,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #gint64 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new int64 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (long value) : this (NewInt64 (value), Transfer.Full)
+        public Variant(long value) : this(NewInt64(value), Transfer.None)
         {
         }
 
@@ -1469,10 +1440,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewMaybe (VariantType childType, Variant child)
         {
+            // FIXME: check args for at least one non-null and consistent types
             var childType_ = childType?.Handle ?? IntPtr.Zero;
             var child_ = child?.handle ?? IntPtr.Zero;
-            var ret_ = g_variant_new_maybe (childType_, child_);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_maybe(childType_, child_);
             return ret;
         }
 
@@ -1495,12 +1466,9 @@ namespace GISharp.GLib
         /// <param name="child">
         /// the child value, or %NULL
         /// </param>
-        /// <returns>
-        /// a floating reference to a new #GVariant maybe instance
-        /// </returns>
         [Since ("2.24")]
         public Variant (VariantType childType, Variant child)
-            : this (NewMaybe (childType, child), Transfer.Full)
+            : this(NewMaybe(childType, child), Transfer.None)
         {
         }
 
@@ -1532,8 +1500,7 @@ namespace GISharp.GLib
             }
             var valuePtr = GMarshal.StringToUtf8Ptr (value);
             try {
-                var ret_ = g_variant_new_object_path (valuePtr);
-                var ret = g_variant_ref_sink (ret_);
+                var ret = g_variant_new_object_path(valuePtr);
                 return ret;
             }
             finally {
@@ -1542,7 +1509,7 @@ namespace GISharp.GLib
         }
 
         [Since ("2.24")]
-        public Variant (DBusObjectPath value) : this (NewDBusObjectPath (value), Transfer.Full)
+        public Variant(DBusObjectPath value) : this(NewDBusObjectPath(value), Transfer.None)
         {
         }
 
@@ -1591,8 +1558,7 @@ namespace GISharp.GLib
             }
             var ptr = GMarshal.StringArrayToGStrvPtr (strv);
             try {
-                var ret_ = g_variant_new_objv (ptr, -1);
-                var ret = g_variant_ref_sink (ret_);
+                var ret = g_variant_new_objv(ptr, -1);
                 return ret;
             }
             finally {
@@ -1601,7 +1567,7 @@ namespace GISharp.GLib
         }
 
         [Since ("2.30")]
-        public Variant (DBusObjectPath[] value) : this (NewDBusObjectPathArray (value), Transfer.Full)
+        public Variant(DBusObjectPath[] value) : this(NewDBusObjectPathArray(value), Transfer.None)
         {
         }
 
@@ -1633,8 +1599,7 @@ namespace GISharp.GLib
             }
             var valuePtr = GMarshal.StringToUtf8Ptr (value);
             try {
-                var ret_ = g_variant_new_signature (valuePtr);
-                var ret = g_variant_ref_sink (ret_);
+                var ret = g_variant_new_signature(valuePtr);
                 return ret;
             }
             finally {
@@ -1643,7 +1608,7 @@ namespace GISharp.GLib
         }
 
         [Since ("2.24")]
-        public Variant (DBusSignature value) : this (NewDBusSignature (value), Transfer.Full)
+        public Variant(DBusSignature value) : this(NewDBusSignature(value), Transfer.None)
         {
         }
 
@@ -1694,10 +1659,9 @@ namespace GISharp.GLib
         static IntPtr NewStrv(Strv strv)
         {
             var strv_ = strv?.Handle ?? throw new ArgumentNullException(nameof(strv));
-            var ret_ = g_variant_new_strv(strv_, -1);
-                var ret = g_variant_ref_sink (ret_);
-                return ret;
-            }
+            var ret = g_variant_new_strv(strv_, -1);
+            return ret;
+        }
 
         /// <summary>
         /// Constructs an array of strings #GVariant from the given array of
@@ -1709,11 +1673,8 @@ namespace GISharp.GLib
         /// <param name="strv">
         /// an array of strings
         /// </param>
-        /// <returns>
-        /// a new floating #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant(Strv strv) : this(NewStrv(strv), Transfer.Full)
+        public Variant(Strv strv) : this(NewStrv(strv), Transfer.None)
         {
         }
 
@@ -1775,8 +1736,7 @@ namespace GISharp.GLib
                 throw new ArgumentNullException (nameof (@string));
             }
             var @string_ = GMarshal.StringToUtf8Ptr (@string);
-            var ret_ = g_variant_new_take_string (@string_);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_take_string(@string_);
             return ret;
         }
 
@@ -1797,12 +1757,8 @@ namespace GISharp.GLib
         /// <param name="string">
         /// a normal UTF-8 nul-terminated string
         /// </param>
-        /// <returns>
-        /// a floating reference to a new string
-        ///   #GVariant instance
-        /// </returns>
         [Since ("2.38")]
-        public Variant (string @string) : this (NewTakeString (@string), Transfer.Full)
+        public Variant(string @string) : this(NewTakeString(@string), Transfer.None)
         {
         }
 
@@ -1865,8 +1821,7 @@ namespace GISharp.GLib
                 throw new ArgumentException("Tuple cannot have null elements", nameof(children));
             }
             var nChildren_ = (ulong)(children?.Count ?? 0);
-            var ret_ = g_variant_new_tuple(children_, nChildren_);
-            var ret = g_variant_ref_sink(ret_);
+            var ret = g_variant_new_tuple(children_, nChildren_);
             return ret;
         }
 
@@ -1884,11 +1839,8 @@ namespace GISharp.GLib
         /// <param name="children">
         /// the items to make the tuple out of
         /// </param>
-        /// <returns>
-        /// a floating reference to a new #GVariant tuple
-        /// </returns>
         [Since ("2.24")]
-        public Variant(VariantArray children) : this(NewTuple(children), Transfer.Full)
+        public Variant(VariantArray children) : this(NewTuple(children), Transfer.None)
         {
         }
 
@@ -1922,8 +1874,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewUint16 (ushort value)
         {
-            var ret_ = g_variant_new_uint16 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_uint16(value);
             return ret;
         }
 
@@ -1933,11 +1884,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #guint16 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new uint16 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (ushort value) : this (NewUint16 (value), Transfer.Full)
+        public Variant(ushort value) : this(NewUint16(value), Transfer.None)
         {
         }
 
@@ -1971,8 +1919,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewUint32 (uint value)
         {
-            var ret_ = g_variant_new_uint32 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_uint32(value);
             return ret;
         }
 
@@ -1982,11 +1929,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #guint32 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new uint32 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (uint value) : this (NewUint32 (value), Transfer.Full)
+        public Variant(uint value) : this(NewUint32(value), Transfer.None)
         {
         }
 
@@ -2020,8 +1964,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewUint64 (ulong value)
         {
-            var ret_ = g_variant_new_uint64 (value);
-            var ret = g_variant_ref_sink (ret_);
+            var ret = g_variant_new_uint64(value);
             return ret;
         }
 
@@ -2031,11 +1974,8 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #guint64 value
         /// </param>
-        /// <returns>
-        /// a floating reference to a new uint64 #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (ulong value) : this (NewUint64 (value), Transfer.Full)
+        public Variant(ulong value) : this(NewUint64(value), Transfer.None)
         {
         }
 
@@ -2079,11 +2019,8 @@ namespace GISharp.GLib
         [Since ("2.24")]
         static IntPtr NewVariant (Variant value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
-            var ret_ = g_variant_new_variant (value.handle);
-            var ret = g_variant_ref_sink (ret_);
+            var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
+            var ret = g_variant_new_variant(value_);
             return ret;
         }
 
@@ -2098,17 +2035,10 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #GVariant instance
         /// </param>
-        /// <returns>
-        /// a floating reference to a new variant #GVariant instance
-        /// </returns>
         [Since ("2.24")]
-        public Variant (Variant value) : this (NewVariant (value), Transfer.Full)
+        public Variant(Variant value) : this(NewVariant(value), Transfer.None)
         {
         }
-
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_ref_sink (IntPtr value);
-
 
         /// <summary>
         /// Determines if a given string is a valid D-Bus object path.  You
