@@ -328,11 +328,7 @@ namespace GISharp.GObject
 
                     // register the signal
 
-                    var namePtr = GMarshal.StringToUtf8Ptr (name);
-                    var parameterGTypesPtr = GMarshal.CArrayToPtr<GType> (parameterGTypes, false);
-                    Signal.g_signal_newv(namePtr, gtype, flags, closure.Handle,
-                        null, IntPtr.Zero, null, returnGType,
-                        (uint)parameterGTypes.Length, parameterGTypesPtr);
+                    Signal.Newv(name, gtype, flags, closure, null, null, returnGType, parameterGTypes);
                 }
             }
             catch (Exception ex) {

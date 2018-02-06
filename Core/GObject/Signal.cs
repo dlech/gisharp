@@ -868,7 +868,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        internal static extern uint g_signal_newv (
+        static extern uint g_signal_newv(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signalName,
@@ -889,7 +889,7 @@ namespace GISharp.GObject
             IntPtr accuData,
             /* <type name="SignalCMarshaller" type="GSignalCMarshaller" managed-name="SignalCMarshaller" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            SignalCMarshaller cMarshaller,
+            UnmanagedSignalCMarshaller cMarshaller,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType returnType,
@@ -900,7 +900,25 @@ namespace GISharp.GObject
                 <type name="GType" type="GType" managed-name="GType" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr paramTypes);
+            GType[] paramTypes);
+
+        internal static uint Newv(Utf8 signalName, GType itype, SignalFlags signalFlags, Closure classClosure,
+            SignalAccumulator accumulator, SignalCMarshaller cMarshaller, GType returnType, GType[]paramTypes)
+        {
+            var signalName_ = signalName?.Handle ?? throw new ArgumentNullException(nameof(signalName));
+            var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
+            var accumulator_ = accumulator == null ? default(UnmanagedSignalAccumulator)
+                : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
+            var accuData_ = IntPtr.Zero;
+            var cMarshaller_ = cMarshaller == null ? default(UnmanagedSignalCMarshaller)
+                : throw new NotImplementedException("need to implement UnmangagedSignalCMarshaller factory");
+            var nParams = paramTypes?.Length ?? throw new ArgumentNullException(nameof(paramTypes));
+
+            var ret = g_signal_newv(signalName_, itype, signalFlags, classClosure_, accumulator_,
+                accuData_, cMarshaller_, returnType, (uint)nParams, paramTypes);
+
+            return ret;
+        }
 
         /// <summary>
         /// Overrides the class closure (i.e. the default handler) for the given signal
