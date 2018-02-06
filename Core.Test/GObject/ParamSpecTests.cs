@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.InteropServices;
 using GISharp.GLib;
 using GISharp.GObject;
 using GISharp.Runtime;
@@ -10,8 +11,18 @@ using nulong = GISharp.Runtime.NativeULong;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class ParamSpecTests
+    public class ParamSpecTests : IListTests<ParamSpecArray, ParamSpec>
     {
+        // Init for IListTests
+        public ParamSpecTests() : base(getItemAt,
+            new ParamSpecBoolean("P0", "P0", "P0", false, ParamFlags.Readwrite),
+            new ParamSpecBoolean("P1", "P1", "P1", false, ParamFlags.Readwrite),
+            new ParamSpecBoolean("P2", "P2", "P2", false, ParamFlags.Readwrite),
+            new ParamSpecBoolean("P3", "P3", "P3", false, ParamFlags.Readwrite),
+            new ParamSpecBoolean("P4", "P4", "P4", false, ParamFlags.Readwrite))
+        {
+        }
+
         T TestParamSpec<T> (GType type, Func<string, string, string, ParamFlags, T> instantiate) where T : ParamSpec
         {
             const ParamFlags flags = ParamFlags.Readwrite | ParamFlags.StaticStrings;
@@ -368,6 +379,12 @@ namespace GISharp.Core.Test.GObject
             Assert.That (param.GetGType ().Name, Is.EqualTo ("GParamVariant"));
 
             Utility.AssertNoGLibLog();
+        }
+
+        static ParamSpec getItemAt(ParamSpecArray array, int index)
+        {
+            var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
+            return ParamSpec.GetInstance<ParamSpecBoolean>(ptr, Transfer.None);
         }
     }
 }

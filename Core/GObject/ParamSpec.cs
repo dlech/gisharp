@@ -1,4 +1,6 @@
 using System;
+using System.Collections;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using GISharp.GLib;
 using GISharp.GModule;
@@ -106,11 +108,18 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_param_spec_ref (IntPtr pspec);
 
+        internal IntPtr Ref()
+        {
+            return g_param_spec_ref(Handle);
+        }
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_sink (IntPtr pspec);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_unref (IntPtr pspec);
+
+        internal static readonly UnmanagedDestroyNotify UnrefDelegate = g_param_spec_unref;
 
         protected static GType[] paramSpecTypes;
 
@@ -506,6 +515,215 @@ namespace GISharp.GObject
         public static ParamSpec GetInstance(IntPtr handle, Transfer ownership)
         {
             return GetInstance<ParamSpec>(handle, ownership);
+        }
+    }
+
+    public sealed class ParamSpecArray : PtrArray, IList<ParamSpec>
+    {
+        public ParamSpecArray() : this(0)
+        {
+        }
+
+        public ParamSpecArray(int reservedSize) : base(reservedSize, ParamSpec.UnrefDelegate)
+        {
+        }
+
+        /// <summary>
+        /// Adds a <see cref="ParamSpec"/> to the end of the array.
+        /// The array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="data">
+        /// the <see cref="ParamSpec"/> to add
+        /// </param>
+        public void Add(ParamSpec data)
+        {
+            Add(data?.Ref() ?? throw new ArgumentNullException(nameof(data)));
+        }
+
+        /// <summary>
+        /// Inserts an element into the <see cref="ParamSpec"/> array at the given index. The
+        /// array will grow in size automatically if necessary.
+        /// </summary>
+        /// <param name="index">
+        /// the index to place the new element at, or -1 to append
+        /// </param>
+        /// <param name="data">
+        /// the <see cref="ParamSpec"/> to add.
+        /// </param>
+        [Since ("2.40")]
+        public void Insert(int index, ParamSpec data)
+        {
+            Insert(index, data?.Ref() ?? throw new ArgumentNullException(nameof(data)));
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given <see cref="ParamSpec"/> from the <see cref="ParamSpec"/>
+        /// array. The following elements are moved down one place.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the <see cref="ParamSpec"/> was removed, or <c>false</c> if the
+        /// <see cref="ParamSpec"/> was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the <see cref="ParamSpec"/> to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <see cref="ParamSpec"/> is removed, <c>false</c> if the <see cref="ParamSpec"/>
+        /// is not found in the array
+        /// </returns>
+        public bool Remove(ParamSpec data)
+        {
+            return Remove(data?.Handle ?? throw new ArgumentNullException(nameof(data)));
+        }
+
+        /// <summary>
+        /// Removes the <see cref="ParamSpec"/> at the given index from the <see cref="ParamSpec"/> array.
+        /// The following elements are moved down one place.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the <see cref="ParamSpec"/> to remove
+        /// </param>
+        public new void RemoveAt(int index)
+        {
+            base.RemoveAt(index);
+        }
+
+        /// <summary>
+        /// Removes the first occurrence of the given <see cref="ParamSpec"/> from the <see cref="ParamSpec"/>
+        /// array. The last element in the array is used to fill in the space,
+        /// so this function does not preserve the order of the array. But it
+        /// is faster than <see cref="Remove"/>.
+        /// </summary>
+        /// <remarks>
+        /// It returns <c>true</c> if the <see cref="ParamSpec"/> was removed, or <c>false</c> if the
+        /// <see cref="ParamSpec"/> was not found.
+        /// </remarks>
+        /// <param name="data">
+        /// the <see cref="ParamSpec"/> to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <see cref="ParamSpec"/> was found in the array
+        /// </returns>
+        public bool RemoveFast(ParamSpec data)
+        {
+            return RemoveFast(data?.Handle ?? throw new ArgumentNullException(nameof(data)));
+        }
+
+        /// <summary>
+        /// Removes the <see cref="ParamSpec"/> at the given index from the <see cref="ParamSpec"/> array.
+        /// The last element in the array is used to fill in the space, so
+        /// this function does not preserve the order of the array. But it
+        /// is faster than <see cref="RemoveAt"/>.
+        /// </summary>
+        /// <param name="index">
+        /// the index of the <see cref="ParamSpec"/> to remove
+        /// </param>
+        public new void RemoveAtFast(int index)
+        {
+            base.RemoveAtFast(index);
+        }
+
+        public ParamSpec this[int index] {
+            get {
+                if (index < 0 || index >= Count) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                }
+                var ret_ = Marshal.ReadIntPtr(Data, IntPtr.Size * index);
+                var ret = GetInstance<ParamSpec>(ret_, Transfer.None);
+                return ret;
+            }
+            set {
+                // Doing some tricks to make this faster..
+                // Add the value to the end
+                Add(value);
+                // Then this will remove the element at index and replace it
+                // with the last element that we just added
+                RemoveAtFast(index);
+            }
+        }
+
+        bool ICollection<ParamSpec>.IsReadOnly => false;
+
+        /// <summary>
+        /// Returns the first index of <paramref name="data"/> in this array.
+        /// </summary>
+        /// <returns>The index or -1 if <paramref name="data"/> was not found.</returns>
+        /// <param name="data">Data.</param>
+        public int IndexOf(ParamSpec data)
+        {
+            // TODO: replace with base.Find() eventually
+            for (int i = 0; i < Count; i++) {
+                var ptr = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+                if (Marshal.ReadIntPtr(Data, IntPtr.Size * i) == ptr) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
+        /// <summary>
+        /// Removes all <see cref="ParamSpec"/>s from the array.
+        /// </summary>
+        public void Clear()
+        {
+            SetSize(0);
+        }
+
+        /// <summary>
+        /// Checks if the array contains <paramref name="data"/>.
+        /// </summary>
+        /// <returns><c>true</c> if <paramref name="data"/> was found, otherwise
+        /// <c>false</c>.</returns>
+        /// <param name="data">The item to search for.</param>
+        public bool Contains(ParamSpec data)
+        {
+            return IndexOf(data) >= 0;
+        }
+
+        void ICollection<ParamSpec>.CopyTo(ParamSpec[] array, int arrayIndex)
+        {
+            if (array == null) {
+                throw new ArgumentNullException(nameof(array));
+            }
+            if (arrayIndex < 0) {
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
+            }
+            if (Count > array.Length - arrayIndex) {
+                throw new ArgumentException("Destination array is not long enough.");
+            }
+            for (int i = 0; i < Count; i++) {
+                array[i + arrayIndex] = this[i];
+            }
+        }
+
+        IEnumerator<ParamSpec> GetEnumerator()
+        {
+            for (int i = 0; i < Count; i++) {
+                yield return this[i];
+            }
+        }
+
+        IEnumerator<ParamSpec> IEnumerable<ParamSpec>.GetEnumerator() => GetEnumerator();
+
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public static class ParamSpecArrayExtensions
+    {
+        public static ParamSpecArray ToParamSpecArray(this IEnumerable<ParamSpec> source)
+        {
+            var size = 0;
+            if (source is ICollection<ParamSpec> collection) {
+                size = collection.Count;
+            }
+            else if (source is IReadOnlyCollection<ParamSpec> readOnlyCollection) {
+                size = readOnlyCollection.Count;
+            }
+            var array = new ParamSpecArray(size);
+            foreach (var item in source) {
+                array.Add(item);
+            }
+            return array;
         }
     }
 }
