@@ -102,8 +102,7 @@ namespace GISharp.GLib
         /// </returns>
         public MainContext Context {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_main_loop_get_context (handle);
+                var ret_ = g_main_loop_get_context(Handle);
                 var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
@@ -134,8 +133,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool IsRunning {
             get {
-                AssertNotDisposed ();
-                var ret = g_main_loop_is_running (handle);
+                var ret = g_main_loop_is_running(Handle);
                 return ret;
             }
         }
@@ -169,8 +167,7 @@ namespace GISharp.GLib
         /// </remarks>
         public void Quit ()
         {
-            AssertNotDisposed ();
-            g_main_loop_quit (handle);
+            g_main_loop_quit(Handle);
         }
 
         /// <summary>
@@ -201,12 +198,12 @@ namespace GISharp.GLib
         /// </remarks>
         public void Run ()
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var oldSyncContext = SynchronizationContext.Current;
             try {
                 var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext (newSyncContext);
-                g_main_loop_run (handle);
+                g_main_loop_run(this_);
             } finally {
                 SynchronizationContext.SetSynchronizationContext (oldSyncContext);
             }

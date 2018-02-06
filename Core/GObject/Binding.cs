@@ -129,8 +129,7 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public BindingFlags Flags {
             get {
-                AssertNotDisposed ();
-                var ret = g_binding_get_flags (handle);
+                var ret = g_binding_get_flags(Handle);
                 return ret;
             }
         }
@@ -163,8 +162,7 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Object Source {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_binding_get_source (handle);
+                var ret_ = g_binding_get_source(Handle);
                 var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
@@ -200,8 +198,7 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Utf8 SourceProperty {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_binding_get_source_property (handle);
+                var ret_ = g_binding_get_source_property(Handle);
                 var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
@@ -235,8 +232,7 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Object Target {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_binding_get_target (handle);
+                var ret_ = g_binding_get_target(Handle);
                 var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
@@ -272,8 +268,7 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Utf8 TargetProperty {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_binding_get_target_property (handle);
+                var ret_ = g_binding_get_target_property(Handle);
                 var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
@@ -303,14 +298,14 @@ namespace GISharp.GObject
 
         /// <summary>
         /// Explicitly releases the binding between the source and the target
-        /// property expressed by this instance.
+        /// property expressed by this instance. This object can no longer
+        /// be used after calling <see cref="Unbind"/> (it becomes disposed).
         /// </summary>
         [Since ("2.38")]
         public void Unbind ()
         {
-            AssertNotDisposed ();
             // Note: this releases a reference to handle
-            g_binding_unbind (handle);
+            g_binding_unbind(Handle);
             handle = IntPtr.Zero;
         }
     }

@@ -21,21 +21,9 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public GType GType {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<GType> (Handle + (int)gTypeOffset);
-                return ret;
-            }
-        }
+        public GType GType => Marshal.PtrToStructure<GType>(Handle + (int)gTypeOffset);
 
-        public GType GInstanceType {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<GType> (Handle + (int)gInstanceTypeOffset);
-                return ret;
-            }
-        }
+        public GType GInstanceType => Marshal.PtrToStructure<GType>(Handle + (int)gInstanceTypeOffset);
 
         protected TypeInterface (IntPtr handle, Transfer ownership) : base (handle)
         {

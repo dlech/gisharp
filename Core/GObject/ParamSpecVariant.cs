@@ -25,8 +25,7 @@ namespace GISharp.GObject
 
         public VariantType VariantType {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)variantTypeOffset);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)variantTypeOffset);
                 var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
@@ -34,8 +33,7 @@ namespace GISharp.GObject
 
         public new Variant DefaultValue {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)defaultValueOffset);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)defaultValueOffset);
                 var ret = Opaque.GetInstance<Variant> (ret_, Transfer.None);
                 return ret;
             }

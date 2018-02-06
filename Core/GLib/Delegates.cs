@@ -597,7 +597,7 @@ namespace GISharp.GLib
         public static ValueTuple<UnmanagedSourceFunc, IntPtr> CreateDelegate(SourceFunc func, bool isAsync = false) {
             var data = new UnmanagedSourceData {
                 IsAsync = isAsync,
-                Func = func,
+                Func = func ?? throw new ArgumentNullException(nameof(func)),
                 UnmanagedFunc = UnmanagedFunc,
                 UnmanagedNotify = null,
             };
@@ -609,7 +609,7 @@ namespace GISharp.GLib
         public static ValueTuple<UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(SourceFunc func) {
             var data = new UnmanagedSourceData {
                 IsAsync = false,
-                Func = func,
+                Func = func ?? throw new ArgumentNullException(nameof(func)),
                 UnmanagedFunc = UnmanagedFunc,
                 UnmanagedNotify = UnmanagedNotify,
             };

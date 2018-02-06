@@ -76,10 +76,9 @@ namespace GISharp.GLib
         
         string GetValue()
         {
-            AssertNotDisposed();
             // TODO: replace this with Marshal.PtrToStringUTF8() when it
             // becomes part of netstandard
-            var ret_ = g_utf8_to_utf16(handle, -1, IntPtr.Zero, IntPtr.Zero, out var error_);
+            var ret_ = g_utf8_to_utf16(Handle, -1, IntPtr.Zero, IntPtr.Zero, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -144,8 +143,7 @@ namespace GISharp.GLib
         /// </returns>
         public Utf8 Casefold()
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_casefold(handle, new IntPtr(-1));
+            var ret_ = g_utf8_casefold(Handle, new IntPtr(-1));
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -200,12 +198,9 @@ namespace GISharp.GLib
         /// </returns>
         public int Collate(Utf8 str)
         {
-            AssertNotDisposed();
-            if (str == null) {
-                throw new ArgumentNullException(nameof(str));
-            }
-            str.AssertNotDisposed();
-            var ret = g_utf8_collate(handle, str.handle);
+            var this_ = Handle;
+            var str_ = str?.Handle ?? throw new ArgumentNullException(nameof(str));
+            var ret = g_utf8_collate(this_, str_);
             return ret;
         }
 
@@ -259,8 +254,7 @@ namespace GISharp.GLib
         /// </returns>
         public Utf8 CollateKey()
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_collate_key(handle, new IntPtr(-1));
+            var ret_ = g_utf8_collate_key(Handle, new IntPtr(-1));
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -322,8 +316,7 @@ namespace GISharp.GLib
         [Since("2.8")]
         public Utf8 CollateKeyForFilename()
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_collate_key_for_filename(handle, new IntPtr(-1));
+            var ret_ = g_utf8_collate_key_for_filename(Handle, new IntPtr(-1));
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -443,8 +436,7 @@ namespace GISharp.GLib
 
         IEnumerator<int> GetEnumerator()
         {
-            AssertNotDisposed();
-            for (var ptr = handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
+            for (var ptr = Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
                 var ret = g_utf8_get_char(ptr);
                 if (ret == 0) {
                     // don't return the null terminator
@@ -551,8 +543,7 @@ namespace GISharp.GLib
         /// </returns>
         public Utf8 Normalize(NormalizeMode mode = NormalizeMode.Default)
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_normalize(handle, IntPtr.Zero, mode);
+            var ret_ = g_utf8_normalize(Handle, IntPtr.Zero, mode);
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -927,8 +918,7 @@ namespace GISharp.GLib
         /// </summary>
         public int Length {
             get {
-                AssertNotDisposed();
-                var ret = g_utf8_strlen(handle, new IntPtr(-1));
+                var ret = g_utf8_strlen(Handle, new IntPtr(-1));
                 return (int)ret;
             }
         }
@@ -1142,8 +1132,7 @@ namespace GISharp.GLib
         [Since("2.2")]
         public Utf8 Reverse()
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_strreverse(handle, IntPtr.Zero);
+            var ret_ = g_utf8_strreverse(Handle, IntPtr.Zero);
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -1189,8 +1178,7 @@ namespace GISharp.GLib
         /// </returns>
         public Utf8 ToUpper()
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_strup(handle, new IntPtr(-1));
+            var ret_ = g_utf8_strup(Handle, new IntPtr(-1));
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -1244,8 +1232,7 @@ namespace GISharp.GLib
         [Since("2.30")]
         public Utf8 Substring(int startPos, int endPos)
         {
-            AssertNotDisposed();
-            var ret_ = g_utf8_substring(handle, startPos, endPos);
+            var ret_ = g_utf8_substring(Handle, startPos, endPos);
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -1557,8 +1544,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Validate(int maxLen = -1)
         {
-            AssertNotDisposed();
-            var ret = g_utf8_validate(handle, new IntPtr(maxLen), IntPtr.Zero);
+            var ret = g_utf8_validate(Handle, new IntPtr(maxLen), IntPtr.Zero);
             return ret;
         }
 
@@ -1667,12 +1653,9 @@ namespace GISharp.GLib
 
         bool IEquatable<Utf8>.Equals(Utf8 other)
         {
-            AssertNotDisposed();
-            if (other == null) {
-                return false;
-            }
-            other.AssertNotDisposed();
-            var ret = g_str_equal(handle, other.handle);
+            var this_ = Handle;
+            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var ret = g_str_equal(this_, other_);
             return ret;
         }
 
@@ -1681,8 +1664,7 @@ namespace GISharp.GLib
 
         public override int GetHashCode()
         {
-            AssertNotDisposed();
-            var ret = g_str_hash(handle);
+            var ret = g_str_hash(Handle);
             return (int)ret;
         }
 

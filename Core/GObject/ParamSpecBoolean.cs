@@ -20,13 +20,7 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public new bool DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<bool> (Handle + (int)defaultValueOffset);
-                return ret;
-            }
-        }
+        public new bool DefaultValue => Marshal.PtrToStructure<bool>(Handle + (int)defaultValueOffset);
 
         public ParamSpecBoolean (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

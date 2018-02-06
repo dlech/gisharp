@@ -475,11 +475,9 @@ namespace GISharp.GLib
         [Since ("2.28")]
         public void AddChildSource (Source childSource)
         {
-            AssertNotDisposed ();
-            if (childSource == null) {
-                throw new ArgumentNullException (nameof (childSource));
-            }
-            g_source_add_child_source (handle, childSource.handle);
+            var this_ = Handle;
+            var childSource_ = childSource?.Handle ?? throw new ArgumentNullException(nameof(childSource));
+            g_source_add_child_source(this_, childSource_);
         }
 
         /// <summary>
@@ -536,8 +534,7 @@ namespace GISharp.GLib
         /// </param>
         public void AddPoll (PollFD fd)
         {
-            AssertNotDisposed ();
-            g_source_add_poll (handle, fd);
+            g_source_add_poll(Handle, fd);
         }
 
         /// <summary>
@@ -578,11 +575,12 @@ namespace GISharp.GLib
         /// </returns>
         public uint Attach (MainContext context)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (IsDestroyed) {
                 throw new InvalidOperationException ("Source has already been destroyed.");
             }
-            var ret = g_source_attach (handle, context?.Handle ?? IntPtr.Zero);
+            var context_ = context?.Handle ?? IntPtr.Zero;
+            var ret = g_source_attach(this_, context_);
             return ret;
         }
 
@@ -611,8 +609,7 @@ namespace GISharp.GLib
         /// </summary>
         public void Destroy ()
         {
-            AssertNotDisposed ();
-            g_source_destroy (handle);
+            g_source_destroy(Handle);
         }
 
         /// <summary>
@@ -642,14 +639,12 @@ namespace GISharp.GLib
         /// </returns>
         public bool CanRecurse {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_get_can_recurse (handle);
+                var ret = g_source_get_can_recurse(Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
-                g_source_set_can_recurse (handle, value);
+                g_source_set_can_recurse(Handle, value);
             }
         }
 
@@ -698,8 +693,7 @@ namespace GISharp.GLib
         /// </returns>
         public MainContext Context {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_source_get_context (handle);
+                var ret_ = g_source_get_context(Handle);
                 var ret = GetInstance<MainContext> (ret_, Transfer.None);
                 return ret;
             }
@@ -736,8 +730,7 @@ namespace GISharp.GLib
         /// </returns>
         public uint Id {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_get_id (handle);
+                var ret = g_source_get_id(Handle);
                 return ret;
             }
         }
@@ -771,16 +764,14 @@ namespace GISharp.GLib
         [Since ("2.26")]
         public Utf8 Name {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_source_get_name (handle);
+                var ret_ = g_source_get_name(Handle);
                 var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
-
             set {
-                AssertNotDisposed ();
+                var this_ = Handle;
                 var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
-                g_source_set_name (handle, value.Handle);
+                g_source_set_name(this_, value_);
             }
         }
 
@@ -809,14 +800,11 @@ namespace GISharp.GLib
         /// </returns>
         public int Priority {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_get_priority (handle);
+                var ret = g_source_get_priority(Handle);
                 return ret;
             }
-
             set {
-                AssertNotDisposed ();
-                g_source_set_priority (handle, value);
+                g_source_set_priority(Handle, value);
             }
         }
 
@@ -855,14 +843,11 @@ namespace GISharp.GLib
         /// </returns>
         public long ReadyTime {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_get_ready_time (handle);
+                var ret = g_source_get_ready_time(Handle);
                 return ret;
             }
-
             set {
-                AssertNotDisposed ();
-                g_source_set_ready_time (handle, value);
+                g_source_set_ready_time(Handle, value);
             }
         }
 
@@ -907,8 +892,7 @@ namespace GISharp.GLib
         [Since ("2.28")]
         public long Time {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_get_time (handle);
+                var ret = g_source_get_time(Handle);
                 return ret;
             }
         }
@@ -1060,8 +1044,7 @@ namespace GISharp.GLib
         [Since ("2.12")]
         public bool IsDestroyed {
             get {
-                AssertNotDisposed ();
-                var ret = g_source_is_destroyed (handle);
+                var ret = g_source_is_destroyed(Handle);
                 return ret;
             }
         }
@@ -1106,12 +1089,9 @@ namespace GISharp.GLib
         [Since ("2.28")]
         public void RemoveChildSource (Source childSource)
         {
-            AssertNotDisposed ();
-            if (childSource == null) {
-                throw new ArgumentNullException (nameof (childSource));
-            }
-            var childSource_ = childSource.handle;
-            g_source_remove_child_source (handle, childSource_);
+            var this_ = Handle;
+            var childSource_ = childSource?.Handle ?? throw new ArgumentNullException(nameof(childSource));
+            g_source_remove_child_source(this_, childSource_);
         }
 
         /// <summary>
@@ -1152,8 +1132,7 @@ namespace GISharp.GLib
         /// </param>
         public void RemovePoll (PollFD fd)
         {
-            AssertNotDisposed ();
-            g_source_remove_poll (handle, fd);
+            g_source_remove_poll(Handle, fd);
         }
 
         /// <summary>
@@ -1206,8 +1185,7 @@ namespace GISharp.GLib
         [Since ("2.36")]
         public void RemoveUnixFd (IntPtr tag)
         {
-            AssertNotDisposed ();
-            g_source_remove_unix_fd (handle, tag);
+            g_source_remove_unix_fd(Handle, tag);
         }
 
         /// <summary>
@@ -1274,12 +1252,9 @@ namespace GISharp.GLib
         /// </param>
         public void SetCallback (SourceFunc func)
         {
-            AssertNotDisposed ();
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
-            var (func_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (func);
-            g_source_set_callback (handle, func_, data_, notify_);
+            var this_ = Handle;
+            var (func_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(func);
+            g_source_set_callback(this_, func_, data_, notify_);
         }
 
         /// <summary>
@@ -1369,8 +1344,7 @@ namespace GISharp.GLib
         [Since ("2.12")]
         void SetFuncs (SourceFuncs funcs)
         {
-            AssertNotDisposed ();
-            g_source_set_funcs (handle, funcs);
+            g_source_set_funcs(Handle, funcs);
         }
 
         /// <summary>

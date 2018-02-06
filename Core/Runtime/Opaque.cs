@@ -19,7 +19,9 @@ namespace GISharp.Runtime
         /// <value>The pointer.</value>
         public virtual IntPtr Handle {
             get {
-                AssertNotDisposed();
+                if (handle == IntPtr.Zero) {
+                    throw new ObjectDisposedException (null);
+                }
                 return handle;
             }
         }
@@ -52,13 +54,6 @@ namespace GISharp.Runtime
         protected virtual void Dispose (bool disposing)
         {
             handle = IntPtr.Zero;
-        }
-
-        protected void AssertNotDisposed ()
-        {
-            if (handle == IntPtr.Zero) {
-                throw new ObjectDisposedException (null);
-            }
         }
 
         public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque

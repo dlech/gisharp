@@ -31,12 +31,7 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        uint RefCount {
-            get {
-                AssertNotDisposed ();
-                return (uint)Marshal.ReadInt32 (handle + (int)refCountOffset);
-            }
-        }
+        uint RefCount => (uint)Marshal.ReadInt32 (handle + (int)refCountOffset);
 
         public Object (IntPtr handle, Transfer ownership) : base (handle)
         {
@@ -346,8 +341,7 @@ namespace GISharp.GObject
 
         bool IsFloating {
             get {
-                AssertNotDisposed ();
-                return g_object_is_floating (handle);
+                return g_object_is_floating(Handle);
             }
         }
 
@@ -466,13 +460,11 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Binding BindProperty(Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags = BindingFlags.Default)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (sourceProperty == null) {
                 throw new ArgumentNullException (nameof (sourceProperty));
             }
-            if (target == null) {
-                throw new ArgumentNullException (nameof (target));
-            }
+            var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
             if (targetProperty == null) {
                 throw new ArgumentNullException (nameof (targetProperty));
             }
@@ -497,7 +489,7 @@ namespace GISharp.GObject
                 throw new ArgumentException (message, nameof(targetProperty));
             }
 
-            var ret_ = g_object_bind_property (handle, sourceProperty.Handle, target.handle, targetProperty.Handle, flags);
+            var ret_ = g_object_bind_property(this_, sourceProperty.Handle, target_, targetProperty.Handle, flags);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
             return ret;
         }
@@ -575,14 +567,14 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public Binding BindProperty (Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var sourceProperty_ = sourceProperty?.Handle ?? throw new ArgumentNullException(nameof(sourceProperty));
             var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
             var targetProperty_ = targetProperty?.Handle ?? throw new ArgumentNullException(nameof(targetProperty));
             
             var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
-            var ret_ = g_object_bind_property_full (handle, sourceProperty_, target_, targetProperty_, flags,
-                                                    transformTo_, transformFrom_, userData_, notify_);
+            var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
+                                                   transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding> (ret_, Transfer.None);
             return ret;
         }
@@ -698,8 +690,7 @@ namespace GISharp.GObject
         /// </remarks>
         public void FreezeNotify ()
         {
-            AssertNotDisposed ();
-            g_object_freeze_notify (handle);
+            g_object_freeze_notify(Handle);
         }
 
         /// <summary>
@@ -754,14 +745,14 @@ namespace GISharp.GObject
         /// </exception>
         public object GetProperty(Utf8 propertyName)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
             if (pspec == null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
             var value = new Value(pspec.ValueType);
-            g_object_get_property(handle, pspec.Name.Handle, ref value);
+            g_object_get_property(this_, pspec.Name.Handle, ref value);
             var ret = value.Get();
             value.Unset();
 
@@ -816,9 +807,9 @@ namespace GISharp.GObject
         /// </param>
         public void EmitNotify(Utf8 propertyName)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
-            g_object_notify(handle, propertyName_);
+            g_object_notify(this_, propertyName_);
         }
 
         /// <summary>
@@ -927,12 +918,9 @@ namespace GISharp.GObject
         [Since ("2.26")]
         public void EmitNotify(ParamSpec pspec)
         {
-            AssertNotDisposed ();
-            if (pspec == null) {
-                throw new ArgumentNullException (nameof (pspec));
-            }
-            g_object_notify_by_pspec (handle, pspec.Handle);
-            GC.KeepAlive (pspec);
+            var this_ = Handle;
+            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            g_object_notify_by_pspec(this_, pspec_);
         }
 
         /// <summary>
@@ -978,7 +966,7 @@ namespace GISharp.GObject
         /// </exception>
         public void SetProperty(Utf8 propertyName, object value)
         {
-            AssertNotDisposed();
+            var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
             if (pspec == null) {
                 var message = $"No such property \"{propertyName}\"";
@@ -986,7 +974,7 @@ namespace GISharp.GObject
             }
             var value_ = new Value(pspec.ValueType);
             value_.Set(value);
-            g_object_set_property(handle, pspec.Name.Handle, ref value_);
+            g_object_set_property(this_, pspec.Name.Handle, ref value_);
             value_.Unset();
         }
 
@@ -1027,8 +1015,7 @@ namespace GISharp.GObject
         /// </remarks>
         public void ThawNotify ()
         {
-            AssertNotDisposed ();
-            g_object_thaw_notify (handle);
+            g_object_thaw_notify(Handle);
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -1051,9 +1038,9 @@ namespace GISharp.GObject
 
         public object this[string key] {
             get {
-                AssertNotDisposed ();
+                var this_ = Handle;
                 var key_ = GMarshal.StringToUtf8Ptr (key);
-                var data_ = g_object_get_data (handle, key_);
+                var data_ = g_object_get_data(this_, key_);
                 GMarshal.Free (key_);
                 if (data_ == IntPtr.Zero) {
                     return null;
@@ -1062,14 +1049,14 @@ namespace GISharp.GObject
                 return data;
             }
             set {
-                AssertNotDisposed ();
+                var this_ = Handle;
                 var key_ = GMarshal.StringToUtf8Ptr (key);
                 if (value == null) {
-                    g_object_set_data (handle, key_, IntPtr.Zero);
+                    g_object_set_data(this_, key_, IntPtr.Zero);
                 }
                 else {
                     var data_ = GCHandle.ToIntPtr (GCHandle.Alloc (value));
-                    g_object_set_data_full (handle, key_, data_, freeDataDelegate);
+                    g_object_set_data_full(this_, key_, data_, freeDataDelegate);
                 }
                 GMarshal.Free (key_);
             }
@@ -1108,19 +1095,18 @@ namespace GISharp.GObject
 
         public object this[Quark quark] {
             get {
-                AssertNotDisposed();
-                var ret_ = g_object_get_qdata(handle, quark);
+                var ret_ = g_object_get_qdata(Handle, quark);
                 var ret = GCHandle.FromIntPtr(ret_).Target;
                 return ret;
             }
             set {
-                AssertNotDisposed();
+                var this_ = Handle;
                 if (value == null) {
-                    g_object_set_qdata(handle, quark, IntPtr.Zero);
+                    g_object_set_qdata(this_, quark, IntPtr.Zero);
                 }
                 else {
                     var data = (IntPtr)GCHandle.Alloc(value);
-                    g_object_set_qdata_full(handle, quark, data, freeDataDelegate);
+                    g_object_set_qdata_full(this_, quark, data, freeDataDelegate);
                 }
             }
         }

@@ -60,9 +60,9 @@ namespace GISharp.GObject
         [Since("2.4")]
         public ParamSpec FindProperty(Utf8 propertyName)
         {
-            AssertNotDisposed();
+            var this_ = Handle;
             var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
-            var ret_ = g_object_interface_find_property(handle, propertyName_);
+            var ret_ = g_object_interface_find_property(this_, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;
         }
@@ -126,12 +126,9 @@ namespace GISharp.GObject
         [Since("2.4")]
         public void InstallProperty(ParamSpec pspec)
         {
-            AssertNotDisposed();
-            if(pspec == null) {
-                throw new ArgumentNullException(nameof(pspec));
-            }
-            g_object_interface_install_property(handle, pspec.Handle);
-            GC.KeepAlive(pspec);
+            var this_ = Handle;
+            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            g_object_interface_install_property(this_, pspec_);
         }
 
         /// <summary>
@@ -177,8 +174,7 @@ namespace GISharp.GObject
         [Since("2.4")]
         public ParamSpec[] ListProperties()
         {
-            AssertNotDisposed();
-            var ret_ = g_object_interface_list_properties(handle, out var nProperties_);
+            var ret_ = g_object_interface_list_properties(Handle, out var nProperties_);
             var ret = GMarshal.PtrToOpaqueCArray<ParamSpec>(ret_, (int)nProperties_, true);
             return ret;
         }

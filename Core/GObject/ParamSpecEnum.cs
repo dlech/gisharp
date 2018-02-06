@@ -23,17 +23,10 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        IntPtr EnumClass {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (Handle, (int)enumClassOffset);
-                return ret;
-            }
-        }
+        IntPtr EnumClass => Marshal.ReadIntPtr(Handle, (int)enumClassOffset);
 
         public new System.Enum DefaultValue {
             get {
-                AssertNotDisposed ();
                 var ret_ = Marshal.ReadInt32 (Handle, (int)defaultValueOffset);
                 var ret = (System.Enum)System.Enum.ToObject (EnumType, ret_);
                 return ret;

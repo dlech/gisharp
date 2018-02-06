@@ -17,20 +17,19 @@ namespace GISharp.GObject
             public IntPtr GClass;
         }
 
-        protected ObjectClass GClass {
-            get {
-                AssertNotDisposed ();
-                if (_GClass == null) {
-                    var ptr = Marshal.ReadIntPtr(Handle);
-                    _GClass = new ObjectClass(ptr, Transfer.None);
-                }
-                return _GClass;
-            }
-        }
-        ObjectClass _GClass;
+        protected ObjectClass GClass => _GClass.Value;
+        readonly Lazy<ObjectClass> _GClass;
 
         protected TypeInstance (IntPtr handle) : base (handle)
         {
+            _GClass = new Lazy<ObjectClass>(GetGClass);
+        }
+
+        ObjectClass GetGClass()
+        {
+            var ret_ = Marshal.ReadIntPtr(Handle);
+            var ret = new ObjectClass(ret_, Transfer.None);
+            return ret;
         }
     }
 }

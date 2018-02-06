@@ -216,7 +216,6 @@ namespace GISharp.GModule
         /// </exception>
         public IntPtr GetSymbol (string symbolName)
         {
-            AssertNotDisposed ();
             if (symbolName == null) {
                 throw new ArgumentNullException (nameof (symbolName));
             }
@@ -247,7 +246,6 @@ namespace GISharp.GModule
         /// </remarks>
         public string Name {
             get {
-                AssertNotDisposed ();
                 var ret_ = g_module_name (Handle);
                 var ret = GMarshal.Utf8PtrToString (ret_);
                 return ret;
@@ -263,7 +261,6 @@ namespace GISharp.GModule
         /// </summary>
         public void MakeResident ()
         {
-            AssertNotDisposed ();
             g_module_make_resident (Handle);
         }
 

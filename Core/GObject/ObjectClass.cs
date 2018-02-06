@@ -694,8 +694,7 @@ namespace GISharp.GObject
         /// </returns>
         public ParamSpec[] ListProperties ()
         {
-            AssertNotDisposed ();
-            return ListProperties (Handle);
+            return ListProperties(Handle);
         }
 
         internal static ParamSpec[] ListProperties (IntPtr handle)

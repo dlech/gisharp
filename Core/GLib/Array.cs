@@ -24,19 +24,9 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        internal IntPtr Data {
-            get {
-                AssertNotDisposed ();
-                return Marshal.ReadIntPtr (handle, (int)dataOffset);
-            }
-        }
+        internal IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
-        uint Len {
-            get {
-                AssertNotDisposed ();
-                return (uint)Marshal.ReadInt32 (handle, (int)lenOffset);
-            }
-        }
+        uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
 
         public Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -182,13 +172,11 @@ namespace GISharp.GLib
         /// </param>
         protected void AppendVals<T> (T[] data) where T : struct
         {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
+            var this_ = Handle;
+            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_append_vals (handle, dataPtr, (uint)data.Length);
+            var data_ = gch.AddrOfPinnedObject();
+            g_array_append_vals(this_, data_, (uint)len);
             gch.Free ();
         }
 
@@ -215,8 +203,7 @@ namespace GISharp.GLib
         [Since ("2.22")]
         public int ElementSize {
             get {
-                AssertNotDisposed ();
-                var ret = g_array_get_element_size (handle);
+                var ret = g_array_get_element_size(Handle);
                 return (int)ret;
             }
         }
@@ -257,16 +244,14 @@ namespace GISharp.GLib
         /// </param>
         protected void InsertVals<T> (int index, T[] data) where T : struct
         {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
+            var this_ = Handle;
+            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
             if (index < 0 || index > Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_insert_vals (handle, (uint)index, dataPtr, (uint)data.Length);
+            var data_ = gch.AddrOfPinnedObject();
+            g_array_insert_vals(this_, (uint)index, data_, (uint)len);
             gch.Free ();
         }
 
@@ -309,13 +294,11 @@ namespace GISharp.GLib
         /// </param>
         protected void PrependVals<T> (params T[] data) where T : struct
         {
-            AssertNotDisposed ();
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
+            var this_ = Handle;
+            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
-            var dataPtr = gch.AddrOfPinnedObject ();
-            g_array_prepend_vals (handle, dataPtr, (uint)data.Length);
+            var data_ = gch.AddrOfPinnedObject ();
+            g_array_prepend_vals(this_, data_, (uint)len);
             gch.Free ();
         }
 
@@ -346,11 +329,11 @@ namespace GISharp.GLib
         /// </param>
         public void RemoveAt (int index)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_array_remove_index (handle, (uint)index);
+            g_array_remove_index(this_, (uint)index);
         }
 
         /// <summary>
@@ -384,11 +367,11 @@ namespace GISharp.GLib
         /// </param>
         public void RemoveAtFast (int index)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            g_array_remove_index_fast (handle, (uint)index);
+            g_array_remove_index_fast(this_, (uint)index);
         }
 
         /// <summary>
@@ -428,14 +411,14 @@ namespace GISharp.GLib
         [Since ("2.4")]
         public void RemoveRange (int index, int length)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (index < 0 || index >= Count) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             if (length < 0 || index + length > Count) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_array_remove_range (handle, (uint)index, (uint)length);
+            g_array_remove_range(this_, (uint)index, (uint)length);
         }
 
         /// <summary>
@@ -490,11 +473,11 @@ namespace GISharp.GLib
         /// </param>
         public void SetSize (int length)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            g_array_set_size (handle, (uint)length);
+            g_array_set_size(this_, (uint)length);
         }
 
         /// <summary>
@@ -532,7 +515,7 @@ namespace GISharp.GLib
         /// </param>
         protected void Sort<T> (Comparison<T> compareFunc) where T : struct
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (compareFunc == null) {
                 throw new ArgumentNullException (nameof (compareFunc));
             }
@@ -541,7 +524,7 @@ namespace GISharp.GLib
                 var y = Marshal.PtrToStructure<T> (b);
                 return compareFunc (x, y);
             };
-            g_array_sort (handle, compareFunc_);
+            g_array_sort(this_, compareFunc_);
             GC.KeepAlive (compareFunc_);
         }
 
@@ -701,38 +684,30 @@ namespace GISharp.GLib
             Sort<T> (compareFunc);
         }
 
-        bool ICollection<T>.IsReadOnly {
-            get {
-                AssertNotDisposed ();
-                return false;
-            }
-        }
+        bool ICollection<T>.IsReadOnly => false;
 
         public T this[int index] {
             get {
-                AssertNotDisposed ();
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var dataPtr = Data;
-                dataPtr += Marshal.SizeOf<T> () * index;
-                var item = Marshal.PtrToStructure<T> (dataPtr);
+                var data_ = Data;
+                data_ += Marshal.SizeOf<T>() * index;
+                var item = Marshal.PtrToStructure<T>(data_);
                 return item;
             }
             set {
-                AssertNotDisposed ();
                 if (index < 0 || index >= Count) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var dataPtr = Data;
-                dataPtr += Marshal.SizeOf<T> () * index;
-                Marshal.StructureToPtr<T> (value, dataPtr, false);
+                var data_ = Data;
+                data_ += Marshal.SizeOf<T>() * index;
+                Marshal.StructureToPtr<T>(value, data_, false);
             }
         }
 
         public bool Contains (T other)
         {
-            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (other)) {
                     return true;
@@ -743,7 +718,6 @@ namespace GISharp.GLib
 
         public void CopyTo (T[] array, int arrayIndex)
         {
-            AssertNotDisposed ();
             if (array == null) {
                 throw new ArgumentNullException (nameof (array));
             }
@@ -760,7 +734,6 @@ namespace GISharp.GLib
 
         public int IndexOf (T data)
         {
-            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     return i;
@@ -771,7 +744,6 @@ namespace GISharp.GLib
 
         public bool Remove (T data)
         {
-            AssertNotDisposed ();
             for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     RemoveAt (i);
@@ -781,24 +753,15 @@ namespace GISharp.GLib
             return false;
         }
 
-        IEnumerator<T> GetEnumeratorImpl ()
+        IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < Count; i++) {
                 yield return this[i];
             }
         }
 
-        public IEnumerator<T> GetEnumerator ()
-        {
-            AssertNotDisposed ();
-            // AssertNotDisposed will not run if we have yield return in this
-            // method body, so it is wrapped in another method.
-            return GetEnumeratorImpl ();
-        }
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator ()
-        {
-            return GetEnumerator ();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

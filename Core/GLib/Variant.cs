@@ -278,7 +278,6 @@ namespace GISharp.GLib
 
         public IndexedCollection<Variant> ChildValues {
             get {
-                AssertNotDisposed ();
                 if (childValues == null) {
                     childValues = new IndexedCollection<Variant> (nChildren, getChildValue);
                 }
@@ -2330,8 +2329,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public Variant Byteswap ()
         {
-            AssertNotDisposed ();
-            var ret_ = g_variant_byteswap (handle);
+            var ret_ = g_variant_byteswap(Handle);
             var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
@@ -2409,9 +2407,9 @@ namespace GISharp.GLib
         [Since ("2.34")]
         public bool CheckFormatString(Utf8 formatString, bool copyOnly)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var formatString_ = formatString?.Handle ?? throw new ArgumentNullException(nameof(formatString));
-            var ret = g_variant_check_format_string(handle, formatString_, copyOnly);
+            var ret = g_variant_check_format_string(this_, formatString_, copyOnly);
             return ret;
         }
 
@@ -2442,8 +2440,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public VariantClass Classify ()
         {
-            AssertNotDisposed ();
-            var ret = g_variant_classify (handle);
+            var ret = g_variant_classify(Handle);
             return ret;
         }
 
@@ -2516,7 +2513,7 @@ namespace GISharp.GLib
         /// If you only require an equality comparison, g_variant_equal() is more
         /// general.
         /// </remarks>
-        /// <param name="two">
+        /// <param name="other">
         /// a #GVariant instance of the same type
         /// </param>
         /// <returns>
@@ -2525,17 +2522,15 @@ namespace GISharp.GLib
         ///          positive value if a &gt; b.
         /// </returns>
         [Since ("2.26")]
-        public int CompareTo (Variant two)
+        public int CompareTo(Variant other)
         {
-            AssertNotDisposed ();
-            if (two == null) {
-                throw new ArgumentNullException (nameof (two));
-            }
-            if (Type != two.Type) {
-                var message = $"Variant types must match but have '{Type}' and '{two.Type}'";
+            var this_ = Handle;
+            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            if (Type != other.Type) {
+                var message = $"Variant types must match but have '{Type}' and '{other.Type}'";
                 throw new InvalidOperationException (message);
             }
-            var ret = g_variant_compare (handle, two.handle);
+            var ret = g_variant_compare(this_, other_);
             return ret;
         }
 
@@ -2594,20 +2589,18 @@ namespace GISharp.GLib
         /// The types of @one and @two are #gconstpointer only to allow use of
         /// this function with #GHashTable.  They must each be a #GVariant.
         /// </remarks>
-        /// <param name="two">
+        /// <param name="other">
         /// a #GVariant instance
         /// </param>
         /// <returns>
         /// %TRUE if @one and @two are equal
         /// </returns>
         [Since ("2.24")]
-        public bool Equals (Variant two)
+        public bool Equals(Variant other)
         {
-            AssertNotDisposed ();
-            if (two == null) {
-                throw new ArgumentNullException (nameof (two));
-            }
-            var ret = g_variant_equal (handle, two.handle);
+            var this_ = Handle;
+            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var ret = g_variant_equal(this_, other_);
             return ret;
         }
 
@@ -2667,11 +2660,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         bool Boolean {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Boolean)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_boolean (handle);
+                var ret = g_variant_get_boolean(Handle);
                 return ret;
             }
         }
@@ -2711,11 +2703,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         byte Byte {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Byte)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_byte (handle);
+                var ret = g_variant_get_byte(Handle);
                 return ret;
             }
         }
@@ -2781,11 +2772,10 @@ namespace GISharp.GLib
         [Since ("2.26")]
         byte[] Bytestring {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.ByteString)) {
                     throw new InvalidOperationException ();
                 }
-                var ret_ = g_variant_get_bytestring (handle);
+                var ret_ = g_variant_get_bytestring(Handle);
                 var ret = GMarshal.PtrToCArray<byte> (ret_, null);
                 return ret;
             }
@@ -2829,12 +2819,11 @@ namespace GISharp.GLib
 
         byte[][] GetBytestringArray ()
         {
-            AssertNotDisposed();
             if (!IsOfType (VariantType.ByteStringArray)) {
                 throw new InvalidOperationException ();
             }
             ulong length;
-            var ptr = g_variant_get_bytestring_array (handle, out length);
+            var ptr = g_variant_get_bytestring_array(Handle, out length);
             if (ptr == IntPtr.Zero) {
                 return null;
             }
@@ -2908,14 +2897,13 @@ namespace GISharp.GLib
         [Since ("2.24")]
         Variant getChildValue (int index)
         {
-            AssertNotDisposed ();
             if (!IsContainer) {
                 throw new InvalidOperationException ();
             }
             if (index < 0) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            var ret_ = g_variant_get_child_value (handle, (ulong)index);
+            var ret_ = g_variant_get_child_value(Handle, (ulong)index);
             var ret = GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
@@ -2997,8 +2985,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public IntPtr Data {
             get {
-                AssertNotDisposed ();
-                var ret = g_variant_get_data (handle);
+                var ret = g_variant_get_data(Handle);
                 return ret;
             }
         }
@@ -3038,11 +3025,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         double Double {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Double)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_double (handle);
+                var ret = g_variant_get_double(Handle);
                 return ret;
             }
         }
@@ -3145,13 +3131,11 @@ namespace GISharp.GLib
         [Since ("2.24")]
         IntPtr[] getFixedArray (ulong elementSize)
         {
-            AssertNotDisposed ();
-                if (!IsOfType (VariantType.Array)) {
-                    throw new InvalidOperationException ();
-                }
-            ulong nElements_;
-            var ret_ = g_variant_get_fixed_array (handle, out nElements_, elementSize);
-            var ret = GMarshal.PtrToCArray<IntPtr> (ret_, (int)nElements_);
+            if (!IsOfType(VariantType.Array)) {
+                throw new InvalidOperationException();
+            }
+            var ret_ = g_variant_get_fixed_array(Handle, out var nElements_, elementSize);
+            var ret = GMarshal.PtrToCArray<IntPtr>(ret_, (int)nElements_);
             return ret;
         }
 
@@ -3198,11 +3182,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         int DBusHandle {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.DBusHandle)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_handle (handle);
+                var ret = g_variant_get_handle(Handle);
                 return ret;
             }
         }
@@ -3242,11 +3225,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         short Int16 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Int16)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_int16 (handle);
+                var ret = g_variant_get_int16(Handle);
                 return ret;
             }
         }
@@ -3286,11 +3268,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         int Int32 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Int32)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_int32 (handle);
+                var ret = g_variant_get_int32(Handle);
                 return ret;
             }
         }
@@ -3330,11 +3311,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         long Int64 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Int64)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_int64 (handle);
+                var ret = g_variant_get_int64(Handle);
                 return ret;
             }
         }
@@ -3368,11 +3348,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         Variant Maybe {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.Maybe)) {
                     throw new InvalidOperationException ();
                 }
-                var ret_ = g_variant_get_maybe (handle);
+                var ret_ = g_variant_get_maybe(Handle);
                 var ret = GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
@@ -3437,8 +3416,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         Variant NormalForm {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_variant_get_normal_form (handle);
+                var ret_ = g_variant_get_normal_form(Handle);
                 var ret = GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
@@ -3483,12 +3461,11 @@ namespace GISharp.GLib
         [Since ("2.30")]
         DBusObjectPath[] Objv {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.DBusObjectPathArray)) {
                     throw new InvalidOperationException ();
                 }
                 ulong length;
-                var ptr = g_variant_get_objv (handle, out length);
+                var ptr = g_variant_get_objv(Handle, out length);
                 if (ptr == IntPtr.Zero) {
                     return null;
                 }
@@ -3550,8 +3527,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public ulong Size {
             get {
-                AssertNotDisposed ();
-                var ret = g_variant_get_size (handle);
+                var ret = g_variant_get_size(Handle);
                 return ret;
             }
         }
@@ -3622,12 +3598,11 @@ namespace GISharp.GLib
         [Since ("2.24")]
         string getString (out ulong length)
         {
-            AssertNotDisposed ();
-                if (!IsOfType (VariantType.String) && !IsOfType (VariantType.DBusObjectPath) && !IsOfType (VariantType.DBusSignature)) {
-                    throw new InvalidOperationException ();
-                }
-            var ret_ = g_variant_get_string (handle, out length);
-            var ret = GMarshal.Utf8PtrToString (ret_);
+            if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
+                throw new InvalidOperationException();
+            }
+            var ret_ = g_variant_get_string(Handle, out length);
+            var ret = GMarshal.Utf8PtrToString(ret_);
             return ret;
         }
 
@@ -3686,12 +3661,11 @@ namespace GISharp.GLib
         [Since ("2.24")]
         Strv Strv {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.StringArray)) {
                     throw new InvalidOperationException ();
                 }
                 ulong length_;
-                var ret_ = g_variant_get_strv (handle, out length_);
+                var ret_ = g_variant_get_strv(Handle, out length_);
                 var ret = Opaque.GetInstance<Strv>(ret_, Transfer.None);
                 GMarshal.Free(ret_);
                 return ret;
@@ -3726,8 +3700,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public VariantType Type {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_variant_get_type (handle);
+                var ret_ = g_variant_get_type(Handle);
                 var ret = GetInstance<VariantType> (ret_, Transfer.None);
                 return ret;
             }
@@ -3764,8 +3737,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public Utf8 TypeString {
             get {
-                AssertNotDisposed ();
-                var ret_ = g_variant_get_type_string (handle);
+                var ret_ = g_variant_get_type_string(Handle);
                 var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
@@ -3806,11 +3778,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         ushort Uint16 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.UInt16)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_uint16 (handle);
+                var ret = g_variant_get_uint16(Handle);
                 return ret;
             }
         }
@@ -3850,11 +3821,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         uint Uint32 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.UInt32)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_uint32 (handle);
+                var ret = g_variant_get_uint32(Handle);
                 return ret;
             }
         }
@@ -3894,11 +3864,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         ulong Uint64 {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.UInt64)) {
                     throw new InvalidOperationException ();
                 }
-                var ret = g_variant_get_uint64 (handle);
+                var ret = g_variant_get_uint64(Handle);
                 return ret;
             }
         }
@@ -3932,11 +3901,10 @@ namespace GISharp.GLib
         [Since ("2.24")]
         Variant BoxedVariant {
             get {
-                AssertNotDisposed ();
                 if (!IsOfType (VariantType.BoxedVariant)) {
                     throw new InvalidOperationException ();
                 }
-                var ret_ = g_variant_get_variant (handle);
+                var ret_ = g_variant_get_variant(Handle);
                 var ret = GetInstance<Variant> (ret_, Transfer.Full);
                 return ret;
             }
@@ -3987,8 +3955,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public override int GetHashCode ()
         {
-            AssertNotDisposed ();
-            var ret = g_variant_hash (handle);
+            var ret = g_variant_hash(Handle);
             return ret;
         }
 
@@ -4019,8 +3986,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public bool IsContainer {
             get {
-                AssertNotDisposed ();
-                var ret = g_variant_is_container (handle);
+                var ret = g_variant_is_container(Handle);
                 return ret;
             }
         }
@@ -4072,8 +4038,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public bool IsNormalForm {
             get {
-                AssertNotDisposed ();
-                var ret = g_variant_is_normal_form (handle);
+                var ret = g_variant_is_normal_form(Handle);
                 return ret;
             }
         }
@@ -4114,11 +4079,9 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public bool IsOfType (VariantType type)
         {
-            AssertNotDisposed ();
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
-            var ret = g_variant_is_of_type (handle, type.Handle);
+            var this_ = Handle;
+            var type_ = type?.Handle ?? throw new ArgumentNullException(nameof(type));
+            var ret = g_variant_is_of_type(this_, type_);
             return ret;
         }
 
@@ -4209,10 +4172,10 @@ namespace GISharp.GLib
         [Since ("2.28")]
         public Variant LookupValue (Utf8 key, VariantType expectedType)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
             var expectedType_ = expectedType?.Handle ?? IntPtr.Zero;
-            var ret_ = g_variant_lookup_value (handle, key_, expectedType_);
+            var ret_ = g_variant_lookup_value(this_, key_, expectedType_);
             var ret = GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
@@ -4266,8 +4229,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         int nChildren ()
         {
-            AssertNotDisposed ();
-            var ret = g_variant_n_children (handle);
+            var ret = g_variant_n_children(Handle);
             return (int)ret;
         }
 
@@ -4321,8 +4283,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public Utf8 Print(bool typeAnnotate)
         {
-            AssertNotDisposed ();
-            var ret_ = g_variant_print (handle, typeAnnotate);
+            var ret_ = g_variant_print(Handle, typeAnnotate);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -4381,8 +4342,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public void Store (IntPtr data)
         {
-            AssertNotDisposed ();
-            g_variant_store (handle, data);
+            g_variant_store(Handle, data);
         }
 
         public IEnumerator<Variant> GetEnumerator () => new VariantIter (this);
@@ -4573,7 +4533,6 @@ namespace GISharp.GLib
 
         void ICollection<Variant>.CopyTo(Variant[] array, int arrayIndex)
         {
-            AssertNotDisposed ();
             if (array == null) {
                 throw new ArgumentNullException(nameof(array));
             }

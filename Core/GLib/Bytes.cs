@@ -190,26 +190,23 @@ namespace GISharp.GLib
         /// <remarks>
         /// This function can be used to sort GBytes instances in lexographical order.
         /// </remarks>
-        /// <param name="bytes2">
+        /// <param name="other">
         /// a <see cref="Bytes"/> to compare with this
         /// </param>
         /// <exception name="ArgumentNullException">
-        /// If <paramref name="bytes2"/> is <c>null</c>.
+        /// If <paramref name="other"/> is <c>null</c>.
         ///</exception>
         /// <returns>
-        /// a negative value if <paramref name="bytes2"/> is lesser, a positive
-        /// value if <paramref name="bytes2"/> is
-        /// greater, and zero if <paramref name="bytes2"/> is equal to this
+        /// a negative value if <paramref name="other"/> is lesser, a positive
+        /// value if <paramref name="other"/> is
+        /// greater, and zero if <paramref name="other"/> is equal to this
         /// </returns>
         [Since ("2.32")]
-        public int CompareTo (Bytes bytes2)
+        public int CompareTo(Bytes other)
         {
-            AssertNotDisposed ();
-            if (bytes2 == null) {
-                throw new ArgumentNullException (nameof (bytes2));
-            }
-            var bytes2_ = bytes2.handle;
-            var ret = g_bytes_compare (handle, bytes2_);
+            var this_ = Handle;
+            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var ret = g_bytes_compare(this_, other_);
             return ret;
         }
 
@@ -270,24 +267,21 @@ namespace GISharp.GLib
         /// This function can be passed to g_hash_table_new() as the @key_equal_func
         /// parameter, when using non-%NULL #GBytes pointers as keys in a #GHashTable.
         /// </remarks>
-        /// <param name="bytes2">
+        /// <param name="other">
         /// a pointer to a #GBytes to compare with @bytes1
         /// </param>
         /// <exception name="ArgumentNullException">
-        /// If <paramref name="bytes2"/> is <c>null</c>.
+        /// If <paramref name="other"/> is <c>null</c>.
         ///</exception>
         /// <returns>
         /// <c>true</c> if the two keys match.
         /// </returns>
         [Since ("2.32")]
-        public bool Equals (Bytes bytes2)
+        public bool Equals(Bytes other)
         {
-            AssertNotDisposed ();
-            if (bytes2 == null) {
-                throw new ArgumentNullException (nameof (bytes2));
-            }
-            var bytes2_ = bytes2.handle;
-            var ret = g_bytes_equal (handle, bytes2_);
+            var this_ = Handle;
+            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var ret = g_bytes_equal(this_, other_);
             return ret;
         }
 
@@ -379,8 +373,7 @@ namespace GISharp.GLib
         [Since ("2.32")]
         public int Count {
             get {
-                AssertNotDisposed ();
-                var ret = g_bytes_get_size (handle);
+                var ret = g_bytes_get_size(Handle);
                 return (int)ret;
             }
         }
@@ -420,8 +413,7 @@ namespace GISharp.GLib
         [Since ("2.32")]
         public override int GetHashCode ()
         {
-            AssertNotDisposed ();
-            var ret = g_bytes_hash (handle);
+            var ret = g_bytes_hash (Handle);
             return ret;
         }
 
@@ -477,7 +469,7 @@ namespace GISharp.GLib
         [Since ("2.32")]
         public Bytes NewFromBytes (int offset, int length)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (offset < 0) {
                 throw new ArgumentOutOfRangeException (nameof (offset));
             }
@@ -487,40 +479,31 @@ namespace GISharp.GLib
             if (offset + length > Count) {
                 throw new ArgumentException ("offset + length exceeds size");
             }
-            var ret = g_bytes_new_from_bytes (handle, (UIntPtr)offset, (UIntPtr)length);
+            var ret = g_bytes_new_from_bytes(this_, (UIntPtr)offset, (UIntPtr)length);
             return new Bytes (ret, Transfer.Full);
         }
 
         public byte this[int index] {
             get {
-                AssertNotDisposed ();
-                UIntPtr size;
-                var dataPtr = g_bytes_get_data (handle, out size);
+                var this_ = Handle;
+                var ret_ = g_bytes_get_data(this_, out var size);
                 if (index < 0 || index >= (int)size) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
-                var ret = Marshal.ReadByte (dataPtr, index);
+                var ret = Marshal.ReadByte(ret_, index);
                 return ret;
             }
         }
 
-        IEnumerable<byte> Enumerate ()
+        IEnumerator<byte> GetEnumerator()
         {
             for (int i = 0; i < Count; i++) {
                 yield return this[i];
             }
         }
 
-        public IEnumerator<byte> GetEnumerator ()
-        {
-            AssertNotDisposed ();
-            return Enumerate ().GetEnumerator ();
-        }
+        IEnumerator<byte> IEnumerable<byte>.GetEnumerator() => GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator ()
-        {
-            AssertNotDisposed ();
-            return Enumerate ().GetEnumerator ();
-        }
+        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator();
     }
 }

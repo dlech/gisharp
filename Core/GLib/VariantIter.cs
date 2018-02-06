@@ -98,8 +98,7 @@ namespace GISharp.GLib
 
         public void Reset ()
         {
-            AssertNotDisposed ();
-            g_variant_iter_init (handle, value.Handle);
+            g_variant_iter_init(Handle, value.Handle);
         }
 
         /// <summary>
@@ -139,8 +138,7 @@ namespace GISharp.GLib
         [Since ("2.24")]
         public int Count {
             get {
-                AssertNotDisposed ();
-                var ret = g_variant_iter_n_children (handle);
+                var ret = g_variant_iter_n_children(Handle);
                 return (int)ret;
             }
         }
@@ -192,8 +190,7 @@ namespace GISharp.GLib
 
         public bool MoveNext ()
         {
-            AssertNotDisposed ();
-            var ret_ = g_variant_iter_next_value (handle);
+            var ret_ = g_variant_iter_next_value(Handle);
             if (ret_ == IntPtr.Zero) {
                 return false;
             }

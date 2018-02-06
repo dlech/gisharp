@@ -25,29 +25,11 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public sbyte Minimum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadByte (Handle, (int)minimumOffset);
-                return (sbyte)ret;
-            }
-        }
+        public sbyte Minimum => (sbyte)Marshal.ReadByte(Handle, (int)minimumOffset);
 
-        public sbyte Maximum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadByte (Handle, (int)maximumOffset);
-                return (sbyte)ret;
-            }
-        }
+        public sbyte Maximum => (sbyte)Marshal.ReadByte(Handle, (int)maximumOffset);
 
-        public new sbyte DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadByte (Handle, (int)defaultValueOffset);
-                return (sbyte)ret;
-            }
-        }
+        public new sbyte DefaultValue => (sbyte)Marshal.ReadByte(Handle, (int)defaultValueOffset);
 
         public ParamSpecChar (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

@@ -44,8 +44,7 @@ namespace GISharp.GLib
         [Since("2.6")]
         public int Length {
             get {
-                AssertNotDisposed();
-                var ret = g_strv_length(handle);
+                var ret = g_strv_length(Handle);
                 return (int)ret;
             }
         }
@@ -57,19 +56,18 @@ namespace GISharp.GLib
         [Since("2.44")]
         public bool Contains(string str)
         {
-            AssertNotDisposed();
+            var this_ = Handle;
             var str_ = GMarshal.StringToUtf8Ptr(str);
-            var ret = g_strv_contains(handle, str_);
+            var ret = g_strv_contains(this_, str_);
             GMarshal.Free(str_);
             return ret;
         }
 
         IEnumerator<string> GetEnumerator()
         {
-            AssertNotDisposed();
             IntPtr str_;
             var offset = 0;
-            while ((str_ = Marshal.ReadIntPtr(handle, offset)) != IntPtr.Zero) {
+            while ((str_ = Marshal.ReadIntPtr(Handle, offset)) != IntPtr.Zero) {
                 yield return GMarshal.Utf8PtrToString(str_);
                 offset += IntPtr.Size;
             }

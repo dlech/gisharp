@@ -32,25 +32,13 @@ namespace GISharp.GLib
         /// Gets the error domain (aka error quark).
         /// </summary>
         /// <value>The domain value.</value>
-        public Quark Domain {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (handle, (int)domainOffset);
-                return (uint)ret;
-            }
-        }
+        public Quark Domain => (uint)Marshal.ReadInt32(Handle, (int)domainOffset);
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The code.</value>
-        public int Code {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (handle, (int)codeOffset);
-                return ret;
-            }
-        }
+        public int Code => Marshal.ReadInt32(Handle, (int)codeOffset);
 
         /// <summary>
         /// Gets the error message.
@@ -58,8 +46,7 @@ namespace GISharp.GLib
         /// <value>The message.</value>
         public Utf8 Message {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr(handle, (int)messageOffset);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)messageOffset);
                 var ret = GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
@@ -163,8 +150,7 @@ namespace GISharp.GLib
         /// </remarks>
         public bool Matches (Quark domain, int code)
         {
-            AssertNotDisposed ();
-            var ret = g_error_matches (handle, domain, code);
+            var ret = g_error_matches(Handle, domain, code);
             return ret;
         }
 
@@ -185,8 +171,7 @@ namespace GISharp.GLib
         /// </remarks>
         public bool Matches (Quark domain, System.Enum code)
         {
-            AssertNotDisposed ();
-            var ret = g_error_matches (handle, domain, (int)(object)code);
+            var ret = g_error_matches(Handle, domain, (int)(object)code);
             return ret;
         }
 

@@ -75,27 +75,11 @@ namespace GISharp.GObject
                 IntPtr marshalData);
         }
 
-        uint BitFields {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (handle, (int)bitFieldsOffset);
-                return (uint)ret;
-            }
-        }
+        uint BitFields => (uint)Marshal.ReadInt32(Handle, (int)bitFieldsOffset);
 
-        uint RefCount {
-            get {
-                return BitFields & 0x7FFF;
-            }
-        }
+        uint RefCount => BitFields & 0x7FFF;
 
-        IntPtr Data {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadIntPtr (handle, (int)dataOffset);
-                return ret;
-            }
-        }
+        IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
         public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -462,8 +446,7 @@ namespace GISharp.GObject
         /// </remarks>
         public void Invalidate ()
         {
-            AssertNotDisposed ();
-            g_closure_invalidate (handle);
+            g_closure_invalidate(Handle);
         }
 
         /// <summary>
@@ -521,14 +504,14 @@ namespace GISharp.GObject
         /// <returns>The return value of the closure invocation</returns>
         public T Invoke<T>(params object[] paramValues)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (paramValues == null) {
                 throw new ArgumentNullException (nameof (paramValues));
             }
 
             var returnValue = new Value(GType.TypeOf<T>());
             var values = paramValues.Select(p => new Value(p?.GetType(), p)).ToArray();
-            g_closure_invoke(handle, ref returnValue, (uint)values.Length, values, IntPtr.Zero);
+            g_closure_invoke(this_, ref returnValue, (uint)values.Length, values, IntPtr.Zero);
             foreach (var v in values) {
                 v.Unset();
             }

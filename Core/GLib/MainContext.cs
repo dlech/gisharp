@@ -484,8 +484,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Acquire ()
         {
-            AssertNotDisposed ();
-            var ret = g_main_context_acquire (handle);
+            var ret = g_main_context_acquire(Handle);
             return ret;
         }
 
@@ -536,8 +535,7 @@ namespace GISharp.GLib
         /// </param>
         public void AddPoll (PollFD fd, int priority)
         {
-            AssertNotDisposed ();
-            g_main_context_add_poll (handle, fd, priority);
+            g_main_context_add_poll(Handle, fd, priority);
         }
 
         /// <summary>
@@ -601,13 +599,13 @@ namespace GISharp.GLib
         /// </returns>
         public int Check (int maxPriority, PollFD[] fds)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             if (fds == null) {
                 throw new ArgumentNullException (nameof(fds));
             }
             var fds_ = GMarshal.CArrayToPtr (fds, false);
             var nFds_ = fds?.Length ?? 0;
-            var ret = g_main_context_check (handle, maxPriority, fds_, nFds_);
+            var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
             GMarshal.Free (fds_);
             return ret;
         }
@@ -639,8 +637,7 @@ namespace GISharp.GLib
         /// </remarks>
         public void Dispatch ()
         {
-            AssertNotDisposed ();
-            g_main_context_dispatch (handle);
+            g_main_context_dispatch(Handle);
         }
 
         /// <summary>
@@ -701,8 +698,7 @@ namespace GISharp.GLib
         /// </returns>
         public Source FindSourceById (uint sourceId)
         {
-            AssertNotDisposed ();
-            var ret_ = g_main_context_find_source_by_id (handle, sourceId);
+            var ret_ = g_main_context_find_source_by_id(Handle, sourceId);
             var ret = GetInstance<Source> (ret_, Transfer.None);
             return ret;
         }
@@ -742,14 +738,12 @@ namespace GISharp.GLib
         /// </remarks>
         public UnmanagedPollFunc PollFunc {
             get {
-                AssertNotDisposed ();
-                var ret = g_main_context_get_poll_func (handle);
+                var ret = g_main_context_get_poll_func(Handle);
                 return ret;
             }
 
             set {
-                AssertNotDisposed ();
-                g_main_context_set_poll_func (handle, value);
+                g_main_context_set_poll_func(Handle, value);
             }
         }
 
@@ -814,12 +808,9 @@ namespace GISharp.GLib
         [Since ("2.28")]
         public void Invoke (SourceFunc function, int priority = Priority.Default)
         {
-            AssertNotDisposed ();
-            if (function == null) {
-                throw new ArgumentNullException (nameof(function));
-            }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
-            g_main_context_invoke_full (handle, priority, function_, data_, notify_);
+            var this_ = Handle;
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(function);
+            g_main_context_invoke_full(this_, priority, function_, data_, notify_);
         }
 
         /// <summary>
@@ -855,8 +846,7 @@ namespace GISharp.GLib
         [Since ("2.10")]
         public bool IsOwner {
             get {
-                AssertNotDisposed ();
-                var ret = g_main_context_is_owner (handle);
+                var ret = g_main_context_is_owner(Handle);
                 return ret;
             }
         }
@@ -919,8 +909,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Iteration (bool mayBlock)
         {
-            AssertNotDisposed ();
-            var ret = g_main_context_iteration (handle, mayBlock);
+            var ret = g_main_context_iteration(Handle, mayBlock);
             return ret;
         }
 
@@ -949,8 +938,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool CheckPending ()
         {
-            AssertNotDisposed ();
-            var ret = g_main_context_pending (handle);
+            var ret = g_main_context_pending(Handle);
             return ret;
         }
 
@@ -977,8 +965,7 @@ namespace GISharp.GLib
         [Since ("2.22")]
         public void PopThreadDefault ()
         {
-            AssertNotDisposed ();
-            g_main_context_pop_thread_default (handle);
+            g_main_context_pop_thread_default(Handle);
         }
 
         /// <summary>
@@ -1029,8 +1016,7 @@ namespace GISharp.GLib
         /// </returns>
         public bool Prepare (out int priority)
         {
-            AssertNotDisposed ();
-            var ret = g_main_context_prepare (handle, out priority);
+            var ret = g_main_context_prepare(Handle, out priority);
             return ret;
         }
 
@@ -1131,8 +1117,7 @@ namespace GISharp.GLib
         [Since ("2.22")]
         public void PushThreadDefault ()
         {
-            AssertNotDisposed ();
-            g_main_context_push_thread_default (handle);
+            g_main_context_push_thread_default(Handle);
         }
 
         /// <summary>
@@ -1204,12 +1189,12 @@ namespace GISharp.GLib
         /// </param>
         public void Query (int maxPriority, out int timeout, out PollFD[] fds)
         {
-            AssertNotDisposed ();
+            var this_ = Handle;
             // call first time to get the size
-            var ret = g_main_context_query (handle, maxPriority, out timeout, IntPtr.Zero, 0);
+            var ret = g_main_context_query(this_, maxPriority, out timeout, IntPtr.Zero, 0);
             // then call again with appropriate storage space
             var fds_ = GMarshal.Alloc (Marshal.SizeOf<PollFD> () * ret);
-            ret = g_main_context_query (handle, maxPriority, out timeout, fds_, ret);
+            ret = g_main_context_query(this_, maxPriority, out timeout, fds_, ret);
             fds = GMarshal.PtrToCArray<PollFD> (fds_, ret, true);
         }
 
@@ -1238,8 +1223,7 @@ namespace GISharp.GLib
         /// </summary>
         public void Release ()
         {
-            AssertNotDisposed ();
-            g_main_context_release (handle);
+            g_main_context_release(Handle);
         }
 
         /// <summary>
@@ -1272,8 +1256,7 @@ namespace GISharp.GLib
         /// </param>
         public void RemovePoll (PollFD fd)
         {
-            AssertNotDisposed ();
-            g_main_context_remove_poll (handle, fd);
+            g_main_context_remove_poll(Handle, fd);
         }
 
         /// <summary>
@@ -1378,8 +1361,7 @@ namespace GISharp.GLib
         /// </remarks>
         public void Wakeup ()
         {
-            AssertNotDisposed ();
-            g_main_context_wakeup (handle);
+            g_main_context_wakeup(Handle);
         }
 
         GSynchronizationContext _SynchronizationContext;

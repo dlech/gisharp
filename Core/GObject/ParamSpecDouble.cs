@@ -26,37 +26,13 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public double Minimum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)minimumOffset);
-                return ret;
-            }
-        }
+        public double Minimum => Marshal.PtrToStructure<double>(Handle + (int)minimumOffset);
 
-        public double Maximum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)maximumOffset);
-                return ret;
-            }
-        }
+        public double Maximum => Marshal.PtrToStructure<double>(Handle + (int)maximumOffset);
 
-        public new double DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)defaultValueOffset);
-                return ret;
-            }
-        }
+        public new double DefaultValue => Marshal.PtrToStructure<double>(Handle + (int)defaultValueOffset);
 
-        public double Epsilon {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<double> (Handle + (int)epsilonOffset);
-                return ret;
-            }
-        }
+        public double Epsilon => Marshal.PtrToStructure<double>(Handle + (int)epsilonOffset);
 
         public ParamSpecDouble (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

@@ -26,37 +26,13 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public float Minimum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<float> (Handle + (int)minimumOffset);
-                return ret;
-            }
-        }
+        public float Minimum => Marshal.PtrToStructure<float>(Handle + (int)minimumOffset);
 
-        public float Maximum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<float> (Handle + (int)maximumOffset);
-                return ret;
-            }
-        }
+        public float Maximum => Marshal.PtrToStructure<float>(Handle + (int)maximumOffset);
 
-        public new float DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<float> (Handle + (int)defaultValueOffset);
-                return ret;
-            }
-        }
+        public new float DefaultValue => Marshal.PtrToStructure<float>(Handle + (int)defaultValueOffset);
 
-        public float Epsilon {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.PtrToStructure<float> (Handle + (int)epsilonOffset);
-                return ret;
-            }
-        }
+        public float Epsilon => Marshal.PtrToStructure<float>(Handle + (int)epsilonOffset);
 
         public ParamSpecFloat (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

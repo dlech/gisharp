@@ -24,29 +24,11 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public uint Minimum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)minimumOffset);
-                return (uint)ret;
-            }
-        }
+        public uint Minimum => (uint)Marshal.ReadInt32(Handle, (int)minimumOffset);
 
-        public uint Maximum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)maximumOffset);
-                return (uint)ret;
-            }
-        }
+        public uint Maximum => (uint)Marshal.ReadInt32(Handle, (int)maximumOffset);
 
-        public new uint DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)defaultValueOffset);
-                return (uint)ret;
-            }
-        }
+        public new uint DefaultValue => (uint)Marshal.ReadInt32(Handle, (int)defaultValueOffset);
 
         public ParamSpecUInt (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

@@ -24,29 +24,11 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public ulong Minimum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt64 (Handle, (int)minimumOffset);
-                return (ulong)ret;
-            }
-        }
+        public ulong Minimum => (ulong)Marshal.ReadInt64(Handle, (int)minimumOffset);
 
-        public ulong Maximum {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt64 (Handle, (int)maximumOffset);
-                return (ulong)ret;
-            }
-        }
+        public ulong Maximum => (ulong)Marshal.ReadInt64(Handle, (int)maximumOffset);
 
-        public new ulong DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt64 (Handle, (int)defaultValueOffset);
-                return (ulong)ret;
-            }
-        }
+        public new ulong DefaultValue => (ulong)Marshal.ReadInt64(Handle, (int)defaultValueOffset);
 
         public ParamSpecUInt64 (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

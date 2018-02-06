@@ -1,5 +1,6 @@
 using System;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.GObject
@@ -28,48 +29,33 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public new string DefaultValue {
+        public new Utf8 DefaultValue {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)defaultValueOffset);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)defaultValueOffset);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }
 
-        public string CsetFirst {
+        public Utf8 CsetFirst {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)csetFirstOffset);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)csetFirstOffset);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }
 
-        public string CsetNth {
+        public Utf8 CsetNth {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)csetNthOffset);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)csetNthOffset);
+                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
         }
 
-        public sbyte Substitutor {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadByte (Handle, (int)substitutorOffset);
-                return (sbyte)ret;
-            }
-        }
+        public sbyte Substitutor => (sbyte)Marshal.ReadByte(Handle, (int)substitutorOffset);
 
-        uint Bitfield {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)bitfieldOffset);
-                return (uint)ret;
-            }
-        }
+        uint Bitfield => (uint)Marshal.ReadInt32(Handle, (int)bitfieldOffset);
 
         public ParamSpecString (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

@@ -20,13 +20,7 @@ namespace GISharp.GObject
             #pragma warning restore CS0649
         }
 
-        public new int DefaultValue {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)defaultValueOffset);
-                return ret;
-            }
-        }
+        public new int DefaultValue => Marshal.ReadInt32(Handle, (int)defaultValueOffset);
 
         public ParamSpecUnichar (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

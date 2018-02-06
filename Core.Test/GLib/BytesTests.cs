@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using GISharp.GLib;
 using NUnit.Framework;
 
@@ -95,10 +96,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (expected, Is.EqualTo (4));
 
                 bytes.Dispose ();
-                Assert.That (() => bytes.GetEnumerator (),
-                             Throws.TypeOf<ObjectDisposedException> ());
-                Assert.That (() => ((IEnumerable)bytes).GetEnumerator (),
-                             Throws.TypeOf<ObjectDisposedException> ());
+                Assert.That(() => bytes.Any(), Throws.TypeOf<ObjectDisposedException>());
             }
 
             Utility.AssertNoGLibLog();

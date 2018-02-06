@@ -26,20 +26,13 @@ namespace GISharp.GObject
 
         public ParamSpec ElementSpec {
             get {
-                AssertNotDisposed ();
-                var ret_ = Marshal.ReadIntPtr (Handle, (int)elementSpecOffset);
+                var ret_ = Marshal.ReadIntPtr(Handle, (int)elementSpecOffset);
                 var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
         }
 
-        public uint FixedNElements {
-            get {
-                AssertNotDisposed ();
-                var ret = Marshal.ReadInt32 (Handle, (int)fixedNElementsOffset);
-                return (uint)ret;
-            }
-        }
+        public uint FixedNElements => (uint)Marshal.ReadInt32(Handle, (int)fixedNElementsOffset);
 
         public ParamSpecValueArray (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
