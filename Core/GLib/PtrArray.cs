@@ -32,7 +32,7 @@ namespace GISharp.GLib
         /// <summary>
         /// number of pointers in the array
         /// </summary>
-        public int Count => Marshal.ReadInt32(Handle, (int)lenOffset);
+        public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
         public PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -422,7 +422,7 @@ namespace GISharp.GLib
         /// </returns>
         protected IntPtr RemoveAt(int index)
         {
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index(Handle, (uint)index);
@@ -466,7 +466,7 @@ namespace GISharp.GLib
         protected IntPtr RemoveAtFast(int index)
         {
             var this_ = Handle;
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret = g_ptr_array_remove_index_fast(this_, (uint)index);
@@ -520,7 +520,7 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            if (index + length > Count) {
+            if (index + length > Length) {
                 throw new ArgumentException ("index + length exceeds Count.");
             }
             g_ptr_array_remove_range(this_, (uint)index, (uint)length);
@@ -737,7 +737,7 @@ namespace GISharp.GLib
         }
     }
 
-    public sealed class PtrArray<T> : PtrArray, IList<T>
+    public sealed class PtrArray<T> : PtrArray, IPtrArray<T>, IList<T>
         where T : Opaque
     {
         static Func<IntPtr, IntPtr> elementCopyFunc;
@@ -828,7 +828,7 @@ namespace GISharp.GLib
         [Since ("2.40")]
         public void Insert (int index, T data)
         {
-            if (index < 0 || index > Count) {
+            if (index < 0 || index > Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
             var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
@@ -948,7 +948,7 @@ namespace GISharp.GLib
         public T this[int index] {
             get {
                 var data_ = Data;
-                if (index < 0 || index >= Count) {
+                if (index < 0 || index >= Length) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
                 var ret_ = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
@@ -975,7 +975,7 @@ namespace GISharp.GLib
         public int IndexOf (T data)
         {
             var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 var ptr = Marshal.ReadIntPtr(Data, IntPtr.Size * i);
                 if (ptr == data_) {
                     return i;
@@ -1011,17 +1011,19 @@ namespace GISharp.GLib
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }
-            if (Count > array.Length - arrayIndex) {
+            if (Length > array.Length - arrayIndex) {
                 throw new ArgumentException ("Destination array is not long enough.");
             }
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 array[i + arrayIndex] = this[i];
             }
         }
 
+        int ICollection<T>.Count => Length;
+
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 yield return this[i];
             }
         }
@@ -1035,7 +1037,7 @@ namespace GISharp.GLib
             if (OwnsElements) {
                 throw new InvalidOperationException("Elements are already owned");
             }
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 var offset = IntPtr.Size * i;
                 var ptr = Marshal.ReadIntPtr(Handle, offset);
                 ptr = elementCopyFunc(ptr);

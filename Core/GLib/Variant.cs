@@ -542,9 +542,9 @@ namespace GISharp.GLib
             return new Variant (value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs(VariantType childType, PtrArray<Variant> children)
+        static void AssertNewArrayArgs(VariantType childType, IPtrArray<Variant> children)
         {
-            if (childType == null && (children == null || children.Count == 0)) {
+            if (childType == null && (children == null || children.Length == 0)) {
                 throw new ArgumentException ("Must specify child type when no children", nameof (childType));
             }
             if (childType == null && children == null) {
@@ -640,12 +640,12 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewArray(VariantType childType, PtrArray<Variant> children)
+        static IntPtr NewArray(VariantType childType, IPtrArray<Variant> children)
         {
             AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
             var children_ = children?.Data ?? IntPtr.Zero;
-            var nChildren_ = (ulong)(children?.Count ?? 0);
+            var nChildren_ = (ulong)(children?.Length ?? 0);
             var ret = g_variant_new_array(childType_, children_, nChildren_);
             return ret;
         }
@@ -676,7 +676,7 @@ namespace GISharp.GLib
         ///            #GVariant pointers, the children
         /// </param>
         [Since ("2.24")]
-        public Variant(VariantType childType, PtrArray<Variant> children)
+        public Variant(VariantType childType, IPtrArray<Variant> children)
             : this(NewArray(childType, children), Transfer.None)
         {
         }
@@ -1808,13 +1808,13 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewTuple(PtrArray<Variant> children)
+        static IntPtr NewTuple(IPtrArray<Variant> children)
         {
             var children_ = children?.Data ?? throw new ArgumentNullException(nameof(children));
             if (children.Any (x => x == null)) {
                 throw new ArgumentException("Tuple cannot have null elements", nameof(children));
             }
-            var nChildren_ = (ulong)(children?.Count ?? 0);
+            var nChildren_ = (ulong)(children?.Length ?? 0);
             var ret = g_variant_new_tuple(children_, nChildren_);
             return ret;
         }
@@ -1834,7 +1834,7 @@ namespace GISharp.GLib
         /// the items to make the tuple out of
         /// </param>
         [Since ("2.24")]
-        public Variant(PtrArray<Variant> children) : this(NewTuple(children), Transfer.None)
+        public Variant(IPtrArray<Variant> children) : this(NewTuple(children), Transfer.None)
         {
         }
 

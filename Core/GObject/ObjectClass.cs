@@ -580,11 +580,11 @@ namespace GISharp.GObject
         ///   defining the new properties
         /// </param>
         [Since ("2.26")]
-        public void InstallProperties(PtrArray<ParamSpec> pspecs)
+        public void InstallProperties(IPtrArray<ParamSpec> pspecs)
         {
             var this_ = Handle;
             var pspecs_ = pspecs?.Data ?? throw new ArgumentNullException(nameof(pspecs));
-            var nPspecs_ = (uint)pspecs.Count;
+            var nPspecs_ = (uint)pspecs.Length;
             g_object_class_install_properties (this_, nPspecs_, pspecs_);
             GMarshal.Free (pspecs_);
         }
