@@ -553,20 +553,11 @@ namespace GISharp.GLib
         /// A function to free elements with
         ///     destroy this array or <c>null</c>
         /// </param>
-        //[Since("2.22")]
-        //public void SetFreeFunc (DestroyNotify<T> elementFreeFunc)
-        //{
-        //    var this_ = Handle;
-        //    if (elementFreeFunc == null) {
-        //        elementFreeFuncUnmanaged = default(UnmanagedDestroyNotify);
-        //    } else {
-        //        elementFreeFuncUnmanaged = (elementFreeFuncDataPtr) => {
-        //            var elementFreeFuncData = Opaque.GetInstance<T> (elementFreeFuncDataPtr, Transfer.None);
-        //            elementFreeFunc (elementFreeFuncData);
-        //        };
-        //    }
-        //    g_ptr_array_set_free_func(this_, elementFreeFuncNative);
-        //}
+        [Since("2.22")]
+        protected void SetFreeFunc(UnmanagedDestroyNotify elementFreeFunc)
+        {
+           g_ptr_array_set_free_func(Handle, elementFreeFunc);
+        }
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
@@ -766,7 +757,7 @@ namespace GISharp.GLib
         /// Indicates if this <see cref="PtrArray{T}"/> owns the elements in the
         /// GLib sense.
         /// </summary>
-        public bool OwnsElements { get; }
+        public bool OwnsElements { get; private set; }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> instance.
@@ -1038,6 +1029,21 @@ namespace GISharp.GLib
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        public void TakeOwnershipOfElements()
+        {
+            if (OwnsElements) {
+                throw new InvalidOperationException("Elements are already owned");
+            }
+            for (int i = 0; i < Count; i++) {
+                var offset = IntPtr.Size * i;
+                var ptr = Marshal.ReadIntPtr(Handle, offset);
+                ptr = elementCopyFunc(ptr);
+                Marshal.WriteIntPtr(Handle, offset, ptr);
+            }
+            SetFreeFunc(elementFreeFunc);
+            OwnsElements = true;
+        }
     }
 
     public static class PtrArrayExtensions
