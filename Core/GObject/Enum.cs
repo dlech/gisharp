@@ -111,10 +111,10 @@ namespace GISharp.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        static void CompleteTypeInfo (GType gEnumType, out TypeInfo info, EnumValue[] constValues)
+        static void CompleteTypeInfo(GType gEnumType, out TypeInfo info, IArray<EnumValue> constValues)
         {
-            var constValues_ = GMarshal.CArrayToPtr<EnumValue> (constValues, nullTerminated: true);
-            g_enum_complete_type_info (gEnumType, out info, constValues_);
+            var constValues_ = constValues?.Data ?? throw new ArgumentNullException(nameof(constValues));
+            g_enum_complete_type_info(gEnumType, out info, constValues_);
         }
 
         /// <summary>
@@ -267,12 +267,20 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_enum_register_static (IntPtr typeName, IntPtr values);
 
-        public static GType RegisterStatic (string typeName, EnumValue[] values)
+        public static GType RegisterStatic(Utf8 typeName, IArray<EnumValue> values)
         {
-            GType.AssertGTypeName (typeName);
-            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
-            var values_ = GMarshal.CArrayToPtr<EnumValue> (values, nullTerminated: true);
-            var ret = g_enum_register_static (typeName_, values_);
+            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
+            GType.AssertGTypeName(typeName);
+            var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
+
+            // verify that the array is null-terminated
+            var offset = Marshal.SizeOf<EnumValue>() * length;
+            var terminator = Marshal.PtrToStructure<EnumValue>(values_ + offset);
+            if (!terminator.Equals(default(EnumValue))) {
+                throw new ArgumentException("Must be null-terminated", nameof(values));
+            }
+
+            var ret = g_enum_register_static(typeName_, values_);
             // values are never freed for the lifetime of the program
             return ret;
         }

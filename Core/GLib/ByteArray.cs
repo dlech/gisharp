@@ -11,7 +11,7 @@ namespace GISharp.GLib
     /// Contains the public fields of a GByteArray.
     /// </summary>
     [GType ("GByteArray", IsProxyForUnmanagedType = true)]
-    public sealed class ByteArray : Boxed, IList<byte>
+    public sealed class ByteArray : Boxed, IArray<byte>, IList<byte>
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
@@ -24,9 +24,9 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        public IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
-        uint Len => Marshal.PtrToStructure<uint>(Handle + (int)lenOffset);
+        public int Length => Marshal.ReadInt32(Handle + (int)lenOffset);
 
         public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -34,9 +34,6 @@ namespace GISharp.GLib
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_ref (IntPtr array);
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_free (IntPtr array, bool freeSegment);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_unref (IntPtr array);
@@ -265,13 +262,13 @@ namespace GISharp.GLib
         /// <param name="item">Item.</param>
         public void Insert (int index, byte item)
         {
-            if (index == Count) {
+            if (index == Length) {
                 Append (item);
                 return;
             }
             AssertIndexInRange (index);
-            int i = Count;
-            for (SetSize (Count + 1); i > index; i--) {
+            int i = Length;
+            for (SetSize(Length + 1); i > index; i--) {
                 this[i] = this[i - 1];
             }
             this[i] = item;
@@ -383,7 +380,7 @@ namespace GISharp.GLib
         {
             var this_ = Handle;
             AssertIndexInRange (index);
-            if (length < 0 || index + length > Count) {
+            if (length < 0 || index + length > Length) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_byte_array_remove_range(this_, (uint)index, (uint)length);
@@ -396,7 +393,7 @@ namespace GISharp.GLib
         /// <param name="item">The item to remove.</param>
         public bool Remove (byte item)
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 if (this[i] == item) {
                     RemoveAt (i);
                     return true;
@@ -494,15 +491,24 @@ namespace GISharp.GLib
             GC.KeepAlive (compareFunc_);
         }
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_byte_array_free(IntPtr array, bool freeSegment);
+
+        public ValueTuple<IntPtr, int> TakeData()
+        {
+            var length = Length;
+            var data = g_byte_array_free(Handle, false);
+            handle = IntPtr.Zero; // object becomes disposed
+            return (data, length);
+        }
+
         /// <summary>
         /// Gets the number of elements in the <see cref="ByteArray"/>.
         /// </summary>
         /// <value>The count.</value>
-        public int Count {
-            get {
-                return (int)Len;
-            }
-        }
+        int ICollection<byte>.Count => Length;
+
+        int IReadOnlyCollection<byte>.Count => Length;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="ByteArray"/> is read only.
@@ -544,7 +550,7 @@ namespace GISharp.GLib
         /// <param name="item">The item to search for.</param>
         public int IndexOf (byte item)
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 if (this[i] == item) {
                     return i;
                 }
@@ -567,17 +573,17 @@ namespace GISharp.GLib
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }
-            if (arrayIndex + Count > array.Length) {
+            if (arrayIndex + Length > array.Length) {
                 throw new ArgumentException ("Destination array is not long enough.");
             }
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 array[i + arrayIndex] = this[i];
             }
         }
 
         IEnumerator<byte> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 yield return this[i];
             }
         }
@@ -588,7 +594,7 @@ namespace GISharp.GLib
 
         void AssertIndexInRange (int index)
         {
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
         }

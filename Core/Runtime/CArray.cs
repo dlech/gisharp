@@ -5,15 +5,15 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
-    public abstract class CPtrArray : Opaque
+    public abstract class CArray : Opaque
     {
         public bool Owned { get; private set; }
 
         public int Length { get; }
 
-        public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        public CArray(IntPtr handle, int length, Transfer ownership) : base(handle)
         {
-            if (ownership == Transfer.Full) {
+            if (ownership == Transfer.Container) {
                 this.handle = IntPtr.Zero;
                 throw new NotSupportedException();
             }
@@ -35,15 +35,26 @@ namespace GISharp.Runtime
             base.Dispose(disposing);
         }
 
-        public static CPtrArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T :Opaque
+        public ValueTuple<IntPtr, int> TakeData()
         {
-            return new CPtrArray<T>(handle, length, ownership);
+            if (!Owned) {
+                throw new InvalidOperationException("Data must be owned");
+            }
+            Owned = false;
+            return (Handle, Length);
+        }
+
+        public static CArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T :struct
+        {
+            return new CArray<T>(handle, length, ownership);
         }
     }
 
-    public class CPtrArray<T> : CPtrArray, IPtrArray<T> where T : Opaque
+    public class CArray<T> : CArray, IArray<T> where T : struct
     {
-        public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
+        static readonly int sizeOfT = Marshal.SizeOf<T>();
+
+        public CArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
         }
 
@@ -53,13 +64,13 @@ namespace GISharp.Runtime
                 if (index < 0 || index >= Length) {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
-                var offset = IntPtr.Size * index;
-                var ptr = Marshal.ReadIntPtr(this_, offset);
-                return Opaque.GetInstance<T>(ptr, Transfer.None);
+                var offset = sizeOfT * index;
+                var ret = Marshal.PtrToStructure<T>(this_ + offset);
+                return ret;
             }
         }
 
-        IntPtr IPtrArray<T>.Data => Handle;
+        IntPtr IArray<T>.Data => Handle;
 
         int IReadOnlyCollection<T>.Count => Length;
 

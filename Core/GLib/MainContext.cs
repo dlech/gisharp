@@ -597,16 +597,12 @@ namespace GISharp.GLib
         /// <returns>
         ///<c>true</c> if some sources are ready to be dispatched.
         /// </returns>
-        public int Check (int maxPriority, PollFD[] fds)
+        public int Check(int maxPriority, IArray<PollFD> fds)
         {
             var this_ = Handle;
-            if (fds == null) {
-                throw new ArgumentNullException (nameof(fds));
-            }
-            var fds_ = GMarshal.CArrayToPtr (fds, false);
-            var nFds_ = fds?.Length ?? 0;
+            var fds_ = fds?.Data ?? throw new ArgumentNullException(nameof(fds));
+            var nFds_ = fds.Length;
             var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
-            GMarshal.Free (fds_);
             return ret;
         }
 
@@ -1187,15 +1183,17 @@ namespace GISharp.GLib
         /// location to
         /// store <see cref="PollFD"/> records that need to be polled.
         /// </param>
-        public void Query (int maxPriority, out int timeout, out PollFD[] fds)
+        public void Query(int maxPriority, out int timeout, out Array<PollFD> fds)
         {
             var this_ = Handle;
             // call first time to get the size
             var ret = g_main_context_query(this_, maxPriority, out timeout, IntPtr.Zero, 0);
             // then call again with appropriate storage space
-            var fds_ = GMarshal.Alloc (Marshal.SizeOf<PollFD> () * ret);
-            ret = g_main_context_query(this_, maxPriority, out timeout, fds_, ret);
-            fds = GMarshal.PtrToCArray<PollFD> (fds_, ret, true);
+            fds = new Array<PollFD>();
+            fds.SetSize(ret);
+            var fds_ = fds.Data;
+            var nFds = fds.Length;
+            g_main_context_query(this_, maxPriority, out timeout, fds_, nFds);
         }
 
         /// <summary>

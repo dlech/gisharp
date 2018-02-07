@@ -64,7 +64,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (b.Count, Is.EqualTo (5));
 
                 b.Dispose ();
-                Assert.That (() => b.Count, Throws.TypeOf<ObjectDisposedException> ());
+                Assert.That(() => b.Size, Throws.TypeOf<ObjectDisposedException>());
             }
 
             Utility.AssertNoGLibLog();

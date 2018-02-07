@@ -221,9 +221,9 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestChildren ()
         {
-            Assert.That (GType.Invalid.Children, Is.Null);
+            Assert.That(GType.Invalid.Children, Is.Empty);
             Assert.That (GType.None.Children, Is.Empty);
-            // TODO: would be nice to have a test case that does not return Null or Empty
+            // TODO: would be nice to have a test case that does not return Empty
 
             Utility.AssertNoGLibLog();
         }

@@ -36,7 +36,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
                 Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
                 Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-                Assert.That (array.Count, Is.EqualTo (3));
+                Assert.That(array.Length, Is.EqualTo(3));
 
                 array.Dispose ();
                 Assert.That (() => array.Append (1),
@@ -52,12 +52,12 @@ namespace GISharp.Core.Test.GLib
             using (var array = new Array<int> ()) {
                 array.Prepend (1);
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-                Assert.That (array.Count, Is.EqualTo (1));
+                Assert.That(array.Length, Is.EqualTo(1));
 
                 array.Prepend (2);
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
                 Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-                Assert.That (array.Count, Is.EqualTo (2));
+                Assert.That(array.Length, Is.EqualTo(2));
 
                 array.Dispose ();
                 Assert.That (() => array.Prepend (1),
@@ -73,18 +73,18 @@ namespace GISharp.Core.Test.GLib
             using (var array = new Array<int> ()) {
                 array.Insert (0, 1);
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (1));
-                Assert.That (array.Count, Is.EqualTo (1));
+                Assert.That(array.Length, Is.EqualTo(1));
 
                 array.Insert (0, 2);
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
                 Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
-                Assert.That (array.Count, Is.EqualTo (2));
+                Assert.That(array.Length, Is.EqualTo(2));
 
                 array.Insert (2, 3);
                 Assert.That (array.UnsafeItemAt (0), Is.EqualTo (2));
                 Assert.That (array.UnsafeItemAt (1), Is.EqualTo (1));
                 Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
-                Assert.That (array.Count, Is.EqualTo (3));
+                Assert.That(array.Length, Is.EqualTo(3));
 
                 Assert.That (() => array.Insert (-1, 0),
                              Throws.TypeOf<ArgumentOutOfRangeException> ());
@@ -176,10 +176,10 @@ namespace GISharp.Core.Test.GLib
         public void TestSetSize ()
         {
             using (var array = new Array<int> ()) {
-                Assume.That (array.Count, Is.EqualTo (0));
+                Assume.That(array.Length, Is.EqualTo(0));
 
                 array.SetSize (1);
-                Assert.That (array.Count, Is.EqualTo (1));
+                Assert.That(array.Length, Is.EqualTo(1));
 
                 array.Dispose ();
                 Assert.That (() => array.SetSize (0),

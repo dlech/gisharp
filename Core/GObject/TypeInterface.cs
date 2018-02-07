@@ -182,22 +182,20 @@ namespace GISharp.GObject
             out uint nPrerequisites);
 
         /// <summary>
-        /// Returns the prerequisites of an interfaces type.
+        /// Gets the prerequisites of an interfaces type.
         /// </summary>
         /// <param name="interfaceType">
         /// an interface type
         /// </param>
         /// <returns>
-        /// a
-        ///     newly-allocated zero-terminated array of #GType containing
-        ///     the prerequisites of @interface_type
+        /// an array of <see cref="GType"/> containing
+        /// the prerequisites of <paramref name="interface_type"/>
         /// </returns>
         [Since ("2.2")]
-        public static GType[] Prerequisites (GType interfaceType)
+        public static IArray<GType> Prerequisites(GType interfaceType)
         {
-            uint nPrerequisites_;
-            var ret_ = g_type_interface_prerequisites (interfaceType, out nPrerequisites_);
-            var ret = GMarshal.PtrToCArray<GType> (ret_, (int)nPrerequisites_, true);
+            var ret_ = g_type_interface_prerequisites(interfaceType, out var nPrerequisites_);
+            var ret = CArray.GetInstance<GType>(ret_, (int)nPrerequisites_, Transfer.Full);
             return ret;
         }
 

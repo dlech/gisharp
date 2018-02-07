@@ -670,11 +670,10 @@ namespace GISharp.GObject
         /// <returns>
         /// array of child types
         /// </returns>
-        public GType [] Children {
+        public IArray<GType> Children {
             get {
-                uint nChildren_;
-                var ret_ = g_type_children (this, out nChildren_);
-                var ret = GMarshal.PtrToCArray<GType> (ret_, (int)nChildren_, freePtr: true);
+                var ret_ = g_type_children(this, out var nChildren_);
+                var ret = CArray.GetInstance<GType>(ret_, (int)nChildren_, Transfer.Full);
                 return ret;
             }
         }
@@ -955,17 +954,19 @@ namespace GISharp.GObject
                     var flagsAttribute = type.GetCustomAttributes ()
                         .OfType<FlagsAttribute> ().SingleOrDefault ();
                     if (flagsAttribute == null) {
-                        var gtypeValues = new EnumValue[values.Length];
+                        var gtypeValues = new Array<EnumValue>(true, true, values.Length);
                         for (int i = 0; i < values.Length; i++) {
-                            gtypeValues[i].Value = values[i];
+                            var enumValue = new EnumValue();
+                            enumValue.Value = values[i];
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField.GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            gtypeValues[i].ValueName = GMarshal.StringToUtf8Ptr (valueName);
-                            gtypeValues[i].ValueNick = GMarshal.StringToUtf8Ptr (valueNick);
+                            enumValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
+                            enumValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
+                            gtypeValues.Append(enumValue);
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -977,9 +978,10 @@ namespace GISharp.GObject
 
                         return gtype;
                     } else {
-                        var gtypeValues = new FlagsValue[values.Length];
+                        var gtypeValues = new Array<FlagsValue>(true, false, values.Length);
                         for (int i = 0; i < values.Length; i++) {
-                            gtypeValues[i].Value = (uint)values[i];
+                            var flagValue = new FlagsValue();
+                            flagValue.Value = (uint)values[i];
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField
                                 .GetCustomAttributes ()
@@ -987,8 +989,9 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            gtypeValues[i].ValueName = GMarshal.StringToUtf8Ptr (valueName);
-                            gtypeValues[i].ValueNick = GMarshal.StringToUtf8Ptr (valueNick);
+                            flagValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
+                            flagValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
+                            gtypeValues.Append(flagValue);
                         }
                         var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -2063,8 +2066,8 @@ namespace GISharp.GObject
         /// </returns>
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GType*">
-<type name="GType" type="GType" managed-name="GType" />
-</array> */
+         *   <type name="GType" type="GType" managed-name="GType" />
+         * </array> */
         /* transfer-ownership:full */
         static extern IntPtr g_type_interfaces(
             /* <type name="GType" type="GType" managed-name="GType" /> */
@@ -2082,14 +2085,12 @@ namespace GISharp.GObject
         /// the type to list interface types for
         /// </param>
         /// <returns>
-        /// Newly allocated
-        ///     and 0-terminated array of interface types, free with g_free()
+        /// Array of interface types
         /// </returns>
-        public static GType[] Interfaces(GType type)
+        public static IArray<GType> Interfaces(GType type)
         {
-            uint nInterfaces_;
-            var ret_ = g_type_interfaces(type,out nInterfaces_);
-            var ret = MarshalG.PtrToCArray<GType>(ret_, (int)nInterfaces_, true);
+            var ret_ = g_type_interfaces(type, out var nInterfaces_);
+            var ret = CArray.GetInstance<GType>(ret_, (int)nInterfaces_, Transfer.Full);
             return ret;
         }
 
@@ -2099,10 +2100,10 @@ namespace GISharp.GObject
         /// whether @type conforms to it.
         /// </summary>
         /// <param name="type">
-        /// type to check anchestry for
+        /// type to check ancestry for
         /// </param>
         /// <param name="isAType">
-        /// possible anchestor of @type or interface that @type
+        /// possible ancestor of @type or interface that @type
         ///     could conform to
         /// </param>
         /// <returns>
@@ -2125,10 +2126,10 @@ namespace GISharp.GObject
         /// whether @type conforms to it.
         /// </summary>
         /// <param name="type">
-        /// type to check anchestry for
+        /// type to check ancestry for
         /// </param>
         /// <param name="isAType">
-        /// possible anchestor of @type or interface that @type
+        /// possible ancestor of @type or interface that @type
         ///     could conform to
         /// </param>
         /// <returns>

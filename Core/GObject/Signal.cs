@@ -685,9 +685,9 @@ namespace GISharp.GObject
         /// </returns>
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="guint*">
-            <type name="guint" type="guint" managed-name="Guint" />
-            </array> */
-        /* transfer-ownership:none */
+         *   <type name="guint" type="guint" managed-name="Guint" />
+         * </array> */
+        /* transfer-ownership:full */
         static extern IntPtr g_signal_list_ids (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
@@ -705,13 +705,13 @@ namespace GISharp.GObject
         /// Instance or interface type.
         /// </param>
         /// <returns>
-        /// Newly allocated array of signal IDs.
+        /// Array of signal IDs.
         /// </returns>
-        public static uint[] ListIds (GType itype)
+        public static IArray<uint> ListIds(GType itype)
         {
             uint nIds_;
             var ret_ = g_signal_list_ids (itype, out nIds_);
-            var ret = GMarshal.PtrToCArray<uint> (ret_, (int)nIds_, false);
+            var ret = CArray.GetInstance<uint>(ret_, (int)nIds_, Transfer.Full);
             return ret;
         }
 

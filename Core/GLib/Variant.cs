@@ -815,7 +815,7 @@ namespace GISharp.GLib
         /// a floating reference to a new bytestring #GVariant instance
         /// </returns>
         [Since ("2.26")]
-        static IntPtr NewBytestring (byte[] @string)
+        static IntPtr NewBytestring(byte[] @string)
         {
             if (@string == null) {
                 throw new ArgumentNullException (nameof (@string));
@@ -3082,10 +3082,10 @@ namespace GISharp.GLib
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
-            out ulong nElements,
+            out UIntPtr nElements,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong elementSize);
+            UIntPtr elementSize);
 
         /// <summary>
         /// Provides access to the serialised data for an array of fixed-sized
@@ -3124,13 +3124,15 @@ namespace GISharp.GLib
         ///     the fixed array
         /// </returns>
         [Since ("2.24")]
-        IntPtr[] getFixedArray (ulong elementSize)
+        IArray<T> getFixedArray<T>() where T : struct
         {
+            var this_ = Handle;
             if (!IsOfType(VariantType.Array)) {
                 throw new InvalidOperationException();
             }
-            var ret_ = g_variant_get_fixed_array(Handle, out var nElements_, elementSize);
-            var ret = GMarshal.PtrToCArray<IntPtr>(ret_, (int)nElements_);
+            var elementSize = Marshal.SizeOf<T>();
+            var ret_ = g_variant_get_fixed_array(this_, out var nElements_, (UIntPtr)elementSize);
+            var ret = CArray.GetInstance<T>(ret_, (int)nElements_, Transfer.None);
             return ret;
         }
 

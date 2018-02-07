@@ -24,9 +24,9 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        internal IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        public IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
-        uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
+        public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
         public Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -36,16 +36,7 @@ namespace GISharp.GLib
         static extern IntPtr g_array_ref (IntPtr array);
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_free (IntPtr array, bool freeSegment);
-
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_unref (IntPtr array);
-
-        public int Count {
-            get {
-                return (int)Len;
-            }
-        }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_array_get_type ();
@@ -246,7 +237,7 @@ namespace GISharp.GLib
         {
             var this_ = Handle;
             var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
-            if (index < 0 || index > Count) {
+            if (index < 0 || index > Length) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
@@ -330,7 +321,7 @@ namespace GISharp.GLib
         public void RemoveAt (int index)
         {
             var this_ = Handle;
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             g_array_remove_index(this_, (uint)index);
@@ -368,7 +359,7 @@ namespace GISharp.GLib
         public void RemoveAtFast (int index)
         {
             var this_ = Handle;
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             g_array_remove_index_fast(this_, (uint)index);
@@ -412,10 +403,10 @@ namespace GISharp.GLib
         public void RemoveRange (int index, int length)
         {
             var this_ = Handle;
-            if (index < 0 || index >= Count) {
+            if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            if (length < 0 || index + length > Count) {
+            if (length < 0 || index + length > Length) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_array_remove_range(this_, (uint)index, (uint)length);
@@ -554,6 +545,17 @@ namespace GISharp.GLib
             UnmanagedCompareDataFunc compareFunc,
             IntPtr userData);
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_array_free(IntPtr array, bool freeSegment);
+
+        public ValueTuple<IntPtr, int> TakeData()
+        {
+            var length = Length;
+            var data = g_array_free(Handle, false);
+            handle = IntPtr.Zero; // object becomes disposed
+            return (data, length);
+        }
+
         /// <summary>
         /// Removes all items from the <see cref="Array"/>.
         /// </summary>
@@ -564,7 +566,7 @@ namespace GISharp.GLib
     }
 
     [GType ("GArray", IsProxyForUnmanagedType = true)]
-    public sealed class Array<T> : Array, IList<T> where T : struct
+    public sealed class Array<T> : Array, IArray<T>, IList<T> where T : struct
     {
         public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -587,7 +589,7 @@ namespace GISharp.GLib
         /// <param name="reservedSize">
         /// number of elements preallocated
         /// </param>
-        public Array (bool zeroTerminated, bool clear, int reservedSize = 10)
+        public Array (bool zeroTerminated, bool clear = false, int reservedSize = 10)
             : this (SizedNew (zeroTerminated, clear, Marshal.SizeOf<T> (), reservedSize), Transfer.Full)
         {
         }
@@ -688,7 +690,7 @@ namespace GISharp.GLib
 
         public T this[int index] {
             get {
-                if (index < 0 || index >= Count) {
+                if (index < 0 || index >= Length) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
                 var data_ = Data;
@@ -697,7 +699,7 @@ namespace GISharp.GLib
                 return item;
             }
             set {
-                if (index < 0 || index >= Count) {
+                if (index < 0 || index >= Length) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
                 var data_ = Data;
@@ -708,7 +710,7 @@ namespace GISharp.GLib
 
         public bool Contains (T other)
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 if (this[i].Equals (other)) {
                     return true;
                 }
@@ -724,17 +726,17 @@ namespace GISharp.GLib
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }
-            if (arrayIndex + Count > array.Length) {
+            if (arrayIndex + Length > array.Length) {
                 throw new ArgumentException ("Destination array is not long enough.");
             }
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 array[i + arrayIndex] = this[i];
             }
         }
 
         public int IndexOf (T data)
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 if (this[i].Equals (data)) {
                     return i;
                 }
@@ -744,7 +746,7 @@ namespace GISharp.GLib
 
         public bool Remove (T data)
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 if (this[i].Equals (data)) {
                     RemoveAt (i);
                     return true;
@@ -753,9 +755,13 @@ namespace GISharp.GLib
             return false;
         }
 
+        int ICollection<T>.Count => Length;
+
+        int IReadOnlyCollection<T>.Count => Length;
+
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Length; i++) {
                 yield return this[i];
             }
         }

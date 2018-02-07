@@ -52,10 +52,10 @@ namespace GISharp.GObject
         /// An array of #GFlagsValue structs for the possible
         ///  enumeration values.
         /// </param>
-        public static void CompleteTypeInfo (GType gFlagsType, out TypeInfo info, FlagsValue[] constValues)
+        public static void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, IArray<FlagsValue> constValues)
         {
-            var constValues_ = GMarshal.CArrayToPtr<FlagsValue> (constValues, nullTerminated: true);
-            g_flags_complete_type_info (gFlagsType, out info, constValues_);
+            var constValues_ = constValues?.Data ?? throw new ArgumentNullException(nameof(constValues));
+            g_flags_complete_type_info(gFlagsType, out info, constValues_);
         }
 
         /// <summary>
@@ -204,12 +204,20 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_flags_register_static (IntPtr typeName, IntPtr values);
 
-        public static GType RegisterStatic (string typeName, FlagsValue[] values)
+        public static GType RegisterStatic(Utf8 typeName, IArray<FlagsValue> values)
         {
-            GType.AssertGTypeName (typeName);
-            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
-            var values_ = GMarshal.CArrayToPtr<FlagsValue> (values, nullTerminated: true);
-            var ret = g_flags_register_static (typeName_, values_);
+            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
+            GType.AssertGTypeName(typeName);
+            var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
+
+            // verify that the array is null-terminated
+            var offset = Marshal.SizeOf<EnumValue>() * length;
+            var terminator = Marshal.PtrToStructure<EnumValue>(values_ + offset);
+            if (!terminator.Equals(default(EnumValue))) {
+                throw new ArgumentException("Must be null-terminated", nameof(values));
+            }
+
+            var ret = g_flags_register_static(typeName_, values_);
             // values are never freed for the lifetime of the program
             return ret;
         }

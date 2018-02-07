@@ -36,7 +36,7 @@ namespace GISharp.GLib
     /// </remarks>
     [Since ("2.32")]
     [GType ("GBytes", IsProxyForUnmanagedType = true)]
-    public sealed class Bytes : Boxed, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
+    public sealed class Bytes : Boxed, IArray<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
         public Bytes(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -338,7 +338,12 @@ namespace GISharp.GLib
             IntPtr bytes,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out UIntPtr size);
+            IntPtr size);
+
+        [DllImport("glib-2.0", EntryPoint = "g_bytes_get_data", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_bytes_get_data_with_size(IntPtr bytes, out UIntPtr size);
+
+        public IntPtr Data => g_bytes_get_data(Handle, IntPtr.Zero);
 
         /// <summary>
         /// Get the size of the byte data in the #GBytes.
@@ -371,12 +376,15 @@ namespace GISharp.GLib
         /// the size
         /// </returns>
         [Since ("2.32")]
-        public int Count {
+        public int Size {
             get {
                 var ret = g_bytes_get_size(Handle);
                 return (int)ret;
             }
         }
+
+        int IArray<byte>.Length => Size;
+        int IReadOnlyCollection<byte>.Count => Size;
 
         /// <summary>
         /// Creates an integer hash code for the byte data in the #GBytes.
@@ -476,17 +484,28 @@ namespace GISharp.GLib
             if (length < 0) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
-            if (offset + length > Count) {
+            if (offset + length > Size) {
                 throw new ArgumentException ("offset + length exceeds size");
             }
             var ret = g_bytes_new_from_bytes(this_, (UIntPtr)offset, (UIntPtr)length);
             return new Bytes (ret, Transfer.Full);
         }
 
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_bytes_unref_to_data(IntPtr bytes, out UIntPtr size);
+
+        public ValueTuple<IntPtr, int> TakeData()
+        {
+            var data = g_bytes_unref_to_data(Handle, out var size);
+            handle = IntPtr.Zero; // object becomes disposed
+            return (data, (int)size);
+        }
+
         public byte this[int index] {
             get {
                 var this_ = Handle;
-                var ret_ = g_bytes_get_data(this_, out var size);
+                var ret_ = g_bytes_get_data_with_size(this_, out var size);
                 if (index < 0 || index >= (int)size) {
                     throw new ArgumentOutOfRangeException (nameof (index));
                 }
@@ -497,7 +516,7 @@ namespace GISharp.GLib
 
         IEnumerator<byte> GetEnumerator()
         {
-            for (int i = 0; i < Count; i++) {
+            for (int i = 0; i < Size; i++) {
                 yield return this[i];
             }
         }
