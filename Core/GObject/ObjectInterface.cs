@@ -172,10 +172,10 @@ namespace GISharp.GObject
         /// an array of <see cref="ParamSpec"/> structures.
         /// </returns>
         [Since("2.4")]
-        public ParamSpec[] ListProperties()
+        public IPtrArray<ParamSpec> ListProperties()
         {
             var ret_ = g_object_interface_list_properties(Handle, out var nProperties_);
-            var ret = GMarshal.PtrToOpaqueCArray<ParamSpec>(ret_, (int)nProperties_, true);
+            var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
 

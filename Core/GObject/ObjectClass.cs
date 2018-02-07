@@ -686,16 +686,15 @@ namespace GISharp.GObject
         /// an array of
         ///          #GParamSpec* which should be freed after use
         /// </returns>
-        public ParamSpec[] ListProperties ()
+        public IPtrArray<ParamSpec> ListProperties()
         {
             return ListProperties(Handle);
         }
 
-        internal static ParamSpec[] ListProperties (IntPtr handle)
+        internal static IPtrArray<ParamSpec> ListProperties(IntPtr handle)
         {
-            uint nProperties_;
-            var ret_ = g_object_class_list_properties (handle, out nProperties_);
-            var ret = GMarshal.PtrToOpaqueCArray<ParamSpec> (ret_, (int)nProperties_, true);
+            var ret_ = g_object_class_list_properties (handle, out var nProperties_);
+            var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
 

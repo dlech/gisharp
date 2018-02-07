@@ -1021,6 +1021,8 @@ namespace GISharp.GLib
 
         int ICollection<T>.Count => Length;
 
+        int IReadOnlyCollection<T>.Count => Length;
+
         IEnumerator<T> GetEnumerator()
         {
             for (int i = 0; i < Length; i++) {

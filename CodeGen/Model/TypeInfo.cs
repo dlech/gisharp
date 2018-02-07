@@ -47,7 +47,7 @@ namespace GISharp.CodeGen.Model
         /// <summary>
         /// A C-style array of pointers to unmanaged <see cref="Opaque"/> objects
         /// </summary>
-        OpaqueCArray,
+        CPtrArray,
         /// <summary>
         /// A UTF-32/UCS-4 character.
         /// </summary>
@@ -98,7 +98,7 @@ namespace GISharp.CodeGen.Model
                         } else if (TypeObject.GetElementType ().IsValueType) {
                             _Classification = TypeClassification.CArray;
                         } else if (TypeObject.GetElementType ().IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
-                            _Classification = TypeClassification.OpaqueCArray;
+                            _Classification = TypeClassification.CPtrArray;
                         } else {
                             throw new NotSupportedException ();
                         }

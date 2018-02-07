@@ -651,23 +651,15 @@ namespace GISharp.GLib
         /// if any element of <paramref name="items"/> is <c>null</c>
         /// </exception>
         [Since ("2.24")]
-        public static VariantType CreateTuple (params VariantType[] items)
+        public static VariantType CreateTuple(IPtrArray<VariantType> items)
         {
-            if (items == null) {
-                throw new ArgumentNullException (nameof (items));
+            var items_ = items?.Data ?? throw new ArgumentNullException(nameof(items));
+            if (items.Any(x => x == null)) {
+                throw new ArgumentException("cannot contain any null elements", nameof(items));
             }
-            if (items.Any (x => x == null)) {
-                throw new ArgumentException ("cannot contain any null elements", nameof (items));
-            }
-            var items_ = GMarshal.OpaqueCArrayToPtr<VariantType> (items, false);
-            try {
-                var ret_ = g_variant_type_new_tuple (items_, items.Length);
-                var ret = new VariantType (ret_, Transfer.Full);
-                return ret;
-            }
-            finally {
-                GMarshal.Free (items_);
-            }
+            var ret_ = g_variant_type_new_tuple(items_, items.Length);
+            var ret = new VariantType(ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>

@@ -571,7 +571,7 @@ namespace GISharp.CodeGen.Model
                 }
                 yield return (ParseStatement(statement), null);
                 break;
-            case TypeClassification.OpaqueCArray:
+            case TypeClassification.CPtrArray:
                 statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
                     managedParameter.Identifier,
                     typeof(GISharp.Runtime.GMarshal),
@@ -719,7 +719,7 @@ namespace GISharp.CodeGen.Model
 
             switch (managedParameterInfo.TypeInfo.Classification) {
             case TypeClassification.CArray:
-            case TypeClassification.OpaqueCArray:
+            case TypeClassification.CPtrArray:
                 string length = null;
                 if (unmangedParameterInfo.TypeInfo.ArrayFixedSize >= 0) {
                     length = "(int)" + unmangedParameterInfo.TypeInfo.ArrayFixedSize.ToString ();
