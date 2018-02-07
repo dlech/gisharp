@@ -281,38 +281,54 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr parameters);
 
-        protected static IntPtr New<T> (params object[] parameters) where T : Object
+        static IntPtr New(GType objectType, IArray<Parameter> parameters)
         {
-            var gtype = GType.TypeOf<T> ();
-            var paramArray = new Parameter[parameters.Length / 2];
-            for (int i = 0; i < parameters.Length; i += 2) {
-                var name = parameters[i] as string;
-                if (name == null) {
-                    var message = string.Format ("Expecting string at index {0}", i);
-                    throw new ArgumentException (message, nameof (parameters));
-                }
-                var objClass = TypeClass.Get<ObjectClass> (gtype);
-                var paramSpec = objClass.FindProperty (name);
-                if (paramSpec == null) {
-                    var message = string.Format ("Could not find property '{0}'", name);
-                    throw new ArgumentException (message, nameof (parameters));
-                }
-                var value = new Value (paramSpec.ValueType, parameters[i + 1]);
-                paramArray[i / 2] = new Parameter {
-                    Name = GMarshal.StringToUtf8Ptr (name),
-                };
-                Marshal.StructureToPtr<Value> (value, paramArray[i / 2].Value, false);
+            if (!objectType.IsA(GType.Object)) {
+                throw new ArgumentException("Must be a GObject", nameof(objectType));
             }
-            var paramArrayPtr = GMarshal.CArrayToPtr<Parameter> (paramArray, false);
-            try {
-                var ret = g_object_newv (gtype, (uint)paramArray.Length, paramArrayPtr);
-                return ret;
+            if (!objectType.IsInstantiatable) {
+                throw new ArgumentException("Must be instantiatable", nameof(objectType));
             }
-            finally {
-                GMarshal.Free (paramArrayPtr);
+            var nParameters = parameters?.Length ?? 0;
+            var parameters_ = parameters?.Data ?? IntPtr.Zero;
+            var ret = g_object_newv(objectType, (uint)nParameters, parameters_);
+            return ret;
+        }
+
+        protected static IntPtr New<T>(params object[] parameters) where T : Object
+        {
+            var gtype = GType.TypeOf<T>();
+            using (var paramArray = new Array<Parameter>(false, false, parameters.Length / 2)) {
+                for (int i = 0; i < parameters.Length; i += 2) {
+                    var name = parameters[i] as string;
+                    if (name == null) {
+                        var message = $"Expecting string at index {i}";
+                        throw new ArgumentException(message, nameof(parameters));
+                    }
+                    var objClass = TypeClass.Get<ObjectClass>(gtype);
+                    var paramSpec = objClass.FindProperty(name);
+                    if (paramSpec == null) {
+                        var message = $"Could not find property '{name}'";
+                        throw new ArgumentException(message, nameof(parameters));
+                    }
+                    var value = new Value(paramSpec.ValueType, parameters[i + 1]);
+                    paramArray[i / 2] = new Parameter {
+                        Name = GMarshal.StringToUtf8Ptr(name),
+                        Value = GMarshal.Alloc(Marshal.SizeOf<Value>()),
+                    };
+                    Marshal.StructureToPtr<Value> (value, paramArray[i / 2].Value, false);
+                }
+
+                var ret = New(gtype, paramArray);
+
                 foreach (var p in paramArray) {
-                    GMarshal.Free (p.Name);
+                    GMarshal.Free(p.Name);
+                    var value = Marshal.PtrToStructure<Value>(p.Value);
+                    value.Unset();
+                    GMarshal.Free(p.Value);
                 }
+
+                return ret;
             }
         }
 
