@@ -1,4 +1,5 @@
 ﻿using System;
+using GISharp.GLib;
 
 namespace GISharp.Runtime
 {
@@ -11,6 +12,12 @@ namespace GISharp.Runtime
     /// </remarks>
     public sealed class OpaqueInt : Opaque
     {
+        [PtrArrayCopyFunc]
+        static IntPtr DummyCopyFunc(IntPtr handle) => handle;
+
+        [PtrArrayFreeFunc]
+        static void DummyFreeFunc(IntPtr handle) { }
+
         public int Value => (int)Handle;
 
         public override IntPtr Handle => handle;

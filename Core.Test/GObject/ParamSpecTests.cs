@@ -11,7 +11,7 @@ using nulong = GISharp.Runtime.NativeULong;
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
-    public class ParamSpecTests : IListTests<ParamSpecArray, ParamSpec>
+    public class ParamSpecTests : IListTests<PtrArray<ParamSpec>, ParamSpec>
     {
         // Init for IListTests
         public ParamSpecTests() : base(getItemAt,
@@ -381,7 +381,7 @@ namespace GISharp.Core.Test.GObject
             Utility.AssertNoGLibLog();
         }
 
-        static ParamSpec getItemAt(ParamSpecArray array, int index)
+        static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)
         {
             var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
             return ParamSpec.GetInstance<ParamSpecBoolean>(ptr, Transfer.None);

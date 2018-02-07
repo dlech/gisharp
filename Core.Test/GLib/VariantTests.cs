@@ -11,7 +11,7 @@ using System.Reflection;
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
-    public class VariantTests : IListTests<VariantArray, Variant>
+    public class VariantTests : IListTests<PtrArray<Variant>, Variant>
     {
         public VariantTests() : base(getItemAt, (Variant)0, (Variant)1, (Variant)2, (Variant)3, (Variant)4)
         {
@@ -369,21 +369,21 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastArray ()
         {
-            using (var badArray = new VariantArray { new Variant(false), new Variant(0) }) {
+            using (var badArray = new PtrArray<Variant> { new Variant(false), new Variant(0) }) {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
             }
-            using (var badArray = new VariantArray()) {
+            using (var badArray = new PtrArray<Variant>()) {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
             }
-            using (var badArray = default(VariantArray)) {
+            using (var badArray = default(PtrArray<Variant>)) {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
                 Assert.That(() => new Variant(VariantType.Boolean, badArray), Throws.Nothing);
             }
 
-            using (var expected = new VariantArray { new Variant(false) })
+            using (var expected = new PtrArray<Variant> { new Variant(false) })
             using (var variant = new Variant(null, expected)) {
                 Assert.That(variant.Type.IsArray, Is.True);
-                using (var actual = (VariantArray)variant) {
+                using (var actual = (PtrArray<Variant>)variant) {
                     Assert.That(actual, Is.EqualTo(expected));
                 }
             }
@@ -393,14 +393,14 @@ namespace GISharp.Core.Test.GLib
         [Test]
         public void TestCastTuple ()
         {
-            using (var badTuple = default(VariantArray)) {
+            using (var badTuple = default(PtrArray<Variant>)) {
                 Assert.That(() => (Variant)badTuple, Throws.TypeOf<ArgumentNullException>());
             }
 
-            using (var expected = new VariantArray { new Variant(false), new Variant(0) })
+            using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type.IsTuple, Is.True);
-                var actual = (VariantArray)variant;
+                var actual = (PtrArray<Variant>)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
             Utility.AssertNoGLibLog();
@@ -432,14 +432,14 @@ namespace GISharp.Core.Test.GLib
         }
 
         [Test]
-        public void TestVariantArrayRefCount()
+        public void TestPtrArrayVariantRefCount()
         {
-            using (var array = new VariantArray())
+            using (var array = new PtrArray<Variant>())
             using (var item = new Variant(false)) {
                 // The only reference belongs to the managed proxy
                 Assume.That(GetRefCount(item), Is.EqualTo(1));
 
-                // The VariantArray takes a reference to the Variant when it is
+                // The PtrArray<Variant> takes a reference to the Variant when it is
                 /// added to the array
                 array.Add(item);
                 Assert.That(GetRefCount(item), Is.EqualTo(2));
@@ -450,7 +450,7 @@ namespace GISharp.Core.Test.GLib
             }
         }
 
-        static Variant getItemAt(VariantArray array, int index) {
+        static Variant getItemAt(PtrArray<Variant> array, int index) {
             var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
             return Opaque.GetInstance<Variant>(ptr, Transfer.None);
         }

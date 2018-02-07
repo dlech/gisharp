@@ -5,6 +5,9 @@ using System.Collections;
 using GISharp.Runtime;
 using GISharp.GObject;
 
+using static System.Reflection.BindingFlags;
+using System.Linq;
+
 namespace GISharp.GLib
 {
     /// <summary>
@@ -286,9 +289,6 @@ namespace GISharp.GLib
         [Since ("2.40")]
         protected void Insert (int index, IntPtr data)
         {
-            if (index < 0 || index > Count) {
-                throw new ArgumentOutOfRangeException (nameof (index));
-            }
             g_ptr_array_insert(Handle, index, data);
         }
 
@@ -630,7 +630,7 @@ namespace GISharp.GLib
         /// <summary>
         /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater than zero if irst arg is
+        /// than second arg, zero for equal, greater than zero if first arg is
         /// greater than second arg).
         /// </summary>
         /// <remarks> 
@@ -749,6 +749,56 @@ namespace GISharp.GLib
     public sealed class PtrArray<T> : PtrArray, IList<T>
         where T : Opaque
     {
+        static Func<IntPtr, IntPtr> elementCopyFunc;
+        static UnmanagedDestroyNotify elementFreeFunc;
+
+        static PtrArray() {
+            var methods = typeof(T).GetMethods(Static | NonPublic);
+
+            var copyMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false));
+            elementCopyFunc = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
+
+            var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
+            elementFreeFunc = (UnmanagedDestroyNotify)freeMethodInfo.CreateDelegate(typeof(UnmanagedDestroyNotify));
+        }
+
+        /// <summary>
+        /// Indicates if this <see cref="PtrArray{T}"/> owns the elements in the
+        /// GLib sense.
+        /// </summary>
+        public bool OwnsElements { get; }
+
+        /// <summary>
+        /// Creates a new <see cref="PtrArray{T}"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// The array "owns" the elements in the GLib sense.
+        /// </summary>
+        public PtrArray(): this(0)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="PtrArray{T}"/> instance.
+        /// </summary>
+        /// <param name="reservedSize"/>
+        /// number of pointers preallocated
+        /// </param>
+        /// <remarks>
+        /// The array "owns" the elements in the GLib sense.
+        /// </summary>
+        public PtrArray(int reservedSize) : base(reservedSize, elementFreeFunc)
+        {
+            OwnsElements = true;
+        }
+
+        public PtrArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        {
+            if (ownership == Transfer.Full) {
+                OwnsElements = true;
+            }
+        }
+
         /// <summary>
         /// Adds a pointer to the end of the pointer array. The array will grow
         /// in size automatically if necessary.
@@ -756,9 +806,16 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the pointer to add
         /// </param>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="data"/> is <c>null</c>
+        /// </exception>
         public void Add (T data)
         {
-            Add (data?.Handle ?? IntPtr.Zero);
+            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            if (OwnsElements) {
+                data_ = elementCopyFunc(data_);
+            }
+            Add(data_);
         }
 
         /// <summary>
@@ -771,10 +828,23 @@ namespace GISharp.GLib
         /// <param name="data">
         /// the pointer to add.
         /// </param>
+        /// <exception cref="ArgumentOutOfRangeException">
+        /// If <paramref name="index"/> is &lt; 0 or &gt; <see cref="Count"/>
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="data"/> is <c>null</c>
+        /// </exception>
         [Since ("2.40")]
         public void Insert (int index, T data)
         {
-            Insert (index, data?.Handle ?? IntPtr.Zero);
+            if (index < 0 || index > Count) {
+                throw new ArgumentOutOfRangeException(nameof(index));
+            }
+            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            if (OwnsElements) {
+                data_ = elementCopyFunc(data_);
+            }
+            Insert(index, data_);
         }
 
         /// <summary>
@@ -794,9 +864,13 @@ namespace GISharp.GLib
         /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
         ///     is not found in the array
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="data"/> is <c>null</c>
+        /// </exception>
         public bool Remove (T data)
         {
-            return Remove (data?.Handle ?? IntPtr.Zero);
+            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            return Remove(data_);
         }
 
         /// <summary>
@@ -830,9 +904,13 @@ namespace GISharp.GLib
         /// <returns>
         /// <c>true</c> if the pointer was found in the array
         /// </returns>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="data"/> is <c>null</c>
+        /// </exception>
         public bool RemoveFast (T data)
         {
-            return RemoveFast (data?.Handle ?? IntPtr.Zero);
+            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            return RemoveFast(data_);
         }
 
         /// <summary>
@@ -853,7 +931,7 @@ namespace GISharp.GLib
         /// <summary>
         /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater than zero if irst arg is
+        /// than second arg, zero for equal, greater than zero if first arg is
         /// greater than second arg).
         /// </summary>
         /// <remarks> 
@@ -905,8 +983,10 @@ namespace GISharp.GLib
         /// <param name="data">Data.</param>
         public int IndexOf (T data)
         {
+            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
             for (int i = 0; i < Count; i++) {
-                if (this[i].Equals (data)) {
+                var ptr = Marshal.ReadIntPtr(Data, IntPtr.Size * i);
+                if (ptr == data_) {
                     return i;
                 }
             }
@@ -958,5 +1038,51 @@ namespace GISharp.GLib
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+    }
+
+    public static class PtrArrayExtensions
+    {
+        public static PtrArray<T> ToPtrArray<T>(this IEnumerable<T> source) where T : Opaque
+        {
+            var size = 0;
+
+            // if we know the size ahead of time, use it
+            if (source is ICollection<Variant> collection) {
+                size = collection.Count;
+            }
+            else if (source is IReadOnlyCollection<Variant> readOnlyCollection) {
+                size = readOnlyCollection.Count;
+            }
+
+            var array = new PtrArray<T>(size);
+            foreach (var item in source) {
+                array.Add(item);
+            }
+            return array;
+        }
+    }
+
+    /// <summary>
+    /// Attribute applied to the unmanaged copy or ref method of an <see cref="Opaque"/>
+    /// class that instructs <see cref="PtrArray{T}"/> how to handle owned elements.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
+    sealed class PtrArrayCopyFuncAttribute : Attribute
+    {
+        public PtrArrayCopyFuncAttribute()
+        {
+        }
+    }
+
+    /// <summary>
+    /// Attribute applied to the unmanaged free or unref method of an <see cref="Opaque"/>
+    /// class that instructs <see cref="PtrArray{T}"/> how to handle owned elements.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Method)]
+    sealed class PtrArrayFreeFuncAttribute : Attribute
+    {
+        public PtrArrayFreeFuncAttribute()
+        {
+        }
     }
 }
