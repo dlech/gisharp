@@ -469,26 +469,21 @@ namespace GISharp.CodeGen.Model
             var pinvokeParameter = managedParameter.IsReturnParameter
                 ? UnmanagedReturnParameterInfo
                 : PinvokeParameterInfos.Single (x => x.GirName == managedParameter.GirName);
-            string statement, freeStatement;
+            string statement;
             switch (managedParameter.TypeInfo.Classification) {
             case TypeClassification.CArray:
-                statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
-                    managedParameter.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.CArrayToPtr),
-                    managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
-                    pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
+            case TypeClassification.CPtrArray:
+                var nullValue = managedParameter.NeedsNullCheck ?
+                    string.Format("throw new {0}(nameof({1}))",
+                        typeof(ArgumentNullException).FullName, managedParameter.Identifier) :
+                    string.Format("{0}.{1}", typeof(IntPtr).FullName, nameof(IntPtr.Zero));
+                var dataGetter = managedParameter.Transfer == Runtime.Transfer.None ? "Data" : "TakeData()";
+                statement = string.Format ("{0}_ = {0}?.{1} ?? {2};\n",
+                    managedParameter.Identifier, dataGetter, nullValue);
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
-                    freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Runtime.GMarshal),
-                        nameof(GISharp.Runtime.GMarshal.Free),
-                        managedParameter.Identifier);
-                }
-                yield return (ParseStatement(statement), ParseStatement(freeStatement));
+                yield return (ParseStatement(statement), null);
                 break;
             case TypeClassification.Delegate:
                 statement = string.Format (
@@ -571,25 +566,6 @@ namespace GISharp.CodeGen.Model
                 }
                 yield return (ParseStatement(statement), null);
                 break;
-            case TypeClassification.CPtrArray:
-                statement = string.Format ("{0}_ = {1}.{2}<{3}> ({0}, {4});\n",
-                    managedParameter.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.OpaqueCArrayToPtr),
-                    managedParameter.TypeInfo.TypeObject.GetElementType ().FullName,
-                    pinvokeParameter.TypeInfo.ArrayZeroTerminated ? "true" : "false");
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
-                freeStatement = string.Empty;
-                if (managedParameter.Transfer == GISharp.Runtime.Transfer.None) {
-                    freeStatement = string.Format ("{0}.{1} ({2}_);\n",
-                        typeof(GISharp.Runtime.GMarshal),
-                        nameof(GISharp.Runtime.GMarshal.Free),
-                        managedParameter.Identifier);
-                }
-                yield return (ParseStatement(statement), ParseStatement(freeStatement));
-                break;
             default:
                 // TODO: need to add more implementations
                 statement = string.Format ("{0}_ = default({1});\n",
@@ -613,7 +589,7 @@ namespace GISharp.CodeGen.Model
             foreach (var p in parameters) {
                 var lengthParameter = PinvokeParameterInfos[p.TypeInfo.ArrayLengthIndex];
                 if (p.IsInParam) {
-                    var statement = string.Format ("var {0}_ = ({1})({2} == null ? 0 : {2}.Length);\n",
+                    var statement = string.Format ("var {0}_ = ({1})({2}?.Length ?? 0);\n",
                         lengthParameter.Identifier,
                         lengthParameter.TypeInfo.Type,
                         p.Identifier);
@@ -739,15 +715,15 @@ namespace GISharp.CodeGen.Model
                     throw new Exception (message);
                 }
                 var marshalFunc = managedParameterInfo.TypeInfo.Classification == TypeClassification.CArray
-                    ? nameof(GISharp.Runtime.GMarshal.PtrToCArray)
-                    : nameof(GISharp.Runtime.GMarshal.PtrToOpaqueCArray);
-                statement = string.Format ("{0} = {1}.{2}<{3}> ({0}_, {4}, {5});\n",
+                    ? $"{typeof(GISharp.Runtime.CArray).FullName}.{nameof(GISharp.Runtime.CArray.GetInstance)}"
+                    : $"{typeof(GISharp.Runtime.CPtrArray).FullName}.{nameof(GISharp.Runtime.CPtrArray.GetInstance)}";
+                statement = string.Format("{0} = {1}<{2}> ({0}_, {3}, {4}.{5});\n",
                     managedParameterInfo.Identifier,
-                    typeof(GISharp.Runtime.GMarshal),
                     marshalFunc,
-                    managedParameterInfo.TypeInfo.TypeObject.GetElementType ().FullName,
+                    managedParameterInfo.TypeInfo.TypeObject.GetGenericArguments().Single().FullName,
                     length,
-                    managedParameterInfo.Transfer == GISharp.Runtime.Transfer.None ? "false" : "true");
+                    typeof(GISharp.Runtime.Transfer).FullName,
+                    managedParameterInfo.Transfer);
                 if (declareVariable) {
                     statement = "var " + statement;
                 }

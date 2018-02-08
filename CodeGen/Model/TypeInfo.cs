@@ -71,9 +71,25 @@ namespace GISharp.CodeGen.Model
             get {
                 if (!_Classification.HasValue) {
                     if (TypeObject == typeof(void)) {
+                        // void is easy
                         _Classification = TypeClassification.Void;
-                    } else if (TypeObject.IsInterface) {
-                        _Classification = TypeClassification.Interface;
+                    }
+                    else if (TypeObject.IsInterface) {
+                        // for interfaces, we check first for the special IArray<T> interface (for C arrays)
+                        if (TypeObject.IsConstructedGenericType && TypeObject.GetGenericTypeDefinition() == typeof(GISharp.Runtime.IArray<>)) {
+                            var genericArgument = TypeObject.GetGenericArguments().Single();
+                            if (genericArgument.IsValueType) {
+                                _Classification = TypeClassification.CArray;
+                            } else if (genericArgument.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
+                                _Classification = TypeClassification.CPtrArray;
+                            } else {
+                                throw new NotSupportedException("IArray must be ValueType or Opaque");
+                            }
+                        }
+                        else {
+                            // otherwise we assume it is a GObject interface
+                            _Classification = TypeClassification.Interface;
+                        }
                     } else if (Element.Attribute(glib + "is-gtype-struct-for") != null || typeof(GISharp.GObject.TypeClass).IsAssignableFrom(TypeObject)) {
                         _Classification = TypeClassification.GTypeStruct;
                     } else if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
@@ -95,10 +111,6 @@ namespace GISharp.CodeGen.Model
                             _Classification = TypeClassification.Opaque;
                         } else if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
                             _Classification = TypeClassification.FilenameStrv;
-                        } else if (TypeObject.GetElementType ().IsValueType) {
-                            _Classification = TypeClassification.CArray;
-                        } else if (TypeObject.GetElementType ().IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
-                            _Classification = TypeClassification.CPtrArray;
                         } else {
                             throw new NotSupportedException ();
                         }

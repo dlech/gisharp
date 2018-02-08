@@ -924,7 +924,9 @@ namespace GISharp.CodeGen
                         // zero-terminated string of utf8 == GStrv
                         return typeof(GISharp.GLib.Strv).FullName;
                     }
-                    return string.Format("{0}[]", managedType);
+                    return string.Format("{0}`1[{1}]",
+                        string.Concat (typeof(GISharp.Runtime.IArray<>).FullName.TakeWhile (c => c != '`')),
+                        managedType);
                 } else {
                     var arrayName = arrayNameAttr.Value;
                     switch (arrayName) {

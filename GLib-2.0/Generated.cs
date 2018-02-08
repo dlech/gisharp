@@ -476,7 +476,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean[] GetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
+        public GISharp.Runtime.IArray<System.Boolean> GetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
@@ -490,7 +490,7 @@ namespace GISharp.GLib
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.GMarshal.PtrToCArray<System.Boolean>(ret_, (int)length_, true);
+            var ret = GISharp.Runtime.CArray.GetInstance<System.Boolean>(ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 
@@ -754,7 +754,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public System.Double[] GetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
+        public GISharp.Runtime.IArray<System.Double> GetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
@@ -768,7 +768,7 @@ namespace GISharp.GLib
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.GMarshal.PtrToCArray<System.Double>(ret_, (int)length_, true);
+            var ret = GISharp.Runtime.CArray.GetInstance<System.Double>(ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 
@@ -1078,7 +1078,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Int32[] GetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
+        public GISharp.Runtime.IArray<System.Int32> GetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
@@ -1092,7 +1092,7 @@ namespace GISharp.GLib
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.GMarshal.PtrToCArray<System.Int32>(ret_, (int)length_, true);
+            var ret = GISharp.Runtime.CArray.GetInstance<System.Int32>(ret_, (int)length_, GISharp.Runtime.Transfer.Container);
             return ret;
         }
 
@@ -2046,7 +2046,7 @@ namespace GISharp.GLib
         /// return location for a #GError
         /// </param>
         /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
+        /// %TRUE if a key file could be loaded, %FALSE othewise
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2090,7 +2090,7 @@ namespace GISharp.GLib
         /// flags from #GKeyFileFlags
         /// </param>
         /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
+        /// %TRUE if a key file could be loaded, %FALSE othewise
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -2201,12 +2201,11 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public System.Boolean LoadFromDirs(GISharp.GLib.Filename file, GISharp.GLib.Filename[] searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean LoadFromDirs(GISharp.GLib.Filename file, GISharp.Runtime.IArray<GISharp.GLib.Filename> searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
             var this_ = this.Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentException(nameof(file));
-            var searchDirs_ = default(System.IntPtr);
-            throw new System.NotImplementedException();
+            var searchDirs_ = searchDirs?.Data ?? throw new System.ArgumentNullException(nameof(searchDirs));
             System.IntPtr fullPath_;
             System.IntPtr error_;
             var ret = g_key_file_load_from_dirs(this_, file_, searchDirs_,out fullPath_, flags,out error_);
@@ -2723,15 +2722,14 @@ namespace GISharp.GLib
         /// If <paramref name="list"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Boolean[] list)
+        public void SetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Boolean> list)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
-            var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Boolean>(list, false);
-            var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
+            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
+            var length_ = (System.UIntPtr)(list?.Length ?? 0);
             g_key_file_set_boolean_list(this_, groupName_, key_, list_, length_);
-            GISharp.Runtime.GMarshal.Free(list_);
         }
 
         /// <summary>
@@ -2958,15 +2956,14 @@ namespace GISharp.GLib
         /// If <paramref name="list"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public void SetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Double[] list)
+        public void SetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Double> list)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
-            var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Double>(list, false);
-            var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
+            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
+            var length_ = (System.UIntPtr)(list?.Length ?? 0);
             g_key_file_set_double_list(this_, groupName_, key_, list_, length_);
-            GISharp.Runtime.GMarshal.Free(list_);
         }
 
         /// <summary>
@@ -3158,15 +3155,14 @@ namespace GISharp.GLib
         /// If <paramref name="list"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int32[] list)
+        public void SetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Int32> list)
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
-            var list_ = GISharp.Runtime.GMarshal.CArrayToPtr<System.Int32>(list, false);
-            var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
+            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
+            var length_ = (System.UIntPtr)(list?.Length ?? 0);
             g_key_file_set_integer_list(this_, groupName_, key_, list_, length_);
-            GISharp.Runtime.GMarshal.Free(list_);
         }
 
         /// <summary>
@@ -3372,7 +3368,7 @@ namespace GISharp.GLib
             var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             var locale_ = locale?.Handle ?? throw new System.ArgumentException(nameof(locale));
             var list_ = list?.Handle ?? throw new System.ArgumentException(nameof(list));
-            var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
+            var length_ = (System.UIntPtr)(list?.Length ?? 0);
             g_key_file_set_locale_string_list(this_, groupName_, key_, locale_, list_, length_);
         }
 
@@ -3521,7 +3517,7 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentException(nameof(key));
             var list_ = list?.Handle ?? throw new System.ArgumentException(nameof(list));
-            var length_ = (System.UIntPtr)(list == null ? 0 : list.Length);
+            var length_ = (System.UIntPtr)(list?.Length ?? 0);
             g_key_file_set_string_list(this_, groupName_, key_, list_, length_);
         }
 
