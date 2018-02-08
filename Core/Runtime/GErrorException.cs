@@ -11,7 +11,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// The GError.
         /// </summary>
-        public readonly Error Error;
+        public Error Error { get; }
 
         /// <summary>
         /// Create a new instance from a GError.
