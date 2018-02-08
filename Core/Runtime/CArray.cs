@@ -13,10 +13,6 @@ namespace GISharp.Runtime
 
         public CArray(IntPtr handle, int length, Transfer ownership) : base(handle)
         {
-            if (ownership == Transfer.Container) {
-                this.handle = IntPtr.Zero;
-                throw new NotSupportedException();
-            }
             if (ownership != Transfer.None) {
                 Owned = true;
             }
