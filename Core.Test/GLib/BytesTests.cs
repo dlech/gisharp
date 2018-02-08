@@ -4,6 +4,8 @@ using System.Linq;
 using GISharp.GLib;
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -22,7 +24,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (b.Count, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -54,7 +56,7 @@ namespace GISharp.Core.Test.GLib
                 }
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -67,7 +69,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That(() => b.Size, Throws.TypeOf<ObjectDisposedException>());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -82,7 +84,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => b[0], Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -99,7 +101,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That(() => bytes.Any(), Throws.TypeOf<ObjectDisposedException>());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

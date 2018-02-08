@@ -4,6 +4,8 @@ using NUnit.Framework;
 using GISharp.GObject;
 using GISharp.Runtime;
 
+using static GISharp.TestHelpers;
+
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 
@@ -28,7 +30,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (true), Throws.ArgumentException);
             Assert.That (() => (bool)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -45,7 +47,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set ((sbyte)1), Throws.ArgumentException);
             Assert.That (() => (sbyte)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -62,7 +64,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set ((byte)1), Throws.ArgumentException);
             Assert.That (() => (byte)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -79,7 +81,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1), Throws.ArgumentException);
             Assert.That (() => (int)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -96,7 +98,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1U), Throws.ArgumentException);
             Assert.That (() => (uint)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -113,7 +115,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1L), Throws.ArgumentException);
             Assert.That (() => (nlong)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -130,7 +132,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1UL), Throws.ArgumentException);
             Assert.That (() => (nulong)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -147,7 +149,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1L), Throws.ArgumentException);
             Assert.That (() => (long)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -164,7 +166,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1UL), Throws.ArgumentException);
             Assert.That (() => (ulong)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -181,7 +183,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1.0), Throws.ArgumentException);
             Assert.That (() => (float)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -198,7 +200,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (1F), Throws.ArgumentException);
             Assert.That (() => (double)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [GType]
@@ -226,7 +228,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (ValueTestEnum.Value), Throws.ArgumentException);
 //            Assert.That (() => (ValueTestEnum)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Flags, GType]
@@ -254,7 +256,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (ValueTestFlags.Value), Throws.ArgumentException);
 //            Assert.That (() => (ValueTestFlags)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -286,7 +288,7 @@ namespace GISharp.Core.Test.GObject
         //    Assert.That (() => v2.Param = "1", Throws.InstanceOf<InvalidCastException> ());
         //    Assert.That (() => v2.Param, Throws.InstanceOf<InvalidCastException> ());
 
-        //    Utility.AssertNoGLibLog();
+        //    AssertNoGLibLog();
         //}
 
         //[Test]
@@ -303,7 +305,7 @@ namespace GISharp.Core.Test.GObject
         //    Assert.That (() => v2.Boxed = IntPtr.Zero, Throws.InstanceOf<InvalidCastException> ());
         //    Assert.That (() => v2.Boxed, Throws.InstanceOf<InvalidCastException> ());
 
-        //    Utility.AssertNoGLibLog();
+        //    AssertNoGLibLog();
         //}
 
         [Test]
@@ -320,7 +322,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (IntPtr.Zero), Throws.ArgumentException);
             Assert.That (() => (IntPtr)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         //[Test]
@@ -337,7 +339,7 @@ namespace GISharp.Core.Test.GObject
         //    Assert.That (() => v2.Object = IntPtr.Zero, Throws.InstanceOf<InvalidCastException> ());
         //    Assert.That (() => v2.Object, Throws.InstanceOf<InvalidCastException> ());
 
-        //    Utility.AssertNoGLibLog();
+        //    AssertNoGLibLog();
         //}
 
         [Test]
@@ -354,7 +356,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => v2.Set (GType.Boolean), Throws.ArgumentException);
             Assert.That (() => (GType)v2, Throws.InstanceOf<InvalidCastException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         //[Test]
@@ -371,7 +373,7 @@ namespace GISharp.Core.Test.GObject
         //    Assert.That (() => v2.Variant = GType.None, Throws.InstanceOf<InvalidCastException> ());
         //    Assert.That (() => v2.Variant, Throws.InstanceOf<InvalidCastException> ());
 
-        //    Utility.AssertNoGLibLog();
+        //    AssertNoGLibLog();
         //}
     }
 }

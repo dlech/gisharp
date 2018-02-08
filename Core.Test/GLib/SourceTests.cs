@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using NUnit.Framework;
 using GISharp.GLib;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -38,7 +40,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (callbackInvoked, Is.True);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -51,7 +53,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (MainContext.Default.FindSourceById (id), Is.Null);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

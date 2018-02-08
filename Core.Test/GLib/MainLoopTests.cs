@@ -2,6 +2,8 @@
 using GISharp.GLib;
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -15,7 +17,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (context.Handle, Is.EqualTo (MainContext.Default.Handle));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -29,7 +31,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (mainLoop.IsRunning, Is.True);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -49,7 +51,7 @@ namespace GISharp.Core.Test.GLib
                 }
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

@@ -2,6 +2,8 @@
 using NUnit.Framework;
 using GISharp.GObject;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
@@ -27,7 +29,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That(ret, Is.True);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

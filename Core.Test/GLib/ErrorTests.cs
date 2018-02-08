@@ -3,6 +3,8 @@ using GISharp.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -15,7 +17,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GError"));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         static Quark ErrorQuark {

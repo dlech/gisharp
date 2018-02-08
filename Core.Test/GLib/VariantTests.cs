@@ -8,6 +8,8 @@ using GISharp.Runtime;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -132,7 +134,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That(null == trueVariant1, Is.False);
                 Assert.That(null != trueVariant1, Is.True);
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -159,7 +161,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => one.CompareTo(otherOne),
                     Throws.InvalidOperationException);
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -171,7 +173,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (bool)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -183,7 +185,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (byte)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -195,7 +197,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (short)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -207,7 +209,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (ushort)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -219,7 +221,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (int)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -231,7 +233,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (uint)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -243,7 +245,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (long)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -255,7 +257,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (ulong)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -267,7 +269,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (DBusHandle)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -279,7 +281,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (double)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -291,7 +293,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (string)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -303,7 +305,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (string[])variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -315,7 +317,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (DBusObjectPath)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -327,7 +329,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (DBusObjectPath[])variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -339,7 +341,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (DBusSignature)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -351,7 +353,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (byte[])variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -363,7 +365,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (byte[][])variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -387,7 +389,7 @@ namespace GISharp.Core.Test.GLib
                     Assert.That(actual, Is.EqualTo(expected));
                 }
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -403,7 +405,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (PtrArray<Variant>)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -428,7 +430,7 @@ namespace GISharp.Core.Test.GLib
                 var actual = (KeyValuePair<Variant, Variant>)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]

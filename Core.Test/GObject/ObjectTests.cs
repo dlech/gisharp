@@ -6,6 +6,8 @@ using NUnit.Framework;
 using GISharp.GObject;
 using GISharp.Runtime;
 
+using static GISharp.TestHelpers;
+
 using Object = GISharp.GObject.Object;
 using System.Collections.Generic;
 
@@ -50,7 +52,7 @@ namespace GISharp.Core.Test.GObject
                 }
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -89,7 +91,7 @@ namespace GISharp.Core.Test.GObject
             GC.WaitForPendingFinalizers ();
             Assert.That (weakRef.IsAlive, Is.False);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -112,7 +114,7 @@ namespace GISharp.Core.Test.GObject
 
             Assert.That(() => new TestObject3 (), Throws.Nothing);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -131,7 +133,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (obj.ObjectProperty, Is.SameAs (expectedObj));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -170,7 +172,7 @@ namespace GISharp.Core.Test.GObject
                 }
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -203,7 +205,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (notificationCount, Is.EqualTo (2));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -233,7 +235,7 @@ namespace GISharp.Core.Test.GObject
                     Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -250,7 +252,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (eventCount, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         // This will fail because it lacks the GTypeAttribute

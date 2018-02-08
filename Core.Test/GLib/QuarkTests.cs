@@ -3,6 +3,8 @@ using System;
 
 using GISharp.GLib;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -18,7 +20,7 @@ namespace GISharp.Core.Test.GLib
             uint actual = quark;
             Assert.That (actual, Is.EqualTo (expected));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -34,7 +36,7 @@ namespace GISharp.Core.Test.GLib
             actual = Quark.FromString (testQuarkPrefix + "test-from-string");
             Assert.That (actual, Is.Not.EqualTo (default(Quark)));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -54,7 +56,7 @@ namespace GISharp.Core.Test.GLib
             actual = quark.ToString ();
             Assert.That (actual, Is.EqualTo (quarkString));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
 
@@ -77,7 +79,7 @@ namespace GISharp.Core.Test.GLib
             actual = Quark.TryString (quarkString);
             Assert.That (actual, Is.EqualTo (quark));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

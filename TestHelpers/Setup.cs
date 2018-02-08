@@ -1,12 +1,10 @@
 ﻿﻿using System;
-
 using NUnit.Framework;
-
 using GISharp.GLib;
 
 using static GISharp.GLib.LogLevelFlags;
 
-// no namespace, so this applies to all tests in the assembly
+// no namespace, so that this applies to all tests in the assembly
 
 [SetUpFixture]
 public class Setup
@@ -23,10 +21,10 @@ public class Setup
     }
 
     [OneTimeSetUp]
-    public void SetupAssembly ()
+    public void SetupGLibLogging()
     {
-        Utility.ApplicationName = "Core Test";
-        Utility.ProgramName = "Core.Test";
+        Utility.ApplicationName = "GISharp.Test";
+        Utility.ProgramName = "GISharp.Test";
         Log.SetDefaultHandler(LogToTestContext);
     }
 }

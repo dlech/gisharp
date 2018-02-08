@@ -2,6 +2,9 @@
 using GISharp.GLib;
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+using static GISharp.Core.Test.Helpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -11,7 +14,7 @@ namespace GISharp.Core.Test.GLib
         public void TestFormatFields ()
         {
             // support for structured logs was added in v2.50
-            Utility.IgnoreTestWhenGLibVersionIsLessThan ("2.50");
+            AssertIgnoreWhenVersionIsLessThan(GLibVersion, "2.50");
 
             var message = new Dictionary<string, string> {
                 { "MESSAGE", "Test message." },
@@ -29,7 +32,7 @@ namespace GISharp.Core.Test.GLib
             var actualColor = LogWriter.FormatFields (LogLevelFlags.Debug, message, true);
             Assert.That (actualColor, Does.Match (expectedColor));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

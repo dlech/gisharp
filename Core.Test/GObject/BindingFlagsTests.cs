@@ -3,6 +3,8 @@
 using NUnit.Framework;
 using GISharp.GObject;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
@@ -14,7 +16,7 @@ namespace GISharp.Core.Test.GObject
             var gtype = typeof (BindingFlags).GetGType ();
             Assert.That (gtype.Name, Is.EqualTo ("GBindingFlags"));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

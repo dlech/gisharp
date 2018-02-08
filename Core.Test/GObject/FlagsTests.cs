@@ -4,6 +4,8 @@ using NUnit.Framework;
 using GISharp.GObject;
 using GISharp.Runtime;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
@@ -18,7 +20,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => (FlagsClass)TypeClass.Get (testFlags1GType),
                 Throws.ArgumentException);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -28,7 +30,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => typeof (TestFlags2).GetGType (),
                 Throws.ArgumentException);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -39,7 +41,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (() => typeof (TestFlags3).GetGType (),
                 Throws.ArgumentException);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -68,7 +70,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (valueNick, Is.EqualTo ("One"));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
 
         }
 
@@ -94,7 +96,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (value2Nick, Is.EqualTo ("test_flags_5_value_two"));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         // This type is registered as a boxed type with the GType system since

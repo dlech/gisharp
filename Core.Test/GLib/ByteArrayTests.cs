@@ -5,6 +5,8 @@ using GISharp.GLib;
 using System.Runtime.InteropServices;
 using GISharp.GObject;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -28,7 +30,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That(array.Length, Is.EqualTo(0));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -43,7 +45,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => new ByteArray ((byte[])null),
                 Throws.InstanceOf<ArgumentNullException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -57,7 +59,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (() => new ByteArray (-1),
                          Throws.TypeOf<ArgumentOutOfRangeException> ());
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -80,7 +82,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -103,7 +105,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -128,7 +130,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -155,7 +157,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -176,7 +178,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -195,7 +197,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 #if false
         [Test]
@@ -218,7 +220,7 @@ namespace GISharp.Core.Test.GLib
                              Throws.TypeOf<ObjectDisposedException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 #endif
         [Test]
@@ -228,7 +230,7 @@ namespace GISharp.Core.Test.GLib
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That (gtype.Name, Is.EqualTo ("GByteArray"));
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

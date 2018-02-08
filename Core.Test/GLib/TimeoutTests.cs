@@ -3,6 +3,8 @@ using System.Threading.Tasks;
 using GISharp.GLib;
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -38,7 +40,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (timeoutInvoked, Is.True);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -71,7 +73,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (timeoutInvoked, Is.True);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -100,7 +102,7 @@ namespace GISharp.Core.Test.GLib
 
             Assert.That (timeoutInvoked, Is.True);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -129,7 +131,7 @@ namespace GISharp.Core.Test.GLib
 
             Assert.That (timeoutInvoked, Is.True);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }

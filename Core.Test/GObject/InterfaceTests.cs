@@ -5,6 +5,8 @@ using GISharp.GObject;
 using GISharp.GLib;
 using System.ComponentModel;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GObject
 {
     [TestFixture]
@@ -15,7 +17,7 @@ namespace GISharp.Core.Test.GObject
         {
             Assert.That (() => typeof(INetworkMonitor).GetGType (), Throws.Nothing);
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -27,7 +29,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -38,7 +40,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -55,7 +57,7 @@ namespace GISharp.Core.Test.GObject
                 Assert.That (callbackCount, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 

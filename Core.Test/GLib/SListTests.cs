@@ -5,6 +5,8 @@ using NUnit.Framework;
 using GISharp.GLib;
 using GISharp.Runtime;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test.GLib
 {
     [TestFixture]
@@ -17,7 +19,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list, Is.Not.Null);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -29,7 +31,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -41,7 +43,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -53,7 +55,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -65,7 +67,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -91,7 +93,7 @@ namespace GISharp.Core.Test.GLib
                     Throws.ArgumentNullException);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -104,7 +106,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (0));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -117,7 +119,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (list.Length, Is.EqualTo (0));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -131,7 +133,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (newList.Length, Is.EqualTo (1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -149,7 +151,7 @@ namespace GISharp.Core.Test.GLib
                 Assume.That (list[1].Handle, Is.EqualTo ((IntPtr)2));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -176,7 +178,7 @@ namespace GISharp.Core.Test.GLib
                     Throws.InstanceOf<ArgumentNullException> ());
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -195,7 +197,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (() => list1.Concat (null), Throws.ArgumentNullException);
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -212,7 +214,7 @@ namespace GISharp.Core.Test.GLib
                 }
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -231,7 +233,7 @@ namespace GISharp.Core.Test.GLib
                 Assert.That (index, Is.EqualTo (-1));
             }
 
-            Utility.AssertNoGLibLog();
+            AssertNoGLibLog();
         }
     }
 }
