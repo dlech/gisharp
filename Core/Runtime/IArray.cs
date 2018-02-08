@@ -7,7 +7,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Common interface for arrays of value types (structs).
     /// </summary>
-    public interface IArray<T> : IReadOnlyList<T> where T : struct
+    public interface IArray<T> : IReadOnlyList<T>
     {
         /// <summary>
         /// Gets a pointer to the array in unmanaged memory.

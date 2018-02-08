@@ -580,7 +580,7 @@ namespace GISharp.GObject
         ///   defining the new properties
         /// </param>
         [Since ("2.26")]
-        public void InstallProperties(IPtrArray<ParamSpec> pspecs)
+        public void InstallProperties(IArray<ParamSpec> pspecs)
         {
             var this_ = Handle;
             var pspecs_ = pspecs?.Data ?? throw new ArgumentNullException(nameof(pspecs));
@@ -686,12 +686,12 @@ namespace GISharp.GObject
         /// an array of
         ///          #GParamSpec* which should be freed after use
         /// </returns>
-        public IPtrArray<ParamSpec> ListProperties()
+        public IArray<ParamSpec> ListProperties()
         {
             return ListProperties(Handle);
         }
 
-        internal static IPtrArray<ParamSpec> ListProperties(IntPtr handle)
+        internal static IArray<ParamSpec> ListProperties(IntPtr handle)
         {
             var ret_ = g_object_class_list_properties (handle, out var nProperties_);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);

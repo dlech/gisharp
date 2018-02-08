@@ -35,13 +35,22 @@ namespace GISharp.Runtime
             base.Dispose(disposing);
         }
 
+        public ValueTuple<IntPtr, int> TakeData()
+        {
+            if (!Owned) {
+                throw new InvalidOperationException("Data must be owned");
+            }
+            Owned = false;
+            return (Handle, Length);
+        }
+
         public static CPtrArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T :Opaque
         {
             return new CPtrArray<T>(handle, length, ownership);
         }
     }
 
-    public class CPtrArray<T> : CPtrArray, IPtrArray<T> where T : Opaque
+    public class CPtrArray<T> : CPtrArray, IArray<T> where T : Opaque
     {
         public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
@@ -59,7 +68,7 @@ namespace GISharp.Runtime
             }
         }
 
-        IntPtr IPtrArray<T>.Data => Handle;
+        IntPtr IArray<T>.Data => Handle;
 
         int IReadOnlyCollection<T>.Count => Length;
 

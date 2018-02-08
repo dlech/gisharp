@@ -542,7 +542,7 @@ namespace GISharp.GLib
             return new Variant (value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs(VariantType childType, IPtrArray<Variant> children)
+        static void AssertNewArrayArgs(VariantType childType, IArray<Variant> children)
         {
             if (childType == null && (children == null || children.Length == 0)) {
                 throw new ArgumentException ("Must specify child type when no children", nameof (childType));
@@ -640,7 +640,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewArray(VariantType childType, IPtrArray<Variant> children)
+        static IntPtr NewArray(VariantType childType, IArray<Variant> children)
         {
             AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
@@ -676,7 +676,7 @@ namespace GISharp.GLib
         ///            #GVariant pointers, the children
         /// </param>
         [Since ("2.24")]
-        public Variant(VariantType childType, IPtrArray<Variant> children)
+        public Variant(VariantType childType, IArray<Variant> children)
             : this(NewArray(childType, children), Transfer.None)
         {
         }
@@ -1808,7 +1808,7 @@ namespace GISharp.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewTuple(IPtrArray<Variant> children)
+        static IntPtr NewTuple(IArray<Variant> children)
         {
             var children_ = children?.Data ?? throw new ArgumentNullException(nameof(children));
             if (children.Any (x => x == null)) {
@@ -1834,7 +1834,7 @@ namespace GISharp.GLib
         /// the items to make the tuple out of
         /// </param>
         [Since ("2.24")]
-        public Variant(IPtrArray<Variant> children) : this(NewTuple(children), Transfer.None)
+        public Variant(IArray<Variant> children) : this(NewTuple(children), Transfer.None)
         {
         }
 

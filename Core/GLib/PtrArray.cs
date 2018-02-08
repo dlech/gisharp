@@ -256,6 +256,14 @@ namespace GISharp.GLib
             IntPtr array,
             bool freeSeg);
 
+        public ValueTuple<IntPtr, int> TakeData()
+        {
+            var length = Length;
+            var data = g_ptr_array_free(Handle, false);
+            handle = IntPtr.Zero; // object becomes disposed
+            return (data, length);
+        }
+
         /// <summary>
         /// Inserts an element into the pointer array at the given index. The
         /// array will grow in size automatically if necessary.
@@ -737,7 +745,7 @@ namespace GISharp.GLib
         }
     }
 
-    public sealed class PtrArray<T> : PtrArray, IPtrArray<T>, IList<T>
+    public sealed class PtrArray<T> : PtrArray, IArray<T>, IList<T>
         where T : Opaque
     {
         static Func<IntPtr, IntPtr> elementCopyFunc;

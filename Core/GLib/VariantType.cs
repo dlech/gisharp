@@ -651,7 +651,7 @@ namespace GISharp.GLib
         /// if any element of <paramref name="items"/> is <c>null</c>
         /// </exception>
         [Since ("2.24")]
-        public static VariantType CreateTuple(IPtrArray<VariantType> items)
+        public static VariantType CreateTuple(IArray<VariantType> items)
         {
             var items_ = items?.Data ?? throw new ArgumentNullException(nameof(items));
             if (items.Any(x => x == null)) {
