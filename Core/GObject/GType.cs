@@ -966,7 +966,7 @@ namespace GISharp.GObject
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             enumValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
                             enumValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
-                            gtypeValues.Append(enumValue);
+                            gtypeValues.Add(enumValue);
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -991,7 +991,7 @@ namespace GISharp.GObject
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             flagValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
                             flagValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
-                            gtypeValues.Append(flagValue);
+                            gtypeValues.Add(flagValue);
                         }
                         var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {

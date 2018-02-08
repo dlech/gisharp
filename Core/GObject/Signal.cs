@@ -517,10 +517,10 @@ namespace GISharp.GObject
                 throw new ArgumentException (message);
             }
             using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
-                instanceAndParams.Append (new Value (instance.GetGType (), instance));
+                instanceAndParams.Add(new Value(instance.GetGType(), instance));
                 for (var i = 0; i < parameters.Length; i++) {
                     var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];
-                    instanceAndParams.Append(new Value(paramGType, parameters[i]));
+                    instanceAndParams.Add(new Value(paramGType, parameters[i]));
                 }
 
                 var ret = default(object);

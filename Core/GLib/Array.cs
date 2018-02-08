@@ -614,12 +614,12 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Adds element onto the end of the array.
+        /// Adds an element onto the end of the array.
         /// </summary>
         /// <param name="data">
         /// the element to append to the end of the array
         /// </param>
-        void ICollection<T>.Add (T data)
+        public void Add(T data)
         {
             Append (data);
         }
@@ -656,7 +656,7 @@ namespace GISharp.GLib
         /// Adds elements onto the start of the array.
         /// </summary>
         /// <remarks>
-        /// This operation is slower than <see cref="Append"/> since the
+        /// This operation is slower than <see cref="Add"/> since the
         /// existing elements in the array have to be moved to make space for
         /// the new elements.
         /// </remarks>
