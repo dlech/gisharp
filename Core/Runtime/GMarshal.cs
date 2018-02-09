@@ -68,7 +68,7 @@ namespace GISharp.Runtime
         /// <param name="ptr">Pointer to the unmanaged string.</param>
         /// <param name="freePtr">If set to <c>true</c> free the unmanaged memory.</param>
         /// <remarks>
-        /// Since encoding is not specified, the string is retuned as a byte array.
+        /// Since encoding is not specified, the string is returned as a byte array.
         /// The byte array does not include the null terminator.
         /// </remarks>
         public static byte[] PtrToByteString (IntPtr ptr, bool freePtr = false)
