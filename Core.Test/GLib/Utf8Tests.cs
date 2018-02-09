@@ -3,6 +3,8 @@ using GISharp.GLib;
 
 using NUnit.Framework;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Core.Test
 {
     [TestFixture]
@@ -17,6 +19,7 @@ namespace GISharp.Core.Test
                 Assert.That(utf8.Length, Is.EqualTo(testString.Length));
                 Assert.That(utf8.ToString(), Is.EqualTo(testString));
             }
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -26,9 +29,11 @@ namespace GISharp.Core.Test
                 var expected = testString.GetEnumerator();
                 foreach (var c in utf8) {
                     Assert.That(expected.MoveNext(), Is.True);
-                    Assert.That(c, Is.EqualTo(expected.Current));
+                    Assert.That((char)c, Is.EqualTo(expected.Current));
                 }
+                Assert.That(expected.MoveNext(), Is.False);
             }
+            AssertNoGLibLog();
         }
     }
 }

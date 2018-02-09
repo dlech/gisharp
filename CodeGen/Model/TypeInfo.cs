@@ -49,10 +49,6 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         CPtrArray,
         /// <summary>
-        /// A UTF-32/UCS-4 character.
-        /// </summary>
-        Utf32Char,
-        /// <summary>
         /// A value type (struct).
         /// </summary>
         ValueType,
@@ -102,8 +98,6 @@ namespace GISharp.CodeGen.Model
                         _Classification = TypeClassification.Opaque;
                     } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
                         _Classification = TypeClassification.Opaque;
-                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "gunichar") {
-                        _Classification = TypeClassification.Utf32Char;
                     } else if (TypeObject.IsArray) {
                         // null-terminated arrays of utf8 are GStrv
                         if (Element.Element(gi + "array")?.Attribute(gi + "zero-terminated").AsBool() == true &&

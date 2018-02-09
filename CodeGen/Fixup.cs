@@ -820,7 +820,6 @@ namespace GISharp.CodeGen
                     return typeof(char).FullName;
                 case "gint":
                 case "gint32":
-                case "gunichar":
                     return typeof(int).FullName;
                 case "guint":
                 case "guint32":
@@ -846,6 +845,8 @@ namespace GISharp.CodeGen
                 case "guintptr":
                 case "gsize":
                     return typeof(UIntPtr).FullName;
+                case "gunichar":
+                    return typeof(GISharp.GLib.Unichar).FullName;
                 case "filename":
                     return typeof(GISharp.GLib.Filename).FullName;
                 case "utf8":

@@ -14,7 +14,7 @@ namespace GISharp.GLib
     /// Unmanaged, null-terminated UTF8 string
     /// </summary>
     [DebuggerDisplay("{Value}")]
-    public sealed class Utf8 : Opaque, IEnumerable<int>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
+    public sealed class Utf8 : Opaque, IEnumerable<Unichar>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
     {
         /// <summary>
         /// Indicates that we own the pointer and it needs to be freed by us
@@ -400,7 +400,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
         /* transfer-ownership:none */
-        static extern int g_utf8_get_char(
+        static extern Unichar g_utf8_get_char(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr p);
@@ -428,7 +428,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
         /* transfer-ownership:none */
-        static extern int g_utf8_get_char_validated(
+        static extern Unichar g_utf8_get_char_validated(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr p,
@@ -436,11 +436,11 @@ namespace GISharp.GLib
             /* transfer-ownership:none */
             IntPtr maxLen);
 
-        IEnumerator<int> GetEnumerator()
+        IEnumerator<Unichar> GetEnumerator()
         {
             for (var ptr = Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
                 var ret = g_utf8_get_char(ptr);
-                if (ret == 0) {
+                if (ret == default(Unichar)) {
                     // don't return the null terminator
                     yield break;
                 }
@@ -448,7 +448,7 @@ namespace GISharp.GLib
             }
         }
 
-        IEnumerator<int> IEnumerable<int>.GetEnumerator() => GetEnumerator();
+        IEnumerator<Unichar> IEnumerable<Unichar>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
@@ -799,7 +799,7 @@ namespace GISharp.GLib
             IntPtr len,
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
-            int c);
+            Unichar c);
 
         // /// <summary>
         // /// Finds the leftmost occurrence of the given Unicode character
@@ -1037,7 +1037,7 @@ namespace GISharp.GLib
             IntPtr len,
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
-            int c);
+            Unichar c);
 
         // /// <summary>
         // /// Find the rightmost occurrence of the given Unicode character
@@ -1274,7 +1274,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gunichar" type="gunichar*" managed-name="Gunichar" /> */
         /* transfer-ownership:none */
-        static extern int g_utf8_to_ucs4(
+        static extern IntPtr g_utf8_to_ucs4(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr str,
@@ -1376,7 +1376,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gunichar" type="gunichar*" managed-name="Gunichar" /> */
         /* transfer-ownership:none */
-        static extern int g_utf8_to_ucs4_fast(
+        static extern IntPtr g_utf8_to_ucs4_fast(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr str,
