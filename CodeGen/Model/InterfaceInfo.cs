@@ -30,6 +30,12 @@ namespace GISharp.CodeGen.Model
         public InterfaceDeclarationSyntax InterfaceDeclaration => _InterfaceDeclaration.Value;
         readonly Lazy<InterfaceDeclarationSyntax> _InterfaceDeclaration;
 
+        /// <summary>
+        /// Gets the interface static class declaration (without any members)
+        /// </summary>
+        public ClassDeclarationSyntax InterfaceExtensionsDeclaration => _InterfaceExtensionsDeclaration.Value;
+        readonly Lazy<ClassDeclarationSyntax> _InterfaceExtensionsDeclaration;
+
         SyntaxList<MemberDeclarationSyntax>? _InterfaceMembers;
         public SyntaxList<MemberDeclarationSyntax> InterfaceMembers {
             get {
@@ -65,6 +71,7 @@ namespace GISharp.CodeGen.Model
 
             _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
             _InterfaceDeclaration = new Lazy<InterfaceDeclarationSyntax>(GetInterfaceDeclaration);
+            _InterfaceExtensionsDeclaration = new Lazy<ClassDeclarationSyntax>(GetInterfaceExtensionsDeclaration);
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
@@ -74,13 +81,7 @@ namespace GISharp.CodeGen.Model
 
             try {
                 interfaceDeclaration = InterfaceDeclaration.WithMembers(InterfaceMembers);
-
-                var interfaceExtensionsModifiers = TokenList ()
-                    .Add (Token (SyntaxKind.PublicKeyword))
-                    .Add (Token (SyntaxKind.StaticKeyword));
-                interfaceExtensionsDeclaration = ClassDeclaration (Identifier)
-                    .WithModifiers (interfaceExtensionsModifiers)
-                    .WithMembers (InterfaceExtensionsMembers);
+                interfaceExtensionsDeclaration = InterfaceExtensionsDeclaration.WithMembers(InterfaceExtensionsMembers);
             } catch (Exception ex) {
                 Console.WriteLine($"Skipping {QualifiedName} due to error: {ex.Message}");
                 yield break;
@@ -130,6 +131,17 @@ namespace GISharp.CodeGen.Model
             if (BaseList.ChildNodes().Any()) {
                 declaration = declaration.WithBaseList(BaseList);
             }
+            return declaration;
+        }
+
+        // gets the interface static class declaration (without any members)
+        ClassDeclarationSyntax GetInterfaceExtensionsDeclaration()
+        {
+            var modifiers = TokenList()
+                .Add(Token(SyntaxKind.PublicKeyword))
+                .Add(Token(SyntaxKind.StaticKeyword));
+            var declaration = ClassDeclaration(Identifier)
+                .WithModifiers(modifiers);
             return declaration;
         }
 
