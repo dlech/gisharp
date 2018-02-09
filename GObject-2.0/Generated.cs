@@ -1,0 +1,3 @@
+namespace GISharp.GObject
+{
+}
