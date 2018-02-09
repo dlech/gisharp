@@ -17,20 +17,12 @@ namespace GISharp.CodeGen.Model
     /// </summary>
     public class InterfaceInfo : TypeDeclarationInfo
     {
-        BaseListSyntax _BaseList;
         /// <summary>
         /// Gets the base list syntax for the interface declaration.
         /// </summary>
         /// <value>The base list.</value>
-        public BaseListSyntax BaseList {
-            get {
-                if (_BaseList == null) {
-                    var types = SeparatedList<BaseTypeSyntax> (GetBaseTypes ());
-                    _BaseList = BaseList (types);
-                }
-                return _BaseList;
-            }
-        }
+        public BaseListSyntax BaseList => _BaseList.Value;
+        Lazy<BaseListSyntax> _BaseList;
 
         SyntaxList<MemberDeclarationSyntax>? _InterfaceMembers;
         public SyntaxList<MemberDeclarationSyntax> InterfaceMembers {
@@ -64,6 +56,8 @@ namespace GISharp.CodeGen.Model
             if (element.Name != gi + "interface") {
                 throw new ArgumentException ("Requires <gi:interface> element.", nameof(element));
             }
+
+            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
@@ -75,9 +69,11 @@ namespace GISharp.CodeGen.Model
                 interfaceDeclaration = InterfaceDeclaration ("I" + Identifier.Text)
                     .WithAttributeLists (AttributeLists)
                     .WithModifiers (Modifiers)
-                    .WithBaseList (BaseList)
                     .WithMembers (InterfaceMembers)
                     .WithLeadingTrivia (DocumentationCommentTriviaList);
+                if (BaseList.ChildNodes().Any()) {
+                    interfaceDeclaration = interfaceDeclaration.WithBaseList(BaseList);
+                }
 
                 var interfaceExtensionsModifiers = TokenList ()
                     .Add (Token (SyntaxKind.PublicKeyword))
@@ -95,6 +91,7 @@ namespace GISharp.CodeGen.Model
             yield return interfaceExtenstionsDeclaration;
         }
 
+        // gets a list of all base interfaces (prerequisites in GLib terms)
         IEnumerable<BaseTypeSyntax> GetBaseTypes ()
         {
             if (Element.Descendants (gi + "prerequisite").Any ()) {
@@ -102,9 +99,6 @@ namespace GISharp.CodeGen.Model
                     var type = GirType.ResolveType (prerequisite.Attribute ("name").Value, Element.Document);
                     yield return SimpleBaseType (ParseTypeName (type.FullName));
                 }
-            } else {
-                // FIXME: use an attribute for this
-                // yield return SimpleBaseType (ParseTypeName (typeof(GISharp.Runtime.IObject).FullName));
             }
         }
 

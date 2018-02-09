@@ -34,7 +34,7 @@ namespace GISharp.Gio
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAction", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionInterface))]
-    public interface IAction :
+    public interface IAction
     {
         [GISharp.Runtime.GPropertyAttribute("enabled")]
         [GISharp.Runtime.SinceAttribute("2.28")]
