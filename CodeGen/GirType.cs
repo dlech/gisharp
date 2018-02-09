@@ -386,6 +386,8 @@ namespace GISharp.CodeGen
             }
         }
 
+        public override bool IsConstructedGenericType => false;
+
         public override Module Module {
             get {
                 throw new InvalidOperationException ();
