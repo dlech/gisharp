@@ -100,7 +100,7 @@ namespace GISharp.CodeGen.Model
             // Create an attribute for the instantiable prerequisite type
             // TODO: this should probably be omitted when there are base interfaces
             // since the attribute can be inherited
-            var attrName = ParseName(typeof(GISharp.Runtime.GTypePrerequisiteAttribute).FullName);
+            var attrName = ParseName(typeof(GISharp.Runtime.GInterfacePrerequisiteAttribute).FullName);
             // TODO: this can probably be a type other than GObject, however if
             // the GIR XML doesn't specify a type, GObject should be the default
             var prerequisiteTypeName = typeof(GISharp.GObject.Object).FullName;

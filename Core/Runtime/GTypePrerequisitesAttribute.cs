@@ -26,7 +26,7 @@ namespace GISharp.Runtime
     /// </code>
     /// </example>
     [AttributeUsage (AttributeTargets.Interface)]
-    public class GTypePrerequisiteAttribute : Attribute
+    public class GInterfacePrerequisiteAttribute : Attribute
     {
         /// <summary>
         /// Gets the managed type of the prerequisite.
@@ -52,7 +52,7 @@ namespace GISharp.Runtime
         /// Thrown if <paramref name="prerequisite" /> is not a GType or it is
         /// not instaniatable.
         /// </exception>
-        public GTypePrerequisiteAttribute (Type prerequisite)
+        public GInterfacePrerequisiteAttribute (Type prerequisite)
         {
             if (prerequisite == null) {
                 throw new ArgumentNullException (nameof(prerequisite));
