@@ -62,7 +62,7 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         public Type GTypeStructParent {
             get {
-                var firstField = Element.Element (gi + "record").Elements (gi + "field").First ();
+                var firstField = Element.Elements(gi + "field").First();
                 var parentType = GirType.ResolveType (firstField.Attribute (gs + "managed-type").Value, Element.Document);
                 return parentType;
             }
@@ -216,7 +216,7 @@ namespace GISharp.CodeGen.Model
         {
             const string structName = "Struct";
             string statement;
-            foreach (var f in NestedTypeInfos.Single(x => x.ManagedName == structName).FieldInfos.Where(x => x.IsCallback)) {
+            foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
                 var methodName = f.ManagedName;
                 var delegateName = "Unmanaged" + f.CallbackInfo.ManagedName;
                 var prefix = methodName.ToCamelCase ();
@@ -237,7 +237,7 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls ()
         {
-            foreach (var f in NestedTypeInfos.Single (x => x.ManagedName == "Struct").FieldInfos.Where (x => x.IsCallback)) {
+            foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
                 var methodName = f.ManagedName;
                 var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
 
@@ -282,7 +282,7 @@ namespace GISharp.CodeGen.Model
                     opaqueTypeName = GTypeStructParent.FullName;
                     break;
                 default:
-                    var message = string.Format ("Unknown oqaue type '{0}.", opaqueTypeName);
+                    var message = $"Unknown opaque type '{opaqueTypeName}'";
                     throw new Exception (message);
                 }
                 yield return SimpleBaseType (ParseTypeName (opaqueTypeName));

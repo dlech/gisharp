@@ -21,6 +21,10 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         CArray,
         /// <summary>
+        /// A C-style array of pointers to unmanaged <see cref="Opaque"/> objects
+        /// </summary>
+        CPtrArray,
+        /// <summary>
         /// A delegate.
         /// </summary>
         Delegate,
@@ -45,10 +49,6 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         Opaque,
         /// <summary>
-        /// A C-style array of pointers to unmanaged <see cref="Opaque"/> objects
-        /// </summary>
-        CPtrArray,
-        /// <summary>
         /// A value type (struct).
         /// </summary>
         ValueType,
@@ -62,63 +62,16 @@ namespace GISharp.CodeGen.Model
     {
         readonly string typeName;
 
-        TypeClassification? _Classification;
-        public TypeClassification Classification {
-            get {
-                if (!_Classification.HasValue) {
-                    if (TypeObject == typeof(void)) {
-                        // void is easy
-                        _Classification = TypeClassification.Void;
-                    }
-                    else if (TypeObject.IsInterface) {
-                        // for interfaces, we check first for the special IArray<T> interface (for C arrays)
-                        if (TypeObject.IsConstructedGenericType && TypeObject.GetGenericTypeDefinition() == typeof(GISharp.Runtime.IArray<>)) {
-                            var genericArgument = TypeObject.GetGenericArguments().Single();
-                            if (genericArgument.IsValueType) {
-                                _Classification = TypeClassification.CArray;
-                            } else if (genericArgument.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
-                                _Classification = TypeClassification.CPtrArray;
-                            } else {
-                                throw new NotSupportedException("IArray must be ValueType or Opaque");
-                            }
-                        }
-                        else {
-                            // otherwise we assume it is a GObject interface
-                            _Classification = TypeClassification.Interface;
-                        }
-                    } else if (Element.Attribute(glib + "is-gtype-struct-for") != null || typeof(GISharp.GObject.TypeClass).IsAssignableFrom(TypeObject)) {
-                        _Classification = TypeClassification.GTypeStruct;
-                    } else if (typeof(Delegate).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(Delegate))) {
-                        // GirType always returns false for IsAssignableFrom when type is a RuntimeType
-                        // so we have to check IsSubclassOf as well.
-                        _Classification = TypeClassification.Delegate;
-                    } else if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom (TypeObject) || TypeObject.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
-                        _Classification = TypeClassification.Opaque;
-                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "utf8") {
-                        _Classification = TypeClassification.Opaque;
-                    } else if (Element.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
-                        _Classification = TypeClassification.Opaque;
-                    } else if (TypeObject.IsArray) {
-                        // null-terminated arrays of utf8 are GStrv
-                        if (Element.Element(gi + "array")?.Attribute(gi + "zero-terminated").AsBool() == true &&
-                                Element.Element(gi + "array")?.Element(gi + "type")?.Attribute("name").AsString() == "utf8") {
-                            _Classification = TypeClassification.Opaque;
-                        } else if (Element.Element (gi + "array")?.Element (gi + "type")?.Attribute ("name").AsString () == "filename") {
-                            _Classification = TypeClassification.FilenameStrv;
-                        } else {
-                            throw new NotSupportedException ();
-                        }
-                    } else if (TypeObject.IsValueType) {
-                        _Classification = TypeClassification.ValueType;
-                    } else {
-                        throw new NotSupportedException ();
-                    }
-                }
-                return _Classification.Value;
-            }
-        }
+        /// <summary>
+        /// Gets the classification of this type
+        /// </summary>
+        public TypeClassification Classification => _Classification.Value;
+        Lazy<TypeClassification> _Classification;
 
-        public bool RequiresMarshal { get; private set; }
+        /// <summary>
+        /// Indicates that this type cannot be passed directly to pinvoke functions
+        /// </summary>
+        public bool RequiresMarshal { get; }
 
         public bool ArrayZeroTerminated {
             get {
@@ -146,15 +99,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        Type _TypeObject;
-        public Type TypeObject {
-            get {
-                if (_TypeObject == null) {
-                    _TypeObject = GirType.ResolveType (typeName, Element.Document);
-                }
-                return _TypeObject;
-            }
-        }
+        /// <summary>
+        /// Gets the type that this type info represents.
+        /// </summary>
+        public Type TypeObject => _TypeObject.Value;
+        Lazy<Type> _TypeObject;
 
         TypeSyntax _Type;
         public TypeSyntax Type {
@@ -175,28 +124,20 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        SyntaxTrivia? _GirXmlTrivia;
         /// <summary>
         /// Gets the gir xml for the type as a comment.
         /// </summary>
         /// <value>The gir xml trivia.</value>
-        public SyntaxTrivia GirXmlTrivia {
-            get {
-                if (!_GirXmlTrivia.HasValue) {
-                    _GirXmlTrivia = GetGirXmlTrivia ();
-                }
-                return _GirXmlTrivia.Value;
-            }
-        }
+        public SyntaxTrivia GirXmlTrivia => _GirXmlTrivia.Value;
+        Lazy<SyntaxTrivia> _GirXmlTrivia;
 
-        public TypeInfo (XElement element, bool managed)
-            : base (element, null)
+        public TypeInfo(XElement element, bool managed) : base(element, null)
         {
             typeName = element.Attribute (gs + "managed-type")?.Value;
             if (typeName == null) {
                 throw new ArgumentException ("Requires element with 'managed-type' attribute.", nameof(element));
             }
-            var type = TypeObject;
+            var type = GetTypeObject();
             if (typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate))) {
                 if (!managed && type is GirType) {
                     var split = typeName.Split ('.');
@@ -213,8 +154,10 @@ namespace GISharp.CodeGen.Model
                 }
                 RequiresMarshal = true;
             }
-            // have to reset the lazy getter since we possibly changed the type.
-            _TypeObject = null;
+
+            _Classification = new Lazy<TypeClassification>(GetTypeClassification);
+            _TypeObject = new Lazy<Type>(GetTypeObject);
+            _GirXmlTrivia = new Lazy<SyntaxTrivia>(GetGirXmlTrivia);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -222,6 +165,7 @@ namespace GISharp.CodeGen.Model
             yield break;
         }
 
+        // create a multi-line comment that contains the type info from the GIR XML file
         SyntaxTrivia GetGirXmlTrivia ()
         {
             var copy = new XElement (Element);
@@ -238,6 +182,77 @@ namespace GISharp.CodeGen.Model
             }
             var comment = $"/* {copy.Elements().Single()} */".Replace("\n", "\n * ");
             return Comment (comment);
+        }
+
+        Type GetTypeObject() => GirType.ResolveType(typeName, Element.Document);
+
+        // classify this type based on its characteristics
+        TypeClassification GetTypeClassification()
+        {
+            if (TypeObject == typeof(void)) {
+                // void is easy
+                return TypeClassification.Void;
+            }
+            else if (TypeObject.IsInterface) {
+                // for interfaces, we check first for the special IArray<T> interface (for C arrays)
+                if (TypeObject.IsConstructedGenericType && TypeObject.GetGenericTypeDefinition() == typeof(GISharp.Runtime.IArray<>)) {
+                    var genericArgument = TypeObject.GetGenericArguments().Single();
+                    if (genericArgument.IsValueType) {
+                        return TypeClassification.CArray;
+                    }
+                    else if (genericArgument.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
+                        return TypeClassification.CPtrArray;
+                    }
+                    else {
+                        throw new NotSupportedException("IArray<T> parameter must be ValueType or Opaque");
+                    }
+                }
+                else {
+                    // otherwise we assume it is a GObject interface
+                    return TypeClassification.Interface;
+                }
+            }
+            else if (Element.Attribute(glib + "is-gtype-struct-for") != null || typeof(GISharp.GObject.TypeClass).IsAssignableFrom(TypeObject)) {
+                // GType structs are handled differently than other Opaques
+                return TypeClassification.GTypeStruct;
+            }
+            // GirType always returns false for IsAssignableFrom when type is a RuntimeType
+            // so we have to check IsSubclassOf as well.
+            else if (typeof(Delegate).IsAssignableFrom(TypeObject) || TypeObject.IsSubclassOf(typeof(Delegate))) {
+                // GLib callbacks map to delegates
+                return TypeClassification.Delegate;
+            }
+            else if (Element.Element(gi + "type")?.Attribute("name").AsString() == "utf8") {
+                // may want to handle this differently, so keeping it separate from Opaque test below
+                return TypeClassification.Opaque;
+            }
+            else if (Element.Element(gi + "type")?.Attribute("name").AsString() == "filename") {
+                // may want to handle this differently, so keeping it separate from Opaque test below
+                return TypeClassification.Opaque;
+            }
+            else if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom(TypeObject) || TypeObject.IsSubclassOf(typeof(GISharp.Runtime.Opaque))) {
+                // most everything is going to be an Opaque
+                return TypeClassification.Opaque;
+            }
+            else if (TypeObject.IsArray) {
+                // Handle cases where an array is not an Opaque already
+                if (Element.Element(gi + "array")?.Attribute(gi + "zero-terminated").AsBool() == true &&
+                        Element.Element(gi + "array")?.Element(gi + "type")?.Attribute("name").AsString() == "utf8") {
+                    // null-terminated arrays of utf8 are GStrv
+                    return TypeClassification.Opaque;
+                }
+                else if (Element.Element(gi + "array")?.Element(gi + "type")?.Attribute("name").AsString() == "filename") {
+                    return TypeClassification.FilenameStrv;
+                }
+                else {
+                    throw new NotSupportedException($"unknown array type '{TypeObject.Name}'");
+                }
+            }
+            else if (TypeObject.IsValueType) {
+                // value types (structs)
+                return TypeClassification.ValueType;
+            }
+            throw new NotSupportedException($"don't know how to classify type '{TypeObject.Name}'");
         }
     }
 }

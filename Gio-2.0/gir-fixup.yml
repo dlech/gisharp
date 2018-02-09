@@ -1,0 +1,2558 @@
+
+### Action ###
+
+- !set-attribute
+  name: gs:managed-name
+  value: TryParseDetailedName
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Action']/gi:function[@name='parse_detailed_name']
+
+# Ignore everything else
+
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ActionEntry']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ActionMapInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='AppInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='AppInfoCreateFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AppInfoIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='AppInfoMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='AppLaunchContext']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AppLaunchContextClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AppLaunchContextPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Application']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ApplicationClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ApplicationCommandLine']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ApplicationCommandLineClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ApplicationCommandLinePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='ApplicationFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ApplicationPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='AskPasswordFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='AsyncInitable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AsyncInitableIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='AsyncReadyCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='AsyncResult']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='AsyncResultIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='BufferedInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BufferedInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BufferedInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='BufferedOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BufferedOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BufferedOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='BusAcquiredCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='BusNameAcquiredCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='BusNameAppearedCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='BusNameLostCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='BusNameOwnerFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='BusNameVanishedCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='BusNameWatcherFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='BusType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='BytesIcon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellablePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='CancellableSourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='CharsetConverter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='CharsetConverterClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Converter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='ConverterFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ConverterIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ConverterInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ConverterInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ConverterInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ConverterOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ConverterOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ConverterOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ConverterResult']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Credentials']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='CredentialsClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='CredentialsType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusActionGroup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusAnnotationInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusArgInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusAuthObserver']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusCallFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusCapabilityFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusConnectionFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DBusError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusErrorEntry']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DBusInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusInterfaceGetPropertyFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusInterfaceIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusInterfaceInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusInterfaceMethodCallFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusInterfaceSetPropertyFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusInterfaceSkeleton']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusInterfaceSkeletonClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusInterfaceSkeletonFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusInterfaceSkeletonPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusInterfaceVTable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusMenuModel']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DBusMessageByteOrder']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusMessageFilterFunction']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusMessageFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DBusMessageHeaderField']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DBusMessageType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusMethodInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusMethodInvocation']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusNodeInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DBusObject']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DBusObjectManager']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusObjectManagerClient']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectManagerClientClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusObjectManagerClientFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectManagerClientPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectManagerIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusObjectManagerServer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectManagerServerClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectManagerServerPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusObjectProxy']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectProxyClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectProxyPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusObjectSkeleton']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectSkeletonClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusObjectSkeletonPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusPropertyInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusPropertyInfoFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusProxy']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusProxyClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusProxyFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusProxyPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusProxyTypeFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusSendMessageFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DBusServer']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusServerFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusSignalCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusSignalFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusSignalInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusSubtreeDispatchFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusSubtreeEnumerateFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DBusSubtreeFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DBusSubtreeIntrospectFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DBusSubtreeVTable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='DESKTOP_APP_INFO_LOOKUP_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DataInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DataInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DataInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DataOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DataOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DataOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DataStreamByteOrder']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DataStreamNewlineType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DatagramBased']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DatagramBasedInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DatagramBasedSourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='DesktopAppInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DesktopAppInfoClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DesktopAppInfoLookup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DesktopAppInfoLookupIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='DesktopAppLaunchCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Drive']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DriveIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DriveStartFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='DriveStartStopType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Emblem']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='EmblemClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='EmblemOrigin']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='EmblemedIcon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='EmblemedIconClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='EmblemedIconPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_DELETE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_READ']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_RENAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_TRASH']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_WRITE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_DOS_IS_ARCHIVE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_DOS_IS_SYSTEM']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ETAG_VALUE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_FREE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_READONLY']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_SIZE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_TYPE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_USED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_GVFS_BACKEND']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ID_FILE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ID_FILESYSTEM']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_EJECT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_MOUNT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_POLL']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_START']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_START_DEGRADED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_STOP']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_UNMOUNT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_HAL_UDI']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_IS_MEDIA_CHECK_AUTOMATIC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_START_STOP_TYPE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE_FILE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_GROUP']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_USER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_USER_REAL']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_PREVIEW_ICON']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_SELINUX_CONTEXT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_COPY_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_DESCRIPTION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_EDIT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_ICON']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_BACKUP']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_HIDDEN']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_SYMLINK']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_VOLATILE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SIZE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SORT_ORDER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_TARGET_URI']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_TYPE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAILING_FAILED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAIL_IS_VALID']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAIL_PATH']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_ACCESS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_ACCESS_USEC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CHANGED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CHANGED_USEC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CREATED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CREATED_USEC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_MODIFIED']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_MODIFIED_USEC']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_DELETION_DATE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_ITEM_COUNT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_ORIG_PATH']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_BLOCKS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_BLOCK_SIZE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_DEVICE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_GID']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_INODE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_IS_MOUNTPOINT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_MODE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_NLINK']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_RDEV']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_UID']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='File']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileAttributeInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileAttributeInfoFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileAttributeInfoList']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileAttributeMatcher']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileAttributeStatus']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileAttributeType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileCopyFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileCreateFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='FileDescriptorBased']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileDescriptorBasedIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileEnumerator']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileEnumeratorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileEnumeratorPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileIOStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileIOStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileIOStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileIcon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileIconClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileInfo']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileInfoClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileMeasureFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='FileMeasureProgressCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileMonitorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileMonitorEvent']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileMonitorFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileMonitorPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FileOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='FileProgressCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileQueryInfoFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='FileReadMoreCallback']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FilenameCompleter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FilenameCompleterClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FilesystemPreviewType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FilterInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FilterInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='FilterOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='FilterOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOExtension']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOExtensionPoint']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='IOModule']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOModuleClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOModuleScope']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOModuleScopeFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOSchedulerJob']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='IOSchedulerJobFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='IOStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOStreamAdapter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IOStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='IOStreamSpliceFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='IconIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='InetAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='InetAddressMask']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetAddressMaskClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetAddressMaskPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetAddressPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='InetSocketAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetSocketAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InetSocketAddressPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Initable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InitableIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InputMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='InputVector']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ListModel']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ListModelInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ListStore']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ListStoreClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='LoadableIcon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='LoadableIconIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_ATTRIBUTE_ACTION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_ATTRIBUTE_ACTION_NAMESPACE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_ATTRIBUTE_ICON']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_ATTRIBUTE_LABEL']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_ATTRIBUTE_TARGET']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_LINK_SECTION']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MENU_LINK_SUBMENU']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MemoryInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MemoryInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MemoryInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MemoryOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MemoryOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MemoryOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Menu']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MenuAttributeIter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuAttributeIterClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuAttributeIterPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MenuItem']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MenuLinkIter']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuLinkIterClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuLinkIterPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MenuModel']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuModelClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MenuModelPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Mount']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MountIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='MountMountFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='MountOperation']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MountOperationClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MountOperationPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='MountOperationResult']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='MountUnmountFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='NATIVE_VOLUME_MONITOR_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='NETWORK_MONITOR_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NativeSocketAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='NativeVolumeMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NativeVolumeMonitorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='NetworkAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NetworkAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NetworkAddressPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NetworkConnectivity']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='NetworkMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NetworkMonitorInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='NetworkService']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NetworkServiceClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='NetworkServicePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Notification']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NotificationPriority']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OutputMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='OutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='OutputStreamSpliceFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OutputVector']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PROXY_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PROXY_RESOLVER_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='PasswordSave']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Permission']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PermissionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PermissionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='PollableInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PollableInputStreamInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='PollableOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PollableOutputStreamInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='PollableSourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='PropertyAction']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Proxy']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ProxyAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ProxyAddressEnumerator']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyAddressEnumeratorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyAddressEnumeratorPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyAddressPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ProxyResolver']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ProxyResolverInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='ReallocFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='RemoteActionGroup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='RemoteActionGroupInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Resolver']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ResolverClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ResolverError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ResolverPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ResolverRecordType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Resource']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ResourceError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='ResourceFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='ResourceLookupFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Seekable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SeekableIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Settings']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsBackend']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='SettingsBindFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SettingsBindGetMapping']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SettingsBindSetMapping']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SettingsGetMapping']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsSchema']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsSchemaKey']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsSchemaSource']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAction']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleActionGroup']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SimpleActionGroupClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SimpleActionGroupPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAsyncResult']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SimpleAsyncResultClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SimpleAsyncThreadFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleIOStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimplePermission']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleProxyResolver']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SimpleProxyResolverClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SimpleProxyResolverPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Socket']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketAddressEnumerator']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketAddressEnumeratorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketClient']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketClientClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SocketClientEvent']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketClientPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='SocketConnectable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketConnectableIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketConnectionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketConnectionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketControlMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketControlMessageClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketControlMessagePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SocketFamily']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketListener']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketListenerClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SocketListenerEvent']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketListenerPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='SocketMsgFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SocketProtocol']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SocketService']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketServiceClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SocketServicePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='SocketSourceFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SocketType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SrvTarget']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='StaticResource']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Subprocess']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='SubprocessFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='SubprocessLauncher']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='TLS_BACKEND_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='TLS_DATABASE_PURPOSE_AUTHENTICATE_CLIENT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='TLS_DATABASE_PURPOSE_AUTHENTICATE_SERVER']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Task']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TaskClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TaskThreadFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TcpConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TcpConnectionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TcpConnectionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TcpWrapperConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TcpWrapperConnectionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TcpWrapperConnectionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TestDBus']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TestDBusFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ThemedIcon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ThemedIconClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ThreadedSocketService']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ThreadedSocketServiceClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ThreadedSocketServicePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsAuthenticationMode']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='TlsBackend']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsBackendInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TlsCertificate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsCertificateClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TlsCertificateFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsCertificatePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsCertificateRequestFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='TlsClientConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsClientConnectionInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TlsConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsConnectionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsConnectionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TlsDatabase']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsDatabaseClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsDatabaseLookupFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsDatabasePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TlsDatabaseVerifyFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsError']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='TlsFileDatabase']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsFileDatabaseInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TlsInteraction']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsInteractionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsInteractionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsInteractionResult']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='TlsPassword']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsPasswordClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='TlsPasswordFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsPasswordPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TlsRehandshakeMode']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='TlsServerConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TlsServerConnectionInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixConnectionClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixConnectionPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixCredentialsMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixCredentialsMessageClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixCredentialsMessagePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixFDList']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixFDListClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixFDListPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixFDMessage']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixFDMessageClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixFDMessagePrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixInputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixInputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixInputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixMountEntry']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixMountMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixMountMonitorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixMountPoint']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixOutputStream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixOutputStreamClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixOutputStreamPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='UnixSocketAddress']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixSocketAddressClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='UnixSocketAddressPrivate']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnixSocketAddressType']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VFS_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_CLASS']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_HAL_UDI']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_LABEL']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_NFS_MOUNT']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_UNIX_DEVICE']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_IDENTIFIER_KIND_UUID']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VOLUME_MONITOR_EXTENSION_POINT_NAME']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Vfs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VfsClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Volume']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VolumeIface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='VolumeMonitor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VolumeMonitorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ZlibCompressor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ZlibCompressorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ZlibCompressorFormat']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ZlibDecompressor']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='ZlibDecompressorClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_get']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_get_finish']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_get_sync']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_own_name_on_connection_with_closures']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_own_name_with_closures']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_unown_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_unwatch_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_watch_name_on_connection_with_closures']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='bus_watch_name_with_closures']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_can_be_executable']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_equals']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_from_mime_type']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_description']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_generic_icon_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_icon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_mime_type']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_symbolic_icon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_guess']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_guess_for_tree']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_is_a']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_is_unknown']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='content_types_get_registered']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_address_escape_value']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_address_get_for_bus_sync']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_address_get_stream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_address_get_stream_finish']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_address_get_stream_sync']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_generate_guid']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_gvalue_to_gvariant']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_gvariant_to_gvalue']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_address']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_guid']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_interface_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_member_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_supported_address']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='dbus_is_unique_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_error_from_errno']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_error_quark']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_modules_load_all_in_directory']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_modules_load_all_in_directory_with_scope']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_modules_scan_all_in_directory']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_modules_scan_all_in_directory_with_scope']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_scheduler_cancel_all_jobs']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_scheduler_push_job']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='networking_init']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pollable_source_new']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pollable_source_new_full']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pollable_stream_read']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pollable_stream_write']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='pollable_stream_write_all']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_enumerate_children']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_get_info']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_lookup_data']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_open_stream']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_register']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='resources_unregister']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='simple_async_report_gerror_in_idle']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='simple_async_report_take_gerror_in_idle']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_is_mount_path_system_internal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_at']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_compare']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_free']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_device_path']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_fs_type']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_mount_path']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_can_eject']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_icon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_name']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_should_display']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_symbolic_icon']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_is_readonly']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_is_system_internal']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_points_changed_since']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_points_get']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mounts_changed_since']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mounts_get']
