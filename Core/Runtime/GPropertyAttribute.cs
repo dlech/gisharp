@@ -18,11 +18,34 @@ namespace GISharp.Runtime
         /// <summary>
         /// The name of the property that will be registered with the GObject type system.
         /// </summary>
-        public string Name { get; private set; }
+        public string Name { get; }
+
+        public GPropertyConstruct Construct { get; set; }
 
         public GPropertyAttribute(string name = null)
         {
             Name = name;
         }
+    }
+
+    /// <summary>
+    /// Enum used for <see cref="GPropertyAttribute.Construct"/>.
+    /// </summary>
+    public enum GPropertyConstruct
+    {
+        /// <summary>
+        /// Indicates that a property cannot be set via the GType constructor
+        /// </summary>
+        No,
+
+        /// <summary>
+        /// Indicates that a property can be set via the GType constructor
+        /// </summary>
+        Yes,
+
+        /// <summary>
+        /// Indicates that a property <b>only</b> can be set via the GType constructor
+        /// </summary>
+        Only
     }
 }

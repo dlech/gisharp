@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis.CSharp;
@@ -88,16 +89,28 @@ namespace GISharp.CodeGen.Model
             yield return property;
         }
 
-        protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
+        protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
         {
-            var property = AttributeList ()
-                .AddAttributes(Attribute(ParseName(typeof(GPropertyAttribute).FullName))
-                    .AddArgumentListArguments(AttributeArgument (ParseExpression ($"\"{GirName}\""))));
-            yield return property;
+            return GetPropertyAttributeLists().Concat(base.GetAttributeLists());
+        }
 
-            foreach (var a in base.GetAttributeLists ()) {
-                yield return a;
+        IEnumerable<AttributeListSyntax> GetPropertyAttributeLists()
+        {
+            // emit a GProperty attribute
+            var attrName = ParseName(typeof(GPropertyAttribute).FullName);
+            var args = SeparatedList<AttributeArgumentSyntax>();
+            // add the default argument (the property name)
+            args = args.Add(AttributeArgument(ParseExpression($"\"{GirName}\"")));
+            if (IsConstruct || IsConstructOnly) {
+                var enumMemberName = IsConstruct ? nameof(GPropertyConstruct.Yes) : nameof(GPropertyConstruct.Only);
+                var expression = string.Format("{0} = {1}.{2}",
+                    nameof(GPropertyAttribute.Construct),
+                    typeof(GPropertyAttribute).FullName,
+                    enumMemberName);
+                args = args.Add(AttributeArgument(ParseExpression(expression)));
             }
+            var propertyAttr = Attribute(attrName).WithArgumentList(AttributeArgumentList(args));
+            yield return AttributeList().AddAttributes(propertyAttr);
         }
     }
 }
