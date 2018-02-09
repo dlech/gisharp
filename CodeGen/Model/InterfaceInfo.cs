@@ -22,7 +22,13 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         /// <value>The base list.</value>
         public BaseListSyntax BaseList => _BaseList.Value;
-        Lazy<BaseListSyntax> _BaseList;
+        readonly Lazy<BaseListSyntax> _BaseList;
+
+        /// <summary>
+        /// Gets the interface declaration (without any members)
+        /// </summary>
+        public InterfaceDeclarationSyntax InterfaceDeclaration => _InterfaceDeclaration.Value;
+        readonly Lazy<InterfaceDeclarationSyntax> _InterfaceDeclaration;
 
         SyntaxList<MemberDeclarationSyntax>? _InterfaceMembers;
         public SyntaxList<MemberDeclarationSyntax> InterfaceMembers {
@@ -58,37 +64,49 @@ namespace GISharp.CodeGen.Model
             }
 
             _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
+            _InterfaceDeclaration = new Lazy<InterfaceDeclarationSyntax>(GetInterfaceDeclaration);
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             InterfaceDeclarationSyntax interfaceDeclaration;
-            ClassDeclarationSyntax interfaceExtenstionsDeclaration;
+            ClassDeclarationSyntax interfaceExtensionsDeclaration;
 
             try {
-                interfaceDeclaration = InterfaceDeclaration ("I" + Identifier.Text)
-                    .WithAttributeLists (AttributeLists)
-                    .WithModifiers (Modifiers)
-                    .WithMembers (InterfaceMembers)
-                    .WithLeadingTrivia (DocumentationCommentTriviaList);
-                if (BaseList.ChildNodes().Any()) {
-                    interfaceDeclaration = interfaceDeclaration.WithBaseList(BaseList);
-                }
+                interfaceDeclaration = InterfaceDeclaration.WithMembers(InterfaceMembers);
 
                 var interfaceExtensionsModifiers = TokenList ()
                     .Add (Token (SyntaxKind.PublicKeyword))
                     .Add (Token (SyntaxKind.StaticKeyword));
-                interfaceExtenstionsDeclaration = ClassDeclaration (Identifier)
+                interfaceExtensionsDeclaration = ClassDeclaration (Identifier)
                     .WithModifiers (interfaceExtensionsModifiers)
                     .WithMembers (InterfaceExtensionsMembers);
             } catch (Exception ex) {
-                Console.WriteLine ("Skipping {0} due to error {1}",
-                                   QualifiedName, ex.Message);
+                Console.WriteLine($"Skipping {QualifiedName} due to error: {ex.Message}");
                 yield break;
             }
 
             yield return interfaceDeclaration;
-            yield return interfaceExtenstionsDeclaration;
+            yield return interfaceExtensionsDeclaration;
+        }
+
+        protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
+        {
+            return base.GetAttributeLists().Concat(GetInterfaceAttributeLists());
+        }
+
+        IEnumerable<AttributeListSyntax> GetInterfaceAttributeLists()
+        {
+            // Create an attribute for the instantiable prerequisite type
+            // TODO: this should probably be omitted when there are base interfaces
+            // since the attribute can be inherited
+            var attrName = ParseName(typeof(GISharp.Runtime.GTypePrerequisiteAttribute).FullName);
+            // TODO: this can probably be a type other than GObject, however if
+            // the GIR XML doesn't specify a type, GObject should be the default
+            var prerequisiteTypeName = typeof(GISharp.GObject.Object).FullName;
+            var typeArg = AttributeArgument(ParseExpression($"typeof({prerequisiteTypeName})"));
+            var attr = Attribute(attrName).AddArgumentListArguments(typeArg);
+            yield return AttributeList().AddAttributes(attr);
         }
 
         // gets a list of all base interfaces (prerequisites in GLib terms)
@@ -100,6 +118,19 @@ namespace GISharp.CodeGen.Model
                     yield return SimpleBaseType (ParseTypeName (type.FullName));
                 }
             }
+        }
+
+        // gets the interface declaration (without any members)
+        InterfaceDeclarationSyntax GetInterfaceDeclaration()
+        {
+            var declaration = InterfaceDeclaration("I" + Identifier.Text)
+                .WithAttributeLists(AttributeLists)
+                .WithModifiers(Modifiers)
+                .WithLeadingTrivia(DocumentationCommentTriviaList);
+            if (BaseList.ChildNodes().Any()) {
+                declaration = declaration.WithBaseList(BaseList);
+            }
+            return declaration;
         }
 
         IEnumerable<MemberDeclarationSyntax> GetInterfaceMembers ()
