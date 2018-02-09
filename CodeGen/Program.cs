@@ -168,15 +168,16 @@ namespace GISharp.CodeGen
             const string fixupFileName = "gir-fixup.yml";
 
             var fixupFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupFileName);
+            var fixupFileExists = File.Exists(fixupFilePath);
 
             // for most commands, we need an existing fixup file
-            if (command != Command.NewFixup && fixupFilePath == null) {
+            if (command != Command.NewFixup && !fixupFileExists) {
                 Console.Error.WriteLine("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
                 Environment.Exit(1);
                 return;
             }
             // for the new-fixup command, we want to make sure we aren't overwriting an existing file
-            else if (command == Command.NewFixup == !forceArg && fixupFilePath != null) {
+            else if (command == Command.NewFixup == !forceArg && fixupFileExists) {
                 Console.Error.WriteLine("gir-fixup.yml already exists in project. Use --force to overwrite.");
                 Environment.Exit(1);
                 return;
