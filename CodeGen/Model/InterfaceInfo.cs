@@ -36,25 +36,17 @@ namespace GISharp.CodeGen.Model
         public ClassDeclarationSyntax InterfaceExtensionsDeclaration => _InterfaceExtensionsDeclaration.Value;
         readonly Lazy<ClassDeclarationSyntax> _InterfaceExtensionsDeclaration;
 
-        SyntaxList<MemberDeclarationSyntax>? _InterfaceMembers;
-        public SyntaxList<MemberDeclarationSyntax> InterfaceMembers {
-            get {
-                if (!_InterfaceMembers.HasValue) {
-                    _InterfaceMembers = List<MemberDeclarationSyntax> (GetInterfaceMembers ());
-                }
-                return _InterfaceMembers.Value;
-            }
-        }
+        /// <summary>
+        /// Gets a list of all of the members of <see cref="InterfaceDeclaration"/>
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> InterfaceMembers => _InterfaceMembers.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _InterfaceMembers;
 
-        SyntaxList<MemberDeclarationSyntax>? _InterfaceExtensionsMembers;
-        public SyntaxList<MemberDeclarationSyntax> InterfaceExtensionsMembers {
-            get {
-                if (!_InterfaceExtensionsMembers.HasValue) {
-                    _InterfaceExtensionsMembers = List<MemberDeclarationSyntax> (MethodInfos.SelectMany (mi => mi.AllDeclarations));
-                }
-                return _InterfaceExtensionsMembers.Value;
-            }
-        }
+        /// <summary>
+        /// Gets a list of all of the members of <see cref="InterfaceExtensionsDeclaration"/>
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> InterfaceExtensionsMembers => _InterfaceExtensionsMembers.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _InterfaceExtensionsMembers;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="InterfaceInfo"/> class.
@@ -72,6 +64,8 @@ namespace GISharp.CodeGen.Model
             _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
             _InterfaceDeclaration = new Lazy<InterfaceDeclarationSyntax>(GetInterfaceDeclaration);
             _InterfaceExtensionsDeclaration = new Lazy<ClassDeclarationSyntax>(GetInterfaceExtensionsDeclaration);
+            _InterfaceMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceMembers()));
+            _InterfaceExtensionsMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceExtensionsMembers()));
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
@@ -149,6 +143,11 @@ namespace GISharp.CodeGen.Model
         {
             return PropertyInfos.SelectMany (x => x.AllDeclarations)
                 .Concat (VirtualMethodInfos.SelectMany (x => x.AllDeclarations));
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetInterfaceExtensionsMembers()
+        {
+            return MethodInfos.SelectMany(x => x.AllDeclarations);
         }
     }
 }
