@@ -79,12 +79,6 @@ namespace GISharp.GObject
         {
         }
 
-        public override Type StructType {
-            get {
-                return typeof (Struct);
-            }
-        }
-
         internal static readonly Quark managedClassPropertyInfoQuark =
             Quark.FromString ("gisharp-object-class-managed-class-property-info-quark");
 

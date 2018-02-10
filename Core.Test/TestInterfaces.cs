@@ -36,8 +36,6 @@ namespace GISharp.Core.Test
             public delegate bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
 
-        public override Type StructType => typeof(Struct);
-
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {
             try {
@@ -198,8 +196,6 @@ namespace GISharp.Core.Test
             [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
             public delegate void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
         }
-
-        public override Type StructType => typeof(Struct);
 
         static void InterfaceInit (IntPtr gIface, IntPtr userData)
         {

@@ -8,8 +8,6 @@ namespace GISharp.GObject
 {
     public class ObjectInterface : TypeInterface
     {
-        public override Type StructType => throw new NotImplementedException();
-
         public ObjectInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

@@ -40,8 +40,6 @@ namespace GISharp.GObject
         {
         }
 
-        public override Type StructType => typeof(Struct);
-
         public override TypeInfo GetTypeInfo (Type type)
         {
             throw new NotSupportedException ();

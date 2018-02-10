@@ -50,12 +50,6 @@ namespace GISharp.GObject
         {
         }
 
-        public override Type StructType {
-            get {
-                return typeof(Struct);
-            }
-        }
-
         public override TypeInfo GetTypeInfo (Type type)
         {
             throw new NotImplementedException ();

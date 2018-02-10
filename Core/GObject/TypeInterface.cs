@@ -29,8 +29,6 @@ namespace GISharp.GObject
         {
         }
 
-        public abstract Type StructType { get; }
-
         public abstract InterfaceInfo CreateInterfaceInfo (Type instanceType);
 
         /// <summary>
@@ -238,8 +236,6 @@ namespace GISharp.GObject
             }
             base.Dispose (disposing);
         }
-
-        public override Type StructType => throw new NotImplementedException ();
 
         public override InterfaceInfo CreateInterfaceInfo (Type instanceType) =>
             throw new NotImplementedException ();

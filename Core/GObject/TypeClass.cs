@@ -36,7 +36,6 @@ namespace GISharp.GObject
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_type_class_unref (IntPtr gClass);
-        public abstract Type StructType { get; }
 
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
