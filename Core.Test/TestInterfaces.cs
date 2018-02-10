@@ -128,7 +128,7 @@ namespace GISharp.Core.Test
 
     [GType ("GNetworkMonitor", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(NetworkMonitorInterface))]
-    public interface INetworkMonitor : IInitable
+    public interface INetworkMonitor : IInitable, GInterface<Object>
     {
         bool CanReach (IntPtr connectable, IntPtr cancellable);
         void CanReachAsync (IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
