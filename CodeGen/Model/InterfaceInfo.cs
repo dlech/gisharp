@@ -117,14 +117,10 @@ namespace GISharp.CodeGen.Model
         }
 
         // gets a list of all base interfaces (prerequisites in GLib terms)
-        IEnumerable<BaseTypeSyntax> GetBaseTypes ()
+        IEnumerable<BaseTypeSyntax> GetBaseTypes()
         {
-            if (Element.Descendants (gi + "prerequisite").Any ()) {
-                foreach (var prerequisite in Element.Descendants (gi + "prerequisite")) {
-                    var type = GirType.ResolveType (prerequisite.Attribute ("name").Value, Element.Document);
-                    yield return SimpleBaseType (ParseTypeName (type.FullName));
-                }
-            }
+            return Prerequisites.Where(x => x.IsInterface)
+                .Select(x => SimpleBaseType(ParseTypeName(x.FullName)));
         }
 
         // gets the interface declaration (without any members)
