@@ -28,7 +28,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestInterface ()
         {
-            Assert.That (() => (Type)GType.Interface, Throws.Exception);
+            Assert.That(() => (Type)GType.Interface, Is.EqualTo(typeof(GInterface<>)));
 
             AssertNoGLibLog();
         }
@@ -116,7 +116,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestFlags ()
         {
-            Assert.That (() => (Type)GType.Flags, Throws.Exception);
+            Assert.That(() => (Type)GType.Flags, Is.EqualTo(typeof(System.Enum)));
 
             AssertNoGLibLog();
         }

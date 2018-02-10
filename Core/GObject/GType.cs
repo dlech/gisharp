@@ -23,8 +23,8 @@ namespace GISharp.GObject
     [DebuggerDisplay ("{Name}")]
     public struct GType
     {
+        static readonly Quark managedTypeQuark = Quark.FromString("gisharp-gtype-managed-type-quark");
         static readonly Dictionary<Type, GType> typeMap;
-        static readonly Dictionary<GType, Type> gtypeMap;
         static object mapLock;
 
         #pragma warning disable 414
@@ -45,57 +45,100 @@ namespace GISharp.GObject
         static GType ()
         {
             typeMap = new Dictionary<Type, GType> ();
-            gtypeMap = new Dictionary<GType, Type> ();
             mapLock = new object ();
 
             // add the built-in fundamental types
             lock (mapLock) {
-                typeMap.Add (typeof(void), None);
-                gtypeMap.Add (None, typeof(void));
-                // No managed type for Interface
-                //typeMap.Add (typeof (interface), Interface);
-                //gtypeMap.Add (Interface, typeof (interface));
-                typeMap.Add (typeof(sbyte), Char);
-                gtypeMap.Add (Char, typeof(sbyte));
-                typeMap.Add (typeof(byte), UChar);
-                gtypeMap.Add (UChar, typeof(byte));
-                typeMap.Add (typeof(bool), Boolean);
-                gtypeMap.Add (Boolean, typeof(bool));
-                typeMap.Add (typeof(int), Int);
-                gtypeMap.Add (Int, typeof(int));
-                typeMap.Add (typeof(uint), UInt);
-                gtypeMap.Add (UInt, typeof(uint));
-                typeMap.Add (typeof(nlong), Long);
-                gtypeMap.Add (Long, typeof(nlong));
-                typeMap.Add (typeof(nulong), ULong);
-                gtypeMap.Add (ULong, typeof(nulong));
-                typeMap.Add (typeof(long), Int64);
-                gtypeMap.Add (Int64, typeof(long));
-                typeMap.Add (typeof(ulong), UInt64);
-                gtypeMap.Add (UInt64, typeof(ulong));
-                // TODO: do we care about enum/flags?
-                typeMap.Add (typeof(System.Enum), Enum);
-                gtypeMap.Add (Enum, typeof(System.Enum));
-                //typeMap.Add (typeof (System.Enum), Flags);
-                //gtypeMap.Add (Flags, typeof (System.Enum));
-                typeMap.Add (typeof(float), Float);
-                gtypeMap.Add (Float, typeof(float));
-                typeMap.Add (typeof(double), Double);
-                gtypeMap.Add (Double, typeof(double));
-                typeMap.Add (typeof(string), String);
-                gtypeMap.Add (String, typeof(string));
-                typeMap.Add (typeof(IntPtr), Pointer);
-                gtypeMap.Add (Pointer, typeof(IntPtr));
-                typeMap.Add (typeof (Boxed), Boxed);
-                gtypeMap.Add (Boxed, typeof (Boxed));
-                typeMap.Add (typeof(ParamSpec), Param);
-                gtypeMap.Add (Param, typeof(ParamSpec));
-                typeMap.Add (typeof(Object), Object);
-                gtypeMap.Add (Object, typeof(Object));
-                typeMap.Add (typeof(GType), Type);
-                gtypeMap.Add (Type, typeof(GType));
-                typeMap.Add (typeof (Variant), Variant);
-                gtypeMap.Add (Variant, typeof (Variant));
+                GType gtype;
+
+                gtype = None;
+                typeMap.Add(typeof(void), gtype);
+                gtype[managedTypeQuark] = typeof(void);
+
+                gtype = Interface;
+                typeMap.Add(typeof(GInterface<>), gtype);
+                gtype[managedTypeQuark] = typeof(GInterface<>);
+
+                gtype = Char;
+                typeMap.Add(typeof(sbyte), gtype);
+                gtype[managedTypeQuark] = typeof(sbyte);
+
+                gtype = UChar;
+                typeMap.Add(typeof(byte), gtype);
+                gtype[managedTypeQuark] = typeof(byte);
+
+                gtype = Boolean;
+                typeMap.Add(typeof(bool), gtype);
+                gtype[managedTypeQuark] = typeof(bool);
+
+                gtype = Int;
+                typeMap.Add(typeof(int), gtype);
+                gtype[managedTypeQuark] = typeof(int);
+
+                gtype = UInt;
+                typeMap.Add(typeof(uint), gtype);
+                gtype[managedTypeQuark] = typeof(uint);
+
+                gtype = Long;
+                typeMap.Add(typeof(nlong), gtype);
+                gtype[managedTypeQuark] = typeof(nlong);
+
+                gtype = ULong;
+                typeMap.Add(typeof(nulong), gtype);
+                gtype[managedTypeQuark] = typeof(nulong);
+
+                gtype = Int64;
+                typeMap.Add(typeof(long), gtype);
+                gtype[managedTypeQuark] = typeof(long);
+
+                gtype = UInt64;
+                typeMap.Add(typeof(ulong), gtype);
+                gtype[managedTypeQuark] = typeof(ulong);
+
+                gtype = Enum;
+                typeMap.Add(typeof(System.Enum), gtype);
+                gtype[managedTypeQuark] = typeof(System.Enum);
+
+                gtype = Flags;
+                // TODO: do we care about enum vs. flags?
+                //typeMap.Add(typeof(System.Enum), gType);
+                gtype[managedTypeQuark] = typeof(System.Enum);
+
+                gtype = Float;
+                typeMap.Add(typeof(float), gtype);
+                gtype[managedTypeQuark] = typeof(float);
+
+                gtype = Double;
+                typeMap.Add(typeof(double), gtype);
+                gtype[managedTypeQuark] = typeof(double);
+
+                gtype = String;
+                typeMap.Add(typeof(string), gtype);
+                gtype[managedTypeQuark] = typeof(string);
+
+                gtype = Pointer;
+                typeMap.Add(typeof(IntPtr), gtype);
+                gtype[managedTypeQuark] = typeof(IntPtr);
+
+                gtype = Boxed;
+                typeMap.Add(typeof (Boxed), gtype);
+                gtype[managedTypeQuark] = typeof (Boxed);
+
+                gtype = Param;
+                typeMap.Add(typeof(ParamSpec), gtype);
+                gtype[managedTypeQuark] = typeof(ParamSpec);
+
+                gtype = Object;
+                typeMap.Add(typeof(Object), gtype);
+                gtype[managedTypeQuark] = typeof(Object);
+
+                gtype = Type;
+                typeMap.Add(typeof(GType), gtype);
+                gtype[managedTypeQuark] = typeof(GType);
+
+                gtype = Variant;
+                typeMap.Add(typeof(Variant), gtype);
+                gtype[managedTypeQuark] = typeof(Variant);
             }
         }
 
@@ -841,7 +884,7 @@ namespace GISharp.GObject
                     var gtype = GObject.Boxed.Register (name, GObject.Boxed.CopyManagedTypeDelegate, GObject.Boxed.FreeManagedTypeDelegate);
 
                     typeMap.Add (type, gtype);
-                    gtypeMap.Add (gtype, type);
+                    gtype[managedTypeQuark] = type;
 
                     return gtype;
                 }
@@ -875,7 +918,8 @@ namespace GISharp.GObject
                     }
 
                     typeMap.Add (type, gtype);
-                    gtypeMap.Add (gtype, type);
+                    gtype[managedTypeQuark] = type;
+
                     return gtype;
                 }
 
@@ -940,7 +984,7 @@ namespace GISharp.GObject
                     MapPropertyInfo (gtype, type);
 
                     typeMap.Add (type, gtype);
-                    gtypeMap.Add (gtype, type);
+                    gtype[managedTypeQuark] = type;
 
                     return gtype;
                 }
@@ -974,7 +1018,7 @@ namespace GISharp.GObject
                         }
 
                         typeMap.Add (type, gtype);
-                        gtypeMap.Add (gtype, type);
+                        gtype[managedTypeQuark] = type;
 
                         return gtype;
                     } else {
@@ -999,7 +1043,7 @@ namespace GISharp.GObject
                         }
 
                         typeMap.Add (type, gtype);
-                        gtypeMap.Add (gtype, type);
+                        gtype[managedTypeQuark] = type;
 
                         return gtype;
                     }
@@ -1038,7 +1082,7 @@ namespace GISharp.GObject
         public static Type TypeOf (GType type)
         {
             lock (mapLock) {
-                if (!gtypeMap.ContainsKey (type)) {
+                if (g_type_get_qdata(type, managedTypeQuark) == IntPtr.Zero) {
                     Type matchingType = null;
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
                         matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
@@ -1057,7 +1101,7 @@ namespace GISharp.GObject
                     Register (matchingType);
                 }
 
-                return gtypeMap[type];
+                return (Type)type[managedTypeQuark];
             }
         }
 
@@ -1163,6 +1207,96 @@ namespace GISharp.GObject
             GCHandle.Alloc (info.InterfaceFinalize);
 
             g_type_add_interface_static (instanceType, interfaceType, infoPtr);
+        }
+
+        /// <summary>
+        /// Obtains data which has previously been attached to @type
+        /// with g_type_set_qdata().
+        /// </summary>
+        /// <remarks>
+        /// Note that this does not take subtyping into account; data
+        /// attached to one type with g_type_set_qdata() cannot
+        /// be retrieved from a subtype using g_type_get_qdata().
+        /// </remarks>
+        /// <param name="type">
+        /// a #GType
+        /// </param>
+        /// <param name="quark">
+        /// a #GQuark id to identify the data
+        /// </param>
+        /// <returns>
+        /// the data, or %NULL if no data was found
+        /// </returns>
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        /* transfer-ownership:none */
+        static extern IntPtr g_type_get_qdata(
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type,
+            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
+            /* transfer-ownership:none */
+            GISharp.GLib.Quark quark);
+
+        /// <summary>
+        /// Attaches arbitrary data to a type.
+        /// </summary>
+        /// <param name="type">
+        /// a #GType
+        /// </param>
+        /// <param name="quark">
+        /// a #GQuark id to identify the data
+        /// </param>
+        /// <param name="data">
+        /// the data
+        /// </param>
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_type_set_qdata(
+            /* <type name="GType" type="GType" managed-name="GType" /> */
+            /* transfer-ownership:none */
+            GType type,
+            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
+            /* transfer-ownership:none */
+            GISharp.GLib.Quark quark,
+            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none */
+            IntPtr data);
+
+        /// <summary>
+        /// Gets or sets arbitrary data for a type.
+        /// </summary>
+        /// <param name="quark">
+        /// a <see cref="Quark"/> id to identify the data
+        /// </param>
+        /// <value>
+        /// the data
+        /// </value>
+        public object this[Quark quark]
+        {
+            get {
+                var ret_ = g_type_get_qdata(this, quark);
+                if (ret_ == IntPtr.Zero) {
+                    return null;
+                }
+                return GCHandle.FromIntPtr(ret_).Target;
+            }
+            set {
+                var oldData_ = g_type_get_qdata(this, quark);
+                if (oldData_ != IntPtr.Zero) {
+                    var oldData = (GCHandle)oldData_;
+                    oldData.Free();
+                }
+                if (value == null) {
+                    g_type_set_qdata(this, quark, IntPtr.Zero);
+                }
+                else {
+                    var data = GCHandle.Alloc(value);
+                    var data_ = (IntPtr)data;
+                    g_type_set_qdata(this, quark, data_);
+                }
+            }
         }
 
 #if THIS_CODE_IS_NOT_COMPILED
@@ -1898,59 +2032,6 @@ namespace GISharp.GObject
         }
 
         /// <summary>
-        /// Obtains data which has previously been attached to @type
-        /// with g_type_set_qdata().
-        /// </summary>
-        /// <remarks>
-        /// Note that this does not take subtyping into account; data
-        /// attached to one type with g_type_set_qdata() cannot
-        /// be retrieved from a subtype using g_type_get_qdata().
-        /// </remarks>
-        /// <param name="type">
-        /// a #GType
-        /// </param>
-        /// <param name="quark">
-        /// a #GQuark id to identify the data
-        /// </param>
-        /// <returns>
-        /// the data, or %NULL if no data was found
-        /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        static extern IntPtr g_type_get_qdata(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type,
-            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
-            /* transfer-ownership:none */
-            GISharp.GLib.Quark quark);
-
-        /// <summary>
-        /// Obtains data which has previously been attached to @type
-        /// with g_type_set_qdata().
-        /// </summary>
-        /// <remarks>
-        /// Note that this does not take subtyping into account; data
-        /// attached to one type with g_type_set_qdata() cannot
-        /// be retrieved from a subtype using g_type_get_qdata().
-        /// </remarks>
-        /// <param name="type">
-        /// a #GType
-        /// </param>
-        /// <param name="quark">
-        /// a #GQuark id to identify the data
-        /// </param>
-        /// <returns>
-        /// the data, or %NULL if no data was found
-        /// </returns>
-        public static IntPtr GetQdata(GType type, GISharp.GLib.Quark quark)
-        {
-            var ret = g_type_get_qdata(type, quark);
-            return ret;
-        }
-
-        /// <summary>
         /// Returns an opaque serial number that represents the state of the set
         /// of registered types. Any time a type is registered this serial changes,
         /// which means you can cache information based on type lookups (such as
@@ -2500,49 +2581,6 @@ namespace GISharp.GObject
             }
             var checkFunc_ = UnmanagedTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_remove_interface_check(checkData, checkFunc_);
-        }
-
-        /// <summary>
-        /// Attaches arbitrary data to a type.
-        /// </summary>
-        /// <param name="type">
-        /// a #GType
-        /// </param>
-        /// <param name="quark">
-        /// a #GQuark id to identify the data
-        /// </param>
-        /// <param name="data">
-        /// the data
-        /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_type_set_qdata(
-            /* <type name="GType" type="GType" managed-name="GType" /> */
-            /* transfer-ownership:none */
-            GType type,
-            /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
-            /* transfer-ownership:none */
-            GISharp.GLib.Quark quark,
-            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            /* transfer-ownership:none */
-            IntPtr data);
-
-        /// <summary>
-        /// Attaches arbitrary data to a type.
-        /// </summary>
-        /// <param name="type">
-        /// a #GType
-        /// </param>
-        /// <param name="quark">
-        /// a #GQuark id to identify the data
-        /// </param>
-        /// <param name="data">
-        /// the data
-        /// </param>
-        public static void SetQdata(GType type, GISharp.GLib.Quark quark, IntPtr data)
-        {
-            g_type_set_qdata(type, quark, data);
         }
 #endif
     }
