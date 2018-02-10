@@ -18,6 +18,12 @@ namespace GISharp.CodeGen.Model
     public class InterfaceInfo : TypeDeclarationInfo
     {
         /// <summary>
+        /// Gets the prerequisite types defined for this interface
+        /// </summary>
+        IReadOnlyList<Type> Prerequisites => _Prerequisites.Value;
+        readonly Lazy<IReadOnlyList<Type>> _Prerequisites;
+
+        /// <summary>
         /// Gets the base list syntax for the interface declaration.
         /// </summary>
         /// <value>The base list.</value>
@@ -66,6 +72,14 @@ namespace GISharp.CodeGen.Model
             _InterfaceExtensionsDeclaration = new Lazy<ClassDeclarationSyntax>(GetInterfaceExtensionsDeclaration);
             _InterfaceMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceMembers()));
             _InterfaceExtensionsMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceExtensionsMembers()));
+            _Prerequisites = new Lazy<IReadOnlyList<Type>>(() => GetPrerequisites().ToList().AsReadOnly());
+        }
+
+        IEnumerable<Type> GetPrerequisites()
+        {
+            foreach (var p in Element.Elements(gi + "prerequisite")) {
+                yield return GirType.ResolveType(p.Attribute("name").AsString(), Element.Document);
+            }
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
@@ -93,15 +107,13 @@ namespace GISharp.CodeGen.Model
         IEnumerable<AttributeListSyntax> GetInterfaceAttributeLists()
         {
             // Create an attribute for the instantiable prerequisite type
-            // TODO: this should probably be omitted when there are base interfaces
-            // since the attribute can be inherited
-            var attrName = ParseName(typeof(GISharp.Runtime.GInterfacePrerequisiteAttribute).FullName);
-            // TODO: this can probably be a type other than GObject, however if
-            // the GIR XML doesn't specify a type, GObject should be the default
-            var prerequisiteTypeName = typeof(GISharp.GObject.Object).FullName;
-            var typeArg = AttributeArgument(ParseExpression($"typeof({prerequisiteTypeName})"));
-            var attr = Attribute(attrName).AddArgumentListArguments(typeArg);
-            yield return AttributeList().AddAttributes(attr);
+            // (there should only be zero or one even though this is a for loop)
+            foreach (var p in Prerequisites.Where(x => !x.IsInterface)) {
+                var attrName = ParseName(typeof(GISharp.Runtime.GInterfacePrerequisiteAttribute).FullName);
+                var typeArg = AttributeArgument(ParseExpression($"typeof({p.FullName})"));
+                var attr = Attribute(attrName).AddArgumentListArguments(typeArg);
+                yield return AttributeList().AddAttributes(attr);
+            }
         }
 
         // gets a list of all base interfaces (prerequisites in GLib terms)
