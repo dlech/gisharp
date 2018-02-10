@@ -15,8 +15,7 @@ namespace GISharp.Core.Test
 {
     [GType ("GInitable", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(InitableIface))]
-    [GInterfacePrerequisite(typeof(Object))]
-    public interface IInitable
+    public interface IInitable : GInterface<Object>
     {
         bool Init (IntPtr cancellable);
     }

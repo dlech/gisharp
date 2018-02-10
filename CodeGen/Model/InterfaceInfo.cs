@@ -77,8 +77,14 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<Type> GetPrerequisites()
         {
+            var any = false;
             foreach (var p in Element.Elements(gi + "prerequisite")) {
                 yield return GirType.ResolveType(p.Attribute("name").AsString(), Element.Document);
+                any = true;
+            }
+            if (!any) {
+                // use GObject as the default if the GIR did not define any prerequisites
+                yield return typeof(GISharp.GObject.Object);
             }
         }
 
@@ -99,28 +105,18 @@ namespace GISharp.CodeGen.Model
             yield return interfaceExtensionsDeclaration;
         }
 
-        protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
-        {
-            return base.GetAttributeLists().Concat(GetInterfaceAttributeLists());
-        }
-
-        IEnumerable<AttributeListSyntax> GetInterfaceAttributeLists()
-        {
-            // Create an attribute for the instantiable prerequisite type
-            // (there should only be zero or one even though this is a for loop)
-            foreach (var p in Prerequisites.Where(x => !x.IsInterface)) {
-                var attrName = ParseName(typeof(GISharp.Runtime.GInterfacePrerequisiteAttribute).FullName);
-                var typeArg = AttributeArgument(ParseExpression($"typeof({p.FullName})"));
-                var attr = Attribute(attrName).AddArgumentListArguments(typeArg);
-                yield return AttributeList().AddAttributes(attr);
-            }
-        }
-
         // gets a list of all base interfaces (prerequisites in GLib terms)
         IEnumerable<BaseTypeSyntax> GetBaseTypes()
         {
-            return Prerequisites.Where(x => x.IsInterface)
-                .Select(x => SimpleBaseType(ParseTypeName(x.FullName)));
+            foreach (var p in Prerequisites) {
+                var typeName = p.FullName;
+                if (!p.IsInterface) {
+                    typeName = string.Format("{0}<{1}>",
+                        typeof(GISharp.Runtime.GInterface<>).FullName.TrimEnd('`', '1'),
+                        typeName);
+                }
+                yield return SimpleBaseType(ParseName(typeName));
+            }
         }
 
         // gets the interface declaration (without any members)
@@ -129,10 +125,8 @@ namespace GISharp.CodeGen.Model
             var declaration = InterfaceDeclaration("I" + Identifier.Text)
                 .WithAttributeLists(AttributeLists)
                 .WithModifiers(Modifiers)
+                .WithBaseList(BaseList)
                 .WithLeadingTrivia(DocumentationCommentTriviaList);
-            if (BaseList.ChildNodes().Any()) {
-                declaration = declaration.WithBaseList(BaseList);
-            }
             return declaration;
         }
 
