@@ -35,15 +35,17 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        List<FieldInfo> _FieldInfos;
-        public IReadOnlyList<FieldInfo> FieldInfos {
-            get {
-                if (_FieldInfos == null) {
-                    _FieldInfos = GetFieldInfos ().ToList ();
-                }
-                return _FieldInfos.AsReadOnly ();
-            }
-        }
+        /// <summary>
+        /// Gets a list of constant declarations for this type
+        /// </summary>
+        public IReadOnlyList<ConstantInfo> ConstantInfos => _ConstantInfos.Value;
+        readonly Lazy<IReadOnlyList<ConstantInfo>> _ConstantInfos;
+
+        /// <summary>
+        /// Gets a list of field declarations for this type
+        /// </summary>
+        public IReadOnlyList<FieldInfo> FieldInfos => _FieldInfos.Value;
+        readonly Lazy<IReadOnlyList<FieldInfo>> _FieldInfos;
 
         List<PropertyInfo> _PropertyInfos;
         public IReadOnlyList<PropertyInfo> PropertyInfos {
@@ -99,6 +101,8 @@ namespace GISharp.CodeGen.Model
             if (!Fixup.ElementsThatDefineAType.Contains (element.Name)) {
                 throw new ArgumentException ("Requires <gi:alias>, <gi:record>, <gi:union>, <gi:interface>, <gi:class>, <gs:static-class> or <gi:callback> element.", nameof(element));
             }
+            _ConstantInfos = new Lazy<IReadOnlyList<ConstantInfo>>(() => GetConstantInfos().ToList().AsReadOnly());
+            _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly());
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -113,14 +117,14 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        IEnumerable<ConstantInfo> GetConstantInfos ()
+        {
+            return Element.Elements(gi + "constant").Select(x => new ConstantInfo(x, this));
+        }
+
         IEnumerable<FieldInfo> GetFieldInfos ()
         {
-            foreach (var constant in Element.Elements (gi + "constant")) {
-                yield return new FieldInfo (constant, this);
-            }
-            foreach (var field in Element.Elements (gi + "field")) {
-                yield return new FieldInfo (field, this);
-            }
+            return Element.Elements(gi + "field").Select(x => new FieldInfo(x, this));
         }
 
         IEnumerable<PropertyInfo> GetPropertyInfos ()

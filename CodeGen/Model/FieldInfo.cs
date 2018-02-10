@@ -15,83 +15,73 @@ namespace GISharp.CodeGen.Model
 {
     public class FieldInfo : MemberInfo
     {
-        public bool IsCallback {
-            get {
-                return Element.Element (gi + "callback") != null;
-            }
-        }
+        /// <summary>
+        /// Returns true if this field is a function pointer
+        /// </summary>
+        public bool IsCallback { get; }
 
-        TypeInfo _TypeInfo;
-        public TypeInfo TypeInfo {
-            get {
-                if (_TypeInfo == null) {
-                    // constants use the managed type and fields use the unmanaged type.
-                    var managed = Element.Name == gi + "constant";
-                    _TypeInfo = new TypeInfo (Element, managed);
-                }
-                return _TypeInfo;
-            }
-        }
+        /// <summary>
+        /// Gets the unmanaged type info for this field
+        /// </summary>
+        public TypeInfo TypeInfo => _TypeInfo.Value;
+        readonly Lazy<TypeInfo> _TypeInfo;
 
-        public FieldInfo (XElement element, MemberInfo declaringMember)
+        /// <summary>
+        /// Gets the callback info for this field if it is a function pointer
+        /// </summary>
+        /// <exception cref="InvalidOperationException"/>
+        /// Thrown if this field is not a function pointer
+        /// </exception>
+        public DelegateInfo CallbackInfo => _CallbackInfo.Value;
+        readonly Lazy<DelegateInfo> _CallbackInfo;
+
+        public FieldInfo(XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            if (element.Name != gi + "field" && element.Name != gi + "constant") {
-                throw new ArgumentException ("Requires <field> or <constant> element.", nameof(element));
+            if (element.Name != gi + "field") {
+                throw new ArgumentException("Requires <field> element.", nameof(element));
             }
+            IsCallback = Element.Element(gi + "callback") != null;
+            _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, false));
+            _CallbackInfo = new Lazy<DelegateInfo>(GetCallbackInfo);
         }
 
-        internal override IEnumerable<BaseInfo> GetChildInfos ()
+        DelegateInfo GetCallbackInfo()
+        {
+            if (!IsCallback) {
+                throw new InvalidOperationException("Field is not a function pointer");
+            }
+            return new DelegateInfo(Element.Element(gi + "callback"), this);
+        }
+
+        internal override IEnumerable<BaseInfo> GetChildInfos()
         {
             yield break;
         }
 
-        protected override IEnumerable<AttributeListSyntax> GetAttributeLists ()
+        protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
         {
-            foreach (var baseAttr in base.GetAttributeLists ()) {
-                yield return baseAttr;
-            }
-
-            if (Element.Name == gi + "field") {
-                if (Element.Parent.Name == gi + "union") {
-                    var fieldOffsetAttrName = ParseName (typeof(FieldOffsetAttribute).FullName);
-                    var fieldOffsetAttrArgList = ParseAttributeArgumentList ("(0)");
-                    var fieldOffsetAttr = Attribute (fieldOffsetAttrName)
-                    .WithArgumentList (fieldOffsetAttrArgList);
-                    yield return AttributeList ().AddAttributes (fieldOffsetAttr);
-                }
-
-                if (IsCallback) {
-                    var marshalAsAttrName = ParseName (typeof(MarshalAsAttribute).FullName);
-                    var marshalAsAttrArgListText = string.Format ("({0}.{1})", typeof(UnmanagedType).FullName, UnmanagedType.FunctionPtr);
-                    var marshalAsAttrArgList = ParseAttributeArgumentList (marshalAsAttrArgListText);
-                    var marshalAsAttr = Attribute (marshalAsAttrName)
-                    .WithArgumentList (marshalAsAttrArgList);
-                    yield return AttributeList ().AddAttributes (marshalAsAttr);
-                }
-            }
+            return base.GetAttributeLists().Concat(GetFieldAttributeLists());
         }
 
-        protected override IEnumerable<SyntaxToken> GetModifiers ()
+        IEnumerable<AttributeListSyntax> GetFieldAttributeLists()
         {
-            foreach (var baseModifier in base.GetModifiers ()) {
-                yield return baseModifier;
+            if (Element.Parent.Name == gi + "union") {
+                var fieldOffsetAttrName = ParseName(typeof(FieldOffsetAttribute).FullName);
+                var fieldOffsetAttrArgList = ParseAttributeArgumentList("(0)");
+                var fieldOffsetAttr = Attribute(fieldOffsetAttrName)
+                .WithArgumentList(fieldOffsetAttrArgList);
+                yield return AttributeList().AddAttributes(fieldOffsetAttr);
             }
-            if (Element.Name == gi + "constant") {
-                yield return Token(ConstKeyword);
-            }
-        }
 
-        DelegateInfo _CallbackInfo;
-        public DelegateInfo CallbackInfo {
-            get {
-                if (!IsCallback) {
-                    throw new InvalidOperationException ();
-                }
-                if (_CallbackInfo == null) {
-                    _CallbackInfo = new DelegateInfo (Element.Element (gi + "callback"), this);
-                }
-                return _CallbackInfo;
+            if (IsCallback) {
+                var marshalAsAttrName = ParseName(typeof(MarshalAsAttribute).FullName);
+                var marshalAsAttrArgListText = string.Format("({0}.{1})",
+                    typeof(UnmanagedType).FullName, UnmanagedType.FunctionPtr);
+                var marshalAsAttrArgList = ParseAttributeArgumentList(marshalAsAttrArgListText);
+                var marshalAsAttr = Attribute(marshalAsAttrName)
+                .WithArgumentList(marshalAsAttrArgList);
+                yield return AttributeList().AddAttributes(marshalAsAttr);
             }
         }
 
@@ -102,142 +92,61 @@ namespace GISharp.CodeGen.Model
                 foreach (var callbackDeclaration in CallbackInfo.AllDeclarations) {
                     yield return callbackDeclaration;
                 }
-                type = ParseTypeName (CallbackInfo.UnmanagedIdentifier.Text);
+                type = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
 
-            } else if (Element.Parent.Parent.Attribute (glib + "is-gtype-struct-for") != null
-                && !Element.ElementsBeforeSelf ().Any ())
+            } else if (Element.Parent.Parent.Attribute(glib + "is-gtype-struct-for") != null
+                && !Element.ElementsBeforeSelf().Any())
             {
                 // The first element of a GType struct is always another GType struct
                 // rather than a pointer.
-                var parentTypeName = Element.Attribute (gs + "managed-type").Value;
-                var lastDot = parentTypeName.LastIndexOf ('.');
-                var parentStructName = parentTypeName.Substring (lastDot) + "Struct";
-                type = ParseTypeName (parentTypeName + parentStructName);
+                var parentTypeName = Element.Attribute(gs + "managed-type").Value;
+                var lastDot = parentTypeName.LastIndexOf('.');
+                var parentStructName = parentTypeName.Substring(lastDot) + "Struct";
+                type = ParseTypeName(parentTypeName + parentStructName);
             } else {
                 type = TypeInfo.Type;
             }
-            var variable = VariableDeclarator (ManagedName);
-            if (Element.Name == gi + "constant") {
-                var value = GetValueAsLiteralExpression ();
-                var equalsValueClause = EqualsValueClause (value);
-                variable = variable.WithInitializer (equalsValueClause);
-                if (TypeInfo.TypeObject == typeof(GISharp.GLib.Utf8)) {
-                    type = ParseTypeName(typeof(string).FullName);
-                }
-            }
-            var variableDeclaration = VariableDeclaration (type)
-                .AddVariables (variable);
-            var field = FieldDeclaration (variableDeclaration)
-                .WithModifiers (Modifiers)
-                .WithAttributeLists (AttributeLists)
-                .WithLeadingTrivia (DocumentationCommentTriviaList);
+            var variable = VariableDeclarator(ManagedName);
+            var variableDeclaration = VariableDeclaration(type)
+                .AddVariables(variable);
+            var field = FieldDeclaration(variableDeclaration)
+                .WithModifiers(Modifiers)
+                .WithAttributeLists(AttributeLists)
+                .WithLeadingTrivia(DocumentationCommentTriviaList);
             yield return field;
 
             // aliases only have one field, named "value". This creates implicit cast
             // operators to cast the alias to and from the value type.
-            if (Element.Name != gi + "constant" && Element.Parent.Name == gi + "alias") {
-                var castToOperator = ConversionOperatorDeclaration (
+            if (Element.Parent.Name == gi + "alias") {
+                var castToOperator = ConversionOperatorDeclaration(
                     Token(ImplicitKeyword),
-                    ParseTypeName (DeclaringMember.ManagedName))
-                    .WithModifiers (TokenList (
+                    ParseTypeName(DeclaringMember.ManagedName))
+                    .WithModifiers(TokenList(
                         Token(PublicKeyword),
                         Token(StaticKeyword)))
-                    .WithParameterList (ParseParameterList (
-                        string.Format ("({0} value)", TypeInfo.Type)))
-                    .WithBody (Block (
-                        ReturnStatement (
-                            ObjectCreationExpression (
-                                ParseTypeName (DeclaringMember.ManagedName))
+                    .WithParameterList(ParseParameterList(
+                        string.Format("({0} value)", TypeInfo.Type)))
+                    .WithBody(Block(
+                        ReturnStatement(
+                            ObjectCreationExpression(
+                                ParseTypeName(DeclaringMember.ManagedName))
                             .WithInitializer(InitializerExpression(ObjectInitializerExpression)
-                                .AddExpressions (
-                                    ParseExpression ("value = value"))))));
+                                .AddExpressions(
+                                    ParseExpression("value = value"))))));
                 yield return castToOperator;
 
-                var castFromOperator = ConversionOperatorDeclaration (
+                var castFromOperator = ConversionOperatorDeclaration(
                     Token(ImplicitKeyword), TypeInfo.Type)
-                    .WithModifiers (TokenList (
+                    .WithModifiers(TokenList(
                         Token(PublicKeyword),
                         Token(StaticKeyword)))
-                    .WithParameterList (ParseParameterList (
-                        string.Format ("({0} value)",
-                            ParseTypeName (DeclaringMember.ManagedName))))
-                    .WithBody (Block (
-                        ReturnStatement (
-                            ParseExpression ("value.value"))));
+                    .WithParameterList(ParseParameterList(
+                        string.Format("({0} value)",
+                            ParseTypeName(DeclaringMember.ManagedName))))
+                    .WithBody(Block(
+                        ReturnStatement(
+                            ParseExpression("value.value"))));
                 yield return castFromOperator;
-            }
-        }
-
-        LiteralExpressionSyntax GetValueAsLiteralExpression ()
-        {
-            var managedType = Element.Attribute (gs + "managed-type")?.Value;
-            if (managedType == null) {
-                throw new ArgumentException ("Requires element to have 'managed-type' attribute.");
-            }
-            var value = Element.Attribute ("value")?.Value;
-            if (value == null) {
-                throw new ArgumentException ("Requires element to have 'value' attribute.");
-            }
-
-            switch (managedType) {
-            case "bool":
-            case "System.Boolean":
-                switch (value) {
-                case "true":
-                    return LiteralExpression(TrueLiteralExpression);
-                case "false":
-                    return LiteralExpression(FalseLiteralExpression);
-                default:
-                    throw new Exception (string.Format ("Unknown bool constant value '{0}'.", value));
-                }
-            case "byte":
-            case "System.Byte":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (byte.Parse (value)));
-            case "sbyte":
-            case "System.SByte":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (sbyte.Parse (value)));
-            case "short":
-            case "System.Int16":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (short.Parse (value)));
-            case "ushort":
-            case "System.UInt16":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (ushort.Parse (value)));
-            case "int":
-            case "System.Int32":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (int.Parse (value)));
-            case "uint":
-            case "System.Uint32":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (uint.Parse (value)));
-            case "long":
-            case "System.Int64":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (long.Parse (value)));
-            case "ulong":
-            case "System.UInt64":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (ulong.Parse (value)));
-            case "float":
-            case "System.Float":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (float.Parse (value)));
-            case "double":
-            case "System.Double":
-                return LiteralExpression(NumericLiteralExpression,
-                    Literal (double.Parse (value)));
-            case "string":
-            case "System.String":
-            case "GISharp.GLib.Utf8":
-                return LiteralExpression(StringLiteralExpression,
-                    Literal (value));
-            default:
-                var message = string.Format ("Bad constant type: {0}", managedType);
-                throw new Exception (message);
             }
         }
     }

@@ -315,6 +315,9 @@ namespace GISharp.CodeGen.Model
             foreach (var d in NestedTypeInfos.SelectMany(x => x.AllDeclarations)) {
                 yield return d;
             }
+            foreach (var d in ConstantInfos.SelectMany(x => x.AllDeclarations)) {
+                yield return d;
+            }
             foreach (var d in FieldInfos.SelectMany(x => x.AllDeclarations)) {
                 yield return d;
             }
