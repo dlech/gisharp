@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -77,7 +78,7 @@ namespace GISharp.CodeGen.Model
                 yield return baseModifier;
             }
             if (Element.Name == gi + "constant") {
-                yield return Token (SyntaxKind.ConstKeyword);
+                yield return Token(ConstKeyword);
             }
         }
 
@@ -136,28 +137,27 @@ namespace GISharp.CodeGen.Model
             // operators to cast the alias to and from the value type.
             if (Element.Name != gi + "constant" && Element.Parent.Name == gi + "alias") {
                 var castToOperator = ConversionOperatorDeclaration (
-                    Token (SyntaxKind.ImplicitKeyword),
+                    Token(ImplicitKeyword),
                     ParseTypeName (DeclaringMember.ManagedName))
                     .WithModifiers (TokenList (
-                        Token (SyntaxKind.PublicKeyword),
-                        Token(SyntaxKind.StaticKeyword)))
+                        Token(PublicKeyword),
+                        Token(StaticKeyword)))
                     .WithParameterList (ParseParameterList (
                         string.Format ("({0} value)", TypeInfo.Type)))
                     .WithBody (Block (
                         ReturnStatement (
                             ObjectCreationExpression (
                                 ParseTypeName (DeclaringMember.ManagedName))
-                            .WithInitializer (InitializerExpression (
-                                SyntaxKind.ObjectInitializerExpression)
+                            .WithInitializer(InitializerExpression(ObjectInitializerExpression)
                                 .AddExpressions (
                                     ParseExpression ("value = value"))))));
                 yield return castToOperator;
 
                 var castFromOperator = ConversionOperatorDeclaration (
-                    Token (SyntaxKind.ImplicitKeyword), TypeInfo.Type)
+                    Token(ImplicitKeyword), TypeInfo.Type)
                     .WithModifiers (TokenList (
-                        Token (SyntaxKind.PublicKeyword),
-                        Token(SyntaxKind.StaticKeyword)))
+                        Token(PublicKeyword),
+                        Token(StaticKeyword)))
                     .WithParameterList (ParseParameterList (
                         string.Format ("({0} value)",
                             ParseTypeName (DeclaringMember.ManagedName))))
@@ -184,56 +184,56 @@ namespace GISharp.CodeGen.Model
             case "System.Boolean":
                 switch (value) {
                 case "true":
-                    return LiteralExpression (SyntaxKind.TrueLiteralExpression);
+                    return LiteralExpression(TrueLiteralExpression);
                 case "false":
-                    return LiteralExpression (SyntaxKind.FalseLiteralExpression);
+                    return LiteralExpression(FalseLiteralExpression);
                 default:
                     throw new Exception (string.Format ("Unknown bool constant value '{0}'.", value));
                 }
             case "byte":
             case "System.Byte":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (byte.Parse (value)));
             case "sbyte":
             case "System.SByte":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (sbyte.Parse (value)));
             case "short":
             case "System.Int16":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (short.Parse (value)));
             case "ushort":
             case "System.UInt16":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (ushort.Parse (value)));
             case "int":
             case "System.Int32":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (int.Parse (value)));
             case "uint":
             case "System.Uint32":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (uint.Parse (value)));
             case "long":
             case "System.Int64":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (long.Parse (value)));
             case "ulong":
             case "System.UInt64":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (ulong.Parse (value)));
             case "float":
             case "System.Float":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (float.Parse (value)));
             case "double":
             case "System.Double":
-                return LiteralExpression (SyntaxKind.NumericLiteralExpression,
+                return LiteralExpression(NumericLiteralExpression,
                     Literal (double.Parse (value)));
             case "string":
             case "System.String":
             case "GISharp.GLib.Utf8":
-                return LiteralExpression (SyntaxKind.StringLiteralExpression,
+                return LiteralExpression(StringLiteralExpression,
                     Literal (value));
             default:
                 var message = string.Format ("Bad constant type: {0}", managedType);
