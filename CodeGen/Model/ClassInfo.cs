@@ -378,10 +378,10 @@ namespace GISharp.CodeGen.Model
         ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor ()
         {
             var modifiers = TokenList ().Add (Token (SyntaxKind.PublicKeyword));
-            var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownsRef)",
+            var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
                 typeof(IntPtr).FullName,
-                typeof(bool).FullName));
-            var argList = ParseArgumentList ("(handle, ownsRef)");
+                typeof(GISharp.Runtime.Transfer).FullName));
+            var argList = ParseArgumentList ("(handle, ownership)");
             var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
                 .WithArgumentList (argList);
             return ConstructorDeclaration (Identifier)

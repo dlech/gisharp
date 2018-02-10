@@ -1010,7 +1010,7 @@ System.IntPtr parameter);
         [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
         public UnmanagedActivate ActivateImpl;
 
-        public ActionInterface(System.IntPtr handle, System.Boolean ownsRef) : base(handle, ownsRef)
+        public ActionInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
 
