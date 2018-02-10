@@ -22,6 +22,14 @@
   xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_keys']/gi:return-value/gi:array
 
 
+### KeyFileError ###
+
+# Move error quark from KeyFile
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:function[@name='error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='KeyFileError']
+
+
 ### Version ###
 
 # add a static class for version related stuff

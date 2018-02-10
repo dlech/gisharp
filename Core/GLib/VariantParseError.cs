@@ -1,4 +1,5 @@
-﻿using GISharp.Runtime;
+﻿using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.GLib
 {
@@ -80,5 +81,20 @@ namespace GISharp.GLib
         /// no value given
         /// </summary>
         ValueExpected = 17
+    }
+
+    public static class VariantParseErrorDomain
+    {
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
+        /* transfer-ownership:none */
+        static extern Quark g_variant_parse_error_quark();
+
+        public static Quark Quark {
+            get {
+                var ret = g_variant_parse_error_quark();
+                return ret;
+            }
+        }
     }
 }

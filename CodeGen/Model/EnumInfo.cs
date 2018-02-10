@@ -86,7 +86,7 @@ namespace GISharp.CodeGen.Model
                     .WithLeadingTrivia (DocumentationCommentTriviaList);
 
                 // Methods in an enum are not allowed, so using extension methods instead.
-                enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Extensions")
+                enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Domain")
                     .AddModifiers (
                         Token (SyntaxKind.PublicKeyword),
                         Token (SyntaxKind.StaticKeyword))

@@ -19,17 +19,20 @@ namespace GISharp.Core.Test.GLib
 
             AssertNoGLibLog();
         }
-
-        static Quark ErrorQuark {
-            get {
-                return TestErrorDomain.Failed.GetGErrorDomain ();
-            }
-        }
     }
 
     [GErrorDomain ("gisharp-core-test-error-domain-quark")]
     enum TestErrorDomain
     {
         Failed
+    }
+
+    static class TestErrorDomainExtensions
+    {
+        static Quark Quark {
+            get {
+                return TestErrorDomain.Failed.GetGErrorDomain();
+            }
+        }
     }
 }

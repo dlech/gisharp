@@ -290,7 +290,7 @@ namespace GISharp.CodeGen
                 element.Add (functionElement);
             }
 
-            // rename all error_quark functions to get_error_quark so that they
+            // rename all error_quark functions to get_quark so that they
             // become properties
             var errorQuarkElements = document.Descendants (gi + "function")
                 .Where (d => d.Attribute ("name").Value.EndsWith ("error_quark", StringComparison.Ordinal));
@@ -298,7 +298,7 @@ namespace GISharp.CodeGen
                 if (element.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal)) {
                     continue;
                 }
-                element.SetAttributeValue ("name", "get_" + element.Attribute ("name").Value);
+                element.SetAttributeValue("name", "get_quark");
             }
 
             // add value field to all alias elements

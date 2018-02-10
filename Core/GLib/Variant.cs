@@ -2263,18 +2263,6 @@ namespace GISharp.GLib
             return new Variant (ret, Transfer.Full);
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
-        /* transfer-ownership:none */
-        static extern Quark g_variant_parse_error_quark ();
-
-        public static Quark ParseErrorQuark {
-            get {
-                var ret = g_variant_parse_error_quark ();
-                return ret;
-            }
-        }
-
         /// <summary>
         /// Performs a byteswapping operation on the contents of @value.  The
         /// result is that all multi-byte numeric data contained in @value is

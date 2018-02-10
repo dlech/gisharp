@@ -259,20 +259,6 @@ namespace GISharp.GLib
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
-        /* transfer-ownership:none */
-        static extern GISharp.GLib.Quark g_key_file_error_quark();
-
-        public static GISharp.GLib.Quark ErrorQuark
-        {
-            get
-            {
-                var ret = g_key_file_error_quark();
-                return ret;
-            }
-        }
-
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GISharp.GObject.GType g_key_file_get_type();
@@ -3777,6 +3763,23 @@ namespace GISharp.GLib
         /// a value could not be parsed
         /// </summary>
         InvalidValue = 5
+    }
+
+    public static class KeyFileErrorDomain
+    {
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
+        /* transfer-ownership:none */
+        static extern GISharp.GLib.Quark g_key_file_error_quark();
+
+        public static GISharp.GLib.Quark Quark
+        {
+            get
+            {
+                var ret = g_key_file_error_quark();
+                return ret;
+            }
+        }
     }
 
     /// <summary>

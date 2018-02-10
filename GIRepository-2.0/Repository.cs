@@ -60,22 +60,6 @@ namespace GISharp.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Quark g_irepository_error_quark ();
-
-        /// <summary>
-        /// Error domain for Repository.
-        /// </summary>
-        /// <value>The error domain.</value>
-        /// <remarks>
-        /// Errors in this domain will be from the <see cref="RepositoryError"/> enumeration.
-        /// </remarks>
-        public static Quark ErrorQuark {
-            get {
-                return g_irepository_error_quark ();
-            }
-        }
-
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_error_domain (IntPtr raw, Quark domain);
 
         /// <summary>
