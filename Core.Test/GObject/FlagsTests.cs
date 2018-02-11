@@ -37,7 +37,7 @@ namespace GISharp.Core.Test.GObject
         public void TestRegister3 ()
         {
             // invalid because IsProxyForUnmanagedType = true but there is not
-            // a matching getGType method.
+            // a matching _GType property.
             Assert.That (() => typeof (TestFlags3).GetGType (),
                 Throws.ArgumentException);
 
@@ -119,7 +119,7 @@ namespace GISharp.Core.Test.GObject
         }
 
         // This type should not be allowed because of IsProxyForUnmanagedType = true
-        // but there is no matching getGType method (or TestFlags3Extensions class
+        // but there is no matching _GType property (or TestFlags3Extensions class
         // for that matter)
         [Flags, GType (IsProxyForUnmanagedType = true)]
         public enum TestFlags3
