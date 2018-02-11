@@ -97,6 +97,9 @@ namespace GISharp.CodeGen.Model
                 yield break;
             }
 
+            foreach (var d in GTypeMembers) {
+                yield return d;
+            }
             yield return enumDeclaration;
             // only create a class if there are members
             if (enumExtenstionsDeclaration.Members.Any ()) {

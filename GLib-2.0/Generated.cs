@@ -7,6 +7,8 @@ namespace GISharp.GLib
     [GISharp.Runtime.GTypeAttribute("GKeyFile", IsProxyForUnmanagedType = true)]
     public sealed partial class KeyFile : GISharp.Runtime.Opaque
     {
+        static readonly GISharp.GObject.GType _GType = g_key_file_get_type();
+
         /// <summary>
         /// The name of the main group of a desktop entry file, as defined in the
         /// [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec).
@@ -262,12 +264,6 @@ namespace GISharp.GLib
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GISharp.GObject.GType g_key_file_get_type();
-
-        private static GISharp.GObject.GType getGType()
-        {
-            var ret = g_key_file_get_type();
-            return ret;
-        }
 
         /// <summary>
         /// Clears all keys and groups from @key_file, and decreases the

@@ -300,6 +300,9 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetClassMemberDeclarations ()
         {
+            foreach (var d in GTypeMembers) {
+                yield return d;
+            }
             foreach (var d in NestedTypeInfos.SelectMany(x => x.AllDeclarations)) {
                 yield return d;
             }

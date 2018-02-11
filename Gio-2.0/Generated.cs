@@ -197,6 +197,8 @@ namespace GISharp.Gio
 
     public static class Action
     {
+        static readonly GISharp.GObject.GType _GType = g_action_get_type();
+
         /// <summary>
         /// Checks if @action_name is valid.
         /// </summary>
@@ -448,12 +450,6 @@ namespace GISharp.Gio
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GISharp.GObject.GType g_action_get_type();
-
-        private static GISharp.GObject.GType getGType()
-        {
-            var ret = g_action_get_type();
-            return ret;
-        }
 
         /// <summary>
         /// Activates the action.

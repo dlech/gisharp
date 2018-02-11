@@ -279,7 +279,8 @@ namespace GISharp.CodeGen
             foreach (var element in elementsWithGTypeGetter) {
                 var functionElement = new XElement (
                     gi + "function",
-                    new XAttribute ("name", "_get_g_type"),
+                    new XAttribute("name", "get_g_type"),
+                    new XAttribute(gs + "pinvoke-only", "1"),
                     new XAttribute (c + "identifier", element.Attribute (glib + "get-type").Value),
                     new XAttribute (gs + "access-modifiers", "private"),
                     new XElement (

@@ -9,6 +9,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -95,6 +96,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Gets GType-specific member declarations (e.g. glib:get-type)
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> GTypeMembers => _GTypeMembers.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _GTypeMembers;
+
         protected TypeDeclarationInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -103,6 +110,7 @@ namespace GISharp.CodeGen.Model
             }
             _ConstantInfos = new Lazy<IReadOnlyList<ConstantInfo>>(() => GetConstantInfos().ToList().AsReadOnly());
             _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly());
+            _GTypeMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetGTypeMembers()));
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -181,6 +189,19 @@ namespace GISharp.CodeGen.Model
                     Attribute (ParseName (typeof(GISharp.Runtime.GTypeStructAttribute).FullName))
                         .AddArgumentListArguments (
                             AttributeArgument (ParseExpression ($"typeof({typeArgument.FullName})"))));
+            }
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetGTypeMembers()
+        {
+            if (IsGType) {
+                // emits: static readonly GType _GType = xxx_get_type();
+                var getGType = Element.Attribute(glib + "get-type").AsString();
+                var typeName = typeof(GISharp.GObject.GType).FullName;
+                yield return FieldDeclaration(VariableDeclaration(ParseTypeName(typeName))
+                        .AddVariables(VariableDeclarator(ParseToken("_GType"))
+                            .WithInitializer(EqualsValueClause(ParseExpression($"{getGType}()")))))
+                    .WithModifiers(TokenList(Token(StaticKeyword), Token(ReadOnlyKeyword)));
             }
         }
     }
