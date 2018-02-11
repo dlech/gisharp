@@ -916,6 +916,7 @@ namespace GISharp.Gio
     {
         new struct Struct
         {
+#pragma warning disable CS0649
             public GISharp.GObject.TypeInterface.Struct GIface;
 
             [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1011,6 +1012,7 @@ System.IntPtr parameter);
 
             [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
             public UnmanagedActivate ActivateImpl;
+#pragma warning restore CS0649
         }
 
         public ActionInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)

@@ -241,9 +241,17 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetClassMemberDeclarations()
         {
+            var structMembers = List(FieldInfos.SelectMany(x => x.AllDeclarations));
+            var firstMember = structMembers.First();
+            structMembers = structMembers.Replace(firstMember, firstMember
+                .WithLeadingTrivia(ParseLeadingTrivia("#pragma warning disable CS0649\n")));
+            var lastMember = structMembers.Last();
+            structMembers = structMembers.Replace(lastMember, lastMember
+                .WithTrailingTrivia(ParseTrailingTrivia("#pragma warning restore CS0649")));
             var structDeclaration = StructDeclaration("Struct")
                 .WithModifiers(TokenList(Token(NewKeyword)))
-                .WithMembers(List(FieldInfos.SelectMany(x => x.AllDeclarations)));
+                .WithMembers(structMembers);
+            
             yield return structDeclaration;
 
             yield return DefaultConstructor;
