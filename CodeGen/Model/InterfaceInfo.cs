@@ -149,7 +149,8 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetInterfaceExtensionsMembers()
         {
-            return MethodInfos.SelectMany(x => x.AllDeclarations);
+            return ConstantInfos.SelectMany(x => x.AllDeclarations)
+                .Concat(MethodInfos.SelectMany(x => x.AllDeclarations));
         }
     }
 }
