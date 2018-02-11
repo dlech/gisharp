@@ -35,6 +35,27 @@ namespace GISharp.CodeGen.Model
         public DelegateInfo CallbackInfo => _CallbackInfo.Value;
         readonly Lazy<DelegateInfo> _CallbackInfo;
 
+        /// <summary>
+        /// Gets a field declaration for a field containing the offset to an
+        /// unmanaged field.
+        /// </summary>
+        public FieldDeclarationSyntax OffsetDeclaration => _OffsetDeclaration.Value;
+        readonly Lazy<FieldDeclarationSyntax> _OffsetDeclaration;
+
+        /// <summary>
+        /// Gets a field declaration for a field containing the delegate to an
+        /// unmanaged callback implementation
+        /// </summary>
+        public FieldDeclarationSyntax DelegateDeclaration => _DelegateDeclaration.Value;
+        readonly Lazy<FieldDeclarationSyntax> _DelegateDeclaration;
+
+        /// <summary>
+        /// Gets a field declaration for a field containing the function pointer
+        /// to a unmanaged callback delegate
+        /// </summary>
+        public FieldDeclarationSyntax DelegatePtrDeclaration => _DelegatePtrDeclaration.Value;
+        readonly Lazy<FieldDeclarationSyntax> _DelegatePtrDeclaration;
+
         public FieldInfo(XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -44,6 +65,9 @@ namespace GISharp.CodeGen.Model
             IsCallback = Element.Element(gi + "callback") != null;
             _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, false));
             _CallbackInfo = new Lazy<DelegateInfo>(GetCallbackInfo);
+            _OffsetDeclaration = new Lazy<FieldDeclarationSyntax>(GetOffsetDeclaration);
+            _DelegateDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegateDeclaration);
+            _DelegatePtrDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegatePointerDeclaration);
         }
 
         DelegateInfo GetCallbackInfo()
@@ -73,25 +97,74 @@ namespace GISharp.CodeGen.Model
                 .WithArgumentList(fieldOffsetAttrArgList);
                 yield return AttributeList().AddAttributes(fieldOffsetAttr);
             }
+        }
 
-            if (IsCallback) {
-                var marshalAsAttrName = ParseName(typeof(MarshalAsAttribute).FullName);
-                var marshalAsAttrArgListText = string.Format("({0}.{1})",
-                    typeof(UnmanagedType).FullName, UnmanagedType.FunctionPtr);
-                var marshalAsAttrArgList = ParseAttributeArgumentList(marshalAsAttrArgListText);
-                var marshalAsAttr = Attribute(marshalAsAttrName)
-                .WithArgumentList(marshalAsAttrArgList);
-                yield return AttributeList().AddAttributes(marshalAsAttr);
+        // Gets a field declaration like:
+        // static readonly IntPtr xxxOffset = Marshal.OffsetOf<Struct>(nameof(Struct.xxx));
+        FieldDeclarationSyntax GetOffsetDeclaration()
+        {
+            var variableType = ParseTypeName(typeof(IntPtr).FullName);
+            var variableName = ManagedName.ToCamelCase() + "Offset";
+            var valueExpression = ParseExpression(string.Format("{0}.{1}<Struct>(nameof(Struct.{2}))",
+                typeof(Marshal).FullName,
+                nameof(Marshal.OffsetOf),
+                ManagedName));
+
+            var declaration = FieldDeclaration(VariableDeclaration(variableType)
+                    .AddVariables(VariableDeclarator(variableName)
+                        .WithInitializer(EqualsValueClause(valueExpression))))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+
+            return declaration;
+        }
+
+        // Gets a field declaration like:
+        // static readonly UnmanagedYyy xxxDelegate = OnYyy;
+        FieldDeclarationSyntax GetDelegateDeclaration()
+        {
+            if (!IsCallback) {
+                throw new InvalidOperationException("Must be a callback field");
             }
+
+            var variableType = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
+            var variableName = ManagedName.ToCamelCase() + "Delegate";
+            var valueExpression = ParseExpression($"On{ManagedName}");
+
+            var declaration = FieldDeclaration(VariableDeclaration(variableType)
+                    .AddVariables(VariableDeclarator(variableName)
+                        .WithInitializer(EqualsValueClause(valueExpression))))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+
+            return declaration;
+        }
+
+        // Gets a field declaration like:
+        // static readonly IntPtr xxxDelegate_ = Marshal.GetFunctionPointerForDelegate(xxxDelegate);
+        FieldDeclarationSyntax GetDelegatePointerDeclaration()
+        {
+            if (!IsCallback) {
+                throw new InvalidOperationException("Must be a callback field");
+            }
+
+            var variableType = ParseTypeName(typeof(IntPtr).FullName);
+            var variableName = ManagedName.ToCamelCase() + "Delegate";
+            var valueExpression = ParseExpression(string.Format("{0}.{1}({2})",
+                typeof(Marshal).FullName,
+                nameof(Marshal.GetFunctionPointerForDelegate),
+                variableName));
+
+            var declaration = FieldDeclaration(VariableDeclaration(variableType)
+                    .AddVariables(VariableDeclarator($"{variableName}_")
+                        .WithInitializer(EqualsValueClause(valueExpression))))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+
+            return declaration;
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             TypeSyntax type;
             if (IsCallback) {
-                foreach (var callbackDeclaration in CallbackInfo.AllDeclarations) {
-                    yield return callbackDeclaration;
-                }
                 type = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
             }
             else {

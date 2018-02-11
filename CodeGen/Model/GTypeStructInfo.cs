@@ -184,22 +184,12 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<StatementSyntax> GetGTypeStructInterfaceInitStatements()
         {
-            const string structName = "Struct";
-            string statement;
             foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
                 var methodName = f.ManagedName;
                 var delegateName = "Unmanaged" + f.CallbackInfo.ManagedName;
                 var prefix = methodName.ToCamelCase();
 
-                statement = string.Format("var {0}Offset = {1}.OffsetOf<{2}> (nameof ({2}.{3}));\n",
-                    prefix, typeof(Marshal).FullName, structName, methodName);
-                yield return ParseStatement(statement);
-
-                statement = string.Format("var {0}Ptr = {1}.GetFunctionPointerForDelegate<{2}.{3}> ({4});\n",
-                    prefix, typeof(Marshal).FullName, structName, delegateName, methodName);
-                yield return ParseStatement(statement);
-
-                statement = string.Format("{0}.WriteIntPtr(gIface, (int){1}Offset, {1}Ptr);\n",
+                var statement = string.Format("{0}.WriteIntPtr(gIface, (int){1}Offset, {1}Delegate_);\n",
                     typeof(Marshal).FullName, prefix);
                 yield return ParseStatement(statement);
             }
@@ -208,7 +198,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls()
         {
             foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
-                var methodName = f.ManagedName;
+                var methodName = "On" + f.ManagedName;
                 var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
 
                 var method = MethodDeclaration(returnType, methodName)
@@ -241,6 +231,16 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetClassMemberDeclarations()
         {
+            // emit helpers for marshalling fields
+            foreach (var f in FieldInfos) {
+                yield return f.OffsetDeclaration;
+                if (f.IsCallback) {
+                    yield return f.DelegateDeclaration;
+                    yield return f.DelegatePtrDeclaration;
+                }
+            }
+
+            // emit a struct that matches the unmanaged data struct
             var structMembers = List(FieldInfos.SelectMany(x => x.AllDeclarations));
             var firstMember = structMembers.First();
             structMembers = structMembers.Replace(firstMember, firstMember
@@ -253,6 +253,13 @@ namespace GISharp.CodeGen.Model
                 .WithMembers(structMembers);
             
             yield return structDeclaration;
+
+            // emit the delegates types for callback fields
+            foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
+                foreach (var d in f.CallbackInfo.AllDeclarations) {
+                    yield return d;
+                }
+            }
 
             yield return DefaultConstructor;
             // taking advantage of the fact that GObject interfaces can't inherit,

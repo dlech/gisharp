@@ -365,12 +365,6 @@ namespace GISharp.CodeGen
 
                 name = camelCase ? name.ToCamelCase () : name.ToPascalCase ();
 
-                // callbacks that are defined for a field tend to have name conflicts
-                if (element.Name == gi + "field" && element.Element (gi + "callback") != null) {
-                    // add "Impl" suffix to the field name
-                    name += "Impl";
-                }
-
                 element.SetAttributeValue (gs + "managed-name", name);
             }
 

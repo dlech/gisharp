@@ -910,79 +910,97 @@ namespace GISharp.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     public sealed partial class ActionInterface : GISharp.GObject.TypeInterface
     {
+        static readonly System.IntPtr gIfaceOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
+        static readonly System.IntPtr getNameOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetName));
+        static readonly UnmanagedGetName getNameDelegate = OnGetName;
+        static readonly System.IntPtr getNameDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getNameDelegate);
+        static readonly System.IntPtr getParameterTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParameterType));
+        static readonly UnmanagedGetParameterType getParameterTypeDelegate = OnGetParameterType;
+        static readonly System.IntPtr getParameterTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getParameterTypeDelegate);
+        static readonly System.IntPtr getStateTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateType));
+        static readonly UnmanagedGetStateType getStateTypeDelegate = OnGetStateType;
+        static readonly System.IntPtr getStateTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateTypeDelegate);
+        static readonly System.IntPtr getStateHintOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateHint));
+        static readonly UnmanagedGetStateHint getStateHintDelegate = OnGetStateHint;
+        static readonly System.IntPtr getStateHintDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateHintDelegate);
+        static readonly System.IntPtr getEnabledOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEnabled));
+        static readonly UnmanagedGetEnabled getEnabledDelegate = OnGetEnabled;
+        static readonly System.IntPtr getEnabledDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getEnabledDelegate);
+        static readonly System.IntPtr getStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetState));
+        static readonly UnmanagedGetState getStateDelegate = OnGetState;
+        static readonly System.IntPtr getStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateDelegate);
+        static readonly System.IntPtr changeStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeState));
+        static readonly UnmanagedChangeState changeStateDelegate = OnChangeState;
+        static readonly System.IntPtr changeStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(changeStateDelegate);
+        static readonly System.IntPtr activateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
+        static readonly UnmanagedActivate activateDelegate = OnActivate;
+        static readonly System.IntPtr activateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(activateDelegate);
+
         new struct Struct
         {
 #pragma warning disable CS0649
             public GISharp.GObject.TypeInterface.Struct GIface;
+            public UnmanagedGetName GetName;
+            public UnmanagedGetParameterType GetParameterType;
+            public UnmanagedGetStateType GetStateType;
+            public UnmanagedGetStateHint GetStateHint;
+            public UnmanagedGetEnabled GetEnabled;
+            public UnmanagedGetState GetState;
+            public UnmanagedChangeState ChangeState;
+            public UnmanagedActivate Activate;
+#pragma warning restore CS0649
+        }
 
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.IntPtr UnmanagedGetName(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetName(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate GISharp.GLib.Utf8 GetName(GISharp.Gio.IAction action);
+        public delegate GISharp.GLib.Utf8 GetName(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetName GetNameImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.IntPtr UnmanagedGetParameterType(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetParameterType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate GISharp.GLib.VariantType GetParameterType(GISharp.Gio.IAction action);
+        public delegate GISharp.GLib.VariantType GetParameterType(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetParameterType GetParameterTypeImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.IntPtr UnmanagedGetStateType(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetStateType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate GISharp.GLib.VariantType GetStateType(GISharp.Gio.IAction action);
+        public delegate GISharp.GLib.VariantType GetStateType(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetStateType GetStateTypeImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.IntPtr UnmanagedGetStateHint(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetStateHint(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate GISharp.GLib.Variant GetStateHint(GISharp.Gio.IAction action);
+        public delegate GISharp.GLib.Variant GetStateHint(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetStateHint GetStateHintImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.Boolean UnmanagedGetEnabled(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.Boolean UnmanagedGetEnabled(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate System.Boolean GetEnabled(GISharp.Gio.IAction action);
+        public delegate System.Boolean GetEnabled(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetEnabled GetEnabledImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate System.IntPtr UnmanagedGetState(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-            public delegate GISharp.GLib.Variant GetState(GISharp.Gio.IAction action);
+        public delegate GISharp.GLib.Variant GetState(GISharp.Gio.IAction action);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedGetState GetStateImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate void UnmanagedChangeState(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedChangeState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action,
@@ -990,13 +1008,10 @@ System.IntPtr action,
 /* transfer-ownership:none */
 System.IntPtr value);
 
-            public delegate void ChangeState(GISharp.Gio.IAction action, GISharp.GLib.Variant value);
+        public delegate void ChangeState(GISharp.Gio.IAction action, GISharp.GLib.Variant value);
 
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedChangeState ChangeStateImpl;
-
-            [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-            public delegate void UnmanagedActivate(
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActivate(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action,
@@ -1004,12 +1019,7 @@ System.IntPtr action,
 /* transfer-ownership:none nullable:1 allow-none:1 */
 System.IntPtr parameter);
 
-            public delegate void Activate(GISharp.Gio.IAction action, GISharp.GLib.Variant parameter);
-
-            [System.Runtime.InteropServices.MarshalAsAttribute(System.Runtime.InteropServices.UnmanagedType.FunctionPtr)]
-            public UnmanagedActivate ActivateImpl;
-#pragma warning restore CS0649
-        }
+        public delegate void Activate(GISharp.Gio.IAction action, GISharp.GLib.Variant parameter);
 
         public ActionInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -1026,33 +1036,17 @@ System.IntPtr parameter);
 
         static void InterfaceInit(System.IntPtr gIface, System.IntPtr userData)
         {
-            var getNameImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetNameImpl));
-            var getNameImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetName>(GetNameImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getNameImplOffset, getNameImplPtr);
-            var getParameterTypeImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParameterTypeImpl));
-            var getParameterTypeImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetParameterType>(GetParameterTypeImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getParameterTypeImplOffset, getParameterTypeImplPtr);
-            var getStateTypeImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateTypeImpl));
-            var getStateTypeImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetStateType>(GetStateTypeImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateTypeImplOffset, getStateTypeImplPtr);
-            var getStateHintImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateHintImpl));
-            var getStateHintImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetStateHint>(GetStateHintImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateHintImplOffset, getStateHintImplPtr);
-            var getEnabledImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEnabledImpl));
-            var getEnabledImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetEnabled>(GetEnabledImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getEnabledImplOffset, getEnabledImplPtr);
-            var getStateImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateImpl));
-            var getStateImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedGetState>(GetStateImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateImplOffset, getStateImplPtr);
-            var changeStateImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeStateImpl));
-            var changeStateImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedChangeState>(ChangeStateImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)changeStateImplOffset, changeStateImplPtr);
-            var activateImplOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActivateImpl));
-            var activateImplPtr = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<Struct.UnmanagedActivate>(ActivateImpl);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)activateImplOffset, activateImplPtr);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getNameOffset, getNameDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getParameterTypeOffset, getParameterTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateTypeOffset, getStateTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateHintOffset, getStateHintDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getEnabledOffset, getEnabledDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateOffset, getStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)changeStateOffset, changeStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)activateOffset, activateDelegate_);
         }
 
-        static System.IntPtr GetNameImpl(System.IntPtr action_)
+        static System.IntPtr OnGetName(System.IntPtr action_)
         {
             try
             {
@@ -1068,7 +1062,7 @@ System.IntPtr parameter);
             }
         }
 
-        static System.IntPtr GetParameterTypeImpl(System.IntPtr action_)
+        static System.IntPtr OnGetParameterType(System.IntPtr action_)
         {
             try
             {
@@ -1084,7 +1078,7 @@ System.IntPtr parameter);
             }
         }
 
-        static System.IntPtr GetStateTypeImpl(System.IntPtr action_)
+        static System.IntPtr OnGetStateType(System.IntPtr action_)
         {
             try
             {
@@ -1100,7 +1094,7 @@ System.IntPtr parameter);
             }
         }
 
-        static System.IntPtr GetStateHintImpl(System.IntPtr action_)
+        static System.IntPtr OnGetStateHint(System.IntPtr action_)
         {
             try
             {
@@ -1121,7 +1115,7 @@ System.IntPtr parameter);
             }
         }
 
-        static System.Boolean GetEnabledImpl(System.IntPtr action_)
+        static System.Boolean OnGetEnabled(System.IntPtr action_)
         {
             try
             {
@@ -1136,7 +1130,7 @@ System.IntPtr parameter);
             }
         }
 
-        static System.IntPtr GetStateImpl(System.IntPtr action_)
+        static System.IntPtr OnGetState(System.IntPtr action_)
         {
             try
             {
@@ -1153,7 +1147,7 @@ System.IntPtr parameter);
             }
         }
 
-        static void ChangeStateImpl(System.IntPtr action_, System.IntPtr value_)
+        static void OnChangeState(System.IntPtr action_, System.IntPtr value_)
         {
             try
             {
@@ -1167,7 +1161,7 @@ System.IntPtr parameter);
             }
         }
 
-        static void ActivateImpl(System.IntPtr action_, System.IntPtr parameter_)
+        static void OnActivate(System.IntPtr action_, System.IntPtr parameter_)
         {
             try
             {
