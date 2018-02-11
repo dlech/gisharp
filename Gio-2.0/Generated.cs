@@ -1054,69 +1054,131 @@ System.IntPtr parameter);
 
         static System.IntPtr GetNameImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetName();
-            var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-            return ret_;
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetName();
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
         }
 
         static System.IntPtr GetParameterTypeImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetParameterType();
-            var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-            return ret_;
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetParameterType();
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
         }
 
         static System.IntPtr GetStateTypeImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetStateType();
-            var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-            return ret_;
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetStateType();
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
         }
 
         static System.IntPtr GetStateHintImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetStateHint();
-            var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-            if (ret != null)
+            try
             {
-                ret.Ref();
-            }
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetStateHint();
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                if (ret != null)
+                {
+                    ret.Ref();
+                }
 
-            return ret_;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
         }
 
         static System.Boolean GetEnabledImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetEnabled();
-            return ret;
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetEnabled();
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.Boolean);
+            }
         }
 
         static System.IntPtr GetStateImpl(System.IntPtr action_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var ret = action.GetState();
-            var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-            ret.Ref();
-            return ret_;
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var ret = action.GetState();
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                ret.Ref();
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
         }
 
         static void ChangeStateImpl(System.IntPtr action_, System.IntPtr value_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
-            action.ChangeState(value);
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                action.ChangeState(value);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
         }
 
         static void ActivateImpl(System.IntPtr action_, System.IntPtr parameter_)
         {
-            var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-            var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
-            action.Activate(parameter);
+            try
+            {
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                action.Activate(parameter);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
         }
     }
 }

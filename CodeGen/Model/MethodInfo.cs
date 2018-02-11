@@ -812,37 +812,39 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<StatementSyntax> GetVirtualMethodImplStatements ()
         {
+            var tryStatement = TryStatement();
+
             foreach (var p in ManagedParameterInfos) {
                 if (p.IsOutParam) {
                     if (p.TypeInfo.RequiresMarshal) {
                         var statement = $"{p.TypeInfo.Type} {p.ManagedName};\n";
-                        yield return ParseStatement (statement);
+                        tryStatement = tryStatement.AddBlockStatements(ParseStatement(statement));
                     }
                 } else {
-                    foreach (var s in GetMarshalUnmanagedToManagedStatements (p, true)) {
-                        yield return s;
-                    }
+                    var marshalStatements = GetMarshalUnmanagedToManagedStatements(p, true).ToArray();
+                    tryStatement = tryStatement.AddBlockStatements(marshalStatements);
                 }
             }
             var instanceParam = PinvokeParameterInfos.First ();
-            yield return GetInvocationStatement ($"{instanceParam.ManagedName}.{ManagedName}", true);
+            var invokeStatement = GetInvocationStatement($"{instanceParam.ManagedName}.{ManagedName}", true);
+            tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
                 foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(p, false)) {
-                    yield return statement;
+                    tryStatement = tryStatement.AddBlockStatements(statement);
                     if (freeStatement != null) {
                         // TODO: how to prevent memory leak?
-                        //yield return freeStatement;
+                        //tryStatement = tryStatement.AddBlockStatements(freeStatement);
                     }
                 }
             }
 
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
                 foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
-                    yield return statement;
+                    tryStatement = tryStatement.AddBlockStatements(statement);
                     if (freeStatement != null) {
                         // TODO: how to prevent memory leak?
-                        //yield return freeStatement;
+                        //tryStatement = tryStatement.AddBlockStatements(freeStatement);
                     }
                 }
                 if (ManagedReturnParameterInfo.Transfer != GISharp.Runtime.Transfer.None) {
@@ -851,7 +853,7 @@ namespace GISharp.CodeGen.Model
                         if (ManagedReturnParameterInfo.CanBeNull) {
                             refStatement = IfStatement (ParseExpression ("ret != null"), Block(refStatement));
                         }
-                        yield return refStatement;
+                        tryStatement = tryStatement.AddBlockStatements(refStatement);
                     }
                 }
                 var ret = "ret";
@@ -859,8 +861,55 @@ namespace GISharp.CodeGen.Model
                     ret += "_";
                 }
                 var returnStatement = ReturnStatement (ParseExpression (ret));
-                yield return returnStatement;
+                tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
+
+            var returnDefault = default(StatementSyntax);
+            if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+            var returnType = UnmanagedReturnParameterInfo.TypeInfo.Type;
+                returnDefault = ParseStatement($"return default({returnType});");
+            }
+
+            // if the method has an error parameter, we can propagate any
+            // GErrorException thrown by the managed callback
+
+            if (ThrowsGErrorException) {
+                var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
+                var propagateError = ParseStatement(string.Format("{0}.{1}(ex.{2}, {3});\n",
+                    typeof(GISharp.Runtime.GMarshal).FullName,
+                    nameof(GISharp.Runtime.GMarshal.PropagateError),
+                    nameof(GISharp.Runtime.GErrorException.Error),
+                    PinvokeParameterInfos.Single(x => x.IsErrorParameter).Identifier));
+
+                var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
+                if (returnDefault != null) {
+                    gErrorExceptionStatements = gErrorExceptionStatements.Add(returnDefault);
+                }
+
+                tryStatement = tryStatement.AddCatches(CatchClause()
+                    .WithDeclaration(CatchDeclaration(ParseTypeName(gErrorException), ParseToken("ex")))
+                    .WithBlock(Block(gErrorExceptionStatements)));
+            }
+
+            // otherwise, we just have to log an unhandled exception since we
+            // are returning to unmanaged code, which doesn't know about
+            // managed exceptions
+
+            var exception = typeof(Exception).FullName;
+            var logUnhandledException = ParseStatement(string.Format("{0}.{1}(ex);\n",
+                typeof(GISharp.GLib.Log).FullName,
+                nameof(GISharp.GLib.Log.LogUnhandledException)));
+
+            var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
+            if (returnDefault != null) {
+                exceptionStatements = exceptionStatements.Add(returnDefault);
+            }
+
+            tryStatement = tryStatement.AddCatches(CatchClause()
+                    .WithDeclaration(CatchDeclaration(ParseTypeName(exception), ParseToken("ex")))
+                    .WithBlock(Block(exceptionStatements)));
+
+            yield return tryStatement;
         }
 
         MethodDeclarationSyntax CreateOverrideEqualsMethod ()
