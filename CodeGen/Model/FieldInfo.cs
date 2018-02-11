@@ -93,17 +93,8 @@ namespace GISharp.CodeGen.Model
                     yield return callbackDeclaration;
                 }
                 type = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
-
-            } else if (Element.Parent.Parent.Attribute(glib + "is-gtype-struct-for") != null
-                && !Element.ElementsBeforeSelf().Any())
-            {
-                // The first element of a GType struct is always another GType struct
-                // rather than a pointer.
-                var parentTypeName = Element.Attribute(gs + "managed-type").Value;
-                var lastDot = parentTypeName.LastIndexOf('.');
-                var parentStructName = parentTypeName.Substring(lastDot) + "Struct";
-                type = ParseTypeName(parentTypeName + parentStructName);
-            } else {
+            }
+            else {
                 type = TypeInfo.Type;
             }
             var variable = VariableDeclarator(ManagedName);

@@ -78,6 +78,9 @@ namespace GISharp.CodeGen.Model
                     yield return new EnumInfo (child, this);
                 } else if (child.Name == gi + "interface") {
                     yield return new InterfaceInfo (child, this);
+                }
+                else if (child.Name == gi + "record" && child.Attribute (glib + "is-gtype-struct-for") != null) {
+                    yield return new GTypeStructInfo(child, this);
                 } else if (child.Name == gi + "class" || (child.Name == gi + "record" && child.Attribute (gs + "opaque") != null) || child.Name == gs + "static-class") {
                     yield return new ClassInfo (child, this);
                 } else if (child.Name == gi + "record" || child.Name == gi + "alias" || child.Name == gi + "union") {

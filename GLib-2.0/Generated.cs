@@ -224,7 +224,7 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_new();
 
@@ -282,7 +282,7 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_free(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile);
 
@@ -317,13 +317,13 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_get_boolean(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -409,21 +409,21 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="2" zero-terminated="0" type="gboolean*">
+        /* <array length="2" zero-terminated="0" type="gboolean*" is-pointer="1">
 *   <type name="gboolean" managed-name="Gboolean" />
 * </array> */
         /* transfer-ownership:container */
         static extern System.IntPtr g_key_file_get_boolean_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -506,16 +506,16 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_comment(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -595,13 +595,13 @@ namespace GISharp.GLib
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
         /* transfer-ownership:none */
         static extern System.Double g_key_file_get_double(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -687,21 +687,21 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="2" zero-terminated="0" type="gdouble*">
+        /* <array length="2" zero-terminated="0" type="gdouble*" is-pointer="1">
 *   <type name="gdouble" managed-name="Gdouble" />
 * </array> */
         /* transfer-ownership:container */
         static extern System.IntPtr g_key_file_get_double_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -775,15 +775,15 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_groups(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length);
 
@@ -834,13 +834,13 @@ namespace GISharp.GLib
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
         static extern System.Int64 g_key_file_get_int64(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -919,13 +919,13 @@ namespace GISharp.GLib
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         static extern System.Int32 g_key_file_get_integer(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1011,21 +1011,21 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="2" zero-terminated="0" type="gint*">
+        /* <array length="2" zero-terminated="0" type="gint*" is-pointer="1">
 *   <type name="gint" managed-name="Gint" />
 * </array> */
         /* transfer-ownership:container */
         static extern System.IntPtr g_key_file_get_integer_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1107,18 +1107,18 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_keys(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1197,19 +1197,19 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_locale_string(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr locale,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1306,24 +1306,24 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="3" zero-terminated="1" type="gchar**">
+        /* <array length="3" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_locale_string_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr locale,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1397,10 +1397,10 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_start_group(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile);
 
@@ -1451,16 +1451,16 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_string(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1546,21 +1546,21 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array length="2" zero-terminated="1" type="gchar**">
+        /* <array length="2" zero-terminated="1" type="gchar**" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_string_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1641,13 +1641,13 @@ namespace GISharp.GLib
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
         /* transfer-ownership:none */
         static extern System.UInt64 g_key_file_get_uint64(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1723,16 +1723,16 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_get_value(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1804,10 +1804,10 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_has_group(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName);
 
@@ -1866,13 +1866,13 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_has_key(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -1954,10 +1954,10 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_load_from_data(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr data,
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
@@ -2039,13 +2039,13 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_load_from_data_dirs(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="Filename" /> */
+        /* <type name="filename" type="gchar*" managed-name="Filename" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr file,
-        /* <type name="filename" type="gchar**" managed-name="Filename" /> */
+        /* <type name="filename" type="gchar**" managed-name="Filename" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.IntPtr fullPath,
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
@@ -2133,18 +2133,18 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_load_from_dirs(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="Filename" /> */
+        /* <type name="filename" type="gchar*" managed-name="Filename" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr file,
-        /* <array type="gchar**">
+        /* <array type="gchar**" is-pointer="1">
 *   <type name="filename" managed-name="Filename" />
 * </array> */
         /* transfer-ownership:none */
         System.IntPtr searchDirs,
-        /* <type name="filename" type="gchar**" managed-name="Filename" /> */
+        /* <type name="filename" type="gchar**" managed-name="Filename" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.IntPtr fullPath,
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
@@ -2230,10 +2230,10 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_load_from_file(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="Filename" /> */
+        /* <type name="filename" type="gchar*" managed-name="Filename" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr file,
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
@@ -2290,10 +2290,10 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_ref(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile);
 
@@ -2323,13 +2323,13 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_remove_comment(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -2392,10 +2392,10 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_remove_group(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -2457,13 +2457,13 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_remove_key(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -2533,10 +2533,10 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_save_to_file(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr filename,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -2600,13 +2600,13 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_boolean(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
@@ -2666,16 +2666,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_boolean_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gboolean">
+        /* <array length="3" zero-terminated="0" type="gboolean" is-pointer="1">
 *   <type name="gboolean" type="gboolean" managed-name="Gboolean" />
 * </array> */
         /* transfer-ownership:none */
@@ -2752,16 +2752,16 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern System.Boolean g_key_file_set_comment(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr comment,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -2836,13 +2836,13 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_double(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
@@ -2901,16 +2901,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_double_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gdouble">
+        /* <array length="3" zero-terminated="0" type="gdouble" is-pointer="1">
 *   <type name="gdouble" type="gdouble" managed-name="Gdouble" />
 * </array> */
         /* transfer-ownership:none */
@@ -2973,13 +2973,13 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_int64(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
@@ -3035,13 +3035,13 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_integer(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="gint" type="gint" managed-name="Gint" /> */
@@ -3100,16 +3100,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_integer_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gint">
+        /* <array length="3" zero-terminated="0" type="gint" is-pointer="1">
 *   <type name="gint" type="gint" managed-name="Gint" />
 * </array> */
         /* transfer-ownership:none */
@@ -3167,7 +3167,7 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_list_separator(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
         /* <type name="gchar" type="gchar" managed-name="Gchar" /> */
@@ -3213,19 +3213,19 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_locale_string(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr locale,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr @string);
 
@@ -3296,19 +3296,19 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_locale_string_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr locale,
-        /* <array length="4" zero-terminated="1" type="gchar*">
+        /* <array length="4" zero-terminated="1" type="gchar*" is-pointer="1">
 *   <type name="utf8" type="gchar" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:none */
@@ -3382,16 +3382,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_string(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr @string);
 
@@ -3455,16 +3455,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_string_list(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="1" type="gchar*">
+        /* <array length="3" zero-terminated="1" type="gchar*" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
         /* transfer-ownership:none */
@@ -3528,13 +3528,13 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_uint64(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
@@ -3595,16 +3595,16 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_set_value(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr key,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr value);
 
@@ -3668,13 +3668,13 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:full */
         static extern System.IntPtr g_key_file_to_data(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile,
-        /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
+        /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
@@ -3727,7 +3727,7 @@ namespace GISharp.GLib
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_key_file_unref(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" /> */
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr keyFile);
     }
@@ -3892,7 +3892,7 @@ namespace GISharp.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none */
         static extern System.IntPtr glib_check_version(
         /* <type name="guint" type="guint" managed-name="Guint" /> */

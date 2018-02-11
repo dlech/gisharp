@@ -109,7 +109,8 @@ namespace GISharp.CodeGen.Model
         public TypeSyntax Type {
             get {
                 if (_Type == null) {
-                    var fixedUpTypeName = TypeObject.FullName;
+                    // nested types have "+" that needs to be changed to "."
+                    var fixedUpTypeName = TypeObject.FullName.Replace("+", ".");
                     if (typeName == "System.Void") {
                         // C# can't use System.Void
                         fixedUpTypeName = "void";
@@ -150,7 +151,14 @@ namespace GISharp.CodeGen.Model
                 // be passed directly, otherwise it requires special marshalling
                 // via generated code.
                 if (!managed) {
-                    typeName = typeof(IntPtr).FullName;
+                    var typeElement = element.Element(gi + "type") ?? element.Element(gi + "array");
+                    if (typeElement.Attribute(gs + "is-pointer").AsBool()) {
+                        typeName = typeof(IntPtr).FullName;
+                    }
+                    else {
+                        // when we need to pass an opaque by value, we use the nested Struct struct
+                        typeName += "+Struct";
+                    }
                 }
                 RequiresMarshal = true;
             }

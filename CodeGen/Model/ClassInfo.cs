@@ -53,11 +53,6 @@ namespace GISharp.CodeGen.Model
         public bool IsAbstract => Element.Attribute("abstract").AsBool();
 
         /// <summary>
-        /// Indicates if this class is a GType struct
-        /// </summary>
-        public bool IsGTypeStruct => Element.Attribute(glib + "is-gtype-struct-for") != null;
-
-        /// <summary>
         /// Gets the parent type for a GType struct
         /// </summary>
         public Type GTypeStructParent {
@@ -92,23 +87,12 @@ namespace GISharp.CodeGen.Model
         public ClassDeclarationSyntax ClassDeclaration => _ClassDeclaration.Value;
         readonly Lazy<ClassDeclarationSyntax> _ClassDeclaration;
 
-        ConstructorDeclarationSyntax _DefaultConstructor;
         /// <summary>
         /// Gets the default constructor declaration syntax for the class.
         /// </summary>
         /// <value>The default constructor.</value>
-        public ConstructorDeclarationSyntax DefaultConstructor {
-            get {
-                if (_DefaultConstructor == null) {
-                    if (IsGTypeStruct) {
-                        _DefaultConstructor = GetGTypeStructDefaultConstructor ();
-                    } else {
-                        _DefaultConstructor = GetOpaqueDefaultConstructor ();
-                    }
-                }
-                return _DefaultConstructor;
-            }
-        }
+        public ConstructorDeclarationSyntax DefaultConstructor => _DefaultConstructor.Value;
+        readonly Lazy<ConstructorDeclarationSyntax> _DefaultConstructor;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ClassInfo"/> class.
@@ -125,9 +109,13 @@ namespace GISharp.CodeGen.Model
             if (element.Name == gi + "record" && element.Attribute (gs + "opaque") == null) {
                 throw new ArgumentException("<gi:record> element must be opaque.", nameof(element));
             }
+            if (element.Name == gi + "record" && element.Attribute(glib + "is-gtype-struct-for") != null) {
+                throw new ArgumentException("<gi:record> element cannot be GType struct.", nameof(element));
+            }
             _ClassMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetClassMemberDeclarations()));
             _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
             _ClassDeclaration = new Lazy<ClassDeclarationSyntax>(GetClassDeclaration);
+            _DefaultConstructor = new Lazy<ConstructorDeclarationSyntax>(GetDefaultConstructor);
         }
 
         protected override IEnumerable<SyntaxToken> GetModifiers ()
@@ -324,26 +312,12 @@ namespace GISharp.CodeGen.Model
             if (HasDefaultConstructor) {
                 yield return DefaultConstructor;
             }
-            if (IsGTypeStruct) {
-                // taking advantage of the fact that GObject interfaces can't inherit,
-                // so parent will always be GISharp.GObject.TypeInterface for
-                // interfaces.
-                if (GTypeStructParent == typeof(GISharp.GObject.TypeInterface)) {
-                    yield return GetGTypeStructCreateInterfaceInfoMethod ();
-                    yield return GetGTypeStructInterfaceInitMethod ();
-                    foreach (var m in GetGTypeInterfaceMethodImpls ()) {
-                        yield return m;
-                    }
-                } else {
-                    yield return GetGTypeStructGetInfoMethod ();
-                }
-            }
             foreach (var d in MethodInfos.SelectMany (x => x.AllDeclarations)) {
                 yield return d;
             }
         }
 
-        ConstructorDeclarationSyntax GetOpaqueDefaultConstructor ()
+        ConstructorDeclarationSyntax GetDefaultConstructor()
         {
             var modifiers = TokenList ();
             if (IsAbstract) {
@@ -373,22 +347,6 @@ namespace GISharp.CodeGen.Model
                 .WithInitializer(initializer)
                 .WithBody(body);
             return constructor;
-        }
-
-        ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor ()
-        {
-            var modifiers = TokenList ().Add (Token (SyntaxKind.PublicKeyword));
-            var paramerList = ParseParameterList (string.Format ("({0} handle, {1} ownership)",
-                typeof(IntPtr).FullName,
-                typeof(GISharp.Runtime.Transfer).FullName));
-            var argList = ParseArgumentList ("(handle, ownership)");
-            var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
-                .WithArgumentList (argList);
-            return ConstructorDeclaration (Identifier)
-                .WithModifiers (modifiers)
-                .WithParameterList (paramerList)
-                .WithInitializer(initializer)
-                .WithBody (Block ());
         }
     }
 }

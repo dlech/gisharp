@@ -506,6 +506,28 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "managed-type", managedType);
             }
 
+            // add is-pointer attribute to pointer types
+
+            var typeElements = document.Descendants(gi + "type");
+            foreach (var element in typeElements) {
+
+                if (element.Parent.Name == gi + "array") {
+                    // all arrays are pointers
+                    element.Parent.SetAttributeValue(gs + "is-pointer", "1");
+                    continue;
+                }
+
+                if (element.Attribute(gs + "is-pointer") != null) {
+                    // don't overwrite existing values
+                    continue;
+                }
+
+                var cType = element.Attribute(c + "type").AsString("");
+                if (IsPointerType(cType)) {
+                    element.SetAttributeValue(gs + "is-pointer", "1");
+                }
+            }
+
             // add managed-parameters element
 
             var parameterElements = document.Descendants (gi + "parameters");
@@ -740,6 +762,24 @@ namespace GISharp.CodeGen
                 yield return "utf8";
                 yield return "filename";
                 yield return "va_list";
+            }
+        }
+
+        static bool IsPointerType(string cType)
+        {
+            if (cType.EndsWith("*")) {
+                return true;
+            }
+
+            switch (cType) {
+            case "gpointer":
+            case "gconstpointer":
+            case "GLib.Array":
+            case "GLib.PtrArray":
+            case "GLib.ByteArray":
+                return true;
+            default:
+                return false;
             }
         }
 
