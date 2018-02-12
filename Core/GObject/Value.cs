@@ -195,7 +195,10 @@ namespace GISharp.GObject
                 } else if (gtype == GType.Pointer) {
                     Pointer = (IntPtr)obj;
                 } else if (gtype == GType.String) {
-                    String = (string)obj;
+                    if (obj is string str) {
+                        obj = new Utf8(str);
+                    }
+                    String = (Utf8)obj;
                 } else if (gtype == GType.Variant) {
                     Variant = (Variant)obj;
                 } else {
