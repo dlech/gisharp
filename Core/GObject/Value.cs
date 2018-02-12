@@ -866,8 +866,8 @@ namespace GISharp.GObject
                 AssertType (GType.Boxed);
                 var managedType = GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (ref this);
-                if (typeof(Opaque).IsAssignableFrom (managedType)) {
-                    return Opaque.GetInstance<TypeInstance> (ret_, Transfer.None);
+                if (typeof(Boxed).IsAssignableFrom(managedType)) {
+                    return Opaque.GetInstance(managedType, ret_, Transfer.None);
                 }
                 var gchandle = GCHandle.FromIntPtr (ret_);
                 return gchandle.Target;
@@ -879,10 +879,9 @@ namespace GISharp.GObject
                 if (!gtype.IsA (GType.Boxed)) {
                     throw new ArgumentException ("Requires a boxed type.", nameof (value));
                 }
-                var opaque = value as Opaque;
-                if (opaque != null) {
+                if (value is Boxed boxed) {
                     // if this is a wrapped native type, then we pass the native handle
-                    g_value_set_boxed (ref this, opaque.Handle);
+                    g_value_set_boxed (ref this, boxed.Handle);
                 } else {
                     // otherwise, we create a GCHandle.
                     g_value_set_boxed (ref this, (GCHandle.ToIntPtr (GCHandle.Alloc (value))));

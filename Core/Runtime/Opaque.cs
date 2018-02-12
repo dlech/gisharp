@@ -58,12 +58,15 @@ namespace GISharp.Runtime
 
         public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque
         {
-            var type = typeof(T);
+            return (T)GetInstance(typeof(T), handle, ownership);
+        }
 
+        public static Opaque GetInstance(Type type, IntPtr handle, Transfer ownership)
+        {
             // special case for OpaqueInt so 0 doesn't become null
             if (type == typeof(OpaqueInt)) {
                 var ret = new OpaqueInt ((int)handle);
-                return (T)(object)ret;
+                return ret;
             }
 
             if (handle == IntPtr.Zero) {
@@ -71,11 +74,11 @@ namespace GISharp.Runtime
             }
 
             if (typeof(GObject.Object).IsAssignableFrom (type)) {
-                return (T)(object)GObject.Object.GetInstance(handle, ownership);
+                return GObject.Object.GetInstance(handle, ownership);
             }
 
             if (typeof(ParamSpec).IsAssignableFrom (type)) {
-                return (T)(object)ParamSpec.GetInstance(handle, ownership);
+                return ParamSpec.GetInstance(handle, ownership);
             }
 
             if (typeof (Source).IsAssignableFrom (type)) {
@@ -95,7 +98,7 @@ namespace GISharp.Runtime
                 type = gtype.GetGTypeStruct ();
             }
 
-            return (T)Activator.CreateInstance (type, handle, ownership);
+            return (Opaque)Activator.CreateInstance(type, handle, ownership);
         }
 
         public override int GetHashCode()
