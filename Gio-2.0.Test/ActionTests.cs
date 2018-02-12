@@ -6,6 +6,8 @@ using GISharp.Runtime;
 using NUnit.Framework;
 using System.Reflection;
 
+using static GISharp.TestHelpers;
+
 namespace GISharp.Gio.Test
 {
     [TestFixture]
@@ -14,134 +16,147 @@ namespace GISharp.Gio.Test
         [Test]
         public void TestEnabledProperty ()
         {
-            var obj = new ActionImpl ();
-
-            Assert.That (obj.Enabled, Is.True);
-            Assert.That(obj.GetProperty("enabled"), Is.True);
+            using (var obj = new ActionImpl()) {
+                Assert.That(obj.Enabled, Is.True);
+                Assert.That(obj.GetProperty("enabled"), Is.True);
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameProperty ()
         {
-            var obj = new ActionImpl ();
-
-            Assert.That (obj.Name, Is.EqualTo ("TestActionName"));
-            Assert.That(obj.GetProperty("name"), Is.EqualTo("TestActionName"));
+            using (var obj = new ActionImpl()) {
+                Assert.That(obj.Name, IsEqualToUtf8("TestActionName"));
+                Assert.That(obj.GetProperty("name"), IsEqualToUtf8("TestActionName"));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestParameterTypeProperty ()
         {
-            var obj = new ActionImpl ();
-
-            Assert.That (obj.ParameterType, Is.EqualTo (VariantType.Int32));
-            Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Int32));
+            using (var obj = new ActionImpl()) {
+                Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Int32));
+                Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Int32));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestStateProperty ()
         {
-            var obj = new ActionImpl ();
-
-            Assert.That ((int)obj.State, Is.EqualTo (2));
-            Assert.That((int)obj.GetProperty ("state"), Is.EqualTo(2));
+            using (var obj = new ActionImpl()) {
+                Assert.That((int)obj.State, Is.EqualTo(2));
+                Assert.That((int)(Variant)obj.GetProperty("state"), Is.EqualTo(2));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestStateTypeProperty ()
         {
-            var obj = new ActionImpl ();
-
-            Assert.That (obj.StateType, Is.EqualTo (VariantType.Int32));
-            Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
+            using (var obj = new ActionImpl()) {
+                Assert.That(obj.StateType, Is.EqualTo(VariantType.Int32));
+                Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatActivateImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-            var parameter = new Variant (1);
-
-            Assume.That (obj.ActivateCallbackCount, Is.EqualTo (0));
-            obj.Activate (parameter);
-            Assert.That (obj.ActivateCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl())
+            using (var parameter = new Variant(1)) {
+                Assume.That(obj.ActivateCallbackCount, Is.EqualTo(0));
+                obj.Activate(parameter);
+                Assert.That(obj.ActivateCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatChangeStateImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-            var value = new Variant (1);
-
-            Assume.That (obj.ChangeStateCallbackCount, Is.EqualTo (0));
-            obj.ChangeState (value);
-            Assert.That (obj.ChangeStateCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl())
+            using (var value = new Variant(1)) {
+                Assume.That(obj.ChangeStateCallbackCount, Is.EqualTo(0));
+                obj.ChangeState(value);
+                Assert.That(obj.ChangeStateCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetEnabledImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetEnabledCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetEnabled ();
-            Assert.That (actual, Is.True);
-            Assert.That (obj.GetEnabledCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetEnabledCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetEnabled();
+                Assert.That(actual, Is.True);
+                Assert.That(obj.GetEnabledCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetNameImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetNameCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetName ();
-            Assert.That (actual, Is.EqualTo ("TestActionName"));
-            Assert.That (obj.GetNameCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetNameCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetName();
+                Assert.That(actual, IsEqualToUtf8("TestActionName"));
+                Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetParameterTypeImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetParameterTypeCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetParameterType ();
-            Assert.That (actual, Is.EqualTo (VariantType.Int32));
-            Assert.That (obj.GetParameterTypeCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetParameterType();
+                Assert.That(actual, Is.EqualTo(VariantType.Int32));
+                Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetStateImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetStateCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetState ();
-            Assert.That ((int)actual, Is.EqualTo (2));
-            Assert.That (obj.GetStateCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetState();
+                Assert.That((int)actual, Is.EqualTo(2));
+                Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetStateHintImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetStateHintCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetStateHint ();
-            Assert.That (actual, Is.Null);
-            Assert.That (obj.GetStateHintCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetStateHintCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetStateHint();
+                Assert.That(actual, Is.Null);
+                Assert.That(obj.GetStateHintCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestThatGetStateTypeImplementationIsCalled ()
         {
-            var obj = new ActionImpl ();
-
-            Assume.That (obj.GetStateTypeCallbackCount, Is.EqualTo (0));
-            var actual = obj.GetStateType ();
-            Assert.That (actual, Is.EqualTo (VariantType.Int32));
-            Assert.That (obj.GetStateTypeCallbackCount, Is.EqualTo (1));
+            using (var obj = new ActionImpl()) {
+                Assume.That(obj.GetStateTypeCallbackCount, Is.EqualTo(0));
+                var actual = obj.GetStateType();
+                Assert.That(actual, Is.EqualTo(VariantType.Int32));
+                Assert.That(obj.GetStateTypeCallbackCount, Is.EqualTo(1));
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
@@ -149,65 +164,81 @@ namespace GISharp.Gio.Test
         {
             Assert.That (() => Action.NameIsValid (null),
                 Throws.InstanceOf<ArgumentNullException> ());
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidEmptyIsNotValid ()
         {
             Assert.That (Action.NameIsValid (string.Empty), Is.False);
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidWithValid ()
         {
             Assert.That (Action.NameIsValid ("a.valid-name123"), Is.True);
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidWithInvalidName ()
         {
             Assert.That (Action.NameIsValid ("not a valid name"), Is.False);
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestParseDetailedNameWithInvalidName ()
         {
-            string actionName;
-            Variant target;
-            TestDelegate parseDetailedName = () =>
-                Action.ParseDetailedName ("invaid name", out actionName, out target);
-            var exception = Assert.Throws<GErrorException> (parseDetailedName);
-            Assert.True (exception.Matches (VariantParseError.Failed));
+            Assert.That(() => Action.TryParseDetailedName("invalid name", out var actionName, out var target),
+                ThrowsGErrorException(VariantParseError.Failed));
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestParseDetailedNameActionWithNoTarget ()
         {
-            string actionName;
-            Variant target;
-            Assert.That (Action.ParseDetailedName ("action", out actionName, out target), Is.True);
-            Assert.That (actionName, Is.EqualTo ("action"));
-            Assert.That (target, Is.Null);
+            Assert.That(Action.TryParseDetailedName("action", out var actionName, out var target), Is.True);
+            try {
+                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That(target, Is.Null);
+            }
+            finally {
+                actionName?.Dispose();
+                target?.Dispose();
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestParseDetailedNameActionWithStringTarget ()
         {
-            string actionName;
-            Variant target;
-            Assert.That (Action.ParseDetailedName ("action::target", out actionName, out target), Is.True);
-            Assert.That (actionName, Is.EqualTo ("action"));
-            Assert.That ((string)target, Is.EqualTo ("target"));
+            Assert.That(Action.TryParseDetailedName("action::target", out var actionName, out var target), Is.True);
+            try {
+                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That((string)target, Is.EqualTo("target"));
+            }
+            finally {
+                actionName?.Dispose();
+                target?.Dispose();
+            }
+            AssertNoGLibLog();
         }
 
         [Test]
         public void TestParseDetailedNameActionWithIntTarget ()
         {
-            string actionName;
-            Variant target;
-            Assert.That (Action.ParseDetailedName ("action(42)", out actionName, out target), Is.True);
-            Assert.That (actionName, Is.EqualTo ("action"));
-            Assert.That ((int)target, Is.EqualTo (42));
+            Assert.That(Action.TryParseDetailedName("action(42)", out var actionName, out var target), Is.True);
+            try {
+                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That((int)target, Is.EqualTo(42));
+            }
+            finally {
+                actionName?.Dispose();
+                target?.Dispose();
+            }
+            AssertNoGLibLog();
         }
     }
 
@@ -219,7 +250,7 @@ namespace GISharp.Gio.Test
                 return this.GetEnabled ();
             }
         }
-        public string Name {
+        public Utf8 Name {
             get {
                 return this.GetName ();
             }
@@ -266,7 +297,7 @@ namespace GISharp.Gio.Test
 
         public int GetNameCallbackCount;
 
-        string IAction.GetName ()
+        Utf8 IAction.GetName()
         {
             GetNameCallbackCount++;
             return "TestActionName";
