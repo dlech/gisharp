@@ -246,7 +246,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static System.Boolean NameIsValid(GISharp.GLib.Utf8 actionName)
         {
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentException(nameof(actionName));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret = g_action_name_is_valid(actionName_);
             return ret;
         }
@@ -359,7 +359,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static System.Boolean TryParseDetailedName(GISharp.GLib.Utf8 detailedName, out GISharp.GLib.Utf8 actionName, out GISharp.GLib.Variant targetValue)
         {
-            var detailedName_ = detailedName?.Handle ?? throw new System.ArgumentException(nameof(detailedName));
+            var detailedName_ = detailedName?.Handle ?? throw new System.ArgumentNullException(nameof(detailedName));
             System.IntPtr actionName_;
             System.IntPtr targetValue_;
             System.IntPtr error_;
@@ -439,7 +439,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static GISharp.GLib.Utf8 PrintDetailedName(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant targetValue)
         {
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentException(nameof(actionName));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var targetValue_ = targetValue?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_action_print_detailed_name(actionName_, targetValue_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
@@ -501,7 +501,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static void Activate(this GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
             g_action_activate(action_, parameter_);
         }
@@ -565,8 +565,8 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.30")]
         public static void ChangeState(this GISharp.Gio.IAction action, GISharp.GLib.Variant value)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
-            var value_ = value?.Handle ?? throw new System.ArgumentException(nameof(value));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
+            var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
             g_action_change_state(action_, value_);
         }
 
@@ -611,7 +611,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static System.Boolean GetEnabled(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret = g_action_get_enabled(action_);
             return ret;
         }
@@ -649,7 +649,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static GISharp.GLib.Utf8 GetName(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_name(action_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -704,7 +704,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static GISharp.GLib.VariantType GetParameterType(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_parameter_type(action_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -759,7 +759,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static GISharp.GLib.Variant GetState(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state(action_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -834,7 +834,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static GISharp.GLib.Variant GetStateHint(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_hint(action_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -897,7 +897,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public static GISharp.GLib.VariantType GetStateType(this GISharp.Gio.IAction action)
         {
-            var action_ = action?.Handle ?? throw new System.ArgumentException(nameof(action));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_type(action_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;

@@ -554,7 +554,7 @@ namespace GISharp.CodeGen.Model
                 if (managedParameter.NeedsNullCheck) {
                     statement = string.Format("{0}_ = {0}?.Handle ?? throw new {1}(nameof({0}));\n",
                         managedParameter.Identifier,
-                        typeof(ArgumentException).FullName);
+                        typeof(ArgumentNullException).FullName);
                 } else {
                     statement = string.Format("{0}_ = {0}?.Handle ?? {1}.{2};\n",
                         managedParameter.Identifier,
