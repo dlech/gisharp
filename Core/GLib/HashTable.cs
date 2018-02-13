@@ -869,7 +869,7 @@ namespace GISharp.GLib
         /// </summary>
         /// <remarks>
         /// Note, that hash tables are really only optimized for forward
-        /// lookups, i.e. <see cref="Lookup"/>. So code that frequently issues
+        /// lookups, i.e. <see cref="Lookup(TKey)"/>. So code that frequently issues
         /// <see cref="Find"/> or <see cref="Foreach"/> (e.g. in the order of
         /// once per every entry in a hash table) should probably be reworked
         /// to use additional or different data structures for reverse lookups
@@ -968,22 +968,22 @@ namespace GISharp.GLib
             return (int)ret;
         }
 
-        /// <summary>
-        /// Calls the given function for each key/value pair in the
-        /// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
-        /// pair is removed from the <see cref="HashTable{K,V}"/>, but no key or value
-        /// destroy functions are called.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
-        /// key/value pairs in the hash table.
-        /// </remarks>
-        /// <param name="func">
-        /// the function to call for each key/value pair
-        /// </param>
-        /// <returns>
-        /// the number of key/value pairs removed.
-        /// </returns>
+        ///// <summary>
+        ///// Calls the given function for each key/value pair in the
+        ///// <see cref="HashTable{K,V}"/>. If the function returns <c>true</c>, then the key/value
+        ///// pair is removed from the <see cref="HashTable{K,V}"/>, but no key or value
+        ///// destroy functions are called.
+        ///// </summary>
+        ///// <remarks>
+        ///// See <see cref="HashTable{K,V}"/>Iter for an alternative way to loop over the
+        ///// key/value pairs in the hash table.
+        ///// </remarks>
+        ///// <param name="func">
+        ///// the function to call for each key/value pair
+        ///// </param>
+        ///// <returns>
+        ///// the number of key/value pairs removed.
+        ///// </returns>
         //public uint ForeachSteal (HRFunc<TKey,TValue> func)
         //{
         //    var this_ = Handle;

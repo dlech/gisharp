@@ -460,12 +460,9 @@ namespace GISharp.GLib
         /// <summary>
         /// Inserts a new element into the list before the given position.
         /// </summary>
-        /// <param name="list">
-        /// a pointer to a #GList, this must point to the top of the list
-        /// </param>
         /// <param name="sibling">
         /// the list element before which the new element
-        ///     is inserted or %NULL to insert at the end of the list
+        /// is inserted or <c>null</c> to insert at the end of the list
         /// </param>
         /// <param name="data">
         /// the data for the new element
@@ -1011,7 +1008,7 @@ namespace GISharp.GLib
         /// <see cref="Append"/> has to traverse the entire list to find the end,
         /// which is inefficient when adding multiple elements. A common idiom
         /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
-        /// the list with <see cref="Reverse"/> when all elements have been added.
+        /// the list with <see cref="List.Reverse"/> when all elements have been added.
         /// </remarks>
         /// <param name="data">
         /// the data for the new element
@@ -1032,7 +1029,7 @@ namespace GISharp.GLib
         /// </remarks>
         /// <returns>
         /// the start of the new list that holds the same data as
-        /// <paramref name="list"/>
+        /// this list
         /// </returns>
         public new List<T> Copy ()
         {

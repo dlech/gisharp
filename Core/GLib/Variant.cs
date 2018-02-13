@@ -3109,12 +3109,8 @@ namespace GISharp.GLib
         /// @n_elements, which must be non-%NULL is set equal to the number of
         /// items in the array.
         /// </remarks>
-        /// <param name="elementSize">
-        /// the size of each element
-        /// </param>
         /// <returns>
-        /// a pointer to
-        ///     the fixed array
+        /// a pointer to the fixed array
         /// </returns>
         [Since ("2.24")]
         IArray<T> getFixedArray<T>() where T : struct

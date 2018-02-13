@@ -142,22 +142,22 @@ namespace GISharp.GLib
         {
         }
 
-        /// <summary>
-        /// Creates a new <see cref="PtrArray{T}"/> with <paramref name="reservedSize"/> pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0. It also set @elementFreeFunc
-        /// for freeing each element when the array is destroyed either via
-        /// g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to <c>true</c> or when removing elements.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy this array or <c>null</c>
-        /// </param>
+        ///// <summary>
+        ///// Creates a new <see cref="PtrArray{T}"/> with <paramref name="reservedSize"/> pointers preallocated
+        ///// and a reference count of 1. This avoids frequent reallocation, if
+        ///// you are going to add many pointers to the array. Note however that
+        ///// the size of the array is still 0. It also set @elementFreeFunc
+        ///// for freeing each element when the array is destroyed either via
+        ///// g_ptr_array_unref(), when g_ptr_array_free() is called with
+        ///// @freeSegment set to <c>true</c> or when removing elements.
+        ///// </summary>
+        ///// <param name="reservedSize">
+        ///// number of pointers preallocated
+        ///// </param>
+        ///// <param name="elementFreeFunc">
+        ///// A function to free elements with
+        /////     destroy this array or <c>null</c>
+        ///// </param>
         //[Since("2.30")]
         //public PtrArray (uint reservedSize, DestroyNotify<T> elementFreeFunc)
         //    : this (NewFull (reservedSize, elementFreeFunc), Transfer.All)
@@ -724,9 +724,6 @@ namespace GISharp.GLib
         /// This does pointer comparisons only. If you want to use more complex equality
         /// checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
         /// </remarks>
-        /// <param name="haystack">
-        /// pointer array to be searched
-        /// </param>
         /// <param name="needle">
         /// pointer to look for
         /// </param>
@@ -772,7 +769,7 @@ namespace GISharp.GLib
         /// </summary>
         /// <remarks>
         /// The array "owns" the elements in the GLib sense.
-        /// </summary>
+        /// </remarks>
         public PtrArray(): this(0)
         {
         }
@@ -780,12 +777,12 @@ namespace GISharp.GLib
         /// <summary>
         /// Creates a new <see cref="PtrArray{T}"/> instance.
         /// </summary>
-        /// <param name="reservedSize"/>
+        /// <param name="reservedSize">
         /// number of pointers preallocated
         /// </param>
         /// <remarks>
         /// The array "owns" the elements in the GLib sense.
-        /// </summary>
+        /// </remarks>
         public PtrArray(int reservedSize) : base(reservedSize, elementFreeFunc)
         {
             OwnsElements = true;
@@ -828,7 +825,7 @@ namespace GISharp.GLib
         /// the pointer to add.
         /// </param>
         /// <exception cref="ArgumentOutOfRangeException">
-        /// If <paramref name="index"/> is &lt; 0 or &gt; <see cref="Count"/>
+        /// If <paramref name="index"/> is &lt; 0 or &gt; <see cref="PtrArray.Length"/>
         /// </exception>
         /// <exception cref="ArgumentNullException">
         /// If <paramref name="data"/> is <c>null</c>

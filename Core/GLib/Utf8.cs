@@ -143,7 +143,7 @@ namespace GISharp.GLib
         /// a newly allocated string, that is a
         /// case independent form of this string.
         /// </returns>
-        public Utf8 Casefold()
+        public Utf8 CaseFold()
         {
             var ret_ = g_utf8_casefold(Handle, new IntPtr(-1));
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
@@ -513,22 +513,22 @@ namespace GISharp.GLib
         /// is represented as a base character and combining
         /// accent or as a single precomposed character. The
         /// string has to be valid UTF-8, otherwise <c>null</c> is
-        /// returned. You should generally call <see cref="Normalize">
+        /// returned. You should generally call <see cref="Normalize"/>
         /// before comparing two Unicode strings.
         /// </summary>
         /// <remarks>
-        /// The normalization mode <see cref="NormalizeMode.Default"> only
+        /// The normalization mode <see cref="NormalizeMode.Default"/> only
         /// standardizes differences that do not affect the
         /// text content, such as the above-mentioned accent
-        /// representation. <see cref="NormalizeMode.All"> also standardizes
+        /// representation. <see cref="NormalizeMode.All"/> also standardizes
         /// the "compatibility" characters in Unicode, such
         /// as SUPERSCRIPT THREE to the standard forms
         /// (in this case DIGIT THREE). Formatting information
         /// may be lost but for most text operations such
         /// characters should be considered the same.
         /// 
-        /// <see cref="NormalizeMode.DefaultCompose"> and <see cref="NormalizeMode.AllCompose">
-        /// are like <see cref="NormalizeMode.Default"> and <see cref="NormalizeMode.All">,
+        /// <see cref="NormalizeMode.DefaultCompose"/> and <see cref="NormalizeMode.AllCompose"/>
+        /// are like <see cref="NormalizeMode.Default"/> and <see cref="NormalizeMode.All"/>,
         /// but returned a result with composed forms rather
         /// than a maximally decomposed form. This is often
         /// useful if you intend to convert the string to

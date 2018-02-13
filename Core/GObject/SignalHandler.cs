@@ -114,48 +114,48 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr data);
 
-        /// <summary>
-        /// Finds the first signal handler that matches certain selection criteria.
-        /// The criteria mask is passed as an OR-ed combination of #GSignalMatchType
-        /// flags, and the criteria values are passed as arguments.
-        /// The match @mask has to be non-0 for successful matches.
-        /// If no handler was found, 0 is returned.
-        /// </summary>
-        /// <param name="instance">
-        /// The instance owning the signal handler to be found.
-        /// </param>
-        /// <param name="mask">
-        /// Mask indicating which of @signal_id, @detail, @closure, @func
-        ///  and/or @data the handler has to match.
-        /// </param>
-        /// <param name="signalId">
-        /// Signal the handler has to be connected to.
-        /// </param>
-        /// <param name="detail">
-        /// Signal detail the handler has to be connected to.
-        /// </param>
-        /// <param name="closure">
-        /// The closure the handler will invoke.
-        /// </param>
-        /// <param name="func">
-        /// The C closure callback of the handler (useless for non-C closures).
-        /// </param>
-        /// <param name="data">
-        /// The closure data of the handler's closure.
-        /// </param>
-        /// <returns>
-        /// A valid non-0 signal handler id for a successful match.
-        /// </returns>
-//        public static SignalHandler Find (Object instance, SignalMatchType mask, uint signalId, Quark detail, GISharp.GObject.Closure closure, IntPtr func, IntPtr data)
-//        {
-//            if (instance == null) {
-//                throw new System.ArgumentNullException ("instance");
-//            }
-//            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-//            var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
-//            var ret = g_signal_handler_find (instance_, mask, signalId, detail, closure_, func, data);
-//            return ret;
-//        }
+        ///// <summary>
+        ///// Finds the first signal handler that matches certain selection criteria.
+        ///// The criteria mask is passed as an OR-ed combination of #GSignalMatchType
+        ///// flags, and the criteria values are passed as arguments.
+        ///// The match @mask has to be non-0 for successful matches.
+        ///// If no handler was found, 0 is returned.
+        ///// </summary>
+        ///// <param name="instance">
+        ///// The instance owning the signal handler to be found.
+        ///// </param>
+        ///// <param name="mask">
+        ///// Mask indicating which of @signal_id, @detail, @closure, @func
+        /////  and/or @data the handler has to match.
+        ///// </param>
+        ///// <param name="signalId">
+        ///// Signal the handler has to be connected to.
+        ///// </param>
+        ///// <param name="detail">
+        ///// Signal detail the handler has to be connected to.
+        ///// </param>
+        ///// <param name="closure">
+        ///// The closure the handler will invoke.
+        ///// </param>
+        ///// <param name="func">
+        ///// The C closure callback of the handler (useless for non-C closures).
+        ///// </param>
+        ///// <param name="data">
+        ///// The closure data of the handler's closure.
+        ///// </param>
+        ///// <returns>
+        ///// A valid non-0 signal handler id for a successful match.
+        ///// </returns>
+        //public static SignalHandler Find (Object instance, SignalMatchType mask, uint signalId, Quark detail, GISharp.GObject.Closure closure, IntPtr func, IntPtr data)
+        //{
+        //    if (instance == null) {
+        //        throw new System.ArgumentNullException ("instance");
+        //    }
+        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
+        //    var ret = g_signal_handler_find (instance_, mask, signalId, detail, closure_, func, data);
+        //    return ret;
+        //}
 
         /// <summary>
         /// Returns whether @handler_id is the id of a handler connected to @instance.

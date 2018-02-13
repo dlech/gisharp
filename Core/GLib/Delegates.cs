@@ -66,7 +66,7 @@ namespace GISharp.GLib
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
     /// </summary>
-    // <param name="src">
+    /// <param name="src">
     /// A pointer to the data which should be copied
     /// </param>
     /// <param name="data">

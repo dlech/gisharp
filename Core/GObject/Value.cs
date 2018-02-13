@@ -1618,24 +1618,24 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr instance);
 
-        /// <summary>
-        /// Initializes and sets @value from an instantiatable type via the
-        /// value_table's collect_value() function.
-        /// </summary>
-        /// <remarks>
-        /// Note: The @value will be initialised with the exact type of
-        /// @instance.  If you wish to set the @value's type to a different GType
-        /// (such as a parent class GType), you need to manually call
-        /// g_value_init() and g_value_set_instance().
-        /// </remarks>
-        /// <param name="instance">
-        /// the instance
-        /// </param>
-        // [Since ("2.42")]
-        // public void InitFromInstance (IntPtr instance)
-        // {
-        //     g_value_init_from_instance (ref this, instance);
-        // }
+        ///// <summary>
+        ///// Initializes and sets @value from an instantiatable type via the
+        ///// value_table's collect_value() function.
+        ///// </summary>
+        ///// <remarks>
+        ///// Note: The @value will be initialised with the exact type of
+        ///// @instance.  If you wish to set the @value's type to a different GType
+        ///// (such as a parent class GType), you need to manually call
+        ///// g_value_init() and g_value_set_instance().
+        ///// </remarks>
+        ///// <param name="instance">
+        ///// the instance
+        ///// </param>
+         //[Since ("2.42")]
+         //public void InitFromInstance (IntPtr instance)
+         //{
+         //    g_value_init_from_instance (ref this, instance);
+         //}
 
         /// <summary>
         /// Returns the value contents as pointer. This function asserts that
@@ -1656,20 +1656,20 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             ref Value value);
 
-        /// <summary>
-        /// Returns the value contents as pointer. This function asserts that
-        /// g_value_fits_pointer() returned %TRUE for the passed in value.
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <returns>
-        /// the value contents as pointer
-        /// </returns>
-        // public IntPtr PeekPointer ()
-        // {
-        //     AssertInitialized ();
-        //     var ret = g_value_peek_pointer (ref this);
-        //     return ret;
-        // }
+        ///// <summary>
+        ///// Returns the value contents as pointer. This function asserts that
+        ///// g_value_fits_pointer() returned %TRUE for the passed in value.
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <returns>
+        ///// the value contents as pointer
+        ///// </returns>
+        //public IntPtr PeekPointer ()
+        //{
+        //    AssertInitialized ();
+        //    var ret = g_value_peek_pointer (ref this);
+        //    return ret;
+        //}
 
         /// <summary>
         /// Clears the current value in @value and resets it to the default value
@@ -1739,19 +1739,19 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vBoxed);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of %G_TYPE_BOXED derived type
-        /// </param>
-        /// <param name="vBoxed">
-        /// duplicated unowned boxed value to be set
-        /// </param>
-        //[Obsolete ("Use g_value_take_boxed() instead.")]
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of %G_TYPE_BOXED derived type
+        ///// </param>
+        ///// <param name="vBoxed">
+        ///// duplicated unowned boxed value to be set
+        ///// </param>
+        ////[Obsolete ("Use g_value_take_boxed() instead.")]
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_boxed_take_ownership (
         //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
         //    /* transfer-ownership:none */
@@ -1760,12 +1760,12 @@ namespace GISharp.GObject
         //    /* transfer-ownership:none nullable:1 allow-none:1 */
         //    IntPtr vBoxed);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="vBoxed">
-        /// duplicated unowned boxed value to be set
-        /// </param>
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="vBoxed">
+        ///// duplicated unowned boxed value to be set
+        ///// </param>
         //[Obsolete ("Use g_value_take_boxed() instead.")]
         //public void SetBoxedTakeOwnership (IntPtr vBoxed)
         //{
@@ -1773,26 +1773,26 @@ namespace GISharp.GObject
         //    g_value_set_boxed_take_ownership (Handle, vBoxed);
         //}
 
-        /// <summary>
-        /// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_CHAR
-        /// </param>
-        /// <param name="vChar">
-        /// character value to be set
-        /// </param>
-        //[Obsolete ("This function's input type is broken, see g_value_set_schar()")]
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of type %G_TYPE_CHAR
+        ///// </param>
+        ///// <param name="vChar">
+        ///// character value to be set
+        ///// </param>
+        ////[Obsolete ("This function's input type is broken, see g_value_set_schar()")]
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_char (
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="gchar" type="gchar" managed-name="Gchar" /> */
-        //    /* transfer-ownership:none */
-        //    sbyte vChar);
+            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+            ///* transfer-ownership:none */
+            //ref Value value,
+            ///* <type name="gchar" type="gchar" managed-name="Gchar" /> */
+            ///* transfer-ownership:none */
+            //sbyte vChar);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
@@ -1916,18 +1916,18 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr instance);
 
-        /// <summary>
-        /// Sets @value from an instantiatable type via the
-        /// value_table's collect_value() function.
-        /// </summary>
-        /// <param name="instance">
-        /// the instance
-        /// </param>
-        //        public void SetInstance (IntPtr instance)
-        //        {
-        //            AssertInitialized ();
-        //            g_value_set_instance (Handle, instance);
-        //        }
+        ///// <summary>
+        ///// Sets @value from an instantiatable type via the
+        ///// value_table's collect_value() function.
+        ///// </summary>
+        ///// <param name="instance">
+        ///// the instance
+        ///// </param>
+        //public void SetInstance (IntPtr instance)
+        //{
+        //    AssertInitialized ();
+        //    g_value_set_instance (Handle, instance);
+        //}
 
         /// <summary>
         /// Set the contents of a %G_TYPE_INT #GValue to @v_int.
@@ -2020,33 +2020,33 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vObject);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of %G_TYPE_OBJECT derived type
-        /// </param>
-        /// <param name="vObject">
-        /// object value to be set
-        /// </param>
-        //[Obsolete ("Use g_value_take_object() instead.")]
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of %G_TYPE_OBJECT derived type
+        ///// </param>
+        ///// <param name="vObject">
+        ///// object value to be set
+        ///// </param>
+        ////[Obsolete ("Use g_value_take_object() instead.")]
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_object_take_ownership (
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        //    /* transfer-ownership:none nullable:1 allow-none:1 */
-        //    IntPtr vObject);
+            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+            ///* transfer-ownership:none */
+            //ref Value value,
+            ///* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+            ///* transfer-ownership:none nullable:1 allow-none:1 */
+            //IntPtr vObject);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="vObject">
-        /// object value to be set
-        /// </param>
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="vObject">
+        ///// object value to be set
+        ///// </param>
         //[Obsolete ("Use g_value_take_object() instead.")]
         //public void SetObjectTakeOwnership (IntPtr vObject)
         //{
@@ -2074,34 +2074,34 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr param);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_PARAM
-        /// </param>
-        /// <param name="param">
-        /// the #GParamSpec to be set
-        /// </param>
-        //[Obsolete ("Use g_value_take_param() instead.")]
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of type %G_TYPE_PARAM
+        ///// </param>
+        ///// <param name="param">
+        ///// the #GParamSpec to be set
+        ///// </param>
+        ////[Obsolete ("Use g_value_take_param() instead.")]
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_param_take_ownership (
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
-        //    /* transfer-ownership:none nullable:1 allow-none:1 */
-        //    IntPtr param);
+            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+            ///* transfer-ownership:none */
+            //ref Value value,
+            ///* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
+            ///* transfer-ownership:none nullable:1 allow-none:1 */
+            //IntPtr param);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="param">
-        /// the #GParamSpec to be set
-        /// </param>
-        //[Obsolete ("Use g_value_take_param() instead.")]
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="param">
+        ///// the #GParamSpec to be set
+        ///// </param>
+        ////[Obsolete ("Use g_value_take_param() instead.")]
         //public void SetParamTakeOwnership(ParamSpec param)
         //{
         //    AssertInitialized ();
@@ -2150,27 +2150,27 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             sbyte vChar);
 
-        /// <summary>
-        /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
-        /// The boxed value is assumed to be static, and is thus not duplicated
-        /// when setting the #GValue.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of %G_TYPE_BOXED derived type
-        /// </param>
-        /// <param name="vBoxed">
-        /// static boxed value to be set
-        /// </param>
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+        ///// The boxed value is assumed to be static, and is thus not duplicated
+        ///// when setting the #GValue.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of %G_TYPE_BOXED derived type
+        ///// </param>
+        ///// <param name="vBoxed">
+        ///// static boxed value to be set
+        ///// </param>
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_static_boxed (
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
-        //    /* transfer-ownership:none nullable:1 allow-none:1 */
-        //    IntPtr vBoxed);
+            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+            ///* transfer-ownership:none */
+            //ref Value value,
+            ///* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
+            ///* transfer-ownership:none nullable:1 allow-none:1 */
+            //IntPtr vBoxed);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
@@ -2208,14 +2208,14 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vString);
 
-        /// <summary>
-        /// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
-        /// The string is assumed to be static, and is thus not duplicated
-        /// when setting the #GValue.
-        /// </summary>
-        /// <param name="vString">
-        /// static string to be set
-        /// </param>
+        ///// <summary>
+        ///// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
+        ///// The string is assumed to be static, and is thus not duplicated
+        ///// when setting the #GValue.
+        ///// </summary>
+        ///// <param name="vString">
+        ///// static string to be set
+        ///// </param>
         //public void SetStaticString (string vString)
         //{
         //    AssertInitialized ();
@@ -2244,19 +2244,19 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vString);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="value">
-        /// a valid #GValue of type %G_TYPE_STRING
-        /// </param>
-        /// <param name="vString">
-        /// duplicated unowned string to be set
-        /// </param>
-        //[Obsolete ("Use g_value_take_string() instead.")]
-        //[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        ///* <type name="none" type="void" managed-name="None" /> */
-        ///* transfer-ownership:none */
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="value">
+        ///// a valid #GValue of type %G_TYPE_STRING
+        ///// </param>
+        ///// <param name="vString">
+        ///// duplicated unowned string to be set
+        ///// </param>
+        ////[Obsolete ("Use g_value_take_string() instead.")]
+        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /////* <type name="none" type="void" managed-name="None" /> */
+        /////* transfer-ownership:none */
         //static extern void g_value_set_string_take_ownership(
         //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
         //    /* transfer-ownership:none */
@@ -2265,12 +2265,12 @@ namespace GISharp.GObject
         //    /* transfer-ownership:none nullable:1 allow-none:1 */
         //    IntPtr vString);
 
-        /// <summary>
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </summary>
-        /// <param name="vString">
-        /// duplicated unowned string to be set
-        /// </param>
+        ///// <summary>
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </summary>
+        ///// <param name="vString">
+        ///// duplicated unowned string to be set
+        ///// </param>
         //[Obsolete ("Use g_value_take_string() instead.")]
         //public void SetStringTakeOwnership(string vString)
         //{
@@ -2405,20 +2405,20 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vBoxed);
 
-        /// <summary>
-        /// Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
-        /// and takes over the ownership of the callers reference to @v_boxed;
-        /// the caller doesn't have to unref it any more.
-        /// </summary>
-        /// <param name="vBoxed">
-        /// duplicated unowned boxed value to be set
-        /// </param>
-        //        [Since ("2.4")]
-        //        public void TakeBoxed (IntPtr vBoxed)
-        //        {
-        //            AssertInitialized ();
-        //            g_value_take_boxed (Handle, vBoxed);
-        //        }
+        ///// <summary>
+        ///// Sets the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed
+        ///// and takes over the ownership of the callers reference to @v_boxed;
+        ///// the caller doesn't have to unref it any more.
+        ///// </summary>
+        ///// <param name="vBoxed">
+        ///// duplicated unowned boxed value to be set
+        ///// </param>
+        //[Since ("2.4")]
+        //public void TakeBoxed (IntPtr vBoxed)
+        //{
+        //    AssertInitialized ();
+        //    g_value_take_boxed (Handle, vBoxed);
+        //}
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
@@ -2448,25 +2448,25 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vObject);
 
-        /// <summary>
-        /// Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
-        /// and takes over the ownership of the callers reference to @v_object;
-        /// the caller doesn't have to unref it any more (i.e. the reference
-        /// count of the object is not increased).
-        /// </summary>
-        /// <remarks>
-        /// If you want the #GValue to hold its own reference to @v_object, use
-        /// g_value_set_object() instead.
-        /// </remarks>
-        /// <param name="vObject">
-        /// object value to be set
-        /// </param>
-        //        [Since ("2.4")]
-        //        public void TakeObject (IntPtr vObject)
-        //        {
-        //            AssertInitialized ();
-        //            g_value_take_object (Handle, vObject);
-        //        }
+        ///// <summary>
+        ///// Sets the contents of a %G_TYPE_OBJECT derived #GValue to @v_object
+        ///// and takes over the ownership of the callers reference to @v_object;
+        ///// the caller doesn't have to unref it any more (i.e. the reference
+        ///// count of the object is not increased).
+        ///// </summary>
+        ///// <remarks>
+        ///// If you want the #GValue to hold its own reference to @v_object, use
+        ///// g_value_set_object() instead.
+        ///// </remarks>
+        ///// <param name="vObject">
+        ///// object value to be set
+        ///// </param>
+        //[Since ("2.4")]
+        //public void TakeObject (IntPtr vObject)
+        //{
+        //    AssertInitialized ();
+        //    g_value_take_object (Handle, vObject);
+        //}
 
         /// <summary>
         /// Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
@@ -2491,14 +2491,14 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr param);
 
-        /// <summary>
-        /// Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
-        /// over the ownership of the callers reference to @param; the caller
-        /// doesn't have to unref it any more.
-        /// </summary>
-        /// <param name="param">
-        /// the #GParamSpec to be set
-        /// </param>
+        ///// <summary>
+        ///// Sets the contents of a %G_TYPE_PARAM #GValue to @param and takes
+        ///// over the ownership of the callers reference to @param; the caller
+        ///// doesn't have to unref it any more.
+        ///// </summary>
+        ///// <param name="param">
+        ///// the #GParamSpec to be set
+        ///// </param>
         //[Since("2.4")]
         //public void TakeParam(ParamSpec param)
         //{
@@ -2528,20 +2528,20 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vString);
 
-        /// <summary>
-        /// Sets the contents of a %G_TYPE_STRING #GValue to @v_string.
-        /// </summary>
-        /// <param name="vString">
-        /// string to take ownership of
-        /// </param>
-        //        [Since ("2.4")]
-        //        public void TakeString (string vString)
-        //        {
-        //            AssertInitialized ();
-        //            var vString_ = MarshalG.StringToUtf8Ptr (vString);
-        //            g_value_take_string (Handle, vString_);
-        //            MarshalG.Free (vString_);
-        //        }
+        ///// <summary>
+        ///// Sets the contents of a %G_TYPE_STRING #GValue to @v_string.
+        ///// </summary>
+        ///// <param name="vString">
+        ///// string to take ownership of
+        ///// </param>
+        //[Since ("2.4")]
+        //public void TakeString (string vString)
+        //{
+        //    AssertInitialized ();
+        //    var vString_ = MarshalG.StringToUtf8Ptr (vString);
+        //    g_value_take_string (Handle, vString_);
+        //    MarshalG.Free (vString_);
+        //}
 
         /// <summary>
         /// Set the contents of a variant #GValue to @variant, and takes over
@@ -2576,24 +2576,24 @@ namespace GISharp.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr variant);
 
-        /// <summary>
-        /// Set the contents of a variant #GValue to @variant, and takes over
-        /// the ownership of the caller's reference to @variant;
-        /// the caller doesn't have to unref it any more (i.e. the reference
-        /// count of the variant is not increased).
-        /// </summary>
-        /// <remarks>
-        /// If @variant was floating then its floating reference is converted to
-        /// a hard reference.
-        ///
-        /// If you want the #GValue to hold its own reference to @variant, use
-        /// g_value_set_variant() instead.
-        ///
-        /// This is an internal function introduced mainly for C marshallers.
-        /// </remarks>
-        /// <param name="variant">
-        /// a #GVariant, or %NULL
-        /// </param>
+        ///// <summary>
+        ///// Set the contents of a variant #GValue to @variant, and takes over
+        ///// the ownership of the caller's reference to @variant;
+        ///// the caller doesn't have to unref it any more (i.e. the reference
+        ///// count of the variant is not increased).
+        ///// </summary>
+        ///// <remarks>
+        ///// If @variant was floating then its floating reference is converted to
+        ///// a hard reference.
+        /////
+        ///// If you want the #GValue to hold its own reference to @variant, use
+        ///// g_value_set_variant() instead.
+        /////
+        ///// This is an internal function introduced mainly for C marshallers.
+        ///// </remarks>
+        ///// <param name="variant">
+        ///// a #GVariant, or %NULL
+        ///// </param>
         //[Since("2.26")]
         //public void TakeVariant(GISharp.GLib.Variant variant)
         //{

@@ -77,7 +77,7 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Log an unhandled exception.
-        /// <summary>
+        /// </summary>
         /// <remarks>
         /// This is to be used in callbacks from unmanaged code. Unmanaged C
         /// code does not know about managed exceptions. So all exceptions in

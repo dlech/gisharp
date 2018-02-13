@@ -338,7 +338,7 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Check whether the given <paramref name="outputFd"/> file descriptor is a connection to the
-        /// systemd journal, or something else (like a log file or <c>stdout<c/> or
+        /// systemd journal, or something else (like a log file or <c>stdout</c> or
         /// <c>stderr</c>).
         /// </summary>
         /// <param name="outputFd">

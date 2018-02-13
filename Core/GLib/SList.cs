@@ -959,7 +959,7 @@ namespace GISharp.GLib
         /// to copy the data as well.
         /// </remarks>
         /// <returns>
-        /// a copy of <paramref name="list"/>
+        /// a copy of this list
         /// </returns>
         public new SList<T> Copy ()
         {

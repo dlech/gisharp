@@ -84,35 +84,35 @@ namespace GISharp.GObject
             /* transfer-ownership:none scope:async */
             UnmanagedDestroyNotify dataDestroy);
 
-        /// <summary>
-        /// Adds an emission hook for a signal, which will get called for any emission
-        /// of that signal, independent of the instance. This is possible only
-        /// for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
-        /// </summary>
-        /// <param name="signalId">
-        /// the signal identifier, as returned by g_signal_lookup().
-        /// </param>
-        /// <param name="detail">
-        /// the detail on which to call the hook.
-        /// </param>
-        /// <param name="hookFunc">
-        /// a #GSignalEmissionHook function.
-        /// </param>
-        /// <returns>
-        /// the hook id, for later use with g_signal_remove_emission_hook().
-        /// </returns>
-        //        public static nulong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
-        //        {
-        //            if (hookFunc == null) {
-        //                throw new ArgumentNullException ("hookFunc");
-        //            }
-        //            var hookFunc_ = UnmanagedSignalEmissionHookFactory.Create (hookFunc, false);
-        //            var hookFuncHandle = GCHandle.Alloc (hookFunc);
-        //            var dataDestroy_ = UnmanagedDestoryNotifyFactory.Create (hookFuncHandle);
-        //            var hookData_ = GCHandle.ToIntPtr (GCHandle.Alloc (dataDestroy_));
-        //            var ret = g_signal_add_emission_hook (signalId, detail, hookFunc_, hookData_, dataDestroy_);
-        //            return ret;
-        //        }
+        ///// <summary>
+        ///// Adds an emission hook for a signal, which will get called for any emission
+        ///// of that signal, independent of the instance. This is possible only
+        ///// for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
+        ///// </summary>
+        ///// <param name="signalId">
+        ///// the signal identifier, as returned by g_signal_lookup().
+        ///// </param>
+        ///// <param name="detail">
+        ///// the detail on which to call the hook.
+        ///// </param>
+        ///// <param name="hookFunc">
+        ///// a #GSignalEmissionHook function.
+        ///// </param>
+        ///// <returns>
+        ///// the hook id, for later use with g_signal_remove_emission_hook().
+        ///// </returns>
+        //public static nulong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
+        //{
+        //    if (hookFunc == null) {
+        //        throw new ArgumentNullException ("hookFunc");
+        //    }
+        //    var hookFunc_ = UnmanagedSignalEmissionHookFactory.Create (hookFunc, false);
+        //    var hookFuncHandle = GCHandle.Alloc (hookFunc);
+        //    var dataDestroy_ = UnmanagedDestoryNotifyFactory.Create (hookFuncHandle);
+        //    var hookData_ = GCHandle.ToIntPtr (GCHandle.Alloc (dataDestroy_));
+        //    var ret = g_signal_add_emission_hook (signalId, detail, hookFunc_, hookData_, dataDestroy_);
+        //    return ret;
+        //}
 
         /// <summary>
         /// Calls the original class closure of a signal. This function should only
@@ -141,33 +141,33 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr returnValue);
 
-        /// <summary>
-        /// Calls the original class closure of a signal. This function should only
-        /// be called from an overridden class closure; see
-        /// g_signal_override_class_closure() and
-        /// g_signal_override_class_handler().
-        /// </summary>
-        /// <param name="instanceAndParams">
-        /// the argument list of the signal emission.
-        ///  The first element in the array is a #GValue for the instance the signal
-        ///  is being emitted on. The rest are any arguments to be passed to the signal.
-        /// </param>
-        /// <param name="returnValue">
-        /// Location for the return value.
-        /// </param>
-        //        public static void ChainFromOverridden (Value[] instanceAndParams, Value returnValue)
-        //        {
-        //            if (instanceAndParams == null) {
-        //                throw new ArgumentNullException ("instanceAndParams");
-        //            }
-        //            if (returnValue == null) {
-        //                throw new ArgumentNullException ("returnValue");
-        //            }
-        //            var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
-        //            var returnValue_ = returnValue == null ? IntPtr.Zero : returnValue.Handle;
-        //            g_signal_chain_from_overridden (instanceAndParams_, returnValue_);
-        //            MarshalG.Free (instanceAndParams_);
-        //        }
+        ///// <summary>
+        ///// Calls the original class closure of a signal. This function should only
+        ///// be called from an overridden class closure; see
+        ///// g_signal_override_class_closure() and
+        ///// g_signal_override_class_handler().
+        ///// </summary>
+        ///// <param name="instanceAndParams">
+        ///// the argument list of the signal emission.
+        /////  The first element in the array is a #GValue for the instance the signal
+        /////  is being emitted on. The rest are any arguments to be passed to the signal.
+        ///// </param>
+        ///// <param name="returnValue">
+        ///// Location for the return value.
+        ///// </param>
+        //public static void ChainFromOverridden (Value[] instanceAndParams, Value returnValue)
+        //{
+        //    if (instanceAndParams == null) {
+        //        throw new ArgumentNullException ("instanceAndParams");
+        //    }
+        //    if (returnValue == null) {
+        //        throw new ArgumentNullException ("returnValue");
+        //    }
+        //    var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
+        //    var returnValue_ = returnValue == null ? IntPtr.Zero : returnValue.Handle;
+        //    g_signal_chain_from_overridden (instanceAndParams_, returnValue_);
+        //    MarshalG.Free (instanceAndParams_);
+        //}
 
         /// <summary>
         /// Connects a closure to a signal for a particular object.
@@ -205,43 +205,43 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             bool after);
 
-        /// <summary>
-        /// Connects a closure to a signal for a particular object.
-        /// </summary>
-        /// <param name="instance">
-        /// the instance to connect to.
-        /// </param>
-        /// <param name="detailedSignal">
-        /// a string of the form "signal-name::detail".
-        /// </param>
-        /// <param name="closure">
-        /// the closure to connect.
-        /// </param>
-        /// <param name="after">
-        /// whether the handler should be called before or after the
-        ///  default handler of the signal.
-        /// </param>
-        /// <returns>
-        /// the handler id (always greater than 0 for successful connections)
-        /// </returns>
-        //        public static nulong ConnectClosure (Object instance, string detailedSignal, Closure closure, bool after)
-        //        {
-        //            if (instance == null) {
-        //                throw new ArgumentNullException ("instance");
-        //            }
-        //            if (detailedSignal == null) {
-        //                throw new ArgumentNullException ("detailedSignal");
-        //            }
-        //            if (closure == null) {
-        //                throw new ArgumentNullException ("closure");
-        //            }
-        //            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-        //            var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
-        //            var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
-        //            var ret = g_signal_connect_closure (instance_, detailedSignal_, closure_, after);
-        //            MarshalG.Free (detailedSignal_);
-        //            return ret;
-        //        }
+        ///// <summary>
+        ///// Connects a closure to a signal for a particular object.
+        ///// </summary>
+        ///// <param name="instance">
+        ///// the instance to connect to.
+        ///// </param>
+        ///// <param name="detailedSignal">
+        ///// a string of the form "signal-name::detail".
+        ///// </param>
+        ///// <param name="closure">
+        ///// the closure to connect.
+        ///// </param>
+        ///// <param name="after">
+        ///// whether the handler should be called before or after the
+        /////  default handler of the signal.
+        ///// </param>
+        ///// <returns>
+        ///// the handler id (always greater than 0 for successful connections)
+        ///// </returns>
+        //public static nulong ConnectClosure (Object instance, string detailedSignal, Closure closure, bool after)
+        //{
+        //    if (instance == null) {
+        //        throw new ArgumentNullException ("instance");
+        //    }
+        //    if (detailedSignal == null) {
+        //        throw new ArgumentNullException ("detailedSignal");
+        //    }
+        //    if (closure == null) {
+        //        throw new ArgumentNullException ("closure");
+        //    }
+        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+        //    var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
+        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
+        //    var ret = g_signal_connect_closure (instance_, detailedSignal_, closure_, after);
+        //    MarshalG.Free (detailedSignal_);
+        //    return ret;
+        //}
 
         /// <summary>
         /// Connects a closure to a signal for a particular object.
@@ -285,41 +285,41 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             bool after);
 
-        /// <summary>
-        /// Connects a closure to a signal for a particular object.
-        /// </summary>
-        /// <param name="instance">
-        /// the instance to connect to.
-        /// </param>
-        /// <param name="signalId">
-        /// the id of the signal.
-        /// </param>
-        /// <param name="detail">
-        /// the detail.
-        /// </param>
-        /// <param name="closure">
-        /// the closure to connect.
-        /// </param>
-        /// <param name="after">
-        /// whether the handler should be called before or after the
-        ///  default handler of the signal.
-        /// </param>
-        /// <returns>
-        /// the handler id (always greater than 0 for successful connections)
-        /// </returns>
-        //        public static nulong ConnectClosureById (Object instance, uint signalId, Quark detail, Closure closure, bool after)
-        //        {
-        //            if (instance == null) {
-        //                throw new ArgumentNullException ("instance");
-        //            }
-        //            if (closure == null) {
-        //                throw new ArgumentNullException ("closure");
-        //            }
-        //            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-        //            var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
-        //            var ret = g_signal_connect_closure_by_id (instance_, signalId, detail, closure_, after);
-        //            return ret;
-        //        }
+        ///// <summary>
+        ///// Connects a closure to a signal for a particular object.
+        ///// </summary>
+        ///// <param name="instance">
+        ///// the instance to connect to.
+        ///// </param>
+        ///// <param name="signalId">
+        ///// the id of the signal.
+        ///// </param>
+        ///// <param name="detail">
+        ///// the detail.
+        ///// </param>
+        ///// <param name="closure">
+        ///// the closure to connect.
+        ///// </param>
+        ///// <param name="after">
+        ///// whether the handler should be called before or after the
+        /////  default handler of the signal.
+        ///// </param>
+        ///// <returns>
+        ///// the handler id (always greater than 0 for successful connections)
+        ///// </returns>
+        //public static nulong ConnectClosureById (Object instance, uint signalId, Quark detail, Closure closure, bool after)
+        //{
+        //    if (instance == null) {
+        //        throw new ArgumentNullException ("instance");
+        //    }
+        //    if (closure == null) {
+        //        throw new ArgumentNullException ("closure");
+        //    }
+        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
+        //    var ret = g_signal_connect_closure_by_id (instance_, signalId, detail, closure_, after);
+        //    return ret;
+        //}
 
         /// <summary>
         /// Connects a #GCallback function to a signal for a particular object. Similar
@@ -954,34 +954,34 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr classClosure);
 
-        /// <summary>
-        /// Overrides the class closure (i.e. the default handler) for the given signal
-        /// for emissions on instances of @instance_type. @instance_type must be derived
-        /// from the type to which the signal belongs.
-        /// </summary>
-        /// <remarks>
-        /// See g_signal_chain_from_overridden() and
-        /// g_signal_chain_from_overridden_handler() for how to chain up to the
-        /// parent class closure from inside the overridden one.
-        /// </remarks>
-        /// <param name="signalId">
-        /// the signal id
-        /// </param>
-        /// <param name="instanceType">
-        /// the instance type on which to override the class closure
-        ///  for the signal.
-        /// </param>
-        /// <param name="classClosure">
-        /// the closure.
-        /// </param>
-        //        public static void OverrideClassClosure (uint signalId, GType instanceType, Closure classClosure)
-        //        {
-        //            if (classClosure == null) {
-        //                throw new ArgumentNullException ("classClosure");
-        //            }
-        //            var classClosure_ = classClosure == null ? IntPtr.Zero : classClosure.Handle;
-        //            g_signal_override_class_closure (signalId, instanceType, classClosure_);
-        //        }
+        ///// <summary>
+        ///// Overrides the class closure (i.e. the default handler) for the given signal
+        ///// for emissions on instances of @instance_type. @instance_type must be derived
+        ///// from the type to which the signal belongs.
+        ///// </summary>
+        ///// <remarks>
+        ///// See g_signal_chain_from_overridden() and
+        ///// g_signal_chain_from_overridden_handler() for how to chain up to the
+        ///// parent class closure from inside the overridden one.
+        ///// </remarks>
+        ///// <param name="signalId">
+        ///// the signal id
+        ///// </param>
+        ///// <param name="instanceType">
+        ///// the instance type on which to override the class closure
+        /////  for the signal.
+        ///// </param>
+        ///// <param name="classClosure">
+        ///// the closure.
+        ///// </param>
+        //public static void OverrideClassClosure (uint signalId, GType instanceType, Closure classClosure)
+        //{
+        //    if (classClosure == null) {
+        //        throw new ArgumentNullException ("classClosure");
+        //    }
+        //    var classClosure_ = classClosure == null ? IntPtr.Zero : classClosure.Handle;
+        //    g_signal_override_class_closure (signalId, instanceType, classClosure_);
+        //}
 
         /// <summary>
         /// Overrides the class closure (i.e. the default handler) for the
@@ -1019,41 +1019,41 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             UnmanagedCallback classHandler);
 
-        /// <summary>
-        /// Overrides the class closure (i.e. the default handler) for the
-        /// given signal for emissions on instances of @instance_type with
-        /// callback @class_handler. @instance_type must be derived from the
-        /// type to which the signal belongs.
-        /// </summary>
-        /// <remarks>
-        /// See g_signal_chain_from_overridden() and
-        /// g_signal_chain_from_overridden_handler() for how to chain up to the
-        /// parent class closure from inside the overridden one.
-        /// </remarks>
-        /// <param name="signalName">
-        /// the name for the signal
-        /// </param>
-        /// <param name="instanceType">
-        /// the instance type on which to override the class handler
-        ///  for the signal.
-        /// </param>
-        /// <param name="classHandler">
-        /// the handler.
-        /// </param>
-        //        [Since ("2.18")]
-        //        public static void OverrideClassHandler (string signalName, GType instanceType, Callback classHandler)
-        //        {
-        //            if (signalName == null) {
-        //                throw new ArgumentNullException ("signalName");
-        //            }
-        //            if (classHandler == null) {
-        //                throw new ArgumentNullException ("classHandler");
-        //            }
-        //            var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
-        //            var classHandler_ = UnmanagedCallbackFactory.Create (classHandler, false);
-        //            g_signal_override_class_handler (signalName_, instanceType, classHandler_);
-        //            MarshalG.Free (signalName_);
-        //        }
+        ///// <summary>
+        ///// Overrides the class closure (i.e. the default handler) for the
+        ///// given signal for emissions on instances of @instance_type with
+        ///// callback @class_handler. @instance_type must be derived from the
+        ///// type to which the signal belongs.
+        ///// </summary>
+        ///// <remarks>
+        ///// See g_signal_chain_from_overridden() and
+        ///// g_signal_chain_from_overridden_handler() for how to chain up to the
+        ///// parent class closure from inside the overridden one.
+        ///// </remarks>
+        ///// <param name="signalName">
+        ///// the name for the signal
+        ///// </param>
+        ///// <param name="instanceType">
+        ///// the instance type on which to override the class handler
+        /////  for the signal.
+        ///// </param>
+        ///// <param name="classHandler">
+        ///// the handler.
+        ///// </param>
+        //[Since ("2.18")]
+        //public static void OverrideClassHandler (string signalName, GType instanceType, Callback classHandler)
+        //{
+        //    if (signalName == null) {
+        //        throw new ArgumentNullException ("signalName");
+        //    }
+        //    if (classHandler == null) {
+        //        throw new ArgumentNullException ("classHandler");
+        //    }
+        //    var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
+        //    var classHandler_ = UnmanagedCallbackFactory.Create (classHandler, false);
+        //    g_signal_override_class_handler (signalName_, instanceType, classHandler_);
+        //    MarshalG.Free (signalName_);
+        //}
 
         /// <summary>
         /// Internal function to parse a signal name into its @signal_id
@@ -1283,7 +1283,7 @@ namespace GISharp.GObject
         /// the object whose signal handlers you wish to stop.
         /// </param>
         /// <param name="signalId">
-        /// the signal identifier, as returned by <see cref="Lookup"/>
+        /// the signal identifier, as returned by <see cref="TryLookup"/>
         /// </param>
         /// <param name="detail">
         /// the detail which the signal was emitted with.
@@ -1366,26 +1366,26 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             uint structOffset);
 
-        /// <summary>
-        /// Creates a new closure which invokes the function found at the offset
-        /// @struct_offset in the class structure of the interface or classed type
-        /// identified by @itype.
-        /// </summary>
-        /// <param name="itype">
-        /// the #GType identifier of an interface or classed type
-        /// </param>
-        /// <param name="structOffset">
-        /// the offset of the member function of @itype's class
-        ///  structure which is to be invoked by the new closure
-        /// </param>
-        /// <returns>
-        /// a new #GCClosure
-        /// </returns>
-        //        public static Closure TypeCclosureNew (GType itype, uint structOffset)
-        //        {
-        //            var ret_ = g_signal_type_cclosure_new (itype, structOffset);
-        //            var ret = Opaque.GetInstance<Closure> (ret_, Transfer.All);
-        //            return ret;
-        //        }
+        ///// <summary>
+        ///// Creates a new closure which invokes the function found at the offset
+        ///// @struct_offset in the class structure of the interface or classed type
+        ///// identified by @itype.
+        ///// </summary>
+        ///// <param name="itype">
+        ///// the #GType identifier of an interface or classed type
+        ///// </param>
+        ///// <param name="structOffset">
+        ///// the offset of the member function of @itype's class
+        /////  structure which is to be invoked by the new closure
+        ///// </param>
+        ///// <returns>
+        ///// a new #GCClosure
+        ///// </returns>
+        //public static Closure TypeCclosureNew (GType itype, uint structOffset)
+        //{
+        //    var ret_ = g_signal_type_cclosure_new (itype, structOffset);
+        //    var ret = Opaque.GetInstance<Closure> (ret_, Transfer.All);
+        //    return ret;
+        //}
     }
 }

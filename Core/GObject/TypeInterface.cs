@@ -100,29 +100,29 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             GType interfaceType);
 
-        /// <summary>
-        /// Returns the #GTypePlugin structure for the dynamic interface
-        /// @interface_type which has been added to @instance_type, or %NULL
-        /// if @interface_type has not been added to @instance_type or does
-        /// not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
-        /// </summary>
-        /// <param name="instanceType">
-        /// #GType of an instantiatable type
-        /// </param>
-        /// <param name="interfaceType">
-        /// #GType of an interface type
-        /// </param>
-        /// <returns>
-        /// the #GTypePlugin for the dynamic
-        ///     interface @interface_type of @instance_type
-        /// </returns>
-        //        public static GISharp.GObject.TypePlugin GetPlugin (GType instanceType, GType interfaceType)
-        //        {
-        //            var ret_ = g_type_interface_get_plugin (instanceType, interfaceType);
-        //            var ret = default(GISharp.GObject.TypePlugin);
-        //            throw new System.NotImplementedException ();
-        //            return ret;
-        //        }
+        ///// <summary>
+        ///// Returns the #GTypePlugin structure for the dynamic interface
+        ///// @interface_type which has been added to @instance_type, or %NULL
+        ///// if @interface_type has not been added to @instance_type or does
+        ///// not have a #GTypePlugin structure. See g_type_add_interface_dynamic().
+        ///// </summary>
+        ///// <param name="instanceType">
+        ///// #GType of an instantiatable type
+        ///// </param>
+        ///// <param name="interfaceType">
+        ///// #GType of an interface type
+        ///// </param>
+        ///// <returns>
+        ///// the #GTypePlugin for the dynamic
+        /////     interface @interface_type of @instance_type
+        ///// </returns>
+        //public static GISharp.GObject.TypePlugin GetPlugin (GType instanceType, GType interfaceType)
+        //{
+        //    var ret_ = g_type_interface_get_plugin (instanceType, interfaceType);
+        //    var ret = default(GISharp.GObject.TypePlugin);
+        //    throw new System.NotImplementedException ();
+        //    return ret;
+        //}
 
         /// <summary>
         /// Returns the #GTypeInterface structure of an interface to which the
@@ -187,7 +187,7 @@ namespace GISharp.GObject
         /// </param>
         /// <returns>
         /// an array of <see cref="GType"/> containing
-        /// the prerequisites of <paramref name="interface_type"/>
+        /// the prerequisites of <paramref name="interfaceType"/>
         /// </returns>
         [Since ("2.2")]
         public static IArray<GType> Prerequisites(GType interfaceType)

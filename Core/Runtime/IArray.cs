@@ -25,7 +25,7 @@ namespace GISharp.Runtime
         /// </summary>
         /// <returns>
         /// Value tuple containing a pointer to the data and the length
-        /// </summary>
+        /// </returns>
         ValueTuple<IntPtr, int> TakeData();
     }
 }
