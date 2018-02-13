@@ -146,7 +146,7 @@ namespace GISharp.CodeGen
                     var setAttrNamespace = XNamespace.None;
                     if (setAttrNameParts.Length > 1) {
                         setAttrLocalName = setAttrNameParts[1];
-                        setAttrNamespace = (XNamespace)Manager.LookupNamespace(setAttrNameParts[0]);
+                        setAttrNamespace = Manager.LookupNamespace(setAttrNameParts[0]);
                     }
                     var setAttrElements = document.XPathSelectElements(setAttr.Xpath, Manager).ToList();
                     if (setAttrElements.Count == 0) {
@@ -613,7 +613,7 @@ namespace GISharp.CodeGen
         static IEnumerable<XElement> EnumerateManagedParameters (this XElement parameters)
         {
             if (parameters.Name != gi + "parameters") {
-                throw new ArgumentException ("Requires 'parameters' element.", "parameters");
+                throw new ArgumentException("Requires <parameters> element.", nameof(parameters));
             }
 
             var list = parameters.Elements (gi + "parameter").ToList ();
@@ -762,7 +762,7 @@ namespace GISharp.CodeGen
 
         static bool IsPointerType(string cType)
         {
-            if (cType.EndsWith("*")) {
+            if (cType.EndsWith("*", StringComparison.Ordinal)) {
                 return true;
             }
 
@@ -933,7 +933,7 @@ namespace GISharp.CodeGen
                                  .Select (c => c.Parent.GetManagedTypeName ())));
                     default:
                         var message = string.Format ("Unknown type '{0} with type parameters.", typeName);
-                        throw new ArgumentException (message, "element");
+                        throw new ArgumentException(message, nameof(element));
                     }
                 }
 
@@ -981,7 +981,7 @@ namespace GISharp.CodeGen
                             arrayElement.GetManagedTypeName ());
                     default:
                         var message = string.Format ("Unknown array type '{0}.", typeName);
-                        throw new ArgumentException (message, "element");
+                        throw new ArgumentException(message, nameof(element));
                     }
                 }
             }

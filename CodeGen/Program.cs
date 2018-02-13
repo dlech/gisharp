@@ -59,7 +59,8 @@ namespace GISharp.CodeGen
             bool forceArg = false;
 
             OptionSet options = null;
-            options = new OptionSet () { {
+            options = new OptionSet {
+                {
                     "h|help",
                     "Print this message.",
                     v => PrintHelpAndExit (options)

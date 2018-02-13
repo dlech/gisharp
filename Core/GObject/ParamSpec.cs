@@ -487,7 +487,7 @@ namespace GISharp.GObject
                             g_param_spec_unref(handle);
                         }
                         // return the existing managed proxy
-                        return (T)(object)target;
+                        return (T)target;
                     }
                 }
             }

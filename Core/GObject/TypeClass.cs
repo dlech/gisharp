@@ -18,7 +18,7 @@ namespace GISharp.GObject
 
         public GType GType => Marshal.PtrToStructure<GType>(Handle);
 
-        public TypeClass (IntPtr handle, Transfer ownership) : base (handle)
+        protected TypeClass(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 var gtype = Marshal.PtrToStructure<GType>(handle);

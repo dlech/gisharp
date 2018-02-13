@@ -1012,7 +1012,7 @@ namespace GISharp.GLib
         /// </param>
         public void InsertBefore (SListEnumerator<T> sibling, T data)
         {
-            base.InsertBefore (sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
+            InsertBefore(sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
         }
 
         /// <summary>

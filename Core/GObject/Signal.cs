@@ -1290,10 +1290,8 @@ namespace GISharp.GObject
         /// </param>
         public static void StopEmission(this Object instance, uint signalId, Quark detail = default(Quark))
         {
-            if (instance == null) {
-                throw new ArgumentNullException ("instance");
-            }
-            g_signal_stop_emission (instance.Handle, signalId, detail);
+            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+            g_signal_stop_emission(instance_, signalId, detail);
         }
 
         /// <summary>

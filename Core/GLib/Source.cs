@@ -39,7 +39,7 @@ namespace GISharp.GLib
             #pragma warning restore CS0649
         }
 
-        public Source(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        protected Source(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 

@@ -1167,7 +1167,7 @@ namespace GISharp.GObject
                             g_object_unref(handle);
                         }
                         // return the existing managed proxy
-                        return (T)(object)target;
+                        return (T)target;
                     }
                 }
             }

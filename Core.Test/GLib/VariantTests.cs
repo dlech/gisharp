@@ -463,7 +463,8 @@ namespace GISharp.Core.Test.GLib
             return Marshal.ReadInt32(variant.Handle, IntPtr.Size * 4 + sizeof(int));
         }
 
-        static PropertyInfo isFloatingProp = typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic);
+        static readonly PropertyInfo isFloatingProp =
+            typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic);
 
         static bool GetIsFloating(Variant variant)
         {

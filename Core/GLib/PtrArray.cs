@@ -34,7 +34,7 @@ namespace GISharp.GLib
         /// </summary>
         public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
-        public PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        protected PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -745,8 +745,8 @@ namespace GISharp.GLib
     public sealed class PtrArray<T> : PtrArray, IArray<T>, IList<T>
         where T : Opaque
     {
-        static Func<IntPtr, IntPtr> elementCopyFunc;
-        static UnmanagedDestroyNotify elementFreeFunc;
+        static readonly Func<IntPtr, IntPtr> elementCopyFunc;
+        static readonly UnmanagedDestroyNotify elementFreeFunc;
 
         static PtrArray() {
             var methods = typeof(T).GetMethods(Static | NonPublic);
@@ -1084,9 +1084,6 @@ namespace GISharp.GLib
     [AttributeUsage(AttributeTargets.Method)]
     sealed class PtrArrayCopyFuncAttribute : Attribute
     {
-        public PtrArrayCopyFuncAttribute()
-        {
-        }
     }
 
     /// <summary>
@@ -1096,8 +1093,5 @@ namespace GISharp.GLib
     [AttributeUsage(AttributeTargets.Method)]
     sealed class PtrArrayFreeFuncAttribute : Attribute
     {
-        public PtrArrayFreeFuncAttribute()
-        {
-        }
     }
 }

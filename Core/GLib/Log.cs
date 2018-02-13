@@ -532,7 +532,7 @@ namespace GISharp.GLib
         [Since ("2.46")]
         public static uint SetHandler(Utf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
-            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logFunc));;
+            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logFunc));
             var (logFunc_, destroy_, userData_) = UnmanagedLogFuncFactory.CreateNotifyDelegate(logFunc);
             var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;

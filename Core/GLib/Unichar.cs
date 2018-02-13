@@ -7,7 +7,7 @@ namespace GISharp.GLib
 {
     public partial struct Unichar
     {
-        int value;
+        readonly int value;
 
         public Unichar(int value)
         {

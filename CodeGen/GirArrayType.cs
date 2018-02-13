@@ -5,7 +5,7 @@ namespace GISharp.CodeGen
 {
     public class GirArrayType : Type
     {
-        GirType type;
+        readonly GirType type;
 
         public GirArrayType (GirType type)
         {

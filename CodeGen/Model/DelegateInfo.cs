@@ -65,7 +65,7 @@ namespace GISharp.CodeGen.Model
                     var unmanagedFuncPtrAttrArgList = ParseAttributeArgumentList (unmangedFuncPtrAttrArgListText);
                     var unmanagedFuncPtrAttr = Attribute (unmanagedFuncPtrAttrName)
                         .WithArgumentList (unmanagedFuncPtrAttrArgList);
-                    _UnmanagedAttributeLists = base.AttributeLists
+                    _UnmanagedAttributeLists = AttributeLists
                         .Add (AttributeList ().AddAttributes (unmanagedFuncPtrAttr));
                 }
                 return _UnmanagedAttributeLists.Value;

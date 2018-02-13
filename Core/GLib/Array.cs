@@ -28,7 +28,7 @@ namespace GISharp.GLib
 
         public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
-        public Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        protected Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
