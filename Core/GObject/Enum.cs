@@ -292,19 +292,30 @@ namespace GISharp.GObject
     /// </summary>
     public struct EnumValue
     {
+        int value;
+        IntPtr valueName;
+        IntPtr valueNick;
+
         /// <summary>
         /// the enum value
         /// </summary>
-        public int Value;
+        public int Value => value;
 
         /// <summary>
         /// the name of the value
         /// </summary>
-        public IntPtr ValueName;
+        public Utf8 Name => new Utf8(valueName, Transfer.None);
 
         /// <summary>
         /// the nickname of the value
         /// </summary>
-        public IntPtr ValueNick;
+        public Utf8 Nick => new Utf8(valueNick, Transfer.None);
+
+        public EnumValue(int value, IntPtr valueName, IntPtr valueNick)
+        {
+            this.value = value;
+            this.valueName = valueName;
+            this.valueNick = valueNick;
+        }
     }
 }

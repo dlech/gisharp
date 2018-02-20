@@ -64,10 +64,8 @@ namespace GISharp.Core.Test.GObject
             using (var flags4TypeClass = (FlagsClass)TypeClass.Get (testFlags4GType)) {
                 var value = Flags.GetFirstValue (flags4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));
-                var valueName = GMarshal.Utf8PtrToString (value.ValueName);
-                Assert.That (valueName, Is.EqualTo ("One"));
-                var valueNick = GMarshal.Utf8PtrToString (value.ValueNick);
-                Assert.That (valueNick, Is.EqualTo ("One"));
+                Assert.That(value.Name, IsEqualToUtf8("One"));
+                Assert.That(value.Nick, IsEqualToUtf8("One"));
             }
 
             AssertNoGLibLog();
@@ -83,17 +81,13 @@ namespace GISharp.Core.Test.GObject
             using (var flags5TypeClass = (FlagsClass)TypeClass.Get (testFlags5GType)) {
                 var value1 = Flags.GetFirstValue (flags5TypeClass, 1);
                 Assert.That (value1.Value, Is.EqualTo ((int)TestFlags5.One));
-                var value1Name = GMarshal.Utf8PtrToString (value1.ValueName);
-                Assert.That (value1Name, Is.EqualTo ("test_flags_5_value_one"));
-                var value1Nick = GMarshal.Utf8PtrToString (value1.ValueNick);
-                Assert.That (value1Nick, Is.EqualTo ("One"));
+                Assert.That(value1.Name, IsEqualToUtf8("test_flags_5_value_one"));
+                Assert.That(value1.Nick, IsEqualToUtf8("One"));
 
                 var value2 = Flags.GetFirstValue (flags5TypeClass, 2);
                 Assert.That (value2.Value, Is.EqualTo ((int)TestFlags5.Two));
-                var value2Name = GMarshal.Utf8PtrToString (value2.ValueName);
-                Assert.That (value2Name, Is.EqualTo ("Two"));
-                var value2Nick = GMarshal.Utf8PtrToString (value2.ValueNick);
-                Assert.That (value2Nick, Is.EqualTo ("test_flags_5_value_two"));
+                Assert.That(value2.Name, IsEqualToUtf8("Two"));
+                Assert.That(value2.Nick, IsEqualToUtf8("test_flags_5_value_two"));
             }
 
             AssertNoGLibLog();

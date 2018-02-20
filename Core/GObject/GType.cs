@@ -1000,16 +1000,15 @@ namespace GISharp.GObject
                     if (flagsAttribute == null) {
                         var gtypeValues = new Array<EnumValue>(true, true, values.Length);
                         for (int i = 0; i < values.Length; i++) {
-                            var enumValue = new EnumValue();
-                            enumValue.Value = values[i];
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField.GetCustomAttributes ()
                                 .OfType<EnumValueAttribute> ()
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            enumValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
-                            enumValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
+                            var valueName_ = GMarshal.StringToUtf8Ptr(valueName);
+                            var valueNick_ = GMarshal.StringToUtf8Ptr(valueNick);
+                            var enumValue = new EnumValue(values[i], valueName_, valueNick_);
                             gtypeValues.Add(enumValue);
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
@@ -1024,8 +1023,6 @@ namespace GISharp.GObject
                     } else {
                         var gtypeValues = new Array<FlagsValue>(true, false, values.Length);
                         for (int i = 0; i < values.Length; i++) {
-                            var flagValue = new FlagsValue();
-                            flagValue.Value = (uint)values[i];
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField
                                 .GetCustomAttributes ()
@@ -1033,8 +1030,9 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            flagValue.ValueName = GMarshal.StringToUtf8Ptr(valueName);
-                            flagValue.ValueNick = GMarshal.StringToUtf8Ptr(valueNick);
+                            var valueName_ = GMarshal.StringToUtf8Ptr(valueName);
+                            var valueNick_ = GMarshal.StringToUtf8Ptr(valueNick);
+                            var flagValue = new FlagsValue((uint)values[i], valueName_, valueNick_);
                             gtypeValues.Add(flagValue);
                         }
                         var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);
