@@ -97,7 +97,8 @@ namespace GISharp.CodeGen.Model
                 interfaceDeclaration = InterfaceDeclaration.WithMembers(InterfaceMembers);
                 interfaceExtensionsDeclaration = InterfaceExtensionsDeclaration.WithMembers(InterfaceExtensionsMembers);
             } catch (Exception ex) {
-                Console.WriteLine($"Skipping {QualifiedName} due to error: {ex.Message}");
+                Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
+                    QualifiedName, Element.Name.LocalName, ex.Message);
                 yield break;
             }
 

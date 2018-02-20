@@ -140,7 +140,8 @@ namespace GISharp.CodeGen.Model
             try {
                 declaration = ClassDeclaration.WithMembers(ClassMembers);
             } catch (Exception ex) {
-                Console.Error.WriteLine($"Skipping {QualifiedName} due to error: {ex.Message}");
+                Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
+                    QualifiedName, Element.Name.LocalName, ex.Message);
                 yield break;
             }
 

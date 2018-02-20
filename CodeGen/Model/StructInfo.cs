@@ -67,8 +67,8 @@ namespace GISharp.CodeGen.Model
                     .WithAttributeLists (AttributeLists)
                     .WithLeadingTrivia (DocumentationCommentTriviaList);
             } catch (Exception ex) {
-                Console.WriteLine ("Skipping {0} due to exception: {1}",
-                                   QualifiedName, ex.Message);
+                Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
+                    QualifiedName, Element.Name.LocalName, ex.Message);
                 yield break;
             }
             yield return structDeclaration;
