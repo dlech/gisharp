@@ -485,12 +485,8 @@ namespace GISharp.Runtime
         /// </remarks>
         public static void PropagateError (IntPtr dest, Error src)
         {
-            if (src == null) {
-                throw new ArgumentNullException (nameof (src));
-            }
-            g_propagate_error (dest, src.Handle);
-            // FIXME: will result in double-freeing error
-            //src.Handle = IntPtr.Zero;
+            var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
+            g_propagate_error(dest, src_);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

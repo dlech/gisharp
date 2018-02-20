@@ -37,6 +37,20 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
+        /// Take unmanaged handle from this object
+        /// </summary>
+        /// <remarks>
+        /// This object is no longer valid after calling <see cref="Take"/> (it
+        /// will throw <see cref="ObjectDisposedException"/>).
+        /// </remarks>
+        public virtual IntPtr Take()
+        {
+            var this_ = Handle;
+            handle = IntPtr.Zero;
+            return this_;
+        }
+
+        /// <summary>
         /// Releases all resource used by the <see cref="Opaque"/> object.
         /// </summary>
         /// <remarks>
