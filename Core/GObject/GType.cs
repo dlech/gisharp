@@ -1006,9 +1006,7 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            var valueName_ = GMarshal.StringToUtf8Ptr(valueName);
-                            var valueNick_ = GMarshal.StringToUtf8Ptr(valueNick);
-                            var enumValue = new EnumValue(values[i], valueName_, valueNick_);
+                            var enumValue = new EnumValue(values[i], valueName, valueNick);
                             gtypeValues.Add(enumValue);
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
@@ -1030,9 +1028,7 @@ namespace GISharp.GObject
                                 .SingleOrDefault ();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
-                            var valueName_ = GMarshal.StringToUtf8Ptr(valueName);
-                            var valueNick_ = GMarshal.StringToUtf8Ptr(valueNick);
-                            var flagValue = new FlagsValue((uint)values[i], valueName_, valueNick_);
+                            var flagValue = new FlagsValue((uint)values[i], valueName, valueNick);
                             gtypeValues.Add(flagValue);
                         }
                         var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);

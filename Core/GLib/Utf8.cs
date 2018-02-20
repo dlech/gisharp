@@ -53,7 +53,21 @@ namespace GISharp.GLib
             if (ownership == Transfer.Full) {
                 owned = true;
             }
+            else {
+                GC.SuppressFinalize(this);
+            }
             _Value = new Lazy<string>(GetValue);
+        }
+
+        public override IntPtr Take()
+        {
+            var this_ = Handle;
+            if (!owned) {
+                throw new InvalidOperationException();
+            }
+            owned = false;
+            GC.SuppressFinalize(this);
+            return this_;
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

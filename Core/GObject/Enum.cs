@@ -311,11 +311,11 @@ namespace GISharp.GObject
         /// </summary>
         public Utf8 Nick => new Utf8(valueNick, Transfer.None);
 
-        public EnumValue(int value, IntPtr valueName, IntPtr valueNick)
+        public EnumValue(int value, Utf8 name, Utf8 nick)
         {
             this.value = value;
-            this.valueName = valueName;
-            this.valueNick = valueNick;
+            valueName = name?.Take() ?? throw new ArgumentNullException(nameof(name));
+            valueNick = nick?.Take() ?? throw new ArgumentNullException(nameof(nick));
         }
     }
 }
