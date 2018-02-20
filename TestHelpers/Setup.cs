@@ -4,27 +4,28 @@ using GISharp.GLib;
 
 using static GISharp.GLib.LogLevelFlags;
 
-// no namespace, so that this applies to all tests in the assembly
-
-[SetUpFixture]
-public class Setup
+namespace GISharp.Test
 {
-    static void LogToTestContext(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message)
+    [SetUpFixture]
+    public class Setup
     {
-        // FIXME: messages on the GC finalizer thread are lost
-        TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
-        TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
-        if (logLevel.HasFlag(LogLevelFlags.Error) || logLevel.HasFlag(Critical) || logLevel.HasFlag(Warning)) {
-            TestContext.Error.WriteLine(Environment.StackTrace);
+        static void LogToTestContext(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message)
+        {
+            // FIXME: messages on the GC finalizer thread are lost
+            TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);
+            TestContext.Error.WriteLine($"({logDomain}) {logLevel}: {message}");
+            if (logLevel.HasFlag(LogLevelFlags.Error) || logLevel.HasFlag(Critical) || logLevel.HasFlag(Warning)) {
+                TestContext.Error.WriteLine(Environment.StackTrace);
+            }
+            TestContext.CurrentContext.Test.Properties.Set(logLevel.ToString(), message);
         }
-        TestContext.CurrentContext.Test.Properties.Set(logLevel.ToString(), message);
-    }
 
-    [OneTimeSetUp]
-    public void SetupGLibLogging()
-    {
-        Utility.ApplicationName = "GISharp.Test";
-        Utility.ProgramName = "GISharp.Test";
-        Log.SetDefaultHandler(LogToTestContext);
+        [OneTimeSetUp]
+        public void SetupGLibLogging()
+        {
+            Utility.ApplicationName = "GISharp.Test";
+            Utility.ProgramName = "GISharp.Test";
+            Log.SetDefaultHandler(LogToTestContext);
+        }
     }
 }
