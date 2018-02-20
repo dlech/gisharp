@@ -38,11 +38,10 @@ namespace GISharp.GLib
 
         static void Log_ (string logDomain, LogLevelFlags logLevel, string format, params object[] args)
         {
-            var logDomain_ = GMarshal.StringToUtf8Ptr (logDomain);
-            var format_ = GMarshal.StringToUtf8Ptr (string.Format (format, args));
-            g_log (logDomain_, logLevel, format_);
-            GMarshal.Free (logDomain_);
-            GMarshal.Free (format_);
+            using (var logDomainUtf8 = new Utf8(logDomain))
+            using (var formatUtf8 = new Utf8(string.Format (format, args))) {
+                g_log(logDomainUtf8.Handle, logLevel, formatUtf8.Handle);
+            }
         }
 
         public static void Message (string format, params object[] args)
