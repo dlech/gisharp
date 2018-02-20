@@ -826,7 +826,7 @@ namespace GISharp.GObject
         static GType RegisterStatic (GType parentType, string typeName, TypeInfo info, TypeFlags flags)
         {
             // this is static, so typeName_ is not freed
-            var typeName_ = GMarshal.StringToUtf8Ptr (typeName);
+            var typeName_ = new Utf8(typeName).Take();
             // also, make a copy of info in unmanaged memory so that it always exists
             var info_ = GMarshal.Alloc (Marshal.SizeOf (info));
             Marshal.StructureToPtr (info, info_, false);

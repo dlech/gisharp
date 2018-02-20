@@ -54,12 +54,11 @@ namespace GISharp.GLib
         static extern bool g_strv_contains(IntPtr strv, IntPtr str);
 
         [Since("2.44")]
-        public bool Contains(string str)
+        public bool Contains(Utf8 str)
         {
             var this_ = Handle;
-            var str_ = GMarshal.StringToUtf8Ptr(str);
+            var str_ = str?.Handle ?? throw new ArgumentNullException(nameof(str));
             var ret = g_strv_contains(this_, str_);
-            GMarshal.Free(str_);
             return ret;
         }
 
