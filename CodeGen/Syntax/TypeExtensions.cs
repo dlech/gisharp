@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -22,10 +23,15 @@ namespace GISharp.CodeGen.Syntax
                 fixedUpTypeName = "void";
             } else if (typeName.Contains("`")) {
                 // Generics need fixing up
-                fixedUpTypeName = typeName.Remove(typeName.IndexOf ('`'))
-                    + typeName.Substring(typeName.IndexOf('['));
-                fixedUpTypeName = fixedUpTypeName.Replace('[', '<').Replace(']', '>');
+                fixedUpTypeName = typeName.Remove(typeName.IndexOf ('`'));
             }
+
+            if (type.IsGenericType) {
+                return GenericName(fixedUpTypeName)
+                    .AddTypeArgumentListArguments(type.GenericTypeArguments
+                        .Select(x => x.ToSyntax()).ToArray());
+            }
+
             return ParseTypeName(fixedUpTypeName);
         }
     }
