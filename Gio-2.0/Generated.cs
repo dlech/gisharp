@@ -472,7 +472,7 @@ namespace GISharp.Gio
         static extern void g_action_activate(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action,
+        System.IntPtr action,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr parameter);
@@ -497,7 +497,7 @@ namespace GISharp.Gio
         /// the parameter to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void Activate(this GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
+        public static void Activate(GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
@@ -530,7 +530,7 @@ namespace GISharp.Gio
         static extern void g_action_change_state(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action,
+        System.IntPtr action,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr value);
@@ -561,7 +561,7 @@ namespace GISharp.Gio
         /// If <paramref name="value"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static void ChangeState(this GISharp.Gio.IAction action, GISharp.GLib.Variant value)
+        public static void ChangeState(GISharp.Gio.IAction action, GISharp.GLib.Variant value)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
@@ -588,7 +588,7 @@ namespace GISharp.Gio
         static extern System.Boolean g_action_get_enabled(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Checks if @action is currently enabled.
@@ -607,7 +607,7 @@ namespace GISharp.Gio
         /// whether the action is enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetEnabled(this GISharp.Gio.IAction action)
+        public static System.Boolean GetEnabled(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret = g_action_get_enabled(action_);
@@ -630,7 +630,7 @@ namespace GISharp.Gio
         static extern System.IntPtr g_action_get_name(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Queries the name of @action.
@@ -645,7 +645,7 @@ namespace GISharp.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Utf8 GetName(this GISharp.Gio.IAction action)
+        public static GISharp.GLib.Utf8 GetName(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_name(action_);
@@ -677,7 +677,7 @@ namespace GISharp.Gio
         static extern System.IntPtr g_action_get_parameter_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
@@ -700,7 +700,7 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetParameterType(this GISharp.Gio.IAction action)
+        public static GISharp.GLib.VariantType GetParameterType(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_parameter_type(action_);
@@ -732,7 +732,7 @@ namespace GISharp.Gio
         static extern System.IntPtr g_action_get_state(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Queries the current state of @action.
@@ -755,7 +755,7 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetState(this GISharp.Gio.IAction action)
+        public static GISharp.GLib.Variant GetState(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state(action_);
@@ -797,7 +797,7 @@ namespace GISharp.Gio
         static extern System.IntPtr g_action_get_state_hint(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of
@@ -830,7 +830,7 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetStateHint(this GISharp.Gio.IAction action)
+        public static GISharp.GLib.Variant GetStateHint(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_hint(action_);
@@ -866,7 +866,7 @@ namespace GISharp.Gio
         static extern System.IntPtr g_action_get_state_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
-        this System.IntPtr action);
+        System.IntPtr action);
 
         /// <summary>
         /// Queries the type of the state of @action.
@@ -893,7 +893,7 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetStateType(this GISharp.Gio.IAction action)
+        public static GISharp.GLib.VariantType GetStateType(GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_type(action_);

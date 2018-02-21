@@ -69,7 +69,7 @@ namespace GISharp.Gio.Test
             using (var obj = new ActionImpl())
             using (var parameter = new Variant(1)) {
                 Assume.That(obj.ActivateCallbackCount, Is.EqualTo(0));
-                obj.Activate(parameter);
+                Action.Activate(obj, parameter);
                 Assert.That(obj.ActivateCallbackCount, Is.EqualTo(1));
             }
             AssertNoGLibLog();
@@ -81,7 +81,7 @@ namespace GISharp.Gio.Test
             using (var obj = new ActionImpl())
             using (var value = new Variant(1)) {
                 Assume.That(obj.ChangeStateCallbackCount, Is.EqualTo(0));
-                obj.ChangeState(value);
+                Action.ChangeState(obj, value);
                 Assert.That(obj.ChangeStateCallbackCount, Is.EqualTo(1));
             }
             AssertNoGLibLog();
@@ -92,7 +92,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetEnabledCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetEnabled();
+                var actual = Action.GetEnabled(obj);
                 Assert.That(actual, Is.True);
                 Assert.That(obj.GetEnabledCallbackCount, Is.EqualTo(1));
             }
@@ -104,7 +104,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetNameCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetName();
+                var actual = Action.GetName(obj);
                 Assert.That(actual, IsEqualToUtf8("TestActionName"));
                 Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
             }
@@ -116,7 +116,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetParameterType();
+                var actual = Action.GetParameterType(obj);
                 Assert.That(actual, Is.EqualTo(VariantType.Int32));
                 Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
             }
@@ -128,7 +128,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetState();
+                var actual = Action.GetState(obj);
                 Assert.That((int)actual, Is.EqualTo(2));
                 Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
             }
@@ -140,7 +140,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetStateHintCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetStateHint();
+                var actual = Action.GetStateHint(obj);
                 Assert.That(actual, Is.Null);
                 Assert.That(obj.GetStateHintCallbackCount, Is.EqualTo(1));
             }
@@ -152,7 +152,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetStateTypeCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetStateType();
+                var actual = Action.GetStateType(obj);
                 Assert.That(actual, Is.EqualTo(VariantType.Int32));
                 Assert.That(obj.GetStateTypeCallbackCount, Is.EqualTo(1));
             }
@@ -245,31 +245,15 @@ namespace GISharp.Gio.Test
     [GType]
     class ActionImpl : GObject.Object, IAction
     {
-        public bool Enabled {
-            get {
-                return this.GetEnabled ();
-            }
-        }
-        public Utf8 Name {
-            get {
-                return this.GetName ();
-            }
-        }
-        public VariantType ParameterType {
-            get {
-                return this.GetParameterType ();
-            }
-        }
-        public Variant State {
-            get {
-                return this.GetState ();
-            }
-        }
-        public VariantType StateType {
-            get {
-                return this.GetStateType ();
-            }
-        }
+        public bool Enabled => Action.GetEnabled(this);
+
+        public Utf8 Name => Action.GetName(this);
+
+        public VariantType ParameterType => Action.GetParameterType(this);
+
+        public Variant State => Action.GetState(this);
+
+        public VariantType StateType => Action.GetStateType(this);
 
         public int ActivateCallbackCount;
 
