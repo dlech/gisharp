@@ -33,7 +33,7 @@ namespace GISharp.GObject
 
         uint RefCount => (uint)Marshal.ReadInt32 (handle + (int)refCountOffset);
 
-        public Object (IntPtr handle, Transfer ownership) : base (handle)
+        public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
                 this.handle = g_object_ref_sink (handle);

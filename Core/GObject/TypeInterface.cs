@@ -25,7 +25,7 @@ namespace GISharp.GObject
 
         public GType GInstanceType => Marshal.PtrToStructure<GType>(Handle + (int)gInstanceTypeOffset);
 
-        protected TypeInterface (IntPtr handle, Transfer ownership) : base (handle)
+        protected TypeInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

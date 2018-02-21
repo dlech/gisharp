@@ -48,7 +48,7 @@ namespace GISharp.GLib
         {
         }
 
-        public Utf8(IntPtr handle, Transfer ownership) : base(handle)
+        public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.Full) {
                 owned = true;

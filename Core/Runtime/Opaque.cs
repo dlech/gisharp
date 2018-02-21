@@ -26,7 +26,7 @@ namespace GISharp.Runtime
             }
         }
 
-        protected Opaque (IntPtr handle)
+        protected Opaque(IntPtr handle, Transfer ownership)
         {
             this.handle = handle;
         }

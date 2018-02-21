@@ -19,7 +19,7 @@ namespace GISharp.GLib
             }
         }
 
-        protected List (IntPtr handle, Transfer ownership) : base (handle)
+        protected List(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.Container) {
                 throw new NotSupportedException ();
@@ -953,7 +953,7 @@ namespace GISharp.GLib
         IntPtr start;
         IntPtr next;
 
-        internal ListEnumerator(IntPtr start) : base(IntPtr.Zero)
+        internal ListEnumerator(IntPtr start) : base(IntPtr.Zero, Transfer.None)
         {
             this.start = start;
             Reset();

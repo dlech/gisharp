@@ -11,7 +11,7 @@ namespace GISharp.GObject
     /// </summary>
     public sealed class TypeValueTable : Opaque
     {
-        public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle)
+        public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

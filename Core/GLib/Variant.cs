@@ -234,7 +234,7 @@ namespace GISharp.GLib
     {
         IndexedCollection<Variant> childValues;
 
-        public Variant (IntPtr handle, Transfer ownership) : base (handle)
+        public Variant(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
                 g_variant_ref_sink(handle);

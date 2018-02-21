@@ -73,7 +73,7 @@ namespace GISharp.GModule
             }
         }
 
-        public Module (IntPtr handle, Transfer ownership) : base (handle)
+        public Module(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
                 throw new NotSupportedException ();

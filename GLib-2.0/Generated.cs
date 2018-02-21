@@ -204,7 +204,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeLink = "Link";
 
-        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
+        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
             if (ownership != GISharp.Runtime.Transfer.None)
             {

@@ -10,7 +10,7 @@ namespace GISharp.GObject
     {
         GType gType;
 
-        protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle)
+        protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (!gType.IsA(GType.Boxed)) {
                 this.handle = IntPtr.Zero;

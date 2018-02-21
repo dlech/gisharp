@@ -8,7 +8,7 @@ namespace GISharp.GObject
 {
     public sealed class ParamSpecPool : Opaque
     {
-        public ParamSpecPool (IntPtr handle, Transfer ownership) : base (handle)
+        public ParamSpecPool(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

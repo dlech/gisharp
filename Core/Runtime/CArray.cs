@@ -11,7 +11,7 @@ namespace GISharp.Runtime
 
         public int Length { get; }
 
-        protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.None) {
                 Owned = true;

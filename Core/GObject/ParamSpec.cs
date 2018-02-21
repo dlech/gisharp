@@ -84,7 +84,7 @@ namespace GISharp.GObject
 
         uint RefCount => Marshal.PtrToStructure<uint>(handle + (int)refCountOffset);
 
-        public ParamSpec (IntPtr handle, Transfer ownership) : base (handle)
+        public ParamSpec(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
                 this.handle = g_param_spec_ref (handle);

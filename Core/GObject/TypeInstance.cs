@@ -20,7 +20,7 @@ namespace GISharp.GObject
         protected ObjectClass GClass => _GClass.Value;
         readonly Lazy<ObjectClass> _GClass;
 
-        protected TypeInstance (IntPtr handle) : base (handle)
+        protected TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             _GClass = new Lazy<ObjectClass>(GetGClass);
         }

@@ -8,7 +8,7 @@ namespace GISharp.GLib
     {
         bool owned;
 
-        public Filename(IntPtr handle, Transfer ownership) : base(handle)
+        public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.None) {
                 owned = true;

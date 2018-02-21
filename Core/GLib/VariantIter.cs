@@ -15,7 +15,7 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_iter_copy (IntPtr iter);
 
-        public VariantIter (IntPtr handle, Transfer ownership) : base (handle)
+        public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
                 this.handle = g_variant_iter_copy (handle);
@@ -60,7 +60,7 @@ namespace GISharp.GLib
         /// <exception cref="ArgumentException">
         /// if <paramref name="value"/> is not a container type
         /// </exception>
-        public VariantIter (Variant value) : base (New (value))
+        public VariantIter(Variant value) : this(New(value), Transfer.Full)
         {
             this.value = value;
         }

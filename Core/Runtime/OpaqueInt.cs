@@ -22,7 +22,7 @@ namespace GISharp.Runtime
 
         public override IntPtr Handle => handle;
 
-        public OpaqueInt (IntPtr handle) : base (handle)
+        public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 
@@ -35,7 +35,7 @@ namespace GISharp.Runtime
         /// Initializes a new instance of the <see cref="OpaqueInt"/> class.
         /// </summary>
         /// <param name="value">The value.</param>
-        public OpaqueInt (int value) : this (New (value))
+        public OpaqueInt(int value) : this(New(value), Transfer.Full)
         {
         }
 

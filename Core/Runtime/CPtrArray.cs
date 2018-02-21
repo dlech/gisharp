@@ -11,7 +11,7 @@ namespace GISharp.Runtime
 
         public int Length { get; }
 
-        protected CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
+        protected CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.Full) {
                 this.handle = IntPtr.Zero;
