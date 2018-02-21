@@ -367,7 +367,7 @@ namespace GISharp.CodeGen.Model
             }
             var paramerList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
                 typeof(IntPtr).FullName, typeof(GISharp.Runtime.Transfer).FullName));
-            var argList = ParseArgumentList("(handle)");
+            var argList = ParseArgumentList("(handle, ownership)");
             var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
                 .WithArgumentList (argList);
             var body = Block();
