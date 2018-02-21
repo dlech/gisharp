@@ -98,14 +98,14 @@ namespace GISharp.CodeGen.Model
                 .WithAttributeLists(AttributeLists)
                 .WithModifiers(Modifiers);
             if (IsReadable) {
-                var returnStatement = ParseStatement($"return Get{ManagedName}();");
+                var getExpression = ParseExpression($"Get{ManagedName}();");
                 property = property.AddAccessorListAccessors(AccessorDeclaration(GetAccessorDeclaration)
-                    .WithBody(Block(returnStatement)));
+                    .WithExpressionBody(ArrowExpressionClause(getExpression)));
             }
             if (IsWriteable && !IsConstructOnly) {
-                var setStatement = ParseStatement($"Set{ManagedName}(value);");
+                var setExpression = ParseExpression($"Set{ManagedName}(value);");
                 property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
-                    .WithBody(Block(setStatement)));
+                    .WithExpressionBody(ArrowExpressionClause(setExpression)));
             }
 
             yield return property;

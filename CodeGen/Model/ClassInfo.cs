@@ -344,14 +344,12 @@ namespace GISharp.CodeGen.Model
                             .Prepend(Argument(ThisExpression()))));
                     var extensionMethod = ParseExpression($"{staticTypeName}.{method.Name}");
                     var invokeExpression = InvocationExpression(extensionMethod, arguments);
-                    var invokeStatement = (method.ReturnType == typeof(void)) ?
-                        (StatementSyntax)ExpressionStatement(invokeExpression) :
-                        (StatementSyntax)ReturnStatement(invokeExpression);
 
                     yield return MethodDeclaration(returnType, method.Name)
                         .AddModifiers(Token(PublicKeyword))
                         .WithParameterList(parameterList)
-                        .WithBody(Block(invokeStatement))
+                        .WithExpressionBody(ArrowExpressionClause(invokeExpression))
+                        .WithSemicolonToken(Token(SemicolonToken))
                         .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n"));
                 }
             }
