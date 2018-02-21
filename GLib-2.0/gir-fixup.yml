@@ -144,11 +144,27 @@
 - !set-attribute
   name: skip
   value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='LogField']
+- !set-attribute
+  name: skip
+  value: 1
   xpath: gi:repository/gi:namespace/gi:callback[@name='LogFunc']
 - !set-attribute
   name: skip
   value: 1
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='LogLevelFlags']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='LogWriterFunc']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='LogWriterOutput']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NumberParserError']
 - !set-attribute
   name: skip
   value: 1
@@ -901,6 +917,10 @@
   name: skip
   value: 1
   xpath: gi:repository/gi:namespace/gi:constant[@name='PI_4']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[@name='PID_FORMAT']
 - !set-attribute
   name: skip
   value: 1
@@ -1789,6 +1809,10 @@
   name: skip
   value: 1
   xpath: gi:repository/gi:namespace/gi:function[@name='usleep']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'uuid_string_')]
 - !set-attribute
   name: skip
   value: 1

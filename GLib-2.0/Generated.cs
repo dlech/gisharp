@@ -54,7 +54,6 @@ namespace GISharp.GLib
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyExec = "Exec";
-        public const System.String DesktopKeyFullname = "X-GNOME-FullName";
 
         /// <summary>
         /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
@@ -62,7 +61,6 @@ namespace GISharp.GLib
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyGenericName = "GenericName";
-        public const System.String DesktopKeyGettextDomain = "X-GNOME-Gettext-Domain";
 
         /// <summary>
         /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
@@ -78,7 +76,6 @@ namespace GISharp.GLib
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyIcon = "Icon";
-        public const System.String DesktopKeyKeywords = "Keywords";
 
         /// <summary>
         /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
@@ -891,7 +888,8 @@ namespace GISharp.GLib
         /// <remarks>
         /// If @key cannot be found then 0 is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with @key cannot be interpreted as an integer then 0 is returned
+        /// with @key cannot be interpreted as an integer, or is out of range
+        /// for a #gint, then 0 is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="keyFile">
@@ -935,7 +933,8 @@ namespace GISharp.GLib
         /// <remarks>
         /// If @key cannot be found then 0 is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with @key cannot be interpreted as an integer then 0 is returned
+        /// with @key cannot be interpreted as an integer, or is out of range
+        /// for a #gint, then 0 is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
@@ -981,7 +980,8 @@ namespace GISharp.GLib
         /// <remarks>
         /// If @key cannot be found then %NULL is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with @key cannot be interpreted as integers then %NULL is returned
+        /// with @key cannot be interpreted as integers, or are out of range for
+        /// #gint, then %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="keyFile">
@@ -1035,7 +1035,8 @@ namespace GISharp.GLib
         /// <remarks>
         /// If @key cannot be found then %NULL is returned and @error is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with @key cannot be interpreted as integers then %NULL is returned
+        /// with @key cannot be interpreted as integers, or are out of range for
+        /// #gint, then %NULL is returned
         /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
@@ -1924,6 +1925,78 @@ namespace GISharp.GLib
         }
 
         /// <summary>
+        /// Loads a key file from the data in @bytes into an empty #GKeyFile structure.
+        /// If the object cannot be created then %error is set to a #GKeyFileError.
+        /// </summary>
+        /// <param name="keyFile">
+        /// an empty #GKeyFile struct
+        /// </param>
+        /// <param name="bytes">
+        /// a #GBytes
+        /// </param>
+        /// <param name="flags">
+        /// flags from #GKeyFileFlags
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE if a key file could be loaded, %FALSE otherwise
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.50")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_key_file_load_from_bytes(
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr keyFile,
+        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr bytes,
+        /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
+        /* transfer-ownership:none */
+        GISharp.GLib.KeyFileFlags flags,
+        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* direction:out */
+        out System.IntPtr error);
+
+        /// <summary>
+        /// Loads a key file from the data in @bytes into an empty #GKeyFile structure.
+        /// If the object cannot be created then %error is set to a #GKeyFileError.
+        /// </summary>
+        /// <param name="bytes">
+        /// a #GBytes
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="bytes"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="flags">
+        /// flags from #GKeyFileFlags
+        /// </param>
+        /// <returns>
+        /// %TRUE if a key file could be loaded, %FALSE otherwise
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.50")]
+        public System.Boolean LoadFromBytes(GISharp.GLib.Bytes bytes, GISharp.GLib.KeyFileFlags flags)
+        {
+            var this_ = this.Handle;
+            var bytes_ = bytes?.Handle ?? throw new System.ArgumentNullException(nameof(bytes));
+            System.IntPtr error_;
+            var ret = g_key_file_load_from_bytes(this_, bytes_, flags,out error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            return ret;
+        }
+
+        /// <summary>
         /// Loads a key file from memory into an empty #GKeyFile structure.
         /// If the object cannot be created then %error is set to a #GKeyFileError.
         /// </summary>
@@ -2098,10 +2171,15 @@ namespace GISharp.GLib
         /// <summary>
         /// This function looks for a key file named @file in the paths
         /// specified in @search_dirs, loads the file into @key_file and
-        /// returns the file's full path in @full_path.  If the file could not
-        /// be loaded then an %error is set to either a #GFileError or
-        /// #GKeyFileError.
+        /// returns the file's full path in @full_path.
         /// </summary>
+        /// <remarks>
+        /// If the file could not be found in any of the @search_dirs,
+        /// %G_KEY_FILE_ERROR_NOT_FOUND is returned. If
+        /// the file is found but the OS returns an error when opening or reading the
+        /// file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
+        /// %G_KEY_FILE_ERROR is returned.
+        /// </remarks>
         /// <param name="keyFile">
         /// an empty #GKeyFile struct
         /// </param>
@@ -2153,10 +2231,15 @@ namespace GISharp.GLib
         /// <summary>
         /// This function looks for a key file named @file in the paths
         /// specified in @search_dirs, loads the file into @key_file and
-        /// returns the file's full path in @full_path.  If the file could not
-        /// be loaded then an %error is set to either a #GFileError or
-        /// #GKeyFileError.
+        /// returns the file's full path in @full_path.
         /// </summary>
+        /// <remarks>
+        /// If the file could not be found in any of the @search_dirs,
+        /// %G_KEY_FILE_ERROR_NOT_FOUND is returned. If
+        /// the file is found but the OS returns an error when opening or reading the
+        /// file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
+        /// %G_KEY_FILE_ERROR is returned.
+        /// </remarks>
         /// <param name="file">
         /// a relative path to a filename to open and parse
         /// </param>
@@ -2203,9 +2286,15 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Loads a key file into an empty #GKeyFile structure.
-        /// If the file could not be loaded then @error is set to
-        /// either a #GFileError or #GKeyFileError.
         /// </summary>
+        /// <remarks>
+        /// If the OS returns an error when opening or reading the file, a
+        /// %G_FILE_ERROR is returned. If there is a problem parsing the file, a
+        /// %G_KEY_FILE_ERROR is returned.
+        /// 
+        /// This function will never return a %G_KEY_FILE_ERROR_NOT_FOUND error. If the
+        /// @file is not found, %G_FILE_ERROR_NOENT is returned.
+        /// </remarks>
         /// <param name="keyFile">
         /// an empty #GKeyFile struct
         /// </param>
@@ -2241,9 +2330,15 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Loads a key file into an empty #GKeyFile structure.
-        /// If the file could not be loaded then @error is set to
-        /// either a #GFileError or #GKeyFileError.
         /// </summary>
+        /// <remarks>
+        /// If the OS returns an error when opening or reading the file, a
+        /// %G_FILE_ERROR is returned. If there is a problem parsing the file, a
+        /// %G_KEY_FILE_ERROR is returned.
+        /// 
+        /// This function will never return a %G_KEY_FILE_ERROR_NOT_FOUND error. If the
+        /// @file is not found, %G_FILE_ERROR_NOENT is returned.
+        /// </remarks>
         /// <param name="file">
         /// the path of a filename to load, in the GLib filename encoding
         /// </param>
@@ -3824,7 +3919,7 @@ namespace GISharp.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 micro = 3;
+        private const System.Int32 micro = 0;
 
         /// <summary>
         /// The minor version number of the GLib library.
@@ -3834,7 +3929,7 @@ namespace GISharp.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 minor = 47;
+        private const System.Int32 minor = 54;
 
         /// <summary>
         /// A macro that should be defined by the user prior to including
