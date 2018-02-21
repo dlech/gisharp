@@ -53,7 +53,8 @@ namespace GISharp.CodeGen.Model
                 if (IsOutParam || IsReturnParameter || TypeInfo.Classification == TypeClassification.GObject) {
                     defaultTransfer = "full";
                 } else if (TypeInfo.Classification == TypeClassification.Opaque) {
-                    var cType = Element.Element (gi + "type").Attribute (c + "type").Value;
+                    var typeElement = Element.Element (gi + "type") ?? Element.Element (gi + "array");
+                    var cType = typeElement.Attribute (c + "type").Value;
                     if (cType == "gchar*") {
                         defaultTransfer = "full";
                     } else if (cType == "const gchar*") {
