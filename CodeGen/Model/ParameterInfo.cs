@@ -269,10 +269,12 @@ namespace GISharp.CodeGen.Model
                     yield return Token (SyntaxKind.OutKeyword);
                 } else if (IsParams) {
                     yield return Token (SyntaxKind.ParamsKeyword);
-                } else if (IsInstanceParameter) {
-                    var methodInfo = DeclaringMember as MethodInfo;
-                    if (methodInfo != null && methodInfo.IsExtensionMethod) {
-                        yield return Token (SyntaxKind.ThisKeyword);
+                } else if (managed && IsInstanceParameter) {
+                    if (DeclaringMember is MethodInfo methodInfo) {
+                        var iface = methodInfo.DeclaringMember as InterfaceInfo;
+                        if (iface == null && methodInfo.IsExtensionMethod) {
+                            yield return Token(SyntaxKind.ThisKeyword);
+                        }
                     }
                 }
             }

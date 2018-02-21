@@ -330,26 +330,29 @@ namespace GISharp.CodeGen.Model
             }
 
             // create explicit implementation of GInterfaces by calling the
-            // extension methods associated with the interface
+            // static methods associated with the interface
             foreach (var ifaceElement in Element.Elements(gi + "implements")) {
                 var type = GirType.ResolveType("I" + ifaceElement.Attribute("name").Value,
                     Element.Document);
+                var staticTypeName = $"{type.Namespace}.{type.Name.Substring(1)}";
                 foreach (var method in type.GetMethods()) {
                     var returnType = method.ReturnType.ToSyntax();
-                    var explicitInterfaceMethodName = $"{type.ToSyntax()}.{method.Name}";
                     var parameterList = method.GetParameters().ToSyntax(true);
                     var arguments = ArgumentList()
                         .WithArguments(SeparatedList(method.GetParameters()
-                            .Select(x => Argument(ParseExpression(x.Name)))));
-                    var extensionMethod = ParseExpression($"this.{method.Name}");
+                            .Select(x => Argument(ParseExpression(x.Name)))
+                            .Prepend(Argument(ThisExpression()))));
+                    var extensionMethod = ParseExpression($"{staticTypeName}.{method.Name}");
                     var invokeExpression = InvocationExpression(extensionMethod, arguments);
                     var invokeStatement = (method.ReturnType == typeof(void)) ?
                         (StatementSyntax)ExpressionStatement(invokeExpression) :
                         (StatementSyntax)ReturnStatement(invokeExpression);
 
-                    yield return MethodDeclaration(returnType, explicitInterfaceMethodName)
+                    yield return MethodDeclaration(returnType, method.Name)
+                        .AddModifiers(Token(PublicKeyword))
                         .WithParameterList(parameterList)
-                        .WithBody(Block(invokeStatement));
+                        .WithBody(Block(invokeStatement))
+                        .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n"));
                 }
             }
         }
