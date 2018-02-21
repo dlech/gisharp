@@ -25,7 +25,7 @@ namespace GISharp.Gio
     /// In all cases, the implementing class is responsible for storing the
     /// name of the action, the parameter type, the enabled state, the
     /// optional state type and the state and emitting the appropriate
-    /// signals when these change.  The implementor responsible for filtering
+    /// signals when these change.  The implementor is responsible for filtering
     /// calls to g_action_activate() and g_action_change_state() for type
     /// safety and for the state being enabled.
     /// 
@@ -381,10 +381,9 @@ namespace GISharp.Gio
         /// <remarks>
         /// It is an error to call this function with an invalid action name.
         /// 
-        /// This function is the opposite of
-        /// g_action_parse_detailed_action_name().  It will produce a string that
-        /// can be parsed back to the @action_name and @target_value by that
-        /// function.
+        /// This function is the opposite of g_action_parse_detailed_name().
+        /// It will produce a string that can be parsed back to the @action_name
+        /// and @target_value by that function.
         /// 
         /// See that function for the types of strings that will be printed by
         /// this function.
@@ -416,10 +415,9 @@ namespace GISharp.Gio
         /// <remarks>
         /// It is an error to call this function with an invalid action name.
         /// 
-        /// This function is the opposite of
-        /// g_action_parse_detailed_action_name().  It will produce a string that
-        /// can be parsed back to the @action_name and @target_value by that
-        /// function.
+        /// This function is the opposite of g_action_parse_detailed_name().
+        /// It will produce a string that can be parsed back to the @action_name
+        /// and @target_value by that function.
         /// 
         /// See that function for the types of strings that will be printed by
         /// this function.
@@ -675,7 +673,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none nullable:1 */
         static extern System.IntPtr g_action_get_parameter_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -864,7 +862,7 @@ namespace GISharp.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none nullable:1 */
         static extern System.IntPtr g_action_get_state_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -1100,12 +1098,7 @@ System.IntPtr parameter);
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.GetStateHint();
-                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-                if (ret != null)
-                {
-                    ret.Ref();
-                }
-
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
@@ -1136,8 +1129,7 @@ System.IntPtr parameter);
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.GetState();
-                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
-                ret.Ref();
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
