@@ -223,7 +223,7 @@ namespace GISharp.GObject
 
         #region INotifyPropertyChanged implementation
 
-        public event PropertyChangedEventHandler PropertyChanged {
+        event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {
             add {
                 lock (propertyChangedHandlerLock) {
                     if (propertyChangedHandler == null) {

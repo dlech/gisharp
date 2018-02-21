@@ -181,7 +181,7 @@ namespace GISharp.Core.Test.GObject
             using (var obj = new TestObjectPropertiesBase ()) {
                 var notificationCount = 0;
 
-                obj.PropertyChanged += (sender, e) => {
+                ((INotifyPropertyChanged)obj).PropertyChanged += (sender, e) => {
                     Assert.That (e.PropertyName == nameof (obj.DoubleValue));
                     notificationCount++;
                 };
