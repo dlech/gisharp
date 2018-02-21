@@ -1399,10 +1399,6 @@
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAction']
-- !set-attribute
-  name: skip
-  value: 1
   xpath: gi:repository/gi:namespace/gi:class[@name='SimpleActionGroup']
 - !set-attribute
   name: skip
