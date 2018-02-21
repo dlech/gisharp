@@ -285,7 +285,11 @@ namespace GISharp.CodeGen.Model
                     var parentType = GirType.ResolveType (parent, Element.Document);
                     yield return SimpleBaseType (ParseTypeName (parentType.FullName));
                 }
-                // TODO: add interfaces for objects
+                foreach (var ifaceElement in Element.Elements(gi + "implements")) {
+                    var type = GirType.ResolveType("I" + ifaceElement.Attribute("name").Value,
+                        Element.Document);
+                    yield return SimpleBaseType(ParseTypeName(type.FullName));
+                }
             }
             if (MethodInfos.Any (x => x.IsEquals)) {
                 var typeName = string.Concat (typeof(IEquatable<>).FullName.TakeWhile (x => x != '`'));
