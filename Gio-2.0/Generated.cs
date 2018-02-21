@@ -1180,22 +1180,35 @@ System.IntPtr parameter);
     public sealed partial class SimpleAction : GISharp.GObject.Object, GISharp.Gio.IAction
     {
         static readonly GISharp.GObject.GType _GType = g_simple_action_get_type();
+        static readonly GISharp.GLib.Utf8 nameofEnabled = new GISharp.GLib.Utf8("enabled");
 
         [GISharp.Runtime.GPropertyAttribute("enabled")]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Boolean Enabled { get => GetEnabled();set => SetEnabled(value);}
+        public System.Boolean Enabled { get => (System.Boolean)GetProperty(nameofEnabled);set => SetProperty(nameofEnabled, value);}
+
+        static readonly GISharp.GLib.Utf8 nameofName = new GISharp.GLib.Utf8("name");
+
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.GLib.Utf8 Name { get => GetName();}
+        public GISharp.GLib.Utf8 Name { get => (GISharp.GLib.Utf8)GetProperty(nameofName);}
+
+        static readonly GISharp.GLib.Utf8 nameofParameterType = new GISharp.GLib.Utf8("parameter-type");
+
         [GISharp.Runtime.GPropertyAttribute("parameter-type", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.GLib.VariantType ParameterType { get => GetParameterType();}
+        public GISharp.GLib.VariantType ParameterType { get => (GISharp.GLib.VariantType)GetProperty(nameofParameterType);}
+
+        static readonly GISharp.GLib.Utf8 nameofState = new GISharp.GLib.Utf8("state");
+
         [GISharp.Runtime.GPropertyAttribute("state", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.GLib.Variant State { get => GetState();set => SetState(value);}
+        public GISharp.GLib.Variant State { get => (GISharp.GLib.Variant)GetProperty(nameofState);set => SetProperty(nameofState, value);}
+
+        static readonly GISharp.GLib.Utf8 nameofStateType = new GISharp.GLib.Utf8("state-type");
+
         [GISharp.Runtime.GPropertyAttribute("state-type")]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.GLib.VariantType StateType { get => GetStateType();}
+        public GISharp.GLib.VariantType StateType { get => (GISharp.GLib.VariantType)GetProperty(nameofStateType);}
 
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {

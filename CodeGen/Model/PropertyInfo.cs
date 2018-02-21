@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using GISharp.CodeGen.Syntax;
+using GISharp.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -94,16 +96,25 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetClassDeclarations()
         {
+            var nameType = typeof(Utf8).ToSyntax();
+            var name = ParseExpression($"new {typeof(Utf8).FullName}(\"{GirName}\")");
+            var nameIdentifier = $"nameof{ManagedName}";
+            var nameVariable = VariableDeclarator(nameIdentifier)
+                .WithInitializer(EqualsValueClause(name));
+            yield return FieldDeclaration(VariableDeclaration(nameType))
+                .AddDeclarationVariables(nameVariable)
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+
             var property = PropertyDeclaration(TypeInfo.Type, ManagedName)
                 .WithAttributeLists(AttributeLists)
                 .WithModifiers(Modifiers);
             if (IsReadable) {
-                var getExpression = ParseExpression($"Get{ManagedName}();");
+                var getExpression = ParseExpression($"({TypeInfo.Type})GetProperty({nameIdentifier});");
                 property = property.AddAccessorListAccessors(AccessorDeclaration(GetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(getExpression)));
             }
             if (IsWriteable && !IsConstructOnly) {
-                var setExpression = ParseExpression($"Set{ManagedName}(value);");
+                var setExpression = ParseExpression($"SetProperty({nameIdentifier}, value);");
                 property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(setExpression)));
             }
