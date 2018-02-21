@@ -595,6 +595,30 @@
 - !set-attribute
   name: skip
   value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DtlsClientConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DtlsClientConnectionInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DtlsConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DtlsConnectionInterface']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='DtlsServerConnection']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DtlsServerConnectionInterface']
+- !set-attribute
+  name: skip
+  value: 1
   xpath: gi:repository/gi:namespace/gi:class[@name='Emblem']
 - !set-attribute
   name: skip
@@ -619,319 +643,7 @@
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_DELETE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_EXECUTE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_READ']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_RENAME']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_TRASH']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ACCESS_CAN_WRITE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_DOS_IS_ARCHIVE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_DOS_IS_SYSTEM']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ETAG_VALUE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_FREE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_READONLY']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_SIZE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_TYPE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_USED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_GVFS_BACKEND']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ID_FILE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_ID_FILESYSTEM']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_EJECT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_MOUNT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_POLL']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_START']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_START_DEGRADED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_STOP']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_CAN_UNMOUNT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_HAL_UDI']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_IS_MEDIA_CHECK_AUTOMATIC']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_START_STOP_TYPE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_MOUNTABLE_UNIX_DEVICE_FILE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_GROUP']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_USER']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_OWNER_USER_REAL']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_PREVIEW_ICON']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_SELINUX_CONTEXT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_ALLOCATED_SIZE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_COPY_NAME']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_DESCRIPTION']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_EDIT_NAME']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_FAST_CONTENT_TYPE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_ICON']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_BACKUP']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_HIDDEN']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_SYMLINK']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_VIRTUAL']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_IS_VOLATILE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_NAME']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SIZE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SORT_ORDER']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_TARGET_URI']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_STANDARD_TYPE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAILING_FAILED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAIL_IS_VALID']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_THUMBNAIL_PATH']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_ACCESS']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_ACCESS_USEC']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CHANGED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CHANGED_USEC']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CREATED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_CREATED_USEC']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_MODIFIED']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TIME_MODIFIED_USEC']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_DELETION_DATE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_ITEM_COUNT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_TRASH_ORIG_PATH']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_BLOCKS']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_BLOCK_SIZE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_DEVICE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_GID']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_INODE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_IS_MOUNTPOINT']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_MODE']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_NLINK']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_RDEV']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:constant[@name='FILE_ATTRIBUTE_UNIX_UID']
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'FILE_ATTRIBUTE_')]
 - !set-attribute
   name: skip
   value: 1
@@ -1623,6 +1335,10 @@
 - !set-attribute
   name: skip
   value: 1
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'SETTINGS_BACKEND_')]
+- !set-attribute
+  name: skip
+  value: 1
   xpath: gi:repository/gi:namespace/gi:interface[@name='Seekable']
 - !set-attribute
   name: skip
@@ -1635,7 +1351,15 @@
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsBackend']
+  xpath: gi:repository/gi:namespace/gi:class[@name='SettingsBackend']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsBackendClass']
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_settings_backend_new')]
 - !set-attribute
   name: skip
   value: 1
@@ -2215,6 +1939,10 @@
 - !set-attribute
   name: skip
   value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='VfsFileLookupFunc']
+- !set-attribute
+  name: skip
+  value: 1
   xpath: gi:repository/gi:namespace/gi:interface[@name='Volume']
 - !set-attribute
   name: skip
@@ -2287,55 +2015,11 @@
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_can_be_executable']
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'content_type_')]
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_equals']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_from_mime_type']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_description']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_generic_icon_name']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_icon']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_mime_type']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_get_symbolic_icon']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_guess']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_guess_for_tree']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_is_a']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_type_is_unknown']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='content_types_get_registered']
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'content_types_')]
 - !set-attribute
   name: skip
   value: 1
@@ -2491,68 +2175,8 @@
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_at']
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_mount_')]
 - !set-attribute
   name: skip
   value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_compare']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_free']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_device_path']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_fs_type']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_get_mount_path']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_can_eject']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_icon']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_name']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_should_display']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_guess_symbolic_icon']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_is_readonly']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_is_system_internal']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_points_changed_since']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mount_points_get']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mounts_changed_since']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:function[@name='unix_mounts_get']
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_mounts_')]
