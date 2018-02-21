@@ -551,13 +551,17 @@ namespace GISharp.CodeGen.Model
                 break;
             case TypeClassification.Interface:
             case TypeClassification.Opaque:
+                var getHandle = (managedParameter.Transfer == Runtime.Transfer.None) ?
+                    "Handle" : "Take()";
                 if (managedParameter.NeedsNullCheck) {
-                    statement = string.Format("{0}_ = {0}?.Handle ?? throw new {1}(nameof({0}));\n",
+                    statement = string.Format("{0}_ = {0}?.{1} ?? throw new {2}(nameof({0}));\n",
                         managedParameter.Identifier,
+                        getHandle,
                         typeof(ArgumentNullException).FullName);
                 } else {
-                    statement = string.Format("{0}_ = {0}?.Handle ?? {1}.{2};\n",
+                    statement = string.Format("{0}_ = {0}?.{1} ?? {2}.{3};\n",
                         managedParameter.Identifier,
+                        getHandle,
                         typeof(IntPtr).FullName,
                         nameof (IntPtr.Zero));
                 }
@@ -847,15 +851,7 @@ namespace GISharp.CodeGen.Model
                         //tryStatement = tryStatement.AddBlockStatements(freeStatement);
                     }
                 }
-                if (ManagedReturnParameterInfo.Transfer != GISharp.Runtime.Transfer.None) {
-                    if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom (ManagedReturnParameterInfo.TypeInfo.TypeObject)) {
-                        var refStatement = ParseStatement ("ret.Ref ();\n");
-                        if (ManagedReturnParameterInfo.CanBeNull) {
-                            refStatement = IfStatement (ParseExpression ("ret != null"), Block(refStatement));
-                        }
-                        tryStatement = tryStatement.AddBlockStatements(refStatement);
-                    }
-                }
+
                 var ret = "ret";
                 if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
