@@ -5,7 +5,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
-
+using GISharp.CodeGen.Reflection;
+using GISharp.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -103,27 +104,10 @@ namespace GISharp.CodeGen.Model
         /// Gets the type that this type info represents.
         /// </summary>
         public Type TypeObject => _TypeObject.Value;
-        Lazy<Type> _TypeObject;
+        readonly Lazy<Type> _TypeObject;
 
-        TypeSyntax _Type;
-        public TypeSyntax Type {
-            get {
-                if (_Type == null) {
-                    // nested types have "+" that needs to be changed to "."
-                    var fixedUpTypeName = TypeObject.FullName.Replace("+", ".");
-                    if (typeName == "System.Void") {
-                        // C# can't use System.Void
-                        fixedUpTypeName = "void";
-                    } else if (typeName.Contains ("`")) {
-                        fixedUpTypeName = typeName.Remove (typeName.IndexOf ('`'))
-                            + typeName.Substring (typeName.IndexOf ('['));
-                        fixedUpTypeName = fixedUpTypeName.Replace ('[', '<').Replace (']', '>');
-                    }
-                    _Type = ParseTypeName (fixedUpTypeName);
-                }
-                return _Type;
-            }
-        }
+        public TypeSyntax Type => _Type.Value;
+        readonly Lazy<TypeSyntax> _Type;
 
         /// <summary>
         /// Gets the gir xml for the type as a comment.
@@ -165,6 +149,7 @@ namespace GISharp.CodeGen.Model
 
             _Classification = new Lazy<TypeClassification>(GetTypeClassification);
             _TypeObject = new Lazy<Type>(GetTypeObject);
+            _Type = new Lazy<TypeSyntax>(() => TypeObject.ToSyntax());
             _GirXmlTrivia = new Lazy<SyntaxTrivia>(GetGirXmlTrivia);
         }
 

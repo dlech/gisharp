@@ -1,42 +1,24 @@
 ﻿using System;
-using System.Linq;
 using System.Reflection;
 
-namespace GISharp.CodeGen
+namespace GISharp.CodeGen.Reflection
 {
-    public class GirGenericType : Type
+    public class GirArrayType : Type
     {
         readonly GirType type;
-        readonly Type[] parameters;
 
-        public GirGenericType (GirType type, params Type[] parameters)
+        public GirArrayType (GirType type)
         {
             if (type == null) {
                 throw new ArgumentNullException (nameof(type));
             }
-            if (parameters == null) {
-                throw new ArgumentNullException (nameof(parameters));
-            }
             this.type = type;
-            this.parameters = parameters;
         }
 
-        public override bool IsGenericType {
-            get {
-                return true;
-            }
-        }
-
-        public override Type[] GenericTypeArguments {
-            get {
-                return parameters;
-            }
-        }
-
-        public override Type GetGenericTypeDefinition ()
-        {
-            return type;
-        }
+//        public override Type MakeByRefType ()
+//        {
+//            return new GirByRefType (this);
+//        }
 
         #region implemented abstract members of MemberInfo
 
@@ -57,7 +39,7 @@ namespace GISharp.CodeGen
 
         public override string Name {
             get {
-                return string.Format ("{0}`{1}[{2}]", type.Name, parameters.Length, string.Join (",", parameters.Select (p => p.FullName)));
+                return type.Name + "[]";
             }
         }
 
@@ -77,7 +59,7 @@ namespace GISharp.CodeGen
 
         public override Type GetElementType ()
         {
-            throw new InvalidOperationException ();
+            return type;
         }
 
         public override EventInfo GetEvent (string name, BindingFlags bindingAttr)
@@ -142,7 +124,8 @@ namespace GISharp.CodeGen
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
         {
-            throw new InvalidOperationException ();
+            var flags = default(TypeAttributes);
+            return flags;
         }
 
         protected override bool HasElementTypeImpl ()
@@ -199,7 +182,7 @@ namespace GISharp.CodeGen
 
         public override Type BaseType {
             get {
-                return type.BaseType;
+                return typeof(Array);
             }
         }
 

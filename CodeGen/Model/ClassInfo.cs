@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
-
+using GISharp.CodeGen.Reflection;
+using GISharp.CodeGen.Syntax;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -325,6 +327,30 @@ namespace GISharp.CodeGen.Model
             }
             foreach (var d in MethodInfos.SelectMany (x => x.AllDeclarations)) {
                 yield return d;
+            }
+
+            // create explicit implementation of GInterfaces by calling the
+            // extension methods associated with the interface
+            foreach (var ifaceElement in Element.Elements(gi + "implements")) {
+                var type = GirType.ResolveType("I" + ifaceElement.Attribute("name").Value,
+                    Element.Document);
+                foreach (var method in type.GetMethods()) {
+                    var returnType = method.ReturnType.ToSyntax();
+                    var explicitInterfaceMethodName = $"{type.ToSyntax()}.{method.Name}";
+                    var parameterList = method.GetParameters().ToSyntax(true);
+                    var arguments = ArgumentList()
+                        .WithArguments(SeparatedList(method.GetParameters()
+                            .Select(x => Argument(ParseExpression(x.Name)))));
+                    var extensionMethod = ParseExpression($"this.{method.Name}");
+                    var invokeExpression = InvocationExpression(extensionMethod, arguments);
+                    var invokeStatement = (method.ReturnType == typeof(void)) ?
+                        (StatementSyntax)ExpressionStatement(invokeExpression) :
+                        (StatementSyntax)ReturnStatement(invokeExpression);
+
+                    yield return MethodDeclaration(returnType, explicitInterfaceMethodName)
+                        .WithParameterList(parameterList)
+                        .WithBody(Block(invokeStatement));
+                }
             }
         }
 

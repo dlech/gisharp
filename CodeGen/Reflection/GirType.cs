@@ -8,7 +8,7 @@ using System.Reflection;
 using GISharp.Runtime;
 using System.Reflection.Emit;
 
-namespace GISharp.CodeGen
+namespace GISharp.CodeGen.Reflection
 {
     public class GirType : Type
     {
@@ -246,7 +246,9 @@ namespace GISharp.CodeGen
 
         public override MethodInfo[] GetMethods (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            // TODO: create GirFunctionInfo and GirMethodInfo and return them as well
+            return element.Elements(gi + "virtual-method").Select(x => new GirVirtualMethodInfo(x))
+                .ToArray();
         }
 
         public override Type GetNestedType (string name, System.Reflection.BindingFlags bindingAttr)

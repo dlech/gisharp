@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
+using GISharp.CodeGen.Reflection;
 using GISharp.GObject;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
