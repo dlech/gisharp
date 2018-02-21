@@ -144,7 +144,7 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberDeclarationSyntax> GetInterfaceMembers ()
         {
-            return PropertyInfos.SelectMany (x => x.AllDeclarations)
+            return PropertyInfos.SelectMany(x => x.InterfaceDeclarations)
                 .Concat (VirtualMethodInfos.SelectMany (x => x.AllDeclarations));
         }
 

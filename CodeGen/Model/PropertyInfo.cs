@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using GISharp.Runtime;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -29,7 +31,7 @@ namespace GISharp.CodeGen.Model
 
         public bool IsWriteable {
             get {
-                return Element.Attribute ("writeable").AsBool ();
+                return Element.Attribute("writable").AsBool ();
             }
         }
 
@@ -60,12 +62,29 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Gets a property declaration appropriate for use in a class declaration.
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> ClassDeclarations => _ClassDeclarations.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _ClassDeclarations;
+
+        /// <summary>
+        /// Gets a property declaration appropriate for use in an interface declaration.
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> InterfaceDeclarations => _InterfaceDeclarations.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _InterfaceDeclarations;
+
         public PropertyInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
             if (element.Name != gi + "property") {
                 throw new ArgumentException ("Requires <property> element.", nameof(element));
             }
+
+            _ClassDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() =>
+                List(GetClassDeclarations()));
+            _InterfaceDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() =>
+                List(GetInterfaceMemberDeclarations()));
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -73,20 +92,44 @@ namespace GISharp.CodeGen.Model
             yield break;
         }
 
-        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
+        IEnumerable<MemberDeclarationSyntax> GetClassDeclarations()
         {
-            var property = PropertyDeclaration (TypeInfo.Type, ManagedName)
-                .WithAttributeLists (AttributeLists);
+            var property = PropertyDeclaration(TypeInfo.Type, ManagedName)
+                .WithAttributeLists(AttributeLists)
+                .WithModifiers(Modifiers);
             if (IsReadable) {
-                property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.GetAccessorDeclaration)
-                    .WithSemicolonToken (Token (SyntaxKind.SemicolonToken)));
+                var returnStatement = ParseStatement($"return this.Get{ManagedName}();");
+                property = property.AddAccessorListAccessors(AccessorDeclaration(GetAccessorDeclaration)
+                    .WithBody(Block(returnStatement)));
             }
-            if (IsWriteable) {
+            if (IsWriteable && !IsConstructOnly) {
+                var setStatement = ParseStatement($"this.Set{ManagedName}(value);");
                 property = property.AddAccessorListAccessors (AccessorDeclaration (SyntaxKind.SetAccessorDeclaration)
-                    .WithSemicolonToken (Token (SyntaxKind.SemicolonToken)));
+                    .WithBody(Block(setStatement)));
             }
 
             yield return property;
+        }
+
+        IEnumerable<MemberDeclarationSyntax> GetInterfaceMemberDeclarations()
+        {
+            var property = PropertyDeclaration(TypeInfo.Type, ManagedName)
+                .WithAttributeLists(AttributeLists);
+            if (IsReadable) {
+                property = property.AddAccessorListAccessors(AccessorDeclaration(GetAccessorDeclaration)
+                    .WithSemicolonToken(Token(SemicolonToken)));
+            }
+            if (IsWriteable) {
+                property = property.AddAccessorListAccessors(AccessorDeclaration(SetAccessorDeclaration)
+                    .WithSemicolonToken(Token(SemicolonToken)));
+            }
+
+            yield return property;
+        }
+
+        protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
+        {
+            throw new NotSupportedException("this method is being phased out");
         }
 
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
@@ -105,7 +148,7 @@ namespace GISharp.CodeGen.Model
                 var enumMemberName = IsConstruct ? nameof(GPropertyConstruct.Yes) : nameof(GPropertyConstruct.Only);
                 var expression = string.Format("{0} = {1}.{2}",
                     nameof(GPropertyAttribute.Construct),
-                    typeof(GPropertyAttribute).FullName,
+                    typeof(GPropertyConstruct).FullName,
                     enumMemberName);
                 args = args.Add(AttributeArgument(ParseExpression(expression)));
             }
