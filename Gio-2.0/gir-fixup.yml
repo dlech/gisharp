@@ -6,6 +6,13 @@
   value: TryParseDetailedName
   xpath: gi:repository/gi:namespace/gi:interface[@name='Action']/gi:function[@name='parse_detailed_name']
 
+### SimpleAction ###
+- !set-attribute
+  name: gs:managed-name
+  value: ChangedState
+  xpath: gi:repository/gi:namespace/gi:class/glib:signal[@name='change-state']
+
+
 # Ignore everything else
 
 - !set-attribute

@@ -1210,6 +1210,42 @@ System.IntPtr parameter);
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.GLib.VariantType StateType { get => (GISharp.GLib.VariantType)GetProperty(nameofStateType);}
 
+        public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Variant Parameter => (GISharp.GLib.Variant)args[1].Get();
+
+            public ActivatedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalHandler = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
+
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
+        public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalHandler.Add(this, value); remove => activatedSignalHandler.Remove(value); }
+
+        public sealed class ChangedStateEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Variant Value => (GISharp.GLib.Variant)args[1].Get();
+
+            public ChangedStateEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        readonly GISharp.Runtime.GSignalManager<ChangedStateEventArgs> changedStateSignalHandler = new GISharp.Runtime.GSignalManager<ChangedStateEventArgs>("change-state", _GType);
+
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
+        public event System.EventHandler<ChangedStateEventArgs> ChangedState { add => changedStateSignalHandler.Add(this, value); remove => changedStateSignalHandler.Remove(value); }
+
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
