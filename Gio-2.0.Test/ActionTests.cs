@@ -17,7 +17,9 @@ namespace GISharp.Gio.Test
         public void TestEnabledProperty ()
         {
             using (var obj = new ActionImpl()) {
+                // default value is true
                 Assert.That(obj.Enabled, Is.True);
+                Assert.That(Action.GetEnabled(obj), Is.True);
                 Assert.That(obj.GetProperty("enabled"), Is.True);
             }
             AssertNoGLibLog();
@@ -28,6 +30,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assert.That(obj.Name, IsEqualToUtf8("TestActionName"));
+                Assert.That(Action.GetName(obj), IsEqualToUtf8("TestActionName"));
                 Assert.That(obj.GetProperty("name"), IsEqualToUtf8("TestActionName"));
             }
             AssertNoGLibLog();
@@ -37,8 +40,9 @@ namespace GISharp.Gio.Test
         public void TestParameterTypeProperty ()
         {
             using (var obj = new ActionImpl()) {
-                Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Int32));
-                Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Int32));
+                Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Boolean));
+                Assert.That(Action.GetParameterType(obj), Is.EqualTo(VariantType.Boolean));
+                Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Boolean));
             }
             AssertNoGLibLog();
         }
@@ -48,6 +52,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assert.That((int)obj.State, Is.EqualTo(2));
+                Assert.That((int)Action.GetState(obj), Is.EqualTo(2));
                 Assert.That((int)(Variant)obj.GetProperty("state"), Is.EqualTo(2));
             }
             AssertNoGLibLog();
@@ -58,6 +63,7 @@ namespace GISharp.Gio.Test
         {
             using (var obj = new ActionImpl()) {
                 Assert.That(obj.StateType, Is.EqualTo(VariantType.Int32));
+                Assert.That(Action.GetStateType(obj), Is.EqualTo(VariantType.Int32));
                 Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
             }
             AssertNoGLibLog();
@@ -117,7 +123,7 @@ namespace GISharp.Gio.Test
             using (var obj = new ActionImpl()) {
                 Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
                 var actual = Action.GetParameterType(obj);
-                Assert.That(actual, Is.EqualTo(VariantType.Int32));
+                Assert.That(actual, Is.EqualTo(VariantType.Boolean));
                 Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
             }
             AssertNoGLibLog();
@@ -245,15 +251,15 @@ namespace GISharp.Gio.Test
     [GType]
     class ActionImpl : GObject.Object, IAction
     {
-        public bool Enabled => Action.GetEnabled(this);
+        public bool Enabled => ((IAction)this).GetEnabled();
 
-        public Utf8 Name => Action.GetName(this);
+        public Utf8 Name => ((IAction)this).GetName();
 
-        public VariantType ParameterType => Action.GetParameterType(this);
+        public VariantType ParameterType => ((IAction)this).GetParameterType();
 
-        public Variant State => Action.GetState(this);
+        public Variant State => ((IAction)this).GetState();
 
-        public VariantType StateType => Action.GetStateType(this);
+        public VariantType StateType => ((IAction)this).GetStateType();
 
         public int ActivateCallbackCount;
 
@@ -292,7 +298,7 @@ namespace GISharp.Gio.Test
         VariantType IAction.GetParameterType ()
         {
             GetParameterTypeCallbackCount++;
-            return VariantType.Int32;
+            return VariantType.Boolean;
         }
 
         public int GetStateCallbackCount;
