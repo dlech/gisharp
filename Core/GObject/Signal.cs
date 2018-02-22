@@ -285,41 +285,42 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             bool after);
 
-        ///// <summary>
-        ///// Connects a closure to a signal for a particular object.
-        ///// </summary>
-        ///// <param name="instance">
-        ///// the instance to connect to.
-        ///// </param>
-        ///// <param name="signalId">
-        ///// the id of the signal.
-        ///// </param>
-        ///// <param name="detail">
-        ///// the detail.
-        ///// </param>
-        ///// <param name="closure">
-        ///// the closure to connect.
-        ///// </param>
-        ///// <param name="after">
-        ///// whether the handler should be called before or after the
-        /////  default handler of the signal.
-        ///// </param>
-        ///// <returns>
-        ///// the handler id (always greater than 0 for successful connections)
-        ///// </returns>
-        //public static nulong ConnectClosureById (Object instance, uint signalId, Quark detail, Closure closure, bool after)
-        //{
-        //    if (instance == null) {
-        //        throw new ArgumentNullException ("instance");
-        //    }
-        //    if (closure == null) {
-        //        throw new ArgumentNullException ("closure");
-        //    }
-        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
-        //    var ret = g_signal_connect_closure_by_id (instance_, signalId, detail, closure_, after);
-        //    return ret;
-        //}
+        /// <summary>
+        /// Connects a closure to a signal for a particular object.
+        /// </summary>
+        /// <param name="instance">
+        /// the instance to connect to.
+        /// </param>
+        /// <param name="signalId">
+        /// the id of the signal.
+        /// </param>
+        /// <param name="detail">
+        /// the detail.
+        /// </param>
+        /// <param name="closure">
+        /// the closure to connect.
+        /// </param>
+        /// <param name="after">
+        /// whether the handler should be called before or after the
+        ///  default handler of the signal.
+        /// </param>
+        /// <returns>
+        /// A new signal handler that can be used to block or disconnect the closure
+        /// </returns>
+        public static SignalHandler Connect(this Object instance, uint signalId, Quark detail, Closure closure, bool after = false)
+        {
+           var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+           if (signalId == 0) {
+               throw new ArgumentOutOfRangeException(nameof(signalId));
+           }
+           var closure_ = closure?.Handle ?? throw new ArgumentNullException(nameof(closure));
+           var ret = g_signal_connect_closure_by_id(instance_, signalId, detail, closure_, after);
+           if (ret == 0) {
+               // warning will be logged
+               throw new ArgumentException();
+           }
+           return new SignalHandler(instance, ret);
+        }
 
         /// <summary>
         /// Connects a #GCallback function to a signal for a particular object. Similar

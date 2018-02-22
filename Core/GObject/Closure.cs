@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GISharp.GLib;
 using GISharp.GObject;
 using GISharp.Runtime;
 
@@ -139,12 +140,16 @@ namespace GISharp.GObject
             /* transfer-ownership:none */
             IntPtr @object);
 
-        static IntPtr NewObject (uint sizeofClosure, GISharp.GObject.Object @object)
+        static readonly int sizeOfStruct = Marshal.SizeOf<Struct>();
+
+        static IntPtr NewObject(int sizeofClosure, Object @object)
         {
-            if (@object == null) {
-                throw new ArgumentNullException (nameof (@object));
+            if (sizeofClosure < sizeOfStruct) {
+                const string message = "size must be at least as big as Closure.Struct";
+                throw new ArgumentOutOfRangeException(message, nameof(sizeofClosure));
             }
-            var ret = g_closure_new_object (sizeofClosure, @object.Handle);
+            var object_ = @object?.Handle ?? throw new ArgumentNullException(nameof(@object));
+            var ret = g_closure_new_object((uint)sizeofClosure, object_);
             return ret;
         }
 
@@ -162,7 +167,7 @@ namespace GISharp.GObject
         /// a newly allocated #GClosure
         /// </returns>
         public Closure(Func<object[], object> callback, GISharp.GObject.Object @object)
-            : this(NewObject((uint)Marshal.SizeOf<ManagedClosure> (), @object), Transfer.None)
+            : this(NewObject(Marshal.SizeOf<ManagedClosure> (), @object), Transfer.None)
         {
             SetCallback(callback, ManagedClosureFuncCallback);
         }
@@ -646,6 +651,89 @@ namespace GISharp.GObject
             /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
             /* transfer-ownership:none */
             UnmanagedClosureMarshal metaMarshal);
+
+        /// <summary>
+        /// Creates a new closure object for a signal implemented as an event handler
+        /// </summary>
+        public static Closure CreateFor<T>(Object instance, EventHandler<T> handler)
+            where T : GSignalEventArgs
+        {
+            var closure_ = NewObject(Marshal.SizeOf<ManagedClosure>(), instance);
+
+            var (func_, notify_, data_) = UnmanagedSignalClosureMarshalFactory
+                .Create(handler);
+            g_closure_set_meta_marshal(closure_, data_, func_);
+            g_closure_add_invalidate_notifier(closure_, data_, notify_);
+
+            return new Closure(closure_, Transfer.None);
+        }
+
+        static class UnmanagedSignalClosureMarshalFactory
+        {
+            class UnmanagedSignalClosureMarshalData {
+                public EventHandler<GSignalEventArgs> SignalHandler;
+                public Type EventArgsType;
+                public UnmanagedClosureMarshal UnmanagedClosureMarshal;
+                public UnmanagedClosureNotify UnmanagedClosureNotify;
+            }
+
+            public static ValueTuple<UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr> Create<T>(EventHandler<T> handler)
+                where T : GSignalEventArgs
+            {
+                if (handler == null) {
+                    throw new ArgumentNullException(nameof(handler));
+                }
+
+                // hack to make EventHandler<T> covariant
+                EventHandler<GSignalEventArgs> handlerAction = (s, a) => handler(s, (T)a);
+    
+                var userData = new UnmanagedSignalClosureMarshalData {
+                    SignalHandler = handlerAction,
+                    EventArgsType = typeof(T),
+                    UnmanagedClosureMarshal = UnmanagedClosureMarshal,
+                    UnmanagedClosureNotify = UnmanagedClosureNotify,
+                };
+                var userData_ = GCHandle.Alloc(userData);
+
+                return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
+            }
+
+            static void UnmanagedClosureMarshal(IntPtr closure_, IntPtr returnValue_, uint nParamValues_, Value[] paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
+            {
+                try {
+                    var data_ = Marshal.ReadIntPtr(closure_, (int)dataOffset);
+                    var obj = Object.GetInstance(data_, Transfer.None);
+
+                    var gcHandle = (GCHandle)marshalData_;
+                    var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target;
+
+                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType,
+                        paramValues_);
+
+                    marshalData.SignalHandler(obj, args);
+
+                    if (returnValue_ != IntPtr.Zero) {
+                        var returnValue = Marshal.PtrToStructure<Value>(returnValue_);
+                        returnValue.Set(args.GetType().GetProperty("ReturnValue").GetValue(args));
+                        Marshal.StructureToPtr<Value>(returnValue, returnValue_, false);
+                    }
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                }
+            }
+
+            static void UnmanagedClosureNotify(IntPtr data_, IntPtr closure_)
+            {
+                try {
+                    var gcHandle = (GCHandle)data_;
+                    gcHandle.Free();
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                }
+            }
+        }
 
         struct ManagedClosure
         {

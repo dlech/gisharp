@@ -255,8 +255,8 @@ namespace GISharp.CodeGen.Model
         public MethodInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "virtual-method" && element.Name != gi + "constructor" && element.Name != gi + "callback") {
-                throw new ArgumentException("Requires <function>, <method>, <virtual-method> <constructor> or <callback> element.", nameof(element));
+            if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "virtual-method" && element.Name != gi + "constructor" && element.Name != gi + "callback" && element.Name != glib + "signal") {
+                throw new ArgumentException("Requires <function>, <method>, <virtual-method> <constructor>, <callback> or <glib:signal> element.", nameof(element));
             }
         }
 

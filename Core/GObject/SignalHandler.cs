@@ -7,7 +7,7 @@ using nulong = GISharp.Runtime.NativeULong;
 
 namespace GISharp.GObject
 {
-    public class SignalHandler
+    public sealed class SignalHandler
     {
         readonly Object instance;
         readonly nulong handlerId;

@@ -353,6 +353,19 @@ namespace GISharp.CodeGen
                     name = shadows.Value;
                 }
 
+                // add "ed" suffix to events
+                if (element.Name == glib + "signal") {
+                    if (!name.EndsWith("ed") && !name.EndsWith("ing")) {
+                        if (name.EndsWith('y')) {
+                            name = name.Substring(name.Length - 1) + "i";
+                        }
+                        if (!name.EndsWith('e')) {
+                            name += "e";
+                        }
+                        name += "d";
+                    }
+                }
+
                 // check various conditions where we might want camelCase
                 var camelCase = false;
                 var accessModifier = element.Attribute (gs + "access-modifiers");

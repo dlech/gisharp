@@ -58,6 +58,9 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        public IReadOnlyList<SignalInfo> SignalInfos => _SignalInfos.Value;
+        readonly Lazy<IReadOnlyList<SignalInfo>> _SignalInfos;
+
         List<MethodInfo> _MethodInfos;
         public IReadOnlyList<MethodInfo> MethodInfos {
             get {
@@ -110,6 +113,7 @@ namespace GISharp.CodeGen.Model
             }
             _ConstantInfos = new Lazy<IReadOnlyList<ConstantInfo>>(() => GetConstantInfos().ToList().AsReadOnly());
             _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly());
+            _SignalInfos = new Lazy<IReadOnlyList<SignalInfo>>(() => GetSignalInfos().ToList().AsReadOnly());
             _GTypeMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetGTypeMembers()));
         }
 
@@ -139,6 +143,13 @@ namespace GISharp.CodeGen.Model
         {
             foreach (var property in Element.Elements (gi + "property")) {
                 yield return new PropertyInfo (property, this);
+            }
+        }
+
+        IEnumerable<SignalInfo> GetSignalInfos()
+        {
+            foreach (var signal in Element.Elements(glib + "signal")) {
+                yield return new SignalInfo(signal, this);
             }
         }
 

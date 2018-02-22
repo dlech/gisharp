@@ -103,89 +103,27 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_object_get_type ();
 
-        static GType getType ()
-        {
-            return g_object_get_type ();
-        }
+        static GType _GType => g_object_get_type();
 
-        public class NotifyEventArgs : EventArgs
+        public sealed class NotifiedEventArgs : GSignalEventArgs
         {
-            public ParamSpec Pspec { get; private set; }
+            readonly Value[] args;
 
-            public NotifyEventArgs(ParamSpec pspec)
+            public ParamSpec Pspec => (ParamSpec)args[0].Get();
+
+            public NotifiedEventArgs(Value[] args)
             {
-                Pspec = pspec;
+                this.args = args ?? throw new ArgumentNullException(nameof(args));
             }
         }
 
-        public delegate void NotifyEventHandler(Object sender, NotifyEventArgs pspec);
-        
-        delegate void UnmangedNotify(IntPtr gobject, IntPtr pspec, IntPtr userData);
-
-        ConcurrentDictionary<NotifyEventHandler, SignalHandler> notifiedHandlers =
-            new ConcurrentDictionary<NotifyEventHandler, SignalHandler>();
+        readonly GSignalManager<NotifiedEventArgs> notifySignalManager =
+                new GSignalManager<NotifiedEventArgs>("notify", _GType);
 
         [GSignal("notify", When = EmissionStage.First, NoRecurse = true, Detailed = true, Action = true, NoHooks = true)]
-        public event NotifyEventHandler Notify {
-            add {
-                notifiedHandlers.AddOrUpdate(value,
-                    v => this.Connect("notify", UnmanagedNotifyCallbackFactory.CreateNotifyCallback, v),
-                    (v, h) => { throw new NotSupportedException(); });
-            }
-            remove {
-                if (notifiedHandlers.TryRemove(value, out var handler)) {
-                    handler.Disconnect();
-                }
-            }
-        }
-
-        static class UnmanagedNotifyCallbackFactory
-        {
-            class UnmanagedNotifyData
-            {
-                public NotifyEventHandler Handler;
-                public UnmangedNotify UnmanagedHandler;
-                public UnmanagedClosureNotify UnmangedNotify;
-            }
-
-            public static ValueTuple<Delegate, UnmanagedClosureNotify, IntPtr> CreateNotifyCallback(NotifyEventHandler handler)
-            {
-                var data = new UnmanagedNotifyData {
-                    Handler = handler,
-                    UnmanagedHandler = UnmanagedHandler,
-                    UnmangedNotify = UnmanagedNotify,
-                };
-                var gcHandle = GCHandle.Alloc(data);
-
-                return (data.UnmanagedHandler, data.UnmangedNotify, (IntPtr)gcHandle);
-            }
-
-            static void UnmanagedHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
-            {
-                try {
-                    var gobject = Object.GetInstance(gobject_, Transfer.None);
-                    var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
-                    var gcHandle = (GCHandle)userData_;
-                    var data = (UnmanagedNotifyData)gcHandle.Target;
-
-                    var args = new NotifyEventArgs(pspec);
-                    data.Handler(gobject, args);
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
-            }
-
-            static void UnmanagedNotify(IntPtr data_, IntPtr closure_)
-            {
-                try {
-                    var gcHandle = (GCHandle)data_;
-                    gcHandle.Free();
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
-            }
+        public event EventHandler<NotifiedEventArgs> Notified {
+            add => notifySignalManager.Add(this, value);
+            remove => notifySignalManager.Remove(value);
         }
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]

@@ -322,6 +322,9 @@ namespace GISharp.CodeGen.Model
             foreach (var d in PropertyInfos.SelectMany(x => x.ClassDeclarations)) {
                 yield return d;
             }
+            foreach (var d in SignalInfos.SelectMany(x => x.ClassMemberDeclarations)) {
+                yield return d;
+            }
             if (HasDefaultConstructor) {
                 yield return DefaultConstructor;
             }

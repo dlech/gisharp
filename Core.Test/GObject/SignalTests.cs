@@ -79,17 +79,17 @@ namespace GISharp.Core.Test.GObject
                 var id = Signal.TryLookup("notify", GType.Object);
                 Assume.That(id, Is.Not.EqualTo(0));
 
-                Object.NotifyEventHandler handler1 = (s, e) => {
+                EventHandler<Object.NotifiedEventArgs> handler1 = (s, e) => {
                     handler1Count++;
                     if (stopEmission) {
                         obj.StopEmission(id);
                     }
                 };
 
-                Object.NotifyEventHandler handler2 = (s, e) => handler2Count++;
+                EventHandler<Object.NotifiedEventArgs> handler2 = (s, e) => handler2Count++;
 
-                obj.Notify += handler1;
-                obj.Notify += handler2;
+                obj.Notified += handler1;
+                obj.Notified += handler2;
 
                 // make sure our callbacks are working
                 obj.Emit(id, 0, pspec);
@@ -117,17 +117,17 @@ namespace GISharp.Core.Test.GObject
             using (var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
                 false, ParamFlags.Readwrite | ParamFlags.StaticStrings))
             using (var obj = new Object()) {
-                Object.NotifyEventHandler handler1 = (s, e) => {
+                EventHandler<Object.NotifiedEventArgs> handler1 = (s, e) => {
                     handler1Count++;
                     if (stopEmission) {
                         obj.StopEmissionByName("notify::test-param");
                     }
                 };
 
-                Object.NotifyEventHandler handler2 = (s, e) => handler2Count++;
+                EventHandler<Object.NotifiedEventArgs> handler2 = (s, e) => handler2Count++;
 
-                obj.Notify += handler1;
-                obj.Notify += handler2;
+                obj.Notified += handler1;
+                obj.Notified += handler2;
 
                 // make sure our callbacks are working
                 obj.EmitNotify(pspec);
