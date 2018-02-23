@@ -431,7 +431,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
-            // flag free functions
+            // flag copy functions
 
             var elementsWithCopyMethod = document.Descendants (gi + "method")
                 .Where (d => d.Attribute ("name").Value == "copy"
