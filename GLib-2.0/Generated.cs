@@ -2151,7 +2151,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean LoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean TryLoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
             var this_ = this.Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
@@ -2266,7 +2266,7 @@ namespace GISharp.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public System.Boolean LoadFromDirs(GISharp.GLib.Filename file, GISharp.Runtime.IArray<GISharp.GLib.Filename> searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
+        public System.Boolean TryLoadFromDirs(GISharp.GLib.Filename file, GISharp.Runtime.IArray<GISharp.GLib.Filename> searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
             var this_ = this.Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));

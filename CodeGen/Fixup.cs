@@ -348,16 +348,27 @@ namespace GISharp.CodeGen
                 }
                 var name = attr.Value;
 
-                // virtual method names get an "On" prefix because they usually
-                // have the same name as the invoker method
-                if (element.Attribute("invoker") != null || (element.Name == gi + "field" && element.Element(gi + "callback") != null)) {
-                    name = "on_" + name;
-                }
-
                 // replace name by shadows if it exists (i.e. drop _full suffix)
                 var shadows = element.Attribute ("shadows");
                 if (shadows != null) {
                     name = shadows.Value;
+                }
+
+                // if method returns bool and contains out parameters, add try_ prefix
+                if (element.Name == gi + "function" || element.Name == gi + "method" || element.Name == gi + "virtual-method" || element.Name == gi + "callback") {
+                    var returnTypeElement = element.Element(gi + "return-value")?.Element(gi + "type");
+                    if (returnTypeElement?.Attribute("name")?.Value == "gboolean") {
+                        var paramElements = element.Element(gi + "parameters").Elements(gi + "parameter");
+                        if (paramElements.Any(x => x.Attribute("direction").AsString("in") == "out")) {
+                            name = "try_" + name;
+                        }
+                    }
+                }
+
+                // virtual method names get an "On" prefix because they usually
+                // have the same name as the invoker method
+                if (element.Attribute("invoker") != null || (element.Name == gi + "field" && element.Element(gi + "callback") != null)) {
+                    name = "on_" + name;
                 }
 
                 // add "ed" suffix to events
