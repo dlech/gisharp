@@ -1709,5 +1709,15 @@ namespace GISharp.GLib
             }
             return new Utf8(str);
         }
+
+        public static bool operator ==(Utf8 a, Utf8 b)
+        {
+            return a?.Equals(b) ?? b == null;
+        }
+
+        public static bool operator !=(Utf8 a, Utf8 b)
+        {
+            return !a?.Equals(b) ?? b != null;
+        }
     }
 }
