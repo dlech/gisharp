@@ -25,7 +25,7 @@ namespace GISharp.Runtime
     ///     }
     /// </code>
     /// </example>
-    public interface GInterface<T> where T : GObject.Object
+    public interface GInterface<T> : IDisposable where T : GObject.Object
     {
         /// <summary>
         /// Gets the handle to the unmanged object
