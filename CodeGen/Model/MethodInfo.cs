@@ -15,6 +15,11 @@ namespace GISharp.CodeGen.Model
 {
     public class MethodInfo : MemberInfo
     {
+        /// <summary>
+        /// Gets the dll name to use for PInvoke
+        /// </summary>
+        public string DllName => Element.Attribute(gs + "dll-name").Value;
+
         public bool IsConstructor {
             get {
                 return Element.Name == gi + "constructor";
@@ -1090,13 +1095,10 @@ namespace GISharp.CodeGen.Model
             foreach (var baseAttr in base.GetAttributeLists ()) {
                 yield return baseAttr;
             }
-            var dllName = Element.Ancestors (gi + "repository")
-                .Single ().Element (gi + "package")
-                .Attribute ("name").Value;
             var dllImportAttrName = ParseName (typeof(DllImportAttribute).FullName);
             var dllImportAttrArgListText = string.Format (
                 "(\"{0}\", {1} = {2}.{3})",
-                dllName,
+                DllName,
                 nameof(DllImportAttribute.CallingConvention),
                 typeof(CallingConvention).FullName,
                 CallingConvention.Cdecl);

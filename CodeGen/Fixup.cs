@@ -331,6 +331,17 @@ namespace GISharp.CodeGen
                 element.Element (gi + "parameters").Add (errorElement);
             }
 
+            // create dll-name attributes
+
+            var dllName = document.Element(gi + "repository").Element(gi + "package").Attribute("name").Value;
+            foreach (var element in document.Descendants().Where(x => x.Element(gi + "parameters") != null || x.Element(gi + "return-value") != null)) {
+                if (element.Attribute(gs + "dll-name") != null) {
+                    // don't overwrite value from fixup.yml
+                    continue;
+                }
+                element.SetAttributeValue(gs + "dll-name", dllName);
+            }
+
             // create managed-name attributes
 
             foreach (var element in document.Descendants ()) {
