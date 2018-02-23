@@ -80,8 +80,8 @@ namespace GISharp.CodeGen
             var commands = gir.Element(gi + "repository").Element(gi + "namespace").Elements()
                 .Where(e => !e.IsSkipped()) // these will be handled by ApplyBuiltinFixup()
                 .Select(e => new SetAttribute {
-                    Name = "skip",
-                    Value = "1",
+                    Name = "introspectable",
+                    Value = "0",
                     Xpath = $"gi:repository/gi:namespace/gi:{e.Name.LocalName}[@name='{e.Attribute("name").Value}']"
                 }).ToList<Command>();
 
@@ -219,13 +219,13 @@ namespace GISharp.CodeGen
         /// Tests if an element should be ignored/removed.
         /// </summary>
         /// <returns>
-        /// <c>true</c> if the element is marked as "skip", "moved-to" or
-        /// "shadowed-by or if the element is a function/method with varargs
-        /// or if the element is an alias that ends with _autoptr.
+        /// <c>true</c> if the element is marked as "introspectable='0'",
+        /// "moved-to" or "shadowed-by or if the element is a function/method
+        /// with varargs or if the element is an alias that ends with _autoptr.
         /// </returns>
         static bool IsSkipped(this XElement element)
         {
-            return element.Attribute("skip").AsBool()
+            return !element.Attribute("introspectable").AsBool(true)
                 || element.Attribute("moved-to") != null
                 || element.Attribute ("shadowed-by") != null
                 || IsCallableWithVarArgs()

@@ -2,530 +2,530 @@
 # Ignore stuff that is in Core
 
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:alias[@name='SignalCMarshaller']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:alias[@name='Type']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='BaseFinalizeFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='BaseInitFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='Binding']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='BindingFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='BindingTransformFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='BoxedCopyFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='BoxedFreeFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='CClosure']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='Callback']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ClassFinalizeFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ClassInitFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='Closure']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ClosureMarshal']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ClosureNotify']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ClosureNotifyData']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='ConnectFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='EnumClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='EnumValue']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='FlagsClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='FlagsValue']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='InitiallyUnowned']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='InitiallyUnownedClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='InstanceInitFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='InterfaceFinalizeFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='InterfaceInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='InterfaceInitFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='Object']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ObjectClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ObjectConstructParam']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ObjectFinalizeFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ObjectGetPropertyFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ObjectSetPropertyFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='PARAM_MASK']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='PARAM_STATIC_STRINGS']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='PARAM_USER_SHIFT']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='ParamFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpec']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoolean']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecBoxed']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecChar']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ParamSpecClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecDouble']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecEnum']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecFloat']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecGType']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecInt']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecInt64']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecLong']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecObject']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecOverride']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecParam']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecPointer']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ParamSpecPool']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecString']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ParamSpecTypeInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUChar']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUInt64']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecULong']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecUnichar']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecValueArray']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='ParamSpecVariant']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='Parameter']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='SIGNAL_FLAGS_MASK']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='SIGNAL_MATCH_MASK']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='SignalAccumulator']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='SignalEmissionHook']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='SignalFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='SignalInvocationHint']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='SignalMatchType']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='SignalQuery']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_FLAG_RESERVED_ID_BIT']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_FUNDAMENTAL_MAX']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_FUNDAMENTAL_SHIFT']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_RESERVED_BSE_FIRST']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_RESERVED_BSE_LAST']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_RESERVED_GLIB_FIRST']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_RESERVED_GLIB_LAST']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='TYPE_RESERVED_USER_FIRST']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ToggleNotify']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:union[@name='TypeCValue']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypeClassCacheFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='TypeFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeInstance']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeInterface']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeQuery']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeValueTable']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='VALUE_COLLECT_FORMAT_MAX_LENGTH']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='VALUE_NOCOPY_CONTENTS']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='Value']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:union[@name='_Value__data__union']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'boxed_')]
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_')]
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'flags_')]
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='gtype_get_type']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'param_spec_')]
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'signal_')]
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='strdup_value_contents']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'type_')]
 
 
 # Ignore everything else
 
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:alias[@name='SignalCVaMarshaller']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='TypeDebugFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='TypeFundamentalFlags']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeFundamentalInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypeInterfaceCheckFunc']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:class[@name='TypeModule']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypeModuleClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:interface[@name='TypePlugin']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TypePluginClass']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypePluginCompleteInterfaceInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypePluginCompleteTypeInfo']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypePluginUnuse']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='TypePluginUse']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ValueArray']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='ValueTransform']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:callback[@name='WeakNotify']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='WeakRef']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='clear_object']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_type_register_static']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_value_convert']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_value_defaults']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_value_set_default']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_value_validate']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='param_values_cmp']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='pointer_type_register_static']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='source_set_closure']
 - !set-attribute
-  name: skip
-  value: 1
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='source_set_dummy_callback']

@@ -1006,7 +1006,7 @@ namespace GISharp.CodeGen.Model
         ParameterInfo GetReturnParameterInfo (bool managed)
         {
             var returnValueElement = Element.Element (gi + "return-value");
-            if (returnValueElement == null || (managed && returnValueElement.Attribute ("skip").AsBool ())) {
+            if (returnValueElement == null || (managed && returnValueElement.Attribute (gs + "skip").AsBool ())) {
                 var voidElement = new XElement (gi + "return-value",
                     new XAttribute (gs + "managed-type", "System.Void"));
                 return new ParameterInfo (voidElement, this, managed);
