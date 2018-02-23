@@ -260,6 +260,8 @@ namespace GISharp.CodeGen
 
         public static void ApplyBuiltinFixup (this XDocument document)
         {
+            var dllName = document.Element(gi + "repository").Element(gi + "package").Attribute("name").Value;
+            
             // add the gs namespace prefix
 
             document.Root.SetAttributeValue (XNamespace.Xmlns + "gs", gs.NamespaceName);
@@ -288,6 +290,10 @@ namespace GISharp.CodeGen
                         new XElement (
                             gi + "type",
                             new XAttribute ("name", "GType"))));
+                // GLib get_type functions are defined in GObject library
+                if (dllName == "glib-2.0") {
+                    functionElement.SetAttributeValue(gs + "dll-name", "gobject-2.0");
+                }
                 element.Add (functionElement);
             }
 
@@ -333,7 +339,6 @@ namespace GISharp.CodeGen
 
             // create dll-name attributes
 
-            var dllName = document.Element(gi + "repository").Element(gi + "package").Attribute("name").Value;
             foreach (var element in document.Descendants().Where(x => x.Element(gi + "parameters") != null || x.Element(gi + "return-value") != null)) {
                 if (element.Attribute(gs + "dll-name") != null) {
                     // don't overwrite value from fixup.yml

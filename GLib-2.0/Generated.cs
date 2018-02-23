@@ -253,7 +253,7 @@ namespace GISharp.GLib
         {
         }
 
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
         static extern GISharp.GObject.GType g_key_file_get_type();
