@@ -3148,6 +3148,374 @@ System.IntPtr parameter);
     }
 
     /// <summary>
+    /// The GActionMap interface is implemented by #GActionGroup
+    /// implementations that operate by containing a number of
+    /// named #GAction instances, such as #GSimpleActionGroup.
+    /// </summary>
+    /// <remarks>
+    /// One useful application of this interface is to map the
+    /// names of actions from various action groups to unique,
+    /// prefixed names (e.g. by prepending "app." or "win.").
+    /// This is the motivation for the 'Map' part of the interface
+    /// name.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionMapInterface))]
+    public interface IActionMap : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    {
+        /// <summary>
+        /// Adds an action to the @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If the action map already contains an action with the same name
+        /// as @action then the old action is dropped from the action map.
+        /// 
+        /// The action map takes its own reference on @action.
+        /// </remarks>
+        /// <param name="action">
+        /// a #GAction
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="action"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        void OnAddAction(GISharp.Gio.IAction action);
+
+        /// <summary>
+        /// Looks up the action with the name @action_name in @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If no such action exists, returns %NULL.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// a #GAction, or %NULL
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        GISharp.Gio.IAction OnLookupAction(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Removes the named action from the action map.
+        /// </summary>
+        /// <remarks>
+        /// If no action of this name is in the map then nothing happens.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        void OnRemoveAction(GISharp.GLib.Utf8 actionName);
+    }
+
+    public static class ActionMap
+    {
+        static readonly GISharp.GObject.GType _GType = g_action_map_get_type();
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" managed-name="GType" /> */
+        /* */
+        static extern GISharp.GObject.GType g_action_map_get_type();
+
+        /// <summary>
+        /// Adds an action to the @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If the action map already contains an action with the same name
+        /// as @action then the old action is dropped from the action map.
+        /// 
+        /// The action map takes its own reference on @action.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <param name="action">
+        /// a #GAction
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_map_add_action(
+        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionMap,
+        /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr action);
+
+        /// <summary>
+        /// Adds an action to the @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If the action map already contains an action with the same name
+        /// as @action then the old action is dropped from the action map.
+        /// 
+        /// The action map takes its own reference on @action.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionMap"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="action">
+        /// a #GAction
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="action"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public static void AddAction(this GISharp.Gio.IActionMap actionMap, GISharp.Gio.IAction action)
+        {
+            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
+            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
+            g_action_map_add_action(actionMap_, action_);
+        }
+
+        /// <summary>
+        /// Looks up the action with the name @action_name in @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If no such action exists, returns %NULL.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action
+        /// </param>
+        /// <returns>
+        /// a #GAction, or %NULL
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        static extern System.IntPtr g_action_map_lookup_action(
+        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionMap,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Looks up the action with the name @action_name in @action_map.
+        /// </summary>
+        /// <remarks>
+        /// If no such action exists, returns %NULL.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionMap"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// a #GAction, or %NULL
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public static GISharp.Gio.IAction LookupAction(this GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName)
+        {
+            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret_ = g_action_map_lookup_action(actionMap_, actionName_);
+            var ret = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Removes the named action from the action map.
+        /// </summary>
+        /// <remarks>
+        /// If no action of this name is in the map then nothing happens.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_map_remove_action(
+        /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionMap,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Removes the named action from the action map.
+        /// </summary>
+        /// <remarks>
+        /// If no action of this name is in the map then nothing happens.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a #GActionMap
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionMap"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public static void RemoveAction(this GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName)
+        {
+            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            g_action_map_remove_action(actionMap_, actionName_);
+        }
+    }
+
+    /// <summary>
+    /// The virtual function table for #GActionMap.
+    /// </summary>
+    [GISharp.Runtime.SinceAttribute("2.32")]
+    public sealed partial class ActionMapInterface : GISharp.GObject.TypeInterface
+    {
+        static readonly System.IntPtr gIfaceOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
+        static readonly System.IntPtr onLookupActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnLookupAction));
+        static readonly UnmanagedLookupAction onLookupActionDelegate = OnLookupAction;
+        static readonly System.IntPtr onLookupActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onLookupActionDelegate);
+        static readonly System.IntPtr onAddActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnAddAction));
+        static readonly UnmanagedAddAction onAddActionDelegate = OnAddAction;
+        static readonly System.IntPtr onAddActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onAddActionDelegate);
+        static readonly System.IntPtr onRemoveActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnRemoveAction));
+        static readonly UnmanagedRemoveAction onRemoveActionDelegate = OnRemoveAction;
+        static readonly System.IntPtr onRemoveActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onRemoveActionDelegate);
+
+        new struct Struct
+        {
+#pragma warning disable CS0649
+            public GISharp.GObject.TypeInterface.Struct GIface;
+            public UnmanagedLookupAction OnLookupAction;
+            public UnmanagedAddAction OnAddAction;
+            public UnmanagedRemoveAction OnRemoveAction;
+#pragma warning restore CS0649
+        }
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedLookupAction(
+/* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionMap,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate GISharp.Gio.IAction LookupAction(GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedAddAction(
+/* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionMap,
+/* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr action);
+
+        public delegate void AddAction(GISharp.Gio.IActionMap actionMap, GISharp.Gio.IAction action);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedRemoveAction(
+/* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionMap,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate void RemoveAction(GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName);
+
+        public ActionMapInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        {
+            var ret = new GISharp.GObject.InterfaceInfo
+            {
+                InterfaceInit = InterfaceInit,
+            };
+            return ret;
+        }
+
+        static void InterfaceInit(System.IntPtr gIface, System.IntPtr userData)
+        {
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onLookupActionOffset, onLookupActionDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onAddActionOffset, onAddActionDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onRemoveActionOffset, onRemoveActionDelegate_);
+        }
+
+        static System.IntPtr OnLookupAction(System.IntPtr actionMap_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionMap = (GISharp.Gio.IActionMap)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionMap_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionMap.OnLookupAction(actionName);
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static void OnAddAction(System.IntPtr actionMap_, System.IntPtr action_)
+        {
+            try
+            {
+                var actionMap = (GISharp.Gio.IActionMap)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionMap_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
+                actionMap.OnAddAction(action);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnRemoveAction(System.IntPtr actionMap_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionMap = (GISharp.Gio.IActionMap)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionMap_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                actionMap.OnRemoveAction(actionName);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+    }
+
+    /// <summary>
     /// A #GSimpleAction is the obvious simple implementation of the #GAction
     /// interface. This is the easiest way to create an action for purposes of
     /// adding it to a #GSimpleActionGroup.

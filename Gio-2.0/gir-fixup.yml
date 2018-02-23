@@ -18,6 +18,15 @@
   xpath: gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']/gi:field[@name='list_actions']/gi:callback/gi:return-value/gi:array
 
 
+### ActionMap ###
+
+- !set-attribute
+  # parameter type ActionEntry is not implemented
+  name: skip
+  value: "1"
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']/gi:method[@name='add_action_entries']
+
+
 ### SimpleAction ###
 
 - !set-attribute
@@ -32,14 +41,6 @@
   name: skip
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='ActionEntry']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='ActionMapInterface']
 - !set-attribute
   name: skip
   value: 1
