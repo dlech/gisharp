@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -477,7 +477,7 @@ namespace GISharp.CodeGen.Model
                     string.Format("throw new {0}(nameof({1}))",
                         typeof(ArgumentNullException).FullName, managedParameter.Identifier) :
                     string.Format("{0}.{1}", typeof(IntPtr).FullName, nameof(IntPtr.Zero));
-                var dataGetter = managedParameter.Transfer == Runtime.Transfer.None ? "Data" : "TakeData()";
+                var dataGetter = managedParameter.Transfer == Runtime.Transfer.None ? "Data" : "TakeData().Item1";
                 statement = string.Format ("{0}_ = {0}?.{1} ?? {2};\n",
                     managedParameter.Identifier, dataGetter, nullValue);
                 if (declareVariable) {
@@ -897,6 +897,12 @@ namespace GISharp.CodeGen.Model
                 nameof(GISharp.GLib.Log.LogUnhandledException)));
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
+
+            foreach (var p in PinvokeParameterInfos.Where(x => !x.IsInParam)) {
+                var setOutParamStatement = ParseStatement($"{p.Identifier}_ = default({p.TypeInfo.Type});");
+                exceptionStatements = exceptionStatements.Add(setOutParamStatement);
+            }
+
             if (returnDefault != null) {
                 exceptionStatements = exceptionStatements.Add(returnDefault);
             }
