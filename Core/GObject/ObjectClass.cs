@@ -129,6 +129,16 @@ namespace GISharp.GObject
 
                 uint propId = 1; // propId 0 is used internally, so we start with 1
                 foreach (var propInfo in type.GetProperties ()) {
+                    var gPropertyAttr = propInfo.GetCustomAttribute<GPropertyAttribute>(true);
+                    if (gPropertyAttr == null) {
+                        // maybe the property is declared in an interface
+                        gPropertyAttr = propInfo.TryGetMatchingInterfacePropertyInfo()?.GetCustomAttribute<GPropertyAttribute>(true);
+                        if (gPropertyAttr == null) {
+                            // only register properties with [GProperty] attribute
+                            continue;
+                        }
+                    }
+
                     if (propInfo.DeclaringType != type) {
                         // only register properties declared in this type or in interfaces
                         continue;
