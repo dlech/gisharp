@@ -5,15 +5,25 @@
 ### ActionGroup ###
 
 - !set-attribute
-  name: gs:managed-name
-  value: TryParseDetailedName
-  xpath: gi:repository/gi:namespace/gi:interface[@name='Action']/gi:function[@name='parse_detailed_name']
+  name: zero-terminated
+  value: "1"
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']/gi:method[@name='list_actions']/gi:return-value/gi:array
+- !set-attribute
+  name: zero-terminated
+  value: "1"
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']/gi:virtual-method[@name='list_actions']/gi:return-value/gi:array
+- !set-attribute
+  name: zero-terminated
+  value: "1"
+  xpath: gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']/gi:field[@name='list_actions']/gi:callback/gi:return-value/gi:array
+
 
 ### SimpleAction ###
+
 - !set-attribute
   name: gs:managed-name
   value: ChangedState
-  xpath: gi:repository/gi:namespace/gi:class/glib:signal[@name='change-state']
+  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAction']/glib:signal[@name='change-state']
 
 
 # Ignore everything else
@@ -22,14 +32,6 @@
   name: skip
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='ActionEntry']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']
-- !set-attribute
-  name: skip
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']
 - !set-attribute
   name: skip
   value: 1

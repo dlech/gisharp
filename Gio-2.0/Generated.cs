@@ -903,6 +903,1985 @@ namespace GISharp.Gio
     }
 
     /// <summary>
+    /// #GActionGroup represents a group of actions. Actions can be used to
+    /// expose functionality in a structured way, either from one part of a
+    /// program to another, or to the outside world. Action groups are often
+    /// used together with a #GMenuModel that provides additional
+    /// representation data for displaying the actions to the user, e.g. in
+    /// a menu.
+    /// </summary>
+    /// <remarks>
+    /// The main way to interact with the actions in a GActionGroup is to
+    /// activate them with g_action_group_activate_action(). Activating an
+    /// action may require a #GVariant parameter. The required type of the
+    /// parameter can be inquired with g_action_group_get_action_parameter_type().
+    /// Actions may be disabled, see g_action_group_get_action_enabled().
+    /// Activating a disabled action has no effect.
+    /// 
+    /// Actions may optionally have a state in the form of a #GVariant. The
+    /// current state of an action can be inquired with
+    /// g_action_group_get_action_state(). Activating a stateful action may
+    /// change its state, but it is also possible to set the state by calling
+    /// g_action_group_change_action_state().
+    /// 
+    /// As typical example, consider a text editing application which has an
+    /// option to change the current font to 'bold'. A good way to represent
+    /// this would be a stateful action, with a boolean state. Activating the
+    /// action would toggle the state.
+    /// 
+    /// Each action in the group has a unique name (which is a string).  All
+    /// method calls, except g_action_group_list_actions() take the name of
+    /// an action as an argument.
+    /// 
+    /// The #GActionGroup API is meant to be the 'public' API to the action
+    /// group.  The calls here are exactly the interaction that 'external
+    /// forces' (eg: UI, incoming D-Bus messages, etc.) are supposed to have
+    /// with actions.  'Internal' APIs (ie: ones meant only to be accessed by
+    /// the action group implementation) are found on subclasses.  This is
+    /// why you will find - for example - g_action_group_get_action_enabled()
+    /// but not an equivalent set() call.
+    /// 
+    /// Signals are emitted on the action group in response to state changes
+    /// on individual actions.
+    /// 
+    /// Implementations of #GActionGroup should provide implementations for
+    /// the virtual functions g_action_group_list_actions() and
+    /// g_action_group_query_action().  The other virtual functions should
+    /// not be implemented - their "wrappers" are actually implemented with
+    /// calls to g_action_group_query_action().
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionGroupInterface))]
+    public interface IActionGroup : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    {
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, Detailed = true)]
+        event System.EventHandler<GISharp.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded;
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("action-enabled-changed", When = GISharp.Runtime.EmissionStage.Last, Detailed = true)]
+        event System.EventHandler<GISharp.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("action-removed", When = GISharp.Runtime.EmissionStage.Last, Detailed = true)]
+        event System.EventHandler<GISharp.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved;
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, Detailed = true)]
+        event System.EventHandler<GISharp.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-added signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnActionAdded(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="enabled">
+        /// whether or not the action is now enabled
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnActionEnabledChanged(GISharp.GLib.Utf8 actionName, System.Boolean enabled);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-removed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnActionRemoved(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-state-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="state">
+        /// the new state of the named action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="state"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnActionStateChanged(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state);
+
+        /// <summary>
+        /// Activate the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is expecting a parameter, then the correct type of
+        /// parameter must be given as @parameter.  If the action is expecting no
+        /// parameters then @parameter must be %NULL.  See
+        /// g_action_group_get_action_parameter_type().
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to activate
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="parameter">
+        /// parameters to the activation
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnActivateAction(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter);
+
+        /// <summary>
+        /// Request for the state of the named action within @action_group to be
+        /// changed to @value.
+        /// </summary>
+        /// <remarks>
+        /// The action must be stateful and @value must be of the correct type.
+        /// See g_action_group_get_action_state_type().
+        /// 
+        /// This call merely requests a change.  The action may refuse to change
+        /// its state or may change its state to something other than @value.
+        /// See g_action_group_get_action_state_hint().
+        /// 
+        /// If the @value GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to request the change on
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="value">
+        /// the new state
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="value"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        void OnChangeActionState(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value);
+
+        /// <summary>
+        /// Checks if the named action within @action_group is currently enabled.
+        /// </summary>
+        /// <remarks>
+        /// An action must be enabled in order to be activated or in order to
+        /// have its state changed from outside callers.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// whether or not the action is currently enabled
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        System.Boolean OnGetActionEnabled(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Queries the type of the parameter that must be given when activating
+        /// the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// When activating the action using g_action_group_activate_action(),
+        /// the #GVariant given to that function must be of the type returned
+        /// by this function.
+        /// 
+        /// In the case that this function returns %NULL, you must not give any
+        /// #GVariant, but %NULL instead.
+        /// 
+        /// The parameter type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different parameter type.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the parameter type
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        GISharp.GLib.VariantType OnGetActionParameterType(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Queries the current state of the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is not stateful then %NULL will be returned.  If the
+        /// action is stateful then the type of the return value is the type
+        /// given by g_action_group_get_action_state_type().
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the current state of the action
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        GISharp.GLib.Variant OnGetActionState(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Requests a hint about the valid range of values for the state of the
+        /// named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If %NULL is returned it either means that the action is not stateful
+        /// or that there is no hint about the valid range of values for the
+        /// state of the action.
+        /// 
+        /// If a #GVariant array is returned then each item in the array is a
+        /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+        /// returned then the tuple specifies the inclusive lower and upper bound
+        /// of valid values for the state.
+        /// 
+        /// In any case, the information is merely a hint.  It may be possible to
+        /// have a state value outside of the hinted range and setting a value
+        /// within the range may fail.
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the state range hint
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        GISharp.GLib.Variant OnGetActionStateHint(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Queries the type of the state of the named action within
+        /// @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is stateful then this function returns the
+        /// #GVariantType of the state.  All calls to
+        /// g_action_group_change_action_state() must give a #GVariant of this
+        /// type and g_action_group_get_action_state() will return a #GVariant
+        /// of the same type.
+        /// 
+        /// If the action is not stateful then this function will return %NULL.
+        /// In that case, g_action_group_get_action_state() will return %NULL
+        /// and you must not call g_action_group_change_action_state().
+        /// 
+        /// The state type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different state type.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the state type, if the action is stateful
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        GISharp.GLib.VariantType OnGetActionStateType(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Checks if the named action exists within @action_group.
+        /// </summary>
+        /// <param name="actionName">
+        /// the name of the action to check for
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// whether the named action exists
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        System.Boolean OnHasAction(GISharp.GLib.Utf8 actionName);
+
+        /// <summary>
+        /// Lists the actions contained within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// The caller is responsible for freeing the list with g_strfreev() when
+        /// it is no longer required.
+        /// </remarks>
+        /// <returns>
+        /// a %NULL-terminated array of the names of the
+        /// actions in the group
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        GISharp.GLib.Strv OnListActions();
+
+        /// <summary>
+        /// Queries all aspects of the named action within an @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function acquires the information available from
+        /// g_action_group_has_action(), g_action_group_get_action_enabled(),
+        /// g_action_group_get_action_parameter_type(),
+        /// g_action_group_get_action_state_type(),
+        /// g_action_group_get_action_state_hint() and
+        /// g_action_group_get_action_state() with a single function call.
+        /// 
+        /// This provides two main benefits.
+        /// 
+        /// The first is the improvement in efficiency that comes with not having
+        /// to perform repeated lookups of the action in order to discover
+        /// different things about it.  The second is that implementing
+        /// #GActionGroup can now be done by only overriding this one virtual
+        /// function.
+        /// 
+        /// The interface provides a default implementation of this function that
+        /// calls the individual functions, as required, to fetch the
+        /// information.  The interface also provides default implementations of
+        /// those functions that call this function.  All implementations,
+        /// therefore, must override either this function or all of the others.
+        /// 
+        /// If the action exists, %TRUE is returned and any of the requested
+        /// fields (as indicated by having a non-%NULL reference passed in) are
+        /// filled.  If the action doesn't exist, %FALSE is returned and the
+        /// fields may or may not have been modified.
+        /// </remarks>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="enabled">
+        /// if the action is presently enabled
+        /// </param>
+        /// <param name="parameterType">
+        /// the parameter type, or %NULL if none needed
+        /// </param>
+        /// <param name="stateType">
+        /// the state type, or %NULL if stateless
+        /// </param>
+        /// <param name="stateHint">
+        /// the state hint, or %NULL if none
+        /// </param>
+        /// <param name="state">
+        /// the current state, or %NULL if stateless
+        /// </param>
+        /// <returns>
+        /// %TRUE if the action exists, else %FALSE
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        System.Boolean OnTryQueryAction(GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state);
+    }
+
+    public static class ActionGroup
+    {
+        static readonly GISharp.GObject.GType _GType = g_action_group_get_type();
+
+        public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+
+            public ActionAddedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        public sealed class ActionEnabledChangedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+
+            public System.Boolean Enabled => (System.Boolean)args[2].Get();
+
+            public ActionEnabledChangedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        public sealed class ActionRemovedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+
+            public ActionRemovedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        public sealed class ActionStateChangedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+
+            public GISharp.GLib.Variant Value => (GISharp.GLib.Variant)args[2].Get();
+
+            public ActionStateChangedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" managed-name="GType" /> */
+        /* */
+        static extern GISharp.GObject.GType g_action_group_get_type();
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-added signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_action_added(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-added signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ActionAdded(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            g_action_group_action_added(actionGroup_, actionName_);
+        }
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="enabled">
+        /// whether or not the action is now enabled
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_action_enabled_changed(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName,
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        System.Boolean enabled);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="enabled">
+        /// whether or not the action is now enabled
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ActionEnabledChanged(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, System.Boolean enabled)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            g_action_group_action_enabled_changed(actionGroup_, actionName_, enabled);
+        }
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-removed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_action_removed(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-removed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ActionRemoved(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            g_action_group_action_removed(actionGroup_, actionName_);
+        }
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-state-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="state">
+        /// the new state of the named action
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_action_state_changed(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName,
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr state);
+
+        /// <summary>
+        /// Emits the #GActionGroup::action-state-changed signal on @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by #GActionGroup implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="state">
+        /// the new state of the named action
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="state"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ActionStateChanged(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var state_ = state?.Handle ?? throw new System.ArgumentNullException(nameof(state));
+            g_action_group_action_state_changed(actionGroup_, actionName_, state_);
+        }
+
+        /// <summary>
+        /// Activate the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is expecting a parameter, then the correct type of
+        /// parameter must be given as @parameter.  If the action is expecting no
+        /// parameters then @parameter must be %NULL.  See
+        /// g_action_group_get_action_parameter_type().
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to activate
+        /// </param>
+        /// <param name="parameter">
+        /// parameters to the activation
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_activate_action(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName,
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr parameter);
+
+        /// <summary>
+        /// Activate the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is expecting a parameter, then the correct type of
+        /// parameter must be given as @parameter.  If the action is expecting no
+        /// parameters then @parameter must be %NULL.  See
+        /// g_action_group_get_action_parameter_type().
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to activate
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="parameter">
+        /// parameters to the activation
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ActivateAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
+            g_action_group_activate_action(actionGroup_, actionName_, parameter_);
+        }
+
+        /// <summary>
+        /// Request for the state of the named action within @action_group to be
+        /// changed to @value.
+        /// </summary>
+        /// <remarks>
+        /// The action must be stateful and @value must be of the correct type.
+        /// See g_action_group_get_action_state_type().
+        /// 
+        /// This call merely requests a change.  The action may refuse to change
+        /// its state or may change its state to something other than @value.
+        /// See g_action_group_get_action_state_hint().
+        /// 
+        /// If the @value GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to request the change on
+        /// </param>
+        /// <param name="value">
+        /// the new state
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_action_group_change_action_state(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName,
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr value);
+
+        /// <summary>
+        /// Request for the state of the named action within @action_group to be
+        /// changed to @value.
+        /// </summary>
+        /// <remarks>
+        /// The action must be stateful and @value must be of the correct type.
+        /// See g_action_group_get_action_state_type().
+        /// 
+        /// This call merely requests a change.  The action may refuse to change
+        /// its state or may change its state to something other than @value.
+        /// See g_action_group_get_action_state_hint().
+        /// 
+        /// If the @value GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to request the change on
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="value">
+        /// the new state
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="value"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static void ChangeActionState(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
+            g_action_group_change_action_state(actionGroup_, actionName_, value_);
+        }
+
+        /// <summary>
+        /// Checks if the named action within @action_group is currently enabled.
+        /// </summary>
+        /// <remarks>
+        /// An action must be enabled in order to be activated or in order to
+        /// have its state changed from outside callers.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// whether or not the action is currently enabled
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_action_group_get_action_enabled(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Checks if the named action within @action_group is currently enabled.
+        /// </summary>
+        /// <remarks>
+        /// An action must be enabled in order to be activated or in order to
+        /// have its state changed from outside callers.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// whether or not the action is currently enabled
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static System.Boolean GetActionEnabled(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret = g_action_group_get_action_enabled(actionGroup_, actionName_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Queries the type of the parameter that must be given when activating
+        /// the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// When activating the action using g_action_group_activate_action(),
+        /// the #GVariant given to that function must be of the type returned
+        /// by this function.
+        /// 
+        /// In the case that this function returns %NULL, you must not give any
+        /// #GVariant, but %NULL instead.
+        /// 
+        /// The parameter type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different parameter type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the parameter type
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 */
+        static extern System.IntPtr g_action_group_get_action_parameter_type(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Queries the type of the parameter that must be given when activating
+        /// the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// When activating the action using g_action_group_activate_action(),
+        /// the #GVariant given to that function must be of the type returned
+        /// by this function.
+        /// 
+        /// In the case that this function returns %NULL, you must not give any
+        /// #GVariant, but %NULL instead.
+        /// 
+        /// The parameter type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different parameter type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the parameter type
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static GISharp.GLib.VariantType GetActionParameterType(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret_ = g_action_group_get_action_parameter_type(actionGroup_, actionName_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Queries the current state of the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is not stateful then %NULL will be returned.  If the
+        /// action is stateful then the type of the return value is the type
+        /// given by g_action_group_get_action_state_type().
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the current state of the action
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 */
+        static extern System.IntPtr g_action_group_get_action_state(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Queries the current state of the named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is not stateful then %NULL will be returned.  If the
+        /// action is stateful then the type of the return value is the type
+        /// given by g_action_group_get_action_state_type().
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the current state of the action
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static GISharp.GLib.Variant GetActionState(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret_ = g_action_group_get_action_state(actionGroup_, actionName_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Requests a hint about the valid range of values for the state of the
+        /// named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If %NULL is returned it either means that the action is not stateful
+        /// or that there is no hint about the valid range of values for the
+        /// state of the action.
+        /// 
+        /// If a #GVariant array is returned then each item in the array is a
+        /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+        /// returned then the tuple specifies the inclusive lower and upper bound
+        /// of valid values for the state.
+        /// 
+        /// In any case, the information is merely a hint.  It may be possible to
+        /// have a state value outside of the hinted range and setting a value
+        /// within the range may fail.
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the state range hint
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 */
+        static extern System.IntPtr g_action_group_get_action_state_hint(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Requests a hint about the valid range of values for the state of the
+        /// named action within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If %NULL is returned it either means that the action is not stateful
+        /// or that there is no hint about the valid range of values for the
+        /// state of the action.
+        /// 
+        /// If a #GVariant array is returned then each item in the array is a
+        /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+        /// returned then the tuple specifies the inclusive lower and upper bound
+        /// of valid values for the state.
+        /// 
+        /// In any case, the information is merely a hint.  It may be possible to
+        /// have a state value outside of the hinted range and setting a value
+        /// within the range may fail.
+        /// 
+        /// The return value (if non-%NULL) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the state range hint
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static GISharp.GLib.Variant GetActionStateHint(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret_ = g_action_group_get_action_state_hint(actionGroup_, actionName_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Queries the type of the state of the named action within
+        /// @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is stateful then this function returns the
+        /// #GVariantType of the state.  All calls to
+        /// g_action_group_change_action_state() must give a #GVariant of this
+        /// type and g_action_group_get_action_state() will return a #GVariant
+        /// of the same type.
+        /// 
+        /// If the action is not stateful then this function will return %NULL.
+        /// In that case, g_action_group_get_action_state() will return %NULL
+        /// and you must not call g_action_group_change_action_state().
+        /// 
+        /// The state type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different state type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the state type, if the action is stateful
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 */
+        static extern System.IntPtr g_action_group_get_action_state_type(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Queries the type of the state of the named action within
+        /// @action_group.
+        /// </summary>
+        /// <remarks>
+        /// If the action is stateful then this function returns the
+        /// #GVariantType of the state.  All calls to
+        /// g_action_group_change_action_state() must give a #GVariant of this
+        /// type and g_action_group_get_action_state() will return a #GVariant
+        /// of the same type.
+        /// 
+        /// If the action is not stateful then this function will return %NULL.
+        /// In that case, g_action_group_get_action_state() will return %NULL
+        /// and you must not call g_action_group_change_action_state().
+        /// 
+        /// The state type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different state type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the state type, if the action is stateful
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static GISharp.GLib.VariantType GetActionStateType(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret_ = g_action_group_get_action_state_type(actionGroup_, actionName_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if the named action exists within @action_group.
+        /// </summary>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to check for
+        /// </param>
+        /// <returns>
+        /// whether the named action exists
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_action_group_has_action(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName);
+
+        /// <summary>
+        /// Checks if the named action exists within @action_group.
+        /// </summary>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of the action to check for
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// whether the named action exists
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static System.Boolean HasAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var ret = g_action_group_has_action(actionGroup_, actionName_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Lists the actions contained within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// The caller is responsible for freeing the list with g_strfreev() when
+        /// it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <returns>
+        /// a %NULL-terminated array of the names of the
+        /// actions in the group
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
+*   <type name="utf8" managed-name="Utf8" />
+* </array> */
+        /* transfer-ownership:full */
+        static extern System.IntPtr g_action_group_list_actions(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup);
+
+        /// <summary>
+        /// Lists the actions contained within @action_group.
+        /// </summary>
+        /// <remarks>
+        /// The caller is responsible for freeing the list with g_strfreev() when
+        /// it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// a %NULL-terminated array of the names of the
+        /// actions in the group
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public static GISharp.GLib.Strv ListActions(this GISharp.Gio.IActionGroup actionGroup)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var ret_ = g_action_group_list_actions(actionGroup_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Queries all aspects of the named action within an @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function acquires the information available from
+        /// g_action_group_has_action(), g_action_group_get_action_enabled(),
+        /// g_action_group_get_action_parameter_type(),
+        /// g_action_group_get_action_state_type(),
+        /// g_action_group_get_action_state_hint() and
+        /// g_action_group_get_action_state() with a single function call.
+        /// 
+        /// This provides two main benefits.
+        /// 
+        /// The first is the improvement in efficiency that comes with not having
+        /// to perform repeated lookups of the action in order to discover
+        /// different things about it.  The second is that implementing
+        /// #GActionGroup can now be done by only overriding this one virtual
+        /// function.
+        /// 
+        /// The interface provides a default implementation of this function that
+        /// calls the individual functions, as required, to fetch the
+        /// information.  The interface also provides default implementations of
+        /// those functions that call this function.  All implementations,
+        /// therefore, must override either this function or all of the others.
+        /// 
+        /// If the action exists, %TRUE is returned and any of the requested
+        /// fields (as indicated by having a non-%NULL reference passed in) are
+        /// filled.  If the action doesn't exist, %FALSE is returned and the
+        /// fields may or may not have been modified.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="enabled">
+        /// if the action is presently enabled
+        /// </param>
+        /// <param name="parameterType">
+        /// the parameter type, or %NULL if none needed
+        /// </param>
+        /// <param name="stateType">
+        /// the state type, or %NULL if stateless
+        /// </param>
+        /// <param name="stateHint">
+        /// the state hint, or %NULL if none
+        /// </param>
+        /// <param name="state">
+        /// the current state, or %NULL if stateless
+        /// </param>
+        /// <returns>
+        /// %TRUE if the action exists, else %FALSE
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_action_group_query_action(
+        /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionGroup,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr actionName,
+        /* <type name="gboolean" type="gboolean*" managed-name="Gboolean" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.Boolean enabled,
+        /* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.IntPtr parameterType,
+        /* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.IntPtr stateType,
+        /* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.IntPtr stateHint,
+        /* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.IntPtr state);
+
+        /// <summary>
+        /// Queries all aspects of the named action within an @action_group.
+        /// </summary>
+        /// <remarks>
+        /// This function acquires the information available from
+        /// g_action_group_has_action(), g_action_group_get_action_enabled(),
+        /// g_action_group_get_action_parameter_type(),
+        /// g_action_group_get_action_state_type(),
+        /// g_action_group_get_action_state_hint() and
+        /// g_action_group_get_action_state() with a single function call.
+        /// 
+        /// This provides two main benefits.
+        /// 
+        /// The first is the improvement in efficiency that comes with not having
+        /// to perform repeated lookups of the action in order to discover
+        /// different things about it.  The second is that implementing
+        /// #GActionGroup can now be done by only overriding this one virtual
+        /// function.
+        /// 
+        /// The interface provides a default implementation of this function that
+        /// calls the individual functions, as required, to fetch the
+        /// information.  The interface also provides default implementations of
+        /// those functions that call this function.  All implementations,
+        /// therefore, must override either this function or all of the others.
+        /// 
+        /// If the action exists, %TRUE is returned and any of the requested
+        /// fields (as indicated by having a non-%NULL reference passed in) are
+        /// filled.  If the action doesn't exist, %FALSE is returned and the
+        /// fields may or may not have been modified.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a #GActionGroup
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionGroup"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="actionName"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="enabled">
+        /// if the action is presently enabled
+        /// </param>
+        /// <param name="parameterType">
+        /// the parameter type, or %NULL if none needed
+        /// </param>
+        /// <param name="stateType">
+        /// the state type, or %NULL if stateless
+        /// </param>
+        /// <param name="stateHint">
+        /// the state hint, or %NULL if none
+        /// </param>
+        /// <param name="state">
+        /// the current state, or %NULL if stateless
+        /// </param>
+        /// <returns>
+        /// %TRUE if the action exists, else %FALSE
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public static System.Boolean TryQueryAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state)
+        {
+            var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
+            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            System.IntPtr parameterType_;
+            System.IntPtr stateType_;
+            System.IntPtr stateHint_;
+            System.IntPtr state_;
+            var ret = g_action_group_query_action(actionGroup_, actionName_,out enabled,out parameterType_,out stateType_,out stateHint_,out state_);
+            parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(parameterType_, GISharp.Runtime.Transfer.Full);
+            stateType = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(stateType_, GISharp.Runtime.Transfer.Full);
+            stateHint = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(stateHint_, GISharp.Runtime.Transfer.Full);
+            state = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(state_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// The virtual function table for #GActionGroup.
+    /// </summary>
+    [GISharp.Runtime.SinceAttribute("2.28")]
+    public sealed partial class ActionGroupInterface : GISharp.GObject.TypeInterface
+    {
+        static readonly System.IntPtr gIfaceOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
+        static readonly System.IntPtr onHasActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnHasAction));
+        static readonly UnmanagedHasAction onHasActionDelegate = OnHasAction;
+        static readonly System.IntPtr onHasActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onHasActionDelegate);
+        static readonly System.IntPtr onListActionsOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnListActions));
+        static readonly UnmanagedListActions onListActionsDelegate = OnListActions;
+        static readonly System.IntPtr onListActionsDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onListActionsDelegate);
+        static readonly System.IntPtr onGetActionEnabledOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetActionEnabled));
+        static readonly UnmanagedGetActionEnabled onGetActionEnabledDelegate = OnGetActionEnabled;
+        static readonly System.IntPtr onGetActionEnabledDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetActionEnabledDelegate);
+        static readonly System.IntPtr onGetActionParameterTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetActionParameterType));
+        static readonly UnmanagedGetActionParameterType onGetActionParameterTypeDelegate = OnGetActionParameterType;
+        static readonly System.IntPtr onGetActionParameterTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetActionParameterTypeDelegate);
+        static readonly System.IntPtr onGetActionStateTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetActionStateType));
+        static readonly UnmanagedGetActionStateType onGetActionStateTypeDelegate = OnGetActionStateType;
+        static readonly System.IntPtr onGetActionStateTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetActionStateTypeDelegate);
+        static readonly System.IntPtr onGetActionStateHintOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetActionStateHint));
+        static readonly UnmanagedGetActionStateHint onGetActionStateHintDelegate = OnGetActionStateHint;
+        static readonly System.IntPtr onGetActionStateHintDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetActionStateHintDelegate);
+        static readonly System.IntPtr onGetActionStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetActionState));
+        static readonly UnmanagedGetActionState onGetActionStateDelegate = OnGetActionState;
+        static readonly System.IntPtr onGetActionStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetActionStateDelegate);
+        static readonly System.IntPtr onChangeActionStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnChangeActionState));
+        static readonly UnmanagedChangeActionState onChangeActionStateDelegate = OnChangeActionState;
+        static readonly System.IntPtr onChangeActionStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onChangeActionStateDelegate);
+        static readonly System.IntPtr onActivateActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActivateAction));
+        static readonly UnmanagedActivateAction onActivateActionDelegate = OnActivateAction;
+        static readonly System.IntPtr onActivateActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActivateActionDelegate);
+        static readonly System.IntPtr onActionAddedOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActionAdded));
+        static readonly UnmanagedActionAdded onActionAddedDelegate = OnActionAdded;
+        static readonly System.IntPtr onActionAddedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionAddedDelegate);
+        static readonly System.IntPtr onActionRemovedOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActionRemoved));
+        static readonly UnmanagedActionRemoved onActionRemovedDelegate = OnActionRemoved;
+        static readonly System.IntPtr onActionRemovedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionRemovedDelegate);
+        static readonly System.IntPtr onActionEnabledChangedOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActionEnabledChanged));
+        static readonly UnmanagedActionEnabledChanged onActionEnabledChangedDelegate = OnActionEnabledChanged;
+        static readonly System.IntPtr onActionEnabledChangedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionEnabledChangedDelegate);
+        static readonly System.IntPtr onActionStateChangedOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActionStateChanged));
+        static readonly UnmanagedActionStateChanged onActionStateChangedDelegate = OnActionStateChanged;
+        static readonly System.IntPtr onActionStateChangedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionStateChangedDelegate);
+        static readonly System.IntPtr onQueryActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnQueryAction));
+        static readonly UnmanagedTryQueryAction onQueryActionDelegate = OnQueryAction;
+        static readonly System.IntPtr onQueryActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onQueryActionDelegate);
+
+        new struct Struct
+        {
+#pragma warning disable CS0649
+            public GISharp.GObject.TypeInterface.Struct GIface;
+            public UnmanagedHasAction OnHasAction;
+            public UnmanagedListActions OnListActions;
+            public UnmanagedGetActionEnabled OnGetActionEnabled;
+            public UnmanagedGetActionParameterType OnGetActionParameterType;
+            public UnmanagedGetActionStateType OnGetActionStateType;
+            public UnmanagedGetActionStateHint OnGetActionStateHint;
+            public UnmanagedGetActionState OnGetActionState;
+            public UnmanagedChangeActionState OnChangeActionState;
+            public UnmanagedActivateAction OnActivateAction;
+            public UnmanagedActionAdded OnActionAdded;
+            public UnmanagedActionRemoved OnActionRemoved;
+            public UnmanagedActionEnabledChanged OnActionEnabledChanged;
+            public UnmanagedActionStateChanged OnActionStateChanged;
+            public UnmanagedTryQueryAction OnQueryAction;
+#pragma warning restore CS0649
+        }
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.Boolean UnmanagedHasAction(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate System.Boolean HasAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedListActions(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup);
+
+        public delegate GISharp.GLib.Strv ListActions(GISharp.Gio.IActionGroup actionGroup);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.Boolean UnmanagedGetActionEnabled(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate System.Boolean GetActionEnabled(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetActionParameterType(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate GISharp.GLib.VariantType GetActionParameterType(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetActionStateType(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate GISharp.GLib.VariantType GetActionStateType(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetActionStateHint(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate GISharp.GLib.Variant GetActionStateHint(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetActionState(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate GISharp.GLib.Variant GetActionState(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedChangeActionState(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName,
+/* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr value);
+
+        public delegate void ChangeActionState(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActivateAction(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName,
+/* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 */
+System.IntPtr parameter);
+
+        public delegate void ActivateAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActionAdded(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate void ActionAdded(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActionRemoved(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName);
+
+        public delegate void ActionRemoved(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActionEnabledChanged(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName,
+/* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+/* transfer-ownership:none */
+System.Boolean enabled);
+
+        public delegate void ActionEnabledChanged(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, System.Boolean enabled);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate void UnmanagedActionStateChanged(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName,
+/* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr state);
+
+        public delegate void ActionStateChanged(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.Boolean UnmanagedTryQueryAction(
+/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionGroup,
+/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr actionName,
+/* <type name="gboolean" type="gboolean*" managed-name="Gboolean" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full */
+out System.Boolean enabled,
+/* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.IntPtr parameterType,
+/* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.IntPtr stateType,
+/* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.IntPtr stateHint,
+/* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.IntPtr state);
+
+        public delegate System.Boolean TryQueryAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state);
+
+        public ActionGroupInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        {
+            var ret = new GISharp.GObject.InterfaceInfo
+            {
+                InterfaceInit = InterfaceInit,
+            };
+            return ret;
+        }
+
+        static void InterfaceInit(System.IntPtr gIface, System.IntPtr userData)
+        {
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onHasActionOffset, onHasActionDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onListActionsOffset, onListActionsDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetActionEnabledOffset, onGetActionEnabledDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetActionParameterTypeOffset, onGetActionParameterTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetActionStateTypeOffset, onGetActionStateTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetActionStateHintOffset, onGetActionStateHintDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetActionStateOffset, onGetActionStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onChangeActionStateOffset, onChangeActionStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActivateActionOffset, onActivateActionDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionAddedOffset, onActionAddedDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionRemovedOffset, onActionRemovedDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionEnabledChangedOffset, onActionEnabledChangedDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionStateChangedOffset, onActionStateChangedDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onQueryActionOffset, onQueryActionDelegate_);
+        }
+
+        static System.Boolean OnHasAction(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnHasAction(actionName);
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.Boolean);
+            }
+        }
+
+        static System.IntPtr OnListActions(System.IntPtr actionGroup_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnListActions();
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.Boolean OnGetActionEnabled(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnGetActionEnabled(actionName);
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.Boolean);
+            }
+        }
+
+        static System.IntPtr OnGetActionParameterType(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnGetActionParameterType(actionName);
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.IntPtr OnGetActionStateType(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnGetActionStateType(actionName);
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.IntPtr OnGetActionStateHint(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnGetActionStateHint(actionName);
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.IntPtr OnGetActionState(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var ret = actionGroup.OnGetActionState(actionName);
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static void OnChangeActionState(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr value_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnChangeActionState(actionName, value);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnActivateAction(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr parameter_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnActivateAction(actionName, parameter);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnActionAdded(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnActionAdded(actionName);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnActionRemoved(System.IntPtr actionGroup_, System.IntPtr actionName_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnActionRemoved(actionName);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnActionEnabledChanged(System.IntPtr actionGroup_, System.IntPtr actionName_, System.Boolean enabled_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnActionEnabledChanged(actionName, enabled_);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void OnActionStateChanged(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr state_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var state = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(state_, GISharp.Runtime.Transfer.None);
+                actionGroup.OnActionStateChanged(actionName, state);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static System.Boolean OnQueryAction(System.IntPtr actionGroup_, System.IntPtr actionName_, out System.Boolean enabled_, out System.IntPtr parameterType_, out System.IntPtr stateType_, out System.IntPtr stateHint_, out System.IntPtr state_)
+        {
+            try
+            {
+                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                GISharp.GLib.VariantType parameterType;
+                GISharp.GLib.VariantType stateType;
+                GISharp.GLib.Variant stateHint;
+                GISharp.GLib.Variant state;
+                var ret = actionGroup.OnTryQueryAction(actionName,out enabled_,out parameterType,out stateType,out stateHint,out state);
+                parameterType_ = parameterType?.Take() ?? System.IntPtr.Zero;
+                stateType_ = stateType?.Take() ?? System.IntPtr.Zero;
+                stateHint_ = stateHint?.Take() ?? System.IntPtr.Zero;
+                state_ = state?.Take() ?? System.IntPtr.Zero;
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                enabled_ = default(System.Boolean); parameterType_ = default(System.IntPtr); stateType_ = default(System.IntPtr); stateHint_ = default(System.IntPtr); state_ = default(System.IntPtr); return default(System.Boolean);
+            }
+        }
+    }
+
+    /// <summary>
     /// The virtual function table for #GAction.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
