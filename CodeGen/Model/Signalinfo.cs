@@ -77,6 +77,13 @@ namespace GISharp.CodeGen.Model
              _ClassMemberDeclarations.Value;
         readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _ClassMemberDeclarations;
 
+        /// <summary>
+        /// Gets all of the declarations for a signal for implementing an interface
+        /// </summary>
+        public SyntaxList<MemberDeclarationSyntax> InterfaceMemberDeclarations =>
+             _InterfaceMemberDeclarations.Value;
+        readonly Lazy<SyntaxList<MemberDeclarationSyntax>> _InterfaceMemberDeclarations;
+
         public SignalInfo(XElement element, MemberInfo declaringMember)
             : base(element, declaringMember)
         {
@@ -109,6 +116,8 @@ namespace GISharp.CodeGen.Model
             SignalManagerFieldName = ManagedName.ToCamelCase() + "SignalHandler";
             _ClassMemberDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() =>
                 List(LazyGetClassMemberDeclarations()));
+            _InterfaceMemberDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() =>
+                List(LazyGetInterfaceMemberDeclarations()));
         }
 
         protected override IEnumerable<AttributeListSyntax> GetAttributeLists()
@@ -237,6 +246,23 @@ namespace GISharp.CodeGen.Model
             yield return EventArgsClassDeclaration;
             yield return LazyGetGSignalManagerFieldDeclaration();
             yield return EventDeclaration;
+        }
+
+        IEnumerable<MemberDeclarationSyntax> LazyGetInterfaceMemberDeclarations()
+        {
+            var iface = DeclaringMember as InterfaceInfo;
+            if (iface == null) {
+                throw new InvalidOperationException("event is not declared by an interface");
+            }
+            
+            var eventArgsClassName = $"{iface.QualifiedName}.{EventArgsClassName}";
+            var typeName = ParseTypeName($"{typeof(EventHandler).FullName}<{eventArgsClassName}>");
+
+            var varDecl = VariableDeclaration(typeName)
+                .AddVariables(VariableDeclarator(ManagedName));
+
+            yield return EventFieldDeclaration(varDecl)
+                .WithAttributeLists(AttributeLists);
         }
 
         // generates a field like:
