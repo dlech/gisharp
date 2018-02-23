@@ -518,12 +518,21 @@ namespace GISharp.CodeGen
             var recordsThatAreOwned = document.Descendants (gi + "record")
                 .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "copy"));
             foreach (var element in recordsThatAreOwned) {
-                var opaqueType = "owned";
-                if (element.Attribute(glib + "type-name") != null) {
-                    // assume that GTypes inherit from boxed
-                    opaqueType = "boxed";
+                if (element.Attribute(gs + "opaque") != null) {
+                    continue;
                 }
-                element.SetAttributeValue (gs + "opaque", opaqueType);
+                element.SetAttributeValue (gs + "opaque", "owned");
+            }
+
+            // flag boxed types
+
+            var recordsThatAreBoxed = document.Descendants(gi + "record")
+                .Where(x => x.Attribute(glib + "type-name") != null);
+            foreach (var element in recordsThatAreBoxed) {
+                if (element.Attribute(gs + "opaque") != null) {
+                    continue;
+                }
+                element.SetAttributeValue (gs + "opaque", "boxed");
             }
 
             // flag static opaques
