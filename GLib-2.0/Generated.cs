@@ -259,23 +259,6 @@ namespace GISharp.GLib
         static extern GISharp.GObject.GType g_key_file_get_type();
 
         /// <summary>
-        /// Clears all keys and groups from @key_file, and decreases the
-        /// reference count by 1. If the reference count reaches zero,
-        /// frees the key file and all its allocated memory.
-        /// </summary>
-        /// <param name="keyFile">
-        /// a #GKeyFile
-        /// </param>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_key_file_free(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr keyFile);
-
-        /// <summary>
         /// Returns the value associated with @key under @group_name as a
         /// boolean.
         /// </summary>
@@ -1827,100 +1810,6 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Looks whether the key file has the key @key in the group
-        /// @group_name.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function does not follow the rules for #GError strictly;
-        /// the return value both carries meaning and signals an error.  To use
-        /// this function, you must pass a #GError pointer in @error, and check
-        /// whether it is not %NULL to see if an error occurred.
-        /// 
-        /// Language bindings should use g_key_file_get_value() to test whether
-        /// or not a key exists.
-        /// </remarks>
-        /// <param name="keyFile">
-        /// a #GKeyFile
-        /// </param>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key name
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// %TRUE if @key is a part of @group_name, %FALSE otherwise
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
-        static extern System.Boolean g_key_file_has_key(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr keyFile,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr groupName,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
-
-        /// <summary>
-        /// Looks whether the key file has the key @key in the group
-        /// @group_name.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function does not follow the rules for #GError strictly;
-        /// the return value both carries meaning and signals an error.  To use
-        /// this function, you must pass a #GError pointer in @error, and check
-        /// whether it is not %NULL to see if an error occurred.
-        /// 
-        /// Language bindings should use g_key_file_get_value() to test whether
-        /// or not a key exists.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="key">
-        /// a key name
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
-        /// <returns>
-        /// %TRUE if @key is a part of @group_name, %FALSE otherwise
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean HasKey(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
-        {
-            var this_ = this.Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_has_key(this_, groupName_, key_,out error_);
-            if (error_ != System.IntPtr.Zero)
-            {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
-
-            return ret;
-        }
-
-        /// <summary>
         /// Loads a key file from the data in @bytes into an empty #GKeyFile structure.
         /// If the object cannot be created then %error is set to a #GKeyFileError.
         /// </summary>
@@ -2365,24 +2254,6 @@ namespace GISharp.GLib
 
             return ret;
         }
-
-        /// <summary>
-        /// Increases the reference count of @key_file.
-        /// </summary>
-        /// <param name="keyFile">
-        /// a #GKeyFile
-        /// </param>
-        /// <returns>
-        /// the same @key_file.
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
-        /* transfer-ownership:full */
-        static extern System.IntPtr g_key_file_ref(
-        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr keyFile);
 
         /// <summary>
         /// Removes a comment above @key from @group_name.
