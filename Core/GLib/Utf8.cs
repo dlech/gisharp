@@ -1682,8 +1682,11 @@ namespace GISharp.GLib
 
         public bool Equals(Utf8 other)
         {
+            if (Object.Equals(other, null)) {
+                return false;
+            }
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             var ret = g_str_equal(this_, other_);
             return ret;
         }
