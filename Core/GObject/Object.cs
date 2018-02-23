@@ -287,6 +287,9 @@ namespace GISharp.GObject
 
         public Object () : this (New<Object> (), Transfer.Full)
         {
+            if (GetType() != typeof(Object)) {
+                throw new InvalidOperationException("Can't chain to this constructor");
+            }
         }
 
         [Since ("2.10")]
