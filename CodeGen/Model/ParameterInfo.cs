@@ -270,12 +270,7 @@ namespace GISharp.CodeGen.Model
                 } else if (IsParams) {
                     yield return Token (SyntaxKind.ParamsKeyword);
                 } else if (managed && IsInstanceParameter) {
-                    if (DeclaringMember is MethodInfo methodInfo) {
-                        var iface = methodInfo.DeclaringMember as InterfaceInfo;
-                        if (iface == null && methodInfo.IsExtensionMethod) {
-                            yield return Token(SyntaxKind.ThisKeyword);
-                        }
-                    }
+                    yield return Token(SyntaxKind.ThisKeyword);
                 }
             }
         }

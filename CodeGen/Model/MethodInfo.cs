@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -830,7 +830,7 @@ namespace GISharp.CodeGen.Model
                 }
             }
             var instanceParam = PinvokeParameterInfos.First ();
-            var invokeStatement = GetInvocationStatement($"{instanceParam.ManagedName}.{ManagedName}", true);
+            var invokeStatement = GetInvocationStatement($"{instanceParam.ManagedName}.On{ManagedName}", true);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {

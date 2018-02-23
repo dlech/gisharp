@@ -200,7 +200,7 @@ namespace GISharp.CodeGen.Model
         IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls()
         {
             foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
-                var methodName = "On" + f.ManagedName;
+                var methodName = f.ManagedName;
                 var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
 
                 var method = MethodDeclaration(returnType, methodName)

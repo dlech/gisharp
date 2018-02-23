@@ -332,8 +332,8 @@ namespace GISharp.CodeGen.Model
                 yield return d;
             }
 
-            // create explicit implementation of GInterfaces by calling the
-            // static methods associated with the interface
+            // create explicit implementation of GInterface virtual methods similar to:
+            // ReturnType GISharp.Namespace.IInterface.Method() => throws new NotSupportedException();
             foreach (var ifaceElement in Element.Elements(gi + "implements")) {
                 var type = GirType.ResolveType("I" + ifaceElement.Attribute("name").Value,
                     Element.Document);
@@ -345,15 +345,13 @@ namespace GISharp.CodeGen.Model
                         .WithArguments(SeparatedList(method.GetParameters()
                             .Select(x => Argument(ParseExpression(x.Name)))
                             .Prepend(Argument(ThisExpression()))));
-                    var extensionMethod = ParseExpression($"{staticTypeName}.{method.Name}");
-                    var invokeExpression = InvocationExpression(extensionMethod, arguments);
+                    var methodName = $"{type.ToSyntax()}.{method.Name}";
+                    var throwExpression = ParseExpression($"throw new {typeof(NotSupportedException).FullName}()");
 
-                    yield return MethodDeclaration(returnType, method.Name)
-                        .AddModifiers(Token(PublicKeyword))
+                    yield return MethodDeclaration(returnType, methodName)
                         .WithParameterList(parameterList)
-                        .WithExpressionBody(ArrowExpressionClause(invokeExpression))
-                        .WithSemicolonToken(Token(SemicolonToken))
-                        .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n"));
+                        .WithExpressionBody(ArrowExpressionClause(throwExpression))
+                        .WithSemicolonToken(Token(SemicolonToken));
                 }
             }
         }

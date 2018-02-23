@@ -347,6 +347,13 @@ namespace GISharp.CodeGen
                     continue;
                 }
                 var name = attr.Value;
+
+                // virtual method names get an "On" prefix because they usually
+                // have the same name as the invoker method
+                if (element.Attribute("invoker") != null || (element.Name == gi + "field" && element.Element(gi + "callback") != null)) {
+                    name = "on_" + name;
+                }
+
                 // replace name by shadows if it exists (i.e. drop _full suffix)
                 var shadows = element.Attribute ("shadows");
                 if (shadows != null) {

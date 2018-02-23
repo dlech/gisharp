@@ -66,7 +66,7 @@ namespace GISharp.Gio
         /// the parameter to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void Activate(GISharp.GLib.Variant parameter);
+        void OnActivate(GISharp.GLib.Variant parameter);
 
         /// <summary>
         /// Request for the state of @action to be changed to @value.
@@ -88,7 +88,7 @@ namespace GISharp.Gio
         /// If <paramref name="value"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        void ChangeState(GISharp.GLib.Variant value);
+        void OnChangeState(GISharp.GLib.Variant value);
 
         /// <summary>
         /// Checks if @action is currently enabled.
@@ -101,7 +101,7 @@ namespace GISharp.Gio
         /// whether the action is enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        System.Boolean GetEnabled();
+        System.Boolean OnGetEnabled();
 
         /// <summary>
         /// Queries the name of @action.
@@ -110,7 +110,7 @@ namespace GISharp.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Utf8 GetName();
+        GISharp.GLib.Utf8 OnGetName();
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
@@ -127,7 +127,7 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType GetParameterType();
+        GISharp.GLib.VariantType OnGetParameterType();
 
         /// <summary>
         /// Queries the current state of @action.
@@ -144,7 +144,7 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant GetState();
+        GISharp.GLib.Variant OnGetState();
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of
@@ -171,7 +171,7 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant GetStateHint();
+        GISharp.GLib.Variant OnGetStateHint();
 
         /// <summary>
         /// Queries the type of the state of @action.
@@ -192,7 +192,7 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType GetStateType();
+        GISharp.GLib.VariantType OnGetStateType();
     }
 
     public static class Action
@@ -497,7 +497,7 @@ namespace GISharp.Gio
         /// the parameter to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void Activate(GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
+        public static void Activate(this GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
@@ -561,7 +561,7 @@ namespace GISharp.Gio
         /// If <paramref name="value"/> is <c>null</c>.
         ///</exception>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static void ChangeState(GISharp.Gio.IAction action, GISharp.GLib.Variant value)
+        public static void ChangeState(this GISharp.Gio.IAction action, GISharp.GLib.Variant value)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
@@ -607,7 +607,7 @@ namespace GISharp.Gio
         /// whether the action is enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetEnabled(GISharp.Gio.IAction action)
+        public static System.Boolean GetEnabled(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret = g_action_get_enabled(action_);
@@ -645,7 +645,7 @@ namespace GISharp.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Utf8 GetName(GISharp.Gio.IAction action)
+        public static GISharp.GLib.Utf8 GetName(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_name(action_);
@@ -700,7 +700,7 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetParameterType(GISharp.Gio.IAction action)
+        public static GISharp.GLib.VariantType GetParameterType(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_parameter_type(action_);
@@ -755,7 +755,7 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetState(GISharp.Gio.IAction action)
+        public static GISharp.GLib.Variant GetState(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state(action_);
@@ -830,7 +830,7 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetStateHint(GISharp.Gio.IAction action)
+        public static GISharp.GLib.Variant GetStateHint(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_hint(action_);
@@ -893,7 +893,7 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetStateType(GISharp.Gio.IAction action)
+        public static GISharp.GLib.VariantType GetStateType(this GISharp.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_type(action_);
@@ -909,43 +909,43 @@ namespace GISharp.Gio
     public sealed partial class ActionInterface : GISharp.GObject.TypeInterface
     {
         static readonly System.IntPtr gIfaceOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
-        static readonly System.IntPtr getNameOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetName));
-        static readonly UnmanagedGetName getNameDelegate = OnGetName;
-        static readonly System.IntPtr getNameDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getNameDelegate);
-        static readonly System.IntPtr getParameterTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParameterType));
-        static readonly UnmanagedGetParameterType getParameterTypeDelegate = OnGetParameterType;
-        static readonly System.IntPtr getParameterTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getParameterTypeDelegate);
-        static readonly System.IntPtr getStateTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateType));
-        static readonly UnmanagedGetStateType getStateTypeDelegate = OnGetStateType;
-        static readonly System.IntPtr getStateTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateTypeDelegate);
-        static readonly System.IntPtr getStateHintOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateHint));
-        static readonly UnmanagedGetStateHint getStateHintDelegate = OnGetStateHint;
-        static readonly System.IntPtr getStateHintDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateHintDelegate);
-        static readonly System.IntPtr getEnabledOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEnabled));
-        static readonly UnmanagedGetEnabled getEnabledDelegate = OnGetEnabled;
-        static readonly System.IntPtr getEnabledDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getEnabledDelegate);
-        static readonly System.IntPtr getStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetState));
-        static readonly UnmanagedGetState getStateDelegate = OnGetState;
-        static readonly System.IntPtr getStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(getStateDelegate);
-        static readonly System.IntPtr changeStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeState));
-        static readonly UnmanagedChangeState changeStateDelegate = OnChangeState;
-        static readonly System.IntPtr changeStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(changeStateDelegate);
-        static readonly System.IntPtr activateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
-        static readonly UnmanagedActivate activateDelegate = OnActivate;
-        static readonly System.IntPtr activateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(activateDelegate);
+        static readonly System.IntPtr onGetNameOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetName));
+        static readonly UnmanagedGetName onGetNameDelegate = OnGetName;
+        static readonly System.IntPtr onGetNameDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetNameDelegate);
+        static readonly System.IntPtr onGetParameterTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetParameterType));
+        static readonly UnmanagedGetParameterType onGetParameterTypeDelegate = OnGetParameterType;
+        static readonly System.IntPtr onGetParameterTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetParameterTypeDelegate);
+        static readonly System.IntPtr onGetStateTypeOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetStateType));
+        static readonly UnmanagedGetStateType onGetStateTypeDelegate = OnGetStateType;
+        static readonly System.IntPtr onGetStateTypeDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetStateTypeDelegate);
+        static readonly System.IntPtr onGetStateHintOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetStateHint));
+        static readonly UnmanagedGetStateHint onGetStateHintDelegate = OnGetStateHint;
+        static readonly System.IntPtr onGetStateHintDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetStateHintDelegate);
+        static readonly System.IntPtr onGetEnabledOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetEnabled));
+        static readonly UnmanagedGetEnabled onGetEnabledDelegate = OnGetEnabled;
+        static readonly System.IntPtr onGetEnabledDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetEnabledDelegate);
+        static readonly System.IntPtr onGetStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetState));
+        static readonly UnmanagedGetState onGetStateDelegate = OnGetState;
+        static readonly System.IntPtr onGetStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetStateDelegate);
+        static readonly System.IntPtr onChangeStateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnChangeState));
+        static readonly UnmanagedChangeState onChangeStateDelegate = OnChangeState;
+        static readonly System.IntPtr onChangeStateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onChangeStateDelegate);
+        static readonly System.IntPtr onActivateOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActivate));
+        static readonly UnmanagedActivate onActivateDelegate = OnActivate;
+        static readonly System.IntPtr onActivateDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActivateDelegate);
 
         new struct Struct
         {
 #pragma warning disable CS0649
             public GISharp.GObject.TypeInterface.Struct GIface;
-            public UnmanagedGetName GetName;
-            public UnmanagedGetParameterType GetParameterType;
-            public UnmanagedGetStateType GetStateType;
-            public UnmanagedGetStateHint GetStateHint;
-            public UnmanagedGetEnabled GetEnabled;
-            public UnmanagedGetState GetState;
-            public UnmanagedChangeState ChangeState;
-            public UnmanagedActivate Activate;
+            public UnmanagedGetName OnGetName;
+            public UnmanagedGetParameterType OnGetParameterType;
+            public UnmanagedGetStateType OnGetStateType;
+            public UnmanagedGetStateHint OnGetStateHint;
+            public UnmanagedGetEnabled OnGetEnabled;
+            public UnmanagedGetState OnGetState;
+            public UnmanagedChangeState OnChangeState;
+            public UnmanagedActivate OnActivate;
 #pragma warning restore CS0649
         }
 
@@ -1034,14 +1034,14 @@ System.IntPtr parameter);
 
         static void InterfaceInit(System.IntPtr gIface, System.IntPtr userData)
         {
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getNameOffset, getNameDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getParameterTypeOffset, getParameterTypeDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateTypeOffset, getStateTypeDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateHintOffset, getStateHintDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getEnabledOffset, getEnabledDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)getStateOffset, getStateDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)changeStateOffset, changeStateDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)activateOffset, activateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetNameOffset, onGetNameDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetParameterTypeOffset, onGetParameterTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetStateTypeOffset, onGetStateTypeDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetStateHintOffset, onGetStateHintDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetEnabledOffset, onGetEnabledDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetStateOffset, onGetStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onChangeStateOffset, onChangeStateDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActivateOffset, onActivateDelegate_);
         }
 
         static System.IntPtr OnGetName(System.IntPtr action_)
@@ -1049,7 +1049,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetName();
+                var ret = action.OnGetName();
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
@@ -1065,7 +1065,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetParameterType();
+                var ret = action.OnGetParameterType();
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
@@ -1081,7 +1081,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetStateType();
+                var ret = action.OnGetStateType();
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
@@ -1097,7 +1097,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetStateHint();
+                var ret = action.OnGetStateHint();
                 var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
@@ -1113,7 +1113,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetEnabled();
+                var ret = action.OnGetEnabled();
                 return ret;
             }
             catch (System.Exception ex)
@@ -1128,7 +1128,7 @@ System.IntPtr parameter);
             try
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
-                var ret = action.GetState();
+                var ret = action.OnGetState();
                 var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
@@ -1145,7 +1145,7 @@ System.IntPtr parameter);
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
                 var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
-                action.ChangeState(value);
+                action.OnChangeState(value);
             }
             catch (System.Exception ex)
             {
@@ -1159,7 +1159,7 @@ System.IntPtr parameter);
             {
                 var action = (GISharp.Gio.IAction)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(action_, GISharp.Runtime.Transfer.None);
                 var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
-                action.Activate(parameter);
+                action.OnActivate(parameter);
             }
             catch (System.Exception ex)
             {
@@ -1586,28 +1586,13 @@ System.IntPtr parameter);
             g_simple_action_set_state_hint(this_, stateHint_);
         }
 
-        /// <inheritdoc />
-        public void Activate(GISharp.GLib.Variant parameter) => GISharp.Gio.Action.Activate(this, parameter);
-
-        /// <inheritdoc />
-        public void ChangeState(GISharp.GLib.Variant value) => GISharp.Gio.Action.ChangeState(this, value);
-
-        /// <inheritdoc />
-        public System.Boolean GetEnabled() => GISharp.Gio.Action.GetEnabled(this);
-
-        /// <inheritdoc />
-        public GISharp.GLib.Utf8 GetName() => GISharp.Gio.Action.GetName(this);
-
-        /// <inheritdoc />
-        public GISharp.GLib.VariantType GetParameterType() => GISharp.Gio.Action.GetParameterType(this);
-
-        /// <inheritdoc />
-        public GISharp.GLib.Variant GetState() => GISharp.Gio.Action.GetState(this);
-
-        /// <inheritdoc />
-        public GISharp.GLib.Variant GetStateHint() => GISharp.Gio.Action.GetStateHint(this);
-
-        /// <inheritdoc />
-        public GISharp.GLib.VariantType GetStateType() => GISharp.Gio.Action.GetStateType(this);
+        void GISharp.Gio.IAction.OnActivate(GISharp.GLib.Variant parameter) => throw new System.NotSupportedException();
+        void GISharp.Gio.IAction.OnChangeState(GISharp.GLib.Variant value) => throw new System.NotSupportedException();
+        System.Boolean GISharp.Gio.IAction.OnGetEnabled() => throw new System.NotSupportedException();
+        GISharp.GLib.Utf8 GISharp.Gio.IAction.OnGetName() => throw new System.NotSupportedException();
+        GISharp.GLib.VariantType GISharp.Gio.IAction.OnGetParameterType() => throw new System.NotSupportedException();
+        GISharp.GLib.Variant GISharp.Gio.IAction.OnGetState() => throw new System.NotSupportedException();
+        GISharp.GLib.Variant GISharp.Gio.IAction.OnGetStateHint() => throw new System.NotSupportedException();
+        GISharp.GLib.VariantType GISharp.Gio.IAction.OnGetStateType() => throw new System.NotSupportedException();
     }
 }
