@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 using System.Xml.Linq;
 using GISharp.CodeGen.Reflection;
 using GISharp.CodeGen.Syntax;
+using GISharp.GObject;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -29,6 +30,11 @@ namespace GISharp.CodeGen.Model
         /// Indicates if this class is derived from GObject
         /// </summary>
         public bool IsGObject => Element.Name == gi + "class";
+
+        /// <summary>
+        /// Indicates if this class is derived from GBoxed
+        /// </summary>
+        public bool IsBoxed => Element.Attribute(gs + "opaque").AsString() == "boxed";
 
         /// <summary>
         /// Indicates if this class is sealed
@@ -263,6 +269,9 @@ namespace GISharp.CodeGen.Model
             var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
             if (opaqueTypeName != null) {
                 switch (opaqueTypeName) {
+                case "boxed":
+                    opaqueTypeName = typeof(GISharp.GObject.Boxed).FullName;
+                    break;
                 case "owned":
                     opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;
                     break;
@@ -364,27 +373,20 @@ namespace GISharp.CodeGen.Model
             } else {
                 modifiers = modifiers.Add (Token (SyntaxKind.PublicKeyword));
             }
-            var paramerList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
+            var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
                 typeof(IntPtr).FullName, typeof(GISharp.Runtime.Transfer).FullName));
             var argList = ParseArgumentList("(handle, ownership)");
+            if (IsBoxed) {
+                var gtypeArg = Argument(ParseExpression("_GType"));
+                argList = argList.WithArguments(argList.Arguments.Insert(0, gtypeArg));
+            }
             var initializer = ConstructorInitializer (SyntaxKind.BaseConstructorInitializer)
                 .WithArgumentList (argList);
-            var body = Block();
-            var copyMethod = this.MethodInfos.SingleOrDefault(x => x.IsCopy);
-            if (copyMethod != null) {
-                var copyStatement = ParseStatement(string.Format(@"if (ownership != {0}.{1}) {{
-                        this.handle = {2}(handle);
-                    }}",
-                    typeof(GISharp.Runtime.Transfer).FullName,
-                    nameof(GISharp.Runtime.Transfer.None),
-                    copyMethod.PinvokeIdentifier));
-                body = body.AddStatements(copyStatement);
-            }
             var constructor = ConstructorDeclaration(Identifier)
                 .WithModifiers (modifiers)
-                .WithParameterList (paramerList)
+                .WithParameterList(parameterList)
                 .WithInitializer(initializer)
-                .WithBody(body);
+                .WithBody(Block());
             return constructor;
         }
     }

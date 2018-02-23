@@ -7,6 +7,7 @@ using System.Reflection;
 
 using GISharp.Runtime;
 using System.Reflection.Emit;
+using GISharp.GObject;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -350,6 +351,8 @@ namespace GISharp.CodeGen.Reflection
                     var opaqueAttr = element.Attribute (gs + "opaque");
                     if (opaqueAttr != null) {
                         switch (opaqueAttr.Value) {
+                        case "boxed":
+                            return typeof(Boxed);
                         case "owned":
                             return typeof(Opaque);
                         case "static":
@@ -367,7 +370,7 @@ namespace GISharp.CodeGen.Reflection
                     return typeof(ValueType);
                 }
                 if (element.Name == gi + "enumeration" || element.Name == gi + "bitfield") {
-                    return typeof(Enum);
+                    return typeof(System.Enum);
                 }
                 if (element.Name == gi + "callback") {
                     return typeof(Delegate);

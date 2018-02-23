@@ -5,7 +5,7 @@ namespace GISharp.GLib
     /// and should not be accessed directly.
     /// </summary>
     [GISharp.Runtime.GTypeAttribute("GKeyFile", IsProxyForUnmanagedType = true)]
-    public sealed partial class KeyFile : GISharp.Runtime.Opaque
+    public sealed partial class KeyFile : GISharp.GObject.Boxed
     {
         static readonly GISharp.GObject.GType _GType = g_key_file_get_type();
 
@@ -204,13 +204,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeLink = "Link";
 
-        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
-            if (ownership != GISharp.Runtime.Transfer.None)
-            {
-                this.handle = g_key_file_ref(handle);
             }
-        }
 
         /// <summary>
         /// Creates a new empty #GKeyFile object. Use
