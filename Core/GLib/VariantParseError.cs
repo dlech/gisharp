@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using System;
+using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
 namespace GISharp.GLib
@@ -95,6 +96,58 @@ namespace GISharp.GLib
                 var ret = g_variant_parse_error_quark();
                 return ret;
             }
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.40")]
+        static extern IntPtr g_variant_parse_error_print_context(IntPtr error, IntPtr sourceStr);
+
+        /// <summary>
+        /// Pretty-prints a message showing the context of a <see cref="Variant"/>
+        /// parse error within the string for which parsing was attempted.
+        /// </summary>
+        /// <remarks>
+        /// The resulting string is suitable for output to the console or other
+        /// monospace media where newlines are treated in the usual way.
+        /// 
+        /// The message will typically look something like one of the following:
+        /// <code>
+        /// unterminated string constant:
+        ///   (1, 2, 3, 'abc
+        ///             ^^^^
+        /// </code>
+        /// or
+        /// <code>
+        /// unable to find a common type:
+        ///   [1, 2, 3, 'str']
+        ///    ^        ^^^^^
+        /// </code>
+        /// The format of the message may change in a future version.
+        /// 
+        /// <paramref name="error"/> must have come from a failed attempt to
+        /// <see cref="Variant.Parse(VariantType, Utf8)"/> and <paramref name="sourceStr"/>
+        /// must be exactly the same string that caused the error.
+        /// </remarks>
+        /// <param name="error">
+        /// a <see cref="Error"/> from the <see cref="VariantParseError"/> domain
+        /// </param>
+        /// <param name="sourceStr">
+        /// the string that was given to the parser
+        /// </param>
+        /// <returns>
+        /// the printed message.
+        /// </returns>
+        [Since("2.40")]
+        public static Utf8 PrintContext(this Error error, Utf8 sourceStr)
+        {
+            var error_ = error?.Handle ?? throw new ArgumentNullException(nameof(error));
+            if (error.Domain != Quark) {
+                throw new ArgumentException("Requires VariantParseError", nameof(error));
+            }
+            var sourceStr_ = sourceStr?.Handle ?? throw new ArgumentNullException(nameof(sourceStr));
+            var ret_ = g_variant_parse_error_print_context(error_, sourceStr_);
+            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
+            return ret;
         }
     }
 }
