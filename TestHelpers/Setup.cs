@@ -21,11 +21,23 @@ namespace GISharp.Test
         }
 
         [OneTimeSetUp]
-        public void SetupGLibLogging()
+        public void SetUpGLibLogging()
         {
             Utility.ApplicationName = "GISharp.Test";
             Utility.ProgramName = "GISharp.Test";
             Log.SetDefaultHandler(LogToTestContext);
+        }
+
+        [OneTimeSetUp]
+        public void SetUpFormatters()
+        {
+            // Work around NUnit bug/feature.
+            // NUnit tries to enumerate any IEnumerable for informational
+            // purposes (NUnit.Framework.Constraints.MsgUtils), but Variant
+            // will throw an exception if it is not a container. This causes
+            // tests to fail unexpectedly. So, we add a value formatter for
+            // Variant so that it does not try to use the built-in IEnumerable.
+            TestContext.AddFormatter<Variant>(v => ((Variant)v).Print(true));
         }
     }
 }
