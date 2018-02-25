@@ -376,14 +376,10 @@ namespace GISharp.CodeGen.Model
             foreach (var s in GetArgumentCheckStatements ()) {
                 yield return s;
             }
-            var freeStatements = new List<StatementSyntax> ();
             foreach (var p in ManagedParameterInfos.Where (x => x.TypeInfo.RequiresMarshal)) {
                 if (p.IsInParam) {
-                    foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(p, true)) {
+                    foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(p, true)) {
                         yield return statement;
-                        if (freeStatement != null) {
-                            freeStatements.Add(freeStatement);
-                        }
                     }
                 } else {
                     var unmangedParameter = PinvokeParameterInfos.Single (x => x.GirName == p.GirName);
@@ -435,10 +431,6 @@ namespace GISharp.CodeGen.Model
                 yield return statement;
             }
 
-            foreach (var statement in freeStatements) {
-                yield return statement;
-            }
-
             if (!IsConstructor) {
                 var marshalReturnStatements = GetMarshalUnmanagedToManagedStatements(ManagedReturnParameterInfo, true);
                 foreach (var statement in marshalReturnStatements) {
@@ -466,7 +458,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<ValueTuple<StatementSyntax, StatementSyntax>> GetMarshalManagedToUnmanagedParameterStatements(ParameterInfo managedParameter, bool declareVariable)
+        IEnumerable<StatementSyntax> GetMarshalManagedToUnmanagedParameterStatements(ParameterInfo managedParameter, bool declareVariable)
         {
             if (!managedParameter.TypeInfo.RequiresMarshal) {
                 yield break;
@@ -488,7 +480,7 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return (ParseStatement(statement), null);
+                yield return ParseStatement(statement);
                 break;
             case TypeClassification.Delegate:
                 statement = string.Format (
@@ -503,9 +495,9 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return (ParseStatement(statement), null);
+                yield return ParseStatement(statement);
                 statement = string.Format ("throw new {0} ();", typeof(NotImplementedException).FullName);
-                yield return (ParseStatement(statement), null);
+                yield return ParseStatement(statement);
                 if (pinvokeParameter.ClosureIndex >= 0) {
                     var closureParameter = PinvokeParameterInfos[pinvokeParameter.ClosureIndex];
                     var closureHandle = Identifier (pinvokeParameter.Identifier + "Handle");
@@ -515,13 +507,7 @@ namespace GISharp.CodeGen.Model
                         typeof(GCHandle).FullName,
                         nameof(GCHandle.Alloc),
                         pinvokeParameter.Identifier);
-                    var closureHandleFreeStatement = string.Format (
-                        "{0}.{1} ();\n",
-                        closureHandle,
-                        nameof(GCHandle.Free));
-                    yield return (ParseStatement(closureHandleStatement),
-                        pinvokeParameter.Scope == GISharp.Runtime.CallbackScope.Call
-                        ? ParseStatement (closureHandleFreeStatement) : null);
+                    yield return ParseStatement(closureHandleStatement);
                     
                     if (pinvokeParameter.DestoryIndex >= 0) {
                         var notifyParameter = PinvokeParameterInfos[pinvokeParameter.DestoryIndex];
@@ -533,7 +519,7 @@ namespace GISharp.CodeGen.Model
                             // typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
                             // nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
                             closureHandle);
-                        yield return (ParseStatement(notifyStatement), null);
+                        yield return ParseStatement(notifyStatement);
                         
                         var closureParameterStatement = string.Format (
                             "var {0}_ = {1}.{2} ({1}.{3} ({4}_));\n",
@@ -542,7 +528,7 @@ namespace GISharp.CodeGen.Model
                             nameof(GCHandle.ToIntPtr),
                             nameof(GCHandle.Alloc),
                             notifyParameter.Identifier);
-                        yield return (ParseStatement(closureParameterStatement), null);
+                        yield return ParseStatement(closureParameterStatement);
                     } else {
                         var closureParameterStatement = string.Format (
                             "var {0}_ = {1}.{2} ({3});\n",
@@ -550,7 +536,7 @@ namespace GISharp.CodeGen.Model
                             typeof(GCHandle).FullName,
                             nameof(GCHandle.ToIntPtr),
                             closureHandle);
-                        yield return (ParseStatement(closureParameterStatement), null);
+                        yield return ParseStatement(closureParameterStatement);
                     }
                 }
                 break;
@@ -573,7 +559,7 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return (ParseStatement(statement), null);
+                yield return ParseStatement(statement);
                 break;
             default:
                 // TODO: need to add more implementations
@@ -583,9 +569,9 @@ namespace GISharp.CodeGen.Model
                 if (declareVariable) {
                     statement = "var " + statement;
                 }
-                yield return (ParseStatement(statement), null);
-                yield return (ParseStatement(string.Format("throw new {0} ();\n",
-                    typeof(NotImplementedException).FullName)), null);
+                yield return ParseStatement(statement);
+                yield return ParseStatement(string.Format("throw new {0} ();\n",
+                    typeof(NotImplementedException).FullName));
                 break;
             }
         }
@@ -804,11 +790,8 @@ namespace GISharp.CodeGen.Model
                 yield return IfStatement (ParseExpression ("freeUserData"),ifBody);
             }
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
+                foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
                     yield return statement;
-                    if (freeStatement != null) {
-                        yield return freeStatement;
-                    }
                 }
                 var ret = "ret";
                 if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
@@ -839,22 +822,14 @@ namespace GISharp.CodeGen.Model
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
             foreach (var p in ManagedParameterInfos.Where (x => x.IsOutParam)) {
-                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(p, false)) {
+                foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(p, false)) {
                     tryStatement = tryStatement.AddBlockStatements(statement);
-                    if (freeStatement != null) {
-                        // TODO: how to prevent memory leak?
-                        //tryStatement = tryStatement.AddBlockStatements(freeStatement);
-                    }
                 }
             }
 
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
-                foreach (var (statement, freeStatement) in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
+                foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
                     tryStatement = tryStatement.AddBlockStatements(statement);
-                    if (freeStatement != null) {
-                        // TODO: how to prevent memory leak?
-                        //tryStatement = tryStatement.AddBlockStatements(freeStatement);
-                    }
                 }
 
                 var ret = "ret";
