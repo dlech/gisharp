@@ -876,11 +876,11 @@ namespace GISharp.CodeGen.Model
 
             if (ThrowsGErrorException) {
                 var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
-                var propagateError = ParseStatement(string.Format("{0}.{1}(ex.{2}, {3});\n",
+                var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
                     typeof(GISharp.Runtime.GMarshal).FullName,
                     nameof(GISharp.Runtime.GMarshal.PropagateError),
-                    nameof(GISharp.Runtime.GErrorException.Error),
-                    PinvokeParameterInfos.Single(x => x.IsErrorParameter).Identifier));
+                    PinvokeParameterInfos.Single(x => x.IsErrorParameter).Identifier,
+                    nameof(GISharp.Runtime.GErrorException.Error)));
 
                 var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
                 if (returnDefault != null) {

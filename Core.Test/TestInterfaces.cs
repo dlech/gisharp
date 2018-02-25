@@ -68,7 +68,7 @@ namespace GISharp.Core.Test
                 return ret;
             }
             catch (GErrorException ex) {
-                GMarshal.PropagateError (errorPtr, ex.Error);
+                GMarshal.PropagateError(ref errorPtr, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: we should convert managed exception to GError
@@ -243,7 +243,7 @@ namespace GISharp.Core.Test
                 return ret;
             }
             catch (GErrorException ex) {
-                GMarshal.PropagateError (errorPtr, ex.Error);
+                GMarshal.PropagateError(ref errorPtr, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: convert managed exception to GError
@@ -272,7 +272,7 @@ namespace GISharp.Core.Test
                 var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
                 monitor.CanReachFinish (result);
             } catch (GErrorException ex) {
-                GMarshal.PropagateError (errorPtr, ex.Error);
+                GMarshal.PropagateError(ref errorPtr, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: convert managed exception to GError

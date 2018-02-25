@@ -324,9 +324,13 @@ namespace GISharp.CodeGen
             var elementsThatThrow = document.Descendants ()
                 .Where (d => d.Attribute ("throws") != null);
             foreach (var element in elementsThatThrow) {
+                var direction = "out";
+                if (element.Name == gi + "callback") {
+                    direction = "inout";
+                }
                 var errorElement = new XElement (gs + "error-parameter",
                     new XAttribute ("name", "error"),
-                    new XAttribute ("direction", "out"),
+                    new XAttribute("direction", direction),
                     new XAttribute (gs + "managed-type", typeof(IntPtr).FullName),
                     new XElement (gi + "doc", "return location for a #GError"),
                     new XElement (gi + "type",

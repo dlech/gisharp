@@ -469,7 +469,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error (IntPtr dest, IntPtr src);
+        static extern void g_propagate_error(ref IntPtr dest, IntPtr src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error
@@ -483,10 +483,10 @@ namespace GISharp.Runtime
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
-        public static void PropagateError (IntPtr dest, Error src)
+        public static void PropagateError(ref IntPtr dest, Error src)
         {
             var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
-            g_propagate_error(dest, src_);
+            g_propagate_error(ref dest, src_);
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
