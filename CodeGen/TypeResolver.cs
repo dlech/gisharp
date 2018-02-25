@@ -11,6 +11,10 @@ namespace GISharp.CodeGen
 
         public static void LoadAssembly(Assembly assembly)
         {
+            if (assemblyCache.ContainsKey(assembly.FullName)) {
+                // ignore already loaded assemblies
+                return;
+            }
             assemblyCache.Add(assembly.FullName, assembly);
         }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -126,6 +127,7 @@ namespace GISharp.CodeGen
 
             // load the project given by the --project option
 
+            var manager = new AnalyzerManager(Console.Error, LoggerVerbosity.Quiet);
             ProjectAnalyzer projectAnalyzer;
 
             try {
@@ -134,7 +136,6 @@ namespace GISharp.CodeGen
                     projectArg = Directory.EnumerateFiles(projectArg, "*.csproj").FirstOrDefault() ?? projectArg;
                 }
 
-                var manager = new AnalyzerManager(Console.Error, LoggerVerbosity.Quiet);
                 projectAnalyzer = manager.GetProject(projectArg);
 
             }
@@ -143,6 +144,13 @@ namespace GISharp.CodeGen
                 Environment.Exit(1);
                 return;
             }
+
+            // hack to work around msbuild trying to use project directory as MSBuildToolsPath
+            var ext = projectAnalyzer.GlobalProperties["MSBuildExtensionsPath"];
+            Environment.SetEnvironmentVariable("MSBUILD_EXE_PATH", Path.Combine(ext, "MSBuild.dll"));
+            projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.MSBuildExtensionsPath);
+            projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.MSBuildSDKsPath);
+            // projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.RoslynTargetsPath);
 
             var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFilePath);
             var girFilePath = Path.Combine(girDirectoryArg ?? "gir-1.0", repositoryName + ".gir");
@@ -225,18 +233,43 @@ namespace GISharp.CodeGen
             girXml.ApplyBuiltinFixup();
             girXml.Validate();
 
-            Console.WriteLine("Generating code...");
+            Console.WriteLine("Resolving references...");
 
-            // FIXME: need to load assemblies of dependencies
+            // load all references assemblies into type resolver
 
-            TypeResolver.LoadAssembly(Assembly.GetAssembly(typeof(GISharp.Runtime.Opaque)));
+            TypeResolver.LoadAssembly(typeof(GISharp.Runtime.Opaque).Assembly);
+
+            var x = new ResolveEventHandler((s, a) => {
+                var name = a.Name.Split(',')[0];
+                var path = Path.Combine(ext, name + ".dll");
+                return Assembly.LoadFile(path);
+            });
+
+            foreach (var projRef in projectAnalyzer.GetProjectReferences().Distinct()) {
+                var proj = manager.GetProject(projRef);
+                var targetPath = proj.CompiledProject.GetProperty("TargetPath").EvaluatedValue;
+
+                // building with Buildalizer deletes the output, so we have to
+                // build again. theoretically, we could use MSBUild programmatically
+                // but it is really quirky and doesn't "just work"
+                var dotnet = Process.Start("dotnet", $"build {projRef} -v q");
+                dotnet.WaitForExit();
+                if (dotnet.ExitCode != 0) {
+                    Environment.Exit(dotnet.ExitCode);
+                }
+
+                TypeResolver.LoadAssembly(Assembly.LoadFile(targetPath));
+            }
+
             AppDomain.CurrentDomain.TypeResolve += TypeResolver.Resolve;
+
+            // write the generate code file
+
+            Console.WriteLine("Generating code...");
 
             var moduleInfo = new ModuleInfo(girXml.Root);
             var codeCompileUnit = CompilationUnit().WithMembers(moduleInfo.AllDeclarations);
             var workspace = new AdhocWorkspace();
-
-            // write the generate code file
 
             var generatedFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), "Generated.cs");
             Console.WriteLine($"Writing '{generatedFilePath}'...");
