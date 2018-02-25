@@ -3767,6 +3767,85 @@ namespace GISharp.GLib
     }
 
     /// <summary>
+    /// The #GOptionArg enum values determine which type of extra argument the
+    /// options expect to find. If an option expects an extra argument, it can
+    /// be specified in several ways; with a short option: `-x arg`, with a long
+    /// option: `--name arg` or combined in a single argument: `--name=arg`.
+    /// </summary>
+    public enum OptionArg
+    {
+        /// <summary>
+        /// No extra argument. This is useful for simple flags.
+        /// </summary>
+        None = 0,
+        /// <summary>
+        /// The option takes a string argument.
+        /// </summary>
+        String = 1,
+        /// <summary>
+        /// The option takes an integer argument.
+        /// </summary>
+        Int = 2,
+        /// <summary>
+        /// The option provides a callback (of type
+        ///     #GOptionArgFunc) to parse the extra argument.
+        /// </summary>
+        Callback = 3,
+        /// <summary>
+        /// The option takes a filename as argument.
+        /// </summary>
+        Filename = 4,
+        /// <summary>
+        /// The option takes a string argument, multiple
+        ///     uses of the option are collected into an array of strings.
+        /// </summary>
+        StringArray = 5,
+        /// <summary>
+        /// The option takes a filename as argument,
+        ///     multiple uses of the option are collected into an array of strings.
+        /// </summary>
+        FilenameArray = 6,
+        /// <summary>
+        /// The option takes a double argument. The argument
+        ///     can be formatted either for the user's locale or for the "C" locale.
+        ///     Since 2.12
+        /// </summary>
+        Double = 7,
+        /// <summary>
+        /// The option takes a 64-bit integer. Like
+        ///     %G_OPTION_ARG_INT but for larger numbers. The number can be in
+        ///     decimal base, or in hexadecimal (when prefixed with `0x`, for
+        ///     example, `0xffffffff`). Since 2.12
+        /// </summary>
+        Int64 = 8
+    }
+
+    /// <summary>
+    /// The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
+    /// options.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    public delegate System.Boolean UnmanagedOptionArgFunc(
+    /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr optionName,
+    /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr value,
+    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+    /* transfer-ownership:none nullable:1 allow-none:1 */
+    System.IntPtr data,
+    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* direction:out */
+    out System.IntPtr error);
+
+    /// <summary>
+    /// The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
+    /// options.
+    /// </summary>
+    public delegate System.Boolean OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value, System.IntPtr data);
+
+    /// <summary>
     /// Flags which modify individual options.
     /// </summary>
     [System.FlagsAttribute]
