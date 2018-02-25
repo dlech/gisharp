@@ -513,17 +513,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "access-modifiers", "public override");
             }
 
-            // flag owned opaques
-
-            var recordsThatAreOwned = document.Descendants (gi + "record")
-                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "copy"));
-            foreach (var element in recordsThatAreOwned) {
-                if (element.Attribute(gs + "opaque") != null) {
-                    continue;
-                }
-                element.SetAttributeValue (gs + "opaque", "owned");
-            }
-
             // flag boxed types
 
             var recordsThatAreBoxed = document.Descendants(gi + "record")
@@ -533,6 +522,17 @@ namespace GISharp.CodeGen
                     continue;
                 }
                 element.SetAttributeValue (gs + "opaque", "boxed");
+            }
+
+            // flag owned opaques
+
+            var recordsThatAreOwned = document.Descendants (gi + "record")
+                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "copy"));
+            foreach (var element in recordsThatAreOwned) {
+                if (element.Attribute(gs + "opaque") != null) {
+                    continue;
+                }
+                element.SetAttributeValue (gs + "opaque", "owned");
             }
 
             // flag static opaques

@@ -3910,11 +3910,11 @@ namespace GISharp.GLib
     /// access it from more than one thread.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GVariantBuilder", IsProxyForUnmanagedType = true)]
-    public sealed partial class VariantBuilder : GISharp.Runtime.Opaque
+    public sealed partial class VariantBuilder : GISharp.GObject.Boxed
     {
         static readonly GISharp.GObject.GType _GType = g_variant_builder_get_type();
 
-        public VariantBuilder(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        public VariantBuilder(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
@@ -4417,11 +4417,11 @@ namespace GISharp.GLib
     /// </remarks>
     [GISharp.Runtime.SinceAttribute("2.40")]
     [GISharp.Runtime.GTypeAttribute("GVariantDict", IsProxyForUnmanagedType = true)]
-    public sealed partial class VariantDict : GISharp.Runtime.Opaque
+    public sealed partial class VariantDict : GISharp.GObject.Boxed
     {
         static readonly GISharp.GObject.GType _GType = g_variant_dict_get_type();
 
-        public VariantDict(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        public VariantDict(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
