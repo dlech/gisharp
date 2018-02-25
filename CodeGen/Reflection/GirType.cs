@@ -33,6 +33,7 @@ namespace GISharp.CodeGen.Reflection
                 throw new ArgumentException ("Requires a type definition element.", nameof(element));
             }
             this.element = element;
+            _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()));
         }
 
         public static Type ResolveType (string typeName, XDocument document)
@@ -173,6 +174,8 @@ namespace GISharp.CodeGen.Reflection
             throw new InvalidOperationException ();
         }
 
+        public override bool IsSZArray => false;
+
         public override object[] GetCustomAttributes (bool inherit)
         {
             throw new InvalidOperationException ();
@@ -194,6 +197,23 @@ namespace GISharp.CodeGen.Reflection
 
                 return name;
             }
+        }
+
+        public override bool IsSubclassOf(Type c)
+        {
+            if (c == null) {
+                throw new ArgumentNullException(nameof(c));
+            }
+
+            var baseType = BaseType;
+            while (baseType != null) {
+                if (c == baseType) {
+                    return true;
+                }
+                baseType = baseType.BaseType;
+            }
+
+            return c.IsAssignableFrom(this);
         }
 
         #endregion
@@ -286,35 +306,17 @@ namespace GISharp.CodeGen.Reflection
             return flags;
         }
 
-        protected override bool HasElementTypeImpl ()
-        {
-            return false;
-        }
+        protected override bool HasElementTypeImpl() => false;
 
-        protected override bool IsArrayImpl ()
-        {
-            return false;
-        }
+        protected override bool IsArrayImpl() => false;
 
-        protected override bool IsByRefImpl ()
-        {
-            return false;
-        }
+        protected override bool IsByRefImpl() => false;
 
-        protected override bool IsCOMObjectImpl ()
-        {
-            throw new InvalidOperationException ();
-        }
+        protected override bool IsCOMObjectImpl() => false;
 
-        protected override bool IsPointerImpl ()
-        {
-            throw new InvalidOperationException ();
-        }
+        protected override bool IsPointerImpl() => false;
 
-        protected override bool IsPrimitiveImpl ()
-        {
-            return false;
-        }
+        protected override bool IsPrimitiveImpl() => false;
 
         public override ConstructorInfo[] GetConstructors (System.Reflection.BindingFlags bindingAttr)
         {
@@ -393,11 +395,8 @@ namespace GISharp.CodeGen.Reflection
 
         public override bool IsConstructedGenericType => false;
 
-        public override Module Module {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
+        public override Module Module => _Module.Value;
+        readonly Lazy<Module> _Module;
 
         public override string Namespace {
             get {

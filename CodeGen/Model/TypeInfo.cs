@@ -7,6 +7,8 @@ using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Reflection;
 using GISharp.CodeGen.Syntax;
+using GISharp.GObject;
+using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -123,7 +125,7 @@ namespace GISharp.CodeGen.Model
                 throw new ArgumentException ("Requires element with 'managed-type' attribute.", nameof(element));
             }
             var type = GetTypeObject();
-            if (typeof(Delegate).IsAssignableFrom (type) || type.IsSubclassOf (typeof(Delegate))) {
+            if (type.IsSubclassOf<Delegate>()) {
                 if (!managed && type is GirType) {
                     var split = typeName.Split ('.');
                     split[split.Length -1] = "Unmanaged" + split[split.Length -1];
@@ -193,7 +195,7 @@ namespace GISharp.CodeGen.Model
                     if (genericArgument.IsValueType) {
                         return TypeClassification.CArray;
                     }
-                    else if (genericArgument.IsSubclassOf (typeof(GISharp.Runtime.Opaque))) {
+                    else if (genericArgument.IsSubclassOf<GISharp.Runtime.Opaque>()) {
                         return TypeClassification.CPtrArray;
                     }
                     else {
@@ -205,13 +207,11 @@ namespace GISharp.CodeGen.Model
                     return TypeClassification.Interface;
                 }
             }
-            else if (Element.Attribute(glib + "is-gtype-struct-for") != null || typeof(GISharp.GObject.TypeClass).IsAssignableFrom(TypeObject)) {
+            else if (Element.Attribute(glib + "is-gtype-struct-for") != null || TypeObject.IsSubclassOf<TypeClass>()) {
                 // GType structs are handled differently than other Opaques
                 return TypeClassification.GTypeStruct;
             }
-            // GirType always returns false for IsAssignableFrom when type is a RuntimeType
-            // so we have to check IsSubclassOf as well.
-            else if (typeof(Delegate).IsAssignableFrom(TypeObject) || TypeObject.IsSubclassOf(typeof(Delegate))) {
+            else if (TypeObject.IsSubclassOf<Delegate>()) {
                 // GLib callbacks map to delegates
                 return TypeClassification.Delegate;
             }
@@ -223,7 +223,7 @@ namespace GISharp.CodeGen.Model
                 // may want to handle this differently, so keeping it separate from Opaque test below
                 return TypeClassification.Opaque;
             }
-            else if (typeof(GISharp.Runtime.Opaque).IsAssignableFrom(TypeObject) || TypeObject.IsSubclassOf(typeof(GISharp.Runtime.Opaque))) {
+            else if (TypeObject.IsSubclassOf<Opaque>()) {
                 // most everything is going to be an Opaque
                 return TypeClassification.Opaque;
             }
