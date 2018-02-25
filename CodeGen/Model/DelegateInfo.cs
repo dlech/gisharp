@@ -101,17 +101,17 @@ namespace GISharp.CodeGen.Model
             MemberDeclarationSyntax managedDeclaration;
 
             try {
-                unmangedDeclaration = DelegateDeclaration (MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, UnmanagedIdentifier)
-                    .WithAttributeLists (UnmanagedAttributeLists)
-                    .WithModifiers (Modifiers)
-                    .WithParameterList (MethodInfo.PinvokeParameterList)
-                    .WithLeadingTrivia (UnmanagedDocumentationCommentTriviaList);
+                managedDeclaration = DelegateDeclaration(MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+                    .WithAttributeLists(AttributeLists)
+                    .WithModifiers(Modifiers)
+                    .WithParameterList(MethodInfo.ParameterList)
+                    .WithLeadingTrivia(DocumentationCommentTriviaList);
 
-                managedDeclaration = DelegateDeclaration (MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
-                    .WithAttributeLists (AttributeLists)
-                    .WithModifiers (Modifiers)
-                    .WithParameterList (MethodInfo.ParameterList)
-                    .WithLeadingTrivia (DocumentationCommentTriviaList);
+                unmangedDeclaration = DelegateDeclaration(MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, UnmanagedIdentifier)
+                    .WithAttributeLists(UnmanagedAttributeLists)
+                    .WithModifiers(Modifiers)
+                    .WithParameterList(MethodInfo.PinvokeParameterList)
+                    .WithLeadingTrivia(UnmanagedDocumentationCommentTriviaList);
             } catch (Exception ex) {
                 Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
                     QualifiedName, Element.Name.LocalName, ex.Message);
