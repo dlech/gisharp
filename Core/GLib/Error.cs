@@ -90,14 +90,16 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// Creates a new <see cref="Error"/> with the given
         /// <paramref name="code"/> and <paramref name="message"/>.
         /// </summary>
-        /// <param name="domain">Error domain.</param>
+        /// <remarks>
+        /// The error domain is determined by the type of <paramref name="code"/>.
+        /// </remarks>
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
-        public Error(Quark domain, System.Enum code, Utf8 message)
-            : this (NewLiteral (domain, (int)(object)code, message), Transfer.Full)
+        public Error(System.Enum code, Utf8 message)
+            : this (NewLiteral (code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
         {
         }
 
@@ -115,15 +117,17 @@ namespace GISharp.GLib
         }
 
         /// <summary>
-        /// Creates a new <see cref="Error"/> with the given <paramref name="domain"/>,
+        /// Creates a new <see cref="Error"/> with the given
         /// <paramref name="code"/> and message.
         /// </summary>
-        /// <param name="domain">Error domain.</param>
+        /// <remarks>
+        /// The error domain is determined by the type of <paramref name="code"/>.
+        /// </remarks>
         /// <param name="code">Error code.</param>
         /// <param name="format">Message format string.</param>
         /// <param name="args">Objects to format.</param>
-        public Error (Quark domain, System.Enum code, string format, params object[] args)
-            : this(domain, (int)(object)code, (Utf8)string.Format(format, args))
+        public Error(System.Enum code, string format, params object[] args)
+            : this(code.GetGErrorDomain(), (int)(object)code, (Utf8)string.Format(format, args))
         {
         }
 

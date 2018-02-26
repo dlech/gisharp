@@ -21,6 +21,16 @@ namespace GISharp.Runtime
             Error = error;
         }
 
+        
+        public GErrorException(Enum code, string message) : this (new Error(code, message))
+        {
+        }
+
+        public GErrorException(Enum code, string foramt, params object[] args)
+            : this (new Error(code, foramt, args))
+        {
+        }
+
         /// <summary>
         /// Test if the exception matches a GError type
         /// </summary>
