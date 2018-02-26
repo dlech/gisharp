@@ -2420,7 +2420,7 @@ namespace GISharp.Gio
         static readonly UnmanagedActionStateChanged onActionStateChangedDelegate = OnActionStateChanged;
         static readonly System.IntPtr onActionStateChangedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionStateChangedDelegate);
         static readonly System.IntPtr onQueryActionOffset = System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnQueryAction));
-        static readonly UnmanagedTryQueryAction onQueryActionDelegate = OnQueryAction;
+        static readonly UnmanagedTryQueryAction onQueryActionDelegate = OnTryQueryAction;
         static readonly System.IntPtr onQueryActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onQueryActionDelegate);
 
         new struct Struct
@@ -2445,7 +2445,7 @@ namespace GISharp.Gio
         }
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.Boolean UnmanagedHasAction(
+        delegate System.Boolean UnmanagedHasAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2453,18 +2453,14 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate System.Boolean HasAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedListActions(
+        delegate System.IntPtr UnmanagedListActions(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup);
 
-        public delegate GISharp.GLib.Strv ListActions(GISharp.Gio.IActionGroup actionGroup);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.Boolean UnmanagedGetActionEnabled(
+        delegate System.Boolean UnmanagedGetActionEnabled(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2472,10 +2468,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate System.Boolean GetActionEnabled(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetActionParameterType(
+        delegate System.IntPtr UnmanagedGetActionParameterType(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2483,10 +2477,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate GISharp.GLib.VariantType GetActionParameterType(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetActionStateType(
+        delegate System.IntPtr UnmanagedGetActionStateType(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2494,10 +2486,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate GISharp.GLib.VariantType GetActionStateType(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetActionStateHint(
+        delegate System.IntPtr UnmanagedGetActionStateHint(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2505,10 +2495,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate GISharp.GLib.Variant GetActionStateHint(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetActionState(
+        delegate System.IntPtr UnmanagedGetActionState(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2516,10 +2504,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate GISharp.GLib.Variant GetActionState(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedChangeActionState(
+        delegate void UnmanagedChangeActionState(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2530,10 +2516,8 @@ System.IntPtr actionName,
 /* transfer-ownership:none */
 System.IntPtr value);
 
-        public delegate void ChangeActionState(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActivateAction(
+        delegate void UnmanagedActivateAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2544,10 +2528,8 @@ System.IntPtr actionName,
 /* transfer-ownership:none nullable:1 allow-none:1 */
 System.IntPtr parameter);
 
-        public delegate void ActivateAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActionAdded(
+        delegate void UnmanagedActionAdded(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2555,10 +2537,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate void ActionAdded(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActionRemoved(
+        delegate void UnmanagedActionRemoved(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2566,10 +2546,8 @@ System.IntPtr actionGroup,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate void ActionRemoved(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActionEnabledChanged(
+        delegate void UnmanagedActionEnabledChanged(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2580,10 +2558,8 @@ System.IntPtr actionName,
 /* transfer-ownership:none */
 System.Boolean enabled);
 
-        public delegate void ActionEnabledChanged(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, System.Boolean enabled);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActionStateChanged(
+        delegate void UnmanagedActionStateChanged(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2594,10 +2570,8 @@ System.IntPtr actionName,
 /* transfer-ownership:none */
 System.IntPtr state);
 
-        public delegate void ActionStateChanged(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.Boolean UnmanagedTryQueryAction(
+        delegate System.Boolean UnmanagedTryQueryAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionGroup,
@@ -2619,8 +2593,6 @@ out System.IntPtr stateHint,
 /* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
 out System.IntPtr state);
-
-        public delegate System.Boolean TryQueryAction(GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state);
 
         public ActionGroupInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -2856,7 +2828,7 @@ out System.IntPtr state);
             }
         }
 
-        static System.Boolean OnQueryAction(System.IntPtr actionGroup_, System.IntPtr actionName_, out System.Boolean enabled_, out System.IntPtr parameterType_, out System.IntPtr stateType_, out System.IntPtr stateHint_, out System.IntPtr state_)
+        static System.Boolean OnTryQueryAction(System.IntPtr actionGroup_, System.IntPtr actionName_, out System.Boolean enabled_, out System.IntPtr parameterType_, out System.IntPtr stateType_, out System.IntPtr stateHint_, out System.IntPtr state_)
         {
             try
             {
@@ -2929,55 +2901,43 @@ out System.IntPtr state);
         }
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetName(
+        delegate System.IntPtr UnmanagedGetName(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate GISharp.GLib.Utf8 GetName(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetParameterType(
+        delegate System.IntPtr UnmanagedGetParameterType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate GISharp.GLib.VariantType GetParameterType(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetStateType(
+        delegate System.IntPtr UnmanagedGetStateType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate GISharp.GLib.VariantType GetStateType(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetStateHint(
+        delegate System.IntPtr UnmanagedGetStateHint(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate GISharp.GLib.Variant GetStateHint(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.Boolean UnmanagedGetEnabled(
+        delegate System.Boolean UnmanagedGetEnabled(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate System.Boolean GetEnabled(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedGetState(
+        delegate System.IntPtr UnmanagedGetState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate GISharp.GLib.Variant GetState(GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedChangeState(
+        delegate void UnmanagedChangeState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action,
@@ -2985,18 +2945,14 @@ System.IntPtr action,
 /* transfer-ownership:none */
 System.IntPtr value);
 
-        public delegate void ChangeState(GISharp.Gio.IAction action, GISharp.GLib.Variant value);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedActivate(
+        delegate void UnmanagedActivate(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr action,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 */
 System.IntPtr parameter);
-
-        public delegate void Activate(GISharp.Gio.IAction action, GISharp.GLib.Variant parameter);
 
         public ActionInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -3417,7 +3373,7 @@ System.IntPtr parameter);
         }
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate System.IntPtr UnmanagedLookupAction(
+        delegate System.IntPtr UnmanagedLookupAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionMap,
@@ -3425,10 +3381,8 @@ System.IntPtr actionMap,
 /* transfer-ownership:none */
 System.IntPtr actionName);
 
-        public delegate GISharp.Gio.IAction LookupAction(GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedAddAction(
+        delegate void UnmanagedAddAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionMap,
@@ -3436,18 +3390,14 @@ System.IntPtr actionMap,
 /* transfer-ownership:none */
 System.IntPtr action);
 
-        public delegate void AddAction(GISharp.Gio.IActionMap actionMap, GISharp.Gio.IAction action);
-
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        public delegate void UnmanagedRemoveAction(
+        delegate void UnmanagedRemoveAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionMap,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
 /* transfer-ownership:none */
 System.IntPtr actionName);
-
-        public delegate void RemoveAction(GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName);
 
         public ActionMapInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {

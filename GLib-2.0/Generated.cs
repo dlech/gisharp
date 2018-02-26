@@ -3833,17 +3833,99 @@ namespace GISharp.GLib
     /* transfer-ownership:none */
     System.IntPtr value,
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-    /* transfer-ownership:none nullable:1 allow-none:1 */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
     System.IntPtr data,
     /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-    /* direction:out */
-    out System.IntPtr error);
+    /* direction:inout */
+    ref System.IntPtr error);
 
     /// <summary>
     /// The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
     /// options.
     /// </summary>
-    public delegate System.Boolean OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value, System.IntPtr data);
+    public delegate System.Boolean OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value);
+
+    /// <summary>
+    /// Factory for creating <see cref="UnmanagedOptionArgFunc"/> methods.
+    /// </summary>
+    public static class UnmanagedOptionArgFuncFactory
+    {
+        class UserData
+        {
+            public GISharp.GLib.OptionArgFunc ManagedDelegate;
+            public GISharp.GLib.UnmanagedOptionArgFunc UnmanagedDelegate;
+            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Runtime.CallbackScope Scope;
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="OptionArgFunc"/> in an anonymous method that can
+        /// be passed to unmanaged code.
+        /// </summary>
+        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="scope">The lifetime scope of the callback.</param>
+        /// <returns>
+        /// A tuple containing the unmanaged callback, the unmanaged
+        /// notify function and a pointer to the user data.
+        /// </returns>
+        /// <remarks>
+        /// This function is used to marshal managed callbacks to unmanged
+        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
+        /// then it is the caller's responsibility to invoke the notify function
+        /// when the callback is no longer needed. If the scope is
+        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
+        /// function should be ignored.
+        /// </remarks>
+        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionArgFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionArgFunc callback, GISharp.Runtime.CallbackScope scope)
+        {
+            var userData = new UserData
+            {
+                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            };
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+        }
+
+        static System.Boolean UnmanagedCallback(System.IntPtr optionName_, System.IntPtr value_, System.IntPtr data_, ref System.IntPtr error_)
+        {
+            try
+            {
+                var optionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(optionName_, GISharp.Runtime.Transfer.None);
+                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(value_, GISharp.Runtime.Transfer.None);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var data = (UserData)gcHandle.Target;
+                var ret = data.ManagedDelegate(optionName, value);
+                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    Destroy(data_);
+                }
+
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+
+            return default(System.Boolean);
+        }
+
+        static void Destroy(System.IntPtr userData_)
+        {
+            try
+            {
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+        }
+    }
 
     /// <summary>
     /// Flags which modify individual options.
