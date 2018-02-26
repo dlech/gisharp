@@ -525,27 +525,7 @@ namespace GISharp.CodeGen
                 if (element.Attribute(gs + "opaque") != null) {
                     continue;
                 }
-                element.SetAttributeValue (gs + "opaque", "boxed");
-            }
-
-            // flag owned opaques
-
-            var recordsThatAreOwned = document.Descendants (gi + "record")
-                .Where (d => d.Elements (gi + "method").Any (m => m.Attribute (gs + "special-func").AsString () == "copy"));
-            foreach (var element in recordsThatAreOwned) {
-                if (element.Attribute(gs + "opaque") != null) {
-                    continue;
-                }
-                element.SetAttributeValue (gs + "opaque", "owned");
-            }
-
-            // flag static opaques
-
-            var recordsThatAreStatic = document.Descendants (gi + "record")
-                .Where (d => d.Elements (gi + "constructor").Any (c => c.Attribute ("name").AsString () == "new"
-                      && c.Element (gi + "return-value").Attribute ("transfer-ownership").AsString () == "none"));
-            foreach (var element in recordsThatAreStatic) {
-                element.SetAttributeValue (gs + "opaque", "static");
+                element.SetAttributeValue(gs + "opaque", "boxed");
             }
 
             // flag gtype-struct opaques
@@ -553,7 +533,21 @@ namespace GISharp.CodeGen
             var recordsThatAreGTypeStructs = document.Descendants (gi + "record")
                 .Where (d => d.Attribute (glib + "is-gtype-struct-for") != null);
             foreach (var element in recordsThatAreGTypeStructs) {
-                element.SetAttributeValue (gs+ "opaque", "gtype-struct");
+                if (element.Attribute(gs + "opaque") != null) {
+                    continue;
+                }
+                element.SetAttributeValue(gs+ "opaque", "gtype-struct");
+            }
+
+            // flag owned opaques
+
+            var recordsThatAreOwned = document.Descendants(gi + "record")
+                .Where(d => d.Attribute("disguised").AsBool());
+            foreach (var element in recordsThatAreOwned) {
+                if (element.Attribute(gs + "opaque") != null) {
+                    continue;
+                }
+                element.SetAttributeValue(gs + "opaque", "owned");
             }
 
             // add managed-type attribute (skipping existing managed-type attributes)

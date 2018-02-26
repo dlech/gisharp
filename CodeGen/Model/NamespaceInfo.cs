@@ -70,7 +70,7 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MemberInfo> GetTypeDeclarations()
         {
-            foreach (var child in Element.Elements().Where (x => !x.Attribute("disguised").AsBool())) {
+            foreach (var child in Element.Elements()) {
                 var childName = child.Attribute ("name").Value;
                 if (child.Name == gi + "callback") {
                     yield return new DelegateInfo (child, this);
