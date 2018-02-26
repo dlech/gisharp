@@ -23,8 +23,20 @@ namespace GISharp.CodeGen.Reflection
         static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
 
         readonly XElement element;
+        readonly bool unmanaged;
 
-        public GirType (XElement element)
+
+        /// <summary>
+        /// Creates a new type based on GIR XML data
+        /// </summary>
+        /// <param name="element">
+        /// A GIR XML element that defines a type
+        /// </param>
+        /// <param name="unmanaged">
+        /// Special flag for callback types indicating whether to use the
+        /// managed or unmanaged metadata.
+        /// </param>
+        public GirType(XElement element, bool unmanaged)
         {
             if (element == null) {
                 throw new ArgumentNullException (nameof(element));
@@ -33,6 +45,7 @@ namespace GISharp.CodeGen.Reflection
                 throw new ArgumentException ("Requires a type definition element.", nameof(element));
             }
             this.element = element;
+            this.unmanaged = unmanaged;
             _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()));
         }
 
@@ -107,6 +120,7 @@ namespace GISharp.CodeGen.Reflection
             }
 
             if (type == null) {
+                bool unmanaged = false;
                 XElement typeDefinitionElement;
                 if (!girTypeCache.TryGetValue (typeName, out typeDefinitionElement)) {
                     var unqualifiedTypeName = typeName.Split ('.').Last ();
@@ -117,6 +131,9 @@ namespace GISharp.CodeGen.Reflection
                         // special case for callbacks since there is a "Unmanaged" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
                             .SingleOrDefault (d => "Unmanaged" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
+                        if (typeDefinitionElement != null) {
+                            unmanaged = true;
+                        }
                     }
                     if (typeDefinitionElement == null) {
                         // special case for interfaces since we add the "I" prefix.
@@ -128,7 +145,7 @@ namespace GISharp.CodeGen.Reflection
                     }
                 }
                 if (typeDefinitionElement != null) {
-                    type = new GirType (typeDefinitionElement);
+                    type = new GirType(typeDefinitionElement, unmanaged);
                 }
             }
 
@@ -154,7 +171,15 @@ namespace GISharp.CodeGen.Reflection
         {
             return document.Element (gi + "repository").Element (gi + "namespace").Elements ()
                 .Where (e => Fixup.ElementsThatDefineAType.Contains (e.Name))
-                .Select (e => new GirType (e));
+                .SelectMany(e => GetTypesForElement(e));
+        }
+
+        static IEnumerable<GirType> GetTypesForElement(XElement element)
+        {
+            yield return new GirType(element, false);
+            if (element.Name == gi + "callback") {
+                yield return new GirType(element, true);
+            }
         }
 
         public override Type MakeGenericType (params Type[] typeArguments)
@@ -193,6 +218,9 @@ namespace GISharp.CodeGen.Reflection
 
                 if (IsInterface) {
                     name = "I" + name;
+                }
+                if (unmanaged) {
+                    name = "Unmanaged" + name;
                 }
 
                 return name;

@@ -3,12 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml.Linq;
-
+using GISharp.CodeGen.Syntax;
+using GISharp.GLib;
+using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -82,12 +85,71 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Gets the declaration for the managed version of this delegate.
+        /// </summary>
+        public DelegateDeclarationSyntax ManagedDelegateDeclaration =>
+            _ManagedDelegateDeclaration.Value;
+        readonly Lazy<DelegateDeclarationSyntax> _ManagedDelegateDeclaration;
+
+        /// <summary>
+        /// Gets the declaration for the unmanaged version of this delegate.
+        /// </summary>
+        public DelegateDeclarationSyntax UnmanagedDelegateDeclaration =>
+            _UnmanagedDelegateDeclaration.Value;
+        readonly Lazy<DelegateDeclarationSyntax> _UnmanagedDelegateDeclaration;
+
+        /// <summary>
+        /// Gets the unmanaged delegate factory class declaration for a callback
+        /// </summary>
+        public ClassDeclarationSyntax UnmanagedDelegateFactoryDeclaration =>
+            _UnmanagedDelegateFactoryDeclaration.Value;
+        readonly Lazy<ClassDeclarationSyntax> _UnmanagedDelegateFactoryDeclaration;
+
+        /// <summary>
+        /// Gets the method declaraion for the implementation of a virtual
+        /// method callback.
+        /// </summary>
+        public MethodDeclarationSyntax VirtualMethodCallbackImplementation =>
+            _VirtualMethodCallbackImplementation.Value;
+        readonly Lazy<MethodDeclarationSyntax> _VirtualMethodCallbackImplementation;
+
         public DelegateInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
             if (element.Name != gi + "callback") {
                 throw new ArgumentException ("Requires a <callback> element.", nameof(element));
             }
+            _ManagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetManagedDelegateDeclaration);
+            _UnmanagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetUnmanagedDelegateDeclaration);
+            _UnmanagedDelegateFactoryDeclaration =
+                new Lazy<ClassDeclarationSyntax>(LazyGetUnmanagedDelegateFactoryDeclaration);
+            _VirtualMethodCallbackImplementation =
+                new Lazy<MethodDeclarationSyntax>(LazyGetVirtualMethodCallbackImplementation);
+        }
+
+        // gets a delegate declaration like:
+        // public void Func();
+        DelegateDeclarationSyntax LazyGetManagedDelegateDeclaration()
+        {
+            var returnType = MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type;
+            return DelegateDeclaration(returnType, Identifier)
+                .WithAttributeLists(AttributeLists)
+                .WithModifiers(Modifiers)
+                .WithParameterList(MethodInfo.ParameterList)
+                .WithLeadingTrivia(DocumentationCommentTriviaList);
+        }
+
+        // gets a delegate declaration like:
+        // public void UnmanagedFunc(IntPtr data);
+        DelegateDeclarationSyntax LazyGetUnmanagedDelegateDeclaration()
+        {
+            var returnType = MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
+            return DelegateDeclaration(returnType, UnmanagedIdentifier)
+                .WithAttributeLists(UnmanagedAttributeLists)
+                .WithModifiers(Modifiers)
+                .WithParameterList(MethodInfo.PinvokeParameterList)
+                .WithLeadingTrivia(UnmanagedDocumentationCommentTriviaList);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -99,65 +161,134 @@ namespace GISharp.CodeGen.Model
         {
             MemberDeclarationSyntax unmangedDeclaration;
             MemberDeclarationSyntax managedDeclaration;
+            MemberDeclarationSyntax factoryDeclaration;
 
             try {
-                managedDeclaration = DelegateDeclaration(MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
-                    .WithAttributeLists(AttributeLists)
-                    .WithModifiers(Modifiers)
-                    .WithParameterList(MethodInfo.ParameterList)
-                    .WithLeadingTrivia(DocumentationCommentTriviaList);
-
-                unmangedDeclaration = DelegateDeclaration(MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type, UnmanagedIdentifier)
-                    .WithAttributeLists(UnmanagedAttributeLists)
-                    .WithModifiers(Modifiers)
-                    .WithParameterList(MethodInfo.PinvokeParameterList)
-                    .WithLeadingTrivia(UnmanagedDocumentationCommentTriviaList);
+                managedDeclaration = ManagedDelegateDeclaration;
+                unmangedDeclaration = UnmanagedDelegateDeclaration;
+                factoryDeclaration = UnmanagedDelegateFactoryDeclaration;
             } catch (Exception ex) {
                 Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
                     QualifiedName, Element.Name.LocalName, ex.Message);
                 yield break;
             }
+    
             yield return unmangedDeclaration;
             yield return managedDeclaration;
-
-            //var factoryDeclaration = ClassDeclaration (UnmanagedIdentifier + "Factory")
-            //    .AddModifiers (
-            //        Token (SyntaxKind.PublicKeyword),
-            //        Token (SyntaxKind.StaticKeyword))
-            //    .AddMembers (
-            //        MethodDeclaration (UnmanagedQualifiedName, "Create")
-            //        .AddModifiers (
-            //            Token (SyntaxKind.PublicKeyword),
-            //            Token (SyntaxKind.StaticKeyword))
-            //        .AddParameterListParameters (
-            //            Parameter (ParseToken ("method"))
-            //                .WithType (QualifiedName),
-            //            Parameter (ParseToken ("freeUserData"))
-            //            .WithType (ParseTypeName (typeof(bool).FullName)))
-            //        .WithBody (Block (GetFactoryStatements ()))
-            //        .WithLeadingTrivia (GetFactoryCreateMethodDocumentationCommentTrivia ()))
-            //    .WithLeadingTrivia (GetFactoryDocumentationCommentTrivia ());
-            //yield return factoryDeclaration;
+            yield return factoryDeclaration;
         }
 
-        IEnumerable<StatementSyntax> GetFactoryStatements ()
+        MethodDeclarationSyntax LazyGetVirtualMethodCallbackImplementation()
         {
-            var nativeCallback = Identifier ("nativeCallback");
-            var body = Block (MethodInfo.CallbackStatements);
-            var lambdaExpression = ParenthesizedLambdaExpression (body)
-                .WithParameterList (
-                    MethodInfo.PinvokeParameterList
-                    // Add "_" suffix to all parameters
-                    .WithParameters (SeparatedList<ParameterSyntax> (
-                        MethodInfo.PinvokeParameterList.Parameters
-                            .Select (x => x.WithIdentifier (Identifier (x.Identifier + "_"))))));
-            var declarationStatement = VariableDeclaration (UnmanagedQualifiedName)
-                .AddVariables (
-                    VariableDeclarator (nativeCallback)
-                    .WithInitializer (
-                        EqualsValueClause (lambdaExpression)));
-            yield return LocalDeclarationStatement (declarationStatement);
-            yield return ReturnStatement (IdentifierName (nativeCallback));
+            var returnType = MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
+
+            var method = MethodDeclaration(returnType, "On" + Identifier)
+                .AddModifiers(Token(SyntaxKind.StaticKeyword))
+                .WithParameterList(MethodInfo.UnmanagedParameterList)
+                .WithBody(Block(MethodInfo.VirtualMethodImplStatements));
+
+            return method;
+        }
+
+        ClassDeclarationSyntax LazyGetUnmanagedDelegateFactoryDeclaration()
+        {
+            var factoryDeclaration = ClassDeclaration(UnmanagedIdentifier + "Factory")
+               .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+               .WithMembers(List(LazyGetFactoryClassMembers()))
+               .WithLeadingTrivia(GetFactoryDocumentationCommentTrivia());
+            return factoryDeclaration;
+        }
+
+        IEnumerable<MemberDeclarationSyntax> LazyGetFactoryClassMembers()
+        {
+            // emit nested private Data class
+
+            var managedDelegateField = FieldDeclaration(VariableDeclaration(QualifiedName)
+                    .AddVariables(VariableDeclarator("ManagedDelegate")))
+                .AddModifiers(Token(PublicKeyword));
+            var unmanagedDelegateField = FieldDeclaration(VariableDeclaration(UnmanagedQualifiedName)
+                    .AddVariables(VariableDeclarator("UnmanagedDelegate")))
+                .AddModifiers(Token(PublicKeyword));
+            var notifyType = typeof(UnmanagedDestroyNotify).ToSyntax();
+            var notifyField = FieldDeclaration(VariableDeclaration(notifyType)
+                    .AddVariables(VariableDeclarator("DestroyDelegate")))
+                .AddModifiers(Token(PublicKeyword));
+            var scopeType = typeof(CallbackScope).ToSyntax();
+            var scopeField = FieldDeclaration(VariableDeclaration(scopeType)
+                    .AddVariables(VariableDeclarator("Scope")))
+                .AddModifiers(Token(PublicKeyword));
+            var dataClass = ClassDeclaration("UserData")
+                .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField);
+            yield return dataClass;
+
+            // emit Create() method
+
+            var createMethodParams = $"({QualifiedName} callback, {scopeType} scope)";
+            var createMethodParamList = ParseParameterList(createMethodParams);
+            var returnType = ParseTypeName(string.Format("{0}<{1}, {2}, {3}>",
+                typeof(ValueTuple).FullName,
+                UnmanagedQualifiedName,
+                typeof(UnmanagedDestroyNotify).FullName,
+                typeof(IntPtr).FullName));
+            var createMethod = MethodDeclaration(returnType, "Create")
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .WithParameterList(createMethodParamList)
+                .WithBody(Block(LazyGetFactoryStatements()))
+                .WithLeadingTrivia(LazyGetFactoryCreateMethodDocumentationCommentTrivia());
+            yield return createMethod;
+
+            // emit unmanaged callback method
+
+            var callbackReturnType = MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
+            var callbackMethod = MethodDeclaration(callbackReturnType, "UnmanagedCallback")
+                .AddModifiers(Token(StaticKeyword))
+                .WithParameterList(MethodInfo.UnmanagedParameterList)
+                .WithBody(Block(MethodInfo.CallbackStatements));
+            yield return callbackMethod;
+
+            // emit destroy notify method
+
+            var destroyReturnType = ParseTypeName("void");
+            var destroyParamList = ParseParameterList($"({typeof(IntPtr).FullName} userData_)");
+
+            var destroyTryStatement = ParseStatement(string.Format(@"try {{
+                var gcHandle = ({0})userData_;
+                gcHandle.Free();
+            }}
+            catch ({1} ex) {{
+                ex.{2}();
+            }}
+            ", typeof(GCHandle).FullName,
+                typeof(Exception).FullName,
+                nameof(Log.LogUnhandledException)));
+
+            var destroyMethod = MethodDeclaration(destroyReturnType, "Destroy")
+                .AddModifiers(Token(StaticKeyword))
+                .WithParameterList(destroyParamList)
+                .WithBody(Block(destroyTryStatement));
+
+            yield return destroyMethod;
+        }
+
+        IEnumerable<StatementSyntax> LazyGetFactoryStatements()
+        {
+            var userDataStatement = string.Format(@"var userData = new UserData {{
+                ManagedDelegate = callback ?? throw new {0}(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            }};
+            ", typeof(ArgumentNullException).FullName);
+            yield return ParseStatement(userDataStatement);
+
+            var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData);\n",
+                typeof(IntPtr).FullName,
+                typeof(GCHandle).FullName,
+                nameof(GCHandle.Alloc));
+            yield return ParseStatement(gcHandleStatement);
+
+            const string returnStatement = "return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);\n";
+            yield return ParseStatement(returnStatement);
         }
 
         SyntaxTriviaList GetFactoryDocumentationCommentTrivia ()
@@ -169,26 +300,29 @@ namespace GISharp.CodeGen.Model
             return ParseLeadingTrivia (comments);
         }
 
-        SyntaxTriviaList GetFactoryCreateMethodDocumentationCommentTrivia ()
+        SyntaxTriviaList LazyGetFactoryCreateMethodDocumentationCommentTrivia()
         {
-            var comments = string.Format (@"/// <summary>
-/// Wraps <see cref=""{0}""/> in an anonymous method that can be passed
-/// to unmaged code.
+            var comments = string.Format(@"/// <summary>
+/// Wraps a <see cref=""{0}""/> in an anonymous method that can
+/// be passed to unmanaged code.
 /// </summary>
 /// <param name=""method"">The managed method to wrap.</param>
-/// <param name=""freeUserData"">Frees the <see cref=""GCHandle""/> for any user
-/// data closure parameters in the unmanged function</param>
-/// <returns>The callback method for passing to unmanged code.</returns>
+/// <param name=""scope"">The lifetime scope of the callback.</param>
+/// <returns>
+/// A tuple containing the unmanaged callback, the unmanaged
+/// notify function and a pointer to the user data.
+/// </returns>
 /// <remarks>
-/// This function is used to marshal managed callbacks to unmanged code. If this
-/// callback is only called once, <paramref name=""freeUserData""/> should be
-/// set to <c>true</c>. If it can be called multiple times, it should be set to
-/// <c>false</c> and the user data must be freed elsewhere. If the callback does
-/// not have closure user data, then the <paramref name=""freeUserData""/> 
-/// parameter has no effect.
+/// This function is used to marshal managed callbacks to unmanged
+/// code. If the scope is <see cref=""{1}.{2}""/>
+/// then it is the caller's responsibility to invoke the notify function
+/// when the callback is no longer needed. If the scope is
+/// <see cref=""{1}.{3}""/>, then the notify
+/// function should be ignored.
 /// </remarks>
-", Identifier);
-            return ParseLeadingTrivia (comments);
+", Identifier, typeof(CallbackScope).FullName, nameof(CallbackScope.Call), nameof(CallbackScope.Async));
+
+            return ParseLeadingTrivia(comments);
         }
     }
 }

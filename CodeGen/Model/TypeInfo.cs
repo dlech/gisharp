@@ -126,7 +126,12 @@ namespace GISharp.CodeGen.Model
             }
             var type = GetTypeObject();
             if (type.IsSubclassOf<Delegate>()) {
-                if (!managed && type is GirType) {
+                if (!managed) {
+                    var index = typeName.IndexOf('`');
+                    if (index >= 0) {
+                        // strip off generic parameters
+                        typeName = typeName.Substring(0, index);
+                    }
                     var split = typeName.Split ('.');
                     split[split.Length -1] = "Unmanaged" + split[split.Length -1];
                     typeName = string.Join (".", split);

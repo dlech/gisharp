@@ -234,17 +234,8 @@ namespace GISharp.CodeGen.Model
 
         IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls ()
         {
-            foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
-                var methodName = f.ManagedName;
-                var returnType = f.CallbackInfo.MethodInfo.UnmanagedReturnParameterInfo.TypeInfo.Type;
-
-                var method = MethodDeclaration (returnType, methodName)
-                    .AddModifiers (Token (SyntaxKind.StaticKeyword))
-                    .WithParameterList (f.CallbackInfo.MethodInfo.UnmanagedParameterList)
-                    .WithBody (Block (f.CallbackInfo.MethodInfo.VirtualMethodImplStatements));
-
-                yield return method;
-            }
+            return FieldInfos.Where(x => x.IsCallback)
+                .Select(f => f.CallbackInfo.VirtualMethodCallbackImplementation);
         }
 
         MethodDeclarationSyntax GetGTypeStructGetInfoMethod ()

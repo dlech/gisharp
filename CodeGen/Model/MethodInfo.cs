@@ -4,7 +4,8 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
-
+using GISharp.GLib;
+using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -98,7 +99,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        List<ParameterInfo> _ManagedParameterInfos;
+        System.Collections.Generic.List<ParameterInfo> _ManagedParameterInfos;
         public IReadOnlyList<ParameterInfo> ManagedParameterInfos {
             get {
                 if (_ManagedParameterInfos == null) {
@@ -110,7 +111,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        List<ParameterInfo> _PinvokeParameterInfos;
+        System.Collections.Generic.List<ParameterInfo> _PinvokeParameterInfos;
         public IReadOnlyList<ParameterInfo> PinvokeParameterInfos {
             get {
                 if (_PinvokeParameterInfos == null) {
@@ -400,6 +401,15 @@ namespace GISharp.CodeGen.Model
             }
             yield return GetPinvokeInvocationStatement ();
 
+            // if we had any callbacks with a scope of "call", then we need
+            // to free the unmanaged user data
+            foreach (var callbacks in PinvokeParameterInfos.Where(x =>
+                x.TypeInfo.Classification == TypeClassification.Delegate &&
+                x.Scope == CallbackScope.Call))
+            {
+                yield return ParseStatement("destroy_(userData_);\n");
+            }
+
             if (ThrowsGErrorException) {
                 var errorIdentifier = PinvokeParameterInfos.Single (x => x.IsErrorParameter).Identifier;
                 var conditionExpression = string.Format ("{0}_ != {1}.{2}",
@@ -483,62 +493,29 @@ namespace GISharp.CodeGen.Model
                 yield return ParseStatement(statement);
                 break;
             case TypeClassification.Delegate:
-                statement = string.Format (
-                    "{0}_ = {1}Factory.Create ({0}, {2});\n",
-                    managedParameter.Identifier,
+                var destroyParameter = pinvokeParameter.Scope != CallbackScope.Async ?
+                    PinvokeParameterInfos[pinvokeParameter.DestoryIndex] : null;
+                var userDataParameter = PinvokeParameterInfos[pinvokeParameter.ClosureIndex];
+                var conditional = "";
+                if (!pinvokeParameter.NeedsNullCheck) {
+                    // if null is allowed, turn this into a conditional statement
+                    conditional = string.Format("({0} == null) ?\n(default({1}), default({2}), {3}.{4}) :\n",
+                        managedParameter.Identifier,
+                        pinvokeParameter.TypeInfo.Type,
+                        destroyParameter.TypeInfo.Type,
+                        typeof(IntPtr).FullName,
+                        nameof(IntPtr.Zero));
+                }
+                statement = string.Format("var ({0}_, {1}_, {2}_) = {3}{4}Factory.Create({5}, {6}.{7});\n",
+                    pinvokeParameter.Identifier,
+                    destroyParameter?.Identifier.Text ?? "",
+                    userDataParameter.Identifier,
+                    conditional,
                     pinvokeParameter.TypeInfo.Type,
-                    // By defintion, scope of async is only called once, so we free userData
-                    // other scopes can be called multiple times, so userData is freed elsewhere
-                    pinvokeParameter.Scope == GISharp.Runtime.CallbackScope.Async ? "true" : "false");
-                // TODO: need to find better way to handle delegates
-                statement = string.Format ("{0}_ = default({1});", managedParameter.Identifier, pinvokeParameter.TypeInfo.Type);
-                if (declareVariable) {
-                    statement = "var " + statement;
-                }
+                    managedParameter.Identifier,
+                    typeof(CallbackScope).FullName,
+                    pinvokeParameter.Scope);
                 yield return ParseStatement(statement);
-                statement = string.Format ("throw new {0} ();", typeof(NotImplementedException).FullName);
-                yield return ParseStatement(statement);
-                if (pinvokeParameter.ClosureIndex >= 0) {
-                    var closureParameter = PinvokeParameterInfos[pinvokeParameter.ClosureIndex];
-                    var closureHandle = Identifier (pinvokeParameter.Identifier + "Handle");
-                    var closureHandleStatement = string.Format (
-                        "var {0} = {1}.{2} ({3});\n",
-                        closureHandle,
-                        typeof(GCHandle).FullName,
-                        nameof(GCHandle.Alloc),
-                        pinvokeParameter.Identifier);
-                    yield return ParseStatement(closureHandleStatement);
-                    
-                    if (pinvokeParameter.DestoryIndex >= 0) {
-                        var notifyParameter = PinvokeParameterInfos[pinvokeParameter.DestoryIndex];
-                        var notifyStatement = string.Format (
-                            "var {0}_ = {1}.{2} ({3});\n",
-                            notifyParameter.Identifier,
-                            // FIXME:
-                            "factory", "create",
-                            // typeof(GISharp.GLib.UnmanagedDestoryNotifyFactory).FullName,
-                            // nameof(GISharp.GLib.UnmanagedDestoryNotifyFactory.Create),
-                            closureHandle);
-                        yield return ParseStatement(notifyStatement);
-                        
-                        var closureParameterStatement = string.Format (
-                            "var {0}_ = {1}.{2} ({1}.{3} ({4}_));\n",
-                            closureParameter.Identifier,
-                            typeof(GCHandle).FullName,
-                            nameof(GCHandle.ToIntPtr),
-                            nameof(GCHandle.Alloc),
-                            notifyParameter.Identifier);
-                        yield return ParseStatement(closureParameterStatement);
-                    } else {
-                        var closureParameterStatement = string.Format (
-                            "var {0}_ = {1}.{2} ({3});\n",
-                            closureParameter.Identifier,
-                            typeof(GCHandle).FullName,
-                            nameof(GCHandle.ToIntPtr),
-                            closureHandle);
-                        yield return ParseStatement(closureParameterStatement);
-                    }
-                }
                 break;
             case TypeClassification.Interface:
             case TypeClassification.Opaque:
@@ -766,38 +743,55 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<StatementSyntax> GetCallbackStatements ()
+        IEnumerable<StatementSyntax> GetCallbackStatements()
         {
-            foreach (var p in ManagedParameterInfos) {
-                foreach (var s in GetMarshalUnmanagedToManagedStatements (p, true)) {
+            var catchType = ParseTypeName(typeof(Exception).FullName);
+            var catchStatement = string.Format("ex.{0}();\n", nameof(Log.LogUnhandledException));
+            yield return TryStatement()
+                .WithBlock(Block(LazyGetCallbackTryStatements()))
+                .AddCatches(CatchClause()
+                    .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
+                    .WithBlock(Block(ParseStatement(catchStatement))));
+            
+            if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+                var returnType = UnmanagedReturnParameterInfo.TypeInfo.Type;
+                yield return ParseStatement($"return default({returnType});\n");
+            }
+        }
+
+        IEnumerable<StatementSyntax> LazyGetCallbackTryStatements()
+        {
+            foreach(var p in ManagedParameterInfos) {
+                foreach(var s in GetMarshalUnmanagedToManagedStatements(p, true)) {
                     yield return s;
                 }
             }
-            yield return GetInvocationStatement ("method.Invoke");
-            var closureParameters = GetClosureParameters ().ToList ();
-            if (closureParameters.Any ()) {
-                var ifBody = Block ();
-                foreach (var p in closureParameters) {
-                    ifBody = ifBody.AddStatements (
-                        ParseStatement (string.Format (
-                            "{0}.{1} ({2}).{3} ();",
-                            typeof (GCHandle).FullName,
-                            nameof(GCHandle.FromIntPtr),
-                            p.Identifier + "_",
-                            nameof(GCHandle.Free))));
-                }
 
-                yield return IfStatement (ParseExpression ("freeUserData"),ifBody);
-            }
+            var dataParam = PinvokeParameterInfos.Single(x => x.ClosureIndex >= 0);
+            var dataParamName = dataParam.ManagedName;
+
+            var ghHandleType = typeof(GCHandle).FullName;
+            yield return ParseStatement($"var gcHandle = ({ghHandleType}){dataParamName}_;\n");
+            yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target;\n");
+
+            yield return GetInvocationStatement($"{dataParamName}.ManagedDelegate");
+
+            yield return ParseStatement(string.Format(@"if ({0}.Scope == {1}.{2}) {{
+                    Destroy({0}_);
+                }}
+                ", dataParamName,
+                typeof(CallbackScope).FullName,
+                nameof(CallbackScope.Async)));
+
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
                 foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
                     yield return statement;
                 }
                 var ret = "ret";
-                if (!ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
+                if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
                 }
-                var returnStatement = ReturnStatement (ParseExpression (ret));
+                var returnStatement = ReturnStatement(ParseExpression(ret));
                 yield return returnStatement;
             }
         }
