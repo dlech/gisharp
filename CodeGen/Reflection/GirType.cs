@@ -120,10 +120,8 @@ namespace GISharp.CodeGen.Reflection
             }
 
             if (type == null) {
-                bool unmanaged = false;
-                XElement typeDefinitionElement;
-                if (!girTypeCache.TryGetValue (typeName, out typeDefinitionElement)) {
-                    var unqualifiedTypeName = typeName.Split ('.').Last ();
+                var unqualifiedTypeName = typeName.Split ('.').Last ();
+                if (!girTypeCache.TryGetValue(typeName, out var typeDefinitionElement)) {
                     typeDefinitionElement = document.Descendants ()
                         .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
                         .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
@@ -131,9 +129,6 @@ namespace GISharp.CodeGen.Reflection
                         // special case for callbacks since there is a "Unmanaged" version of each of those as well.
                         typeDefinitionElement = document.Descendants (gi + "callback")
                             .SingleOrDefault (d => "Unmanaged" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
-                        if (typeDefinitionElement != null) {
-                            unmanaged = true;
-                        }
                     }
                     if (typeDefinitionElement == null) {
                         // special case for interfaces since we add the "I" prefix.
@@ -145,7 +140,7 @@ namespace GISharp.CodeGen.Reflection
                     }
                 }
                 if (typeDefinitionElement != null) {
-                    type = new GirType(typeDefinitionElement, unmanaged);
+                    type = new GirType(typeDefinitionElement, unqualifiedTypeName.StartsWith("Unmanaged"));
                 }
             }
 

@@ -593,6 +593,16 @@ namespace GISharp.CodeGen
                 element.Parent.Add(managedParametersElement);
             }
 
+            // fix the callback type names for (unmanaged) parameters
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Where(p => p.Parent.Name == gi + "parameters" && p.Attribute("scope") != null))
+            {
+                var typeElement = element.Element(gi + "type");
+                var managedNameAttr = typeElement.Attribute(gs + "managed-name").Value;
+                typeElement.SetAttributeValue(gs + "managed-name", "Unmanaged" + managedNameAttr);
+            }
+
             // flag getters as properties
 
             var getters = document.Descendants ()
