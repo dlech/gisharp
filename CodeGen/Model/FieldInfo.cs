@@ -128,7 +128,7 @@ namespace GISharp.CodeGen.Model
 
             var variableType = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
             var variableName = ManagedName.ToCamelCase() + "Delegate";
-            var valueExpression = ParseExpression(ManagedName);
+            var valueExpression = ParseExpression("On" + CallbackInfo.Identifier);
 
             var declaration = FieldDeclaration(VariableDeclaration(variableType)
                     .AddVariables(VariableDeclarator(variableName)
