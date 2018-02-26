@@ -40,10 +40,10 @@ namespace GISharp.CodeGen.Model
         protected MemberInfo (XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
-            _Identifier = new Lazy<SyntaxToken>(() => Identifier(ManagedName));
-            _QualifiedName = new Lazy<QualifiedNameSyntax>(GetQualifiedName);
-            _Modifiers = new Lazy<SyntaxTokenList>(() => TokenList(GetModifiers()));
-            _AllDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetAllDeclarations()));
+            _Identifier = new Lazy<SyntaxToken>(() => Identifier(ManagedName), false);
+            _QualifiedName = new Lazy<QualifiedNameSyntax>(GetQualifiedName, false);
+            _Modifiers = new Lazy<SyntaxTokenList>(() => TokenList(GetModifiers()), false);
+            _AllDeclarations = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetAllDeclarations()), false);
         }
 
         protected virtual IEnumerable<SyntaxToken> GetModifiers ()

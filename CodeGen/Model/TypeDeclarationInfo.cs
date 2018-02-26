@@ -111,10 +111,10 @@ namespace GISharp.CodeGen.Model
             if (!Fixup.ElementsThatDefineAType.Contains (element.Name)) {
                 throw new ArgumentException ("Requires <gi:alias>, <gi:record>, <gi:union>, <gi:interface>, <gi:class>, <gs:static-class> or <gi:callback> element.", nameof(element));
             }
-            _ConstantInfos = new Lazy<IReadOnlyList<ConstantInfo>>(() => GetConstantInfos().ToList().AsReadOnly());
-            _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly());
-            _SignalInfos = new Lazy<IReadOnlyList<SignalInfo>>(() => GetSignalInfos().ToList().AsReadOnly());
-            _GTypeMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetGTypeMembers()));
+            _ConstantInfos = new Lazy<IReadOnlyList<ConstantInfo>>(() => GetConstantInfos().ToList().AsReadOnly(), false);
+            _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly(), false);
+            _SignalInfos = new Lazy<IReadOnlyList<SignalInfo>>(() => GetSignalInfos().ToList().AsReadOnly(), false);
+            _GTypeMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetGTypeMembers()), false);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()

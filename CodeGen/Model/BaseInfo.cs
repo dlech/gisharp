@@ -90,9 +90,9 @@ namespace GISharp.CodeGen.Model
             Element = element;
             DeclaringMember = declaringMember;
 
-            _NamespaceInfo = new Lazy<NamespaceInfo>(GetNamespaceInfo);
-            _AttributeLists = new Lazy<SyntaxList<AttributeListSyntax>>(() => List<AttributeListSyntax>(GetAttributeLists()));
-            _DocumentationCommentTriviaList = new Lazy<SyntaxTriviaList>(GetDocumentationCommentTriviaList);
+            _NamespaceInfo = new Lazy<NamespaceInfo>(GetNamespaceInfo, false);
+            _AttributeLists = new Lazy<SyntaxList<AttributeListSyntax>>(() => List<AttributeListSyntax>(GetAttributeLists()), false);
+            _DocumentationCommentTriviaList = new Lazy<SyntaxTriviaList>(GetDocumentationCommentTriviaList, false);
         }
 
         NamespaceInfo GetNamespaceInfo()

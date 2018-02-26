@@ -120,10 +120,10 @@ namespace GISharp.CodeGen.Model
             if (element.Name == gi + "record" && element.Attribute(glib + "is-gtype-struct-for") != null) {
                 throw new ArgumentException("<gi:record> element cannot be GType struct.", nameof(element));
             }
-            _ClassMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetClassMemberDeclarations()));
-            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
-            _ClassDeclaration = new Lazy<ClassDeclarationSyntax>(GetClassDeclaration);
-            _DefaultConstructor = new Lazy<ConstructorDeclarationSyntax>(GetDefaultConstructor);
+            _ClassMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetClassMemberDeclarations()), false);
+            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())), false);
+            _ClassDeclaration = new Lazy<ClassDeclarationSyntax>(GetClassDeclaration, false);
+            _DefaultConstructor = new Lazy<ConstructorDeclarationSyntax>(GetDefaultConstructor, false);
         }
 
         protected override IEnumerable<SyntaxToken> GetModifiers ()

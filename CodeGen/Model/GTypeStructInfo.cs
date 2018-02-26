@@ -71,13 +71,13 @@ namespace GISharp.CodeGen.Model
             if (element.Name != gi + "record" || element.Attribute(glib + "is-gtype-struct-for") == null) {
                 throw new ArgumentException("Requires <record glib:is-gtype-struct-for='...'> element.", nameof(element));
             }
-            _InstanceType = new Lazy<Type>(GetInstanceType);
-            _ParentType = new Lazy<Type>(GetParentType);
-            _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly());
-            _ClassMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetClassMemberDeclarations()));
-            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
-            _ClassDeclaration = new Lazy<ClassDeclarationSyntax>(GetClassDeclaration);
-            _DefaultConstructor = new Lazy<ConstructorDeclarationSyntax>(GetDefaultConstructor);
+            _InstanceType = new Lazy<Type>(GetInstanceType, false);
+            _ParentType = new Lazy<Type>(GetParentType, false);
+            _FieldInfos = new Lazy<IReadOnlyList<FieldInfo>>(() => GetFieldInfos().ToList().AsReadOnly(), false);
+            _ClassMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetClassMemberDeclarations()), false);
+            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())), false);
+            _ClassDeclaration = new Lazy<ClassDeclarationSyntax>(GetClassDeclaration, false);
+            _DefaultConstructor = new Lazy<ConstructorDeclarationSyntax>(GetDefaultConstructor, false);
         }
 
         Type GetInstanceType()

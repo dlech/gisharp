@@ -28,7 +28,7 @@ namespace GISharp.CodeGen.Reflection
             this.element = element;
 
             Name = element.Attribute(gs + "managed-name").Value;
-            _ReturnType = new Lazy<Type>(LazyGetReturnType);
+            _ReturnType = new Lazy<Type>(LazyGetReturnType, false);
         }
 
         public override Type ReturnType => _ReturnType.Value;

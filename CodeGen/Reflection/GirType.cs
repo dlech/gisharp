@@ -46,7 +46,7 @@ namespace GISharp.CodeGen.Reflection
             }
             this.element = element;
             this.unmanaged = unmanaged;
-            _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()));
+            _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()), false);
         }
 
         public static Type ResolveType (string typeName, XDocument document)

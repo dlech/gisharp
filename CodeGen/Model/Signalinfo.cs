@@ -109,8 +109,8 @@ namespace GISharp.CodeGen.Model
             IsDetailed = element.Attribute("detailed").AsBool();
             IsAction = element.Attribute("action").AsBool();
             IsNoHooks = element.Attribute("no-hooks").AsBool();
-            _EventArgsClassDeclaration = new Lazy<ClassDeclarationSyntax>(LazyGetEventArgsClassDeclaration);
-            _EventDeclaration = new Lazy<EventDeclarationSyntax>(LazyGetEventDeclaration);
+            _EventArgsClassDeclaration = new Lazy<ClassDeclarationSyntax>(LazyGetEventArgsClassDeclaration, false);
+            _EventDeclaration = new Lazy<EventDeclarationSyntax>(LazyGetEventDeclaration, false);
             EventArgsClassName = ManagedName + "EventArgs";
             EventHandlerDelegateName = ManagedName + "EventHandler";
             SignalManagerFieldName = ManagedName.ToCamelCase() + "SignalHandler";

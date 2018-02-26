@@ -63,11 +63,11 @@ namespace GISharp.CodeGen.Model
                 throw new ArgumentException("Requires <field> element.", nameof(element));
             }
             IsCallback = Element.Element(gi + "callback") != null;
-            _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, false));
-            _CallbackInfo = new Lazy<DelegateInfo>(GetCallbackInfo);
-            _OffsetDeclaration = new Lazy<FieldDeclarationSyntax>(GetOffsetDeclaration);
-            _DelegateDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegateDeclaration);
-            _DelegatePtrDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegatePointerDeclaration);
+            _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, false), false);
+            _CallbackInfo = new Lazy<DelegateInfo>(GetCallbackInfo, false);
+            _OffsetDeclaration = new Lazy<FieldDeclarationSyntax>(GetOffsetDeclaration, false);
+            _DelegateDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegateDeclaration, false);
+            _DelegatePtrDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegatePointerDeclaration, false);
         }
 
         DelegateInfo GetCallbackInfo()

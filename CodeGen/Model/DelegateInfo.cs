@@ -120,12 +120,12 @@ namespace GISharp.CodeGen.Model
             if (element.Name != gi + "callback") {
                 throw new ArgumentException ("Requires a <callback> element.", nameof(element));
             }
-            _ManagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetManagedDelegateDeclaration);
-            _UnmanagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetUnmanagedDelegateDeclaration);
+            _ManagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetManagedDelegateDeclaration, false);
+            _UnmanagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetUnmanagedDelegateDeclaration, false);
             _UnmanagedDelegateFactoryDeclaration =
-                new Lazy<ClassDeclarationSyntax>(LazyGetUnmanagedDelegateFactoryDeclaration);
+                new Lazy<ClassDeclarationSyntax>(LazyGetUnmanagedDelegateFactoryDeclaration, false);
             _VirtualMethodCallbackImplementation =
-                new Lazy<MethodDeclarationSyntax>(LazyGetVirtualMethodCallbackImplementation);
+                new Lazy<MethodDeclarationSyntax>(LazyGetVirtualMethodCallbackImplementation, false);
         }
 
         // gets a delegate declaration like:

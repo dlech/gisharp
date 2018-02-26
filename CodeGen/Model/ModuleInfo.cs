@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Model
             if (element.Attribute("version").AsString() != "1.2") {
                 throw new ArgumentException("Bad GIR version.", nameof(element));
             }
-            _Namespace = new Lazy<NamespaceInfo>(GetNamespace);
+            _Namespace = new Lazy<NamespaceInfo>(GetNamespace, false);
         }
 
         /// <summary>

@@ -27,7 +27,7 @@ namespace GISharp.CodeGen.Model
             if (element.Name != gi + "constant") {
                 throw new ArgumentException("Requires  <constant> element.", nameof(element));
             }
-            _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, true));
+            _TypeInfo = new Lazy<TypeInfo>(() => new TypeInfo(Element, true), false);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos()

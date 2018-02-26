@@ -67,12 +67,12 @@ namespace GISharp.CodeGen.Model
                 throw new ArgumentException ("Requires <gi:interface> element.", nameof(element));
             }
 
-            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())));
-            _InterfaceDeclaration = new Lazy<InterfaceDeclarationSyntax>(GetInterfaceDeclaration);
-            _InterfaceExtensionsDeclaration = new Lazy<ClassDeclarationSyntax>(GetInterfaceExtensionsDeclaration);
-            _InterfaceMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceMembers()));
-            _InterfaceExtensionsMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceExtensionsMembers()));
-            _Prerequisites = new Lazy<IReadOnlyList<Type>>(() => GetPrerequisites().ToList().AsReadOnly());
+            _BaseList = new Lazy<BaseListSyntax>(() => BaseList(SeparatedList(GetBaseTypes())), false);
+            _InterfaceDeclaration = new Lazy<InterfaceDeclarationSyntax>(GetInterfaceDeclaration, false);
+            _InterfaceExtensionsDeclaration = new Lazy<ClassDeclarationSyntax>(GetInterfaceExtensionsDeclaration, false);
+            _InterfaceMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceMembers()), false);
+            _InterfaceExtensionsMembers = new Lazy<SyntaxList<MemberDeclarationSyntax>>(() => List(GetInterfaceExtensionsMembers()), false);
+            _Prerequisites = new Lazy<IReadOnlyList<Type>>(() => GetPrerequisites().ToList().AsReadOnly(), false);
         }
 
         IEnumerable<Type> GetPrerequisites()

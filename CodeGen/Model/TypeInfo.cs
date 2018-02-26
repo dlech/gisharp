@@ -154,10 +154,10 @@ namespace GISharp.CodeGen.Model
                 RequiresMarshal = true;
             }
 
-            _Classification = new Lazy<TypeClassification>(GetTypeClassification);
-            _TypeObject = new Lazy<Type>(GetTypeObject);
-            _Type = new Lazy<TypeSyntax>(() => TypeObject.ToSyntax());
-            _GirXmlTrivia = new Lazy<SyntaxTrivia>(GetGirXmlTrivia);
+            _Classification = new Lazy<TypeClassification>(GetTypeClassification, false);
+            _TypeObject = new Lazy<Type>(GetTypeObject, false);
+            _Type = new Lazy<TypeSyntax>(() => TypeObject.ToSyntax(), false);
+            _GirXmlTrivia = new Lazy<SyntaxTrivia>(GetGirXmlTrivia, false);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()

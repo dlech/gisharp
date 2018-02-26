@@ -48,8 +48,8 @@ namespace GISharp.CodeGen.Model
 
             Version = element.Attribute("version").Value;
             Name = ParseName($"GISharp.{ManagedName}");
-            _NamespaceDeclaration = new Lazy<NamespaceDeclarationSyntax>(GetNamespaceDeclaration);
-            _TypeDeclarations = new Lazy<IReadOnlyList<MemberInfo>>(() => GetTypeDeclarations().ToList().AsReadOnly());
+            _NamespaceDeclaration = new Lazy<NamespaceDeclarationSyntax>(GetNamespaceDeclaration, false);
+            _TypeDeclarations = new Lazy<IReadOnlyList<MemberInfo>>(() => GetTypeDeclarations().ToList().AsReadOnly(), false);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()

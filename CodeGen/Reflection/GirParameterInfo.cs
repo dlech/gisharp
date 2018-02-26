@@ -24,7 +24,7 @@ namespace GISharp.CodeGen.Reflection
             Name = element.Attribute(gs + "managed-name").Value;
             var typeElement = element.Element(gi + "type") ?? element.Element(gi + "array");
             var typeName = typeElement.Attribute(gs + "managed-name").Value;
-            _ParameterType = new Lazy<Type>(() => GirType.ResolveType(typeName, element.Document));
+            _ParameterType = new Lazy<Type>(() => GirType.ResolveType(typeName, element.Document), false);
         }
 
         public override string Name { get; }
