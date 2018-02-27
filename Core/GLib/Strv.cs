@@ -62,6 +62,11 @@ namespace GISharp.GLib
             return ret;
         }
 
+        public static implicit operator string[](Strv strv)
+        {
+            return strv?.Value;
+        }
+
         IEnumerator<string> GetEnumerator()
         {
             IntPtr str_;
