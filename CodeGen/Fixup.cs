@@ -407,7 +407,7 @@ namespace GISharp.CodeGen
                 // check various conditions where we might want camelCase
                 var camelCase = false;
                 var accessModifier = element.Attribute (gs + "access-modifiers");
-                if (accessModifier != null) {
+                if (accessModifier != null && (element.Name == gi + "field" || element.Name == gi + "constant")) {
                     camelCase = accessModifier.Value.Contains ("private");
                 }
                 if (element.Name == gi + "parameter" || element.Name == gi + "instance-parameter" || element.Name == gs + "error-parameter") {
