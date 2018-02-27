@@ -3843,7 +3843,7 @@ namespace GISharp.GLib
     /// The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
     /// options.
     /// </summary>
-    public delegate System.Boolean OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value);
+    public delegate void OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value);
 
     /// <summary>
     /// Factory for creating <see cref="UnmanagedOptionArgFunc"/> methods.
@@ -3897,13 +3897,12 @@ namespace GISharp.GLib
                 var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(value_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var data = (UserData)gcHandle.Target;
-                var ret = data.ManagedDelegate(optionName, value);
+                data.ManagedDelegate(optionName, value);
                 if (data.Scope == GISharp.Runtime.CallbackScope.Async)
                 {
                     Destroy(data_);
                 }
-
-                return ret;
+                return true;
             }
             catch (System.Exception ex)
             {
@@ -3911,6 +3910,1169 @@ namespace GISharp.GLib
             }
 
             return default(System.Boolean);
+        }
+
+        static void Destroy(System.IntPtr userData_)
+        {
+            try
+            {
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+        }
+    }
+
+    /// <summary>
+    /// A `GOptionContext` struct defines which options
+    /// are accepted by the commandline option parser. The struct has only private
+    /// fields and should not be directly accessed.
+    /// </summary>
+    public sealed partial class OptionContext : GISharp.Runtime.Opaque
+    {
+        public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        /// <summary>
+        /// Adds a #GOptionGroup to the @context, so that parsing with @context
+        /// will recognize the options in the group. Note that this will take
+        /// ownership of the @group and thus the @group should not be freed.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="group">
+        /// the group to add
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_add_group(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        System.IntPtr group);
+
+        /// <summary>
+        /// Adds a #GOptionGroup to the @context, so that parsing with @context
+        /// will recognize the options in the group. Note that this will take
+        /// ownership of the @group and thus the @group should not be freed.
+        /// </summary>
+        /// <param name="group">
+        /// the group to add
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="group"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public void AddGroup(GISharp.GLib.OptionGroup group)
+        {
+            var this_ = this.Handle;
+            var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
+            g_option_context_add_group(this_, group_);
+        }
+
+        /// <summary>
+        /// A convenience function which creates a main group if it doesn't
+        /// exist, adds the @entries to it and sets the translation domain.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="entries">
+        /// a %NULL-terminated array of #GOptionEntrys
+        /// </param>
+        /// <param name="translationDomain">
+        /// a translation domain to use for translating
+        ///    the `--help` output for the options in @entries
+        ///    with gettext(), or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_add_main_entries(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="OptionEntry" type="const GOptionEntry*" managed-name="OptionEntry" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        GISharp.GLib.OptionEntry entries,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr translationDomain);
+
+        /// <summary>
+        /// A convenience function which creates a main group if it doesn't
+        /// exist, adds the @entries to it and sets the translation domain.
+        /// </summary>
+        /// <param name="entries">
+        /// a %NULL-terminated array of #GOptionEntrys
+        /// </param>
+        /// <param name="translationDomain">
+        /// a translation domain to use for translating
+        ///    the `--help` output for the options in @entries
+        ///    with gettext(), or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public void AddMainEntries(GISharp.GLib.OptionEntry entries, GISharp.GLib.Utf8 translationDomain)
+        {
+            var this_ = this.Handle;
+            var translationDomain_ = translationDomain?.Handle ?? System.IntPtr.Zero;
+            g_option_context_add_main_entries(this_, entries, translationDomain_);
+        }
+
+        /// <summary>
+        /// Frees context and all the groups which have been
+        /// added to it.
+        /// </summary>
+        /// <remarks>
+        /// Please note that parsed arguments need to be freed separately (see
+        /// #GOptionEntry).
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_free(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns the description. See g_option_context_set_description().
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <returns>
+        /// the description
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        static extern System.IntPtr g_option_context_get_description(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns the description. See g_option_context_set_description().
+        /// </summary>
+        /// <returns>
+        /// the description
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public GISharp.GLib.Utf8 Description
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret_ = g_option_context_get_description(this_);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                var value_ = value?.Handle ?? System.IntPtr.Zero;
+                g_option_context_set_description(this_, value_);
+            }
+        }
+
+        /// <summary>
+        /// Returns a formatted, translated help text for the given context.
+        /// To obtain the text produced by `--help`, call
+        /// `g_option_context_get_help (context, TRUE, NULL)`.
+        /// To obtain the text produced by `--help-all`, call
+        /// `g_option_context_get_help (context, FALSE, NULL)`.
+        /// To obtain the help text for an option group, call
+        /// `g_option_context_get_help (context, FALSE, group)`.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="mainHelp">
+        /// if %TRUE, only include the main group
+        /// </param>
+        /// <param name="group">
+        /// the #GOptionGroup to create help for, or %NULL
+        /// </param>
+        /// <returns>
+        /// A newly allocated string containing the help text
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.14")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        static extern System.IntPtr g_option_context_get_help(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        System.Boolean mainHelp,
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr group);
+
+        /// <summary>
+        /// Returns a formatted, translated help text for the given context.
+        /// To obtain the text produced by `--help`, call
+        /// `g_option_context_get_help (context, TRUE, NULL)`.
+        /// To obtain the text produced by `--help-all`, call
+        /// `g_option_context_get_help (context, FALSE, NULL)`.
+        /// To obtain the help text for an option group, call
+        /// `g_option_context_get_help (context, FALSE, group)`.
+        /// </summary>
+        /// <param name="mainHelp">
+        /// if %TRUE, only include the main group
+        /// </param>
+        /// <param name="group">
+        /// the #GOptionGroup to create help for, or %NULL
+        /// </param>
+        /// <returns>
+        /// A newly allocated string containing the help text
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.14")]
+        public GISharp.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.GLib.OptionGroup group)
+        {
+            var this_ = this.Handle;
+            var group_ = group?.Handle ?? System.IntPtr.Zero;
+            var ret_ = g_option_context_get_help(this_, mainHelp, group_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns whether automatic `--help` generation
+        /// is turned on for @context. See g_option_context_set_help_enabled().
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <returns>
+        /// %TRUE if automatic help generation is turned on.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_option_context_get_help_enabled(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns whether automatic `--help` generation
+        /// is turned on for @context. See g_option_context_set_help_enabled().
+        /// </summary>
+        /// <returns>
+        /// %TRUE if automatic help generation is turned on.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public System.Boolean HelpEnabled
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret = g_option_context_get_help_enabled(this_);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                g_option_context_set_help_enabled(this_, value);
+            }
+        }
+
+        /// <summary>
+        /// Returns whether unknown options are ignored or not. See
+        /// g_option_context_set_ignore_unknown_options().
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <returns>
+        /// %TRUE if unknown options are ignored.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_option_context_get_ignore_unknown_options(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns whether unknown options are ignored or not. See
+        /// g_option_context_set_ignore_unknown_options().
+        /// </summary>
+        /// <returns>
+        /// %TRUE if unknown options are ignored.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public System.Boolean IgnoreUnknownOptions
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret = g_option_context_get_ignore_unknown_options(this_);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                g_option_context_set_ignore_unknown_options(this_, value);
+            }
+        }
+
+        /// <summary>
+        /// Returns a pointer to the main group of @context.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <returns>
+        /// the main group of @context, or %NULL if
+        ///  @context doesn't have a main group. Note that group belongs to
+        ///  @context and should not be modified or freed.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        static extern System.IntPtr g_option_context_get_main_group(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns a pointer to the main group of @context.
+        /// </summary>
+        /// <returns>
+        /// the main group of @context, or %NULL if
+        ///  @context doesn't have a main group. Note that group belongs to
+        ///  @context and should not be modified or freed.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public GISharp.GLib.OptionGroup MainGroup
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret_ = g_option_context_get_main_group(this_);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                var value_ = value?.Take() ?? throw new System.ArgumentNullException(nameof(value));
+                g_option_context_set_main_group(this_, value_);
+            }
+        }
+
+        /// <summary>
+        /// Returns whether strict POSIX code is enabled.
+        /// </summary>
+        /// <remarks>
+        /// See g_option_context_set_strict_posix() for more information.
+        /// </remarks>
+        /// <param name="context">
+        /// a #GoptionContext
+        /// </param>
+        /// <returns>
+        /// %TRUE if strict POSIX is enabled, %FALSE otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_option_context_get_strict_posix(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns whether strict POSIX code is enabled.
+        /// </summary>
+        /// <remarks>
+        /// See g_option_context_set_strict_posix() for more information.
+        /// </remarks>
+        /// <returns>
+        /// %TRUE if strict POSIX is enabled, %FALSE otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        public System.Boolean StrictPosix
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret = g_option_context_get_strict_posix(this_);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                g_option_context_set_strict_posix(this_, value);
+            }
+        }
+
+        /// <summary>
+        /// Returns the summary. See g_option_context_set_summary().
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <returns>
+        /// the summary
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        static extern System.IntPtr g_option_context_get_summary(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context);
+
+        /// <summary>
+        /// Returns the summary. See g_option_context_set_summary().
+        /// </summary>
+        /// <returns>
+        /// the summary
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public GISharp.GLib.Utf8 Summary
+        {
+            get
+            {
+                var this_ = this.Handle;
+                var ret_ = g_option_context_get_summary(this_);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+                return ret;
+            }
+
+            set
+            {
+                var this_ = this.Handle;
+                var value_ = value?.Handle ?? System.IntPtr.Zero;
+                g_option_context_set_summary(this_, value_);
+            }
+        }
+
+        /// <summary>
+        /// Parses the command line arguments, recognizing options
+        /// which have been added to @context. A side-effect of
+        /// calling this function is that g_set_prgname() will be
+        /// called.
+        /// </summary>
+        /// <remarks>
+        /// If the parsing is successful, any parsed arguments are
+        /// removed from the array and @argc and @argv are updated
+        /// accordingly. A '--' option is stripped from @argv
+        /// unless there are unparsed options before and after it,
+        /// or some of the options after it start with '-'. In case
+        /// of an error, @argc and @argv are left unmodified.
+        /// 
+        /// If automatic `--help` support is enabled
+        /// (see g_option_context_set_help_enabled()), and the
+        /// @argv array contains one of the recognized help options,
+        /// this function will produce help output to stdout and
+        /// call `exit (0)`.
+        /// 
+        /// Note that function depends on the [current locale][setlocale] for
+        /// automatic character set conversion of string and filename
+        /// arguments.
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="argc">
+        /// a pointer to the number of command line arguments
+        /// </param>
+        /// <param name="argv">
+        /// a pointer to the array of command line arguments
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE if the parsing was successful,
+        ///               %FALSE if an error occurred
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_option_context_parse(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="gint" type="gint*" managed-name="Gint" is-pointer="1" /> */
+        /* direction:inout caller-allocates:0 transfer-ownership:full */
+        ref System.Int32 argc,
+        /* <array length="0" zero-terminated="0" type="gchar***" is-pointer="1">
+*   <type name="utf8" type="gchar**" managed-name="Utf8" />
+* </array> */
+        /* direction:inout caller-allocates:0 transfer-ownership:full */
+        ref System.IntPtr argv,
+        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* direction:out */
+        out System.IntPtr error);
+
+        /// <summary>
+        /// Parses the command line arguments, recognizing options
+        /// which have been added to @context. A side-effect of
+        /// calling this function is that g_set_prgname() will be
+        /// called.
+        /// </summary>
+        /// <remarks>
+        /// If the parsing is successful, any parsed arguments are
+        /// removed from the array and @argc and @argv are updated
+        /// accordingly. A '--' option is stripped from @argv
+        /// unless there are unparsed options before and after it,
+        /// or some of the options after it start with '-'. In case
+        /// of an error, @argc and @argv are left unmodified.
+        /// 
+        /// If automatic `--help` support is enabled
+        /// (see g_option_context_set_help_enabled()), and the
+        /// @argv array contains one of the recognized help options,
+        /// this function will produce help output to stdout and
+        /// call `exit (0)`.
+        /// 
+        /// Note that function depends on the [current locale][setlocale] for
+        /// automatic character set conversion of string and filename
+        /// arguments.
+        /// </remarks>
+        /// <param name="argv">
+        /// a pointer to the array of command line arguments
+        /// </param>
+        /// <returns>
+        /// %TRUE if the parsing was successful,
+        ///               %FALSE if an error occurred
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public System.Boolean Parse(ref GISharp.Runtime.IArray<GISharp.GLib.Utf8> argv)
+        {
+            var this_ = this.Handle;
+            var argv_ = argv?.TakeData().Item1 ?? System.IntPtr.Zero;
+            var argc_ = (System.Int32)(argv?.Length ?? 0);
+            System.IntPtr error_;
+            var ret = g_option_context_parse(this_,ref argc_,ref argv_,out error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            argv = GISharp.Runtime.CPtrArray.GetInstance<GISharp.GLib.Utf8>(argv_, (int)argc_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Parses the command line arguments.
+        /// </summary>
+        /// <remarks>
+        /// This function is similar to g_option_context_parse() except that it
+        /// respects the normal memory rules when dealing with a strv instead of
+        /// assuming that the passed-in array is the argv of the main function.
+        /// 
+        /// In particular, strings that are removed from the arguments list will
+        /// be freed using g_free().
+        /// 
+        /// On Windows, the strings are expected to be in UTF-8.  This is in
+        /// contrast to g_option_context_parse() which expects them to be in the
+        /// system codepage, which is how they are passed as @argv to main().
+        /// See g_win32_get_command_line() for a solution.
+        /// 
+        /// This function is useful if you are trying to use #GOptionContext with
+        /// #GApplication.
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="arguments">
+        /// a pointer to the
+        ///    command line arguments (which must be in UTF-8 on Windows)
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE if the parsing was successful,
+        ///          %FALSE if an error occurred
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_option_context_parse_strv(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <array zero-terminated="1" type="gchar***" is-pointer="1">
+*   <type name="utf8" type="gchar**" managed-name="Utf8" />
+* </array> */
+        /* direction:inout caller-allocates:0 transfer-ownership:full */
+        ref System.IntPtr arguments,
+        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* direction:out */
+        out System.IntPtr error);
+
+        /// <summary>
+        /// Parses the command line arguments.
+        /// </summary>
+        /// <remarks>
+        /// This function is similar to g_option_context_parse() except that it
+        /// respects the normal memory rules when dealing with a strv instead of
+        /// assuming that the passed-in array is the argv of the main function.
+        /// 
+        /// In particular, strings that are removed from the arguments list will
+        /// be freed using g_free().
+        /// 
+        /// On Windows, the strings are expected to be in UTF-8.  This is in
+        /// contrast to g_option_context_parse() which expects them to be in the
+        /// system codepage, which is how they are passed as @argv to main().
+        /// See g_win32_get_command_line() for a solution.
+        /// 
+        /// This function is useful if you are trying to use #GOptionContext with
+        /// #GApplication.
+        /// </remarks>
+        /// <param name="arguments">
+        /// a pointer to the
+        ///    command line arguments (which must be in UTF-8 on Windows)
+        /// </param>
+        /// <returns>
+        /// %TRUE if the parsing was successful,
+        ///          %FALSE if an error occurred
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public System.Boolean Parse(ref GISharp.GLib.Strv arguments)
+        {
+            var this_ = this.Handle;
+            var arguments_ = arguments?.Take() ?? System.IntPtr.Zero;
+            System.IntPtr error_;
+            var ret = g_option_context_parse_strv(this_,ref arguments_,out error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(arguments_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Adds a string to be displayed in `--help` output after the list
+        /// of options. This text often includes a bug reporting address.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// g_option_context_set_translate_func()).
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="description">
+        /// a string to be shown in `--help` output
+        ///   after the list of options, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_description(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr description);
+
+        /// <summary>
+        /// Enables or disables automatic generation of `--help` output.
+        /// By default, g_option_context_parse() recognizes `--help`, `-h`,
+        /// `-?`, `--help-all` and `--help-groupname` and creates suitable
+        /// output to stdout.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="helpEnabled">
+        /// %TRUE to enable `--help`, %FALSE to disable it
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_help_enabled(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        System.Boolean helpEnabled);
+
+        /// <summary>
+        /// Sets whether to ignore unknown options or not. If an argument is
+        /// ignored, it is left in the @argv array after parsing. By default,
+        /// g_option_context_parse() treats unknown options as error.
+        /// </summary>
+        /// <remarks>
+        /// This setting does not affect non-option arguments (i.e. arguments
+        /// which don't start with a dash). But note that GOption cannot reliably
+        /// determine whether a non-option belongs to a preceding unknown option.
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="ignoreUnknown">
+        /// %TRUE to ignore unknown options, %FALSE to produce
+        ///    an error when unknown options are met
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_ignore_unknown_options(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        System.Boolean ignoreUnknown);
+
+        /// <summary>
+        /// Sets a #GOptionGroup as main group of the @context.
+        /// This has the same effect as calling g_option_context_add_group(),
+        /// the only difference is that the options in the main group are
+        /// treated differently when generating `--help` output.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="group">
+        /// the group to set as main group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_main_group(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        System.IntPtr group);
+
+        /// <summary>
+        /// Sets strict POSIX mode.
+        /// </summary>
+        /// <remarks>
+        /// By default, this mode is disabled.
+        /// 
+        /// In strict POSIX mode, the first non-argument parameter encountered
+        /// (eg: filename) terminates argument processing.  Remaining arguments
+        /// are treated as non-options and are not attempted to be parsed.
+        /// 
+        /// If strict POSIX mode is disabled then parsing is done in the GNU way
+        /// where option arguments can be freely mixed with non-options.
+        /// 
+        /// As an example, consider "ls foo -l".  With GNU style parsing, this
+        /// will list "foo" in long mode.  In strict POSIX style, this will list
+        /// the files named "foo" and "-l".
+        /// 
+        /// It may be useful to force strict POSIX mode when creating "verb
+        /// style" command line tools.  For example, the "gsettings" command line
+        /// tool supports the global option "--schemadir" as well as many
+        /// subcommands ("get", "set", etc.) which each have their own set of
+        /// arguments.  Using strict POSIX mode will allow parsing the global
+        /// options up to the verb name while leaving the remaining options to be
+        /// parsed by the relevant subcommand (which can be determined by
+        /// examining the verb name, which should be present in argv[1] after
+        /// parsing).
+        /// </remarks>
+        /// <param name="context">
+        /// a #GoptionContext
+        /// </param>
+        /// <param name="strictPosix">
+        /// the new value
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_strict_posix(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        System.Boolean strictPosix);
+
+        /// <summary>
+        /// Adds a string to be displayed in `--help` output before the list
+        /// of options. This is typically a summary of the program functionality.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// g_option_context_set_translate_func() and
+        /// g_option_context_set_translation_domain()).
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="summary">
+        /// a string to be shown in `--help` output
+        ///  before the list of options, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_summary(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr summary);
+
+        /// <summary>
+        /// Sets the function which is used to translate the contexts
+        /// user-visible strings, for `--help` output. If @func is %NULL,
+        /// strings are not translated.
+        /// </summary>
+        /// <remarks>
+        /// Note that option groups have their own translation functions,
+        /// this function only affects the @parameter_string (see g_option_context_new()),
+        /// the summary (see g_option_context_set_summary()) and the description
+        /// (see g_option_context_set_description()).
+        /// 
+        /// If you are using gettext(), you only need to set the translation
+        /// domain, see g_option_context_set_translation_domain().
+        /// </remarks>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="func">
+        /// the #GTranslateFunc, or %NULL
+        /// </param>
+        /// <param name="data">
+        /// user data to pass to @func, or %NULL
+        /// </param>
+        /// <param name="destroyNotify">
+        /// a function which gets called to free @data, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_translate_func(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 */
+        GISharp.GLib.UnmanagedTranslateFunc func,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr data,
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
+        GISharp.GLib.UnmanagedDestroyNotify destroyNotify);
+
+        /// <summary>
+        /// Sets the function which is used to translate the contexts
+        /// user-visible strings, for `--help` output. If @func is %NULL,
+        /// strings are not translated.
+        /// </summary>
+        /// <remarks>
+        /// Note that option groups have their own translation functions,
+        /// this function only affects the @parameter_string (see g_option_context_new()),
+        /// the summary (see g_option_context_set_summary()) and the description
+        /// (see g_option_context_set_description()).
+        /// 
+        /// If you are using gettext(), you only need to set the translation
+        /// domain, see g_option_context_set_translation_domain().
+        /// </remarks>
+        /// <param name="func">
+        /// the #GTranslateFunc, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public void SetTranslateFunc(GISharp.GLib.TranslateFunc func)
+        {
+            var this_ = this.Handle;
+            var (func_, destroyNotify_, data_) = (func == null) ?
+            (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
+            GISharp.GLib.UnmanagedTranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            g_option_context_set_translate_func(this_, func_, data_, destroyNotify_);
+        }
+
+        /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="context">
+        /// a #GOptionContext
+        /// </param>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_context_set_translation_domain(
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr context,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr domain);
+
+        /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="domain"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public void SetTranslationDomain(GISharp.GLib.Utf8 domain)
+        {
+            var this_ = this.Handle;
+            var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
+            g_option_context_set_translation_domain(this_, domain_);
+        }
+    }
+
+    /// <summary>
+    /// A GOptionEntry struct defines a single option. To have an effect, they
+    /// must be added to a #GOptionGroup with g_option_context_add_main_entries()
+    /// or g_option_group_add_entries().
+    /// </summary>
+    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
+    public partial struct OptionEntry
+    {
+        /// <summary>
+        /// The long name of an option can be used to specify it
+        ///     in a commandline as `--long_name`. Every option must have a
+        ///     long name. To resolve conflicts if multiple option groups contain
+        ///     the same long name, it is also possible to specify the option as
+        ///     `--groupname-long_name`.
+        /// </summary>
+        public System.IntPtr LongName;
+
+        /// <summary>
+        /// If an option has a short name, it can be specified
+        ///     `-short_name` in a commandline. @short_name must be  a printable
+        ///     ASCII character different from '-', or zero if the option has no
+        ///     short name.
+        /// </summary>
+        public System.SByte ShortName;
+
+        /// <summary>
+        /// Flags from #GOptionFlags
+        /// </summary>
+        public System.Int32 Flags;
+
+        /// <summary>
+        /// The type of the option, as a #GOptionArg
+        /// </summary>
+        public GISharp.GLib.OptionArg Arg;
+
+        /// <summary>
+        /// If the @arg type is %G_OPTION_ARG_CALLBACK, then @arg_data
+        ///     must point to a #GOptionArgFunc callback function, which will be
+        ///     called to handle the extra argument. Otherwise, @arg_data is a
+        ///     pointer to a location to store the value, the required type of
+        ///     the location depends on the @arg type:
+        ///     - %G_OPTION_ARG_NONE: %gboolean
+        ///     - %G_OPTION_ARG_STRING: %gchar*
+        ///     - %G_OPTION_ARG_INT: %gint
+        ///     - %G_OPTION_ARG_FILENAME: %gchar*
+        ///     - %G_OPTION_ARG_STRING_ARRAY: %gchar**
+        ///     - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
+        ///     - %G_OPTION_ARG_DOUBLE: %gdouble
+        ///     If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+        ///     the location will contain a newly allocated string if the option
+        ///     was given. That string needs to be freed by the callee using g_free().
+        ///     Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
+        ///     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
+        /// </summary>
+        public System.IntPtr ArgData;
+
+        /// <summary>
+        /// the description for the option in `--help`
+        ///     output. The @description is translated using the @translate_func
+        ///     of the group, see g_option_group_set_translation_domain().
+        /// </summary>
+        public System.IntPtr Description;
+
+        /// <summary>
+        /// The placeholder to use for the extra argument parsed
+        ///     by the option in `--help` output. The @arg_description is translated
+        ///     using the @translate_func of the group, see
+        ///     g_option_group_set_translation_domain().
+        /// </summary>
+        public System.IntPtr ArgDescription;
+    }
+
+    /// <summary>
+    /// Error codes returned by option parsing.
+    /// </summary>
+    [GISharp.Runtime.GErrorDomainAttribute("g-option-context-error-quark")]
+    public enum OptionError
+    {
+        /// <summary>
+        /// An option was not known to the parser.
+        ///  This error will only be reported, if the parser hasn't been instructed
+        ///  to ignore unknown options, see g_option_context_set_ignore_unknown_options().
+        /// </summary>
+        UnknownOption = 0,
+        /// <summary>
+        /// A value couldn't be parsed.
+        /// </summary>
+        BadValue = 1,
+        /// <summary>
+        /// A #GOptionArgFunc callback failed.
+        /// </summary>
+        Failed = 2
+    }
+
+    public static class OptionErrorDomain
+    {
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
+        /* transfer-ownership:none */
+        static extern GISharp.GLib.Quark g_option_error_quark();
+
+        public static GISharp.GLib.Quark Quark
+        {
+            get
+            {
+                var ret = g_option_error_quark();
+                return ret;
+            }
+        }
+    }
+
+    /// <summary>
+    /// The type of function to be used as callback when a parse error occurs.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    public delegate void UnmanagedOptionErrorFunc(
+    /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr context,
+    /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr group,
+    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
+    System.IntPtr data,
+    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* direction:inout */
+    ref System.IntPtr error);
+
+    /// <summary>
+    /// The type of function to be used as callback when a parse error occurs.
+    /// </summary>
+    public delegate void OptionErrorFunc(GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group);
+
+    /// <summary>
+    /// Factory for creating <see cref="UnmanagedOptionErrorFunc"/> methods.
+    /// </summary>
+    public static class UnmanagedOptionErrorFuncFactory
+    {
+        class UserData
+        {
+            public GISharp.GLib.OptionErrorFunc ManagedDelegate;
+            public GISharp.GLib.UnmanagedOptionErrorFunc UnmanagedDelegate;
+            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Runtime.CallbackScope Scope;
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="OptionErrorFunc"/> in an anonymous method that can
+        /// be passed to unmanaged code.
+        /// </summary>
+        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="scope">The lifetime scope of the callback.</param>
+        /// <returns>
+        /// A tuple containing the unmanaged callback, the unmanaged
+        /// notify function and a pointer to the user data.
+        /// </returns>
+        /// <remarks>
+        /// This function is used to marshal managed callbacks to unmanged
+        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
+        /// then it is the caller's responsibility to invoke the notify function
+        /// when the callback is no longer needed. If the scope is
+        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
+        /// function should be ignored.
+        /// </remarks>
+        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionErrorFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionErrorFunc callback, GISharp.Runtime.CallbackScope scope)
+        {
+            var userData = new UserData
+            {
+                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            };
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+        }
+
+        static void UnmanagedCallback(System.IntPtr context_, System.IntPtr group_, System.IntPtr data_, ref System.IntPtr error_)
+        {
+            try
+            {
+                var context = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionContext>(context_, GISharp.Runtime.Transfer.None);
+                var group = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionGroup>(group_, GISharp.Runtime.Transfer.None);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var data = (UserData)gcHandle.Target;
+                data.ManagedDelegate(context, group);
+                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    Destroy(data_);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
         }
 
         static void Destroy(System.IntPtr userData_)
@@ -3979,6 +5141,476 @@ namespace GISharp.GLib
         ///     your direct control. Since 2.8.
         /// </summary>
         NoAlias = 64
+    }
+
+    /// <summary>
+    /// A `GOptionGroup` struct defines the options in a single
+    /// group. The struct has only private fields and should not be directly accessed.
+    /// </summary>
+    /// <remarks>
+    /// All options in a group share the same translation function. Libraries which
+    /// need to parse commandline options are expected to provide a function for
+    /// getting a `GOptionGroup` holding their options, which
+    /// the application can then add to its #GOptionContext.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GOptionGroup", IsProxyForUnmanagedType = true)]
+    public sealed partial class OptionGroup : GISharp.GObject.Boxed
+    {
+        static readonly GISharp.GObject.GType _GType = g_option_group_get_type();
+
+        public OptionGroup(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new #GOptionGroup.
+        /// </summary>
+        /// <param name="name">
+        /// the name for the option group, this is used to provide
+        ///   help for the options in this group with `--help-`@name
+        /// </param>
+        /// <param name="description">
+        /// a description for this group to be shown in
+        ///   `--help`. This string is translated using the translation
+        ///   domain or translation function of the group
+        /// </param>
+        /// <param name="helpDescription">
+        /// a description for the `--help-`@name option.
+        ///   This string is translated using the translation domain or translation function
+        ///   of the group
+        /// </param>
+        /// <param name="userData">
+        /// user data that will be passed to the pre- and post-parse hooks,
+        ///   the error hook and to callbacks of %G_OPTION_ARG_CALLBACK options, or %NULL
+        /// </param>
+        /// <param name="destroy">
+        /// a function that will be called to free @user_data, or %NULL
+        /// </param>
+        /// <returns>
+        /// a newly created option group. It should be added
+        ///   to a #GOptionContext or freed with g_option_group_unref().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        static extern System.IntPtr g_option_group_new(
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr name,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr description,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr helpDescription,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr userData,
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
+        GISharp.GLib.UnmanagedDestroyNotify destroy);
+        [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" managed-name="GType" /> */
+        /* */
+        static extern GISharp.GObject.GType g_option_group_get_type();
+
+        /// <summary>
+        /// Adds the options specified in @entries to @group.
+        /// </summary>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        /// <param name="entries">
+        /// a %NULL-terminated array of #GOptionEntrys
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_group_add_entries(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group,
+        /* <array zero-terminated="1" type="GOptionEntry*" is-pointer="1">
+*   <type name="OptionEntry" type="1" managed-name="OptionEntry" />
+* </array> */
+        /* transfer-ownership:none */
+        System.IntPtr entries);
+
+        /// <summary>
+        /// Increments the reference count of @group by one.
+        /// </summary>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        /// <returns>
+        /// a #GoptionGroup
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        static extern System.IntPtr g_option_group_ref(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group);
+
+        /// <summary>
+        /// Associates two functions with @group which will be called
+        /// from g_option_context_parse() before the first option is parsed
+        /// and after the last option has been parsed, respectively.
+        /// </summary>
+        /// <remarks>
+        /// Note that the user data to be passed to @pre_parse_func and
+        /// @post_parse_func can be specified when constructing the group
+        /// with g_option_group_new().
+        /// </remarks>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        /// <param name="preParseFunc">
+        /// a function to call before parsing, or %NULL
+        /// </param>
+        /// <param name="postParseFunc">
+        /// a function to call after parsing, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_group_set_parse_hooks(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group,
+        /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        GISharp.GLib.UnmanagedOptionParseFunc preParseFunc,
+        /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        GISharp.GLib.UnmanagedOptionParseFunc postParseFunc);
+
+        /// <summary>
+        /// Sets the function which is used to translate user-visible strings,
+        /// for `--help` output. Different groups can use different
+        /// #GTranslateFuncs. If @func is %NULL, strings are not translated.
+        /// </summary>
+        /// <remarks>
+        /// If you are using gettext(), you only need to set the translation
+        /// domain, see g_option_group_set_translation_domain().
+        /// </remarks>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        /// <param name="func">
+        /// the #GTranslateFunc, or %NULL
+        /// </param>
+        /// <param name="data">
+        /// user data to pass to @func, or %NULL
+        /// </param>
+        /// <param name="destroyNotify">
+        /// a function which gets called to free @data, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_group_set_translate_func(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group,
+        /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 */
+        GISharp.GLib.UnmanagedTranslateFunc func,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr data,
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
+        GISharp.GLib.UnmanagedDestroyNotify destroyNotify);
+
+        /// <summary>
+        /// Sets the function which is used to translate user-visible strings,
+        /// for `--help` output. Different groups can use different
+        /// #GTranslateFuncs. If @func is %NULL, strings are not translated.
+        /// </summary>
+        /// <remarks>
+        /// If you are using gettext(), you only need to set the translation
+        /// domain, see g_option_group_set_translation_domain().
+        /// </remarks>
+        /// <param name="func">
+        /// the #GTranslateFunc, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public void SetTranslateFunc(GISharp.GLib.TranslateFunc func)
+        {
+            var this_ = this.Handle;
+            var (func_, destroyNotify_, data_) = (func == null) ?
+            (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
+            GISharp.GLib.UnmanagedTranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            g_option_group_set_translate_func(this_, func_, data_, destroyNotify_);
+        }
+
+        /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_group_set_translation_domain(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group,
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr domain);
+
+        /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="domain"/> is <c>null</c>.
+        ///</exception>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public void SetTranslationDomain(GISharp.GLib.Utf8 domain)
+        {
+            var this_ = this.Handle;
+            var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
+            g_option_group_set_translation_domain(this_, domain_);
+        }
+
+        /// <summary>
+        /// Decrements the reference count of @group by one.
+        /// If the reference count drops to 0, the @group will be freed.
+        /// and all memory allocated by the @group is released.
+        /// </summary>
+        /// <param name="group">
+        /// a #GOptionGroup
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_option_group_unref(
+        /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr group);
+    }
+
+    /// <summary>
+    /// The type of function that can be called before and after parsing.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    public delegate System.Boolean UnmanagedOptionParseFunc(
+    /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr context,
+    /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr group,
+    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
+    System.IntPtr data,
+    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* direction:inout */
+    ref System.IntPtr error);
+
+    /// <summary>
+    /// The type of function that can be called before and after parsing.
+    /// </summary>
+    public delegate void OptionParseFunc(GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group);
+
+    /// <summary>
+    /// Factory for creating <see cref="UnmanagedOptionParseFunc"/> methods.
+    /// </summary>
+    public static class UnmanagedOptionParseFuncFactory
+    {
+        class UserData
+        {
+            public GISharp.GLib.OptionParseFunc ManagedDelegate;
+            public GISharp.GLib.UnmanagedOptionParseFunc UnmanagedDelegate;
+            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Runtime.CallbackScope Scope;
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="OptionParseFunc"/> in an anonymous method that can
+        /// be passed to unmanaged code.
+        /// </summary>
+        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="scope">The lifetime scope of the callback.</param>
+        /// <returns>
+        /// A tuple containing the unmanaged callback, the unmanaged
+        /// notify function and a pointer to the user data.
+        /// </returns>
+        /// <remarks>
+        /// This function is used to marshal managed callbacks to unmanged
+        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
+        /// then it is the caller's responsibility to invoke the notify function
+        /// when the callback is no longer needed. If the scope is
+        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
+        /// function should be ignored.
+        /// </remarks>
+        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionParseFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionParseFunc callback, GISharp.Runtime.CallbackScope scope)
+        {
+            var userData = new UserData
+            {
+                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            };
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+        }
+
+        static System.Boolean UnmanagedCallback(System.IntPtr context_, System.IntPtr group_, System.IntPtr data_, ref System.IntPtr error_)
+        {
+            try
+            {
+                var context = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionContext>(context_, GISharp.Runtime.Transfer.None);
+                var group = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionGroup>(group_, GISharp.Runtime.Transfer.None);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var data = (UserData)gcHandle.Target;
+                data.ManagedDelegate(context, group);
+                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    Destroy(data_);
+                }
+                return true;
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+
+            return default(System.Boolean);
+        }
+
+        static void Destroy(System.IntPtr userData_)
+        {
+            try
+            {
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+        }
+    }
+
+    /// <summary>
+    /// The type of functions which are used to translate user-visible
+    /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    public delegate System.IntPtr UnmanagedTranslateFunc(
+    /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr str,
+    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:1 */
+    System.IntPtr data);
+
+    /// <summary>
+    /// The type of functions which are used to translate user-visible
+    /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
+    /// </summary>
+    public delegate GISharp.GLib.Utf8 TranslateFunc(GISharp.GLib.Utf8 str);
+
+    /// <summary>
+    /// Factory for creating <see cref="UnmanagedTranslateFunc"/> methods.
+    /// </summary>
+    public static class UnmanagedTranslateFuncFactory
+    {
+        class UserData
+        {
+            public GISharp.GLib.TranslateFunc ManagedDelegate;
+            public GISharp.GLib.UnmanagedTranslateFunc UnmanagedDelegate;
+            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Runtime.CallbackScope Scope;
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="TranslateFunc"/> in an anonymous method that can
+        /// be passed to unmanaged code.
+        /// </summary>
+        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="scope">The lifetime scope of the callback.</param>
+        /// <returns>
+        /// A tuple containing the unmanaged callback, the unmanaged
+        /// notify function and a pointer to the user data.
+        /// </returns>
+        /// <remarks>
+        /// This function is used to marshal managed callbacks to unmanged
+        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
+        /// then it is the caller's responsibility to invoke the notify function
+        /// when the callback is no longer needed. If the scope is
+        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
+        /// function should be ignored.
+        /// </remarks>
+        public static System.ValueTuple<GISharp.GLib.UnmanagedTranslateFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.TranslateFunc callback, GISharp.Runtime.CallbackScope scope)
+        {
+            var userData = new UserData
+            {
+                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            };
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+        }
+
+        static System.IntPtr UnmanagedCallback(System.IntPtr str_, System.IntPtr data_)
+        {
+            try
+            {
+                var str = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(str_, GISharp.Runtime.Transfer.None);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var data = (UserData)gcHandle.Target;
+                var ret = data.ManagedDelegate(str);
+                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    Destroy(data_);
+                }
+                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+
+            return default(System.IntPtr);
+        }
+
+        static void Destroy(System.IntPtr userData_)
+        {
+            try
+            {
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (System.Exception ex)
+            {
+                ex.LogUnhandledException();
+            }
+        }
     }
 
     /// <summary>

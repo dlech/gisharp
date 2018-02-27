@@ -35,6 +35,50 @@
 # no fixups
 
 
+### OptionContext ###
+
+- !set-attribute
+  # fix zero-terminated
+  name: zero-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']/gi:method[@name='parse_strv']/gi:parameters/gi:parameter[@name='arguments']/gi:array
+- !set-attribute
+  # make parse_strv and overload of parse
+  name: name
+  value: parse
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']/gi:method[@name='parse_strv']
+
+
+### OptionArgFunc ###
+
+- !set-attribute
+  # flag user data parameter
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionArgFunc']/gi:parameters/gi:parameter[@name='data']
+
+
+### OptionEntry ###
+
+# no fixups
+
+
+### OptionError ###
+- !move-element
+  # Move error quark
+  xpath: gi:repository/gi:namespace/gi:function[@name='option_error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']
+
+
+### OptionErrorFunc ###
+
+- !set-attribute
+  # flag user data parameter
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionErrorFunc']/gi:parameters/gi:parameter[@name='data']
+
+
 ### OptionFlags ###
 
 - !set-attribute
@@ -42,6 +86,66 @@
   name: name
   value: no_alias
   xpath: gi:repository/gi:namespace/gi:bitfield[@name='OptionFlags']/gi:member[@name='noalias']
+
+
+### OptionGroup ###
+
+- !set-attribute
+  # type is reference counted, so free is not needed
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='free']
+- !set-attribute
+  # needs special handling for user data
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:constructor[@name='new']
+- !set-attribute
+  # needs special handling
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']
+- !add-element
+  # GIR is incorrect, this is an array
+  xml: <gi:array zero-terminated='1' c:type='GOptionEntry*' />
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']
+- !set-attribute
+  # fix the C type of the array element
+  name: c:type
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:type
+- !move-element
+  # move the type element so that it is a child of the new array element
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:array
+- !set-attribute
+  # need this to help with marshalling
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='set_parse_hooks']
+- !set-attribute
+  # only used internally
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='set_parse_hooks']
+
+
+### OptionParseFunc ###
+
+- !set-attribute
+  # flag user data parameter
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionParseFunc']/gi:parameters/gi:parameter[@name='data']
+
+
+### TranslateFunc ###
+
+- !set-attribute
+  # flag user data parameter
+  name: closure
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TranslateFunc']/gi:parameters/gi:parameter[@name='data']
 
 
 ### VariantBuilder ###
@@ -925,30 +1029,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionEntry']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionErrorFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionParseFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='PDP_ENDIAN']
 - !set-attribute
   name: introspectable
@@ -1210,10 +1290,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:union[@name='TokenValue']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='TranslateFunc']
 - !set-attribute
   name: introspectable
   value: 0
@@ -1602,10 +1678,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='on_error_stack_trace']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:function[@name='option_error_quark']
 - !set-attribute
   name: introspectable
   value: 0
