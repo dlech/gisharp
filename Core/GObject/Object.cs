@@ -71,6 +71,8 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_ref (IntPtr @object);
 
+        public override IntPtr Take() => g_object_ref(Handle);
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_unref(IntPtr @object);
 

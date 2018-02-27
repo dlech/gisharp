@@ -256,6 +256,8 @@ namespace GISharp.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_ref (IntPtr value);
 
+        public override IntPtr Take() => g_variant_ref(Handle);
+
         [PtrArrayFreeFunc]
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_unref (IntPtr value);

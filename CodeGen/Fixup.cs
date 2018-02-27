@@ -437,7 +437,7 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute ("name").Value == "ref"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithRefMethod) {
-                element.SetAttributeValue (gs + "special-func", "copy");
+                element.SetAttributeValue (gs + "special-func", "ref");
                 element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
@@ -447,7 +447,7 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute ("name").Value == "unref"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithUnrefMethod) {
-                element.SetAttributeValue (gs + "special-func", "free");
+                element.SetAttributeValue (gs + "special-func", "unref");
                 element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 

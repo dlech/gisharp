@@ -11,6 +11,7 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Model
 {
@@ -70,6 +71,10 @@ namespace GISharp.CodeGen.Model
                               .StartsWith ("set_", StringComparison.Ordinal);
             }
         }
+
+        public bool IsRef =>  Element.Attribute(gs + "special-func").AsString() == "ref";
+        
+        public bool IsUnref =>  Element.Attribute(gs + "special-func").AsString() == "unref";
 
         public bool IsCopy => Element.Attribute(gs + "special-func").AsString() == "copy";
 
@@ -365,6 +370,17 @@ namespace GISharp.CodeGen.Model
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
                     yield return constructorDeclaration;
                 }
+            }
+            if (IsRef) {
+                // if there is an unmanaged ref method, use it to override the
+                // managed Take() method
+                var takeReturnType = ParseTypeName(typeof(IntPtr).FullName);
+                var takeExpression = ParseExpression($"{PinvokeIdentifier}(Handle)");
+                var takeOverride = MethodDeclaration(takeReturnType, "Take")
+                    .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
+                    .WithExpressionBody(ArrowExpressionClause(takeExpression))
+                    .WithSemicolonToken(Token(SemicolonToken));
+                yield return takeOverride;
             }
         }
 

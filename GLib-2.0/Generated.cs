@@ -5255,6 +5255,7 @@ namespace GISharp.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr group);
+        public override System.IntPtr Take() => g_option_group_ref(Handle);
 
         /// <summary>
         /// Associates two functions with @group which will be called
@@ -6013,6 +6014,7 @@ namespace GISharp.GLib
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr builder);
+        public override System.IntPtr Take() => g_variant_builder_ref(Handle);
 
         /// <summary>
         /// Decreases the reference count on @builder.
@@ -6475,6 +6477,7 @@ namespace GISharp.GLib
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr dict);
+        public override System.IntPtr Take() => g_variant_dict_ref(Handle);
 
         /// <summary>
         /// Removes a key and its associated value from a #GVariantDict.

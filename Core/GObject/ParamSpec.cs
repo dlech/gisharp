@@ -109,6 +109,8 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_param_spec_ref (IntPtr pspec);
 
+        public override IntPtr Take() => g_param_spec_ref(Handle);
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_sink (IntPtr pspec);
 

@@ -90,6 +90,8 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_ref (IntPtr closure);
 
+        public override IntPtr Take() => g_closure_ref(Handle);
+
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_sink (IntPtr closure);
 
