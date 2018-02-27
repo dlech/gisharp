@@ -206,7 +206,7 @@ namespace GISharp.CodeGen.Model
         MethodDeclarationSyntax GetGTypeStructGetInfoMethod()
         {
             var method = MethodDeclaration(
-                ParseTypeName(typeof(TypeInfo).FullName),
+                ParseTypeName(typeof(GISharp.GObject.TypeInfo).FullName),
                 nameof(TypeClass.GetTypeInfo))
                 .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                 .AddParameterListParameters(Parameter(ParseToken("type"))
