@@ -575,7 +575,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        StatementSyntax GetInvocationStatement (string methodName = null, bool skipFirstParameter = false)
+        StatementSyntax GetInvocationStatement(string methodName = null, bool skipFirstParameter = false, bool skipReturnValue = false)
         {
             var invokeExpression = InvocationExpression (IdentifierName (methodName ?? Identifier.Text));
             var argList = ArgumentList ();
@@ -593,7 +593,7 @@ namespace GISharp.CodeGen.Model
             invokeExpression = invokeExpression.WithArgumentList (argList);
 
             StatementSyntax statement = ExpressionStatement (invokeExpression);
-            if (ManagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+            if (!skipReturnValue && ManagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
                 statement = LocalDeclarationStatement (
                     VariableDeclaration (ParseTypeName ("var"))
                     .AddVariables (
@@ -774,7 +774,9 @@ namespace GISharp.CodeGen.Model
             yield return ParseStatement($"var gcHandle = ({ghHandleType}){dataParamName}_;\n");
             yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target;\n");
 
-            yield return GetInvocationStatement($"{dataParamName}.ManagedDelegate");
+            var skipReturnValue = ThrowsGErrorException && UnmanagedReturnParameterInfo.TypeInfo.TypeObject == typeof(bool);
+
+            yield return GetInvocationStatement($"{dataParamName}.ManagedDelegate", false, skipReturnValue);
 
             yield return ParseStatement(string.Format(@"if ({0}.Scope == {1}.{2}) {{
                     Destroy({0}_);
@@ -783,7 +785,11 @@ namespace GISharp.CodeGen.Model
                 typeof(CallbackScope).FullName,
                 nameof(CallbackScope.Async)));
 
-            if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+            if (skipReturnValue) {
+                // callbacks that throw and return bool should always return true
+                yield return ParseStatement("return true;\n");
+            }
+            else if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
                 foreach (var statement in GetMarshalManagedToUnmanagedParameterStatements(ManagedReturnParameterInfo, true)) {
                     yield return statement;
                 }

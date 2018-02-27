@@ -133,6 +133,10 @@ namespace GISharp.CodeGen.Model
         DelegateDeclarationSyntax LazyGetManagedDelegateDeclaration()
         {
             var returnType = MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type;
+            if (MethodInfo.ThrowsGErrorException && returnType.ToString() == typeof(bool).FullName) {
+                // don't return bool for managed delegates that throw
+                returnType = PredefinedType(Token(VoidKeyword));
+            }
             return DelegateDeclaration(returnType, Identifier)
                 .WithAttributeLists(AttributeLists)
                 .WithModifiers(Modifiers)
