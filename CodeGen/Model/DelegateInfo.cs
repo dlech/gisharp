@@ -260,10 +260,11 @@ namespace GISharp.CodeGen.Model
                 gcHandle.Free();
             }}
             catch ({1} ex) {{
-                ex.{2}();
+                {2}.{3}(ex);
             }}
             ", typeof(GCHandle).FullName,
                 typeof(Exception).FullName,
+                typeof(Log).FullName,
                 nameof(Log.LogUnhandledException)));
 
             var destroyMethod = MethodDeclaration(destroyReturnType, "Destroy")

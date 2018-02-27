@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -762,7 +762,9 @@ namespace GISharp.CodeGen.Model
         IEnumerable<StatementSyntax> GetCallbackStatements()
         {
             var catchType = ParseTypeName(typeof(Exception).FullName);
-            var catchStatement = string.Format("ex.{0}();\n", nameof(Log.LogUnhandledException));
+            var catchStatement = string.Format("{0}.{1}(ex);\n",
+                typeof(Log).FullName,
+                nameof(Log.LogUnhandledException));
             yield return TryStatement()
                 .WithBlock(Block(LazyGetCallbackTryStatements()))
                 .AddCatches(CatchClause()
@@ -889,8 +891,8 @@ namespace GISharp.CodeGen.Model
 
             var exception = typeof(Exception).FullName;
             var logUnhandledException = ParseStatement(string.Format("{0}.{1}(ex);\n",
-                typeof(GISharp.GLib.Log).FullName,
-                nameof(GISharp.GLib.Log.LogUnhandledException)));
+                typeof(Log).FullName,
+                nameof(Log.LogUnhandledException)));
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
 
