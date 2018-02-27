@@ -3938,6 +3938,85 @@ namespace GISharp.GLib
         }
 
         /// <summary>
+        /// Creates a new option context.
+        /// </summary>
+        /// <remarks>
+        /// The @parameter_string can serve multiple purposes. It can be used
+        /// to add descriptions for "rest" arguments, which are not parsed by
+        /// the #GOptionContext, typically something like "FILES" or
+        /// "FILE1 FILE2...". If you are using #G_OPTION_REMAINING for
+        /// collecting "rest" arguments, GLib handles this automatically by
+        /// using the @arg_description of the corresponding #GOptionEntry in
+        /// the usage summary.
+        /// 
+        /// Another usage is to give a short summary of the program
+        /// functionality, like " - frob the strings", which will be displayed
+        /// in the same line as the usage. For a longer description of the
+        /// program functionality that should be displayed as a paragraph
+        /// below the usage line, use g_option_context_set_summary().
+        /// 
+        /// Note that the @parameter_string is translated using the
+        /// function set with g_option_context_set_translate_func(), so
+        /// it should normally be passed untranslated.
+        /// </remarks>
+        /// <param name="parameterString">
+        /// a string which is displayed in
+        ///    the first line of `--help` output, after the usage summary
+        ///    `programname [OPTION...]`
+        /// </param>
+        /// <returns>
+        /// a newly created #GOptionContext, which must be
+        ///    freed with g_option_context_free() after use.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="GOptionContext*" managed-name="Gpointer" is-pointer="1" /> */
+        /* */
+        static extern System.IntPtr g_option_context_new(
+        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr parameterString);
+
+        /// <summary>
+        /// Creates a new option context.
+        /// </summary>
+        /// <remarks>
+        /// The @parameter_string can serve multiple purposes. It can be used
+        /// to add descriptions for "rest" arguments, which are not parsed by
+        /// the #GOptionContext, typically something like "FILES" or
+        /// "FILE1 FILE2...". If you are using #G_OPTION_REMAINING for
+        /// collecting "rest" arguments, GLib handles this automatically by
+        /// using the @arg_description of the corresponding #GOptionEntry in
+        /// the usage summary.
+        /// 
+        /// Another usage is to give a short summary of the program
+        /// functionality, like " - frob the strings", which will be displayed
+        /// in the same line as the usage. For a longer description of the
+        /// program functionality that should be displayed as a paragraph
+        /// below the usage line, use g_option_context_set_summary().
+        /// 
+        /// Note that the @parameter_string is translated using the
+        /// function set with g_option_context_set_translate_func(), so
+        /// it should normally be passed untranslated.
+        /// </remarks>
+        /// <param name="parameterString">
+        /// a string which is displayed in
+        ///    the first line of `--help` output, after the usage summary
+        ///    `programname [OPTION...]`
+        /// </param>
+        /// <returns>
+        /// a newly created #GOptionContext, which must be
+        ///    freed with g_option_context_free() after use.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        private static System.IntPtr New(GISharp.GLib.Utf8 parameterString)
+        {
+            var parameterString_ = parameterString?.Handle ?? System.IntPtr.Zero;
+            var ret = g_option_context_new(parameterString_);
+            return ret;
+        }
+
+        /// <summary>
         /// Adds a #GOptionGroup to the @context, so that parsing with @context
         /// will recognize the options in the group. Note that this will take
         /// ownership of the @group and thus the @group should not be freed.
@@ -3977,56 +4056,6 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
             g_option_context_add_group(this_, group_);
-        }
-
-        /// <summary>
-        /// A convenience function which creates a main group if it doesn't
-        /// exist, adds the @entries to it and sets the translation domain.
-        /// </summary>
-        /// <param name="context">
-        /// a #GOptionContext
-        /// </param>
-        /// <param name="entries">
-        /// a %NULL-terminated array of #GOptionEntrys
-        /// </param>
-        /// <param name="translationDomain">
-        /// a translation domain to use for translating
-        ///    the `--help` output for the options in @entries
-        ///    with gettext(), or %NULL
-        /// </param>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
-        static extern void g_option_context_add_main_entries(
-        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr context,
-        /* <type name="OptionEntry" type="const GOptionEntry*" managed-name="OptionEntry" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        GISharp.GLib.OptionEntry entries,
-        /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
-        System.IntPtr translationDomain);
-
-        /// <summary>
-        /// A convenience function which creates a main group if it doesn't
-        /// exist, adds the @entries to it and sets the translation domain.
-        /// </summary>
-        /// <param name="entries">
-        /// a %NULL-terminated array of #GOptionEntrys
-        /// </param>
-        /// <param name="translationDomain">
-        /// a translation domain to use for translating
-        ///    the `--help` output for the options in @entries
-        ///    with gettext(), or %NULL
-        /// </param>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public void AddMainEntries(GISharp.GLib.OptionEntry entries, GISharp.GLib.Utf8 translationDomain)
-        {
-            var this_ = this.Handle;
-            var translationDomain_ = translationDomain?.Handle ?? System.IntPtr.Zero;
-            g_option_context_add_main_entries(this_, entries, translationDomain_);
         }
 
         /// <summary>
