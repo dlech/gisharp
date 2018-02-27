@@ -1368,6 +1368,10 @@
 - !set-attribute
   name: introspectable
   value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='SettingsBackendPrivate']
+- !set-attribute
+  name: introspectable
+  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='SettingsBackendClass']
 - !set-attribute
   name: introspectable
