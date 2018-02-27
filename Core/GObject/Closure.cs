@@ -677,7 +677,7 @@ namespace GISharp.GObject
                 public UnmanagedClosureNotify UnmanagedClosureNotify;
             }
 
-            public static ValueTuple<UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr> Create<T>(EventHandler<T> handler)
+            public static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create<T>(EventHandler<T> handler)
                 where T : GSignalEventArgs
             {
                 if (handler == null) {

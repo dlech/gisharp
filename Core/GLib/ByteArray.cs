@@ -494,7 +494,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_byte_array_free(IntPtr array, bool freeSegment);
 
-        public ValueTuple<IntPtr, int> TakeData()
+        public (IntPtr, int) TakeData()
         {
             var length = Length;
             var data = g_byte_array_free(Handle, false);

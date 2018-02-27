@@ -35,7 +35,7 @@ namespace GISharp.Runtime
             base.Dispose(disposing);
         }
 
-        public ValueTuple<IntPtr, int> TakeData()
+        public (IntPtr, int) TakeData()
         {
             if (!Owned) {
                 throw new InvalidOperationException("Data must be owned");

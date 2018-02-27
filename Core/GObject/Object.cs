@@ -547,7 +547,7 @@ namespace GISharp.GObject
                 public UnmanagedDestroyNotify UnmanagedNotify;
             }
 
-            public static ValueTuple<UnmanagedBindingTransformFunc, UnmanagedBindingTransformFunc, UnmanagedDestroyNotify, IntPtr>
+            public static (UnmanagedBindingTransformFunc, UnmanagedBindingTransformFunc, UnmanagedDestroyNotify, IntPtr)
                 CreateNotifyDelegate (BindingTransformFunc transformTo, BindingTransformFunc transformFrom) {
                     var userData = new BindingTransformFuncData();
 

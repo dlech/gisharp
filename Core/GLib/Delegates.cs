@@ -378,7 +378,7 @@ namespace GISharp.GLib
             public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<UnmanagedLogFunc, IntPtr> CreateDelegate(LogFunc func, bool isAsync = false) {
+        public static (UnmanagedLogFunc, IntPtr) CreateDelegate(LogFunc func, bool isAsync = false) {
             var data = new UnmanagedLogFuncFuncData {
                 IsAsync = isAsync,
                 Func = func,
@@ -390,7 +390,7 @@ namespace GISharp.GLib
             return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(LogFunc func) {
+        public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) CreateNotifyDelegate(LogFunc func) {
             var data = new UnmanagedLogFuncFuncData {
                 IsAsync = false,
                 Func = func,
@@ -490,7 +490,7 @@ namespace GISharp.GLib
             public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<UnmanagedLogWriterFunc, IntPtr> CreateDelegate(LogWriterFunc func, bool isAsync = false) {
+        public static (UnmanagedLogWriterFunc, IntPtr) CreateDelegate(LogWriterFunc func, bool isAsync = false) {
             var data = new UnmanagedLogWriterFuncData {
                 IsAsync = isAsync,
                 Func = func,
@@ -502,7 +502,7 @@ namespace GISharp.GLib
             return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(LogWriterFunc func) {
+        public static (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) CreateNotifyDelegate(LogWriterFunc func) {
             var data = new UnmanagedLogWriterFuncData {
                 IsAsync = false,
                 Func = func,
@@ -594,7 +594,7 @@ namespace GISharp.GLib
             public UnmanagedDestroyNotify UnmanagedNotify;
         }
 
-        public static ValueTuple<UnmanagedSourceFunc, IntPtr> CreateDelegate(SourceFunc func, bool isAsync = false) {
+        public static (UnmanagedSourceFunc, IntPtr) CreateDelegate(SourceFunc func, bool isAsync = false) {
             var data = new UnmanagedSourceData {
                 IsAsync = isAsync,
                 Func = func ?? throw new ArgumentNullException(nameof(func)),
@@ -606,7 +606,7 @@ namespace GISharp.GLib
             return (data.UnmanagedFunc, (IntPtr)gcHandle);
         }
 
-        public static ValueTuple<UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr> CreateNotifyDelegate(SourceFunc func) {
+        public static (UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr) CreateNotifyDelegate(SourceFunc func) {
             var data = new UnmanagedSourceData {
                 IsAsync = false,
                 Func = func ?? throw new ArgumentNullException(nameof(func)),

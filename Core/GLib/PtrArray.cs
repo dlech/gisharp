@@ -256,7 +256,7 @@ namespace GISharp.GLib
             IntPtr array,
             bool freeSeg);
 
-        public ValueTuple<IntPtr, int> TakeData()
+        public (IntPtr, int) TakeData()
         {
             var length = Length;
             var data = g_ptr_array_free(Handle, false);

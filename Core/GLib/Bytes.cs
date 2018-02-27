@@ -495,7 +495,7 @@ namespace GISharp.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_bytes_unref_to_data(IntPtr bytes, out UIntPtr size);
 
-        public ValueTuple<IntPtr, int> TakeData()
+        public (IntPtr, int) TakeData()
         {
             var data = g_bytes_unref_to_data(Handle, out var size);
             handle = IntPtr.Zero; // object becomes disposed

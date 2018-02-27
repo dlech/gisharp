@@ -118,7 +118,7 @@ namespace GISharp.GObject
             public UnmanagedClosureNotify UnmanagedClosureNotify;
         }
 
-        public static ValueTuple<UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr> CreateNotifyDelegate(ClosureMarshal closureMarshal)
+        public static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) CreateNotifyDelegate(ClosureMarshal closureMarshal)
         {
             if (closureMarshal == null) {
                 throw new ArgumentNullException(nameof(closureMarshal));

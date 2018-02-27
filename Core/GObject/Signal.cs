@@ -396,7 +396,7 @@ namespace GISharp.GObject
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
         public static SignalHandler Connect<T, U>(this Object instance, Utf8 detailedSignal,
-            System.Func<T, ValueTuple<U, UnmanagedClosureNotify, IntPtr>> unmanagedCallbackFactory,
+            System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
             T handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
             var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
@@ -1145,7 +1145,7 @@ namespace GISharp.GObject
         /// <returns>
         /// A tuple containing the signal id and detail quark.
         /// </returns>
-        public static ValueTuple<uint, Quark> ParseName(string detailedSignal, GType itype, bool forceDetailQuark = false)
+        public static (uint, Quark) ParseName(string detailedSignal, GType itype, bool forceDetailQuark = false)
         {
             if (TryParseName(detailedSignal, itype, out var signalId, out var detail, forceDetailQuark)) {
                 return (signalId, detail);
