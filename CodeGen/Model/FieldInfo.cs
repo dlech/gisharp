@@ -8,6 +8,8 @@ using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
+using GISharp.Runtime;
+
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
@@ -56,6 +58,9 @@ namespace GISharp.CodeGen.Model
         public FieldDeclarationSyntax DelegatePtrDeclaration => _DelegatePtrDeclaration.Value;
         readonly Lazy<FieldDeclarationSyntax> _DelegatePtrDeclaration;
 
+        public PropertyDeclarationSyntax UnmanagedCallbackGetter => _UnmanagedCallbackGetter.Value;
+        readonly Lazy<PropertyDeclarationSyntax> _UnmanagedCallbackGetter;
+
         public FieldInfo(XElement element, MemberInfo declaringMember)
             : base (element, declaringMember)
         {
@@ -68,6 +73,7 @@ namespace GISharp.CodeGen.Model
             _OffsetDeclaration = new Lazy<FieldDeclarationSyntax>(GetOffsetDeclaration, false);
             _DelegateDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegateDeclaration, false);
             _DelegatePtrDeclaration = new Lazy<FieldDeclarationSyntax>(GetDelegatePointerDeclaration, false);
+            _UnmanagedCallbackGetter = new Lazy<PropertyDeclarationSyntax>(GetUnmanagedCallbackGetter, false);
         }
 
         DelegateInfo GetCallbackInfo()
@@ -103,9 +109,10 @@ namespace GISharp.CodeGen.Model
         // static readonly IntPtr xxxOffset = Marshal.OffsetOf<Struct>(nameof(Struct.xxx));
         FieldDeclarationSyntax GetOffsetDeclaration()
         {
-            var variableType = ParseTypeName(typeof(IntPtr).FullName);
+            var variableType = ParseTypeName(typeof(int).FullName);
             var variableName = ManagedName.ToCamelCase() + "Offset";
-            var valueExpression = ParseExpression(string.Format("{0}.{1}<Struct>(nameof(Struct.{2}))",
+            var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<Struct>(nameof(Struct.{3}))",
+                variableType,
                 typeof(Marshal).FullName,
                 nameof(Marshal.OffsetOf),
                 ManagedName));
@@ -159,6 +166,25 @@ namespace GISharp.CodeGen.Model
                 .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
 
             return declaration;
+        }
+
+        // Gets a property declaration like:
+        // public UnmanagedSomethingChanged OnSomethingChangedDelegate =>
+        //      GMarshal.GetVirtualMethodDelegate<UnmanagedSomethingChanged>(Handle, onSomethingChangedOffset);
+        PropertyDeclarationSyntax GetUnmanagedCallbackGetter()
+        {
+            var typeName = ParseTypeName(CallbackInfo.UnmanagedIdentifier.Text);
+            var expression = ParseExpression(string.Format("{0}.{1}<{2}>(Handle, {3})",
+                typeof(GMarshal).FullName,
+                nameof(GMarshal.GetVirtualMethodDelegate),
+                typeName,
+                OffsetDeclaration.Declaration.Variables[0].Identifier));
+
+            return PropertyDeclaration(typeName, Identifier + "Delegate")
+                .AddModifiers(Token(PublicKeyword))
+                .WithExpressionBody(ArrowExpressionClause(expression)
+                    .WithLeadingTrivia(Whitespace("\n")))
+                .WithSemicolonToken(Token(SemicolonToken));
         }
 
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()

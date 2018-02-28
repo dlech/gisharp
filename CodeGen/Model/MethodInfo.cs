@@ -104,6 +104,12 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// Gets the unmanaged virtual method delegate field declaration
+        public FieldDeclarationSyntax VirtualMethodDelegateFieldDeclaration =>
+            _VirtualMethodDelegateFieldDeclaration.Value;
+        readonly Lazy<FieldDeclarationSyntax> _VirtualMethodDelegateFieldDeclaration;
+
         System.Collections.Generic.List<ParameterInfo> _ManagedParameterInfos;
         public IReadOnlyList<ParameterInfo> ManagedParameterInfos {
             get {
@@ -269,6 +275,7 @@ namespace GISharp.CodeGen.Model
             if (element.Name != gi + "function" && element.Name != gi + "method" && element.Name != gi + "virtual-method" && element.Name != gi + "constructor" && element.Name != gi + "callback" && element.Name != glib + "signal") {
                 throw new ArgumentException("Requires <function>, <method>, <virtual-method> <constructor>, <callback> or <glib:signal> element.", nameof(element));
             }
+            _VirtualMethodDelegateFieldDeclaration = new Lazy<FieldDeclarationSyntax>(LazyGetVirtualMethodFieldDeclaration, false);
         }
 
         internal override IEnumerable<BaseInfo> GetChildInfos ()
@@ -284,13 +291,21 @@ namespace GISharp.CodeGen.Model
         protected override IEnumerable<MemberDeclarationSyntax> GetAllDeclarations()
         {
             if (IsVirtualMethod) {
-                var iface = DeclaringMember as InterfaceInfo;
-                if (iface != null) {
+                if (DeclaringMember is InterfaceInfo iface) {
                     var methodDeclaration = MethodDeclaration (ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
                         .WithAttributeLists (AttributeLists)
                         .WithParameterList (ParameterList)
                         .WithSemicolonToken (Token (SyntaxKind.SemicolonToken))
                         .WithLeadingTrivia (DocumentationCommentTriviaList);
+                    yield return methodDeclaration;
+                }
+                if (DeclaringMember is ClassInfo @class) {
+                    var methodDeclaration = MethodDeclaration(ManagedReturnParameterInfo.TypeInfo.Type, Identifier)
+                        .WithAttributeLists(AttributeLists)
+                        .WithParameterList(ParameterList)
+                        .AddModifiers(Token(ProtectedKeyword), Token(InternalKeyword), Token(VirtualKeyword))
+                        .WithBody(Block(GetStatements()))
+                        .WithLeadingTrivia(DocumentationCommentTriviaList);
                     yield return methodDeclaration;
                 }
                 yield break;
@@ -384,9 +399,19 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        FieldDeclarationSyntax LazyGetVirtualMethodFieldDeclaration()
+        {
+            if (Element.Name != gi + "virtual-method") {
+                throw new InvalidOperationException("only applies to virtual methods");
+            }
+            var fieldName = ManagedName.ToCamelCase() + "Delegate";
+
+            throw new NotImplementedException("need to get info from gtype-struct");
+        }
+
         IEnumerable<StatementSyntax> GetStatements ()
         {
-            if (IsInstanceMethod && DeclaringMember is ClassInfo) {
+            if ((IsInstanceMethod || IsVirtualMethod) && DeclaringMember is ClassInfo) {
                 var statement = "var this_ = this.Handle;\n";
                 yield return ParseStatement (statement);
             }
@@ -621,8 +646,14 @@ namespace GISharp.CodeGen.Model
 
         StatementSyntax GetPinvokeInvocationStatement ()
         {
-            var pinvokeExpression = InvocationExpression (
-                IdentifierName (PinvokeIdentifier));
+            var virtualMethodInvoke = string.Format("{0}.{1}<{2}>(_GType).{3}Delegate?.Invoke",
+                typeof(GISharp.GObject.TypeClass).FullName,
+                nameof(GISharp.GObject.TypeClass.GetInstance),
+                (DeclaringMember as ClassInfo)?.GTypeStruct,
+                ManagedName);
+            var pinvokeExpression = InvocationExpression(IsVirtualMethod ?
+                ParseExpression(virtualMethodInvoke) :
+                IdentifierName(PinvokeIdentifier));
             var argumentList =  ArgumentList ();
             foreach (var p in PinvokeParameterInfos) {
                 var name = string.Format ("{0} {1}", p.Modifiers,

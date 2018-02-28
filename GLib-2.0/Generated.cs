@@ -3906,7 +3906,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
 
             return default(System.Boolean);
@@ -3921,7 +3921,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -5100,7 +5100,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -5113,7 +5113,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -5523,7 +5523,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
 
             return default(System.Boolean);
@@ -5538,7 +5538,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -5623,7 +5623,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
 
             return default(System.IntPtr);
@@ -5638,7 +5638,7 @@ namespace GISharp.GLib
             }
             catch (System.Exception ex)
             {
-                ex.LogUnhandledException();
+                GISharp.GLib.Log.LogUnhandledException(ex);
             }
         }
     }

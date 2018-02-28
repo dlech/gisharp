@@ -197,7 +197,7 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<MethodDeclarationSyntax> GetGTypeInterfaceMethodImpls()
+        IEnumerable<MethodDeclarationSyntax> GetGTypeVirtualMethodImpls()
         {
             return FieldInfos.Where(x => x.IsCallback)
                 .Select(f => f.CallbackInfo.VirtualMethodCallbackImplementation);
@@ -242,15 +242,19 @@ namespace GISharp.CodeGen.Model
             structMembers = structMembers.Replace(lastMember, lastMember
                 .WithTrailingTrivia(ParseTrailingTrivia("#pragma warning restore CS0649")));
             var structDeclaration = StructDeclaration("Struct")
-                .WithModifiers(TokenList(Token(NewKeyword)))
+                .AddModifiers(Token(NewKeyword))
                 .WithMembers(structMembers);
-            
+
+            if (ParentType != typeof(TypeInterface)) {
+                structDeclaration = structDeclaration.AddModifiers(Token(ProtectedKeyword));
+            }
+
             yield return structDeclaration;
 
             // emit the unmanaged delegate types for callback fields
             foreach (var f in FieldInfos.Where(x => x.IsCallback)) {
-                yield return f.CallbackInfo.UnmanagedDelegateDeclaration
-                    .WithModifiers(default(SyntaxTokenList));
+                yield return f.CallbackInfo.UnmanagedDelegateDeclaration;
+                yield return f.UnmanagedCallbackGetter;
             }
 
             yield return DefaultConstructor;
@@ -260,12 +264,12 @@ namespace GISharp.CodeGen.Model
             if (ParentType == typeof(TypeInterface)) {
                 yield return GetGTypeStructCreateInterfaceInfoMethod();
                 yield return GetGTypeStructInterfaceInitMethod();
-                foreach (var m in GetGTypeInterfaceMethodImpls()) {
-                    yield return m;
-                }
             }
             else {
                 yield return GetGTypeStructGetInfoMethod();
+            }
+            foreach (var m in GetGTypeVirtualMethodImpls()) {
+                yield return m;
             }
         }
 

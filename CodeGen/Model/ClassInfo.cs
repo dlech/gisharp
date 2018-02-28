@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -227,23 +227,6 @@ namespace GISharp.CodeGen.Model
                 .Select(f => f.CallbackInfo.VirtualMethodCallbackImplementation);
         }
 
-        MethodDeclarationSyntax GetGTypeStructGetInfoMethod ()
-        {
-            var method = MethodDeclaration (
-                ParseTypeName (typeof(GISharp.GObject.TypeInfo).FullName),
-                nameof (GISharp.GObject.TypeClass.GetTypeInfo))
-                .AddModifiers (
-                    Token (SyntaxKind.PublicKeyword),
-                    Token (SyntaxKind.OverrideKeyword))
-                .AddParameterListParameters (
-                    Parameter (ParseToken ("type"))
-                    .WithType (ParseTypeName (typeof(Type).FullName)))
-                .AddBodyStatements (
-                    ParseStatement ($"throw new {typeof(NotImplementedException).FullName} ();"));
-
-            return method;
-        }
-
         IEnumerable<BaseTypeSyntax> GetBaseTypes ()
         {
             var opaqueTypeName = Element.Attribute (gs + "opaque")?.Value;
@@ -302,9 +285,7 @@ namespace GISharp.CodeGen.Model
             foreach (var d in ConstantInfos.SelectMany(x => x.AllDeclarations)) {
                 yield return d;
             }
-            foreach (var d in FieldInfos.SelectMany(x => x.AllDeclarations)) {
-                yield return d;
-            }
+            // FIXME: emit fields
             foreach (var d in PropertyInfos.SelectMany(x => x.ClassDeclarations)) {
                 yield return d;
             }
@@ -315,6 +296,9 @@ namespace GISharp.CodeGen.Model
                 yield return DefaultConstructor;
             }
             foreach (var d in MethodInfos.SelectMany (x => x.AllDeclarations)) {
+                yield return d;
+            }
+            foreach (var d in VirtualMethodInfos.SelectMany(x => x.AllDeclarations)) {
                 yield return d;
             }
 
