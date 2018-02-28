@@ -387,7 +387,7 @@ namespace GISharp.CodeGen
 
                 // virtual method names get an "On" prefix because they usually
                 // have the same name as the invoker method
-                if (element.Attribute("invoker") != null || (element.Name == gi + "field" && element.Element(gi + "callback") != null)) {
+                if (element.Name == gi + "virtual-method" || (element.Name == gi + "field" && element.Element(gi + "callback") != null)) {
                     name = "on_" + name;
                 }
 
