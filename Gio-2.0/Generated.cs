@@ -3516,6 +3516,382 @@ System.IntPtr actionName);
     }
 
     /// <summary>
+    /// Provides a base class for implementing asynchronous function results.
+    /// </summary>
+    /// <remarks>
+    /// Asynchronous operations are broken up into two separate operations
+    /// which are chained together by a #GAsyncReadyCallback. To begin
+    /// an asynchronous operation, provide a #GAsyncReadyCallback to the
+    /// asynchronous function. This callback will be triggered when the
+    /// operation has completed, and will be passed a #GAsyncResult instance
+    /// filled with the details of the operation's success or failure, the
+    /// object the asynchronous function was started for and any error codes
+    /// returned. The asynchronous callback function is then expected to call
+    /// the corresponding "_finish()" function, passing the object the
+    /// function was called for, the #GAsyncResult instance, and (optionally)
+    /// an @error to grab any error conditions that may have occurred.
+    /// 
+    /// The "_finish()" function for an operation takes the generic result
+    /// (of type #GAsyncResult) and returns the specific result that the
+    /// operation in question yields (e.g. a #GFileEnumerator for a
+    /// "enumerate children" operation). If the result or error status of the
+    /// operation is not needed, there is no need to call the "_finish()"
+    /// function; GIO will take care of cleaning up the result and error
+    /// information after the #GAsyncReadyCallback returns. You can pass
+    /// %NULL for the #GAsyncReadyCallback if you don't need to take any
+    /// action at all after the operation completes. Applications may also
+    /// take a reference to the #GAsyncResult and call "_finish()" later;
+    /// however, the "_finish()" function may be called at most once.
+    /// 
+    /// Example of a typical asynchronous operation flow:
+    /// |[&lt;!-- language="C" --&gt;
+    /// void _theoretical_frobnitz_async (Theoretical         *t,
+    ///                                   GCancellable        *c,
+    ///                                   GAsyncReadyCallback  cb,
+    ///                                   gpointer             u);
+    /// 
+    /// gboolean _theoretical_frobnitz_finish (Theoretical   *t,
+    ///                                        GAsyncResult  *res,
+    ///                                        GError       **e);
+    /// 
+    /// static void
+    /// frobnitz_result_func (GObject      *source_object,
+    /// 		 GAsyncResult *res,
+    /// 		 gpointer      user_data)
+    /// {
+    ///   gboolean success = FALSE;
+    /// 
+    ///   success = _theoretical_frobnitz_finish (source_object, res, NULL);
+    /// 
+    ///   if (success)
+    ///     g_printf ("Hurray!\n");
+    ///   else
+    ///     g_printf ("Uh oh!\n");
+    /// 
+    ///   ...
+    /// 
+    /// }
+    /// 
+    /// int main (int argc, void *argv[])
+    /// {
+    ///    ...
+    /// 
+    ///    _theoretical_frobnitz_async (theoretical_data,
+    ///                                 NULL,
+    ///                                 frobnitz_result_func,
+    ///                                 NULL);
+    /// 
+    ///    ...
+    /// }
+    /// ]|
+    /// 
+    /// The callback for an asynchronous operation is called only once, and is
+    /// always called, even in the case of a cancelled operation. On cancellation
+    /// the result is a %G_IO_ERROR_CANCELLED error.
+    /// 
+    /// ## I/O Priority # {#io-priority}
+    /// 
+    /// Many I/O-related asynchronous operations have a priority parameter,
+    /// which is used in certain cases to determine the order in which
+    /// operations are executed. They are not used to determine system-wide
+    /// I/O scheduling. Priorities are integers, with lower numbers indicating
+    /// higher priority. It is recommended to choose priorities between
+    /// %G_PRIORITY_LOW and %G_PRIORITY_HIGH, with %G_PRIORITY_DEFAULT
+    /// as a default.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.AsyncResultIface))]
+    public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    {
+        /// <summary>
+        /// Gets the source object from a #GAsyncResult.
+        /// </summary>
+        /// <returns>
+        /// a new reference to the source object for the @res,
+        ///    or %NULL if there is none.
+        /// </returns>
+        GISharp.GObject.Object OnGetSourceObject();
+
+        /// <summary>
+        /// Gets the user data from a #GAsyncResult.
+        /// </summary>
+        /// <returns>
+        /// the user data for @res.
+        /// </returns>
+        System.IntPtr OnGetUserData();
+
+        /// <summary>
+        /// Checks if @res has the given @source_tag (generally a function
+        /// pointer indicating the function @res was created by).
+        /// </summary>
+        /// <param name="sourceTag">
+        /// an application-defined tag
+        /// </param>
+        /// <returns>
+        /// %TRUE if @res has the indicated @source_tag, %FALSE if
+        ///   not.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        System.Boolean OnIsTagged(System.IntPtr sourceTag);
+    }
+
+    public static class AsyncResult
+    {
+        static readonly GISharp.GObject.GType _GType = g_async_result_get_type();
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" managed-name="GType" /> */
+        /* */
+        static extern GISharp.GObject.GType g_async_result_get_type();
+
+        /// <summary>
+        /// Gets the source object from a #GAsyncResult.
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult
+        /// </param>
+        /// <returns>
+        /// a new reference to the source object for the @res,
+        ///    or %NULL if there is none.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GObject.Object" type="GObject*" managed-name="GObject.Object" is-pointer="1" /> */
+        /* transfer-ownership:full */
+        static extern System.IntPtr g_async_result_get_source_object(
+        /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr res);
+
+        /// <summary>
+        /// Gets the source object from a #GAsyncResult.
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="res"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// a new reference to the source object for the @res,
+        ///    or %NULL if there is none.
+        /// </returns>
+        public static GISharp.GObject.Object GetSourceObject(this GISharp.Gio.IAsyncResult res)
+        {
+            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var ret_ = g_async_result_get_source_object(res_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the user data from a #GAsyncResult.
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult.
+        /// </param>
+        /// <returns>
+        /// the user data for @res.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 */
+        static extern System.IntPtr g_async_result_get_user_data(
+        /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr res);
+
+        /// <summary>
+        /// Gets the user data from a #GAsyncResult.
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult.
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="res"/> is <c>null</c>.
+        ///</exception>
+        /// <returns>
+        /// the user data for @res.
+        /// </returns>
+        public static System.IntPtr GetUserData(this GISharp.Gio.IAsyncResult res)
+        {
+            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var ret = g_async_result_get_user_data(res_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if @res has the given @source_tag (generally a function
+        /// pointer indicating the function @res was created by).
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="sourceTag">
+        /// an application-defined tag
+        /// </param>
+        /// <returns>
+        /// %TRUE if @res has the indicated @source_tag, %FALSE if
+        ///   not.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern System.Boolean g_async_result_is_tagged(
+        /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+        /* transfer-ownership:none */
+        System.IntPtr res,
+        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 */
+        System.IntPtr sourceTag);
+
+        /// <summary>
+        /// Checks if @res has the given @source_tag (generally a function
+        /// pointer indicating the function @res was created by).
+        /// </summary>
+        /// <param name="res">
+        /// a #GAsyncResult
+        /// </param>
+        /// <exception name="System.ArgumentNullException">
+        /// If <paramref name="res"/> is <c>null</c>.
+        ///</exception>
+        /// <param name="sourceTag">
+        /// an application-defined tag
+        /// </param>
+        /// <returns>
+        /// %TRUE if @res has the indicated @source_tag, %FALSE if
+        ///   not.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        public static System.Boolean IsTagged(this GISharp.Gio.IAsyncResult res, System.IntPtr sourceTag)
+        {
+            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var ret = g_async_result_is_tagged(res_, sourceTag);
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// Interface definition for #GAsyncResult.
+    /// </summary>
+    public sealed partial class AsyncResultIface : GISharp.GObject.TypeInterface
+    {
+        static readonly System.Int32 gIfaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
+        static readonly System.Int32 onGetUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetUserData));
+        static readonly UnmanagedGetUserData onGetUserDataDelegate = OnGetUserData;
+        static readonly System.IntPtr onGetUserDataDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetUserDataDelegate);
+        static readonly System.Int32 onGetSourceObjectOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetSourceObject));
+        static readonly UnmanagedGetSourceObject onGetSourceObjectDelegate = OnGetSourceObject;
+        static readonly System.IntPtr onGetSourceObjectDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onGetSourceObjectDelegate);
+        static readonly System.Int32 onIsTaggedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnIsTagged));
+        static readonly UnmanagedIsTagged onIsTaggedDelegate = OnIsTagged;
+        static readonly System.IntPtr onIsTaggedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onIsTaggedDelegate);
+
+        new struct Struct
+        {
+#pragma warning disable CS0649
+            public GISharp.GObject.TypeInterface.Struct GIface;
+            public UnmanagedGetUserData OnGetUserData;
+            public UnmanagedGetSourceObject OnGetSourceObject;
+            public UnmanagedIsTagged OnIsTagged;
+#pragma warning restore CS0649
+        }
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetUserData(
+/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr res);
+
+        public UnmanagedGetUserData OnGetUserDataDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetUserData>(Handle, onGetUserDataOffset);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.IntPtr UnmanagedGetSourceObject(
+/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr res);
+
+        public UnmanagedGetSourceObject OnGetSourceObjectDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetSourceObject>(Handle, onGetSourceObjectOffset);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        public delegate System.Boolean UnmanagedIsTagged(
+/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* transfer-ownership:none */
+System.IntPtr res,
+/* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 */
+System.IntPtr sourceTag);
+
+        public UnmanagedIsTagged OnIsTaggedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedIsTagged>(Handle, onIsTaggedOffset);
+
+        public AsyncResultIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        {
+            var ret = new GISharp.GObject.InterfaceInfo
+            {
+                InterfaceInit = InterfaceInit,
+            };
+            return ret;
+        }
+
+        static void InterfaceInit(System.IntPtr gIface, System.IntPtr userData)
+        {
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetUserDataOffset, onGetUserDataDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onGetSourceObjectOffset, onGetSourceObjectDelegate_);
+            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onIsTaggedOffset, onIsTaggedDelegate_);
+        }
+
+        static System.IntPtr OnGetUserData(System.IntPtr res_)
+        {
+            try
+            {
+                var res = (GISharp.Gio.IAsyncResult)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(res_, GISharp.Runtime.Transfer.None);
+                var ret = res.OnGetUserData();
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.IntPtr OnGetSourceObject(System.IntPtr res_)
+        {
+            try
+            {
+                var res = (GISharp.Gio.IAsyncResult)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(res_, GISharp.Runtime.Transfer.None);
+                var ret = res.OnGetSourceObject();
+                var ret_ = ret?.Take() ?? System.IntPtr.Zero;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.IntPtr);
+            }
+        }
+
+        static System.Boolean OnIsTagged(System.IntPtr res_, System.IntPtr sourceTag_)
+        {
+            try
+            {
+                var res = (GISharp.Gio.IAsyncResult)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(res_, GISharp.Runtime.Transfer.None);
+                var ret = res.OnIsTagged(sourceTag_);
+                return ret;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+                return default(System.Boolean);
+            }
+        }
+    }
+
+    /// <summary>
     /// GCancellable is a thread-safe operation cancellation stack used
     /// throughout GIO to allow for cancellation of synchronous and
     /// asynchronous operations.
