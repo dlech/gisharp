@@ -14,6 +14,11 @@ namespace GISharp.CodeGen.Model
 {
     public class EnumInfo : TypeDeclarationInfo
     {
+        /// <summary>
+        /// Indicates that this is an error domain enumeration
+        /// </summary>
+        public bool IsErrorDomain => Element.Attribute(glib + "error-domain") != null;
+
         List<EnumMemberInfo> _EnumMemberInfos;
         public IReadOnlyList<EnumMemberInfo> EnumMemberInfos {
             get {
@@ -86,7 +91,8 @@ namespace GISharp.CodeGen.Model
                     .WithLeadingTrivia (DocumentationCommentTriviaList);
 
                 // Methods in an enum are not allowed, so using extension methods instead.
-                enumExtenstionsDeclaration = ClassDeclaration (Identifier + "Domain")
+                var extensionName = IsErrorDomain ? "Domain" : "Extensions";
+                enumExtenstionsDeclaration = ClassDeclaration(Identifier + extensionName)
                     .AddModifiers (
                         Token (SyntaxKind.PublicKeyword),
                         Token (SyntaxKind.StaticKeyword))
