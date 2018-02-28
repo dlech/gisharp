@@ -3516,6 +3516,317 @@ System.IntPtr actionName);
     }
 
     /// <summary>
+    /// Error codes returned by GIO functions.
+    /// </summary>
+    /// <remarks>
+    /// Note that this domain may be extended in future GLib releases. In
+    /// general, new error codes either only apply to new APIs, or else
+    /// replace %G_IO_ERROR_FAILED in cases that were not explicitly
+    /// distinguished before. You should therefore avoid writing code like
+    /// |[&lt;!-- language="C" --&gt;
+    /// if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_FAILED))
+    ///   {
+    ///     // Assume that this is EPRINTERONFIRE
+    ///     ...
+    ///   }
+    /// ]|
+    /// but should instead treat all unrecognized error codes the same as
+    /// #G_IO_ERROR_FAILED.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GIOErrorEnum", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GErrorDomainAttribute("g-io-error-quark")]
+    public enum IOErrorEnum
+    {
+        /// <summary>
+        /// Generic error condition for when an operation fails
+        ///     and no more specific #GIOErrorEnum value is defined.
+        /// </summary>
+        Failed = 0,
+        /// <summary>
+        /// File not found.
+        /// </summary>
+        NotFound = 1,
+        /// <summary>
+        /// File already exists.
+        /// </summary>
+        Exists = 2,
+        /// <summary>
+        /// File is a directory.
+        /// </summary>
+        IsDirectory = 3,
+        /// <summary>
+        /// File is not a directory.
+        /// </summary>
+        NotDirectory = 4,
+        /// <summary>
+        /// File is a directory that isn't empty.
+        /// </summary>
+        NotEmpty = 5,
+        /// <summary>
+        /// File is not a regular file.
+        /// </summary>
+        NotRegularFile = 6,
+        /// <summary>
+        /// File is not a symbolic link.
+        /// </summary>
+        NotSymbolicLink = 7,
+        /// <summary>
+        /// File cannot be mounted.
+        /// </summary>
+        NotMountableFile = 8,
+        /// <summary>
+        /// Filename is too many characters.
+        /// </summary>
+        FilenameTooLong = 9,
+        /// <summary>
+        /// Filename is invalid or contains invalid characters.
+        /// </summary>
+        InvalidFilename = 10,
+        /// <summary>
+        /// File contains too many symbolic links.
+        /// </summary>
+        TooManyLinks = 11,
+        /// <summary>
+        /// No space left on drive.
+        /// </summary>
+        NoSpace = 12,
+        /// <summary>
+        /// Invalid argument.
+        /// </summary>
+        InvalidArgument = 13,
+        /// <summary>
+        /// Permission denied.
+        /// </summary>
+        PermissionDenied = 14,
+        /// <summary>
+        /// Operation (or one of its parameters) not supported
+        /// </summary>
+        NotSupported = 15,
+        /// <summary>
+        /// File isn't mounted.
+        /// </summary>
+        NotMounted = 16,
+        /// <summary>
+        /// File is already mounted.
+        /// </summary>
+        AlreadyMounted = 17,
+        /// <summary>
+        /// File was closed.
+        /// </summary>
+        Closed = 18,
+        /// <summary>
+        /// Operation was cancelled. See #GCancellable.
+        /// </summary>
+        Cancelled = 19,
+        /// <summary>
+        /// Operations are still pending.
+        /// </summary>
+        Pending = 20,
+        /// <summary>
+        /// File is read only.
+        /// </summary>
+        ReadOnly = 21,
+        /// <summary>
+        /// Backup couldn't be created.
+        /// </summary>
+        CantCreateBackup = 22,
+        /// <summary>
+        /// File's Entity Tag was incorrect.
+        /// </summary>
+        WrongEtag = 23,
+        /// <summary>
+        /// Operation timed out.
+        /// </summary>
+        TimedOut = 24,
+        /// <summary>
+        /// Operation would be recursive.
+        /// </summary>
+        WouldRecurse = 25,
+        /// <summary>
+        /// File is busy.
+        /// </summary>
+        Busy = 26,
+        /// <summary>
+        /// Operation would block.
+        /// </summary>
+        WouldBlock = 27,
+        /// <summary>
+        /// Host couldn't be found (remote operations).
+        /// </summary>
+        HostNotFound = 28,
+        /// <summary>
+        /// Operation would merge files.
+        /// </summary>
+        WouldMerge = 29,
+        /// <summary>
+        /// Operation failed and a helper program has
+        ///     already interacted with the user. Do not display any error dialog.
+        /// </summary>
+        FailedHandled = 30,
+        /// <summary>
+        /// The current process has too many files
+        ///     open and can't open any more. Duplicate descriptors do count toward
+        ///     this limit. Since 2.20
+        /// </summary>
+        TooManyOpenFiles = 31,
+        /// <summary>
+        /// The object has not been initialized. Since 2.22
+        /// </summary>
+        NotInitialized = 32,
+        /// <summary>
+        /// The requested address is already in use. Since 2.22
+        /// </summary>
+        AddressInUse = 33,
+        /// <summary>
+        /// Need more input to finish operation. Since 2.24
+        /// </summary>
+        PartialInput = 34,
+        /// <summary>
+        /// The input data was invalid. Since 2.24
+        /// </summary>
+        InvalidData = 35,
+        /// <summary>
+        /// A remote object generated an error that
+        ///     doesn't correspond to a locally registered #GError error
+        ///     domain. Use g_dbus_error_get_remote_error() to extract the D-Bus
+        ///     error name and g_dbus_error_strip_remote_error() to fix up the
+        ///     message so it matches what was received on the wire. Since 2.26.
+        /// </summary>
+        DbusError = 36,
+        /// <summary>
+        /// Host unreachable. Since 2.26
+        /// </summary>
+        HostUnreachable = 37,
+        /// <summary>
+        /// Network unreachable. Since 2.26
+        /// </summary>
+        NetworkUnreachable = 38,
+        /// <summary>
+        /// Connection refused. Since 2.26
+        /// </summary>
+        ConnectionRefused = 39,
+        /// <summary>
+        /// Connection to proxy server failed. Since 2.26
+        /// </summary>
+        ProxyFailed = 40,
+        /// <summary>
+        /// Proxy authentication failed. Since 2.26
+        /// </summary>
+        ProxyAuthFailed = 41,
+        /// <summary>
+        /// Proxy server needs authentication. Since 2.26
+        /// </summary>
+        ProxyNeedAuth = 42,
+        /// <summary>
+        /// Proxy connection is not allowed by ruleset.
+        ///     Since 2.26
+        /// </summary>
+        ProxyNotAllowed = 43,
+        /// <summary>
+        /// Broken pipe. Since 2.36
+        /// </summary>
+        BrokenPipe = 44,
+        /// <summary>
+        /// Connection closed by peer. Note that this
+        ///     is the same code as %G_IO_ERROR_BROKEN_PIPE; before 2.44 some
+        ///     "connection closed" errors returned %G_IO_ERROR_BROKEN_PIPE, but others
+        ///     returned %G_IO_ERROR_FAILED. Now they should all return the same
+        ///     value, which has this more logical name. Since 2.44.
+        /// </summary>
+        ConnectionClosed = 44,
+        /// <summary>
+        /// Transport endpoint is not connected. Since 2.44
+        /// </summary>
+        NotConnected = 45,
+        /// <summary>
+        /// Message too large. Since 2.48.
+        /// </summary>
+        MessageTooLarge = 46
+    }
+
+    public static class IOErrorEnumDomain
+    {
+        static readonly GISharp.GObject.GType _GType = g_io_error_enum_get_type();
+
+        /// <summary>
+        /// Converts errno.h error codes into GIO error codes. The fallback
+        /// value %G_IO_ERROR_FAILED is returned for error codes not currently
+        /// handled (but note that future GLib releases may return a more
+        /// specific value instead).
+        /// </summary>
+        /// <remarks>
+        /// As %errno is global and may be modified by intermediate function
+        /// calls, you should save its value as soon as the call which sets it
+        /// </remarks>
+        /// <param name="errno">
+        /// Error number as defined in errno.h.
+        /// </param>
+        /// <returns>
+        /// #GIOErrorEnum value for the given errno.h error number.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="IOErrorEnum" type="GIOErrorEnum" managed-name="IOErrorEnum" /> */
+        /* transfer-ownership:none */
+        static extern GISharp.Gio.IOErrorEnum g_io_error_from_errno(
+        /* <type name="gint" type="gint" managed-name="Gint" /> */
+        /* transfer-ownership:none */
+        System.Int32 errno);
+
+        /// <summary>
+        /// Converts errno.h error codes into GIO error codes. The fallback
+        /// value %G_IO_ERROR_FAILED is returned for error codes not currently
+        /// handled (but note that future GLib releases may return a more
+        /// specific value instead).
+        /// </summary>
+        /// <remarks>
+        /// As %errno is global and may be modified by intermediate function
+        /// calls, you should save its value as soon as the call which sets it
+        /// </remarks>
+        /// <param name="errno">
+        /// Error number as defined in errno.h.
+        /// </param>
+        /// <returns>
+        /// #GIOErrorEnum value for the given errno.h error number.
+        /// </returns>
+        public static GISharp.Gio.IOErrorEnum FromErrno(System.Int32 errno)
+        {
+            var ret = g_io_error_from_errno(errno);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the GIO Error Quark.
+        /// </summary>
+        /// <returns>
+        /// a #GQuark.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
+        /* transfer-ownership:none */
+        static extern GISharp.GLib.Quark g_io_error_quark();
+
+        /// <summary>
+        /// Gets the GIO Error Quark.
+        /// </summary>
+        /// <returns>
+        /// a #GQuark.
+        /// </returns>
+        public static GISharp.GLib.Quark Quark
+        {
+            get
+            {
+                var ret = g_io_error_quark();
+                return ret;
+            }
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" managed-name="GType" /> */
+        /* */
+        static extern GISharp.GObject.GType g_io_error_enum_get_type();
+    }
+
+    /// <summary>
     /// A #GSimpleAction is the obvious simple implementation of the #GAction
     /// interface. This is the easiest way to create an action for purposes of
     /// adding it to a #GSimpleActionGroup.
