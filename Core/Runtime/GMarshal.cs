@@ -501,5 +501,27 @@ namespace GISharp.Runtime
         {
             g_clear_error (err);
         }
+
+        /// <summary>
+        /// Gets a delegate for an unmanaged virtual function
+        /// </summary>
+        /// <param name="ptr">
+        /// Pointer to an unmanaged data structure
+        /// </param>
+        /// <param name="fieldOffset">
+        /// The offset to the function pointer field in the unmanaged data structure
+        /// </param>
+        /// <returns>
+        /// A delagate or <c>null</c>
+        /// </returns>
+        public static T GetVirtualMethodDelegate<T>(IntPtr ptr, int fieldOffset)
+        {
+            var ret_ = Marshal.ReadIntPtr(ptr, fieldOffset);
+            if (ret_ == IntPtr.Zero) {
+                return default(T);
+            }
+            var ret = Marshal.GetDelegateForFunctionPointer<T>(ret_);
+            return ret;
+        }
     }
 }

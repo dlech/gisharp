@@ -16,17 +16,23 @@ namespace GISharp.GObject
     /// </summary>
     public class ObjectClass : TypeClass
     {
-        static readonly IntPtr setPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.SetProperty));
-        static readonly IntPtr getPropertyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.GetProperty));
-        static readonly IntPtr notifyOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Notify));
-        static readonly Struct.UnmanagedSetProperty setPropertyDelegate = ManagedClassSetProperty;
-        static readonly IntPtr setPropertyPtr = Marshal.GetFunctionPointerForDelegate (setPropertyDelegate);
-        static readonly Struct.UnmanagedSetProperty getPropertyDelegate = ManagedClassGetProperty;
-        static readonly IntPtr getPropertyPtr = Marshal.GetFunctionPointerForDelegate (getPropertyDelegate);
-        static readonly Struct.UnmanagedNotify notifyDelegate = ManagedNotify;
-        static readonly IntPtr notifyPtr = Marshal.GetFunctionPointerForDelegate (notifyDelegate);
+        static readonly int onConstructorOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnConstructor));
+        static readonly int onSetPropertyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnSetProperty));
+        static readonly int onGetPropertyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnGetProperty));
+        static readonly int onDisposeOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnDispose));
+        static readonly int onFinalizeOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnFinalize));
+        static readonly int onDispatchPropertiesChangedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnDispatchPropertiesChanged));
+        static readonly int onNotifyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnNotify));
+        static readonly int onConstructedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnConstructed));
 
-        new internal struct Struct
+        static readonly UnmanagedSetProperty managedSetPropertyDelegate = ManagedClassSetProperty;
+        static readonly IntPtr managedSetPropertyPtr = Marshal.GetFunctionPointerForDelegate(managedSetPropertyDelegate);
+        static readonly UnmanagedSetProperty managedGetPropertyDelegate = ManagedClassGetProperty;
+        static readonly IntPtr managedGetPropertyPtr = Marshal.GetFunctionPointerForDelegate(managedGetPropertyDelegate);
+        static readonly UnmanagedNotify managedNotifyDelegate = ManagedNotify;
+        static readonly IntPtr managedNotifyPtr = Marshal.GetFunctionPointerForDelegate(managedNotifyDelegate);
+
+        new protected struct Struct
         {
             #pragma warning disable CS0649
             public TypeClass.Struct GTypeClass;
@@ -34,19 +40,19 @@ namespace GISharp.GObject
             public IntPtr ConstructProperties;
 
             /* seldom overidden */
-            public UnmanagedConstructor Constructor;
+            public UnmanagedConstructor OnConstructor;
             /* overridable methods */
-            public UnmanagedSetProperty SetProperty;
-            public UnmanagedGetProperty GetProperty;
-            public UnmanagedDispose Dispose;
-            public UnmanagedFinalize Finalize;
+            public UnmanagedSetProperty OnSetProperty;
+            public UnmanagedGetProperty OnGetProperty;
+            public UnmanagedDispose OnDispose;
+            public UnmanagedFinalize OnFinalize;
             /* seldom overidden */
-            public UnmanagedDispatchPropertiesChanged DispatchPropertiesChanged;
+            public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged;
             /* signals */
-            public UnmanagedNotify Notify;
+            public UnmanagedNotify OnNotify;
 
             /* called when done constructing */
-            public UnmanagedConstructed Constructed;
+            public UnmanagedConstructed OnConstructed;
 
             public UIntPtr Flags;
             public IntPtr Dummy0;
@@ -56,24 +62,56 @@ namespace GISharp.GObject
             public IntPtr Dummy4;
             public IntPtr Dummy5;
             #pragma warning restore CS0649
-
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate IntPtr UnmanagedConstructor (GType type, uint nConstructProperties, IntPtr constructProperties);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedSetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedGetProperty (IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedDispose (IntPtr @object);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedFinalize (IntPtr @object);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedDispatchPropertiesChanged (IntPtr @object, uint nPspecs, IntPtr pspec);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedNotify (IntPtr @object, IntPtr pspec);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedConstructed (IntPtr @object);
         }
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr UnmanagedConstructor(GType type, uint nConstructProperties, IntPtr constructProperties);
+
+        public UnmanagedConstructor OnConstructor =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructor>(Handle, onConstructedOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedSetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
+
+        public UnmanagedSetProperty OnSetProperty =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedSetProperty>(Handle, onSetPropertyOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedGetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
+
+        public UnmanagedGetProperty OnGetProperty =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedGetProperty>(Handle, onGetPropertyOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedDispose(IntPtr @object);
+
+        public UnmanagedDispose OnDispose =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedDispose>(Handle, onDisposeOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedFinalize(IntPtr @object);
+
+        public UnmanagedFinalize OnFinalize =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedFinalize>(Handle, onFinalizeOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedDispatchPropertiesChanged(IntPtr @object, uint nPspecs, IntPtr pspec);
+
+        public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedDispatchPropertiesChanged>(Handle, onDispatchPropertiesChangedOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedNotify(IntPtr @object, IntPtr pspec);
+
+        public UnmanagedNotify OnNotify =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedNotify>(Handle, onNotifyOffset);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedConstructed(IntPtr @object);
+
+        public UnmanagedConstructed OnConstructed =>
+            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset);
+
 
         public ObjectClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -121,9 +159,9 @@ namespace GISharp.GObject
 
                 // override property native accessors
 
-                Marshal.WriteIntPtr (classPtr, (int)setPropertyOffset, setPropertyPtr);
-                Marshal.WriteIntPtr (classPtr, (int)getPropertyOffset, getPropertyPtr);
-                Marshal.WriteIntPtr (classPtr, (int)notifyOffset, notifyPtr);
+                Marshal.WriteIntPtr(classPtr, onSetPropertyOffset, managedSetPropertyPtr);
+                Marshal.WriteIntPtr(classPtr, onGetPropertyOffset, managedGetPropertyPtr);
+                Marshal.WriteIntPtr(classPtr, onNotifyOffset, managedNotifyPtr);
 
                 // Install Properties
 
@@ -373,7 +411,7 @@ namespace GISharp.GObject
             try {
                 var obj = Object.GetInstance(object_, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
-                // FIXME
+                obj.OnNotify(pspec);
             } catch (Exception ex) {
                 ex.LogUnhandledException ();
             }

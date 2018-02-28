@@ -1070,6 +1070,13 @@ namespace GISharp.GObject
             }
         }
 
+        internal protected virtual void OnNotify(ParamSpec pspec)
+        {
+            var this_ = Handle;
+            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            TypeClass.Get<ObjectClass>(_GType).OnNotify?.Invoke(this_, pspec_);
+        }
+
         /// <summary>
         /// Gets a managed proxy for a an unmanged GObject.
         /// </summary>

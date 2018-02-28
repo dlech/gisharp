@@ -9,7 +9,7 @@ namespace GISharp.GObject
     /// </summary>
     public abstract class TypeClass : Opaque
     {
-        internal struct Struct
+        protected struct Struct
         {
             #pragma warning disable CS0649
             public GType GType;
