@@ -41,7 +41,7 @@ namespace GISharp.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_type_class_ref (GType type);
 
-        internal static T Get<T> (GType type) where T : TypeClass
+        public static T GetInstance<T>(GType type) where T : TypeClass
         {
             if (!type.IsClassed) {
                 throw new ArgumentException ("GType is not classed", nameof(type));
@@ -53,7 +53,7 @@ namespace GISharp.GObject
 
         public static TypeClass Get (GType type)
         {
-            return Get<TypeClass> (type);
+            return GetInstance<TypeClass>(type);
         }
 
         public abstract TypeInfo GetTypeInfo (Type type);

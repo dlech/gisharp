@@ -245,7 +245,7 @@ namespace GISharp.GObject
                         var message = $"Expecting string at index {i}";
                         throw new ArgumentException(message, nameof(parameters));
                     }
-                    var objClass = TypeClass.Get<ObjectClass>(gtype);
+                    var objClass = TypeClass.GetInstance<ObjectClass>(gtype);
                     var paramSpec = objClass.FindProperty(name);
                     if (paramSpec == null) {
                         var message = $"Could not find property '{name}'";
@@ -1074,7 +1074,7 @@ namespace GISharp.GObject
         {
             var this_ = Handle;
             var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
-            TypeClass.Get<ObjectClass>(_GType).OnNotify?.Invoke(this_, pspec_);
+            TypeClass.GetInstance<ObjectClass>(_GType).OnNotify?.Invoke(this_, pspec_);
         }
 
         /// <summary>
