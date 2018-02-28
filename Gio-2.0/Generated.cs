@@ -3516,6 +3516,106 @@ System.IntPtr actionName);
     }
 
     /// <summary>
+    /// Type definition for a function that will be called back when an asynchronous
+    /// operation within GIO has been completed.
+    /// </summary>
+    [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    public delegate void UnmanagedAsyncReadyCallback(
+    /* <type name="GObject.Object" type="GObject*" managed-name="GObject.Object" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr sourceObject,
+    /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+    /* transfer-ownership:none */
+    System.IntPtr res,
+    /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
+    System.IntPtr userData);
+
+    /// <summary>
+    /// Type definition for a function that will be called back when an asynchronous
+    /// operation within GIO has been completed.
+    /// </summary>
+    public delegate void AsyncReadyCallback(GISharp.GObject.Object sourceObject, GISharp.Gio.IAsyncResult res);
+
+    /// <summary>
+    /// Factory for creating <see cref="UnmanagedAsyncReadyCallback"/> methods.
+    /// </summary>
+    public static class UnmanagedAsyncReadyCallbackFactory
+    {
+        class UserData
+        {
+            public GISharp.Gio.AsyncReadyCallback ManagedDelegate;
+            public GISharp.Gio.UnmanagedAsyncReadyCallback UnmanagedDelegate;
+            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Runtime.CallbackScope Scope;
+        }
+
+        /// <summary>
+        /// Wraps a <see cref="AsyncReadyCallback"/> in an anonymous method that can
+        /// be passed to unmanaged code.
+        /// </summary>
+        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="scope">The lifetime scope of the callback.</param>
+        /// <returns>
+        /// A tuple containing the unmanaged callback, the unmanaged
+        /// notify function and a pointer to the user data.
+        /// </returns>
+        /// <remarks>
+        /// This function is used to marshal managed callbacks to unmanged
+        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
+        /// then it is the caller's responsibility to invoke the notify function
+        /// when the callback is no longer needed. If the scope is
+        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
+        /// function should be ignored.
+        /// </remarks>
+        public static System.ValueTuple<GISharp.Gio.UnmanagedAsyncReadyCallback, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
+        {
+            var userData = new UserData
+            {
+                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
+                UnmanagedDelegate = UnmanagedCallback,
+                DestroyDelegate = Destroy,
+                Scope = scope
+            };
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+        }
+
+        static void UnmanagedCallback(System.IntPtr sourceObject_, System.IntPtr res_, System.IntPtr userData_)
+        {
+            try
+            {
+                var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(sourceObject_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Gio.IAsyncResult)GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(res_, GISharp.Runtime.Transfer.None);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (UserData)gcHandle.Target;
+                userData.ManagedDelegate(sourceObject, res);
+                if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    Destroy(userData_);
+                }
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static void Destroy(System.IntPtr userData_)
+        {
+            try
+            {
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+    }
+
+    /// <summary>
     /// Provides a base class for implementing asynchronous function results.
     /// </summary>
     /// <remarks>
