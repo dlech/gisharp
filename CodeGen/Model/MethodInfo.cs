@@ -893,7 +893,7 @@ namespace GISharp.CodeGen.Model
             var returnDefault = default(StatementSyntax);
             if (UnmanagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
             var returnType = UnmanagedReturnParameterInfo.TypeInfo.Type;
-                returnDefault = ParseStatement($"return default({returnType});");
+                returnDefault = ParseStatement($"return default({returnType});\n");
             }
 
             // if the method has an error parameter, we can propagate any
