@@ -308,8 +308,8 @@ namespace GISharp.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.IntPtr targetValue,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Parses a detailed action name into its separate name and target
@@ -362,8 +362,8 @@ namespace GISharp.Gio
             var detailedName_ = detailedName?.Handle ?? throw new System.ArgumentNullException(nameof(detailedName));
             System.IntPtr actionName_;
             System.IntPtr targetValue_;
-            System.IntPtr error_;
-            var ret = g_action_parse_detailed_name(detailedName_,out actionName_,out targetValue_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_action_parse_detailed_name(detailedName_,out actionName_,out targetValue_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -4618,8 +4618,8 @@ System.IntPtr sourceTag);
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr cancellable,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// If the @cancellable is cancelled, sets the error to notify
@@ -4634,8 +4634,8 @@ System.IntPtr sourceTag);
         public System.Boolean ThrowIfCancelled()
         {
             var this_ = this.Handle;
-            System.IntPtr error_;
-            var ret = g_cancellable_set_error_if_cancelled(this_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_cancellable_set_error_if_cancelled(this_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

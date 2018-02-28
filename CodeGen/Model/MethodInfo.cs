@@ -435,9 +435,10 @@ namespace GISharp.CodeGen.Model
             }
             if (ThrowsGErrorException) {
                 var statement = string.Format (
-                    "{0} {1}_;\n",
+                    "var {0}_ = {1}.{2};\n",
+                    PinvokeParameterInfos.Single(x => x.IsErrorParameter).Identifier,
                     typeof(IntPtr).FullName,
-                    PinvokeParameterInfos.Single (x => x.IsErrorParameter).Identifier);
+                    nameof(IntPtr.Zero));
                 yield return ParseStatement (statement);
             }
             yield return GetPinvokeInvocationStatement ();

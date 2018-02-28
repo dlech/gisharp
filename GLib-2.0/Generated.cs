@@ -299,8 +299,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name as a
@@ -337,8 +337,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_get_boolean(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_get_boolean(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -399,8 +399,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the values associated with @key under @group_name as
@@ -440,8 +440,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             System.UIntPtr length_;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_boolean_list(this_, groupName_, key_,out length_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_boolean_list(this_, groupName_, key_,out length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -491,8 +491,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Retrieves a comment above @key from @group_name.
@@ -524,8 +524,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_comment(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_comment(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -577,8 +577,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name as a
@@ -615,8 +615,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_get_double(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_get_double(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -677,8 +677,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the values associated with @key under @group_name as
@@ -718,8 +718,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             System.UIntPtr length_;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_double_list(this_, groupName_, key_,out length_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_double_list(this_, groupName_, key_,out length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -816,8 +816,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name as a signed
@@ -849,8 +849,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_get_int64(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_get_int64(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -902,8 +902,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name as an
@@ -941,8 +941,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_get_integer(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_get_integer(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1004,8 +1004,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the values associated with @key under @group_name as
@@ -1046,8 +1046,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             System.UIntPtr length_;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_integer_list(this_, groupName_, key_,out length_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_integer_list(this_, groupName_, key_,out length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1098,8 +1098,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns all keys for the group name @group_name.  The array of
@@ -1129,8 +1129,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_keys(this_, groupName_,out length,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_keys(this_, groupName_,out length,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1189,8 +1189,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr locale,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name
@@ -1232,8 +1232,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var locale_ = locale?.Handle ?? System.IntPtr.Zero;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_locale_string(this_, groupName_, key_, locale_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_locale_string(this_, groupName_, key_, locale_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1303,8 +1303,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the values associated with @key under @group_name
@@ -1350,8 +1350,8 @@ namespace GISharp.GLib
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var locale_ = locale?.Handle ?? System.IntPtr.Zero;
             System.UIntPtr length_;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_locale_string_list(this_, groupName_, key_, locale_,out length_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_locale_string_list(this_, groupName_, key_, locale_,out length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1440,8 +1440,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the string value associated with @key under @group_name.
@@ -1479,8 +1479,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_string(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_string(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1540,8 +1540,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the values associated with @key under @group_name.
@@ -1579,8 +1579,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             System.UIntPtr length_;
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_string_list(this_, groupName_, key_,out length_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_string_list(this_, groupName_, key_,out length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1627,8 +1627,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the value associated with @key under @group_name as an unsigned
@@ -1660,8 +1660,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_get_uint64(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_get_uint64(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1712,8 +1712,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Returns the raw value associated with @key under @group_name.
@@ -1750,8 +1750,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret_ = g_key_file_get_value(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_get_value(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1843,8 +1843,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         GISharp.GLib.KeyFileFlags flags,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Loads a key file from the data in @bytes into an empty #GKeyFile structure.
@@ -1870,8 +1870,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var bytes_ = bytes?.Handle ?? throw new System.ArgumentNullException(nameof(bytes));
-            System.IntPtr error_;
-            var ret = g_key_file_load_from_bytes(this_, bytes_, flags,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_load_from_bytes(this_, bytes_, flags,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1921,8 +1921,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         GISharp.GLib.KeyFileFlags flags,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Loads a key file from memory into an empty #GKeyFile structure.
@@ -1951,8 +1951,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var data_ = data?.Handle ?? throw new System.ArgumentNullException(nameof(data));
-            System.IntPtr error_;
-            var ret = g_key_file_load_from_data(this_, data_, length, flags,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_load_from_data(this_, data_, length, flags,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2006,8 +2006,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         GISharp.GLib.KeyFileFlags flags,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// This function looks for a key file named @file in the paths
@@ -2041,8 +2041,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
             System.IntPtr fullPath_;
-            System.IntPtr error_;
-            var ret = g_key_file_load_from_data_dirs(this_, file_,out fullPath_, flags,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_load_from_data_dirs(this_, file_,out fullPath_, flags,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2110,8 +2110,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         GISharp.GLib.KeyFileFlags flags,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// This function looks for a key file named @file in the paths
@@ -2157,8 +2157,8 @@ namespace GISharp.GLib
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
             var searchDirs_ = searchDirs?.Data ?? throw new System.ArgumentNullException(nameof(searchDirs));
             System.IntPtr fullPath_;
-            System.IntPtr error_;
-            var ret = g_key_file_load_from_dirs(this_, file_, searchDirs_,out fullPath_, flags,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_load_from_dirs(this_, file_, searchDirs_,out fullPath_, flags,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2210,8 +2210,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         GISharp.GLib.KeyFileFlags flags,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Loads a key file into an empty #GKeyFile structure.
@@ -2244,8 +2244,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
-            System.IntPtr error_;
-            var ret = g_key_file_load_from_file(this_, file_, flags,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_load_from_file(this_, file_, flags,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2291,8 +2291,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Removes a comment above @key from @group_name.
@@ -2318,8 +2318,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? System.IntPtr.Zero;
-            System.IntPtr error_;
-            var ret = g_key_file_remove_comment(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_remove_comment(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2357,8 +2357,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr groupName,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Removes the specified group, @group_name,
@@ -2381,8 +2381,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            System.IntPtr error_;
-            var ret = g_key_file_remove_group(this_, groupName_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_remove_group(this_, groupName_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2425,8 +2425,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr key,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Removes @key in @group_name from the key file.
@@ -2455,8 +2455,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.IntPtr error_;
-            var ret = g_key_file_remove_key(this_, groupName_, key_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_remove_key(this_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2498,8 +2498,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr filename,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Writes the contents of @key_file to @filename using
@@ -2526,8 +2526,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var filename_ = filename?.Handle ?? throw new System.ArgumentNullException(nameof(filename));
-            System.IntPtr error_;
-            var ret = g_key_file_save_to_file(this_, filename_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_save_to_file(this_, filename_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2723,8 +2723,8 @@ namespace GISharp.GLib
         /* transfer-ownership:none */
         System.IntPtr comment,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Places a comment above @key from @group_name.
@@ -2762,8 +2762,8 @@ namespace GISharp.GLib
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? System.IntPtr.Zero;
             var comment_ = comment?.Handle ?? throw new System.ArgumentNullException(nameof(comment));
-            System.IntPtr error_;
-            var ret = g_key_file_set_comment(this_, groupName_, key_, comment_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_key_file_set_comment(this_, groupName_, key_, comment_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3636,8 +3636,8 @@ namespace GISharp.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// This function outputs @key_file as a string.
@@ -3661,8 +3661,8 @@ namespace GISharp.GLib
         public GISharp.GLib.Utf8 ToData(out System.UIntPtr length)
         {
             var this_ = this.Handle;
-            System.IntPtr error_;
-            var ret_ = g_key_file_to_data(this_,out length,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_key_file_to_data(this_,out length,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -4465,8 +4465,8 @@ namespace GISharp.GLib
         /* direction:inout caller-allocates:0 transfer-ownership:full */
         ref System.IntPtr argv,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Parses the command line arguments, recognizing options
@@ -4508,8 +4508,8 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var argv_ = argv?.TakeData().Item1 ?? System.IntPtr.Zero;
             var argc_ = (System.Int32)(argv?.Length ?? 0);
-            System.IntPtr error_;
-            var ret = g_option_context_parse(this_,ref argc_,ref argv_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_option_context_parse(this_,ref argc_,ref argv_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -4567,8 +4567,8 @@ namespace GISharp.GLib
         /* direction:inout caller-allocates:0 transfer-ownership:full */
         ref System.IntPtr arguments,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:out */
-        out System.IntPtr error);
+        /* direction:inout */
+        ref System.IntPtr error);
 
         /// <summary>
         /// Parses the command line arguments.
@@ -4605,8 +4605,8 @@ namespace GISharp.GLib
         {
             var this_ = this.Handle;
             var arguments_ = arguments?.Take() ?? System.IntPtr.Zero;
-            System.IntPtr error_;
-            var ret = g_option_context_parse_strv(this_,ref arguments_,out error_);
+            var error_ = System.IntPtr.Zero;
+            var ret = g_option_context_parse_strv(this_,ref arguments_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
