@@ -543,7 +543,7 @@ namespace GISharp.CodeGen.Model
                     conditional = string.Format("({0} == null) ?\n(default({1}), default({2}), {3}.{4}) :\n",
                         managedParameter.Identifier,
                         pinvokeParameter.TypeInfo.Type,
-                        destroyParameter.TypeInfo.Type,
+                        typeof(UnmanagedDestroyNotify).FullName,
                         typeof(IntPtr).FullName,
                         nameof(IntPtr.Zero));
                 }
