@@ -553,7 +553,7 @@ namespace GISharp.CodeGen.Model
                     destroyParameter?.Identifier.Text ?? "",
                     userDataParameter.Identifier,
                     conditional,
-                    pinvokeParameter.TypeInfo.Type,
+                    managedParameter.TypeInfo.Type,
                     managedParameter.Identifier,
                     typeof(CallbackScope).FullName,
                     pinvokeParameter.Scope);

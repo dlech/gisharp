@@ -110,7 +110,7 @@ namespace GISharp.GObject
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
 
-    static class UnmanagedClosureMarshalDelegateFactory
+    static class ClosureMarshalDelegateFactory
     {
         class UnmanagedClosureMarshalData {
             public ClosureMarshal ClosureMarshal;

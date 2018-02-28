@@ -16,7 +16,7 @@ namespace GISharp.Gio
         public nulong Connect(CancelledCallback callback)
         {
             var this_ = Handle;
-            var (connect_, dataDestroyFunc_, data_) = UnmanagedCancelledFactory.Create(callback);
+            var (connect_, dataDestroyFunc_, data_) = CancelledFactory.Create(callback);
             var ret = g_cancellable_connect(this_, connect_, data_, dataDestroyFunc_);
             return ret;
         }
@@ -25,7 +25,7 @@ namespace GISharp.Gio
 
         delegate void UnmanagedCancelledCallback(IntPtr cancellable, IntPtr userData);
 
-        static class UnmanagedCancelledFactory
+        static class CancelledFactory
         {
             class UserData
             {

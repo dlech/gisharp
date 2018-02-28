@@ -21,7 +21,7 @@ namespace GISharp.GLib
     /// </summary>
     public delegate bool SourceFunc();
 
-    public static class UnmanagedSourceFuncFactory
+    public static class SourceFuncFactory
     {
         class UserData
         {

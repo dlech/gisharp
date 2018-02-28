@@ -106,9 +106,9 @@ namespace GISharp.GObject
         //    if (hookFunc == null) {
         //        throw new ArgumentNullException ("hookFunc");
         //    }
-        //    var hookFunc_ = UnmanagedSignalEmissionHookFactory.Create (hookFunc, false);
+        //    var hookFunc_ = SignalEmissionHookFactory.Create (hookFunc, false);
         //    var hookFuncHandle = GCHandle.Alloc (hookFunc);
-        //    var dataDestroy_ = UnmanagedDestoryNotifyFactory.Create (hookFuncHandle);
+        //    var dataDestroy_ = DestoryNotifyFactory.Create (hookFuncHandle);
         //    var hookData_ = GCHandle.ToIntPtr (GCHandle.Alloc (dataDestroy_));
         //    var ret = g_signal_add_emission_hook (signalId, detail, hookFunc_, hookData_, dataDestroy_);
         //    return ret;
@@ -1051,7 +1051,7 @@ namespace GISharp.GObject
         //        throw new ArgumentNullException ("classHandler");
         //    }
         //    var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
-        //    var classHandler_ = UnmanagedCallbackFactory.Create (classHandler, false);
+        //    var classHandler_ = CallbackFactory.Create (classHandler, false);
         //    g_signal_override_class_handler (signalName_, instanceType, classHandler_);
         //    MarshalG.Free (signalName_);
         //}

@@ -1,5 +1,6 @@
 namespace GISharp.Gio
 {
+{
     /// <summary>
     /// #GAction represents a single named action.
     /// </summary>

@@ -271,7 +271,7 @@ namespace GISharp.GObject
         {
             var gcHandle = GCHandle.Alloc(callback, GCHandleType.Weak);
             Marshal.WriteIntPtr(handle, (int)callbackGCHandleOffset, (IntPtr)gcHandle);
-            var (callback_, notify_, userData_) = UnmanagedClosureMarshalDelegateFactory.CreateNotifyDelegate(callbackWrapper);
+            var (callback_, notify_, userData_) = ClosureMarshalDelegateFactory.CreateNotifyDelegate(callbackWrapper);
             g_closure_set_meta_marshal(handle, userData_, callback_);
             g_closure_add_invalidate_notifier(handle, userData_, notify_);
         }
@@ -662,15 +662,14 @@ namespace GISharp.GObject
         {
             var closure_ = NewObject(Marshal.SizeOf<ManagedClosure>(), instance);
 
-            var (func_, notify_, data_) = UnmanagedSignalClosureMarshalFactory
-                .Create(handler);
+            var (func_, notify_, data_) = SignalClosureMarshalFactory.Create(handler);
             g_closure_set_meta_marshal(closure_, data_, func_);
             g_closure_add_invalidate_notifier(closure_, data_, notify_);
 
             return new Closure(closure_, Transfer.None);
         }
 
-        static class UnmanagedSignalClosureMarshalFactory
+        static class SignalClosureMarshalFactory
         {
             class UnmanagedSignalClosureMarshalData {
                 public EventHandler<GSignalEventArgs> SignalHandler;

@@ -8,7 +8,7 @@ namespace GISharp.Gio
         public void SetCallback(CancellableSourceFunc func)
         {
             base.SetCallback<CancellableSourceFunc, UnmanagedCancellableSourceFunc>(func,
-                UnmanagedCancellableSourceFuncFactory.Create);
+                CancellableSourceFuncFactory.Create);
         }
     }
 }

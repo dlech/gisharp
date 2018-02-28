@@ -102,9 +102,9 @@ namespace GISharp.CodeGen.Model
         /// <summary>
         /// Gets the unmanaged delegate factory class declaration for a callback
         /// </summary>
-        public ClassDeclarationSyntax UnmanagedDelegateFactoryDeclaration =>
-            _UnmanagedDelegateFactoryDeclaration.Value;
-        readonly Lazy<ClassDeclarationSyntax> _UnmanagedDelegateFactoryDeclaration;
+        public ClassDeclarationSyntax DelegateFactoryDeclaration =>
+            _DelegateFactoryDeclaration.Value;
+        readonly Lazy<ClassDeclarationSyntax> _DelegateFactoryDeclaration;
 
         /// <summary>
         /// Gets the method declaraion for the implementation of a virtual
@@ -122,8 +122,8 @@ namespace GISharp.CodeGen.Model
             }
             _ManagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetManagedDelegateDeclaration, false);
             _UnmanagedDelegateDeclaration = new Lazy<DelegateDeclarationSyntax>(LazyGetUnmanagedDelegateDeclaration, false);
-            _UnmanagedDelegateFactoryDeclaration =
-                new Lazy<ClassDeclarationSyntax>(LazyGetUnmanagedDelegateFactoryDeclaration, false);
+            _DelegateFactoryDeclaration =
+                new Lazy<ClassDeclarationSyntax>(LazyGetDelegateFactoryDeclaration, false);
             _VirtualMethodCallbackImplementation =
                 new Lazy<MethodDeclarationSyntax>(LazyGetVirtualMethodCallbackImplementation, false);
         }
@@ -170,7 +170,7 @@ namespace GISharp.CodeGen.Model
             try {
                 managedDeclaration = ManagedDelegateDeclaration;
                 unmangedDeclaration = UnmanagedDelegateDeclaration;
-                factoryDeclaration = UnmanagedDelegateFactoryDeclaration;
+                factoryDeclaration = DelegateFactoryDeclaration;
             } catch (Exception ex) {
                 Console.WriteLine("Skipping {0} ({1}) due to error: {2}",
                     QualifiedName, Element.Name.LocalName, ex.Message);
@@ -194,9 +194,9 @@ namespace GISharp.CodeGen.Model
             return method;
         }
 
-        ClassDeclarationSyntax LazyGetUnmanagedDelegateFactoryDeclaration()
+        ClassDeclarationSyntax LazyGetDelegateFactoryDeclaration()
         {
-            var factoryDeclaration = ClassDeclaration(UnmanagedIdentifier + "Factory")
+            var factoryDeclaration = ClassDeclaration(Identifier + "Factory")
                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                .WithMembers(List(LazyGetFactoryClassMembers()))
                .WithLeadingTrivia(GetFactoryDocumentationCommentTrivia());

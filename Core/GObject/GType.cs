@@ -1475,7 +1475,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("checkFunc");
             }
-            var checkFunc_ = UnmanagedTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
+            var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_add_interface_check(checkData, checkFunc_);
         }
 
@@ -2573,7 +2573,7 @@ namespace GISharp.GObject
             {
                 throw new ArgumentNullException("checkFunc");
             }
-            var checkFunc_ = UnmanagedTypeInterfaceCheckFuncFactory.Create(checkFunc, false);
+            var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_remove_interface_check(checkData, checkFunc_);
         }
 #endif

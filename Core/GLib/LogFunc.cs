@@ -48,7 +48,7 @@ namespace GISharp.GLib
     /// </remarks>
     public delegate void LogFunc(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message);
 
-    public static class UnmanagedLogFuncFactory
+    public static class LogFuncFactory
     {
         class UserData
         {

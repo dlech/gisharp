@@ -126,7 +126,7 @@ namespace GISharp.GLib
 
         public void SetCallback(SourceFunc func)
         {
-            SetCallback<SourceFunc, UnmanagedSourceFunc>(func, UnmanagedSourceFuncFactory.Create);
+            SetCallback<SourceFunc, UnmanagedSourceFunc>(func, SourceFuncFactory.Create);
         }
     }
 }

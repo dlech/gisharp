@@ -3848,7 +3848,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Factory for creating <see cref="UnmanagedOptionArgFunc"/> methods.
     /// </summary>
-    public static class UnmanagedOptionArgFuncFactory
+    public static class OptionArgFuncFactory
     {
         class UserData
         {
@@ -4861,7 +4861,7 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var (func_, destroyNotify_, data_) = (func == null) ?
             (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
-            GISharp.GLib.UnmanagedTranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_context_set_translate_func(this_, func_, data_, destroyNotify_);
         }
 
@@ -5043,7 +5043,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Factory for creating <see cref="UnmanagedOptionErrorFunc"/> methods.
     /// </summary>
-    public static class UnmanagedOptionErrorFuncFactory
+    public static class OptionErrorFuncFactory
     {
         class UserData
         {
@@ -5377,7 +5377,7 @@ namespace GISharp.GLib
             var this_ = this.Handle;
             var (func_, destroyNotify_, data_) = (func == null) ?
             (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
-            GISharp.GLib.UnmanagedTranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(this_, func_, data_, destroyNotify_);
         }
 
@@ -5465,7 +5465,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Factory for creating <see cref="UnmanagedOptionParseFunc"/> methods.
     /// </summary>
-    public static class UnmanagedOptionParseFuncFactory
+    public static class OptionParseFuncFactory
     {
         class UserData
         {
@@ -5565,7 +5565,7 @@ namespace GISharp.GLib
     /// <summary>
     /// Factory for creating <see cref="UnmanagedTranslateFunc"/> methods.
     /// </summary>
-    public static class UnmanagedTranslateFuncFactory
+    public static class TranslateFuncFactory
     {
         class UserData
         {

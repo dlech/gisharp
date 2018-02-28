@@ -80,7 +80,7 @@ namespace GISharp.GLib
             } else if (func == StandardStreams) {
                 g_log_set_writer_func (g_log_writer_standard_streams, IntPtr.Zero, null);
             } else {
-                var (func_, userDataFree_, userData_) = UnmanagedLogWriterFuncFactory.Create(func, CallbackScope.Notified);
+                var (func_, userDataFree_, userData_) = LogWriterFuncFactory.Create(func, CallbackScope.Notified);
                 g_log_set_writer_func (func_, userData_, userDataFree_);
             }
             isFuncSet = true;

@@ -115,7 +115,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_timeout_add_full (priority, interval, function_, data_, notify_);
             return ret;
         }
@@ -254,7 +254,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_timeout_add_seconds_full (priority, interval, function_, data_, notify_);
             return ret;
         }

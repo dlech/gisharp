@@ -55,7 +55,7 @@ namespace GISharp.GLib
     [Since("2.50")]
     public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
 
-    public static class UnmanagedLogWriterFuncFactory
+    public static class LogWriterFuncFactory
     {
         class UserData
         {

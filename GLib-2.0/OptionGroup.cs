@@ -295,7 +295,7 @@ namespace GISharp.GLib
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
             var description_ = AllocString(description ?? throw new ArgumentNullException(nameof(description)));
             var argDescription_ = AllocString(argDescription);
-            var (callback_, destroy_, data_) = UnmanagedOptionArgFuncFactory.Create(callback, CallbackScope.Notified);
+            var (callback_, destroy_, data_) = OptionArgFuncFactory.Create(callback, CallbackScope.Notified);
             var arg_ = Marshal.GetFunctionPointerForDelegate(callback_);
             userData.DestroyCallbacks.Add((destroy_, data_));
 

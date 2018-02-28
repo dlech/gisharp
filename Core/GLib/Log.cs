@@ -365,7 +365,7 @@ namespace GISharp.GLib
             } else {
                 // this function does not fix the GIR callback scope pattern
                 // so we have to do some special memory management ourselves
-                var (logFunc_, _, userData_) = UnmanagedLogFuncFactory.Create(logFunc, CallbackScope.Call);
+                var (logFunc_, _, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Call);
                 g_log_set_default_handler (logFunc_, userData_);
                 defaultHandler = (GCHandle)userData_;
             }
@@ -534,7 +534,7 @@ namespace GISharp.GLib
         public static uint SetHandler(Utf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
             var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logFunc));
-            var (logFunc_, destroy_, userData_) = UnmanagedLogFuncFactory.Create(logFunc, CallbackScope.Notified);
+            var (logFunc_, destroy_, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Notified);
             var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;
         }

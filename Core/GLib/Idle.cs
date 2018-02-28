@@ -82,7 +82,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_idle_add_full(priority, function_, data_, notify_);
             return ret;
         }
