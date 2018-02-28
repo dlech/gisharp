@@ -97,9 +97,6 @@ namespace GISharp.CodeGen.Model
                 yield break;
             }
 
-            foreach (var d in GTypeMembers) {
-                yield return d;
-            }
             yield return enumDeclaration;
             // only create a class if there are members
             if (enumExtenstionsDeclaration.Members.Any ()) {
@@ -107,13 +104,9 @@ namespace GISharp.CodeGen.Model
             }
         }
 
-        IEnumerable<MemberDeclarationSyntax> GetExtensionMembers ()
+        IEnumerable<MemberDeclarationSyntax> GetExtensionMembers()
         {
-            foreach (var method in MethodInfos) {
-                foreach (var decl in method.AllDeclarations) {
-                    yield return decl;
-                }
-            }
+            return GTypeMembers.Concat(MethodInfos.SelectMany(x => x.AllDeclarations));
         }
     }
 }
