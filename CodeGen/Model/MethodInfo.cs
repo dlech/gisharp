@@ -677,6 +677,10 @@ namespace GISharp.CodeGen.Model
 
             StatementSyntax statement = ExpressionStatement (pinvokeExpression);
             if (ManagedReturnParameterInfo.TypeInfo.Classification != TypeClassification.Void) {
+                var fullExpression = IsVirtualMethod ?
+                    BinaryExpression(CoalesceExpression, pinvokeExpression,
+                        DefaultExpression(ManagedReturnParameterInfo.TypeInfo.Type)) :
+                    (ExpressionSyntax)pinvokeExpression;
                 var ret = "ret";
                 if (ManagedReturnParameterInfo.TypeInfo.RequiresMarshal) {
                     ret += "_";
@@ -684,7 +688,7 @@ namespace GISharp.CodeGen.Model
                 statement = LocalDeclarationStatement (
                     VariableDeclaration (ParseTypeName ("var"))
                     .AddVariables (VariableDeclarator (ParseToken (ret))
-                    .WithInitializer (EqualsValueClause (pinvokeExpression))));
+                    .WithInitializer(EqualsValueClause(fullExpression))));
             }
             return statement;
         }
