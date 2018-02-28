@@ -8,6 +8,7 @@ using System.Reflection;
 using GISharp.Runtime;
 using System.Reflection.Emit;
 using GISharp.GObject;
+using GISharp.GLib;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -378,6 +379,8 @@ namespace GISharp.CodeGen.Reflection
                         switch (opaqueAttr.Value) {
                         case "boxed":
                             return typeof(Boxed);
+                        case "source":
+                            return typeof(Source);
                         case "owned":
                             return typeof(Opaque);
                         case "static":

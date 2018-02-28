@@ -41,39 +41,6 @@ namespace GISharp.Core.Test.GLib
 
                 Assert.That (idleInvoked, Is.True);
             }
-
-            AssertNoGLibLog();
-        }
-
-        [Test]
-        public void TestCreateSource ()
-        {
-            var idleInvoked = false;
-            using (var source = Idle.CreateSource ()) {
-                Assert.That (source, Is.Not.Null);
-
-
-                using (var context = new MainContext ())
-                using (var mainLoop = new MainLoop (context)) {
-                    source.SetCallback (() => {
-                        mainLoop.Quit ();
-                        idleInvoked = true;
-                        return Source.Remove_;
-                    });
-                    source.Attach (context);
-
-                    Task.Run (() => {
-                        context.PushThreadDefault ();
-                        mainLoop.Run ();
-                        context.PopThreadDefault ();
-                    }).Wait (100);
-                }
-
-                source.Destroy ();
-            }
-
-            Assert.That (idleInvoked, Is.True);
-
             AssertNoGLibLog();
         }
     }

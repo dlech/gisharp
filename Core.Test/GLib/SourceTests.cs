@@ -23,7 +23,7 @@ namespace GISharp.Core.Test.GLib
                     var context = new MainContext ();
                     context.PushThreadDefault ();
                     var mainLoop = new MainLoop (context);
-                    var source = Idle.CreateSource ();
+                    var source = new IdleSource();
                     source.SetCallback (() => {
                         try {
                             Assert.That (Source.Current.Handle, Is.EqualTo (source.Handle));

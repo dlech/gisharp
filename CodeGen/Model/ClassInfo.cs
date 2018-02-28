@@ -36,6 +36,8 @@ namespace GISharp.CodeGen.Model
         /// </summary>
         public bool IsBoxed => Element.Attribute(gs + "opaque").AsString() == "boxed";
 
+        public bool IsSource => Element.Attribute(gs + "opaque").AsString() == "source";
+
         /// <summary>
         /// Indicates if this class is sealed
         /// </summary>
@@ -234,6 +236,9 @@ namespace GISharp.CodeGen.Model
                 switch (opaqueTypeName) {
                 case "boxed":
                     opaqueTypeName = typeof(GISharp.GObject.Boxed).FullName;
+                    break;
+                case "source":
+                    opaqueTypeName = typeof(GISharp.GLib.Source).FullName;
                     break;
                 case "owned":
                     opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;

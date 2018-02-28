@@ -77,7 +77,7 @@ namespace GISharp.Core.Test.GLib
         public void TestFindSourceById ()
         {
             using (var context = new MainContext ()) {
-                var source = Idle.CreateSource ();
+                var source = new IdleSource();
                 var id = source.Attach (context);
                 var foundSource = context.FindSourceById (id);
                 Assert.That (foundSource.Handle, Is.EqualTo (source.Handle));
@@ -177,9 +177,9 @@ namespace GISharp.Core.Test.GLib
 
             var context = new MainContext ();
             var mainLoop = new MainLoop (context);
-            // use Idle.CreateSource to run stuff on the same thread as
+            // use IdleSource to run stuff on the same thread as
             // the main loop after mainLoop.Run has been called.
-            var source = Idle.CreateSource ();
+            var source = new IdleSource();
             source.SetCallback (() => {
                 // this gets the MainLoopSyncronizationContext that was
                 // set when mainLoop.Run was called. If it wasn't set, this

@@ -61,7 +61,7 @@ namespace GISharp.GLib
         /// removed from the list of event sources and will not be called again.
         /// </summary>
         /// <remarks> 
-        /// This internally creates a main loop source using <see cref="CreateSource"/>
+        /// This internally creates a main loop source using <see cref="IdleSource.#ctor"/>
         /// and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach"/>, so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
@@ -82,47 +82,8 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(function);
-            var ret = g_idle_add_full (priority, function_, data_, notify_);
-
-            return ret;
-        }
-
-        /// <summary>
-        /// Creates a new idle source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any #GMainContext
-        /// and must be added to one with g_source_attach() before it will be
-        /// executed. Note that the default priority for idle sources is
-        /// %G_PRIORITY_DEFAULT_IDLE, as compared to other sources which
-        /// have a default priority of %G_PRIORITY_DEFAULT.
-        /// </remarks>
-        /// <returns>
-        /// the newly-created idle source
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" /> */
-        /* transfer-ownership:full */
-        static extern IntPtr g_idle_source_new ();
-
-        /// <summary>
-        /// Creates a new idle source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any <see cref="MainContext"/>
-        /// and must be added to one with <see cref="Source.Attach"/> before it will be
-        /// executed. Note that the default priority for idle sources is
-        /// <see cref="Priority.DefaultIdle"/>, as compared to other sources which
-        /// have a default priority of <see cref="Priority.Default"/>.
-        /// </remarks>
-        /// <returns>
-        /// the newly-created idle source
-        /// </returns>
-        public static Source CreateSource ()
-        {
-            var ret_ = g_idle_source_new ();
-            var ret = new UnmanagedSource (ret_, Transfer.Full);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
+            var ret = g_idle_add_full(priority, function_, data_, notify_);
             return ret;
         }
     }

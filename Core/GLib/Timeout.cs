@@ -88,7 +88,7 @@ namespace GISharp.GLib
         /// timeout is recalculated based on the current time and the given interval
         /// (it does not try to 'catch up' time lost in delays).
         /// 
-        /// This internally creates a main loop source using <see cref="CreateSource"/>
+        /// This internally creates a main loop source using <see cref="TimeoutSource.#ctor"/>
         /// and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach"/>, so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
@@ -115,7 +115,7 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_timeout_add_full (priority, interval, function_, data_, notify_);
             return ret;
         }
@@ -228,7 +228,7 @@ namespace GISharp.GLib
         /// use of <see cref="AddSeconds"/> is preferred over <see cref="Add"/>.
         /// 
         /// This internally creates a main loop source using
-        /// <see cref="CreateSourceSeconds"/> and attaches it to the main loop context
+        /// <see cref="TimeoutSource.Seconds"/> and attaches it to the main loop context
         /// using <see cref="Source.Attach"/>. You can do these steps manually if you need
         /// greater control.
         /// 
@@ -254,113 +254,8 @@ namespace GISharp.GLib
             if (function == null) {
                 throw new ArgumentNullException (nameof(function));
             }
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate (function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_timeout_add_seconds_full (priority, interval, function_, data_, notify_);
-            return ret;
-        }
-
-        /// <summary>
-        /// Creates a new timeout source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any #GMainContext
-        /// and must be added to one with g_source_attach() before it will be
-        /// executed.
-        /// 
-        /// The interval given is in terms of monotonic time, not wall clock
-        /// time.  See g_get_monotonic_time().
-        /// </remarks>
-        /// <param name="interval">
-        /// the timeout interval in milliseconds.
-        /// </param>
-        /// <returns>
-        /// the newly-created timeout source
-        /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" /> */
-        /* transfer-ownership:full */
-        static extern IntPtr g_timeout_source_new (
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
-            uint interval);
-
-        /// <summary>
-        /// Creates a new timeout source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any <see cref="MainContext"/>
-        /// and must be added to one with <see cref="Source.Attach"/> before it will be
-        /// executed.
-        /// 
-        /// The interval given is in terms of monotonic time, not wall clock
-        /// time.
-        /// </remarks>
-        /// <param name="interval">
-        /// the timeout interval in milliseconds.
-        /// </param>
-        /// <returns>
-        /// the newly-created timeout source
-        /// </returns>
-        public static Source CreateSource (uint interval)
-        {
-            var ret_ = g_timeout_source_new (interval);
-            var ret = new UnmanagedSource(ret_, Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Creates a new timeout source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any #GMainContext
-        /// and must be added to one with g_source_attach() before it will be
-        /// executed.
-        /// 
-        /// The scheduling granularity/accuracy of this timeout source will be
-        /// in seconds.
-        /// 
-        /// The interval given in terms of monotonic time, not wall clock time.
-        /// See g_get_monotonic_time().
-        /// </remarks>
-        /// <param name="interval">
-        /// the timeout interval in seconds
-        /// </param>
-        /// <returns>
-        /// the newly-created timeout source
-        /// </returns>
-        [Since ("2.14")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /* <type name="Source" type="GSource*" managed-name="Source" /> */
-        /* transfer-ownership:full */
-        static extern IntPtr g_timeout_source_new_seconds (
-            /* <type name="guint" type="guint" managed-name="Guint" /> */
-            /* transfer-ownership:none */
-            uint interval);
-
-        /// <summary>
-        /// Creates a new timeout source.
-        /// </summary>
-        /// <remarks>
-        /// The source will not initially be associated with any <see cref="MainContext"/>
-        /// and must be added to one with <see cref="Source.Attach"/> before it will be
-        /// executed.
-        /// 
-        /// The scheduling granularity/accuracy of this timeout source will be
-        /// in seconds.
-        /// 
-        /// The interval given in terms of monotonic time, not wall clock time.
-        /// </remarks>
-        /// <param name="interval">
-        /// the timeout interval in seconds
-        /// </param>
-        /// <returns>
-        /// the newly-created timeout source
-        /// </returns>
-        [Since ("2.14")]
-        public static Source CreateSourceSeconds (uint interval)
-        {
-            var ret_ = g_timeout_source_new_seconds (interval);
-            var ret = new UnmanagedSource(ret_, Transfer.Full);
             return ret;
         }
     }

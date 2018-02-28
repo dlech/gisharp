@@ -586,32 +586,20 @@ namespace GISharp.GLib
 
     public static class UnmanagedSourceFuncFactory
     {
-        class UnmanagedSourceData
+        class UserData
         {
-            public bool IsAsync;
             public SourceFunc Func;
             public UnmanagedSourceFunc UnmanagedFunc;
             public UnmanagedDestroyNotify UnmanagedNotify;
+            public CallbackScope Scope;
         }
 
-        public static (UnmanagedSourceFunc, IntPtr) CreateDelegate(SourceFunc func, bool isAsync = false) {
-            var data = new UnmanagedSourceData {
-                IsAsync = isAsync,
+        public static (UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr) Create(SourceFunc func, CallbackScope scope) {
+            var data = new UserData {
                 Func = func ?? throw new ArgumentNullException(nameof(func)),
                 UnmanagedFunc = UnmanagedFunc,
                 UnmanagedNotify = null,
-            };
-            var gcHandle = GCHandle.Alloc(data);
-
-            return (data.UnmanagedFunc, (IntPtr)gcHandle);
-        }
-
-        public static (UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr) CreateNotifyDelegate(SourceFunc func) {
-            var data = new UnmanagedSourceData {
-                IsAsync = false,
-                Func = func ?? throw new ArgumentNullException(nameof(func)),
-                UnmanagedFunc = UnmanagedFunc,
-                UnmanagedNotify = UnmanagedNotify,
+                Scope = scope
             };
             var gcHandle = GCHandle.Alloc(data);
 
@@ -622,9 +610,9 @@ namespace GISharp.GLib
         {
             try {
                 var gcHandle = (GCHandle)userData_;
-                var userData = (UnmanagedSourceData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target;
                 var ret = userData.Func();
-                if (userData.IsAsync) {
+                if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();
                 }
                 return ret;

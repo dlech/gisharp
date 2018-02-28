@@ -807,7 +807,7 @@ namespace GISharp.GLib
         public void Invoke (SourceFunc function, int priority = Priority.Default)
         {
             var this_ = Handle;
-            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(function);
+            var (function_, notify_, data_) = UnmanagedSourceFuncFactory.Create(function, CallbackScope.Notified);
             g_main_context_invoke_full(this_, priority, function_, data_, notify_);
         }
 
@@ -1409,7 +1409,7 @@ namespace GISharp.GLib
 
         public override void Post (SendOrPostCallback d, object state)
         {
-            var source = Idle.CreateSource ();
+            var source = new IdleSource();
             source.SetCallback (() => {
                 d.Invoke (state);
                 return Source.Remove_;

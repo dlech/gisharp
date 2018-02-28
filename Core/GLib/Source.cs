@@ -60,10 +60,10 @@ namespace GISharp.GLib
         }
 
         static SourceFuncs managedSourceFuncs = new SourceFuncs {
-            PrepareImpl = PrepareManagedSource,
-            CheckImpl = CheckManagedSource,
-            DispatchImpl = DispatchManagedSource,
-            FinalizeImpl = FinalizeManagedSource,
+            OnPrepare = PrepareManagedSource,
+            OnCheck = CheckManagedSource,
+            OnDispatch = DispatchManagedSource,
+            OnFinalize = FinalizeManagedSource,
         };
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace GISharp.GLib
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
                 var source = gcHandle.Target as Source;
-                return source.Prepare (out timeout);
+                return source.OnPrepare(out timeout);
             }
             catch (Exception ex) {
                 ex.LogUnhandledException ();
@@ -106,11 +106,11 @@ namespace GISharp.GLib
         /// be the maximum timeout (in milliseconds) which should be passed to
         /// the poll() call. The actual timeout used will be -1 if all sources
         /// returned -1, or it will be the minimum of all the <paramref name="timeout"/>
-        /// values returned which were >= 0. If <see cref="Prepare"/> returns a
+        /// values returned which were >= 0. If <see cref="OnPrepare"/> returns a
         /// timeout and the source also has a 'ready time' set then the nearer
         /// of the two will be used.
         /// </remarks>
-        protected abstract bool Prepare (out int timeout);
+        protected virtual bool OnPrepare(out int timeout) => throw new NotImplementedException();
 
         static bool CheckManagedSource (IntPtr sourcePtr)
         {
@@ -118,7 +118,7 @@ namespace GISharp.GLib
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
                 var source = gcHandle.Target as Source;
-                return source.Check ();
+                return source.OnCheck();
             }
             catch (Exception ex) {
                 ex.LogUnhandledException ();
@@ -134,7 +134,7 @@ namespace GISharp.GLib
         /// Note that some time may have passed since the previous prepare
         /// function was called, so the source should be checked again here.
         /// </remarks>
-        protected abstract bool Check ();
+        protected virtual bool OnCheck() => throw new NotImplementedException();
 
         static bool DispatchManagedSource (IntPtr sourcePtr, UnmanagedSourceFunc callback, IntPtr userData)
         {
@@ -142,7 +142,7 @@ namespace GISharp.GLib
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
                 var source = gcHandle.Target as Source;
-                return source.Dispatch (() => callback (userData));
+                return source.OnDispatch(() => callback(userData));
             }
             catch (Exception ex) {
                 ex.LogUnhandledException ();
@@ -152,18 +152,18 @@ namespace GISharp.GLib
 
         /// <summary>
         /// Called to dispatch the event source, after it has returned <c>true</c>
-        /// in either its <see cref="Prepare"/> or its <see cref="Check"/> function.
+        /// in either its <see cref="OnPrepare"/> or its <see cref="OnCheck"/> function.
         /// </summary>
         /// <param name="callback">Callback.</param>
         /// <remarks>
-        /// The <see cref="Dispatch"/> function is passed in a callback function.
+        /// The <see cref="OnDispatch"/> function is passed in a callback function.
         /// The callback function may be <c>null</c> if the source was never
         /// connected to a callback using <see cref="SetCallback"/>. The dispatch
         /// function should call the callback function. The return value of the
         /// dispatch function should be <see cref="Remove_"/> if the source should
         ///  be removed or <see cref="Continue"/> to keep it.
         /// </remarks>
-        protected abstract bool Dispatch (SourceFunc callback);
+        protected virtual bool OnDispatch(SourceFunc callback) => throw new NotImplementedException();
 
         static void FinalizeManagedSource (IntPtr sourcePtr)
         {
@@ -171,7 +171,7 @@ namespace GISharp.GLib
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
                 var source = gcHandle.Target as Source;
-                source.Finalize_ ();
+                source.OnFinalize ();
                 gcHandle.Free ();
             }
             catch (Exception ex) {
@@ -182,7 +182,7 @@ namespace GISharp.GLib
         /// <summary>
         /// Called when the source is finalized in unmanaged code.
         /// </summary>
-        protected abstract void Finalize_ ();
+        protected virtual void OnFinalize() => throw new NotImplementedException();
 
         /// <summary>
         /// Creates a new #GSource structure. The size is specified to
@@ -1226,7 +1226,7 @@ namespace GISharp.GLib
             IntPtr source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:1 destroy:2 */
-            UnmanagedSourceFunc func,
+            IntPtr func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
@@ -1249,14 +1249,15 @@ namespace GISharp.GLib
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using.
         /// </remarks>
-        /// <param name="func">
-        /// a callback function
+        /// <param name="factory">
+        /// the unmanaged callback factory create method
         /// </param>
-        public void SetCallback (SourceFunc func)
+        protected void SetCallback<T, TUnmanaged>(T func, Func<T, CallbackScope, (TUnmanaged, UnmanagedDestroyNotify, IntPtr)> factory)
         {
             var this_ = Handle;
-            var (func_, notify_, data_) = UnmanagedSourceFuncFactory.CreateNotifyDelegate(func);
-            g_source_set_callback(this_, func_, data_, notify_);
+            var (func_, notify_, data_) = factory(func, CallbackScope.Notified);
+            var func__ = Marshal.GetFunctionPointerForDelegate<TUnmanaged>(func_);
+            g_source_set_callback(this_, func__, data_, notify_);
         }
 
         /// <summary>
@@ -1462,22 +1463,22 @@ namespace GISharp.GLib
         {
         }
 
-        protected override bool Check ()
+        protected override bool OnCheck ()
         {
             throw new NotSupportedException ();
         }
 
-        protected override bool Dispatch (SourceFunc callback)
+        protected override bool OnDispatch (SourceFunc callback)
         {
             throw new NotSupportedException ();
         }
 
-        protected override void Finalize_ ()
+        protected override void OnFinalize ()
         {
             throw new NotSupportedException ();
         }
 
-        protected override bool Prepare (out int timeout)
+        protected override bool OnPrepare (out int timeout)
         {
             throw new NotSupportedException ();
         }
@@ -1518,7 +1519,7 @@ namespace GISharp.GLib
             out int timeout);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedPrepare PrepareImpl;
+        public UnmanagedPrepare OnPrepare;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate bool UnmanagedCheck (
@@ -1527,7 +1528,7 @@ namespace GISharp.GLib
             IntPtr source);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedCheck CheckImpl;
+        public UnmanagedCheck OnCheck;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate bool UnmanagedDispatch (
@@ -1542,7 +1543,7 @@ namespace GISharp.GLib
             IntPtr userData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedDispatch DispatchImpl;
+        public UnmanagedDispatch OnDispatch;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void UnmanagedFinalize (
@@ -1551,7 +1552,7 @@ namespace GISharp.GLib
             IntPtr source);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedFinalize FinalizeImpl;
+        public UnmanagedFinalize OnFinalize;
 
         // private fields
         #pragma warning disable CS0169
@@ -1578,7 +1579,7 @@ namespace GISharp.GLib
         public delegate void Ref (IntPtr cbData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedRef RefImpl;
+        public UnmanagedRef OnRef;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void UnmanagedUnref (
@@ -1589,7 +1590,7 @@ namespace GISharp.GLib
         public delegate void Unref (IntPtr cbData);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedUnref UnrefImpl;
+        public UnmanagedUnref OnUnref;
 
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
         public delegate void UnmanagedGet (
@@ -1609,7 +1610,7 @@ namespace GISharp.GLib
         public delegate void Get (IntPtr cbData, Source source, SourceFunc func);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
-        public UnmanagedGet GetImpl;
+        public UnmanagedGet OnGet;
         #pragma warning restore CS0649
     }
 }

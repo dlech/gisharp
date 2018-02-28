@@ -51,6 +51,29 @@
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='make_pollfd']/gi:parameters/gi:parameter[@name='pollfd']
 
 
+### CancellableSource ###
+
+- !add-element
+  xml: <gi:record name="CancellableSource" gs:opaque="source" />
+  xpath: gi:repository/gi:namespace
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='source_new']
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']
+- !set-attribute
+  name: name
+  value: new
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='source_new']
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='new']
+- !change-element
+  new-name: gi:constructor
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:method[@name='new']
+- !change-element
+  new-name: gi:parameter
+  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableSource']/gi:constructor[@name='new']/gi:parameters/gi:instance-parameter
+
 ### IOErrorEnum ###
 
 - !move-element
