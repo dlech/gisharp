@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -59,17 +59,6 @@ namespace GISharp.CodeGen.Model
         /// Indicates if this class is abstract
         /// </summary>
         public bool IsAbstract => Element.Attribute("abstract").AsBool();
-
-        /// <summary>
-        /// Gets the parent type for a GType struct
-        /// </summary>
-        public Type GTypeStructParent {
-            get {
-                var firstField = Element.Elements(gi + "field").First();
-                var parentType = GirType.ResolveType (firstField.Attribute (gs + "managed-type").Value, Element.Document);
-                return parentType;
-            }
-        }
 
         public bool HasDefaultConstructor {
             get {
@@ -268,9 +257,6 @@ namespace GISharp.CodeGen.Model
                     break;
                 case "static":
                     opaqueTypeName = typeof(GISharp.Runtime.Opaque).FullName;
-                    break;
-                case "gtype-struct":
-                    opaqueTypeName = GTypeStructParent.FullName;
                     break;
                 default:
                     var message = $"Unknown opaque type '{opaqueTypeName}'";
