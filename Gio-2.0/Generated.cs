@@ -3550,6 +3550,18 @@ System.IntPtr actionName);
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.Gio.AsyncReadyCallback Create(GISharp.Gio.UnmanagedAsyncReadyCallback callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.Gio.AsyncReadyCallback((GISharp.GObject.Object sourceObject, GISharp.Gio.IAsyncResult res) =>
+            {
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="AsyncReadyCallback"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -3568,7 +3580,7 @@ System.IntPtr actionName);
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.Gio.UnmanagedAsyncReadyCallback, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.Gio.UnmanagedAsyncReadyCallback, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -4732,6 +4744,19 @@ System.IntPtr cancellable);
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.Gio.CancellableSourceFunc Create(GISharp.Gio.UnmanagedCancellableSourceFunc callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.Gio.CancellableSourceFunc((GISharp.Gio.Cancellable cancellable) =>
+            {
+                return default(System.Boolean);
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="CancellableSourceFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -4750,7 +4775,7 @@ System.IntPtr cancellable);
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.Gio.UnmanagedCancellableSourceFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.Gio.CancellableSourceFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.Gio.UnmanagedCancellableSourceFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Gio.CancellableSourceFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -5112,9 +5137,87 @@ System.IntPtr cancellable);
     }
 
     /// <summary>
+    /// A #GSimpleAction is the obvious simple implementation of the #GAction
+    /// interface. This is the easiest way to create an action for purposes of
+    /// adding it to a #GSimpleActionGroup.
     /// </summary>
     /// <remarks>
+    /// See also #GtkAction.
     /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GSimpleAction", IsProxyForUnmanagedType = true)]
+    public sealed partial class SimpleAction : GISharp.GObject.Object, GISharp.Gio.IAction
+    {
+        static readonly GISharp.GObject.GType _GType = g_simple_action_get_type();
+        static readonly GISharp.GLib.Utf8 nameofEnabled = new GISharp.GLib.Utf8("enabled");
+
+        [GISharp.Runtime.GPropertyAttribute("enabled")]
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public System.Boolean Enabled { get => (System.Boolean)GetProperty(nameofEnabled);set => SetProperty(nameofEnabled, value);}
+
+        static readonly GISharp.GLib.Utf8 nameofName = new GISharp.GLib.Utf8("name");
+
+        [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public GISharp.GLib.Utf8 Name { get => (GISharp.GLib.Utf8)GetProperty(nameofName);}
+
+        static readonly GISharp.GLib.Utf8 nameofParameterType = new GISharp.GLib.Utf8("parameter-type");
+
+        [GISharp.Runtime.GPropertyAttribute("parameter-type", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public GISharp.GLib.VariantType ParameterType { get => (GISharp.GLib.VariantType)GetProperty(nameofParameterType);}
+
+        static readonly GISharp.GLib.Utf8 nameofState = new GISharp.GLib.Utf8("state");
+
+        [GISharp.Runtime.GPropertyAttribute("state", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public GISharp.GLib.Variant State { get => (GISharp.GLib.Variant)GetProperty(nameofState);set => SetProperty(nameofState, value);}
+
+        static readonly GISharp.GLib.Utf8 nameofStateType = new GISharp.GLib.Utf8("state-type");
+
+        [GISharp.Runtime.GPropertyAttribute("state-type")]
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public GISharp.GLib.VariantType StateType { get => (GISharp.GLib.VariantType)GetProperty(nameofStateType);}
+
+        public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Variant Parameter => (GISharp.GLib.Variant)args[1].Get();
+
+            public ActivatedEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalHandler = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
+
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
+        public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalHandler.Add(this, value); remove => activatedSignalHandler.Remove(value); }
+
+        public sealed class ChangedStateEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly GISharp.GObject.Value[] args;
+
+            public GISharp.GLib.Variant Value => (GISharp.GLib.Variant)args[1].Get();
+
+            public ChangedStateEventArgs(GISharp.GObject.Value[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        readonly GISharp.Runtime.GSignalManager<ChangedStateEventArgs> changedStateSignalHandler = new GISharp.Runtime.GSignalManager<ChangedStateEventArgs>("change-state", _GType);
+
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
+        public event System.EventHandler<ChangedStateEventArgs> ChangedState { add => changedStateSignalHandler.Add(this, value); remove => changedStateSignalHandler.Remove(value); }
+
+        public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
         /// <summary>
         /// Creates a new action.
         /// </summary>

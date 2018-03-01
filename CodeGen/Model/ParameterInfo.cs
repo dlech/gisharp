@@ -47,6 +47,11 @@ namespace GISharp.CodeGen.Model
             }
         }
 
+        /// <summary>
+        /// <c>true</c> indicates that the parameter is a callback (delegate type).
+        /// </summary>
+        public bool IsCallback => Element.Attribute("scope") != null;
+
         public GISharp.Runtime.Transfer Transfer {
             get {
                 var defaultTransfer = default(string);

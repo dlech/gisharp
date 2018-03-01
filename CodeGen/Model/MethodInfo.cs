@@ -105,6 +105,24 @@ namespace GISharp.CodeGen.Model
         }
 
         /// <summary>
+        /// Indicates the managed return type should be <c>void</c>. This may
+        /// be because the unmanaged return parameter is "none" or the return
+        /// value is not useful, like a bool return on a method that throws
+        /// a GErrorException.
+        /// </summary>
+        public bool ShouldIgnoreReturnParameter {
+            get {
+                if (ManagedReturnParameterInfo.TypeInfo.Classification == TypeClassification.Void) {
+                    return true;
+                }
+                if (ThrowsGErrorException && ManagedReturnParameterInfo.TypeInfo.TypeObject == typeof(bool)) {
+                    return true;
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
         /// Gets the unmanaged virtual method delegate field declaration
         public FieldDeclarationSyntax VirtualMethodDelegateFieldDeclaration =>
             _VirtualMethodDelegateFieldDeclaration.Value;
@@ -779,6 +797,15 @@ namespace GISharp.CodeGen.Model
                     statement = "var " + statement;
                 }
                 yield return ParseStatement (statement);
+                break;
+            case TypeClassification.Delegate:
+                var userDataParameter = PinvokeParameterInfos[unmangedParameterInfo.ClosureIndex];
+                statement = string.Format("var {0} = {1}Factory.Create({2}_, {3}_);\n",
+                    managedParameterInfo.Identifier,
+                    managedParameterInfo.TypeInfo.Type,
+                    unmangedParameterInfo.Identifier,
+                    userDataParameter.Identifier);
+                yield return ParseStatement(statement);
                 break;
             default:
                 // TODO : need more implementations here

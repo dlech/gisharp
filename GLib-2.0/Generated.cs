@@ -3858,6 +3858,18 @@ namespace GISharp.GLib
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.GLib.OptionArgFunc Create(GISharp.GLib.UnmanagedOptionArgFunc callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.GLib.OptionArgFunc((GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value) =>
+            {
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="OptionArgFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -3876,7 +3888,7 @@ namespace GISharp.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionArgFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionArgFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.GLib.UnmanagedOptionArgFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.GLib.OptionArgFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -5053,6 +5065,18 @@ namespace GISharp.GLib
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.GLib.OptionErrorFunc Create(GISharp.GLib.UnmanagedOptionErrorFunc callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.GLib.OptionErrorFunc((GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group) =>
+            {
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="OptionErrorFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -5071,7 +5095,7 @@ namespace GISharp.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionErrorFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionErrorFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.GLib.UnmanagedOptionErrorFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.GLib.OptionErrorFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -5475,6 +5499,18 @@ namespace GISharp.GLib
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.GLib.OptionParseFunc Create(GISharp.GLib.UnmanagedOptionParseFunc callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.GLib.OptionParseFunc((GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group) =>
+            {
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="OptionParseFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -5493,7 +5529,7 @@ namespace GISharp.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.GLib.UnmanagedOptionParseFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.OptionParseFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.GLib.UnmanagedOptionParseFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.GLib.OptionParseFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -5575,6 +5611,19 @@ namespace GISharp.GLib
             public GISharp.Runtime.CallbackScope Scope;
         }
 
+        public static GISharp.GLib.TranslateFunc Create(GISharp.GLib.UnmanagedTranslateFunc callback, System.IntPtr userData)
+        {
+            if (callback == null)
+            {
+                throw new System.ArgumentNullException(nameof(callback));
+            }
+
+            return new GISharp.GLib.TranslateFunc((GISharp.GLib.Utf8 str) =>
+            {
+                return default(GISharp.GLib.Utf8);
+            });
+        }
+
         /// <summary>
         /// Wraps a <see cref="TranslateFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
@@ -5593,7 +5642,7 @@ namespace GISharp.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static System.ValueTuple<GISharp.GLib.UnmanagedTranslateFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr> Create(GISharp.GLib.TranslateFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.GLib.UnmanagedTranslateFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.GLib.TranslateFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {

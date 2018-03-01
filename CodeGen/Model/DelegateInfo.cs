@@ -225,21 +225,30 @@ namespace GISharp.CodeGen.Model
                 .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField);
             yield return dataClass;
 
-            // emit Create() method
+            // emit Create() method for unmanged>managed
 
-            var createMethodParams = $"({QualifiedName} callback, {scopeType} scope)";
-            var createMethodParamList = ParseParameterList(createMethodParams);
-            var returnType = ParseTypeName(string.Format("{0}<{1}, {2}, {3}>",
-                typeof(ValueTuple).FullName,
+            var createUserDataType = typeof(IntPtr).FullName;
+            var createMethodParams = $"({UnmanagedQualifiedName} callback, {createUserDataType} userData)";
+            var createReturnType = QualifiedName;
+            var createMethod = MethodDeclaration(createReturnType, "Create")
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .WithParameterList(ParseParameterList(createMethodParams))
+                .WithBody(Block(LazyGetFactoryCreateMethodStatements()));
+            yield return createMethod;
+
+            // emit Create() method for managed>unmanaged
+
+            var create2MethodParams = $"({QualifiedName} callback, {scopeType} scope)";
+            var create2ReturnType = ParseTypeName(string.Format("({0}, {1}, {2})",
                 UnmanagedQualifiedName,
                 typeof(UnmanagedDestroyNotify).FullName,
                 typeof(IntPtr).FullName));
-            var createMethod = MethodDeclaration(returnType, "Create")
+            var create2Method = MethodDeclaration(create2ReturnType, "Create")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-                .WithParameterList(createMethodParamList)
-                .WithBody(Block(LazyGetFactoryStatements()))
-                .WithLeadingTrivia(LazyGetFactoryCreateMethodDocumentationCommentTrivia());
-            yield return createMethod;
+                .WithParameterList(ParseParameterList(create2MethodParams))
+                .WithBody(Block(LazyGetFactoryCreate2MethodStatements()))
+                .WithLeadingTrivia(LazyGetFactoryCreate2MethodDocumentationCommentTrivia());
+            yield return create2Method;
 
             // emit unmanaged callback method
 
@@ -275,7 +284,32 @@ namespace GISharp.CodeGen.Model
             yield return destroyMethod;
         }
 
-        IEnumerable<StatementSyntax> LazyGetFactoryStatements()
+        IEnumerable<StatementSyntax> LazyGetFactoryCreateMethodStatements()
+        {
+            var nullCheck = ParseStatement(string.Format(@"if (callback == null) {{
+                throw new {0}(nameof(callback));
+            }}
+            ", typeof(ArgumentNullException).FullName));
+            yield return nullCheck;
+
+            var paramList = MethodInfo.ParameterList;
+            var body = Block();
+            if (!MethodInfo.ShouldIgnoreReturnParameter) {
+                var returnType = MethodInfo.ManagedReturnParameterInfo.TypeInfo.Type;
+                // FIXME: need to use private method from MethodInfo to get statements
+                var returnStatement = ParseStatement($"return default({returnType});\n");
+                body = body.AddStatements(returnStatement);
+            }
+            var lambdaExpression = ParenthesizedLambdaExpression(body)
+                .WithParameterList(paramList);
+
+            var newExpression = ObjectCreationExpression(QualifiedName)
+                .AddArgumentListArguments(Argument(lambdaExpression));
+
+            yield return ReturnStatement(newExpression);
+        }
+
+        IEnumerable<StatementSyntax> LazyGetFactoryCreate2MethodStatements()
         {
             var userDataStatement = string.Format(@"var userData = new UserData {{
                 ManagedDelegate = callback ?? throw new {0}(nameof(callback)),
@@ -305,7 +339,7 @@ namespace GISharp.CodeGen.Model
             return ParseLeadingTrivia (comments);
         }
 
-        SyntaxTriviaList LazyGetFactoryCreateMethodDocumentationCommentTrivia()
+        SyntaxTriviaList LazyGetFactoryCreate2MethodDocumentationCommentTrivia()
         {
             var comments = string.Format(@"/// <summary>
 /// Wraps a <see cref=""{0}""/> in an anonymous method that can
