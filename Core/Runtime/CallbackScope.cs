@@ -1,4 +1,4 @@
-﻿
+
 namespace GISharp.Runtime
 {
     /// <summary>
@@ -6,6 +6,10 @@ namespace GISharp.Runtime
     /// </summary>
     public enum CallbackScope
     {
+        /// <summary>
+        /// The callback scope is not known.
+        /// </summary>
+        Unknown,
         /// <summary>
         /// Only valid for the duration of the call.
         /// </summary>

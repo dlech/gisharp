@@ -365,7 +365,7 @@ namespace GISharp.GLib
             } else {
                 // this function does not fix the GIR callback scope pattern
                 // so we have to do some special memory management ourselves
-                var (logFunc_, _, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Call);
+                var (logFunc_, _, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Unknown);
                 g_log_set_default_handler (logFunc_, userData_);
                 defaultHandler = (GCHandle)userData_;
             }
