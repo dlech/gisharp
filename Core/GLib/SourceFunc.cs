@@ -31,6 +31,14 @@ namespace GISharp.GLib
             public CallbackScope Scope;
         }
 
+        public static SourceFunc Create(UnmanagedSourceFunc func, IntPtr userData)
+        {
+            return new SourceFunc(() => {
+                var ret = func(userData);
+                return ret;
+            });
+        }
+
         public static (UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr) Create(SourceFunc func, CallbackScope scope) {
             var data = new UserData {
                 Func = func ?? throw new ArgumentNullException(nameof(func)),

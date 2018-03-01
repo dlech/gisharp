@@ -58,6 +58,15 @@ namespace GISharp.GLib
             public CallbackScope Scope;
         }
 
+        public static LogFunc Create(UnmanagedLogFunc logFunc_, IntPtr userData_)
+        {
+            return new LogFunc((logDomain, logLevel, message) => {
+                var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
+                var message_ = message?.Handle ?? throw new ArgumentNullException(nameof(message));
+                logFunc_(logDomain_, logLevel, message_, userData_);
+            });
+        }
+
         public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) Create(LogFunc func, CallbackScope scope) {
             var data = new UserData {
                 Func = func,

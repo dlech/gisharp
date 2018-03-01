@@ -133,7 +133,7 @@ namespace GISharp.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
+            IntPtr fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -171,12 +171,12 @@ namespace GISharp.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput Default (LogLevelFlags logLevel, LogField[] fields)
+        public static LogWriterOutput Default(LogLevelFlags logLevel, IArray<LogField> fields)
         {
             if (fields == null) {
-                throw new ArgumentNullException (nameof(fields));
+                throw new ArgumentNullException(nameof(fields));
             }
-            var ret = g_log_writer_default (logLevel, fields, (UIntPtr)fields.Length, IntPtr.Zero);
+            var ret = g_log_writer_default(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
 
@@ -395,7 +395,7 @@ namespace GISharp.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] LogField[] fields,
+            IntPtr fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -427,12 +427,12 @@ namespace GISharp.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput Journald (LogLevelFlags logLevel, LogField[] fields)
+        public static LogWriterOutput Journald(LogLevelFlags logLevel, IArray<LogField> fields)
         {
             if (fields == null) {
-                throw new ArgumentNullException (nameof(fields));
+                throw new ArgumentNullException(nameof(fields));
             }
-            var ret = g_log_writer_journald (logLevel, fields, (UIntPtr)fields.Length, IntPtr.Zero);
+            var ret = g_log_writer_journald(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
 
@@ -480,7 +480,7 @@ namespace GISharp.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)]LogField[] fields,
+            IntPtr fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -515,12 +515,12 @@ namespace GISharp.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput StandardStreams (LogLevelFlags logLevel, LogField[] fields)
+        public static LogWriterOutput StandardStreams(LogLevelFlags logLevel, IArray<LogField> fields)
         {
             if (fields == null) {
-                throw new ArgumentNullException (nameof(fields));
+                throw new ArgumentNullException(nameof(fields));
             }
-            var ret = g_log_writer_standard_streams (logLevel, fields, (UIntPtr)fields.Length, IntPtr.Zero);
+            var ret = g_log_writer_standard_streams(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
 

@@ -271,7 +271,7 @@ namespace GISharp.GObject
         {
             var gcHandle = GCHandle.Alloc(callback, GCHandleType.Weak);
             Marshal.WriteIntPtr(handle, (int)callbackGCHandleOffset, (IntPtr)gcHandle);
-            var (callback_, notify_, userData_) = ClosureMarshalDelegateFactory.CreateNotifyDelegate(callbackWrapper);
+            var (callback_, notify_, userData_) = ClosureMarshalFactory.Create(callbackWrapper, CallbackScope.Notified);
             g_closure_set_meta_marshal(handle, userData_, callback_);
             g_closure_add_invalidate_notifier(handle, userData_, notify_);
         }

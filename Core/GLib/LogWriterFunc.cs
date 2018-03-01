@@ -30,7 +30,7 @@ namespace GISharp.GLib
             <type name="LogField" type="GLogField" managed-name="LogField" />
             </array> */
         /* transfer-ownership:none */
-        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
+        IntPtr fields,
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         UIntPtr nFields,
@@ -53,7 +53,7 @@ namespace GISharp.GLib
     /// output the log entry.
     /// </remarks>
     [Since("2.50")]
-    public delegate LogWriterOutput LogWriterFunc (LogLevelFlags logLevel, LogField[] fields);
+    public delegate LogWriterOutput LogWriterFunc(LogLevelFlags logLevel, IArray<LogField> fields);
 
     public static class LogWriterFuncFactory
     {
@@ -63,6 +63,14 @@ namespace GISharp.GLib
             public UnmanagedLogWriterFunc UnmanagedFunc;
             public UnmanagedDestroyNotify UnmanagedNotify;
             public CallbackScope Scope;
+        }
+
+        public static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
+        {
+            return new LogWriterFunc((logLevel, fields) => {
+                var ret = func(logLevel, fields.Data, (UIntPtr)fields.Length, userData);
+                return ret;
+            });
         }
 
         public static (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope) {
@@ -77,12 +85,13 @@ namespace GISharp.GLib
             return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
         }
 
-        static LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, LogField[] fields_, UIntPtr nFields_, IntPtr userData_)
+        static LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, IntPtr fields_, UIntPtr nFields_, IntPtr userData_)
         {
             try {
                 var gcHandle = (GCHandle)userData_;
+                var fields = CArray.GetInstance<LogField>(fields_, (int)nFields_, Transfer.None);
                 var userData = (UserData)gcHandle.Target;
-                var ret = userData.Func(logLevel_, fields_);
+                var ret = userData.Func(logLevel_, fields);
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();
                 }
