@@ -1,11 +1,11 @@
-﻿using GISharp.GLib;
-using GISharp.GObject;
+﻿using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class ErrorTests

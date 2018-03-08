@@ -7,10 +7,10 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public static class Repository
     {
@@ -77,12 +77,12 @@ namespace GISharp.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
-        internal static GISharp.GIRepository.BaseInfo FindByName (string @namespace, string name)
+        internal static GISharp.Lib.GIRepository.BaseInfo FindByName (string @namespace, string name)
         {
             IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace, native_name);
-            GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+            GISharp.Lib.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             GMarshal.Free (native_namespace);
             GMarshal.Free (native_name);
             return ret;
@@ -140,11 +140,11 @@ namespace GISharp.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_info (IntPtr raw, IntPtr @namespace, int index);
 
-        internal static GISharp.GIRepository.BaseInfo GetInfo (string @namespace, int index)
+        internal static GISharp.Lib.GIRepository.BaseInfo GetInfo (string @namespace, int index)
         {
             IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
             IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace, index);
-            GISharp.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+            GISharp.Lib.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
             GMarshal.Free (native_namespace);
             return ret;
         }

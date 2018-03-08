@@ -3,15 +3,15 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-using Object = GISharp.GObject.Object;
+using Object = GISharp.Lib.GObject.Object;
 using System.Collections.Generic;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class ObjectTests

@@ -1,17 +1,17 @@
 using System;
 using System.Linq;
-using GISharp.Gio;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.Gio;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 using System.Reflection;
 
 using static GISharp.TestHelpers;
-using Object = GISharp.GObject.Object;
-using ActionSet = System.Collections.Generic.HashSet<GISharp.Gio.IAction>;
+using Object = GISharp.Lib.GObject.Object;
+using ActionSet = System.Collections.Generic.HashSet<GISharp.Lib.Gio.IAction>;
 
-namespace GISharp.Gio.Test
+namespace GISharp.Test.Gio
 {
     [TestFixture]
     public class ActionMapTests

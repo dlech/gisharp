@@ -16,7 +16,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static NamespaceDeclarationSyntax GetDeclaration(this Namespace @namespace)
         {
-            var rootNamespace = ParseName(nameof(GISharp));
+            var rootNamespace = ParseName("GISharp.Lib");
             var namespaceName = IdentifierName(@namespace.Name);
             var fullName = QualifiedName(rootNamespace, namespaceName);
             return NamespaceDeclaration(fullName);

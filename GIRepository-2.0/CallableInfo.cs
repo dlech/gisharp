@@ -5,10 +5,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public abstract class CallableInfo : BaseInfo
     {

@@ -2,9 +2,10 @@
 using System;
 using System.Reflection;
 
-using GISharp.GLib;
+using GISharp.Lib.GLib;
+using Version = GISharp.Lib.GLib.Version;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Test.GLib
 {
     [TestFixture]
     public class VersionTests

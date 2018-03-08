@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Runtime.InteropServices;
 
-using GISharp.GObject;
-using GISharp.GLib;
+using GISharp.Lib.GObject;
+using GISharp.Lib.GLib;
+
+using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Runtime
 {
@@ -87,8 +89,8 @@ namespace GISharp.Runtime
                 return null;
             }
 
-            if (typeof(GObject.Object).IsAssignableFrom (type)) {
-                return GObject.Object.GetInstance(handle, ownership);
+            if (typeof(Object).IsAssignableFrom (type)) {
+                return Object.GetInstance(handle, ownership);
             }
 
             if (typeof(ParamSpec).IsAssignableFrom (type)) {

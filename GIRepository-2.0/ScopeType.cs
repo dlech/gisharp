@@ -3,7 +3,7 @@
 
 using System.Runtime.InteropServices;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Scope type.

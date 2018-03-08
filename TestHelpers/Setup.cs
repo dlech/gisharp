@@ -1,8 +1,8 @@
 ﻿﻿using System;
 using NUnit.Framework;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
-using static GISharp.GLib.LogLevelFlags;
+using static GISharp.Lib.GLib.LogLevelFlags;
 
 namespace GISharp.Test
 {

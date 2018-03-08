@@ -4,10 +4,10 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository.Dynamic
+namespace GISharp.Lib.GIRepository.Dynamic
 {
     public class DynamicGObject : IDynamicMetaObjectProvider, IDisposable
     {

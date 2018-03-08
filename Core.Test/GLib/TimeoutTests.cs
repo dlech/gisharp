@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Threading.Tasks;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class TimeoutTests

@@ -1,4 +1,4 @@
-namespace GISharp.Gio
+namespace GISharp.Lib.Gio
 {
     /// <summary>
     /// #GAction represents a single named action.
@@ -33,8 +33,8 @@ namespace GISharp.Gio
     /// inside of a #GSimpleActionGroup.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAction", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionInterface))]
-    public interface IAction : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionInterface))]
+    public interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// If @action is currently enabled.
@@ -53,7 +53,7 @@ namespace GISharp.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
-        GISharp.GLib.Utf8 Name { get; }
+        GISharp.Lib.GLib.Utf8 Name { get; }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
@@ -62,14 +62,14 @@ namespace GISharp.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type")]
-        GISharp.GLib.VariantType ParameterType { get; }
+        GISharp.Lib.GLib.VariantType ParameterType { get; }
 
         /// <summary>
         /// The state of the action, or %NULL if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
-        GISharp.GLib.Variant State { get; }
+        GISharp.Lib.GLib.Variant State { get; }
 
         /// <summary>
         /// The #GVariantType of the state that the action has, or %NULL if the
@@ -77,7 +77,7 @@ namespace GISharp.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
-        GISharp.GLib.VariantType StateType { get; }
+        GISharp.Lib.GLib.VariantType StateType { get; }
 
         /// <summary>
         /// Activates the action.
@@ -93,7 +93,7 @@ namespace GISharp.Gio
         /// the parameter to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActivate(GISharp.GLib.Variant parameter);
+        void OnActivate(GISharp.Lib.GLib.Variant parameter);
 
         /// <summary>
         /// Request for the state of @action to be changed to @value.
@@ -112,7 +112,7 @@ namespace GISharp.Gio
         /// the new state
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        void OnChangeState(GISharp.GLib.Variant value);
+        void OnChangeState(GISharp.Lib.GLib.Variant value);
 
         /// <summary>
         /// Checks if @action is currently enabled.
@@ -134,7 +134,7 @@ namespace GISharp.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Utf8 OnGetName();
+        GISharp.Lib.GLib.Utf8 OnGetName();
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
@@ -151,7 +151,7 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType OnGetParameterType();
+        GISharp.Lib.GLib.VariantType OnGetParameterType();
 
         /// <summary>
         /// Queries the current state of @action.
@@ -168,7 +168,7 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant OnGetState();
+        GISharp.Lib.GLib.Variant OnGetState();
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of
@@ -195,7 +195,7 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant OnGetStateHint();
+        GISharp.Lib.GLib.Variant OnGetStateHint();
 
         /// <summary>
         /// Queries the type of the state of @action.
@@ -216,12 +216,12 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType OnGetStateType();
+        GISharp.Lib.GLib.VariantType OnGetStateType();
     }
 
     public static class Action
     {
-        static readonly GISharp.GObject.GType _GType = g_action_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_action_get_type();
 
         /// <summary>
         /// Checks if @action_name is valid.
@@ -265,7 +265,7 @@ namespace GISharp.Gio
         /// %TRUE if @action_name is valid
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static System.Boolean NameIsValid(GISharp.GLib.Utf8 actionName)
+        public static System.Boolean NameIsValid(GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_name_is_valid(actionName_);
@@ -376,19 +376,19 @@ namespace GISharp.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static void ParseDetailedName(GISharp.GLib.Utf8 detailedName, out GISharp.GLib.Utf8 actionName, out GISharp.GLib.Variant targetValue)
+        public static void ParseDetailedName(GISharp.Lib.GLib.Utf8 detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
         {
             var detailedName_ = detailedName?.Handle ?? throw new System.ArgumentNullException(nameof(detailedName));
             var error_ = System.IntPtr.Zero;
             g_action_parse_detailed_name(detailedName_,out var actionName_,out var targetValue_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.Full);
-            targetValue = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(targetValue_, GISharp.Runtime.Transfer.Full);
+            actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.Full);
+            targetValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(targetValue_, GISharp.Runtime.Transfer.Full);
         }
 
         /// <summary>
@@ -448,19 +448,19 @@ namespace GISharp.Gio
         /// a detailed format string
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static GISharp.GLib.Utf8 PrintDetailedName(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant targetValue)
+        public static GISharp.Lib.GLib.Utf8 PrintDetailedName(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant targetValue)
         {
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var targetValue_ = targetValue?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_action_get_type();
+        static extern GISharp.Lib.GObject.GType g_action_get_type();
 
         /// <summary>
         /// Activates the action.
@@ -507,7 +507,7 @@ namespace GISharp.Gio
         /// the parameter to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void Activate(this GISharp.Gio.IAction action, GISharp.GLib.Variant parameter)
+        public static void Activate(this GISharp.Lib.Gio.IAction action, GISharp.Lib.GLib.Variant parameter)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
@@ -565,7 +565,7 @@ namespace GISharp.Gio
         /// the new state
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static void ChangeState(this GISharp.Gio.IAction action, GISharp.GLib.Variant value)
+        public static void ChangeState(this GISharp.Lib.Gio.IAction action, GISharp.Lib.GLib.Variant value)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
@@ -608,7 +608,7 @@ namespace GISharp.Gio
         /// whether the action is enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetEnabled(this GISharp.Gio.IAction action)
+        public static System.Boolean GetEnabled(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_enabled(action_);
@@ -644,11 +644,11 @@ namespace GISharp.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Utf8 GetName(this GISharp.Gio.IAction action)
+        public static GISharp.Lib.GLib.Utf8 GetName(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_name(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -696,11 +696,11 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetParameterType(this GISharp.Gio.IAction action)
+        public static GISharp.Lib.GLib.VariantType GetParameterType(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_parameter_type(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -748,11 +748,11 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetState(this GISharp.Gio.IAction action)
+        public static GISharp.Lib.GLib.Variant GetState(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -820,11 +820,11 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetStateHint(this GISharp.Gio.IAction action)
+        public static GISharp.Lib.GLib.Variant GetStateHint(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_hint(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -880,11 +880,11 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetStateType(this GISharp.Gio.IAction action)
+        public static GISharp.Lib.GLib.VariantType GetStateType(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_state_type(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
     }
@@ -938,8 +938,8 @@ namespace GISharp.Gio
     /// calls to g_action_group_query_action().
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionGroupInterface))]
-    public interface IActionGroup : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionGroupInterface))]
+    public interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Signals that a new action was just added to the group.
@@ -948,14 +948,14 @@ namespace GISharp.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded;
+        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded;
 
         /// <summary>
         /// Signals that the enabled status of the named action has changed.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-enabled-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
+        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
 
         /// <summary>
         /// Signals that an action is just about to be removed from the group.
@@ -964,14 +964,14 @@ namespace GISharp.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-removed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved;
+        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved;
 
         /// <summary>
         /// Signals that the state of the named action has changed.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
+        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
 
         /// <summary>
         /// Emits the #GActionGroup::action-added signal on @action_group.
@@ -983,7 +983,7 @@ namespace GISharp.Gio
         /// the name of an action in the group
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActionAdded(GISharp.GLib.Utf8 actionName);
+        void OnActionAdded(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
@@ -998,7 +998,7 @@ namespace GISharp.Gio
         /// whether or not the action is now enabled
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActionEnabledChanged(GISharp.GLib.Utf8 actionName, System.Boolean enabled);
+        void OnActionEnabledChanged(GISharp.Lib.GLib.Utf8 actionName, System.Boolean enabled);
 
         /// <summary>
         /// Emits the #GActionGroup::action-removed signal on @action_group.
@@ -1010,7 +1010,7 @@ namespace GISharp.Gio
         /// the name of an action in the group
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActionRemoved(GISharp.GLib.Utf8 actionName);
+        void OnActionRemoved(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Emits the #GActionGroup::action-state-changed signal on @action_group.
@@ -1025,7 +1025,7 @@ namespace GISharp.Gio
         /// the new state of the named action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActionStateChanged(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state);
+        void OnActionStateChanged(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant state);
 
         /// <summary>
         /// Activate the named action within @action_group.
@@ -1043,7 +1043,7 @@ namespace GISharp.Gio
         /// parameters to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnActivateAction(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter);
+        void OnActivateAction(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant parameter);
 
         /// <summary>
         /// Request for the state of the named action within @action_group to be
@@ -1066,7 +1066,7 @@ namespace GISharp.Gio
         /// the new state
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        void OnChangeActionState(GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value);
+        void OnChangeActionState(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant value);
 
         /// <summary>
         /// Checks if the named action within @action_group is currently enabled.
@@ -1082,7 +1082,7 @@ namespace GISharp.Gio
         /// whether or not the action is currently enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        System.Boolean OnGetActionEnabled(GISharp.GLib.Utf8 actionName);
+        System.Boolean OnGetActionEnabled(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
@@ -1107,7 +1107,7 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType OnGetActionParameterType(GISharp.GLib.Utf8 actionName);
+        GISharp.Lib.GLib.VariantType OnGetActionParameterType(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Queries the current state of the named action within @action_group.
@@ -1127,7 +1127,7 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant OnGetActionState(GISharp.GLib.Utf8 actionName);
+        GISharp.Lib.GLib.Variant OnGetActionState(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of the
@@ -1157,7 +1157,7 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Variant OnGetActionStateHint(GISharp.GLib.Utf8 actionName);
+        GISharp.Lib.GLib.Variant OnGetActionStateHint(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Queries the type of the state of the named action within
@@ -1185,7 +1185,7 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.VariantType OnGetActionStateType(GISharp.GLib.Utf8 actionName);
+        GISharp.Lib.GLib.VariantType OnGetActionStateType(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Checks if the named action exists within @action_group.
@@ -1197,7 +1197,7 @@ namespace GISharp.Gio
         /// whether the named action exists
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        System.Boolean OnHasAction(GISharp.GLib.Utf8 actionName);
+        System.Boolean OnHasAction(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Lists the actions contained within @action_group.
@@ -1211,7 +1211,7 @@ namespace GISharp.Gio
         /// actions in the group
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        GISharp.GLib.Strv OnListActions();
+        GISharp.Lib.GLib.Strv OnListActions();
 
         /// <summary>
         /// Queries all aspects of the named action within an @action_group.
@@ -1265,20 +1265,20 @@ namespace GISharp.Gio
         /// %TRUE if the action exists, else %FALSE
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        System.Boolean OnTryQueryAction(GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state);
+        System.Boolean OnTryQueryAction(GISharp.Lib.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state);
     }
 
     public static class ActionGroup
     {
-        static readonly GISharp.GObject.GType _GType = g_action_group_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
 
         public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
 
-            public ActionAddedEventArgs(GISharp.GObject.Value[] args)
+            public ActionAddedEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -1286,13 +1286,13 @@ namespace GISharp.Gio
 
         public sealed class ActionEnabledChangedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
 
             public System.Boolean Enabled => (System.Boolean)args[2].Get();
 
-            public ActionEnabledChangedEventArgs(GISharp.GObject.Value[] args)
+            public ActionEnabledChangedEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -1300,11 +1300,11 @@ namespace GISharp.Gio
 
         public sealed class ActionRemovedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
 
-            public ActionRemovedEventArgs(GISharp.GObject.Value[] args)
+            public ActionRemovedEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -1312,13 +1312,13 @@ namespace GISharp.Gio
 
         public sealed class ActionStateChangedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Utf8 ActionName => (GISharp.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
 
-            public GISharp.GLib.Variant Value => (GISharp.GLib.Variant)args[2].Get();
+            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[2].Get();
 
-            public ActionStateChangedEventArgs(GISharp.GObject.Value[] args)
+            public ActionStateChangedEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -1327,7 +1327,7 @@ namespace GISharp.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_action_group_get_type();
+        static extern GISharp.Lib.GObject.GType g_action_group_get_type();
 
         /// <summary>
         /// Emits the #GActionGroup::action-added signal on @action_group.
@@ -1366,7 +1366,7 @@ namespace GISharp.Gio
         /// the name of an action in the group
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActionAdded(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static void ActionAdded(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1419,7 +1419,7 @@ namespace GISharp.Gio
         /// whether or not the action is now enabled
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActionEnabledChanged(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, System.Boolean enabled)
+        public static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, System.Boolean enabled)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1464,7 +1464,7 @@ namespace GISharp.Gio
         /// the name of an action in the group
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActionRemoved(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static void ActionRemoved(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1517,7 +1517,7 @@ namespace GISharp.Gio
         /// the new state of the named action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActionStateChanged(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant state)
+        public static void ActionStateChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant state)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1577,7 +1577,7 @@ namespace GISharp.Gio
         /// parameters to the activation
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ActivateAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant parameter)
+        public static void ActivateAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant parameter)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1647,7 +1647,7 @@ namespace GISharp.Gio
         /// the new state
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static void ChangeActionState(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, GISharp.GLib.Variant value)
+        public static void ChangeActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant value)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1700,7 +1700,7 @@ namespace GISharp.Gio
         /// whether or not the action is currently enabled
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean GetActionEnabled(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -1772,12 +1772,12 @@ namespace GISharp.Gio
         /// the parameter type
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetActionParameterType(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static GISharp.Lib.GLib.VariantType GetActionParameterType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_group_get_action_parameter_type(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -1834,12 +1834,12 @@ namespace GISharp.Gio
         /// the current state of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetActionState(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static GISharp.Lib.GLib.Variant GetActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_group_get_action_state(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1916,12 +1916,12 @@ namespace GISharp.Gio
         /// the state range hint
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Variant GetActionStateHint(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static GISharp.Lib.GLib.Variant GetActionStateHint(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_group_get_action_state_hint(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -1994,12 +1994,12 @@ namespace GISharp.Gio
         /// the state type, if the action is stateful
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.VariantType GetActionStateType(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static GISharp.Lib.GLib.VariantType GetActionStateType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_group_get_action_state_type(actionGroup_,actionName_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -2040,7 +2040,7 @@ namespace GISharp.Gio
         /// whether the named action exists
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static System.Boolean HasAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName)
+        public static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -2089,11 +2089,11 @@ namespace GISharp.Gio
         /// actions in the group
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public static GISharp.GLib.Strv ListActions(this GISharp.Gio.IActionGroup actionGroup)
+        public static GISharp.Lib.GLib.Strv ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var ret_ = g_action_group_list_actions(actionGroup_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -2233,16 +2233,16 @@ namespace GISharp.Gio
         /// %TRUE if the action exists, else %FALSE
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static System.Boolean TryQueryAction(this GISharp.Gio.IActionGroup actionGroup, GISharp.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.GLib.VariantType parameterType, out GISharp.GLib.VariantType stateType, out GISharp.GLib.Variant stateHint, out GISharp.GLib.Variant state)
+        public static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
         {
             var actionGroup_ = actionGroup?.Handle ?? throw new System.ArgumentNullException(nameof(actionGroup));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_group_query_action(actionGroup_,actionName_,out var enabled_,out var parameterType_,out var stateType_,out var stateHint_,out var state_);
             enabled = enabled_;
-            parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(parameterType_, GISharp.Runtime.Transfer.Full);
-            stateType = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.VariantType>(stateType_, GISharp.Runtime.Transfer.Full);
-            stateHint = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(stateHint_, GISharp.Runtime.Transfer.Full);
-            state = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(state_, GISharp.Runtime.Transfer.Full);
+            parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(parameterType_, GISharp.Runtime.Transfer.Full);
+            stateType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(stateType_, GISharp.Runtime.Transfer.Full);
+            stateHint = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(stateHint_, GISharp.Runtime.Transfer.Full);
+            state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.Full);
             var ret = ret_;
             return ret;
         }
@@ -2252,7 +2252,7 @@ namespace GISharp.Gio
     /// The virtual function table for #GActionGroup.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public sealed class ActionGroupInterface : GISharp.GObject.TypeInterface
+    public sealed class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
     {
         static readonly System.Int32 gIfaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
         static readonly System.Int32 onHasActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnHasAction));
@@ -2301,7 +2301,7 @@ namespace GISharp.Gio
         new struct Struct
         {
 #pragma warning disable CS0649
-            public GISharp.GObject.TypeInterface.Struct GIface;
+            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public System.IntPtr OnHasAction;
             public System.IntPtr OnListActions;
             public System.IntPtr OnGetActionEnabled;
@@ -2531,9 +2531,9 @@ out System.IntPtr state);
         {
         }
 
-        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        public override GISharp.Lib.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
         {
-            var ret = new GISharp.GObject.InterfaceInfo
+            var ret = new GISharp.Lib.GObject.InterfaceInfo
             {
                 InterfaceInit = InterfaceInit,
             };
@@ -2562,15 +2562,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnHasAction(actionName);
                 var ret_ = ret;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.Boolean);
             }
         }
@@ -2579,14 +2579,14 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnListActions();
                 var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2595,15 +2595,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnGetActionEnabled(actionName);
                 var ret_ = ret;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.Boolean);
             }
         }
@@ -2612,15 +2612,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnGetActionParameterType(actionName);
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2629,15 +2629,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnGetActionStateType(actionName);
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2646,15 +2646,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnGetActionStateHint(actionName);
                 var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2663,15 +2663,15 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnGetActionState(actionName);
                 var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2680,14 +2680,14 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
-                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
                 actionGroup.OnChangeActionState(actionName, value);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2695,14 +2695,14 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
-                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
                 actionGroup.OnActivateAction(actionName, parameter);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2710,13 +2710,13 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 actionGroup.OnActionAdded(actionName);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2724,13 +2724,13 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 actionGroup.OnActionRemoved(actionName);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2738,14 +2738,14 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var enabled = enabled_;
                 actionGroup.OnActionEnabledChanged(actionName, enabled);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2753,14 +2753,14 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
-                var state = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(state_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.None);
                 actionGroup.OnActionStateChanged(actionName, state);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -2768,8 +2768,8 @@ out System.IntPtr state);
         {
             try
             {
-                var actionGroup = (GISharp.Gio.IActionGroup)GISharp.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionGroup.OnTryQueryAction(actionName,out var enabled,out var parameterType,out var stateType,out var stateHint,out var state);
                 enabled_ = enabled;
                 parameterType_ = parameterType?.Take() ?? throw new System.ArgumentNullException(nameof(parameterType));
@@ -2781,7 +2781,7 @@ out System.IntPtr state);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 enabled_ = default(System.Boolean);
                 parameterType_ = default(System.IntPtr);
                 stateType_ = default(System.IntPtr);
@@ -2796,7 +2796,7 @@ out System.IntPtr state);
     /// The virtual function table for #GAction.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public sealed class ActionInterface : GISharp.GObject.TypeInterface
+    public sealed class ActionInterface : GISharp.Lib.GObject.TypeInterface
     {
         static readonly System.Int32 gIfaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
         static readonly System.Int32 onGetNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetName));
@@ -2827,7 +2827,7 @@ out System.IntPtr state);
         new struct Struct
         {
 #pragma warning disable CS0649
-            public GISharp.GObject.TypeInterface.Struct GIface;
+            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public System.IntPtr OnGetName;
             public System.IntPtr OnGetParameterType;
             public System.IntPtr OnGetStateType;
@@ -2929,9 +2929,9 @@ System.IntPtr parameter);
         {
         }
 
-        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        public override GISharp.Lib.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
         {
-            var ret = new GISharp.GObject.InterfaceInfo
+            var ret = new GISharp.Lib.GObject.InterfaceInfo
             {
                 InterfaceInit = InterfaceInit,
             };
@@ -2954,14 +2954,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetName();
                 var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2970,14 +2970,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetParameterType();
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -2986,14 +2986,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetStateType();
                 var ret_ = ret?.Handle ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3002,14 +3002,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetStateHint();
                 var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3018,14 +3018,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetEnabled();
                 var ret_ = ret;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.Boolean);
             }
         }
@@ -3034,14 +3034,14 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 var ret = action.OnGetState();
                 var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3050,13 +3050,13 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
-                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
                 action.OnChangeState(value);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -3064,13 +3064,13 @@ System.IntPtr parameter);
         {
             try
             {
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
-                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
                 action.OnActivate(parameter);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -3088,8 +3088,8 @@ System.IntPtr parameter);
     /// name.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.ActionMapInterface))]
-    public interface IActionMap : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionMapInterface))]
+    public interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Adds an action to the @action_map.
@@ -3104,7 +3104,7 @@ System.IntPtr parameter);
         /// a #GAction
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        void OnAddAction(GISharp.Gio.IAction action);
+        void OnAddAction(GISharp.Lib.Gio.IAction action);
 
         /// <summary>
         /// Looks up the action with the name @action_name in @action_map.
@@ -3119,7 +3119,7 @@ System.IntPtr parameter);
         /// a #GAction, or %NULL
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        GISharp.Gio.IAction OnLookupAction(GISharp.GLib.Utf8 actionName);
+        GISharp.Lib.Gio.IAction OnLookupAction(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
         /// Removes the named action from the action map.
@@ -3131,17 +3131,17 @@ System.IntPtr parameter);
         /// the name of the action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        void OnRemoveAction(GISharp.GLib.Utf8 actionName);
+        void OnRemoveAction(GISharp.Lib.GLib.Utf8 actionName);
     }
 
     public static class ActionMap
     {
-        static readonly GISharp.GObject.GType _GType = g_action_map_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_action_map_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_action_map_get_type();
+        static extern GISharp.Lib.GObject.GType g_action_map_get_type();
 
         /// <summary>
         /// Adds an action to the @action_map.
@@ -3186,7 +3186,7 @@ System.IntPtr parameter);
         /// a #GAction
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static void AddAction(this GISharp.Gio.IActionMap actionMap, GISharp.Gio.IAction action)
+        public static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
             var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
@@ -3236,12 +3236,12 @@ System.IntPtr parameter);
         /// a #GAction, or %NULL
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static GISharp.Gio.IAction LookupAction(this GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName)
+        public static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
-            var ret = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            var ret = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -3282,7 +3282,7 @@ System.IntPtr parameter);
         /// the name of the action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static void RemoveAction(this GISharp.Gio.IActionMap actionMap, GISharp.GLib.Utf8 actionName)
+        public static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.Utf8 actionName)
         {
             var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
             var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
@@ -3294,7 +3294,7 @@ System.IntPtr parameter);
     /// The virtual function table for #GActionMap.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.32")]
-    public sealed class ActionMapInterface : GISharp.GObject.TypeInterface
+    public sealed class ActionMapInterface : GISharp.Lib.GObject.TypeInterface
     {
         static readonly System.Int32 gIfaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
         static readonly System.Int32 onLookupActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnLookupAction));
@@ -3310,7 +3310,7 @@ System.IntPtr parameter);
         new struct Struct
         {
 #pragma warning disable CS0649
-            public GISharp.GObject.TypeInterface.Struct GIface;
+            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public System.IntPtr OnLookupAction;
             public System.IntPtr OnAddAction;
             public System.IntPtr OnRemoveAction;
@@ -3360,9 +3360,9 @@ System.IntPtr actionName);
         {
         }
 
-        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        public override GISharp.Lib.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
         {
-            var ret = new GISharp.GObject.InterfaceInfo
+            var ret = new GISharp.Lib.GObject.InterfaceInfo
             {
                 InterfaceInit = InterfaceInit,
             };
@@ -3380,15 +3380,15 @@ System.IntPtr actionName);
         {
             try
             {
-                var actionMap = (GISharp.Gio.IActionMap)GISharp.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 var ret = actionMap.OnLookupAction(actionName);
                 var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3397,13 +3397,13 @@ System.IntPtr actionName);
         {
             try
             {
-                var actionMap = (GISharp.Gio.IActionMap)GISharp.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                var action = (GISharp.Gio.IAction)GISharp.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
+                var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                 actionMap.OnAddAction(action);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -3411,13 +3411,13 @@ System.IntPtr actionName);
         {
             try
             {
-                var actionMap = (GISharp.Gio.IActionMap)GISharp.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
+                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
                 actionMap.OnRemoveAction(actionName);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -3444,7 +3444,7 @@ System.IntPtr actionName);
     /// Type definition for a function that will be called back when an asynchronous
     /// operation within GIO has been completed.
     /// </summary>
-    public delegate void AsyncReadyCallback(GISharp.GObject.Object sourceObject, GISharp.Gio.IAsyncResult res);
+    public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res);
 
     /// <summary>
     /// Factory for creating <see cref="AsyncReadyCallback"/> methods.
@@ -3453,20 +3453,20 @@ System.IntPtr actionName);
     {
         class UserData
         {
-            public GISharp.Gio.AsyncReadyCallback ManagedDelegate;
-            public GISharp.Gio.UnmanagedAsyncReadyCallback UnmanagedDelegate;
-            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Lib.Gio.AsyncReadyCallback ManagedDelegate;
+            public GISharp.Lib.Gio.UnmanagedAsyncReadyCallback UnmanagedDelegate;
+            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
             public GISharp.Runtime.CallbackScope Scope;
         }
 
-        public static GISharp.Gio.AsyncReadyCallback Create(GISharp.Gio.UnmanagedAsyncReadyCallback callback, System.IntPtr userData)
+        public static GISharp.Lib.Gio.AsyncReadyCallback Create(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback, System.IntPtr userData)
         {
             if (callback == null)
             {
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            return new GISharp.Gio.AsyncReadyCallback((GISharp.GObject.Object sourceObject, GISharp.Gio.IAsyncResult res) =>
+            return new GISharp.Lib.Gio.AsyncReadyCallback((GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res) =>
             {
                 var userData_ = userData;
                 var sourceObject_ = sourceObject?.Handle ?? throw new System.ArgumentNullException(nameof(sourceObject));
@@ -3493,7 +3493,7 @@ System.IntPtr actionName);
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static (GISharp.Gio.UnmanagedAsyncReadyCallback, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.Lib.Gio.UnmanagedAsyncReadyCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -3510,8 +3510,8 @@ System.IntPtr actionName);
         {
             try
             {
-                var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(sourceObject_, GISharp.Runtime.Transfer.None);
-                var res = (GISharp.Gio.IAsyncResult)GISharp.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(sourceObject_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target;
                 userData.ManagedDelegate(sourceObject, res);
@@ -3522,7 +3522,7 @@ System.IntPtr actionName);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
@@ -3535,7 +3535,7 @@ System.IntPtr actionName);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -3625,8 +3625,8 @@ System.IntPtr actionName);
     /// as a default.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.AsyncResultIface))]
-    public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.GObject.Object>
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.AsyncResultIface))]
+    public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Gets the source object from a #GAsyncResult.
@@ -3635,7 +3635,7 @@ System.IntPtr actionName);
         /// a new reference to the source object for the @res,
         ///    or %NULL if there is none.
         /// </returns>
-        GISharp.GObject.Object OnGetSourceObject();
+        GISharp.Lib.GObject.Object OnGetSourceObject();
 
         /// <summary>
         /// Gets the user data from a #GAsyncResult.
@@ -3662,12 +3662,12 @@ System.IntPtr actionName);
 
     public static class AsyncResult
     {
-        static readonly GISharp.GObject.GType _GType = g_async_result_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_async_result_get_type();
+        static extern GISharp.Lib.GObject.GType g_async_result_get_type();
 
         /// <summary>
         /// Gets the source object from a #GAsyncResult.
@@ -3697,11 +3697,11 @@ System.IntPtr actionName);
         /// a new reference to the source object for the @res,
         ///    or %NULL if there is none.
         /// </returns>
-        public static GISharp.GObject.Object GetSourceObject(this GISharp.Gio.IAsyncResult res)
+        public static GISharp.Lib.GObject.Object GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
             var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
             var ret_ = g_async_result_get_source_object(res_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
@@ -3731,7 +3731,7 @@ System.IntPtr actionName);
         /// <returns>
         /// the user data for @res.
         /// </returns>
-        public static System.IntPtr GetUserData(this GISharp.Gio.IAsyncResult res)
+        public static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
             var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
             var ret_ = g_async_result_get_user_data(res_);
@@ -3780,7 +3780,7 @@ System.IntPtr actionName);
         ///   not.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public static System.Boolean IsTagged(this GISharp.Gio.IAsyncResult res, System.IntPtr sourceTag)
+        public static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
             var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
             var sourceTag_ = sourceTag;
@@ -3793,7 +3793,7 @@ System.IntPtr actionName);
     /// <summary>
     /// Interface definition for #GAsyncResult.
     /// </summary>
-    public sealed class AsyncResultIface : GISharp.GObject.TypeInterface
+    public sealed class AsyncResultIface : GISharp.Lib.GObject.TypeInterface
     {
         static readonly System.Int32 gIfaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GIface));
         static readonly System.Int32 onGetUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnGetUserData));
@@ -3809,7 +3809,7 @@ System.IntPtr actionName);
         new struct Struct
         {
 #pragma warning disable CS0649
-            public GISharp.GObject.TypeInterface.Struct GIface;
+            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public System.IntPtr OnGetUserData;
             public System.IntPtr OnGetSourceObject;
             public System.IntPtr OnIsTagged;
@@ -3853,9 +3853,9 @@ System.IntPtr sourceTag);
         {
         }
 
-        public override GISharp.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
+        public override GISharp.Lib.GObject.InterfaceInfo CreateInterfaceInfo(System.Type type)
         {
-            var ret = new GISharp.GObject.InterfaceInfo
+            var ret = new GISharp.Lib.GObject.InterfaceInfo
             {
                 InterfaceInit = InterfaceInit,
             };
@@ -3873,14 +3873,14 @@ System.IntPtr sourceTag);
         {
             try
             {
-                var res = (GISharp.Gio.IAsyncResult)GISharp.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
                 var ret = res.OnGetUserData();
                 var ret_ = ret;
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3889,14 +3889,14 @@ System.IntPtr sourceTag);
         {
             try
             {
-                var res = (GISharp.Gio.IAsyncResult)GISharp.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
                 var ret = res.OnGetSourceObject();
                 var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.IntPtr);
             }
         }
@@ -3905,7 +3905,7 @@ System.IntPtr sourceTag);
         {
             try
             {
-                var res = (GISharp.Gio.IAsyncResult)GISharp.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
                 var sourceTag = sourceTag_;
                 var ret = res.OnIsTagged(sourceTag);
                 var ret_ = ret;
@@ -3913,7 +3913,7 @@ System.IntPtr sourceTag);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                 return default(System.Boolean);
             }
         }
@@ -3925,15 +3925,15 @@ System.IntPtr sourceTag);
     /// asynchronous operations.
     /// </summary>
     [GISharp.Runtime.GTypeAttribute("GCancellable", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Gio.CancellableClass))]
-    public partial class Cancellable : GISharp.GObject.Object
+    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.CancellableClass))]
+    public partial class Cancellable : GISharp.Lib.GObject.Object
     {
-        static readonly GISharp.GObject.GType _GType = g_cancellable_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
 
         /// <summary>
         /// Gets the top cancellable from the stack.
         /// </summary>
-        public static GISharp.Gio.Cancellable Current { get => GetCurrent(); }
+        public static GISharp.Lib.Gio.Cancellable Current { get => GetCurrent(); }
 
         /// <summary>
         /// Gets the file descriptor for a cancellable job. This can be used to
@@ -4007,9 +4007,9 @@ System.IntPtr sourceTag);
 
         public sealed class CancelledEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public CancelledEventArgs(GISharp.GObject.Value[] args)
+            public CancelledEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -4093,17 +4093,17 @@ System.IntPtr sourceTag);
         /// a #GCancellable from the top
         /// of the stack, or %NULL if the stack is empty.
         /// </returns>
-        private static GISharp.Gio.Cancellable GetCurrent()
+        private static GISharp.Lib.Gio.Cancellable GetCurrent()
         {
             var ret_ = g_cancellable_get_current();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_cancellable_get_type();
+        static extern GISharp.Lib.GObject.GType g_cancellable_get_type();
 
         /// <summary>
         /// Will set @cancellable to cancelled, and will emit the
@@ -4213,7 +4213,7 @@ System.IntPtr sourceTag);
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedGLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-        GISharp.GLib.UnmanagedDestroyNotify dataDestroyFunc);
+        GISharp.Lib.GLib.UnmanagedDestroyNotify dataDestroyFunc);
 
         /// <summary>
         /// Disconnects a handler from a cancellable instance similar to
@@ -4411,7 +4411,7 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable,
         /* <type name="GLib.PollFD" type="GPollFD*" managed-name="GLib.PollFD" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        out GISharp.GLib.PollFD pollfd);
+        out GISharp.Lib.GLib.PollFD pollfd);
 
         /// <summary>
         /// Creates a #GPollFD corresponding to @cancellable; this can be passed
@@ -4442,7 +4442,7 @@ System.IntPtr sourceTag);
         ///          failure to prepare the cancellable.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Boolean TryMakePollfd(out GISharp.GLib.PollFD pollfd)
+        public System.Boolean TryMakePollfd(out GISharp.Lib.GLib.PollFD pollfd)
         {
             var cancellable_ = Handle;
             var ret_ = g_cancellable_make_pollfd(cancellable_,out var pollfd_);
@@ -4641,7 +4641,7 @@ System.IntPtr sourceTag);
             g_cancellable_set_error_if_cancelled(cancellable_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
         }
@@ -4649,11 +4649,11 @@ System.IntPtr sourceTag);
         internal protected virtual void OnCancelled()
         {
             var cancellable_ = Handle;
-            GISharp.GObject.TypeClass.GetInstance<CancellableClass>(_GType).OnCancelledDelegate(cancellable_);
+            GISharp.Lib.GObject.TypeClass.GetInstance<CancellableClass>(_GType).OnCancelledDelegate(cancellable_);
         }
     }
 
-    public class CancellableClass : GISharp.GObject.ObjectClass
+    public class CancellableClass : GISharp.Lib.GObject.ObjectClass
     {
         static readonly System.Int32 parentClassOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ParentClass));
         static readonly System.Int32 onCancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnCancelled));
@@ -4663,7 +4663,7 @@ System.IntPtr sourceTag);
         new protected struct Struct
         {
 #pragma warning disable CS0649
-            public GISharp.GObject.ObjectClass.Struct ParentClass;
+            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
             public System.IntPtr OnCancelled;
 #pragma warning restore CS0649
         }
@@ -4682,7 +4682,7 @@ System.IntPtr cancellable);
         {
         }
 
-        public override GISharp.GObject.TypeInfo GetTypeInfo(System.Type type)
+        public override GISharp.Lib.GObject.TypeInfo GetTypeInfo(System.Type type)
         {
             throw new System.NotImplementedException();
         }
@@ -4691,12 +4691,12 @@ System.IntPtr cancellable);
         {
             try
             {
-                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
+                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                 cancellable.OnCancelled();
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -4722,7 +4722,7 @@ System.IntPtr cancellable);
     /// returned by g_cancellable_source_new().
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public delegate System.Boolean CancellableSourceFunc(GISharp.Gio.Cancellable cancellable);
+    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable);
 
     /// <summary>
     /// Factory for creating <see cref="CancellableSourceFunc"/> methods.
@@ -4731,20 +4731,20 @@ System.IntPtr cancellable);
     {
         class UserData
         {
-            public GISharp.Gio.CancellableSourceFunc ManagedDelegate;
-            public GISharp.Gio.UnmanagedCancellableSourceFunc UnmanagedDelegate;
-            public GISharp.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public GISharp.Lib.Gio.CancellableSourceFunc ManagedDelegate;
+            public GISharp.Lib.Gio.UnmanagedCancellableSourceFunc UnmanagedDelegate;
+            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
             public GISharp.Runtime.CallbackScope Scope;
         }
 
-        public static GISharp.Gio.CancellableSourceFunc Create(GISharp.Gio.UnmanagedCancellableSourceFunc callback, System.IntPtr userData)
+        public static GISharp.Lib.Gio.CancellableSourceFunc Create(GISharp.Lib.Gio.UnmanagedCancellableSourceFunc callback, System.IntPtr userData)
         {
             if (callback == null)
             {
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            return new GISharp.Gio.CancellableSourceFunc((GISharp.Gio.Cancellable cancellable) =>
+            return new GISharp.Lib.Gio.CancellableSourceFunc((GISharp.Lib.Gio.Cancellable cancellable) =>
             {
                 var userData_ = userData;
                 var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -4772,7 +4772,7 @@ System.IntPtr cancellable);
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static (GISharp.Gio.UnmanagedCancellableSourceFunc, GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Gio.CancellableSourceFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static (GISharp.Lib.Gio.UnmanagedCancellableSourceFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.CancellableSourceFunc callback, GISharp.Runtime.CallbackScope scope)
         {
             var userData = new UserData
             {
@@ -4789,7 +4789,7 @@ System.IntPtr cancellable);
         {
             try
             {
-                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
+                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target;
                 var ret = userData.ManagedDelegate(cancellable);
@@ -4802,7 +4802,7 @@ System.IntPtr cancellable);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
             return default(System.Boolean);
@@ -4817,7 +4817,7 @@ System.IntPtr cancellable);
             }
             catch (System.Exception ex)
             {
-                GISharp.GLib.Log.LogUnhandledException(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
     }
@@ -5053,12 +5053,12 @@ System.IntPtr cancellable);
 
     public partial class IOErrorEnumDomain
     {
-        static readonly GISharp.GObject.GType _GType = g_io_error_enum_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
 
         /// <summary>
         /// Gets the GIO Error Quark.
         /// </summary>
-        public static GISharp.GLib.Quark Quark { get => GetQuark(); }
+        public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         /// <summary>
         /// Converts errno.h error codes into GIO error codes. The fallback
@@ -5079,7 +5079,7 @@ System.IntPtr cancellable);
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="IOErrorEnum" type="GIOErrorEnum" managed-name="IOErrorEnum" /> */
         /* transfer-ownership:none */
-        static extern GISharp.Gio.IOErrorEnum g_io_error_from_errno(
+        static extern GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
         System.Int32 errno);
@@ -5100,7 +5100,7 @@ System.IntPtr cancellable);
         /// <returns>
         /// #GIOErrorEnum value for the given errno.h error number.
         /// </returns>
-        public static GISharp.Gio.IOErrorEnum FromErrno(System.Int32 errno)
+        public static GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
         {
             var errno_ = errno;
             var ret_ = g_io_error_from_errno(errno_);
@@ -5117,7 +5117,7 @@ System.IntPtr cancellable);
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
         /* transfer-ownership:none */
-        static extern GISharp.GLib.Quark g_io_error_quark();
+        static extern GISharp.Lib.GLib.Quark g_io_error_quark();
 
         /// <summary>
         /// Gets the GIO Error Quark.
@@ -5125,7 +5125,7 @@ System.IntPtr cancellable);
         /// <returns>
         /// a #GQuark.
         /// </returns>
-        private static GISharp.GLib.Quark GetQuark()
+        private static GISharp.Lib.GLib.Quark GetQuark()
         {
             var ret_ = g_io_error_quark();
             var ret = ret_;
@@ -5135,7 +5135,7 @@ System.IntPtr cancellable);
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_io_error_enum_get_type();
+        static extern GISharp.Lib.GObject.GType g_io_error_enum_get_type();
     }
 
     /// <summary>
@@ -5147,9 +5147,9 @@ System.IntPtr cancellable);
     /// See also #GtkAction.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GSimpleAction", IsProxyForUnmanagedType = true)]
-    public sealed partial class SimpleAction : GISharp.GObject.Object, GISharp.Gio.IAction
+    public sealed partial class SimpleAction : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IAction
     {
-        static readonly GISharp.GObject.GType _GType = g_simple_action_get_type();
+        static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
         /// <summary>
         /// If @action is currently enabled.
@@ -5168,7 +5168,7 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
-        public GISharp.GLib.Utf8 Name { get; set; }
+        public GISharp.Lib.GLib.Utf8 Name { get; set; }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
@@ -5176,14 +5176,14 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type")]
-        public GISharp.GLib.VariantType ParameterType { get; set; }
+        public GISharp.Lib.GLib.VariantType ParameterType { get; set; }
 
         /// <summary>
         /// The state of the action, or %NULL if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
-        public GISharp.GLib.Variant State { get; }
+        public GISharp.Lib.GLib.Variant State { get; }
 
         /// <summary>
         /// The #GVariantType of the state that the action has, or %NULL if the
@@ -5191,7 +5191,7 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
-        public GISharp.GLib.VariantType StateType { get; }
+        public GISharp.Lib.GLib.VariantType StateType { get; }
 
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -5240,7 +5240,7 @@ System.IntPtr cancellable);
         /// a new #GSimpleAction
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr New(GISharp.GLib.Utf8 name, GISharp.GLib.VariantType parameterType)
+        static System.IntPtr New(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType)
         {
             var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
@@ -5264,7 +5264,7 @@ System.IntPtr cancellable);
         /// a new #GSimpleAction
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.GLib.Utf8 name, GISharp.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -5326,7 +5326,7 @@ System.IntPtr cancellable);
         /// a new #GSimpleAction
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr NewStateful(GISharp.GLib.Utf8 name, GISharp.GLib.VariantType parameterType, GISharp.GLib.Variant state)
+        static System.IntPtr NewStateful(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
         {
             var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
@@ -5357,17 +5357,17 @@ System.IntPtr cancellable);
         /// a new #GSimpleAction
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.GLib.Utf8 name, GISharp.GLib.VariantType parameterType, GISharp.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Variant Parameter => (GISharp.GLib.Variant)args[1].Get();
+            public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1].Get();
 
-            public ActivatedEventArgs(GISharp.GObject.Value[] args)
+            public ActivatedEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -5396,11 +5396,11 @@ System.IntPtr cancellable);
 
         public sealed class ChangedStateEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.GObject.Value[] args;
+            readonly GISharp.Lib.GObject.Value[] args;
 
-            public GISharp.GLib.Variant Value => (GISharp.GLib.Variant)args[1].Get();
+            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1].Get();
 
-            public ChangedStateEventArgs(GISharp.GObject.Value[] args)
+            public ChangedStateEventArgs(GISharp.Lib.GObject.Value[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -5449,7 +5449,7 @@ System.IntPtr cancellable);
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GISharp.GObject.GType g_simple_action_get_type();
+        static extern GISharp.Lib.GObject.GType g_simple_action_get_type();
 
         /// <summary>
         /// Sets the action as enabled or not.
@@ -5548,7 +5548,7 @@ System.IntPtr cancellable);
         /// the new #GVariant for the state
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public void SetState(GISharp.GLib.Variant value)
+        public void SetState(GISharp.Lib.GLib.Variant value)
         {
             var simple_ = Handle;
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
@@ -5591,55 +5591,55 @@ System.IntPtr cancellable);
         /// a #GVariant representing the state hint
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public void SetStateHint(GISharp.GLib.Variant stateHint)
+        public void SetStateHint(GISharp.Lib.GLib.Variant stateHint)
         {
             var simple_ = Handle;
             var stateHint_ = stateHint?.Handle ?? System.IntPtr.Zero;
             g_simple_action_set_state_hint(simple_, stateHint_);
         }
 
-        void GISharp.Gio.IAction.OnActivate(GISharp.GLib.Variant parameter)
+        void GISharp.Lib.Gio.IAction.OnActivate(GISharp.Lib.GLib.Variant parameter)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Gio.IAction.OnChangeState(GISharp.GLib.Variant value)
+        void GISharp.Lib.Gio.IAction.OnChangeState(GISharp.Lib.GLib.Variant value)
         {
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Gio.IAction.OnGetEnabled()
+        System.Boolean GISharp.Lib.Gio.IAction.OnGetEnabled()
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.GLib.Utf8 GISharp.Gio.IAction.OnGetName()
+        GISharp.Lib.GLib.Utf8 GISharp.Lib.Gio.IAction.OnGetName()
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.GLib.VariantType GISharp.Gio.IAction.OnGetParameterType()
+        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IAction.OnGetParameterType()
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.GLib.Variant GISharp.Gio.IAction.OnGetState()
+        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IAction.OnGetState()
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.GLib.Variant GISharp.Gio.IAction.OnGetStateHint()
+        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IAction.OnGetStateHint()
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.GLib.VariantType GISharp.Gio.IAction.OnGetStateType()
+        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IAction.OnGetStateType()
         {
             throw new System.NotImplementedException();
         }
     }
 
-    public sealed partial class CancellableSource : GISharp.GLib.Source
+    public sealed partial class CancellableSource : GISharp.Lib.GLib.Source
     {
         public CancellableSource(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -5691,7 +5691,7 @@ System.IntPtr cancellable);
         /// the new #GSource.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr New(GISharp.Gio.Cancellable cancellable)
+        static System.IntPtr New(GISharp.Lib.Gio.Cancellable cancellable)
         {
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_cancellable_source_new(cancellable_);
@@ -5717,7 +5717,7 @@ System.IntPtr cancellable);
         /// the new #GSource.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public CancellableSource(GISharp.Gio.Cancellable cancellable) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
+        public CancellableSource(GISharp.Lib.Gio.Cancellable cancellable) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
     }

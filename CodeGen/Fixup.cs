@@ -1003,11 +1003,11 @@ namespace GISharp.CodeGen
                 case "gsize":
                     return typeof(UIntPtr).FullName;
                 case "gunichar":
-                    return typeof(GISharp.GLib.Unichar).FullName;
+                    return typeof(GISharp.Lib.GLib.Unichar).FullName;
                 case "filename":
-                    return typeof(GISharp.GLib.Filename).FullName;
+                    return typeof(GISharp.Lib.GLib.Filename).FullName;
                 case "utf8":
-                    return typeof(GISharp.GLib.Utf8).FullName;
+                    return typeof(GISharp.Lib.GLib.Utf8).FullName;
                 case "va_list":
                     return typeof(object[]).FullName;
                 case "none":
@@ -1019,38 +1019,38 @@ namespace GISharp.CodeGen
                 case "GLib.CompareDataFunc":
                 case "CompareFunc":
                 case "GLib.CompareFunc":
-                    return typeof(GISharp.GLib.CompareFunc<>).FullName;
+                    return typeof(GISharp.Lib.GLib.CompareFunc<>).FullName;
                 case "CopyFunc":
                 case "GLib.CopyFunc":
-                    return typeof(GISharp.GLib.CopyFunc<>).FullName;
+                    return typeof(GISharp.Lib.GLib.CopyFunc<>).FullName;
                 case "DestroyNotify":
                 case "GLib.DestroyNotify":
-                    return typeof(GISharp.GLib.DestroyNotify<>).FullName;
+                    return typeof(GISharp.Lib.GLib.DestroyNotify<>).FullName;
                 case "Func":
                 case "GLib.Func":
-                    return typeof(GISharp.GLib.Func<>).FullName;
+                    return typeof(GISharp.Lib.GLib.Func<>).FullName;
 
                 case "GType":
-                    return typeof(GISharp.GObject.GType).FullName;
+                    return typeof(GISharp.Lib.GObject.GType).FullName;
                 }
                 var typeParameterElements = typeElement.Elements (gi + "type").Union (element.Elements (gi + "array")).ToList ();
                 if (typeParameterElements.Any ()) {
                     switch (typeName) {
                     case "GLib.List":
                         return string.Format ("{0}`1[{1}]",
-                            string.Concat (typeof(GISharp.GLib.List<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat(typeof(GISharp.Lib.GLib.List<>).FullName.TakeWhile(c => c != '`')),
                             typeParameterElements
                                 .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.SList":
                         return string.Format ("{0}`1[{1}]",
-                            string.Concat (typeof(GISharp.GLib.SList<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat(typeof(GISharp.Lib.GLib.SList<>).FullName.TakeWhile(c => c != '`')),
                             typeParameterElements
                                 .Select (c => c.Parent.GetManagedTypeName ())
                                 .Single ());
                     case "GLib.HashTable":
                         return string.Format ("{0}`2[{1}]",
-                            string.Concat (typeof(GISharp.GLib.HashTable<,>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat(typeof(GISharp.Lib.GLib.HashTable<,>).FullName.TakeWhile(c => c != '`')),
                             string.Join (",", typeParameterElements
                                  .Select (c => c.Parent.GetManagedTypeName ())));
                     default:
@@ -1080,11 +1080,11 @@ namespace GISharp.CodeGen
                     var managedType = arrayElement.GetManagedTypeName();
 
                     if (arrayElement.Attribute("zero-terminated").AsBool()) {
-                        if (managedType == typeof(GISharp.GLib.Utf8).FullName) {
+                        if (managedType == typeof(GISharp.Lib.GLib.Utf8).FullName) {
                             // zero-terminated array of utf8 == GStrv
-                            return typeof(GISharp.GLib.Strv).FullName;
+                            return typeof(GISharp.Lib.GLib.Strv).FullName;
                         }
-                        else if (managedType == typeof(GISharp.GLib.Filename).FullName) {
+                        else if (managedType == typeof(GISharp.Lib.GLib.Filename).FullName) {
                             // zero-terminated array of filename == GStrv-ish
                             return typeof(GISharp.Runtime.FilenameArray).FullName;
                         }
@@ -1098,16 +1098,16 @@ namespace GISharp.CodeGen
                     switch (arrayName) {
                     case "GLib.ByteArray":
                         // GLib.ByteArray has array type, but it should always be System.Byte
-                        return typeof(GISharp.GLib.ByteArray).FullName;
+                        return typeof(GISharp.Lib.GLib.ByteArray).FullName;
                     case "GLib.Array":
                         // GLib.Array has generic parameters
                         return string.Format("{0}<{1}>",
-                            string.Concat (typeof(GISharp.GLib.Array<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.Lib.GLib.Array<>).FullName.TakeWhile (c => c != '`')),
                             arrayElement.GetManagedTypeName ());
                     case "GLib.PtrArray":
                         //GLib.PtrArray has generic parameters
                         return string.Format("{0}<{1}>",
-                            string.Concat (typeof(GISharp.GLib.PtrArray<>).FullName.TakeWhile (c => c != '`')),
+                            string.Concat (typeof(GISharp.Lib.GLib.PtrArray<>).FullName.TakeWhile (c => c != '`')),
                             arrayElement.GetManagedTypeName ());
                     default:
                         var message = string.Format ("Unknown array type '{0}.", typeName);

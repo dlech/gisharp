@@ -1,3 +1,3 @@
-namespace GISharp.GObject
+namespace GISharp.Lib.GObject
 {
 }

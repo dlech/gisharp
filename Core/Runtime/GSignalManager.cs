@@ -1,8 +1,9 @@
 
 using System;
 using System.Collections.Concurrent;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
+using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Runtime
 {
@@ -24,7 +25,7 @@ namespace GISharp.Runtime
         /// Connects an event handler to a GObject signal. Use this as the
         /// add accessor of an event implementation.
         /// </summary>
-        public void Add(GObject.Object obj, EventHandler<TEventArgs> handler)
+        public void Add(Object obj, EventHandler<TEventArgs> handler)
         {
             var closure = Closure.CreateFor(obj, handler);
             var signalHandler = obj.Connect(notifySignalId, Quark.Zero, closure);

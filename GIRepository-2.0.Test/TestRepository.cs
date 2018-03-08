@@ -4,9 +4,10 @@ using System.Linq;
 using NUnit.Framework;
 
 using GISharp.Runtime;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GIRepository;
 
-namespace GISharp.GIRepository.Test
+namespace GISharp.Test.GIRepository
 {
     [TestFixture]
     public class TestRepository

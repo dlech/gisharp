@@ -1,17 +1,17 @@
 using System;
 using System.Runtime.InteropServices;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using System.Threading.Tasks;
 
 // using GNetworkMonitor for testing since it is in gio, which is likely to
 // be installed and it has methods, properties and a signal as well as having
 // GInitable as a prerequisite.
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
-using Object = GISharp.GObject.Object;
+using Object = GISharp.Lib.GObject.Object;
 
-namespace GISharp.Core.Test
+namespace GISharp.Test.Core
 {
     [GType ("GInitable", IsProxyForUnmanagedType = true)]
     [GTypeStruct (typeof(InitableIface))]

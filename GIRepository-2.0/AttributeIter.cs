@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     struct AttributeIter : IEquatable<AttributeIter>
     {

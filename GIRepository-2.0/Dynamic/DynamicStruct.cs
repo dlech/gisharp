@@ -5,7 +5,7 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GIRepository.Dynamic
+namespace GISharp.Lib.GIRepository.Dynamic
 {
     public class DynamicStruct : IDynamicMetaObjectProvider
 	{

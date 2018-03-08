@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Represents a unresolved type in a typelib.

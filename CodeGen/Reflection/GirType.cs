@@ -7,8 +7,8 @@ using System.Reflection;
 
 using GISharp.Runtime;
 using System.Reflection.Emit;
-using GISharp.GObject;
-using GISharp.GLib;
+using GISharp.Lib.GObject;
+using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -79,19 +79,19 @@ namespace GISharp.CodeGen.Reflection
 
             switch (typeName) {
             case "GLib.List":
-                type = typeof(GISharp.GLib.List<>);
+                type = typeof(GISharp.Lib.GLib.List<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.SList":
-                type = typeof(GISharp.GLib.SList<>);
+                type = typeof(GISharp.Lib.GLib.SList<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.HashTable":
-                type = typeof(GISharp.GLib.HashTable<,>);
+                type = typeof(GISharp.Lib.GLib.HashTable<,>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
@@ -100,23 +100,23 @@ namespace GISharp.CodeGen.Reflection
                 }
                 break;
             case "GLib.Array":
-                type = typeof(GISharp.GLib.Array<>);
+                type = typeof(GISharp.Lib.GLib.Array<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.PtrArray":
-                type = typeof(GISharp.GLib.PtrArray<>);
+                type = typeof(GISharp.Lib.GLib.PtrArray<>);
                 if (genericArgs[0] == typeof(IntPtr)) {
                     genericArgs[0] = typeof(Opaque);
                 }
                 break;
             case "GLib.ByteArray":
-                type = typeof(GISharp.GLib.ByteArray);
+                type = typeof(GISharp.Lib.GLib.ByteArray);
                 isGeneric = false;
                 break;
             case "GLib.Quark":
-                type = typeof(GISharp.GLib.Quark);
+                type = typeof(GISharp.Lib.GLib.Quark);
                 break;
             }
 

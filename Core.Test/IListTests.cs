@@ -7,7 +7,7 @@ using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test
+namespace GISharp.Test.Core
 {
     public class IListTests<TList, TItem> where TList : IList<TItem>, IDisposable, new()
     {

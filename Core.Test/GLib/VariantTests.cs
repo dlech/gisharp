@@ -3,14 +3,14 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
 using System.Reflection;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class VariantTests : IListTests<PtrArray<Variant>, Variant>

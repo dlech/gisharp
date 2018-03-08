@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Reflection;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {

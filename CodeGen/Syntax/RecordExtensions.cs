@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -123,7 +124,7 @@ namespace GISharp.CodeGen.Syntax
             var list = TokenList(Token(PublicKeyword));
 
             if (record.IsGTypeStructFor != null &&
-                record.BaseType == typeof(GObject.TypeInterface))
+                record.BaseType == typeof(TypeInterface))
             {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
@@ -141,8 +142,8 @@ namespace GISharp.CodeGen.Syntax
         static MethodDeclarationSyntax GetGTypeStructCreateInterfaceInfoMethod(this Record record)
         {
             var method = MethodDeclaration(
-                ParseTypeName(typeof(GObject.InterfaceInfo).FullName),
-                nameof(GObject.TypeInterface.CreateInterfaceInfo))
+                ParseTypeName(typeof(InterfaceInfo).FullName),
+                nameof(TypeInterface.CreateInterfaceInfo))
                 .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                 .AddParameterListParameters(Parameter(ParseToken("type"))
                     .WithType(ParseTypeName(typeof(System.Type).FullName)))
@@ -150,7 +151,7 @@ namespace GISharp.CodeGen.Syntax
                     ParseStatement(string.Format(@"var ret = new {0} {{
                         InterfaceInit = InterfaceInit,
                     }};
-                    ", typeof(GObject.InterfaceInfo).FullName)),
+                    ", typeof(InterfaceInfo).FullName)),
                     ParseStatement("return ret;"));
 
             return method;
@@ -187,8 +188,8 @@ namespace GISharp.CodeGen.Syntax
         static MethodDeclarationSyntax GetGTypeStructGetInfoMethod(this Record record)
         {
             var method = MethodDeclaration(
-                ParseTypeName(typeof(GISharp.GObject.TypeInfo).FullName),
-                nameof(GObject.TypeClass.GetTypeInfo))
+                ParseTypeName(typeof(GISharp.Lib.GObject.TypeInfo).FullName),
+                nameof(TypeClass.GetTypeInfo))
                 .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                 .AddParameterListParameters(Parameter(ParseToken("type"))
                     .WithType(ParseTypeName(typeof(System.Type).FullName)))
@@ -224,7 +225,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(NewKeyword))
                 .WithMembers(structMembers);
 
-            if (record.BaseType != typeof(GObject.TypeInterface)) {
+            if (record.BaseType != typeof(TypeInterface)) {
                 structDeclaration = structDeclaration.AddModifiers(Token(ProtectedKeyword));
             }
 
@@ -238,9 +239,9 @@ namespace GISharp.CodeGen.Syntax
 
             list = list.Add(record.GetGTypeStructDefaultConstructor());
             // taking advantage of the fact that GObject interfaces can't inherit,
-            // so parent will always be GISharp.GObject.TypeInterface for
+            // so parent will always be GISharp.Lib.GObject.TypeInterface for
             // interfaces.
-            if (record.BaseType == typeof(GObject.TypeInterface)) {
+            if (record.BaseType == typeof(TypeInterface)) {
                 list = list.Add(record.GetGTypeStructCreateInterfaceInfoMethod());
                 list = list.Add(record.GetGTypeStructInterfaceInitMethod());
             }

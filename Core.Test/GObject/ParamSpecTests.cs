@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
@@ -10,7 +10,7 @@ using static GISharp.TestHelpers;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class ParamSpecTests : IListTests<PtrArray<ParamSpec>, ParamSpec>
@@ -337,7 +337,7 @@ namespace GISharp.Core.Test.GObject
         public void TestParamSpecObject ()
         {
             var param = TestParamSpec (GType.Object, (name, nick, blurb, flags) =>
-                                       new ParamSpecObject (name, nick, blurb, GType.TypeOf<GISharp.GObject.Object> (), flags));
+                                       new ParamSpecObject (name, nick, blurb, GType.TypeOf<GISharp.Lib.GObject.Object> (), flags));
             Assert.That (param.GetGType ().Name, Is.EqualTo ("GParamObject"));
 
             AssertNoGLibLog();

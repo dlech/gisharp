@@ -2,7 +2,7 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {

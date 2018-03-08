@@ -1,12 +1,12 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class FlagsTests
@@ -60,7 +60,7 @@ namespace GISharp.Core.Test.GObject
             Assert.That (testFlags4GType.IsA (GType.Flags), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That (testFlags4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-FlagsTests+TestFlags4"));
+            Assert.That(testFlags4GType.Name, IsEqualToUtf8("GISharp-Test-Core-GObject-FlagsTests+TestFlags4"));
             using (var flags4TypeClass = (FlagsClass)TypeClass.Get (testFlags4GType)) {
                 var value = Flags.GetFirstValue (flags4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));

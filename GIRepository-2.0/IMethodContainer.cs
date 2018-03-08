@@ -1,5 +1,5 @@
 ﻿
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Method container.

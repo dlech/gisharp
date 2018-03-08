@@ -2,7 +2,7 @@
 using System;
 using GISharp.Runtime;
 
-namespace GISharp.GLib
+namespace GISharp.Lib.GLib
 {
     partial class OptionContext
     {

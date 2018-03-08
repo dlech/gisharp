@@ -1,7 +1,7 @@
 
 using GISharp.Runtime;
 
-namespace GISharp.Gio
+namespace GISharp.Lib.Gio
 {
     partial class CancellableSource
     {

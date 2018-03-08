@@ -1,11 +1,11 @@
 ﻿using System;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class BindingTests
@@ -65,7 +65,7 @@ namespace GISharp.Core.Test.GObject
     }
 
     [GType]
-    class TestObject : GISharp.GObject.Object
+    class TestObject : GISharp.Lib.GObject.Object
     {
         int _IntValue;
         [GProperty]

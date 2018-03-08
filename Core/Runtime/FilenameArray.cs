@@ -6,9 +6,9 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Linq;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {

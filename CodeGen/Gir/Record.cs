@@ -2,8 +2,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir

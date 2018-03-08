@@ -3,10 +3,10 @@
 
 using System;
 using System.Runtime.InteropServices;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public abstract class RegisteredTypeInfo : BaseInfo
     {

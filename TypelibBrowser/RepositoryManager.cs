@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 
-using GISharp.GIRepository;
+using GISharp.Lib.GIRepository;
 using System.IO;
 
 namespace GISharp.TypelibBrowser

@@ -6,11 +6,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
+using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -157,7 +159,7 @@ namespace GISharp.CodeGen.Syntax
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }
             else if (type.IsInterface) {
-                var getInstance = $"{typeof(GObject.Object).FullName}.{nameof(GObject.Object.GetInstance)}";
+                var getInstance = $"{typeof(Object).FullName}.{nameof(Object.GetInstance)}";
                 var ownership = $"{typeof(Transfer).FullName}.{arg.Ownership}";
                 expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}){getInstance}({arg.ManagedName}_, {ownership})");
             }

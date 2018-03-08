@@ -1,14 +1,14 @@
 using System;
 
 using NUnit.Framework;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class PtrArrayTests : IListTests<PtrArray<OpaqueInt>, OpaqueInt>

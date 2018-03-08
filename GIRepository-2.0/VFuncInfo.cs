@@ -4,7 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Represents a virtual function.

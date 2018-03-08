@@ -1,11 +1,11 @@
 ﻿using NUnit.Framework;
 using System;
 
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class QuarkTests

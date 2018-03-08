@@ -1,13 +1,13 @@
 ﻿using System;
 using NUnit.Framework;
 using GISharp.Runtime;
-using GISharp.GObject;
-using GISharp.GLib;
+using GISharp.Lib.GObject;
+using GISharp.Lib.GLib;
 using System.ComponentModel;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class InterfaceTests
@@ -62,7 +62,7 @@ namespace GISharp.Core.Test.GObject
     }
 
     [GType]
-    class TestNetworkMonitor : GISharp.GObject.Object, INetworkMonitor
+    class TestNetworkMonitor : GISharp.Lib.GObject.Object, INetworkMonitor
     {
         public int CanReachCallCount { get; private set; }
 

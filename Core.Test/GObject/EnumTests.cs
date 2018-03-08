@@ -1,12 +1,12 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class EnumTests
@@ -60,9 +60,9 @@ namespace GISharp.Core.Test.GObject
             Assert.That (testEnum4GType.IsA (GType.Enum), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That (testEnum4GType.Name, Is.EqualTo ("GISharp-Core-Test-GObject-EnumTests+TestEnum4"));
+            Assert.That(testEnum4GType.Name, IsEqualToUtf8("GISharp-Test-Core-GObject-EnumTests+TestEnum4"));
             using (var enum4TypeClass = (EnumClass)TypeClass.Get (testEnum4GType)) {
-                var value = GISharp.GObject.Enum.GetValue (enum4TypeClass, 1);
+                var value = GISharp.Lib.GObject.Enum.GetValue(enum4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
                 Assert.That(value.Name, IsEqualToUtf8("One"));
                 Assert.That(value.Nick, IsEqualToUtf8("One"));
@@ -78,12 +78,12 @@ namespace GISharp.Core.Test.GObject
             var testEnum5GType = typeof(TestEnum5).GetGType ();
             Assert.That (testEnum5GType.Name, Is.EqualTo ("TestEnum5GTypeName"));
             using (var enum5TypeClass = (EnumClass)TypeClass.Get (testEnum5GType)) {
-                var value1 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 1);
+                var value1 = GISharp.Lib.GObject.Enum.GetValue (enum5TypeClass, 1);
                 Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));
                 Assert.That(value1.Name, IsEqualToUtf8("test_enum_5_value_one"));
                 Assert.That(value1.Nick, IsEqualToUtf8("One"));
 
-                var value2 = GISharp.GObject.Enum.GetValue (enum5TypeClass, 2);
+                var value2 = GISharp.Lib.GObject.Enum.GetValue (enum5TypeClass, 2);
                 Assert.That (value2.Value, Is.EqualTo ((int)TestEnum5.Two));
                 Assert.That(value2.Name, IsEqualToUtf8("Two"));
                 Assert.That(value2.Nick, IsEqualToUtf8("test_enum_5_value_two"));

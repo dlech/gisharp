@@ -3,7 +3,7 @@
 
 using System;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Flags that control how a typelib is loaded.

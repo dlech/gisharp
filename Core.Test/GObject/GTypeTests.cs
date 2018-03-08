@@ -3,8 +3,8 @@ using System.Linq;
 using System.Reflection;
 using System.Reflection.Emit;
 using System.Runtime.InteropServices;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 using nlong = GISharp.Runtime.NativeLong;
@@ -12,7 +12,7 @@ using nulong = GISharp.Runtime.NativeULong;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class GTypeTests
@@ -172,7 +172,7 @@ namespace GISharp.Core.Test.GObject
         [Test]
         public void TestObject ()
         {
-            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GISharp.GObject.Object)));
+            Assert.That ((Type)GType.Object, Is.EqualTo (typeof (GISharp.Lib.GObject.Object)));
 
             AssertNoGLibLog();
         }

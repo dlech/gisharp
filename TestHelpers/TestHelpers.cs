@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using GISharp.GLib;
-using GISharp.GModule;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GModule;
 using GISharp.Runtime;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -11,8 +11,8 @@ namespace GISharp
 {
     public static class TestHelpers
     {
-        static readonly string critical = GISharp.GLib.LogLevelFlags.Critical.ToString();
-        static readonly string warning = GISharp.GLib.LogLevelFlags.Warning.ToString();
+        static readonly string critical = GISharp.Lib.GLib.LogLevelFlags.Critical.ToString();
+        static readonly string warning = GISharp.Lib.GLib.LogLevelFlags.Warning.ToString();
 
         /// <summary>
         /// Throws an IgnoreException if <paramref name="actual"/> version is
@@ -72,7 +72,7 @@ namespace GISharp
 
         /// <summary>
         /// Use this instead of <see cref="NUnit.Framework.Is.EqualTo(object)"/>
-        /// when comparing <see cref="GISharp.GLib.Utf8"/> strings in order to
+        /// when comparing <see cref="GISharp.Lib.GLib.Utf8"/> strings in order to
         /// get a useful failure message.
         /// </summary>
         public static Constraint IsEqualToUtf8(Utf8 utf8)

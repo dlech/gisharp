@@ -2,12 +2,12 @@
 using System.Runtime.InteropServices;
 
 using NUnit.Framework;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class ArrayTests : IListTests<Array<int>, int>

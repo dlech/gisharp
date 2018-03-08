@@ -3,9 +3,9 @@
 
 using System;
 using System.Runtime.InteropServices;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public sealed class PropertyInfo : BaseInfo
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -165,7 +165,7 @@ namespace GISharp.CodeGen.Syntax
 
         static QualifiedNameSyntax GetQualifiedName(this Callback callback, bool unmanged = false)
         {
-            var @namespace = ParseName($"GISharp.{callback.Namespace.Name}");
+            var @namespace = ParseName($"GISharp.Lib.{callback.Namespace.Name}");
             var prefix = unmanged ? "Unmanaged" : "";
             var name = IdentifierName(prefix + callback.ManagedName);
             return QualifiedName(@namespace, name);

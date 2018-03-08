@@ -1,9 +1,9 @@
 
 using NUnit.Framework;
-
+using GISharp.Lib.Gio;
 using static GISharp.TestHelpers;
 
-namespace GISharp.Gio.Test
+namespace GISharp.Test.Gio
 {
     [TestFixture]
     public class CancellableTests

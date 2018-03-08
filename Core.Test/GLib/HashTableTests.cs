@@ -1,14 +1,14 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using System.Collections.Generic;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class HashTableTests

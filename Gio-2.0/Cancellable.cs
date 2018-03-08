@@ -2,14 +2,14 @@
 using System;
 using System.Runtime.InteropServices;
 
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using nulong = GISharp.Runtime.NativeULong;
-using Object = GISharp.GObject.Object;
+using Object = GISharp.Lib.GObject.Object;
 
-namespace GISharp.Gio
+namespace GISharp.Lib.Gio
 {
     partial class Cancellable
     {

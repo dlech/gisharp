@@ -1,9 +1,10 @@
-using GISharp.GLib;
+using GISharp.Lib.GLib;
+using GISharp.Lib.Gio;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Gio.Test
+namespace GISharp.Test.Gio
 {
     [TestFixture]
     public class SimpleActionTests

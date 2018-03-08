@@ -1,10 +1,11 @@
 
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Test.GLib
 {
     [TestFixture]
     public class OptionContextTests

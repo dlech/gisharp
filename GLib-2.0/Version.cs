@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using GISharp.GModule;
+using GISharp.Lib.GModule;
 
-namespace GISharp.GLib
+namespace GISharp.Lib.GLib
 {
     public static partial class Version
     {

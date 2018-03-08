@@ -1,9 +1,9 @@
 
 using System;
 using System.Runtime.InteropServices;
-using GISharp.GModule;
+using GISharp.Lib.GModule;
 
-namespace GISharp.Core.Test
+namespace GISharp.Test.Core
 {
     public static class Helpers
     {

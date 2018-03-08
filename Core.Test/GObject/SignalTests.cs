@@ -1,14 +1,14 @@
 
 using System;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-using Object = GISharp.GObject.Object;
+using Object = GISharp.Lib.GObject.Object;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class SignalTests

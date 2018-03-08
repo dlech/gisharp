@@ -1,11 +1,11 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class BindingFlagsTests

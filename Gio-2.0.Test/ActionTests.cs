@@ -1,14 +1,16 @@
 ﻿using System;
-using GISharp.Gio;
-using GISharp.GLib;
-using GISharp.GObject;
+using GISharp.Lib.Gio;
+using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 using System.Reflection;
 
 using static GISharp.TestHelpers;
+using Action = GISharp.Lib.Gio.Action;
+using Object = GISharp.Lib.GObject.Object;
 
-namespace GISharp.Gio.Test
+namespace GISharp.Test.Gio
 {
     [TestFixture]
     public class ActionTests
@@ -251,7 +253,7 @@ namespace GISharp.Gio.Test
     }
 
     [GType]
-    class TestAction : GObject.Object, IAction
+    class TestAction : Object, IAction
     {
         public bool Enabled => ((IAction)this).OnGetEnabled();
 

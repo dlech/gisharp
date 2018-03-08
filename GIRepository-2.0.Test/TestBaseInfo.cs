@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Linq;
-
+using GISharp.Lib.GIRepository;
 using NUnit.Framework;
 
-namespace GISharp.GIRepository.Test
+namespace GISharp.Test.GIRepository
 {
     [TestFixture]
     public class TestBaseInfo

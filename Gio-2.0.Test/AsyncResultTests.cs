@@ -1,14 +1,16 @@
 
 using System;
-using GISharp.GObject;
+using GISharp.Lib.Gio;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-using Object = GISharp.GObject.Object;
+using Object = GISharp.Lib.GObject.Object;
+using IAsyncResult = GISharp.Lib.Gio.IAsyncResult;
 
-namespace GISharp.Gio.Test
+namespace GISharp.Test.Gio
 {
     [TestFixture]
     public class AsyncResultTests
@@ -38,7 +40,7 @@ namespace GISharp.Gio.Test
         {
         }
 
-        GObject.Object IAsyncResult.OnGetSourceObject() => source;
+        Object IAsyncResult.OnGetSourceObject() => source;
 
         IntPtr IAsyncResult.OnGetUserData() => throw new NotImplementedException();
 

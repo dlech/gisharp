@@ -2,10 +2,10 @@
 // It is now maintained by hand.
 
 using System.Runtime.InteropServices;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// An error code returned from a Repository method.

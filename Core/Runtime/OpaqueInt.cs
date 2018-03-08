@@ -1,5 +1,5 @@
 ﻿using System;
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {

@@ -2,11 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
+using Signal = GISharp.CodeGen.Gir.Signal;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -27,7 +29,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static EventFieldDeclarationSyntax GetInterfaceDeclaration(this Signal signal)
         {
-            var declaringType = $"GISharp.{signal.Namespace.Name}.{signal.ParentNode.ManagedName}";
+            var declaringType = $"GISharp.Lib.{signal.Namespace.Name}.{signal.ParentNode.ManagedName}";
             var eventArgsType = $"{declaringType}.{signal.ManagedName}EventArgs";
             var type = $"System.EventHandler<{eventArgsType}>";
             var variable = VariableDeclaration(ParseTypeName(type))
@@ -90,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<MemberDeclarationSyntax> GetEventArgsMembers(this Signal signal)
         {
             // emit a field like: readonly Value[] args;
-            var argsType = ParseTypeName($"{typeof(GObject.Value).FullName}[]");
+            var argsType = ParseTypeName($"{typeof(Value).FullName}[]");
             var argsVariable = VariableDeclarator("args");
             yield return FieldDeclaration(VariableDeclaration(argsType)
                     .AddVariables(argsVariable))

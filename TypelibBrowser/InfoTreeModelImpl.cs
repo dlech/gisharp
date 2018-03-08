@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 
 using Gtk;
-using GISharp.GIRepository;
+using GISharp.Lib.GIRepository;
 
 namespace GISharp.TypelibBrowser
 {

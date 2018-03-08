@@ -2,7 +2,7 @@
 
 using System;
 
-namespace GISharp.GLib
+namespace GISharp.Lib.GLib
 {
     partial class VariantDict
     {

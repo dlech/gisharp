@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public sealed class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
     {

@@ -1,12 +1,12 @@
 
 using NUnit.Framework;
 
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.GLib.Test
+namespace GISharp.Test.GLib
 {
     [TestFixture]
     [TestOf(typeof(KeyFile))]

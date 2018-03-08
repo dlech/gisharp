@@ -2,12 +2,12 @@ using System;
 
 using NUnit.Framework;
 
-using GISharp.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-namespace GISharp.Core.Test.GLib
+namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
     public class SListTests

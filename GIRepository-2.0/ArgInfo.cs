@@ -5,7 +5,7 @@ using System;
 using System.Linq;
 using System.Runtime.InteropServices;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     /// <summary>
     /// Struct representing an argument.

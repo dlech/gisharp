@@ -26,7 +26,7 @@ namespace GISharp.CodeGen
 {
     class MainClass
     {
-        internal const string parentNamespace = "GISharp";
+        internal const string parentNamespace = "GISharp.Lib";
 
         enum Command
         {

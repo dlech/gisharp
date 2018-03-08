@@ -7,10 +7,10 @@ using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
-using GISharp.GIRepository.Dynamic;
+using GISharp.Lib.GIRepository.Dynamic;
 using GISharp.Runtime;
 
-namespace GISharp.GIRepository
+namespace GISharp.Lib.GIRepository
 {
     public sealed class FunctionInfo : CallableInfo, IDynamicMetaObjectProvider
     {

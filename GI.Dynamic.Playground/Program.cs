@@ -1,5 +1,5 @@
 ﻿using System;
-using static GISharp.GIRepository.Repository;
+using static GISharp.Lib.GIRepository.Repository;
 
 namespace GI.Dynamic.Playground
 {

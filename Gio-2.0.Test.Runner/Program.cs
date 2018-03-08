@@ -7,6 +7,6 @@ static class Program
 {
     public static int Main(string[] args)
     {
-        return new AutoRun(Assembly.GetAssembly(typeof(GISharp.Gio.Test.ActionTests))).Execute(args);
+        return new AutoRun(Assembly.GetAssembly(typeof(GISharp.Test.Gio.ActionTests))).Execute(args);
     }
 }

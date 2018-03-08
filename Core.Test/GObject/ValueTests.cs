@@ -1,7 +1,7 @@
 ﻿using System;
 
 using NUnit.Framework;
-using GISharp.GObject;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
@@ -9,7 +9,7 @@ using static GISharp.TestHelpers;
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 
-namespace GISharp.Core.Test.GObject
+namespace GISharp.Test.Core.GObject
 {
     [TestFixture]
     public class ValueTests

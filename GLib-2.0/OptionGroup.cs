@@ -4,12 +4,12 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
-using StringList = System.Collections.Generic.List<GISharp.GLib.Utf8>;
+using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
 using ArgList = System.Collections.Generic.List<System.IntPtr>;
 using CallbackList = System.Collections.Generic.List<System.Action>;
-using DestroyList = System.Collections.Generic.List<System.ValueTuple<GISharp.GLib.UnmanagedDestroyNotify, System.IntPtr>>;
+using DestroyList = System.Collections.Generic.List<System.ValueTuple<GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr>>;
 
-namespace GISharp.GLib
+namespace GISharp.Lib.GLib
 {
     partial class OptionGroup
     {

@@ -4,6 +4,6 @@
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <RootNamespace>GISharp</RootNamespace>
+    <RootNamespace>GISharp.Lib.GLib</RootNamespace>
   </PropertyGroup>
 </Project>
