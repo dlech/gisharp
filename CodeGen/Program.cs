@@ -9,8 +9,9 @@ using System.Xml.Linq;
 
 using Buildalyzer;
 using Buildalyzer.Workspaces;
+using GISharp.CodeGen.Gir;
+using GISharp.CodeGen.Syntax;
 using GISharp.Runtime;
-using GISharp.CodeGen.Model;
 using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
@@ -267,8 +268,8 @@ namespace GISharp.CodeGen
 
             Console.WriteLine("Generating code...");
 
-            var moduleInfo = new ModuleInfo(girXml.Root);
-            var codeCompileUnit = CompilationUnit().WithMembers(moduleInfo.AllDeclarations);
+            var gir = new Repository(girXml);
+            var codeCompileUnit = gir.GetCompilationUnit();
             var workspace = new AdhocWorkspace();
 
             var generatedFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), "Generated.cs");

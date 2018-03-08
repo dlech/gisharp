@@ -328,20 +328,20 @@ namespace GISharp.GObject
                         break;
                     }
 
-                    if (signalAttr.NoRecurse) {
+                    if (signalAttr.IsNoRecurse) {
                         flags |= SignalFlags.NoRecurse;
                     }
 
-                    if (signalAttr.Detailed) {
+                    if (signalAttr.IsDetailed) {
                         flags |= SignalFlags.Detailed;
                     }
 
-                    if (signalAttr.Action) {
+                    if (signalAttr.IsAction) {
                         flags |= SignalFlags.Action;
                     }
 
-                    if (signalAttr.NoHooks) {
-                        flags |= SignalFlags.NoHooks;
+                    if (signalAttr.IsNoHooks) {
+                        flags |= SignalFlags.IsNoHooks;
                     }
 
                     if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {

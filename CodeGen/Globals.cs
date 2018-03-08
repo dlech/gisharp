@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Linq;
+using GISharp.Runtime;
 
 namespace GISharp.CodeGen
 {
@@ -47,6 +49,62 @@ namespace GISharp.CodeGen
                 }
                 throw;
             }
+        }
+
+        /// <summary>
+        /// Because of the dynamic types used in CodeGen, we have to try really
+        /// hard to determine inheritance.
+        /// </summary>
+        public static bool IsSubclassOf<T>(this Type type)
+        {
+            if (type == null) {
+                throw new ArgumentNullException(nameof(type));
+            }
+            try {
+                return type.IsSubclassOf(typeof(T));
+            }
+            catch (NotSupportedException) {
+                return typeof(T).IsAssignableFrom(type);
+            }
+        }
+
+        /// <summary>
+        /// Tests if a type is a delegate type
+        /// </summary>
+        public static bool IsDelegate(this Type type)
+        {
+            return type.IsSubclassOf<Delegate>();
+        }
+
+        /// <summary>
+        /// Tests if a type is an opaque type
+        /// </summary>
+        public static bool IsOpaque(this Type type)
+        {
+            return type.IsSubclassOf<Opaque>();
+        }
+
+        /// <summary>
+        /// Tests if a type is a GInterface type
+        /// </summary>
+        public static bool IsGInterface(this Type type)
+        {
+            // if it is not an interface, then it is definitely not a GInterface
+            if (!type.IsInterface) {
+                return false;
+            }
+
+            // FIXME: this doesn't work because GIrType does not implement CustomAttributes
+            // GInterface will always have [GType] attribute
+            // return type.CustomAttributes.OfType<GTypeAttribute>().Any();
+
+            // for now, making the assumption that GInterface types are not generic
+            // this is probably a safe assumption and will filter out IArray<>
+            if (type.IsGenericType) {
+                return false;
+            }
+
+            return true;
         }
     }
 }

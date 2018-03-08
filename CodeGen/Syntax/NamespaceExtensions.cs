@@ -1,0 +1,104 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using GISharp.CodeGen.Gir;
+using Microsoft.CodeAnalysis;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
+
+namespace GISharp.CodeGen.Syntax
+{
+    public static class NamespaceExtensions
+    {
+        /// <summary>
+        /// Gets the C# namespace declaration for a GIR namespace
+        /// </summary>
+        public static NamespaceDeclarationSyntax GetDeclaration(this Namespace @namespace)
+        {
+            var rootNamespace = ParseName(nameof(GISharp));
+            var namespaceName = IdentifierName(@namespace.Name);
+            var fullName = QualifiedName(rootNamespace, namespaceName);
+            return NamespaceDeclaration(fullName);
+        }
+
+        /// <summary>
+        /// Gets the C# namespace member declarations for a GIR namespace
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetMembers(this Namespace @namespace)
+        {
+            IEnumerable<MemberDeclarationSyntax> getDeclarations(GIBase type)
+            {
+                SyntaxList<MemberDeclarationSyntax> extensionMembers;
+
+                switch (type) {
+                case Alias alias:
+                    yield return alias.GetStructDeclaration()
+                        .WithMembers(alias.GetStructMembers());
+                    break;
+                case Bitfield bitfield:
+                    yield return bitfield.GetEnumDeclaration()
+                        .WithMembers(bitfield.GetEnumMembers());
+                    extensionMembers = bitfield.GetExtClassMembers();
+                    if (extensionMembers.Any()) {
+                        yield return bitfield.GetExtClassDeclaration()
+                            .WithMembers(extensionMembers);
+                    }
+                    break;
+                case Callback callback:
+                    yield return callback.GetUnmanagedDeclaration();
+                    yield return callback.GetManagedDeclaration();
+                    yield return callback.GetFactoryDeclaration();
+                    break;
+                case Class @class:
+                    yield return @class.GetClassDeclaration()
+                        .WithMembers(@class.GetClassMembers());
+                    break;
+                case Enumeration enumeration:
+                    yield return enumeration.GetEnumDeclaration()
+                        .WithMembers(enumeration.GetEnumMembers());
+                    extensionMembers = enumeration.GetExtClassMembers();
+                    if (extensionMembers.Any()) {
+                        yield return enumeration.GetExtClassDeclaration()
+                            .WithMembers(extensionMembers);
+                    }
+                    break;
+                case Interface @interface:
+                    yield return @interface.GetInterfaceDeclaration()
+                        .WithMembers(@interface.GetInterfaceMembers());
+                    yield return @interface.GetExtClassDeclaration()
+                        .WithMembers(@interface.GetExtClassMembers());
+                    break;
+                case Record record:
+                    // TODO: add special handling for IsSource
+                    if (record.GTypeName != null || record.IsDisguised || record.IsSource) {
+                        yield return record.GetClassDeclaration()
+                            .WithMembers(record.GetClassMembers());
+                    }
+                    else if (record.IsGTypeStructFor != null) {
+                        yield return record.GetGTypeStructClassDeclaration()
+                            .WithMembers(record.GetGTypeStructClassMembers());
+                    }
+                    else {
+                        yield return record.GetStructDeclaration()
+                            .WithMembers(record.GetStructMembers());
+                    }
+                    break;
+                case StaticClass staticClass:
+                    yield return staticClass.GetClassDeclaration()
+                        .WithMembers(staticClass.GetClassMembers());
+                    break;
+                case Union union:
+                    yield return union.GetStructDeclaration()
+                        .WithMembers(union.GetStructMembers());
+                    break;
+                default:
+                    throw new ArgumentException("Unknown type declaration node", nameof(type));
+                }
+            }
+
+            var declarations = @namespace.AllTypes.SelectMany(x => getDeclarations(x));
+            return List(declarations);
+        }
+    }
+}

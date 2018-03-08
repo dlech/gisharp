@@ -374,13 +374,14 @@ namespace GISharp.CodeGen.Reflection
                     return typeof(Opaque);
                 }
                 if (element.Name == gi + "record") {
+                    if (element.Attribute(gs + "source").AsBool()) {
+                        return typeof(Source);
+                    }
                     var opaqueAttr = element.Attribute (gs + "opaque");
                     if (opaqueAttr != null) {
                         switch (opaqueAttr.Value) {
                         case "boxed":
                             return typeof(Boxed);
-                        case "source":
-                            return typeof(Source);
                         case "owned":
                             return typeof(Opaque);
                         case "static":

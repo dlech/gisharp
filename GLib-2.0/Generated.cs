@@ -204,6 +204,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeLink = "Link";
 
+        /// <summary>
+        /// Returns the name of the start group of the file.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public GISharp.GLib.Utf8 StartGroup { get => GetStartGroup(); }
+
         public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -287,7 +293,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:0 */
         static extern System.Boolean g_key_file_get_boolean(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -315,15 +321,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the value associated with the key as a boolean,
         ///    or %FALSE if the key was not found or could not be parsed.
@@ -334,17 +334,18 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean GetBoolean(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_get_boolean(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_boolean(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            var ret = ret_;
             return ret;
         }
 
@@ -415,15 +416,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// 
         ///    the values associated with the key as a list of booleans, or %NULL if the
@@ -436,12 +431,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Runtime.IArray<System.Boolean> GetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_boolean_list(this_, groupName_, key_,out length_,ref error_);
+            var ret_ = g_key_file_get_boolean_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -509,9 +503,6 @@ namespace GISharp.GLib
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a comment that should be freed with g_free()
         /// </returns>
@@ -521,11 +512,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_comment(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_comment(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -593,15 +584,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the value associated with the key as a double, or
         ///     0.0 if the key was not found or could not be parsed.
@@ -612,17 +597,18 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public System.Double GetDouble(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_get_double(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_double(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            var ret = ret_;
             return ret;
         }
 
@@ -693,15 +679,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// 
         ///     the values associated with the key as a list of doubles, or %NULL if the
@@ -714,12 +694,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Runtime.IArray<System.Double> GetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_double_list(this_, groupName_, key_,out length_,ref error_);
+            var ret_ = g_key_file_get_double_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -774,8 +753,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetGroups(out System.UIntPtr length)
         {
-            var this_ = this.Handle;
-            var ret_ = g_key_file_get_groups(this_,out length);
+            var keyFile_ = Handle;
+            var ret_ = g_key_file_get_groups(keyFile_,out var length_);
+            length = length_;
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -827,15 +807,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a non-%NULL group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a non-%NULL key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the value associated with the key as a signed 64-bit integer, or
         /// 0 if the key was not found or could not be parsed.
@@ -846,17 +820,18 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int64 GetInt64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_get_int64(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_int64(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            var ret = ret_;
             return ret;
         }
 
@@ -919,15 +894,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the value associated with the key as an integer, or
         ///     0 if the key was not found or could not be parsed.
@@ -938,17 +907,18 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Int32 GetInteger(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_get_integer(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_integer(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            var ret = ret_;
             return ret;
         }
 
@@ -1021,15 +991,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// 
         ///     the values associated with the key as a list of integers, or %NULL if
@@ -1042,12 +1006,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Runtime.IArray<System.Int32> GetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_integer_list(this_, groupName_, key_,out length_,ref error_);
+            var ret_ = g_key_file_get_integer_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1111,9 +1074,6 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="length">
         /// return location for the number of keys returned, or %NULL
         /// </param>
@@ -1127,16 +1087,17 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetKeys(GISharp.GLib.Utf8 groupName, out System.UIntPtr length)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_keys(this_, groupName_,out length,ref error_);
+            var ret_ = g_key_file_get_keys(keyFile_,groupName_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            length = length_;
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -1206,15 +1167,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="locale">
         /// a locale identifier or %NULL
         /// </param>
@@ -1228,12 +1183,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetLocaleString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var locale_ = locale?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_locale_string(this_, groupName_, key_, locale_,ref error_);
+            var ret_ = g_key_file_get_locale_string(keyFile_,groupName_,key_,locale_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1322,15 +1277,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="locale">
         /// a locale identifier or %NULL
         /// </param>
@@ -1345,13 +1294,12 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetLocaleStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var locale_ = locale?.Handle ?? System.IntPtr.Zero;
-            System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_locale_string_list(this_, groupName_, key_, locale_,out length_,ref error_);
+            var ret_ = g_key_file_get_locale_string_list(keyFile_,groupName_,key_,locale_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1387,15 +1335,12 @@ namespace GISharp.GLib
         /// The start group of the key file.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public GISharp.GLib.Utf8 StartGroup
+        private GISharp.GLib.Utf8 GetStartGroup()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret_ = g_key_file_get_start_group(this_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
-                return ret;
-            }
+            var keyFile_ = Handle;
+            var ret_ = g_key_file_get_start_group(keyFile_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -1457,15 +1402,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a newly allocated string or %NULL if the specified
         ///   key cannot be found.
@@ -1476,11 +1415,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_string(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_string(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1555,15 +1494,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// 
         ///  a %NULL-terminated string array or %NULL if the specified
@@ -1575,12 +1508,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Strv GetStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_string_list(this_, groupName_, key_,out length_,ref error_);
+            var ret_ = g_key_file_get_string_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1638,15 +1570,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a non-%NULL group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a non-%NULL key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the value associated with the key as an unsigned 64-bit integer,
         /// or 0 if the key was not found or could not be parsed.
@@ -1657,17 +1583,18 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.UInt64 GetUint64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_get_uint64(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_uint64(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            var ret = ret_;
             return ret;
         }
 
@@ -1728,15 +1655,9 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a newly allocated string or %NULL if the specified
         ///  key cannot be found.
@@ -1747,11 +1668,11 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 GetValue(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_get_value(this_, groupName_, key_,ref error_);
+            var ret_ = g_key_file_get_value(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1793,9 +1714,6 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// %TRUE if @group_name is a part of @key_file, %FALSE
         /// otherwise.
@@ -1803,9 +1721,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HasGroup(GISharp.GLib.Utf8 groupName)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var ret = g_key_file_has_group(this_, groupName_);
+            var ret_ = g_key_file_has_group(keyFile_,groupName_);
+            var ret = ret_;
             return ret;
         }
 
@@ -1831,7 +1750,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.50")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_load_from_bytes(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -1853,32 +1772,25 @@ namespace GISharp.GLib
         /// <param name="bytes">
         /// a #GBytes
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="bytes"/> is <c>null</c>.
-        ///</exception>
         /// <param name="flags">
         /// flags from #GKeyFileFlags
         /// </param>
-        /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.50")]
-        public System.Boolean LoadFromBytes(GISharp.GLib.Bytes bytes, GISharp.GLib.KeyFileFlags flags)
+        public void LoadFromBytes(GISharp.GLib.Bytes bytes, GISharp.GLib.KeyFileFlags flags)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var bytes_ = bytes?.Handle ?? throw new System.ArgumentNullException(nameof(bytes));
+            var flags_ = flags;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_load_from_bytes(this_, bytes_, flags,ref error_);
+            g_key_file_load_from_bytes(keyFile_, bytes_, flags_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -1906,7 +1818,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_load_from_data(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -1931,35 +1843,29 @@ namespace GISharp.GLib
         /// <param name="data">
         /// key file loaded in memory
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="data"/> is <c>null</c>.
-        ///</exception>
         /// <param name="length">
         /// the length of @data in bytes (or (gsize)-1 if data is nul-terminated)
         /// </param>
         /// <param name="flags">
         /// flags from #GKeyFileFlags
         /// </param>
-        /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean LoadFromData(GISharp.GLib.Utf8 data, System.UIntPtr length, GISharp.GLib.KeyFileFlags flags)
+        public void LoadFromData(GISharp.GLib.Utf8 data, System.UIntPtr length, GISharp.GLib.KeyFileFlags flags)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var data_ = data?.Handle ?? throw new System.ArgumentNullException(nameof(data));
+            var length_ = length;
+            var flags_ = flags;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_load_from_data(this_, data_, length, flags,ref error_);
+            g_key_file_load_from_data(keyFile_, data_, length_, flags_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -1991,7 +1897,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_load_from_data_dirs(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2019,9 +1925,6 @@ namespace GISharp.GLib
         /// <param name="file">
         /// a relative path to a filename to open and parse
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="file"/> is <c>null</c>.
-        ///</exception>
         /// <param name="fullPath">
         /// return location for a string containing the full path
         ///   of the file, or %NULL
@@ -2029,20 +1932,17 @@ namespace GISharp.GLib
         /// <param name="flags">
         /// flags from #GKeyFileFlags
         /// </param>
-        /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE othewise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean TryLoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
+        public void LoadFromDataDirs(GISharp.GLib.Filename file, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
-            System.IntPtr fullPath_;
+            var flags_ = flags;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_load_from_data_dirs(this_, file_,out fullPath_, flags,ref error_);
+            g_key_file_load_from_data_dirs(keyFile_, file_,out var fullPath_, flags_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2050,7 +1950,6 @@ namespace GISharp.GLib
             }
 
             fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Filename>(fullPath_, GISharp.Runtime.Transfer.Full);
-            return ret;
         }
 
         /// <summary>
@@ -2090,7 +1989,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_load_from_dirs(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2098,7 +1997,7 @@ namespace GISharp.GLib
         /* <type name="filename" type="gchar*" managed-name="Filename" is-pointer="1" /> */
         /* transfer-ownership:none */
         System.IntPtr file,
-        /* <array type="gchar**" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="filename" managed-name="Filename" />
 * </array> */
         /* transfer-ownership:none */
@@ -2128,15 +2027,9 @@ namespace GISharp.GLib
         /// <param name="file">
         /// a relative path to a filename to open and parse
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="file"/> is <c>null</c>.
-        ///</exception>
         /// <param name="searchDirs">
         /// %NULL-terminated array of directories to search
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="searchDirs"/> is <c>null</c>.
-        ///</exception>
         /// <param name="fullPath">
         /// return location for a string containing the full path
         ///   of the file, or %NULL
@@ -2144,21 +2037,18 @@ namespace GISharp.GLib
         /// <param name="flags">
         /// flags from #GKeyFileFlags
         /// </param>
-        /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public System.Boolean TryLoadFromDirs(GISharp.GLib.Filename file, GISharp.Runtime.IArray<GISharp.GLib.Filename> searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
+        public void LoadFromDirs(GISharp.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.GLib.Filename fullPath, GISharp.GLib.KeyFileFlags flags)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
-            var searchDirs_ = searchDirs?.Data ?? throw new System.ArgumentNullException(nameof(searchDirs));
-            System.IntPtr fullPath_;
+            var searchDirs_ = searchDirs?.Handle ?? throw new System.ArgumentNullException(nameof(searchDirs));
+            var flags_ = flags;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_load_from_dirs(this_, file_, searchDirs_,out fullPath_, flags,ref error_);
+            g_key_file_load_from_dirs(keyFile_, file_, searchDirs_,out var fullPath_, flags_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2166,7 +2056,6 @@ namespace GISharp.GLib
             }
 
             fullPath = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Filename>(fullPath_, GISharp.Runtime.Transfer.Full);
-            return ret;
         }
 
         /// <summary>
@@ -2198,7 +2087,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_load_from_file(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2227,32 +2116,25 @@ namespace GISharp.GLib
         /// <param name="file">
         /// the path of a filename to load, in the GLib filename encoding
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="file"/> is <c>null</c>.
-        ///</exception>
         /// <param name="flags">
         /// flags from #GKeyFileFlags
         /// </param>
-        /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean LoadFromFile(GISharp.GLib.Filename file, GISharp.GLib.KeyFileFlags flags)
+        public void LoadFromFile(GISharp.GLib.Filename file, GISharp.GLib.KeyFileFlags flags)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var file_ = file?.Handle ?? throw new System.ArgumentNullException(nameof(file));
+            var flags_ = flags;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_load_from_file(this_, file_, flags,ref error_);
+            g_key_file_load_from_file(keyFile_, file_, flags_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2279,7 +2161,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_remove_comment(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2306,27 +2188,22 @@ namespace GISharp.GLib
         /// <param name="key">
         /// a key
         /// </param>
-        /// <returns>
-        /// %TRUE if the comment was removed, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean RemoveComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
+        public void RemoveComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_remove_comment(this_, groupName_, key_,ref error_);
+            g_key_file_remove_comment(keyFile_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2348,7 +2225,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_remove_group(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2367,29 +2244,21 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
-        /// <returns>
-        /// %TRUE if the group was removed, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean RemoveGroup(GISharp.GLib.Utf8 groupName)
+        public void RemoveGroup(GISharp.GLib.Utf8 groupName)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_remove_group(this_, groupName_,ref error_);
+            g_key_file_remove_group(keyFile_, groupName_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2413,7 +2282,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_remove_key(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2434,36 +2303,25 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key name to remove
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
-        /// <returns>
-        /// %TRUE if the key was removed, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean RemoveKey(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
+        public void RemoveKey(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_remove_key(this_, groupName_, key_,ref error_);
+            g_key_file_remove_key(keyFile_, groupName_, key_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2489,7 +2347,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_save_to_file(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2512,29 +2370,21 @@ namespace GISharp.GLib
         /// <param name="filename">
         /// the name of the file to write to
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="filename"/> is <c>null</c>.
-        ///</exception>
-        /// <returns>
-        /// %TRUE if successful, else %FALSE with @error set
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public System.Boolean SaveToFile(GISharp.GLib.Utf8 filename)
+        public void SaveToFile(GISharp.GLib.Utf8 filename)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var filename_ = filename?.Handle ?? throw new System.ArgumentNullException(nameof(filename));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_save_to_file(this_, filename_,ref error_);
+            g_key_file_save_to_file(keyFile_, filename_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2578,25 +2428,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// %TRUE or %FALSE
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetBoolean(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Boolean value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            g_key_file_set_boolean(this_, groupName_, key_, value);
+            var value_ = value;
+            g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -2650,30 +2495,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="list">
         /// an array of boolean values
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="list"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetBooleanList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Boolean> list)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
-            var length_ = (System.UIntPtr)(list?.Length ?? 0);
-            g_key_file_set_boolean_list(this_, groupName_, key_, list_, length_);
+            var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
+            g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
         }
 
         /// <summary>
@@ -2708,7 +2543,7 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none skip:1 */
         static extern System.Boolean g_key_file_set_comment(
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none */
@@ -2746,31 +2581,23 @@ namespace GISharp.GLib
         /// <param name="comment">
         /// a comment
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="comment"/> is <c>null</c>.
-        ///</exception>
-        /// <returns>
-        /// %TRUE if the comment was written, %FALSE otherwise
-        /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean SetComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 comment)
+        public void SetComment(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 comment)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
             var key_ = key?.Handle ?? System.IntPtr.Zero;
             var comment_ = comment?.Handle ?? throw new System.ArgumentNullException(nameof(comment));
             var error_ = System.IntPtr.Zero;
-            var ret = g_key_file_set_comment(this_, groupName_, key_, comment_,ref error_);
+            g_key_file_set_comment(keyFile_, groupName_, key_, comment_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
-
-            return ret;
         }
 
         /// <summary>
@@ -2814,25 +2641,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// an double value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetDouble(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Double value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            g_key_file_set_double(this_, groupName_, key_, value);
+            var value_ = value;
+            g_key_file_set_double(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -2884,30 +2706,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="list">
         /// an array of double values
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="list"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetDoubleList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Double> list)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
-            var length_ = (System.UIntPtr)(list?.Length ?? 0);
-            g_key_file_set_double_list(this_, groupName_, key_, list_, length_);
+            var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
+            g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
         }
 
         /// <summary>
@@ -2951,25 +2763,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public void SetInt64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int64 value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            g_key_file_set_int64(this_, groupName_, key_, value);
+            var value_ = value;
+            g_key_file_set_int64(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -3013,25 +2820,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetInteger(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.Int32 value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            g_key_file_set_integer(this_, groupName_, key_, value);
+            var value_ = value;
+            g_key_file_set_integer(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -3083,30 +2885,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="list">
         /// an array of integer values
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="list"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetIntegerList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.Runtime.IArray<System.Int32> list)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var list_ = list?.Data ?? throw new System.ArgumentNullException(nameof(list));
-            var length_ = (System.UIntPtr)(list?.Length ?? 0);
-            g_key_file_set_integer_list(this_, groupName_, key_, list_, length_);
+            var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
+            g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
         }
 
         /// <summary>
@@ -3143,8 +2935,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetListSeparator(System.SByte separator)
         {
-            var this_ = this.Handle;
-            g_key_file_set_list_separator(this_, separator);
+            var keyFile_ = Handle;
+            var separator_ = separator;
+            g_key_file_set_list_separator(keyFile_, separator_);
         }
 
         /// <summary>
@@ -3194,36 +2987,24 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="locale">
         /// a locale identifier
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="locale"/> is <c>null</c>.
-        ///</exception>
         /// <param name="string">
         /// a string
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="string"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetLocaleString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale, GISharp.GLib.Utf8 @string)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var locale_ = locale?.Handle ?? throw new System.ArgumentNullException(nameof(locale));
             var @string_ = @string?.Handle ?? throw new System.ArgumentNullException(nameof(@string));
-            g_key_file_set_locale_string(this_, groupName_, key_, locale_, @string_);
+            g_key_file_set_locale_string(keyFile_, groupName_, key_, locale_, @string_);
         }
 
         /// <summary>
@@ -3276,47 +3057,6 @@ namespace GISharp.GLib
         System.UIntPtr length);
 
         /// <summary>
-        /// Associates a list of string values for @key and @locale under
-        /// @group_name.  If the translation for @key cannot be found then
-        /// it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="locale">
-        /// a locale identifier
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="locale"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="list">
-        /// a %NULL-terminated array of locale string values
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="list"/> is <c>null</c>.
-        ///</exception>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetLocaleStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 locale, GISharp.GLib.Strv list)
-        {
-            var this_ = this.Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? throw new System.ArgumentNullException(nameof(locale));
-            var list_ = list?.Handle ?? throw new System.ArgumentNullException(nameof(list));
-            var length_ = (System.UIntPtr)(list?.Length ?? 0);
-            g_key_file_set_locale_string_list(this_, groupName_, key_, locale_, list_, length_);
-        }
-
-        /// <summary>
         /// Associates a new string value with @key under @group_name.
         /// If @key cannot be found then it is created.
         /// If @group_name cannot be found then it is created.
@@ -3363,29 +3103,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="string">
         /// a string
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="string"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetString(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 @string)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var @string_ = @string?.Handle ?? throw new System.ArgumentNullException(nameof(@string));
-            g_key_file_set_string(this_, groupName_, key_, @string_);
+            g_key_file_set_string(keyFile_, groupName_, key_, @string_);
         }
 
         /// <summary>
@@ -3432,40 +3163,6 @@ namespace GISharp.GLib
         System.UIntPtr length);
 
         /// <summary>
-        /// Associates a list of string values for @key under @group_name.
-        /// If @key cannot be found then it is created.
-        /// If @group_name cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
-        /// <param name="list">
-        /// an array of string values
-        /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="list"/> is <c>null</c>.
-        ///</exception>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetStringList(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Strv list)
-        {
-            var this_ = this.Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var list_ = list?.Handle ?? throw new System.ArgumentNullException(nameof(list));
-            var length_ = (System.UIntPtr)(list?.Length ?? 0);
-            g_key_file_set_string_list(this_, groupName_, key_, list_, length_);
-        }
-
-        /// <summary>
         /// Associates a new integer value with @key under @group_name.
         /// If @key cannot be found then it is created.
         /// </summary>
@@ -3506,25 +3203,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public void SetUint64(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, System.UInt64 value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            g_key_file_set_uint64(this_, groupName_, key_, value);
+            var value_ = value;
+            g_key_file_set_uint64(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -3578,29 +3270,20 @@ namespace GISharp.GLib
         /// <param name="groupName">
         /// a group name
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="groupName"/> is <c>null</c>.
-        ///</exception>
         /// <param name="key">
         /// a key
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// a string
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="value"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetValue(GISharp.GLib.Utf8 groupName, GISharp.GLib.Utf8 key, GISharp.GLib.Utf8 value)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
-            g_key_file_set_value(this_, groupName_, key_, value_);
+            g_key_file_set_value(keyFile_, groupName_, key_, value_);
         }
 
         /// <summary>
@@ -3660,15 +3343,16 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.GLib.Utf8 ToData(out System.UIntPtr length)
         {
-            var this_ = this.Handle;
+            var keyFile_ = Handle;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_key_file_to_data(this_,out length,ref error_);
+            var ret_ = g_key_file_to_data(keyFile_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            length = length_;
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -3723,20 +3407,18 @@ namespace GISharp.GLib
         InvalidValue = 5
     }
 
-    public static class KeyFileErrorDomain
+    public partial class KeyFileErrorDomain
     {
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
         static extern GISharp.GLib.Quark g_key_file_error_quark();
 
-        public static GISharp.GLib.Quark Quark
+        public static GISharp.GLib.Quark ErrorQuark()
         {
-            get
-            {
-                var ret = g_key_file_error_quark();
-                return ret;
-            }
+            var ret_ = g_key_file_error_quark();
+            var ret = ret_;
+            return ret;
         }
     }
 
@@ -3825,6 +3507,8 @@ namespace GISharp.GLib
     /// options.
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+    /* transfer-ownership:none skip:1 */
     public delegate System.Boolean UnmanagedOptionArgFunc(
     /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
     /* transfer-ownership:none */
@@ -3846,7 +3530,7 @@ namespace GISharp.GLib
     public delegate void OptionArgFunc(GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value);
 
     /// <summary>
-    /// Factory for creating <see cref="UnmanagedOptionArgFunc"/> methods.
+    /// Factory for creating <see cref="OptionArgFunc"/> methods.
     /// </summary>
     public static class OptionArgFuncFactory
     {
@@ -3867,6 +3551,16 @@ namespace GISharp.GLib
 
             return new GISharp.GLib.OptionArgFunc((GISharp.GLib.Utf8 optionName, GISharp.GLib.Utf8 value) =>
             {
+                var data_ = userData;
+                var optionName_ = optionName?.Handle ?? throw new System.ArgumentNullException(nameof(optionName));
+                var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
+                var error_ = System.IntPtr.Zero;
+                callback(optionName_, value_, data_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             });
         }
 
@@ -3945,6 +3639,47 @@ namespace GISharp.GLib
     /// </summary>
     public sealed partial class OptionContext : GISharp.Runtime.Opaque
     {
+        /// <summary>
+        /// Returns the description. See g_option_context_set_description().
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public GISharp.GLib.Utf8 Description { get => GetDescription(); set => SetDescription(value); }
+
+        /// <summary>
+        /// Returns whether automatic `--help` generation
+        /// is turned on for @context. See g_option_context_set_help_enabled().
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
+
+        /// <summary>
+        /// Returns whether unknown options are ignored or not. See
+        /// g_option_context_set_ignore_unknown_options().
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
+
+        /// <summary>
+        /// Returns a pointer to the main group of @context.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public GISharp.GLib.OptionGroup MainGroup { get => GetMainGroup(); set => SetMainGroup(value); }
+
+        /// <summary>
+        /// Returns whether strict POSIX code is enabled.
+        /// </summary>
+        /// <remarks>
+        /// See g_option_context_set_strict_posix() for more information.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
+
+        /// <summary>
+        /// Returns the summary. See g_option_context_set_summary().
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public GISharp.GLib.Utf8 Summary { get => GetSummary(); set => SetSummary(value); }
+
         public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -4024,7 +3759,8 @@ namespace GISharp.GLib
         private static System.IntPtr New(GISharp.GLib.Utf8 parameterString)
         {
             var parameterString_ = parameterString?.Handle ?? System.IntPtr.Zero;
-            var ret = g_option_context_new(parameterString_);
+            var ret_ = g_option_context_new(parameterString_);
+            var ret = ret_;
             return ret;
         }
 
@@ -4059,15 +3795,12 @@ namespace GISharp.GLib
         /// <param name="group">
         /// the group to add
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="group"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void AddGroup(GISharp.GLib.OptionGroup group)
         {
-            var this_ = this.Handle;
+            var context_ = Handle;
             var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
-            g_option_context_add_group(this_, group_);
+            g_option_context_add_group(context_, group_);
         }
 
         /// <summary>
@@ -4115,22 +3848,12 @@ namespace GISharp.GLib
         /// the description
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.GLib.Utf8 Description
+        private GISharp.GLib.Utf8 GetDescription()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret_ = g_option_context_get_description(this_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                var value_ = value?.Handle ?? System.IntPtr.Zero;
-                g_option_context_set_description(this_, value_);
-            }
+            var context_ = Handle;
+            var ret_ = g_option_context_get_description(context_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
         }
 
         /// <summary>
@@ -4190,9 +3913,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.14")]
         public GISharp.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.GLib.OptionGroup group)
         {
-            var this_ = this.Handle;
+            var context_ = Handle;
+            var mainHelp_ = mainHelp;
             var group_ = group?.Handle ?? System.IntPtr.Zero;
-            var ret_ = g_option_context_get_help(this_, mainHelp, group_);
+            var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -4224,20 +3948,12 @@ namespace GISharp.GLib
         /// %TRUE if automatic help generation is turned on.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean HelpEnabled
+        private System.Boolean GetHelpEnabled()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret = g_option_context_get_help_enabled(this_);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                g_option_context_set_help_enabled(this_, value);
-            }
+            var context_ = Handle;
+            var ret_ = g_option_context_get_help_enabled(context_);
+            var ret = ret_;
+            return ret;
         }
 
         /// <summary>
@@ -4267,20 +3983,12 @@ namespace GISharp.GLib
         /// %TRUE if unknown options are ignored.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean IgnoreUnknownOptions
+        private System.Boolean GetIgnoreUnknownOptions()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret = g_option_context_get_ignore_unknown_options(this_);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                g_option_context_set_ignore_unknown_options(this_, value);
-            }
+            var context_ = Handle;
+            var ret_ = g_option_context_get_ignore_unknown_options(context_);
+            var ret = ret_;
+            return ret;
         }
 
         /// <summary>
@@ -4312,22 +4020,12 @@ namespace GISharp.GLib
         ///  @context and should not be modified or freed.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public GISharp.GLib.OptionGroup MainGroup
+        private GISharp.GLib.OptionGroup GetMainGroup()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret_ = g_option_context_get_main_group(this_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                var value_ = value?.Take() ?? throw new System.ArgumentNullException(nameof(value));
-                g_option_context_set_main_group(this_, value_);
-            }
+            var context_ = Handle;
+            var ret_ = g_option_context_get_main_group(context_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
         }
 
         /// <summary>
@@ -4361,20 +4059,12 @@ namespace GISharp.GLib
         /// %TRUE if strict POSIX is enabled, %FALSE otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public System.Boolean StrictPosix
+        private System.Boolean GetStrictPosix()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret = g_option_context_get_strict_posix(this_);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                g_option_context_set_strict_posix(this_, value);
-            }
+            var context_ = Handle;
+            var ret_ = g_option_context_get_strict_posix(context_);
+            var ret = ret_;
+            return ret;
         }
 
         /// <summary>
@@ -4402,230 +4092,11 @@ namespace GISharp.GLib
         /// the summary
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.GLib.Utf8 Summary
+        private GISharp.GLib.Utf8 GetSummary()
         {
-            get
-            {
-                var this_ = this.Handle;
-                var ret_ = g_option_context_get_summary(this_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
-                return ret;
-            }
-
-            set
-            {
-                var this_ = this.Handle;
-                var value_ = value?.Handle ?? System.IntPtr.Zero;
-                g_option_context_set_summary(this_, value_);
-            }
-        }
-
-        /// <summary>
-        /// Parses the command line arguments, recognizing options
-        /// which have been added to @context. A side-effect of
-        /// calling this function is that g_set_prgname() will be
-        /// called.
-        /// </summary>
-        /// <remarks>
-        /// If the parsing is successful, any parsed arguments are
-        /// removed from the array and @argc and @argv are updated
-        /// accordingly. A '--' option is stripped from @argv
-        /// unless there are unparsed options before and after it,
-        /// or some of the options after it start with '-'. In case
-        /// of an error, @argc and @argv are left unmodified.
-        /// 
-        /// If automatic `--help` support is enabled
-        /// (see g_option_context_set_help_enabled()), and the
-        /// @argv array contains one of the recognized help options,
-        /// this function will produce help output to stdout and
-        /// call `exit (0)`.
-        /// 
-        /// Note that function depends on the [current locale][setlocale] for
-        /// automatic character set conversion of string and filename
-        /// arguments.
-        /// </remarks>
-        /// <param name="context">
-        /// a #GOptionContext
-        /// </param>
-        /// <param name="argc">
-        /// a pointer to the number of command line arguments
-        /// </param>
-        /// <param name="argv">
-        /// a pointer to the array of command line arguments
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// %TRUE if the parsing was successful,
-        ///               %FALSE if an error occurred
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
-        static extern System.Boolean g_option_context_parse(
-        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr context,
-        /* <type name="gint" type="gint*" managed-name="Gint" is-pointer="1" /> */
-        /* direction:inout caller-allocates:0 transfer-ownership:full */
-        ref System.Int32 argc,
-        /* <array length="0" zero-terminated="0" type="gchar***" is-pointer="1">
-*   <type name="utf8" type="gchar**" managed-name="Utf8" />
-* </array> */
-        /* direction:inout caller-allocates:0 transfer-ownership:full */
-        ref System.IntPtr argv,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:inout */
-        ref System.IntPtr error);
-
-        /// <summary>
-        /// Parses the command line arguments, recognizing options
-        /// which have been added to @context. A side-effect of
-        /// calling this function is that g_set_prgname() will be
-        /// called.
-        /// </summary>
-        /// <remarks>
-        /// If the parsing is successful, any parsed arguments are
-        /// removed from the array and @argc and @argv are updated
-        /// accordingly. A '--' option is stripped from @argv
-        /// unless there are unparsed options before and after it,
-        /// or some of the options after it start with '-'. In case
-        /// of an error, @argc and @argv are left unmodified.
-        /// 
-        /// If automatic `--help` support is enabled
-        /// (see g_option_context_set_help_enabled()), and the
-        /// @argv array contains one of the recognized help options,
-        /// this function will produce help output to stdout and
-        /// call `exit (0)`.
-        /// 
-        /// Note that function depends on the [current locale][setlocale] for
-        /// automatic character set conversion of string and filename
-        /// arguments.
-        /// </remarks>
-        /// <param name="argv">
-        /// a pointer to the array of command line arguments
-        /// </param>
-        /// <returns>
-        /// %TRUE if the parsing was successful,
-        ///               %FALSE if an error occurred
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public System.Boolean Parse(ref GISharp.Runtime.IArray<GISharp.GLib.Utf8> argv)
-        {
-            var this_ = this.Handle;
-            var argv_ = argv?.TakeData().Item1 ?? System.IntPtr.Zero;
-            var argc_ = (System.Int32)(argv?.Length ?? 0);
-            var error_ = System.IntPtr.Zero;
-            var ret = g_option_context_parse(this_,ref argc_,ref argv_,ref error_);
-            if (error_ != System.IntPtr.Zero)
-            {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
-
-            argv = GISharp.Runtime.CPtrArray.GetInstance<GISharp.GLib.Utf8>(argv_, (int)argc_, GISharp.Runtime.Transfer.Full);
-            return ret;
-        }
-
-        /// <summary>
-        /// Parses the command line arguments.
-        /// </summary>
-        /// <remarks>
-        /// This function is similar to g_option_context_parse() except that it
-        /// respects the normal memory rules when dealing with a strv instead of
-        /// assuming that the passed-in array is the argv of the main function.
-        /// 
-        /// In particular, strings that are removed from the arguments list will
-        /// be freed using g_free().
-        /// 
-        /// On Windows, the strings are expected to be in UTF-8.  This is in
-        /// contrast to g_option_context_parse() which expects them to be in the
-        /// system codepage, which is how they are passed as @argv to main().
-        /// See g_win32_get_command_line() for a solution.
-        /// 
-        /// This function is useful if you are trying to use #GOptionContext with
-        /// #GApplication.
-        /// </remarks>
-        /// <param name="context">
-        /// a #GOptionContext
-        /// </param>
-        /// <param name="arguments">
-        /// a pointer to the
-        ///    command line arguments (which must be in UTF-8 on Windows)
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// %TRUE if the parsing was successful,
-        ///          %FALSE if an error occurred
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
-        static extern System.Boolean g_option_context_parse_strv(
-        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
-        /* transfer-ownership:none */
-        System.IntPtr context,
-        /* <array zero-terminated="1" type="gchar***" is-pointer="1">
-*   <type name="utf8" type="gchar**" managed-name="Utf8" />
-* </array> */
-        /* direction:inout caller-allocates:0 transfer-ownership:full */
-        ref System.IntPtr arguments,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:inout */
-        ref System.IntPtr error);
-
-        /// <summary>
-        /// Parses the command line arguments.
-        /// </summary>
-        /// <remarks>
-        /// This function is similar to g_option_context_parse() except that it
-        /// respects the normal memory rules when dealing with a strv instead of
-        /// assuming that the passed-in array is the argv of the main function.
-        /// 
-        /// In particular, strings that are removed from the arguments list will
-        /// be freed using g_free().
-        /// 
-        /// On Windows, the strings are expected to be in UTF-8.  This is in
-        /// contrast to g_option_context_parse() which expects them to be in the
-        /// system codepage, which is how they are passed as @argv to main().
-        /// See g_win32_get_command_line() for a solution.
-        /// 
-        /// This function is useful if you are trying to use #GOptionContext with
-        /// #GApplication.
-        /// </remarks>
-        /// <param name="arguments">
-        /// a pointer to the
-        ///    command line arguments (which must be in UTF-8 on Windows)
-        /// </param>
-        /// <returns>
-        /// %TRUE if the parsing was successful,
-        ///          %FALSE if an error occurred
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public System.Boolean Parse(ref GISharp.GLib.Strv arguments)
-        {
-            var this_ = this.Handle;
-            var arguments_ = arguments?.Take() ?? System.IntPtr.Zero;
-            var error_ = System.IntPtr.Zero;
-            var ret = g_option_context_parse_strv(this_,ref arguments_,ref error_);
-            if (error_ != System.IntPtr.Zero)
-            {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
-
-            arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Strv>(arguments_, GISharp.Runtime.Transfer.Full);
+            var context_ = Handle;
+            var ret_ = g_option_context_get_summary(context_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -4657,6 +4128,26 @@ namespace GISharp.GLib
         System.IntPtr description);
 
         /// <summary>
+        /// Adds a string to be displayed in `--help` output after the list
+        /// of options. This text often includes a bug reporting address.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// g_option_context_set_translate_func()).
+        /// </remarks>
+        /// <param name="description">
+        /// a string to be shown in `--help` output
+        ///   after the list of options, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        private void SetDescription(GISharp.GLib.Utf8 description)
+        {
+            var context_ = Handle;
+            var description_ = description?.Handle ?? System.IntPtr.Zero;
+            g_option_context_set_description(context_, description_);
+        }
+
+        /// <summary>
         /// Enables or disables automatic generation of `--help` output.
         /// By default, g_option_context_parse() recognizes `--help`, `-h`,
         /// `-?`, `--help-all` and `--help-groupname` and creates suitable
@@ -4679,6 +4170,23 @@ namespace GISharp.GLib
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         System.Boolean helpEnabled);
+
+        /// <summary>
+        /// Enables or disables automatic generation of `--help` output.
+        /// By default, g_option_context_parse() recognizes `--help`, `-h`,
+        /// `-?`, `--help-all` and `--help-groupname` and creates suitable
+        /// output to stdout.
+        /// </summary>
+        /// <param name="helpEnabled">
+        /// %TRUE to enable `--help`, %FALSE to disable it
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        private void SetHelpEnabled(System.Boolean helpEnabled)
+        {
+            var context_ = Handle;
+            var helpEnabled_ = helpEnabled;
+            g_option_context_set_help_enabled(context_, helpEnabled_);
+        }
 
         /// <summary>
         /// Sets whether to ignore unknown options or not. If an argument is
@@ -4710,6 +4218,28 @@ namespace GISharp.GLib
         System.Boolean ignoreUnknown);
 
         /// <summary>
+        /// Sets whether to ignore unknown options or not. If an argument is
+        /// ignored, it is left in the @argv array after parsing. By default,
+        /// g_option_context_parse() treats unknown options as error.
+        /// </summary>
+        /// <remarks>
+        /// This setting does not affect non-option arguments (i.e. arguments
+        /// which don't start with a dash). But note that GOption cannot reliably
+        /// determine whether a non-option belongs to a preceding unknown option.
+        /// </remarks>
+        /// <param name="ignoreUnknown">
+        /// %TRUE to ignore unknown options, %FALSE to produce
+        ///    an error when unknown options are met
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        private void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
+        {
+            var context_ = Handle;
+            var ignoreUnknown_ = ignoreUnknown;
+            g_option_context_set_ignore_unknown_options(context_, ignoreUnknown_);
+        }
+
+        /// <summary>
         /// Sets a #GOptionGroup as main group of the @context.
         /// This has the same effect as calling g_option_context_add_group(),
         /// the only difference is that the options in the main group are
@@ -4732,6 +4262,23 @@ namespace GISharp.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:full */
         System.IntPtr group);
+
+        /// <summary>
+        /// Sets a #GOptionGroup as main group of the @context.
+        /// This has the same effect as calling g_option_context_add_group(),
+        /// the only difference is that the options in the main group are
+        /// treated differently when generating `--help` output.
+        /// </summary>
+        /// <param name="group">
+        /// the group to set as main group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        private void SetMainGroup(GISharp.GLib.OptionGroup group)
+        {
+            var context_ = Handle;
+            var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
+            g_option_context_set_main_group(context_, group_);
+        }
 
         /// <summary>
         /// Sets strict POSIX mode.
@@ -4779,6 +4326,44 @@ namespace GISharp.GLib
         System.Boolean strictPosix);
 
         /// <summary>
+        /// Sets strict POSIX mode.
+        /// </summary>
+        /// <remarks>
+        /// By default, this mode is disabled.
+        /// 
+        /// In strict POSIX mode, the first non-argument parameter encountered
+        /// (eg: filename) terminates argument processing.  Remaining arguments
+        /// are treated as non-options and are not attempted to be parsed.
+        /// 
+        /// If strict POSIX mode is disabled then parsing is done in the GNU way
+        /// where option arguments can be freely mixed with non-options.
+        /// 
+        /// As an example, consider "ls foo -l".  With GNU style parsing, this
+        /// will list "foo" in long mode.  In strict POSIX style, this will list
+        /// the files named "foo" and "-l".
+        /// 
+        /// It may be useful to force strict POSIX mode when creating "verb
+        /// style" command line tools.  For example, the "gsettings" command line
+        /// tool supports the global option "--schemadir" as well as many
+        /// subcommands ("get", "set", etc.) which each have their own set of
+        /// arguments.  Using strict POSIX mode will allow parsing the global
+        /// options up to the verb name while leaving the remaining options to be
+        /// parsed by the relevant subcommand (which can be determined by
+        /// examining the verb name, which should be present in argv[1] after
+        /// parsing).
+        /// </remarks>
+        /// <param name="strictPosix">
+        /// the new value
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        private void SetStrictPosix(System.Boolean strictPosix)
+        {
+            var context_ = Handle;
+            var strictPosix_ = strictPosix;
+            g_option_context_set_strict_posix(context_, strictPosix_);
+        }
+
+        /// <summary>
         /// Adds a string to be displayed in `--help` output before the list
         /// of options. This is typically a summary of the program functionality.
         /// </summary>
@@ -4805,6 +4390,27 @@ namespace GISharp.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         System.IntPtr summary);
+
+        /// <summary>
+        /// Adds a string to be displayed in `--help` output before the list
+        /// of options. This is typically a summary of the program functionality.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// g_option_context_set_translate_func() and
+        /// g_option_context_set_translation_domain()).
+        /// </remarks>
+        /// <param name="summary">
+        /// a string to be shown in `--help` output
+        ///  before the list of options, or %NULL
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        private void SetSummary(GISharp.GLib.Utf8 summary)
+        {
+            var context_ = Handle;
+            var summary_ = summary?.Handle ?? System.IntPtr.Zero;
+            g_option_context_set_summary(context_, summary_);
+        }
 
         /// <summary>
         /// Sets the function which is used to translate the contexts
@@ -4870,11 +4476,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetTranslateFunc(GISharp.GLib.TranslateFunc func)
         {
-            var this_ = this.Handle;
-            var (func_, destroyNotify_, data_) = (func == null) ?
-            (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
-            GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
-            g_option_context_set_translate_func(this_, func_, data_, destroyNotify_);
+            var context_ = Handle;
+            var (func_, destroyNotify_, data_) = GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
 
         /// <summary>
@@ -4906,15 +4510,12 @@ namespace GISharp.GLib
         /// <param name="domain">
         /// the domain to use
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="domain"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetTranslationDomain(GISharp.GLib.Utf8 domain)
         {
-            var this_ = this.Handle;
+            var context_ = Handle;
             var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
-            g_option_context_set_translation_domain(this_, domain_);
+            g_option_context_set_translation_domain(context_, domain_);
         }
     }
 
@@ -4923,7 +4524,6 @@ namespace GISharp.GLib
     /// must be added to a #GOptionGroup with g_option_context_add_main_entries()
     /// or g_option_group_add_entries().
     /// </summary>
-    [System.Runtime.InteropServices.StructLayoutAttribute(System.Runtime.InteropServices.LayoutKind.Sequential)]
     public partial struct OptionEntry
     {
         /// <summary>
@@ -5012,20 +4612,18 @@ namespace GISharp.GLib
         Failed = 2
     }
 
-    public static class OptionErrorDomain
+    public partial class OptionErrorDomain
     {
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
         static extern GISharp.GLib.Quark g_option_error_quark();
 
-        public static GISharp.GLib.Quark Quark
+        public static GISharp.GLib.Quark OptionErrorQuark()
         {
-            get
-            {
-                var ret = g_option_error_quark();
-                return ret;
-            }
+            var ret_ = g_option_error_quark();
+            var ret = ret_;
+            return ret;
         }
     }
 
@@ -5033,6 +4631,8 @@ namespace GISharp.GLib
     /// The type of function to be used as callback when a parse error occurs.
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    /* <type name="none" type="void" managed-name="None" /> */
+    /* transfer-ownership:none */
     public delegate void UnmanagedOptionErrorFunc(
     /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
     /* transfer-ownership:none */
@@ -5053,7 +4653,7 @@ namespace GISharp.GLib
     public delegate void OptionErrorFunc(GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group);
 
     /// <summary>
-    /// Factory for creating <see cref="UnmanagedOptionErrorFunc"/> methods.
+    /// Factory for creating <see cref="OptionErrorFunc"/> methods.
     /// </summary>
     public static class OptionErrorFuncFactory
     {
@@ -5074,6 +4674,16 @@ namespace GISharp.GLib
 
             return new GISharp.GLib.OptionErrorFunc((GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group) =>
             {
+                var data_ = userData;
+                var context_ = context?.Handle ?? throw new System.ArgumentNullException(nameof(context));
+                var group_ = group?.Handle ?? throw new System.ArgumentNullException(nameof(group));
+                var error_ = System.IntPtr.Zero;
+                callback(context_, group_, data_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             });
         }
 
@@ -5398,11 +5008,9 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetTranslateFunc(GISharp.GLib.TranslateFunc func)
         {
-            var this_ = this.Handle;
-            var (func_, destroyNotify_, data_) = (func == null) ?
-            (default(GISharp.GLib.UnmanagedTranslateFunc), default(GISharp.GLib.UnmanagedDestroyNotify), System.IntPtr.Zero) :
-            GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
-            g_option_group_set_translate_func(this_, func_, data_, destroyNotify_);
+            var group_ = Handle;
+            var (func_, destroyNotify_, data_) = GISharp.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
 
         /// <summary>
@@ -5434,15 +5042,12 @@ namespace GISharp.GLib
         /// <param name="domain">
         /// the domain to use
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="domain"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetTranslationDomain(GISharp.GLib.Utf8 domain)
         {
-            var this_ = this.Handle;
+            var group_ = Handle;
             var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
-            g_option_group_set_translation_domain(this_, domain_);
+            g_option_group_set_translation_domain(group_, domain_);
         }
 
         /// <summary>
@@ -5467,6 +5072,8 @@ namespace GISharp.GLib
     /// The type of function that can be called before and after parsing.
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+    /* transfer-ownership:none skip:1 */
     public delegate System.Boolean UnmanagedOptionParseFunc(
     /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
     /* transfer-ownership:none */
@@ -5487,7 +5094,7 @@ namespace GISharp.GLib
     public delegate void OptionParseFunc(GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group);
 
     /// <summary>
-    /// Factory for creating <see cref="UnmanagedOptionParseFunc"/> methods.
+    /// Factory for creating <see cref="OptionParseFunc"/> methods.
     /// </summary>
     public static class OptionParseFuncFactory
     {
@@ -5508,6 +5115,16 @@ namespace GISharp.GLib
 
             return new GISharp.GLib.OptionParseFunc((GISharp.GLib.OptionContext context, GISharp.GLib.OptionGroup group) =>
             {
+                var data_ = userData;
+                var context_ = context?.Handle ?? throw new System.ArgumentNullException(nameof(context));
+                var group_ = group?.Handle ?? throw new System.ArgumentNullException(nameof(group));
+                var error_ = System.IntPtr.Zero;
+                callback(context_, group_, data_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             });
         }
 
@@ -5584,6 +5201,8 @@ namespace GISharp.GLib
     /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+    /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
+    /* transfer-ownership:none */
     public delegate System.IntPtr UnmanagedTranslateFunc(
     /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
     /* transfer-ownership:none */
@@ -5599,7 +5218,7 @@ namespace GISharp.GLib
     public delegate GISharp.GLib.Utf8 TranslateFunc(GISharp.GLib.Utf8 str);
 
     /// <summary>
-    /// Factory for creating <see cref="UnmanagedTranslateFunc"/> methods.
+    /// Factory for creating <see cref="TranslateFunc"/> methods.
     /// </summary>
     public static class TranslateFuncFactory
     {
@@ -5620,7 +5239,11 @@ namespace GISharp.GLib
 
             return new GISharp.GLib.TranslateFunc((GISharp.GLib.Utf8 str) =>
             {
-                return default(GISharp.GLib.Utf8);
+                var data_ = userData;
+                var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str));
+                var ret_ = callback(str_,data_);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+                return ret;
             });
         }
 
@@ -5667,7 +5290,7 @@ namespace GISharp.GLib
                 {
                     Destroy(data_);
                 }
-                var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
                 return ret_;
             }
             catch (System.Exception ex)
@@ -5753,9 +5376,6 @@ namespace GISharp.GLib
         /// <param name="type">
         /// a container type
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="type"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a #GVariantBuilder
         /// </returns>
@@ -5783,9 +5403,6 @@ namespace GISharp.GLib
         /// <param name="type">
         /// a container type
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="type"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a #GVariantBuilder
         /// </returns>
@@ -5846,15 +5463,12 @@ namespace GISharp.GLib
         /// <param name="value">
         /// a #GVariant
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="value"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.24")]
         public void Add(GISharp.GLib.Variant value)
         {
-            var this_ = this.Handle;
+            var builder_ = Handle;
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
-            g_variant_builder_add_value(this_, value_);
+            g_variant_builder_add_value(builder_, value_);
         }
 
         /// <summary>
@@ -5890,8 +5504,8 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.24")]
         public void Close()
         {
-            var this_ = this.Handle;
-            g_variant_builder_close(this_);
+            var builder_ = Handle;
+            g_variant_builder_close(builder_);
         }
 
         /// <summary>
@@ -5955,8 +5569,8 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.24")]
         public GISharp.GLib.Variant End()
         {
-            var this_ = this.Handle;
-            var ret_ = g_variant_builder_end(this_);
+            var builder_ = Handle;
+            var ret_ = g_variant_builder_end(builder_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -6060,15 +5674,12 @@ namespace GISharp.GLib
         /// <param name="type">
         /// the #GVariantType of the container
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="type"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.24")]
         public void Open(GISharp.GLib.VariantType type)
         {
-            var this_ = this.Handle;
+            var builder_ = Handle;
             var type_ = type?.Handle ?? throw new System.ArgumentNullException(nameof(type));
-            g_variant_builder_open(this_, type_);
+            g_variant_builder_open(builder_, type_);
         }
 
         /// <summary>
@@ -6337,18 +5948,16 @@ namespace GISharp.GLib
         /// <param name="key">
         /// the key to lookup in the dictionary
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// %TRUE if @key is in @dict
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public System.Boolean Contains(GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var dict_ = Handle;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var ret = g_variant_dict_contains(this_, key_);
+            var ret_ = g_variant_dict_contains(dict_,key_);
+            var ret = ret_;
             return ret;
         }
 
@@ -6393,8 +6002,8 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         public GISharp.GLib.Variant End()
         {
-            var this_ = this.Handle;
-            var ret_ = g_variant_dict_end(this_);
+            var dict_ = Handle;
+            var ret_ = g_variant_dict_end(dict_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
@@ -6438,22 +6047,16 @@ namespace GISharp.GLib
         /// <param name="key">
         /// the key to insert a value for
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="value">
         /// the value to insert
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="value"/> is <c>null</c>.
-        ///</exception>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public void Insert(GISharp.GLib.Utf8 key, GISharp.GLib.Variant value)
         {
-            var this_ = this.Handle;
+            var dict_ = Handle;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
-            g_variant_dict_insert_value(this_, key_, value_);
+            g_variant_dict_insert_value(dict_, key_, value_);
         }
 
         /// <summary>
@@ -6514,9 +6117,6 @@ namespace GISharp.GLib
         /// <param name="key">
         /// the key to lookup in the dictionary
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <param name="expectedType">
         /// a #GVariantType, or %NULL
         /// </param>
@@ -6526,10 +6126,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         public GISharp.GLib.Variant Lookup(GISharp.GLib.Utf8 key, GISharp.GLib.VariantType expectedType = null)
         {
-            var this_ = this.Handle;
+            var dict_ = Handle;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
             var expectedType_ = expectedType?.Handle ?? System.IntPtr.Zero;
-            var ret_ = g_variant_dict_lookup_value(this_, key_, expectedType_);
+            var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
@@ -6587,18 +6187,16 @@ namespace GISharp.GLib
         /// <param name="key">
         /// the key to remove
         /// </param>
-        /// <exception name="System.ArgumentNullException">
-        /// If <paramref name="key"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// %TRUE if the key was found and removed
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public System.Boolean Remove(GISharp.GLib.Utf8 key)
         {
-            var this_ = this.Handle;
+            var dict_ = Handle;
             var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var ret = g_variant_dict_remove(this_, key_);
+            var ret_ = g_variant_dict_remove(dict_,key_);
+            var ret = ret_;
             return ret;
         }
 
@@ -6757,7 +6355,10 @@ namespace GISharp.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public static GISharp.GLib.Utf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {
-            var ret_ = glib_check_version(requiredMajor, requiredMinor, requiredMicro);
+            var requiredMajor_ = requiredMajor;
+            var requiredMinor_ = requiredMinor;
+            var requiredMicro_ = requiredMicro;
+            var ret_ = glib_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }

@@ -199,7 +199,7 @@ namespace GISharp.Gio.Test
         [Test]
         public void TestParseDetailedNameWithInvalidName ()
         {
-            Assert.That(() => Action.TryParseDetailedName("invalid name", out var actionName, out var target),
+            Assert.That(() => Action.ParseDetailedName("invalid name", out var actionName, out var target),
                 ThrowsGErrorException(VariantParseError.Failed));
             AssertNoGLibLog();
         }
@@ -207,7 +207,7 @@ namespace GISharp.Gio.Test
         [Test]
         public void TestParseDetailedNameActionWithNoTarget ()
         {
-            Assert.That(Action.TryParseDetailedName("action", out var actionName, out var target), Is.True);
+            Action.ParseDetailedName("action", out var actionName, out var target);
             try {
                 Assert.That(actionName, IsEqualToUtf8("action"));
                 Assert.That(target, Is.Null);
@@ -222,7 +222,7 @@ namespace GISharp.Gio.Test
         [Test]
         public void TestParseDetailedNameActionWithStringTarget ()
         {
-            Assert.That(Action.TryParseDetailedName("action::target", out var actionName, out var target), Is.True);
+            Action.ParseDetailedName("action::target", out var actionName, out var target);
             try {
                 Assert.That(actionName, IsEqualToUtf8("action"));
                 Assert.That((string)target, Is.EqualTo("target"));
@@ -237,7 +237,7 @@ namespace GISharp.Gio.Test
         [Test]
         public void TestParseDetailedNameActionWithIntTarget ()
         {
-            Assert.That(Action.TryParseDetailedName("action(42)", out var actionName, out var target), Is.True);
+            Action.ParseDetailedName("action(42)", out var actionName, out var target);
             try {
                 Assert.That(actionName, IsEqualToUtf8("action"));
                 Assert.That((int)target, Is.EqualTo(42));

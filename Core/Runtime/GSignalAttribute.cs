@@ -13,13 +13,13 @@ namespace GISharp.Runtime
 
         public EmissionStage When;
 
-        public bool NoRecurse;
+        public bool IsNoRecurse;
 
-        public bool Detailed;
+        public bool IsDetailed;
 
-        public bool Action;
+        public bool IsAction;
 
-        public bool NoHooks;
+        public bool IsNoHooks;
 
         public GSignalAttribute (string name = null)
         {

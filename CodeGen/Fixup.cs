@@ -18,6 +18,8 @@ using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using GISharp.Runtime;
+using GISharp.CodeGen.Gir;
 
 namespace GISharp.CodeGen
 {
@@ -297,17 +299,6 @@ namespace GISharp.CodeGen
                 element.Add (functionElement);
             }
 
-            // rename all error_quark functions to get_quark so that they
-            // become properties
-            var errorQuarkElements = document.Descendants (gi + "function")
-                .Where (d => d.Attribute ("name").Value.EndsWith ("error_quark", StringComparison.Ordinal));
-            foreach (var element in errorQuarkElements) {
-                if (element.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal)) {
-                    continue;
-                }
-                element.SetAttributeValue("name", "get_quark");
-            }
-
             // add value field to all alias elements
 
             var aliasElements = document.Descendants (gi + "alias");
@@ -371,10 +362,10 @@ namespace GISharp.CodeGen
                     name = shadows.Value;
                 }
 
-                // if method returns bool and contains out parameters, add try_ prefix
+                // if method returns bool and does not throw and contains out parameters, add try_ prefix
                 if (element.Name == gi + "function" || element.Name == gi + "method" || element.Name == gi + "virtual-method" || element.Name == gi + "callback") {
                     var returnTypeElement = element.Element(gi + "return-value")?.Element(gi + "type");
-                    if (returnTypeElement?.Attribute("name")?.Value == "gboolean") {
+                    if (returnTypeElement?.Attribute("name")?.Value == "gboolean" && !element.Attribute("throws").AsBool()) {
                         var paramElements = element.Element(gi + "parameters").Elements(gi + "parameter");
                         if (paramElements.Any(x => x.Attribute("direction").AsString("in") == "out")) {
                             name = "try_" + name;
@@ -579,6 +570,44 @@ namespace GISharp.CodeGen
                 }
             }
 
+            // add skip attribute for bool return values on functions that throw
+
+            foreach (var element in document.Descendants(gi + "return-value")
+                .Where(x => x.Element(gi + "type")?.Attribute("name").AsString() == "gboolean"
+                    && x.Parent.Attribute("throws").AsBool()))
+            {
+                if (element.Attribute("skip") != null) {
+                    continue;
+                }
+                element.SetAttributeValue("skip", "1");
+            }
+
+            // ensure that functions without parameters have an empty <parameters> element
+
+            foreach (var element in document.Descendants(gi + "function")
+                .Concat(document.Descendants(gi + "constructor"))
+                .Concat(document.Descendants(gi + "method"))
+                .Concat(document.Descendants(glib + "signal"))
+                .Where(x => x.Element(gi + "parameters") == null))
+            {
+                element.Add(new XElement(gi + "parameters"));
+            }
+
+            // TODO: add instance parameter and user data parameter for signals
+
+            // first parameter virtual method is instance parameter
+
+            foreach (var element in document.Descendants(gi + "virtual-method")
+                .Concat(document.Descendants(gi + "callback").Where(x => x.Parent.Name == gi + "field")))
+            {
+                if (element.Element(gi + "parameters").Element(gi + "instance-parameter") != null) {
+                    // there is already an instance parameter, so don't make another
+                    continue;
+                }
+                var instanceParam = element.Element(gi + "parameters").Elements(gi + "parameter").First();
+                instanceParam.Name = gi + "instance-parameter";
+            }
+
             // add managed-parameters element
 
             var parameterElements = document.Descendants (gi + "parameters");
@@ -600,6 +629,17 @@ namespace GISharp.CodeGen
                 typeElement.SetAttributeValue(gs + "managed-name", "Unmanaged" + managedNameAttr);
             }
 
+            // add a <type> node for fields with <callback>
+
+            foreach (var element in document.Descendants(gi + "callback")
+                .Where(x => x.Parent.Name == gi + "field"))
+            {
+                var typeElement = new XElement(element);
+                typeElement.RemoveNodes();
+                typeElement.Name = gi + "type";
+                element.AddBeforeSelf(typeElement);
+            }
+
             // flag getters as properties
 
             var getters = document.Descendants ()
@@ -609,13 +649,28 @@ namespace GISharp.CodeGen
                     && (d.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal) || d.Attribute ("name").Value.StartsWith ("is_", StringComparison.Ordinal))
                     && (d.Element (gs + "managed-parameters") == null || !d.Element (gs + "managed-parameters").Elements (gi + "parameter").Any ()));
             foreach (var element in getters) {
-                var name = element.Attribute (gs + "managed-name").Value;
-                if (element.Attribute ("name").Value.StartsWith ("get_", StringComparison.Ordinal)) {
+                var methodName = element.Attribute(gs + "managed-name").Value;
+                var propertyName = methodName;
+                if (element.Attribute("name").Value.StartsWith("get_", StringComparison.Ordinal)) {
                     // drop the Get prefix, but not the Is
-                    name = name.Substring (3);
+                    propertyName = propertyName.Substring(3);
                 }
-                element.SetAttributeValue (gs + "property", name);
-                element.SetAttributeValue (gs + "managed-name", "get_" + name);
+                else {
+                    // In this case, the name starts with "Is", so add "Get"
+                    // prefix to managed name of getter so that it doesn't
+                    // conflict with the property name.
+                    methodName = "Get" + methodName;
+                    element.SetAttributeValue(gs + "managed-name", methodName);
+                }
+
+                // create a new <gs:managed-property> element
+                var propertyElement = new XElement(element);
+                propertyElement.Name = gs + "managed-property";
+                propertyElement.SetAttributeValue(gs + "managed-name", propertyName);
+                element.AddBeforeSelf(propertyElement);
+
+                element.SetAttributeValue(gs + "property-getter-for", propertyName);
+                element.SetAttributeValue(gs + "access-modifiers", "private");
             }
 
             // flag setters as properties (if there is a matching getter only)
@@ -630,7 +685,8 @@ namespace GISharp.CodeGen
                 var name = element.Attribute (gs + "managed-name").Value;
                 // drop the Set prefix
                 name = name.Substring (3);
-                var matchingGetter = element.Parent.Elements (element.Name).SingleOrDefault (e => e.Attribute (gs + "property").AsString () == name);
+                var matchingGetter = element.Parent.Elements(element.Name)
+                    .SingleOrDefault(e => e.Attribute(gs + "property-getter-for").AsString() == name);
                 if (matchingGetter == null) {
                     // we don't want set-only properties
                     continue;
@@ -641,10 +697,10 @@ namespace GISharp.CodeGen
                     // this isn't the setter if the types don't match
                     continue;
                 }
-                element.SetAttributeValue (gs + "property", name);
-                element.SetAttributeValue (gs + "managed-name", "set_" + name);
-                // rename the parameter to "value" since that is what the set accessor in C# requires
-                element.Element (gs + "managed-parameters").Element (gi + "parameter").SetAttributeValue (gs + "managed-name", "value");
+                // TODO: should store access-modifiers in property if different
+                // than getter before overwriting
+                element.SetAttributeValue(gs + "property-setter-for", name);
+                element.SetAttributeValue(gs + "access-modifiers", "private");
             }
         }
 
@@ -1022,10 +1078,18 @@ namespace GISharp.CodeGen
                 var arrayNameAttr = arrayElement.Attribute("name");
                 if (arrayNameAttr == null) {
                     var managedType = arrayElement.GetManagedTypeName();
-                    if (managedType == typeof(GISharp.GLib.Utf8).FullName && arrayElement.Attribute("zero-terminated").AsBool()) {
-                        // zero-terminated string of utf8 == GStrv
-                        return typeof(GISharp.GLib.Strv).FullName;
+
+                    if (arrayElement.Attribute("zero-terminated").AsBool()) {
+                        if (managedType == typeof(GISharp.GLib.Utf8).FullName) {
+                            // zero-terminated array of utf8 == GStrv
+                            return typeof(GISharp.GLib.Strv).FullName;
+                        }
+                        else if (managedType == typeof(GISharp.GLib.Filename).FullName) {
+                            // zero-terminated array of filename == GStrv-ish
+                            return typeof(GISharp.Runtime.FilenameArray).FullName;
+                        }
                     }
+
                     return string.Format("{0}`1[{1}]",
                         string.Concat (typeof(GISharp.Runtime.IArray<>).FullName.TakeWhile (c => c != '`')),
                         managedType);
@@ -1084,6 +1148,64 @@ namespace GISharp.CodeGen
                 return defaultValue;
             }
             return attr.Value;
+        }
+
+        public static Transfer AsTransfer(this XAttribute attribute, string defaultValue)
+        {
+            switch (attribute?.Value ?? defaultValue) {
+            case "none":
+                return Transfer.None;
+            case "container":
+                return Transfer.Container;
+            case "full":
+                return Transfer.Full;
+            default:
+                throw new ArgumentException("Unknown transfer-ownership type");
+            }
+        }
+
+        public static CallbackScope AsScope(this XAttribute attribute)
+        {
+            switch (attribute?.Value) {
+            case null:
+                return CallbackScope.Unknown;
+            case "call":
+                return CallbackScope.Call;
+            case "async":
+                return CallbackScope.Async;
+            case "notified":
+                return CallbackScope.Notified;
+            default:
+                throw new ArgumentException("Unknown scope", nameof(attribute));
+            }
+        }
+
+        public static GIDirection AsDirection(this XAttribute attribute, string defaultValue)
+        {
+            switch (attribute?.Value ?? defaultValue) {
+            case "in":
+                return GIDirection.In;
+            case "out":
+                return GIDirection.Out;
+            case "inout":
+                return GIDirection.InOut;
+            default:
+                throw new ArgumentException("Unknown direction", nameof(attribute));
+            }
+        }
+
+        public static EmissionStage ToEmissionStage(this XAttribute attribute)
+        {
+            switch (attribute.Value) {
+                case "first":
+                    return EmissionStage.First;
+                case "last":
+                    return EmissionStage.Last;
+                case "cleanup":
+                    return EmissionStage.Cleanup;
+                default:
+                    throw new ArgumentException("Unknown when value", nameof(attribute));
+            }
         }
 
         public static string ToPascalCase (this string str)

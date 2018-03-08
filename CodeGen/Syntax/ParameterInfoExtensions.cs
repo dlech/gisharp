@@ -8,18 +8,17 @@ namespace GISharp.CodeGen.Syntax
 {
     public static class ParameterInfoExtensions
     {
-        public static ParameterListSyntax ToSyntax(this IEnumerable<ParameterInfo> parameters, bool withType)
+        public static ParameterListSyntax ToSyntax(this IEnumerable<ParameterInfo> parameters)
         {
-            var parameterSyntaxes = parameters.Select(x => x.ToSyntax(withType));
+            var parameterSyntaxes = parameters.Select(x => x.ToSyntax());
             return ParameterList(SeparatedList(parameterSyntaxes));
         }
 
-        public static ParameterSyntax ToSyntax(this ParameterInfo parameter, bool withType)
+        public static ParameterSyntax ToSyntax(this ParameterInfo parameter)
         {
-            var syntax = Parameter(ParseToken(parameter.Name));
-            if (withType) {
-                syntax = syntax.WithType(parameter.ParameterType.ToSyntax());
-            }
+            var syntax = Parameter(ParseToken(parameter.Name))
+                .WithType(parameter.ParameterType.ToSyntax());
+
             return syntax;
         }
     }

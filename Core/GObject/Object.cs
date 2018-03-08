@@ -122,7 +122,7 @@ namespace GISharp.GObject
         readonly GSignalManager<NotifiedEventArgs> notifySignalManager =
                 new GSignalManager<NotifiedEventArgs>("notify", _GType);
 
-        [GSignal("notify", When = EmissionStage.First, NoRecurse = true, Detailed = true, Action = true, NoHooks = true)]
+        [GSignal("notify", When = EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
         public event EventHandler<NotifiedEventArgs> Notified {
             add => notifySignalManager.Add(this, value);
             remove => notifySignalManager.Remove(value);

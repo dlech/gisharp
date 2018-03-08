@@ -66,7 +66,7 @@
 ### CancellableSource ###
 
 - !add-element
-  xml: <gi:record name="CancellableSource" gs:opaque="source" />
+  xml: <gi:record name="CancellableSource" gs:source="1" />
   xpath: gi:repository/gi:namespace
 - !move-element
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='source_new']
