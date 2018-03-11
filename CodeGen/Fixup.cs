@@ -1164,22 +1164,6 @@ namespace GISharp.CodeGen
             }
         }
 
-        public static CallbackScope AsScope(this XAttribute attribute)
-        {
-            switch (attribute?.Value) {
-            case null:
-                return CallbackScope.Unknown;
-            case "call":
-                return CallbackScope.Call;
-            case "async":
-                return CallbackScope.Async;
-            case "notified":
-                return CallbackScope.Notified;
-            default:
-                throw new ArgumentException("Unknown scope", nameof(attribute));
-            }
-        }
-
         public static GIDirection AsDirection(this XAttribute attribute, string defaultValue)
         {
             switch (attribute?.Value ?? defaultValue) {

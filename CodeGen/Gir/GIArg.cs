@@ -27,14 +27,10 @@ namespace GISharp.CodeGen.Gir
         public bool IsCallerAllocates { get; }
 
         /// <summary>
-        /// Gets if this parameter is a callback
+        /// Gets the callback scope of this parameter, "call", "async" or
+        /// "notified"; or <c>null</c> if this parameter is not a callback
         /// </summary>
-        public bool IsCallback { get; }
-
-        /// <summary>
-        /// Gets the callback of this parameter
-        /// </summary>
-        public CallbackScope Scope { get; }
+        public string Scope { get; }
 
         /// <summary>
         /// Gets the index of the user data parameter or -1 if none
@@ -96,8 +92,7 @@ namespace GISharp.CodeGen.Gir
             Ownership = Element.Attribute("transfer-ownership").AsTransfer(defaultTransfer);
             Direction = Element.Attribute("direction").AsDirection(defaultDirection);
             IsCallerAllocates = Element.Attribute("caller-allocates").AsBool();
-            IsCallback = Element.Attribute("scope") != null;
-            Scope = Element.Attribute("scope").AsScope();
+            Scope = Element.Attribute("scope").AsString();
             ClosureIndex = Element.Attribute("closure").AsInt(-1);
             DestroyIndex = Element.Attribute("destroy").AsInt(-1);
             IsNullable = Element.Attribute("nullable").AsBool();

@@ -111,10 +111,10 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (type.IsDelegate()) {
                 var destroyArg = arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.DestroyIndex);
-                var destroy = destroyArg?.ManagedName ?? (arg.Scope == CallbackScope.Call ? "destroy" : "");
+                var destroy = destroyArg?.ManagedName ?? (arg.Scope == "call" ? "destroy" : "");
                 var userDataArg = arg.Callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
-                var scope = $"{typeof(CallbackScope).FullName}.{arg.Scope}";
+                var scope = $"{typeof(CallbackScope).FullName}.{arg.Scope.ToPascalCase()}";
                 var factory = $"{type.FullName}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}, {scope})";
                 var identifiers = $"{arg.ManagedName}_, {destroy}_, {userData}_";
