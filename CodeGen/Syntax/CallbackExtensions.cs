@@ -81,7 +81,7 @@ namespace GISharp.CodeGen.Syntax
 
             var instanceParam = callback.Parameters.InstanceParameter;
 
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != GIDirection.Out)
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out")
                 .Prepend(instanceParam))
             {
                 var marshalStatement = arg.GetMarshalUnmanagedToManagedStatement();
@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
             var invokeStatement = callback.GetInvocationStatement(invokeMethod);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != GIDirection.In)) {
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "in")) {
                 var statement = arg.GetMarshalManagedToUnmanagedStatement(false);
                 tryStatement = tryStatement.AddBlockStatements(statement);
             }
@@ -143,7 +143,7 @@ namespace GISharp.CodeGen.Syntax
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
 
-            foreach (var arg in callback.Parameters.Where(x => x.Direction == GIDirection.Out)) {
+            foreach (var arg in callback.Parameters.Where(x => x.Direction == "out")) {
                 var type = arg.GirType.UnmanagedType.ToSyntax();
                 if (arg.GirType.ManagedType.IsValueType) {
                     type = arg.GirType.ManagedType.ToSyntax();

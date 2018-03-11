@@ -40,8 +40,8 @@ namespace GISharp.CodeGen.Syntax
             var handleArg = Argument(InvocationExpression(staticMethod)
                 .WithArgumentList(constructor.ManagedParameters.GetArgumentList()));
 
-            var ownership = $"{typeof(Transfer).FullName}.{constructor.ReturnValue.Ownership}";
-            var ownershipArg = Argument(ParseExpression(ownership));
+            var ownership = constructor.ReturnValue.GetOwnershipTransfer();
+            var ownershipArg = Argument(ownership);
 
             var initializer = ConstructorInitializer(ThisConstructorInitializer)
                 .AddArgumentListArguments(handleArg, ownershipArg);

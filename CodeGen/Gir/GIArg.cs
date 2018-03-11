@@ -12,14 +12,15 @@ namespace GISharp.CodeGen.Gir
     public abstract class GIArg : GIBase
     {
         /// <summary>
-        /// Gets the ownership transfer of this parameter
+        /// Gets the ownership transfer of this parameter, "full", "container"
+        /// or "none"
         /// </summary>
-        public Transfer Ownership { get; }
+        public string TransferOwnership { get; }
 
         /// <summary>
-        /// Gets the direction of this parameter
+        /// Gets the direction of this parameter, "in", "out" or "inout"
         /// </summary>
-        public GIDirection Direction { get; }
+        public string Direction { get; }
 
         /// <summary>
         /// Gets if this parameter is allocated by the caller (for out parameters)
@@ -83,14 +84,8 @@ namespace GISharp.CodeGen.Gir
         private protected GIArg(XElement element, GirNode parent)
             : base (element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            var isReturnValue = element.Name == gi + "return-value";
-            // TODO: setting the default value if none should really be done in Fixup
-            var defaultDirection = isReturnValue ? "out" : "in";
-            var direction = element.Attribute("direction").AsString(defaultDirection);
-            var defaultTransfer = (isReturnValue || direction != "in") ? "full" : "none";
-
-            Ownership = Element.Attribute("transfer-ownership").AsTransfer(defaultTransfer);
-            Direction = Element.Attribute("direction").AsDirection(defaultDirection);
+            TransferOwnership = Element.Attribute("transfer-ownership").Value;
+            Direction = Element.Attribute("direction").Value;
             IsCallerAllocates = Element.Attribute("caller-allocates").AsBool();
             Scope = Element.Attribute("scope").AsString();
             ClosureIndex = Element.Attribute("closure").AsInt(-1);

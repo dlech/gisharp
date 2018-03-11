@@ -31,7 +31,7 @@ namespace GISharp.CodeGen.Syntax
             if (callable.HasCustomArgCheck) {
                 var expression = ParseExpression($"Assert{callable.ManagedName}Args");
                 var invocation = InvocationExpression(expression);
-                foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != GIDirection.Out)) {
+                foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
                     var item = Argument(ParseExpression(arg.ManagedName));
                     invocation = invocation.AddArgumentListArguments(item);
                 }
@@ -55,7 +55,7 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
 
-            foreach (var p in callable.ManagedParameters.Where(x => x.Direction != GIDirection.Out)) {
+            foreach (var p in callable.ManagedParameters.Where(x => x.Direction != "out")) {
                 yield return p.GetMarshalManagedToUnmanagedStatement();
             }
 
@@ -105,7 +105,7 @@ namespace GISharp.CodeGen.Syntax
 
             // marshal out args back to managed args
 
-            foreach (var p in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != GIDirection.In)) {
+            foreach (var p in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in")) {
                 yield return p.GetMarshalUnmanagedToManagedStatement(false);
             }
 

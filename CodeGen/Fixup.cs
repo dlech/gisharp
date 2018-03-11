@@ -315,10 +315,10 @@ namespace GISharp.CodeGen
             var elementsThatThrow = document.Descendants ()
                 .Where (d => d.Attribute ("throws") != null);
             foreach (var element in elementsThatThrow) {
-                var direction = "inout";
                 var errorElement = new XElement (gs + "error-parameter",
                     new XAttribute ("name", "error"),
-                    new XAttribute("direction", direction),
+                    new XAttribute("direction", "inout"),
+                    new XAttribute("transfer-ownership", "full"),
                     new XAttribute (gs + "managed-type", typeof(IntPtr).FullName),
                     new XElement (gi + "doc", "return location for a #GError"),
                     new XElement (gi + "type",
@@ -591,6 +591,36 @@ namespace GISharp.CodeGen
                 .Where(x => x.Element(gi + "parameters") == null))
             {
                 element.Add(new XElement(gi + "parameters"));
+            }
+
+            // set a value for parameters without transfer-ownership attribute
+
+            foreach (var element in document.Descendants(gi + "return-value")
+                .Where(x => x.Attribute("transfer-ownership") == null))
+            {
+                element.SetAttributeValue("transfer-ownership", "full");
+            }
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Concat(document.Descendants(gi + "instance-parameter"))
+                .Where(x => x.Attribute("transfer-ownership") == null))
+            {
+                element.SetAttributeValue("transfer-ownership", "none");
+            }
+
+            // set a value for parameters without direction attribute
+
+            foreach (var element in document.Descendants(gi + "return-value")
+                .Where(x => x.Attribute("direction") == null))
+            {
+                element.SetAttributeValue("direction", "out");
+            }
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Concat(document.Descendants(gi + "instance-parameter"))
+                .Where(x => x.Attribute("direction") == null))
+            {
+                element.SetAttributeValue("direction", "in");
             }
 
             // TODO: add instance parameter and user data parameter for signals
@@ -1161,20 +1191,6 @@ namespace GISharp.CodeGen
                 return Transfer.Full;
             default:
                 throw new ArgumentException("Unknown transfer-ownership type");
-            }
-        }
-
-        public static GIDirection AsDirection(this XAttribute attribute, string defaultValue)
-        {
-            switch (attribute?.Value ?? defaultValue) {
-            case "in":
-                return GIDirection.In;
-            case "out":
-                return GIDirection.Out;
-            case "inout":
-                return GIDirection.InOut;
-            default:
-                throw new ArgumentException("Unknown direction", nameof(attribute));
             }
         }
 

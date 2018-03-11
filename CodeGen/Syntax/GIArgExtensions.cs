@@ -26,7 +26,7 @@ namespace GISharp.CodeGen.Syntax
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.GirType.ManagedType : arg.GirType.UnmanagedType;
 
-            if (!managed && arg.Direction != GIDirection.In && arg.GirType.ManagedType.IsValueType) {
+            if (!managed && arg.Direction != "in" && arg.GirType.ManagedType.IsValueType) {
                 // if an unmanaged out or ref parameter is a ValueType, then we
                 // can pass it directly
                 type = arg.GirType.ManagedType;
@@ -39,9 +39,9 @@ namespace GISharp.CodeGen.Syntax
                 if (arg is ReturnValue) {
                     yield break;
                 }
-                if (arg.Direction == GIDirection.InOut) {
+                if (arg.Direction == "inout") {
                     yield return Token(RefKeyword);
-                } else if (arg.Direction == GIDirection.Out) {
+                } else if (arg.Direction == "out") {
                     yield return Token(OutKeyword);
                 } else if (arg.IsParams) {
                     yield return Token(ParamsKeyword);
@@ -65,14 +65,21 @@ namespace GISharp.CodeGen.Syntax
         {
             var expression = arg.ManagedName + suffix;
 
-            if (arg.Direction == GIDirection.InOut) {
+            if (arg.Direction == "inout") {
                 expression = "ref " + expression;
             }
-            else if (arg.Direction == GIDirection.Out) {
+            else if (arg.Direction == "out") {
                 expression = "out var " + expression;
             }
 
             return Argument(ParseExpression(expression));
+        }
+
+        public static MemberAccessExpressionSyntax GetOwnershipTransfer(this GIArg arg)
+        {
+            return MemberAccessExpression(SimpleMemberAccessExpression,
+                ParseExpression(typeof(Transfer).FullName),
+                IdentifierName(arg.TransferOwnership.ToPascalCase()));
         }
 
         public static StatementSyntax GetMarshalManagedToUnmanagedStatement(this GIArg arg, bool declareVariable = true)
@@ -87,11 +94,11 @@ namespace GISharp.CodeGen.Syntax
             else if (type.IsOpaque() || type.IsGInterface()) {
                 var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
                     $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
-                var getter = arg.Ownership == Transfer.None ? "Handle" : "Take()";
+                var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
                 expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? {nullValue}");
             }
             else if (arg.GirType is Gir.Array array) {
-                var takeData = arg.Ownership == Transfer.Full;
+                var takeData = arg.TransferOwnership == "full";
                 var getter = takeData ? "TakeData()" : "Data";
                 var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
                     $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
@@ -141,7 +148,7 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (type.IsOpaque()) {
                 var getInstance = $"{typeof(Opaque).FullName}.{nameof(Opaque.GetInstance)}";
-                var ownership = $"{typeof(Transfer).FullName}.{arg.Ownership}";
+                var ownership = arg.GetOwnershipTransfer();
                 expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({arg.ManagedName}_, {ownership})");
             }
             else if (arg.GirType is Gir.Array array) {
@@ -154,13 +161,13 @@ namespace GISharp.CodeGen.Syntax
                     lengthIdentifier = lengthArg.ManagedName;
                     lengthType = lengthArg.GirType.ManagedType.FullName;
                 }
-                var ownership = $"{typeof(Transfer).FullName}.{arg.Ownership}";
+                var ownership = arg.GetOwnershipTransfer();
                 getter = $"{getter}.GetInstance<{elementType.ToSyntax()}>({arg.ManagedName}_, (int){lengthIdentifier}_, {ownership})";
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }
             else if (type.IsInterface) {
                 var getInstance = $"{typeof(Object).FullName}.{nameof(Object.GetInstance)}";
-                var ownership = $"{typeof(Transfer).FullName}.{arg.Ownership}";
+                var ownership = arg.GetOwnershipTransfer();
                 expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}){getInstance}({arg.ManagedName}_, {ownership})");
             }
             else if (type.IsDelegate()) {

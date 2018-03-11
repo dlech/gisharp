@@ -242,10 +242,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_action_name_is_valid(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -318,10 +318,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none skip:1 */
+        /* transfer-ownership:none skip:1 direction:out */
         static extern System.Boolean g_action_parse_detailed_name(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr detailedName,
         /* <type name="utf8" type="gchar**" managed-name="Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
@@ -330,7 +330,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.IntPtr targetValue,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:inout */
+        /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
         /// <summary>
@@ -416,13 +416,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_action_print_detailed_name(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr targetValue);
 
         /// <summary>
@@ -459,7 +459,7 @@ namespace GISharp.Lib.Gio
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_action_get_type();
 
         /// <summary>
@@ -481,13 +481,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_activate(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameter);
 
         /// <summary>
@@ -536,13 +536,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_change_state(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
         /// <summary>
@@ -588,10 +588,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_action_get_enabled(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -628,10 +628,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.IntPtr g_action_get_name(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -672,10 +672,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_action_get_parameter_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -724,10 +724,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_action_get_state(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -786,10 +786,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern System.IntPtr g_action_get_state_hint(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -852,10 +852,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_action_get_state_type(
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -1326,7 +1326,7 @@ namespace GISharp.Lib.Gio
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_action_group_get_type();
 
         /// <summary>
@@ -1344,13 +1344,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_action_added(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1391,16 +1391,16 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_action_enabled_changed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.Boolean enabled);
 
         /// <summary>
@@ -1442,13 +1442,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_action_removed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1489,16 +1489,16 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_action_state_changed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr state);
 
         /// <summary>
@@ -1546,16 +1546,16 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_activate_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameter);
 
         /// <summary>
@@ -1611,16 +1611,16 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_group_change_action_state(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
         /// <summary>
@@ -1674,13 +1674,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_action_group_get_action_enabled(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1737,13 +1737,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_action_group_get_action_parameter_type(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1804,13 +1804,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern System.IntPtr g_action_group_get_action_state(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1876,13 +1876,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern System.IntPtr g_action_group_get_action_state_hint(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -1956,13 +1956,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_action_group_get_action_state_type(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -2018,13 +2018,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_action_group_has_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -2068,10 +2068,10 @@ namespace GISharp.Lib.Gio
         /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_action_group_list_actions(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup);
 
         /// <summary>
@@ -2154,13 +2154,13 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_action_group_query_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionGroup,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName,
         /* <type name="gboolean" type="gboolean*" managed-name="Gboolean" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
@@ -2321,13 +2321,13 @@ namespace GISharp.Lib.Gio
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.Boolean UnmanagedHasAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedHasAction OnHasActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedHasAction>(Handle, onHasActionOffset);
@@ -2336,178 +2336,178 @@ System.IntPtr actionName);
         /* <array type="gchar**" zero-terminated="1" is-pointer="1">
 *   <type name="utf8" managed-name="Utf8" />
 * </array> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         public delegate System.IntPtr UnmanagedListActions(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup);
 
         public UnmanagedListActions OnListActionsDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedListActions>(Handle, onListActionsOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.Boolean UnmanagedGetActionEnabled(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedGetActionEnabled OnGetActionEnabledDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetActionEnabled>(Handle, onGetActionEnabledOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetActionParameterType(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedGetActionParameterType OnGetActionParameterTypeDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetActionParameterType>(Handle, onGetActionParameterTypeOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetActionStateType(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedGetActionStateType OnGetActionStateTypeDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetActionStateType>(Handle, onGetActionStateTypeOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetActionStateHint(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedGetActionStateHint OnGetActionStateHintDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetActionStateHint>(Handle, onGetActionStateHintOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetActionState(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedGetActionState OnGetActionStateDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetActionState>(Handle, onGetActionStateOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedChangeActionState(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr value);
 
         public UnmanagedChangeActionState OnChangeActionStateDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedChangeActionState>(Handle, onChangeActionStateOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActivateAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-/* transfer-ownership:none nullable:1 allow-none:1 */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr parameter);
 
         public UnmanagedActivateAction OnActivateActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActivateAction>(Handle, onActivateActionOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActionAdded(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedActionAdded OnActionAddedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActionAdded>(Handle, onActionAddedOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActionRemoved(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedActionRemoved OnActionRemovedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActionRemoved>(Handle, onActionRemovedOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActionEnabledChanged(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName,
 /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.Boolean enabled);
 
         public UnmanagedActionEnabledChanged OnActionEnabledChangedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActionEnabledChanged>(Handle, onActionEnabledChangedOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActionStateChanged(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr state);
 
         public UnmanagedActionStateChanged OnActionStateChangedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActionStateChanged>(Handle, onActionStateChangedOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.Boolean UnmanagedTryQueryAction(
 /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionGroup,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName,
 /* <type name="gboolean" type="gboolean*" managed-name="Gboolean" is-pointer="1" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full */
@@ -2841,86 +2841,86 @@ out System.IntPtr state);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.IntPtr UnmanagedGetName(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetName OnGetNameDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetName>(Handle, onGetNameOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetParameterType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetParameterType OnGetParameterTypeDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetParameterType>(Handle, onGetParameterTypeOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetStateType(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetStateType OnGetStateTypeDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetStateType>(Handle, onGetStateTypeOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetStateHint(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetStateHint OnGetStateHintDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetStateHint>(Handle, onGetStateHintOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.Boolean UnmanagedGetEnabled(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetEnabled OnGetEnabledDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetEnabled>(Handle, onGetEnabledOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         public delegate System.IntPtr UnmanagedGetState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedGetState OnGetStateDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetState>(Handle, onGetStateOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedChangeState(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr value);
 
         public UnmanagedChangeState OnChangeStateDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedChangeState>(Handle, onChangeStateOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedActivate(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action,
 /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-/* transfer-ownership:none nullable:1 allow-none:1 */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr parameter);
 
         public UnmanagedActivate OnActivateDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActivate>(Handle, onActivateOffset);
@@ -3140,7 +3140,7 @@ System.IntPtr parameter);
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_action_map_get_type();
 
         /// <summary>
@@ -3161,13 +3161,13 @@ System.IntPtr parameter);
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_map_add_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
         /// <summary>
@@ -3211,13 +3211,13 @@ System.IntPtr parameter);
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.IntPtr g_action_map_lookup_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -3260,13 +3260,13 @@ System.IntPtr parameter);
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_action_map_remove_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
         /// <summary>
@@ -3319,39 +3319,39 @@ System.IntPtr parameter);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.IntPtr UnmanagedLookupAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionMap,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedLookupAction OnLookupActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedLookupAction>(Handle, onLookupActionOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedAddAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionMap,
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr action);
 
         public UnmanagedAddAction OnAddActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedAddAction>(Handle, onAddActionOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedRemoveAction(
 /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionMap,
 /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr actionName);
 
         public UnmanagedRemoveAction OnRemoveActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedRemoveAction>(Handle, onRemoveActionOffset);
@@ -3428,16 +3428,16 @@ System.IntPtr actionName);
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="None" /> */
-    /* transfer-ownership:none */
+    /* transfer-ownership:none direction:out */
     public delegate void UnmanagedAsyncReadyCallback(
     /* <type name="GObject.Object" type="GObject*" managed-name="GObject.Object" is-pointer="1" /> */
-    /* transfer-ownership:none */
+    /* transfer-ownership:none direction:in */
     System.IntPtr sourceObject,
     /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-    /* transfer-ownership:none */
+    /* transfer-ownership:none direction:in */
     System.IntPtr res,
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr userData);
 
     /// <summary>
@@ -3666,7 +3666,7 @@ System.IntPtr actionName);
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_async_result_get_type();
 
         /// <summary>
@@ -3681,10 +3681,10 @@ System.IntPtr actionName);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_async_result_get_source_object(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr res);
 
         /// <summary>
@@ -3716,10 +3716,10 @@ System.IntPtr actionName);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern System.IntPtr g_async_result_get_user_data(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr res);
 
         /// <summary>
@@ -3756,13 +3756,13 @@ System.IntPtr actionName);
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_async_result_is_tagged(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr res,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
 
         /// <summary>
@@ -3818,33 +3818,33 @@ System.IntPtr actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 */
+        /* transfer-ownership:full nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetUserData(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr res);
 
         public UnmanagedGetUserData OnGetUserDataDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetUserData>(Handle, onGetUserDataOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         public delegate System.IntPtr UnmanagedGetSourceObject(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr res);
 
         public UnmanagedGetSourceObject OnGetSourceObjectDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedGetSourceObject>(Handle, onGetSourceObjectOffset);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate System.Boolean UnmanagedIsTagged(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
-/* transfer-ownership:none */
+/* transfer-ownership:none direction:in */
 System.IntPtr res,
 /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-/* transfer-ownership:none nullable:1 allow-none:1 */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr sourceTag);
 
         public UnmanagedIsTagged OnIsTaggedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedIsTagged>(Handle, onIsTaggedOffset);
@@ -3978,7 +3978,7 @@ System.IntPtr sourceTag);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_cancellable_new();
 
         static System.IntPtr New()
@@ -4083,7 +4083,7 @@ System.IntPtr sourceTag);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_cancellable_get_current();
 
         /// <summary>
@@ -4102,7 +4102,7 @@ System.IntPtr sourceTag);
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_cancellable_get_type();
 
         /// <summary>
@@ -4129,10 +4129,10 @@ System.IntPtr sourceTag);
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_cancel(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4200,19 +4200,19 @@ System.IntPtr sourceTag);
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern GISharp.Runtime.NativeULong g_cancellable_connect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
         /* <type name="gpointer" type="GCallback" managed-name="UnmanagedGpointer" /> */
-        /* transfer-ownership:none scope:notified closure:1 destroy:2 */
+        /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedGLib.DestroyNotify" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         GISharp.Lib.GLib.UnmanagedDestroyNotify dataDestroyFunc);
 
         /// <summary>
@@ -4241,13 +4241,13 @@ System.IntPtr sourceTag);
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_disconnect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         GISharp.Runtime.NativeULong handlerId);
 
         /// <summary>
@@ -4303,10 +4303,10 @@ System.IntPtr sourceTag);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="Gint" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Int32 g_cancellable_get_fd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4349,10 +4349,10 @@ System.IntPtr sourceTag);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_cancellable_is_cancelled(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4404,10 +4404,10 @@ System.IntPtr sourceTag);
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern System.Boolean g_cancellable_make_pollfd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
         /* <type name="GLib.PollFD" type="GPollFD*" managed-name="GLib.PollFD" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
@@ -4460,10 +4460,10 @@ System.IntPtr sourceTag);
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_pop_current(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4492,10 +4492,10 @@ System.IntPtr sourceTag);
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_push_current(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4533,10 +4533,10 @@ System.IntPtr sourceTag);
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_release_fd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4577,10 +4577,10 @@ System.IntPtr sourceTag);
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_cancellable_reset(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
@@ -4618,13 +4618,13 @@ System.IntPtr sourceTag);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none skip:1 */
+        /* transfer-ownership:none skip:1 direction:out */
         static extern System.Boolean g_cancellable_set_error_if_cancelled(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
         /* <type name="GLib.Error" managed-name="GLib.Error" /> */
-        /* direction:inout */
+        /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
         /// <summary>
@@ -4670,10 +4670,10 @@ System.IntPtr sourceTag);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         public delegate void UnmanagedCancelled(
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-/* transfer-ownership:none nullable:1 allow-none:1 */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr cancellable);
 
         public UnmanagedCancelled OnCancelledDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedCancelled>(Handle, onCancelledOffset);
@@ -4708,13 +4708,13 @@ System.IntPtr cancellable);
     [GISharp.Runtime.SinceAttribute("2.28")]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-    /* transfer-ownership:none */
+    /* transfer-ownership:none direction:out */
     public delegate System.Boolean UnmanagedCancellableSourceFunc(
     /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-    /* transfer-ownership:none nullable:1 allow-none:1 */
+    /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr cancellable,
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
-    /* transfer-ownership:none nullable:1 allow-none:1 closure:1 */
+    /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr userData);
 
     /// <summary>
@@ -5078,10 +5078,10 @@ System.IntPtr cancellable);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="IOErrorEnum" type="GIOErrorEnum" managed-name="IOErrorEnum" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
         /* <type name="gint" type="gint" managed-name="Gint" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.Int32 errno);
 
         /// <summary>
@@ -5116,7 +5116,7 @@ System.IntPtr cancellable);
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GLib.Quark" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern GISharp.Lib.GLib.Quark g_io_error_quark();
 
         /// <summary>
@@ -5134,7 +5134,7 @@ System.IntPtr cancellable);
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_io_error_enum_get_type();
     }
 
@@ -5215,13 +5215,13 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_simple_action_new(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterType);
 
         /// <summary>
@@ -5292,16 +5292,16 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_simple_action_new_stateful(
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GLib.VariantType" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterType,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr state);
 
         /// <summary>
@@ -5448,7 +5448,7 @@ System.IntPtr cancellable);
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        /* */
+        /* transfer-ownership:full direction:out */
         static extern GISharp.Lib.GObject.GType g_simple_action_get_type();
 
         /// <summary>
@@ -5470,13 +5470,13 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_simple_action_set_enabled(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr simple,
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.Boolean enabled);
 
         /// <summary>
@@ -5522,13 +5522,13 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_simple_action_set_state(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr simple,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
         /// <summary>
@@ -5571,13 +5571,13 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:out */
         static extern void g_simple_action_set_state_hint(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:none */
+        /* transfer-ownership:none direction:in */
         System.IntPtr simple,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr stateHint);
 
         /// <summary>
@@ -5666,10 +5666,10 @@ System.IntPtr cancellable);
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Source" type="GSource*" managed-name="GLib.Source" is-pointer="1" /> */
-        /* transfer-ownership:full */
+        /* transfer-ownership:full direction:out */
         static extern System.IntPtr g_cancellable_source_new(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
         /// <summary>
