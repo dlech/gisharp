@@ -4547,12 +4547,22 @@ System.IntPtr sourceTag);
         static readonly System.Int32 onCancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnCancelled));
         static readonly UnmanagedCancelled onCancelledDelegate = OnCancelled;
         static readonly System.IntPtr onCancelledDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onCancelledDelegate);
+        static readonly System.Int32 gReserved1Offset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GReserved1));
+        static readonly System.Int32 gReserved2Offset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GReserved2));
+        static readonly System.Int32 gReserved3Offset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GReserved3));
+        static readonly System.Int32 gReserved4Offset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GReserved4));
+        static readonly System.Int32 gReserved5Offset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GReserved5));
 
         new protected struct Struct
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
             public System.IntPtr OnCancelled;
+            public System.IntPtr GReserved1;
+            public System.IntPtr GReserved2;
+            public System.IntPtr GReserved3;
+            public System.IntPtr GReserved4;
+            public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
 
