@@ -45,6 +45,7 @@ namespace GISharp.Test.GLib
             var translate = new TranslateFunc(s => s.Reverse());
             using (var og = new OptionGroup("test-group", "group desc", "help desc")) {
                 og.SetTranslateFunc(translate);
+                og.SetTranslateFunc(null);
             }
             AssertNoGLibLog();
         }
@@ -54,6 +55,7 @@ namespace GISharp.Test.GLib
         {
             using (var og = new OptionGroup("test-group", "group desc", "help desc")) {
                 og.SetTranslationDomain("domain");
+                Assert.That(() => og.SetTranslationDomain(null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }

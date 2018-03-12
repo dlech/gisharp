@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
@@ -124,6 +125,12 @@ namespace GISharp.CodeGen.Syntax
                 var scope = $"{typeof(CallbackScope).FullName}.{arg.Scope.ToPascalCase()}";
                 var factory = $"{type.FullName}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}, {scope})";
+                if (arg.IsNullable) {
+                    var callbackType = arg.GirType.UnmanagedType.ToSyntax();
+                    var destroyType = typeof(UnmanagedDestroyNotify).ToSyntax();
+                    var defaultValues = $"(default({callbackType}), default({destroyType}), default(System.IntPtr))";
+                    getter = $"{arg.ManagedName} == null ? {defaultValues} : {getter}";
+                }
                 var identifiers = $"{arg.ManagedName}_, {destroy}_, {userData}_";
                 expression = ParseExpression($"({identifiers}) = {getter}");
             }

@@ -4477,7 +4477,7 @@ namespace GISharp.Lib.GLib
         public void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
         {
             var context_ = Handle;
-            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            var (func_, destroyNotify_, data_) = func == null ? (default(GISharp.Lib.GLib.UnmanagedTranslateFunc), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
 
@@ -5009,7 +5009,7 @@ namespace GISharp.Lib.GLib
         public void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
         {
             var group_ = Handle;
-            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            var (func_, destroyNotify_, data_) = func == null ? (default(GISharp.Lib.GLib.UnmanagedTranslateFunc), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
 
