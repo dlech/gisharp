@@ -1212,60 +1212,6 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         GISharp.Lib.GLib.Strv OnListActions();
-
-        /// <summary>
-        /// Queries all aspects of the named action within an @action_group.
-        /// </summary>
-        /// <remarks>
-        /// This function acquires the information available from
-        /// g_action_group_has_action(), g_action_group_get_action_enabled(),
-        /// g_action_group_get_action_parameter_type(),
-        /// g_action_group_get_action_state_type(),
-        /// g_action_group_get_action_state_hint() and
-        /// g_action_group_get_action_state() with a single function call.
-        /// 
-        /// This provides two main benefits.
-        /// 
-        /// The first is the improvement in efficiency that comes with not having
-        /// to perform repeated lookups of the action in order to discover
-        /// different things about it.  The second is that implementing
-        /// #GActionGroup can now be done by only overriding this one virtual
-        /// function.
-        /// 
-        /// The interface provides a default implementation of this function that
-        /// calls the individual functions, as required, to fetch the
-        /// information.  The interface also provides default implementations of
-        /// those functions that call this function.  All implementations,
-        /// therefore, must override either this function or all of the others.
-        /// 
-        /// If the action exists, %TRUE is returned and any of the requested
-        /// fields (as indicated by having a non-%NULL reference passed in) are
-        /// filled.  If the action doesn't exist, %FALSE is returned and the
-        /// fields may or may not have been modified.
-        /// </remarks>
-        /// <param name="actionName">
-        /// the name of an action in the group
-        /// </param>
-        /// <param name="enabled">
-        /// if the action is presently enabled
-        /// </param>
-        /// <param name="parameterType">
-        /// the parameter type, or %NULL if none needed
-        /// </param>
-        /// <param name="stateType">
-        /// the state type, or %NULL if stateless
-        /// </param>
-        /// <param name="stateHint">
-        /// the state hint, or %NULL if none
-        /// </param>
-        /// <param name="state">
-        /// the current state, or %NULL if stateless
-        /// </param>
-        /// <returns>
-        /// %TRUE if the action exists, else %FALSE
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        System.Boolean OnTryQueryAction(GISharp.Lib.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state);
     }
 
     public static class ActionGroup
@@ -2294,9 +2240,7 @@ namespace GISharp.Lib.Gio
         static readonly System.Int32 onActionStateChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnActionStateChanged));
         static readonly UnmanagedActionStateChanged onActionStateChangedDelegate = OnActionStateChanged;
         static readonly System.IntPtr onActionStateChangedDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onActionStateChangedDelegate);
-        static readonly System.Int32 onQueryActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OnQueryAction));
-        static readonly UnmanagedTryQueryAction onQueryActionDelegate = OnTryQueryAction;
-        static readonly System.IntPtr onQueryActionDelegate_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(onQueryActionDelegate);
+        static readonly System.Int32 queryActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryAction));
 
         new struct Struct
         {
@@ -2315,7 +2259,7 @@ namespace GISharp.Lib.Gio
             public System.IntPtr OnActionRemoved;
             public System.IntPtr OnActionEnabledChanged;
             public System.IntPtr OnActionStateChanged;
-            public System.IntPtr OnQueryAction;
+            public System.IntPtr QueryAction;
 #pragma warning restore CS0649
         }
 
@@ -2499,34 +2443,6 @@ System.IntPtr state);
 
         public UnmanagedActionStateChanged OnActionStateChangedDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedActionStateChanged>(Handle, onActionStateChangedOffset);
 
-        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-        /* transfer-ownership:none direction:out */
-        public delegate System.Boolean UnmanagedTryQueryAction(
-/* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
-/* transfer-ownership:none direction:in */
-System.IntPtr actionGroup,
-/* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
-/* transfer-ownership:none direction:in */
-System.IntPtr actionName,
-/* <type name="gboolean" type="gboolean*" managed-name="Gboolean" is-pointer="1" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full */
-out System.Boolean enabled,
-/* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.IntPtr parameterType,
-/* <type name="GLib.VariantType" type="const GVariantType**" managed-name="GLib.VariantType" is-pointer="1" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.IntPtr stateType,
-/* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.IntPtr stateHint,
-/* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.IntPtr state);
-
-        public UnmanagedTryQueryAction OnQueryActionDelegate => GISharp.Runtime.GMarshal.GetVirtualMethodDelegate<UnmanagedTryQueryAction>(Handle, onQueryActionOffset);
-
         public ActionGroupInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -2555,7 +2471,6 @@ out System.IntPtr state);
             System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionRemovedOffset, onActionRemovedDelegate_);
             System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionEnabledChangedOffset, onActionEnabledChangedDelegate_);
             System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onActionStateChangedOffset, onActionStateChangedDelegate_);
-            System.Runtime.InteropServices.Marshal.WriteIntPtr(gIface, (int)onQueryActionOffset, onQueryActionDelegate_);
         }
 
         static System.Boolean OnHasAction(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -2761,33 +2676,6 @@ out System.IntPtr state);
             catch (System.Exception ex)
             {
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static System.Boolean OnTryQueryAction(System.IntPtr actionGroup_, System.IntPtr actionName_, out System.Boolean enabled_, out System.IntPtr parameterType_, out System.IntPtr stateType_, out System.IntPtr stateHint_, out System.IntPtr state_)
-        {
-            try
-            {
-                var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
-                var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
-                var ret = actionGroup.OnTryQueryAction(actionName,out var enabled,out var parameterType,out var stateType,out var stateHint,out var state);
-                enabled_ = enabled;
-                parameterType_ = parameterType?.Take() ?? throw new System.ArgumentNullException(nameof(parameterType));
-                stateType_ = stateType?.Take() ?? throw new System.ArgumentNullException(nameof(stateType));
-                stateHint_ = stateHint?.Take() ?? throw new System.ArgumentNullException(nameof(stateHint));
-                state_ = state?.Take() ?? throw new System.ArgumentNullException(nameof(state));
-                var ret_ = ret;
-                return ret_;
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                enabled_ = default(System.Boolean);
-                parameterType_ = default(System.IntPtr);
-                stateType_ = default(System.IntPtr);
-                stateHint_ = default(System.IntPtr);
-                state_ = default(System.IntPtr);
-                return default(System.Boolean);
             }
         }
     }

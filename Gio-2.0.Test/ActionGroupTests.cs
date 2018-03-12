@@ -258,16 +258,5 @@ namespace GISharp.Test.Gio
         bool IActionGroup.OnHasAction(Utf8 actionName) => false;
 
         Strv IActionGroup.OnListActions() => new Strv("test-action-1" );
-
-        bool IActionGroup.OnTryQueryAction(Utf8 actionName, out bool enabled, out VariantType parameterType, out VariantType stateType, out Variant stateHint, out Variant state)
-        {
-            actionName = default(Utf8);
-            enabled = default(bool);
-            parameterType = default(VariantType);
-            stateType = default(VariantType);
-            stateHint = default(Variant);
-            state = default(Variant);
-            return false;
-        }
     }
 }
