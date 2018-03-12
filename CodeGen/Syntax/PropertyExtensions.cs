@@ -26,17 +26,32 @@ namespace GISharp.CodeGen.Syntax
 
             if (property.IsReadable) {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
+                    .WithExpressionBody(ArrowExpressionClause(property.GetGetExpression()))
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(getAccessor);
             }
 
             if (property.IsWriteable) {
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
+                    .WithExpressionBody(ArrowExpressionClause(property.GetSetExpression()))
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(setAccessor);
             }
 
             return syntax;
+        }
+
+        static ExpressionSyntax GetGetExpression(this Property property)
+        {
+            var type = property.GirType.ManagedType.ToSyntax();
+            var expression = $"({type})GetProperty(\"{property.GirName}\")";
+            return ParseExpression(expression); 
+        }
+
+        static ExpressionSyntax GetSetExpression(this Property property)
+        {
+            var expression = $"SetProperty(\"{property.GirName}\", value)";
+            return ParseExpression(expression); 
         }
 
         /// <summary>

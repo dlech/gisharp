@@ -5048,7 +5048,7 @@ System.IntPtr cancellable);
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
-        public System.Boolean Enabled { get; }
+        public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled"); }
 
         /// <summary>
         /// The name of the action. This is mostly meaningful for identifying
@@ -5056,7 +5056,7 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
-        public GISharp.Lib.GLib.Utf8 Name { get; set; }
+        public GISharp.Lib.GLib.Utf8 Name { get => (GISharp.Lib.GLib.Utf8)GetProperty("name"); set => SetProperty("name", value); }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
@@ -5064,14 +5064,14 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type")]
-        public GISharp.Lib.GLib.VariantType ParameterType { get; set; }
+        public GISharp.Lib.GLib.VariantType ParameterType { get => (GISharp.Lib.GLib.VariantType)GetProperty("parameter-type"); set => SetProperty("parameter-type", value); }
 
         /// <summary>
         /// The state of the action, or %NULL if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
-        public GISharp.Lib.GLib.Variant State { get; }
+        public GISharp.Lib.GLib.Variant State { get => (GISharp.Lib.GLib.Variant)GetProperty("state"); }
 
         /// <summary>
         /// The #GVariantType of the state that the action has, or %NULL if the
@@ -5079,7 +5079,7 @@ System.IntPtr cancellable);
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
-        public GISharp.Lib.GLib.VariantType StateType { get; }
+        public GISharp.Lib.GLib.VariantType StateType { get => (GISharp.Lib.GLib.VariantType)GetProperty("state-type"); }
 
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
