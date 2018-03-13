@@ -54,7 +54,16 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Class @class)
         {
-            var members = List<MemberDeclarationSyntax>()
+            var members = List<MemberDeclarationSyntax>();
+
+            if (@class.GTypeStruct != null) {
+                // if there is a gtype struct, then there should be instance struct
+                // fields as well
+                members = members.Add(@class.Fields.GetStructDeclaration()
+                    .AddModifiers(Token(ProtectedKeyword), Token(NewKeyword)));
+            }
+
+            members = members
                 .AddRange(@class.Constants.Select(x => x.GetDeclaration()))
                 .AddRange(@class.Properties.Select(x => x.GetDeclaration()))
                 .AddRange(@class.ManagedProperties.Select(x => x.GetDeclaration()))
@@ -70,7 +79,7 @@ namespace GISharp.CodeGen.Syntax
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());
             }
 
-            return List<MemberDeclarationSyntax>(members);
+            return members;
         }
 
         static ConstructorDeclarationSyntax GetDefaultConstructor(this Class @class)

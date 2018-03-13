@@ -113,5 +113,22 @@ namespace GISharp.CodeGen.Syntax
                     .WithLeadingTrivia(Whitespace("\n")))
                 .WithSemicolonToken(Token(SemicolonToken));
         }
+
+        /// <summary>
+        /// Gets a struct declaration containing all of the specified fields
+        /// </summary>
+        public static StructDeclarationSyntax GetStructDeclaration(this IEnumerable<Field> fields)
+        {
+            var structMembers = List<MemberDeclarationSyntax>()
+                .AddRange(fields.Select(x => x.GetDeclaration()));
+            var firstMember = structMembers.First();
+            structMembers = structMembers.Replace(firstMember, firstMember
+                .WithLeadingTrivia(ParseLeadingTrivia("#pragma warning disable CS0649\n")));
+            var lastMember = structMembers.Last();
+            structMembers = structMembers.Replace(lastMember, lastMember
+                .WithTrailingTrivia(ParseTrailingTrivia("#pragma warning restore CS0649")));
+
+            return StructDeclaration("Struct").WithMembers(structMembers);
+        }
     }
 }

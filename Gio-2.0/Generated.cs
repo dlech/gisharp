@@ -3818,6 +3818,14 @@ System.IntPtr sourceTag);
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
 
+        protected new struct Struct
+        {
+#pragma warning disable CS0649
+            public GISharp.Lib.GObject.Object.Struct ParentInstance;
+            public System.IntPtr Priv;
+#pragma warning restore CS0649
+        }
+
         /// <summary>
         /// Gets the top cancellable from the stack.
         /// </summary>

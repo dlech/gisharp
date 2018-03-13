@@ -212,18 +212,8 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
 
-            // emit a struct that matches the unmanaged data struct
-            var structMembers = List<MemberDeclarationSyntax>()
-                .AddRange(record.Fields.Select(x => x.GetDeclaration()));
-            var firstMember = structMembers.First();
-            structMembers = structMembers.Replace(firstMember, firstMember
-                .WithLeadingTrivia(ParseLeadingTrivia("#pragma warning disable CS0649\n")));
-            var lastMember = structMembers.Last();
-            structMembers = structMembers.Replace(lastMember, lastMember
-                .WithTrailingTrivia(ParseTrailingTrivia("#pragma warning restore CS0649")));
-            var structDeclaration = StructDeclaration("Struct")
-                .AddModifiers(Token(NewKeyword))
-                .WithMembers(structMembers);
+            var structDeclaration = record.Fields.GetStructDeclaration()
+                .AddModifiers(Token(NewKeyword));
 
             if (record.BaseType != typeof(TypeInterface)) {
                 structDeclaration = structDeclaration.AddModifiers(Token(ProtectedKeyword));
