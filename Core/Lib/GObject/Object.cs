@@ -18,7 +18,7 @@ namespace GISharp.Lib.GObject
     public class Object : TypeInstance, INotifyPropertyChanged
     {
         static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
-        static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct> (nameof(Struct.RefCount));
+        static readonly int refCountOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.RefCount));
 
         UnmanagedToggleNotify toggleNotifyDelegate;
 
@@ -31,7 +31,7 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
-        uint RefCount => (uint)Marshal.ReadInt32 (handle + (int)refCountOffset);
+        uint RefCount => (uint)Marshal.ReadInt32(Handle, refCountOffset);
 
         public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
