@@ -268,6 +268,14 @@ namespace GISharp.CodeGen
 
             document.Root.SetAttributeValue (XNamespace.Xmlns + "gs", gs.NamespaceName);
 
+            // all fields must be included for proper struct sizes
+
+            foreach (var element in document.Descendants(gi + "field")) {
+                element.SetAttributeValue("introspectable", "1");
+            }
+
+            // remove non-introspectable nodes
+
             var elementsToRemove = document.Descendants ()
                 .Where (d => d.Name != gi + "return-value" && d.Name != gi + "parameter")
                 .Where (d => d.IsSkipped())

@@ -74,13 +74,8 @@
   name: direction
   value: out
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='make_pollfd']/gi:parameters/gi:parameter[@name='pollfd']
-- !set-attribute
-  # add private fields
-  name: introspectable
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableClass']/gi:field[starts-with(@name,'_g_reserved')]
 - !change-element
-  # change the callbacks to pointers
+  # change the reserved callbacks to pointers
   new-name: gi:type
   xpath: gi:repository/gi:namespace/gi:record[@name='CancellableClass']/gi:field[starts-with(@name,'_g_reserved')]/gi:callback
 - !set-attribute
