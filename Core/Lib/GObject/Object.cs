@@ -205,6 +205,7 @@ namespace GISharp.Lib.GObject
         /// a new instance of
         /// @object_type
         /// </returns>
+        [DeprecatedSince("2.54")]
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:full */
@@ -221,6 +222,8 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr parameters);
 
+
+        [DeprecatedSince("2.54")]
         static IntPtr New(GType objectType, IArray<Parameter> parameters)
         {
             if (!objectType.IsA(GType.Object)) {
@@ -1163,6 +1166,7 @@ namespace GISharp.Lib.GObject
     /// The GParameter struct is an auxiliary structure used
     /// to hand parameter name/value pairs to g_object_newv().
     /// </summary>
+    [DeprecatedSince("2.54")]
     struct Parameter
     {
         #pragma warning disable CS0649
