@@ -1,4 +1,6 @@
 ﻿using System;
+using GISharp.Lib.GLib;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
@@ -16,7 +18,8 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the type
         /// </summary>
-        public IntPtr TypeName;
+        public Utf8 TypeName => Opaque.GetInstance<Utf8>(typeName, Transfer.None);
+        IntPtr typeName;
 
         /// <summary>
         /// the size of the class structure
