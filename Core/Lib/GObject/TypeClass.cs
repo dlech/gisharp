@@ -1,6 +1,9 @@
 using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
+using System.Reflection;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Lib.GObject
 {
@@ -9,6 +12,20 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public abstract class TypeClass : Opaque
     {
+        class VirtualMethodInfo
+        {
+            public int Offset;
+            public Func<MethodInfo, Delegate> Create;
+            public readonly Dictionary<IntPtr, Delegate> Overloads =  new Dictionary<IntPtr, Delegate>();
+        }
+
+        /// <summary>
+        /// A dictionary mapping virtual method delegate types to their offsets
+        /// in Struct.
+        /// </summary>
+        readonly static Dictionary<Type, VirtualMethodInfo> virtualMethods =
+            new Dictionary<Type, VirtualMethodInfo>();
+
         protected struct Struct
         {
             #pragma warning disable CS0649
@@ -56,7 +73,55 @@ namespace GISharp.Lib.GObject
             return GetInstance<TypeClass>(type);
         }
 
-        public abstract TypeInfo GetTypeInfo (Type type);
+        /// <summary>
+        /// Registers a virtual method
+        /// </summary>
+        /// <param name="offset">
+        /// The offset to the virtual function pointer in <see cref="Struct"/>
+        /// </param>
+        /// <param name="create">
+        /// The unmanged delegate factory create method
+        /// </param>
+        protected static void RegisterVirtualMethod<T>(int offset, Func<MethodInfo, T> create)
+        {
+            var info = new VirtualMethodInfo {
+                Offset = offset,
+                Create = new Func<MethodInfo, Delegate> (m => (Delegate)(object)create(m)),
+            };
+            virtualMethods.Add(typeof(T), info);
+        }
+
+        /// <summary>
+        /// Registers a managed method as an overload of an unmanaged virtual
+        /// method.
+        /// </summary>
+        /// <param name="class_">Pointer to the unmanaged class instance</summary>
+        /// <param name="type">The unmanaged delegate type</param>
+        /// <param name="methodInfo">The method to install as the overload</param>
+        internal static void InstallVirtualMethodOverload(IntPtr class_, Type type, MethodInfo methodInfo)
+        {
+            // Ensure that the virtual methods have been registered
+            RuntimeHelpers.RunClassConstructor(type.DeclaringType.TypeHandle);
+
+            var info = virtualMethods[type];
+            var callback = info.Create(methodInfo);
+            info.Overloads.Add(class_, callback);
+            var ptr = Marshal.GetFunctionPointerForDelegate(callback);
+            Marshal.WriteIntPtr(class_, info.Offset, ptr);
+        }
+
+        public static T GetUnmanagedVirtualMethod<T>(GType type)
+        {
+            var class_ = g_type_class_ref(type);
+            try {
+                var info = virtualMethods[typeof(T)];
+                var ptr = Marshal.ReadIntPtr(class_, info.Offset);
+                return Marshal.GetDelegateForFunctionPointer<T>(ptr);
+            }
+            finally {
+                g_type_class_unref(class_);
+            }
+        }
 
         /// <summary>
         /// This function is essentially the same as g_type_class_ref(), except

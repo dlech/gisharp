@@ -65,17 +65,17 @@ namespace GISharp.Test.Gio
 
         public ActionSet Actions { get; } = new ActionSet();
 
-        void IActionMap.OnAddAction(IAction action)
+        void IActionMap.DoAddAction(IAction action)
         {
             Actions.Add(action);
         }
 
-        IAction IActionMap.OnLookupAction(Utf8 actionName)
+        IAction IActionMap.DoLookupAction(Utf8 actionName)
         {
             return Actions.SingleOrDefault(a => a.Name == actionName);
         }
 
-        void IActionMap.OnRemoveAction(Utf8 actionName)
+        void IActionMap.DoRemoveAction(Utf8 actionName)
         {
             Actions.RemoveWhere(a => a.Name == actionName);
         }

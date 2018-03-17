@@ -6,8 +6,11 @@ using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
+
 using nlong = GISharp.Runtime.NativeLong;
 using nulong = GISharp.Runtime.NativeULong;
+
+using static System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GObject
 {
@@ -126,14 +129,14 @@ namespace GISharp.Lib.GObject
         /// </summary>
         /// <returns>The type info.</returns>
         /// <param name="type">The managed type to register.</param>
-        public override TypeInfo GetTypeInfo (Type type)
+        internal static TypeInfo GetTypeInfo(Type type)
         {
             var parentGType = type.BaseType.GetGType ();
             var parentTypeQuery = parentGType.Query ();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
-                ClassInit = UnmanagedInitManagedClass,
-                ClassData = GCHandle.ToIntPtr (GCHandle.Alloc (type)),
+                ClassInit = InitManagedClass,
+                ClassData = (IntPtr)GCHandle.Alloc(type),
                 InstanceSize = (ushort)parentTypeQuery.InstanceSize,
             };
 
@@ -143,25 +146,25 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// ClassInit callback for managed classes.
         /// </summary>
-        /// <param name="classPtr">Pointer to <see cref="Struct"/>.</param>
-        /// <param name="userDataPtr">Pointer to user data from <see cref="TypeInfo"/>.</param>
+        /// <param name="class_">Pointer to <see cref="Struct"/>.</param>
+        /// <param name="userData_">Pointer to user data from <see cref="TypeInfo"/>.</param>
         /// <remarks>
         /// This takes care of overriding the methods to make the managed type
         /// interop with the GObject type system.
         /// </remarks>
-        static void UnmanagedInitManagedClass (IntPtr classPtr, IntPtr userDataPtr)
+        static void InitManagedClass(IntPtr class_, IntPtr userData_)
         {
             try {
-                // Can't use type.GetGType () here since the type registration has
+                // Can't use type.GetGType() here since the type registration has
                 // not finished. So, we get the GType this way instead.
-                var gtype = Marshal.PtrToStructure<GType> (classPtr);
-                var type = (Type)GCHandle.FromIntPtr (userDataPtr).Target;
+                var gtype = Marshal.PtrToStructure<GType>(class_);
+                var type = (Type)GCHandle.FromIntPtr(userData_).Target;
 
                 // override property native accessors
 
-                Marshal.WriteIntPtr(classPtr, onSetPropertyOffset, managedSetPropertyPtr);
-                Marshal.WriteIntPtr(classPtr, onGetPropertyOffset, managedGetPropertyPtr);
-                Marshal.WriteIntPtr(classPtr, onNotifyOffset, managedNotifyPtr);
+                Marshal.WriteIntPtr(class_, onSetPropertyOffset, managedSetPropertyPtr);
+                Marshal.WriteIntPtr(class_, onGetPropertyOffset, managedGetPropertyPtr);
+                Marshal.WriteIntPtr(class_, onNotifyOffset, managedNotifyPtr);
 
                 // Install Properties
 
@@ -285,10 +288,10 @@ namespace GISharp.Lib.GObject
                         // if this type did not declare the property, the we know
                         // we are overriding a property from a base class or interface
                         var namePtr = GMarshal.StringToUtf8Ptr (name);
-                        g_object_class_override_property (classPtr, propId, namePtr);
+                        g_object_class_override_property(class_, propId, namePtr);
                         GMarshal.Free (namePtr);
                     } else {
-                        g_object_class_install_property (classPtr, propId, pspec.Handle);
+                        g_object_class_install_property(class_, propId, pspec.Handle);
                         GC.KeepAlive (pspec);
                     }
                     propId++;
@@ -360,8 +363,7 @@ namespace GISharp.Lib.GObject
 
                     // create a closure that will be called when the signal is emitted
 
-                    var fieldInfo = type.GetField(eventInfo.Name,
-                        System.Reflection.BindingFlags.Instance | System.Reflection.BindingFlags.NonPublic);
+                    var fieldInfo = type.GetField(eventInfo.Name, Instance | NonPublic);
 
                     var closure = new Closure((p) => {
                         var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(p[0]);
@@ -371,6 +373,16 @@ namespace GISharp.Lib.GObject
                     // register the signal
 
                     Signal.Newv(name, gtype, flags, closure, null, null, returnGType, parameterGTypes);
+                }
+
+                foreach (var method in type.GetMethods(Instance | NonPublic)) {
+                    var baseMethod = method.GetBaseDefinition();
+                    var attr = baseMethod.GetCustomAttribute<GVirtualMethodAttribute>();
+                    if (attr == null) {
+                        // this is not a GType virtual method
+                        continue;
+                    }
+                    TypeClass.InstallVirtualMethodOverload(class_, attr.DelegateType, method);
                 }
             }
             catch (Exception ex) {

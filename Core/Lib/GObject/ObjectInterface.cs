@@ -176,10 +176,5 @@ namespace GISharp.Lib.GObject
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
-
-        public override InterfaceInfo CreateInterfaceInfo(Type instanceType)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

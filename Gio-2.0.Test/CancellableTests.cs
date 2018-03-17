@@ -1,6 +1,10 @@
+using System;
+using System.Threading;
 
-using NUnit.Framework;
 using GISharp.Lib.Gio;
+using GISharp.Runtime;
+using NUnit.Framework;
+
 using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
@@ -105,6 +109,44 @@ namespace GISharp.Test.Gio
                 Assert.That(handlerInvoked, Is.True);
             }
             AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestSubclassing()
+        {
+            using (var c = new TestCancellable()) {
+                c.Cancel();
+                Assert.That(c.Token.IsCancellationRequested, Is.True);
+            }
+        }
+    }
+
+    [GType]
+    sealed class TestCancellable : Cancellable
+    {
+        CancellationTokenSource tokenSource;
+
+        public CancellationToken Token => tokenSource.Token;
+
+        public TestCancellable() : this(New<TestCancellable>(), Transfer.Full)
+        {
+        }
+
+        public TestCancellable(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        {
+            tokenSource = new CancellationTokenSource();
+        }
+
+        protected override void DoCancelled()
+        {
+            tokenSource.Cancel();
+        }
+
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing) {
+                tokenSource?.Dispose();
+            }
         }
     }
 }

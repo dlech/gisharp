@@ -4,6 +4,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -32,9 +33,15 @@ namespace GISharp.CodeGen.Syntax
             return syntax;
         }
 
-        // Gets a field declaration like:
-        // static readonly IntPtr xxxOffset = Marshal.OffsetOf<Struct>(nameof(Struct.xxx));
-        public static FieldDeclarationSyntax GetOffsetDeclaration(this Field field)
+        internal static IEnumerable<StatementSyntax> GetVirtualMethodRegisterStatements(this Field field)
+        {
+            yield return LocalDeclarationStatement(field.GetOffsetDeclaration());
+            yield return ExpressionStatement(field.GetRegisterVirtualFunctionExpression());
+        }
+
+        // Gets a variable declaration like:
+        // IntPtr xxxOffset = Marshal.OffsetOf<Struct>(nameof(Struct.xxx));
+        static VariableDeclarationSyntax GetOffsetDeclaration(this Field field)
         {
             var variableType = ParseTypeName(typeof(int).FullName);
             var variableName = field.ManagedName.ToCamelCase() + "Offset";
@@ -44,74 +51,19 @@ namespace GISharp.CodeGen.Syntax
                 nameof(Marshal.OffsetOf),
                 field.ManagedName));
 
-            var declaration = FieldDeclaration(VariableDeclaration(variableType)
+            var declaration = VariableDeclaration(variableType)
                     .AddVariables(VariableDeclarator(variableName)
-                        .WithInitializer(EqualsValueClause(valueExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+                        .WithInitializer(EqualsValueClause(valueExpression)));
 
             return declaration;
         }
 
-        // Gets a field declaration like:
-        // static readonly UnmanagedYyy xxxDelegate = OnYyy;
-        public static FieldDeclarationSyntax GetDelegateDeclaration(this Field field)
+        static ExpressionSyntax GetRegisterVirtualFunctionExpression(this Field field)
         {
-            if (field.Callback == null) {
-                throw new InvalidOperationException("Must be a callback field");
-            }
-
-            var variableType = ParseTypeName("Unmanaged" + field.Callback.ManagedName);
-            var variableName = field.ManagedName.ToCamelCase() + "Delegate";
-            var valueExpression = ParseExpression("On" + field.Callback.ManagedName);
-
-            var declaration = FieldDeclaration(VariableDeclaration(variableType)
-                    .AddVariables(VariableDeclarator(variableName)
-                        .WithInitializer(EqualsValueClause(valueExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
-
-            return declaration;
-        }
-
-        // Gets a field declaration like:
-        // static readonly IntPtr xxxDelegate_ = Marshal.GetFunctionPointerForDelegate(xxxDelegate);
-        public static FieldDeclarationSyntax GetDelegatePtrDeclaration(this Field field)
-        {
-            if (field.Callback == null) {
-                throw new InvalidOperationException("Must be a callback field");
-            }
-
-            var variableType = ParseTypeName(typeof(IntPtr).FullName);
-            var variableName = field.ManagedName.ToCamelCase() + "Delegate";
-            var valueExpression = ParseExpression(string.Format("{0}.{1}({2})",
-                typeof(Marshal).FullName,
-                nameof(Marshal.GetFunctionPointerForDelegate),
-                variableName));
-
-            var declaration = FieldDeclaration(VariableDeclaration(variableType)
-                    .AddVariables(VariableDeclarator($"{variableName}_")
-                        .WithInitializer(EqualsValueClause(valueExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
-
-            return declaration;
-        }
-
-        // Gets a property declaration like:
-        // public UnmanagedSomethingChanged OnSomethingChangedDelegate =>
-        //      GMarshal.GetVirtualMethodDelegate<UnmanagedSomethingChanged>(Handle, onSomethingChangedOffset);
-        public static PropertyDeclarationSyntax GetUnmanagedCallbackGetter(this Field field)
-        {
-            var typeName = ParseTypeName("Unmanaged" + field.Callback.ManagedName);
-            var expression = ParseExpression(string.Format("{0}.{1}<{2}>(Handle, {3})",
-                typeof(GMarshal).FullName,
-                nameof(GMarshal.GetVirtualMethodDelegate),
-                typeName,
-                field.GetOffsetDeclaration().Declaration.Variables[0].Identifier));
-
-            return PropertyDeclaration(typeName, field.ManagedName + "Delegate")
-                .AddModifiers(Token(PublicKeyword))
-                .WithExpressionBody(ArrowExpressionClause(expression)
-                    .WithLeadingTrivia(Whitespace("\n")))
-                .WithSemicolonToken(Token(SemicolonToken));
+            var offsetName = field.ManagedName.ToCamelCase() + "Offset";
+            var factoryName = field.Callback.ManagedName + "Factory";
+            var expression = $"RegisterVirtualMethod({offsetName}, {factoryName}.Create)";
+            return ParseExpression(expression);
         }
 
         /// <summary>

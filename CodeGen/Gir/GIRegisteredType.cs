@@ -28,6 +28,12 @@ namespace GISharp.CodeGen.Gir
         public string GTypeStruct { get; }
 
         /// <summary>
+        /// Gets the GIR node for the GType struct, if any
+        /// </summary>
+        public Record GTypeStructNode => _GTypeStructNode.Value;
+        readonly Lazy<Record> _GTypeStructNode;
+
+        /// <summary>
         /// Gets the constants defined by this type
         /// </summary>
         public IEnumerable<Constant> Constants => _Constants.Value;
@@ -87,6 +93,7 @@ namespace GISharp.CodeGen.Gir
             GTypeName = Element.Attribute(glib + "type-name").AsString();
             GTypeGetter = Element.Attribute (glib + "get-type").AsString();
             GTypeStruct = Element.Attribute (glib + "type-struct").AsString();
+            _GTypeStructNode = new Lazy<Record>(LazyGetGTypeStructNode, false);
             _Constants = new Lazy<List<Constant>>(() => LazyGetConstants().ToList(), false);
             _Fields = new Lazy<List<Field>>(() => LazyGetFields().ToList(), false);
             _Properties = new Lazy<List<Property>>(() => LazyGetProperties().ToList(), false);
@@ -96,6 +103,15 @@ namespace GISharp.CodeGen.Gir
             _Functions = new Lazy<List<Function>>(() => LazyGetFunctions().ToList(), false);
             _Methods = new Lazy<List<Method>>(() => LazyGetMethods().ToList(), false);
             _VirtualMethods = new Lazy<List<VirtualMethod>>(() => LazyGetVirtualMethods().ToList(), false);
+        }
+
+        Record LazyGetGTypeStructNode()
+        {
+            if (GTypeStruct == null) {
+                return null;
+            }
+            return (Record)GirNode.GetNode(Element.Parent.Elements(gi + "record")
+                .Single(x => x.Attribute("name")?.Value == GTypeStruct));
         }
 
         IEnumerable<Constant> LazyGetConstants() =>

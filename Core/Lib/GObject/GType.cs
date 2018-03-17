@@ -933,7 +933,7 @@ namespace GISharp.Lib.GObject
                     }
                     var parentGType = type.BaseType.GetGType ();
                     var parentTypeclass = TypeClass.Get (parentGType);
-                    var parentTypeInfo = parentTypeclass.GetTypeInfo (type);
+                    var parentTypeInfo = ObjectClass.GetTypeInfo(type);
 
                     TypeFlags flags = default(TypeFlags);
                     // TODO: do we need to set any flags?
@@ -967,18 +967,16 @@ namespace GISharp.Lib.GObject
                             continue;
                         }
                         var ifaceGType = ifaceType.GetGType ();
-                        var prereqs = TypeInterface.Prerequisites (ifaceGType);
+                        var prereqs = TypeInterface.GetPrerequisites(ifaceGType);
                         foreach (var p in prereqs) {
                             if (!GType.TypeOf (p).IsAssignableFrom (type)) {
                                 var message = $"Type {type.FullName} is missing prerequisite {ifaceType.FullName} ({p})";
                                 throw new ArgumentException (message, nameof(type));
                             }
                         }
-                        using (var defaultTypeInterface = new DefaultTypeInterface (ifaceGType)) {
-                            var typeInterface = Opaque.GetInstance<TypeInterface> (defaultTypeInterface.Handle, Transfer.None);
-                            var interfaceInfo = typeInterface.CreateInterfaceInfo (type);
-                            AddInterfaceStatic (gtype, ifaceGType, interfaceInfo);
-                        }
+
+                        var interfaceInfo = TypeInterface.CreateInterfaceInfo(ifaceType, type);
+                        AddInterfaceStatic(gtype, ifaceGType, interfaceInfo);
                     }
 
                     MapPropertyInfo (gtype, type);

@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 
 using Object = GISharp.Lib.GObject.Object;
+using System.Reflection;
 
 namespace GISharp.Test.Core
 {
@@ -17,14 +18,16 @@ namespace GISharp.Test.Core
     [GTypeStruct (typeof(InitableIface))]
     public interface IInitable : GInterface<Object>
     {
-        bool Init (IntPtr cancellable);
+        [GVirtualMethod(typeof(InitableIface.UnmanagedInit))]
+        void DoInit(IntPtr cancellable);
     }
 
     sealed class InitableIface : TypeInterface
     {
-        static readonly IntPtr initOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Init));
-        static readonly Struct.UnmanagedInit initDelegate = UnmanagedInit;
-        static readonly IntPtr initPtr = Marshal.GetFunctionPointerForDelegate (initDelegate);
+        static InitableIface() {
+            var initOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.Init));
+            RegisterVirtualMethod(initOffset, InitFactory.Create);
+        }
         
         new struct Struct
         {
@@ -32,49 +35,37 @@ namespace GISharp.Test.Core
             public TypeInterface.Struct GIface;
             public UnmanagedInit Init;
             #pragma warning restore CS0649
-
-            public delegate bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
         }
 
-        static void InterfaceInit (IntPtr gIface, IntPtr userData)
-        {
-            try {
-                Marshal.WriteIntPtr (gIface, (int)initOffset, initPtr);
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException ();
-            }
-        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate bool UnmanagedInit(IntPtr initable, IntPtr cancellable, ref IntPtr error);
+        
+        public delegate void Init(IntPtr cancellable);
 
-        static void InterfaceFinalize (IntPtr gIface, IntPtr userData)
+        public static class InitFactory
         {
-        }
+            public static UnmanagedInit Create(MethodInfo methodInfo)
+            {
+                bool init(IntPtr initable_, IntPtr cancellable_, ref IntPtr error_)
+                {
+                    try {
+                        var initable = (IInitable)Object.GetInstance(initable_, Transfer.None);
+                        var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
+                        doInit(cancellable_);
+                        return true;
+                    }
+                    catch (GErrorException ex) {
+                        GMarshal.PropagateError(ref error_, ex.Error);
+                    }
+                    catch (Exception ex) {
+                        // FIXME: we should convert managed exception to GError
+                        ex.LogUnhandledException ();
+                    }
+                    return false;
+                }
 
-        public override InterfaceInfo CreateInterfaceInfo (Type instanceType)
-        {
-            var ret = new InterfaceInfo {
-                InterfaceInit = InterfaceInit,
-                InterfaceFinalize = InterfaceFinalize,
-            };
-
-            return ret;
-        }
-
-        static bool UnmanagedInit (IntPtr initablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
-        {
-            try {
-                var initable = (IInitable)Object.GetInstance(initablePtr, Transfer.None);
-                var ret = initable.Init (cancellablePtr);
-                return ret;
+                return init;
             }
-            catch (GErrorException ex) {
-                GMarshal.PropagateError(ref errorPtr, ex.Error);
-            }
-            catch (Exception ex) {
-                // FIXME: we should convert managed exception to GError
-                ex.LogUnhandledException ();
-            }
-            return false;
         }
 
         public InitableIface (IntPtr handle, Transfer ownership) : base (handle, ownership)
@@ -128,11 +119,6 @@ namespace GISharp.Test.Core
     [GTypeStruct (typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable, GInterface<Object>
     {
-        bool CanReach (IntPtr connectable, IntPtr cancellable);
-        void CanReachAsync (IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
-        bool CanReachFinish (IntPtr result);
-        void OnNetworkChanged (bool available);
-
         [GProperty("connectivity")]
         NetworkConnectivity Connectivity { get; }
         [GProperty("network-available")]
@@ -143,6 +129,18 @@ namespace GISharp.Test.Core
         [GSignal("network-changed", When = EmissionStage.Last)]
         [Since("2.32")]
         event Action<bool> NetworkChanged;
+
+        [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedCanReach))]
+        bool DoCanReach(IntPtr connectable, IntPtr cancellable);
+
+        [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedCanReachAsync))]
+        void DoCanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
+
+        [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedCanReachAsyncFinish))]
+        bool DoCanReachFinish(IntPtr result);
+
+        [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedNetworkChanged))]
+        void DoNetworkChanged(bool available);
     }
 
     [GType ("GNetworkConnectivity", IsProxyForUnmanagedType = true)]
@@ -164,18 +162,16 @@ namespace GISharp.Test.Core
 
     sealed class NetworkMonitorInterface : TypeInterface
     {
-        static readonly IntPtr networkChangedOffset = Marshal.OffsetOf<Struct> (nameof (Struct.NetworkChanged));
-        static readonly Struct.UnmanagedNetworkChanged networkChangedDelegate = UnmanagedNetworkChanged;
-        static readonly IntPtr networkChangedPtr = Marshal.GetFunctionPointerForDelegate (networkChangedDelegate);
-        static readonly IntPtr canReachOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReach));
-        static readonly Struct.UnmanagedCanReach canReachDelegate = UnmanagedCanReach;
-        static readonly IntPtr canReachPtr = Marshal.GetFunctionPointerForDelegate (canReachDelegate);
-        static readonly IntPtr canReachAsyncOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsync));
-        static readonly Struct.UnmanagedCanReachAsync canReachAsyncDelegate = UnmanagedCanReachAsync;
-        static readonly IntPtr canReachAsyncPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncDelegate);
-        static readonly IntPtr canReachAsyncFinishOffset = Marshal.OffsetOf<Struct> (nameof (Struct.CanReachAsyncFinish));
-        static readonly Struct.UnmanagedCanReachAsyncFinish canReachAsyncFinishDelegate = UnmanagedCanReachAsyncFinish;
-        static readonly IntPtr canReachAsyncFinishPtr = Marshal.GetFunctionPointerForDelegate (canReachAsyncFinishDelegate);
+        static NetworkMonitorInterface() {
+            var networkChangedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.NetworkChanged));
+            TypeClass.RegisterVirtualMethod(networkChangedOffset, NetworkChangedFactory.Create);
+            var canReachOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReach));
+            TypeClass.RegisterVirtualMethod(canReachOffset, CanReachFactory.Create);
+            var canReachAsyncOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReachAsync));
+            TypeClass.RegisterVirtualMethod(canReachAsyncOffset, CanReachAsyncFactory.Create);
+            var canReachAsyncFinishOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReachAsyncFinish));
+            TypeClass.RegisterVirtualMethod(canReachAsyncFinishOffset, CanReachAsyncFinishFactory.Create);
+        }
 
         new struct Struct
         {
@@ -186,97 +182,118 @@ namespace GISharp.Test.Core
             public UnmanagedCanReachAsync CanReachAsync;
             public UnmanagedCanReachAsyncFinish CanReachAsyncFinish;
             #pragma warning restore CS0649
-
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate bool UnmanagedCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public delegate void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr);
         }
 
-        static void InterfaceInit (IntPtr gIface, IntPtr userData)
-        {
-            try {
-                Marshal.WriteIntPtr (gIface, (int)networkChangedOffset, networkChangedPtr);
-                Marshal.WriteIntPtr (gIface, (int)canReachOffset, canReachPtr);
-                Marshal.WriteIntPtr (gIface, (int)canReachAsyncOffset, canReachAsyncPtr);
-                Marshal.WriteIntPtr (gIface, (int)canReachAsyncFinishOffset, canReachAsyncFinishPtr);
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException ();
-            }
-        }
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedNetworkChanged(IntPtr monitorPtr, bool available);
 
-        static void InterfaceFinalize (IntPtr gIface, IntPtr userData)
-        {
-        }
+        public delegate void NetworkChanged(bool available);
 
-        public override InterfaceInfo CreateInterfaceInfo (Type instanceType)
+        public static class NetworkChangedFactory
         {
-            var ret = new InterfaceInfo {
-                InterfaceInit = InterfaceInit,
-                InterfaceFinalize = InterfaceFinalize,
-            };
+            public static UnmanagedNetworkChanged Create(MethodInfo methodInfo)
+            {
+                void networkChanged(IntPtr monitor_, bool available)
+                {
+                    try {
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        var doNetworkChanged = (NetworkChanged)methodInfo.CreateDelegate(typeof(NetworkChanged), monitor);
+                        doNetworkChanged(available);
+                    }
+                    catch (Exception ex) {
+                        ex.LogUnhandledException ();
+                    }
+                }
 
-            return ret;
-        }
-
-        static void UnmanagedNetworkChanged (IntPtr monitorPtr, bool available)
-        {
-            try {
-                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
-                monitor.OnNetworkChanged (available);
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException ();
+                return networkChanged;
             }
         }
 
-        static bool UnmanagedCanReach (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, ref IntPtr errorPtr)
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate bool UnmanagedCanReach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, ref IntPtr error);
+
+        public delegate bool CanReach(IntPtr connectable, IntPtr cancellable);
+
+        public static class CanReachFactory
         {
-            try {
-                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
-                var ret = monitor.CanReach (connectablePtr, cancellablePtr);
-                return ret;
+            public static UnmanagedCanReach Create(MethodInfo methodInfo)
+            {
+                bool canReach(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, ref IntPtr error_)
+                {
+                    try {
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        var doCanReach = (CanReach)methodInfo.CreateDelegate(typeof(CanReach), monitor);
+                        var ret = doCanReach(connectable_, cancellable_);
+                        return ret;
+                    }
+                    catch (GErrorException ex) {
+                        GMarshal.PropagateError(ref error_, ex.Error);
+                    }
+                    catch (Exception ex) {
+                        // FIXME: convert managed exception to GError
+                        ex.LogUnhandledException ();
+                    }
+                    return false;
+                }
+
+                return canReach;
             }
-            catch (GErrorException ex) {
-                GMarshal.PropagateError(ref errorPtr, ex.Error);
-            }
-            catch (Exception ex) {
-                // FIXME: convert managed exception to GError
-                ex.LogUnhandledException ();
-            }
-            return false;
         }
 
-        static void UnmanagedCanReachAsync (IntPtr monitorPtr, IntPtr connectablePtr, IntPtr cancellablePtr, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData)
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedCanReachAsync(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+
+        public delegate void CanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
+
+
+        public static class CanReachAsyncFactory
         {
-            try {
-                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
-                Action<IntPtr> managedCallback = (result) => {
-                    callback (monitorPtr, result, userData);
-                };
-                monitor.CanReachAsync (connectablePtr, cancellablePtr, managedCallback);
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException ();
+            public static UnmanagedCanReachAsync Create(MethodInfo methodInfo)
+            {
+                void canReachAsync(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, Action<IntPtr, IntPtr, IntPtr> callback_, IntPtr userData_)
+                {
+                    try {
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        void callback(IntPtr result_) {
+                            callback_(monitor_, result_, userData_);
+                        };
+                        var doCanReachAsync = (CanReachAsync)methodInfo.CreateDelegate(typeof(CanReachAsync), monitor);
+                        doCanReachAsync(connectable_, cancellable_, callback);
+                    }
+                    catch (Exception ex) {
+                        ex.LogUnhandledException ();
+                    }
+                }
+
+                return canReachAsync;
             }
         }
 
-        static void UnmanagedCanReachAsyncFinish (IntPtr monitorPtr, IntPtr result, ref IntPtr errorPtr)
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate void UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, ref IntPtr error);
+
+        public delegate void CanReachAsyncFinish(IntPtr result);
+
+        public static class CanReachAsyncFinishFactory
         {
-            try {
-                var monitor = (INetworkMonitor)Object.GetInstance(monitorPtr, Transfer.None);
-                monitor.CanReachFinish (result);
-            } catch (GErrorException ex) {
-                GMarshal.PropagateError(ref errorPtr, ex.Error);
-            }
-            catch (Exception ex) {
-                // FIXME: convert managed exception to GError
-                ex.LogUnhandledException ();
+            public static UnmanagedCanReachAsyncFinish Create(MethodInfo methodInfo)
+            {
+                void canReachAsyncFinish(IntPtr monitor_, IntPtr result_, ref IntPtr error_)
+                {
+                    try {
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        var doCanReachAsyncFinish = (CanReachAsyncFinish)methodInfo.CreateDelegate(typeof(CanReachAsyncFinish), monitor);
+                        doCanReachAsyncFinish(result_);
+                    } catch (GErrorException ex) {
+                        GMarshal.PropagateError(ref error_, ex.Error);
+                    }
+                    catch (Exception ex) {
+                        // FIXME: convert managed exception to GError
+                        ex.LogUnhandledException ();
+                    }
+                }
+
+                return canReachAsyncFinish;
             }
         }
 

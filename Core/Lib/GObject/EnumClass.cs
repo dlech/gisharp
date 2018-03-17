@@ -44,10 +44,5 @@ namespace GISharp.Lib.GObject {
         public EnumClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
-
-        public override TypeInfo GetTypeInfo (Type type)
-        {
-            throw new NotSupportedException ();
-        }
     }
 }

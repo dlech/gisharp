@@ -61,20 +61,6 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia());
         }
 
-        /// <summary>
-        /// Gets a method declaration that calls a managed virtual method
-        /// </summary>
-        public static MethodDeclarationSyntax GetVirtualMethodDeclaration(this Callback callback)
-        {
-            var returnType = callback.ReturnValue.GirType.UnmanagedType.ToSyntax();
-
-            var method = MethodDeclaration(returnType, "On" + callback.ManagedName)
-                .AddModifiers(Token(StaticKeyword))
-                .WithParameterList(callback.Parameters.GetParameterList())
-                .WithBody(Block(callback.GetVirtualMethodStatements()));
-
-            return method;
-        }
         static IEnumerable<StatementSyntax> GetVirtualMethodStatements(this Callback callback)
         {
             var tryStatement = TryStatement();
@@ -88,7 +74,14 @@ namespace GISharp.CodeGen.Syntax
                 tryStatement = tryStatement.AddBlockStatements(marshalStatement);
             }
 
-            var invokeMethod = $"{instanceParam.ManagedName}.On{callback.ManagedName}";
+            var invokeMethod = $"do{callback.ManagedName}";
+            var getDelegate = string.Format("var {0} = ({1})methodInfo.CreateDelegate(typeof({1}), {2})",
+                invokeMethod,
+                callback.ManagedName,
+                instanceParam.ManagedName);
+            var getDelegateStatement = ExpressionStatement(ParseExpression(getDelegate));
+            tryStatement = tryStatement.AddBlockStatements(getDelegateStatement);
+
             var invokeStatement = callback.GetInvocationStatement(invokeMethod);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
@@ -243,22 +236,57 @@ namespace GISharp.CodeGen.Syntax
             return statement;
         }
 
-
         /// <summary>
         /// Gets the C# class declaration for the factory class of a GIR callback
         /// </summary>
-        public static ClassDeclarationSyntax GetFactoryDeclaration(this Callback callback)
+        public static ClassDeclarationSyntax GetDelegateFactoryDeclaration(this Callback callback)
         {
             var identifier = callback.ManagedName + "Factory";
             var syntax = ClassDeclaration(identifier)
                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-               .WithMembers(List(callback.GetFactoryClassMembers()))
                .WithLeadingTrivia(callback.GetFactoryDocumentationCommentTrivia());
             return syntax;
         }
 
-        static IEnumerable<MemberDeclarationSyntax> GetFactoryClassMembers(this Callback callback)
+        /// <summary>
+        /// Gets the C# delegate factory class members for a GIR callback of a
+        /// virtual method
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodDelegateFactoryMembers(this Callback callback)
         {
+            return List<MemberDeclarationSyntax>()
+                .Add(callback.GetVirtualMethodDelegateFactoryUnmangedCreateMethod());
+        }
+
+        static MethodDeclarationSyntax GetVirtualMethodDelegateFactoryUnmangedCreateMethod(this Callback callback)
+        {
+            var type = ParseTypeName("Unmanaged" + callback.ManagedName);
+            var methodInfoParam = Parameter(ParseToken("methodInfo"))
+                .WithType(ParseTypeName(typeof(System.Reflection.MethodInfo).FullName));
+            return MethodDeclaration(type, "Create")
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddParameterListParameters(methodInfoParam)
+                .WithBody(Block(callback.GetUnmanagedDelegateCreateStatements()));
+        }
+
+        static IEnumerable<StatementSyntax> GetUnmanagedDelegateCreateStatements(this Callback callback)
+        {
+            var returnType = callback.ReturnValue.GirType.UnmanagedType.ToSyntax();
+            var identifier = callback.ManagedName.ToCamelCase();
+            yield return LocalFunctionStatement(returnType, identifier)
+                .WithParameterList(callback.Parameters.GetParameterList())
+                .WithBody(Block(callback.GetVirtualMethodStatements()));
+
+            yield return ReturnStatement(ParseExpression(identifier));
+        }
+
+        /// <summary>
+        /// Gets the C# delegate factory class members for a GIR callback
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateFactoryMembers(this Callback callback)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
             var qualifiedName = callback.GetQualifiedName();
             var unmanagedQualifiedName = callback.GetQualifiedName(true);
 
@@ -280,7 +308,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword));
             var dataClass = ClassDeclaration("UserData")
                 .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField);
-            yield return dataClass;
+            list = list.Add(dataClass);
 
             // emit Create() method for unmanged>managed
 
@@ -291,7 +319,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(createMethodParams))
                 .WithBody(Block(callback.GetFactoryCreateMethodStatements()));
-            yield return createMethod;
+            list = list.Add(createMethod);
 
             // emit Create() method for managed>unmanaged
 
@@ -305,7 +333,7 @@ namespace GISharp.CodeGen.Syntax
                 .WithParameterList(ParseParameterList(create2MethodParams))
                 .WithBody(Block(callback.GetFactoryCreate2MethodStatements()))
                 .WithLeadingTrivia(callback.GetFactoryCreate2MethodDocumentationCommentTrivia());
-            yield return create2Method;
+            list = list.Add(create2Method);
 
             // emit unmanaged callback method
 
@@ -314,7 +342,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(callback.Parameters.GetParameterList())
                 .WithBody(Block(callback.GetCallbackStatements()));
-            yield return callbackMethod;
+            list = list.Add(callbackMethod);
 
             // emit destroy notify method
 
@@ -338,7 +366,9 @@ namespace GISharp.CodeGen.Syntax
                 .WithParameterList(destroyParamList)
                 .WithBody(Block(destroyTryStatement));
 
-            yield return destroyMethod;
+            list = list.Add(destroyMethod);
+
+            return list;
         }
 
         static IEnumerable<StatementSyntax> GetFactoryCreateMethodStatements(this Callback callback)

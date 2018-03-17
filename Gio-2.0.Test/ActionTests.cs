@@ -255,19 +255,19 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAction : Object, IAction
     {
-        public bool Enabled => ((IAction)this).OnGetEnabled();
+        public bool Enabled => ((IAction)this).DoGetEnabled();
 
         public Utf8 Name { get; }
 
-        public VariantType ParameterType => ((IAction)this).OnGetParameterType();
+        public VariantType ParameterType => ((IAction)this).DoGetParameterType();
 
-        public Variant State => ((IAction)this).OnGetState();
+        public Variant State => ((IAction)this).DoGetState();
 
-        public VariantType StateType => ((IAction)this).OnGetStateType();
+        public VariantType StateType => ((IAction)this).DoGetStateType();
 
         public int ActivateCallbackCount;
 
-        void IAction.OnActivate(Variant parameter)
+        void IAction.DoActivate(Variant parameter)
         {
             Assert.That ((int)parameter, Is.EqualTo (1));
             ActivateCallbackCount++;
@@ -275,7 +275,7 @@ namespace GISharp.Test.Gio
 
         public int ChangeStateCallbackCount;
 
-        void IAction.OnChangeState(Variant value)
+        void IAction.DoChangeState(Variant value)
         {
             Assert.That ((int)value, Is.EqualTo (1));
             ChangeStateCallbackCount++;
@@ -283,7 +283,7 @@ namespace GISharp.Test.Gio
 
         public int GetEnabledCallbackCount;
 
-        bool IAction.OnGetEnabled()
+        bool IAction.DoGetEnabled()
         {
             GetEnabledCallbackCount++;
             return true;
@@ -291,7 +291,7 @@ namespace GISharp.Test.Gio
 
         public int GetNameCallbackCount;
 
-        Utf8 IAction.OnGetName()
+        Utf8 IAction.DoGetName()
         {
             GetNameCallbackCount++;
             return Name;
@@ -299,7 +299,7 @@ namespace GISharp.Test.Gio
 
         public int GetParameterTypeCallbackCount;
 
-        VariantType IAction.OnGetParameterType()
+        VariantType IAction.DoGetParameterType()
         {
             GetParameterTypeCallbackCount++;
             return VariantType.Boolean;
@@ -307,7 +307,7 @@ namespace GISharp.Test.Gio
 
         public int GetStateCallbackCount;
 
-        Variant IAction.OnGetState()
+        Variant IAction.DoGetState()
         {
             GetStateCallbackCount++;
             return new Variant (2);
@@ -315,7 +315,7 @@ namespace GISharp.Test.Gio
 
         public int GetStateHintCallbackCount;
 
-        Variant IAction.OnGetStateHint()
+        Variant IAction.DoGetStateHint()
         {
             GetStateHintCallbackCount++;
             return null;
@@ -323,7 +323,7 @@ namespace GISharp.Test.Gio
 
         public int GetStateTypeCallbackCount;
 
-        VariantType IAction.OnGetStateType()
+        VariantType IAction.DoGetStateType()
         {
             GetStateTypeCallbackCount++;
             return VariantType.Int32;

@@ -1,6 +1,7 @@
 using System;
+using System.Reflection;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -8,20 +9,17 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// An opaque structure used as the base of all interface types.
     /// </summary>
-    public abstract class TypeInterface : Opaque
+    public abstract class TypeInterface : TypeClass
     {
-        static readonly IntPtr gTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.GType));
         static readonly IntPtr gInstanceTypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.GInstanceType));
 
-        protected struct Struct
+        protected new struct Struct
         {
             #pragma warning disable CS0649
-            public GType GType;
+            public TypeClass.Struct TypeClass;
             public GType GInstanceType;
             #pragma warning restore CS0649
         }
-
-        public GType GType => Marshal.PtrToStructure<GType>(Handle + (int)gTypeOffset);
 
         public GType GInstanceType => Marshal.PtrToStructure<GType>(Handle + (int)gInstanceTypeOffset);
 
@@ -29,7 +27,55 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        public abstract InterfaceInfo CreateInterfaceInfo (Type instanceType);
+        static void InterfaceInit(IntPtr gIface, IntPtr userData)
+        {
+            try {
+                var gcHandle = (GCHandle)userData;
+                var types = (Tuple<Type, Type>)gcHandle.Target;
+                var interfaceType = types.Item1;
+                var instanceType = types.Item2;
+                var map = instanceType.GetInterfaceMap(interfaceType);
+
+                for (var i = 0; i < map.InterfaceMethods.Length; i++) {
+                    var ifaceMethod = map.InterfaceMethods[i];
+                    var instanceMethod = map.TargetMethods[i];
+
+                    var attr = ifaceMethod.GetCustomAttribute<GVirtualMethodAttribute>();
+                    if (attr == null) {
+                        continue;
+                    }
+
+                    InstallVirtualMethodOverload(gIface, attr.DelegateType, instanceMethod);
+                }
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+
+        static void InterfaceFinalize(IntPtr gIface, IntPtr userData)
+        {
+            try {
+                var gcHandle = (GCHandle)userData;
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+
+        internal static InterfaceInfo CreateInterfaceInfo(Type interfaceType, Type instanceType)
+        {
+            var types = new Tuple<Type, Type> (interfaceType, instanceType);
+
+            var ret = new InterfaceInfo {
+                InterfaceInit = InterfaceInit,
+                InterfaceFinalize = InterfaceFinalize,
+                InterfaceData = (IntPtr)GCHandle.Alloc(types),
+            };
+
+            return ret;
+        }
 
         /// <summary>
         /// Adds @prerequisite_type to the list of prerequisites of @interface_type.
@@ -190,7 +236,7 @@ namespace GISharp.Lib.GObject
         /// the prerequisites of <paramref name="interfaceType"/>
         /// </returns>
         [Since ("2.2")]
-        public static IArray<GType> Prerequisites(GType interfaceType)
+        public static IArray<GType> GetPrerequisites(GType interfaceType)
         {
             var ret_ = g_type_interface_prerequisites(interfaceType, out var nPrerequisites_);
             var ret = CArray.GetInstance<GType>(ret_, (int)nPrerequisites_, Transfer.Full);
@@ -236,10 +282,6 @@ namespace GISharp.Lib.GObject
             }
             base.Dispose (disposing);
         }
-
-        public override InterfaceInfo CreateInterfaceInfo (Type instanceType) =>
-            throw new NotImplementedException ();
-
 
         /// <summary>
         /// If the interface type @g_type is currently in use, returns its

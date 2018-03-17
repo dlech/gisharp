@@ -14,7 +14,7 @@ namespace GISharp.Lib.GObject
         new struct Struct
         {
             #pragma warning disable CS0649
-            public ParamSpec.Struct parentInstance;
+            public ParamSpec.Struct ParentInstance;
             #pragma warning restore CS0649
         }
 

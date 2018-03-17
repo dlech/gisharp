@@ -70,24 +70,24 @@ namespace GISharp.Test.Core.GObject
 
         public event Action<bool> NetworkChanged;
 
-        bool INetworkMonitor.CanReach (IntPtr connectable, IntPtr cancellable)
+        bool INetworkMonitor.DoCanReach(IntPtr connectable, IntPtr cancellable)
         {
             CanReachCallCount++;
 
             return false;
         }
 
-        void INetworkMonitor.CanReachAsync (IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback)
+        void INetworkMonitor.DoCanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback)
         {
             throw new InvalidOperationException ();
         }
 
-        bool INetworkMonitor.CanReachFinish (IntPtr result)
+        bool INetworkMonitor.DoCanReachFinish(IntPtr result)
         {
             throw new InvalidOperationException ();
         }
 
-        void INetworkMonitor.OnNetworkChanged (bool available)
+        void INetworkMonitor.DoNetworkChanged(bool available)
         {
             if (NetworkChanged != null) {
                 NetworkChanged (available);
@@ -113,7 +113,7 @@ namespace GISharp.Test.Core.GObject
 
         #region IInitable implementation
 
-        public bool Init (IntPtr cancellable)
+        void IInitable.DoInit(IntPtr cancellable)
         {
             throw new InvalidOperationException ();
         }

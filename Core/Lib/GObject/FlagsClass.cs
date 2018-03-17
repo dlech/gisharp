@@ -39,10 +39,5 @@ namespace GISharp.Lib.GObject
         public FlagsClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
-
-        public override TypeInfo GetTypeInfo (Type type)
-        {
-            throw new NotSupportedException ();
-        }
     }
 }

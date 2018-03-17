@@ -186,29 +186,29 @@ namespace GISharp.Test.Gio
         {
         }
 
-        void IActionGroup.OnActionAdded(Utf8 actionName)
+        void IActionGroup.DoActionAdded(Utf8 actionName)
         {
             // default signal handler
         }
 
-        void IActionGroup.OnActionEnabledChanged(Utf8 actionName, bool enabled)
+        void IActionGroup.DoActionEnabledChanged(Utf8 actionName, bool enabled)
         {
             // default signal handler
         }
 
-        void IActionGroup.OnActionRemoved(Utf8 actionName)
+        void IActionGroup.DoActionRemoved(Utf8 actionName)
         {
             // default signal handler
         }
 
-        void IActionGroup.OnActionStateChanged(Utf8 actionName, Variant state)
+        void IActionGroup.DoActionStateChanged(Utf8 actionName, Variant state)
         {
             // default signal handler
         }
 
         public event EventHandler<Variant> ActionActivated;
 
-        void IActionGroup.OnActivateAction(Utf8 actionName, Variant parameter) => ActionActivated?.Invoke(this, parameter);
+        void IActionGroup.DoActivateAction(Utf8 actionName, Variant parameter) => ActionActivated?.Invoke(this, parameter);
 
         readonly GSignalManager<ActionGroup.ActionAddedEventArgs> actionAddedSignalManager =
             new GSignalManager<ActionGroup.ActionAddedEventArgs>("action-added", gtype);
@@ -243,20 +243,20 @@ namespace GISharp.Test.Gio
         }
 
         public event EventHandler<Variant> StateChanged;
-        void IActionGroup.OnChangeActionState(Utf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
+        void IActionGroup.DoChangeActionState(Utf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
 
-        bool IActionGroup.OnGetActionEnabled(Utf8 actionName) => false;
+        bool IActionGroup.DoGetActionEnabled(Utf8 actionName) => false;
 
-        VariantType IActionGroup.OnGetActionParameterType(Utf8 actionName) => VariantType.Int32;
+        VariantType IActionGroup.DoGetActionParameterType(Utf8 actionName) => VariantType.Int32;
 
-        Variant IActionGroup.OnGetActionState(Utf8 actionName) => new Variant(2);
+        Variant IActionGroup.DoGetActionState(Utf8 actionName) => new Variant(2);
 
-        Variant IActionGroup.OnGetActionStateHint(Utf8 actionName) => new Variant(1);
+        Variant IActionGroup.DoGetActionStateHint(Utf8 actionName) => new Variant(1);
 
-        VariantType IActionGroup.OnGetActionStateType(Utf8 actionName) => VariantType.Boolean;
+        VariantType IActionGroup.DoGetActionStateType(Utf8 actionName) => VariantType.Boolean;
 
-        bool IActionGroup.OnHasAction(Utf8 actionName) => false;
+        bool IActionGroup.DoHasAction(Utf8 actionName) => false;
 
-        Strv IActionGroup.OnListActions() => new Strv("test-action-1" );
+        Strv IActionGroup.DoListActions() => new Strv("test-action-1" );
     }
 }

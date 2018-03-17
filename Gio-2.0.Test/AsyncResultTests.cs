@@ -40,10 +40,10 @@ namespace GISharp.Test.Gio
         {
         }
 
-        Object IAsyncResult.OnGetSourceObject() => source;
+        Object IAsyncResult.DoGetSourceObject() => source;
 
-        IntPtr IAsyncResult.OnGetUserData() => throw new NotImplementedException();
+        IntPtr IAsyncResult.DoGetUserData() => throw new NotImplementedException();
 
-        bool IAsyncResult.OnIsTagged(IntPtr sourceTag) => throw new NotImplementedException();
+        bool IAsyncResult.DoIsTagged(IntPtr sourceTag) => throw new NotImplementedException();
     }
 }
