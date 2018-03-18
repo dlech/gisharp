@@ -31,7 +31,7 @@ namespace GISharp.CodeGen.Syntax
             }
             yield return MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
-                .AddModifiers(Token(InternalKeyword), Token(ProtectedKeyword), Token(VirtualKeyword))
+                .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithBody(Block(method.GetInvokeStatements(invoker)))
                 .WithLeadingTrivia(TriviaList()

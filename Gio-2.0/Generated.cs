@@ -4812,7 +4812,7 @@ System.IntPtr sourceTag);
         }
 
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(CancellableClass.UnmanagedCancelled))]
-        internal protected virtual void DoCancelled()
+        protected virtual void DoCancelled()
         {
             var cancellable_ = Handle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)(cancellable_);
