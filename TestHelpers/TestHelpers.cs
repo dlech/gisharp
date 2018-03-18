@@ -6,6 +6,7 @@ using GISharp.Lib.GModule;
 using GISharp.Runtime;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
+using NUnit.Framework.Internal;
 
 namespace GISharp
 {
@@ -45,7 +46,7 @@ namespace GISharp
         /// </exception>
         public static void AssertNoGLibLog()
         {
-            var properties = TestContext.CurrentContext.Test.Properties;
+            var properties = TestExecutionContext.CurrentContext.CurrentTest.Properties;
 
             if (properties.ContainsKey(critical)) {
                 Assert.Fail("{0}", properties.Get(critical));

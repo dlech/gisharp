@@ -3,6 +3,7 @@ using NUnit.Framework;
 using GISharp.Lib.GLib;
 
 using static GISharp.Lib.GLib.LogLevelFlags;
+using NUnit.Framework.Internal;
 
 namespace GISharp.Test
 {
@@ -17,7 +18,7 @@ namespace GISharp.Test
             if (logLevel.HasFlag(LogLevelFlags.Error) || logLevel.HasFlag(Critical) || logLevel.HasFlag(Warning)) {
                 TestContext.Error.WriteLine(Environment.StackTrace);
             }
-            TestContext.CurrentContext.Test.Properties.Set(logLevel.ToString(), message);
+            TestExecutionContext.CurrentContext.CurrentTest.Properties.Set(logLevel.ToString(), message);
         }
 
         [OneTimeSetUp]
