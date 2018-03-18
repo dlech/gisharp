@@ -337,7 +337,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant**" managed-name="GLib.Variant" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.IntPtr targetValue,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -4788,7 +4788,7 @@ System.IntPtr sourceTag);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -5430,7 +5430,7 @@ System.IntPtr cancellable);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -5583,7 +5583,7 @@ System.IntPtr cancellable);
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr result,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -5732,7 +5732,7 @@ System.IntPtr cancellable);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -5855,7 +5855,7 @@ System.IntPtr cancellable);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6052,7 +6052,7 @@ System.IntPtr cancellable);
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr bytesRead,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6276,7 +6276,7 @@ System.IntPtr cancellable);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6474,7 +6474,7 @@ System.IntPtr cancellable);
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr result,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6532,7 +6532,7 @@ System.IntPtr cancellable);
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr result,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6585,7 +6585,7 @@ System.IntPtr cancellable);
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6654,7 +6654,7 @@ System.IntPtr cancellable);
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -6844,7 +6844,7 @@ System.IntPtr cancellable);
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr result,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -7200,7 +7200,7 @@ System.UIntPtr count,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr cancellable,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 
@@ -7255,7 +7255,7 @@ System.UIntPtr count,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr cancellable,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 
@@ -7306,7 +7306,7 @@ System.IntPtr stream,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr cancellable,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 
@@ -7415,7 +7415,7 @@ System.IntPtr stream,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 System.IntPtr result,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 
@@ -7520,7 +7520,7 @@ System.IntPtr stream,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 System.IntPtr result,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 
@@ -7621,7 +7621,7 @@ System.IntPtr stream,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 System.IntPtr result,
-/* <type name="GLib.Error" managed-name="GLib.Error" /> */
+/* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 ref System.IntPtr error);
 

@@ -336,10 +336,11 @@ namespace GISharp.CodeGen
                     new XAttribute ("name", "error"),
                     new XAttribute("direction", "inout"),
                     new XAttribute("transfer-ownership", "full"),
-                    new XAttribute(gs + "managed-type", typeof(IntPtr)),
+                    new XAttribute(gs + "managed-type", typeof(GISharp.Lib.GLib.Error)),
                     new XElement (gi + "doc", "return location for a #GError"),
                     new XElement (gi + "type",
-                        new XAttribute ("name", "GLib.Error")));
+                        new XAttribute("name", "GLib.Error"),
+                        new XAttribute(c + "type", "GError**")));
                 if (element.Element (gi + "parameters") == null) {
                     element.Add (new XElement (gi + "parameters"));
                 }

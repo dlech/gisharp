@@ -304,7 +304,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -399,7 +399,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -484,7 +484,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -567,7 +567,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -662,7 +662,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -795,7 +795,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -876,7 +876,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -973,7 +973,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1060,7 +1060,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1149,7 +1149,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr locale,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1257,7 +1257,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1384,7 +1384,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1478,7 +1478,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1558,7 +1558,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1638,7 +1638,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1761,7 +1761,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1832,7 +1832,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -1911,7 +1911,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2008,7 +2008,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2098,7 +2098,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2172,7 +2172,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2233,7 +2233,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr groupName,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2293,7 +2293,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2355,7 +2355,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr filename,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -2557,7 +2557,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr comment,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -3318,7 +3318,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="Gsize" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length,
-        /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+        /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
@@ -3519,7 +3519,7 @@ namespace GISharp.Lib.GLib
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr data,
-    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
     /* direction:inout transfer-ownership:full */
     ref System.IntPtr error);
 
@@ -4643,7 +4643,7 @@ namespace GISharp.Lib.GLib
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr data,
-    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
     /* direction:inout transfer-ownership:full */
     ref System.IntPtr error);
 
@@ -5084,7 +5084,7 @@ namespace GISharp.Lib.GLib
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr data,
-    /* <type name="GLib.Error" managed-name="GLib.Error" /> */
+    /* <type name="GLib.Error" type="GError**" managed-name="GLib.Error" is-pointer="1" /> */
     /* direction:inout transfer-ownership:full */
     ref System.IntPtr error);
 
