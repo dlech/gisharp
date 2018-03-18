@@ -134,10 +134,7 @@ namespace GISharp.Test.Core
         bool DoCanReach(IntPtr connectable, IntPtr cancellable);
 
         [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedCanReachAsync))]
-        void DoCanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
-
-        [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedCanReachAsyncFinish))]
-        bool DoCanReachFinish(IntPtr result);
+        Task<bool> DoCanReachAsync(IntPtr connectable, IntPtr cancellable);
 
         [GVirtualMethod(typeof(NetworkMonitorInterface.UnmanagedNetworkChanged))]
         void DoNetworkChanged(bool available);
@@ -240,25 +237,25 @@ namespace GISharp.Test.Core
             }
         }
 
+        public delegate Task<bool> CanReachAsync(IntPtr connectable, IntPtr cancellable);
+
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedCanReachAsync(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
-
-        public delegate void CanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback);
-
+        public delegate void UnmanagedCanReachAsync(IntPtr monitor, IntPtr connectable, IntPtr cancellable, UnmanagedAsyncReadyCallback callback, IntPtr userData);
 
         public static class CanReachAsyncFactory
         {
             public static UnmanagedCanReachAsync Create(MethodInfo methodInfo)
             {
-                void canReachAsync(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, Action<IntPtr, IntPtr, IntPtr> callback_, IntPtr userData_)
+                void canReachAsync(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, UnmanagedAsyncReadyCallback callback_, IntPtr userData_)
                 {
                     try {
-                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
-                        void callback(IntPtr result_) {
-                            callback_(monitor_, result_, userData_);
-                        };
+                        var task_ = GTask.g_task_new(monitor_, cancellable_, callback_, userData_);
+                        var monitor = Object.GetInstance(monitor_, Transfer.None);
                         var doCanReachAsync = (CanReachAsync)methodInfo.CreateDelegate(typeof(CanReachAsync), monitor);
-                        doCanReachAsync(connectable_, cancellable_, callback);
+                        var task = doCanReachAsync(connectable_, cancellable_);
+                        task.ContinueWith(x => {
+                            GTask.g_task_return_boolean(task_, x.Result);
+                        });
                     }
                     catch (Exception ex) {
                         ex.LogUnhandledException ();
@@ -270,20 +267,18 @@ namespace GISharp.Test.Core
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, ref IntPtr error);
-
-        public delegate void CanReachAsyncFinish(IntPtr result);
+        public delegate bool UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, ref IntPtr error);
 
         public static class CanReachAsyncFinishFactory
         {
             public static UnmanagedCanReachAsyncFinish Create(MethodInfo methodInfo)
             {
-                void canReachAsyncFinish(IntPtr monitor_, IntPtr result_, ref IntPtr error_)
+                bool canReachAsyncFinish(IntPtr monitor_, IntPtr result_, ref IntPtr error_)
                 {
                     try {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
-                        var doCanReachAsyncFinish = (CanReachAsyncFinish)methodInfo.CreateDelegate(typeof(CanReachAsyncFinish), monitor);
-                        doCanReachAsyncFinish(result_);
+                        var result = Object.GetInstance<GTask>(result_, Transfer.None);
+                        return result.PropagateBoolean();
                     } catch (GErrorException ex) {
                         GMarshal.PropagateError(ref error_, ex.Error);
                     }
@@ -291,6 +286,8 @@ namespace GISharp.Test.Core
                         // FIXME: convert managed exception to GError
                         ex.LogUnhandledException ();
                     }
+
+                    return default(bool);
                 }
 
                 return canReachAsyncFinish;
@@ -358,35 +355,244 @@ namespace GISharp.Test.Core
             return ret;
         }
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_network_monitor_can_reach_async (IntPtr monitor, IntPtr connectable, IntPtr cancellable, Action<IntPtr, IntPtr, IntPtr> callback, IntPtr userData);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_network_monitor_can_reach_async(IntPtr monitor, IntPtr connectable, IntPtr cancellable, UnmanagedAsyncReadyCallback callback, IntPtr userData);
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach_async_finish (IntPtr monitor, IntPtr result, out IntPtr errorPtr);
-
-        public static Task<bool> CanReachAsync (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
+        public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
-            if (monitor == null) {
-                throw new ArgumentNullException (nameof(monitor));
-            }
-            var instance = (Object)monitor;
-            var completion = new TaskCompletionSource<bool> ();
-            Action<IntPtr, IntPtr, IntPtr> nativeCallback = (sourceObjectPtr, resultPtr, userDataPtr) => {
-                IntPtr errorPtr;
-                var ret = g_network_monitor_can_reach_async_finish (sourceObjectPtr, resultPtr, out errorPtr);
-                if (errorPtr != IntPtr.Zero) {
-                    var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
-                    completion.SetException (new GErrorException (error));
-                } else {
-                    completion.SetResult (ret);
-                }
-                GCHandle.FromIntPtr (userDataPtr).Free ();
-            };
-            var callbackGCHandle = GCHandle.Alloc (nativeCallback);
-            g_network_monitor_can_reach_async (instance.Handle, connectable, cancellable, nativeCallback, (IntPtr)callbackGCHandle);
-            GC.KeepAlive (instance);
+            var completion = new TaskCompletionSource<bool>();
+            var this_ = monitor?.Handle ?? throw new ArgumentNullException(nameof(monitor));
+            var callback_ = CanReachAsyncFinishDelegate;
+            var userData_ = (IntPtr)GCHandle.Alloc(completion);
+            g_network_monitor_can_reach_async(this_, connectable, cancellable, callback_, userData_);
 
             return completion.Task;
+        }
+
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, ref IntPtr errorPtr);
+
+        static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
+        {
+            try {
+                var userData = (GCHandle)userData_;
+                var completion = (TaskCompletionSource<bool>)userData.Target;
+                userData.Free();
+    
+                var error_ = IntPtr.Zero;
+                var ret = g_network_monitor_can_reach_finish(sourceObject_, result_, ref error_);
+                if (error_ != IntPtr.Zero) {
+                    var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
+                    completion.SetException(new GErrorException(error));
+                } else {
+                    completion.SetResult(ret);
+                }
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+
+        static readonly UnmanagedAsyncReadyCallback CanReachAsyncFinishDelegate = CanReachAsyncFinish;
+    }
+
+    [GType("GAsyncResult", IsProxyForUnmanagedType = true)]
+    [GTypeStruct(typeof(AsyncResultIface))]
+    interface IAsyncResult : GInterface<Object>
+    {
+        [GVirtualMethod(typeof(AsyncResultIface.UnmanagedGetUserData))]
+        IntPtr GetUserData();
+
+        [GVirtualMethod(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
+        Object GetSourceObject();
+        
+        [GVirtualMethod(typeof(AsyncResultIface.UnmanagedIsTagged))]
+        IntPtr IsTagged(IntPtr sourceTag);
+    }
+
+    static class AsyncResult
+    {
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_async_result_get_type();
+
+        static GType _GType = g_async_result_get_type();
+    }
+
+    delegate void AsyncReadyCallback(Object sourceObject, IAsyncResult res);
+
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate void UnmanagedAsyncReadyCallback(IntPtr sourceObject, IntPtr res, IntPtr userData);
+
+    static class AsyncReadyCallbackFactory
+    {
+        public static (UnmanagedAsyncReadyCallback callback, IntPtr userData) Create(AsyncReadyCallback callback)
+        {
+            void unmanagedCallback(IntPtr sourceObject_, IntPtr res_, IntPtr userData_)
+            {
+                try {
+                    GCHandle.FromIntPtr(userData_).Free();
+                    var sourceObject = Object.GetInstance(sourceObject_, Transfer.None);
+                    var res = (IAsyncResult)Object.GetInstance(res_, Transfer.None);
+                    callback(sourceObject, res);
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                }
+            }
+
+            var unmanagedCallback_ = (UnmanagedAsyncReadyCallback)unmanagedCallback;
+
+            var userData = GCHandle.Alloc(unmanagedCallback_);
+
+            return (unmanagedCallback, (IntPtr)userData);
+        }
+    }
+
+    sealed class AsyncResultIface : TypeInterface
+    {
+        new struct Struct
+        {
+            #pragma warning disable CS0649
+            #pragma warning disable CS0169
+            TypeInterface.Struct gIface;
+            #pragma warning restore CS0169
+            public UnmanagedGetUserData GetUserData;
+            public UnmanagedGetSourceObject GetSourceObject;
+            public UnmanagedIsTagged IsTagged;
+            #pragma warning restore CS0649
+        }
+
+        static AsyncResultIface()
+        {
+            var getUserDataOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.GetUserData));
+            RegisterVirtualMethod(getUserDataOffset, GetUserDataFactory.Create);
+            var getSourceObjectOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.GetSourceObject));
+            RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectFactory.Create);
+            var isTaggedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.IsTagged));
+            RegisterVirtualMethod(isTaggedOffset, IsTaggedFactory.Create);
+        }
+
+        public AsyncResultIface(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        public delegate IntPtr GetUserData();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr UnmanagedGetUserData(IntPtr res);
+
+        public static class GetUserDataFactory
+        {
+            public static UnmanagedGetUserData Create(MethodInfo methodInfo)
+            {
+                IntPtr getUserData(IntPtr res_)
+                {
+                    try {
+                        var res = Object.GetInstance(res_, Transfer.None);
+                        var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res);
+                        var ret = doGetUserData();
+                        return ret;
+                    }
+                    catch (Exception ex) {
+                        ex.LogUnhandledException();
+                    }
+                    return default(IntPtr);
+                }
+
+                return getUserData;
+            }
+        }
+
+        public delegate Object GetSourceObject();
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate IntPtr UnmanagedGetSourceObject(IntPtr res);
+
+        public static class GetSourceObjectFactory
+        {
+            public static UnmanagedGetSourceObject Create(MethodInfo methodInfo)
+            {
+                IntPtr getSourceObject(IntPtr res_)
+                {
+                    try {
+                        var res = Object.GetInstance(res_, Transfer.None);
+                        var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res);
+                        var ret = doGetSourceObject();
+                        var ret_ = ret?.Take() ?? IntPtr.Zero;
+                        return ret_;
+                    }
+                    catch (Exception ex) {
+                        ex.LogUnhandledException();
+                    }
+                    return default(IntPtr);
+                }
+
+                return getSourceObject;
+            }
+        }
+
+        public delegate bool IsTagged(IntPtr sourceTag);
+
+        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+        public delegate bool UnmanagedIsTagged(IntPtr res, IntPtr sourceTag);
+
+        public static class IsTaggedFactory
+        {
+            public static UnmanagedIsTagged Create(MethodInfo methodInfo)
+            {
+                bool isTagged(IntPtr res_, IntPtr sourceTag_)
+                {
+                    try {
+                        var res = Object.GetInstance(res_, Transfer.None);
+                        var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res);
+                        var ret = doIsTagged(sourceTag_);
+                        return ret;
+                    }
+                    catch (Exception ex) {
+                        ex.LogUnhandledException();
+                    }
+                    return default(bool);
+                }
+
+                return isTagged;
+            }
+        }
+    }
+
+    [GType("GTask", IsProxyForUnmanagedType = true)]
+    sealed class GTask : Object
+    {
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_task_get_type();
+
+        static GType _GType = g_task_get_type();
+
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr g_task_new(
+            IntPtr sourceObject,
+            IntPtr cancellable,
+            UnmanagedAsyncReadyCallback callback,
+            IntPtr callbackData);
+
+        public GTask(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void g_task_return_boolean(IntPtr task, bool result);
+ 
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_task_propagate_boolean(IntPtr task, ref IntPtr error);
+
+        public bool PropagateBoolean()
+        {
+            var error_ = IntPtr.Zero;
+            var ret = g_task_propagate_boolean(Handle, ref error_);
+            if (error_ != IntPtr.Zero) {
+                var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
+                throw new GErrorException(error);
+            }
+            return ret;
         }
     }
 }

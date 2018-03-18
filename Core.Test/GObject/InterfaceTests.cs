@@ -1,9 +1,10 @@
 ﻿using System;
+using System.ComponentModel;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using GISharp.Runtime;
 using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
-using System.ComponentModel;
 
 using static GISharp.TestHelpers;
 
@@ -27,6 +28,27 @@ namespace GISharp.Test.Core.GObject
                 Assume.That (obj.CanReachCallCount, Is.EqualTo (0));
                 obj.CanReach (IntPtr.Zero);
                 Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
+            }
+
+            AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestAsyncVirtualMethod()
+        {
+            using (var context = new MainContext())
+            using (var loop = new MainLoop(context))
+            using (var obj = new TestNetworkMonitor()) {
+                context.PushThreadDefault();
+                try {
+                    var task = obj.CanReachAsync(IntPtr.Zero);
+                    task.ContinueWith(_ => loop.Quit());
+                    loop.Run();
+                    Assert.That(task.Result, Is.True);
+                }
+                finally {
+                    context.PopThreadDefault();
+                }
             }
 
             AssertNoGLibLog();
@@ -77,14 +99,9 @@ namespace GISharp.Test.Core.GObject
             return false;
         }
 
-        void INetworkMonitor.DoCanReachAsync(IntPtr connectable, IntPtr cancellable, Action<IntPtr> callback)
+        Task<bool> INetworkMonitor.DoCanReachAsync(IntPtr connectable, IntPtr cancellable)
         {
-            throw new InvalidOperationException ();
-        }
-
-        bool INetworkMonitor.DoCanReachFinish(IntPtr result)
-        {
-            throw new InvalidOperationException ();
+            return Task.FromResult(true);
         }
 
         void INetworkMonitor.DoNetworkChanged(bool available)
