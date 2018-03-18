@@ -2605,9 +2605,12 @@ namespace GISharp.Lib.GObject
             var gtypeAttr = type.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
-            var ret = gtypeAttr?.Name ?? type.FullName
-                .Replace ('.', '-')
-                .Replace ("[]", "--Array--");
+            var ret = gtypeAttr?.Name ?? type.ToString()
+                .Replace('.', '-')
+                .Replace("[]", "--Array--")
+                .Replace("`", "--of--")
+                .Replace("[", "")
+                .Replace("]", "");
 
             return ret;
         }
