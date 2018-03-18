@@ -122,8 +122,8 @@ namespace GISharp.CodeGen.Syntax
                 var destroy = destroyArg?.ManagedName ?? (arg.Scope == "call" ? "destroy" : "");
                 var userDataArg = arg.Callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
-                var scope = $"{typeof(CallbackScope).FullName}.{arg.Scope.ToPascalCase()}";
-                var factory = $"{type.FullName}Factory";
+                var scope = $"{typeof(CallbackScope)}.{arg.Scope.ToPascalCase()}";
+                var factory = $"{type}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}, {scope})";
                 if (arg.IsNullable) {
                     var callbackType = arg.GirType.UnmanagedType.ToSyntax();
@@ -154,7 +154,7 @@ namespace GISharp.CodeGen.Syntax
                 expression = ParseExpression($"{arg.ManagedName} = {arg.ManagedName}_");
             }
             else if (type.IsOpaque()) {
-                var getInstance = $"{typeof(Opaque).FullName}.{nameof(Opaque.GetInstance)}";
+                var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
                 var ownership = arg.GetOwnershipTransfer();
                 expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({arg.ManagedName}_, {ownership})");
             }
@@ -173,14 +173,14 @@ namespace GISharp.CodeGen.Syntax
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }
             else if (type.IsInterface) {
-                var getInstance = $"{typeof(Object).FullName}.{nameof(Object.GetInstance)}";
+                var getInstance = $"{typeof(Object)}.{nameof(Object.GetInstance)}";
                 var ownership = arg.GetOwnershipTransfer();
                 expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}){getInstance}({arg.ManagedName}_, {ownership})");
             }
             else if (type.IsDelegate()) {
                 var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
-                var factory = $"{arg.GirType.ManagedType.FullName}Factory";
+                var factory = $"{arg.GirType.ManagedType}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}_, {userData}_)";
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }

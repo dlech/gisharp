@@ -336,7 +336,7 @@ namespace GISharp.CodeGen
                     new XAttribute ("name", "error"),
                     new XAttribute("direction", "inout"),
                     new XAttribute("transfer-ownership", "full"),
-                    new XAttribute (gs + "managed-type", typeof(IntPtr).FullName),
+                    new XAttribute(gs + "managed-type", typeof(IntPtr)),
                     new XElement (gi + "doc", "return location for a #GError"),
                     new XElement (gi + "type",
                         new XAttribute ("name", "GLib.Error")));

@@ -89,7 +89,7 @@ namespace GISharp.CodeGen.Syntax
         static ConstructorDeclarationSyntax GetDefaultConstructor(this Record record)
         {
             var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr).FullName, typeof(Transfer).FullName));
+                typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
 
             if (record.GTypeName != null) {
@@ -187,8 +187,8 @@ namespace GISharp.CodeGen.Syntax
         static ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor(this Record record)
         {
             var paramerList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr).FullName,
-                typeof(GISharp.Runtime.Transfer).FullName));
+                typeof(IntPtr),
+                typeof(GISharp.Runtime.Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
             var initializer = ConstructorInitializer(BaseConstructorInitializer)
                 .WithArgumentList(argList);

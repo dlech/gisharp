@@ -56,7 +56,7 @@ namespace GISharp.CodeGen.Syntax
                 var attrName = ParseName(typeof(GTypeStructAttribute).FullName);
 
                 var structType = Reflection.GirType.ResolveType(type.GTypeStruct, type.Element.Document);
-                var typeArg = AttributeArgument(ParseExpression($"typeof({structType.FullName})"));
+                var typeArg = AttributeArgument(ParseExpression($"typeof({structType})"));
 
                 list = list.Add(AttributeList().AddAttributes(Attribute(attrName).
                     AddArgumentListArguments(typeArg)));

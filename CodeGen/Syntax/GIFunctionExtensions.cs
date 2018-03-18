@@ -90,7 +90,7 @@ namespace GISharp.CodeGen.Syntax
             var argList = string.Format("(\"{0}\", {1} = {2}.{3})",
                 function.DllName,
                 nameof(DllImportAttribute.CallingConvention),
-                typeof(CallingConvention).FullName,
+                typeof(CallingConvention),
                 nameof(CallingConvention.Cdecl));
 
             var attr = Attribute(name)

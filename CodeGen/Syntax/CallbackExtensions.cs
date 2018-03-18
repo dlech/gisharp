@@ -49,7 +49,7 @@ namespace GISharp.CodeGen.Syntax
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
             var attrName = ParseName(typeof(UnmanagedFunctionPointerAttribute).FullName);
-            var attrArg = ParseExpression($"{typeof(CallingConvention).FullName}.{nameof(CallingConvention.Cdecl)}");
+            var attrArg = ParseExpression($"{typeof(CallingConvention)}.{nameof(CallingConvention.Cdecl)}");
             var attr = Attribute(attrName)
                 .AddArgumentListArguments(AttributeArgument(attrArg));
 
@@ -111,7 +111,7 @@ namespace GISharp.CodeGen.Syntax
             if (callback.ThrowsGErrorException) {
                 var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
                 var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
-                    typeof(GISharp.Runtime.GMarshal).FullName,
+                    typeof(GISharp.Runtime.GMarshal),
                     nameof(GISharp.Runtime.GMarshal.PropagateError),
                     callback.Parameters.ErrorParameter.ManagedName,
                     nameof(GISharp.Runtime.GErrorException.Error)));
@@ -129,7 +129,7 @@ namespace GISharp.CodeGen.Syntax
 
             var exception = typeof(Exception).FullName;
             var logUnhandledException = ParseStatement(string.Format("{0}.{1}(ex);\n",
-                typeof(Log).FullName,
+                typeof(Log),
                 nameof(Log.LogUnhandledException)));
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
@@ -170,7 +170,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var catchType = ParseTypeName(typeof(Exception).FullName);
             var catchStatement = string.Format("{0}.{1}(ex);\n",
-                typeof(Log).FullName,
+                typeof(Log),
                 nameof(Log.LogUnhandledException));
             yield return TryStatement()
                 .WithBlock(Block(callback.GetCallbackTryStatements()))
@@ -206,7 +206,7 @@ namespace GISharp.CodeGen.Syntax
                     Destroy({0}_);
                 }}
                 ", dataParamName,
-                typeof(CallbackScope).FullName,
+                typeof(CallbackScope),
                 nameof(CallbackScope.Async)));
 
             if (skipReturnValue) {
@@ -325,8 +325,8 @@ namespace GISharp.CodeGen.Syntax
             var create2MethodParams = $"({qualifiedName} callback, {scopeType} scope)";
             var create2ReturnType = ParseTypeName(string.Format("({0}, {1}, {2})",
                 unmanagedQualifiedName,
-                typeof(UnmanagedDestroyNotify).FullName,
-                typeof(IntPtr).FullName));
+                typeof(UnmanagedDestroyNotify),
+                typeof(IntPtr)));
             var create2Method = MethodDeclaration(create2ReturnType, "Create")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(create2MethodParams))
@@ -346,7 +346,7 @@ namespace GISharp.CodeGen.Syntax
             // emit destroy notify method
 
             var destroyReturnType = ParseTypeName("void");
-            var destroyParamList = ParseParameterList($"({typeof(IntPtr).FullName} userData_)");
+            var destroyParamList = ParseParameterList($"({typeof(IntPtr)} userData_)");
 
             var destroyTryStatement = ParseStatement(string.Format(@"try {{
                 var gcHandle = ({0})userData_;
@@ -355,9 +355,9 @@ namespace GISharp.CodeGen.Syntax
             catch ({1} ex) {{
                 {2}.{3}(ex);
             }}
-            ", typeof(GCHandle).FullName,
-                typeof(Exception).FullName,
-                typeof(Log).FullName,
+            ", typeof(GCHandle),
+                typeof(Exception),
+                typeof(Log),
                 nameof(Log.LogUnhandledException)));
 
             var destroyMethod = MethodDeclaration(destroyReturnType, "Destroy")
@@ -375,7 +375,7 @@ namespace GISharp.CodeGen.Syntax
             var nullCheck = ParseStatement(string.Format(@"if (callback == null) {{
                 throw new {0}(nameof(callback));
             }}
-            ", typeof(ArgumentNullException).FullName));
+            ", typeof(ArgumentNullException)));
             yield return nullCheck;
 
             var userDataParam = callback.Parameters.Single(x => x.ClosureIndex >= 0);
@@ -411,8 +411,8 @@ namespace GISharp.CodeGen.Syntax
             yield return ParseStatement(userDataStatement);
 
             var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData);\n",
-                typeof(IntPtr).FullName,
-                typeof(GCHandle).FullName,
+                typeof(IntPtr),
+                typeof(GCHandle),
                 nameof(GCHandle.Alloc));
             yield return ParseStatement(gcHandleStatement);
 
@@ -454,7 +454,7 @@ namespace GISharp.CodeGen.Syntax
 
             var comments = string.Format(template, 
                 callback.ManagedName,
-                typeof(CallbackScope).FullName,
+                typeof(CallbackScope),
                 nameof(CallbackScope.Call),
                 nameof(CallbackScope.Async));
 

@@ -97,7 +97,7 @@ namespace GISharp.CodeGen.Syntax
                 construct = GPropertyConstruct.Only;
             }
             if (construct != GPropertyConstruct.No) {
-                var constructType = $"{typeof(GPropertyConstruct).FullName}.{construct}";
+                var constructType = $"{typeof(GPropertyConstruct)}.{construct}";
                 var constructArg = AttributeArgument(ParseExpression(nameof(GPropertyAttribute.Construct)));
                 constructArg = constructArg.WithExpression(AssignmentExpression(SimpleAssignmentExpression,
                     constructArg.Expression, ParseExpression(constructType)));

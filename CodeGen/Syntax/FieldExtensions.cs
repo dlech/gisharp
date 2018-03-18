@@ -47,7 +47,7 @@ namespace GISharp.CodeGen.Syntax
             var variableName = field.ManagedName.ToCamelCase() + "Offset";
             var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<Struct>(nameof(Struct.{3}))",
                 variableType,
-                typeof(Marshal).FullName,
+                typeof(Marshal),
                 nameof(Marshal.OffsetOf),
                 field.ManagedName));
 

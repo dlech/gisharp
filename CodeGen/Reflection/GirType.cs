@@ -414,6 +414,8 @@ namespace GISharp.CodeGen.Reflection
             }
         }
 
+        public override string ToString() => FullName;
+
         public override Guid GUID {
             get {
                 throw new InvalidOperationException ();

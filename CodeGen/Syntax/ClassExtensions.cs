@@ -90,7 +90,7 @@ namespace GISharp.CodeGen.Syntax
         static ConstructorDeclarationSyntax GetDefaultConstructor(this Class @class)
         {
             var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr).FullName, typeof(Transfer).FullName));
+                typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
 
             var accessModifier = @class.IsAbstract ? Token(ProtectedKeyword) : Token(PublicKeyword);

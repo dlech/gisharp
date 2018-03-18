@@ -49,7 +49,7 @@ namespace GISharp.CodeGen.Syntax
             var attr = Attribute(attrName)
                 .AddArgumentListArguments(AttributeArgument(nameArg));
 
-            var whenExpression = $"{nameof(GSignalAttribute.When)} = {typeof(EmissionStage).FullName}.{signal.When}";
+            var whenExpression = $"{nameof(GSignalAttribute.When)} = {typeof(EmissionStage)}.{signal.When}";
             attr = attr.AddArgumentListArguments(AttributeArgument(ParseExpression(whenExpression)));
 
 
@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<MemberDeclarationSyntax> GetEventArgsMembers(this Signal signal)
         {
             // emit a field like: readonly Value[] args;
-            var argsType = ParseTypeName($"{typeof(Value).FullName}[]");
+            var argsType = ParseTypeName($"{typeof(Value)}[]");
             var argsVariable = VariableDeclarator("args");
             yield return FieldDeclaration(VariableDeclaration(argsType)
                     .AddVariables(argsVariable))
@@ -127,7 +127,7 @@ namespace GISharp.CodeGen.Syntax
 
             var constructorParams = ParseParameterList($"({argsType} args)");
             var initArgs = string.Format("this.args = args ?? throw new {0}(nameof(args));",
-                typeof(ArgumentNullException).FullName);
+                typeof(ArgumentNullException));
             var initArgsStatement = ParseStatement(initArgs);
             var body = Block(initArgsStatement);
 
@@ -144,7 +144,7 @@ namespace GISharp.CodeGen.Syntax
         // }
         static EventDeclarationSyntax GetEventDeclaration(this Signal signal)
         {
-            var typeName = ParseTypeName($"{typeof(EventHandler).FullName}<{signal.ManagedName}EventArgs>");
+            var typeName = ParseTypeName($"{typeof(EventHandler)}<{signal.ManagedName}EventArgs>");
             var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
 
             var addExpression = ParseExpression($"{signalManager}.Add(this, value)");

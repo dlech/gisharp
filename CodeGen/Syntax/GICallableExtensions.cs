@@ -93,11 +93,11 @@ namespace GISharp.CodeGen.Syntax
             if (callable.ThrowsGErrorException) {
                 var errorArg = callable.Parameters.ErrorParameter.ManagedName + "_";
                 var condition = ParseExpression($"{errorArg} != System.IntPtr.Zero");
-                var getter = $"{typeof(Opaque).FullName}.{nameof(Opaque.GetInstance)}<{typeof(Error).FullName}>";
-                var ownership = $"{typeof(Transfer).FullName}.{nameof(Transfer.Full)}";
+                var getter = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}<{typeof(Error)}>";
+                var ownership = $"{typeof(Transfer)}.{nameof(Transfer.Full)}";
                 var marshalExpression = ParseExpression($"var error = {getter}({errorArg}, {ownership})");
                 var marshalStatement = ExpressionStatement(marshalExpression);
-                var exception = typeof(GErrorException).FullName;
+                var exception = typeof(GErrorException);
                 var exceptionExpression = ParseExpression($"new {exception}(error)");
                 var throwStatement = ThrowStatement(exceptionExpression);
                 yield return IfStatement(condition, Block(marshalStatement, throwStatement));
