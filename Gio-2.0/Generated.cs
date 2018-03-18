@@ -33,7 +33,7 @@ namespace GISharp.Lib.Gio
     /// inside of a #GSimpleActionGroup.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAction", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionInterface))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(ActionInterface))]
     public interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
@@ -946,7 +946,7 @@ namespace GISharp.Lib.Gio
     /// calls to g_action_group_query_action().
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionGroupInterface))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
     public interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
@@ -3197,7 +3197,7 @@ System.IntPtr parameter);
     /// name.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.ActionMapInterface))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
     public interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
@@ -3757,7 +3757,7 @@ System.IntPtr actionName);
     /// as a default.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.AsyncResultIface))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
     public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
@@ -4082,7 +4082,7 @@ System.IntPtr sourceTag);
     /// asynchronous operations.
     /// </summary>
     [GISharp.Runtime.GTypeAttribute("GCancellable", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.CancellableClass))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(CancellableClass))]
     public partial class Cancellable : GISharp.Lib.GObject.Object
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
@@ -5332,7 +5332,7 @@ System.IntPtr cancellable);
     /// All of these functions have async variants too.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GInputStream", IsProxyForUnmanagedType = true)]
-    [GISharp.Runtime.GTypeStructAttribute(typeof(GISharp.Lib.Gio.InputStreamClass))]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(InputStreamClass))]
     public abstract partial class InputStream : GISharp.Lib.GObject.Object
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_input_stream_get_type();

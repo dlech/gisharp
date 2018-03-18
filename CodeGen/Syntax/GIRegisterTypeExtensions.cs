@@ -54,9 +54,7 @@ namespace GISharp.CodeGen.Syntax
             // If a type has an associate GType struct, decorate it with the GTypeStructAttribute
             if (type.GTypeStruct != null) {
                 var attrName = ParseName(typeof(GTypeStructAttribute).FullName);
-
-                var structType = Reflection.GirType.ResolveType(type.GTypeStruct, type.Element.Document);
-                var typeArg = AttributeArgument(ParseExpression($"typeof({structType})"));
+                var typeArg = AttributeArgument(ParseExpression($"typeof({type.GTypeStruct})"));
 
                 list = list.Add(AttributeList().AddAttributes(Attribute(attrName).
                     AddArgumentListArguments(typeArg)));
