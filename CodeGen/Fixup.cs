@@ -270,8 +270,17 @@ namespace GISharp.CodeGen
 
             // all fields must be included for proper struct sizes
 
-            foreach (var element in document.Descendants(gi + "field")) {
+            foreach (var element in document.Descendants(gi + "field")
+                .Where(x => !x.Attribute("introspectable").AsBool(true)))
+            {
                 element.SetAttributeValue("introspectable", "1");
+
+                // if it is a callback, change it to an IntPtr
+                var callbackElement = element.Element(gi + "callback");
+                if (callbackElement != null) {
+                    callbackElement.Name = gi + "type";
+                    callbackElement.SetAttributeValue("name", "gpointer");
+                }
             }
 
             // remove non-introspectable nodes

@@ -74,15 +74,6 @@
   name: direction
   value: out
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='make_pollfd']/gi:parameters/gi:parameter[@name='pollfd']
-- !change-element
-  # change the reserved callbacks to pointers
-  new-name: gi:type
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableClass']/gi:field[starts-with(@name,'_g_reserved')]/gi:callback
-- !set-attribute
-  # fix the name attribute since we changed <callback> to <type>
-  name: name
-  value: gpointer
-  xpath: gi:repository/gi:namespace/gi:record[@name='CancellableClass']/gi:field[starts-with(@name,'_g_reserved')]/gi:type
 
 
 ### CancellableSource ###
