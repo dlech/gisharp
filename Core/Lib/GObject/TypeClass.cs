@@ -116,6 +116,9 @@ namespace GISharp.Lib.GObject
             try {
                 var info = virtualMethods[typeof(T)];
                 var ptr = Marshal.ReadIntPtr(class_, info.Offset);
+                if (ptr == IntPtr.Zero) {
+                    return default(T);
+                }
                 return Marshal.GetDelegateForFunctionPointer<T>(ptr);
             }
             finally {
