@@ -2306,8 +2306,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.Boolean);
                     }
+
+                    return default(System.Boolean);
                 }
 
                 return hasAction;
@@ -2346,8 +2347,9 @@ System.IntPtr actionGroup);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return listActions;
@@ -2388,8 +2390,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.Boolean);
                     }
+
+                    return default(System.Boolean);
                 }
 
                 return getActionEnabled;
@@ -2430,8 +2433,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getActionParameterType;
@@ -2472,8 +2476,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getActionStateType;
@@ -2514,8 +2519,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getActionStateHint;
@@ -2556,8 +2562,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getActionState;
@@ -2890,8 +2897,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getName;
@@ -2928,8 +2936,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getParameterType;
@@ -2966,8 +2975,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getStateType;
@@ -3004,8 +3014,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getStateHint;
@@ -3042,8 +3053,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.Boolean);
                     }
+
+                    return default(System.Boolean);
                 }
 
                 return getEnabled;
@@ -3080,8 +3092,9 @@ System.IntPtr action);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getState;
@@ -3449,8 +3462,9 @@ System.IntPtr actionName);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return lookupAction;
@@ -3966,8 +3980,9 @@ System.IntPtr res);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getUserData;
@@ -4004,8 +4019,9 @@ System.IntPtr res);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.IntPtr);
                     }
+
+                    return default(System.IntPtr);
                 }
 
                 return getSourceObject;
@@ -4046,8 +4062,9 @@ System.IntPtr sourceTag);
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                        return default(System.Boolean);
                     }
+
+                    return default(System.Boolean);
                 }
 
                 return isTagged;

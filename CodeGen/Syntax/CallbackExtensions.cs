@@ -82,7 +82,9 @@ namespace GISharp.CodeGen.Syntax
             var getDelegateStatement = ExpressionStatement(ParseExpression(getDelegate));
             tryStatement = tryStatement.AddBlockStatements(getDelegateStatement);
 
-            var invokeStatement = callback.GetInvocationStatement(invokeMethod);
+            var returnsValue = !callback.ReturnValue.IsSkip && callback.ReturnValue.GirType.UnmanagedType != typeof(void);
+
+            var invokeStatement = callback.GetInvocationStatement(invokeMethod, !returnsValue);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
             foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "in")) {
@@ -90,18 +92,17 @@ namespace GISharp.CodeGen.Syntax
                 tryStatement = tryStatement.AddBlockStatements(statement);
             }
 
-            if (callback.ReturnValue.GirType.UnmanagedType != typeof(void)) {
+            if (returnsValue) {
                 var statement = callback.ReturnValue.GetMarshalManagedToUnmanagedStatement();
                 tryStatement = tryStatement.AddBlockStatements(statement);
 
                 var returnStatement = ReturnStatement(ParseExpression("ret_"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
-
-            var returnDefault = default(StatementSyntax);
-            if (callback.ReturnValue.GirType.UnmanagedType != typeof(void)) {
+            else if (callback.ReturnValue.GirType.UnmanagedType != typeof(void)) {
                 var returnType = callback.ReturnValue.GirType.UnmanagedType.ToSyntax();
-                returnDefault = ParseStatement($"return default({returnType});\n");
+                var returnStatement = ReturnStatement(DefaultExpression(returnType));
+                tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
 
             // if the method has an error parameter, we can propagate any
@@ -116,9 +117,6 @@ namespace GISharp.CodeGen.Syntax
                     nameof(GISharp.Runtime.GErrorException.Error)));
 
                 var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
-                if (returnDefault != null) {
-                    gErrorExceptionStatements = gErrorExceptionStatements.Add(returnDefault);
-                }
 
                 tryStatement = tryStatement.AddCatches(CatchClause()
                     .WithDeclaration(CatchDeclaration(ParseTypeName(gErrorException), ParseToken("ex")))
@@ -145,15 +143,16 @@ namespace GISharp.CodeGen.Syntax
                 exceptionStatements = exceptionStatements.Add(ExpressionStatement(expression));
             }
 
-            if (returnDefault != null) {
-                exceptionStatements = exceptionStatements.Add(returnDefault);
-            }
-
             tryStatement = tryStatement.AddCatches(CatchClause()
                 .WithDeclaration(CatchDeclaration(ParseTypeName(exception), ParseToken("ex")))
                 .WithBlock(Block(exceptionStatements)));
 
             yield return tryStatement;
+
+            if (callback.ReturnValue.GirType.UnmanagedType != typeof(void)) {
+                var returnType = callback.ReturnValue.GirType.UnmanagedType.ToSyntax();
+                yield return ReturnStatement(DefaultExpression(returnType));
+            }
         }
 
         static QualifiedNameSyntax GetQualifiedName(this Callback callback, bool unmanged = false)

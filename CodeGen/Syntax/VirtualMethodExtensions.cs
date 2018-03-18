@@ -26,6 +26,9 @@ namespace GISharp.CodeGen.Syntax
             // methods.
 
             var returnType = method.ReturnValue.GirType.ManagedType.ToSyntax();
+            if (method.ReturnValue.IsSkip) {
+                returnType = ParseTypeName("void");
+            }
             yield return MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
                 .AddModifiers(Token(InternalKeyword), Token(ProtectedKeyword), Token(VirtualKeyword))
@@ -45,6 +48,9 @@ namespace GISharp.CodeGen.Syntax
         public static MethodDeclarationSyntax GetInterfaceDeclaration(this VirtualMethod method)
         {
             var returnType = method.ReturnValue.GirType.ManagedType.ToSyntax();
+            if (method.ReturnValue.IsSkip) {
+                returnType = ParseTypeName("void");
+            }
             return MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
                 .WithParameterList(method.ManagedParameters.GetParameterList())
