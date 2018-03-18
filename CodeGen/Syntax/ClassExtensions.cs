@@ -28,6 +28,11 @@ namespace GISharp.CodeGen.Syntax
         static SyntaxTokenList GetModifiers(this Class @class)
         {
             var list = TokenList(Token(PublicKeyword));
+
+            if (@class.IsAbstract) {
+                list = list.Add(Token(AbstractKeyword));
+            }
+
             if (@class.GTypeStruct == null) {
                 // if there is no GType Struct, then we know this class cannot
                 // be inherited, so call it sealed
