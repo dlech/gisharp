@@ -655,6 +655,16 @@ namespace GISharp.CodeGen
                 instanceParam.Name = gi + "instance-parameter";
             }
 
+            // make all cancellable parameters have default value
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Where(x => x.Element(gi + "type")?.Attribute(c + "type")?.Value == "GCancellable*"
+                    && x.Attribute("nullable").AsBool()))
+            {
+                element.SetAttributeValue(gs + "default", "null");
+            }
+
+
             // add managed-parameters element
 
             var parameterElements = document.Descendants (gi + "parameters");

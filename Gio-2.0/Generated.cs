@@ -4901,7 +4901,7 @@ System.IntPtr cancellable);
     /// returned by g_cancellable_source_new().
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable);
+    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable = null);
 
     /// <summary>
     /// Factory for creating <see cref="CancellableSourceFunc"/> methods.

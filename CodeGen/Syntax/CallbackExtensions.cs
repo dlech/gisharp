@@ -384,6 +384,11 @@ namespace GISharp.CodeGen.Syntax
                 .Prepend(ExpressionStatement(userDataExpression)));
 
             var paramList = callback.ManagedParameters.GetParameterList();
+
+            // remove default values
+            paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
+                .Select(x => x.WithDefault(default(EqualsValueClauseSyntax)))));
+
             var lambdaExpression = ParenthesizedLambdaExpression(body)
                 .WithParameterList(paramList);
 
