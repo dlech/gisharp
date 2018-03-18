@@ -178,7 +178,7 @@ namespace GISharp.CodeGen.Syntax
                 expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}){getInstance}({arg.ManagedName}_, {ownership})");
             }
             else if (type.IsDelegate()) {
-                var userDataArg = arg.Callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
+                var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
                 var factory = $"{arg.GirType.ManagedType.FullName}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}_, {userData}_)";
