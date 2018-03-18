@@ -128,7 +128,12 @@ namespace GISharp.CodeGen
 
             // load the project given by the --project option
 
-            var manager = new AnalyzerManager(Console.Error, LoggerVerbosity.Quiet);
+            var analyzerOptions = new AnalyzerManagerOptions() {
+                LogWriter = Console.Error,
+                LoggerVerbosity = LoggerVerbosity.Quiet,
+                CleanBeforeCompile = false
+            };
+            var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
 
             try {
@@ -250,8 +255,8 @@ namespace GISharp.CodeGen
                 var proj = manager.GetProject(projRef);
                 var targetPath = proj.CompiledProject.GetProperty("TargetPath").EvaluatedValue;
 
-                // building with Buildalizer deletes the output, so we have to
-                // build again. theoretically, we could use MSBUild programmatically
+                // build the project references to ensure they are not out of date.
+                // theoretically, we could use MSBUild programmatically
                 // but it is really quirky and doesn't "just work"
                 var dotnet = Process.Start("dotnet", $"build {projRef} -v q");
                 dotnet.WaitForExit();
