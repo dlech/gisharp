@@ -21,25 +21,34 @@ namespace GISharp.CodeGen.Syntax
             var getter = nameof(TypeClass.GetUnmanagedVirtualMethod);
             var invoker = $"{typeof(TypeClass).FullName}.{getter}<{type}>(_GType)";
 
-            // TODO: there is an unused GIR attribute override="always" that we
-            // could use to generate C# abstract methods instead of virtual
-            // methods.
-
             var returnType = method.ReturnValue.GirType.ManagedType.ToSyntax();
             if (method.ReturnValue.IsSkip) {
                 returnType = ParseTypeName("void");
             }
-            yield return MethodDeclaration(returnType, method.ManagedName)
+            
+            var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
-                .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword))
+                .AddModifiers(Token(ProtectedKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
-                .WithBody(Block(method.GetInvokeStatements(invoker)))
                 .WithLeadingTrivia(TriviaList()
                     .AddRange(method.Doc.GetDocCommentTrivia())
                     .AddRange(method.ManagedParameters.RegularParameters
                         .SelectMany(x => x.Doc.GetDocCommentTrivia()))
                     .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
                     .AddRange(method.GetGErrorExceptionDocCommentTrivia()));
+
+            if (method.Override == "always") {
+                syntax = syntax.AddModifiers(Token(AbstractKeyword))
+                    .WithSemicolonToken(Token(SemicolonToken));
+            }
+            else {
+                if (method.Override != "never") {
+                    syntax = syntax.AddModifiers(Token(VirtualKeyword));
+                }
+                syntax = syntax.WithBody(Block(method.GetInvokeStatements(invoker)));
+            }
+
+            yield return syntax;
         }
 
         /// <summary>
