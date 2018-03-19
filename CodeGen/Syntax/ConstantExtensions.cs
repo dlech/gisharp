@@ -17,7 +17,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetDeclaration(this Constant constant)
         {
-            var type = constant.GirType.ManagedType;
+            var type = constant.Type.ManagedType;
             if (type == typeof(Utf8)) {
                 type = typeof(string);
             }

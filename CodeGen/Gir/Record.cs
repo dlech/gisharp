@@ -48,7 +48,7 @@ namespace GISharp.CodeGen.Gir
         {
             if (IsGTypeStructFor != null) {
                 // in GType structs, the first field is always the base type
-                return Fields.First().GirType.ManagedType;
+                return Fields.First().Type.ManagedType;
             }
             if (IsSource) {
                 return typeof(Source);

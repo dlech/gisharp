@@ -36,8 +36,8 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the type of the property
         /// </summary>
-        public GIType GirType => _GirType.Value;
-        readonly Lazy<GIType> _GirType;
+        public GIType Type => _Type.Value;
+        readonly Lazy<GIType> _Type;
 
         public Property(XElement element, GirNode parent) : base(element, parent)
         {
@@ -50,10 +50,10 @@ namespace GISharp.CodeGen.Gir
             IsWriteable = Element.Attribute("construct").AsBool(false);
             IsWriteable = Element.Attribute("construct-only").AsBool(false);
             Ownership = Element.Attribute("transfer-ownership").AsTransfer(null);
-            _GirType = new Lazy<GIType>(LazyGetGirType, false);
+            _Type = new Lazy<GIType>(LazyGetType, false);
         }
 
-        GIType LazyGetGirType() =>
+        GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
     }
 }

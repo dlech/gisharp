@@ -71,8 +71,8 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the GIR type for this parameter
         /// </summary>
-        public GIType GirType => _GirType.Value;
-        readonly Lazy<GIType> _GirType;
+        public GIType Type => _Type.Value;
+        readonly Lazy<GIType> _Type;
 
         /// <summary>
         /// Gets the callable that declared this arg
@@ -95,11 +95,11 @@ namespace GISharp.CodeGen.Gir
             IsSkip = Element.Attribute("skip").AsBool();
             IsParams = parent is ManagedParameters && Element.Attribute(gs + "params").AsBool();
             DefaultValue = Element.Attribute(gs + "default").AsString();
-            _GirType = new Lazy<GIType>(LazyGetGirType, false);
+            _Type = new Lazy<GIType>(LazyGetType, false);
             _Callable = new Lazy<GICallable>(LazyGetCallable, false);
         }
 
-        GIType LazyGetGirType() =>
+        GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
 
         GICallable LazyGetCallable() =>

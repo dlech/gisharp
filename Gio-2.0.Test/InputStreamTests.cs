@@ -19,7 +19,7 @@ namespace GISharp.Test.Gio
             using (var stream = new TestInputStream()) {
                 buffer.SetSize(10);
                 var count = stream.Read(buffer);
-                Assert.That((int)count, Is.EqualTo(10));
+                Assert.That(count, Is.EqualTo(10));
             }
 
             AssertNoGLibLog();
@@ -32,7 +32,7 @@ namespace GISharp.Test.Gio
             using (var stream = new TestInputStream()) {
                 buffer.SetSize(10);
                 stream.ReadAll(buffer, out var read);
-                Assert.That((int)read, Is.EqualTo(10));
+                Assert.That(read, Is.EqualTo(10));
             }
 
             AssertNoGLibLog();
@@ -44,8 +44,8 @@ namespace GISharp.Test.Gio
             using (var buffer = new ByteArray())
             using (var stream = new TestInputStream()) {
                 buffer.SetSize(10);
-                var count = stream.Skip((UIntPtr)10);
-                Assert.That((int)count, Is.EqualTo(10));
+                var count = stream.Skip(10);
+                Assert.That(count, Is.EqualTo(10));
             }
 
             AssertNoGLibLog();
@@ -64,17 +64,17 @@ namespace GISharp.Test.Gio
         {
         }
 
-        protected override IntPtr DoReadFn(IntPtr buffer, UIntPtr count, Cancellable cancellable = null)
+        protected override int DoReadFn(IntPtr buffer, int count, Cancellable cancellable = null)
         {
-           for (int i = 0; i < (int)count; i++) {
+           for (int i = 0; i < count; i++) {
                Marshal.WriteByte(buffer + i, (byte)i);
            }
-           return (IntPtr)(int)count;
+           return count;
         }
 
-        protected override IntPtr DoSkip(UIntPtr count, Cancellable cancellable = null)
+        protected override int DoSkip(int count, Cancellable cancellable = null)
         {
-            return (IntPtr)(int)count;
+            return count;
         }
 
         protected override void DoCloseFn(Cancellable cancellable = null)

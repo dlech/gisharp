@@ -8,13 +8,6 @@ namespace GISharp.CodeGen.Gir
     public abstract class GIType : GIBase
     {
         /// <summary>
-        /// Gets the fixed up managed name of this member
-        /// </summary>
-        // FIXME: should be using the inherited property here, see FIXME in
-        // constructor for details
-        public new string ManagedName { get; }
-
-        /// <summary>
         /// Gets the C type for this type
         /// </summary>
         public string CType { get; }
@@ -23,6 +16,9 @@ namespace GISharp.CodeGen.Gir
         /// Indicates if this type is a pointer type
         /// </summary>
         public bool IsPointer { get; }
+
+        public IEnumerable<Type> TypeParameters => _TypeParameters.Value;
+        readonly Lazy<List<Type>> _TypeParameters;
 
         /// <summary>
         /// Gets the .NET type for the unmanaged version of this GIR type
@@ -36,38 +32,20 @@ namespace GISharp.CodeGen.Gir
         public System.Type ManagedType => _ManagedType.Value;
         readonly Lazy<System.Type> _ManagedType;
 
-        /// <summary>
-        /// Gets the .NET type for the extension method type for this GIR type,
-        /// if any
-        /// </summary>
-        public System.Type ExtensionType => _ExtensionType.Value;
-        readonly Lazy<System.Type> _ExtensionType;
-
         private protected GIType(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            // FIXME: Fixup should modify the gs:managed-name attribute rather than
-            // adding a gs:managed-type attribute to the parent.
-            // ManagedName = Element.Attribute(gs + "managed-name").Value;
-
-            string getArrayElementType()
-            {
-                var arrayType = element.Parent.Parent.Attribute(gs + "managed-type").Value;
-                var elementType = string.Concat(arrayType.SkipWhile(x => x != '['));
-                elementType = elementType.TrimStart('[').TrimEnd(']');
-                return elementType;
-            }
-
-            ManagedName = element.Parent.Attribute(gs + "managed-type")?.Value ?? getArrayElementType();
-
             IsPointer = element.Attribute(gs + "is-pointer").AsBool();
-            _UnmanagedType = new Lazy<System.Type>(LazyGetUnmanagedType, false);
-            _ManagedType = new Lazy<System.Type>(LazyGetManagedType, false);
-            _ExtensionType = new Lazy<System.Type>(LazyGetExtensionType, false);
+            _TypeParameters = new Lazy<List<Type>>(() => LazyGetTypeParameters().ToList());
+            _UnmanagedType = new Lazy<System.Type>(LazyGetUnmanagedType);
+            _ManagedType = new Lazy<System.Type>(LazyGetManagedType);
         }
 
-        private protected abstract System.Type LazyGetUnmanagedType();
-        private protected abstract System.Type LazyGetManagedType();
-        private protected virtual System.Type LazyGetExtensionType() => null;
+        IEnumerable<Type> LazyGetTypeParameters() =>
+            Element.Elements(gi + "type").Select(x => (Type)GetNode(x));
+
+        System.Type LazyGetUnmanagedType => Reflection.GirType.ResolveUnmanagedType(this);
+
+        System.Type LazyGetManagedType => Reflection.GirType.ResolveManagedType(this);
     }
 }

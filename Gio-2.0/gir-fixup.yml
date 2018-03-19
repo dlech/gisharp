@@ -60,11 +60,6 @@
   value: 1
   xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='connect']
 - !set-attribute
-  # GCallback is not meaningful
-  name: name
-  value: gpointer
-  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='connect']/gi:parameters/gi:parameter[@name='callback']/gi:type
-- !set-attribute
   # rename to better fit .NET
   name: name
   value: throw_if_cancelled

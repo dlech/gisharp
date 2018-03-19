@@ -10,18 +10,18 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the type that this type is an alias for
         /// </summary>
-        public GIType GirType => _GirType.Value;
-        readonly Lazy<GIType> _GirType;
+        public GIType Type => _Type.Value;
+        readonly Lazy<GIType> _Type;
 
         public Alias(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gi + "alias") {
                 throw new ArgumentException("Requrires <alias> element", nameof(element));
             }
-            _GirType = new Lazy<GIType>(LazyGetGirType, false);
+            _Type = new Lazy<GIType>(LazyGetType, false);
         }
 
-        GIType LazyGetGirType() =>
+        GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
     }
 }

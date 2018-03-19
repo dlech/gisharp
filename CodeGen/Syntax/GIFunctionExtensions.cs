@@ -26,7 +26,7 @@ namespace GISharp.CodeGen.Syntax
                     .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
-            var returnType = function.ReturnValue.GirType.UnmanagedType.ToSyntax();
+            var returnType = function.ReturnValue.Type.UnmanagedType.ToSyntax();
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
                 // adding girTrivia here makes it appear before the method declaration
                 // but after the attribute lists
@@ -52,7 +52,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static MethodDeclarationSyntax GetStaticMethodDeclaration(this GIFunction function)
         {
-            var returnType = function.ReturnValue.GirType.ManagedType.ToSyntax();
+            var returnType = function.ReturnValue.Type.ManagedType.ToSyntax();
             if (function.ReturnValue.IsSkip) {
                 returnType = ParseTypeName("void");
             }

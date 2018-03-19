@@ -21,6 +21,7 @@ using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using GISharp.Runtime;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
 
 namespace GISharp.CodeGen
 {
@@ -309,7 +310,8 @@ namespace GISharp.CodeGen
                         gi + "return-value",
                         new XElement (
                             gi + "type",
-                            new XAttribute ("name", "GType"))));
+                            new XAttribute("name", "GType"),
+                            new XAttribute(c + "type", "GType"))));
                 // GLib get_type functions are defined in GObject library
                 if (dllName == "glib-2.0") {
                     functionElement.SetAttributeValue(gs + "dll-name", "gobject-2.0");
@@ -370,7 +372,21 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
+                // C arrays don't have a name attribute
+
                 if (element.Name == gi + "array" && element.Attribute("name") == null) {
+                    // special case for null-terminated arrays of strings
+                    if (element.Attribute("zero-terminated").AsBool()) {
+                        var elementType = element.Element(gi + "type").Attribute("name").AsString();
+                        if (elementType == "utf8") {
+                            element.SetAttributeValue(gs + "managed-name", typeof(Strv));
+                            continue;
+                        }
+                        if (elementType == "filename") {
+                            element.SetAttributeValue(gs + "managed-name", typeof(FilenameArray));
+                            continue;
+                        }
+                    }
                     element.SetAttributeValue(gs + "managed-name", typeof(IArray<>));
                     continue;
                 }
@@ -595,8 +611,12 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
-                var cType = element.Attribute(c + "type").AsString("");
-                if (IsPointerType(cType)) {
+                var cType = element.Attribute(c + "type").AsString();
+                if (cType == null) {
+                    // if there is no C type, it is probably a pointer
+                    element.SetAttributeValue(gs + "is-pointer", "1");
+                }
+                else if (IsPointerType(cType)) {
                     element.SetAttributeValue(gs + "is-pointer", "1");
                 }
             }
@@ -696,8 +716,13 @@ namespace GISharp.CodeGen
                 .Where(p => p.Parent.Name == gi + "parameters" && p.Attribute("scope") != null))
             {
                 var typeElement = element.Element(gi + "type");
-                var managedNameAttr = typeElement.Attribute(gs + "managed-name").Value;
-                typeElement.SetAttributeValue(gs + "managed-name", "Unmanaged" + managedNameAttr);
+                var managedName = typeElement.Attribute(gs + "managed-name").Value;
+                if (managedName == typeof(Delegate).ToString()) {
+                    continue;
+                }
+                var index = managedName.LastIndexOf('.') + 1;
+                managedName = managedName.Substring(0, index) + "Unmanaged" + managedName.Substring(index);
+                typeElement.SetAttributeValue(gs + "managed-name", managedName);
             }
 
             // add a <type> node for fields with <callback>
@@ -1055,13 +1080,21 @@ namespace GISharp.CodeGen
                     return typeof(UIntPtr).ToString();
                 case "gunichar":
                     return typeof(Unichar).ToString();
+                case "GType":
+                    return typeof(GType).ToString();
                 case "filename":
                     return typeof(Filename).ToString();
                 case "utf8":
                     return typeof(Utf8).ToString();
+                case "GObject.Callback":
+                    return typeof(Delegate).ToString();
                 case "va_list":
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported");
+            }
+
+            if (name.EndsWith("Private")) {
+                return typeof(IntPtr).ToString();
             }
 
             if (name.Contains('.')) {
@@ -1069,68 +1102,6 @@ namespace GISharp.CodeGen
             }
 
             return name;
-        }
-
-        static string GetUnmanagedTypeName(string name)
-        {
-            switch (name) {
-                // basic/fundamental types
-                case "none":
-                    return typeof(void).ToString();
-                case "gboolean":
-                    return typeof(bool).ToString();
-                case "gchar":
-                case "gint8":
-                    return typeof(sbyte).ToString();
-                case "guchar":
-                case "guint8":
-                    return typeof(byte).ToString();
-                case "gshort":
-                case "gint16":
-                    return typeof(short).ToString();
-                case "gushort":
-                case "guint16":
-                    return typeof(ushort).ToString();
-                case "gunichar2":
-                    return typeof(char).ToString();
-                case "gint":
-                case "gint32":
-                    return typeof(int).ToString();
-                case "guint":
-                case "guint32":
-                case "gunichar":
-                    return typeof(uint).ToString();
-                case "glong":
-                    return typeof(nlong).ToString();
-                case "gulong":
-                    return typeof(nulong).ToString();
-                case "gint64":
-                case "goffset":
-                    return typeof(long).ToString();
-                case "guint64":
-                    return typeof(ulong).ToString();
-                case "gfloat":
-                    return typeof(float).ToString();
-                case "gdouble":
-                    return typeof(double).ToString();
-                case "gpointer":
-                case "gconstpointer":
-                case "gintptr":
-                case "gssize":
-                case "filename":
-                case "utf8":
-                    return typeof(IntPtr).ToString();
-                case "guintptr":
-                case "gsize":
-                    return typeof(UIntPtr).ToString();
-                case "va_list":
-                    // va_list should be filtered out, but just in case...
-                    throw new NotSupportedException("va_list is not supported");
-            }
-
-            // TODO: how to handle value types?
-
-            return typeof(IntPtr).ToString();
         }
 
         static string GetManagedTypeName (this XElement element)

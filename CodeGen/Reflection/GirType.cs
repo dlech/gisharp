@@ -50,6 +50,150 @@ namespace GISharp.CodeGen.Reflection
             _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()), false);
         }
 
+        /// <summary>
+        /// Resolves a GIR type node to the cooresponding .NET type
+        /// </summary>
+        public static Type ResolveManagedType(Gir.GIType node)
+        {
+            if (node.ParentNode is Gir.Field field) {
+                if (field.Callback != null) {
+                    return new GirType(field.Callback.Element, true);
+                }
+            }
+
+            var typeName = node.ManagedName;
+            if (!typeName.Contains('.')) {
+                typeName = $"GISharp.Lib.{node.Namespace.Name}.{typeName}";
+            }
+
+            if (node.TypeParameters.Any()) {
+                if (typeName == typeof(Strv).ToString()) {
+                    return typeof(Strv);
+                }
+                if (typeName == typeof(FilenameArray).ToString()) {
+                    return typeof(FilenameArray);
+                }
+                if (typeName == typeof(IArray<>).ToString()) {
+                    return typeof(IArray<>).MakeGenericType(ResolveManagedType(node.TypeParameters.Single()));
+                }
+                throw new NotImplementedException();
+            }
+
+            var type = GetType(typeName);
+            if (type != null) {
+                // TODO: handle interfaces
+                return type;
+            }
+
+            var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+            return new GirType(typeNode.Element, false);
+        }
+
+        /// <summary>
+        /// Resolves a GIR type node to the cooresponding .NET type
+        /// </summary>
+        public static Type ResolveUnmanagedType(Gir.GIType node)
+        {
+            if (node.ParentNode is Gir.Field field) {
+                if (field.Callback != null) {
+                    return new GirType(field.Callback.Element, true);
+                }
+            }
+
+            var typeName = node.GirName;
+            switch (typeName) {
+                // basic/fundamental types
+                case "none":
+                    return typeof(void);
+                case "gboolean":
+                    return typeof(bool);
+                case "gchar":
+                case "gint8":
+                    return typeof(sbyte);
+                case "guchar":
+                case "guint8":
+                    return typeof(byte);
+                case "gshort":
+                case "gint16":
+                    return typeof(short);
+                case "gushort":
+                case "guint16":
+                    return typeof(ushort);
+                case "gunichar2":
+                    return typeof(char);
+                case "gint":
+                case "gint32":
+                    return typeof(int);
+                case "guint":
+                case "guint32":
+                case "gunichar":
+                    return typeof(uint);
+                case "glong":
+                    return typeof(NativeLong);
+                case "gulong":
+                    return typeof(NativeULong);
+                case "gint64":
+                case "goffset":
+                    return typeof(long);
+                case "guint64":
+                    return typeof(ulong);
+                case "gfloat":
+                    return typeof(float);
+                case "gdouble":
+                    return typeof(double);
+                case "gpointer":
+                case "gconstpointer":
+                case "gintptr":
+                case "gssize":
+                case "filename":
+                case "utf8":
+                // we get null for C arrays
+                case null:
+                    return typeof(IntPtr);
+                case "guintptr":
+                case "gsize":
+                    return typeof(UIntPtr);
+                case "GType":
+                    return typeof(GType);
+                case "va_list":
+                    // va_list should be filtered out, but just in case...
+                    throw new NotSupportedException("va_list is not supported");
+            }
+
+            if (!typeName.Contains('.')) {
+                typeName = $"{node.Namespace.Name}.{typeName}";
+            }
+            typeName = $"GISharp.Lib.{typeName}";
+
+            var isDelegate = false;
+
+            if (node.ParentNode is Gir.GIArg arg) {
+                isDelegate = arg.Scope != null;
+            }
+
+            if (isDelegate) {
+                if (typeName == "GISharp.Lib.GObject.Callback") {
+                    return typeof(IntPtr);
+                }
+                var index = typeName.LastIndexOf('.') + 1;
+                typeName = typeName.Substring(0, index) + "Unmanaged" + typeName.Substring(index);
+            }
+
+            if (node.IsPointer) {
+                return typeof(IntPtr);
+            }
+
+            // assuming this is a value type
+            var type = GetType(typeName);
+            if (type != null) {
+                // TODO: handle delegates
+                return type;
+            }
+
+            var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+            return new GirType(typeNode.Element, true);
+        }
+
         public static Type ResolveType (string typeName, XDocument document)
         {
             var type = GetType (typeName);
@@ -215,7 +359,7 @@ namespace GISharp.CodeGen.Reflection
                 if (IsInterface) {
                     name = "I" + name;
                 }
-                if (unmanaged) {
+                if (unmanaged && this.IsDelegate()) {
                     name = "Unmanaged" + name;
                 }
 

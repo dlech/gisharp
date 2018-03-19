@@ -56,13 +56,6 @@ Attributes
     Values
         ``1`` (true), ``0`` (false)
 
-``gs:managed-type``
-    Description
-        Stores the managed type that will be used for an element. The value is
-        automatically generated.
-    Values
-        Any valid C# type identifier
-
 ``gs:params``
     Description
         Indicates that a parameter is "params"

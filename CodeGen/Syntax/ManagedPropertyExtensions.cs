@@ -17,7 +17,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetDeclaration(this ManagedProperty property)
         {
-            var type = property.GirType.ManagedType.ToSyntax();
+            var type = property.Type.ManagedType.ToSyntax();
 
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetAccessModifiers())

@@ -20,7 +20,13 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetDeclaration(this Field field)
         {
-            var type = field.GirType.UnmanagedType.ToSyntax();
+            var type = field.Type.UnmanagedType.ToSyntax();
+            if (field.Callback != null) {
+                type = ParseTypeName("Unmanaged" + field.Callback.ManagedName);
+            }
+            else if (!field.Type.IsPointer && !field.Type.UnmanagedType.IsValueType) {
+                type = ParseTypeName($"{type}.Struct");
+            }
             var variable = VariableDeclarator(field.ManagedName);
             var variableDeclaration = VariableDeclaration(type)
                 .AddVariables(variable);

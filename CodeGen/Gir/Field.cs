@@ -25,8 +25,8 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the type of the field
         /// </summary>
-        public GIType GirType => _GirType.Value;
-        readonly Lazy<GIType> _GirType;
+        public GIType Type => _Type.Value;
+        readonly Lazy<GIType> _Type;
 
         /// <summary>
         /// Gets the callback or null if this field is not a function pointer
@@ -43,11 +43,11 @@ namespace GISharp.CodeGen.Gir
             Readable = Element.Attribute("readable").AsBool(true);
             Writeable = Element.Attribute("writeable").AsBool(false);
             Private = Element.Attribute("private").AsBool(false);
-            _GirType = new Lazy<GIType>(LazyGetGirType, false);
+            _Type = new Lazy<GIType>(LazyGetType, false);
             _Callback = new Lazy<Callback>(LazyGetCallback, false);
         }
 
-        GIType LazyGetGirType() =>
+        GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
         
         Callback LazyGetCallback() =>

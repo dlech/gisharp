@@ -17,7 +17,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetDeclaration(this Property property)
         {
-            var type = property.GirType.ManagedType.ToSyntax();
+            var type = property.Type.ManagedType.ToSyntax();
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetAccessModifiers())
                 .WithAttributeLists(property.GetCommonAttributeLists())
@@ -43,7 +43,7 @@ namespace GISharp.CodeGen.Syntax
 
         static ExpressionSyntax GetGetExpression(this Property property)
         {
-            var type = property.GirType.ManagedType.ToSyntax();
+            var type = property.Type.ManagedType.ToSyntax();
             var expression = $"({type})GetProperty(\"{property.GirName}\")";
             return ParseExpression(expression); 
         }
@@ -59,7 +59,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetInterfaceDeclaration(this Property property)
         {
-            var type = property.GirType.ManagedType.ToSyntax();
+            var type = property.Type.ManagedType.ToSyntax();
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithAttributeLists(property.GetCommonAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())

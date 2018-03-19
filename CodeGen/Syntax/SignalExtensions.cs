@@ -100,7 +100,7 @@ namespace GISharp.CodeGen.Syntax
 
             // each parameter becomes a readonly property
             foreach (var (arg, i) in signal.ManagedParameters.Select((p, i) => (p, i + 1))) {
-                var propertyType = arg.GirType.ManagedType.ToSyntax();
+                var propertyType = arg.Type.ManagedType.ToSyntax();
                 var propertyName = arg.ManagedName.ToPascalCase();
 
                 var valueExpression = ParseExpression($"({propertyType})args[{i}].Get()");
@@ -112,8 +112,8 @@ namespace GISharp.CodeGen.Syntax
             }
 
             // the return parameter is a read/write property (if not void)
-            if (signal.ReturnValue.GirType.ManagedType != typeof(void)) {
-                var propertyType = signal.ReturnValue.GirType.ManagedType.ToSyntax();
+            if (signal.ReturnValue.Type.ManagedType != typeof(void)) {
+                var propertyType = signal.ReturnValue.Type.ManagedType.ToSyntax();
                 var propertyName = "ReturnValue";
                 yield return PropertyDeclaration(propertyType, propertyName)
                     .AddModifiers(Token(PublicKeyword))

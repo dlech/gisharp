@@ -11,8 +11,8 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the type of the property
         /// </summary>
-        public GIType GirType => _GirType.Value;
-        readonly Lazy<GIType> _GirType;
+        public GIType Type => _Type.Value;
+        readonly Lazy<GIType> _Type;
 
         /// <summary>
         /// Gets the getter method of the property
@@ -33,12 +33,12 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Requrires <gs:managed-property> element", nameof(element));
             }
 
-            _GirType = new Lazy<GIType>(LazyGetGirType, false);
+            _Type = new Lazy<GIType>(LazyGetType, false);
             _Getter = new Lazy<GIFunction>(LazyGetGetter, false);
             _Setter = new Lazy<GIFunction>(LazyGetSetter, false);
         }
 
-        GIType LazyGetGirType() =>
+        GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "return-value").Element(gi + "type") ??
                 Element.Element(gi + "return-value").Element(gi + "array"));
 

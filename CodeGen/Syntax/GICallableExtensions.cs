@@ -72,7 +72,7 @@ namespace GISharp.CodeGen.Syntax
             invocationExpression = InvocationExpression(invocationExpression)
                 .WithArgumentList(callable.Parameters.GetArgumentList("_"));
 
-            if (callable.ReturnValue.GirType.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
+            if (callable.ReturnValue.Type.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
                 invocationExpression = ParseExpression($"var ret_ = {invocationExpression}");
             }
 
@@ -116,7 +116,7 @@ namespace GISharp.CodeGen.Syntax
                 // for use in the actual C# constructor
                 yield return ReturnStatement(ParseExpression("ret_"));
             }
-            else if (callable.ReturnValue.GirType.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
+            else if (callable.ReturnValue.Type.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
                 yield return callable.ReturnValue.GetMarshalUnmanagedToManagedStatement();
                 yield return ReturnStatement(ParseExpression("ret"));
             }

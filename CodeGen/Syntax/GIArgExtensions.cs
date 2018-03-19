@@ -25,12 +25,12 @@ namespace GISharp.CodeGen.Syntax
         public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "")
         {
             var managed = arg.ParentNode is ManagedParameters;
-            var type = managed ? arg.GirType.ManagedType : arg.GirType.UnmanagedType;
+            var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
 
-            if (!managed && arg.Direction != "in" && arg.GirType.ManagedType.IsValueType) {
+            if (!managed && arg.Direction != "in" && arg.Type.ManagedType.IsValueType && arg.Type.ManagedName.ToString().StartsWith("GISharp")) {
                 // if an unmanaged out or ref parameter is a ValueType, then we
                 // can pass it directly
-                type = arg.GirType.ManagedType;
+                type = arg.Type.ManagedType;
             }
 
             var identifier = ParseToken(arg.ManagedName + suffix);
@@ -86,11 +86,11 @@ namespace GISharp.CodeGen.Syntax
         public static StatementSyntax GetMarshalManagedToUnmanagedStatement(this GIArg arg, bool declareVariable = true)
         {
             ExpressionSyntax expression;
-            var type = arg.GirType.ManagedType;
+            var type = arg.Type.ManagedType;
 
             if (type.IsValueType) {
                 // value types are used directly
-                expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}");
+                expression = ParseExpression($"{arg.ManagedName}_ = ({arg.Type.UnmanagedType}){arg.ManagedName}");
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
@@ -98,7 +98,7 @@ namespace GISharp.CodeGen.Syntax
                 var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
                 expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? {nullValue}");
             }
-            else if (arg.GirType is Gir.Array array) {
+            else if (arg.Type is Gir.Array array) {
                 var takeData = arg.TransferOwnership == "full";
                 var getter = takeData ? "TakeData()" : "Data";
                 var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
@@ -109,7 +109,7 @@ namespace GISharp.CodeGen.Syntax
                 if (array.LengthIndex >= 0) {
                     var lengthArg = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
                     lengthIdentifier = lengthArg.ManagedName;
-                    lengthType = lengthArg.GirType.ManagedType.FullName;
+                    lengthType = lengthArg.Type.UnmanagedType.ToString();
                 }
                 if (!takeData) {
                     var lengthGetter = $"{arg.ManagedName}?.Length ?? 0";
@@ -126,7 +126,7 @@ namespace GISharp.CodeGen.Syntax
                 var factory = $"{type}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}, {scope})";
                 if (arg.IsNullable) {
-                    var callbackType = arg.GirType.UnmanagedType.ToSyntax();
+                    var callbackType = arg.Type.UnmanagedType.ToSyntax();
                     var destroyType = typeof(UnmanagedDestroyNotify).ToSyntax();
                     var defaultValues = $"(default({callbackType}), default({destroyType}), default(System.IntPtr))";
                     getter = $"{arg.ManagedName} == null ? {defaultValues} : {getter}";
@@ -147,26 +147,26 @@ namespace GISharp.CodeGen.Syntax
         public static StatementSyntax GetMarshalUnmanagedToManagedStatement(this GIArg arg, bool declareVariable = true)
         {
             ExpressionSyntax expression;
-            var type = arg.GirType.ManagedType;
+            var type = arg.Type.ManagedType;
 
             if (type.IsValueType) {
                 // value types are used directly
-                expression = ParseExpression($"{arg.ManagedName} = {arg.ManagedName}_");
+                expression = ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_");
             }
             else if (type.IsOpaque()) {
                 var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
                 var ownership = arg.GetOwnershipTransfer();
                 expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({arg.ManagedName}_, {ownership})");
             }
-            else if (arg.GirType is Gir.Array array) {
-                var elementType = array.ElementType.ManagedType;
+            else if (arg.Type is Gir.Array array) {
+                var elementType = array.TypeParameters.Single().ManagedType;
                 var getter = elementType.IsValueType ? typeof(CArray).FullName : typeof(CPtrArray).FullName;
                 var lengthIdentifier = "";
                 var lengthType = "int";
                 if (array.LengthIndex >= 0) {
                     var lengthArg = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
                     lengthIdentifier = lengthArg.ManagedName;
-                    lengthType = lengthArg.GirType.ManagedType.FullName;
+                    lengthType = lengthArg.Type.ManagedType.FullName;
                 }
                 var ownership = arg.GetOwnershipTransfer();
                 getter = $"{getter}.GetInstance<{elementType.ToSyntax()}>({arg.ManagedName}_, (int){lengthIdentifier}_, {ownership})";
@@ -180,7 +180,7 @@ namespace GISharp.CodeGen.Syntax
             else if (type.IsDelegate()) {
                 var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
-                var factory = $"{arg.GirType.ManagedType}Factory";
+                var factory = $"{arg.Type.ManagedType}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}_, {userData}_)";
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }
