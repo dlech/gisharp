@@ -20,6 +20,7 @@ using nulong = GISharp.Runtime.NativeULong;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using GISharp.Runtime;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen
 {
@@ -368,11 +369,23 @@ namespace GISharp.CodeGen
                     element.SetAttributeValue (gs + "managed-name", "ret");
                     continue;
                 }
+
+                if (element.Name == gi + "array" && element.Attribute("name") == null) {
+                    element.SetAttributeValue(gs + "managed-name", typeof(IArray<>));
+                    continue;
+                }
+
                 var attr = element.Attribute ("name");
                 if (attr == null) {
                     continue;
                 }
                 var name = attr.Value;
+
+                // fix up type names
+
+                if (element.Name == gi + "type" || element.Name == gi + "array") {
+                    name = GetManagedTypeName(name);
+                }
 
                 // replace name by shadows if it exists (i.e. drop _full suffix)
                 var shadows = element.Attribute ("shadows");
@@ -800,7 +813,7 @@ namespace GISharp.CodeGen
 
             // hide parameters that are handled internally
 
-            var indexesToRemove = new List<int> ();
+            var indexesToRemove = new System.Collections.Generic.List<int>();
             var isMethod = parameters.Parent.Name == gi + "method";
             // Closure args are tricky. Most of the time, the "closure" attribute
             // is on the callback argument. But, sometimes the user data argument
@@ -988,17 +1001,137 @@ namespace GISharp.CodeGen
             return @namespace;
         }
 
-//        public static Type LookupType (string @namespace, string typeName)
-//        {
-//            var type = Type.GetType (typeName);
-//            if (!typeLookup.ContainsKey (@namespace)) {
-//                throw new NotImplementedException ();
-//            }
-//            if (!typeLookup[@namespace].ContainsKey (typeName)) {
-//                throw new NotImplementedException ();
-//            }
-//            var typeElement = typeLookup[@namespace][typeName];
-//        }
+        static string GetManagedTypeName(string name)
+        {
+            switch (name) {
+                // basic/fundamental types
+                case "none":
+                    return typeof(void).ToString();
+                case "gboolean":
+                    return typeof(bool).ToString();
+                case "gchar":
+                case "gint8":
+                    return typeof(sbyte).ToString();
+                case "guchar":
+                case "guint8":
+                    return typeof(byte).ToString();
+                case "gshort":
+                case "gint16":
+                    return typeof(short).ToString();
+                case "gushort":
+                case "guint16":
+                    return typeof(ushort).ToString();
+                case "gunichar2":
+                    return typeof(char).ToString();
+                case "gint":
+                case "gint32":
+                // size/offset are cast to int to match .NET convention
+                case "gsize":
+                case "gssize":
+                case "goffset":
+                    return typeof(int).ToString();
+                case "guint":
+                case "guint32":
+                    return typeof(uint).ToString();
+                case "gint64":
+                // hiding the fact that glong could be 32-bit
+                // this could cause trouble, but it is not used frequently
+                case "glong":
+                    return typeof(long).ToString();
+                case "guint64":
+                // hiding the fact that gulong could be 32-bit
+                // this could cause trouble, but it is not used frequently
+                case "gulong":
+                    return typeof(ulong).ToString();
+                case "gfloat":
+                    return typeof(float).ToString();
+                case "gdouble":
+                    return typeof(double).ToString();
+                case "gpointer":
+                case "gconstpointer":
+                case "gintptr":
+                    return typeof(IntPtr).ToString();
+                case "guintptr":
+                    return typeof(UIntPtr).ToString();
+                case "gunichar":
+                    return typeof(Unichar).ToString();
+                case "filename":
+                    return typeof(Filename).ToString();
+                case "utf8":
+                    return typeof(Utf8).ToString();
+                case "va_list":
+                    // va_list should be filtered out, but just in case...
+                    throw new NotSupportedException("va_list is not supported");
+            }
+
+            if (name.Contains('.')) {
+                return "GISharp.Lib." + name;
+            }
+
+            return name;
+        }
+
+        static string GetUnmanagedTypeName(string name)
+        {
+            switch (name) {
+                // basic/fundamental types
+                case "none":
+                    return typeof(void).ToString();
+                case "gboolean":
+                    return typeof(bool).ToString();
+                case "gchar":
+                case "gint8":
+                    return typeof(sbyte).ToString();
+                case "guchar":
+                case "guint8":
+                    return typeof(byte).ToString();
+                case "gshort":
+                case "gint16":
+                    return typeof(short).ToString();
+                case "gushort":
+                case "guint16":
+                    return typeof(ushort).ToString();
+                case "gunichar2":
+                    return typeof(char).ToString();
+                case "gint":
+                case "gint32":
+                    return typeof(int).ToString();
+                case "guint":
+                case "guint32":
+                case "gunichar":
+                    return typeof(uint).ToString();
+                case "glong":
+                    return typeof(nlong).ToString();
+                case "gulong":
+                    return typeof(nulong).ToString();
+                case "gint64":
+                case "goffset":
+                    return typeof(long).ToString();
+                case "guint64":
+                    return typeof(ulong).ToString();
+                case "gfloat":
+                    return typeof(float).ToString();
+                case "gdouble":
+                    return typeof(double).ToString();
+                case "gpointer":
+                case "gconstpointer":
+                case "gintptr":
+                case "gssize":
+                case "filename":
+                case "utf8":
+                    return typeof(IntPtr).ToString();
+                case "guintptr":
+                case "gsize":
+                    return typeof(UIntPtr).ToString();
+                case "va_list":
+                    // va_list should be filtered out, but just in case...
+                    throw new NotSupportedException("va_list is not supported");
+            }
+
+            // TODO: how to handle value types?
+
+            return typeof(IntPtr).ToString();
+        }
 
         static string GetManagedTypeName (this XElement element)
         {
