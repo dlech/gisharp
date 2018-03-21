@@ -339,7 +339,6 @@ namespace GISharp.CodeGen
                     new XAttribute ("name", "error"),
                     new XAttribute("direction", "inout"),
                     new XAttribute("transfer-ownership", "full"),
-                    new XAttribute(gs + "managed-type", typeof(GISharp.Lib.GLib.Error)),
                     new XElement (gi + "doc", "return location for a #GError"),
                     new XElement (gi + "type",
                         new XAttribute("name", "GLib.Error"),
@@ -585,16 +584,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "opaque", "owned");
             }
 
-            // add managed-type attribute (skipping existing managed-type attributes)
-
-            var elementsWithManagedType = document.Descendants ()
-                .Where (d => ElementsThatReferenceAType.Contains (d.Name))
-                .Where (d => d.Attribute (gs + "managed-type") == null);
-            foreach (var element in elementsWithManagedType) {
-                var managedType = element.GetManagedTypeName ();
-                element.SetAttributeValue (gs + "managed-type", managedType);
-            }
-
             // add is-pointer attribute to pointer types
 
             var typeElements = document.Descendants(gi + "type");
@@ -787,9 +776,13 @@ namespace GISharp.CodeGen
                     // we don't want set-only properties
                     continue;
                 }
-                var getterReturnType = matchingGetter.Element (gi + "return-value").Attribute (gs + "managed-type").Value;
-                var setterParameterType = element.Element (gs + "managed-parameters").Element (gi + "parameter").Attribute (gs + "managed-type").Value;
-                if (getterReturnType != setterParameterType) {
+                var returnValue = matchingGetter.Element(gi + "return-value");
+                var getterReturnType = returnValue.Element(gi + "type") ?? returnValue.Element(gi + "array");
+                var getterReturnTypeName = getterReturnType.Attribute(gs + "managed-name").Value;
+                var setterParameter = element.Element(gs + "managed-parameters").Element(gi + "parameter");
+                var setterParameterType = setterParameter.Element(gi + "type") ?? setterParameter.Element(gi + "array");
+                var setterParameterTypeName = setterParameterType.Attribute(gs + "managed-name").Value;
+                if (getterReturnTypeName != setterParameterTypeName) {
                     // this isn't the setter if the types don't match
                     continue;
                 }
