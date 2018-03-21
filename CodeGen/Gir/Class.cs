@@ -41,7 +41,7 @@ namespace GISharp.CodeGen.Gir
         }
 
         System.Type LazyGetParentType() =>
-            Reflection.GirType.ResolveType(Parent, Element.Document);
+            Reflection.GirType.ResolveParentType(this);
 
         IEnumerable<Implements> LazyGetImplements() =>
             Element.Elements(gi + "implements").Select(x => (Implements)GetNode(x));

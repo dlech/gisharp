@@ -46,7 +46,8 @@ namespace GISharp.CodeGen.Syntax
             var initializer = ConstructorInitializer(ThisConstructorInitializer)
                 .AddArgumentListArguments(handleArg, ownershipArg);
 
-            var syntax = ConstructorDeclaration(constructor.ParentNode.ManagedName)
+            var declaringType = (GIRegisteredType)constructor.ParentNode;
+            var syntax = ConstructorDeclaration(declaringType.ManagedName)
                 .AddModifiers(Token(PublicKeyword))
                 .WithInitializer(initializer)
                 .WithAttributeLists(constructor.GetCommonAttributeLists())

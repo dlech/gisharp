@@ -15,7 +15,8 @@ namespace GISharp.CodeGen.Syntax
     {
         public static IEnumerable<MethodDeclarationSyntax> GetClassMembers(this VirtualMethod method)
         {
-            var gtypeStruct = method.ParentNode.GTypeStructNode;
+            var delcaringType = (GIRegisteredType)method.ParentNode;
+            var gtypeStruct = delcaringType.GTypeStructNode;
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
             var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
             var getter = nameof(TypeClass.GetUnmanagedVirtualMethod);
@@ -76,7 +77,8 @@ namespace GISharp.CodeGen.Syntax
         {
             var attrName = typeof(GVirtualMethodAttribute).FullName;
 
-            var gtypeStruct = method.ParentNode.GTypeStructNode;
+            var delcaringType = (GIRegisteredType)method.ParentNode;
+            var gtypeStruct = delcaringType.GTypeStructNode;
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
             var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
             var typeArg = AttributeArgument(TypeOfExpression(type));

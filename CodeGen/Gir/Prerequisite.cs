@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using GISharp.CodeGen.Reflection;
 using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir
@@ -11,9 +12,14 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the name of the prerequisite
         /// </summary>
-        public string Name { get; }
+        public string GirName { get; }
 
-        public System.Type Type => _Type.Value;
+        /// <summary>
+        /// The parent node
+        /// </summary>
+        public new Interface ParentNode => (Interface)base.ParentNode;
+
+        public System.Type ManagedType => _Type.Value;
         readonly Lazy<System.Type> _Type;
 
         public Prerequisite(XElement element, GirNode parent) : base(element, parent)
@@ -21,20 +27,10 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "prerequisite") {
                 throw new ArgumentException("Requrires <prerequisite> element", nameof(element));
             }
-            Name = element.Attribute("name").Value;
+            GirName = element.Attribute("name").Value;
             _Type = new Lazy<System.Type>(LazyGetType);
         }
 
-        System.Type LazyGetType()
-        {
-            var type = Reflection.GirType.ResolveType(Name, Element.Document);
-            if (type.IsOpaque()) {
-                type = typeof(GInterface<>).MakeGenericType(type);
-            }
-            else {
-                type = Reflection.GirType.ResolveType("I" + Name, Element.Document);
-            }
-            return type;
-        }
+        System.Type LazyGetType() => GirInterfaceType.ResolveType(this);
     }
 }

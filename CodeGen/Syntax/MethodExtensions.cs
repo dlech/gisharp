@@ -86,7 +86,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = SeparatedList<BaseTypeSyntax>();
             foreach (var method in methods) {
-                var type = method.ParentNode;
+                var type = (GIRegisteredType)method.ParentNode;
                 if (method.IsEquals) {
                     // if we have an Equals method, then we implement the IEquatable<T> interface
                     var typeName = string.Concat(typeof(IEquatable<>).FullName.TakeWhile(x => x != '`'));

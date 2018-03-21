@@ -18,9 +18,9 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var m in implements.Type.GetMethods()) {
+            foreach (var m in implements.ManagedType.GetMethods()) {
                 var returnType = m.ReturnType.ToSyntax();
-                var name = $"{implements.Type.ToSyntax()}.{m.Name}";
+                var name = $"{implements.ManagedType.ToSyntax()}.{m.Name}";
                 var method = MethodDeclaration(returnType, name)
                     .WithParameterList(m.GetParameters().ToSyntax())
                     .WithBody(Block(ThrowStatement(ParseExpression("new System.NotImplementedException()"))));

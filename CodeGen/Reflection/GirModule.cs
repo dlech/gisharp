@@ -1,14 +1,17 @@
 
-
+using System;
 using System.Reflection;
-using System.Xml.Linq;
+using GISharp.CodeGen.Gir;
 
 namespace GISharp.CodeGen.Reflection
 {
     public class GirModule : Module
     {
-        public GirModule(XElement element)
+        Namespace @namespace;
+
+        public GirModule(Namespace @namespace)
         {
+            this.@namespace = @namespace ?? throw new ArgumentNullException(nameof(@namespace));
         }
 
         public override Assembly Assembly => Assembly.GetExecutingAssembly();

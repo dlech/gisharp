@@ -29,8 +29,8 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static EventFieldDeclarationSyntax GetInterfaceDeclaration(this Signal signal)
         {
-            var declaringType = $"GISharp.Lib.{signal.Namespace.Name}.{signal.ParentNode.ManagedName}";
-            var eventArgsType = $"{declaringType}.{signal.ManagedName}EventArgs";
+            var declaringType = (GIRegisteredType)signal.ParentNode;
+            var eventArgsType = $"{declaringType.ManagedName}.{signal.ManagedName}EventArgs";
             var type = $"System.EventHandler<{eventArgsType}>";
             var variable = VariableDeclaration(ParseTypeName(type))
                 .AddVariables(VariableDeclarator(signal.ManagedName));

@@ -16,7 +16,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static BaseTypeSyntax GetBaseType(this Prerequisite prerequisite)
         {
-            return SimpleBaseType(prerequisite.Type.ToSyntax());
+            return SimpleBaseType(prerequisite.ManagedType.ToSyntax());
         }
     }
 }

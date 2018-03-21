@@ -4,12 +4,12 @@ using System.Reflection;
 
 namespace GISharp.CodeGen.Reflection
 {
-    public class GirGenericType : Type
+    class GirGenericType : Type
     {
         readonly GirType type;
         readonly Type[] parameters;
 
-        public GirGenericType (GirType type, params Type[] parameters)
+        internal GirGenericType(GirType type, params Type[] parameters)
         {
             if (type == null) {
                 throw new ArgumentNullException (nameof(type));

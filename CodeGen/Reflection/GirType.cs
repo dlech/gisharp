@@ -1,31 +1,20 @@
 ﻿using System;
 using System.IO;
 using System.Linq;
-using System.Xml.Linq;
 using System.Collections.Generic;
 using System.Reflection;
+using System.Reflection.Emit;
 
 using GISharp.Runtime;
-using System.Reflection.Emit;
+using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen.Reflection
 {
-    public class GirType : Type
+    abstract class GirType : System.Type
     {
-        #pragma warning disable 0414 // ignore private field not used
-        static readonly XNamespace gi = Globals.CoreNamespace;
-        static readonly XNamespace c = Globals.CNamespace;
-        static readonly XNamespace glib = Globals.GLibNamespace;
-        static readonly XNamespace gs = Globals.GISharpNamespace;
-        #pragma warning restore 0414
-
-        static readonly Dictionary<string, XElement> girTypeCache = new Dictionary<string, XElement> ();
-
-        readonly XElement element;
-        readonly bool unmanaged;
-
+        readonly GIRegisteredType type;
 
         /// <summary>
         /// Creates a new type based on GIR XML data
@@ -33,31 +22,20 @@ namespace GISharp.CodeGen.Reflection
         /// <param name="element">
         /// A GIR XML element that defines a type
         /// </param>
-        /// <param name="unmanaged">
-        /// Special flag for callback types indicating whether to use the
-        /// managed or unmanaged metadata.
-        /// </param>
-        public GirType(XElement element, bool unmanaged)
+        protected GirType(GIRegisteredType type)
         {
-            if (element == null) {
-                throw new ArgumentNullException (nameof(element));
-            }
-            if (!Fixup.ElementsThatDefineAType.Contains (element.Name)) {
-                throw new ArgumentException ("Requires a type definition element.", nameof(element));
-            }
-            this.element = element;
-            this.unmanaged = unmanaged;
-            _Module = new Lazy<Module>(() => new GirModule(element.Ancestors(gi + "repository").Single()), false);
+            this.type = type ?? throw new ArgumentNullException(nameof(type));
+            _Module = new Lazy<Module>(() => new GirModule(type.Namespace), false);
         }
 
         /// <summary>
         /// Resolves a GIR type node to the cooresponding .NET type
         /// </summary>
-        public static Type ResolveManagedType(Gir.GIType node)
+        public static System.Type ResolveManagedType(Gir.GIType node)
         {
             if (node.ParentNode is Gir.Field field) {
                 if (field.Callback != null) {
-                    return new GirType(field.Callback.Element, true);
+                    return new GirDelegateType(field.Callback, true);
                 }
             }
 
@@ -81,22 +59,47 @@ namespace GISharp.CodeGen.Reflection
 
             var type = GetType(typeName);
             if (type != null) {
-                // TODO: handle interfaces
+                if (type.IsAbstract && type.IsSealed) {
+                    // if we got a static class, it must be the extension class
+                    // for an interface.
+                    var index = typeName.LastIndexOf('.') + 1;
+                    typeName = typeName.Substring(0, index) + "I" + typeName.Substring(index);
+                    type = GetType(typeName);
+                    if (type != null) {
+                        return type;
+                    }
+                    throw new TypeNotFoundException(typeName);
+                }
                 return type;
             }
 
             var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
-            return new GirType(typeNode.Element, false);
+            if (typeNode is Class @class) {
+                return new GirClassType(@class);
+            }
+            if (typeNode is Interface @interface) {
+                return new GirInterfaceType(@interface);
+            }
+            if (typeNode is Record record) {
+                return new GirRecordType(record);
+            }
+            if (typeNode is GIEnum @enum) {
+                return new GirEnumType(@enum);
+            }
+            if (typeNode is Callback callback) {
+                return new GirDelegateType(callback, false);
+            }
+            throw new NotSupportedException("Unknown GIR node type");
         }
 
         /// <summary>
         /// Resolves a GIR type node to the cooresponding .NET type
         /// </summary>
-        public static Type ResolveUnmanagedType(Gir.GIType node)
+        public static System.Type ResolveUnmanagedType(Gir.GIType node)
         {
             if (node.ParentNode is Gir.Field field) {
                 if (field.Callback != null) {
-                    return new GirType(field.Callback.Element, true);
+                    return new GirDelegateType(field.Callback, true);
                 }
             }
 
@@ -191,183 +194,100 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
-            return new GirType(typeNode.Element, true);
+            if (typeNode is GIEnum @enum) {
+                return new GirEnumType(@enum);
+            }
+            if (typeNode is Record record) {
+                if (record.IsDisguised) {
+                    return typeof(IntPtr);
+                }
+                return new GirRecordType(record);
+            }
+            if (typeNode is Callback callback) {
+                return new GirDelegateType(callback, true);
+            }
+            throw new NotSupportedException("Unknown GIR node type");
         }
 
-        public static Type ResolveType (string typeName, XDocument document)
+        public static System.Type ResolveParentType(Class @class)
         {
-            var type = GetType (typeName);
+            var typeName = @class.Parent;
+            if (!typeName.Contains('.')) {
+                var match = @class.Namespace.Classes.SingleOrDefault(x => x.GirName == typeName);
+                if (match != null) {
+                    return new GirClassType(match);
+                }
+                typeName = $"{@class.Namespace.Name}.{typeName}";
+            }
+            typeName = $"GISharp.Lib.{typeName}";
+
+            var type = GetType(typeName);
             if (type != null) {
                 return type;
             }
 
-            var isArray = false;
-            if (typeName.EndsWith ("[]", StringComparison.Ordinal)) {
-                typeName = typeName.Remove (typeName.Length - "[]".Length);
-                isArray = true;
-            }
-            var isGeneric = false;
-            var genericArgs = default(Type[]);
-            if (typeName.Contains ('`')) {
-                isGeneric = true;
-                genericArgs = string.Concat (typeName
-                    .SkipWhile (x => x != '[')
-                    .Skip (1)
-                    .TakeWhile (x => x != ']'))
-                    .Split (',')
-                    .Select (x => ResolveType (x, document))
-                    .ToArray ();
-                typeName = typeName.Remove (typeName.IndexOf ('['));
-                type = ResolveType (typeName, document);
-            }
+            throw new TypeNotFoundException(typeName);
+        }
 
-            switch (typeName) {
-            case "GLib.List":
-                type = typeof(GISharp.Lib.GLib.List<>);
-                if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(Opaque);
+        public static System.Type ResolvePrerequisiteType(Prerequisite prerequisite)
+        {
+            var typeName = prerequisite.GirName;
+            if (!typeName.Contains('.')) {
+                var @interface = (Interface)prerequisite.ParentNode;
+                var @namespace = @interface.Namespace;
+                var match = @namespace.Interfaces.SingleOrDefault(x => x.GirName == typeName);
+                if (match != null) {
+                    return new GirInterfaceType(match);
                 }
-                break;
-            case "GLib.SList":
-                type = typeof(GISharp.Lib.GLib.SList<>);
-                if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(Opaque);
+                var @class = @namespace.Classes.SingleOrDefault(x => x.GirName == typeName);
+                if (@class != null) {
+                    return typeof(GInterface<>).MakeGenericType(new GirClassType(@class));
                 }
-                break;
-            case "GLib.HashTable":
-                type = typeof(GISharp.Lib.GLib.HashTable<,>);
-                if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(Opaque);
-                }
-                if (genericArgs[1] == typeof(IntPtr)) {
-                    genericArgs[1] = typeof(Opaque);
-                }
-                break;
-            case "GLib.Array":
-                type = typeof(GISharp.Lib.GLib.Array<>);
-                if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(Opaque);
-                }
-                break;
-            case "GLib.PtrArray":
-                type = typeof(GISharp.Lib.GLib.PtrArray<>);
-                if (genericArgs[0] == typeof(IntPtr)) {
-                    genericArgs[0] = typeof(Opaque);
-                }
-                break;
-            case "GLib.ByteArray":
-                type = typeof(GISharp.Lib.GLib.ByteArray);
-                isGeneric = false;
-                break;
-            case "GLib.Quark":
-                type = typeof(GISharp.Lib.GLib.Quark);
-                break;
+                typeName = $"{@namespace.Name}.{typeName}";
             }
+            typeName = $"GISharp.Lib.{typeName}";
 
-            if (type == null) {
-                var unqualifiedTypeName = typeName.Split ('.').Last ();
-                if (!girTypeCache.TryGetValue(typeName, out var typeDefinitionElement)) {
-                    typeDefinitionElement = document.Descendants ()
-                        .Where (d => Fixup.ElementsThatDefineAType.Contains (d.Name))
-                        .SingleOrDefault (d => d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
-                    if (typeDefinitionElement == null) {
-                        // special case for callbacks since there is a "Unmanaged" version of each of those as well.
-                        typeDefinitionElement = document.Descendants (gi + "callback")
-                            .SingleOrDefault (d => "Unmanaged" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
-                    }
-                    if (typeDefinitionElement == null) {
-                        // special case for interfaces since we add the "I" prefix.
-                        typeDefinitionElement = document.Descendants (gi + "interface")
-                            .SingleOrDefault (d => "I" + d.Attribute (gs + "managed-name").Value == unqualifiedTypeName);
-                    }
-                    if (typeDefinitionElement != null) {
-                        girTypeCache.Add (typeName, typeDefinitionElement);
-                    }
-                }
-                if (typeDefinitionElement != null) {
-                    type = new GirType(typeDefinitionElement, unqualifiedTypeName.StartsWith("Unmanaged"));
-                }
-            }
-
+            var type = GetType(typeName);
             if (type != null) {
-                if (isGeneric) {
-                    type = type.MakeGenericType (genericArgs);
-                }
-                if (isArray) {
-                    type = type.MakeArrayType ();
-                }
                 return type;
             }
 
-            // If we couldn't find a matching type, try adding the GISharp namespace prefix
-            if (!typeName.StartsWith ($"{MainClass.parentNamespace}.", StringComparison.Ordinal)) {
-                return ResolveType ($"{MainClass.parentNamespace}.{typeName}", document);
-            }
-
-            throw new TypeNotFoundException (typeName);
+            throw new TypeNotFoundException(typeName);
         }
 
-        public static IEnumerable<GirType> GetTypes (XDocument document)
+        public override System.Type MakeGenericType(params System.Type[] typeArguments)
         {
-            return document.Element (gi + "repository").Element (gi + "namespace").Elements ()
-                .Where (e => Fixup.ElementsThatDefineAType.Contains (e.Name))
-                .SelectMany(e => GetTypesForElement(e));
-        }
-
-        static IEnumerable<GirType> GetTypesForElement(XElement element)
-        {
-            yield return new GirType(element, false);
-            if (element.Name == gi + "callback") {
-                yield return new GirType(element, true);
-            }
-        }
-
-        public override Type MakeGenericType (params Type[] typeArguments)
-        {
-            return new GirGenericType (this, typeArguments);
-        }
-
-        public override Type MakeArrayType ()
-        {
-            return new GirArrayType (this);
+            return new GirGenericType(this, typeArguments);
         }
 
         #region implemented abstract members of MemberInfo
 
-        public override bool IsDefined (Type attributeType, bool inherit)
+        public override bool IsDefined(System.Type attributeType, bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override bool IsSZArray => false;
 
-        public override object[] GetCustomAttributes (bool inherit)
+        public override object[] GetCustomAttributes(bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        public override object[] GetCustomAttributes (Type attributeType, bool inherit)
+        public override object[] GetCustomAttributes(System.Type attributeType, bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override string Name {
             get {
                 // strip off generic parameters
-                var name = string.Concat (element.Attribute (gs + "managed-name").Value.TakeWhile (x => x != '['));
-
-                if (IsInterface) {
-                    name = "I" + name;
-                }
-                if (unmanaged && this.IsDelegate()) {
-                    name = "Unmanaged" + name;
-                }
-
+                var name = string.Concat(type.ManagedName.TakeWhile(x => x != '['));
                 return name;
             }
         }
 
-        public override bool IsSubclassOf(Type c)
+        public override bool IsSubclassOf(System.Type c)
         {
             if (c == null) {
                 throw new ArgumentNullException(nameof(c));
@@ -388,89 +308,91 @@ namespace GISharp.CodeGen.Reflection
 
         #region implemented abstract members of Type
 
-        public override Type GetInterface (string name, bool ignoreCase)
+        public override System.Type GetInterface(string name, bool ignoreCase)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        public override Type[] GetInterfaces ()
+        public override System.Type[] GetInterfaces()
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        public override Type GetElementType ()
+        public override System.Type GetElementType()
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override EventInfo GetEvent (string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override EventInfo[] GetEvents (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override FieldInfo GetField (string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override FieldInfo[] GetFields (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override MemberInfo[] GetMembers (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        protected override MethodInfo GetMethodImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override MethodInfo GetMethodImpl (string name, System.Reflection.BindingFlags bindingAttr,
+            Binder binder, CallingConventions callConvention, System.Type[] types,
+            ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override MethodInfo[] GetMethods (System.Reflection.BindingFlags bindingAttr)
         {
             // TODO: create GirFunctionInfo and GirMethodInfo and return them as well
-            return element.Elements(gi + "virtual-method").Select(x => new GirVirtualMethodInfo(x))
+            return type.VirtualMethods.Select(x => new GirVirtualMethodInfo(x))
                 .ToArray();
         }
 
-        public override Type GetNestedType (string name, System.Reflection.BindingFlags bindingAttr)
+        public override System.Type GetNestedType(string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        public override Type[] GetNestedTypes (System.Reflection.BindingFlags bindingAttr)
+        public override System.Type[] GetNestedTypes(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override PropertyInfo[] GetProperties (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        protected override PropertyInfo GetPropertyImpl (string name, System.Reflection.BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
+        protected override PropertyInfo GetPropertyImpl(string name, System.Reflection.BindingFlags bindingAttr,
+            Binder binder, System.Type returnType, System.Type[] types, ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        protected override ConstructorInfo GetConstructorImpl (System.Reflection.BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override ConstructorInfo GetConstructorImpl(System.Reflection.BindingFlags bindingAttr,
+            Binder binder, CallingConventions callConvention, System.Type[] types,
+            ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         protected override TypeAttributes GetAttributeFlagsImpl ()
         {
             var flags = default(TypeAttributes);
-            if (element.Name == gi + "interface") {
-                flags |= TypeAttributes.Interface;
-            }
             return flags;
         }
 
@@ -488,12 +410,14 @@ namespace GISharp.CodeGen.Reflection
 
         public override ConstructorInfo[] GetConstructors (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
-        public override object InvokeMember (string name, System.Reflection.BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
+        public override object InvokeMember (string name, System.Reflection.BindingFlags invokeAttr,
+            Binder binder, object target, object[] args, ParameterModifier[] modifiers,
+            System.Globalization.CultureInfo culture, string[] namedParameters)
         {
-            throw new InvalidOperationException ();
+            throw new NotSupportedException();
         }
 
         public override Assembly Assembly {
@@ -504,53 +428,11 @@ namespace GISharp.CodeGen.Reflection
 
         public override string AssemblyQualifiedName {
             get {
-                throw new InvalidOperationException ();
+                throw new NotSupportedException();
             }
         }
 
-        public override Type BaseType {
-            get {
-                // <class> elements have parent attribute unless they are a fundamental type
-                var parentAttribute = element.Attribute ("parent");
-                if (parentAttribute != null) {
-                    return ResolveType (parentAttribute.Value, element.Document);
-                } else if (element.Name == gi + "class") {
-                    return typeof(Opaque);
-                }
-                if (element.Name == gi + "record") {
-                    if (element.Attribute(gs + "source").AsBool()) {
-                        return typeof(Source);
-                    }
-                    var opaqueAttr = element.Attribute (gs + "opaque");
-                    if (opaqueAttr != null) {
-                        switch (opaqueAttr.Value) {
-                        case "boxed":
-                            return typeof(Boxed);
-                        case "owned":
-                            return typeof(Opaque);
-                        case "static":
-                            return typeof(Opaque);
-                        default:
-                            var message = string.Format ("Unknown opaque type '{0}'.",
-                                          opaqueAttr.Value);
-                            throw new Exception (message);
-                        }
-                    }
-                    // this indicates a struct
-                    return typeof(ValueType);
-                }
-                if (element.Name == gi + "alias" || element.Name == gi + "union") {
-                    return typeof(ValueType);
-                }
-                if (element.Name == gi + "enumeration" || element.Name == gi + "bitfield") {
-                    return typeof(System.Enum);
-                }
-                if (element.Name == gi + "callback") {
-                    return typeof(Delegate);
-                }
-                return typeof(object);
-            }
-        }
+        public override System.Type BaseType => typeof(object);
 
         public override string FullName {
             get {
@@ -562,7 +444,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override Guid GUID {
             get {
-                throw new InvalidOperationException ();
+                throw new NotSupportedException();
             }
         }
 
@@ -575,18 +457,11 @@ namespace GISharp.CodeGen.Reflection
             get {
                 return string.Format ("{0}.{1}",
                     MainClass.parentNamespace,
-                    element.GetNamespace ());
+                    type.Namespace.Name);
             }
         }
 
-        public override Type UnderlyingSystemType {
-            get {
-                if (element.Name == gi + "enumeration" || element.Name == gi + "bitfield") {
-                    return typeof(int);
-                }
-                return this;
-            }
-        }
+        public override System.Type UnderlyingSystemType => this;
 
         #endregion
     }

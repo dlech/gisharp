@@ -39,8 +39,6 @@ namespace GISharp.CodeGen.Gir
         public ManagedParameters ManagedParameters => _ManagedParameters.Value;
         readonly Lazy<ManagedParameters> _ManagedParameters;
 
-        public new GIRegisteredType ParentNode => (GIRegisteredType)base.ParentNode;
-
         private protected GICallable(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {

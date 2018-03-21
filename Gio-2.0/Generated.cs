@@ -956,14 +956,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded;
+        event System.EventHandler<ActionGroup.ActionAddedEventArgs> ActionAdded;
 
         /// <summary>
         /// Signals that the enabled status of the named action has changed.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-enabled-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
+        event System.EventHandler<ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
 
         /// <summary>
         /// Signals that an action is just about to be removed from the group.
@@ -972,14 +972,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-removed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved;
+        event System.EventHandler<ActionGroup.ActionRemovedEventArgs> ActionRemoved;
 
         /// <summary>
         /// Signals that the state of the named action has changed.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
+        event System.EventHandler<ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
 
         /// <summary>
         /// Emits the #GActionGroup::action-added signal on @action_group.

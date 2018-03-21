@@ -4,42 +4,19 @@ using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
+using GISharp.CodeGen.Gir;
 
 namespace GISharp.CodeGen.Reflection
 {
-    public sealed class GirVirtualMethodInfo : MethodInfo
+    sealed class GirVirtualMethodInfo : MethodInfo
     {
-        #pragma warning disable 0414 // ignore private field not used
-        static readonly XNamespace gi = Globals.CoreNamespace;
-        static readonly XNamespace c = Globals.CNamespace;
-        static readonly XNamespace glib = Globals.GLibNamespace;
-        static readonly XNamespace gs = Globals.GISharpNamespace;
-        #pragma warning restore 0414
+        VirtualMethod method;
 
-        XElement element;
-
-        public GirVirtualMethodInfo(XElement element) {
-            if (element == null) {
-                throw new ArgumentNullException(nameof(element));
-            }
-            if (element.Name != gi + "virtual-method") {
-                throw new ArgumentException("Expecting <virtual-method> element", nameof(element));
-            }
-            this.element = element;
-
-            Name = element.Attribute(gs + "managed-name").Value;
-            _ReturnType = new Lazy<Type>(LazyGetReturnType, false);
+        public GirVirtualMethodInfo(VirtualMethod method) {
+            this.method = method ?? throw new ArgumentNullException(nameof(method));
         }
 
-        public override Type ReturnType => _ReturnType.Value;
-        readonly Lazy<Type> _ReturnType;
-
-        Type LazyGetReturnType()
-        {
-            var returnTypeElement = element.Element(gi + "return-value");
-            return GirType.ResolveType(returnTypeElement.Attribute(gs + "managed-type").Value,
-                element.Document);
-        }
+        public override System.Type ReturnType => method.ReturnValue.Type.ManagedType;
 
         public override ICustomAttributeProvider ReturnTypeCustomAttributes => throw new NotSupportedException();
 
@@ -47,11 +24,11 @@ namespace GISharp.CodeGen.Reflection
 
         public override RuntimeMethodHandle MethodHandle => throw new NotSupportedException();
 
-        public override Type DeclaringType => throw new NotSupportedException();
+        public override System.Type DeclaringType => throw new NotSupportedException();
 
-        public override string Name { get; }
+        public override string Name => method.ManagedName;
 
-        public override Type ReflectedType => throw new NotSupportedException();
+        public override System.Type ReflectedType => throw new NotSupportedException();
 
         public override MethodInfo GetBaseDefinition()
         {
@@ -63,7 +40,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        public override object[] GetCustomAttributes(Type attributeType, bool inherit)
+        public override object[] GetCustomAttributes(System.Type attributeType, bool inherit)
         {
             throw new NotSupportedException();
         }
@@ -72,11 +49,9 @@ namespace GISharp.CodeGen.Reflection
         {
             throw new NotSupportedException();
         }
-
         public override ParameterInfo[] GetParameters()
         {
-            return element.Element(gs + "managed-parameters")
-                .Elements(gi + "parameter")
+            return method.ManagedParameters
                 .Select(x => new GirParameterInfo(x))
                 .ToArray();
         }
@@ -86,7 +61,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        public override bool IsDefined(Type attributeType, bool inherit)
+        public override bool IsDefined(System.Type attributeType, bool inherit)
         {
             throw new NotSupportedException();
         }

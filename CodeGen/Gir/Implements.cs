@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
+using GISharp.CodeGen.Reflection;
 
 namespace GISharp.CodeGen.Gir
 {
@@ -18,9 +19,14 @@ namespace GISharp.CodeGen.Gir
         public string ManagedName { get; }
 
         /// <summary>
+        /// The parent node
+        /// </summary>
+        public new Class ParentNode => (Class)base.ParentNode;
+
+        /// <summary>
         /// Gets the .NET type associated with the implemented interface
         /// </summary>
-        public System.Type Type => _Type.Value;
+        public System.Type ManagedType => _Type.Value;
         readonly Lazy<System.Type> _Type;
 
         public Implements(XElement element, GirNode parent) : base(element, parent)
@@ -33,11 +39,6 @@ namespace GISharp.CodeGen.Gir
             _Type = new Lazy<System.Type>(LazyGetType);
         }
 
-        System.Type LazyGetType()
-        {
-            var parts = ManagedName.Split('.');
-            var fixedUpName = string.Join('.', parts.SkipLast(1).Append("I" + parts.Last()));
-            return Reflection.GirType.ResolveType(fixedUpName, Element.Document);
-        }
+        System.Type LazyGetType() => GirInterfaceType.ResolveType(this);
     }
 }
