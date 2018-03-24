@@ -51,6 +51,20 @@ namespace GISharp.Test.Gio
             AssertNoGLibLog();
         }
 
+        [Test]
+        public void TestReadAsync()
+        {
+            RunAsyncTest(async () => {
+                using (var buffer = new ByteArray())
+                using (var stream = new TestInputStream()) {
+                    buffer.SetSize(10);
+                    var count = await stream.ReadAsync(buffer);
+                    Assert.That(count, Is.EqualTo(10));
+                }
+            });
+
+            AssertNoGLibLog();
+        }
     }
 
     [GType]
