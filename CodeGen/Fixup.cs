@@ -686,14 +686,14 @@ namespace GISharp.CodeGen
                 // destroy notify parameters generally do not have a closure attribute.
                 // however, if they are the target of a destroy attribute, then we can
                 // allow them because the code generator knows how to handle this case
-                if (element.Attribute(c + "type").AsString() == "GDestroyNotify") {
+                if (element.Element(gi + "type")?.Attribute(c + "type").AsString() == "GDestroyNotify") {
                     var index = element.Parent.Elements().ToList().IndexOf(element);
                     if (element.Parent.Elements().Any(x => x.Attribute("destroy").AsInt(-1) == index)) {
                         continue;
                     }
                 }
 
-                element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", 1);
+                element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
             // add managed-parameters element
