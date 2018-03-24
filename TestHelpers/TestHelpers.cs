@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
+using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GModule;
 using GISharp.Runtime;
@@ -97,6 +98,39 @@ namespace GISharp
             return Throws.TypeOf<GErrorException>()
                 .With.Property("Error").Property("Domain").EqualTo(domain)
                 .And.Property("Error").Property("Code").EqualTo(value);
+        }
+
+        /// <summary>
+        /// Run a test in a GLib main loop
+        /// </summary>
+        /// <param name="test">The async function</param>
+        /// <param name="timout">A timeout in case <paramref name="test"/>
+        /// never completes.</param>
+        /// <remarks>
+        /// This is used to test async methods. Using NUnit's async test feature
+        /// doesn't work because GLib async functions generally need a GLib
+        /// main loop runing to schedule the callback on the same thread.
+        /// </remarks>
+        public static void RunAsyncTest(System.Func<Task> test, uint timeout = 100)
+        {
+            using (var context = new MainContext())
+            using (var loop = new MainLoop(context))
+            using (var ts = new TimeoutSource(timeout)) {
+                context.PushThreadDefault();
+                try {
+                    var task = test();
+                    ts.SetCallback(() => {
+                        task.Dispose();
+                        loop.Quit();
+                        return Source.Remove_;
+                    });
+                    task.ContinueWith(_ => loop.Quit());
+                    loop.Run();
+                }
+                finally {
+                    context.PopThreadDefault();
+                }
+            }
         }
     }
 }

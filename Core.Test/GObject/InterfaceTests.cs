@@ -36,20 +36,12 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestAsyncVirtualMethod()
         {
-            using (var context = new MainContext())
-            using (var loop = new MainLoop(context))
-            using (var obj = new TestNetworkMonitor()) {
-                context.PushThreadDefault();
-                try {
-                    var task = obj.CanReachAsync(IntPtr.Zero);
-                    task.ContinueWith(_ => loop.Quit());
-                    loop.Run();
-                    Assert.That(task.Result, Is.True);
+            RunAsyncTest(async () => {
+                using (var obj = new TestNetworkMonitor()) {
+                    var result = await obj.CanReachAsync(IntPtr.Zero);
+                    Assert.That(result, Is.True);
                 }
-                finally {
-                    context.PopThreadDefault();
-                }
-            }
+            });
 
             AssertNoGLibLog();
         }
