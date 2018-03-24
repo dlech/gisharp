@@ -40,9 +40,6 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeName = node.ManagedName;
-            if (!typeName.Contains('.')) {
-                typeName = $"GISharp.Lib.{node.Namespace.Name}.{typeName}";
-            }
 
             if (node.TypeParameters.Any()) {
                 if (typeName == typeof(Strv).ToString()) {
@@ -57,6 +54,28 @@ namespace GISharp.CodeGen.Reflection
                 throw new NotImplementedException();
             }
 
+            // if there is no '.', then this type must be declared in the GIR namespace
+            if (!typeName.Contains('.')) {
+                var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+                if (typeNode is Class @class) {
+                    return new GirClassType(@class);
+                }
+                if (typeNode is Interface @interface) {
+                    return new GirInterfaceType(@interface);
+                }
+                if (typeNode is Record record) {
+                    return new GirRecordType(record);
+                }
+                if (typeNode is GIEnum @enum) {
+                    return new GirEnumType(@enum);
+                }
+                if (typeNode is Callback callback) {
+                    return new GirDelegateType(callback, false);
+                }
+                throw new NotSupportedException("Unknown GIR node type");
+            }
+
+            // otherwise, the type is declared in another assembly
             var type = GetType(typeName);
             if (type != null) {
                 if (type.IsAbstract && type.IsSealed) {
@@ -73,23 +92,7 @@ namespace GISharp.CodeGen.Reflection
                 return type;
             }
 
-            var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
-            if (typeNode is Class @class) {
-                return new GirClassType(@class);
-            }
-            if (typeNode is Interface @interface) {
-                return new GirInterfaceType(@interface);
-            }
-            if (typeNode is Record record) {
-                return new GirRecordType(record);
-            }
-            if (typeNode is GIEnum @enum) {
-                return new GirEnumType(@enum);
-            }
-            if (typeNode is Callback callback) {
-                return new GirDelegateType(callback, false);
-            }
-            throw new NotSupportedException("Unknown GIR node type");
+            throw new TypeNotFoundException(typeName);
         }
 
         /// <summary>
