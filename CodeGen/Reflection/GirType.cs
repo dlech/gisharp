@@ -56,23 +56,29 @@ namespace GISharp.CodeGen.Reflection
 
             // if there is no '.', then this type must be declared in the GIR namespace
             if (!typeName.Contains('.')) {
-                var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
-                if (typeNode is Class @class) {
-                    return new GirClassType(@class);
+                var typeNode = node.Namespace.AllTypes.SingleOrDefault(x => x.GirName == node.GirName);
+                if (typeNode == null) {
+                    // OK, maybe it is defined in the Core assembly
+                    typeName = $"GISharp.Lib.{node.Namespace.Name}.{typeName}";
                 }
-                if (typeNode is Interface @interface) {
-                    return new GirInterfaceType(@interface);
+                else {
+                    if (typeNode is Class @class) {
+                        return new GirClassType(@class);
+                    }
+                    if (typeNode is Interface @interface) {
+                        return new GirInterfaceType(@interface);
+                    }
+                    if (typeNode is Record record) {
+                        return new GirRecordType(record);
+                    }
+                    if (typeNode is GIEnum @enum) {
+                        return new GirEnumType(@enum);
+                    }
+                    if (typeNode is Callback callback) {
+                        return new GirDelegateType(callback, false);
+                    }
+                    throw new NotSupportedException("Unknown GIR node type");
                 }
-                if (typeNode is Record record) {
-                    return new GirRecordType(record);
-                }
-                if (typeNode is GIEnum @enum) {
-                    return new GirEnumType(@enum);
-                }
-                if (typeNode is Callback callback) {
-                    return new GirDelegateType(callback, false);
-                }
-                throw new NotSupportedException("Unknown GIR node type");
             }
 
             // otherwise, the type is declared in another assembly
