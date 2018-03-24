@@ -772,6 +772,7 @@ namespace GISharp.CodeGen
                 .Where (d => (d.Name == gi + "function" || d.Name == gi + "method")
                     && !d.Attribute (gs + "pinvoke-only").AsBool ()
                     && d.Attribute ("name").Value.StartsWith ("set_", StringComparison.Ordinal)
+                    && d.Element(gi + "return-value")?.Element(gi + "type").Attribute("name").AsString("none") == "none"
                     && d.Element (gs + "managed-parameters") != null
                     && d.Element (gs + "managed-parameters").Elements (gi + "parameter").Count () == 1);
             foreach (var element in setters) {
