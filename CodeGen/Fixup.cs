@@ -551,39 +551,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "access-modifiers", "public override");
             }
 
-            // flag boxed types
-
-            var recordsThatAreBoxed = document.Descendants(gi + "record")
-                .Where(x => x.Attribute(glib + "type-name") != null);
-            foreach (var element in recordsThatAreBoxed) {
-                if (element.Attribute(gs + "opaque") != null) {
-                    continue;
-                }
-                element.SetAttributeValue(gs + "opaque", "boxed");
-            }
-
-            // flag gtype-struct opaques
-
-            var recordsThatAreGTypeStructs = document.Descendants (gi + "record")
-                .Where (d => d.Attribute (glib + "is-gtype-struct-for") != null);
-            foreach (var element in recordsThatAreGTypeStructs) {
-                if (element.Attribute(gs + "opaque") != null) {
-                    continue;
-                }
-                element.SetAttributeValue(gs+ "opaque", "gtype-struct");
-            }
-
-            // flag owned opaques
-
-            var recordsThatAreOwned = document.Descendants(gi + "record")
-                .Where(d => d.Attribute("disguised").AsBool());
-            foreach (var element in recordsThatAreOwned) {
-                if (element.Attribute(gs + "opaque") != null) {
-                    continue;
-                }
-                element.SetAttributeValue(gs + "opaque", "owned");
-            }
-
             // add is-pointer attribute to pointer types
 
             var typeElements = document.Descendants(gi + "type");
