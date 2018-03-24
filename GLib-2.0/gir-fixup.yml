@@ -139,11 +139,6 @@
   value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='free']
 - !set-attribute
-  # needs special handling for user data
-  name: gs:pinvoke-only
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:constructor[@name='new']
-- !set-attribute
   # needs special handling
   name: gs:pinvoke-only
   value: 1
