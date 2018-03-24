@@ -5540,20 +5540,20 @@ System.IntPtr cancellable);
         /// asynchronicity, so they are optional for inheriting classes. However, if you
         /// override one you must override all.
         /// </remarks>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
         /// <param name="callback">
         /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional cancellable object
         /// </param>
-        public void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public void CloseAsync(GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
-            var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_input_stream_close_async(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -5991,22 +5991,22 @@ System.IntPtr cancellable);
         /// a buffer to
         ///     read data into (which should be at least count bytes long)
         /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
         /// <param name="callback">
         /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public void ReadAllAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public void ReadAllAsync(GISharp.Runtime.IArray<System.Byte> buffer, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var (buffer_, count_) = ((System.IntPtr, System.UIntPtr))((buffer?.Data ?? throw new System.ArgumentNullException(nameof(buffer)), buffer?.Length ?? 0));
-            var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_input_stream_read_all_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -6200,22 +6200,22 @@ System.IntPtr cancellable);
         /// a buffer to
         ///     read data into (which should be at least count bytes long).
         /// </param>
+        /// <param name="callback">
+        /// callback to call when the request is satisfied
+        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority]
         /// of the request.
         /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
-        public void ReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public void ReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var (buffer_, count_) = ((System.IntPtr, System.UIntPtr))((buffer?.Data ?? throw new System.ArgumentNullException(nameof(buffer)), buffer?.Length ?? 0));
-            var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_input_stream_read_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -6428,22 +6428,22 @@ System.IntPtr cancellable);
         /// <param name="count">
         /// the number of bytes that will be read from the stream
         /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
         /// <param name="callback">
         /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public void ReadBytesAsync(System.Int32 count, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public void ReadBytesAsync(System.Int32 count, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var count_ = (System.UIntPtr)count;
-            var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_input_stream_read_bytes_async(stream_, count_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -6800,21 +6800,21 @@ System.IntPtr cancellable);
         /// <param name="count">
         /// the number of bytes that will be skipped from the stream
         /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
         /// <param name="callback">
         /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
-        public void SkipAsync(System.Int32 count, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public void SkipAsync(System.Int32 count, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var count_ = (System.UIntPtr)count;
-            var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_input_stream_skip_async(stream_, count_, ioPriority_, cancellable_, callback_, userData_);
         }

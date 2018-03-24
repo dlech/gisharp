@@ -110,6 +110,11 @@
   name: override
   value: always
   xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:virtual-method[@name='close_fn']
+# Set default value for io_priority parameter
+- !set-attribute
+  name: gs:default
+  value: "GISharp.Lib.GLib.Priority.Default"
+  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:method/gi:parameters/gi:parameter[@name='io_priority']
 
 
 ### IOErrorEnum ###
