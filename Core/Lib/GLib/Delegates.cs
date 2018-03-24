@@ -92,27 +92,6 @@ namespace GISharp.Lib.GLib
     public delegate T CopyFunc<T> (T src) where T : Opaque;
 
     /// <summary>
-    /// Specifies the type of function which is called when a data element
-    /// is destroyed. It is passed the pointer to the data element and
-    /// should free any memory and resources allocated for it.
-    /// </summary>
-    /// <param name="data">
-    /// the data element.
-    /// </param>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void UnmanagedDestroyNotify ([In] IntPtr data);
-
-    /// <summary>
-    /// Specifies the type of function which is called when a data element
-    /// is destroyed. It is passed the pointer to the data element and
-    /// should free any memory and resources allocated for it.
-    /// </summary>
-    /// <param name="data">
-    /// the data element.
-    /// </param>
-    public delegate void DestroyNotify<T> (T data);
-
-    /// <summary>
     /// Specifies the type of a function used to test two values for
     /// equality. The function should return <c>true</c> if both values are equal
     /// and <c>false</c> otherwise.
