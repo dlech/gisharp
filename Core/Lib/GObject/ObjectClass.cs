@@ -376,6 +376,9 @@ namespace GISharp.Lib.GObject
                 }
 
                 foreach (var method in type.GetMethods(Instance | NonPublic)) {
+                    if (method.DeclaringType != type) {
+                        continue;
+                    }
                     var baseMethod = method.GetBaseDefinition();
                     var attr = baseMethod.GetCustomAttribute<GVirtualMethodAttribute>();
                     if (attr == null) {
