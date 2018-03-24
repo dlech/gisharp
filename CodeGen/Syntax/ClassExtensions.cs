@@ -61,9 +61,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var members = List<MemberDeclarationSyntax>();
 
-            if (@class.GTypeStruct != null) {
-                // if there is a gtype struct, then there should be instance struct
-                // fields as well
+            if (@class.Fields.Any()) {
                 members = members.Add(@class.Fields.GetStructDeclaration()
                     .AddModifiers(Token(ProtectedKeyword), Token(NewKeyword)));
             }
