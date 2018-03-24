@@ -687,8 +687,8 @@ namespace GISharp.CodeGen
                 // however, if they are the target of a destroy attribute, then we can
                 // allow them because the code generator knows how to handle this case
                 if (element.Element(gi + "type")?.Attribute(c + "type").AsString() == "GDestroyNotify") {
-                    var index = element.Parent.Elements().ToList().IndexOf(element);
-                    if (element.Parent.Elements().Any(x => x.Attribute("destroy").AsInt(-1) == index)) {
+                    var index = element.Parent.Elements(gi + "parameter").ToList().IndexOf(element);
+                    if (element.Parent.Elements(gi + "parameter").Any(x => x.Attribute("destroy").AsInt(-1) == index)) {
                         continue;
                     }
                 }
