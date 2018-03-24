@@ -47,9 +47,11 @@ namespace GISharp.CodeGen.Syntax
                     break;
                 case Callback callback:
                     yield return callback.GetUnmanagedDeclaration();
-                    yield return callback.GetManagedDeclaration();
-                    yield return callback.GetDelegateFactoryDeclaration()
-                        .WithMembers(callback.GetCallbackDelegateFactoryMembers());
+                    if (!callback.IsPInvokeOnly) {
+                        yield return callback.GetManagedDeclaration();
+                        yield return callback.GetDelegateFactoryDeclaration()
+                            .WithMembers(callback.GetCallbackDelegateFactoryMembers());
+                    }
                     break;
                 case Class @class:
                     yield return @class.GetClassDeclaration()

@@ -654,6 +654,47 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "default", "null");
             }
 
+            // callbacks without user data cannot be handled by the code generator
+
+            foreach (var element in document.Descendants(gi + "callback")
+                .Where(x => x.Parent.Name == gi + "namespace"))
+            {
+                var ok = false;
+
+                foreach (var (p, i) in element.Element(gi + "parameters").Elements(gi + "parameter")
+                    .Select((x, i) => (x, i)))
+                {
+                    // the user data parameter for callbacks points to itself
+                    if (p.Attribute("closure").AsInt(-1) == i) {
+                        ok = true;
+                        break;
+                    }
+                }
+
+                if (ok) {
+                    continue;
+                }
+
+                element.SetAttributeValue(gs + "pinvoke-only", 1);
+            }
+
+            // callback parameters without user data cannot be handled by the code generator
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Where(x => x.Attribute("scope") != null && x.Attribute("closure") == null))
+            {
+                // destroy notify parameters generally do not have a closure attribute.
+                // however, if they are the target of a destroy attribute, then we can
+                // allow them because the code generator knows how to handle this case
+                if (element.Attribute(c + "type").AsString() == "GDestroyNotify") {
+                    var index = element.Parent.Elements().ToList().IndexOf(element);
+                    if (element.Parent.Elements().Any(x => x.Attribute("destroy").AsInt(-1) == index)) {
+                        continue;
+                    }
+                }
+
+                element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", 1);
+            }
 
             // add managed-parameters element
 
