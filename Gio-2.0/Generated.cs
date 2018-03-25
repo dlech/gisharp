@@ -5407,6 +5407,539 @@ System.IntPtr cancellable);
     }
 
     /// <summary>
+    /// <see cref="IIcon"/> is a very minimal interface for icons. It provides functions
+    /// for checking the equality of two icons, hashing of icons and
+    /// serializing an icon to and from strings.
+    /// </summary>
+    /// <remarks>
+    /// <see cref="IIcon"/> does not provide the actual pixmap for the icon as this is out
+    /// of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
+    /// of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
+    /// 
+    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="GetHashCode"/>.
+    /// 
+    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="Equals"/>.
+    /// 
+    /// For serializing a <see cref="IIcon"/>, use <see cref="Serialize"/> and
+    /// <see cref="Deserialize"/>.
+    /// 
+    /// If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
+    /// be prepared to handle at least the three following cases:
+    /// #GLoadableIcon, <see cref="ThemedIcon"/> and #GEmblemedIcon.  It may also make
+    /// sense to have fast-paths for other cases (like handling #GdkPixbuf
+    /// directly, for example) but all compliant <see cref="IIcon"/> implementations
+    /// outside of GIO must implement #GLoadableIcon.
+    /// 
+    /// If your application or library provides one or more <see cref="IIcon"/>
+    /// implementations you need to ensure that your new implementation also
+    /// implements #GLoadableIcon.  Additionally, you must provide an
+    /// implementation of <see cref="Serialize"/> that gives a result that is
+    /// understood by <see cref="Deserialize"/>, yielding one of the built-in icon
+    /// types.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
+    public partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    {
+        /// <summary>
+        /// Checks if two icons are equal.
+        /// </summary>
+        /// <param name="icon2">
+        /// pointer to the second <see cref="IIcon"/>.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
+        /// </returns>
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
+        System.Boolean DoEqual(GISharp.Lib.Gio.IIcon icon2);
+
+        /// <summary>
+        /// Gets a hash for an icon.
+        /// </summary>
+        /// <returns>
+        /// a #guint containing a hash for the <paramref name="icon"/>, suitable for
+        /// use in a #GHashTable or similar data structure.
+        /// </returns>
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
+        System.UInt32 DoHash();
+
+        /// <summary>
+        /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
+        /// back by calling <see cref="Deserialize"/> on the returned value.
+        /// As serialization will avoid using raw icon data when possible, it only
+        /// makes sense to transfer the #GVariant between processes on the same machine,
+        /// (as opposed to over the network), and within the same file system namespace.
+        /// </summary>
+        /// <returns>
+        /// a #GVariant, or <c>null</c> when serialization fails.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
+        GISharp.Lib.GLib.Variant DoSerialize();
+    }
+
+    public static class Icon
+    {
+        static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
+
+        /// <summary>
+        /// Deserializes a #GIcon previously serialized using g_icon_serialize().
+        /// </summary>
+        /// <param name="value">
+        /// a #GVariant created with g_icon_serialize()
+        /// </param>
+        /// <returns>
+        /// a #GIcon, or %NULL when deserialization fails.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_icon_deserialize(
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr value);
+
+        /// <summary>
+        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="Serialize"/>.
+        /// </summary>
+        /// <param name="value">
+        /// a #GVariant created with <see cref="Serialize"/>
+        /// </param>
+        /// <returns>
+        /// a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        public static GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
+        {
+            var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
+            var ret_ = g_icon_deserialize(value_);
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Generate a #GIcon instance from @str. This function can fail if
+        /// @str is not valid - see g_icon_to_string() for discussion.
+        /// </summary>
+        /// <remarks>
+        /// If your application or library provides one or more #GIcon
+        /// implementations you need to ensure that each #GType is registered
+        /// with the type system prior to calling g_icon_new_for_string().
+        /// </remarks>
+        /// <param name="str">
+        /// A string obtained via g_icon_to_string().
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// An object implementing the #GIcon
+        ///          interface or %NULL if @error is set.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_icon_new_for_string(
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr str,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        /// <summary>
+        /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
+        /// <paramref name="str"/> is not valid - see <see cref="ToString"/> for discussion.
+        /// </summary>
+        /// <remarks>
+        /// If your application or library provides one or more <see cref="IIcon"/>
+        /// implementations you need to ensure that each #GType is registered
+        /// with the type system prior to calling <see cref="NewForString"/>.
+        /// </remarks>
+        /// <param name="str">
+        /// A string obtained via <see cref="ToString"/>.
+        /// </param>
+        /// <returns>
+        /// An object implementing the <see cref="IIcon"/>
+        ///          interface or <c>null</c> if <paramref name="error"/> is set.
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public static GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.Utf8 str)
+        {
+            var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str));
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_icon_new_for_string(str_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        static extern GISharp.Lib.GObject.GType g_icon_get_type();
+
+        /// <summary>
+        /// Gets a hash for an icon.
+        /// </summary>
+        /// <param name="icon">
+        /// #gconstpointer to an icon object.
+        /// </param>
+        /// <returns>
+        /// a #guint containing a hash for the @icon, suitable for
+        /// use in a #GHashTable or similar data structure.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:out */
+        static extern System.UInt32 g_icon_hash(
+        /* <type name="Icon" type="gconstpointer" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Gets a hash for an icon.
+        /// </summary>
+        /// <param name="icon">
+        /// #gconstpointer to an icon object.
+        /// </param>
+        /// <returns>
+        /// a #guint containing a hash for the <paramref name="icon"/>, suitable for
+        /// use in a #GHashTable or similar data structure.
+        /// </returns>
+        public static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
+        {
+            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            var ret_ = g_icon_hash(icon_);
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if two icons are equal.
+        /// </summary>
+        /// <param name="icon1">
+        /// pointer to the first #GIcon.
+        /// </param>
+        /// <param name="icon2">
+        /// pointer to the second #GIcon.
+        /// </param>
+        /// <returns>
+        /// %TRUE if @icon1 is equal to @icon2. %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern System.Boolean g_icon_equal(
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr icon1,
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr icon2);
+
+        /// <summary>
+        /// Checks if two icons are equal.
+        /// </summary>
+        /// <param name="icon1">
+        /// pointer to the first <see cref="IIcon"/>.
+        /// </param>
+        /// <param name="icon2">
+        /// pointer to the second <see cref="IIcon"/>.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
+        /// </returns>
+        public static System.Boolean Equals(this GISharp.Lib.Gio.IIcon icon1, GISharp.Lib.Gio.IIcon icon2)
+        {
+            var icon1_ = icon1?.Handle ?? System.IntPtr.Zero;
+            var icon2_ = icon2?.Handle ?? System.IntPtr.Zero;
+            var ret_ = g_icon_equal(icon1_,icon2_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Serializes a #GIcon into a #GVariant. An equivalent #GIcon can be retrieved
+        /// back by calling g_icon_deserialize() on the returned value.
+        /// As serialization will avoid using raw icon data when possible, it only
+        /// makes sense to transfer the #GVariant between processes on the same machine,
+        /// (as opposed to over the network), and within the same file system namespace.
+        /// </summary>
+        /// <param name="icon">
+        /// a #GIcon
+        /// </param>
+        /// <returns>
+        /// a #GVariant, or %NULL when serialization fails.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_icon_serialize(
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
+        /// back by calling <see cref="Deserialize"/> on the returned value.
+        /// As serialization will avoid using raw icon data when possible, it only
+        /// makes sense to transfer the #GVariant between processes on the same machine,
+        /// (as opposed to over the network), and within the same file system namespace.
+        /// </summary>
+        /// <param name="icon">
+        /// a <see cref="IIcon"/>
+        /// </param>
+        /// <returns>
+        /// a #GVariant, or <c>null</c> when serialization fails.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        public static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
+        {
+            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            var ret_ = g_icon_serialize(icon_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Generates a textual representation of @icon that can be used for
+        /// serialization such as when passing @icon to a different process or
+        /// saving it to persistent storage. Use g_icon_new_for_string() to
+        /// get @icon back from the returned string.
+        /// </summary>
+        /// <remarks>
+        /// The encoding of the returned string is proprietary to #GIcon except
+        /// in the following two cases
+        /// 
+        /// - If @icon is a #GFileIcon, the returned string is a native path
+        ///   (such as `/path/to/my icon.png`) without escaping
+        ///   if the #GFile for @icon is a native file.  If the file is not
+        ///   native, the returned string is the result of g_file_get_uri()
+        ///   (such as `sftp://path/to/my%20icon.png`).
+        /// 
+        /// - If @icon is a #GThemedIcon with exactly one name, the encoding is
+        ///    simply the name (such as `network-server`).
+        /// </remarks>
+        /// <param name="icon">
+        /// a #GIcon.
+        /// </param>
+        /// <returns>
+        /// An allocated NUL-terminated UTF8 string or
+        /// %NULL if @icon can't be serialized. Use g_free() to free.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:out */
+        static extern System.IntPtr g_icon_to_string(
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Generates a textual representation of <paramref name="icon"/> that can be used for
+        /// serialization such as when passing <paramref name="icon"/> to a different process or
+        /// saving it to persistent storage. Use <see cref="NewForString"/> to
+        /// get <paramref name="icon"/> back from the returned string.
+        /// </summary>
+        /// <remarks>
+        /// The encoding of the returned string is proprietary to <see cref="IIcon"/> except
+        /// in the following two cases
+        /// 
+        /// - If <paramref name="icon"/> is a #GFileIcon, the returned string is a native path
+        ///   (such as `/path/to/my icon.png`) without escaping
+        ///   if the #GFile for <paramref name="icon"/> is a native file.  If the file is not
+        ///   native, the returned string is the result of g_file_get_uri()
+        ///   (such as `sftp://path/to/my%20icon.png`).
+        /// 
+        /// - If <paramref name="icon"/> is a <see cref="ThemedIcon"/> with exactly one name, the encoding is
+        ///    simply the name (such as `network-server`).
+        /// </remarks>
+        /// <param name="icon">
+        /// a <see cref="IIcon"/>.
+        /// </param>
+        /// <returns>
+        /// An allocated NUL-terminated UTF8 string or
+        /// <c>null</c> if <paramref name="icon"/> can't be serialized. Use g_free() to free.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public static GISharp.Lib.GLib.Utf8 ToString(this GISharp.Lib.Gio.IIcon icon)
+        {
+            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            var ret_ = g_icon_to_string(icon_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+    }
+
+    /// <summary>
+    /// GIconIface is used to implement GIcon types for various
+    /// different systems. See <see cref="ThemedIcon"/> and #GLoadableIcon for
+    /// examples of how to implement this interface.
+    /// </summary>
+    public sealed class IconIface : GISharp.Lib.GObject.TypeInterface
+    {
+        new struct Struct
+        {
+#pragma warning disable CS0649
+            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            public UnmanagedHash Hash;
+            public UnmanagedEqual Equal;
+            public System.IntPtr ToTokens;
+            public System.IntPtr FromTokens;
+            public UnmanagedSerialize Serialize;
+#pragma warning restore CS0649
+        }
+
+        static IconIface()
+        {
+            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Hash));
+            RegisterVirtualMethod(hashOffset, HashFactory.Create);
+            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Equal));
+            RegisterVirtualMethod(equalOffset, EqualFactory.Create);
+            System.Int32 serializeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Serialize));
+            RegisterVirtualMethod(serializeOffset, SerializeFactory.Create);
+        }
+
+        public delegate System.UInt32 Hash();
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:out */
+        public delegate System.UInt32 UnmanagedHash(
+/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr icon);
+
+        /// <summary>
+        /// Factory for creating <see cref="Hash"/> methods.
+        /// </summary>
+        public static class HashFactory
+        {
+            public static UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
+            {
+                System.UInt32 hash(System.IntPtr icon_)
+                {
+                    try
+                    {
+                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None);
+                        var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon);
+                        var ret = doHash();
+                        var ret_ = (System.UInt32)ret;
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    return default(System.UInt32);
+                }
+
+                return hash;
+            }
+        }
+
+        public delegate System.Boolean Equal(GISharp.Lib.Gio.IIcon icon2);
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        public delegate System.Boolean UnmanagedEqual(
+/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+System.IntPtr icon1,
+/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+System.IntPtr icon2);
+
+        /// <summary>
+        /// Factory for creating <see cref="Equal"/> methods.
+        /// </summary>
+        public static class EqualFactory
+        {
+            public static UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
+            {
+                System.Boolean equal(System.IntPtr icon1_, System.IntPtr icon2_)
+                {
+                    try
+                    {
+                        var icon1 = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon1_, GISharp.Runtime.Transfer.None);
+                        var icon2 = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon2_, GISharp.Runtime.Transfer.None);
+                        var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1);
+                        var ret = doEqual(icon2);
+                        var ret_ = (System.Boolean)ret;
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    return default(System.Boolean);
+                }
+
+                return equal;
+            }
+        }
+
+        public delegate GISharp.Lib.GLib.Variant Serialize();
+
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        public delegate System.IntPtr UnmanagedSerialize(
+/* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr icon);
+
+        /// <summary>
+        /// Factory for creating <see cref="Serialize"/> methods.
+        /// </summary>
+        public static class SerializeFactory
+        {
+            public static UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
+            {
+                System.IntPtr serialize(System.IntPtr icon_)
+                {
+                    try
+                    {
+                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None);
+                        var doSerialize = (Serialize)methodInfo.CreateDelegate(typeof(Serialize), icon);
+                        var ret = doSerialize();
+                        var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    return default(System.IntPtr);
+                }
+
+                return serialize;
+            }
+        }
+
+        public IconIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+    }
+
+    /// <summary>
     /// <see cref="InputStream"/> has functions to read from a stream (<see cref="Read"/>),
     /// to close a stream (<see cref="Close"/>) and to skip some content
     /// (<see cref="Skip"/>).
@@ -10193,6 +10726,315 @@ ref System.IntPtr error);
     /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr cancellable);
+
+    /// <summary>
+    /// <see cref="ThemedIcon"/> is an implementation of <see cref="IIcon"/> that supports icon themes.
+    /// <see cref="ThemedIcon"/> contains a list of all of the icons present in an icon
+    /// theme, so that icons can be looked up quickly. <see cref="ThemedIcon"/> does
+    /// not provide actual pixmaps for icons, just the icon names.
+    /// Ideally something like gtk_icon_theme_choose_icon() should be used to
+    /// resolve the list of names so that fallback icons work nicely with
+    /// themes that inherit other themes.
+    /// </summary>
+    [GISharp.Runtime.GTypeAttribute("GThemedIcon", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(ThemedIconClass))]
+    public partial class ThemedIcon : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IIcon
+    {
+        static readonly GISharp.Lib.GObject.GType _GType = g_themed_icon_get_type();
+
+        /// <summary>
+        /// The icon name.
+        /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
+        public GISharp.Lib.GLib.Utf8 Name { set => SetProperty("name", value); }
+
+        /// <summary>
+        /// A <c>null</c>-terminated array of icon names.
+        /// </summary>
+        [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
+        public GISharp.Lib.GLib.Strv Names_ { get => (GISharp.Lib.GLib.Strv)GetProperty("names"); set => SetProperty("names", value); }
+
+        /// <summary>
+        /// Whether to use the default fallbacks found by shortening the icon name
+        /// at '-' characters. If the "names" array has more than one element,
+        /// ignores any past the first.
+        /// </summary>
+        /// <remarks>
+        /// For example, if the icon name was "gnome-dev-cdrom-audio", the array
+        /// would become
+        /// |[&lt;!-- language="C" --&gt;
+        /// {
+        ///   "gnome-dev-cdrom-audio",
+        ///   "gnome-dev-cdrom",
+        ///   "gnome-dev",
+        ///   "gnome",
+        ///   NULL
+        /// };
+        /// ]|
+        /// </remarks>
+        [GISharp.Runtime.GPropertyAttribute("use-default-fallbacks", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
+        public System.Boolean UseDefaultFallbacks { get => (System.Boolean)GetProperty("use-default-fallbacks"); set => SetProperty("use-default-fallbacks", value); }
+
+        /// <summary>
+        /// Gets the names of icons from within <paramref name="icon"/>.
+        /// </summary>
+        public GISharp.Lib.GLib.Strv Names { get => GetNames(); }
+
+        public ThemedIcon(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new themed icon for @iconname.
+        /// </summary>
+        /// <param name="iconname">
+        /// a string containing an icon name.
+        /// </param>
+        /// <returns>
+        /// a new #GThemedIcon.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_themed_icon_new(
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr iconname);
+
+        static System.IntPtr New(GISharp.Lib.GLib.Utf8 iconname)
+        {
+            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var ret_ = g_themed_icon_new(iconname_);
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a new themed icon for @iconnames.
+        /// </summary>
+        /// <param name="iconnames">
+        /// an array of strings containing icon names.
+        /// </param>
+        /// <param name="len">
+        /// the length of the @iconnames array, or -1 if @iconnames is
+        ///     %NULL-terminated
+        /// </param>
+        /// <returns>
+        /// a new #GThemedIcon
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_themed_icon_new_from_names(
+        /* <array length="1" zero-terminated="0" type="char**" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+*   <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr iconnames,
+        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 len);
+
+        static System.IntPtr NewFromNames(GISharp.Runtime.IArray<GISharp.Lib.GLib.Utf8> iconnames)
+        {
+            var (iconnames_, len_) = ((System.IntPtr, System.Int32))((iconnames?.Data ?? throw new System.ArgumentNullException(nameof(iconnames)), iconnames?.Length ?? 0));
+            var ret_ = g_themed_icon_new_from_names(iconnames_,len_);
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a new themed icon for <paramref name="iconnames"/>.
+        /// </summary>
+        /// <param name="iconnames">
+        /// an array of strings containing icon names.
+        /// </param>
+        public ThemedIcon(GISharp.Runtime.IArray<GISharp.Lib.GLib.Utf8> iconnames) : this(NewFromNames(iconnames), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new themed icon for @iconname, and all the names
+        /// that can be created by shortening @iconname at '-' characters.
+        /// </summary>
+        /// <remarks>
+        /// In the following example, @icon1 and @icon2 are equivalent:
+        /// |[&lt;!-- language="C" --&gt;
+        /// const char *names[] = {
+        ///   "gnome-dev-cdrom-audio",
+        ///   "gnome-dev-cdrom",
+        ///   "gnome-dev",
+        ///   "gnome"
+        /// };
+        /// 
+        /// icon1 = g_themed_icon_new_from_names (names, 4);
+        /// icon2 = g_themed_icon_new_with_default_fallbacks ("gnome-dev-cdrom-audio");
+        /// ]|
+        /// </remarks>
+        /// <param name="iconname">
+        /// a string containing an icon name
+        /// </param>
+        /// <returns>
+        /// a new #GThemedIcon.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern System.IntPtr g_themed_icon_new_with_default_fallbacks(
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr iconname);
+
+        static System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.Utf8 iconname)
+        {
+            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
+            return ret_;
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        static extern GISharp.Lib.GObject.GType g_themed_icon_get_type();
+
+        /// <summary>
+        /// Append a name to the list of icons from within @icon.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to g_icon_hash().
+        /// </remarks>
+        /// <param name="icon">
+        /// a #GThemedIcon
+        /// </param>
+        /// <param name="iconname">
+        /// name of icon to append to list of icons from within @icon.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern void g_themed_icon_append_name(
+        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr iconname);
+
+        /// <summary>
+        /// Append a name to the list of icons from within <paramref name="icon"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to <see cref="GetHashCode"/>.
+        /// </remarks>
+        /// <param name="iconname">
+        /// name of icon to append to list of icons from within <paramref name="icon"/>.
+        /// </param>
+        public void AppendName(GISharp.Lib.GLib.Utf8 iconname)
+        {
+            var icon_ = Handle;
+            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            g_themed_icon_append_name(icon_, iconname_);
+        }
+
+        /// <summary>
+        /// Gets the names of icons from within @icon.
+        /// </summary>
+        /// <param name="icon">
+        /// a #GThemedIcon.
+        /// </param>
+        /// <returns>
+        /// a list of icon names.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array type="const gchar* const*" zero-terminated="1" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
+* </array> */
+        /* transfer-ownership:none direction:out */
+        static extern System.IntPtr g_themed_icon_get_names(
+        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Gets the names of icons from within <paramref name="icon"/>.
+        /// </summary>
+        /// <returns>
+        /// a list of icon names.
+        /// </returns>
+        private GISharp.Lib.GLib.Strv GetNames()
+        {
+            var icon_ = Handle;
+            var ret_ = g_themed_icon_get_names(icon_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Prepend a name to the list of icons from within @icon.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to g_icon_hash().
+        /// </remarks>
+        /// <param name="icon">
+        /// a #GThemedIcon
+        /// </param>
+        /// <param name="iconname">
+        /// name of icon to prepend to list of icons from within @icon.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.18")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern void g_themed_icon_prepend_name(
+        /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr iconname);
+
+        /// <summary>
+        /// Prepend a name to the list of icons from within <paramref name="icon"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to <see cref="GetHashCode"/>.
+        /// </remarks>
+        /// <param name="iconname">
+        /// name of icon to prepend to list of icons from within <paramref name="icon"/>.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.18")]
+        public void PrependName(GISharp.Lib.GLib.Utf8 iconname)
+        {
+            var icon_ = Handle;
+            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            g_themed_icon_prepend_name(icon_, iconname_);
+        }
+
+        System.Boolean GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon icon2)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        System.UInt32 GISharp.Lib.Gio.IIcon.DoHash()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IIcon.DoSerialize()
+        {
+            throw new System.NotImplementedException();
+        }
+    }
+
+    public sealed partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
+    {
+        public ThemedIconClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+    }
 
     public sealed partial class CancellableSource : GISharp.Lib.GLib.Source
     {
