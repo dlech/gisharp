@@ -90,10 +90,10 @@ namespace GISharp.CodeGen.Syntax
 
             // add optional Construct = GPropertyConstruct.X argument
             var construct = GPropertyConstruct.No;
-            if (property.Construct) {
+            if (property.IsConstruct) {
                 construct = GPropertyConstruct.Yes;
             }
-            if (property.ConstructOnly) {
+            if (property.IsConstructOnly) {
                 construct = GPropertyConstruct.Only;
             }
             if (construct != GPropertyConstruct.No) {

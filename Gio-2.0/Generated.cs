@@ -7770,14 +7770,14 @@ ref System.IntPtr error);
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
-        public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled"); }
+        public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled"); set => SetProperty("enabled", value); }
 
         /// <summary>
         /// The name of the action. This is mostly meaningful for identifying
         /// the action once it has been added to a #GSimpleActionGroup.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        [GISharp.Runtime.GPropertyAttribute("name")]
+        [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Utf8 Name { get => (GISharp.Lib.GLib.Utf8)GetProperty("name"); set => SetProperty("name", value); }
 
         /// <summary>
@@ -7785,15 +7785,15 @@ ref System.IntPtr error);
         /// action.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        [GISharp.Runtime.GPropertyAttribute("parameter-type")]
+        [GISharp.Runtime.GPropertyAttribute("parameter-type", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.VariantType ParameterType { get => (GISharp.Lib.GLib.VariantType)GetProperty("parameter-type"); set => SetProperty("parameter-type", value); }
 
         /// <summary>
         /// The state of the action, or <c>null</c> if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        [GISharp.Runtime.GPropertyAttribute("state")]
-        public GISharp.Lib.GLib.Variant State { get => (GISharp.Lib.GLib.Variant)GetProperty("state"); }
+        [GISharp.Runtime.GPropertyAttribute("state", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
+        public GISharp.Lib.GLib.Variant State { get => (GISharp.Lib.GLib.Variant)GetProperty("state"); set => SetProperty("state", value); }
 
         /// <summary>
         /// The #GVariantType of the state that the action has, or <c>null</c> if the

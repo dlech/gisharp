@@ -21,12 +21,12 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets if the property is construct writeable
         /// </summary>
-        public bool Construct { get; }
+        public bool IsConstruct { get; }
 
         /// <summary>
         /// Gets if the property is only construct writeable
         /// </summary>
-        public bool ConstructOnly { get; }
+        public bool IsConstructOnly { get; }
 
         /// <summary>
         /// Gets the ownership transfer of the property
@@ -46,9 +46,9 @@ namespace GISharp.CodeGen.Gir
             }
 
             IsReadable = Element.Attribute("readable").AsBool(true);
-            IsWriteable = Element.Attribute("writeable").AsBool(false);
-            IsWriteable = Element.Attribute("construct").AsBool(false);
-            IsWriteable = Element.Attribute("construct-only").AsBool(false);
+            IsWriteable = Element.Attribute("writable").AsBool(false);
+            IsConstruct = Element.Attribute("construct").AsBool(false);
+            IsConstructOnly = Element.Attribute("construct-only").AsBool(false);
             Ownership = Element.Attribute("transfer-ownership").AsTransfer(null);
             _Type = new Lazy<GIType>(LazyGetType, false);
         }
