@@ -90,9 +90,10 @@ namespace GISharp.CodeGen.Gir
         private protected GIRegisteredType(XElement element, GirNode parent)
             : base (element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
-            GTypeName = Element.Attribute(glib + "type-name").AsString();
-            GTypeGetter = Element.Attribute (glib + "get-type").AsString();
-            GTypeStruct = Element.Attribute (glib + "type-struct").AsString();
+            CType = element.Attribute(c + "type").AsString();
+            GTypeName = element.Attribute(glib + "type-name").AsString();
+            GTypeGetter = element.Attribute (glib + "get-type").AsString();
+            GTypeStruct = element.Attribute (glib + "type-struct").AsString();
             _GTypeStructNode = new Lazy<Record>(LazyGetGTypeStructNode, false);
             _Constants = new Lazy<List<Constant>>(() => LazyGetConstants().ToList(), false);
             _Fields = new Lazy<List<Field>>(() => LazyGetFields().ToList(), false);

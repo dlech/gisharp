@@ -58,7 +58,7 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(callback.GetCommonAttributeLists())
                 .AddAttributeLists(AttributeList().AddAttributes(attr))
                 .WithParameterList(parameterList)
-                .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia(false));
         }
 
         static IEnumerable<StatementSyntax> GetVirtualMethodStatements(this Callback callback)

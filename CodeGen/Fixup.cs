@@ -852,6 +852,7 @@ namespace GISharp.CodeGen
                 var propertyElement = new XElement(element);
                 propertyElement.Name = gs + "managed-property";
                 propertyElement.SetAttributeValue(gs + "managed-name", propertyName);
+                propertyElement.SetAttributeValue(c + "identifier", null);
                 element.AddBeforeSelf(propertyElement);
 
                 element.SetAttributeValue(gs + "property-getter-for", propertyName);

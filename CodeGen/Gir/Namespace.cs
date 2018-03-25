@@ -118,6 +118,20 @@ namespace GISharp.CodeGen.Gir
             _AllTypes = new Lazy<List<GIBase>>(() => LazyGetAllTypes().ToList(), false);
         }
 
+        /// <summary>
+        /// Finds a decendant node with the give identifier, if any
+        /// </summary>
+        /// <param name="identifier">The identifier to search for</param>
+        /// <returns>
+        /// The node or <c>null</c> if a matching node was not found.
+        /// </returns>
+        public GirNode FindNodeByCIdentifier(string identifier)
+        {
+            var match = Element.Descendants()
+                .SingleOrDefault(x => x.Attribute(c + "identifier").AsString() == identifier);
+            return GirNode.GetNode(match);
+        }
+
         IEnumerable<Alias> LazyGetAliases() =>
             Element.Elements(gi + "alias").Select(x => (Alias)GetNode(x));
 

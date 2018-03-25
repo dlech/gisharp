@@ -37,10 +37,10 @@ namespace GISharp.CodeGen.Syntax
                 .WithSemicolonToken(Token(SemicolonToken));
 
             var trivia = TriviaList()
-                .AddRange(function.Doc.GetDocCommentTrivia())
+                .AddRange(function.Doc.GetDocCommentTrivia(false))
                 .AddRange(function.Parameters
-                    .SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                .AddRange(function.ReturnValue.Doc.GetDocCommentTrivia());
+                    .SelectMany(x => x.Doc.GetDocCommentTrivia(false)))
+                .AddRange(function.ReturnValue.Doc.GetDocCommentTrivia(false));
 
             syntax = syntax.WithLeadingTrivia(trivia);
 

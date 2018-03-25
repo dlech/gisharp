@@ -230,13 +230,13 @@ namespace GISharp.Lib.GLib
         static extern System.IntPtr g_key_file_new();
 
         /// <summary>
-        /// Creates a new empty #GKeyFile object. Use
-        /// g_key_file_load_from_file(), g_key_file_load_from_data(),
-        /// g_key_file_load_from_dirs() or g_key_file_load_from_data_dirs() to
+        /// Creates a new empty <see cref="KeyFile"/> object. Use
+        /// <see cref="LoadFromFile"/>, <see cref="LoadFromData"/>,
+        /// <see cref="LoadFromDirs"/> or <see cref="LoadFromDataDirs"/> to
         /// read an existing key file.
         /// </summary>
         /// <returns>
-        /// an empty #GKeyFile.
+        /// an empty <see cref="KeyFile"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         static System.IntPtr New()
@@ -246,13 +246,13 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a new empty #GKeyFile object. Use
-        /// g_key_file_load_from_file(), g_key_file_load_from_data(),
-        /// g_key_file_load_from_dirs() or g_key_file_load_from_data_dirs() to
+        /// Creates a new empty <see cref="KeyFile"/> object. Use
+        /// <see cref="LoadFromFile"/>, <see cref="LoadFromData"/>,
+        /// <see cref="LoadFromDirs"/> or <see cref="LoadFromDataDirs"/> to
         /// read an existing key file.
         /// </summary>
         /// <returns>
-        /// an empty #GKeyFile.
+        /// an empty <see cref="KeyFile"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public KeyFile() : this(New(), GISharp.Runtime.Transfer.Full)
@@ -309,14 +309,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name as a
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
         /// boolean.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %FALSE is returned and @error is set
+        /// If <paramref name="key"/> cannot be found then <c>false</c> is returned and <paramref name="error"/> is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-        /// associated with @key cannot be interpreted as a boolean then %FALSE
-        /// is returned and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
+        /// is returned and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -326,7 +326,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the value associated with the key as a boolean,
-        ///    or %FALSE if the key was not found or could not be parsed.
+        ///    or <c>false</c> if the key was not found or could not be parsed.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -404,14 +404,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the values associated with @key under @group_name as
+        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
         /// booleans.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %NULL is returned and @error is set to
+        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with @key cannot be interpreted as booleans then %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -421,7 +421,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// 
-        ///    the values associated with the key as a list of booleans, or %NULL if the
+        ///    the values associated with the key as a list of booleans, or <c>null</c> if the
         ///    key was not found or could not be parsed. The returned list of booleans
         ///    should be freed with g_free() when no longer needed.
         /// </returns>
@@ -489,16 +489,16 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Retrieves a comment above @key from @group_name.
-        /// If @key is %NULL then @comment will be read from above
-        /// @group_name. If both @key and @group_name are %NULL, then
-        /// @comment will be read from above the first group in the file.
+        /// Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
+        /// <paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
+        /// <paramref name="comment"/> will be read from above the first group in the file.
         /// </summary>
         /// <remarks>
         /// Note that the returned string includes the '#' comment markers.
         /// </remarks>
         /// <param name="groupName">
-        /// a group name, or %NULL
+        /// a group name, or <c>null</c>
         /// </param>
         /// <param name="key">
         /// a key
@@ -572,14 +572,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name as a
-        /// double. If @group_name is %NULL, the start_group is used.
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
+        /// double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then 0.0 is returned and @error is set to
+        /// If <paramref name="key"/> cannot be found then 0.0 is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with @key cannot be interpreted as a double then 0.0 is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -667,14 +667,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the values associated with @key under @group_name as
+        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
         /// doubles.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %NULL is returned and @error is set to
+        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with @key cannot be interpreted as doubles then %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -684,7 +684,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// 
-        ///     the values associated with the key as a list of doubles, or %NULL if the
+        ///     the values associated with the key as a list of doubles, or <c>null</c> if the
         ///     key was not found or could not be parsed. The returned list of doubles
         ///     should be freed with g_free() when no longer needed.
         /// </returns>
@@ -739,15 +739,15 @@ namespace GISharp.Lib.GLib
         out System.UIntPtr length);
 
         /// <summary>
-        /// Returns all groups in the key file loaded with @key_file.
-        /// The array of returned groups will be %NULL-terminated, so
-        /// @length may optionally be %NULL.
+        /// Returns all groups in the key file loaded with <paramref name="keyFile"/>.
+        /// The array of returned groups will be <c>null</c>-terminated, so
+        /// <paramref name="length"/> may optionally be <c>null</c>.
         /// </summary>
         /// <param name="length">
-        /// return location for the number of returned groups, or %NULL
+        /// return location for the number of returned groups, or <c>null</c>
         /// </param>
         /// <returns>
-        /// a newly-allocated %NULL-terminated array of strings.
+        /// a newly-allocated <c>null</c>-terminated array of strings.
         ///   Use g_strfreev() to free it.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -800,15 +800,15 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name as a signed
-        /// 64-bit integer. This is similar to g_key_file_get_integer() but can return
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
+        /// 64-bit integer. This is similar to <see cref="GetInteger"/> but can return
         /// 64-bit results without truncation.
         /// </summary>
         /// <param name="groupName">
-        /// a non-%NULL group name
+        /// a non-<c>null</c> group name
         /// </param>
         /// <param name="key">
-        /// a non-%NULL key
+        /// a non-<c>null</c> key
         /// </param>
         /// <returns>
         /// the value associated with the key as a signed 64-bit integer, or
@@ -881,15 +881,15 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name as an
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
         /// integer.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then 0 is returned and @error is set to
+        /// If <paramref name="key"/> cannot be found then 0 is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with @key cannot be interpreted as an integer, or is out of range
+        /// with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
         /// for a #gint, then 0 is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -978,15 +978,15 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the values associated with @key under @group_name as
+        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
         /// integers.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %NULL is returned and @error is set to
+        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with @key cannot be interpreted as integers, or are out of range for
-        /// #gint, then %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+        /// with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
+        /// #gint, then <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -996,7 +996,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// 
-        ///     the values associated with the key as a list of integers, or %NULL if
+        ///     the values associated with the key as a list of integers, or <c>null</c> if
         ///     the key was not found or could not be parsed. The returned list of
         ///     integers should be freed with g_free() when no longer needed.
         /// </returns>
@@ -1065,20 +1065,20 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns all keys for the group name @group_name.  The array of
-        /// returned keys will be %NULL-terminated, so @length may
-        /// optionally be %NULL. In the event that the @group_name cannot
-        /// be found, %NULL is returned and @error is set to
+        /// Returns all keys for the group name <paramref name="groupName"/>.  The array of
+        /// returned keys will be <c>null</c>-terminated, so <paramref name="length"/> may
+        /// optionally be <c>null</c>. In the event that the <paramref name="groupName"/> cannot
+        /// be found, <c>null</c> is returned and <paramref name="error"/> is set to
         /// #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
         /// </summary>
         /// <param name="groupName">
         /// a group name
         /// </param>
         /// <param name="length">
-        /// return location for the number of keys returned, or %NULL
+        /// return location for the number of keys returned, or <c>null</c>
         /// </param>
         /// <returns>
-        /// a newly-allocated %NULL-terminated array of strings.
+        /// a newly-allocated <c>null</c>-terminated array of strings.
         ///     Use g_strfreev() to free it.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1154,14 +1154,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name
-        /// translated in the given @locale if available.  If @locale is
-        /// %NULL then the current locale is assumed.
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
+        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
+        /// <c>null</c> then the current locale is assumed.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %NULL is returned and @error is set
+        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
-        /// with @key cannot be interpreted or no suitable translation can
+        /// with <paramref name="key"/> cannot be interpreted or no suitable translation can
         /// be found then the untranslated value is returned.
         /// </remarks>
         /// <param name="groupName">
@@ -1171,10 +1171,10 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <param name="locale">
-        /// a locale identifier or %NULL
+        /// a locale identifier or <c>null</c>
         /// </param>
         /// <returns>
-        /// a newly allocated string or %NULL if the specified
+        /// a newly allocated string or <c>null</c> if the specified
         ///   key cannot be found.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1262,17 +1262,17 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the values associated with @key under @group_name
-        /// translated in the given @locale if available.  If @locale is
-        /// %NULL then the current locale is assumed.
+        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
+        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
+        /// <c>null</c> then the current locale is assumed.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then %NULL is returned and @error is set
+        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
-        /// with @key cannot be interpreted or no suitable translations
+        /// with <paramref name="key"/> cannot be interpreted or no suitable translations
         /// can be found then the untranslated values are returned. The
-        /// returned array is %NULL-terminated, so @length may optionally
-        /// be %NULL.
+        /// returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
+        /// be <c>null</c>.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -1281,11 +1281,11 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <param name="locale">
-        /// a locale identifier or %NULL
+        /// a locale identifier or <c>null</c>
         /// </param>
         /// <returns>
-        /// a newly allocated %NULL-terminated string array
-        ///   or %NULL if the key isn't found. The string array should be freed
+        /// a newly allocated <c>null</c>-terminated string array
+        ///   or <c>null</c> if the key isn't found. The string array should be freed
         ///   with g_strfreev().
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1389,15 +1389,15 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the string value associated with @key under @group_name.
-        /// Unlike g_key_file_get_value(), this function handles escape sequences
+        /// Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// Unlike <see cref="GetValue"/>, this function handles escape sequences
         /// like \s.
         /// </summary>
         /// <remarks>
-        /// In the event the key cannot be found, %NULL is returned and
-        /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the @group_name cannot be found, %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// In the event the key cannot be found, <c>null</c> is returned and
+        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -1406,7 +1406,7 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <returns>
-        /// a newly allocated string or %NULL if the specified
+        /// a newly allocated string or <c>null</c> if the specified
         ///   key cannot be found.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1483,13 +1483,13 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the values associated with @key under @group_name.
+        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
         /// </summary>
         /// <remarks>
-        /// In the event the key cannot be found, %NULL is returned and
-        /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the @group_name cannot be found, %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// In the event the key cannot be found, <c>null</c> is returned and
+        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -1499,7 +1499,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// 
-        ///  a %NULL-terminated string array or %NULL if the specified
+        ///  a <c>null</c>-terminated string array or <c>null</c> if the specified
         ///  key cannot be found. The array should be freed with g_strfreev().
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1563,15 +1563,15 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the value associated with @key under @group_name as an unsigned
-        /// 64-bit integer. This is similar to g_key_file_get_integer() but can return
+        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
+        /// 64-bit integer. This is similar to <see cref="GetInteger"/> but can return
         /// large positive results without truncation.
         /// </summary>
         /// <param name="groupName">
-        /// a non-%NULL group name
+        /// a non-<c>null</c> group name
         /// </param>
         /// <param name="key">
-        /// a non-%NULL key
+        /// a non-<c>null</c> key
         /// </param>
         /// <returns>
         /// the value associated with the key as an unsigned 64-bit integer,
@@ -1643,14 +1643,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Returns the raw value associated with @key under @group_name.
-        /// Use g_key_file_get_string() to retrieve an unescaped UTF-8 string.
+        /// Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// Use <see cref="GetString"/> to retrieve an unescaped UTF-8 string.
         /// </summary>
         /// <remarks>
-        /// In the event the key cannot be found, %NULL is returned and
-        /// @error is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the @group_name cannot be found, %NULL is returned
-        /// and @error is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+        /// In the event the key cannot be found, <c>null</c> is returned and
+        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -1659,7 +1659,7 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <returns>
-        /// a newly allocated string or %NULL if the specified
+        /// a newly allocated string or <c>null</c> if the specified
         ///  key cannot be found.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -1709,13 +1709,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr groupName);
 
         /// <summary>
-        /// Looks whether the key file has the group @group_name.
+        /// Looks whether the key file has the group <paramref name="groupName"/>.
         /// </summary>
         /// <param name="groupName">
         /// a group name
         /// </param>
         /// <returns>
-        /// %TRUE if @group_name is a part of @key_file, %FALSE
+        /// <c>true</c> if <paramref name="groupName"/> is a part of <paramref name="keyFile"/>, <c>false</c>
         /// otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -1766,14 +1766,14 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Loads a key file from the data in @bytes into an empty #GKeyFile structure.
-        /// If the object cannot be created then %error is set to a #GKeyFileError.
+        /// Loads a key file from the data in <paramref name="bytes"/> into an empty <see cref="KeyFile"/> structure.
+        /// If the object cannot be created then %error is set to a <see cref="KeyFile"/>Error.
         /// </summary>
         /// <param name="bytes">
         /// a #GBytes
         /// </param>
         /// <param name="flags">
-        /// flags from #GKeyFileFlags
+        /// flags from <see cref="KeyFileFlags"/>
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -1837,17 +1837,17 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Loads a key file from memory into an empty #GKeyFile structure.
-        /// If the object cannot be created then %error is set to a #GKeyFileError.
+        /// Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
+        /// If the object cannot be created then %error is set to a <see cref="KeyFile"/>Error.
         /// </summary>
         /// <param name="data">
         /// key file loaded in memory
         /// </param>
         /// <param name="length">
-        /// the length of @data in bytes (or (gsize)-1 if data is nul-terminated)
+        /// the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-terminated)
         /// </param>
         /// <param name="flags">
-        /// flags from #GKeyFileFlags
+        /// flags from <see cref="KeyFileFlags"/>
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -1916,21 +1916,21 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// This function looks for a key file named @file in the paths
+        /// This function looks for a key file named <paramref name="file"/> in the paths
         /// returned from g_get_user_data_dir() and g_get_system_data_dirs(),
-        /// loads the file into @key_file and returns the file's full path in
-        /// @full_path.  If the file could not be loaded then an %error is
-        /// set to either a #GFileError or #GKeyFileError.
+        /// loads the file into <paramref name="keyFile"/> and returns the file's full path in
+        /// <paramref name="fullPath"/>.  If the file could not be loaded then an %error is
+        /// set to either a #GFileError or <see cref="KeyFileError"/>.
         /// </summary>
         /// <param name="file">
         /// a relative path to a filename to open and parse
         /// </param>
         /// <param name="fullPath">
         /// return location for a string containing the full path
-        ///   of the file, or %NULL
+        ///   of the file, or <c>null</c>
         /// </param>
         /// <param name="flags">
-        /// flags from #GKeyFileFlags
+        /// flags from <see cref="KeyFileFlags"/>
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -2013,13 +2013,13 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// This function looks for a key file named @file in the paths
-        /// specified in @search_dirs, loads the file into @key_file and
-        /// returns the file's full path in @full_path.
+        /// This function looks for a key file named <paramref name="file"/> in the paths
+        /// specified in <paramref name="searchDirs"/>, loads the file into <paramref name="keyFile"/> and
+        /// returns the file's full path in <paramref name="fullPath"/>.
         /// </summary>
         /// <remarks>
-        /// If the file could not be found in any of the @search_dirs,
-        /// %G_KEY_FILE_ERROR_NOT_FOUND is returned. If
+        /// If the file could not be found in any of the <paramref name="searchDirs"/>,
+        /// <see cref="KeyFileError.NotFound"/> is returned. If
         /// the file is found but the OS returns an error when opening or reading the
         /// file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
         /// %G_KEY_FILE_ERROR is returned.
@@ -2028,14 +2028,14 @@ namespace GISharp.Lib.GLib
         /// a relative path to a filename to open and parse
         /// </param>
         /// <param name="searchDirs">
-        /// %NULL-terminated array of directories to search
+        /// <c>null</c>-terminated array of directories to search
         /// </param>
         /// <param name="fullPath">
         /// return location for a string containing the full path
-        ///   of the file, or %NULL
+        ///   of the file, or <c>null</c>
         /// </param>
         /// <param name="flags">
-        /// flags from #GKeyFileFlags
+        /// flags from <see cref="KeyFileFlags"/>
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -2103,21 +2103,21 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Loads a key file into an empty #GKeyFile structure.
+        /// Loads a key file into an empty <see cref="KeyFile"/> structure.
         /// </summary>
         /// <remarks>
         /// If the OS returns an error when opening or reading the file, a
         /// %G_FILE_ERROR is returned. If there is a problem parsing the file, a
         /// %G_KEY_FILE_ERROR is returned.
         /// 
-        /// This function will never return a %G_KEY_FILE_ERROR_NOT_FOUND error. If the
-        /// @file is not found, %G_FILE_ERROR_NOENT is returned.
+        /// This function will never return a <see cref="KeyFileError.NotFound"/> error. If the
+        /// <paramref name="file"/> is not found, %G_FILE_ERROR_NOENT is returned.
         /// </remarks>
         /// <param name="file">
         /// the path of a filename to load, in the GLib filename encoding
         /// </param>
         /// <param name="flags">
-        /// flags from #GKeyFileFlags
+        /// flags from <see cref="KeyFileFlags"/>
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -2177,13 +2177,13 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Removes a comment above @key from @group_name.
-        /// If @key is %NULL then @comment will be removed above @group_name.
-        /// If both @key and @group_name are %NULL, then @comment will
+        /// Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
+        /// If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
         /// be removed above the first group in the file.
         /// </summary>
         /// <param name="groupName">
-        /// a group name, or %NULL
+        /// a group name, or <c>null</c>
         /// </param>
         /// <param name="key">
         /// a key
@@ -2238,7 +2238,7 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Removes the specified group, @group_name,
+        /// Removes the specified group, <paramref name="groupName"/>,
         /// from the key file.
         /// </summary>
         /// <param name="groupName">
@@ -2298,7 +2298,7 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Removes @key in @group_name from the key file.
+        /// Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2360,7 +2360,7 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Writes the contents of @key_file to @filename using
+        /// Writes the contents of <paramref name="keyFile"/> to <paramref name="filename"/> using
         /// g_file_set_contents().
         /// </summary>
         /// <remarks>
@@ -2422,8 +2422,8 @@ namespace GISharp.Lib.GLib
         System.Boolean value);
 
         /// <summary>
-        /// Associates a new boolean value with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2432,7 +2432,7 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <param name="value">
-        /// %TRUE or %FALSE
+        /// <c>true</c> or <c>false</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetBoolean(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.Boolean value)
@@ -2488,9 +2488,9 @@ namespace GISharp.Lib.GLib
         System.UIntPtr length);
 
         /// <summary>
-        /// Associates a list of boolean values with @key under @group_name.
-        /// If @key cannot be found then it is created.
-        /// If @group_name is %NULL, the start_group is used.
+        /// Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
+        /// If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2562,18 +2562,18 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// Places a comment above @key from @group_name.
+        /// Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
         /// </summary>
         /// <remarks>
-        /// If @key is %NULL then @comment will be written above @group_name.
-        /// If both @key and @group_name  are %NULL, then @comment will be
+        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
+        /// If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
         /// written above the first group in the file.
         /// 
         /// Note that this function prepends a '#' comment marker to
-        /// each line of @comment.
+        /// each line of <paramref name="comment"/>.
         /// </remarks>
         /// <param name="groupName">
-        /// a group name, or %NULL
+        /// a group name, or <c>null</c>
         /// </param>
         /// <param name="key">
         /// a key
@@ -2635,8 +2635,8 @@ namespace GISharp.Lib.GLib
         System.Double value);
 
         /// <summary>
-        /// Associates a new double value with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2700,8 +2700,8 @@ namespace GISharp.Lib.GLib
         System.UIntPtr length);
 
         /// <summary>
-        /// Associates a list of double values with @key under
-        /// @group_name.  If @key cannot be found then it is created.
+        /// Associates a list of double values with <paramref name="key"/> under
+        /// <paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2757,8 +2757,8 @@ namespace GISharp.Lib.GLib
         System.Int64 value);
 
         /// <summary>
-        /// Associates a new integer value with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2814,8 +2814,8 @@ namespace GISharp.Lib.GLib
         System.Int32 value);
 
         /// <summary>
-        /// Associates a new integer value with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2879,8 +2879,8 @@ namespace GISharp.Lib.GLib
         System.UIntPtr length);
 
         /// <summary>
-        /// Associates a list of integer values with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -2981,8 +2981,8 @@ namespace GISharp.Lib.GLib
         System.IntPtr @string);
 
         /// <summary>
-        /// Associates a string value for @key and @locale under @group_name.
-        /// If the translation for @key cannot be found then it is created.
+        /// Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
+        /// If the translation for <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -3094,10 +3094,10 @@ namespace GISharp.Lib.GLib
         System.IntPtr @string);
 
         /// <summary>
-        /// Associates a new string value with @key under @group_name.
-        /// If @key cannot be found then it is created.
-        /// If @group_name cannot be found then it is created.
-        /// Unlike g_key_file_set_value(), this function handles characters
+        /// Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
+        /// If <paramref name="groupName"/> cannot be found then it is created.
+        /// Unlike <see cref="SetValue"/>, this function handles characters
         /// that need escaping, such as newlines.
         /// </summary>
         /// <param name="groupName">
@@ -3197,8 +3197,8 @@ namespace GISharp.Lib.GLib
         System.UInt64 value);
 
         /// <summary>
-        /// Associates a new integer value with @key under @group_name.
-        /// If @key cannot be found then it is created.
+        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+        /// If <paramref name="key"/> cannot be found then it is created.
         /// </summary>
         /// <param name="groupName">
         /// a group name
@@ -3259,13 +3259,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr value);
 
         /// <summary>
-        /// Associates a new value with @key under @group_name.
+        /// Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
         /// </summary>
         /// <remarks>
-        /// If @key cannot be found then it is created. If @group_name cannot
+        /// If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
         /// be found then it is created. To set an UTF-8 string which may contain
         /// characters that need escaping (such as newlines or spaces), use
-        /// g_key_file_set_string().
+        /// <see cref="SetString"/>.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -3323,19 +3323,19 @@ namespace GISharp.Lib.GLib
         ref System.IntPtr error);
 
         /// <summary>
-        /// This function outputs @key_file as a string.
+        /// This function outputs <paramref name="keyFile"/> as a string.
         /// </summary>
         /// <remarks>
         /// Note that this function never reports an error,
-        /// so it is safe to pass %NULL as @error.
+        /// so it is safe to pass <c>null</c> as <paramref name="error"/>.
         /// </remarks>
         /// <param name="length">
         /// return location for the length of the
-        ///   returned string, or %NULL
+        ///   returned string, or <c>null</c>
         /// </param>
         /// <returns>
         /// a newly allocated string holding
-        ///   the contents of the #GKeyFile
+        ///   the contents of the <see cref="KeyFile"/>
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -3449,7 +3449,7 @@ namespace GISharp.Lib.GLib
     }
 
     /// <summary>
-    /// The #GOptionArg enum values determine which type of extra argument the
+    /// The <see cref="OptionArg"/> enum values determine which type of extra argument the
     /// options expect to find. If an option expects an extra argument, it can
     /// be specified in several ways; with a short option: `-x arg`, with a long
     /// option: `--name arg` or combined in a single argument: `--name=arg`.
@@ -3470,7 +3470,7 @@ namespace GISharp.Lib.GLib
         Int = 2,
         /// <summary>
         /// The option provides a callback (of type
-        ///     #GOptionArgFunc) to parse the extra argument.
+        ///     <see cref="OptionArgFunc"/>) to parse the extra argument.
         /// </summary>
         Callback = 3,
         /// <summary>
@@ -3495,7 +3495,7 @@ namespace GISharp.Lib.GLib
         Double = 7,
         /// <summary>
         /// The option takes a 64-bit integer. Like
-        ///     %G_OPTION_ARG_INT but for larger numbers. The number can be in
+        ///     <see cref="OptionArg.Int"/> but for larger numbers. The number can be in
         ///     decimal base, or in hexadecimal (when prefixed with `0x`, for
         ///     example, `0xffffffff`).
         /// </summary>
@@ -3525,7 +3525,7 @@ namespace GISharp.Lib.GLib
     ref System.IntPtr error);
 
     /// <summary>
-    /// The type of function to be passed as callback for %G_OPTION_ARG_CALLBACK
+    /// The type of function to be passed as callback for <see cref="OptionArg.Callback"/>
     /// options.
     /// </summary>
     public delegate void OptionArgFunc(GISharp.Lib.GLib.Utf8 optionName, GISharp.Lib.GLib.Utf8 value);
@@ -3641,27 +3641,27 @@ namespace GISharp.Lib.GLib
     public sealed partial class OptionContext : GISharp.Runtime.Opaque
     {
         /// <summary>
-        /// Returns the description. See g_option_context_set_description().
+        /// Returns the description. See <see cref="SetDescription"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.Utf8 Description { get => GetDescription(); set => SetDescription(value); }
 
         /// <summary>
         /// Returns whether automatic `--help` generation
-        /// is turned on for @context. See g_option_context_set_help_enabled().
+        /// is turned on for <paramref name="context"/>. See <see cref="SetHelpEnabled"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
 
         /// <summary>
         /// Returns whether unknown options are ignored or not. See
-        /// g_option_context_set_ignore_unknown_options().
+        /// <see cref="SetIgnoreUnknownOptions"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
 
         /// <summary>
-        /// Returns a pointer to the main group of @context.
+        /// Returns a pointer to the main group of <paramref name="context"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.OptionGroup MainGroup { get => GetMainGroup(); set => SetMainGroup(value); }
@@ -3670,13 +3670,13 @@ namespace GISharp.Lib.GLib
         /// Returns whether strict POSIX code is enabled.
         /// </summary>
         /// <remarks>
-        /// See g_option_context_set_strict_posix() for more information.
+        /// See <see cref="SetStrictPosix"/> for more information.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
 
         /// <summary>
-        /// Returns the summary. See g_option_context_set_summary().
+        /// Returns the summary. See <see cref="SetSummary"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.Utf8 Summary { get => GetSummary(); set => SetSummary(value); }
@@ -3729,22 +3729,22 @@ namespace GISharp.Lib.GLib
         /// Creates a new option context.
         /// </summary>
         /// <remarks>
-        /// The @parameter_string can serve multiple purposes. It can be used
+        /// The <paramref name="parameterString"/> can serve multiple purposes. It can be used
         /// to add descriptions for "rest" arguments, which are not parsed by
-        /// the #GOptionContext, typically something like "FILES" or
+        /// the <see cref="OptionContext"/>, typically something like "FILES" or
         /// "FILE1 FILE2...". If you are using #G_OPTION_REMAINING for
         /// collecting "rest" arguments, GLib handles this automatically by
-        /// using the @arg_description of the corresponding #GOptionEntry in
+        /// using the <paramref name="argDescription"/> of the corresponding <see cref="OptionEntry"/> in
         /// the usage summary.
         /// 
         /// Another usage is to give a short summary of the program
         /// functionality, like " - frob the strings", which will be displayed
         /// in the same line as the usage. For a longer description of the
         /// program functionality that should be displayed as a paragraph
-        /// below the usage line, use g_option_context_set_summary().
+        /// below the usage line, use <see cref="SetSummary"/>.
         /// 
-        /// Note that the @parameter_string is translated using the
-        /// function set with g_option_context_set_translate_func(), so
+        /// Note that the <paramref name="parameterString"/> is translated using the
+        /// function set with <see cref="SetTranslateFunc"/>, so
         /// it should normally be passed untranslated.
         /// </remarks>
         /// <param name="parameterString">
@@ -3753,8 +3753,8 @@ namespace GISharp.Lib.GLib
         ///    `programname [OPTION...]`
         /// </param>
         /// <returns>
-        /// a newly created #GOptionContext, which must be
-        ///    freed with g_option_context_free() after use.
+        /// a newly created <see cref="OptionContext"/>, which must be
+        ///    freed with <see cref="Free"/> after use.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         private static System.IntPtr New(GISharp.Lib.GLib.Utf8 parameterString)
@@ -3789,9 +3789,9 @@ namespace GISharp.Lib.GLib
         System.IntPtr group);
 
         /// <summary>
-        /// Adds a #GOptionGroup to the @context, so that parsing with @context
+        /// Adds a <see cref="OptionGroup"/> to the <paramref name="context"/>, so that parsing with <paramref name="context"/>
         /// will recognize the options in the group. Note that this will take
-        /// ownership of the @group and thus the @group should not be freed.
+        /// ownership of the <paramref name="group"/> and thus the <paramref name="group"/> should not be freed.
         /// </summary>
         /// <param name="group">
         /// the group to add
@@ -3843,7 +3843,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr context);
 
         /// <summary>
-        /// Returns the description. See g_option_context_set_description().
+        /// Returns the description. See <see cref="SetDescription"/>.
         /// </summary>
         /// <returns>
         /// the description
@@ -3903,10 +3903,10 @@ namespace GISharp.Lib.GLib
         /// `g_option_context_get_help (context, FALSE, group)`.
         /// </summary>
         /// <param name="mainHelp">
-        /// if %TRUE, only include the main group
+        /// if <c>true</c>, only include the main group
         /// </param>
         /// <param name="group">
-        /// the #GOptionGroup to create help for, or %NULL
+        /// the <see cref="OptionGroup"/> to create help for, or <c>null</c>
         /// </param>
         /// <returns>
         /// A newly allocated string containing the help text
@@ -3943,10 +3943,10 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns whether automatic `--help` generation
-        /// is turned on for @context. See g_option_context_set_help_enabled().
+        /// is turned on for <paramref name="context"/>. See <see cref="SetHelpEnabled"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if automatic help generation is turned on.
+        /// <c>true</c> if automatic help generation is turned on.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         private System.Boolean GetHelpEnabled()
@@ -3978,10 +3978,10 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns whether unknown options are ignored or not. See
-        /// g_option_context_set_ignore_unknown_options().
+        /// <see cref="SetIgnoreUnknownOptions"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if unknown options are ignored.
+        /// <c>true</c> if unknown options are ignored.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         private System.Boolean GetIgnoreUnknownOptions()
@@ -4013,12 +4013,12 @@ namespace GISharp.Lib.GLib
         System.IntPtr context);
 
         /// <summary>
-        /// Returns a pointer to the main group of @context.
+        /// Returns a pointer to the main group of <paramref name="context"/>.
         /// </summary>
         /// <returns>
-        /// the main group of @context, or %NULL if
-        ///  @context doesn't have a main group. Note that group belongs to
-        ///  @context and should not be modified or freed.
+        /// the main group of <paramref name="context"/>, or <c>null</c> if
+        ///  <paramref name="context"/> doesn't have a main group. Note that group belongs to
+        ///  <paramref name="context"/> and should not be modified or freed.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         private GISharp.Lib.GLib.OptionGroup GetMainGroup()
@@ -4054,10 +4054,10 @@ namespace GISharp.Lib.GLib
         /// Returns whether strict POSIX code is enabled.
         /// </summary>
         /// <remarks>
-        /// See g_option_context_set_strict_posix() for more information.
+        /// See <see cref="SetStrictPosix"/> for more information.
         /// </remarks>
         /// <returns>
-        /// %TRUE if strict POSIX is enabled, %FALSE otherwise.
+        /// <c>true</c> if strict POSIX is enabled, <c>false</c> otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
         private System.Boolean GetStrictPosix()
@@ -4087,7 +4087,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr context);
 
         /// <summary>
-        /// Returns the summary. See g_option_context_set_summary().
+        /// Returns the summary. See <see cref="SetSummary"/>.
         /// </summary>
         /// <returns>
         /// the summary
@@ -4134,11 +4134,11 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// Note that the summary is translated (see
-        /// g_option_context_set_translate_func()).
+        /// <see cref="SetTranslateFunc"/>).
         /// </remarks>
         /// <param name="description">
         /// a string to be shown in `--help` output
-        ///   after the list of options, or %NULL
+        ///   after the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         private void SetDescription(GISharp.Lib.GLib.Utf8 description)
@@ -4179,7 +4179,7 @@ namespace GISharp.Lib.GLib
         /// output to stdout.
         /// </summary>
         /// <param name="helpEnabled">
-        /// %TRUE to enable `--help`, %FALSE to disable it
+        /// <c>true</c> to enable `--help`, <c>false</c> to disable it
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         private void SetHelpEnabled(System.Boolean helpEnabled)
@@ -4220,7 +4220,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets whether to ignore unknown options or not. If an argument is
-        /// ignored, it is left in the @argv array after parsing. By default,
+        /// ignored, it is left in the <paramref name="argv"/> array after parsing. By default,
         /// g_option_context_parse() treats unknown options as error.
         /// </summary>
         /// <remarks>
@@ -4229,7 +4229,7 @@ namespace GISharp.Lib.GLib
         /// determine whether a non-option belongs to a preceding unknown option.
         /// </remarks>
         /// <param name="ignoreUnknown">
-        /// %TRUE to ignore unknown options, %FALSE to produce
+        /// <c>true</c> to ignore unknown options, <c>false</c> to produce
         ///    an error when unknown options are met
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -4265,8 +4265,8 @@ namespace GISharp.Lib.GLib
         System.IntPtr group);
 
         /// <summary>
-        /// Sets a #GOptionGroup as main group of the @context.
-        /// This has the same effect as calling g_option_context_add_group(),
+        /// Sets a <see cref="OptionGroup"/> as main group of the <paramref name="context"/>.
+        /// This has the same effect as calling <see cref="AddGroup"/>,
         /// the only difference is that the options in the main group are
         /// treated differently when generating `--help` output.
         /// </summary>
@@ -4398,12 +4398,12 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// Note that the summary is translated (see
-        /// g_option_context_set_translate_func() and
-        /// g_option_context_set_translation_domain()).
+        /// <see cref="SetTranslateFunc"/> and
+        /// <see cref="SetTranslationDomain"/>).
         /// </remarks>
         /// <param name="summary">
         /// a string to be shown in `--help` output
-        ///  before the list of options, or %NULL
+        ///  before the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         private void SetSummary(GISharp.Lib.GLib.Utf8 summary)
@@ -4459,20 +4459,20 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets the function which is used to translate the contexts
-        /// user-visible strings, for `--help` output. If @func is %NULL,
+        /// user-visible strings, for `--help` output. If <paramref name="func"/> is <c>null</c>,
         /// strings are not translated.
         /// </summary>
         /// <remarks>
         /// Note that option groups have their own translation functions,
-        /// this function only affects the @parameter_string (see g_option_context_new()),
-        /// the summary (see g_option_context_set_summary()) and the description
-        /// (see g_option_context_set_description()).
+        /// this function only affects the <paramref name="parameterString"/> (see <see cref="New"/>),
+        /// the summary (see <see cref="SetSummary"/>) and the description
+        /// (see <see cref="SetDescription"/>).
         /// 
         /// If you are using gettext(), you only need to set the translation
-        /// domain, see g_option_context_set_translation_domain().
+        /// domain, see <see cref="SetTranslationDomain"/>.
         /// </remarks>
         /// <param name="func">
-        /// the #GTranslateFunc, or %NULL
+        /// the <see cref="TranslateFunc"/>, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
@@ -4522,8 +4522,8 @@ namespace GISharp.Lib.GLib
 
     /// <summary>
     /// A GOptionEntry struct defines a single option. To have an effect, they
-    /// must be added to a #GOptionGroup with g_option_context_add_main_entries()
-    /// or g_option_group_add_entries().
+    /// must be added to a <see cref="OptionGroup"/> with g_option_context_add_main_entries()
+    /// or <see cref="AddEntries"/>.
     /// </summary>
     public partial struct OptionEntry
     {
@@ -4538,55 +4538,55 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// If an option has a short name, it can be specified
-        ///     `-short_name` in a commandline. @short_name must be  a printable
+        ///     `-short_name` in a commandline. <paramref name="shortName"/> must be  a printable
         ///     ASCII character different from '-', or zero if the option has no
         ///     short name.
         /// </summary>
         public System.SByte ShortName;
 
         /// <summary>
-        /// Flags from #GOptionFlags
+        /// Flags from <see cref="OptionFlags"/>
         /// </summary>
         public System.Int32 Flags;
 
         /// <summary>
-        /// The type of the option, as a #GOptionArg
+        /// The type of the option, as a <see cref="OptionArg"/>
         /// </summary>
         public GISharp.Lib.GLib.OptionArg Arg;
 
         /// <summary>
-        /// If the @arg type is %G_OPTION_ARG_CALLBACK, then @arg_data
-        ///     must point to a #GOptionArgFunc callback function, which will be
-        ///     called to handle the extra argument. Otherwise, @arg_data is a
+        /// If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <paramref name="arg"/>_data
+        ///     must point to a <see cref="OptionArgFunc"/> callback function, which will be
+        ///     called to handle the extra argument. Otherwise, <paramref name="arg"/>_data is a
         ///     pointer to a location to store the value, the required type of
-        ///     the location depends on the @arg type:
-        ///     - %G_OPTION_ARG_NONE: %gboolean
-        ///     - %G_OPTION_ARG_STRING: %gchar*
-        ///     - %G_OPTION_ARG_INT: %gint
-        ///     - %G_OPTION_ARG_FILENAME: %gchar*
-        ///     - %G_OPTION_ARG_STRING_ARRAY: %gchar**
-        ///     - %G_OPTION_ARG_FILENAME_ARRAY: %gchar**
-        ///     - %G_OPTION_ARG_DOUBLE: %gdouble
-        ///     If @arg type is %G_OPTION_ARG_STRING or %G_OPTION_ARG_FILENAME,
+        ///     the location depends on the <paramref name="arg"/> type:
+        ///     - <see cref="OptionArg.None"/>: %gboolean
+        ///     - <see cref="OptionArg.String"/>: %gchar*
+        ///     - <see cref="OptionArg.Int"/>: %gint
+        ///     - <see cref="OptionArg.Filename"/>: %gchar*
+        ///     - <see cref="OptionArg.String"/>_ARRAY: %gchar**
+        ///     - <see cref="OptionArg.Filename"/>_ARRAY: %gchar**
+        ///     - <see cref="OptionArg.Double"/>: %gdouble
+        ///     If <paramref name="arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
         ///     the location will contain a newly allocated string if the option
         ///     was given. That string needs to be freed by the callee using g_free().
-        ///     Likewise if @arg type is %G_OPTION_ARG_STRING_ARRAY or
-        ///     %G_OPTION_ARG_FILENAME_ARRAY, the data should be freed using g_strfreev().
+        ///     Likewise if <paramref name="arg"/> type is <see cref="OptionArg.String"/>_ARRAY or
+        ///     <see cref="OptionArg.Filename"/>_ARRAY, the data should be freed using g_strfreev().
         /// </summary>
         public System.IntPtr ArgData;
 
         /// <summary>
         /// the description for the option in `--help`
-        ///     output. The @description is translated using the @translate_func
-        ///     of the group, see g_option_group_set_translation_domain().
+        ///     output. The <paramref name="description"/> is translated using the <paramref name="translateFunc"/>
+        ///     of the group, see <see cref="SetTranslationDomain"/>.
         /// </summary>
         public System.IntPtr Description;
 
         /// <summary>
         /// The placeholder to use for the extra argument parsed
-        ///     by the option in `--help` output. The @arg_description is translated
-        ///     using the @translate_func of the group, see
-        ///     g_option_group_set_translation_domain().
+        ///     by the option in `--help` output. The <paramref name="argDescription"/> is translated
+        ///     using the <paramref name="translateFunc"/> of the group, see
+        ///     <see cref="SetTranslationDomain"/>.
         /// </summary>
         public System.IntPtr ArgDescription;
     }
@@ -4600,7 +4600,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// An option was not known to the parser.
         ///  This error will only be reported, if the parser hasn't been instructed
-        ///  to ignore unknown options, see g_option_context_set_ignore_unknown_options().
+        ///  to ignore unknown options, see <see cref="SetIgnoreUnknownOptions"/>.
         /// </summary>
         UnknownOption = 0,
         /// <summary>
@@ -4608,7 +4608,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         BadValue = 1,
         /// <summary>
-        /// A #GOptionArgFunc callback failed.
+        /// A <see cref="OptionArgFunc"/> callback failed.
         /// </summary>
         Failed = 2
     }
@@ -4774,26 +4774,26 @@ namespace GISharp.Lib.GLib
         /// </summary>
         InMain = 2,
         /// <summary>
-        /// For options of the %G_OPTION_ARG_NONE kind, this
+        /// For options of the <see cref="OptionArg.None"/> kind, this
         ///     flag indicates that the sense of the option is reversed.
         /// </summary>
         Reverse = 4,
         /// <summary>
-        /// For options of the %G_OPTION_ARG_CALLBACK kind,
+        /// For options of the <see cref="OptionArg.Callback"/> kind,
         ///     this flag indicates that the callback does not take any argument
-        ///     (like a %G_OPTION_ARG_NONE option).
+        ///     (like a <see cref="OptionArg.None"/> option).
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
         NoArg = 8,
         /// <summary>
-        /// For options of the %G_OPTION_ARG_CALLBACK
+        /// For options of the <see cref="OptionArg.Callback"/>
         ///     kind, this flag indicates that the argument should be passed to the
         ///     callback in the GLib filename encoding rather than UTF-8.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
         Filename = 16,
         /// <summary>
-        /// For options of the %G_OPTION_ARG_CALLBACK
+        /// For options of the <see cref="OptionArg.Callback"/>
         ///     kind, this flag indicates that the argument supply is optional.
         ///     If no argument is given then data of %GOptionParseFunc will be
         ///     set to NULL.
@@ -4820,7 +4820,7 @@ namespace GISharp.Lib.GLib
     /// All options in a group share the same translation function. Libraries which
     /// need to parse commandline options are expected to provide a function for
     /// getting a `GOptionGroup` holding their options, which
-    /// the application can then add to its #GOptionContext.
+    /// the application can then add to its <see cref="OptionContext"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GOptionGroup", IsProxyForUnmanagedType = true)]
     public sealed partial class OptionGroup : GISharp.Lib.GObject.Boxed
@@ -5002,14 +5002,14 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Sets the function which is used to translate user-visible strings,
         /// for `--help` output. Different groups can use different
-        /// #GTranslateFuncs. If @func is %NULL, strings are not translated.
+        /// #GTranslateFuncs. If <paramref name="func"/> is <c>null</c>, strings are not translated.
         /// </summary>
         /// <remarks>
         /// If you are using gettext(), you only need to set the translation
-        /// domain, see g_option_group_set_translation_domain().
+        /// domain, see <see cref="SetTranslationDomain"/>.
         /// </remarks>
         /// <param name="func">
-        /// the #GTranslateFunc, or %NULL
+        /// the <see cref="TranslateFunc"/>, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
@@ -5328,7 +5328,7 @@ namespace GISharp.Lib.GLib
     /// This is an opaque structure and may only be accessed using the
     /// following functions.
     /// 
-    /// #GVariantBuilder is not threadsafe in any way.  Do not attempt to
+    /// <see cref="VariantBuilder"/> is not threadsafe in any way.  Do not attempt to
     /// access it from more than one thread.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GVariantBuilder", IsProxyForUnmanagedType = true)]
@@ -5368,14 +5368,14 @@ namespace GISharp.Lib.GLib
         System.IntPtr type);
 
         /// <summary>
-        /// Allocates and initialises a new #GVariantBuilder.
+        /// Allocates and initialises a new <see cref="VariantBuilder"/>.
         /// </summary>
         /// <remarks>
-        /// You should call g_variant_builder_unref() on the return value when it
+        /// You should call <see cref="Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
-        /// In most cases it is easier to place a #GVariantBuilder directly on
+        /// In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_builder_init().
         /// </remarks>
@@ -5383,7 +5383,7 @@ namespace GISharp.Lib.GLib
         /// a container type
         /// </param>
         /// <returns>
-        /// a #GVariantBuilder
+        /// a <see cref="VariantBuilder"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         static System.IntPtr New(GISharp.Lib.GLib.VariantType type)
@@ -5395,14 +5395,14 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Allocates and initialises a new #GVariantBuilder.
+        /// Allocates and initialises a new <see cref="VariantBuilder"/>.
         /// </summary>
         /// <remarks>
-        /// You should call g_variant_builder_unref() on the return value when it
+        /// You should call <see cref="Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
-        /// In most cases it is easier to place a #GVariantBuilder directly on
+        /// In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_builder_init().
         /// </remarks>
@@ -5410,7 +5410,7 @@ namespace GISharp.Lib.GLib
         /// a container type
         /// </param>
         /// <returns>
-        /// a #GVariantBuilder
+        /// a <see cref="VariantBuilder"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         public VariantBuilder(GISharp.Lib.GLib.VariantType type) : this(New(type), GISharp.Runtime.Transfer.Full)
@@ -5454,7 +5454,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr value);
 
         /// <summary>
-        /// Adds @value to @builder.
+        /// Adds <paramref name="value"/> to <paramref name="builder"/>.
         /// </summary>
         /// <remarks>
         /// It is an error to call this function in any way that would create an
@@ -5463,8 +5463,8 @@ namespace GISharp.Lib.GLib
         /// types or number of items in a tuple, putting more than one value into
         /// a variant, etc.
         /// 
-        /// If @value is a floating reference (see g_variant_ref_sink()),
-        /// the @builder instance takes ownership of @value.
+        /// If <paramref name="value"/> is a floating reference (see g_variant_ref_sink()),
+        /// the <paramref name="builder"/> instance takes ownership of <paramref name="value"/>.
         /// </remarks>
         /// <param name="value">
         /// a #GVariant
@@ -5499,8 +5499,8 @@ namespace GISharp.Lib.GLib
         System.IntPtr builder);
 
         /// <summary>
-        /// Closes the subcontainer inside the given @builder that was opened by
-        /// the most recent call to g_variant_builder_open().
+        /// Closes the subcontainer inside the given <paramref name="builder"/> that was opened by
+        /// the most recent call to <see cref="Open"/>.
         /// </summary>
         /// <remarks>
         /// It is an error to call this function in any way that would create an
@@ -5553,13 +5553,13 @@ namespace GISharp.Lib.GLib
         /// Ends the builder process and returns the constructed value.
         /// </summary>
         /// <remarks>
-        /// It is not permissible to use @builder in any way after this call
+        /// It is not permissible to use <paramref name="builder"/> in any way after this call
         /// except for reference counting operations (in the case of a
-        /// heap-allocated #GVariantBuilder) or by reinitialising it with
+        /// heap-allocated <see cref="VariantBuilder"/>) or by reinitialising it with
         /// g_variant_builder_init() (in the case of stack-allocated). This
         /// means that for the stack-allocated builders there is no need to
         /// call g_variant_builder_clear() after the call to
-        /// g_variant_builder_end().
+        /// <see cref="End"/>.
         /// 
         /// It is an error to call this function in any way that would create an
         /// inconsistent value to be constructed (ie: insufficient number of
@@ -5639,9 +5639,9 @@ namespace GISharp.Lib.GLib
         System.IntPtr type);
 
         /// <summary>
-        /// Opens a subcontainer inside the given @builder.  When done adding
-        /// items to the subcontainer, g_variant_builder_close() must be called. @type
-        /// is the type of the container: so to build a tuple of several values, @type
+        /// Opens a subcontainer inside the given <paramref name="builder"/>.  When done adding
+        /// items to the subcontainer, <see cref="Close"/> must be called. <paramref name="type"/>
+        /// is the type of the container: so to build a tuple of several values, <paramref name="type"/>
         /// must include the tuple itself.
         /// </summary>
         /// <remarks>
@@ -5735,7 +5735,7 @@ namespace GISharp.Lib.GLib
     }
 
     /// <summary>
-    /// #GVariantDict is a mutable interface to #GVariant dictionaries.
+    /// <see cref="VariantDict"/> is a mutable interface to #GVariant dictionaries.
     /// </summary>
     /// <remarks>
     /// It can be used for doing a sequence of dictionary lookups in an
@@ -5744,25 +5744,25 @@ namespace GISharp.Lib.GLib
     /// can also be used for taking existing dictionaries and modifying them
     /// in order to create new ones.
     /// 
-    /// #GVariantDict can only be used with %G_VARIANT_TYPE_VARDICT
+    /// <see cref="VariantDict"/> can only be used with %G_VARIANT_TYPE_VARDICT
     /// dictionaries.
     /// 
-    /// It is possible to use #GVariantDict allocated on the stack or on the
-    /// heap.  When using a stack-allocated #GVariantDict, you begin with a
+    /// It is possible to use <see cref="VariantDict"/> allocated on the stack or on the
+    /// heap.  When using a stack-allocated <see cref="VariantDict"/>, you begin with a
     /// call to g_variant_dict_init() and free the resources with a call to
     /// g_variant_dict_clear().
     /// 
-    /// Heap-allocated #GVariantDict follows normal refcounting rules: you
-    /// allocate it with g_variant_dict_new() and use g_variant_dict_ref()
-    /// and g_variant_dict_unref().
+    /// Heap-allocated <see cref="VariantDict"/> follows normal refcounting rules: you
+    /// allocate it with <see cref="New"/> and use <see cref="Ref"/>
+    /// and <see cref="Unref"/>.
     /// 
-    /// g_variant_dict_end() is used to convert the #GVariantDict back into a
+    /// <see cref="End"/> is used to convert the <see cref="VariantDict"/> back into a
     /// dictionary-type #GVariant.  When used with stack-allocated instances,
     /// this also implicitly frees all associated memory, but for
-    /// heap-allocated instances, you must still call g_variant_dict_unref()
+    /// heap-allocated instances, you must still call <see cref="Unref"/>
     /// afterwards.
     /// 
-    /// You will typically want to use a heap-allocated #GVariantDict when
+    /// You will typically want to use a heap-allocated <see cref="VariantDict"/> when
     /// you expose it as part of an API.  For most other uses, the
     /// stack-allocated form will be more convenient.
     /// 
@@ -5866,24 +5866,24 @@ namespace GISharp.Lib.GLib
         System.IntPtr fromAsv);
 
         /// <summary>
-        /// Allocates and initialises a new #GVariantDict.
+        /// Allocates and initialises a new <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// You should call g_variant_dict_unref() on the return value when it
+        /// You should call <see cref="Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
-        /// In some cases it may be easier to place a #GVariantDict directly on
+        /// In some cases it may be easier to place a <see cref="VariantDict"/> directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_dict_init().  This is particularly useful when you are
-        /// using #GVariantDict to construct a #GVariant.
+        /// using <see cref="VariantDict"/> to construct a #GVariant.
         /// </remarks>
         /// <param name="fromAsv">
         /// the #GVariant with which to initialise the
         ///   dictionary
         /// </param>
         /// <returns>
-        /// a #GVariantDict
+        /// a <see cref="VariantDict"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         static System.IntPtr New(GISharp.Lib.GLib.Variant fromAsv)
@@ -5895,24 +5895,24 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Allocates and initialises a new #GVariantDict.
+        /// Allocates and initialises a new <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// You should call g_variant_dict_unref() on the return value when it
+        /// You should call <see cref="Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
-        /// In some cases it may be easier to place a #GVariantDict directly on
+        /// In some cases it may be easier to place a <see cref="VariantDict"/> directly on
         /// the stack of the calling function and initialise it with
         /// g_variant_dict_init().  This is particularly useful when you are
-        /// using #GVariantDict to construct a #GVariant.
+        /// using <see cref="VariantDict"/> to construct a #GVariant.
         /// </remarks>
         /// <param name="fromAsv">
         /// the #GVariant with which to initialise the
         ///   dictionary
         /// </param>
         /// <returns>
-        /// a #GVariantDict
+        /// a <see cref="VariantDict"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public VariantDict(GISharp.Lib.GLib.Variant fromAsv) : this(New(fromAsv), GISharp.Runtime.Transfer.Full)
@@ -5949,13 +5949,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr key);
 
         /// <summary>
-        /// Checks if @key exists in @dict.
+        /// Checks if <paramref name="key"/> exists in <paramref name="dict"/>.
         /// </summary>
         /// <param name="key">
         /// the key to lookup in the dictionary
         /// </param>
         /// <returns>
-        /// %TRUE if @key is in @dict
+        /// <c>true</c> if <paramref name="key"/> is in <paramref name="dict"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public System.Boolean Contains(GISharp.Lib.GLib.Utf8 key)
@@ -5993,13 +5993,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr dict);
 
         /// <summary>
-        /// Returns the current value of @dict as a #GVariant of type
+        /// Returns the current value of <paramref name="dict"/> as a #GVariant of type
         /// %G_VARIANT_TYPE_VARDICT, clearing it in the process.
         /// </summary>
         /// <remarks>
-        /// It is not permissible to use @dict in any way after this call except
+        /// It is not permissible to use <paramref name="dict"/> in any way after this call except
         /// for reference counting operations (in the case of a heap-allocated
-        /// #GVariantDict) or by reinitialising it with g_variant_dict_init() (in
+        /// <see cref="VariantDict"/>) or by reinitialising it with g_variant_dict_init() (in
         /// the case of stack-allocated).
         /// </remarks>
         /// <returns>
@@ -6045,10 +6045,10 @@ namespace GISharp.Lib.GLib
         System.IntPtr value);
 
         /// <summary>
-        /// Inserts (or replaces) a key in a #GVariantDict.
+        /// Inserts (or replaces) a key in a <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// @value is consumed if it is floating.
+        /// <paramref name="value"/> is consumed if it is floating.
         /// </remarks>
         /// <param name="key">
         /// the key to insert a value for
@@ -6107,27 +6107,27 @@ namespace GISharp.Lib.GLib
         System.IntPtr expectedType);
 
         /// <summary>
-        /// Looks up a value in a #GVariantDict.
+        /// Looks up a value in a <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// If @key is not found in @dictionary, %NULL is returned.
+        /// If <paramref name="key"/> is not found in <paramref name="dictionary"/>, <c>null</c> is returned.
         /// 
-        /// The @expected_type string specifies what type of value is expected.
-        /// If the value associated with @key has a different type then %NULL is
+        /// The <paramref name="expectedType"/> string specifies what type of value is expected.
+        /// If the value associated with <paramref name="key"/> has a different type then <c>null</c> is
         /// returned.
         /// 
         /// If the key is found and the value has the correct type, it is
-        /// returned.  If @expected_type was specified then any non-%NULL return
+        /// returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
         /// value will have this type.
         /// </remarks>
         /// <param name="key">
         /// the key to lookup in the dictionary
         /// </param>
         /// <param name="expectedType">
-        /// a #GVariantType, or %NULL
+        /// a #GVariantType, or <c>null</c>
         /// </param>
         /// <returns>
-        /// the value of the dictionary key, or %NULL
+        /// the value of the dictionary key, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.VariantType expectedType = null)
@@ -6188,13 +6188,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr key);
 
         /// <summary>
-        /// Removes a key and its associated value from a #GVariantDict.
+        /// Removes a key and its associated value from a <see cref="VariantDict"/>.
         /// </summary>
         /// <param name="key">
         /// the key to remove
         /// </param>
         /// <returns>
-        /// %TRUE if the key was found and removed
+        /// <c>true</c> if the key was found and removed
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public System.Boolean Remove(GISharp.Lib.GLib.Utf8 key)
@@ -6338,9 +6338,9 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Compatibility is defined by two things: first the version
         /// of the running library is newer than the version
-        /// @required_major.required_minor.@required_micro. Second
+        /// <paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>. Second
         /// the running library must be binary compatible with the
-        /// version @required_major.required_minor.@required_micro
+        /// version <paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>
         /// (same major version.)
         /// </remarks>
         /// <param name="requiredMajor">
@@ -6353,7 +6353,7 @@ namespace GISharp.Lib.GLib
         /// the required micro version
         /// </param>
         /// <returns>
-        /// %NULL if the GLib library is compatible with the
+        /// <c>null</c> if the GLib library is compatible with the
         ///     given version, or a string describing the version mismatch.
         ///     The returned string is owned by GLib and must not be modified
         ///     or freed.

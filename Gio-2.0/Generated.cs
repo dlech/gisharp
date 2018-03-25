@@ -1,47 +1,47 @@
 namespace GISharp.Lib.Gio
 {
     /// <summary>
-    /// #GAction represents a single named action.
+    /// <see cref="IAction"/> represents a single named action.
     /// </summary>
     /// <remarks>
     /// The main interface to an action is that it can be activated with
-    /// g_action_activate().  This results in the 'activate' signal being
+    /// <see cref="Activate"/>.  This results in the 'activate' signal being
     /// emitted.  An activation has a #GVariant parameter (which may be
-    /// %NULL).  The correct type for the parameter is determined by a static
+    /// <c>null</c>).  The correct type for the parameter is determined by a static
     /// parameter type (which is given at construction time).
     /// 
     /// An action may optionally have a state, in which case the state may be
-    /// set with g_action_change_state().  This call takes a #GVariant.  The
+    /// set with <see cref="ChangeState"/>.  This call takes a #GVariant.  The
     /// correct type for the state is determined by a static state type
     /// (which is given at construction time).
     /// 
     /// The state may have a hint associated with it, specifying its valid
     /// range.
     /// 
-    /// #GAction is merely the interface to the concept of an action, as
+    /// <see cref="IAction"/> is merely the interface to the concept of an action, as
     /// described above.  Various implementations of actions exist, including
-    /// #GSimpleAction.
+    /// <see cref="SimpleAction"/>.
     /// 
     /// In all cases, the implementing class is responsible for storing the
     /// name of the action, the parameter type, the enabled state, the
     /// optional state type and the state and emitting the appropriate
     /// signals when these change.  The implementor is responsible for filtering
-    /// calls to g_action_activate() and g_action_change_state() for type
+    /// calls to <see cref="Activate"/> and <see cref="ChangeState"/> for type
     /// safety and for the state being enabled.
     /// 
-    /// Probably the only useful thing to do with a #GAction is to put it
-    /// inside of a #GSimpleActionGroup.
+    /// Probably the only useful thing to do with a <see cref="IAction"/> is to put it
+    /// inside of a <see cref="SimpleAction"/>Group.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAction", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionInterface))]
     public interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
-        /// If @action is currently enabled.
+        /// If <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
-        /// If the action is disabled then calls to g_action_activate() and
-        /// g_action_change_state() have no effect.
+        /// If the action is disabled then calls to <see cref="Activate"/> and
+        /// <see cref="ChangeState"/> have no effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// The name of the action.  This is mostly meaningful for identifying
-        /// the action once it has been added to a #GActionGroup. It is immutable.
+        /// the action once it has been added to a <see cref="IActionGroup"/>. It is immutable.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
-        /// action. This is immutable, and may be %NULL if no parameter is needed when
+        /// action. This is immutable, and may be <c>null</c> if no parameter is needed when
         /// activating the action.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -65,14 +65,14 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.VariantType ParameterType { get; }
 
         /// <summary>
-        /// The state of the action, or %NULL if the action is stateless.
+        /// The state of the action, or <c>null</c> if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
         GISharp.Lib.GLib.Variant State { get; }
 
         /// <summary>
-        /// The #GVariantType of the state that the action has, or %NULL if the
+        /// The #GVariantType of the state that the action has, or <c>null</c> if the
         /// action is stateless. This is immutable.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -83,11 +83,11 @@ namespace GISharp.Lib.Gio
         /// Activates the action.
         /// </summary>
         /// <remarks>
-        /// @parameter must be the correct type of parameter for the action (ie:
+        /// <paramref name="parameter"/> must be the correct type of parameter for the action (ie:
         /// the parameter type given at construction time).  If the parameter
-        /// type was %NULL then @parameter must also be %NULL.
+        /// type was <c>null</c> then <paramref name="parameter"/> must also be <c>null</c>.
         /// 
-        /// If the @parameter GVariant is floating, it is consumed.
+        /// If the <paramref name="parameter"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="parameter">
         /// the parameter to the activation
@@ -97,17 +97,17 @@ namespace GISharp.Lib.Gio
         void DoActivate(GISharp.Lib.GLib.Variant parameter);
 
         /// <summary>
-        /// Request for the state of @action to be changed to @value.
+        /// Request for the state of <paramref name="action"/> to be changed to <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        /// The action must be stateful and @value must be of the correct type.
-        /// See g_action_get_state_type().
+        /// The action must be stateful and <paramref name="value"/> must be of the correct type.
+        /// See <see cref="GetStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
-        /// its state or may change its state to something other than @value.
-        /// See g_action_get_state_hint().
+        /// its state or may change its state to something other than <paramref name="value"/>.
+        /// See <see cref="GetStateHint"/>.
         /// 
-        /// If the @value GVariant is floating, it is consumed.
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="value">
         /// the new state
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         void DoChangeState(GISharp.Lib.GLib.Variant value);
 
         /// <summary>
-        /// Checks if @action is currently enabled.
+        /// Checks if <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
         /// An action must be enabled in order to be activated or in order to
@@ -131,7 +131,7 @@ namespace GISharp.Lib.Gio
         System.Boolean DoGetEnabled();
 
         /// <summary>
-        /// Queries the name of @action.
+        /// Queries the name of <paramref name="action"/>.
         /// </summary>
         /// <returns>
         /// the name of the action
@@ -142,14 +142,14 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
-        /// @action.
+        /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using g_action_activate(), the #GVariant
+        /// When activating the action using <see cref="Activate"/>, the #GVariant
         /// given to that function must be of the type returned by this function.
         /// 
-        /// In the case that this function returns %NULL, you must not give any
-        /// #GVariant, but %NULL instead.
+        /// In the case that this function returns <c>null</c>, you must not give any
+        /// #GVariant, but <c>null</c> instead.
         /// </remarks>
         /// <returns>
         /// the parameter type
@@ -159,14 +159,14 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.VariantType DoGetParameterType();
 
         /// <summary>
-        /// Queries the current state of @action.
+        /// Queries the current state of <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// If the action is not stateful then %NULL will be returned.  If the
+        /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by g_action_get_state_type().
+        /// given by <see cref="GetStateType"/>.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <returns>
@@ -178,10 +178,10 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of
-        /// @action.
+        /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// If %NULL is returned it either means that the action is not stateful
+        /// If <c>null</c> is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
         /// 
@@ -194,7 +194,7 @@ namespace GISharp.Lib.Gio
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <returns>
@@ -205,19 +205,19 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.Variant DoGetStateHint();
 
         /// <summary>
-        /// Queries the type of the state of @action.
+        /// Queries the type of the state of <paramref name="action"/>.
         /// </summary>
         /// <remarks>
         /// If the action is stateful (e.g. created with
-        /// g_simple_action_new_stateful()) then this function returns the
+        /// <see cref="NewStateful"/>) then this function returns the
         /// #GVariantType of the state.  This is the type of the initial value
-        /// given as the state. All calls to g_action_change_state() must give a
-        /// #GVariant of this type and g_action_get_state() will return a
+        /// given as the state. All calls to <see cref="ChangeState"/> must give a
+        /// #GVariant of this type and <see cref="GetState"/> will return a
         /// #GVariant of the same type.
         /// 
-        /// If the action is not stateful (e.g. created with g_simple_action_new())
-        /// then this function will return %NULL. In that case, g_action_get_state()
-        /// will return %NULL and you must not call g_action_change_state().
+        /// If the action is not stateful (e.g. created with <see cref="New"/>)
+        /// then this function will return <c>null</c>. In that case, <see cref="GetState"/>
+        /// will return <c>null</c> and you must not call <see cref="ChangeState"/>.
         /// </remarks>
         /// <returns>
         /// the state type, if the action is stateful
@@ -257,20 +257,20 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Checks if @action_name is valid.
+        /// Checks if <paramref name="actionName"/> is valid.
         /// </summary>
         /// <remarks>
-        /// @action_name is valid if it consists only of alphanumeric characters,
+        /// <paramref name="actionName"/> is valid if it consists only of alphanumeric characters,
         /// plus '-' and '.'.  The empty string is not a valid action name.
         /// 
-        /// It is an error to call this function with a non-utf8 @action_name.
-        /// @action_name must not be %NULL.
+        /// It is an error to call this function with a non-utf8 <paramref name="actionName"/>.
+        /// <paramref name="actionName"/> must not be <c>null</c>.
         /// </remarks>
         /// <param name="actionName">
         /// an potential action name
         /// </param>
         /// <returns>
-        /// %TRUE if @action_name is valid
+        /// <c>true</c> if <paramref name="actionName"/> is valid
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static System.Boolean NameIsValid(GISharp.Lib.GLib.Utf8 actionName)
@@ -375,10 +375,10 @@ namespace GISharp.Lib.Gio
         /// the action name
         /// </param>
         /// <param name="targetValue">
-        /// the target value, or %NULL for no target
+        /// the target value, or <c>null</c> for no target
         /// </param>
         /// <returns>
-        /// %TRUE if successful, else %FALSE with @error set
+        /// <c>true</c> if successful, else <c>false</c> with <paramref name="error"/> set
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -434,14 +434,14 @@ namespace GISharp.Lib.Gio
         System.IntPtr targetValue);
 
         /// <summary>
-        /// Formats a detailed action name from @action_name and @target_value.
+        /// Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
         /// </summary>
         /// <remarks>
         /// It is an error to call this function with an invalid action name.
         /// 
-        /// This function is the opposite of g_action_parse_detailed_name().
-        /// It will produce a string that can be parsed back to the @action_name
-        /// and @target_value by that function.
+        /// This function is the opposite of <see cref="ParseDetailedName"/>.
+        /// It will produce a string that can be parsed back to the <paramref name="actionName"/>
+        /// and <paramref name="targetValue"/> by that function.
         /// 
         /// See that function for the types of strings that will be printed by
         /// this function.
@@ -450,7 +450,7 @@ namespace GISharp.Lib.Gio
         /// a valid action name
         /// </param>
         /// <param name="targetValue">
-        /// a #GVariant target value, or %NULL
+        /// a #GVariant target value, or <c>null</c>
         /// </param>
         /// <returns>
         /// a detailed format string
@@ -502,14 +502,14 @@ namespace GISharp.Lib.Gio
         /// Activates the action.
         /// </summary>
         /// <remarks>
-        /// @parameter must be the correct type of parameter for the action (ie:
+        /// <paramref name="parameter"/> must be the correct type of parameter for the action (ie:
         /// the parameter type given at construction time).  If the parameter
-        /// type was %NULL then @parameter must also be %NULL.
+        /// type was <c>null</c> then <paramref name="parameter"/> must also be <c>null</c>.
         /// 
-        /// If the @parameter GVariant is floating, it is consumed.
+        /// If the <paramref name="parameter"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <param name="parameter">
         /// the parameter to the activation
@@ -554,20 +554,20 @@ namespace GISharp.Lib.Gio
         System.IntPtr value);
 
         /// <summary>
-        /// Request for the state of @action to be changed to @value.
+        /// Request for the state of <paramref name="action"/> to be changed to <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        /// The action must be stateful and @value must be of the correct type.
-        /// See g_action_get_state_type().
+        /// The action must be stateful and <paramref name="value"/> must be of the correct type.
+        /// See <see cref="GetStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
-        /// its state or may change its state to something other than @value.
-        /// See g_action_get_state_hint().
+        /// its state or may change its state to something other than <paramref name="value"/>.
+        /// See <see cref="GetStateHint"/>.
         /// 
-        /// If the @value GVariant is floating, it is consumed.
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <param name="value">
         /// the new state
@@ -603,14 +603,14 @@ namespace GISharp.Lib.Gio
         System.IntPtr action);
 
         /// <summary>
-        /// Checks if @action is currently enabled.
+        /// Checks if <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
         /// An action must be enabled in order to be activated or in order to
         /// have its state changed from outside callers.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// whether the action is enabled
@@ -643,10 +643,10 @@ namespace GISharp.Lib.Gio
         System.IntPtr action);
 
         /// <summary>
-        /// Queries the name of @action.
+        /// Queries the name of <paramref name="action"/>.
         /// </summary>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// the name of the action
@@ -688,17 +688,17 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
-        /// @action.
+        /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using g_action_activate(), the #GVariant
+        /// When activating the action using <see cref="Activate"/>, the #GVariant
         /// given to that function must be of the type returned by this function.
         /// 
-        /// In the case that this function returns %NULL, you must not give any
-        /// #GVariant, but %NULL instead.
+        /// In the case that this function returns <c>null</c>, you must not give any
+        /// #GVariant, but <c>null</c> instead.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// the parameter type
@@ -739,18 +739,18 @@ namespace GISharp.Lib.Gio
         System.IntPtr action);
 
         /// <summary>
-        /// Queries the current state of @action.
+        /// Queries the current state of <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// If the action is not stateful then %NULL will be returned.  If the
+        /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by g_action_get_state_type().
+        /// given by <see cref="GetStateType"/>.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// the current state of the action
@@ -802,10 +802,10 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of
-        /// @action.
+        /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// If %NULL is returned it either means that the action is not stateful
+        /// If <c>null</c> is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
         /// 
@@ -818,11 +818,11 @@ namespace GISharp.Lib.Gio
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// the state range hint
@@ -867,22 +867,22 @@ namespace GISharp.Lib.Gio
         System.IntPtr action);
 
         /// <summary>
-        /// Queries the type of the state of @action.
+        /// Queries the type of the state of <paramref name="action"/>.
         /// </summary>
         /// <remarks>
         /// If the action is stateful (e.g. created with
-        /// g_simple_action_new_stateful()) then this function returns the
+        /// <see cref="NewStateful"/>) then this function returns the
         /// #GVariantType of the state.  This is the type of the initial value
-        /// given as the state. All calls to g_action_change_state() must give a
-        /// #GVariant of this type and g_action_get_state() will return a
+        /// given as the state. All calls to <see cref="ChangeState"/> must give a
+        /// #GVariant of this type and <see cref="GetState"/> will return a
         /// #GVariant of the same type.
         /// 
-        /// If the action is not stateful (e.g. created with g_simple_action_new())
-        /// then this function will return %NULL. In that case, g_action_get_state()
-        /// will return %NULL and you must not call g_action_change_state().
+        /// If the action is not stateful (e.g. created with <see cref="New"/>)
+        /// then this function will return <c>null</c>. In that case, <see cref="GetState"/>
+        /// will return <c>null</c> and you must not call <see cref="ChangeState"/>.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         /// <returns>
         /// the state type, if the action is stateful
@@ -898,7 +898,7 @@ namespace GISharp.Lib.Gio
     }
 
     /// <summary>
-    /// #GActionGroup represents a group of actions. Actions can be used to
+    /// <see cref="IActionGroup"/> represents a group of actions. Actions can be used to
     /// expose functionality in a structured way, either from one part of a
     /// program to another, or to the outside world. Action groups are often
     /// used together with a #GMenuModel that provides additional
@@ -907,17 +907,17 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// The main way to interact with the actions in a GActionGroup is to
-    /// activate them with g_action_group_activate_action(). Activating an
+    /// activate them with <see cref="ActivateAction"/>. Activating an
     /// action may require a #GVariant parameter. The required type of the
-    /// parameter can be inquired with g_action_group_get_action_parameter_type().
-    /// Actions may be disabled, see g_action_group_get_action_enabled().
+    /// parameter can be inquired with <see cref="GetActionParameterType"/>.
+    /// Actions may be disabled, see <see cref="GetActionEnabled"/>.
     /// Activating a disabled action has no effect.
     /// 
     /// Actions may optionally have a state in the form of a #GVariant. The
     /// current state of an action can be inquired with
-    /// g_action_group_get_action_state(). Activating a stateful action may
+    /// <see cref="GetActionState"/>. Activating a stateful action may
     /// change its state, but it is also possible to set the state by calling
-    /// g_action_group_change_action_state().
+    /// <see cref="ChangeActionState"/>.
     /// 
     /// As typical example, consider a text editing application which has an
     /// option to change the current font to 'bold'. A good way to represent
@@ -925,25 +925,25 @@ namespace GISharp.Lib.Gio
     /// action would toggle the state.
     /// 
     /// Each action in the group has a unique name (which is a string).  All
-    /// method calls, except g_action_group_list_actions() take the name of
+    /// method calls, except <see cref="ListActions"/> take the name of
     /// an action as an argument.
     /// 
-    /// The #GActionGroup API is meant to be the 'public' API to the action
+    /// The <see cref="IActionGroup"/> API is meant to be the 'public' API to the action
     /// group.  The calls here are exactly the interaction that 'external
     /// forces' (eg: UI, incoming D-Bus messages, etc.) are supposed to have
     /// with actions.  'Internal' APIs (ie: ones meant only to be accessed by
     /// the action group implementation) are found on subclasses.  This is
-    /// why you will find - for example - g_action_group_get_action_enabled()
+    /// why you will find - for example - <see cref="GetActionEnabled"/>
     /// but not an equivalent set() call.
     /// 
     /// Signals are emitted on the action group in response to state changes
     /// on individual actions.
     /// 
-    /// Implementations of #GActionGroup should provide implementations for
-    /// the virtual functions g_action_group_list_actions() and
-    /// g_action_group_query_action().  The other virtual functions should
+    /// Implementations of <see cref="IActionGroup"/> should provide implementations for
+    /// the virtual functions <see cref="ListActions"/> and
+    /// <see cref="TryQueryAction"/>.  The other virtual functions should
     /// not be implemented - their "wrappers" are actually implemented with
-    /// calls to g_action_group_query_action().
+    /// calls to <see cref="TryQueryAction"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
@@ -982,10 +982,10 @@ namespace GISharp.Lib.Gio
         event System.EventHandler<ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
 
         /// <summary>
-        /// Emits the #GActionGroup::action-added signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-added signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -995,10 +995,10 @@ namespace GISharp.Lib.Gio
         void DoActionAdded(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1011,10 +1011,10 @@ namespace GISharp.Lib.Gio
         void DoActionEnabledChanged(GISharp.Lib.GLib.Utf8 actionName, System.Boolean enabled);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-removed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-removed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1024,10 +1024,10 @@ namespace GISharp.Lib.Gio
         void DoActionRemoved(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-state-changed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-state-changed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1040,13 +1040,13 @@ namespace GISharp.Lib.Gio
         void DoActionStateChanged(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant state);
 
         /// <summary>
-        /// Activate the named action within @action_group.
+        /// Activate the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// If the action is expecting a parameter, then the correct type of
-        /// parameter must be given as @parameter.  If the action is expecting no
-        /// parameters then @parameter must be %NULL.  See
-        /// g_action_group_get_action_parameter_type().
+        /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
+        /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
+        /// <see cref="GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionName">
         /// the name of the action to activate
@@ -1059,18 +1059,18 @@ namespace GISharp.Lib.Gio
         void DoActivateAction(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant parameter);
 
         /// <summary>
-        /// Request for the state of the named action within @action_group to be
-        /// changed to @value.
+        /// Request for the state of the named action within <paramref name="actionGroup"/> to be
+        /// changed to <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        /// The action must be stateful and @value must be of the correct type.
-        /// See g_action_group_get_action_state_type().
+        /// The action must be stateful and <paramref name="value"/> must be of the correct type.
+        /// See <see cref="GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
-        /// its state or may change its state to something other than @value.
-        /// See g_action_group_get_action_state_hint().
+        /// its state or may change its state to something other than <paramref name="value"/>.
+        /// See <see cref="GetActionStateHint"/>.
         /// 
-        /// If the @value GVariant is floating, it is consumed.
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="actionName">
         /// the name of the action to request the change on
@@ -1083,7 +1083,7 @@ namespace GISharp.Lib.Gio
         void DoChangeActionState(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant value);
 
         /// <summary>
-        /// Checks if the named action within @action_group is currently enabled.
+        /// Checks if the named action within <paramref name="actionGroup"/> is currently enabled.
         /// </summary>
         /// <remarks>
         /// An action must be enabled in order to be activated or in order to
@@ -1101,15 +1101,15 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
-        /// the named action within @action_group.
+        /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using g_action_group_activate_action(),
+        /// When activating the action using <see cref="ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
-        /// In the case that this function returns %NULL, you must not give any
-        /// #GVariant, but %NULL instead.
+        /// In the case that this function returns <c>null</c>, you must not give any
+        /// #GVariant, but <c>null</c> instead.
         /// 
         /// The parameter type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -1126,14 +1126,14 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.VariantType DoGetActionParameterType(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
-        /// Queries the current state of the named action within @action_group.
+        /// Queries the current state of the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// If the action is not stateful then %NULL will be returned.  If the
+        /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by g_action_group_get_action_state_type().
+        /// given by <see cref="GetActionStateType"/>.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="actionName">
@@ -1148,10 +1148,10 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of the
-        /// named action within @action_group.
+        /// named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// If %NULL is returned it either means that the action is not stateful
+        /// If <c>null</c> is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
         /// 
@@ -1164,7 +1164,7 @@ namespace GISharp.Lib.Gio
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="actionName">
@@ -1179,18 +1179,18 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the state of the named action within
-        /// @action_group.
+        /// <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// g_action_group_change_action_state() must give a #GVariant of this
-        /// type and g_action_group_get_action_state() will return a #GVariant
+        /// <see cref="ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
-        /// If the action is not stateful then this function will return %NULL.
-        /// In that case, g_action_group_get_action_state() will return %NULL
-        /// and you must not call g_action_group_change_action_state().
+        /// If the action is not stateful then this function will return <c>null</c>.
+        /// In that case, <see cref="GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -1207,7 +1207,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.VariantType DoGetActionStateType(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
-        /// Checks if the named action exists within @action_group.
+        /// Checks if the named action exists within <paramref name="actionGroup"/>.
         /// </summary>
         /// <param name="actionName">
         /// the name of the action to check for
@@ -1220,14 +1220,14 @@ namespace GISharp.Lib.Gio
         System.Boolean DoHasAction(GISharp.Lib.GLib.Utf8 actionName);
 
         /// <summary>
-        /// Lists the actions contained within @action_group.
+        /// Lists the actions contained within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// The caller is responsible for freeing the list with g_strfreev() when
         /// it is no longer required.
         /// </remarks>
         /// <returns>
-        /// a %NULL-terminated array of the names of the
+        /// a <c>null</c>-terminated array of the names of the
         /// actions in the group
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -1321,13 +1321,13 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-added signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-added signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1371,13 +1371,13 @@ namespace GISharp.Lib.Gio
         System.Boolean enabled);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1419,13 +1419,13 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-removed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-removed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1469,13 +1469,13 @@ namespace GISharp.Lib.Gio
         System.IntPtr state);
 
         /// <summary>
-        /// Emits the #GActionGroup::action-state-changed signal on @action_group.
+        /// Emits the <see cref="IActionGroup"/>::action-state-changed signal on <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// This function should only be called by #GActionGroup implementations.
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -1526,16 +1526,16 @@ namespace GISharp.Lib.Gio
         System.IntPtr parameter);
 
         /// <summary>
-        /// Activate the named action within @action_group.
+        /// Activate the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// If the action is expecting a parameter, then the correct type of
-        /// parameter must be given as @parameter.  If the action is expecting no
-        /// parameters then @parameter must be %NULL.  See
-        /// g_action_group_get_action_parameter_type().
+        /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
+        /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
+        /// <see cref="GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to activate
@@ -1591,21 +1591,21 @@ namespace GISharp.Lib.Gio
         System.IntPtr value);
 
         /// <summary>
-        /// Request for the state of the named action within @action_group to be
-        /// changed to @value.
+        /// Request for the state of the named action within <paramref name="actionGroup"/> to be
+        /// changed to <paramref name="value"/>.
         /// </summary>
         /// <remarks>
-        /// The action must be stateful and @value must be of the correct type.
-        /// See g_action_group_get_action_state_type().
+        /// The action must be stateful and <paramref name="value"/> must be of the correct type.
+        /// See <see cref="GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
-        /// its state or may change its state to something other than @value.
-        /// See g_action_group_get_action_state_hint().
+        /// its state or may change its state to something other than <paramref name="value"/>.
+        /// See <see cref="GetActionStateHint"/>.
         /// 
-        /// If the @value GVariant is floating, it is consumed.
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to request the change on
@@ -1651,14 +1651,14 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Checks if the named action within @action_group is currently enabled.
+        /// Checks if the named action within <paramref name="actionGroup"/> is currently enabled.
         /// </summary>
         /// <remarks>
         /// An action must be enabled in order to be activated or in order to
         /// have its state changed from outside callers.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to query
@@ -1715,22 +1715,22 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
-        /// the named action within @action_group.
+        /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using g_action_group_activate_action(),
+        /// When activating the action using <see cref="ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
-        /// In the case that this function returns %NULL, you must not give any
-        /// #GVariant, but %NULL instead.
+        /// In the case that this function returns <c>null</c>, you must not give any
+        /// #GVariant, but <c>null</c> instead.
         /// 
         /// The parameter type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
         /// with the same name but a different parameter type.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to query
@@ -1781,18 +1781,18 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Queries the current state of the named action within @action_group.
+        /// Queries the current state of the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// If the action is not stateful then %NULL will be returned.  If the
+        /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by g_action_group_get_action_state_type().
+        /// given by <see cref="GetActionStateType"/>.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to query
@@ -1854,10 +1854,10 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Requests a hint about the valid range of values for the state of the
-        /// named action within @action_group.
+        /// named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// If %NULL is returned it either means that the action is not stateful
+        /// If <c>null</c> is returned it either means that the action is not stateful
         /// or that there is no hint about the valid range of values for the
         /// state of the action.
         /// 
@@ -1870,11 +1870,11 @@ namespace GISharp.Lib.Gio
         /// have a state value outside of the hinted range and setting a value
         /// within the range may fail.
         /// 
-        /// The return value (if non-%NULL) should be freed with
+        /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to query
@@ -1934,25 +1934,25 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Queries the type of the state of the named action within
-        /// @action_group.
+        /// <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// g_action_group_change_action_state() must give a #GVariant of this
-        /// type and g_action_group_get_action_state() will return a #GVariant
+        /// <see cref="ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
-        /// If the action is not stateful then this function will return %NULL.
-        /// In that case, g_action_group_get_action_state() will return %NULL
-        /// and you must not call g_action_group_change_action_state().
+        /// If the action is not stateful then this function will return <c>null</c>.
+        /// In that case, <see cref="GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
         /// with the same name but a different state type.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to query
@@ -1995,10 +1995,10 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionName);
 
         /// <summary>
-        /// Checks if the named action exists within @action_group.
+        /// Checks if the named action exists within <paramref name="actionGroup"/>.
         /// </summary>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action to check for
@@ -2042,17 +2042,17 @@ namespace GISharp.Lib.Gio
         System.IntPtr actionGroup);
 
         /// <summary>
-        /// Lists the actions contained within @action_group.
+        /// Lists the actions contained within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// The caller is responsible for freeing the list with g_strfreev() when
         /// it is no longer required.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <returns>
-        /// a %NULL-terminated array of the names of the
+        /// a <c>null</c>-terminated array of the names of the
         /// actions in the group
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -2146,22 +2146,22 @@ namespace GISharp.Lib.Gio
         out System.IntPtr state);
 
         /// <summary>
-        /// Queries all aspects of the named action within an @action_group.
+        /// Queries all aspects of the named action within an <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
         /// This function acquires the information available from
-        /// g_action_group_has_action(), g_action_group_get_action_enabled(),
-        /// g_action_group_get_action_parameter_type(),
-        /// g_action_group_get_action_state_type(),
-        /// g_action_group_get_action_state_hint() and
-        /// g_action_group_get_action_state() with a single function call.
+        /// <see cref="HasAction"/>, <see cref="GetActionEnabled"/>,
+        /// <see cref="GetActionParameterType"/>,
+        /// <see cref="GetActionStateType"/>,
+        /// <see cref="GetActionStateHint"/> and
+        /// <see cref="GetActionState"/> with a single function call.
         /// 
         /// This provides two main benefits.
         /// 
         /// The first is the improvement in efficiency that comes with not having
         /// to perform repeated lookups of the action in order to discover
         /// different things about it.  The second is that implementing
-        /// #GActionGroup can now be done by only overriding this one virtual
+        /// <see cref="IActionGroup"/> can now be done by only overriding this one virtual
         /// function.
         /// 
         /// The interface provides a default implementation of this function that
@@ -2170,13 +2170,13 @@ namespace GISharp.Lib.Gio
         /// those functions that call this function.  All implementations,
         /// therefore, must override either this function or all of the others.
         /// 
-        /// If the action exists, %TRUE is returned and any of the requested
-        /// fields (as indicated by having a non-%NULL reference passed in) are
-        /// filled.  If the action doesn't exist, %FALSE is returned and the
+        /// If the action exists, <c>true</c> is returned and any of the requested
+        /// fields (as indicated by having a non-<c>null</c> reference passed in) are
+        /// filled.  If the action doesn't exist, <c>false</c> is returned and the
         /// fields may or may not have been modified.
         /// </remarks>
         /// <param name="actionGroup">
-        /// a #GActionGroup
+        /// a <see cref="IActionGroup"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action in the group
@@ -2185,19 +2185,19 @@ namespace GISharp.Lib.Gio
         /// if the action is presently enabled
         /// </param>
         /// <param name="parameterType">
-        /// the parameter type, or %NULL if none needed
+        /// the parameter type, or <c>null</c> if none needed
         /// </param>
         /// <param name="stateType">
-        /// the state type, or %NULL if stateless
+        /// the state type, or <c>null</c> if stateless
         /// </param>
         /// <param name="stateHint">
-        /// the state hint, or %NULL if none
+        /// the state hint, or <c>null</c> if none
         /// </param>
         /// <param name="state">
-        /// the current state, or %NULL if stateless
+        /// the current state, or <c>null</c> if stateless
         /// </param>
         /// <returns>
-        /// %TRUE if the action exists, else %FALSE
+        /// <c>true</c> if the action exists, else <c>false</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.Utf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
@@ -2216,7 +2216,7 @@ namespace GISharp.Lib.Gio
     }
 
     /// <summary>
-    /// The virtual function table for #GActionGroup.
+    /// The virtual function table for <see cref="IActionGroup"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
     public sealed class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
@@ -2827,7 +2827,7 @@ System.IntPtr state);
     }
 
     /// <summary>
-    /// The virtual function table for #GAction.
+    /// The virtual function table for <see cref="IAction"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
     public sealed class ActionInterface : GISharp.Lib.GObject.TypeInterface
@@ -3185,9 +3185,9 @@ System.IntPtr parameter);
     }
 
     /// <summary>
-    /// The GActionMap interface is implemented by #GActionGroup
+    /// The GActionMap interface is implemented by <see cref="IActionGroup"/>
     /// implementations that operate by containing a number of
-    /// named #GAction instances, such as #GSimpleActionGroup.
+    /// named <see cref="IAction"/> instances, such as #GSimpleActionGroup.
     /// </summary>
     /// <remarks>
     /// One useful application of this interface is to map the
@@ -3201,32 +3201,32 @@ System.IntPtr parameter);
     public interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
-        /// Adds an action to the @action_map.
+        /// Adds an action to the <paramref name="actionMap"/>.
         /// </summary>
         /// <remarks>
         /// If the action map already contains an action with the same name
-        /// as @action then the old action is dropped from the action map.
+        /// as <paramref name="action"/> then the old action is dropped from the action map.
         /// 
-        /// The action map takes its own reference on @action.
+        /// The action map takes its own reference on <paramref name="action"/>.
         /// </remarks>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedAddAction))]
         void DoAddAction(GISharp.Lib.Gio.IAction action);
 
         /// <summary>
-        /// Looks up the action with the name @action_name in @action_map.
+        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
         /// </summary>
         /// <remarks>
-        /// If no such action exists, returns %NULL.
+        /// If no such action exists, returns <c>null</c>.
         /// </remarks>
         /// <param name="actionName">
         /// the name of an action
         /// </param>
         /// <returns>
-        /// a #GAction, or %NULL
+        /// a <see cref="IAction"/>, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
@@ -3283,19 +3283,19 @@ System.IntPtr parameter);
         System.IntPtr action);
 
         /// <summary>
-        /// Adds an action to the @action_map.
+        /// Adds an action to the <paramref name="actionMap"/>.
         /// </summary>
         /// <remarks>
         /// If the action map already contains an action with the same name
-        /// as @action then the old action is dropped from the action map.
+        /// as <paramref name="action"/> then the old action is dropped from the action map.
         /// 
-        /// The action map takes its own reference on @action.
+        /// The action map takes its own reference on <paramref name="action"/>.
         /// </remarks>
         /// <param name="actionMap">
-        /// a #GActionMap
+        /// a <see cref="IActionMap"/>
         /// </param>
         /// <param name="action">
-        /// a #GAction
+        /// a <see cref="IAction"/>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
@@ -3333,19 +3333,19 @@ System.IntPtr parameter);
         System.IntPtr actionName);
 
         /// <summary>
-        /// Looks up the action with the name @action_name in @action_map.
+        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
         /// </summary>
         /// <remarks>
-        /// If no such action exists, returns %NULL.
+        /// If no such action exists, returns <c>null</c>.
         /// </remarks>
         /// <param name="actionMap">
-        /// a #GActionMap
+        /// a <see cref="IActionMap"/>
         /// </param>
         /// <param name="actionName">
         /// the name of an action
         /// </param>
         /// <returns>
-        /// a #GAction, or %NULL
+        /// a <see cref="IAction"/>, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.Utf8 actionName)
@@ -3388,7 +3388,7 @@ System.IntPtr parameter);
         /// If no action of this name is in the map then nothing happens.
         /// </remarks>
         /// <param name="actionMap">
-        /// a #GActionMap
+        /// a <see cref="IActionMap"/>
         /// </param>
         /// <param name="actionName">
         /// the name of the action
@@ -3403,7 +3403,7 @@ System.IntPtr parameter);
     }
 
     /// <summary>
-    /// The virtual function table for #GActionMap.
+    /// The virtual function table for <see cref="IActionMap"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.32")]
     public sealed class ActionMapInterface : GISharp.Lib.GObject.TypeInterface
@@ -3581,7 +3581,7 @@ System.IntPtr actionName);
         /// This application handles opening files (in
         ///     the primary instance). Note that this flag only affects the default
         ///     implementation of local_command_line(), and has no effect if
-        ///     %G_APPLICATION_HANDLES_COMMAND_LINE is given.
+        ///     <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
         ///     See g_application_run() for details.
         /// </summary>
         HandlesOpen = 4,
@@ -3753,27 +3753,27 @@ System.IntPtr actionName);
     /// </summary>
     /// <remarks>
     /// Asynchronous operations are broken up into two separate operations
-    /// which are chained together by a #GAsyncReadyCallback. To begin
-    /// an asynchronous operation, provide a #GAsyncReadyCallback to the
+    /// which are chained together by a <see cref="AsyncReadyCallback"/>. To begin
+    /// an asynchronous operation, provide a <see cref="AsyncReadyCallback"/> to the
     /// asynchronous function. This callback will be triggered when the
-    /// operation has completed, and will be passed a #GAsyncResult instance
+    /// operation has completed, and will be passed a <see cref="IAsyncResult"/> instance
     /// filled with the details of the operation's success or failure, the
     /// object the asynchronous function was started for and any error codes
     /// returned. The asynchronous callback function is then expected to call
     /// the corresponding "_finish()" function, passing the object the
-    /// function was called for, the #GAsyncResult instance, and (optionally)
-    /// an @error to grab any error conditions that may have occurred.
+    /// function was called for, the <see cref="IAsyncResult"/> instance, and (optionally)
+    /// an <paramref name="error"/> to grab any error conditions that may have occurred.
     /// 
     /// The "_finish()" function for an operation takes the generic result
-    /// (of type #GAsyncResult) and returns the specific result that the
+    /// (of type <see cref="IAsyncResult"/>) and returns the specific result that the
     /// operation in question yields (e.g. a #GFileEnumerator for a
     /// "enumerate children" operation). If the result or error status of the
     /// operation is not needed, there is no need to call the "_finish()"
     /// function; GIO will take care of cleaning up the result and error
-    /// information after the #GAsyncReadyCallback returns. You can pass
-    /// %NULL for the #GAsyncReadyCallback if you don't need to take any
+    /// information after the <see cref="AsyncReadyCallback"/> returns. You can pass
+    /// <c>null</c> for the <see cref="AsyncReadyCallback"/> if you don't need to take any
     /// action at all after the operation completes. Applications may also
-    /// take a reference to the #GAsyncResult and call "_finish()" later;
+    /// take a reference to the <see cref="IAsyncResult"/> and call "_finish()" later;
     /// however, the "_finish()" function may be called at most once.
     /// 
     /// Example of a typical asynchronous operation flow:
@@ -3820,7 +3820,7 @@ System.IntPtr actionName);
     /// 
     /// The callback for an asynchronous operation is called only once, and is
     /// always called, even in the case of a cancelled operation. On cancellation
-    /// the result is a %G_IO_ERROR_CANCELLED error.
+    /// the result is a <see cref="IOErrorEnum.Cancelled"/> error.
     /// 
     /// ## I/O Priority # {#io-priority}
     /// 
@@ -3837,33 +3837,33 @@ System.IntPtr actionName);
     public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
-        /// Gets the source object from a #GAsyncResult.
+        /// Gets the source object from a <see cref="IAsyncResult"/>.
         /// </summary>
         /// <returns>
-        /// a new reference to the source object for the @res,
-        ///    or %NULL if there is none.
+        /// a new reference to the source object for the <paramref name="res"/>,
+        ///    or <c>null</c> if there is none.
         /// </returns>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
         GISharp.Lib.GObject.Object DoGetSourceObject();
 
         /// <summary>
-        /// Gets the user data from a #GAsyncResult.
+        /// Gets the user data from a <see cref="IAsyncResult"/>.
         /// </summary>
         /// <returns>
-        /// the user data for @res.
+        /// the user data for <paramref name="res"/>.
         /// </returns>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetUserData))]
         System.IntPtr DoGetUserData();
 
         /// <summary>
-        /// Checks if @res has the given @source_tag (generally a function
-        /// pointer indicating the function @res was created by).
+        /// Checks if <paramref name="res"/> has the given <paramref name="sourceTag"/> (generally a function
+        /// pointer indicating the function <paramref name="res"/> was created by).
         /// </summary>
         /// <param name="sourceTag">
         /// an application-defined tag
         /// </param>
         /// <returns>
-        /// %TRUE if @res has the indicated @source_tag, %FALSE if
+        /// <c>true</c> if <paramref name="res"/> has the indicated <paramref name="sourceTag"/>, <c>false</c> if
         ///   not.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
@@ -3899,14 +3899,14 @@ System.IntPtr actionName);
         System.IntPtr res);
 
         /// <summary>
-        /// Gets the source object from a #GAsyncResult.
+        /// Gets the source object from a <see cref="IAsyncResult"/>.
         /// </summary>
         /// <param name="res">
-        /// a #GAsyncResult
+        /// a <see cref="IAsyncResult"/>
         /// </param>
         /// <returns>
-        /// a new reference to the source object for the @res,
-        ///    or %NULL if there is none.
+        /// a new reference to the source object for the <paramref name="res"/>,
+        ///    or <c>null</c> if there is none.
         /// </returns>
         public static GISharp.Lib.GObject.Object GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
@@ -3934,13 +3934,13 @@ System.IntPtr actionName);
         System.IntPtr res);
 
         /// <summary>
-        /// Gets the user data from a #GAsyncResult.
+        /// Gets the user data from a <see cref="IAsyncResult"/>.
         /// </summary>
         /// <param name="res">
-        /// a #GAsyncResult.
+        /// a <see cref="IAsyncResult"/>.
         /// </param>
         /// <returns>
-        /// the user data for @res.
+        /// the user data for <paramref name="res"/>.
         /// </returns>
         public static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
@@ -3977,17 +3977,17 @@ System.IntPtr actionName);
         System.IntPtr sourceTag);
 
         /// <summary>
-        /// Checks if @res has the given @source_tag (generally a function
-        /// pointer indicating the function @res was created by).
+        /// Checks if <paramref name="res"/> has the given <paramref name="sourceTag"/> (generally a function
+        /// pointer indicating the function <paramref name="res"/> was created by).
         /// </summary>
         /// <param name="res">
-        /// a #GAsyncResult
+        /// a <see cref="IAsyncResult"/>
         /// </param>
         /// <param name="sourceTag">
         /// an application-defined tag
         /// </param>
         /// <returns>
-        /// %TRUE if @res has the indicated @source_tag, %FALSE if
+        /// <c>true</c> if <paramref name="res"/> has the indicated <paramref name="sourceTag"/>, <c>false</c> if
         ///   not.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
@@ -4002,7 +4002,7 @@ System.IntPtr actionName);
     }
 
     /// <summary>
-    /// Interface definition for #GAsyncResult.
+    /// Interface definition for <see cref="IAsyncResult"/>.
     /// </summary>
     public sealed class AsyncResultIface : GISharp.Lib.GObject.TypeInterface
     {
@@ -4179,18 +4179,18 @@ System.IntPtr sourceTag);
         /// <summary>
         /// Gets the file descriptor for a cancellable job. This can be used to
         /// implement cancellable operations on Unix systems. The returned fd will
-        /// turn readable when @cancellable is cancelled.
+        /// turn readable when <paramref name="cancellable"/> is cancelled.
         /// </summary>
         /// <remarks>
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with g_cancellable_reset().
+        /// with <see cref="Reset"/>.
         /// 
         /// After a successful return from this function, you should use
-        /// g_cancellable_release_fd() to free up resources allocated for
+        /// <see cref="ReleaseFd"/> to free up resources allocated for
         /// the returned file descriptor.
         /// 
-        /// See also g_cancellable_make_pollfd().
+        /// See also <see cref="TryMakePollfd"/>.
         /// </remarks>
         public System.Int32 Fd { get => GetFd(); }
 
@@ -4229,18 +4229,18 @@ System.IntPtr sourceTag);
         }
 
         /// <summary>
-        /// Creates a new #GCancellable object.
+        /// Creates a new <see cref="Cancellable"/> object.
         /// </summary>
         /// <remarks>
         /// Applications that want to start one or more operations
-        /// that should be cancellable should create a #GCancellable
+        /// that should be cancellable should create a <see cref="Cancellable"/>
         /// and pass it to the operations.
         /// 
-        /// One #GCancellable can be used in multiple consecutive
+        /// One <see cref="Cancellable"/> can be used in multiple consecutive
         /// operations or in multiple concurrent operations.
         /// </remarks>
         /// <returns>
-        /// a #GCancellable.
+        /// a <see cref="Cancellable"/>.
         /// </returns>
         public Cancellable() : this(New(), GISharp.Runtime.Transfer.Full)
         {
@@ -4279,8 +4279,8 @@ System.IntPtr sourceTag);
         /// the signal leaves a race condition where this is still happening.
         /// 
         /// In order to make it safe and easy to connect handlers there
-        /// are two helper functions: g_cancellable_connect() and
-        /// g_cancellable_disconnect() which protect against problems
+        /// are two helper functions: <see cref="Connect"/> and
+        /// <see cref="Disconnect"/> which protect against problems
         /// like this.
         /// 
         /// An example of how to us this:
@@ -4331,8 +4331,8 @@ System.IntPtr sourceTag);
         /// Gets the top cancellable from the stack.
         /// </summary>
         /// <returns>
-        /// a #GCancellable from the top
-        /// of the stack, or %NULL if the stack is empty.
+        /// a <see cref="Cancellable"/> from the top
+        /// of the stack, or <c>null</c> if the stack is empty.
         /// </returns>
         private static GISharp.Lib.Gio.Cancellable GetCurrent()
         {
@@ -4377,22 +4377,22 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Will set @cancellable to cancelled, and will emit the
-        /// #GCancellable::cancelled signal. (However, see the warning about
+        /// Will set <paramref name="cancellable"/> to cancelled, and will emit the
+        /// <see cref="Cancellable"/>::cancelled signal. (However, see the warning about
         /// race conditions in the documentation for that signal if you are
         /// planning to connect to it.)
         /// </summary>
         /// <remarks>
         /// This function is thread-safe. In other words, you can safely call
         /// it from a thread other than the one running the operation that was
-        /// passed the @cancellable.
+        /// passed the <paramref name="cancellable"/>.
         /// 
-        /// If @cancellable is %NULL, this function returns immediately for convenience.
+        /// If <paramref name="cancellable"/> is <c>null</c>, this function returns immediately for convenience.
         /// 
         /// The convention within GIO is that cancelling an asynchronous
         /// operation causes it to complete asynchronously. That is, if you
         /// cancel the operation from the same thread in which it is running,
-        /// then the operation's #GAsyncReadyCallback will not be invoked until
+        /// then the operation's <see cref="AsyncReadyCallback"/> will not be invoked until
         /// the application returns to the main loop.
         /// </remarks>
         public void Cancel()
@@ -4496,16 +4496,16 @@ System.IntPtr sourceTag);
         /// g_signal_handler_disconnect().  Additionally, in the event that a
         /// signal handler is currently running, this call will block until the
         /// handler has finished.  Calling this function from a
-        /// #GCancellable::cancelled signal handler will therefore result in a
+        /// <see cref="Cancellable"/>::cancelled signal handler will therefore result in a
         /// deadlock.
         /// </summary>
         /// <remarks>
         /// This avoids a race condition where a thread cancels at the
         /// same time as the cancellable operation is finished and the
-        /// signal handler is removed. See #GCancellable::cancelled for
+        /// signal handler is removed. See <see cref="Cancellable"/>::cancelled for
         /// details on how to use this.
         /// 
-        /// If @cancellable is %NULL or @handler_id is %0 this function does
+        /// If <paramref name="cancellable"/> is <c>null</c> or <paramref name="handlerId"/> is %0 this function does
         /// nothing.
         /// </remarks>
         /// <param name="handlerId">
@@ -4553,18 +4553,18 @@ System.IntPtr sourceTag);
         /// <summary>
         /// Gets the file descriptor for a cancellable job. This can be used to
         /// implement cancellable operations on Unix systems. The returned fd will
-        /// turn readable when @cancellable is cancelled.
+        /// turn readable when <paramref name="cancellable"/> is cancelled.
         /// </summary>
         /// <remarks>
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with g_cancellable_reset().
+        /// with <see cref="Reset"/>.
         /// 
         /// After a successful return from this function, you should use
-        /// g_cancellable_release_fd() to free up resources allocated for
+        /// <see cref="ReleaseFd"/> to free up resources allocated for
         /// the returned file descriptor.
         /// 
-        /// See also g_cancellable_make_pollfd().
+        /// See also <see cref="TryMakePollfd"/>.
         /// </remarks>
         /// <returns>
         /// A valid file descriptor. %-1 if the file descriptor
@@ -4600,8 +4600,8 @@ System.IntPtr sourceTag);
         /// Checks if a cancellable job has been cancelled.
         /// </summary>
         /// <returns>
-        /// %TRUE if @cancellable is cancelled,
-        /// FALSE if called with %NULL or if item is not cancelled.
+        /// <c>true</c> if <paramref name="cancellable"/> is cancelled,
+        /// FALSE if called with <c>null</c> or if item is not cancelled.
         /// </returns>
         private System.Boolean GetIsCancelled()
         {
@@ -4655,31 +4655,31 @@ System.IntPtr sourceTag);
         out GISharp.Lib.GLib.PollFD pollfd);
 
         /// <summary>
-        /// Creates a #GPollFD corresponding to @cancellable; this can be passed
+        /// Creates a #GPollFD corresponding to <paramref name="cancellable"/>; this can be passed
         /// to g_poll() and used to poll for cancellation. This is useful both
         /// for unix systems without a native poll and for portability to
         /// windows.
         /// </summary>
         /// <remarks>
-        /// When this function returns %TRUE, you should use
-        /// g_cancellable_release_fd() to free up resources allocated for the
-        /// @pollfd. After a %FALSE return, do not call g_cancellable_release_fd().
+        /// When this function returns <c>true</c>, you should use
+        /// <see cref="ReleaseFd"/> to free up resources allocated for the
+        /// <paramref name="pollfd"/>. After a <c>false</c> return, do not call <see cref="ReleaseFd"/>.
         /// 
-        /// If this function returns %FALSE, either no @cancellable was given or
+        /// If this function returns <c>false</c>, either no <paramref name="cancellable"/> was given or
         /// resource limits prevent this function from allocating the necessary
         /// structures for polling. (On Linux, you will likely have reached
         /// the maximum number of file descriptors.) The suggested way to handle
-        /// these cases is to ignore the @cancellable.
+        /// these cases is to ignore the <paramref name="cancellable"/>.
         /// 
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with g_cancellable_reset().
+        /// with <see cref="Reset"/>.
         /// </remarks>
         /// <param name="pollfd">
         /// a pointer to a #GPollFD
         /// </param>
         /// <returns>
-        /// %TRUE if @pollfd was successfully initialized, %FALSE on
+        /// <c>true</c> if <paramref name="pollfd"/> was successfully initialized, <c>false</c> on
         ///          failure to prepare the cancellable.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -4708,7 +4708,7 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Pops @cancellable off the cancellable stack (verifying that @cancellable
+        /// Pops <paramref name="cancellable"/> off the cancellable stack (verifying that <paramref name="cancellable"/>
         /// is on the top of the stack).
         /// </summary>
         public void PopCurrent()
@@ -4740,8 +4740,8 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Pushes @cancellable onto the cancellable stack. The current
-        /// cancellable can then be received using g_cancellable_get_current().
+        /// Pushes <paramref name="cancellable"/> onto the cancellable stack. The current
+        /// cancellable can then be received using <see cref="GetCurrent"/>.
         /// </summary>
         /// <remarks>
         /// This is useful when implementing cancellable operations in
@@ -4781,13 +4781,13 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Releases a resources previously allocated by g_cancellable_get_fd()
-        /// or g_cancellable_make_pollfd().
+        /// Releases a resources previously allocated by <see cref="GetFd"/>
+        /// or <see cref="TryMakePollfd"/>.
         /// </summary>
         /// <remarks>
         /// For compatibility reasons with older releases, calling this function
         /// is not strictly required, the resources will be automatically freed
-        /// when the @cancellable is finalized. However, the @cancellable will
+        /// when the <paramref name="cancellable"/> is finalized. However, the <paramref name="cancellable"/> will
         /// block scarce file descriptors until it is finalized if this function
         /// is not called. This can cause the application to run out of file
         /// descriptors when many #GCancellables are used at the same time.
@@ -4825,7 +4825,7 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Resets @cancellable to its uncancelled state.
+        /// Resets <paramref name="cancellable"/> to its uncancelled state.
         /// </summary>
         /// <remarks>
         /// If cancellable is currently in use by any cancellable operation
@@ -4869,7 +4869,7 @@ System.IntPtr sourceTag);
         ref System.IntPtr error);
 
         /// <summary>
-        /// If the @cancellable is cancelled, sets the error to notify
+        /// If the <paramref name="cancellable"/> is cancelled, sets the error to notify
         /// that the operation was cancelled.
         /// </summary>
         /// <exception name="GISharp.Runtime.GErrorException">
@@ -4974,7 +4974,7 @@ System.IntPtr cancellable);
 
     /// <summary>
     /// This is the function type of the callback used for the #GSource
-    /// returned by g_cancellable_source_new().
+    /// returned by <see cref="New"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
     public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable = null);
@@ -5083,7 +5083,7 @@ System.IntPtr cancellable);
     /// <remarks>
     /// Note that this domain may be extended in future GLib releases. In
     /// general, new error codes either only apply to new APIs, or else
-    /// replace %G_IO_ERROR_FAILED in cases that were not explicitly
+    /// replace <see cref="IOErrorEnum.Failed"/> in cases that were not explicitly
     /// distinguished before. You should therefore avoid writing code like
     /// |[&lt;!-- language="C" --&gt;
     /// if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_FAILED))
@@ -5101,7 +5101,7 @@ System.IntPtr cancellable);
     {
         /// <summary>
         /// Generic error condition for when an operation fails
-        ///     and no more specific #GIOErrorEnum value is defined.
+        ///     and no more specific <see cref="IOErrorEnum"/> value is defined.
         /// </summary>
         Failed = 0,
         /// <summary>
@@ -5177,7 +5177,7 @@ System.IntPtr cancellable);
         /// </summary>
         Closed = 18,
         /// <summary>
-        /// Operation was cancelled. See #GCancellable.
+        /// Operation was cancelled. See <see cref="Cancellable"/>.
         /// </summary>
         Cancelled = 19,
         /// <summary>
@@ -5303,9 +5303,9 @@ System.IntPtr cancellable);
         BrokenPipe = 44,
         /// <summary>
         /// Connection closed by peer. Note that this
-        ///     is the same code as %G_IO_ERROR_BROKEN_PIPE; before 2.44 some
-        ///     "connection closed" errors returned %G_IO_ERROR_BROKEN_PIPE, but others
-        ///     returned %G_IO_ERROR_FAILED. Now they should all return the same
+        ///     is the same code as <see cref="IOErrorEnum.BrokenPipe"/>; before 2.44 some
+        ///     "connection closed" errors returned <see cref="IOErrorEnum.BrokenPipe"/>, but others
+        ///     returned <see cref="IOErrorEnum.Failed"/>. Now they should all return the same
         ///     value, which has this more logical name.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.44")]
@@ -5357,7 +5357,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Converts errno.h error codes into GIO error codes. The fallback
-        /// value %G_IO_ERROR_FAILED is returned for error codes not currently
+        /// value <see cref="IOErrorEnum.Failed"/> is returned for error codes not currently
         /// handled (but note that future GLib releases may return a more
         /// specific value instead).
         /// </summary>
@@ -5369,7 +5369,7 @@ System.IntPtr cancellable);
         /// Error number as defined in errno.h.
         /// </param>
         /// <returns>
-        /// #GIOErrorEnum value for the given errno.h error number.
+        /// <see cref="IOErrorEnum"/> value for the given errno.h error number.
         /// </returns>
         public static GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
         {
@@ -5410,9 +5410,9 @@ System.IntPtr cancellable);
     }
 
     /// <summary>
-    /// #GInputStream has functions to read from a stream (g_input_stream_read()),
-    /// to close a stream (g_input_stream_close()) and to skip some content
-    /// (g_input_stream_skip()).
+    /// <see cref="InputStream"/> has functions to read from a stream (<see cref="Read"/>),
+    /// to close a stream (<see cref="Close"/>) and to skip some content
+    /// (<see cref="Skip"/>).
     /// </summary>
     /// <remarks>
     /// To copy the content of an input stream to an output stream without
@@ -5466,7 +5466,7 @@ System.IntPtr cancellable);
         System.IntPtr stream);
 
         /// <summary>
-        /// Clears the pending flag on @stream.
+        /// Clears the pending flag on <paramref name="stream"/>.
         /// </summary>
         public void ClearPending()
         {
@@ -5530,7 +5530,7 @@ System.IntPtr cancellable);
         /// Closes the stream, releasing resources related to it.
         /// </summary>
         /// <remarks>
-        /// Once the stream is closed, all other operations will return %G_IO_ERROR_CLOSED.
+        /// Once the stream is closed, all other operations will return <see cref="IOErrorEnum.Closed"/>.
         /// Closing a stream multiple times will not return an error.
         /// 
         /// Streams will be automatically closed when the last reference
@@ -5543,17 +5543,17 @@ System.IntPtr cancellable);
         /// 
         /// On failure the first error that happened will be reported, but the close
         /// operation will finish as much as possible. A stream that failed to
-        /// close will still return %G_IO_ERROR_CLOSED for all operations. Still, it
+        /// close will still return <see cref="IOErrorEnum.Closed"/> for all operations. Still, it
         /// is important to check and report the error to the user.
         /// 
-        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
         /// Cancelling a close will still leave the stream closed, but some streams
         /// can use a faster close that doesn't block to e.g. check errors.
         /// </remarks>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -5621,12 +5621,12 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Requests an asynchronous closes of the stream, releasing resources related to it.
-        /// When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_close_finish() to get the result of the
+        /// When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="CloseFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// For behaviour details see g_input_stream_close().
+        /// For behaviour details see <see cref="Close"/>.
         /// 
         /// The asynchronous methods have a default fallback that uses threads to implement
         /// asynchronicity, so they are optional for inheriting classes. However, if you
@@ -5725,7 +5725,7 @@ System.IntPtr cancellable);
         /// Checks if an input stream has pending actions.
         /// </summary>
         /// <returns>
-        /// %TRUE if @stream has pending actions.
+        /// <c>true</c> if <paramref name="stream"/> has pending actions.
         /// </returns>
         public System.Boolean HasPending()
         {
@@ -5756,7 +5756,7 @@ System.IntPtr cancellable);
         /// Checks if an input stream is closed.
         /// </summary>
         /// <returns>
-        /// %TRUE if the stream is closed.
+        /// <c>true</c> if the stream is closed.
         /// </returns>
         private System.Boolean GetIsClosed()
         {
@@ -5832,35 +5832,35 @@ System.IntPtr cancellable);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Tries to read @count bytes from the stream into the buffer starting at
-        /// @buffer. Will block during this read.
+        /// Tries to read <paramref name="count"/> bytes from the stream into the buffer starting at
+        /// <paramref name="buffer"/>. Will block during this read.
         /// </summary>
         /// <remarks>
-        /// If count is zero returns zero and does nothing. A value of @count
-        /// larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// If count is zero returns zero and does nothing. A value of <paramref name="count"/>
+        /// larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the number of bytes read into the buffer is returned.
         /// It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. near the end of a file. Zero is returned on end of file
-        /// (or if @count is zero),  but never otherwise.
+        /// (or if <paramref name="count"/> is zero),  but never otherwise.
         /// 
-        /// The returned @buffer is not a nul-terminated string, it can contain nul bytes
-        /// at any position, and this function doesn't nul-terminate the @buffer.
+        /// The returned <paramref name="buffer"/> is not a nul-terminated string, it can contain nul bytes
+        /// at any position, and this function doesn't nul-terminate the <paramref name="buffer"/>.
         /// 
-        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
         /// 
-        /// On error -1 is returned and @error is set accordingly.
+        /// On error -1 is returned and <paramref name="error"/> is set accordingly.
         /// </remarks>
         /// <param name="buffer">
         /// a buffer to
         ///     read data into (which should be at least count bytes long).
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
         /// Number of bytes read, or -1 on error, or 0 on end of file.
@@ -5955,26 +5955,26 @@ System.IntPtr cancellable);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Tries to read @count bytes from the stream into the buffer starting at
-        /// @buffer. Will block during this read.
+        /// Tries to read <paramref name="count"/> bytes from the stream into the buffer starting at
+        /// <paramref name="buffer"/>. Will block during this read.
         /// </summary>
         /// <remarks>
-        /// This function is similar to g_input_stream_read(), except it tries to
+        /// This function is similar to <see cref="Read"/>, except it tries to
         /// read as many bytes as requested, only stopping on an error or end of stream.
         /// 
-        /// On a successful read of @count bytes, or if we reached the end of the
-        /// stream,  %TRUE is returned, and @bytes_read is set to the number of bytes
-        /// read into @buffer.
+        /// On a successful read of <paramref name="count"/> bytes, or if we reached the end of the
+        /// stream,  <c>true</c> is returned, and <paramref name="bytesRead"/> is set to the number of bytes
+        /// read into <paramref name="buffer"/>.
         /// 
-        /// If there is an error during the operation %FALSE is returned and @error
+        /// If there is an error during the operation <c>false</c> is returned and <paramref name="error"/>
         /// is set to indicate the error status.
         /// 
         /// As a special exception to the normal conventions for functions that
-        /// use #GError, if this function returns %FALSE (and sets @error) then
-        /// @bytes_read will be set to the number of bytes that were successfully
+        /// use #GError, if this function returns <c>false</c> (and sets <paramref name="error"/>) then
+        /// <paramref name="bytesRead"/> will be set to the number of bytes that were successfully
         /// read before the error was encountered.  This functionality is only
         /// available from C.  If you need it from another language then you must
-        /// write your own loop around g_input_stream_read().
+        /// write your own loop around <see cref="Read"/>.
         /// </remarks>
         /// <param name="buffer">
         /// a buffer to
@@ -5984,7 +5984,7 @@ System.IntPtr cancellable);
         /// location to store the number of bytes that was read from the stream
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -6072,13 +6072,13 @@ System.IntPtr cancellable);
         System.IntPtr userData);
 
         /// <summary>
-        /// Request an asynchronous read of @count bytes from the stream into the
-        /// buffer starting at @buffer.
+        /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the
+        /// buffer starting at <paramref name="buffer"/>.
         /// </summary>
         /// <remarks>
-        /// This is the asynchronous equivalent of g_input_stream_read_all().
+        /// This is the asynchronous equivalent of <see cref="ReadAll"/>.
         /// 
-        /// Call g_input_stream_read_all_finish() to collect the result.
+        /// Call <see cref="ReadAllFinish"/> to collect the result.
         /// 
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
@@ -6092,7 +6092,7 @@ System.IntPtr cancellable);
         /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Threading.Tasks.Task<System.Int32> ReadAllAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
@@ -6259,22 +6259,22 @@ System.IntPtr cancellable);
         System.IntPtr userData);
 
         /// <summary>
-        /// Request an asynchronous read of @count bytes from the stream into the buffer
-        /// starting at @buffer. When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_read_finish() to get the result of the
+        /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the buffer
+        /// starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="ReadFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// During an async request no other sync and async calls are allowed on @stream, and will
-        /// result in %G_IO_ERROR_PENDING errors.
+        /// During an async request no other sync and async calls are allowed on <paramref name="stream"/>, and will
+        /// result in <see cref="IOErrorEnum.Pending"/> errors.
         /// 
-        /// A value of @count larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the number of bytes read into the buffer will be passed to the
         /// callback. It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. near the end of a file, but generally we try to read
         /// as many bytes as requested. Zero is returned on end of file
-        /// (or if @count is zero),  but never otherwise.
+        /// (or if <paramref name="count"/> is zero),  but never otherwise.
         /// 
         /// Any outstanding i/o request with higher priority (lower numerical value) will
         /// be executed before an outstanding request with lower priority. Default
@@ -6293,7 +6293,7 @@ System.IntPtr cancellable);
         /// of the request.
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         public System.Threading.Tasks.Task<System.Int32> ReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
@@ -6369,7 +6369,7 @@ System.IntPtr cancellable);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Like g_input_stream_read(), this tries to read @count bytes from
+        /// Like <see cref="Read"/>, this tries to read <paramref name="count"/> bytes from
         /// the stream in a blocking fashion. However, rather than reading into
         /// a user-supplied buffer, this will create a new #GBytes containing
         /// the data that was read. This may be easier to use from language
@@ -6377,32 +6377,32 @@ System.IntPtr cancellable);
         /// </summary>
         /// <remarks>
         /// If count is zero, returns a zero-length #GBytes and does nothing. A
-        /// value of @count larger than %G_MAXSSIZE will cause a
-        /// %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
+        /// <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, a new #GBytes is returned. It is not an error if the
         /// size of this object is not the same as the requested size, as it
         /// can happen e.g. near the end of a file. A zero-length #GBytes is
-        /// returned on end of file (or if @count is zero), but never
+        /// returned on end of file (or if <paramref name="count"/> is zero), but never
         /// otherwise.
         /// 
-        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
         /// 
-        /// On error %NULL is returned and @error is set accordingly.
+        /// On error <c>null</c> is returned and <paramref name="error"/> is set accordingly.
         /// </remarks>
         /// <param name="count">
         /// maximum number of bytes that will be read from the stream. Common
         /// values include 4096 and 8192.
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
-        /// a new #GBytes, or %NULL on error
+        /// a new #GBytes, or <c>null</c> on error
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -6493,23 +6493,23 @@ System.IntPtr cancellable);
         System.IntPtr userData);
 
         /// <summary>
-        /// Request an asynchronous read of @count bytes from the stream into a
-        /// new #GBytes. When the operation is finished @callback will be
-        /// called. You can then call g_input_stream_read_bytes_finish() to get the
+        /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into a
+        /// new #GBytes. When the operation is finished <paramref name="callback"/> will be
+        /// called. You can then call <see cref="ReadBytesFinish"/> to get the
         /// result of the operation.
         /// </summary>
         /// <remarks>
         /// During an async request no other sync and async calls are allowed
-        /// on @stream, and will result in %G_IO_ERROR_PENDING errors.
+        /// on <paramref name="stream"/>, and will result in <see cref="IOErrorEnum.Pending"/> errors.
         /// 
-        /// A value of @count larger than %G_MAXSSIZE will cause a
-        /// %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
+        /// <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the new #GBytes will be passed to the callback. It is
         /// not an error if this is smaller than the requested size, as it can
         /// happen e.g. near the end of a file, but generally we try to read as
         /// many bytes as requested. Zero is returned on end of file (or if
-        /// @count is zero), but never otherwise.
+        /// <paramref name="count"/> is zero), but never otherwise.
         /// 
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
@@ -6522,7 +6522,7 @@ System.IntPtr cancellable);
         /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
         public System.Threading.Tasks.Task<GISharp.Lib.GLib.Bytes> ReadBytesAsync(System.Int32 count, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
@@ -6675,9 +6675,9 @@ System.IntPtr cancellable);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Sets @stream to have actions pending. If the pending flag is
-        /// already set or @stream is closed, it will return %FALSE and set
-        /// @error.
+        /// Sets <paramref name="stream"/> to have actions pending. If the pending flag is
+        /// already set or <paramref name="stream"/> is closed, it will return <c>false</c> and set
+        /// <paramref name="error"/>.
         /// </summary>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -6744,19 +6744,19 @@ System.IntPtr cancellable);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Tries to skip @count bytes from the stream. Will block during the operation.
+        /// Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
         /// </summary>
         /// <remarks>
-        /// This is identical to g_input_stream_read(), from a behaviour standpoint,
+        /// This is identical to <see cref="Read"/>, from a behaviour standpoint,
         /// but the bytes that are skipped are not returned to the user. Some
         /// streams have an implementation that is more efficient than reading the data.
         /// 
         /// This function is optional for inherited classes, as the default implementation
         /// emulates it using read.
         /// 
-        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
         /// </remarks>
@@ -6764,7 +6764,7 @@ System.IntPtr cancellable);
         /// the number of bytes that will be skipped from the stream
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
         /// Number of bytes skipped, or -1 on error
@@ -6859,22 +6859,22 @@ System.IntPtr cancellable);
         System.IntPtr userData);
 
         /// <summary>
-        /// Request an asynchronous skip of @count bytes from the stream.
-        /// When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_skip_finish() to get the result
+        /// Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
+        /// When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="SkipFinish"/> to get the result
         /// of the operation.
         /// </summary>
         /// <remarks>
         /// During an async request no other sync and async calls are allowed,
-        /// and will result in %G_IO_ERROR_PENDING errors.
+        /// and will result in <see cref="IOErrorEnum.Pending"/> errors.
         /// 
-        /// A value of @count larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the number of bytes skipped will be passed to the callback.
         /// It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. near the end of a file, but generally we try to skip
         /// as many bytes as requested. Zero is returned on end of file
-        /// (or if @count is zero), but never otherwise.
+        /// (or if <paramref name="count"/> is zero), but never otherwise.
         /// 
         /// Any outstanding i/o request with higher priority (lower numerical value)
         /// will be executed before an outstanding request with lower priority.
@@ -6891,7 +6891,7 @@ System.IntPtr cancellable);
         /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         public System.Threading.Tasks.Task<System.Int32> SkipAsync(System.Int32 count, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
@@ -6963,12 +6963,12 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Requests an asynchronous closes of the stream, releasing resources related to it.
-        /// When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_close_finish() to get the result of the
+        /// When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="CloseFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// For behaviour details see g_input_stream_close().
+        /// For behaviour details see <see cref="Close"/>.
         /// 
         /// The asynchronous methods have a default fallback that uses threads to implement
         /// asynchronicity, so they are optional for inheriting classes. However, if you
@@ -6994,13 +6994,13 @@ System.IntPtr cancellable);
         }
 
         /// <summary>
-        /// Finishes closing a stream asynchronously, started from g_input_stream_close_async().
+        /// Finishes closing a stream asynchronously, started from <see cref="CloseAsync"/>.
         /// </summary>
         /// <param name="result">
-        /// a #GAsyncResult.
+        /// a <see cref="IAsyncResult"/>.
         /// </param>
         /// <returns>
-        /// %TRUE if the stream was closed successfully.
+        /// <c>true</c> if the stream was closed successfully.
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -7026,22 +7026,22 @@ System.IntPtr cancellable);
         protected abstract void DoCloseFn(GISharp.Lib.Gio.Cancellable cancellable = null);
 
         /// <summary>
-        /// Request an asynchronous read of @count bytes from the stream into the buffer
-        /// starting at @buffer. When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_read_finish() to get the result of the
+        /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the buffer
+        /// starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="ReadFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// During an async request no other sync and async calls are allowed on @stream, and will
-        /// result in %G_IO_ERROR_PENDING errors.
+        /// During an async request no other sync and async calls are allowed on <paramref name="stream"/>, and will
+        /// result in <see cref="IOErrorEnum.Pending"/> errors.
         /// 
-        /// A value of @count larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the number of bytes read into the buffer will be passed to the
         /// callback. It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. near the end of a file, but generally we try to read
         /// as many bytes as requested. Zero is returned on end of file
-        /// (or if @count is zero),  but never otherwise.
+        /// (or if <paramref name="count"/> is zero),  but never otherwise.
         /// 
         /// Any outstanding i/o request with higher priority (lower numerical value) will
         /// be executed before an outstanding request with lower priority. Default
@@ -7063,7 +7063,7 @@ System.IntPtr cancellable);
         /// callback to call when the request is satisfied
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedReadAsync))]
         protected virtual void DoReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
@@ -7080,7 +7080,7 @@ System.IntPtr cancellable);
         /// Finishes an asynchronous stream read operation.
         /// </summary>
         /// <param name="result">
-        /// a #GAsyncResult.
+        /// a <see cref="IAsyncResult"/>.
         /// </param>
         /// <returns>
         /// number of bytes read in, or -1 on error, or 0 on end of file.
@@ -7112,19 +7112,19 @@ System.IntPtr cancellable);
         protected abstract System.Int32 DoReadFn(System.IntPtr buffer, System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         /// <summary>
-        /// Tries to skip @count bytes from the stream. Will block during the operation.
+        /// Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
         /// </summary>
         /// <remarks>
-        /// This is identical to g_input_stream_read(), from a behaviour standpoint,
+        /// This is identical to <see cref="Read"/>, from a behaviour standpoint,
         /// but the bytes that are skipped are not returned to the user. Some
         /// streams have an implementation that is more efficient than reading the data.
         /// 
         /// This function is optional for inherited classes, as the default implementation
         /// emulates it using read.
         /// 
-        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
         /// operation was partially finished when the operation was cancelled the
         /// partial result will be returned, without an error.
         /// </remarks>
@@ -7132,7 +7132,7 @@ System.IntPtr cancellable);
         /// the number of bytes that will be skipped from the stream
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
         /// Number of bytes skipped, or -1 on error
@@ -7144,22 +7144,22 @@ System.IntPtr cancellable);
         protected abstract System.Int32 DoSkip(System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         /// <summary>
-        /// Request an asynchronous skip of @count bytes from the stream.
-        /// When the operation is finished @callback will be called.
-        /// You can then call g_input_stream_skip_finish() to get the result
+        /// Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
+        /// When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="SkipFinish"/> to get the result
         /// of the operation.
         /// </summary>
         /// <remarks>
         /// During an async request no other sync and async calls are allowed,
-        /// and will result in %G_IO_ERROR_PENDING errors.
+        /// and will result in <see cref="IOErrorEnum.Pending"/> errors.
         /// 
-        /// A value of @count larger than %G_MAXSSIZE will cause a %G_IO_ERROR_INVALID_ARGUMENT error.
+        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
         /// 
         /// On success, the number of bytes skipped will be passed to the callback.
         /// It is not an error if this is not the same as the requested size, as it
         /// can happen e.g. near the end of a file, but generally we try to skip
         /// as many bytes as requested. Zero is returned on end of file
-        /// (or if @count is zero), but never otherwise.
+        /// (or if <paramref name="count"/> is zero), but never otherwise.
         /// 
         /// Any outstanding i/o request with higher priority (lower numerical value)
         /// will be executed before an outstanding request with lower priority.
@@ -7179,7 +7179,7 @@ System.IntPtr cancellable);
         /// callback to call when the request is satisfied
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedSkipAsync))]
         protected virtual void DoSkipAsync(System.Int32 count, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
@@ -7196,7 +7196,7 @@ System.IntPtr cancellable);
         /// Finishes a stream skip operation.
         /// </summary>
         /// <param name="result">
-        /// a #GAsyncResult.
+        /// a <see cref="IAsyncResult"/>.
         /// </param>
         /// <returns>
         /// the size of the bytes skipped, or %-1 on error.
@@ -7749,9 +7749,9 @@ ref System.IntPtr error);
     }
 
     /// <summary>
-    /// A #GSimpleAction is the obvious simple implementation of the #GAction
+    /// A <see cref="SimpleAction"/> is the obvious simple implementation of the <see cref="IAction"/>
     /// interface. This is the easiest way to create an action for purposes of
-    /// adding it to a #GSimpleActionGroup.
+    /// adding it to a <see cref="SimpleAction"/>Group.
     /// </summary>
     /// <remarks>
     /// See also #GtkAction.
@@ -7762,11 +7762,11 @@ ref System.IntPtr error);
         static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
         /// <summary>
-        /// If @action is currently enabled.
+        /// If <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
-        /// If the action is disabled then calls to g_action_activate() and
-        /// g_action_change_state() have no effect.
+        /// If the action is disabled then calls to <see cref="Activate"/> and
+        /// <see cref="ChangeState"/> have no effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -7789,14 +7789,14 @@ ref System.IntPtr error);
         public GISharp.Lib.GLib.VariantType ParameterType { get => (GISharp.Lib.GLib.VariantType)GetProperty("parameter-type"); set => SetProperty("parameter-type", value); }
 
         /// <summary>
-        /// The state of the action, or %NULL if the action is stateless.
+        /// The state of the action, or <c>null</c> if the action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
         public GISharp.Lib.GLib.Variant State { get => (GISharp.Lib.GLib.Variant)GetProperty("state"); }
 
         /// <summary>
-        /// The #GVariantType of the state that the action has, or %NULL if the
+        /// The #GVariantType of the state that the action has, or <c>null</c> if the
         /// action is stateless.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -7838,7 +7838,7 @@ ref System.IntPtr error);
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See g_simple_action_new_stateful().
+        /// The created action is stateless.  See <see cref="NewStateful"/>.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -7847,7 +7847,7 @@ ref System.IntPtr error);
         /// the type of parameter to the activate function
         /// </param>
         /// <returns>
-        /// a new #GSimpleAction
+        /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         static System.IntPtr New(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType)
@@ -7862,7 +7862,7 @@ ref System.IntPtr error);
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See g_simple_action_new_stateful().
+        /// The created action is stateless.  See <see cref="NewStateful"/>.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -7871,7 +7871,7 @@ ref System.IntPtr error);
         /// the type of parameter to the activate function
         /// </param>
         /// <returns>
-        /// a new #GSimpleAction
+        /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
@@ -7918,10 +7918,10 @@ ref System.IntPtr error);
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
-        /// @state is the initial state of the action.  All future state values
+        /// <paramref name="state"/> is the initial state of the action.  All future state values
         /// must have the same #GVariantType as the initial state.
         /// 
-        /// If the @state GVariant is floating, it is consumed.
+        /// If the <paramref name="state"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -7933,7 +7933,7 @@ ref System.IntPtr error);
         /// the initial state of the action
         /// </param>
         /// <returns>
-        /// a new #GSimpleAction
+        /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         static System.IntPtr NewStateful(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
@@ -7949,10 +7949,10 @@ ref System.IntPtr error);
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
-        /// @state is the initial state of the action.  All future state values
+        /// <paramref name="state"/> is the initial state of the action.  All future state values
         /// must have the same #GVariantType as the initial state.
         /// 
-        /// If the @state GVariant is floating, it is consumed.
+        /// If the <paramref name="state"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -7964,7 +7964,7 @@ ref System.IntPtr error);
         /// the initial state of the action
         /// </param>
         /// <returns>
-        /// a new #GSimpleAction
+        /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
@@ -7989,16 +7989,16 @@ ref System.IntPtr error);
         /// Indicates that the action was just activated.
         /// </summary>
         /// <remarks>
-        /// @parameter will always be of the expected type.  In the event that
+        /// <paramref name="parameter"/> will always be of the expected type.  In the event that
         /// an incorrect type was given, no signal will be emitted.
         /// 
         /// Since GLib 2.40, if no handler is connected to this signal then the
-        /// default behaviour for boolean-stated actions with a %NULL parameter
-        /// type is to toggle them via the #GSimpleAction::change-state signal.
+        /// default behaviour for boolean-stated actions with a <c>null</c> parameter
+        /// type is to toggle them via the <see cref="SimpleAction"/>::change-state signal.
         /// For stateful actions where the state type is equal to the parameter
         /// type, the default is to forward them directly to
-        /// #GSimpleAction::change-state.  This should allow almost all users
-        /// of #GSimpleAction to connect only one handler or the other.
+        /// <see cref="SimpleAction"/>::change-state.  This should allow almost all users
+        /// of <see cref="SimpleAction"/> to connect only one handler or the other.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
@@ -8023,14 +8023,14 @@ ref System.IntPtr error);
         /// state.
         /// </summary>
         /// <remarks>
-        /// @value will always be of the correct state type.  In the event that
+        /// <paramref name="value"/> will always be of the correct state type.  In the event that
         /// an incorrect type was given, no signal will be emitted.
         /// 
         /// If no handler is connected to this signal then the default
-        /// behaviour is to call g_simple_action_set_state() to set the state
+        /// behaviour is to call <see cref="SetState"/> to set the state
         /// to the requested value. If you connect a signal handler then no
         /// default action is taken. If the state should change then you must
-        /// call g_simple_action_set_state() from the handler.
+        /// call <see cref="SetState"/> from the handler.
         /// 
         /// An example of a 'change-state' handler:
         /// |[&lt;!-- language="C" --&gt;
@@ -8149,10 +8149,10 @@ ref System.IntPtr error);
         /// 
         /// This should only be called by the implementor of the action.  Users
         /// of the action should not attempt to directly modify the 'state'
-        /// property.  Instead, they should call g_action_change_state() to
+        /// property.  Instead, they should call <see cref="ChangeState"/> to
         /// request the change.
         /// 
-        /// If the @value GVariant is floating, it is consumed.
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="value">
         /// the new #GVariant for the state
@@ -8194,7 +8194,7 @@ ref System.IntPtr error);
         /// Sets the state hint for the action.
         /// </summary>
         /// <remarks>
-        /// See g_action_get_state_hint() for more information about
+        /// See <see cref="GetStateHint"/> for more information about
         /// action state hints.
         /// </remarks>
         /// <param name="stateHint">
@@ -8250,24 +8250,24 @@ ref System.IntPtr error);
     }
 
     /// <summary>
-    /// A #GTask represents and manages a cancellable "task".
+    /// A <see cref="Task"/> represents and manages a cancellable "task".
     /// </summary>
     /// <remarks>
     /// ## Asynchronous operations
     /// 
-    /// The most common usage of #GTask is as a #GAsyncResult, to
+    /// The most common usage of <see cref="Task"/> is as a <see cref="IAsyncResult"/>, to
     /// manage data during an asynchronous operation. You call
-    /// g_task_new() in the "start" method, followed by
-    /// g_task_set_task_data() and the like if you need to keep some
+    /// <see cref="New"/> in the "start" method, followed by
+    /// <see cref="SetTaskData"/> and the like if you need to keep some
     /// additional data associated with the task, and then pass the
     /// task object around through your asynchronous operation.
     /// Eventually, you will call a method such as
-    /// g_task_return_pointer() or g_task_return_error(), which will
+    /// <see cref="ReturnPointer"/> or <see cref="ReturnError"/>, which will
     /// save the value you give it and then invoke the task's callback
     /// function (waiting until the next iteration of the main
-    /// loop first, if necessary). The caller will pass the #GTask back
-    /// to the operation's finish function (as a #GAsyncResult), and
-    /// you can use g_task_propagate_pointer() or the like to extract
+    /// loop first, if necessary). The caller will pass the <see cref="Task"/> back
+    /// to the operation's finish function (as a <see cref="IAsyncResult"/>), and
+    /// you can use <see cref="PropagatePointer"/> or the like to extract
     /// the return value.
     /// 
     /// Here is an example for using GTask as a GAsyncResult:
@@ -8303,7 +8303,7 @@ ref System.IntPtr error);
     ///       if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
     ///         {
     ///           g_object_unref (cake);
-    ///           // g_task_return_error() takes ownership of error
+    ///           // <see cref="ReturnError"/> takes ownership of error
     ///           g_task_return_error (task, error);
     ///           g_object_unref (task);
     ///           return;
@@ -8367,11 +8367,11 @@ ref System.IntPtr error);
     /// 
     /// ## Chained asynchronous operations
     /// 
-    /// #GTask also tries to simplify asynchronous operations that
+    /// <see cref="Task"/> also tries to simplify asynchronous operations that
     /// internally chain together several smaller asynchronous
-    /// operations. g_task_get_cancellable(), g_task_get_context(),
-    /// and g_task_get_priority() allow you to get back the task's
-    /// #GCancellable, #GMainContext, and [I/O priority][io-priority]
+    /// operations. <see cref="GetCancellable"/>, <see cref="GetContext"/>,
+    /// and <see cref="GetPriority"/> allow you to get back the task's
+    /// <see cref="Cancellable"/>, #GMainContext, and [I/O priority][io-priority]
     /// when starting a new subtask, so you don't have to keep track
     /// of them yourself. g_task_attach_source() simplifies the case
     /// of waiting for a source to fire (automatically using the correct
@@ -8461,7 +8461,7 @@ ref System.IntPtr error);
     ///           GSource *source;
     /// 
     ///           source = cake_decorator_wait_source_new (cake);
-    ///           // Attach @source to @task's GMainContext and have it call
+    ///           // Attach <paramref name="source"/> to <paramref name="task"/>'s GMainContext and have it call
     ///           // decorator_ready() when it is ready.
     ///           g_task_attach_source (task, source, decorator_ready);
     ///           g_source_unref (source);
@@ -8586,8 +8586,8 @@ ref System.IntPtr error);
     /// 
     /// Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
     /// can be used to turn an uncancellable operation into a
-    /// cancellable one. If you call g_task_set_return_on_cancel(),
-    /// passing %TRUE, then if the task's #GCancellable is cancelled,
+    /// cancellable one. If you call <see cref="SetReturnOnCancel"/>,
+    /// passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
     /// it will return control back to the caller immediately, while
     /// allowing the task thread to continue running in the background
     /// (and simply discarding its result when it finally does finish).
@@ -8621,8 +8621,8 @@ ref System.IntPtr error);
     ///       // If the task has already been cancelled, then we don't want to add
     ///       // the cake to the cake cache. Likewise, we don't  want to have the
     ///       // task get cancelled in the middle of updating the cache.
-    ///       // g_task_set_return_on_cancel() will return %TRUE here if it managed
-    ///       // to disable return-on-cancel, or %FALSE if the task was cancelled
+    ///       // <see cref="SetReturnOnCancel"/> will return <c>true</c> here if it managed
+    ///       // to disable return-on-cancel, or <c>false</c> if the task was cancelled
     ///       // before it could.
     ///       if (g_task_set_return_on_cancel (task, FALSE))
     ///         {
@@ -8690,42 +8690,42 @@ ref System.IntPtr error);
     /// 
     /// ## Porting from GSimpleAsyncResult
     /// 
-    /// #GTask's API attempts to be simpler than #GSimpleAsyncResult's
+    /// <see cref="Task"/>'s API attempts to be simpler than #GSimpleAsyncResult's
     /// in several ways:
-    /// - You can save task-specific data with g_task_set_task_data(), and
-    ///   retrieve it later with g_task_get_task_data(). This replaces the
+    /// - You can save task-specific data with <see cref="SetTaskData"/>, and
+    ///   retrieve it later with <see cref="GetTaskData"/>. This replaces the
     ///   abuse of g_simple_async_result_set_op_res_gpointer() for the same
     ///   purpose with #GSimpleAsyncResult.
-    /// - In addition to the task data, #GTask also keeps track of the
-    ///   [priority][io-priority], #GCancellable, and
+    /// - In addition to the task data, <see cref="Task"/> also keeps track of the
+    ///   [priority][io-priority], <see cref="Cancellable"/>, and
     ///   #GMainContext associated with the task, so tasks that consist of
     ///   a chain of simpler asynchronous operations will have easy access
     ///   to those values when starting each sub-task.
-    /// - g_task_return_error_if_cancelled() provides simplified
+    /// - <see cref="ReturnErrorIfCancelled"/> provides simplified
     ///   handling for cancellation. In addition, cancellation
-    ///   overrides any other #GTask return value by default, like
+    ///   overrides any other <see cref="Task"/> return value by default, like
     ///   #GSimpleAsyncResult does when
     ///   g_simple_async_result_set_check_cancellable() is called.
-    ///   (You can use g_task_set_check_cancellable() to turn off that
+    ///   (You can use <see cref="SetCheckCancellable"/> to turn off that
     ///   behavior.) On the other hand, g_task_run_in_thread()
     ///   guarantees that it will always run your
-    ///   `task_func`, even if the task's #GCancellable
+    ///   `task_func`, even if the task's <see cref="Cancellable"/>
     ///   is already cancelled before the task gets a chance to run;
     ///   you can start your `task_func` with a
-    ///   g_task_return_error_if_cancelled() check if you need the
+    ///   <see cref="ReturnErrorIfCancelled"/> check if you need the
     ///   old behavior.
-    /// - The "return" methods (eg, g_task_return_pointer())
+    /// - The "return" methods (eg, <see cref="ReturnPointer"/>)
     ///   automatically cause the task to be "completed" as well, and
     ///   there is no need to worry about the "complete" vs "complete
-    ///   in idle" distinction. (#GTask automatically figures out
+    ///   in idle" distinction. (<see cref="Task"/> automatically figures out
     ///   whether the task's callback can be invoked directly, or
     ///   if it needs to be sent to another #GMainContext, or delayed
     ///   until the next iteration of the current #GMainContext.)
-    /// - The "finish" functions for #GTask-based operations are generally
+    /// - The "finish" functions for <see cref="Task"/>-based operations are generally
     ///   much simpler than #GSimpleAsyncResult ones, normally consisting
-    ///   of only a single call to g_task_propagate_pointer() or the like.
-    ///   Since g_task_propagate_pointer() "steals" the return value from
-    ///   the #GTask, it is not necessary to juggle pointers around to
+    ///   of only a single call to <see cref="PropagatePointer"/> or the like.
+    ///   Since <see cref="PropagatePointer"/> "steals" the return value from
+    ///   the <see cref="Task"/>, it is not necessary to juggle pointers around to
     ///   prevent it from being freed twice.
     /// - With #GSimpleAsyncResult, it was common to call
     ///   g_simple_async_result_propagate_error() from the
@@ -8739,10 +8739,10 @@ ref System.IntPtr error);
     ///   Note that wrapper methods can now use
     ///   g_async_result_legacy_propagate_error() to do old-style
     ///   #GSimpleAsyncResult error-returning behavior, and
-    ///   g_async_result_is_tagged() to check if a result is tagged as
+    ///   <see cref="IsTagged"/> to check if a result is tagged as
     ///   having come from the `_async()` wrapper
     ///   function (for "short-circuit" results, such as when passing
-    ///   0 to g_input_stream_read_async()).
+    ///   0 to <see cref="ReadAsync"/>).
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GTask", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(TaskClass))]
@@ -8752,12 +8752,12 @@ ref System.IntPtr error);
 
         /// <summary>
         /// Whether the task has completed, meaning its callback (if set) has been
-        /// invoked. This can only happen after g_task_return_pointer(),
-        /// g_task_return_error() or one of the other return functions have been called
+        /// invoked. This can only happen after <see cref="ReturnPointer"/>,
+        /// <see cref="ReturnError"/> or one of the other return functions have been called
         /// on the task.
         /// </summary>
         /// <remarks>
-        /// This property is guaranteed to change from %FALSE to %TRUE exactly once.
+        /// This property is guaranteed to change from <c>false</c> to <c>true</c> exactly once.
         /// 
         /// The #GObject::notify signal for this change is emitted in the same main
         /// context as the task’s callback, immediately after that callback is invoked.
@@ -8767,67 +8767,67 @@ ref System.IntPtr error);
         public System.Boolean Completed_ { get => (System.Boolean)GetProperty("completed"); }
 
         /// <summary>
-        /// Gets @task's #GCancellable
+        /// Gets <paramref name="task"/>'s <see cref="Cancellable"/>
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.Gio.Cancellable Cancellable { get => GetCancellable(); }
 
         /// <summary>
-        /// Gets @task's check-cancellable flag. See
-        /// g_task_set_check_cancellable() for more details.
+        /// Gets <paramref name="task"/>'s check-cancellable flag. See
+        /// <see cref="SetCheckCancellable"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean CheckCancellable { get => GetCheckCancellable(); set => SetCheckCancellable(value); }
 
         /// <summary>
-        /// Gets the value of #GTask:completed. This changes from %FALSE to %TRUE after
-        /// the task’s callback is invoked, and will return %FALSE if called from inside
+        /// Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
+        /// the task’s callback is invoked, and will return <c>false</c> if called from inside
         /// the callback.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean Completed { get => GetCompleted(); }
 
         /// <summary>
-        /// Gets the #GMainContext that @task will return its result in (that
+        /// Gets the #GMainContext that <paramref name="task"/> will return its result in (that
         /// is, the context that was the
         /// [thread-default main context][g-main-context-push-thread-default]
-        /// at the point when @task was created).
+        /// at the point when <paramref name="task"/> was created).
         /// </summary>
         /// <remarks>
-        /// This will always return a non-%NULL value, even if the task's
+        /// This will always return a non-<c>null</c> value, even if the task's
         /// context is the default #GMainContext.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GLib.MainContext Context { get => GetContext(); }
 
         /// <summary>
-        /// Gets @task's priority
+        /// Gets <paramref name="task"/>'s priority
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Int32 Priority { get => GetPriority(); set => SetPriority(value); }
 
         /// <summary>
-        /// Gets @task's return-on-cancel flag. See
-        /// g_task_set_return_on_cancel() for more details.
+        /// Gets <paramref name="task"/>'s return-on-cancel flag. See
+        /// <see cref="SetReturnOnCancel"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean ReturnOnCancel { get => GetReturnOnCancel(); }
 
         /// <summary>
-        /// Gets the source object from @task. Like
-        /// g_async_result_get_source_object(), but does not ref the object.
+        /// Gets the source object from <paramref name="task"/>. Like
+        /// <see cref="GetSourceObject"/>, but does not ref the object.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GObject.Object SourceObject { get => GetSourceObject(); }
 
         /// <summary>
-        /// Gets @task's source tag. See g_task_set_source_tag().
+        /// Gets <paramref name="task"/>'s source tag. See <see cref="SetSourceTag"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr SourceTag { get => GetSourceTag(); set => SetSourceTag(value); }
 
         /// <summary>
-        /// Gets @task's `task_data`.
+        /// Gets <paramref name="task"/>'s `task_data`.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr TaskData { get => GetTaskData(); }
@@ -8890,36 +8890,36 @@ ref System.IntPtr error);
         System.IntPtr callbackData);
 
         /// <summary>
-        /// Creates a #GTask acting on @source_object, which will eventually be
-        /// used to invoke @callback in the current
+        /// Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
+        /// used to invoke <paramref name="callback"/> in the current
         /// [thread-default main context][g-main-context-push-thread-default].
         /// </summary>
         /// <remarks>
         /// Call this in the "start" method of your asynchronous method, and
-        /// pass the #GTask around throughout the asynchronous operation. You
-        /// can use g_task_set_task_data() to attach task-specific data to the
-        /// object, which you can retrieve later via g_task_get_task_data().
+        /// pass the <see cref="Task"/> around throughout the asynchronous operation. You
+        /// can use <see cref="SetTaskData"/> to attach task-specific data to the
+        /// object, which you can retrieve later via <see cref="GetTaskData"/>.
         /// 
-        /// By default, if @cancellable is cancelled, then the return value of
-        /// the task will always be %G_IO_ERROR_CANCELLED, even if the task had
+        /// By default, if <paramref name="cancellable"/> is cancelled, then the return value of
+        /// the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
         /// already completed before the cancellation. This allows for
         /// simplified handling in cases where cancellation may imply that
         /// other objects that the task depends on have been destroyed. If you
         /// do not want this behavior, you can use
-        /// g_task_set_check_cancellable() to change it.
+        /// <see cref="SetCheckCancellable"/> to change it.
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
-        ///   this task, or %NULL.
+        ///   this task, or <c>null</c>.
         /// </param>
         /// <param name="callback">
-        /// a #GAsyncReadyCallback.
+        /// a <see cref="AsyncReadyCallback"/>.
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
-        /// a #GTask.
+        /// a <see cref="Task"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         static System.IntPtr New(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
@@ -8932,36 +8932,36 @@ ref System.IntPtr error);
         }
 
         /// <summary>
-        /// Creates a #GTask acting on @source_object, which will eventually be
-        /// used to invoke @callback in the current
+        /// Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
+        /// used to invoke <paramref name="callback"/> in the current
         /// [thread-default main context][g-main-context-push-thread-default].
         /// </summary>
         /// <remarks>
         /// Call this in the "start" method of your asynchronous method, and
-        /// pass the #GTask around throughout the asynchronous operation. You
-        /// can use g_task_set_task_data() to attach task-specific data to the
-        /// object, which you can retrieve later via g_task_get_task_data().
+        /// pass the <see cref="Task"/> around throughout the asynchronous operation. You
+        /// can use <see cref="SetTaskData"/> to attach task-specific data to the
+        /// object, which you can retrieve later via <see cref="GetTaskData"/>.
         /// 
-        /// By default, if @cancellable is cancelled, then the return value of
-        /// the task will always be %G_IO_ERROR_CANCELLED, even if the task had
+        /// By default, if <paramref name="cancellable"/> is cancelled, then the return value of
+        /// the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
         /// already completed before the cancellation. This allows for
         /// simplified handling in cases where cancellation may imply that
         /// other objects that the task depends on have been destroyed. If you
         /// do not want this behavior, you can use
-        /// g_task_set_check_cancellable() to change it.
+        /// <see cref="SetCheckCancellable"/> to change it.
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
-        ///   this task, or %NULL.
+        ///   this task, or <c>null</c>.
         /// </param>
         /// <param name="callback">
-        /// a #GAsyncReadyCallback.
+        /// a <see cref="AsyncReadyCallback"/>.
         /// </param>
         /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         /// <returns>
-        /// a #GTask.
+        /// a <see cref="Task"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public Task(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null) : this(New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
@@ -8997,19 +8997,19 @@ ref System.IntPtr error);
         System.IntPtr sourceObject);
 
         /// <summary>
-        /// Checks that @result is a #GTask, and that @source_object is its
-        /// source object (or that @source_object is %NULL and @result has no
+        /// Checks that <paramref name="result"/> is a <see cref="Task"/>, and that <paramref name="sourceObject"/> is its
+        /// source object (or that <paramref name="sourceObject"/> is <c>null</c> and <paramref name="result"/> has no
         /// source object). This can be used in g_return_if_fail() checks.
         /// </summary>
         /// <param name="result">
-        /// A #GAsyncResult
+        /// A <see cref="IAsyncResult"/>
         /// </param>
         /// <param name="sourceObject">
         /// the source object
         ///   expected to be associated with the task
         /// </param>
         /// <returns>
-        /// %TRUE if @result and @source_object are valid, %FALSE
+        /// <c>true</c> if <paramref name="result"/> and <paramref name="sourceObject"/> are valid, <c>false</c>
         /// if not
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -9071,10 +9071,10 @@ ref System.IntPtr error);
         System.IntPtr error);
 
         /// <summary>
-        /// Creates a #GTask and then immediately calls g_task_return_error()
+        /// Creates a <see cref="Task"/> and then immediately calls <see cref="ReturnError"/>
         /// on it. Use this in the wrapper function of an asynchronous method
         /// when you want to avoid even calling the virtual method. You can
-        /// then use g_async_result_is_tagged() in the finish method wrapper to
+        /// then use <see cref="IsTagged"/> in the finish method wrapper to
         /// check if the result there is tagged as having been created by the
         /// wrapper method, and deal with it appropriately if so.
         /// </summary>
@@ -9083,10 +9083,10 @@ ref System.IntPtr error);
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
-        ///   this task, or %NULL.
+        ///   this task, or <c>null</c>.
         /// </param>
         /// <param name="callback">
-        /// a #GAsyncReadyCallback.
+        /// a <see cref="AsyncReadyCallback"/>.
         /// </param>
         /// <param name="sourceTag">
         /// an opaque pointer indicating the source of this task
@@ -9128,10 +9128,10 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's #GCancellable
+        /// Gets <paramref name="task"/>'s <see cref="Cancellable"/>
         /// </summary>
         /// <returns>
-        /// @task's #GCancellable
+        /// <paramref name="task"/>'s <see cref="Cancellable"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.Gio.Cancellable GetCancellable()
@@ -9159,8 +9159,8 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's check-cancellable flag. See
-        /// g_task_set_check_cancellable() for more details.
+        /// Gets <paramref name="task"/>'s check-cancellable flag. See
+        /// <see cref="SetCheckCancellable"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Boolean GetCheckCancellable()
@@ -9192,12 +9192,12 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets the value of #GTask:completed. This changes from %FALSE to %TRUE after
-        /// the task’s callback is invoked, and will return %FALSE if called from inside
+        /// Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
+        /// the task’s callback is invoked, and will return <c>false</c> if called from inside
         /// the callback.
         /// </summary>
         /// <returns>
-        /// %TRUE if the task has completed, %FALSE otherwise.
+        /// <c>true</c> if the task has completed, <c>false</c> otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
         private System.Boolean GetCompleted()
@@ -9234,17 +9234,17 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets the #GMainContext that @task will return its result in (that
+        /// Gets the #GMainContext that <paramref name="task"/> will return its result in (that
         /// is, the context that was the
         /// [thread-default main context][g-main-context-push-thread-default]
-        /// at the point when @task was created).
+        /// at the point when <paramref name="task"/> was created).
         /// </summary>
         /// <remarks>
-        /// This will always return a non-%NULL value, even if the task's
+        /// This will always return a non-<c>null</c> value, even if the task's
         /// context is the default #GMainContext.
         /// </remarks>
         /// <returns>
-        /// @task's #GMainContext
+        /// <paramref name="task"/>'s #GMainContext
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.GLib.MainContext GetContext()
@@ -9274,10 +9274,10 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's priority
+        /// Gets <paramref name="task"/>'s priority
         /// </summary>
         /// <returns>
-        /// @task's priority
+        /// <paramref name="task"/>'s priority
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Int32 GetPriority()
@@ -9305,8 +9305,8 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's return-on-cancel flag. See
-        /// g_task_set_return_on_cancel() for more details.
+        /// Gets <paramref name="task"/>'s return-on-cancel flag. See
+        /// <see cref="SetReturnOnCancel"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Boolean GetReturnOnCancel()
@@ -9337,11 +9337,11 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets the source object from @task. Like
-        /// g_async_result_get_source_object(), but does not ref the object.
+        /// Gets the source object from <paramref name="task"/>. Like
+        /// <see cref="GetSourceObject"/>, but does not ref the object.
         /// </summary>
         /// <returns>
-        /// @task's source object, or %NULL
+        /// <paramref name="task"/>'s source object, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.GObject.Object GetSourceObject()
@@ -9371,10 +9371,10 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's source tag. See g_task_set_source_tag().
+        /// Gets <paramref name="task"/>'s source tag. See <see cref="SetSourceTag"/>.
         /// </summary>
         /// <returns>
-        /// @task's source tag
+        /// <paramref name="task"/>'s source tag
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.IntPtr GetSourceTag()
@@ -9404,10 +9404,10 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets @task's `task_data`.
+        /// Gets <paramref name="task"/>'s `task_data`.
         /// </summary>
         /// <returns>
-        /// @task's `task_data`.
+        /// <paramref name="task"/>'s `task_data`.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.IntPtr GetTaskData()
@@ -9437,10 +9437,10 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Tests if @task resulted in an error.
+        /// Tests if <paramref name="task"/> resulted in an error.
         /// </summary>
         /// <returns>
-        /// %TRUE if the task resulted in an error, %FALSE otherwise.
+        /// <c>true</c> if the task resulted in an error, <c>false</c> otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean HadError()
@@ -9483,11 +9483,11 @@ ref System.IntPtr error);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Gets the result of @task as a #gboolean.
+        /// Gets the result of <paramref name="task"/> as a #gboolean.
         /// </summary>
         /// <remarks>
         /// If the task resulted in an error, or was cancelled, then this will
-        /// instead return %FALSE and set @error.
+        /// instead return <c>false</c> and set <paramref name="error"/>.
         /// 
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
@@ -9540,11 +9540,11 @@ ref System.IntPtr error);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Gets the result of @task as an integer (#gssize).
+        /// Gets the result of <paramref name="task"/> as an integer (#gssize).
         /// </summary>
         /// <remarks>
         /// If the task resulted in an error, or was cancelled, then this will
-        /// instead return -1 and set @error.
+        /// instead return -1 and set <paramref name="error"/>.
         /// 
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
@@ -9604,18 +9604,18 @@ ref System.IntPtr error);
         ref System.IntPtr error);
 
         /// <summary>
-        /// Gets the result of @task as a pointer, and transfers ownership
+        /// Gets the result of <paramref name="task"/> as a pointer, and transfers ownership
         /// of that value to the caller.
         /// </summary>
         /// <remarks>
         /// If the task resulted in an error, or was cancelled, then this will
-        /// instead return %NULL and set @error.
+        /// instead return <c>null</c> and set <paramref name="error"/>.
         /// 
         /// Since this method transfers ownership of the return value (or
         /// error) to the caller, you may only call it once.
         /// </remarks>
         /// <returns>
-        /// the task result, or %NULL on error
+        /// the task result, or <c>null</c> on error
         /// </returns>
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
@@ -9660,8 +9660,8 @@ ref System.IntPtr error);
         System.Boolean result);
 
         /// <summary>
-        /// Sets @task's result to @result and completes the task (see
-        /// g_task_return_pointer() for more discussion of exactly what this
+        /// Sets <paramref name="task"/>'s result to <paramref name="result"/> and completes the task (see
+        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <param name="result">
@@ -9708,14 +9708,14 @@ ref System.IntPtr error);
         System.IntPtr error);
 
         /// <summary>
-        /// Sets @task's result to @error (which @task assumes ownership of)
-        /// and completes the task (see g_task_return_pointer() for more
+        /// Sets <paramref name="task"/>'s result to <paramref name="error"/> (which <paramref name="task"/> assumes ownership of)
+        /// and completes the task (see <see cref="ReturnPointer"/> for more
         /// discussion of exactly what this means).
         /// </summary>
         /// <remarks>
-        /// Note that since the task takes ownership of @error, and since the
-        /// task may be completed before returning from g_task_return_error(),
-        /// you cannot assume that @error is still valid after calling this.
+        /// Note that since the task takes ownership of <paramref name="error"/>, and since the
+        /// task may be completed before returning from <see cref="ReturnError"/>,
+        /// you cannot assume that <paramref name="error"/> is still valid after calling this.
         /// Call g_error_copy() on the error if you need to keep a local copy
         /// as well.
         /// 
@@ -9754,13 +9754,13 @@ ref System.IntPtr error);
         System.IntPtr task);
 
         /// <summary>
-        /// Checks if @task's #GCancellable has been cancelled, and if so, sets
-        /// @task's error accordingly and completes the task (see
-        /// g_task_return_pointer() for more discussion of exactly what this
+        /// Checks if <paramref name="task"/>'s <see cref="Cancellable"/> has been cancelled, and if so, sets
+        /// <paramref name="task"/>'s error accordingly and completes the task (see
+        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <returns>
-        /// %TRUE if @task has been cancelled, %FALSE if not
+        /// <c>true</c> if <paramref name="task"/> has been cancelled, <c>false</c> if not
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean ReturnErrorIfCancelled()
@@ -9795,8 +9795,8 @@ ref System.IntPtr error);
         System.IntPtr result);
 
         /// <summary>
-        /// Sets @task's result to @result and completes the task (see
-        /// g_task_return_pointer() for more discussion of exactly what this
+        /// Sets <paramref name="task"/>'s result to <paramref name="result"/> and completes the task (see
+        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <param name="result">
@@ -9893,25 +9893,25 @@ ref System.IntPtr error);
         System.Boolean checkCancellable);
 
         /// <summary>
-        /// Sets or clears @task's check-cancellable flag. If this is %TRUE
-        /// (the default), then g_task_propagate_pointer(), etc, and
-        /// g_task_had_error() will check the task's #GCancellable first, and
+        /// Sets or clears <paramref name="task"/>'s check-cancellable flag. If this is <c>true</c>
+        /// (the default), then <see cref="PropagatePointer"/>, etc, and
+        /// <see cref="HadError"/> will check the task's <see cref="Cancellable"/> first, and
         /// if it has been cancelled, then they will consider the task to have
         /// returned an "Operation was cancelled" error
-        /// (%G_IO_ERROR_CANCELLED), regardless of any other error or return
+        /// (<see cref="IOErrorEnum.Cancelled"/>), regardless of any other error or return
         /// value the task may have had.
         /// </summary>
         /// <remarks>
-        /// If @check_cancellable is %FALSE, then the #GTask will not check the
-        /// cancellable itself, and it is up to @task's owner to do this (eg,
-        /// via g_task_return_error_if_cancelled()).
+        /// If <paramref name="checkCancellable"/> is <c>false</c>, then the <see cref="Task"/> will not check the
+        /// cancellable itself, and it is up to <paramref name="task"/>'s owner to do this (eg,
+        /// via <see cref="ReturnErrorIfCancelled"/>).
         /// 
-        /// If you are using g_task_set_return_on_cancel() as well, then
-        /// you must leave check-cancellable set %TRUE.
+        /// If you are using <see cref="SetReturnOnCancel"/> as well, then
+        /// you must leave check-cancellable set <c>true</c>.
         /// </remarks>
         /// <param name="checkCancellable">
-        /// whether #GTask will check the state of
-        ///   its #GCancellable for you.
+        /// whether <see cref="Task"/> will check the state of
+        ///   its <see cref="Cancellable"/> for you.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private void SetCheckCancellable(System.Boolean checkCancellable)
@@ -9950,14 +9950,14 @@ ref System.IntPtr error);
         System.Int32 priority);
 
         /// <summary>
-        /// Sets @task's priority. If you do not call this, it will default to
+        /// Sets <paramref name="task"/>'s priority. If you do not call this, it will default to
         /// %G_PRIORITY_DEFAULT.
         /// </summary>
         /// <remarks>
         /// This will affect the priority of #GSources created with
         /// g_task_attach_source() and the scheduling of tasks run in threads,
         /// and can also be explicitly retrieved later via
-        /// g_task_get_priority().
+        /// <see cref="GetPriority"/>.
         /// </remarks>
         /// <param name="priority">
         /// the [priority][io-priority] of the request
@@ -10026,34 +10026,34 @@ ref System.IntPtr error);
         System.Boolean returnOnCancel);
 
         /// <summary>
-        /// Sets or clears @task's return-on-cancel flag. This is only
+        /// Sets or clears <paramref name="task"/>'s return-on-cancel flag. This is only
         /// meaningful for tasks run via g_task_run_in_thread() or
         /// g_task_run_in_thread_sync().
         /// </summary>
         /// <remarks>
-        /// If @return_on_cancel is %TRUE, then cancelling @task's
-        /// #GCancellable will immediately cause it to return, as though the
-        /// task's #GTaskThreadFunc had called
-        /// g_task_return_error_if_cancelled() and then returned.
+        /// If <paramref name="returnOnCancel"/> is <c>true</c>, then cancelling <paramref name="task"/>'s
+        /// <see cref="Cancellable"/> will immediately cause it to return, as though the
+        /// task's <see cref="TaskThreadFunc"/> had called
+        /// <see cref="ReturnErrorIfCancelled"/> and then returned.
         /// 
         /// This allows you to create a cancellable wrapper around an
-        /// uninterruptable function. The #GTaskThreadFunc just needs to be
+        /// uninterruptable function. The <see cref="TaskThreadFunc"/> just needs to be
         /// careful that it does not modify any externally-visible state after
         /// it has been cancelled. To do that, the thread should call
-        /// g_task_set_return_on_cancel() again to (atomically) set
-        /// return-on-cancel %FALSE before making externally-visible changes;
+        /// <see cref="SetReturnOnCancel"/> again to (atomically) set
+        /// return-on-cancel <c>false</c> before making externally-visible changes;
         /// if the task gets cancelled before the return-on-cancel flag could
-        /// be changed, g_task_set_return_on_cancel() will indicate this by
-        /// returning %FALSE.
+        /// be changed, <see cref="SetReturnOnCancel"/> will indicate this by
+        /// returning <c>false</c>.
         /// 
         /// You can disable and re-enable this flag multiple times if you wish.
-        /// If the task's #GCancellable is cancelled while return-on-cancel is
-        /// %FALSE, then calling g_task_set_return_on_cancel() to set it %TRUE
+        /// If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
+        /// <c>false</c>, then calling <see cref="SetReturnOnCancel"/> to set it <c>true</c>
         /// again will cause the task to be cancelled at that point.
         /// 
-        /// If the task's #GCancellable is already cancelled before you call
+        /// If the task's <see cref="Cancellable"/> is already cancelled before you call
         /// g_task_run_in_thread()/g_task_run_in_thread_sync(), then the
-        /// #GTaskThreadFunc will still be run (for consistency), but the task
+        /// <see cref="TaskThreadFunc"/> will still be run (for consistency), but the task
         /// will also be completed right away.
         /// </remarks>
         /// <param name="returnOnCancel">
@@ -10061,8 +10061,8 @@ ref System.IntPtr error);
         ///   it is cancelled.
         /// </param>
         /// <returns>
-        /// %TRUE if @task's return-on-cancel flag was changed to
-        ///   match @return_on_cancel. %FALSE if @task has already been
+        /// <c>true</c> if <paramref name="task"/>'s return-on-cancel flag was changed to
+        ///   match <paramref name="returnOnCancel"/>. <c>false</c> if <paramref name="task"/> has already been
         ///   cancelled.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -10102,10 +10102,10 @@ ref System.IntPtr error);
         System.IntPtr sourceTag);
 
         /// <summary>
-        /// Sets @task's source tag. You can use this to tag a task return
+        /// Sets <paramref name="task"/>'s source tag. You can use this to tag a task return
         /// value with a particular pointer (usually a pointer to the function
         /// doing the tagging) and then later check it using
-        /// g_task_get_source_tag() (or g_async_result_is_tagged()) in the
+        /// <see cref="GetSourceTag"/> (or <see cref="IsTagged"/>) in the
         /// task's "finish" function, to figure out if the response came from a
         /// particular place.
         /// </summary>
@@ -10240,19 +10240,19 @@ ref System.IntPtr error);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Creates a source that triggers if @cancellable is cancelled and
-        /// calls its callback of type #GCancellableSourceFunc. This is
+        /// Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
+        /// calls its callback of type <see cref="CancellableSourceFunc"/>. This is
         /// primarily useful for attaching to another (non-cancellable) source
         /// with g_source_add_child_source() to add cancellability to it.
         /// </summary>
         /// <remarks>
-        /// For convenience, you can call this with a %NULL #GCancellable,
+        /// For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
         /// in which case the source will never trigger.
         /// 
-        /// The new #GSource will hold a reference to the #GCancellable.
+        /// The new #GSource will hold a reference to the <see cref="Cancellable"/>.
         /// </remarks>
         /// <param name="cancellable">
-        /// a #GCancellable, or %NULL
+        /// a <see cref="Cancellable"/>, or <c>null</c>
         /// </param>
         /// <returns>
         /// the new #GSource.
@@ -10266,19 +10266,19 @@ ref System.IntPtr error);
         }
 
         /// <summary>
-        /// Creates a source that triggers if @cancellable is cancelled and
-        /// calls its callback of type #GCancellableSourceFunc. This is
+        /// Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
+        /// calls its callback of type <see cref="CancellableSourceFunc"/>. This is
         /// primarily useful for attaching to another (non-cancellable) source
         /// with g_source_add_child_source() to add cancellability to it.
         /// </summary>
         /// <remarks>
-        /// For convenience, you can call this with a %NULL #GCancellable,
+        /// For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
         /// in which case the source will never trigger.
         /// 
-        /// The new #GSource will hold a reference to the #GCancellable.
+        /// The new #GSource will hold a reference to the <see cref="Cancellable"/>.
         /// </remarks>
         /// <param name="cancellable">
-        /// a #GCancellable, or %NULL
+        /// a <see cref="Cancellable"/>, or <c>null</c>
         /// </param>
         /// <returns>
         /// the new #GSource.

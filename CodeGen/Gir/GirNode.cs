@@ -1,6 +1,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Xml.Linq;
 
 namespace GISharp.CodeGen.Gir
@@ -28,6 +29,12 @@ namespace GISharp.CodeGen.Gir
         public GirNode ParentNode { get; }
 
         /// <summary>
+        /// Gets the ancestors of this node, starting with the parent
+        /// </summary>
+        public IEnumerable<GirNode> Ancestors => _Ancestors.Value;
+        readonly Lazy<List<GirNode>> _Ancestors;
+
+        /// <summary>
         /// The documentation node, if any
         /// </summary>
         public Doc Doc => _Doc.Value;
@@ -37,6 +44,7 @@ namespace GISharp.CodeGen.Gir
         {
             Element = element ?? throw new ArgumentNullException(nameof(element));
             ParentNode = parent;
+            _Ancestors = new Lazy<List<GirNode>>(() => LazyGetAncestors().ToList());
             _Doc = new Lazy<Doc>(LazyGetDoc, false);
             element.AddAnnotation(this);
         }
@@ -153,6 +161,14 @@ namespace GISharp.CodeGen.Gir
 
             var message = $"Unknown element <{element.Name}>";
             throw new ArgumentException(message, nameof(element));
+        }
+
+        IEnumerable<GirNode> LazyGetAncestors()
+        {
+            var node = this;
+            while ((node = node.ParentNode) != null) {
+                yield return node;
+            }
         }
 
         Doc LazyGetDoc() => (Doc)GetNode(Element.Element(gi + "doc"));
