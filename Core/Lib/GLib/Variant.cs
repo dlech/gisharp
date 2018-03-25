@@ -484,7 +484,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException ();
             }
-            return v.Strv.ToArray();
+            return v.Strv.Value;
         }
 
         public static explicit operator Variant (string[] value)

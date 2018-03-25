@@ -30,7 +30,7 @@ namespace GISharp.Test.GLib
                 og.AddFlag("flag", 'f', a => arg1 = a, "test boolean flag");
                 og.AddInt("int", 'i', a => arg2 = a, "test integer arg", "VALUE");
                 og.AddString("str", 's', a => arg3 = a, "test string arg", "VALUE");
-                og.AddStringArray("strv", 't', a => arg4 = a, "test string array arg", "VALUE [VALUE ...]");
+                og.AddStringArray("strv", 't', a => arg4 = a.Value, "test string array arg", "VALUE [VALUE ...]");
                 og.AddFilename("filename", 'f', a => arg5 = a, "test filename arg", "VALUE");
                 og.AddFilenameArray("filenamev", 'g', a => arg6 = a, "test filename array arg", "VALUE [VALUE ...]");
                 og.AddDouble("double", 'd', a => arg7 = a, "test double arg", "VALUE");

@@ -10,7 +10,7 @@ using GISharp.Runtime;
 namespace GISharp.Lib.GLib
 {
     [GType("GStrv", IsProxyForUnmanagedType = true)]
-    public sealed class Strv : Boxed, IEnumerable<string>
+    public sealed class Strv : Boxed, IArray<Utf8>
     {
         public string[] Value => _Value.Value;
         readonly Lazy<string[]> _Value;
@@ -26,7 +26,7 @@ namespace GISharp.Lib.GLib
 
         public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
-            _Value = new Lazy<string[]>(() => this.ToArray());
+            _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -49,6 +49,12 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        IntPtr IArray<Utf8>.Data => Handle;
+
+        int IReadOnlyCollection<Utf8>.Count => Length;
+
+        Utf8 IReadOnlyList<Utf8>.this[int index] => throw new NotImplementedException();
+
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.44")]
         static extern bool g_strv_contains(IntPtr strv, IntPtr str);
@@ -62,22 +68,26 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        public static implicit operator string[](Strv strv)
+        public static explicit operator string[](Strv strv)
         {
             return strv?.Value;
         }
 
-        IEnumerator<string> GetEnumerator()
+        (IntPtr, int) IArray<Utf8>.TakeData()
         {
-            IntPtr str_;
-            var offset = 0;
-            while ((str_ = Marshal.ReadIntPtr(Handle, offset)) != IntPtr.Zero) {
-                yield return GMarshal.Utf8PtrToString(str_);
-                offset += IntPtr.Size;
+            var length = Length;
+            return (Take(), length);
+        }
+
+        IEnumerator<Utf8> GetEnumerator()
+        {
+            IntPtr ptr, str;
+            for (ptr = Handle; (str = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
+                yield return Opaque.GetInstance<Utf8>(str, Transfer.None);
             }
         }
 
-        IEnumerator<string> IEnumerable<string>.GetEnumerator() => GetEnumerator();
+        IEnumerator<Utf8> IEnumerable<Utf8>.GetEnumerator() => GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
