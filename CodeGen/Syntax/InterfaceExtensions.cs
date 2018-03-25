@@ -28,7 +28,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var syntax = InterfaceDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
                 .WithBaseList(BaseList(baseTypes))
                 .WithAttributeLists(@interface.GetGTypeAttributeLists())
                 .WithLeadingTrivia(@interface.Doc.GetDocCommentTrivia());

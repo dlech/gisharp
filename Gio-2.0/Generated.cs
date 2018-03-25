@@ -34,7 +34,7 @@ namespace GISharp.Lib.Gio
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAction", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionInterface))]
-    public interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public partial interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// If <paramref name="action"/> is currently enabled.
@@ -947,7 +947,7 @@ namespace GISharp.Lib.Gio
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
-    public interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public partial interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Signals that a new action was just added to the group.
@@ -3198,7 +3198,7 @@ System.IntPtr parameter);
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
-    public interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Adds an action to the <paramref name="actionMap"/>.
@@ -3834,7 +3834,7 @@ System.IntPtr actionName);
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
-    public interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         /// <summary>
         /// Gets the source object from a <see cref="IAsyncResult"/>.
