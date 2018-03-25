@@ -24,6 +24,12 @@ namespace GISharp.CodeGen.Syntax
                         .WithBody(Block(method.GetInvokeStatements(method.CIdentifier)));
                 }
 
+                if (method.FinishFor != null) {
+                    yield return method.GetFinishMethodDeclaration()
+                        .WithBody(Block(method.GetFinishMethodStatements()));
+                    yield return method.GetFinishDelegateField();
+                }
+
                 if (method.IsRef) {
                     // if there is an unmanaged ref method, use it to override the
                     // managed Take() method
@@ -101,6 +107,17 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
             return list;
+        }
+
+        static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Method method)
+        {
+            return List(method.GetFinishMethodStatements(method.FinishForMethod, method.CIdentifier));
+        }
+
+        static FieldDeclarationSyntax GetFinishDelegateField(this Method method)
+        {
+            var identifier = method.FinishForMethod.ManagedName.ToCamelCase() + "CallbackDelegate";
+            return method.GetFinishDelegateField(identifier);
         }
     }
 }

@@ -22,6 +22,17 @@ namespace GISharp.CodeGen.Gir
         public bool HasCustomArgCheck { get; }
 
         /// <summary>
+        /// Indicates that this callable is a .NET async method
+        /// </summary>
+        public bool IsAsync { get; }
+
+        /// <summary>
+        /// Gets the GIR name of the matching async callable that this callable
+        /// is a finish method for, if any
+        /// </summary>
+        public string FinishFor { get; }
+
+        /// <summary>
         /// Gets the return value for this callable
         /// </summary>
         public ReturnValue ReturnValue => _ReturnValue.Value;
@@ -44,6 +55,8 @@ namespace GISharp.CodeGen.Gir
         {
             ThrowsGErrorException = Element.Attribute("throws").AsBool();
             HasCustomArgCheck = Element.Attribute(gs + "custom-arg-check").AsBool();
+            IsAsync = Element.Attribute(gs + "async").AsBool();
+            FinishFor = Element.Attribute(gs + "finish-for").AsString();
             _ReturnValue = new Lazy<ReturnValue>(LazyGetReturnValue, false);
             _Parameters = new Lazy<Parameters>(LazyGetParameters, false);
             _ManagedParameters = new Lazy<ManagedParameters>(LazyGetManagedParameters, false);

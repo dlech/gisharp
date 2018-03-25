@@ -9,6 +9,7 @@ using GISharp.Runtime;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
+using System.Threading.Tasks;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -50,6 +51,39 @@ namespace GISharp.CodeGen.Reflection
                 }
                 if (typeName == typeof(IArray<>).ToString()) {
                     return typeof(IArray<>).MakeGenericType(ResolveManagedType(node.TypeParameters.Single()));
+                }
+                if (typeName == typeof(Task).ToString()) {
+                    System.Type tupleType;
+                    switch (node.TypeParameters.Count()) {
+                    case 1:
+                        return typeof(Task<>).MakeGenericType(ResolveManagedType(node.TypeParameters.Single()));
+                    case 2:
+                        tupleType = typeof(ValueTuple<,>);
+                        break;
+                    case 3:
+                        tupleType = typeof(ValueTuple<,,>);
+                        break;
+                    case 4:
+                        tupleType = typeof(ValueTuple<,,,>);
+                        break;
+                    case 5:
+                        tupleType = typeof(ValueTuple<,,,,>);
+                        break;
+                    case 6:
+                        tupleType = typeof(ValueTuple<,,,,,>);
+                        break;
+                    case 7:
+                        tupleType = typeof(ValueTuple<,,,,,,>);
+                        break;
+                    case 8:
+                        tupleType = typeof(ValueTuple<,,,,,,,>);
+                        break;
+                    default:
+                        throw new NotSupportedException("ValueTuple only supports up to 8 type parameters");
+                    }
+
+                    return typeof(Task<>).MakeGenericType(tupleType.MakeGenericType(node.TypeParameters
+                        .Select(x => ResolveManagedType(x)).ToArray()));
                 }
                 throw new NotImplementedException();
             }

@@ -23,9 +23,27 @@ namespace GISharp.CodeGen.Syntax
                     yield return function.GetStaticMethodDeclaration()
                         .WithBody(Block(function.GetInvokeStatements(function.CIdentifier)));
                 }
+
+                if (function.FinishFor != null) {
+                    yield return function.GetFinishMethodDeclaration()
+                        .WithBody(Block(function.GetFinishMethodStatements()));
+                    yield return function.GetFinishDelegateField();
+                }
+
             }
 
             return List<MemberDeclarationSyntax>(getMembers());
+        }
+
+        static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Function function)
+        {
+            return List(function.GetFinishMethodStatements(function.FinishForFunction, function.CIdentifier));
+        }
+
+        static FieldDeclarationSyntax GetFinishDelegateField(this Function function)
+        {
+            var identifier = function.FinishForFunction.ManagedName.ToCamelCase() + "CallbackDelegate";
+            return function.GetFinishDelegateField(identifier);
         }
     }
 }

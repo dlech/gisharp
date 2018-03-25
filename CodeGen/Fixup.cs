@@ -22,6 +22,7 @@ using GISharp.Runtime;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
+using System.Threading.Tasks;
 
 namespace GISharp.CodeGen
 {
@@ -465,6 +466,46 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "extension-method", "1");
             }
 
+            // flag async methods
+
+            foreach (var element in document.Descendants(gi + "method")
+                .Concat(document.Descendants(gi + "function"))
+                .Where(x => x.Attribute("name").AsString("").EndsWith("_async")))
+            {
+                if (!element.Attribute(gs + "async").AsBool(true)) {
+                    // fixup file can set gs:async="0" to skip this automatic fixup
+                    continue;
+                }
+
+                var callbackElement = element.Element(gi + "parameters").Elements(gi + "parameter")
+                    .SingleOrDefault(x => x.Element(gi + "type")?.Attribute(c + "type").AsString() == "GAsyncReadyCallback");
+                if (callbackElement == null) {
+                    // this doesn't fit the code generator async pattern
+                    continue;
+                }
+
+                element.SetAttributeValue(gs + "async", "1");
+
+                // see if the fixup file specified a finish-for method
+                var asyncMethodName = element.Attribute("name").Value;
+                var finishMethodElement = element.Parent.Elements(element.Name)
+                    .SingleOrDefault(x => x.Attribute(gs + "finish-for").AsString() == asyncMethodName);
+
+                if (finishMethodElement == null) {
+                    // try to find a matching method heuristically
+                    var finishMethodName = asyncMethodName.Replace("_async", "_finish");
+                    finishMethodElement = element.Parent.Elements(element.Name)
+                        .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
+
+                    if (finishMethodElement == null) {
+                        continue;
+                    }
+
+                    finishMethodElement.SetAttributeValue(gs + "pinvoke-only", "1");
+                    finishMethodElement.SetAttributeValue(gs + "finish-for", asyncMethodName);
+                }
+            }
+
             // flag ref functions
 
             var elementsWithRefMethod = document.Descendants (gi + "method")
@@ -696,6 +737,35 @@ namespace GISharp.CodeGen
                 element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
+            // fix up the async method return value based on the finish method
+
+            foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") != null))
+            {
+                var returnValues = new System.Collections.Generic.List<XElement>();
+                var finishReturnValueElement = element.Element(gi + "return-value");
+                if (!finishReturnValueElement.Attribute("skip").AsBool() &&
+                    finishReturnValueElement.Attribute(gs + "managed-name").Value != typeof(void).ToString())
+                {
+                    returnValues.Add(finishReturnValueElement);
+                }
+                foreach (var p in element.Element(gi + "parameters").Elements(gi + "parameter")
+                    .Where(x => x.Attribute("direction").AsString("in") != "in"))
+                {
+                    returnValues.Add(p);
+                }
+
+                var asyncMethodName = element.Attribute(gs + "finish-for").Value;
+                var asyncMethodElement = element.Parent.Elements(element.Name)
+                    .Single(x => x.Attribute("name")?.Value == asyncMethodName);
+                var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
+                asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));
+
+                foreach (var r in returnValues) {
+                    var newElement = new XElement(r.Element(gi + "type") ?? r.Element(gi + "array"));
+                    asyncReturnValueType.Add(newElement);
+                }
+            }
+
             // add managed-parameters element
 
             var parameterElements = document.Descendants (gi + "parameters");
@@ -864,6 +934,10 @@ namespace GISharp.CodeGen
             indexesToRemove.AddRange (list
                 .Where (p => p.GetLengthIndex () >= 0)
                 .Select (p => p.GetLengthIndex ()));
+            indexesToRemove.AddRange(list
+                .Where(p => p.Element(gi + "type")?.Attribute(c + "type")?.Value == "GAsyncReadyCallback")
+                .Where(p => p.Parent.Parent.Attribute(gs + "async").AsBool())
+                .Select(p => list.IndexOf(p)));
             var returnValueElement = parameters.Parent.Element (gi + "return-value");
             if (returnValueElement.GetClosureIndex () >= 0) {
                 indexesToRemove.Add (returnValueElement.GetClosureIndex ());

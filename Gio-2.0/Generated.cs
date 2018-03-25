@@ -5508,7 +5508,7 @@ System.IntPtr cancellable);
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
         static extern void g_input_stream_close_async(
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
@@ -5540,22 +5540,22 @@ System.IntPtr cancellable);
         /// asynchronicity, so they are optional for inheriting classes. However, if you
         /// override one you must override all.
         /// </remarks>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional cancellable object
         /// </param>
-        public void CloseAsync(GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Object>();
+            var callback_ = closeAsyncCallbackDelegate;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_input_stream_close_async(stream_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
         }
 
         /// <summary>
@@ -5587,27 +5587,30 @@ System.IntPtr cancellable);
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes closing a stream asynchronously, started from g_input_stream_close_async().
-        /// </summary>
-        /// <param name="result">
-        /// a #GAsyncResult.
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        public void CloseFinish(GISharp.Lib.Gio.IAsyncResult result)
+        static void CloseFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
         {
-            var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
-            var error_ = System.IntPtr.Zero;
-            g_input_stream_close_finish(stream_, result_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            try
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Object>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                g_input_stream_close_finish(stream_, result_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                completionSource.SetResult(null);
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback closeAsyncCallbackDelegate = CloseFinish;
 
         /// <summary>
         /// Checks if an input stream has pending actions.
@@ -5947,7 +5950,9 @@ System.IntPtr cancellable);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
+* </type> */
         /* transfer-ownership:none direction:out */
         static extern void g_input_stream_read_all_async(
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
@@ -5991,9 +5996,6 @@ System.IntPtr cancellable);
         /// a buffer to
         ///     read data into (which should be at least count bytes long)
         /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority] of the request
         /// </param>
@@ -6001,14 +6003,17 @@ System.IntPtr cancellable);
         /// optional #GCancellable object, %NULL to ignore
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public void ReadAllAsync(GISharp.Runtime.IArray<System.Byte> buffer, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> ReadAllAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var (buffer_, count_) = ((System.IntPtr, System.UIntPtr))((buffer?.Data ?? throw new System.ArgumentNullException(nameof(buffer)), buffer?.Length ?? 0));
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
+            var callback_ = readAllAsyncCallbackDelegate;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_input_stream_read_all_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
         }
 
         /// <summary>
@@ -6056,42 +6061,31 @@ System.IntPtr cancellable);
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous stream read operation started with
-        /// g_input_stream_read_all_async().
-        /// </summary>
-        /// <remarks>
-        /// As a special exception to the normal conventions for functions that
-        /// use #GError, if this function returns %FALSE (and sets @error) then
-        /// @bytes_read will be set to the number of bytes that were successfully
-        /// read before the error was encountered.  This functionality is only
-        /// available from C.  If you need it from another language then you must
-        /// write your own loop around g_input_stream_read_async().
-        /// </remarks>
-        /// <param name="result">
-        /// a #GAsyncResult
-        /// </param>
-        /// <param name="bytesRead">
-        /// location to store the number of bytes that was read from the stream
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [GISharp.Runtime.SinceAttribute("2.44")]
-        public void ReadAllFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesRead)
+        static void ReadAllFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
         {
-            var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
-            var error_ = System.IntPtr.Zero;
-            g_input_stream_read_all_finish(stream_, result_,out var bytesRead_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            try
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                g_input_stream_read_all_finish(stream_, result_,out var bytesRead_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var bytesRead = (System.Int32)bytesRead_;
+                completionSource.SetResult((bytesRead));
             }
-
-            bytesRead = (System.Int32)bytesRead_;
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
         }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback readAllAsyncCallbackDelegate = ReadAllFinish;
 
         /// <summary>
         /// Request an asynchronous read of @count bytes from the stream into the buffer
@@ -6143,7 +6137,9 @@ System.IntPtr cancellable);
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="gssize" type="gssize" managed-name="System.Int32" />
+* </type> */
         /* transfer-ownership:none direction:out */
         static extern void g_input_stream_read_async(
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
@@ -6200,9 +6196,6 @@ System.IntPtr cancellable);
         /// a buffer to
         ///     read data into (which should be at least count bytes long).
         /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority]
         /// of the request.
@@ -6210,14 +6203,17 @@ System.IntPtr cancellable);
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
-        public void ReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> ReadAsync(GISharp.Runtime.IArray<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var (buffer_, count_) = ((System.IntPtr, System.UIntPtr))((buffer?.Data ?? throw new System.ArgumentNullException(nameof(buffer)), buffer?.Length ?? 0));
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
+            var callback_ = readAsyncCallbackDelegate;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_input_stream_read_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
         }
 
         /// <summary>
@@ -6380,7 +6376,9 @@ System.IntPtr cancellable);
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="GLib.Bytes" type="GBytes*" managed-name="GISharp.Lib.GLib.Bytes" is-pointer="1" />
+* </type> */
         /* transfer-ownership:none direction:out */
         static extern void g_input_stream_read_bytes_async(
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
@@ -6428,9 +6426,6 @@ System.IntPtr cancellable);
         /// <param name="count">
         /// the number of bytes that will be read from the stream
         /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority] of the request
         /// </param>
@@ -6438,14 +6433,17 @@ System.IntPtr cancellable);
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public void ReadBytesAsync(System.Int32 count, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public System.Threading.Tasks.Task<GISharp.Lib.GLib.Bytes> ReadBytesAsync(System.Int32 count, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var count_ = (System.UIntPtr)count;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Bytes>();
+            var callback_ = readBytesAsyncCallbackDelegate;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_input_stream_read_bytes_async(stream_, count_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
         }
 
         /// <summary>
@@ -6478,34 +6476,31 @@ System.IntPtr cancellable);
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous stream read-into-#GBytes operation.
-        /// </summary>
-        /// <param name="result">
-        /// a #GAsyncResult.
-        /// </param>
-        /// <returns>
-        /// the newly-allocated #GBytes, or %NULL on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [GISharp.Runtime.SinceAttribute("2.34")]
-        public GISharp.Lib.GLib.Bytes ReadBytesFinish(GISharp.Lib.Gio.IAsyncResult result)
+        static void ReadBytesFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
         {
-            var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_input_stream_read_bytes_finish(stream_,result_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            try
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Bytes>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                var ret_ = g_input_stream_read_bytes_finish(stream_,result_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Bytes>(ret_, GISharp.Runtime.Transfer.Full);
+                completionSource.SetResult((ret));
             }
-
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Bytes>(ret_, GISharp.Runtime.Transfer.Full);
-            return ret;
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
         }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback readBytesAsyncCallbackDelegate = ReadBytesFinish;
 
         /// <summary>
         /// Finishes an asynchronous stream read operation.
@@ -6536,33 +6531,31 @@ System.IntPtr cancellable);
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous stream read operation.
-        /// </summary>
-        /// <param name="result">
-        /// a #GAsyncResult.
-        /// </param>
-        /// <returns>
-        /// number of bytes read in, or -1 on error, or 0 on end of file.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        public System.Int32 ReadFinish(GISharp.Lib.Gio.IAsyncResult result)
+        static void ReadFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
         {
-            var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_input_stream_read_finish(stream_,result_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            try
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                var ret_ = g_input_stream_read_finish(stream_,result_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var ret = (System.Int32)ret_;
+                completionSource.SetResult((ret));
             }
-
-            var ret = (System.Int32)ret_;
-            return ret;
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
         }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback readAsyncCallbackDelegate = ReadFinish;
 
         /// <summary>
         /// Sets @stream to have actions pending. If the pending flag is
@@ -6749,7 +6742,9 @@ System.IntPtr cancellable);
         /// the data to pass to callback function
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="gssize" type="gssize" managed-name="System.Int32" />
+* </type> */
         /* transfer-ownership:none direction:out */
         static extern void g_input_stream_skip_async(
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
@@ -6800,23 +6795,23 @@ System.IntPtr cancellable);
         /// <param name="count">
         /// the number of bytes that will be skipped from the stream
         /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
         /// <param name="ioPriority">
         /// the [I/O priority][io-priority] of the request
         /// </param>
         /// <param name="cancellable">
         /// optional #GCancellable object, %NULL to ignore.
         /// </param>
-        public void SkipAsync(System.Int32 count, GISharp.Lib.Gio.AsyncReadyCallback callback, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> SkipAsync(System.Int32 count, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var stream_ = Handle;
             var count_ = (System.UIntPtr)count;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
+            var callback_ = skipAsyncCallbackDelegate;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_input_stream_skip_async(stream_, count_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
         }
 
         /// <summary>
@@ -6848,33 +6843,31 @@ System.IntPtr cancellable);
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes a stream skip operation.
-        /// </summary>
-        /// <param name="result">
-        /// a #GAsyncResult.
-        /// </param>
-        /// <returns>
-        /// the size of the bytes skipped, or %-1 on error.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        public System.Int32 SkipFinish(GISharp.Lib.Gio.IAsyncResult result)
+        static void SkipFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
         {
-            var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_input_stream_skip_finish(stream_,result_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            try
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                var ret_ = g_input_stream_skip_finish(stream_,result_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var ret = (System.Int32)ret_;
+                completionSource.SetResult((ret));
             }
-
-            var ret = (System.Int32)ret_;
-            return ret;
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
         }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback skipAsyncCallbackDelegate = SkipFinish;
 
         /// <summary>
         /// Requests an asynchronous closes of the stream, releasing resources related to it.
@@ -7325,7 +7318,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCloseFn = (CloseFn)methodInfo.CreateDelegate(typeof(CloseFn), stream);
                         doCloseFn(cancellable);
-                        return default(System.Boolean);
+                        return true;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -7640,7 +7633,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None);
                         var doCloseFinish = (CloseFinish)methodInfo.CreateDelegate(typeof(CloseFinish), stream);
                         doCloseFinish(result);
-                        return default(System.Boolean);
+                        return true;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {

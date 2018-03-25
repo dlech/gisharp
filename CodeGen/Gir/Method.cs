@@ -45,11 +45,22 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public bool IsCompare => Element.Attribute(gs + "special-func").AsString() == "compare";
 
+        /// <summary>
+        /// Gets the async method that this method finishes, if any
+        /// </summary>
+        public Method FinishForMethod => _FinishForMethod.Value;
+        readonly Lazy<Method> _FinishForMethod;
+
         public Method(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gi + "method") {
                 throw new ArgumentException("Requrires <method> element", nameof(element));
             }
+            _FinishForMethod = new Lazy<Method>(LazyGetFinishForMethod);
         }
+
+        Method LazyGetFinishForMethod =>
+            (Method)GirNode.GetNode(Element.Parent.Elements(Element.Name)
+                .SingleOrDefault(x => x.Attribute("name")?.Value == FinishFor));
     }
 }
