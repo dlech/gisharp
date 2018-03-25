@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Runtime;
@@ -20,7 +21,7 @@ namespace GISharp.CodeGen.Syntax
             var type = property.Type.ManagedType.ToSyntax();
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetAccessModifiers())
-                .WithAttributeLists(property.GetCommonAttributeLists())
+                .WithAttributeLists(property.GetAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())
                 .WithLeadingTrivia(property.Doc.GetDocCommentTrivia());
 
@@ -39,6 +40,20 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return syntax;
+        }
+
+        static SyntaxList<AttributeListSyntax> GetAttributeLists(this Property property)
+        {
+            var list = property.GetCommonAttributeLists();
+
+            if (!property.IsReadable && property.IsConstructOnly) {
+                var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
+                var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
+                    .AddArgumentListArguments(AttributeArgument(arg));
+                list = list.Insert(0, AttributeList().AddAttributes(attr));
+            }
+
+            return list;
         }
 
         static ExpressionSyntax GetGetExpression(this Property property)
