@@ -19,7 +19,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static InterfaceDeclarationSyntax GetInterfaceDeclaration(this Interface @interface)
         {
-            var identifier = "I" + @interface.ManagedName;
+            var identifier = @interface.ManagedName;
             var baseTypes = SeparatedList(@interface.Prerequisites.Select(x => x.GetBaseType()));
 
             if (!baseTypes.Any(x => x.ToString().Contains("GInterface"))) {
@@ -52,7 +52,8 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static ClassDeclarationSyntax GetExtClassDeclaration(this Interface @interface)
         {
-            var identifier = @interface.ManagedName;
+            // trim "I" prefix
+            var identifier = @interface.ManagedName.Substring(1);
             return ClassDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword));
         }

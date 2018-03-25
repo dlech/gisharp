@@ -98,8 +98,7 @@ namespace GISharp.CodeGen.Syntax
                         if (type == null) {
                             continue;
                         }
-                        var namePrefix = type is Interface ? "I" : "";
-                        builder.Replace(t.Value, $"<see cref=\"{namePrefix}{type.ManagedName}\"/>");
+                        builder.Replace(t.Value, $"<see cref=\"{type.ManagedName}\"/>");
                     }
                 }
 

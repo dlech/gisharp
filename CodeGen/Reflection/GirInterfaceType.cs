@@ -56,8 +56,6 @@ namespace GISharp.CodeGen.Reflection
             throw new TypeNotFoundException(prerequisite.GirName);
         }
 
-        public override string Name => "I" + base.Name;
-
         protected override TypeAttributes GetAttributeFlagsImpl() => base.GetAttributeFlagsImpl() | TypeAttributes.Interface;
     }
 }

@@ -419,6 +419,11 @@ namespace GISharp.CodeGen
                 }
                 var name = attr.Value;
 
+                // interfaces get an "I" prefix
+                if (element.Name == gi + "interface") {
+                    name = "I" + name;
+                }
+
                 // fix up type names
 
                 if (element.Name == gi + "type" || element.Name == gi + "array") {
