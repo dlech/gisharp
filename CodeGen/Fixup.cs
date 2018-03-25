@@ -296,6 +296,28 @@ namespace GISharp.CodeGen
                 element.Remove ();
             }
 
+            // scrape version attribute from member doc
+
+            foreach (var element in document.Descendants(gi + "member")) {
+                if (element.Attribute("since") != null) {
+                    continue;
+                }
+
+                var docElement = element.Element(gi + "doc");
+                if (docElement == null) {
+                    continue;
+                }
+
+                var match = Regex.Match(docElement.Value, @"\n?\s*Since:?\s+(\d+\.\d+)\.?",
+                    RegexOptions.Multiline);
+                if (!match.Success) {
+                    continue;
+                }
+                
+                element.SetAttributeValue("version", match.Groups[1]);
+                docElement.Value = docElement.Value.Replace(match.Value, "");
+            }
+
             // add functions for GType getters
 
             var elementsWithGTypeGetter = document.Descendants ()

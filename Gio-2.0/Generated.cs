@@ -3609,14 +3609,14 @@ System.IntPtr actionName);
         ///     ID is given.  The application neither attempts to become the
         ///     owner of the application ID nor does it check if an existing
         ///     owner already exists.  Everything occurs in the local process.
-        ///     Since: 2.30.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.30")]
         NonUnique = 32,
         /// <summary>
         /// Allow users to override the
         ///     application ID from the command line with `--gapplication-app-id`.
-        ///     Since: 2.48
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.48")]
         CanOverrideAppId = 64
     }
 
@@ -5228,81 +5228,97 @@ System.IntPtr cancellable);
         /// <summary>
         /// The current process has too many files
         ///     open and can't open any more. Duplicate descriptors do count toward
-        ///     this limit. Since 2.20
+        ///     this limit.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.20")]
         TooManyOpenFiles = 31,
         /// <summary>
-        /// The object has not been initialized. Since 2.22
+        /// The object has not been initialized.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
         NotInitialized = 32,
         /// <summary>
-        /// The requested address is already in use. Since 2.22
+        /// The requested address is already in use.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
         AddressInUse = 33,
         /// <summary>
-        /// Need more input to finish operation. Since 2.24
+        /// Need more input to finish operation.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.24")]
         PartialInput = 34,
         /// <summary>
-        /// The input data was invalid. Since 2.24
+        /// The input data was invalid.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.24")]
         InvalidData = 35,
         /// <summary>
         /// A remote object generated an error that
         ///     doesn't correspond to a locally registered #GError error
         ///     domain. Use g_dbus_error_get_remote_error() to extract the D-Bus
         ///     error name and g_dbus_error_strip_remote_error() to fix up the
-        ///     message so it matches what was received on the wire. Since 2.26.
+        ///     message so it matches what was received on the wire.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         DbusError = 36,
         /// <summary>
-        /// Host unreachable. Since 2.26
+        /// Host unreachable.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         HostUnreachable = 37,
         /// <summary>
-        /// Network unreachable. Since 2.26
+        /// Network unreachable.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         NetworkUnreachable = 38,
         /// <summary>
-        /// Connection refused. Since 2.26
+        /// Connection refused.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         ConnectionRefused = 39,
         /// <summary>
-        /// Connection to proxy server failed. Since 2.26
+        /// Connection to proxy server failed.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyFailed = 40,
         /// <summary>
-        /// Proxy authentication failed. Since 2.26
+        /// Proxy authentication failed.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyAuthFailed = 41,
         /// <summary>
-        /// Proxy server needs authentication. Since 2.26
+        /// Proxy server needs authentication.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyNeedAuth = 42,
         /// <summary>
         /// Proxy connection is not allowed by ruleset.
-        ///     Since 2.26
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyNotAllowed = 43,
         /// <summary>
-        /// Broken pipe. Since 2.36
+        /// Broken pipe.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.36")]
         BrokenPipe = 44,
         /// <summary>
         /// Connection closed by peer. Note that this
         ///     is the same code as %G_IO_ERROR_BROKEN_PIPE; before 2.44 some
         ///     "connection closed" errors returned %G_IO_ERROR_BROKEN_PIPE, but others
         ///     returned %G_IO_ERROR_FAILED. Now they should all return the same
-        ///     value, which has this more logical name. Since 2.44.
+        ///     value, which has this more logical name.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.44")]
         ConnectionClosed = 44,
         /// <summary>
-        /// Transport endpoint is not connected. Since 2.44
+        /// Transport endpoint is not connected.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.44")]
         NotConnected = 45,
         /// <summary>
-        /// Message too large. Since 2.48.
+        /// Message too large.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.48")]
         MessageTooLarge = 46
     }
 

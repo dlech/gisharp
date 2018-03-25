@@ -3490,15 +3490,16 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// The option takes a double argument. The argument
         ///     can be formatted either for the user's locale or for the "C" locale.
-        ///     Since 2.12
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.12")]
         Double = 7,
         /// <summary>
         /// The option takes a 64-bit integer. Like
         ///     %G_OPTION_ARG_INT but for larger numbers. The number can be in
         ///     decimal base, or in hexadecimal (when prefixed with `0x`, for
-        ///     example, `0xffffffff`). Since 2.12
+        ///     example, `0xffffffff`).
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.12")]
         Int64 = 8
     }
 
@@ -4759,8 +4760,9 @@ namespace GISharp.Lib.GLib
     public enum OptionFlags
     {
         /// <summary>
-        /// No flags. Since: 2.42.
+        /// No flags.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.42")]
         None = 0,
         /// <summary>
         /// The option doesn't appear in `--help` output.
@@ -4779,21 +4781,24 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// For options of the %G_OPTION_ARG_CALLBACK kind,
         ///     this flag indicates that the callback does not take any argument
-        ///     (like a %G_OPTION_ARG_NONE option). Since 2.8
+        ///     (like a %G_OPTION_ARG_NONE option).
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.8")]
         NoArg = 8,
         /// <summary>
         /// For options of the %G_OPTION_ARG_CALLBACK
         ///     kind, this flag indicates that the argument should be passed to the
-        ///     callback in the GLib filename encoding rather than UTF-8. Since 2.8
+        ///     callback in the GLib filename encoding rather than UTF-8.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.8")]
         Filename = 16,
         /// <summary>
         /// For options of the %G_OPTION_ARG_CALLBACK
         ///     kind, this flag indicates that the argument supply is optional.
         ///     If no argument is given then data of %GOptionParseFunc will be
-        ///     set to NULL. Since 2.8
+        ///     set to NULL.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.8")]
         OptionalArg = 32,
         /// <summary>
         /// This flag turns off the automatic conflict
@@ -4801,8 +4806,9 @@ namespace GISharp.Lib.GLib
         ///     there is a conflict. This option should only be used in situations
         ///     where aliasing is necessary to model some legacy commandline interface.
         ///     It is not safe to use this option, unless all option groups are under
-        ///     your direct control. Since 2.8.
+        ///     your direct control.
         /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.8")]
         NoAlias = 64
     }
 
