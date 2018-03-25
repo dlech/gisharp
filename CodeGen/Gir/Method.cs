@@ -46,6 +46,11 @@ namespace GISharp.CodeGen.Gir
         public bool IsCompare => Element.Attribute(gs + "special-func").AsString() == "compare";
 
         /// <summary>
+        /// Indicates that this method is a to-string method
+        /// </summary>
+        public bool IsToString { get; }
+
+        /// <summary>
         /// Gets the async method that this method finishes, if any
         /// </summary>
         public Method FinishForMethod => _FinishForMethod.Value;
@@ -56,6 +61,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "method") {
                 throw new ArgumentException("Requrires <method> element", nameof(element));
             }
+            IsToString = Element.Attribute(gs + "to-string").AsBool();
             _FinishForMethod = new Lazy<Method>(LazyGetFinishForMethod);
         }
 

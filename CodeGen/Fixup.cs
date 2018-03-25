@@ -617,8 +617,17 @@ namespace GISharp.CodeGen
                 .Where (d => d.Attribute ("name").Value == "to_string"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ());
             foreach (var element in elementsWithToStringFunction) {
-                element.SetAttributeValue (gs + "special-func", "to-string");
-                element.SetAttributeValue (gs + "access-modifiers", "public override");
+                if (element.Attribute(gs + "to-string") != null) {
+                    continue;
+                }
+                element.SetAttributeValue(gs + "to-string", "1");
+                if (element.Attribute(gs + "access-modifiers") == null) {
+                    element.SetAttributeValue(gs + "access-modifiers", "public");
+                }
+                if (element.Parent.Name == gi + "class" || element.Parent.Name == gi + "record") {
+                    var modifiers = element.Attribute(gs + "access-modifiers").Value;
+                    element.SetAttributeValue(gs + "access-modifiers", modifiers + " override");
+                }
             }
 
             // add is-pointer attribute to pointer types

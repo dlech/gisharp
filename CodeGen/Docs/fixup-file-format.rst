@@ -42,12 +42,18 @@ Attributes
     Values
         ``private``, ``protected``, ``internal``, ``override``, ``new``
 
+``gs:async``
+    Description
+        Indicates that a method or function is async.
+    Values
+        ``1`` (true), ``0`` (false)
+
 ``gs:default``
     Description
         Specifies the default value for a parameter. This is only valid for
         ``parameter`` elements.
     Values
-        Any valid C# expression
+        Any valid C# constant expression
 
 ``gs:default-constructor``
     Description
@@ -55,6 +61,12 @@ Attributes
         Set to "0" when you need to implement a custom default constructor.
     Values
         ``1`` (true), ``0`` (false)
+
+``gs:finish-for``
+    Description
+        Links an async finish function or method to an async function or method.
+    Values
+        The name of a function or method in the same type with ``async="1"`` set.
 
 ``gs:params``
     Description
@@ -68,6 +80,13 @@ Attributes
         ``function``/``method``/``constructor`` element. Useful when a function
         requires complex marshaling or just need to be called internally by
         something else.
+    Values
+        ``1`` (true), ``0`` (false)
+
+``gs:to-string``
+    Description
+        Indicates that a method fits the .NET ToString() pattern (e.g. it will
+        override object.ToString()).
     Values
         ``1`` (true), ``0`` (false)
 
