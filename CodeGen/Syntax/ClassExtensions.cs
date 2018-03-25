@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Runtime;
@@ -91,11 +92,17 @@ namespace GISharp.CodeGen.Syntax
                 typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
 
+            var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
+            var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
+                .AddArgumentListArguments(AttributeArgument(arg));
+            var attributeList = AttributeList().AddAttributes(attr);
+
             var accessModifier = @class.IsAbstract ? Token(ProtectedKeyword) : Token(PublicKeyword);
 
             var initializer = ConstructorInitializer(BaseConstructorInitializer)
                 .WithArgumentList(argList);
             var constructor = ConstructorDeclaration(@class.ManagedName)
+                .AddAttributeLists(attributeList)
                 .AddModifiers(accessModifier)
                 .WithParameterList(parameterList)
                 .WithInitializer(initializer)

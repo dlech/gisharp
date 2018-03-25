@@ -9,6 +9,7 @@ using static GISharp.TestHelpers;
 
 using Object = GISharp.Lib.GObject.Object;
 using IAsyncResult = GISharp.Lib.Gio.IAsyncResult;
+using System.ComponentModel;
 
 namespace GISharp.Test.Gio
 {
@@ -36,6 +37,7 @@ namespace GISharp.Test.Gio
             this.source = source ?? throw new ArgumentNullException(nameof(source));
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TestAsyncResult(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

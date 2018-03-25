@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -39,6 +40,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecVariant (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -15,6 +16,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_iter_copy (IntPtr iter);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {

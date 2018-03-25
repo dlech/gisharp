@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -55,6 +56,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_copy (IntPtr error);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Error(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }

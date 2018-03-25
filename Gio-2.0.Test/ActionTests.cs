@@ -9,6 +9,7 @@ using System.Reflection;
 using static GISharp.TestHelpers;
 using Action = GISharp.Lib.Gio.Action;
 using Object = GISharp.Lib.GObject.Object;
+using System.ComponentModel;
 
 namespace GISharp.Test.Gio
 {
@@ -338,6 +339,7 @@ namespace GISharp.Test.Gio
             Name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TestAction(IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
 
@@ -73,6 +74,7 @@ namespace GISharp.Lib.GModule
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Module(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {

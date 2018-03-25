@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
@@ -22,6 +23,7 @@ namespace GISharp.Runtime
 
         public override IntPtr Handle => handle;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

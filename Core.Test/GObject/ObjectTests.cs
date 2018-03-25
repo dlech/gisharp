@@ -273,6 +273,7 @@ namespace GISharp.Test.Core.GObject
             {
             }
 
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public TestObject3 (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
@@ -314,6 +315,7 @@ namespace GISharp.Test.Core.GObject
             {
             }
 
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public TestObjectPropertiesBase (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
@@ -336,6 +338,7 @@ namespace GISharp.Test.Core.GObject
             {
             }
 
+        [   EditorBrowsable(EditorBrowsableState.Never)]
             public TestObjectPropertiesSubclass (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
             }
@@ -357,6 +360,7 @@ namespace GISharp.Test.Core.GObject
             {
             }
 
+            [EditorBrowsable(EditorBrowsableState.Never)]
             public TestObjectSignal (IntPtr handle, Transfer ownership) : base (handle, ownership)
             {
                 eventHappendSignalId = Signal.TryLookup<TestObjectSignal>(nameof(EventHappened));

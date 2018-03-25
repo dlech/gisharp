@@ -7,6 +7,7 @@ using GISharp.Lib.GObject;
 
 using static System.Reflection.BindingFlags;
 using System.Linq;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -34,6 +35,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -788,6 +790,7 @@ namespace GISharp.Lib.GLib
             OwnsElements = true;
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public PtrArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.Full) {

@@ -1,5 +1,6 @@
 
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -120,6 +121,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public UnixSignalSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

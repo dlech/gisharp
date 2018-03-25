@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using GISharp.Runtime;
 using GISharp.Lib.GObject;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -28,6 +29,7 @@ namespace GISharp.Lib.GLib
 
         public int Length => Marshal.ReadInt32(Handle, (int)lenOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -568,6 +570,7 @@ namespace GISharp.Lib.GLib
     [GType ("GArray", IsProxyForUnmanagedType = true)]
     public sealed class Array<T> : Array, IArray<T>, IList<T> where T : struct
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

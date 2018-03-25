@@ -5,6 +5,7 @@ using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
 
 using Object = GISharp.Lib.GObject.Object;
+using System.ComponentModel;
 
 namespace GISharp.Runtime
 {
@@ -28,6 +29,7 @@ namespace GISharp.Runtime
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Opaque(IntPtr handle, Transfer ownership)
         {
             this.handle = handle;

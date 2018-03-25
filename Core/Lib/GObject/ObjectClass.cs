@@ -116,6 +116,7 @@ namespace GISharp.Lib.GObject
             GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset);
 
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ObjectClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

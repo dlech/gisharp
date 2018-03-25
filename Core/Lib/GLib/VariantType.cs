@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -163,6 +164,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_type_copy (IntPtr type);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public VariantType(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }

@@ -210,6 +210,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.Utf8 StartGroup { get => GetStartGroup(); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -3678,6 +3679,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.Utf8 Summary { get => GetSummary(); set => SetSummary(value); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -4824,6 +4826,7 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_option_group_get_type();
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionGroup(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -5333,6 +5336,7 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_variant_builder_get_type();
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public VariantBuilder(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -5826,6 +5830,7 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_variant_dict_get_type();
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public VariantDict(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
         }

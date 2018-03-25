@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -38,6 +39,7 @@ namespace GISharp.Lib.GLib
     [GType ("GBytes", IsProxyForUnmanagedType = true)]
     public sealed class Bytes : Boxed, IArray<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Bytes(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }

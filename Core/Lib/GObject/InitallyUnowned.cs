@@ -1,6 +1,7 @@
 using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GObject
 {
@@ -18,6 +19,7 @@ namespace GISharp.Lib.GObject
 
         static readonly GType _GType = g_initially_unowned_get_type ();
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public InitiallyUnowned (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

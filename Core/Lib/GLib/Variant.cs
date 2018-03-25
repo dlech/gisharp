@@ -5,6 +5,7 @@ using System.Linq;
 using System.Collections;
 
 using GISharp.Runtime;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -234,6 +235,7 @@ namespace GISharp.Lib.GLib
     {
         IndexedCollection<Variant> childValues;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Variant(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {

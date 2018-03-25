@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
@@ -82,6 +83,7 @@ namespace GISharp.Lib.GObject
 
         IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
             g_closure_sink (this.handle);

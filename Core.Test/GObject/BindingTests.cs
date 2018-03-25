@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
@@ -83,6 +84,7 @@ namespace GISharp.Test.Core.GObject
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TestObject (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

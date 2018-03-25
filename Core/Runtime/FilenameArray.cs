@@ -9,6 +9,7 @@ using System.Linq;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using GISharp.Lib.GLib;
+using System.ComponentModel;
 
 namespace GISharp.Runtime
 {
@@ -19,6 +20,7 @@ namespace GISharp.Runtime
     {
         bool Owned { get; }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FilenameArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.Full) {

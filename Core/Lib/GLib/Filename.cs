@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -8,6 +9,7 @@ namespace GISharp.Lib.GLib
     {
         bool owned;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.None) {

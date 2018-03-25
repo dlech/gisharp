@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -36,6 +37,7 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public FlagsClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

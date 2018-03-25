@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -24,6 +25,7 @@ namespace GISharp.Lib.GObject
 
         public GType IsAType => Marshal.PtrToStructure<GType>(Handle + (int)isATypeOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecGType (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

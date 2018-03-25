@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -22,6 +23,7 @@ namespace GISharp.Lib.GObject
 
         public new bool DefaultValue => Marshal.PtrToStructure<bool>(Handle + (int)defaultValueOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecBoolean (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

@@ -133,6 +133,7 @@ namespace GISharp.Test.Core.GObject
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TestNetworkMonitor (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

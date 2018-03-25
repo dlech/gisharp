@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -34,6 +35,7 @@ namespace GISharp.Lib.GObject
 
         public float Epsilon => Marshal.PtrToStructure<float>(Handle + (int)epsilonOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecFloat (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

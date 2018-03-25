@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -22,6 +23,7 @@ namespace GISharp.Lib.GObject
 
         public new int DefaultValue => Marshal.ReadInt32(Handle, (int)defaultValueOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecUnichar (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

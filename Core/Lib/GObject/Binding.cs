@@ -2,6 +2,7 @@ using System;
 using GISharp.Runtime;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GObject
 {
@@ -89,6 +90,7 @@ namespace GISharp.Lib.GObject
     [GType ("GBinding", IsProxyForUnmanagedType = true)]
     public sealed class Binding : Object
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Binding (IntPtr handle, Transfer ownership)
             : base (handle, ownership)
         {

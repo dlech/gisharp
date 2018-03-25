@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 
@@ -20,6 +21,7 @@ namespace GISharp.Lib.GObject
         protected ObjectClass GClass => _GClass.Value;
         readonly Lazy<ObjectClass> _GClass;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             _GClass = new Lazy<ObjectClass>(GetGClass);

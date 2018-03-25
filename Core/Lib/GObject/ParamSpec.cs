@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GModule;
@@ -84,6 +85,7 @@ namespace GISharp.Lib.GObject
 
         uint RefCount => Marshal.PtrToStructure<uint>(handle + (int)refCountOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpec(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {

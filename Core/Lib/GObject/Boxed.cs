@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -10,6 +11,7 @@ namespace GISharp.Lib.GObject
     {
         GType gType;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (!gType.IsA(GType.Boxed)) {

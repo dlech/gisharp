@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Linq;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -24,6 +25,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
             _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());

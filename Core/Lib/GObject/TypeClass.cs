@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Runtime.CompilerServices;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GObject
 {
@@ -35,6 +36,7 @@ namespace GISharp.Lib.GObject
 
         public GType GType => Marshal.PtrToStructure<GType>(Handle);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {

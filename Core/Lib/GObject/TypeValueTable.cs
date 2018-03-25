@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -11,6 +12,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public sealed class TypeValueTable : Opaque
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

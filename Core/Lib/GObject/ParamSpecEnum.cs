@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -33,6 +34,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecEnum (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -57,6 +58,7 @@ namespace GISharp.Lib.GObject
 
         uint Bitfield => (uint)Marshal.ReadInt32(Handle, (int)bitfieldOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecString (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

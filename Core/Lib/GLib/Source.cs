@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -39,6 +40,7 @@ namespace GISharp.Lib.GLib
             #pragma warning restore CS0649
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Source(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -1457,8 +1459,9 @@ namespace GISharp.Lib.GLib
             long readyTime);
     }
 
-    public sealed class UnmanagedSource : Source
+    sealed class UnmanagedSource : Source
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public UnmanagedSource (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

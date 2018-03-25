@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Reflection;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
@@ -23,6 +24,7 @@ namespace GISharp.Lib.GObject
 
         public GType GInstanceType => Marshal.PtrToStructure<GType>(Handle + (int)gInstanceTypeOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

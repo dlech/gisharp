@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -32,6 +33,7 @@ namespace GISharp.Lib.GObject
 
         public new nulong DefaultValue => Marshal.PtrToStructure<nulong>(Handle + (int)defaultValueOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecULong (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

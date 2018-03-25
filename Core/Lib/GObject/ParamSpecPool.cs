@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
@@ -8,6 +9,7 @@ namespace GISharp.Lib.GObject
 {
     public sealed class ParamSpecPool : Opaque
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecPool(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

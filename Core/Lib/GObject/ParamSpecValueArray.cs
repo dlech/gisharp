@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -34,6 +35,7 @@ namespace GISharp.Lib.GObject
 
         public uint FixedNElements => (uint)Marshal.ReadInt32(Handle, (int)fixedNElementsOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecValueArray (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

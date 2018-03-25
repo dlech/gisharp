@@ -11,6 +11,7 @@ using GISharp.Lib.GLib;
 
 using Object = GISharp.Lib.GObject.Object;
 using System.Reflection;
+using System.ComponentModel;
 
 namespace GISharp.Test.Core
 {
@@ -68,6 +69,7 @@ namespace GISharp.Test.Core
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public InitableIface (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
@@ -294,6 +296,7 @@ namespace GISharp.Test.Core
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public NetworkMonitorInterface (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }
@@ -472,6 +475,7 @@ namespace GISharp.Test.Core
             RegisterVirtualMethod(isTaggedOffset, IsTaggedFactory.Create);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public AsyncResultIface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
@@ -574,6 +578,7 @@ namespace GISharp.Test.Core
             UnmanagedAsyncReadyCallback callback,
             IntPtr callbackData);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public GTask(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

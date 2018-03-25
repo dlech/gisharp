@@ -4199,6 +4199,7 @@ System.IntPtr sourceTag);
         /// </summary>
         public System.Boolean IsCancelled { get => GetIsCancelled(); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Cancellable(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -5972,6 +5973,7 @@ System.IntPtr icon);
         /// </summary>
         public System.Boolean IsClosed { get => GetIsClosed(); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         protected InputStream(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -8333,6 +8335,7 @@ ref System.IntPtr error);
         [GISharp.Runtime.GPropertyAttribute("state-type")]
         public GISharp.Lib.GLib.VariantType StateType { get => (GISharp.Lib.GLib.VariantType)GetProperty("state-type"); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -9356,6 +9359,7 @@ ref System.IntPtr error);
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr TaskData { get => GetTaskData(); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Task(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -10686,6 +10690,7 @@ ref System.IntPtr error);
 
     public sealed partial class TaskClass : GISharp.Lib.GObject.ObjectClass
     {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public TaskClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -10781,6 +10786,7 @@ ref System.IntPtr error);
         /// </summary>
         public GISharp.Lib.GLib.Strv Names { get => GetNames(); }
 
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ThemedIcon(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -11031,6 +11037,7 @@ ref System.IntPtr error);
 
     public sealed partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
     {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ThemedIconClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
@@ -11038,6 +11045,7 @@ ref System.IntPtr error);
 
     public sealed partial class CancellableSource : GISharp.Lib.GLib.Source
     {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public CancellableSource(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

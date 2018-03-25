@@ -4,6 +4,7 @@ using GISharp.Runtime;
 using GISharp.Lib.GObject;
 using System.Runtime.CompilerServices;
 using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -18,6 +19,7 @@ namespace GISharp.Lib.GLib
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected HashTable(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -782,6 +784,7 @@ namespace GISharp.Lib.GLib
         where TKey : Opaque
         where TValue : Opaque
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public HashTable (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

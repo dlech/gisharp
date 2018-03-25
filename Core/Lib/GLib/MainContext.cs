@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Threading;
 using GISharp.Lib.GObject;
@@ -13,6 +14,7 @@ namespace GISharp.Lib.GLib
     [GType ("GMainContext", IsProxyForUnmanagedType = true)]
     public sealed class MainContext : Boxed
     {
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public MainContext(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }

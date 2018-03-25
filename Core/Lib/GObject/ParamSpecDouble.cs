@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -34,6 +35,7 @@ namespace GISharp.Lib.GObject
 
         public double Epsilon => Marshal.PtrToStructure<double>(Handle + (int)epsilonOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecDouble (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

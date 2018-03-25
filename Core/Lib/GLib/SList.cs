@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -20,6 +21,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.Container) {
@@ -912,6 +914,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public SList (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

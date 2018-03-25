@@ -4,6 +4,7 @@ using GISharp.Runtime;
 using GISharp.Lib.GObject;
 using System.Collections.Generic;
 using System.Collections;
+using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
@@ -28,6 +29,7 @@ namespace GISharp.Lib.GLib
 
         public int Length => Marshal.ReadInt32(Handle + (int)lenOffset);
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }

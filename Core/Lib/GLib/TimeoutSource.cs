@@ -1,6 +1,7 @@
 
 
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -155,6 +156,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TimeoutSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }

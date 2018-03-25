@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -17,6 +18,7 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecObject (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
         }

@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.Gio;
 using GISharp.Lib.GLib;
@@ -128,6 +129,7 @@ namespace GISharp.Test.Gio
         {
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public TestInputStream(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
