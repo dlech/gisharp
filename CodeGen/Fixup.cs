@@ -283,6 +283,8 @@ namespace GISharp.CodeGen
                 if (callbackElement != null) {
                     callbackElement.Name = gi + "type";
                     callbackElement.SetAttributeValue("name", "gpointer");
+                    // sometimes, the callback node also has introspectable="0"
+                    callbackElement.SetAttributeValue("introspectable", "1");
                 }
             }
 
