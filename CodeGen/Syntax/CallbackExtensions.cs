@@ -99,9 +99,8 @@ namespace GISharp.CodeGen.Syntax
                 var returnStatement = ReturnStatement(ParseExpression("ret_"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
-            else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
-                var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
-                var returnStatement = ReturnStatement(DefaultExpression(returnType));
+            else if (callback.ReturnValue.Type.UnmanagedType == typeof(bool)) {
+                var returnStatement = ReturnStatement(ParseExpression("true"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
 
