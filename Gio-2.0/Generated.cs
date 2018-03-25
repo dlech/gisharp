@@ -3632,14 +3632,20 @@ System.IntPtr actionName);
 
     /// <summary>
     /// Type definition for a function that will be called back when an asynchronous
-    /// operation within GIO has been completed.
+    /// operation within GIO has been completed. #GAsyncReadyCallback
+    /// callbacks from #GTask are guaranteed to be invoked in a later
+    /// iteration of the
+    /// [thread-default main context][g-main-context-push-thread-default]
+    /// where the #GTask was created. All other users of
+    /// #GAsyncReadyCallback must likewise call it asynchronously in a
+    /// later iteration of the main context.
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:out */
     public delegate void UnmanagedAsyncReadyCallback(
     /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-    /* transfer-ownership:none direction:in */
+    /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr sourceObject,
     /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
@@ -3650,7 +3656,13 @@ System.IntPtr actionName);
 
     /// <summary>
     /// Type definition for a function that will be called back when an asynchronous
-    /// operation within GIO has been completed.
+    /// operation within GIO has been completed. <see cref="AsyncReadyCallback"/>
+    /// callbacks from <see cref="Task"/> are guaranteed to be invoked in a later
+    /// iteration of the
+    /// [thread-default main context][g-main-context-push-thread-default]
+    /// where the <see cref="Task"/> was created. All other users of
+    /// <see cref="AsyncReadyCallback"/> must likewise call it asynchronously in a
+    /// later iteration of the main context.
     /// </summary>
     public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res);
 
@@ -3677,7 +3689,7 @@ System.IntPtr actionName);
             return new GISharp.Lib.Gio.AsyncReadyCallback((GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res) =>
             {
                 var userData_ = userData;
-                var sourceObject_ = sourceObject?.Handle ?? throw new System.ArgumentNullException(nameof(sourceObject));
+                var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
                 var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
                 callback(sourceObject_, res_, userData_);
             });
@@ -3756,13 +3768,16 @@ System.IntPtr actionName);
     /// which are chained together by a <see cref="AsyncReadyCallback"/>. To begin
     /// an asynchronous operation, provide a <see cref="AsyncReadyCallback"/> to the
     /// asynchronous function. This callback will be triggered when the
-    /// operation has completed, and will be passed a <see cref="IAsyncResult"/> instance
-    /// filled with the details of the operation's success or failure, the
-    /// object the asynchronous function was started for and any error codes
-    /// returned. The asynchronous callback function is then expected to call
-    /// the corresponding "_finish()" function, passing the object the
-    /// function was called for, the <see cref="IAsyncResult"/> instance, and (optionally)
-    /// an <paramref name="error"/> to grab any error conditions that may have occurred.
+    /// operation has completed, and must be run in a later iteration of
+    /// the [thread-default main context][g-main-context-push-thread-default]
+    /// from where the operation was initiated. It will be passed a
+    /// <see cref="IAsyncResult"/> instance filled with the details of the operation's
+    /// success or failure, the object the asynchronous function was
+    /// started for and any error codes returned. The asynchronous callback
+    /// function is then expected to call the corresponding "_finish()"
+    /// function, passing the object the function was called for, the
+    /// <see cref="IAsyncResult"/> instance, and (optionally) an <paramref name="error"/> to grab any
+    /// error conditions that may have occurred.
     /// 
     /// The "_finish()" function for an operation takes the generic result
     /// (of type <see cref="IAsyncResult"/>) and returns the specific result that the
@@ -3840,8 +3855,8 @@ System.IntPtr actionName);
         /// Gets the source object from a <see cref="IAsyncResult"/>.
         /// </summary>
         /// <returns>
-        /// a new reference to the source object for the <paramref name="res"/>,
-        ///    or <c>null</c> if there is none.
+        /// a new reference to the source
+        ///    object for the <paramref name="res"/>, or <c>null</c> if there is none.
         /// </returns>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
         GISharp.Lib.GObject.Object DoGetSourceObject();
@@ -3887,12 +3902,12 @@ System.IntPtr actionName);
         /// a #GAsyncResult
         /// </param>
         /// <returns>
-        /// a new reference to the source object for the @res,
-        ///    or %NULL if there is none.
+        /// a new reference to the source
+        ///    object for the @res, or %NULL if there is none.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern System.IntPtr g_async_result_get_source_object(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -3905,8 +3920,8 @@ System.IntPtr actionName);
         /// a <see cref="IAsyncResult"/>
         /// </param>
         /// <returns>
-        /// a new reference to the source object for the <paramref name="res"/>,
-        ///    or <c>null</c> if there is none.
+        /// a new reference to the source
+        ///    object for the <paramref name="res"/>, or <c>null</c> if there is none.
         /// </returns>
         public static GISharp.Lib.GObject.Object GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
@@ -4069,7 +4084,7 @@ System.IntPtr res);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full nullable:1 direction:out */
         public delegate System.IntPtr UnmanagedGetSourceObject(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
@@ -4089,7 +4104,7 @@ System.IntPtr res);
                         var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
                         var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res);
                         var ret = doGetSourceObject();
-                        var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret?.Take() ?? System.IntPtr.Zero;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -4468,14 +4483,14 @@ System.IntPtr sourceTag);
         /// signal handler is removed. See #GCancellable::cancelled for
         /// details on how to use this.
         /// 
-        /// If @cancellable is %NULL or @handler_id is %0 this function does
+        /// If @cancellable is %NULL or @handler_id is `0` this function does
         /// nothing.
         /// </remarks>
         /// <param name="cancellable">
         /// A #GCancellable or %NULL.
         /// </param>
         /// <param name="handlerId">
-        /// Handler id of the handler to be disconnected, or %0.
+        /// Handler id of the handler to be disconnected, or `0`.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -4503,11 +4518,11 @@ System.IntPtr sourceTag);
         /// signal handler is removed. See <see cref="Cancellable"/>::cancelled for
         /// details on how to use this.
         /// 
-        /// If <paramref name="cancellable"/> is <c>null</c> or <paramref name="handlerId"/> is %0 this function does
+        /// If <paramref name="cancellable"/> is <c>null</c> or <paramref name="handlerId"/> is `0` this function does
         /// nothing.
         /// </remarks>
         /// <param name="handlerId">
-        /// Handler id of the handler to be disconnected, or %0.
+        /// Handler id of the handler to be disconnected, or `0`.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public void Disconnect(System.UInt64 handlerId)
@@ -8791,11 +8806,13 @@ ref System.IntPtr error);
     /// Eventually, you will call a method such as
     /// <see cref="ReturnPointer"/> or <see cref="ReturnError"/>, which will
     /// save the value you give it and then invoke the task's callback
-    /// function (waiting until the next iteration of the main
-    /// loop first, if necessary). The caller will pass the <see cref="Task"/> back
-    /// to the operation's finish function (as a <see cref="IAsyncResult"/>), and
-    /// you can use <see cref="PropagatePointer"/> or the like to extract
-    /// the return value.
+    /// function in the
+    /// [thread-default main context][g-main-context-push-thread-default]
+    /// where it was created (waiting until the next iteration of the main
+    /// loop first, if necessary). The caller will pass the <see cref="Task"/> back to
+    /// the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
+    /// can use <see cref="PropagatePointer"/> or the like to extract the
+    /// return value.
     /// 
     /// Here is an example for using GTask as a GAsyncResult:
     /// |[&lt;!-- language="C" --&gt;
@@ -9034,9 +9051,10 @@ ref System.IntPtr error);
     /// ## Asynchronous operations from synchronous ones
     /// 
     /// You can use g_task_run_in_thread() to turn a synchronous
-    /// operation into an asynchronous one, by running it in a thread
-    /// which will then dispatch the result back to the caller's
-    /// #GMainContext when it completes.
+    /// operation into an asynchronous one, by running it in a thread.
+    /// When it completes, the result will be dispatched to the
+    /// [thread-default main context][g-main-context-push-thread-default]
+    /// where the <see cref="Task"/> was created.
     /// 
     /// Running a task in a thread:
     ///   |[&lt;!-- language="C" --&gt;
@@ -9248,7 +9266,7 @@ ref System.IntPtr error);
     ///   whether the task's callback can be invoked directly, or
     ///   if it needs to be sent to another #GMainContext, or delayed
     ///   until the next iteration of the current #GMainContext.)
-    /// - The "finish" functions for <see cref="Task"/>-based operations are generally
+    /// - The "finish" functions for <see cref="Task"/> based operations are generally
     ///   much simpler than #GSimpleAsyncResult ones, normally consisting
     ///   of only a single call to <see cref="PropagatePointer"/> or the like.
     ///   Since <see cref="PropagatePointer"/> "steals" the return value from
@@ -9855,7 +9873,7 @@ ref System.IntPtr error);
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern System.IntPtr g_task_get_source_object(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */

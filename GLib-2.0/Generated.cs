@@ -1101,11 +1101,98 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Returns the actual locale which the result of
+        /// g_key_file_get_locale_string() or g_key_file_get_locale_string_list()
+        /// came from.
+        /// </summary>
+        /// <remarks>
+        /// If calling g_key_file_get_locale_string() or
+        /// g_key_file_get_locale_string_list() with exactly the same @key_file,
+        /// @group_name, @key and @locale, the result of those functions will
+        /// have originally been tagged with the locale that is the result of
+        /// this function.
+        /// </remarks>
+        /// <param name="keyFile">
+        /// a #GKeyFile
+        /// </param>
+        /// <param name="groupName">
+        /// a group name
+        /// </param>
+        /// <param name="key">
+        /// a key
+        /// </param>
+        /// <param name="locale">
+        /// a locale identifier or %NULL
+        /// </param>
+        /// <returns>
+        /// the locale from the file, or %NULL if the key was not
+        ///   found or the entry in the file was was untranslated
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:out */
+        static extern System.IntPtr g_key_file_get_locale_for_key(
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr keyFile,
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr groupName,
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr key,
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr locale);
+
+        /// <summary>
+        /// Returns the actual locale which the result of
+        /// <see cref="GetLocaleString"/> or <see cref="GetLocaleStringList"/>
+        /// came from.
+        /// </summary>
+        /// <remarks>
+        /// If calling <see cref="GetLocaleString"/> or
+        /// <see cref="GetLocaleStringList"/> with exactly the same <paramref name="keyFile"/>,
+        /// <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
+        /// have originally been tagged with the locale that is the result of
+        /// this function.
+        /// </remarks>
+        /// <param name="groupName">
+        /// a group name
+        /// </param>
+        /// <param name="key">
+        /// a key
+        /// </param>
+        /// <param name="locale">
+        /// a locale identifier or <c>null</c>
+        /// </param>
+        /// <returns>
+        /// the locale from the file, or <c>null</c> if the key was not
+        ///   found or the entry in the file was was untranslated
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        public GISharp.Lib.GLib.Utf8 GetLocaleForKey(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 locale)
+        {
+            var keyFile_ = Handle;
+            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
+            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
+            var ret_ = g_key_file_get_locale_for_key(keyFile_,groupName_,key_,locale_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
         /// Returns the value associated with @key under @group_name
         /// translated in the given @locale if available.  If @locale is
         /// %NULL then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// If @locale is to be non-%NULL, or if the current locale will change over
+        /// the lifetime of the #GKeyFile, it must be loaded with
+        /// %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
+        /// 
         /// If @key cannot be found then %NULL is returned and @error is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
         /// with @key cannot be interpreted or no suitable translation can
@@ -1157,6 +1244,10 @@ namespace GISharp.Lib.GLib
         /// <c>null</c> then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
+        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
+        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
+        /// 
         /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
         /// with <paramref name="key"/> cannot be interpreted or no suitable translation can
@@ -1203,6 +1294,10 @@ namespace GISharp.Lib.GLib
         /// %NULL then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// If @locale is to be non-%NULL, or if the current locale will change over
+        /// the lifetime of the #GKeyFile, it must be loaded with
+        /// %G_KEY_FILE_KEEP_TRANSLATIONS in order to load strings for all locales.
+        /// 
         /// If @key cannot be found then %NULL is returned and @error is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
         /// with @key cannot be interpreted or no suitable translations
@@ -1265,6 +1360,10 @@ namespace GISharp.Lib.GLib
         /// <c>null</c> then the current locale is assumed.
         /// </summary>
         /// <remarks>
+        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
+        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
+        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
+        /// 
         /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
         /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
         /// with <paramref name="key"/> cannot be interpreted or no suitable translations
@@ -1900,7 +1999,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
         /* <type name="filename" type="gchar**" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
@@ -1992,7 +2091,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
         /* <array type="gchar**" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
@@ -2090,7 +2189,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile,
-        /* <type name="filename" type="gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
@@ -4035,7 +4134,7 @@ namespace GISharp.Lib.GLib
         /// See g_option_context_set_strict_posix() for more information.
         /// </remarks>
         /// <param name="context">
-        /// a #GoptionContext
+        /// a #GOptionContext
         /// </param>
         /// <returns>
         /// %TRUE if strict POSIX is enabled, %FALSE otherwise.
@@ -4308,7 +4407,7 @@ namespace GISharp.Lib.GLib
         /// parsing).
         /// </remarks>
         /// <param name="context">
-        /// a #GoptionContext
+        /// a #GOptionContext
         /// </param>
         /// <param name="strictPosix">
         /// the new value
@@ -6255,7 +6354,7 @@ namespace GISharp.Lib.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 minor = 54;
+        private const System.Int32 minor = 56;
 
         /// <summary>
         /// A macro that should be defined by the user prior to including
