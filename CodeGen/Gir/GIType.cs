@@ -35,6 +35,7 @@ namespace GISharp.CodeGen.Gir
         private protected GIType(XElement element, GirNode parent)
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
+            CType = element.Attribute(c + "type").AsString();
             IsPointer = element.Attribute(gs + "is-pointer").AsBool();
             _TypeParameters = new Lazy<List<Type>>(() => LazyGetTypeParameters().ToList());
             _UnmanagedType = new Lazy<System.Type>(LazyGetUnmanagedType);
