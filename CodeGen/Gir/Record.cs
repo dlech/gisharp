@@ -76,7 +76,7 @@ namespace GISharp.CodeGen.Gir
             if (IsDisguised) {
                 return typeof(Opaque);
             }
-            throw new InvalidOperationException("structs cannot have a base type");
+            return typeof(ValueType);
         }
     }
 }
