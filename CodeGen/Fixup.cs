@@ -608,15 +608,24 @@ namespace GISharp.CodeGen
             var elementsWithHashFunction = document.Descendants (gi + "method")
                 .Where (d => d.Attribute ("name").Value == "hash"
                     && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ()
-                    && d.Element (gi + "return-value").Element (gi + "type") != null
-                    && d.Element (gi + "return-value").Element (gi + "type").Attribute ("name").Value == "guint");
+                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "guint");
             foreach (var element in elementsWithHashFunction) {
-                element.SetAttributeValue (gs + "special-func", "hash");
-                element.SetAttributeValue (gs + "access-modifiers", "public override");
-                // set managed-name here so it don't get turned into a property getter
-                element.SetAttributeValue (gs + "managed-name", "GetHashCode");
+                if (element.Attribute(gs + "hash-code") != null) {
+                    continue;
+                }
+                element.SetAttributeValue(gs + "hash-code", "1");
+                if (element.Attribute(gs + "access-modifiers") == null) {
+                    element.SetAttributeValue(gs + "access-modifiers", "public");
+                }
+                if (element.Parent.Name == gi + "class" || element.Parent.Name == gi + "record") {
+                    var modifiers = element.Attribute(gs + "access-modifiers").Value;
+                    element.SetAttributeValue(gs + "access-modifiers", modifiers + " override");
+                }
+                // set managed-name here so it doesn't get turned into a property getter
+                element.SetAttributeValue(gs + "managed-name", "GetHashCode");
                 // change return type to match .NET
-                element.Element (gi + "return-value").Element (gi + "type").SetAttributeValue ("name", "gint");
+                element.Element(gi + "return-value").Element(gi + "type")
+                    .SetAttributeValue(gs + "managed-name", typeof(int));
             }
 
             // flag to_string functions

@@ -41,6 +41,10 @@ namespace GISharp.CodeGen.Gir
         public bool IsEquals => Element.Attribute(gs + "special-func").AsString() == "equal";
 
         /// <summary>
+        /// Indicates that this method is a hash-code method
+        public bool IsHashCode { get; }
+
+        /// <summary>
         /// Tests if this method is a compare method
         /// </summary>
         public bool IsCompare => Element.Attribute(gs + "special-func").AsString() == "compare";
@@ -61,6 +65,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "method") {
                 throw new ArgumentException("Requrires <method> element", nameof(element));
             }
+            IsHashCode = Element.Attribute(gs + "hash-code").AsBool();
             IsToString = Element.Attribute(gs + "to-string").AsBool();
             _FinishForMethod = new Lazy<Method>(LazyGetFinishForMethod);
         }

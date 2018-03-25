@@ -74,6 +74,13 @@ Attributes
     Values
         The name of a function or method in the same type with ``async="1"`` set.
 
+``gs:hash-code``
+    Description
+        Indicates that a method fits the .NET GetHashCode() pattern (e.g. it will
+        override object.GetHashCode()).
+    Values
+        ``1`` (true), ``0`` (false)
+
 ``gs:params``
     Description
         Indicates that a parameter is "params"
@@ -101,7 +108,7 @@ Attributes
         Indicates that a method performs a special function. These attributes
         are automatically added when a matching ``method`` element is found.
     Values
-        ``ref``, ``unref``, ``free``, ``equal``, ``compare``, ``hash``, ``to_string``
+        ``ref``, ``unref``, ``free``, ``equal``, ``compare``
 
 
 Commands
