@@ -249,6 +249,9 @@ namespace GISharp.CodeGen.Reflection
             if (typeNode is Callback callback) {
                 return new GirDelegateType(callback, true);
             }
+            if (typeNode is Class || typeNode is Interface) {
+                return typeof(IntPtr);
+            }
             throw new NotSupportedException("Unknown GIR node type");
         }
 
