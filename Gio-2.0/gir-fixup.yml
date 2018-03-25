@@ -4,18 +4,6 @@
 
 ### ActionGroup ###
 
-- !set-attribute
-  name: zero-terminated
-  value: "1"
-  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']/gi:method[@name='list_actions']/gi:return-value/gi:array
-- !set-attribute
-  name: zero-terminated
-  value: "1"
-  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionGroup']/gi:virtual-method[@name='list_actions']/gi:return-value/gi:array
-- !set-attribute
-  name: zero-terminated
-  value: "1"
-  xpath: gi:repository/gi:namespace/gi:record[@name='ActionGroupInterface']/gi:field[@name='list_actions']/gi:callback/gi:return-value/gi:array
 # there is a default implmentation for the query_action virtual-method that calls the other virtual methods
 # the docs say we shouldn't override both this an the other get_* virtual methods, so don't
 - !set-attribute

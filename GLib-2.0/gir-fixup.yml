@@ -16,19 +16,6 @@
   name: skip
   value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_boolean']/gi:return-value
-# Add missing array annotations
-- !set-attribute
-  name: zero-terminated
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_groups']/gi:return-value/gi:array
-- !set-attribute
-  name: zero-terminated
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_keys']/gi:return-value/gi:array
-- !set-attribute
-  name: zero-terminated
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='load_from_dirs']/gi:parameters/gi:parameter[@name='search_dirs']/gi:array
 # Need special handling because array is zero-terminated and has required length arg.
 - !set-attribute
   name: gs:pinvoke-only
@@ -79,11 +66,6 @@
   name: name
   value: gpointer
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']/gi:function[@name='new']/gi:return-value/gi:type
-- !set-attribute
-  # fix zero-terminated
-  name: zero-terminated
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionContext']/gi:method[@name='parse_strv']/gi:parameters/gi:parameter[@name='arguments']/gi:array
 - !set-attribute
   # make parse_strv and overload of parse
   name: name

@@ -344,6 +344,14 @@ namespace GISharp.CodeGen
                 element.Add (functionElement);
             }
 
+            // if arrays don't have a length or fixed-size, assume zero-terminated
+
+            foreach (var element in document.Descendants(gi + "array")) {
+                if (element.Attribute("length") == null && element.Attribute("fixed-size") == null) {
+                    element.SetAttributeValue("zero-terminated", "1");
+                }
+            }
+
             // add value field to all alias elements
 
             var aliasElements = document.Descendants (gi + "alias");
