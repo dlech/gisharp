@@ -151,7 +151,12 @@ namespace GISharp.CodeGen.Syntax
 
             if (type.IsValueType) {
                 // value types are used directly
-                expression = ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_");
+                if (arg is ReturnValue && arg.Type.IsPointer && type != typeof(IntPtr)) {
+                    expression = ParseExpression($"{arg.ManagedName} = {typeof(Marshal)}.PtrToStructure<{arg.Type.ManagedType}>({arg.ManagedName}_)");
+                }
+                else {
+                    expression = ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_");
+                }
             }
             else if (type.IsOpaque()) {
                 var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
