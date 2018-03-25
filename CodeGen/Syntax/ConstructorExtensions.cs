@@ -24,7 +24,9 @@ namespace GISharp.CodeGen.Syntax
                     yield return constructor.GetStaticMethodDeclaration()
                         .WithModifiers(TokenList(Token(StaticKeyword))) // strip access modifiers
                         .WithBody(Block(constructor.GetInvokeStatements(constructor.CIdentifier)));
-                    yield return constructor.GetConstructorDeclaration();
+                    if (!constructor.HasCustomConstructor) {
+                        yield return constructor.GetConstructorDeclaration();
+                    }
                 }
             }
 

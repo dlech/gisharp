@@ -48,19 +48,25 @@ Attributes
     Values
         ``1`` (true), ``0`` (false)
 
+``gs:custom-arg-check``
+    Description
+        Specifies that a callable has a custom argument check function that
+        needs to be called before invoking the unmanaged function.
+    Values
+        ``1`` (true), ``0`` (false)
+
+``gs:custom-constructor``
+    Description
+        Specifies that the constructor should not be automatically generated.
+    Values
+        ``1`` (true), ``0`` (false)
+
 ``gs:default``
     Description
         Specifies the default value for a parameter. This is only valid for
         ``parameter`` elements.
     Values
         Any valid C# constant expression
-
-``gs:default-constructor``
-    Description
-        Specifies that a class should have an automatically generated constructor.
-        Set to "0" when you need to implement a custom default constructor.
-    Values
-        ``1`` (true), ``0`` (false)
 
 ``gs:finish-for``
     Description
