@@ -60,7 +60,6 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(constructor.Doc.GetDocCommentTrivia())
                 .AddRange(constructor.ManagedParameters.RegularParameters
                     .SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                .AddRange(constructor.ReturnValue.Doc.GetDocCommentTrivia())
                 .AddRange(constructor.GetGErrorExceptionDocCommentTrivia());
 
             syntax = syntax.WithLeadingTrivia(trivia);

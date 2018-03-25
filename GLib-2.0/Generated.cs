@@ -251,9 +251,6 @@ namespace GISharp.Lib.GLib
         /// <see cref="LoadFromDirs"/> or <see cref="LoadFromDataDirs"/> to
         /// read an existing key file.
         /// </summary>
-        /// <returns>
-        /// an empty <see cref="KeyFile"/>.
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public KeyFile() : this(New(), GISharp.Runtime.Transfer.Full)
         {
@@ -5409,9 +5406,6 @@ namespace GISharp.Lib.GLib
         /// <param name="type">
         /// a container type
         /// </param>
-        /// <returns>
-        /// a <see cref="VariantBuilder"/>
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
         public VariantBuilder(GISharp.Lib.GLib.VariantType type) : this(New(type), GISharp.Runtime.Transfer.Full)
         {
@@ -5911,9 +5905,6 @@ namespace GISharp.Lib.GLib
         /// the #GVariant with which to initialise the
         ///   dictionary
         /// </param>
-        /// <returns>
-        /// a <see cref="VariantDict"/>
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public VariantDict(GISharp.Lib.GLib.Variant fromAsv) : this(New(fromAsv), GISharp.Runtime.Transfer.Full)
         {

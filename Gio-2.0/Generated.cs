@@ -4239,9 +4239,6 @@ System.IntPtr sourceTag);
         /// One <see cref="Cancellable"/> can be used in multiple consecutive
         /// operations or in multiple concurrent operations.
         /// </remarks>
-        /// <returns>
-        /// a <see cref="Cancellable"/>.
-        /// </returns>
         public Cancellable() : this(New(), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -7870,9 +7867,6 @@ ref System.IntPtr error);
         /// <param name="parameterType">
         /// the type of parameter to the activate function
         /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
@@ -7963,9 +7957,6 @@ ref System.IntPtr error);
         /// <param name="state">
         /// the initial state of the action
         /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
@@ -8960,9 +8951,6 @@ ref System.IntPtr error);
         /// <param name="cancellable">
         /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
-        /// <returns>
-        /// a <see cref="Task"/>.
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public Task(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null) : this(New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
         {
@@ -10280,9 +10268,6 @@ ref System.IntPtr error);
         /// <param name="cancellable">
         /// a <see cref="Cancellable"/>, or <c>null</c>
         /// </param>
-        /// <returns>
-        /// the new #GSource.
-        /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public CancellableSource(GISharp.Lib.Gio.Cancellable cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {
