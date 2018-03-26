@@ -125,30 +125,6 @@ namespace GISharp.Runtime
             return Encoding.UTF8.GetString (PtrToByteString (ptr, freePtr));
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_locale_to_utf8 (IntPtr opsysstring, IntPtr len, UIntPtr bytesRead, UIntPtr bytesWritten, IntPtr error);
-
-        /// <summary>
-        /// Marshals a char* in the system locale to a managed string.
-        /// </summary>
-        /// <returns>The string.</returns>
-        /// <param name="ptr">Pointer to the unmanaged string.</param>
-        /// <param name="freePtr">If set to <c>true</c> free the pointer.</param>
-        public static string LocalePtrToString (IntPtr ptr, bool freePtr = false)
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            // FIXME: There are a couple of problems here. Using -1 for length
-            // can cause problems if the locale allows null bytes in the string.
-            // Also, we should throw an exception if there is an error.
-            var utf8Ptr = g_locale_to_utf8 (ptr, new IntPtr (-1), UIntPtr.Zero, UIntPtr.Zero, IntPtr.Zero);
-            if (freePtr) {
-                Free (ptr);
-            }
-            return Utf8PtrToString (utf8Ptr, true);
-        }
-
         /// <summary>
         /// Marshals a managed string to a GLib UTF8 char*.
         /// </summary>
@@ -163,47 +139,6 @@ namespace GISharp.Runtime
                 return IntPtr.Zero;
             }
             return ByteStringToPtr (Encoding.UTF8.GetBytes (str));
-        }
-
-        [DllImport ("glib-2.0")]
-        static extern IntPtr g_filename_to_utf8 (IntPtr opsysstring, IntPtr len, IntPtr bytesRead, out UIntPtr bytesWritten, out IntPtr error);
-
-        public static string FilenamePtrToString (IntPtr ptr, bool freePtr = false)
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            UIntPtr bytesWritten;
-            IntPtr error_;
-            var utf8Ptr = g_filename_to_utf8 (ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
-            if (freePtr) {
-                g_free (ptr);
-            }
-            if (error_ != IntPtr.Zero) {
-                var error = new Error (error_, Transfer.Full);
-                throw new GErrorException (error);
-            }
-            return Utf8PtrToString (utf8Ptr, freePtr: true);
-        }
-
-        [DllImport ("glib-2.0")]
-        static extern IntPtr g_filename_from_utf8 (IntPtr utf8string, IntPtr len, IntPtr bytesRead, out UIntPtr bytesWritten, out IntPtr error);
-
-        public static IntPtr StringToFilenamePtr (string str)
-        {
-            if (str == null) {
-                return IntPtr.Zero;
-            }
-            var utf8Ptr = StringToUtf8Ptr (str);
-            UIntPtr bytesWritten;
-            IntPtr error_;
-            var ret = g_filename_from_utf8 (utf8Ptr, (IntPtr)(-1), IntPtr.Zero, out bytesWritten, out error_);
-            g_free (utf8Ptr);
-            if (error_ != IntPtr.Zero) {
-                var error = new Error (error_, Transfer.Full);
-                throw new GErrorException (error);
-            }
-            return ret;
         }
 
         public static string[] GStrvPtrToStringArray (IntPtr ptr, bool freePtr = false, bool freeElements = false)
@@ -384,51 +319,6 @@ namespace GISharp.Runtime
             }
             if (nullTerminated) {
                 Marshal.StructureToPtr (default(T), current, false);
-            }
-            return ptr;
-        }
-
-        public static T[] PtrToOpaqueCArray<T> (IntPtr ptr, int? length, bool freePtr = false) where T : Opaque
-        {
-            if (ptr == IntPtr.Zero) {
-                return null;
-            }
-            T[] array;
-            if (length.HasValue) {
-                array = new T[length.Value];
-                for (int i = 0; i < array.Length; i++) {
-                    var handle = Marshal.ReadIntPtr (ptr, i * IntPtr.Size);
-                    array[i] = Opaque.GetInstance<T> (handle, Transfer.None);
-                }
-            } else {
-                var list = new System.Collections.Generic.List<T> ();
-                IntPtr handle;
-                var current = ptr;
-                while ((handle = Marshal.ReadIntPtr (current)) != IntPtr.Zero) {
-                    var item = Opaque.GetInstance<T> (handle, Transfer.None);
-                    list.Add (item);
-                    current += IntPtr.Size;
-                }
-                array = list.ToArray ();
-            }
-            if (freePtr) {
-                Free (ptr);
-            }
-
-            return array;
-        }
-
-        public static IntPtr OpaqueCArrayToPtr<T> (T[] array, bool nullTerminated) where T : Opaque
-        {
-            if (array == null) {
-                return IntPtr.Zero;
-            }
-            var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * IntPtr.Size);
-            for (int i = 0; i < array.Length; i++) {
-                Marshal.WriteIntPtr (ptr, i * IntPtr.Size, array[i].Handle);
-            }
-            if (nullTerminated) {
-                Marshal.WriteIntPtr (ptr, array.Length * IntPtr.Size, IntPtr.Zero);
             }
             return ptr;
         }
