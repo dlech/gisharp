@@ -315,9 +315,9 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since ("2.40")]
         [return: MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)]
-        protected static extern IntPtr[] g_hash_table_get_keys_as_array (
+        protected static extern unsafe IntPtr[] g_hash_table_get_keys_as_array(
             IntPtr hashTable,
-            out uint length);
+            uint* length);
 
         /// <summary>
         /// Retrieves every value inside @hashTable. The returned data

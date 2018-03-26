@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
             #pragma warning restore CS0649
         }
 
-        static SourceFuncs managedSourceFuncs = new SourceFuncs {
+        static unsafe SourceFuncs managedSourceFuncs = new SourceFuncs {
             OnPrepare = PrepareManagedSource,
             OnCheck = CheckManagedSource,
             OnDispatch = DispatchManagedSource,
@@ -82,17 +82,16 @@ namespace GISharp.Lib.GLib
         [Since ("2.32")]
         public const bool Remove_ = false;
 
-        static bool PrepareManagedSource (IntPtr sourcePtr, out int timeout)
+        static unsafe bool PrepareManagedSource(IntPtr sourcePtr, int* timeout)
         {
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
                 var source = gcHandle.Target as Source;
-                return source.OnPrepare(out timeout);
+                return source.OnPrepare(out *timeout);
             }
             catch (Exception ex) {
                 ex.LogUnhandledException ();
-                timeout = default(int);
                 return default(bool);
             }
         }
@@ -1513,13 +1512,13 @@ namespace GISharp.Lib.GLib
     struct SourceFuncs
     {
         [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-        public delegate bool UnmanagedPrepare (
+        public unsafe delegate bool UnmanagedPrepare (
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
-            out int timeout);
+            int* timeout);
 
         [MarshalAs (UnmanagedType.FunctionPtr)]
         public UnmanagedPrepare OnPrepare;

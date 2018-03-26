@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_compose(
+        static extern unsafe bool g_unichar_compose(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar a,

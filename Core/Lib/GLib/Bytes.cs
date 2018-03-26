@@ -492,13 +492,14 @@ namespace GISharp.Lib.GLib
 
         [Since("2.32")]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_bytes_unref_to_data(IntPtr bytes, out UIntPtr size);
+        static extern unsafe IntPtr g_bytes_unref_to_data(IntPtr bytes, UIntPtr* size);
 
-        public (IntPtr, int) TakeData()
+        public unsafe (IntPtr, int) TakeData()
         {
-            var data = g_bytes_unref_to_data(Handle, out var size);
+            UIntPtr size_;
+            var data = g_bytes_unref_to_data(Handle, &size_);
             handle = IntPtr.Zero; // object becomes disposed
-            return (data, (int)size);
+            return (data, (int)size_);
         }
 
         public unsafe byte this[int index] {

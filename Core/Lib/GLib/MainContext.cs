@@ -990,13 +990,13 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_context_prepare (
+        static extern unsafe bool g_main_context_prepare(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
-            out int priority);
+            int* priority);
 
         /// <summary>
         /// Prepares to poll sources within a main loop. The resulting information
@@ -1014,9 +1014,11 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if some source is ready to be dispatched
         /// prior to polling.
         /// </returns>
-        public bool Prepare (out int priority)
+        public unsafe bool Prepare(out int priority)
         {
-            var ret = g_main_context_prepare(Handle, out priority);
+            int priority_;
+            var ret = g_main_context_prepare(Handle, &priority_);
+            priority = priority_;
             return ret;
         }
 
@@ -1151,7 +1153,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_main_context_query (
+        static extern unsafe int g_main_context_query(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context,
@@ -1160,7 +1162,7 @@ namespace GISharp.Lib.GLib
             int maxPriority,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
-            out int timeout,
+            int* timeout,
             /* <array length="3" zero-terminated="0" type="GPollFD*">
                 <type name="PollFD" type="GPollFD" managed-name="PollFD" />
                 </array> */
@@ -1187,17 +1189,19 @@ namespace GISharp.Lib.GLib
         /// location to
         /// store <see cref="PollFD"/> records that need to be polled.
         /// </param>
-        public void Query(int maxPriority, out int timeout, out Array<PollFD> fds)
+        public unsafe void Query(int maxPriority, out int timeout, out Array<PollFD> fds)
         {
             var this_ = Handle;
+            int timeout_;
             // call first time to get the size
-            var ret = g_main_context_query(this_, maxPriority, out timeout, IntPtr.Zero, 0);
+            var ret = g_main_context_query(this_, maxPriority, &timeout_, IntPtr.Zero, 0);
             // then call again with appropriate storage space
             fds = new Array<PollFD>();
             fds.SetSize(ret);
             var fds_ = fds.Data;
-            var nFds = fds.Length;
-            g_main_context_query(this_, maxPriority, out timeout, fds_, nFds);
+            var nFds_ = fds.Length;
+            g_main_context_query(this_, maxPriority, &timeout_, fds_, nFds_);
+            timeout = timeout_;
         }
 
         /// <summary>
