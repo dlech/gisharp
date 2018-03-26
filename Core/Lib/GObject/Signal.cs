@@ -440,7 +440,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_emitv (
+        static extern unsafe void g_signal_emitv(
             /* <array zero-terminated="0" type="GValue*">
                 <type name="Value" type="GValue" managed-name="Value" />
                 </array> */
@@ -454,10 +454,7 @@ namespace GISharp.Lib.GObject
             Quark detail,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* direction:inout caller-allocates:0 transfer-ownership:full optional:1 */
-            IntPtr returnValue);
-
-        [DllImport("gobject-2.0", EntryPoint = "g_signal_emitv", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_signal_emitv_with_return(IntPtr instanceAndParams, uint signalId, Quark detail, ref Value returnValue);
+            Value* returnValue);
 
         /// <summary>
         /// Emits a signal.
@@ -504,7 +501,7 @@ namespace GISharp.Lib.GObject
             Emit(typeof(void), instance, signalId, detail, parameters);
         }
 
-        static object Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
+        static unsafe object Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
         {
             if (instance == null) {
                 throw new ArgumentNullException (nameof(instance));
@@ -527,11 +524,11 @@ namespace GISharp.Lib.GObject
                 var ret = default(object);
 
                 if (query.ReturnType == GType.None) {
-                    g_signal_emitv(instanceAndParams.Data, signalId, detail, IntPtr.Zero);
+                    g_signal_emitv(instanceAndParams.Data, signalId, detail, null);
                 }
                 else {
                     var returnValue = new Value(GType.TypeOf(type));
-                    g_signal_emitv_with_return(instanceAndParams.Data, signalId, detail, ref returnValue);
+                    g_signal_emitv(instanceAndParams.Data, signalId, detail, &returnValue);
                     ret = returnValue.Get();
                     returnValue.Unset();
                 }

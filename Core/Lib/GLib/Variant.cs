@@ -408,8 +408,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusObjectPath) {
                 throw new InvalidCastException ();
             }
-            ulong length;
-            return v.getString (out length).Substring (0, (int)length);
+            return v.getString(out var length).Substring(0, length);
         }
 
         public static explicit operator Variant (DBusObjectPath value)
@@ -422,8 +421,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusSignature) {
                 throw new InvalidCastException ();
             }
-            ulong length;
-            return v.getString (out length).Substring (0, (int)length);
+            return v.getString(out var length).Substring(0, length);
         }
 
         public static explicit operator Variant (DBusSignature value)
@@ -464,8 +462,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.String) {
                 throw new InvalidCastException ();
             }
-            ulong length;
-            return v.getString (out length);
+            return v.getString();
         }
 
         public static explicit operator Variant (string value)
@@ -2796,21 +2793,21 @@ namespace GISharp.Lib.GLib
             <type name="utf8" managed-name="Utf8" />
             </array> */
         /* transfer-ownership:container */
-        static extern IntPtr g_variant_get_bytestring_array (
+        static extern unsafe IntPtr g_variant_get_bytestring_array(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out ulong length);
+            ulong* length);
 
-        byte[][] GetBytestringArray ()
+        unsafe byte[][] GetBytestringArray ()
         {
             if (!IsOfType (VariantType.ByteStringArray)) {
                 throw new InvalidOperationException ();
             }
             ulong length;
-            var ptr = g_variant_get_bytestring_array(Handle, out length);
+            var ptr = g_variant_get_bytestring_array(Handle, &length);
             if (ptr == IntPtr.Zero) {
                 return null;
             }
@@ -3435,22 +3432,22 @@ namespace GISharp.Lib.GLib
             <type name="utf8" managed-name="Utf8" />
             </array> */
         /* transfer-ownership:container */
-        static extern IntPtr g_variant_get_objv (
+        static extern unsafe IntPtr g_variant_get_objv(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out ulong length);
+            ulong* length);
 
         [Since ("2.30")]
-        DBusObjectPath[] Objv {
+        unsafe DBusObjectPath[] Objv {
             get {
                 if (!IsOfType (VariantType.DBusObjectPathArray)) {
                     throw new InvalidOperationException ();
                 }
                 ulong length;
-                var ptr = g_variant_get_objv(Handle, out length);
+                var ptr = g_variant_get_objv(Handle, &length);
                 if (ptr == IntPtr.Zero) {
                     return null;
                 }
@@ -3548,13 +3545,13 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_string (
+        static extern unsafe IntPtr g_variant_get_string (
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out ulong length);
+            ulong* length);
 
         /// <summary>
         /// Returns the string value of a #GVariant instance with a string
@@ -3581,12 +3578,23 @@ namespace GISharp.Lib.GLib
         /// the constant string, UTF-8 encoded
         /// </returns>
         [Since ("2.24")]
-        string getString (out ulong length)
+        unsafe string getString(out int length)
         {
             if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
                 throw new InvalidOperationException();
             }
-            var ret_ = g_variant_get_string(Handle, out length);
+            ulong length_;
+            var ret_ = g_variant_get_string(Handle, &length_);
+            var ret = GMarshal.Utf8PtrToString(ret_);
+            length = (int)length_;
+            return ret;
+        }
+        unsafe string getString()
+        {
+            if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
+                throw new InvalidOperationException();
+            }
+            var ret_ = g_variant_get_string(Handle, null);
             var ret = GMarshal.Utf8PtrToString(ret_);
             return ret;
         }
@@ -3619,13 +3627,13 @@ namespace GISharp.Lib.GLib
             <type name="utf8" managed-name="Utf8" />
             </array> */
         /* transfer-ownership:container */
-        static extern IntPtr g_variant_get_strv (
+        static extern unsafe IntPtr g_variant_get_strv(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out ulong length);
+            ulong* length);
 
         /// <summary>
         /// Gets the contents of an array of strings #GVariant.  This call
@@ -3644,13 +3652,13 @@ namespace GISharp.Lib.GLib
         /// an array of constant strings
         /// </returns>
         [Since ("2.24")]
-        Strv Strv {
+        unsafe Strv Strv {
             get {
                 if (!IsOfType (VariantType.StringArray)) {
                     throw new InvalidOperationException ();
                 }
                 ulong length_;
-                var ret_ = g_variant_get_strv(Handle, out length_);
+                var ret_ = g_variant_get_strv(Handle, &length_);
                 var ret = Opaque.GetInstance<Strv>(ret_, Transfer.None);
                 GMarshal.Free(ret_);
                 return ret;

@@ -699,13 +699,13 @@ namespace GISharp.Lib.GObject
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
         /* transfer-ownership:full */
-        static extern IntPtr g_type_children (
+        static extern unsafe IntPtr g_type_children(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out uint nChildren);
+            uint* nChildren);
 
         /// <summary>
         /// Return an array of type IDs, listing the child types of this type.
@@ -713,9 +713,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// array of child types
         /// </returns>
-        public IArray<GType> Children {
+        public unsafe IArray<GType> Children {
             get {
-                var ret_ = g_type_children(this, out var nChildren_);
+                uint nChildren_;
+                var ret_ = g_type_children(this, &nChildren_);
                 var ret = CArray.GetInstance<GType>(ret_, (int)nChildren_, Transfer.Full);
                 return ret;
             }
@@ -2148,7 +2149,7 @@ namespace GISharp.Lib.GObject
             GType type,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out uint nInterfaces);
+            uint* nInterfaces);
 
         /// <summary>
         /// Return a newly allocated and 0-terminated array of type IDs, listing
@@ -2160,9 +2161,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Array of interface types
         /// </returns>
-        public static IArray<GType> Interfaces(GType type)
+        public static unsafe IArray<GType> Interfaces(GType type)
         {
-            var ret_ = g_type_interfaces(type, out var nInterfaces_);
+            uint nInterfaces_;
+            var ret_ = g_type_interfaces(type, &nInterfaces_);
             var ret = CArray.GetInstance<GType>(ret_, (int)nInterfaces_, Transfer.Full);
             return ret;
         }

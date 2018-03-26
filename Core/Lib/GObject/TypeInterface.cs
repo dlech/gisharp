@@ -219,13 +219,13 @@ namespace GISharp.Lib.GObject
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
         /* transfer-ownership:full */
-        static extern IntPtr g_type_interface_prerequisites (
+        static extern unsafe IntPtr g_type_interface_prerequisites(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType interfaceType,
             /* <type name="guint" type="guint*" managed-name="Guint" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out uint nPrerequisites);
+            uint* nPrerequisites);
 
         /// <summary>
         /// Gets the prerequisites of an interfaces type.
@@ -238,9 +238,10 @@ namespace GISharp.Lib.GObject
         /// the prerequisites of <paramref name="interfaceType"/>
         /// </returns>
         [Since ("2.2")]
-        public static IArray<GType> GetPrerequisites(GType interfaceType)
+        public static unsafe IArray<GType> GetPrerequisites(GType interfaceType)
         {
-            var ret_ = g_type_interface_prerequisites(interfaceType, out var nPrerequisites_);
+            uint nPrerequisites_;
+            var ret_ = g_type_interface_prerequisites(interfaceType, &nPrerequisites_);
             var ret = CArray.GetInstance<GType>(ret_, (int)nPrerequisites_, Transfer.Full);
             return ret;
         }

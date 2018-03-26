@@ -734,7 +734,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_type_string_scan (
+        static extern unsafe bool g_variant_type_string_scan(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr @string,
@@ -743,7 +743,7 @@ namespace GISharp.Lib.GLib
             IntPtr limit,
             /* <type name="utf8" type="const gchar**" managed-name="Utf8" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out IntPtr endptr);
+            IntPtr* endptr);
 
         /// <summary>
         /// Returns a newly-allocated copy of the type string corresponding to

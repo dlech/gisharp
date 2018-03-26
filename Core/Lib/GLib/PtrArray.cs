@@ -711,10 +711,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.54")]
-        static extern bool g_ptr_array_find(    // gboolean
-            IntPtr haystack,                    // GPtrArray*
-            IntPtr needle,                      // gconstpointer
-            out uint index);                    // guint* (optional) (out caller-allocates)
+        static extern unsafe bool g_ptr_array_find( // gboolean
+            IntPtr haystack,                        // GPtrArray*
+            IntPtr needle,                          // gconstpointer
+            uint* index);                           // guint* (optional) (out caller-allocates)
 
         /// <summary>
         /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
@@ -736,9 +736,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @needle is one of the elements of @haystack
         /// </returns>
         [Since("2.54")]
-        protected bool Find(IntPtr needle, out int index)
+        protected unsafe bool Find(IntPtr needle, out int index)
         {
-            var ret = g_ptr_array_find(Handle, needle, out var index_);
+            uint index_;
+            var ret = g_ptr_array_find(Handle, needle, &index_);
             index = (int)index_;
             return ret;
         }

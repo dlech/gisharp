@@ -1529,7 +1529,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_utf8_validate(
+        static extern unsafe bool g_utf8_validate(
             /* <array length="1" zero-terminated="0" type="gchar*">
              *   <type name="guint8" managed-name="Guint8" />
              * </array> */
@@ -1540,7 +1540,7 @@ namespace GISharp.Lib.GLib
             IntPtr maxLen,
             /* <type name="utf8" type="const gchar**" managed-name="Utf8" /> */
             /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
-            IntPtr end);
+            IntPtr* end);
 
         /// <summary>
         /// Validates UTF-8 encoded text.
@@ -1560,9 +1560,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the text was valid UTF-8
         /// </returns>
-        public bool Validate(int maxLen = -1)
+        public unsafe bool Validate(int maxLen = -1)
         {
-            var ret = g_utf8_validate(Handle, new IntPtr(maxLen), IntPtr.Zero);
+            var ret = g_utf8_validate(Handle, new IntPtr(maxLen), null);
             return ret;
         }
 

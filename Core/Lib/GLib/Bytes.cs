@@ -334,18 +334,15 @@ namespace GISharp.Lib.GLib
             <type name="guint8" managed-name="Guint8" />
             </array> */
         /* transfer-ownership:none nullable:1 */
-        static extern IntPtr g_bytes_get_data (
+        static extern unsafe IntPtr g_bytes_get_data(
             /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
             /* transfer-ownership:none */
             IntPtr bytes,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            IntPtr size);
+            UIntPtr* size);
 
-        [DllImport("glib-2.0", EntryPoint = "g_bytes_get_data", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_bytes_get_data_with_size(IntPtr bytes, out UIntPtr size);
-
-        public IntPtr Data => g_bytes_get_data(Handle, IntPtr.Zero);
+        public unsafe IntPtr Data => g_bytes_get_data(Handle, null);
 
         /// <summary>
         /// Get the size of the byte data in the #GBytes.
@@ -504,12 +501,13 @@ namespace GISharp.Lib.GLib
             return (data, (int)size);
         }
 
-        public byte this[int index] {
+        public unsafe byte this[int index] {
             get {
                 var this_ = Handle;
-                var ret_ = g_bytes_get_data_with_size(this_, out var size);
-                if (index < 0 || index >= (int)size) {
-                    throw new ArgumentOutOfRangeException (nameof (index));
+                var size_ = UIntPtr.Zero;
+                var ret_ = g_bytes_get_data(this_, &size_);
+                if (index < 0 || index >= (int)size_) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
                 }
                 var ret = Marshal.ReadByte(ret_, index);
                 return ret;

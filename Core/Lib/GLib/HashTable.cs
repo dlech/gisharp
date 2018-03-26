@@ -413,11 +413,11 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the key was found in the #GHashTable
         /// </returns>
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        protected static extern bool g_hash_table_lookup_extended (
+        protected unsafe static extern bool g_hash_table_lookup_extended(
             IntPtr hashTable,
             IntPtr lookupKey,
-            out IntPtr origKey,
-            out IntPtr value);
+            IntPtr* origKey,
+            IntPtr* value);
 
         /// <summary>
         /// Removes a key and its associated value from a #GHashTable.
@@ -1107,11 +1107,13 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the key was found in the <see cref="HashTable{K,V}"/>
         /// </returns>
-        public bool Lookup (TKey lookupKey, out TKey origKey, out TValue value)
+        public unsafe bool Lookup(TKey lookupKey, out TKey origKey, out TValue value)
         {
             var this_ = Handle;
             var lookupKey_ = lookupKey?.Handle ?? IntPtr.Zero;
-            var ret = g_hash_table_lookup_extended(handle, lookupKey_, out var origKey_, out var value_);
+            var origKey_ = IntPtr.Zero;
+            var value_ = IntPtr.Zero;
+            var ret = g_hash_table_lookup_extended(handle, lookupKey_, &origKey_, &value_);
             origKey = GetInstance<TKey>(origKey_, Transfer.None);
             value = GetInstance<TValue>(value_, Transfer.None);
             return ret;
