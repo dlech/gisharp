@@ -51,10 +51,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static MethodDeclarationSyntax GetInstanceMethodDeclaration(this Method method)
         {
-            var returnType = method.ReturnValue.Type.ManagedType.ToSyntax();
-            if (method.ReturnValue.IsSkip) {
-                returnType = ParseTypeName("void");
-            }
+            var returnType = method.ReturnValue.GetManagedTypeName();
 
             var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithModifiers(method.GetAccessModifiers())

@@ -22,10 +22,7 @@ namespace GISharp.CodeGen.Syntax
             var getter = nameof(TypeClass.GetUnmanagedVirtualMethod);
             var invoker = $"{typeof(TypeClass)}.{getter}<{type}>(_GType)";
 
-            var returnType = method.ReturnValue.Type.ManagedType.ToSyntax();
-            if (method.ReturnValue.IsSkip) {
-                returnType = ParseTypeName("void");
-            }
+            var returnType = method.ReturnValue.GetManagedTypeName();
             
             var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
@@ -57,10 +54,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static MethodDeclarationSyntax GetInterfaceDeclaration(this VirtualMethod method)
         {
-            var returnType = method.ReturnValue.Type.ManagedType.ToSyntax();
-            if (method.ReturnValue.IsSkip) {
-                returnType = ParseTypeName("void");
-            }
+            var returnType = method.ReturnValue.GetManagedTypeName();
             return MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
                 .WithParameterList(method.ManagedParameters.GetParameterList())

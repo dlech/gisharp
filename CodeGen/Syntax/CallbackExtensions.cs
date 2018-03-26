@@ -19,10 +19,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static DelegateDeclarationSyntax GetManagedDeclaration(this Callback callback)
         {
-            var returnType = callback.ReturnValue.Type.ManagedType.ToSyntax();
-            if (callback.ReturnValue.IsSkip) {
-                returnType = ParseTypeName("void");
-            }
+            var returnType = callback.ReturnValue.GetManagedTypeName();
             var identifier = callback.ManagedName;
             return DelegateDeclaration(returnType, identifier)
                 .AddModifiers(Token(PublicKeyword))

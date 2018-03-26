@@ -52,10 +52,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static MethodDeclarationSyntax GetStaticMethodDeclaration(this GIFunction function)
         {
-            var returnType = function.ReturnValue.Type.ManagedType.ToSyntax();
-            if (function.ReturnValue.IsSkip) {
-                returnType = ParseTypeName("void");
-            }
+            var returnType = function.ReturnValue.GetManagedTypeName();
             var modifiers = TokenList(function.GetAccessModifiers());
             
             if (function is Constructor) {
