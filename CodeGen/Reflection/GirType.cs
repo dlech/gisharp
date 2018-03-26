@@ -96,6 +96,9 @@ namespace GISharp.CodeGen.Reflection
                     typeName = $"GISharp.Lib.{node.Namespace.Name}.{typeName}";
                 }
                 else {
+                    if (typeNode is Alias alias) {
+                        return new GirAliasType(alias);
+                    }
                     if (typeNode is Class @class) {
                         return new GirClassType(@class);
                     }
@@ -237,6 +240,9 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+            if (typeNode is Alias alias) {
+                return new GirAliasType(alias);
+            }
             if (typeNode is GIEnum @enum) {
                 return new GirEnumType(@enum);
             }

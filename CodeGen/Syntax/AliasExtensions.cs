@@ -26,7 +26,8 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Alias alias)
         {
-            return List<MemberDeclarationSyntax>();
+            return List<MemberDeclarationSyntax>()
+                .AddRange(alias.Constants.Select(x => x.GetDeclaration()));
         }
     }
 }

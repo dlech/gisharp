@@ -352,17 +352,6 @@ namespace GISharp.CodeGen
                 }
             }
 
-            // add value field to all alias elements
-
-            var aliasElements = document.Descendants (gi + "alias");
-            foreach (var element in aliasElements) {
-                var valueFieldElement = new XElement (gi + "field",
-                    new XAttribute ("name", "value"),
-                    new XAttribute (gs + "access-modifiers", "private"),
-                    new XElement (element.Element (gi + "type")));
-                element.Add (valueFieldElement);
-            }
-
             // add error parameters for anything that throws
 
             var elementsThatThrow = document.Descendants ()
