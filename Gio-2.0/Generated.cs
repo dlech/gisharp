@@ -4024,6 +4024,9 @@ System.IntPtr actionName);
         new struct Struct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// The parent interface.
+            /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public UnmanagedGetUserData GetUserData;
             public UnmanagedGetSourceObject GetSourceObject;
@@ -5096,6 +5099,9 @@ System.IntPtr cancellable);
     public partial struct FileAttributeInfo
     {
 #pragma warning disable CS0649
+        /// <summary>
+        /// the name of the attribute.
+        /// </summary>
         private System.IntPtr name;
 
         /// <summary>
@@ -5153,6 +5159,9 @@ System.IntPtr cancellable);
         struct Struct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// an array of #GFileAttributeInfos.
+            /// </summary>
             public System.IntPtr Infos;
 
             /// <summary>
@@ -6168,6 +6177,9 @@ System.IntPtr cancellable);
         new struct Struct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// The parent interface.
+            /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
             public UnmanagedHash Hash;
             public UnmanagedEqual Equal;

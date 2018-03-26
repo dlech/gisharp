@@ -79,12 +79,20 @@ namespace GISharp.CodeGen.Syntax
         {
             var structMembers = List<MemberDeclarationSyntax>()
                 .AddRange(fields.Select(x => x.GetDeclaration()));
+
             var firstMember = structMembers.First();
+            var warningDisable = PragmaWarningDirectiveTrivia(Token(DisableKeyword), true)
+                .AddErrorCodes(ParseExpression("CS0649"));
             structMembers = structMembers.Replace(firstMember, firstMember
-                .WithLeadingTrivia(ParseLeadingTrivia("#pragma warning disable CS0649\n")));
+                .WithLeadingTrivia(firstMember.GetLeadingTrivia()
+                    .Prepend(EndOfLine("\r\n"))
+                    .Prepend(Trivia(warningDisable))));
+
+            var warningRestore = warningDisable.WithDisableOrRestoreKeyword(Token(RestoreKeyword));
             var lastMember = structMembers.Last();
             structMembers = structMembers.Replace(lastMember, lastMember
-                .WithTrailingTrivia(ParseTrailingTrivia("#pragma warning restore CS0649")));
+                .WithTrailingTrivia(lastMember.GetTrailingTrivia()
+                    .Append(Trivia(warningRestore))));
 
             return StructDeclaration("Struct").WithMembers(structMembers);
         }

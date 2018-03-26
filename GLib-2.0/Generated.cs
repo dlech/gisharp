@@ -4625,6 +4625,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public partial struct OptionEntry
     {
+#pragma warning disable CS0649
         /// <summary>
         /// The long name of an option can be used to specify it
         ///     in a commandline as `--long_name`. Every option must have a
@@ -4687,6 +4688,7 @@ namespace GISharp.Lib.GLib
         ///     <see cref="SetTranslationDomain"/>.
         /// </summary>
         public System.IntPtr ArgDescription;
+#pragma warning restore CS0649
     }
 
     /// <summary>
