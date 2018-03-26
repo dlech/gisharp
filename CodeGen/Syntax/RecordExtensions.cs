@@ -80,11 +80,15 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(record.Functions.SelectMany(x => x.GetClassMembers()))
                 .AddRange(record.Methods.SelectMany(x => x.GetClassMembers()));
 
+            if (record.Fields.Any()) {
+                members = members.Insert(0, record.Fields.GetStructDeclaration());
+            }
+
             if (record.GTypeName != null) {
                 members = members.Insert(0, record.GetGTypeFieldDeclaration());
             }
 
-            return List<MemberDeclarationSyntax>(members);
+            return members;
         }
 
         static ConstructorDeclarationSyntax GetDefaultConstructor(this Record record)
