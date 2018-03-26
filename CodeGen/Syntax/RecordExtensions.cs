@@ -33,7 +33,7 @@ namespace GISharp.CodeGen.Syntax
         {
             return List<MemberDeclarationSyntax>()
                 .AddRange(record.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(record.Fields.Select(x => x.GetDeclaration()))
+                .AddRange(record.Fields.GetStructDeclaration().Members)
                 // TODO: add delegate declarations for fields that are callbacks
                 .AddRange(record.ManagedProperties.Select(x => x.GetDeclaration()))
                 .AddRange(record.Functions.SelectMany(x => x.GetClassMembers()))
