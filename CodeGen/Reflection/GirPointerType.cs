@@ -13,6 +13,8 @@ namespace GISharp.CodeGen.Reflection
             this.type = type ?? throw new ArgumentNullException(nameof(type));
         }
 
+        public override string ToString() => FullName;
+
         #region implemented abstract members of MemberInfo
 
         public override bool IsDefined(Type attributeType, bool inherit)
