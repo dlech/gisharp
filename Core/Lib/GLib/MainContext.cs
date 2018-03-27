@@ -518,7 +518,7 @@ namespace GISharp.Lib.GLib
             IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            PollFD fd,
+            ref PollFD fd,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority);
@@ -539,7 +539,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void AddPoll (PollFD fd, int priority)
         {
-            g_main_context_add_poll(Handle, fd, priority);
+            g_main_context_add_poll(Handle, ref fd, priority);
         }
 
         /// <summary>
@@ -1251,7 +1251,7 @@ namespace GISharp.Lib.GLib
             IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            PollFD fd);
+            ref PollFD fd);
 
         /// <summary>
         /// Removes file descriptor from the set of file descriptors to be
@@ -1262,7 +1262,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemovePoll (PollFD fd)
         {
-            g_main_context_remove_poll(Handle, fd);
+            g_main_context_remove_poll(Handle, ref fd);
         }
 
         /// <summary>

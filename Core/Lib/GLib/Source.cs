@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
             IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            PollFD fd);
+            ref PollFD fd);
 
         /// <summary>
         /// Adds a file descriptor to the set of file descriptors polled for
@@ -537,7 +537,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void AddPoll (PollFD fd)
         {
-            g_source_add_poll(Handle, fd);
+            g_source_add_poll(Handle, ref fd);
         }
 
         /// <summary>
@@ -1120,7 +1120,7 @@ namespace GISharp.Lib.GLib
             IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            PollFD fd);
+            ref PollFD fd);
 
         /// <summary>
         /// Removes a file descriptor from the set of file descriptors polled for
@@ -1135,7 +1135,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemovePoll (PollFD fd)
         {
-            g_source_remove_poll(Handle, fd);
+            g_source_remove_poll(Handle, ref fd);
         }
 
         /// <summary>
