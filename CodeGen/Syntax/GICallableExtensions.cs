@@ -56,8 +56,14 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
 
-            foreach (var p in callable.ManagedParameters.Where(x => x.Direction != "out")) {
-                yield return p.GetMarshalManagedToUnmanagedStatement();
+            foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
+                yield return arg.GetMarshalManagedToUnmanagedStatement();
+            }
+
+            foreach (var arg in callable.Parameters.Where(x => x.Direction == "out")) {
+                var type = arg.Type.UnmanagedType.ToString().TrimEnd('*');
+                var expression = $"{type} {arg.ManagedName}_";
+                yield return ExpressionStatement(ParseExpression(expression));
             }
 
             if (callable.IsAsync) {
@@ -177,7 +183,7 @@ namespace GISharp.CodeGen.Syntax
                 instanceParameter.ManagedName,
                 resultParameter.ManagedName);
             return MethodDeclaration(ParseTypeName("void"), callable.ManagedName)
-                .AddModifiers(Token(StaticKeyword))
+                .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))
                 .WithParameterList(ParseParameterList(parameterList));
         }
 
@@ -200,6 +206,12 @@ namespace GISharp.CodeGen.Syntax
 
             var gcHandleFreeExpression = "userData.Free()";
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(ParseExpression(gcHandleFreeExpression)));
+
+            foreach (var arg in callable.Parameters.RegularParameters.Where(x => x.Direction == "out")) {
+                var argType = arg.Type.UnmanagedType.ToString().TrimEnd('*');
+                var expression = ParseExpression($"{argType} {arg.ManagedName}_");
+                tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(expression));
+            }
 
             if (callable.ThrowsGErrorException) {
                 var errorParameter = callable.Parameters.ErrorParameter.ManagedName;

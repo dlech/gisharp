@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
     partial class OptionGroup
     {
         static readonly UnmanagedDestroyNotify destroy_ = DestroyUserData;
-        static readonly UnmanagedOptionParseFunc postParseFunc_ = OnParsed;
+        static readonly unsafe UnmanagedOptionParseFunc postParseFunc_ = OnParsed;
 
         readonly UserData userData;
 
@@ -332,7 +332,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static bool OnParsed(IntPtr context_, IntPtr group_, IntPtr data_, ref IntPtr error_)
+        static unsafe bool OnParsed(IntPtr context_, IntPtr group_, IntPtr data_, IntPtr* error_)
         {
             try {
                 var userData = (UserData)GCHandle.FromIntPtr(data_).Target;
@@ -342,7 +342,7 @@ namespace GISharp.Lib.GLib
                 return true;
             }
             catch (GErrorException ex) {
-                GMarshal.PropagateError(ref error_, ex.Error);
+                GMarshal.PropagateError(error_, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: marshal Exception to Error

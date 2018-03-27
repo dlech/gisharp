@@ -8,13 +8,14 @@ namespace GISharp.Lib.Gio
 {
     partial class FileAttributeInfoList : IReadOnlyList<FileAttributeInfo>
     {
-        public FileAttributeInfo this[int index] {
+        public unsafe FileAttributeInfo this[int index] {
             get {
                 if (index >= Count) {
                     throw new IndexOutOfRangeException();
                 }
-                var infos = Marshal.PtrToStructure<Struct>(Handle).Infos;
-                return Marshal.PtrToStructure<FileAttributeInfo>(infos + index * IntPtr.Size);
+                var infos_ = Marshal.PtrToStructure<Struct>(Handle).Infos;
+                var info = infos_[index];
+                return info;
             }
         }
 

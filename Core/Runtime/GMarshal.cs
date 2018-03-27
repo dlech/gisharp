@@ -359,7 +359,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_propagate_error(ref IntPtr dest, IntPtr src);
+        static extern unsafe void g_propagate_error(IntPtr* dest, IntPtr src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error
@@ -373,12 +373,30 @@ namespace GISharp.Runtime
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
-        public static void PropagateError(ref IntPtr dest, Error src)
+        public static unsafe void PropagateError(ref IntPtr dest, Error src)
         {
+            var dest_ = dest;
             var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
-            g_propagate_error(ref dest, src_);
+            g_propagate_error(&dest_, src_);
         }
 
+        /// <summary>
+        /// If dest is NULL, free src; otherwise, moves src into *dest. The error
+        /// variable dest points to must be NULL.
+        /// </summary>
+        /// <param name="dest">Destination.</param>
+        /// <param name="src">Source.</param>
+        /// <exception cref="ArgumentNullException">
+        /// If <paramref name="src"/> is null.
+        /// </exception>
+        /// <remarks>
+        /// Note that src is no longer valid after this call.
+        /// </remarks>
+        public static unsafe void PropagateError(IntPtr* dest, Error src)
+        {
+            var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
+            g_propagate_error(dest, src_);
+        }
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_clear_error (IntPtr err);
 

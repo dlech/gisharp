@@ -150,63 +150,93 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeName = node.GirName;
+            var basicType = default(System.Type);
             switch (typeName) {
                 // basic/fundamental types
                 case "none":
                     return typeof(void);
                 case "gboolean":
-                    return typeof(bool);
+                    basicType = typeof(bool);
+                    break;
                 case "gchar":
                 case "gint8":
-                    return typeof(sbyte);
+                    basicType = typeof(sbyte);
+                    break;
                 case "guchar":
                 case "guint8":
-                    return typeof(byte);
+                    basicType = typeof(byte);
+                    break;
                 case "gshort":
                 case "gint16":
-                    return typeof(short);
+                    basicType = typeof(short);
+                    break;
                 case "gushort":
                 case "guint16":
-                    return typeof(ushort);
+                    basicType = typeof(ushort);
+                    break;
                 case "gunichar2":
-                    return typeof(char);
+                    basicType = typeof(char);
+                    break;
                 case "gint":
                 case "gint32":
-                    return typeof(int);
+                    basicType = typeof(int);
+                    break;
                 case "guint":
                 case "guint32":
                 case "gunichar":
-                    return typeof(uint);
+                    basicType = typeof(uint);
+                    break;
                 case "glong":
-                    return typeof(NativeLong);
+                    basicType = typeof(NativeLong);
+                    break;
                 case "gulong":
-                    return typeof(NativeULong);
+                    basicType = typeof(NativeULong);
+                    break;
                 case "gint64":
                 case "goffset":
-                    return typeof(long);
+                    basicType = typeof(long);
+                    break;
                 case "guint64":
-                    return typeof(ulong);
+                    basicType = typeof(ulong);
+                    break;
                 case "gfloat":
-                    return typeof(float);
+                    basicType = typeof(float);
+                    break;
                 case "gdouble":
-                    return typeof(double);
-                case "gpointer":
-                case "gconstpointer":
+                    basicType = typeof(double);
+                    break;
                 case "gintptr":
                 case "gssize":
+                    basicType = typeof(IntPtr);
+                    break;
+                case "guintptr":
+                case "gsize":
+                    basicType = typeof(UIntPtr);
+                    break;
+                case "GType":
+                    basicType = typeof(GType);
+                    break;
+                case "gpointer":
+                case "gconstpointer":
                 case "filename":
                 case "utf8":
                 // we get null for C arrays
                 case null:
-                    return typeof(IntPtr);
-                case "guintptr":
-                case "gsize":
-                    return typeof(UIntPtr);
-                case "GType":
-                    return typeof(GType);
+                    basicType = typeof(IntPtr);
+                    if (node is Gir.Type && node.CType?.EndsWith("**") == true) {
+                        return basicType.MakePointerType();
+                    }
+                    return basicType;
                 case "va_list":
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported");
+            }
+
+            if (basicType != null) {
+                if (node.IsPointer) {
+                    return basicType.MakePointerType();
+                }
+                return basicType;
             }
 
             if (!typeName.Contains('.')) {
@@ -228,37 +258,58 @@ namespace GISharp.CodeGen.Reflection
                 typeName = typeName.Substring(0, index) + "Unmanaged" + typeName.Substring(index);
             }
 
-            if (node.IsPointer) {
-                return typeof(IntPtr);
-            }
-
             // assuming this is a value type
             var type = GetType(typeName);
             if (type != null) {
-                // TODO: handle delegates
-                return type;
+                if (type.IsValueType) {
+                    if (node.IsPointer) {
+                        return type.MakePointerType();
+                    }
+                    return type;
+                }
+                if (type.IsDelegate()) {
+                    return type;
+                }
+                if (node.CType?.EndsWith("**") == true) {
+                    return typeof(IntPtr).MakePointerType();
+                }
+                return typeof(IntPtr);
+            }
+
+            if (node.GirName.EndsWith("Private")) {
+                return typeof(IntPtr);
             }
 
             var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+            var girType = default(System.Type);
             if (typeNode is Alias alias) {
-                return new GirAliasType(alias);
+                girType = new GirAliasType(alias);
             }
-            if (typeNode is GIEnum @enum) {
-                return new GirEnumType(@enum);
+            else if (typeNode is GIEnum @enum) {
+                girType = new GirEnumType(@enum);
             }
-            if (typeNode is Record record) {
-                if (record.IsDisguised) {
+            else if (typeNode is Record record) {
+                if (record.GTypeName != null || record.IsDisguised) {
                     return typeof(IntPtr);
                 }
-                return new GirRecordType(record);
+                girType = new GirRecordType(record);
             }
-            if (typeNode is Callback callback) {
+            else if (typeNode is Callback callback) {
                 return new GirDelegateType(callback, true);
             }
-            if (typeNode is Class || typeNode is Interface) {
+            else if (typeNode is Class || typeNode is Interface) {
                 return typeof(IntPtr);
             }
-            throw new NotSupportedException("Unknown GIR node type");
+
+            if (girType == null) {
+                throw new NotSupportedException("Unknown GIR node type");
+            }
+
+            if (node.IsPointer) {
+                return girType.MakePointerType();
+            }
+ 
+            return girType;
         }
 
         public static System.Type ResolveParentType(Class @class)
@@ -311,6 +362,8 @@ namespace GISharp.CodeGen.Reflection
         {
             return new GirGenericType(this, typeArguments);
         }
+
+        public override System.Type MakePointerType() => new GirPointerType(this);
 
         #region implemented abstract members of MemberInfo
 

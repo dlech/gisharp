@@ -24,8 +24,8 @@ namespace GISharp.CodeGen.Syntax
             if (field.Callback != null) {
                 type = ParseTypeName("Unmanaged" + field.Callback.ManagedName);
             }
-            else if (!field.Type.IsPointer && !field.Type.UnmanagedType.IsValueType) {
-                type = ParseTypeName($"{type}.Struct");
+            else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {
+                type = ParseTypeName($"{field.Type.ManagedType}.Struct");
             }
             var variable = VariableDeclarator(field.ManagedName);
             var variableDeclaration = VariableDeclaration(type)
@@ -94,7 +94,9 @@ namespace GISharp.CodeGen.Syntax
                 .WithTrailingTrivia(lastMember.GetTrailingTrivia()
                     .Append(Trivia(warningRestore))));
 
-            return StructDeclaration("Struct").WithMembers(structMembers);
+            return StructDeclaration("Struct")
+                .AddModifiers(Token(UnsafeKeyword))
+                .WithMembers(structMembers);
         }
     }
 }

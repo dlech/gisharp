@@ -41,7 +41,7 @@ namespace GISharp.CodeGen.Syntax
             }
             else {
                 if (method.Override != "never") {
-                    syntax = syntax.AddModifiers(Token(VirtualKeyword));
+                    syntax = syntax.AddModifiers(Token(VirtualKeyword), Token(UnsafeKeyword));
                 }
                 syntax = syntax.WithBody(Block(method.GetInvokeStatements(invoker)));
             }

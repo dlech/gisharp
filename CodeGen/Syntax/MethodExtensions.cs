@@ -54,7 +54,7 @@ namespace GISharp.CodeGen.Syntax
             var returnType = method.ReturnValue.GetManagedTypeName();
 
             var syntax = MethodDeclaration(returnType, method.ManagedName)
-                .WithModifiers(method.GetAccessModifiers())
+                .WithModifiers(method.GetAccessModifiers().Add(Token(UnsafeKeyword)))
                 .WithAttributeLists(method.GetCommonAttributeLists())
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithBody(Block());

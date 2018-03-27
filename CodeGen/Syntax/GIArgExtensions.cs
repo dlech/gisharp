@@ -26,27 +26,21 @@ namespace GISharp.CodeGen.Syntax
         {
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
-
-            if (!managed && arg.Direction != "in" && arg.Type.ManagedType.IsValueType && arg.Type.ManagedName.ToString().StartsWith("GISharp")) {
-                // if an unmanaged out or ref parameter is a ValueType, then we
-                // can pass it directly
-                type = arg.Type.ManagedType;
-            }
-
             var identifier = ParseToken(arg.ManagedName + suffix);
 
             IEnumerable<SyntaxToken> getModifiers()
             {
-                if (arg is ReturnValue) {
+                if (arg.ParentNode is Parameters || arg is ReturnValue) {
                     yield break;
                 }
+
                 if (arg.Direction == "inout") {
                     yield return Token(RefKeyword);
                 } else if (arg.Direction == "out") {
                     yield return Token(OutKeyword);
                 } else if (arg.IsParams) {
                     yield return Token(ParamsKeyword);
-                } else if (arg.ParentNode is ManagedParameters && arg is InstanceParameter) {
+                } else if (arg is InstanceParameter) {
                     yield return Token(ThisKeyword);
                 }
             }
@@ -66,11 +60,18 @@ namespace GISharp.CodeGen.Syntax
         {
             var expression = arg.ManagedName + suffix;
 
+            if (arg.ParentNode is Parameters) {
+                if (arg.Type.UnmanagedType.IsPointer) {
+                    expression = "&" + expression;
+                }
+            }
+            else {
             if (arg.Direction == "inout") {
                 expression = "ref " + expression;
             }
             else if (arg.Direction == "out") {
                 expression = "out var " + expression;
+            }
             }
 
             return Argument(ParseExpression(expression));
@@ -90,7 +91,8 @@ namespace GISharp.CodeGen.Syntax
 
             if (type.IsValueType) {
                 // value types are used directly
-                expression = ParseExpression($"{arg.ManagedName}_ = ({arg.Type.UnmanagedType}){arg.ManagedName}");
+                var unmanagedType = arg.Type.UnmanagedType.ToString().TrimEnd('*');
+                expression = ParseExpression($"{arg.ManagedName}_ = ({unmanagedType}){arg.ManagedName}");
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
@@ -152,7 +154,7 @@ namespace GISharp.CodeGen.Syntax
             if (type.IsValueType) {
                 // value types are used directly
                 if (arg is ReturnValue && arg.Type.IsPointer && type != typeof(IntPtr)) {
-                    expression = ParseExpression($"{arg.ManagedName} = ({arg.ManagedName}_ == System.IntPtr.Zero) ? default({arg.Type.ManagedType}?) : {typeof(Marshal)}.PtrToStructure<{arg.Type.ManagedType}>({arg.ManagedName}_)");
+                    expression = ParseExpression($"{arg.ManagedName} = ({arg.ManagedName}_ == null) ? default({arg.Type.ManagedType}?) : ({arg.Type.ManagedType})(*{arg.ManagedName}_)");
                 }
                 else {
                     expression = ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_");

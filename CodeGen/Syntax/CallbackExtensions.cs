@@ -51,7 +51,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddArgumentListArguments(AttributeArgument(attrArg));
 
             return DelegateDeclaration(returnType, identifier)
-                .AddModifiers(Token(PublicKeyword).WithLeadingTrivia(girTrivia))
+                .AddModifiers(Token(PublicKeyword).WithLeadingTrivia(girTrivia),
+                    Token(UnsafeKeyword))
                 .WithAttributeLists(callback.GetCommonAttributeLists())
                 .AddAttributeLists(AttributeList().AddAttributes(attr))
                 .WithParameterList(parameterList)
@@ -106,7 +107,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (callback.ThrowsGErrorException) {
                 var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
-                var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
+                var propagateError = ParseStatement(string.Format("{0}.{1}({2}_, ex.{3});\n",
                     typeof(GISharp.Runtime.GMarshal),
                     nameof(GISharp.Runtime.GMarshal.PropagateError),
                     callback.Parameters.ErrorParameter.ManagedName,
@@ -259,7 +260,7 @@ namespace GISharp.CodeGen.Syntax
             var methodInfoParam = Parameter(ParseToken("methodInfo"))
                 .WithType(ParseTypeName(typeof(System.Reflection.MethodInfo).FullName));
             return MethodDeclaration(type, "Create")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
                 .AddParameterListParameters(methodInfoParam)
                 .WithBody(Block(callback.GetUnmanagedDelegateCreateStatements()));
         }
@@ -302,6 +303,7 @@ namespace GISharp.CodeGen.Syntax
                     .AddVariables(VariableDeclarator("Scope")))
                 .AddModifiers(Token(PublicKeyword));
             var dataClass = ClassDeclaration("UserData")
+                .AddModifiers(Token(UnsafeKeyword))
                 .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField);
             list = list.Add(dataClass);
 
@@ -324,7 +326,7 @@ namespace GISharp.CodeGen.Syntax
                 typeof(UnmanagedDestroyNotify),
                 typeof(IntPtr)));
             var create2Method = MethodDeclaration(create2ReturnType, "Create")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
                 .WithParameterList(ParseParameterList(create2MethodParams))
                 .WithBody(Block(callback.GetFactoryCreate2MethodStatements()))
                 .WithLeadingTrivia(callback.GetFactoryCreate2MethodDocumentationCommentTrivia());
@@ -334,7 +336,7 @@ namespace GISharp.CodeGen.Syntax
 
             var callbackReturnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
             var callbackMethod = MethodDeclaration(callbackReturnType, "UnmanagedCallback")
-                .AddModifiers(Token(StaticKeyword))
+                .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))
                 .WithParameterList(callback.Parameters.GetParameterList())
                 .WithBody(Block(callback.GetCallbackStatements()));
             list = list.Add(callbackMethod);
@@ -385,13 +387,13 @@ namespace GISharp.CodeGen.Syntax
             paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
                 .Select(x => x.WithDefault(default(EqualsValueClauseSyntax)))));
 
-            var lambdaExpression = ParenthesizedLambdaExpression(body)
-                .WithParameterList(paramList);
+            var returnType = callback.ReturnValue.GetManagedTypeName();
+            yield return LocalFunctionStatement(returnType, "callback_")
+                .AddModifiers(Token(UnsafeKeyword))
+                .WithParameterList(paramList)
+                .WithBody(body);
 
-            var newExpression = ObjectCreationExpression(callback.GetQualifiedName())
-                .AddArgumentListArguments(Argument(lambdaExpression));
-
-            yield return ReturnStatement(newExpression);
+            yield return ReturnStatement(ParseExpression("callback_"));
         }
 
         static IEnumerable<StatementSyntax> GetFactoryCreate2MethodStatements(this Callback callback)

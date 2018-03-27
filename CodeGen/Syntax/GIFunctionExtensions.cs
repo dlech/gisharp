@@ -30,7 +30,8 @@ namespace GISharp.CodeGen.Syntax
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
                 // adding girTrivia here makes it appear before the method declaration
                 // but after the attribute lists
-                .AddModifiers(Token(StaticKeyword).WithLeadingTrivia(girTrivia), Token(ExternKeyword))
+                .AddModifiers(Token(StaticKeyword).WithLeadingTrivia(girTrivia),
+                    Token(ExternKeyword), Token(UnsafeKeyword))
                 .WithAttributeLists(function.GetCommonAttributeLists())
                 .AddAttributeLists(function.GetDllImportAttributeList())
                 .WithParameterList(parameterList)
@@ -62,8 +63,10 @@ namespace GISharp.CodeGen.Syntax
                 modifiers = TokenList();
             }
 
+            modifiers = modifiers.Add(Token(StaticKeyword)).Add(Token(UnsafeKeyword));
+
             var syntax = MethodDeclaration(returnType, function.ManagedName)
-                .WithModifiers(modifiers.Add(Token(StaticKeyword)))
+                .WithModifiers(modifiers)
                 .WithAttributeLists(function.GetCommonAttributeLists())
                 .WithParameterList(function.ManagedParameters.GetParameterList())
                 .WithBody(Block());
