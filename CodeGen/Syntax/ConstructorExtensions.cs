@@ -22,7 +22,7 @@ namespace GISharp.CodeGen.Syntax
                 yield return constructor.GetExternMethodDeclaration();
                 if (!constructor.IsPInvokeOnly) {
                     yield return constructor.GetStaticMethodDeclaration()
-                        .WithModifiers(TokenList(Token(StaticKeyword))) // strip access modifiers
+                        .WithModifiers(TokenList(Token(StaticKeyword), Token(UnsafeKeyword))) // strip access modifiers
                         .WithBody(Block(constructor.GetInvokeStatements(constructor.CIdentifier)));
                     if (!constructor.HasCustomConstructor) {
                         yield return constructor.GetConstructorDeclaration();

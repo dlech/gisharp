@@ -4250,7 +4250,7 @@ System.IntPtr sourceTag);
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_cancellable_new();
 
-        static System.IntPtr New()
+        static unsafe System.IntPtr New()
         {
             var ret_ = g_cancellable_new();
             return ret_;
@@ -5199,7 +5199,7 @@ System.IntPtr cancellable);
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_file_attribute_info_list_new();
 
-        static System.IntPtr New()
+        static unsafe System.IntPtr New()
         {
             var ret_ = g_file_attribute_info_list_new();
             return ret_;
@@ -8782,7 +8782,7 @@ System.IntPtr* error);
         /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr New(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType)
         {
             var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
@@ -8865,7 +8865,7 @@ System.IntPtr* error);
         /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr NewStateful(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
+        static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
         {
             var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
@@ -9852,7 +9852,7 @@ System.IntPtr* error);
         /// a <see cref="Task"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.36")]
-        static System.IntPtr New(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        static unsafe System.IntPtr New(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
             var (callback_, _, callbackData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
@@ -11210,7 +11210,7 @@ System.IntPtr* error);
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        static System.IntPtr New(GISharp.Lib.GLib.Utf8 iconname)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 iconname)
         {
             var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
             var ret_ = g_themed_icon_new(iconname_);
@@ -11243,7 +11243,7 @@ System.IntPtr* error);
         /* transfer-ownership:none direction:in */
         System.Int32 len);
 
-        static System.IntPtr NewFromNames(GISharp.Runtime.IArray<GISharp.Lib.GLib.Utf8> iconnames)
+        static unsafe System.IntPtr NewFromNames(GISharp.Runtime.IArray<GISharp.Lib.GLib.Utf8> iconnames)
         {
             var (iconnames_, len_) = ((System.IntPtr, System.Int32))((iconnames?.Data ?? throw new System.ArgumentNullException(nameof(iconnames)), iconnames?.Length ?? 0));
             var ret_ = g_themed_icon_new_from_names(iconnames_,len_);
@@ -11292,7 +11292,7 @@ System.IntPtr* error);
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        static System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.Utf8 iconname)
+        static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.Utf8 iconname)
         {
             var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
             var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
@@ -11498,7 +11498,7 @@ System.IntPtr* error);
         /// the new #GSource.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static System.IntPtr New(GISharp.Lib.Gio.Cancellable cancellable = null)
+        static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_cancellable_source_new(cancellable_);

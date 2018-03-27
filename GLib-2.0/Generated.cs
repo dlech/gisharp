@@ -240,7 +240,7 @@ namespace GISharp.Lib.GLib
         /// an empty <see cref="KeyFile"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        static System.IntPtr New()
+        static unsafe System.IntPtr New()
         {
             var ret_ = g_key_file_new();
             return ret_;
@@ -5515,7 +5515,7 @@ namespace GISharp.Lib.GLib
         /// the requested timezone
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        static System.IntPtr New(GISharp.Lib.GLib.Utf8 identifier)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 identifier)
         {
             var identifier_ = identifier?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_time_zone_new(identifier_);
@@ -6238,7 +6238,7 @@ namespace GISharp.Lib.GLib
         /// a <see cref="VariantBuilder"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.24")]
-        static System.IntPtr New(GISharp.Lib.GLib.VariantType type)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.VariantType type)
         {
             AssertNewArgs(type);
             var type_ = type?.Handle ?? throw new System.ArgumentNullException(nameof(type));
@@ -6736,7 +6736,7 @@ namespace GISharp.Lib.GLib
         /// a <see cref="VariantDict"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        static System.IntPtr New(GISharp.Lib.GLib.Variant fromAsv)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Variant fromAsv)
         {
             AssertNewArgs(fromAsv);
             var fromAsv_ = fromAsv?.Handle ?? System.IntPtr.Zero;
