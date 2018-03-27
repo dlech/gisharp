@@ -5356,6 +5356,34 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_time_zone_get_type();
 
+        /// <summary>
+        /// Creates a <see cref="TimeZone"/> corresponding to local time.  The local time
+        /// zone may change between invocations to this function; for example,
+        /// if the system administrator changes it.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to calling <see cref="New"/> with the value of
+        /// the `TZ` environment variable (including the possibility of <c>null</c>).
+        /// 
+        /// You should release the return value by calling <see cref="Unref"/>
+        /// when you are done with it.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        public static GISharp.Lib.GLib.TimeZone Local { get => GetLocal(); }
+
+        /// <summary>
+        /// Creates a <see cref="TimeZone"/> corresponding to UTC.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to calling <see cref="New"/> with a value like
+        /// "Z", "UTC", "+00", etc.
+        /// 
+        /// You should release the return value by calling <see cref="Unref"/>
+        /// when you are done with it.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        public static GISharp.Lib.GLib.TimeZone Utc { get => GetUtc(); }
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public TimeZone(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -5481,7 +5509,7 @@ namespace GISharp.Lib.GLib
         /// Offsets are time values to be added to the local time to get
         /// Coordinated Universal Time (UTC).
         /// 
-        /// <see cref="NewLocal"/> calls this function with the value of the
+        /// <see cref="GetLocal"/> calls this function with the value of the
         /// `TZ` environment variable. This function itself is independent of
         /// the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
         /// will be consulted to discover the correct time zone on UNIX and the
@@ -5561,7 +5589,7 @@ namespace GISharp.Lib.GLib
         /// Offsets are time values to be added to the local time to get
         /// Coordinated Universal Time (UTC).
         /// 
-        /// <see cref="NewLocal"/> calls this function with the value of the
+        /// <see cref="GetLocal"/> calls this function with the value of the
         /// `TZ` environment variable. This function itself is independent of
         /// the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
         /// will be consulted to discover the correct time zone on UNIX and the
@@ -5633,7 +5661,7 @@ namespace GISharp.Lib.GLib
         /// the local timezone
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static unsafe GISharp.Lib.GLib.TimeZone NewLocal()
+        private static unsafe GISharp.Lib.GLib.TimeZone GetLocal()
         {
             var ret_ = g_time_zone_new_local();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>(ret_, GISharp.Runtime.Transfer.Full);
@@ -5673,7 +5701,7 @@ namespace GISharp.Lib.GLib
         /// the universal timezone
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static unsafe GISharp.Lib.GLib.TimeZone NewUtc()
+        private static unsafe GISharp.Lib.GLib.TimeZone GetUtc()
         {
             var ret_ = g_time_zone_new_utc();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>(ret_, GISharp.Runtime.Transfer.Full);

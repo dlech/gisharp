@@ -168,6 +168,11 @@
 - !change-element
   new-name: gi:function
   xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:constructor[@name='new_utc']
+- !change-attribute
+  name: name
+  regex: new_(.*)
+  replace: get_$1
+  xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:function[starts-with(@name,'new_')]
 
 
 ### TranslateFunc ###

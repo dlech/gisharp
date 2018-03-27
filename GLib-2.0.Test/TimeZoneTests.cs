@@ -19,7 +19,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewLocal()
         {
-            using (var tz = TimeZone.NewLocal()) {
+            using (var tz = TimeZone.Local) {
             }
             AssertNoGLibLog();
         }
@@ -27,7 +27,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewUtc()
         {
-            using (var tz = TimeZone.NewUtc()) {
+            using (var tz = TimeZone.Utc) {
             }
             AssertNoGLibLog();
         }
@@ -62,7 +62,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGetOffset()
         {
-            using (var tz = TimeZone.NewUtc()) {
+            using (var tz = TimeZone.Utc) {
                 Assert.That(tz.GetOffset(0), Is.Zero);
             }
             AssertNoGLibLog();
@@ -71,7 +71,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGIsDst()
         {
-            using (var tz = TimeZone.NewUtc()) {
+            using (var tz = TimeZone.Utc) {
                 Assert.That(tz.IsDst(0), Is.False);
             }
             AssertNoGLibLog();
