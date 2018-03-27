@@ -51,7 +51,9 @@ namespace GISharp.CodeGen.Syntax
                 else {
                     // marshalling is trivial
                     var identifier = callable.Parameters.InstanceParameter.ManagedName;
-                    var expression = ParseExpression($"var {identifier}_ = Handle");
+                    var handleOrThis = callable.Parameters.InstanceParameter.Type.ManagedType.IsValueType
+                        ? "this" : "Handle";
+                    var expression = ParseExpression($"var {identifier}_ = {handleOrThis}");
                     yield return ExpressionStatement(expression);
                 }
             }
