@@ -1,4 +1,36 @@
 
+### DateTime ###
+
+# fix conflicting constructors
+- !change-element
+  new-name: gi:function
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:constructor[starts-with(@name,'new_')]
+# better names
+- !change-attribute
+  name: name
+  regex: new_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_from_')]
+- !change-attribute
+  name: name
+  regex: new_(.*)
+  replace: get_$1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_')]
+# managed arg check
+- !set-attribute
+  name: gs:custom-arg-check
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:constructor[@name='new']
+- !set-attribute
+  name: gs:custom-arg-check
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[@name='get_local']
+- !set-attribute
+  name: gs:custom-arg-check
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[@name='get_utc']
+
+
 ### KeyFile ###
 
 # Move KEY_FILE_* constants to KeyFile record
@@ -159,6 +191,19 @@
   xpath: gi:repository/gi:namespace/gi:callback[@name='OptionParseFunc']/gi:parameters/gi:parameter[@name='data']
 
 
+### TimeSpan ###
+
+# move constants to alias
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']
+- !change-attribute
+  name: name
+  regex: TIME_SPAN_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']/gi:constant
+
+
 ### TimeZone ###
 
 # fix conflicting constructors by making them functions
@@ -173,7 +218,7 @@
   regex: new_(.*)
   replace: get_$1
   xpath: gi:repository/gi:namespace/gi:record[@name='TimeZone']/gi:function[starts-with(@name,'new_')]
-
+  
 
 ### TranslateFunc ###
 
@@ -601,10 +646,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[@name='ANALYZER_ANALYZING']
 - !set-attribute
   name: introspectable
@@ -690,10 +731,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:enumeration[@name='DateMonth']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']
 - !set-attribute
   name: introspectable
   value: 0
@@ -1237,10 +1274,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='TestCase']
 - !set-attribute
   name: introspectable
@@ -1310,10 +1343,6 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:record[@name='ThreadPool']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='TimeVal']
 - !set-attribute
   name: introspectable
   value: 0
