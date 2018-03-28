@@ -666,13 +666,6 @@ namespace GISharp.CodeGen
                     continue;
                 }
                 element.SetAttributeValue(gs + "to-string", "1");
-                if (element.Attribute(gs + "access-modifiers") == null) {
-                    element.SetAttributeValue(gs + "access-modifiers", "public");
-                }
-                if (element.Parent.Name == gi + "class" || element.Parent.Name == gi + "record") {
-                    var modifiers = element.Attribute(gs + "access-modifiers").Value;
-                    element.SetAttributeValue(gs + "access-modifiers", modifiers + " override");
-                }
             }
 
             // flag extension methods

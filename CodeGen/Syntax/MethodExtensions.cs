@@ -63,6 +63,10 @@ namespace GISharp.CodeGen.Syntax
                 syntax = syntax.AddModifiers(Token(StaticKeyword));
             }
 
+            if (method.IsToString && !method.IsExtensionMethod) {
+                syntax = syntax.WithReturnType(ParseTypeName(typeof(string).ToString()));
+            }
+
             var triviaParameters = method.ManagedParameters.RegularParameters.Cast<GIArg>();
             if (method.IsExtensionMethod) {
                 triviaParameters = triviaParameters.Prepend(method.ManagedParameters.ThisParameter);
@@ -83,7 +87,7 @@ namespace GISharp.CodeGen.Syntax
 
         static SyntaxTokenList GetAccessModifiers(this Method method)
         {
-            if (method.IsHash && !method.IsExtensionMethod) {
+            if ((method.IsHash || method.IsToString)&& !method.IsExtensionMethod) {
                 return TokenList(Token(PublicKeyword), Token(OverrideKeyword));
             }
             
