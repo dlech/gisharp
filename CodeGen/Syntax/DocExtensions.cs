@@ -115,7 +115,8 @@ namespace GISharp.CodeGen.Syntax
                         if (callable == null) {
                             continue;
                         }
-                        builder.Replace($"{f.Value}()", $"<see cref=\"{callable.ManagedName}\"/>");
+                        var parent = (GIBase)callable.ParentNode;
+                        builder.Replace($"{f.Value}()", $"<see cref=\"{parent.ManagedName}.{callable.ManagedName}\"/>");
                     }
                 }
             }

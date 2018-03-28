@@ -48,8 +48,8 @@ namespace GISharp.Lib.GLib
         /// time zone.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="GetNow"/> with the time
-        /// zone returned by <see cref="GetLocal"/>.
+        /// This is equivalent to calling <see cref="DateTime.GetNow"/> with the time
+        /// zone returned by <see cref="TimeZone.GetLocal"/>.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.DateTime NowLocal { get => GetNowLocal(); }
@@ -58,8 +58,8 @@ namespace GISharp.Lib.GLib
         /// Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="GetNow"/> with the time
-        /// zone returned by <see cref="GetUtc"/>.
+        /// This is equivalent to calling <see cref="DateTime.GetNow"/> with the time
+        /// zone returned by <see cref="TimeZone.GetUtc"/>.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.DateTime NowUtc { get => GetNowUtc(); }
@@ -154,12 +154,12 @@ namespace GISharp.Lib.GLib
         /// <paramref name="datetime"/> falls.
         /// </summary>
         /// <remarks>
-        /// This function, taken together with <see cref="GetWeekOfYear"/> and
-        /// <see cref="GetDayOfWeek"/> can be used to determine the full ISO
+        /// This function, taken together with <see cref="DateTime.GetWeekOfYear"/> and
+        /// <see cref="DateTime.GetDayOfWeek"/> can be used to determine the full ISO
         /// week date on which <paramref name="datetime"/> falls.
         /// 
         /// This is usually equal to the normal Gregorian year (as returned by
-        /// <see cref="GetYear"/>), except as detailed below:
+        /// <see cref="DateTime.GetYear"/>), except as detailed below:
         /// 
         /// For Thursday, the week-numbering year is always equal to the usual
         /// calendar year.  For other days, the number is such that every day
@@ -335,7 +335,7 @@ namespace GISharp.Lib.GLib
         /// to be out of range, but in the case that they are, the function will
         /// return <c>null</c>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tz">
@@ -405,7 +405,7 @@ namespace GISharp.Lib.GLib
         /// to be out of range, but in the case that they are, the function will
         /// return <c>null</c>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tz">
@@ -529,7 +529,7 @@ namespace GISharp.Lib.GLib
         /// This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
         /// formatted string.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="text">
@@ -594,7 +594,7 @@ namespace GISharp.Lib.GLib
         /// This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
         /// of the supported range of <see cref="DateTime"/>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tv">
@@ -650,7 +650,7 @@ namespace GISharp.Lib.GLib
         /// This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
         /// of the supported range of <see cref="DateTime"/>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tv">
@@ -708,7 +708,7 @@ namespace GISharp.Lib.GLib
         /// This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
         /// of the supported range of <see cref="DateTime"/>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="t">
@@ -764,7 +764,7 @@ namespace GISharp.Lib.GLib
         /// This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
         /// of the supported range of <see cref="DateTime"/>.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="t">
@@ -840,8 +840,8 @@ namespace GISharp.Lib.GLib
         /// the local time zone.
         /// </summary>
         /// <remarks>
-        /// This call is equivalent to calling <see cref="New"/> with the time
-        /// zone returned by <see cref="GetLocal"/>.
+        /// This call is equivalent to calling <see cref="DateTime.New"/> with the time
+        /// zone returned by <see cref="TimeZone.GetLocal"/>.
         /// </remarks>
         /// <param name="year">
         /// the year component of the date
@@ -917,7 +917,7 @@ namespace GISharp.Lib.GLib
         /// truly insane values (or unless GLib is still being used after the
         /// year 9999).
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tz">
@@ -957,8 +957,8 @@ namespace GISharp.Lib.GLib
         /// time zone.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="GetNow"/> with the time
-        /// zone returned by <see cref="GetLocal"/>.
+        /// This is equivalent to calling <see cref="DateTime.GetNow"/> with the time
+        /// zone returned by <see cref="TimeZone.GetLocal"/>.
         /// </remarks>
         /// <returns>
         /// a new <see cref="DateTime"/>, or <c>null</c>
@@ -991,8 +991,8 @@ namespace GISharp.Lib.GLib
         /// Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="GetNow"/> with the time
-        /// zone returned by <see cref="GetUtc"/>.
+        /// This is equivalent to calling <see cref="DateTime.GetNow"/> with the time
+        /// zone returned by <see cref="TimeZone.GetUtc"/>.
         /// </remarks>
         /// <returns>
         /// a new <see cref="DateTime"/>, or <c>null</c>
@@ -1063,8 +1063,8 @@ namespace GISharp.Lib.GLib
         /// UTC.
         /// </summary>
         /// <remarks>
-        /// This call is equivalent to calling <see cref="New"/> with the time
-        /// zone returned by <see cref="GetUtc"/>.
+        /// This call is equivalent to calling <see cref="DateTime.New"/> with the time
+        /// zone returned by <see cref="TimeZone.GetUtc"/>.
         /// </remarks>
         /// <param name="year">
         /// the year component of the date
@@ -1190,7 +1190,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime Add(GISharp.Lib.GLib.TimeSpan timespan)
@@ -1237,7 +1237,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddDays(System.Int32 days)
@@ -1329,7 +1329,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> that should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddFull(System.Int32 years, System.Int32 months, System.Int32 days, System.Int32 hours, System.Int32 minutes, System.Double seconds)
@@ -1381,7 +1381,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddHours(System.Int32 hours)
@@ -1428,7 +1428,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddMinutes(System.Int32 minutes)
@@ -1487,7 +1487,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddMonths(System.Int32 months)
@@ -1534,7 +1534,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddSeconds(System.Double seconds)
@@ -1581,7 +1581,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddWeeks(System.Int32 weeks)
@@ -1628,7 +1628,7 @@ namespace GISharp.Lib.GLib
         /// copy. Add negative values to subtract years.
         /// </summary>
         /// <remarks>
-        /// As with <see cref="AddMonths"/>, if the resulting date would be 29th
+        /// As with <see cref="DateTime.AddMonths"/>, if the resulting date would be 29th
         /// February on a non-leap year, the day will be clamped to 28th February.
         /// </remarks>
         /// <param name="years">
@@ -1636,7 +1636,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// the newly created <see cref="DateTime"/> which should be freed with
-        ///   <see cref="Unref"/>.
+        ///   <see cref="DateTime.Unref"/>.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddYears(System.Int32 years)
@@ -1875,7 +1875,7 @@ namespace GISharp.Lib.GLib
         ///    Monday being 1. This works well with \%G and \%V.
         /// - \%V: the ISO 8601 standard week number of the current year as a decimal
         ///   number, range 01 to 53, where week 1 is the first week that has at
-        ///   least 4 days in the new year. See <see cref="GetWeekOfYear"/>.
+        ///   least 4 days in the new year. See <see cref="DateTime.GetWeekOfYear"/>.
         ///   This works well with \%G and \%u.
         /// - \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
         ///   This is not the ISO 8601 standard format -- use \%u instead.
@@ -2397,12 +2397,12 @@ namespace GISharp.Lib.GLib
         /// <paramref name="datetime"/> falls.
         /// </summary>
         /// <remarks>
-        /// This function, taken together with <see cref="GetWeekOfYear"/> and
-        /// <see cref="GetDayOfWeek"/> can be used to determine the full ISO
+        /// This function, taken together with <see cref="DateTime.GetWeekOfYear"/> and
+        /// <see cref="DateTime.GetDayOfWeek"/> can be used to determine the full ISO
         /// week date on which <paramref name="datetime"/> falls.
         /// 
         /// This is usually equal to the normal Gregorian year (as returned by
-        /// <see cref="GetYear"/>), except as detailed below:
+        /// <see cref="DateTime.GetYear"/>), except as detailed below:
         /// 
         /// For Thursday, the week-numbering year is always equal to the usual
         /// calendar year.  For other days, the number is such that every day
@@ -2674,8 +2674,8 @@ namespace GISharp.Lib.GLib
         /// <paramref name="datetime"/>, but in the local time zone.
         /// </summary>
         /// <remarks>
-        /// This call is equivalent to calling <see cref="ToTimezone"/> with the
-        /// time zone returned by <see cref="GetLocal"/>.
+        /// This call is equivalent to calling <see cref="DateTime.ToTimezone"/> with the
+        /// time zone returned by <see cref="TimeZone.GetLocal"/>.
         /// </remarks>
         /// <returns>
         /// the newly created <see cref="DateTime"/>
@@ -2800,7 +2800,7 @@ namespace GISharp.Lib.GLib
         /// example, converting 0001-01-01 00:00:00 UTC to a time zone west of
         /// Greenwich will fail (due to the year 0 being out of range).
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="tz">
@@ -2890,8 +2890,8 @@ namespace GISharp.Lib.GLib
         /// <paramref name="datetime"/>, but in UTC.
         /// </summary>
         /// <remarks>
-        /// This call is equivalent to calling <see cref="ToTimezone"/> with the
-        /// time zone returned by <see cref="GetUtc"/>.
+        /// This call is equivalent to calling <see cref="DateTime.ToTimezone"/> with the
+        /// time zone returned by <see cref="TimeZone.GetUtc"/>.
         /// </remarks>
         /// <returns>
         /// the newly created <see cref="DateTime"/>
@@ -3241,8 +3241,8 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Creates a new empty <see cref="KeyFile"/> object. Use
-        /// <see cref="LoadFromFile"/>, <see cref="LoadFromData"/>,
-        /// <see cref="LoadFromDirs"/> or <see cref="LoadFromDataDirs"/> to
+        /// <see cref="KeyFile.LoadFromFile"/>, <see cref="KeyFile.LoadFromData"/>,
+        /// <see cref="KeyFile.LoadFromDirs"/> or <see cref="KeyFile.LoadFromDataDirs"/> to
         /// read an existing key file.
         /// </summary>
         /// <returns>
@@ -3257,8 +3257,8 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Creates a new empty <see cref="KeyFile"/> object. Use
-        /// <see cref="LoadFromFile"/>, <see cref="LoadFromData"/>,
-        /// <see cref="LoadFromDirs"/> or <see cref="LoadFromDataDirs"/> to
+        /// <see cref="KeyFile.LoadFromFile"/>, <see cref="KeyFile.LoadFromData"/>,
+        /// <see cref="KeyFile.LoadFromDirs"/> or <see cref="KeyFile.LoadFromDataDirs"/> to
         /// read an existing key file.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -3811,7 +3811,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
-        /// 64-bit integer. This is similar to <see cref="GetInteger"/> but can return
+        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
         /// 64-bit results without truncation.
         /// </summary>
         /// <param name="groupName">
@@ -4162,12 +4162,12 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns the actual locale which the result of
-        /// <see cref="GetLocaleString"/> or <see cref="GetLocaleStringList"/>
+        /// <see cref="KeyFile.GetLocaleString"/> or <see cref="KeyFile.GetLocaleStringList"/>
         /// came from.
         /// </summary>
         /// <remarks>
-        /// If calling <see cref="GetLocaleString"/> or
-        /// <see cref="GetLocaleStringList"/> with exactly the same <paramref name="keyFile"/>,
+        /// If calling <see cref="KeyFile.GetLocaleString"/> or
+        /// <see cref="KeyFile.GetLocaleStringList"/> with exactly the same <paramref name="keyFile"/>,
         /// <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
         /// have originally been tagged with the locale that is the result of
         /// this function.
@@ -4502,7 +4502,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Unlike <see cref="GetValue"/>, this function handles escape sequences
+        /// Unlike <see cref="KeyFile.GetValue"/>, this function handles escape sequences
         /// like \s.
         /// </summary>
         /// <remarks>
@@ -4677,7 +4677,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
-        /// 64-bit integer. This is similar to <see cref="GetInteger"/> but can return
+        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
         /// large positive results without truncation.
         /// </summary>
         /// <param name="groupName">
@@ -4757,7 +4757,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Use <see cref="GetString"/> to retrieve an unescaped UTF-8 string.
+        /// Use <see cref="KeyFile.GetString"/> to retrieve an unescaped UTF-8 string.
         /// </summary>
         /// <remarks>
         /// In the event the key cannot be found, <c>null</c> is returned and
@@ -6212,7 +6212,7 @@ namespace GISharp.Lib.GLib
         /// Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
         /// If <paramref name="key"/> cannot be found then it is created.
         /// If <paramref name="groupName"/> cannot be found then it is created.
-        /// Unlike <see cref="SetValue"/>, this function handles characters
+        /// Unlike <see cref="KeyFile.SetValue"/>, this function handles characters
         /// that need escaping, such as newlines.
         /// </summary>
         /// <param name="groupName">
@@ -6380,7 +6380,7 @@ namespace GISharp.Lib.GLib
         /// If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
         /// be found then it is created. To set an UTF-8 string which may contain
         /// characters that need escaping (such as newlines or spaces), use
-        /// <see cref="SetString"/>.
+        /// <see cref="KeyFile.SetString"/>.
         /// </remarks>
         /// <param name="groupName">
         /// a group name
@@ -6759,21 +6759,21 @@ namespace GISharp.Lib.GLib
     public sealed partial class OptionContext : GISharp.Runtime.Opaque
     {
         /// <summary>
-        /// Returns the description. See <see cref="SetDescription"/>.
+        /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.Utf8 Description { get => GetDescription(); set => SetDescription(value); }
 
         /// <summary>
         /// Returns whether automatic `--help` generation
-        /// is turned on for <paramref name="context"/>. See <see cref="SetHelpEnabled"/>.
+        /// is turned on for <paramref name="context"/>. See <see cref="OptionContext.SetHelpEnabled"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
 
         /// <summary>
         /// Returns whether unknown options are ignored or not. See
-        /// <see cref="SetIgnoreUnknownOptions"/>.
+        /// <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
@@ -6788,13 +6788,13 @@ namespace GISharp.Lib.GLib
         /// Returns whether strict POSIX code is enabled.
         /// </summary>
         /// <remarks>
-        /// See <see cref="SetStrictPosix"/> for more information.
+        /// See <see cref="OptionContext.SetStrictPosix"/> for more information.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
 
         /// <summary>
-        /// Returns the summary. See <see cref="SetSummary"/>.
+        /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.Utf8 Summary { get => GetSummary(); set => SetSummary(value); }
@@ -6860,10 +6860,10 @@ namespace GISharp.Lib.GLib
         /// functionality, like " - frob the strings", which will be displayed
         /// in the same line as the usage. For a longer description of the
         /// program functionality that should be displayed as a paragraph
-        /// below the usage line, use <see cref="SetSummary"/>.
+        /// below the usage line, use <see cref="OptionContext.SetSummary"/>.
         /// 
         /// Note that the <paramref name="parameterString"/> is translated using the
-        /// function set with <see cref="SetTranslateFunc"/>, so
+        /// function set with <see cref="OptionContext.SetTranslateFunc"/>, so
         /// it should normally be passed untranslated.
         /// </remarks>
         /// <param name="parameterString">
@@ -6873,7 +6873,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         /// <returns>
         /// a newly created <see cref="OptionContext"/>, which must be
-        ///    freed with <see cref="Free"/> after use.
+        ///    freed with <see cref="OptionContext.Free"/> after use.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 parameterString)
@@ -6961,7 +6961,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr context);
 
         /// <summary>
-        /// Returns the description. See <see cref="SetDescription"/>.
+        /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
         /// </summary>
         /// <returns>
         /// the description
@@ -7061,7 +7061,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns whether automatic `--help` generation
-        /// is turned on for <paramref name="context"/>. See <see cref="SetHelpEnabled"/>.
+        /// is turned on for <paramref name="context"/>. See <see cref="OptionContext.SetHelpEnabled"/>.
         /// </summary>
         /// <returns>
         /// <c>true</c> if automatic help generation is turned on.
@@ -7096,7 +7096,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Returns whether unknown options are ignored or not. See
-        /// <see cref="SetIgnoreUnknownOptions"/>.
+        /// <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
         /// </summary>
         /// <returns>
         /// <c>true</c> if unknown options are ignored.
@@ -7172,7 +7172,7 @@ namespace GISharp.Lib.GLib
         /// Returns whether strict POSIX code is enabled.
         /// </summary>
         /// <remarks>
-        /// See <see cref="SetStrictPosix"/> for more information.
+        /// See <see cref="OptionContext.SetStrictPosix"/> for more information.
         /// </remarks>
         /// <returns>
         /// <c>true</c> if strict POSIX is enabled, <c>false</c> otherwise.
@@ -7205,7 +7205,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr context);
 
         /// <summary>
-        /// Returns the summary. See <see cref="SetSummary"/>.
+        /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
         /// </summary>
         /// <returns>
         /// the summary
@@ -7252,7 +7252,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// Note that the summary is translated (see
-        /// <see cref="SetTranslateFunc"/>).
+        /// <see cref="OptionContext.SetTranslateFunc"/>).
         /// </remarks>
         /// <param name="description">
         /// a string to be shown in `--help` output
@@ -7384,7 +7384,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets a <see cref="OptionGroup"/> as main group of the <paramref name="context"/>.
-        /// This has the same effect as calling <see cref="AddGroup"/>,
+        /// This has the same effect as calling <see cref="OptionContext.AddGroup"/>,
         /// the only difference is that the options in the main group are
         /// treated differently when generating `--help` output.
         /// </summary>
@@ -7516,8 +7516,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// Note that the summary is translated (see
-        /// <see cref="SetTranslateFunc"/> and
-        /// <see cref="SetTranslationDomain"/>).
+        /// <see cref="OptionContext.SetTranslateFunc"/> and
+        /// <see cref="OptionContext.SetTranslationDomain"/>).
         /// </remarks>
         /// <param name="summary">
         /// a string to be shown in `--help` output
@@ -7582,12 +7582,12 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// Note that option groups have their own translation functions,
-        /// this function only affects the <paramref name="parameterString"/> (see <see cref="New"/>),
-        /// the summary (see <see cref="SetSummary"/>) and the description
-        /// (see <see cref="SetDescription"/>).
+        /// this function only affects the <paramref name="parameterString"/> (see <see cref="OptionContext.New"/>),
+        /// the summary (see <see cref="OptionContext.SetSummary"/>) and the description
+        /// (see <see cref="OptionContext.SetDescription"/>).
         /// 
         /// If you are using gettext(), you only need to set the translation
-        /// domain, see <see cref="SetTranslationDomain"/>.
+        /// domain, see <see cref="OptionContext.SetTranslationDomain"/>.
         /// </remarks>
         /// <param name="func">
         /// the <see cref="TranslateFunc"/>, or <c>null</c>
@@ -7641,7 +7641,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// A GOptionEntry struct defines a single option. To have an effect, they
     /// must be added to a <see cref="OptionGroup"/> with g_option_context_add_main_entries()
-    /// or <see cref="AddEntries"/>.
+    /// or <see cref="OptionGroup.AddEntries"/>.
     /// </summary>
     public partial struct OptionEntry
     {
@@ -7697,7 +7697,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// the description for the option in `--help`
         ///     output. The <paramref name="description"/> is translated using the <paramref name="translateFunc"/>
-        ///     of the group, see <see cref="SetTranslationDomain"/>.
+        ///     of the group, see <see cref="OptionGroup.SetTranslationDomain"/>.
         /// </summary>
         public System.IntPtr Description;
 
@@ -7705,7 +7705,7 @@ namespace GISharp.Lib.GLib
         /// The placeholder to use for the extra argument parsed
         ///     by the option in `--help` output. The <paramref name="argDescription"/> is translated
         ///     using the <paramref name="translateFunc"/> of the group, see
-        ///     <see cref="SetTranslationDomain"/>.
+        ///     <see cref="OptionGroup.SetTranslationDomain"/>.
         /// </summary>
         public System.IntPtr ArgDescription;
 #pragma warning restore CS0649
@@ -7720,7 +7720,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// An option was not known to the parser.
         ///  This error will only be reported, if the parser hasn't been instructed
-        ///  to ignore unknown options, see <see cref="SetIgnoreUnknownOptions"/>.
+        ///  to ignore unknown options, see <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
         /// </summary>
         UnknownOption = 0,
         /// <summary>
@@ -8129,7 +8129,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// If you are using gettext(), you only need to set the translation
-        /// domain, see <see cref="SetTranslationDomain"/>.
+        /// domain, see <see cref="OptionGroup.SetTranslationDomain"/>.
         /// </remarks>
         /// <param name="func">
         /// the <see cref="TranslateFunc"/>, or <c>null</c>
@@ -8558,12 +8558,12 @@ namespace GISharp.Lib.GLib
         /// [Date and Time Formats](http://www.w3.org/TR/NOTE-datetime-19980827).
         /// Both of these documents are profiles of ISO 8601.
         /// 
-        /// Use <see cref="Format"/> or g_strdup_printf() if a different
+        /// Use <see cref="DateTime.Format"/> or g_strdup_printf() if a different
         /// variation of ISO 8601 format is required.
         /// 
         /// If <paramref name="time"/> represents a date which is too large to fit into a `struct tm`,
         /// <c>null</c> will be returned. This is platform dependent, but it is safe to assume
-        /// years up to 3000 are supported. The return value of <see cref="ToIso8601"/>
+        /// years up to 3000 are supported. The return value of <see cref="TimeVal.ToIso8601"/>
         /// has been nullable since GLib 2.54; before then, GLib would crash under the
         /// same conditions.
         /// </remarks>
@@ -8597,10 +8597,10 @@ namespace GISharp.Lib.GLib
         /// if the system administrator changes it.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="New"/> with the value of
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with the value of
         /// the `TZ` environment variable (including the possibility of <c>null</c>).
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -8610,10 +8610,10 @@ namespace GISharp.Lib.GLib
         /// Creates a <see cref="TimeZone"/> corresponding to UTC.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="New"/> with a value like
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with a value like
         /// "Z", "UTC", "+00", etc.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -8744,7 +8744,7 @@ namespace GISharp.Lib.GLib
         /// Offsets are time values to be added to the local time to get
         /// Coordinated Universal Time (UTC).
         /// 
-        /// <see cref="GetLocal"/> calls this function with the value of the
+        /// <see cref="TimeZone.GetLocal"/> calls this function with the value of the
         /// `TZ` environment variable. This function itself is independent of
         /// the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
         /// will be consulted to discover the correct time zone on UNIX and the
@@ -8768,7 +8768,7 @@ namespace GISharp.Lib.GLib
         /// [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
         /// for the list of time zones on Windows.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="identifier">
@@ -8824,7 +8824,7 @@ namespace GISharp.Lib.GLib
         /// Offsets are time values to be added to the local time to get
         /// Coordinated Universal Time (UTC).
         /// 
-        /// <see cref="GetLocal"/> calls this function with the value of the
+        /// <see cref="TimeZone.GetLocal"/> calls this function with the value of the
         /// `TZ` environment variable. This function itself is independent of
         /// the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
         /// will be consulted to discover the correct time zone on UNIX and the
@@ -8848,7 +8848,7 @@ namespace GISharp.Lib.GLib
         /// [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
         /// for the list of time zones on Windows.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <param name="identifier">
@@ -8886,10 +8886,10 @@ namespace GISharp.Lib.GLib
         /// if the system administrator changes it.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="New"/> with the value of
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with the value of
         /// the `TZ` environment variable (including the possibility of <c>null</c>).
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <returns>
@@ -8926,10 +8926,10 @@ namespace GISharp.Lib.GLib
         /// Creates a <see cref="TimeZone"/> corresponding to UTC.
         /// </summary>
         /// <remarks>
-        /// This is equivalent to calling <see cref="New"/> with a value like
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with a value like
         /// "Z", "UTC", "+00", etc.
         /// 
-        /// You should release the return value by calling <see cref="Unref"/>
+        /// You should release the return value by calling <see cref="TimeZone.Unref"/>
         /// when you are done with it.
         /// </remarks>
         /// <returns>
@@ -9000,11 +9000,11 @@ namespace GISharp.Lib.GLib
         /// The meaning of <paramref name="time"/> depends on <paramref name="type"/>.
         /// </summary>
         /// <remarks>
-        /// This function is similar to <see cref="FindInterval"/>, with the
+        /// This function is similar to <see cref="TimeZone.FindInterval"/>, with the
         /// difference that it always succeeds (by making the adjustments
         /// described below).
         /// 
-        /// In any of the cases where <see cref="FindInterval"/> succeeds then
+        /// In any of the cases where <see cref="TimeZone.FindInterval"/> succeeds then
         /// this function returns the same value, without modifying <paramref name="time"/>.
         /// 
         /// This function may, however, modify <paramref name="time"/> in order to deal with
@@ -9486,7 +9486,7 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new <see cref="VariantBuilder"/>.
         /// </summary>
         /// <remarks>
-        /// You should call <see cref="Unref"/> on the return value when it
+        /// You should call <see cref="VariantBuilder.Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
@@ -9513,7 +9513,7 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new <see cref="VariantBuilder"/>.
         /// </summary>
         /// <remarks>
-        /// You should call <see cref="Unref"/> on the return value when it
+        /// You should call <see cref="VariantBuilder.Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
@@ -9612,7 +9612,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Closes the subcontainer inside the given <paramref name="builder"/> that was opened by
-        /// the most recent call to <see cref="Open"/>.
+        /// the most recent call to <see cref="VariantBuilder.Open"/>.
         /// </summary>
         /// <remarks>
         /// It is an error to call this function in any way that would create an
@@ -9671,7 +9671,7 @@ namespace GISharp.Lib.GLib
         /// g_variant_builder_init() (in the case of stack-allocated). This
         /// means that for the stack-allocated builders there is no need to
         /// call g_variant_builder_clear() after the call to
-        /// <see cref="End"/>.
+        /// <see cref="VariantBuilder.End"/>.
         /// 
         /// It is an error to call this function in any way that would create an
         /// inconsistent value to be constructed (ie: insufficient number of
@@ -9752,7 +9752,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Opens a subcontainer inside the given <paramref name="builder"/>.  When done adding
-        /// items to the subcontainer, <see cref="Close"/> must be called. <paramref name="type"/>
+        /// items to the subcontainer, <see cref="VariantBuilder.Close"/> must be called. <paramref name="type"/>
         /// is the type of the container: so to build a tuple of several values, <paramref name="type"/>
         /// must include the tuple itself.
         /// </summary>
@@ -9865,13 +9865,13 @@ namespace GISharp.Lib.GLib
     /// g_variant_dict_clear().
     /// 
     /// Heap-allocated <see cref="VariantDict"/> follows normal refcounting rules: you
-    /// allocate it with <see cref="New"/> and use <see cref="Ref"/>
-    /// and <see cref="Unref"/>.
+    /// allocate it with <see cref="VariantDict.New"/> and use <see cref="VariantDict.Ref"/>
+    /// and <see cref="VariantDict.Unref"/>.
     /// 
-    /// <see cref="End"/> is used to convert the <see cref="VariantDict"/> back into a
+    /// <see cref="VariantDict.End"/> is used to convert the <see cref="VariantDict"/> back into a
     /// dictionary-type #GVariant.  When used with stack-allocated instances,
     /// this also implicitly frees all associated memory, but for
-    /// heap-allocated instances, you must still call <see cref="Unref"/>
+    /// heap-allocated instances, you must still call <see cref="VariantDict.Unref"/>
     /// afterwards.
     /// 
     /// You will typically want to use a heap-allocated <see cref="VariantDict"/> when
@@ -9982,7 +9982,7 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// You should call <see cref="Unref"/> on the return value when it
+        /// You should call <see cref="VariantDict.Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 
@@ -10011,7 +10011,7 @@ namespace GISharp.Lib.GLib
         /// Allocates and initialises a new <see cref="VariantDict"/>.
         /// </summary>
         /// <remarks>
-        /// You should call <see cref="Unref"/> on the return value when it
+        /// You should call <see cref="VariantDict.Unref"/> on the return value when it
         /// is no longer needed.  The memory will not be automatically freed by
         /// any other call.
         /// 

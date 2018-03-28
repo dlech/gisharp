@@ -5,13 +5,13 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// The main interface to an action is that it can be activated with
-    /// <see cref="Activate"/>.  This results in the 'activate' signal being
+    /// <see cref="IAction.Activate"/>.  This results in the 'activate' signal being
     /// emitted.  An activation has a #GVariant parameter (which may be
     /// <c>null</c>).  The correct type for the parameter is determined by a static
     /// parameter type (which is given at construction time).
     /// 
     /// An action may optionally have a state, in which case the state may be
-    /// set with <see cref="ChangeState"/>.  This call takes a #GVariant.  The
+    /// set with <see cref="IAction.ChangeState"/>.  This call takes a #GVariant.  The
     /// correct type for the state is determined by a static state type
     /// (which is given at construction time).
     /// 
@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
     /// name of the action, the parameter type, the enabled state, the
     /// optional state type and the state and emitting the appropriate
     /// signals when these change.  The implementor is responsible for filtering
-    /// calls to <see cref="Activate"/> and <see cref="ChangeState"/> for type
+    /// calls to <see cref="IAction.Activate"/> and <see cref="IAction.ChangeState"/> for type
     /// safety and for the state being enabled.
     /// 
     /// Probably the only useful thing to do with a <see cref="IAction"/> is to put it
@@ -40,8 +40,8 @@ namespace GISharp.Lib.Gio
         /// If <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
-        /// If the action is disabled then calls to <see cref="Activate"/> and
-        /// <see cref="ChangeState"/> have no effect.
+        /// If the action is disabled then calls to <see cref="IAction.Activate"/> and
+        /// <see cref="IAction.ChangeState"/> have no effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -101,11 +101,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="GetStateType"/>.
+        /// See <see cref="IAction.GetStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="GetStateHint"/>.
+        /// See <see cref="IAction.GetStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -145,7 +145,7 @@ namespace GISharp.Lib.Gio
         /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="Activate"/>, the #GVariant
+        /// When activating the action using <see cref="IAction.Activate"/>, the #GVariant
         /// given to that function must be of the type returned by this function.
         /// 
         /// In the case that this function returns <c>null</c>, you must not give any
@@ -164,7 +164,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="GetStateType"/>.
+        /// given by <see cref="IAction.GetStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -209,15 +209,15 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// If the action is stateful (e.g. created with
-        /// <see cref="NewStateful"/>) then this function returns the
+        /// <see cref="SimpleAction.NewStateful"/>) then this function returns the
         /// #GVariantType of the state.  This is the type of the initial value
-        /// given as the state. All calls to <see cref="ChangeState"/> must give a
-        /// #GVariant of this type and <see cref="GetState"/> will return a
+        /// given as the state. All calls to <see cref="IAction.ChangeState"/> must give a
+        /// #GVariant of this type and <see cref="IAction.GetState"/> will return a
         /// #GVariant of the same type.
         /// 
-        /// If the action is not stateful (e.g. created with <see cref="New"/>)
-        /// then this function will return <c>null</c>. In that case, <see cref="GetState"/>
-        /// will return <c>null</c> and you must not call <see cref="ChangeState"/>.
+        /// If the action is not stateful (e.g. created with <see cref="SimpleAction.New"/>)
+        /// then this function will return <c>null</c>. In that case, <see cref="IAction.GetState"/>
+        /// will return <c>null</c> and you must not call <see cref="IAction.ChangeState"/>.
         /// </remarks>
         /// <returns>
         /// the state type, if the action is stateful
@@ -441,7 +441,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// It is an error to call this function with an invalid action name.
         /// 
-        /// This function is the opposite of <see cref="ParseDetailedName"/>.
+        /// This function is the opposite of <see cref="IAction.ParseDetailedName"/>.
         /// It will produce a string that can be parsed back to the <paramref name="actionName"/>
         /// and <paramref name="targetValue"/> by that function.
         /// 
@@ -560,11 +560,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="GetStateType"/>.
+        /// See <see cref="IAction.GetStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="GetStateHint"/>.
+        /// See <see cref="IAction.GetStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -693,7 +693,7 @@ namespace GISharp.Lib.Gio
         /// <paramref name="action"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="Activate"/>, the #GVariant
+        /// When activating the action using <see cref="IAction.Activate"/>, the #GVariant
         /// given to that function must be of the type returned by this function.
         /// 
         /// In the case that this function returns <c>null</c>, you must not give any
@@ -746,7 +746,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="GetStateType"/>.
+        /// given by <see cref="IAction.GetStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -873,15 +873,15 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// If the action is stateful (e.g. created with
-        /// <see cref="NewStateful"/>) then this function returns the
+        /// <see cref="SimpleAction.NewStateful"/>) then this function returns the
         /// #GVariantType of the state.  This is the type of the initial value
-        /// given as the state. All calls to <see cref="ChangeState"/> must give a
-        /// #GVariant of this type and <see cref="GetState"/> will return a
+        /// given as the state. All calls to <see cref="IAction.ChangeState"/> must give a
+        /// #GVariant of this type and <see cref="IAction.GetState"/> will return a
         /// #GVariant of the same type.
         /// 
-        /// If the action is not stateful (e.g. created with <see cref="New"/>)
-        /// then this function will return <c>null</c>. In that case, <see cref="GetState"/>
-        /// will return <c>null</c> and you must not call <see cref="ChangeState"/>.
+        /// If the action is not stateful (e.g. created with <see cref="SimpleAction.New"/>)
+        /// then this function will return <c>null</c>. In that case, <see cref="IAction.GetState"/>
+        /// will return <c>null</c> and you must not call <see cref="IAction.ChangeState"/>.
         /// </remarks>
         /// <param name="action">
         /// a <see cref="IAction"/>
@@ -909,17 +909,17 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// The main way to interact with the actions in a GActionGroup is to
-    /// activate them with <see cref="ActivateAction"/>. Activating an
+    /// activate them with <see cref="IActionGroup.ActivateAction"/>. Activating an
     /// action may require a #GVariant parameter. The required type of the
-    /// parameter can be inquired with <see cref="GetActionParameterType"/>.
-    /// Actions may be disabled, see <see cref="GetActionEnabled"/>.
+    /// parameter can be inquired with <see cref="IActionGroup.GetActionParameterType"/>.
+    /// Actions may be disabled, see <see cref="IActionGroup.GetActionEnabled"/>.
     /// Activating a disabled action has no effect.
     /// 
     /// Actions may optionally have a state in the form of a #GVariant. The
     /// current state of an action can be inquired with
-    /// <see cref="GetActionState"/>. Activating a stateful action may
+    /// <see cref="IActionGroup.GetActionState"/>. Activating a stateful action may
     /// change its state, but it is also possible to set the state by calling
-    /// <see cref="ChangeActionState"/>.
+    /// <see cref="IActionGroup.ChangeActionState"/>.
     /// 
     /// As typical example, consider a text editing application which has an
     /// option to change the current font to 'bold'. A good way to represent
@@ -927,7 +927,7 @@ namespace GISharp.Lib.Gio
     /// action would toggle the state.
     /// 
     /// Each action in the group has a unique name (which is a string).  All
-    /// method calls, except <see cref="ListActions"/> take the name of
+    /// method calls, except <see cref="IActionGroup.ListActions"/> take the name of
     /// an action as an argument.
     /// 
     /// The <see cref="IActionGroup"/> API is meant to be the 'public' API to the action
@@ -935,17 +935,17 @@ namespace GISharp.Lib.Gio
     /// forces' (eg: UI, incoming D-Bus messages, etc.) are supposed to have
     /// with actions.  'Internal' APIs (ie: ones meant only to be accessed by
     /// the action group implementation) are found on subclasses.  This is
-    /// why you will find - for example - <see cref="GetActionEnabled"/>
+    /// why you will find - for example - <see cref="IActionGroup.GetActionEnabled"/>
     /// but not an equivalent set() call.
     /// 
     /// Signals are emitted on the action group in response to state changes
     /// on individual actions.
     /// 
     /// Implementations of <see cref="IActionGroup"/> should provide implementations for
-    /// the virtual functions <see cref="ListActions"/> and
-    /// <see cref="TryQueryAction"/>.  The other virtual functions should
+    /// the virtual functions <see cref="IActionGroup.ListActions"/> and
+    /// <see cref="IActionGroup.TryQueryAction"/>.  The other virtual functions should
     /// not be implemented - their "wrappers" are actually implemented with
-    /// calls to <see cref="TryQueryAction"/>.
+    /// calls to <see cref="IActionGroup.TryQueryAction"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
@@ -1048,7 +1048,7 @@ namespace GISharp.Lib.Gio
         /// If the action is expecting a parameter, then the correct type of
         /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
         /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
-        /// <see cref="GetActionParameterType"/>.
+        /// <see cref="IActionGroup.GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionName">
         /// the name of the action to activate
@@ -1066,11 +1066,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="GetActionStateType"/>.
+        /// See <see cref="IActionGroup.GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="GetActionStateHint"/>.
+        /// See <see cref="IActionGroup.GetActionStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -1106,7 +1106,7 @@ namespace GISharp.Lib.Gio
         /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="ActivateAction"/>,
+        /// When activating the action using <see cref="IActionGroup.ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
@@ -1133,7 +1133,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="GetActionStateType"/>.
+        /// given by <see cref="IActionGroup.GetActionStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -1186,13 +1186,13 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// <see cref="ChangeActionState"/> must give a #GVariant of this
-        /// type and <see cref="GetActionState"/> will return a #GVariant
+        /// <see cref="IActionGroup.ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="IActionGroup.GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
         /// If the action is not stateful then this function will return <c>null</c>.
-        /// In that case, <see cref="GetActionState"/> will return <c>null</c>
-        /// and you must not call <see cref="ChangeActionState"/>.
+        /// In that case, <see cref="IActionGroup.GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="IActionGroup.ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -1534,7 +1534,7 @@ namespace GISharp.Lib.Gio
         /// If the action is expecting a parameter, then the correct type of
         /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
         /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
-        /// <see cref="GetActionParameterType"/>.
+        /// <see cref="IActionGroup.GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionGroup">
         /// a <see cref="IActionGroup"/>
@@ -1598,11 +1598,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="GetActionStateType"/>.
+        /// See <see cref="IActionGroup.GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="GetActionStateHint"/>.
+        /// See <see cref="IActionGroup.GetActionStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -1720,7 +1720,7 @@ namespace GISharp.Lib.Gio
         /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="ActivateAction"/>,
+        /// When activating the action using <see cref="IActionGroup.ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
@@ -1788,7 +1788,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="GetActionStateType"/>.
+        /// given by <see cref="IActionGroup.GetActionStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -1941,13 +1941,13 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// <see cref="ChangeActionState"/> must give a #GVariant of this
-        /// type and <see cref="GetActionState"/> will return a #GVariant
+        /// <see cref="IActionGroup.ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="IActionGroup.GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
         /// If the action is not stateful then this function will return <c>null</c>.
-        /// In that case, <see cref="GetActionState"/> will return <c>null</c>
-        /// and you must not call <see cref="ChangeActionState"/>.
+        /// In that case, <see cref="IActionGroup.GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="IActionGroup.ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -2152,11 +2152,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// This function acquires the information available from
-        /// <see cref="HasAction"/>, <see cref="GetActionEnabled"/>,
-        /// <see cref="GetActionParameterType"/>,
-        /// <see cref="GetActionStateType"/>,
-        /// <see cref="GetActionStateHint"/> and
-        /// <see cref="GetActionState"/> with a single function call.
+        /// <see cref="IActionGroup.HasAction"/>, <see cref="IActionGroup.GetActionEnabled"/>,
+        /// <see cref="IActionGroup.GetActionParameterType"/>,
+        /// <see cref="IActionGroup.GetActionStateType"/>,
+        /// <see cref="IActionGroup.GetActionStateHint"/> and
+        /// <see cref="IActionGroup.GetActionState"/> with a single function call.
         /// 
         /// This provides two main benefits.
         /// 
@@ -4211,13 +4211,13 @@ System.IntPtr sourceTag);
         /// <remarks>
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with <see cref="Reset"/>.
+        /// with <see cref="Cancellable.Reset"/>.
         /// 
         /// After a successful return from this function, you should use
-        /// <see cref="ReleaseFd"/> to free up resources allocated for
+        /// <see cref="Cancellable.ReleaseFd"/> to free up resources allocated for
         /// the returned file descriptor.
         /// 
-        /// See also <see cref="TryMakePollfd"/>.
+        /// See also <see cref="Cancellable.TryMakePollfd"/>.
         /// </remarks>
         public System.Int32 Fd { get => GetFd(); }
 
@@ -4304,8 +4304,8 @@ System.IntPtr sourceTag);
         /// the signal leaves a race condition where this is still happening.
         /// 
         /// In order to make it safe and easy to connect handlers there
-        /// are two helper functions: <see cref="Connect"/> and
-        /// <see cref="Disconnect"/> which protect against problems
+        /// are two helper functions: <see cref="Cancellable.Connect"/> and
+        /// <see cref="Cancellable.Disconnect"/> which protect against problems
         /// like this.
         /// 
         /// An example of how to us this:
@@ -4583,13 +4583,13 @@ System.IntPtr sourceTag);
         /// <remarks>
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with <see cref="Reset"/>.
+        /// with <see cref="Cancellable.Reset"/>.
         /// 
         /// After a successful return from this function, you should use
-        /// <see cref="ReleaseFd"/> to free up resources allocated for
+        /// <see cref="Cancellable.ReleaseFd"/> to free up resources allocated for
         /// the returned file descriptor.
         /// 
-        /// See also <see cref="TryMakePollfd"/>.
+        /// See also <see cref="Cancellable.TryMakePollfd"/>.
         /// </remarks>
         /// <returns>
         /// A valid file descriptor. %-1 if the file descriptor
@@ -4687,8 +4687,8 @@ System.IntPtr sourceTag);
         /// </summary>
         /// <remarks>
         /// When this function returns <c>true</c>, you should use
-        /// <see cref="ReleaseFd"/> to free up resources allocated for the
-        /// <paramref name="pollfd"/>. After a <c>false</c> return, do not call <see cref="ReleaseFd"/>.
+        /// <see cref="Cancellable.ReleaseFd"/> to free up resources allocated for the
+        /// <paramref name="pollfd"/>. After a <c>false</c> return, do not call <see cref="Cancellable.ReleaseFd"/>.
         /// 
         /// If this function returns <c>false</c>, either no <paramref name="cancellable"/> was given or
         /// resource limits prevent this function from allocating the necessary
@@ -4698,7 +4698,7 @@ System.IntPtr sourceTag);
         /// 
         /// You are not supposed to read from the fd yourself, just check for
         /// readable status. Reading to unset the readable status is done
-        /// with <see cref="Reset"/>.
+        /// with <see cref="Cancellable.Reset"/>.
         /// </remarks>
         /// <param name="pollfd">
         /// a pointer to a #GPollFD
@@ -4767,7 +4767,7 @@ System.IntPtr sourceTag);
 
         /// <summary>
         /// Pushes <paramref name="cancellable"/> onto the cancellable stack. The current
-        /// cancellable can then be received using <see cref="GetCurrent"/>.
+        /// cancellable can then be received using <see cref="Cancellable.GetCurrent"/>.
         /// </summary>
         /// <remarks>
         /// This is useful when implementing cancellable operations in
@@ -4807,8 +4807,8 @@ System.IntPtr sourceTag);
         System.IntPtr cancellable);
 
         /// <summary>
-        /// Releases a resources previously allocated by <see cref="GetFd"/>
-        /// or <see cref="TryMakePollfd"/>.
+        /// Releases a resources previously allocated by <see cref="Cancellable.GetFd"/>
+        /// or <see cref="Cancellable.TryMakePollfd"/>.
         /// </summary>
         /// <remarks>
         /// For compatibility reasons with older releases, calling this function
@@ -5000,7 +5000,7 @@ System.IntPtr cancellable);
 
     /// <summary>
     /// This is the function type of the callback used for the #GSource
-    /// returned by <see cref="New"/>.
+    /// returned by <see cref="CancellableSource.New"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
     public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable = null);
@@ -5747,7 +5747,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Prints what the matcher is matching against. The format will be
-        /// equal to the format passed to <see cref="New"/>.
+        /// equal to the format passed to <see cref="FileAttributeMatcher.New"/>.
         /// The output however, might not be identical, as the matcher may
         /// decide to use a different order or omit needless parts.
         /// </summary>
@@ -5888,7 +5888,7 @@ System.IntPtr cancellable);
     /// or g_file_set_attributes_async() on a GFile.
     /// 
     /// However, not all attributes can be changed in the file. For instance,
-    /// the actual size of a file cannot be changed via <see cref="SetSize"/>.
+    /// the actual size of a file cannot be changed via <see cref="FileInfo.SetSize"/>.
     /// You may call g_file_query_settable_attributes() and
     /// g_file_query_writable_namespaces() to discover the settable attributes
     /// of a particular file at runtime.
@@ -5933,7 +5933,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Gets a file's type (whether it is a regular file, symlink, etc).
-        /// This is different from the file's content type, see <see cref="GetContentType"/>.
+        /// This is different from the file's content type, see <see cref="FileInfo.GetContentType"/>.
         /// </summary>
         public GISharp.Lib.Gio.FileType FileType { get => GetFileType(); set => SetFileType(value); }
 
@@ -6908,7 +6908,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Gets a file's type (whether it is a regular file, symlink, etc).
-        /// This is different from the file's content type, see <see cref="GetContentType"/>.
+        /// This is different from the file's content type, see <see cref="FileInfo.GetContentType"/>.
         /// </summary>
         /// <returns>
         /// a <see cref="FileType"/> for the given file.
@@ -8451,7 +8451,7 @@ System.IntPtr cancellable);
         System.IntPtr info);
 
         /// <summary>
-        /// Unsets a mask set by <see cref="SetAttributeMask"/>, if one
+        /// Unsets a mask set by <see cref="FileInfo.SetAttributeMask"/>, if one
         /// is set.
         /// </summary>
         public unsafe void UnsetAttributeMask()
@@ -8859,12 +8859,12 @@ System.IntPtr cancellable);
     /// of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
     /// of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
     /// 
-    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="GetHashCode"/>.
+    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="IIcon.GetHashCode"/>.
     /// 
-    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="Equals"/>.
+    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="IIcon.Equals"/>.
     /// 
-    /// For serializing a <see cref="IIcon"/>, use <see cref="Serialize"/> and
-    /// <see cref="Deserialize"/>.
+    /// For serializing a <see cref="IIcon"/>, use <see cref="IIcon.Serialize"/> and
+    /// <see cref="IIcon.Deserialize"/>.
     /// 
     /// If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
     /// be prepared to handle at least the three following cases:
@@ -8876,8 +8876,8 @@ System.IntPtr cancellable);
     /// If your application or library provides one or more <see cref="IIcon"/>
     /// implementations you need to ensure that your new implementation also
     /// implements #GLoadableIcon.  Additionally, you must provide an
-    /// implementation of <see cref="Serialize"/> that gives a result that is
-    /// understood by <see cref="Deserialize"/>, yielding one of the built-in icon
+    /// implementation of <see cref="IIcon.Serialize"/> that gives a result that is
+    /// understood by <see cref="IIcon.Deserialize"/>, yielding one of the built-in icon
     /// types.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
@@ -8908,7 +8908,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="Deserialize"/> on the returned value.
+        /// back by calling <see cref="IIcon.Deserialize"/> on the returned value.
         /// As serialization will avoid using raw icon data when possible, it only
         /// makes sense to transfer the #GVariant between processes on the same machine,
         /// (as opposed to over the network), and within the same file system namespace.
@@ -8944,10 +8944,10 @@ System.IntPtr cancellable);
         System.IntPtr value);
 
         /// <summary>
-        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="Serialize"/>.
+        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="IIcon.Serialize"/>.
         /// </summary>
         /// <param name="value">
-        /// a #GVariant created with <see cref="Serialize"/>
+        /// a #GVariant created with <see cref="IIcon.Serialize"/>
         /// </param>
         /// <returns>
         /// a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
@@ -8994,15 +8994,15 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-        /// <paramref name="str"/> is not valid - see <see cref="ToString"/> for discussion.
+        /// <paramref name="str"/> is not valid - see <see cref="IIcon.ToString"/> for discussion.
         /// </summary>
         /// <remarks>
         /// If your application or library provides one or more <see cref="IIcon"/>
         /// implementations you need to ensure that each #GType is registered
-        /// with the type system prior to calling <see cref="NewForString"/>.
+        /// with the type system prior to calling <see cref="IIcon.NewForString"/>.
         /// </remarks>
         /// <param name="str">
-        /// A string obtained via <see cref="ToString"/>.
+        /// A string obtained via <see cref="IIcon.ToString"/>.
         /// </param>
         /// <returns>
         /// An object implementing the <see cref="IIcon"/>
@@ -9136,7 +9136,7 @@ System.IntPtr cancellable);
 
         /// <summary>
         /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="Deserialize"/> on the returned value.
+        /// back by calling <see cref="IIcon.Deserialize"/> on the returned value.
         /// As serialization will avoid using raw icon data when possible, it only
         /// makes sense to transfer the #GVariant between processes on the same machine,
         /// (as opposed to over the network), and within the same file system namespace.
@@ -9194,7 +9194,7 @@ System.IntPtr cancellable);
         /// <summary>
         /// Generates a textual representation of <paramref name="icon"/> that can be used for
         /// serialization such as when passing <paramref name="icon"/> to a different process or
-        /// saving it to persistent storage. Use <see cref="NewForString"/> to
+        /// saving it to persistent storage. Use <see cref="IIcon.NewForString"/> to
         /// get <paramref name="icon"/> back from the returned string.
         /// </summary>
         /// <remarks>
@@ -9386,9 +9386,9 @@ System.IntPtr icon);
     }
 
     /// <summary>
-    /// <see cref="InputStream"/> has functions to read from a stream (<see cref="Read"/>),
-    /// to close a stream (<see cref="Close"/>) and to skip some content
-    /// (<see cref="Skip"/>).
+    /// <see cref="InputStream"/> has functions to read from a stream (<see cref="InputStream.Read"/>),
+    /// to close a stream (<see cref="InputStream.Close"/>) and to skip some content
+    /// (<see cref="InputStream.Skip"/>).
     /// </summary>
     /// <remarks>
     /// To copy the content of an input stream to an output stream without
@@ -9599,11 +9599,11 @@ System.IntPtr icon);
         /// <summary>
         /// Requests an asynchronous closes of the stream, releasing resources related to it.
         /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="CloseFinish"/> to get the result of the
+        /// You can then call <see cref="InputStream.CloseFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// For behaviour details see <see cref="Close"/>.
+        /// For behaviour details see <see cref="InputStream.Close"/>.
         /// 
         /// The asynchronous methods have a default fallback that uses threads to implement
         /// asynchronicity, so they are optional for inheriting classes. However, if you
@@ -9936,7 +9936,7 @@ System.IntPtr icon);
         /// <paramref name="buffer"/>. Will block during this read.
         /// </summary>
         /// <remarks>
-        /// This function is similar to <see cref="Read"/>, except it tries to
+        /// This function is similar to <see cref="InputStream.Read"/>, except it tries to
         /// read as many bytes as requested, only stopping on an error or end of stream.
         /// 
         /// On a successful read of <paramref name="count"/> bytes, or if we reached the end of the
@@ -9951,7 +9951,7 @@ System.IntPtr icon);
         /// <paramref name="bytesRead"/> will be set to the number of bytes that were successfully
         /// read before the error was encountered.  This functionality is only
         /// available from C.  If you need it from another language then you must
-        /// write your own loop around <see cref="Read"/>.
+        /// write your own loop around <see cref="InputStream.Read"/>.
         /// </remarks>
         /// <param name="buffer">
         /// a buffer to
@@ -10054,9 +10054,9 @@ System.IntPtr icon);
         /// buffer starting at <paramref name="buffer"/>.
         /// </summary>
         /// <remarks>
-        /// This is the asynchronous equivalent of <see cref="ReadAll"/>.
+        /// This is the asynchronous equivalent of <see cref="InputStream.ReadAll"/>.
         /// 
-        /// Call <see cref="ReadAllFinish"/> to collect the result.
+        /// Call <see cref="InputStream.ReadAllFinish"/> to collect the result.
         /// 
         /// Any outstanding I/O request with higher priority (lower numerical
         /// value) will be executed before an outstanding request with lower
@@ -10240,7 +10240,7 @@ System.IntPtr icon);
         /// <summary>
         /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the buffer
         /// starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="ReadFinish"/> to get the result of the
+        /// You can then call <see cref="InputStream.ReadFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
@@ -10348,7 +10348,7 @@ System.IntPtr icon);
         System.IntPtr* error);
 
         /// <summary>
-        /// Like <see cref="Read"/>, this tries to read <paramref name="count"/> bytes from
+        /// Like <see cref="InputStream.Read"/>, this tries to read <paramref name="count"/> bytes from
         /// the stream in a blocking fashion. However, rather than reading into
         /// a user-supplied buffer, this will create a new #GBytes containing
         /// the data that was read. This may be easier to use from language
@@ -10474,7 +10474,7 @@ System.IntPtr icon);
         /// <summary>
         /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into a
         /// new #GBytes. When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="ReadBytesFinish"/> to get the
+        /// called. You can then call <see cref="InputStream.ReadBytesFinish"/> to get the
         /// result of the operation.
         /// </summary>
         /// <remarks>
@@ -10726,7 +10726,7 @@ System.IntPtr icon);
         /// Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
         /// </summary>
         /// <remarks>
-        /// This is identical to <see cref="Read"/>, from a behaviour standpoint,
+        /// This is identical to <see cref="InputStream.Read"/>, from a behaviour standpoint,
         /// but the bytes that are skipped are not returned to the user. Some
         /// streams have an implementation that is more efficient than reading the data.
         /// 
@@ -10840,7 +10840,7 @@ System.IntPtr icon);
         /// <summary>
         /// Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
         /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="SkipFinish"/> to get the result
+        /// You can then call <see cref="InputStream.SkipFinish"/> to get the result
         /// of the operation.
         /// </summary>
         /// <remarks>
@@ -10943,11 +10943,11 @@ System.IntPtr icon);
         /// <summary>
         /// Requests an asynchronous closes of the stream, releasing resources related to it.
         /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="CloseFinish"/> to get the result of the
+        /// You can then call <see cref="InputStream.CloseFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
-        /// For behaviour details see <see cref="Close"/>.
+        /// For behaviour details see <see cref="InputStream.Close"/>.
         /// 
         /// The asynchronous methods have a default fallback that uses threads to implement
         /// asynchronicity, so they are optional for inheriting classes. However, if you
@@ -10973,7 +10973,7 @@ System.IntPtr icon);
         }
 
         /// <summary>
-        /// Finishes closing a stream asynchronously, started from <see cref="CloseAsync"/>.
+        /// Finishes closing a stream asynchronously, started from <see cref="InputStream.CloseAsync"/>.
         /// </summary>
         /// <param name="result">
         /// a <see cref="IAsyncResult"/>.
@@ -11007,7 +11007,7 @@ System.IntPtr icon);
         /// <summary>
         /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the buffer
         /// starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="ReadFinish"/> to get the result of the
+        /// You can then call <see cref="InputStream.ReadFinish"/> to get the result of the
         /// operation.
         /// </summary>
         /// <remarks>
@@ -11094,7 +11094,7 @@ System.IntPtr icon);
         /// Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
         /// </summary>
         /// <remarks>
-        /// This is identical to <see cref="Read"/>, from a behaviour standpoint,
+        /// This is identical to <see cref="InputStream.Read"/>, from a behaviour standpoint,
         /// but the bytes that are skipped are not returned to the user. Some
         /// streams have an implementation that is more efficient than reading the data.
         /// 
@@ -11125,7 +11125,7 @@ System.IntPtr icon);
         /// <summary>
         /// Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
         /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="SkipFinish"/> to get the result
+        /// You can then call <see cref="InputStream.SkipFinish"/> to get the result
         /// of the operation.
         /// </summary>
         /// <remarks>
@@ -11759,7 +11759,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Tests if the length of the stream can be adjusted with
-        /// <see cref="Truncate"/>.
+        /// <see cref="ISeekable.Truncate"/>.
         /// </summary>
         /// <returns>
         /// <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
@@ -11906,7 +11906,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Tests if the length of the stream can be adjusted with
-        /// <see cref="Truncate"/>.
+        /// <see cref="ISeekable.Truncate"/>.
         /// </summary>
         /// <param name="seekable">
         /// a <see cref="ISeekable"/>.
@@ -12428,8 +12428,8 @@ System.IntPtr* error);
         /// If <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
-        /// If the action is disabled then calls to <see cref="Activate"/> and
-        /// <see cref="ChangeState"/> have no effect.
+        /// If the action is disabled then calls to <see cref="IAction.Activate"/> and
+        /// <see cref="IAction.ChangeState"/> have no effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -12502,7 +12502,7 @@ System.IntPtr* error);
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See <see cref="NewStateful"/>.
+        /// The created action is stateless.  See <see cref="SimpleAction.NewStateful"/>.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -12526,7 +12526,7 @@ System.IntPtr* error);
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See <see cref="NewStateful"/>.
+        /// The created action is stateless.  See <see cref="SimpleAction.NewStateful"/>.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
@@ -12685,10 +12685,10 @@ System.IntPtr* error);
         /// an incorrect type was given, no signal will be emitted.
         /// 
         /// If no handler is connected to this signal then the default
-        /// behaviour is to call <see cref="SetState"/> to set the state
+        /// behaviour is to call <see cref="SimpleAction.SetState"/> to set the state
         /// to the requested value. If you connect a signal handler then no
         /// default action is taken. If the state should change then you must
-        /// call <see cref="SetState"/> from the handler.
+        /// call <see cref="SimpleAction.SetState"/> from the handler.
         /// 
         /// An example of a 'change-state' handler:
         /// |[&lt;!-- language="C" --&gt;
@@ -12807,7 +12807,7 @@ System.IntPtr* error);
         /// 
         /// This should only be called by the implementor of the action.  Users
         /// of the action should not attempt to directly modify the 'state'
-        /// property.  Instead, they should call <see cref="ChangeState"/> to
+        /// property.  Instead, they should call <see cref="IAction.ChangeState"/> to
         /// request the change.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
@@ -12852,7 +12852,7 @@ System.IntPtr* error);
         /// Sets the state hint for the action.
         /// </summary>
         /// <remarks>
-        /// See <see cref="GetStateHint"/> for more information about
+        /// See <see cref="IAction.GetStateHint"/> for more information about
         /// action state hints.
         /// </remarks>
         /// <param name="stateHint">
@@ -12915,19 +12915,19 @@ System.IntPtr* error);
     /// 
     /// The most common usage of <see cref="Task"/> is as a <see cref="IAsyncResult"/>, to
     /// manage data during an asynchronous operation. You call
-    /// <see cref="New"/> in the "start" method, followed by
-    /// <see cref="SetTaskData"/> and the like if you need to keep some
+    /// <see cref="Task.New"/> in the "start" method, followed by
+    /// <see cref="Task.SetTaskData"/> and the like if you need to keep some
     /// additional data associated with the task, and then pass the
     /// task object around through your asynchronous operation.
     /// Eventually, you will call a method such as
-    /// <see cref="ReturnPointer"/> or <see cref="ReturnError"/>, which will
+    /// <see cref="Task.ReturnPointer"/> or <see cref="Task.ReturnError"/>, which will
     /// save the value you give it and then invoke the task's callback
     /// function in the
     /// [thread-default main context][g-main-context-push-thread-default]
     /// where it was created (waiting until the next iteration of the main
     /// loop first, if necessary). The caller will pass the <see cref="Task"/> back to
     /// the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
-    /// can use <see cref="PropagatePointer"/> or the like to extract the
+    /// can use <see cref="Task.PropagatePointer"/> or the like to extract the
     /// return value.
     /// 
     /// Here is an example for using GTask as a GAsyncResult:
@@ -12963,7 +12963,7 @@ System.IntPtr* error);
     ///       if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
     ///         {
     ///           g_object_unref (cake);
-    ///           // <see cref="ReturnError"/> takes ownership of error
+    ///           // <see cref="Task.ReturnError"/> takes ownership of error
     ///           g_task_return_error (task, error);
     ///           g_object_unref (task);
     ///           return;
@@ -13029,8 +13029,8 @@ System.IntPtr* error);
     /// 
     /// <see cref="Task"/> also tries to simplify asynchronous operations that
     /// internally chain together several smaller asynchronous
-    /// operations. <see cref="GetCancellable"/>, <see cref="GetContext"/>,
-    /// and <see cref="GetPriority"/> allow you to get back the task's
+    /// operations. <see cref="Task.GetCancellable"/>, <see cref="Task.GetContext"/>,
+    /// and <see cref="Task.GetPriority"/> allow you to get back the task's
     /// <see cref="Cancellable"/>, #GMainContext, and [I/O priority][io-priority]
     /// when starting a new subtask, so you don't have to keep track
     /// of them yourself. g_task_attach_source() simplifies the case
@@ -13247,7 +13247,7 @@ System.IntPtr* error);
     /// 
     /// Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
     /// can be used to turn an uncancellable operation into a
-    /// cancellable one. If you call <see cref="SetReturnOnCancel"/>,
+    /// cancellable one. If you call <see cref="Task.SetReturnOnCancel"/>,
     /// passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
     /// it will return control back to the caller immediately, while
     /// allowing the task thread to continue running in the background
@@ -13282,7 +13282,7 @@ System.IntPtr* error);
     ///       // If the task has already been cancelled, then we don't want to add
     ///       // the cake to the cake cache. Likewise, we don't  want to have the
     ///       // task get cancelled in the middle of updating the cache.
-    ///       // <see cref="SetReturnOnCancel"/> will return <c>true</c> here if it managed
+    ///       // <see cref="Task.SetReturnOnCancel"/> will return <c>true</c> here if it managed
     ///       // to disable return-on-cancel, or <c>false</c> if the task was cancelled
     ///       // before it could.
     ///       if (g_task_set_return_on_cancel (task, FALSE))
@@ -13353,8 +13353,8 @@ System.IntPtr* error);
     /// 
     /// <see cref="Task"/>'s API attempts to be simpler than #GSimpleAsyncResult's
     /// in several ways:
-    /// - You can save task-specific data with <see cref="SetTaskData"/>, and
-    ///   retrieve it later with <see cref="GetTaskData"/>. This replaces the
+    /// - You can save task-specific data with <see cref="Task.SetTaskData"/>, and
+    ///   retrieve it later with <see cref="Task.GetTaskData"/>. This replaces the
     ///   abuse of g_simple_async_result_set_op_res_gpointer() for the same
     ///   purpose with #GSimpleAsyncResult.
     /// - In addition to the task data, <see cref="Task"/> also keeps track of the
@@ -13362,20 +13362,20 @@ System.IntPtr* error);
     ///   #GMainContext associated with the task, so tasks that consist of
     ///   a chain of simpler asynchronous operations will have easy access
     ///   to those values when starting each sub-task.
-    /// - <see cref="ReturnErrorIfCancelled"/> provides simplified
+    /// - <see cref="Task.ReturnErrorIfCancelled"/> provides simplified
     ///   handling for cancellation. In addition, cancellation
     ///   overrides any other <see cref="Task"/> return value by default, like
     ///   #GSimpleAsyncResult does when
     ///   g_simple_async_result_set_check_cancellable() is called.
-    ///   (You can use <see cref="SetCheckCancellable"/> to turn off that
+    ///   (You can use <see cref="Task.SetCheckCancellable"/> to turn off that
     ///   behavior.) On the other hand, g_task_run_in_thread()
     ///   guarantees that it will always run your
     ///   `task_func`, even if the task's <see cref="Cancellable"/>
     ///   is already cancelled before the task gets a chance to run;
     ///   you can start your `task_func` with a
-    ///   <see cref="ReturnErrorIfCancelled"/> check if you need the
+    ///   <see cref="Task.ReturnErrorIfCancelled"/> check if you need the
     ///   old behavior.
-    /// - The "return" methods (eg, <see cref="ReturnPointer"/>)
+    /// - The "return" methods (eg, <see cref="Task.ReturnPointer"/>)
     ///   automatically cause the task to be "completed" as well, and
     ///   there is no need to worry about the "complete" vs "complete
     ///   in idle" distinction. (<see cref="Task"/> automatically figures out
@@ -13384,8 +13384,8 @@ System.IntPtr* error);
     ///   until the next iteration of the current #GMainContext.)
     /// - The "finish" functions for <see cref="Task"/> based operations are generally
     ///   much simpler than #GSimpleAsyncResult ones, normally consisting
-    ///   of only a single call to <see cref="PropagatePointer"/> or the like.
-    ///   Since <see cref="PropagatePointer"/> "steals" the return value from
+    ///   of only a single call to <see cref="Task.PropagatePointer"/> or the like.
+    ///   Since <see cref="Task.PropagatePointer"/> "steals" the return value from
     ///   the <see cref="Task"/>, it is not necessary to juggle pointers around to
     ///   prevent it from being freed twice.
     /// - With #GSimpleAsyncResult, it was common to call
@@ -13400,10 +13400,10 @@ System.IntPtr* error);
     ///   Note that wrapper methods can now use
     ///   g_async_result_legacy_propagate_error() to do old-style
     ///   #GSimpleAsyncResult error-returning behavior, and
-    ///   <see cref="IsTagged"/> to check if a result is tagged as
+    ///   <see cref="IAsyncResult.IsTagged"/> to check if a result is tagged as
     ///   having come from the `_async()` wrapper
     ///   function (for "short-circuit" results, such as when passing
-    ///   0 to <see cref="ReadAsync"/>).
+    ///   0 to <see cref="InputStream.ReadAsync"/>).
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GTask", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(TaskClass))]
@@ -13413,8 +13413,8 @@ System.IntPtr* error);
 
         /// <summary>
         /// Whether the task has completed, meaning its callback (if set) has been
-        /// invoked. This can only happen after <see cref="ReturnPointer"/>,
-        /// <see cref="ReturnError"/> or one of the other return functions have been called
+        /// invoked. This can only happen after <see cref="Task.ReturnPointer"/>,
+        /// <see cref="Task.ReturnError"/> or one of the other return functions have been called
         /// on the task.
         /// </summary>
         /// <remarks>
@@ -13435,7 +13435,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Gets <paramref name="task"/>'s check-cancellable flag. See
-        /// <see cref="SetCheckCancellable"/> for more details.
+        /// <see cref="Task.SetCheckCancellable"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean CheckCancellable { get => GetCheckCancellable(); set => SetCheckCancellable(value); }
@@ -13469,20 +13469,20 @@ System.IntPtr* error);
 
         /// <summary>
         /// Gets <paramref name="task"/>'s return-on-cancel flag. See
-        /// <see cref="SetReturnOnCancel"/> for more details.
+        /// <see cref="Task.SetReturnOnCancel"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean ReturnOnCancel { get => GetReturnOnCancel(); }
 
         /// <summary>
         /// Gets the source object from <paramref name="task"/>. Like
-        /// <see cref="GetSourceObject"/>, but does not ref the object.
+        /// <see cref="IAsyncResult.GetSourceObject"/>, but does not ref the object.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GObject.Object SourceObject { get => GetSourceObject(); }
 
         /// <summary>
-        /// Gets <paramref name="task"/>'s source tag. See <see cref="SetSourceTag"/>.
+        /// Gets <paramref name="task"/>'s source tag. See <see cref="Task.SetSourceTag"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr SourceTag { get => GetSourceTag(); set => SetSourceTag(value); }
@@ -13559,8 +13559,8 @@ System.IntPtr* error);
         /// <remarks>
         /// Call this in the "start" method of your asynchronous method, and
         /// pass the <see cref="Task"/> around throughout the asynchronous operation. You
-        /// can use <see cref="SetTaskData"/> to attach task-specific data to the
-        /// object, which you can retrieve later via <see cref="GetTaskData"/>.
+        /// can use <see cref="Task.SetTaskData"/> to attach task-specific data to the
+        /// object, which you can retrieve later via <see cref="Task.GetTaskData"/>.
         /// 
         /// By default, if <paramref name="cancellable"/> is cancelled, then the return value of
         /// the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
@@ -13568,7 +13568,7 @@ System.IntPtr* error);
         /// simplified handling in cases where cancellation may imply that
         /// other objects that the task depends on have been destroyed. If you
         /// do not want this behavior, you can use
-        /// <see cref="SetCheckCancellable"/> to change it.
+        /// <see cref="Task.SetCheckCancellable"/> to change it.
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
@@ -13601,8 +13601,8 @@ System.IntPtr* error);
         /// <remarks>
         /// Call this in the "start" method of your asynchronous method, and
         /// pass the <see cref="Task"/> around throughout the asynchronous operation. You
-        /// can use <see cref="SetTaskData"/> to attach task-specific data to the
-        /// object, which you can retrieve later via <see cref="GetTaskData"/>.
+        /// can use <see cref="Task.SetTaskData"/> to attach task-specific data to the
+        /// object, which you can retrieve later via <see cref="Task.GetTaskData"/>.
         /// 
         /// By default, if <paramref name="cancellable"/> is cancelled, then the return value of
         /// the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
@@ -13610,7 +13610,7 @@ System.IntPtr* error);
         /// simplified handling in cases where cancellation may imply that
         /// other objects that the task depends on have been destroyed. If you
         /// do not want this behavior, you can use
-        /// <see cref="SetCheckCancellable"/> to change it.
+        /// <see cref="Task.SetCheckCancellable"/> to change it.
         /// </remarks>
         /// <param name="sourceObject">
         /// the #GObject that owns
@@ -13730,10 +13730,10 @@ System.IntPtr* error);
         System.IntPtr error);
 
         /// <summary>
-        /// Creates a <see cref="Task"/> and then immediately calls <see cref="ReturnError"/>
+        /// Creates a <see cref="Task"/> and then immediately calls <see cref="Task.ReturnError"/>
         /// on it. Use this in the wrapper function of an asynchronous method
         /// when you want to avoid even calling the virtual method. You can
-        /// then use <see cref="IsTagged"/> in the finish method wrapper to
+        /// then use <see cref="IAsyncResult.IsTagged"/> in the finish method wrapper to
         /// check if the result there is tagged as having been created by the
         /// wrapper method, and deal with it appropriately if so.
         /// </summary>
@@ -13819,7 +13819,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Gets <paramref name="task"/>'s check-cancellable flag. See
-        /// <see cref="SetCheckCancellable"/> for more details.
+        /// <see cref="Task.SetCheckCancellable"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetCheckCancellable()
@@ -13965,7 +13965,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Gets <paramref name="task"/>'s return-on-cancel flag. See
-        /// <see cref="SetReturnOnCancel"/> for more details.
+        /// <see cref="Task.SetReturnOnCancel"/> for more details.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetReturnOnCancel()
@@ -13997,7 +13997,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Gets the source object from <paramref name="task"/>. Like
-        /// <see cref="GetSourceObject"/>, but does not ref the object.
+        /// <see cref="IAsyncResult.GetSourceObject"/>, but does not ref the object.
         /// </summary>
         /// <returns>
         /// <paramref name="task"/>'s source object, or <c>null</c>
@@ -14030,7 +14030,7 @@ System.IntPtr* error);
         System.IntPtr task);
 
         /// <summary>
-        /// Gets <paramref name="task"/>'s source tag. See <see cref="SetSourceTag"/>.
+        /// Gets <paramref name="task"/>'s source tag. See <see cref="Task.SetSourceTag"/>.
         /// </summary>
         /// <returns>
         /// <paramref name="task"/>'s source tag
@@ -14320,7 +14320,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Sets <paramref name="task"/>'s result to <paramref name="result"/> and completes the task (see
-        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
+        /// <see cref="Task.ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <param name="result">
@@ -14368,12 +14368,12 @@ System.IntPtr* error);
 
         /// <summary>
         /// Sets <paramref name="task"/>'s result to <paramref name="error"/> (which <paramref name="task"/> assumes ownership of)
-        /// and completes the task (see <see cref="ReturnPointer"/> for more
+        /// and completes the task (see <see cref="Task.ReturnPointer"/> for more
         /// discussion of exactly what this means).
         /// </summary>
         /// <remarks>
         /// Note that since the task takes ownership of <paramref name="error"/>, and since the
-        /// task may be completed before returning from <see cref="ReturnError"/>,
+        /// task may be completed before returning from <see cref="Task.ReturnError"/>,
         /// you cannot assume that <paramref name="error"/> is still valid after calling this.
         /// Call g_error_copy() on the error if you need to keep a local copy
         /// as well.
@@ -14415,7 +14415,7 @@ System.IntPtr* error);
         /// <summary>
         /// Checks if <paramref name="task"/>'s <see cref="Cancellable"/> has been cancelled, and if so, sets
         /// <paramref name="task"/>'s error accordingly and completes the task (see
-        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
+        /// <see cref="Task.ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <returns>
@@ -14455,7 +14455,7 @@ System.IntPtr* error);
 
         /// <summary>
         /// Sets <paramref name="task"/>'s result to <paramref name="result"/> and completes the task (see
-        /// <see cref="ReturnPointer"/> for more discussion of exactly what this
+        /// <see cref="Task.ReturnPointer"/> for more discussion of exactly what this
         /// means).
         /// </summary>
         /// <param name="result">
@@ -14553,8 +14553,8 @@ System.IntPtr* error);
 
         /// <summary>
         /// Sets or clears <paramref name="task"/>'s check-cancellable flag. If this is <c>true</c>
-        /// (the default), then <see cref="PropagatePointer"/>, etc, and
-        /// <see cref="HadError"/> will check the task's <see cref="Cancellable"/> first, and
+        /// (the default), then <see cref="Task.PropagatePointer"/>, etc, and
+        /// <see cref="Task.HadError"/> will check the task's <see cref="Cancellable"/> first, and
         /// if it has been cancelled, then they will consider the task to have
         /// returned an "Operation was cancelled" error
         /// (<see cref="IOErrorEnum.Cancelled"/>), regardless of any other error or return
@@ -14563,9 +14563,9 @@ System.IntPtr* error);
         /// <remarks>
         /// If <paramref name="checkCancellable"/> is <c>false</c>, then the <see cref="Task"/> will not check the
         /// cancellable itself, and it is up to <paramref name="task"/>'s owner to do this (eg,
-        /// via <see cref="ReturnErrorIfCancelled"/>).
+        /// via <see cref="Task.ReturnErrorIfCancelled"/>).
         /// 
-        /// If you are using <see cref="SetReturnOnCancel"/> as well, then
+        /// If you are using <see cref="Task.SetReturnOnCancel"/> as well, then
         /// you must leave check-cancellable set <c>true</c>.
         /// </remarks>
         /// <param name="checkCancellable">
@@ -14616,7 +14616,7 @@ System.IntPtr* error);
         /// This will affect the priority of #GSources created with
         /// g_task_attach_source() and the scheduling of tasks run in threads,
         /// and can also be explicitly retrieved later via
-        /// <see cref="GetPriority"/>.
+        /// <see cref="Task.GetPriority"/>.
         /// </remarks>
         /// <param name="priority">
         /// the [priority][io-priority] of the request
@@ -14693,21 +14693,21 @@ System.IntPtr* error);
         /// If <paramref name="returnOnCancel"/> is <c>true</c>, then cancelling <paramref name="task"/>'s
         /// <see cref="Cancellable"/> will immediately cause it to return, as though the
         /// task's <see cref="TaskThreadFunc"/> had called
-        /// <see cref="ReturnErrorIfCancelled"/> and then returned.
+        /// <see cref="Task.ReturnErrorIfCancelled"/> and then returned.
         /// 
         /// This allows you to create a cancellable wrapper around an
         /// uninterruptable function. The <see cref="TaskThreadFunc"/> just needs to be
         /// careful that it does not modify any externally-visible state after
         /// it has been cancelled. To do that, the thread should call
-        /// <see cref="SetReturnOnCancel"/> again to (atomically) set
+        /// <see cref="Task.SetReturnOnCancel"/> again to (atomically) set
         /// return-on-cancel <c>false</c> before making externally-visible changes;
         /// if the task gets cancelled before the return-on-cancel flag could
-        /// be changed, <see cref="SetReturnOnCancel"/> will indicate this by
+        /// be changed, <see cref="Task.SetReturnOnCancel"/> will indicate this by
         /// returning <c>false</c>.
         /// 
         /// You can disable and re-enable this flag multiple times if you wish.
         /// If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
-        /// <c>false</c>, then calling <see cref="SetReturnOnCancel"/> to set it <c>true</c>
+        /// <c>false</c>, then calling <see cref="Task.SetReturnOnCancel"/> to set it <c>true</c>
         /// again will cause the task to be cancelled at that point.
         /// 
         /// If the task's <see cref="Cancellable"/> is already cancelled before you call
@@ -14764,7 +14764,7 @@ System.IntPtr* error);
         /// Sets <paramref name="task"/>'s source tag. You can use this to tag a task return
         /// value with a particular pointer (usually a pointer to the function
         /// doing the tagging) and then later check it using
-        /// <see cref="GetSourceTag"/> (or <see cref="IsTagged"/>) in the
+        /// <see cref="Task.GetSourceTag"/> (or <see cref="IAsyncResult.IsTagged"/>) in the
         /// task's "finish" function, to figure out if the response came from a
         /// particular place.
         /// </summary>
@@ -15065,7 +15065,7 @@ System.IntPtr* error);
         /// </summary>
         /// <remarks>
         /// Note that doing so invalidates the hash computed by prior calls
-        /// to <see cref="GetHashCode"/>.
+        /// to <see cref="IIcon.GetHashCode"/>.
         /// </remarks>
         /// <param name="iconname">
         /// name of icon to append to list of icons from within <paramref name="icon"/>.
@@ -15140,7 +15140,7 @@ System.IntPtr* error);
         /// </summary>
         /// <remarks>
         /// Note that doing so invalidates the hash computed by prior calls
-        /// to <see cref="GetHashCode"/>.
+        /// to <see cref="IIcon.GetHashCode"/>.
         /// </remarks>
         /// <param name="iconname">
         /// name of icon to prepend to list of icons from within <paramref name="icon"/>.
