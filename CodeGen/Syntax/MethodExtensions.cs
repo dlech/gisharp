@@ -54,7 +54,7 @@ namespace GISharp.CodeGen.Syntax
             var returnType = method.ReturnValue.GetManagedTypeName();
 
             var syntax = MethodDeclaration(returnType, method.ManagedName)
-                .WithModifiers(method.GetAccessModifiers().Add(Token(UnsafeKeyword)))
+                .WithModifiers(method.GetAccessModifiers())
                 .WithAttributeLists(method.GetCommonAttributeLists())
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithBody(Block());
@@ -81,6 +81,15 @@ namespace GISharp.CodeGen.Syntax
             return syntax;
         }
 
+        static SyntaxTokenList GetAccessModifiers(this Method method)
+        {
+            if (method.IsHash && !method.IsExtensionMethod) {
+                return TokenList(Token(PublicKeyword), Token(OverrideKeyword));
+            }
+            
+            return method.GetCommonAccessModifiers().Add(Token(UnsafeKeyword));
+        }
+
         /// <summary>
         /// Appends base types for interfaces implemented by methods to a class
         /// declaration, if any.
@@ -90,7 +99,7 @@ namespace GISharp.CodeGen.Syntax
             var list = SeparatedList<BaseTypeSyntax>();
             foreach (var method in methods) {
                 var type = (GIRegisteredType)method.ParentNode;
-                if (method.IsEquals) {
+                if (method.IsEqual) {
                     // if we have an Equals method, then we implement the IEquatable<T> interface
                     var typeName = string.Concat(typeof(IEquatable<>).FullName.TakeWhile(x => x != '`'));
                     typeName = string.Format ("{0}<{1}>", typeName, type.ManagedName);

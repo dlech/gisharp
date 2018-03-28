@@ -20,7 +20,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = property.Type.ManagedType.ToSyntax();
             var syntax = PropertyDeclaration(type, property.ManagedName)
-                .WithModifiers(property.GetAccessModifiers())
+                .WithModifiers(property.GetCommonAccessModifiers())
                 .WithAttributeLists(property.GetAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())
                 .WithLeadingTrivia(property.Doc.GetDocCommentTrivia());

@@ -62,7 +62,7 @@ namespace GISharp.CodeGen.Syntax
             return list;
         }
 
-        public static SyntaxTokenList GetAccessModifiers(this GIBase member)
+        internal static SyntaxTokenList GetCommonAccessModifiers(this GIBase member)
         {
             var list = TokenList();
 

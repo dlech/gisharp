@@ -167,7 +167,7 @@ namespace GISharp.CodeGen.Syntax
             return EventDeclaration(typeName, signal.ManagedName)
                 .WithAttributeLists(signal.GetCommonAttributeLists())
                 .AddAttributeLists(signal.GetGSignalAttributeList())
-                .AddModifiers(signal.GetAccessModifiers().ToArray())
+                .AddModifiers(signal.GetCommonAccessModifiers().ToArray())
                 .WithAccessorList(accessorList)
                 .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia());
         }

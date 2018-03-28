@@ -54,7 +54,7 @@ namespace GISharp.CodeGen.Syntax
         public static MethodDeclarationSyntax GetStaticMethodDeclaration(this GIFunction function)
         {
             var returnType = function.ReturnValue.GetManagedTypeName();
-            var modifiers = TokenList(function.GetAccessModifiers());
+            var modifiers = TokenList(function.GetCommonAccessModifiers());
             
             if (function is Constructor) {
                 // special case for constructors since the static method is only

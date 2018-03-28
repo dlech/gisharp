@@ -32,7 +32,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddVariables(variable);
 
             var syntax = FieldDeclaration(variableDeclaration)
-                .WithModifiers(field.GetAccessModifiers())
+                .WithModifiers(field.GetCommonAccessModifiers())
                 .WithAttributeLists(field.GetCommonAttributeLists())
                 .WithLeadingTrivia(field.Doc.GetDocCommentTrivia());
 

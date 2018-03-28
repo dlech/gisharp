@@ -480,18 +480,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "managed-name", name);
             }
 
-            // flag extension methods
-            var elementNamesThatRequireExtensionMethods = new [] {
-                gi + "enumeration",
-                gi + "bitfield",
-                gi + "interface",
-            };
-            var elementsThatRequireExtensionMethods = document.Descendants (gi + "method")
-                .Where (e => elementNamesThatRequireExtensionMethods.Contains (e.Parent.Name));
-            foreach (var element in elementsThatRequireExtensionMethods) {
-                element.SetAttributeValue (gs + "extension-method", "1");
-            }
-
             // flag async methods
 
             foreach (var element in document.Descendants(gi + "method")
@@ -572,16 +560,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue (gs + "pinvoke-only", "1");
             }
 
-            // flag equals functions
-
-            var elementsWithEqualsFunction = document.Descendants (gi + "method")
-                .Where (d => d.Attribute ("name").Value == "equal"
-                    && d.Element (gi + "parameters").Elements (gi + "parameter").Count () == 1);
-            foreach (var element in elementsWithEqualsFunction) {
-                element.SetAttributeValue (gs + "special-func", "equal");
-                element.SetAttributeValue (gs + "managed-name", "Equals");
-            }
-
             // flag compare functions
 
             var elementsWithCompareFunction = document.Descendants (gi + "method")
@@ -594,27 +572,88 @@ namespace GISharp.CodeGen
 
             // flag hash functions
 
-            var elementsWithHashFunction = document.Descendants (gi + "method")
-                .Where (d => d.Attribute ("name").Value == "hash"
-                    && !d.Element (gi + "parameters").Elements (gi + "parameter").Any ()
-                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "guint");
-            foreach (var element in elementsWithHashFunction) {
-                if (element.Attribute(gs + "hash-code") != null) {
+            foreach (var element in document.Descendants(gi + "function")
+                .Where (d => d.Attribute("name").Value == "hash"
+                    && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 1
+                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "guint"))
+            {
+                if (!element.Attribute(gs + "hash").AsBool(true)) {
                     continue;
                 }
-                element.SetAttributeValue(gs + "hash-code", "1");
-                if (element.Attribute(gs + "access-modifiers") == null) {
-                    element.SetAttributeValue(gs + "access-modifiers", "public");
+
+                // it is common to have a hash function with gconstpointer type
+                // instead of a method with the instance type so we need to
+                // convert it to a method and fix the type
+
+                element.SetAttributeValue(gs + "hash", "1");
+                element.Name = gi + "method";
+
+                var instanceParam = element.Element(gi + "parameters").Element(gi + "parameter");
+                instanceParam.Name = gi + "instance-parameter";
+                var instanceType = element.Parent.Attribute("name").Value;
+                var typeElement = instanceParam.Element(gi + "type");
+                typeElement.SetAttributeValue("name", instanceType);
+                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
+            }
+
+            foreach (var element in document.Descendants(gi + "method")
+                .Where (d => d.Attribute("name").Value == "hash"
+                    && !d.Element(gi + "parameters").Elements(gi + "parameter").Any()
+                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "guint"))
+            {
+                if (!element.Attribute(gs + "hash").AsBool(true)) {
+                    continue;
                 }
-                if (element.Parent.Name == gi + "class" || element.Parent.Name == gi + "record") {
-                    var modifiers = element.Attribute(gs + "access-modifiers").Value;
-                    element.SetAttributeValue(gs + "access-modifiers", modifiers + " override");
-                }
-                // set managed-name here so it doesn't get turned into a property getter
+
+                // change stuff to override built-in .NET method
                 element.SetAttributeValue(gs + "managed-name", "GetHashCode");
-                // change return type to match .NET
                 element.Element(gi + "return-value").Element(gi + "type")
                     .SetAttributeValue(gs + "managed-name", typeof(int));
+            }
+
+            // flag equals functions
+
+            foreach (var element in document.Descendants(gi + "function")
+                .Where (d => d.Attribute("name").Value == "equal"
+                    && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 2
+                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "gboolean"))
+            {
+                if (!element.Attribute(gs + "equal").AsBool(true)) {
+                    continue;
+                }
+                element.SetAttributeValue(gs + "equal", "1");
+
+                // it is common to have an equal function with gconstpointer type
+                // instead of a method with the instance type so we need to
+                // convert it to a method and fix the type
+
+                element.SetAttributeValue(gs + "equal", "1");
+                element.Name = gi + "method";
+
+                var instanceParam = element.Element(gi + "parameters").Element(gi + "parameter");
+                instanceParam.Name = gi + "instance-parameter";
+                var instanceType = element.Parent.Attribute("name").Value;
+                var typeElement = instanceParam.Element(gi + "type");
+                typeElement.SetAttributeValue("name", instanceType);
+                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
+
+                var otherParam = element.Element(gi + "parameters").Element(gi + "parameter");
+                typeElement = otherParam.Element(gi + "type");
+                typeElement.SetAttributeValue("name", instanceType);
+                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
+            }
+
+            foreach (var element in document.Descendants(gi + "method")
+                .Where (d => d.Attribute("name").Value == "equal"
+                    && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 1
+                    && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "gboolean"))
+            {
+                if (!element.Attribute(gs + "equal").AsBool(true)) {
+                    continue;
+                }
+
+                // change name to match IEquatable<T> built-in .NET method
+                element.SetAttributeValue(gs + "managed-name", "Equals");
             }
 
             // flag to_string functions
@@ -634,6 +673,20 @@ namespace GISharp.CodeGen
                     var modifiers = element.Attribute(gs + "access-modifiers").Value;
                     element.SetAttributeValue(gs + "access-modifiers", modifiers + " override");
                 }
+            }
+
+            // flag extension methods
+
+            var elementNamesThatRequireExtensionMethods = new [] {
+                gi + "enumeration",
+                gi + "bitfield",
+                gi + "interface",
+            };
+
+            foreach (var element in document.Descendants(gi + "method")
+                .Where (e => elementNamesThatRequireExtensionMethods.Contains(e.Parent.Name)))
+            {
+                element.SetAttributeValue (gs + "extension-method", "1");
             }
 
             // add is-pointer attribute to pointer types

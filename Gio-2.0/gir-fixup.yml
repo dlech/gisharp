@@ -103,18 +103,6 @@
 
 ### Icon ###
 
-# fix hash method
-- !set-attribute
-  name: name
-  value: Icon
-  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:function[@name='hash']/gi:parameters/gi:parameter[@name='icon']/gi:type
-- !change-element
-  new-name: gi:method
-  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:function[@name='hash']
-- !change-element
-  new-name: gi:instance-parameter
-  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:method[@name='hash']/gi:parameters/gi:parameter[@name='icon']
-
 
 ## InputStream ##
 

@@ -36,13 +36,14 @@ namespace GISharp.CodeGen.Gir
         public bool IsFree => Element.Attribute(gs + "special-func").AsString() == "free";
 
         /// <summary>
-        /// Tests if this method is a equal method
+        /// Indicates that this function is a hash function suitable for GHashTable
         /// </summary>
-        public bool IsEquals => Element.Attribute(gs + "special-func").AsString() == "equal";
+        public bool IsHash { get; }
 
         /// <summary>
-        /// Indicates that this method is a hash-code method
-        public bool IsHashCode { get; }
+        /// Tests if this method is a equal method
+        /// </summary>
+        public bool IsEqual { get; }
 
         /// <summary>
         /// Tests if this method is a compare method
@@ -65,7 +66,8 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "method") {
                 throw new ArgumentException("Requrires <method> element", nameof(element));
             }
-            IsHashCode = Element.Attribute(gs + "hash-code").AsBool();
+            IsHash = Element.Attribute(gs + "hash").AsBool();
+            IsEqual = Element.Attribute(gs + "equal").AsBool();
             IsToString = Element.Attribute(gs + "to-string").AsBool();
             _FinishForMethod = new Lazy<Method>(LazyGetFinishForMethod);
         }
