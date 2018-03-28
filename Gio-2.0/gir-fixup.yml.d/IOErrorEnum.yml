@@ -1,0 +1,22 @@
+
+### IOErrorEnum ###
+
+# change global functions into methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_error_from_errno']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']
+- !set-attribute
+  name: name
+  value: from_errno
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']/gi:function[@name='io_error_from_errno']
+- !set-attribute
+  name: name
+  value: errno
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']/gi:function[@name='from_errno']/gi:parameters/gi:parameter[@name='err_no']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='io_error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']
+- !set-attribute
+  name: name
+  value: get_quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='IOErrorEnum']/gi:function[@name='io_error_quark']

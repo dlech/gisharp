@@ -181,12 +181,15 @@ namespace GISharp.CodeGen
             // load the gir-fixup.yml file
 
             const string fixupFileName = "gir-fixup.yml";
+            const string fixupDirName = fixupFileName + ".d";
 
             var fixupFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupFileName);
             var fixupFileExists = File.Exists(fixupFilePath);
+            var fixupDirPath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupDirName);
+            var fixupDirExists = Directory.Exists(fixupDirPath);
 
             // for most commands, we need an existing fixup file
-            if (command != Command.NewFixup && !fixupFileExists) {
+            if (command != Command.NewFixup && !fixupFileExists && !fixupDirExists) {
                 Console.Error.WriteLine("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
                 Environment.Exit(1);
                 return;
@@ -217,11 +220,20 @@ namespace GISharp.CodeGen
 
             // Parse the fixup file
 
-            Console.WriteLine($"Loading fixup file '{fixupFilePath}'...");
-            Fixup.Command[] commands;
+            Console.WriteLine($"Loading fixup file(s)...");
+            var commands = new List<Fixup.Command>();
+            var fixupFiles = new List<string>();
+            if (fixupFileExists) {
+                fixupFiles.Add(fixupFilePath);
+            }
+            if (fixupDirExists) {
+                fixupFiles.AddRange(Directory.EnumerateFiles(fixupDirPath, "*.yml"));
+            }
             try {
-                using (var reader = new StreamReader(fixupFilePath)) {
-                    commands = Fixup.Parse(reader);
+                foreach (var file in fixupFiles) {
+                    using (var reader = new StreamReader(file)) {
+                        commands.AddRange(Fixup.Parse(reader));
+                    }
                 }
             }
             catch (Exception ex) {

@@ -1,0 +1,16 @@
+
+### OptionError ###
+
+# Move error quark
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='option_error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']
+
+
+### OptionErrorFunc ###
+
+# flag user data parameter
+- !set-attribute
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionErrorFunc']/gi:parameters/gi:parameter[@name='data']

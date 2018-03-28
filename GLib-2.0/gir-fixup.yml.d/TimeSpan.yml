@@ -1,0 +1,12 @@
+
+### TimeSpan ###
+
+# move constants to alias
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'TIME_SPAN_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']
+- !change-attribute
+  name: name
+  regex: TIME_SPAN_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TimeSpan']/gi:constant

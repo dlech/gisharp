@@ -1,0 +1,32 @@
+
+### VariantDict ###
+
+# need to validate arg to prevent crashes
+- !set-attribute
+  name: gs:custom-arg-check
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:constructor[@name='new']
+
+# Clear is only valid on stack allocated VariantDict
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:method[@name='clear']
+
+# Set default value for method lookup_value parameter expected_type
+- !set-attribute
+  name: gs:default
+  value: "null"
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:method[@name='lookup_value']/gi:parameters/gi:parameter[@name='expected_type']
+
+# Make lookup_value an overload of lookup
+- !set-attribute
+  name: name
+  value: lookup
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:method[@name='lookup_value']
+
+# Make insert_value an overload of insert
+- !set-attribute
+  name: name
+  value: insert
+  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:method[@name='insert_value']

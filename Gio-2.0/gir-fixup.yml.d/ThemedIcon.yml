@@ -1,0 +1,18 @@
+
+### ThemedIcon ###
+
+# handle constructor overload conflict
+- !set-attribute
+  name: gs:custom-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ThemedIcon']/gi:constructor[@name='new']
+- !set-attribute
+  name: gs:custom-constructor
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ThemedIcon']/gi:constructor[@name='new_with_default_fallbacks']
+
+# handle naming conflict
+- !set-attribute
+  name: gs:managed-name
+  value: Names_
+  xpath: gi:repository/gi:namespace/gi:class[@name='ThemedIcon']/gi:property[@name='names']

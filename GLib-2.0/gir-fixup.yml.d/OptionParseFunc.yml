@@ -1,0 +1,8 @@
+
+### OptionParseFunc ###
+
+# flag user data parameter
+- !set-attribute
+  name: closure
+  value: 2
+  xpath: gi:repository/gi:namespace/gi:callback[@name='OptionParseFunc']/gi:parameters/gi:parameter[@name='data']

@@ -125,7 +125,7 @@ namespace GISharp.CodeGen
             return commands;
         }
 
-        public static void ApplyFixup(this XDocument document, Command[] commands)
+        public static void ApplyFixup(this XDocument document, IEnumerable<Command> commands)
         {
             if (document == null) {
                 throw new ArgumentNullException(nameof(document));

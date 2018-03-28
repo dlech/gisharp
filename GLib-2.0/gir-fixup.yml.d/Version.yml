@@ -1,0 +1,43 @@
+
+### Version ###
+
+# add a static class for version related stuff
+- !add-element
+  xml: <gs:static-class name='Version' />
+  xpath: gi:repository/gi:namespace
+
+# Move VERSION constants to Version static-class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MAJOR_VERSION']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MINOR_VERSION']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[@name='MICRO_VERSION']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+
+# make version constants private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant
+
+# Drop the _VERSION suffix from the constant names
+- !change-attribute
+  name: name
+  regex: (.*)_VERSION
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant
+
+# Move check_version function to Version static-class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name ='check_version']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+
+# Drop the _version suffix from the function names
+- !change-attribute
+  name: name
+  regex: (.*)_version
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function

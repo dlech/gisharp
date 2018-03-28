@@ -1,0 +1,12 @@
+
+### SeekType ###
+
+# better names
+- !set-attribute
+  name: name
+  value: current
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SeekType']/gi:member[@name='cur']
+- !set-attribute
+  name: name
+  value: start
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='SeekType']/gi:member[@name='set']

@@ -1,0 +1,8 @@
+
+### TranslateFunc ###
+
+# flag user data parameter
+- !set-attribute
+  name: closure
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TranslateFunc']/gi:parameters/gi:parameter[@name='data']

@@ -1,0 +1,38 @@
+
+### KeyFile ###
+
+# Move KEY_FILE_* constants to KeyFile record
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']
+
+# Drop the KEY_FILE_ prefix from the constant names
+- !change-attribute
+  name: name
+  regex: KEY_FILE_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:constant[starts-with(@name,'KEY_FILE_')]
+
+# Don't skip the return value on this one
+- !set-attribute
+  name: skip
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='get_boolean']/gi:return-value
+
+# Need special handling because array is zero-terminated and has required length arg.
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='set_locale_string_list']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[@name='set_string_list']
+
+
+### KeyFileError ###
+
+# Move error quark from KeyFile
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:function[@name='error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='KeyFileError']

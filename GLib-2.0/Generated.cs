@@ -10352,16 +10352,6 @@ namespace GISharp.Lib.GLib
         private const System.Int32 major = 2;
 
         /// <summary>
-        /// The micro version number of the GLib library.
-        /// </summary>
-        /// <remarks>
-        /// Like #gtk_micro_version, but from the headers used at
-        /// application compile time, rather than from the library
-        /// linked against at application run time.
-        /// </remarks>
-        private const System.Int32 micro = 0;
-
-        /// <summary>
         /// The minor version number of the GLib library.
         /// </summary>
         /// <remarks>
@@ -10372,22 +10362,14 @@ namespace GISharp.Lib.GLib
         private const System.Int32 minor = 56;
 
         /// <summary>
-        /// A macro that should be defined by the user prior to including
-        /// the glib.h header.
-        /// The definition should be one of the predefined GLib version
-        /// macros: %GLIB_VERSION_2_26, %GLIB_VERSION_2_28,...
+        /// The micro version number of the GLib library.
         /// </summary>
         /// <remarks>
-        /// This macro defines the earliest version of GLib that the package is
-        /// required to be able to compile against.
-        /// 
-        /// If the compiler is configured to warn about the use of deprecated
-        /// functions, then using functions that were deprecated in version
-        /// %GLIB_VERSION_MIN_REQUIRED or earlier will cause warnings (but
-        /// using functions deprecated in later releases will not).
+        /// Like #gtk_micro_version, but from the headers used at
+        /// application compile time, rather than from the library
+        /// linked against at application run time.
         /// </remarks>
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        private const System.Int32 minRequired = 2;
+        private const System.Int32 micro = 0;
 
         /// <summary>
         /// Checks that the GLib library in use is compatible with the

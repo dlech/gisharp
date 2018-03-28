@@ -1,0 +1,33 @@
+
+### FileAttribute ###
+
+# create static class for file attribute constants
+- !add-element
+  xml: <gs:static-class name='FileAttribute' />
+  xpath: gi:repository/gi:namespace
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'FILE_ATTRIBUTE_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='FileAttribute']
+- !change-attribute
+  name: name
+  regex: FILE_ATTRIBUTE_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='FileAttribute']/gi:constant
+
+
+### FileAttributeInfo ###
+
+# make name field private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileAttributeInfo']/gi:field[@name='name']
+
+
+### FileAttributeType ###
+
+# better name
+- !set-attribute
+  name: name
+  value: string_array
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='FileAttributeType']/gi:member[@name='stringv']

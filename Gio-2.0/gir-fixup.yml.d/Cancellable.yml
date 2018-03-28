@@ -1,0 +1,20 @@
+
+### Cancellable ###
+
+# requires special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='connect']
+
+# rename to better fit .NET
+- !set-attribute
+  name: name
+  value: throw_if_cancelled
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='set_error_if_cancelled']
+
+# fix out param
+- !set-attribute
+  name: direction
+  value: out
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='make_pollfd']/gi:parameters/gi:parameter[@name='pollfd']

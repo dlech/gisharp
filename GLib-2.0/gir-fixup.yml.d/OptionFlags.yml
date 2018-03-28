@@ -1,0 +1,8 @@
+
+### OptionFlags ###
+
+# change name of noalias member for readability
+- !set-attribute
+  name: name
+  value: no_alias
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='OptionFlags']/gi:member[@name='noalias']
