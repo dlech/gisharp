@@ -11002,7 +11002,18 @@ System.IntPtr icon);
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedCloseFn))]
-        protected abstract void DoCloseFn(GISharp.Lib.Gio.Cancellable cancellable = null);
+        protected virtual unsafe void DoCloseFn(GISharp.Lib.Gio.Cancellable cancellable = null)
+        {
+            var stream_ = Handle;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedCloseFn>(_GType)(stream_, cancellable_, &error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+        }
 
         /// <summary>
         /// Request an asynchronous read of <paramref name="count"/> bytes from the stream into the buffer
@@ -11088,7 +11099,23 @@ System.IntPtr icon);
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedReadFn))]
-        protected abstract System.Int32 DoReadFn(System.IntPtr buffer, System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null);
+        protected virtual unsafe System.Int32 DoReadFn(System.IntPtr buffer, System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null)
+        {
+            var stream_ = Handle;
+            var buffer_ = (System.IntPtr)buffer;
+            var count_ = (System.UIntPtr)count;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedReadFn>(_GType)(stream_,buffer_,count_,cancellable_,&error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
 
         /// <summary>
         /// Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
@@ -11120,7 +11147,22 @@ System.IntPtr icon);
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedSkip))]
-        protected abstract System.Int32 DoSkip(System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null);
+        protected virtual unsafe System.Int32 DoSkip(System.Int32 count, GISharp.Lib.Gio.Cancellable cancellable = null)
+        {
+            var stream_ = Handle;
+            var count_ = (System.UIntPtr)count;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedSkip>(_GType)(stream_,count_,cancellable_,&error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
 
         /// <summary>
         /// Request an asynchronous skip of <paramref name="count"/> bytes from the stream.

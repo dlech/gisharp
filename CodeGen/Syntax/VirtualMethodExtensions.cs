@@ -26,25 +26,15 @@ namespace GISharp.CodeGen.Syntax
             
             var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
-                .AddModifiers(Token(ProtectedKeyword))
+                .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword), Token(UnsafeKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
+                .WithBody(Block(method.GetInvokeStatements(invoker)))
                 .WithLeadingTrivia(TriviaList()
                     .AddRange(method.Doc.GetDocCommentTrivia())
                     .AddRange(method.ManagedParameters.RegularParameters
                         .SelectMany(x => x.Doc.GetDocCommentTrivia()))
                     .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
                     .AddRange(method.GetGErrorExceptionDocCommentTrivia()));
-
-            if (method.Override == "always") {
-                syntax = syntax.AddModifiers(Token(AbstractKeyword))
-                    .WithSemicolonToken(Token(SemicolonToken));
-            }
-            else {
-                if (method.Override != "never") {
-                    syntax = syntax.AddModifiers(Token(VirtualKeyword), Token(UnsafeKeyword));
-                }
-                syntax = syntax.WithBody(Block(method.GetInvokeStatements(invoker)));
-            }
 
             yield return syntax;
         }

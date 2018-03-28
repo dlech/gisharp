@@ -122,19 +122,6 @@
 
 ## InputStream ##
 
-# only async methods have a default implementation
-- !set-attribute
-  name: override
-  value: always
-  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:virtual-method[@name='read_fn']
-- !set-attribute
-  name: override
-  value: always
-  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:virtual-method[@name='skip']
-- !set-attribute
-  name: override
-  value: always
-  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:virtual-method[@name='close_fn']
 # Set default value for io_priority parameter
 - !set-attribute
   name: gs:default
