@@ -6837,7 +6837,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gpointer" type="GOptionContext*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_option_context_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
@@ -6876,12 +6876,11 @@ namespace GISharp.Lib.GLib
         ///    freed with <see cref="Free"/> after use.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        private static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 parameterString)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 parameterString)
         {
             var parameterString_ = parameterString?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_option_context_new(parameterString_);
-            var ret = (System.IntPtr)ret_;
-            return ret;
+            return ret_;
         }
 
         /// <summary>

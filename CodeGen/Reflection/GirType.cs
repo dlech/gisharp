@@ -218,6 +218,11 @@ namespace GISharp.CodeGen.Reflection
                     break;
                 case "gpointer":
                 case "gconstpointer":
+                    basicType = typeof(IntPtr);
+                    if (node is Gir.Type && node.CType?.Equals("void*") == false && node.CType?.EndsWith("*") == true) {
+                        return basicType.MakePointerType();
+                    }
+                    return basicType;
                 case "filename":
                 case "utf8":
                 // we get null for C arrays
