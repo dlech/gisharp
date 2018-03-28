@@ -5381,6 +5381,406 @@ System.IntPtr cancellable);
     }
 
     /// <summary>
+    /// Determines if a string matches a file attribute.
+    /// </summary>
+    [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
+    public sealed partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
+    {
+        static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
+
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public FileAttributeMatcher(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new file attribute matcher, which matches attributes
+        /// against a given string. #GFileAttributeMatchers are reference
+        /// counted structures, and are created with a reference count of 1. If
+        /// the number of references falls to 0, the #GFileAttributeMatcher is
+        /// automatically destroyed.
+        /// </summary>
+        /// <remarks>
+        /// The @attribute string should be formatted with specific keys separated
+        /// from namespaces with a double colon. Several "namespace::key" strings may be
+        /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+        /// The wildcard "*" may be used to match all keys and namespaces, or
+        /// "namespace::*" will match all keys in a given namespace.
+        /// 
+        /// ## Examples of file attribute matcher strings and results
+        /// 
+        /// - `"*"`: matches all attributes.
+        /// - `"standard::is-hidden"`: matches only the key is-hidden in the
+        ///   standard namespace.
+        /// - `"standard::type,unix::*"`: matches the type key in the standard
+        ///   namespace and all keys in the unix namespace.
+        /// </remarks>
+        /// <param name="attributes">
+        /// an attribute string to match.
+        /// </param>
+        /// <returns>
+        /// a #GFileAttributeMatcher
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_attribute_matcher_new(
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attributes);
+
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 attributes)
+        {
+            var attributes_ = attributes?.Handle ?? throw new System.ArgumentNullException(nameof(attributes));
+            var ret_ = g_file_attribute_matcher_new(attributes_);
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a new file attribute matcher, which matches attributes
+        /// against a given string. <see cref="FileAttributeMatcher"/>s are reference
+        /// counted structures, and are created with a reference count of 1. If
+        /// the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
+        /// automatically destroyed.
+        /// </summary>
+        /// <remarks>
+        /// The <paramref name="attribute"/> string should be formatted with specific keys separated
+        /// from namespaces with a double colon. Several "namespace::key" strings may be
+        /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+        /// The wildcard "*" may be used to match all keys and namespaces, or
+        /// "namespace::*" will match all keys in a given namespace.
+        /// 
+        /// ## Examples of file attribute matcher strings and results
+        /// 
+        /// - `"*"`: matches all attributes.
+        /// - `"standard::is-hidden"`: matches only the key is-hidden in the
+        ///   standard namespace.
+        /// - `"standard::type,unix::*"`: matches the type key in the standard
+        ///   namespace and all keys in the unix namespace.
+        /// </remarks>
+        /// <param name="attributes">
+        /// an attribute string to match.
+        /// </param>
+        public FileAttributeMatcher(GISharp.Lib.GLib.Utf8 attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe GISharp.Lib.GObject.GType g_file_attribute_matcher_get_type();
+
+        /// <summary>
+        /// Checks if the matcher will match all of the keys in a given namespace.
+        /// This will always return %TRUE if a wildcard character is in use (e.g. if
+        /// matcher was created with "standard::*" and @ns is "standard", or if matcher was created
+        /// using "*" and namespace is anything.)
+        /// </summary>
+        /// <remarks>
+        /// TODO: this is awkwardly worded.
+        /// </remarks>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <param name="ns">
+        /// a string containing a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// %TRUE if the matcher matches all of the entries
+        /// in the given @ns, %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_attribute_matcher_enumerate_namespace(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr ns);
+
+        /// <summary>
+        /// Checks if the matcher will match all of the keys in a given namespace.
+        /// This will always return <c>true</c> if a wildcard character is in use (e.g. if
+        /// matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
+        /// using "*" and namespace is anything.)
+        /// </summary>
+        /// <remarks>
+        /// TODO: this is awkwardly worded.
+        /// </remarks>
+        /// <param name="ns">
+        /// a string containing a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the matcher matches all of the entries
+        /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.Utf8 ns)
+        {
+            var matcher_ = Handle;
+            var ns_ = ns?.Handle ?? throw new System.ArgumentNullException(nameof(ns));
+            var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the next matched attribute from a #GFileAttributeMatcher.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <returns>
+        /// a string containing the next attribute or %NULL if
+        /// no more attribute exist.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_attribute_matcher_enumerate_next(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher);
+
+        /// <summary>
+        /// Gets the next matched attribute from a <see cref="FileAttributeMatcher"/>.
+        /// </summary>
+        /// <returns>
+        /// a string containing the next attribute or <c>null</c> if
+        /// no more attribute exist.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Utf8 EnumerateNext()
+        {
+            var matcher_ = Handle;
+            var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if an attribute will be matched by an attribute matcher. If
+        /// the matcher was created with the "*" matching string, this function
+        /// will always return %TRUE.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// %TRUE if @attribute matches @matcher. %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_attribute_matcher_matches(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Checks if an attribute will be matched by an attribute matcher. If
+        /// the matcher was created with the "*" matching string, this function
+        /// will always return <c>true</c>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean Matches(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var matcher_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a attribute matcher only matches a given attribute. Always
+        /// returns %FALSE if "*" was used when creating the matcher.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// %TRUE if the matcher only matches @attribute. %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_attribute_matcher_matches_only(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Checks if a attribute matcher only matches a given attribute. Always
+        /// returns <c>false</c> if "*" was used when creating the matcher.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var matcher_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// References a file attribute matcher.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <returns>
+        /// a #GFileAttributeMatcher.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_attribute_matcher_ref(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher);
+        public override System.IntPtr Take() => g_file_attribute_matcher_ref(Handle);
+
+        /// <summary>
+        /// Subtracts all attributes of @subtract from @matcher and returns
+        /// a matcher that supports those attributes.
+        /// </summary>
+        /// <remarks>
+        /// Note that currently it is not possible to remove a single
+        /// attribute when the @matcher matches the whole namespace - or remove
+        /// a namespace or attribute when the matcher matches everything. This
+        /// is a limitation of the current implementation, but may be fixed
+        /// in the future.
+        /// </remarks>
+        /// <param name="matcher">
+        /// Matcher to subtract from
+        /// </param>
+        /// <param name="subtract">
+        /// The matcher to subtract
+        /// </param>
+        /// <returns>
+        /// A file attribute matcher matching all attributes of
+        ///     @matcher that are not matched by @subtract
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_attribute_matcher_subtract(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher,
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr subtract);
+
+        /// <summary>
+        /// Subtracts all attributes of <paramref name="subtract"/> from <paramref name="matcher"/> and returns
+        /// a matcher that supports those attributes.
+        /// </summary>
+        /// <remarks>
+        /// Note that currently it is not possible to remove a single
+        /// attribute when the <paramref name="matcher"/> matches the whole namespace - or remove
+        /// a namespace or attribute when the matcher matches everything. This
+        /// is a limitation of the current implementation, but may be fixed
+        /// in the future.
+        /// </remarks>
+        /// <param name="subtract">
+        /// The matcher to subtract
+        /// </param>
+        /// <returns>
+        /// A file attribute matcher matching all attributes of
+        ///     <paramref name="matcher"/> that are not matched by <paramref name="subtract"/>
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
+        {
+            var matcher_ = Handle;
+            var subtract_ = subtract?.Handle ?? throw new System.ArgumentNullException(nameof(subtract));
+            var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Prints what the matcher is matching against. The format will be
+        /// equal to the format passed to g_file_attribute_matcher_new().
+        /// The output however, might not be identical, as the matcher may
+        /// decide to use a different order or omit needless parts.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        /// <returns>
+        /// a string describing the attributes the matcher matches
+        ///   against or %NULL if @matcher was %NULL.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_attribute_matcher_to_string(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr matcher);
+
+        /// <summary>
+        /// Prints what the matcher is matching against. The format will be
+        /// equal to the format passed to <see cref="New"/>.
+        /// The output however, might not be identical, as the matcher may
+        /// decide to use a different order or omit needless parts.
+        /// </summary>
+        /// <returns>
+        /// a string describing the attributes the matcher matches
+        ///   against or <c>null</c> if <paramref name="matcher"/> was <c>null</c>.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public override System.String ToString()
+        {
+            var matcher_ = Handle;
+            var ret_ = g_file_attribute_matcher_to_string(matcher_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Unreferences @matcher. If the reference count falls below 1,
+        /// the @matcher is automatically freed.
+        /// </summary>
+        /// <param name="matcher">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_attribute_matcher_unref(
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr matcher);
+    }
+
+    /// <summary>
     /// Used by g_file_set_attributes_from_info() when setting file attributes.
     /// </summary>
     [GISharp.Runtime.GTypeAttribute("GFileAttributeStatus", IsProxyForUnmanagedType = true)]
@@ -5467,6 +5867,2654 @@ System.IntPtr cancellable);
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
         static extern unsafe GISharp.Lib.GObject.GType g_file_attribute_type_get_type();
+    }
+
+    /// <summary>
+    /// Functionality for manipulating basic metadata for files. <see cref="FileInfo"/>
+    /// implements methods for getting information that all files should
+    /// contain, and allows for manipulation of extended attributes.
+    /// </summary>
+    /// <remarks>
+    /// See [GFileAttribute][gio-GFileAttribute] for more information on how
+    /// GIO handles file attributes.
+    /// 
+    /// To obtain a <see cref="FileInfo"/> for a #GFile, use g_file_query_info() (or its
+    /// async variant). To obtain a <see cref="FileInfo"/> for a file input or output
+    /// stream, use g_file_input_stream_query_info() or
+    /// g_file_output_stream_query_info() (or their async variants).
+    /// 
+    /// To change the actual attributes of a file, you should then set the
+    /// attribute in the <see cref="FileInfo"/> and call g_file_set_attributes_from_info()
+    /// or g_file_set_attributes_async() on a GFile.
+    /// 
+    /// However, not all attributes can be changed in the file. For instance,
+    /// the actual size of a file cannot be changed via <see cref="SetSize"/>.
+    /// You may call g_file_query_settable_attributes() and
+    /// g_file_query_writable_namespaces() to discover the settable attributes
+    /// of a particular file at runtime.
+    /// 
+    /// <see cref="FileAttributeMatcher"/> allows for searching through a <see cref="FileInfo"/> for
+    /// attributes.
+    /// </remarks>
+    [GISharp.Runtime.GTypeAttribute("GFileInfo", IsProxyForUnmanagedType = true)]
+    [GISharp.Runtime.GTypeStructAttribute(typeof(FileInfoClass))]
+    public partial class FileInfo : GISharp.Lib.GObject.Object
+    {
+        static readonly GISharp.Lib.GObject.GType _GType = g_file_info_get_type();
+
+        /// <summary>
+        /// Gets the file's content type.
+        /// </summary>
+        public GISharp.Lib.GLib.Utf8 ContentType { get => GetContentType(); set => SetContentType(value); }
+
+        /// <summary>
+        /// Returns the #GDateTime representing the deletion date of the file, as
+        /// available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
+        /// G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        public GISharp.Lib.GLib.DateTime DeletionDate { get => GetDeletionDate(); }
+
+        /// <summary>
+        /// Gets a display name for a file.
+        /// </summary>
+        public GISharp.Lib.GLib.Utf8 DisplayName { get => GetDisplayName(); set => SetDisplayName(value); }
+
+        /// <summary>
+        /// Gets the edit name for a file.
+        /// </summary>
+        public GISharp.Lib.GLib.Utf8 EditName { get => GetEditName(); set => SetEditName(value); }
+
+        /// <summary>
+        /// Gets the [entity tag][gfile-etag] for a given
+        /// <see cref="FileInfo"/>. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
+        /// </summary>
+        public GISharp.Lib.GLib.Utf8 Etag { get => GetEtag(); }
+
+        /// <summary>
+        /// Gets a file's type (whether it is a regular file, symlink, etc).
+        /// This is different from the file's content type, see <see cref="GetContentType"/>.
+        /// </summary>
+        public GISharp.Lib.Gio.FileType FileType { get => GetFileType(); set => SetFileType(value); }
+
+        /// <summary>
+        /// Gets the icon for a file.
+        /// </summary>
+        public GISharp.Lib.Gio.IIcon Icon { get => GetIcon(); set => SetIcon(value); }
+
+        /// <summary>
+        /// Checks if a file is a backup file.
+        /// </summary>
+        public System.Boolean IsBackup { get => GetIsBackup(); }
+
+        /// <summary>
+        /// Checks if a file is hidden.
+        /// </summary>
+        public System.Boolean IsHidden { get => GetIsHidden(); set => SetIsHidden(value); }
+
+        /// <summary>
+        /// Checks if a file is a symlink.
+        /// </summary>
+        public System.Boolean IsSymlink { get => GetIsSymlink(); set => SetIsSymlink(value); }
+
+        /// <summary>
+        /// Gets the name for a file.
+        /// </summary>
+        public GISharp.Lib.GLib.Filename Name { get => GetName(); set => SetName(value); }
+
+        /// <summary>
+        /// Gets the file's size.
+        /// </summary>
+        public System.Int64 Size { get => GetSize(); set => SetSize(value); }
+
+        /// <summary>
+        /// Gets the value of the sort_order attribute from the <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </summary>
+        public System.Int32 SortOrder { get => GetSortOrder(); set => SetSortOrder(value); }
+
+        /// <summary>
+        /// Gets the symbolic icon for a file.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        public GISharp.Lib.Gio.IIcon SymbolicIcon { get => GetSymbolicIcon(); set => SetSymbolicIcon(value); }
+
+        /// <summary>
+        /// Gets the symlink target for a given <see cref="FileInfo"/>.
+        /// </summary>
+        public GISharp.Lib.GLib.Utf8 SymlinkTarget { get => GetSymlinkTarget(); set => SetSymlinkTarget(value); }
+
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public FileInfo(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new file info structure.
+        /// </summary>
+        /// <returns>
+        /// a #GFileInfo.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_info_new();
+
+        static unsafe System.IntPtr New()
+        {
+            var ret_ = g_file_info_new();
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a new file info structure.
+        /// </summary>
+        public FileInfo() : this(New(), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe GISharp.Lib.GObject.GType g_file_info_get_type();
+
+        /// <summary>
+        /// Clears the status information from @info.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_clear_status(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Clears the status information from <paramref name="info"/>.
+        /// </summary>
+        public unsafe void ClearStatus()
+        {
+            var info_ = Handle;
+            g_file_info_clear_status(info_);
+        }
+
+        /// <summary>
+        /// First clears all of the [GFileAttribute][gio-GFileAttribute] of @dest_info,
+        /// and then copies all of the file attributes from @src_info to @dest_info.
+        /// </summary>
+        /// <param name="srcInfo">
+        /// source to copy attributes from.
+        /// </param>
+        /// <param name="destInfo">
+        /// destination to copy attributes to.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_copy_into(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr srcInfo,
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr destInfo);
+
+        /// <summary>
+        /// First clears all of the [GFileAttribute][gio-GFileAttribute] of <paramref name="destInfo"/>,
+        /// and then copies all of the file attributes from <paramref name="srcInfo"/> to <paramref name="destInfo"/>.
+        /// </summary>
+        /// <param name="destInfo">
+        /// destination to copy attributes to.
+        /// </param>
+        public unsafe void CopyInto(GISharp.Lib.Gio.FileInfo destInfo)
+        {
+            var srcInfo_ = Handle;
+            var destInfo_ = destInfo?.Handle ?? throw new System.ArgumentNullException(nameof(destInfo));
+            g_file_info_copy_into(srcInfo_, destInfo_);
+        }
+
+        /// <summary>
+        /// Duplicates a file info structure.
+        /// </summary>
+        /// <param name="other">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a duplicate #GFileInfo of @other.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_info_dup(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr other);
+
+        /// <summary>
+        /// Duplicates a file info structure.
+        /// </summary>
+        /// <returns>
+        /// a duplicate <see cref="FileInfo"/> of <paramref name="other"/>.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileInfo Dup()
+        {
+            var other_ = Handle;
+            var ret_ = g_file_info_dup(other_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a attribute, formated as a string.
+        /// This escapes things as needed to make the string valid
+        /// utf8.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a UTF-8 string associated with the given @attribute.
+        ///    When you're done with the string it must be freed with g_free().
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_attribute_as_string(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a attribute, formated as a string.
+        /// This escapes things as needed to make the string valid
+        /// utf8.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a UTF-8 string associated with the given <paramref name="attribute"/>.
+        ///    When you're done with the string it must be freed with g_free().
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_as_string(info_,attribute_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a boolean attribute. If the attribute does not
+        /// contain a boolean value, %FALSE will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the boolean value contained within the attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_get_attribute_boolean(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a boolean attribute. If the attribute does not
+        /// contain a boolean value, <c>false</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the boolean value contained within the attribute.
+        /// </returns>
+        public unsafe System.Boolean GetAttributeBoolean(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_boolean(info_,attribute_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a byte string attribute. If the attribute does
+        /// not contain a byte string, %NULL will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the @attribute value as a byte string, or
+        /// %NULL otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_attribute_byte_string(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a byte string attribute. If the attribute does
+        /// not contain a byte string, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a byte string, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeByteString(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_byte_string(info_,attribute_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the attribute type, value and status for an attribute key.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="type">
+        /// return location for the attribute type, or %NULL
+        /// </param>
+        /// <param name="valuePp">
+        /// return location for the
+        ///    attribute value, or %NULL; the attribute value will not be %NULL
+        /// </param>
+        /// <param name="status">
+        /// return location for the attribute status, or %NULL
+        /// </param>
+        /// <returns>
+        /// %TRUE if @info has an attribute named @attribute,
+        ///      %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_get_attribute_data(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="FileAttributeType" type="GFileAttributeType*" managed-name="FileAttributeType" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        GISharp.Lib.Gio.FileAttributeType* type,
+        /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        System.IntPtr* valuePp,
+        /* <type name="FileAttributeStatus" type="GFileAttributeStatus*" managed-name="FileAttributeStatus" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        GISharp.Lib.Gio.FileAttributeStatus* status);
+
+        /// <summary>
+        /// Gets the attribute type, value and status for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="type">
+        /// return location for the attribute type, or <c>null</c>
+        /// </param>
+        /// <param name="valuePp">
+        /// return location for the
+        ///    attribute value, or <c>null</c>; the attribute value will not be <c>null</c>
+        /// </param>
+        /// <param name="status">
+        /// return location for the attribute status, or <c>null</c>
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="info"/> has an attribute named <paramref name="attribute"/>,
+        ///      <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean TryGetAttributeData(GISharp.Lib.GLib.Utf8 attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            GISharp.Lib.Gio.FileAttributeType type_;
+            System.IntPtr valuePp_;
+            GISharp.Lib.Gio.FileAttributeStatus status_;
+            var ret_ = g_file_info_get_attribute_data(info_,attribute_,&type_,&valuePp_,&status_);
+            type = (GISharp.Lib.Gio.FileAttributeType)type_;
+            valuePp = (System.IntPtr)valuePp_;
+            status = (GISharp.Lib.Gio.FileAttributeStatus)status_;
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a signed 32-bit integer contained within the attribute. If the
+        /// attribute does not contain a signed 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 32-bit integer from the attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Int32 g_file_info_get_attribute_int32(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets a signed 32-bit integer contained within the attribute. If the
+        /// attribute does not contain a signed 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 32-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.Int32 GetAttributeInt32(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_int32(info_,attribute_);
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a signed 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an signed 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 64-bit integer from the attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Int64 g_file_info_get_attribute_int64(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets a signed 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an signed 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 64-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.Int64 GetAttributeInt64(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_int64(info_,attribute_);
+            var ret = (System.Int64)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a #GObject attribute. If the attribute does
+        /// not contain a #GObject, %NULL will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a #GObject associated with the given @attribute, or
+        /// %NULL otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_attribute_object(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a #GObject attribute. If the attribute does
+        /// not contain a #GObject, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a #GObject associated with the given <paramref name="attribute"/>, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GObject.Object GetAttributeObject(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_object(info_,attribute_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the attribute status for an attribute key.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <returns>
+        /// a #GFileAttributeStatus for the given @attribute, or
+        ///    %G_FILE_ATTRIBUTE_STATUS_UNSET if the key is invalid.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileAttributeStatus" type="GFileAttributeStatus" managed-name="FileAttributeStatus" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe GISharp.Lib.Gio.FileAttributeStatus g_file_info_get_attribute_status(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the attribute status for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileAttributeStatus"/> for the given <paramref name="attribute"/>, or
+        ///    <see cref="FileAttributeStatus.Unset"/> if the key is invalid.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_status(info_,attribute_);
+            var ret = (GISharp.Lib.Gio.FileAttributeStatus)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a string attribute. If the attribute does
+        /// not contain a string, %NULL will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the @attribute value as a UTF-8 string, or
+        /// %NULL otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_attribute_string(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a string attribute. If the attribute does
+        /// not contain a string, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a UTF-8 string, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeString(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_string(info_,attribute_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a stringv attribute. If the attribute does
+        /// not contain a stringv, %NULL will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the @attribute value as a stringv, or
+        /// %NULL otherwise. Do not free. These returned strings are UTF-8.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array type="char**" zero-terminated="1" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
+* </array> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_attribute_stringv(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the value of a stringv attribute. If the attribute does
+        /// not contain a stringv, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a stringv, or
+        /// <c>null</c> otherwise. Do not free. These returned strings are UTF-8.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_stringv(info_,attribute_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the attribute type for an attribute key.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a #GFileAttributeType for the given @attribute, or
+        /// %G_FILE_ATTRIBUTE_TYPE_INVALID if the key is not set.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileAttributeType" type="GFileAttributeType" managed-name="FileAttributeType" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe GISharp.Lib.Gio.FileAttributeType g_file_info_get_attribute_type(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets the attribute type for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileAttributeType"/> for the given <paramref name="attribute"/>, or
+        /// <see cref="FileAttributeType.Invalid"/> if the key is not set.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_type(info_,attribute_);
+            var ret = (GISharp.Lib.Gio.FileAttributeType)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets an unsigned 32-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// an unsigned 32-bit integer from the attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.UInt32 g_file_info_get_attribute_uint32(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets an unsigned 32-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// an unsigned 32-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.UInt32 GetAttributeUint32(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_uint32(info_,attribute_);
+            var ret = (System.UInt32)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a unsigned 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a unsigned 64-bit integer from the attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.UInt64 g_file_info_get_attribute_uint64(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Gets a unsigned 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a unsigned 64-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.UInt64 GetAttributeUint64(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_get_attribute_uint64(info_,attribute_);
+            var ret = (System.UInt64)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the file's content type.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the file's content type.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_content_type(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the file's content type.
+        /// </summary>
+        /// <returns>
+        /// a string containing the file's content type.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Utf8 GetContentType()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_content_type(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Returns the #GDateTime representing the deletion date of the file, as
+        /// available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
+        /// G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, %NULL is returned.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a #GDateTime, or %NULL.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.DateTime" type="GDateTime*" managed-name="GISharp.Lib.GLib.DateTime" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_deletion_date(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Returns the #GDateTime representing the deletion date of the file, as
+        /// available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
+        /// G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned.
+        /// </summary>
+        /// <returns>
+        /// a #GDateTime, or <c>null</c>.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        private unsafe GISharp.Lib.GLib.DateTime GetDeletionDate()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_deletion_date(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a display name for a file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the display name.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_display_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets a display name for a file.
+        /// </summary>
+        /// <returns>
+        /// a string containing the display name.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Utf8 GetDisplayName()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_display_name(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the edit name for a file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the edit name.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_edit_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the edit name for a file.
+        /// </summary>
+        /// <returns>
+        /// a string containing the edit name.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Utf8 GetEditName()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_edit_name(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the [entity tag][gfile-etag] for a given
+        /// #GFileInfo. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the value of the "etag:value" attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_etag(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the [entity tag][gfile-etag] for a given
+        /// <see cref="FileInfo"/>. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
+        /// </summary>
+        /// <returns>
+        /// a string containing the value of the "etag:value" attribute.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Utf8 GetEtag()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_etag(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets a file's type (whether it is a regular file, symlink, etc).
+        /// This is different from the file's content type, see g_file_info_get_content_type().
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a #GFileType for the given file.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="FileType" type="GFileType" managed-name="FileType" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe GISharp.Lib.Gio.FileType g_file_info_get_file_type(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets a file's type (whether it is a regular file, symlink, etc).
+        /// This is different from the file's content type, see <see cref="GetContentType"/>.
+        /// </summary>
+        /// <returns>
+        /// a <see cref="FileType"/> for the given file.
+        /// </returns>
+        private unsafe GISharp.Lib.Gio.FileType GetFileType()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_file_type(info_);
+            var ret = (GISharp.Lib.Gio.FileType)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the icon for a file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// #GIcon for the given @info.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_icon(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the icon for a file.
+        /// </summary>
+        /// <returns>
+        /// <see cref="IIcon"/> for the given <paramref name="info"/>.
+        /// </returns>
+        private unsafe GISharp.Lib.Gio.IIcon GetIcon()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_icon(info_);
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file is a backup file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// %TRUE if file is a backup file, %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_get_is_backup(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Checks if a file is a backup file.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if file is a backup file, <c>false</c> otherwise.
+        /// </returns>
+        private unsafe System.Boolean GetIsBackup()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_is_backup(info_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file is hidden.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// %TRUE if the file is a hidden file, %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_get_is_hidden(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Checks if a file is hidden.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the file is a hidden file, <c>false</c> otherwise.
+        /// </returns>
+        private unsafe System.Boolean GetIsHidden()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_is_hidden(info_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file is a symlink.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// %TRUE if the given @info is a symlink.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_get_is_symlink(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Checks if a file is a symlink.
+        /// </summary>
+        /// <returns>
+        /// <c>true</c> if the given <paramref name="info"/> is a symlink.
+        /// </returns>
+        private unsafe System.Boolean GetIsSymlink()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_is_symlink(info_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the modification time of the current @info and sets it
+        /// in @result.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="result">
+        /// a #GTimeVal.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_get_modification_time(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="GLib.TimeVal" type="GTimeVal*" managed-name="GISharp.Lib.GLib.TimeVal" is-pointer="1" /> */
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        GISharp.Lib.GLib.TimeVal* result);
+
+        /// <summary>
+        /// Gets the modification time of the current <paramref name="info"/> and sets it
+        /// in <paramref name="result"/>.
+        /// </summary>
+        /// <param name="result">
+        /// a #GTimeVal.
+        /// </param>
+        public unsafe void GetModificationTime(out GISharp.Lib.GLib.TimeVal result)
+        {
+            var info_ = Handle;
+            GISharp.Lib.GLib.TimeVal result_;
+            g_file_info_get_modification_time(info_, &result_);
+            result = (GISharp.Lib.GLib.TimeVal)result_;
+        }
+
+        /// <summary>
+        /// Gets the name for a file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the file name.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the name for a file.
+        /// </summary>
+        /// <returns>
+        /// a string containing the file name.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Filename GetName()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_name(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the file's size.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a #goffset containing the file's size.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Int64 g_file_info_get_size(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the file's size.
+        /// </summary>
+        /// <returns>
+        /// a #goffset containing the file's size.
+        /// </returns>
+        private unsafe System.Int64 GetSize()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_size(info_);
+            var ret = (System.Int64)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of the sort_order attribute from the #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a #gint32 containing the value of the "standard::sort_order" attribute.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Int32 g_file_info_get_sort_order(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the value of the sort_order attribute from the <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </summary>
+        /// <returns>
+        /// a #gint32 containing the value of the "standard::sort_order" attribute.
+        /// </returns>
+        private unsafe System.Int32 GetSortOrder()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_sort_order(info_);
+            var ret = (System.Int32)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the symbolic icon for a file.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// #GIcon for the given @info.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_symbolic_icon(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the symbolic icon for a file.
+        /// </summary>
+        /// <returns>
+        /// <see cref="IIcon"/> for the given <paramref name="info"/>.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        private unsafe GISharp.Lib.Gio.IIcon GetSymbolicIcon()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_symbolic_icon(info_);
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets the symlink target for a given #GFileInfo.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// a string containing the symlink target.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_symlink_target(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Gets the symlink target for a given <see cref="FileInfo"/>.
+        /// </summary>
+        /// <returns>
+        /// a string containing the symlink target.
+        /// </returns>
+        private unsafe GISharp.Lib.GLib.Utf8 GetSymlinkTarget()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_symlink_target(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file info structure has an attribute named @attribute.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// %TRUE if @Ginfo has an attribute named @attribute,
+        ///     %FALSE otherwise.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_has_attribute(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Checks if a file info structure has an attribute named <paramref name="attribute"/>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="ginfo"/> has an attribute named <paramref name="attribute"/>,
+        ///     <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean HasAttribute(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var ret_ = g_file_info_has_attribute(info_,attribute_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file info structure has an attribute in the
+        /// specified @name_space.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="nameSpace">
+        /// a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// %TRUE if @Ginfo has an attribute in @name_space,
+        ///     %FALSE otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_has_namespace(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr nameSpace);
+
+        /// <summary>
+        /// Checks if a file info structure has an attribute in the
+        /// specified <paramref name="nameSpace"/>.
+        /// </summary>
+        /// <param name="nameSpace">
+        /// a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="ginfo"/> has an attribute in <paramref name="nameSpace"/>,
+        ///     <c>false</c> otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe System.Boolean HasNamespace(GISharp.Lib.GLib.Utf8 nameSpace)
+        {
+            var info_ = Handle;
+            var nameSpace_ = nameSpace?.Handle ?? throw new System.ArgumentNullException(nameof(nameSpace));
+            var ret_ = g_file_info_has_namespace(info_,nameSpace_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Lists the file info structure's attributes.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="nameSpace">
+        /// a file attribute key's namespace, or %NULL to list
+        ///   all attributes.
+        /// </param>
+        /// <returns>
+        /// a
+        /// null-terminated array of strings of all of the possible attribute
+        /// types for the given @name_space, or %NULL on error.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <array type="char**" zero-terminated="1" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
+* </array> */
+        /* transfer-ownership:full nullable:1 direction:out */
+        static extern unsafe System.IntPtr g_file_info_list_attributes(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr nameSpace);
+
+        /// <summary>
+        /// Lists the file info structure's attributes.
+        /// </summary>
+        /// <param name="nameSpace">
+        /// a file attribute key's namespace, or <c>null</c> to list
+        ///   all attributes.
+        /// </param>
+        /// <returns>
+        /// a
+        /// null-terminated array of strings of all of the possible attribute
+        /// types for the given <paramref name="nameSpace"/>, or <c>null</c> on error.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Strv ListAttributes(GISharp.Lib.GLib.Utf8 nameSpace)
+        {
+            var info_ = Handle;
+            var nameSpace_ = nameSpace?.Handle ?? System.IntPtr.Zero;
+            var ret_ = g_file_info_list_attributes(info_,nameSpace_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
+        /// Removes all cases of @attribute from @info if it exists.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_remove_attribute(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute);
+
+        /// <summary>
+        /// Removes all cases of <paramref name="attribute"/> from <paramref name="info"/> if it exists.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        public unsafe void RemoveAttribute(GISharp.Lib.GLib.Utf8 attribute)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            g_file_info_remove_attribute(info_, attribute_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given value, if possible. To unset the
+        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for @type.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="type">
+        /// a #GFileAttributeType
+        /// </param>
+        /// <param name="valueP">
+        /// pointer to the value
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="FileAttributeType" type="GFileAttributeType" managed-name="FileAttributeType" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileAttributeType type,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr valueP);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given value, if possible. To unset the
+        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for <paramref name="type"/>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="type">
+        /// a <see cref="FileAttributeType"/>
+        /// </param>
+        /// <param name="valueP">
+        /// pointer to the value
+        /// </param>
+        public unsafe void SetAttribute(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
+            var valueP_ = (System.IntPtr)valueP;
+            g_file_info_set_attribute(info_, attribute_, type_, valueP_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a boolean value.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_boolean(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:in */
+        System.Boolean attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a boolean value.
+        /// </param>
+        public unsafe void SetAttributeBoolean(GISharp.Lib.GLib.Utf8 attribute, System.Boolean attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = (System.Boolean)attrValue;
+            g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a byte string.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_byte_string(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a byte string.
+        /// </param>
+        public unsafe void SetAttributeByteString(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.GLib.Utf8 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            g_file_info_set_attribute_byte_string(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a signed 32-bit integer
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_int32(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a signed 32-bit integer
+        /// </param>
+        public unsafe void SetAttributeInt32(GISharp.Lib.GLib.Utf8 attribute, System.Int32 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = (System.Int32)attrValue;
+            g_file_info_set_attribute_int32(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// attribute name to set.
+        /// </param>
+        /// <param name="attrValue">
+        /// int64 value to set attribute to.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_int64(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int64 attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// attribute name to set.
+        /// </param>
+        /// <param name="attrValue">
+        /// int64 value to set attribute to.
+        /// </param>
+        public unsafe void SetAttributeInt64(GISharp.Lib.GLib.Utf8 attribute, System.Int64 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = (System.Int64)attrValue;
+            g_file_info_set_attribute_int64(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets @mask on @info to match specific attribute types.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="mask">
+        /// a #GFileAttributeMatcher.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_mask(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr mask);
+
+        /// <summary>
+        /// Sets <paramref name="mask"/> on <paramref name="info"/> to match specific attribute types.
+        /// </summary>
+        /// <param name="mask">
+        /// a <see cref="FileAttributeMatcher"/>.
+        /// </param>
+        public unsafe void SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher mask)
+        {
+            var info_ = Handle;
+            var mask_ = mask?.Handle ?? throw new System.ArgumentNullException(nameof(mask));
+            g_file_info_set_attribute_mask(info_, mask_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a #GObject.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_object(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a #GObject.
+        /// </param>
+        public unsafe void SetAttributeObject(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.GObject.Object attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            g_file_info_set_attribute_object(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the attribute status for an attribute key. This is only
+        /// needed by external code that implement g_file_set_attributes_from_info()
+        /// or similar functions.
+        /// </summary>
+        /// <remarks>
+        /// The attribute must exist in @info for this to work. Otherwise %FALSE
+        /// is returned and @info is unchanged.
+        /// </remarks>
+        /// <param name="info">
+        /// a #GFileInfo
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="status">
+        /// a #GFileAttributeStatus
+        /// </param>
+        /// <returns>
+        /// %TRUE if the status was changed, %FALSE if the key was not set.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.Boolean g_file_info_set_attribute_status(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="FileAttributeStatus" type="GFileAttributeStatus" managed-name="FileAttributeStatus" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileAttributeStatus status);
+
+        /// <summary>
+        /// Sets the attribute status for an attribute key. This is only
+        /// needed by external code that implement g_file_set_attributes_from_info()
+        /// or similar functions.
+        /// </summary>
+        /// <remarks>
+        /// The attribute must exist in <paramref name="info"/> for this to work. Otherwise <c>false</c>
+        /// is returned and <paramref name="info"/> is unchanged.
+        /// </remarks>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="status">
+        /// a <see cref="FileAttributeStatus"/>
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the status was changed, <c>false</c> if the key was not set.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe System.Boolean SetAttributeStatus(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.Gio.FileAttributeStatus status)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var status_ = (GISharp.Lib.Gio.FileAttributeStatus)status;
+            var ret_ = g_file_info_set_attribute_status(info_,attribute_,status_);
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a UTF-8 string.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_string(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a UTF-8 string.
+        /// </param>
+        public unsafe void SetAttributeString(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.GLib.Utf8 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            g_file_info_set_attribute_string(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <remarks>
+        /// Sinze: 2.22
+        /// </remarks>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="attrValue">
+        /// a %NULL terminated array of UTF-8 strings.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_stringv(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <array zero-terminated="1" type="char**" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+*   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <remarks>
+        /// Sinze: 2.22
+        /// </remarks>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="attrValue">
+        /// a <c>null</c> terminated array of UTF-8 strings.
+        /// </param>
+        public unsafe void SetAttributeStringv(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.GLib.Strv attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 32-bit integer.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_uint32(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UInt32 attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 32-bit integer.
+        /// </param>
+        public unsafe void SetAttributeUint32(GISharp.Lib.GLib.Utf8 attribute, System.UInt32 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = (System.UInt32)attrValue;
+            g_file_info_set_attribute_uint32(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the @attribute to contain the given @attr_value,
+        /// if possible.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 64-bit integer.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_attribute_uint64(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr attribute,
+        /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
+        /* transfer-ownership:none direction:in */
+        System.UInt64 attrValue);
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 64-bit integer.
+        /// </param>
+        public unsafe void SetAttributeUint64(GISharp.Lib.GLib.Utf8 attribute, System.UInt64 attrValue)
+        {
+            var info_ = Handle;
+            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attrValue_ = (System.UInt64)attrValue;
+            g_file_info_set_attribute_uint64(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the content type attribute for a given #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="contentType">
+        /// a content type. See [GContentType][gio-GContentType]
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_content_type(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr contentType);
+
+        /// <summary>
+        /// Sets the content type attribute for a given <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
+        /// </summary>
+        /// <param name="contentType">
+        /// a content type. See [GContentType][gio-GContentType]
+        /// </param>
+        private unsafe void SetContentType(GISharp.Lib.GLib.Utf8 contentType)
+        {
+            var info_ = Handle;
+            var contentType_ = contentType?.Handle ?? throw new System.ArgumentNullException(nameof(contentType));
+            g_file_info_set_content_type(info_, contentType_);
+        }
+
+        /// <summary>
+        /// Sets the display name for the current #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="displayName">
+        /// a string containing a display name.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_display_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr displayName);
+
+        /// <summary>
+        /// Sets the display name for the current <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.
+        /// </summary>
+        /// <param name="displayName">
+        /// a string containing a display name.
+        /// </param>
+        private unsafe void SetDisplayName(GISharp.Lib.GLib.Utf8 displayName)
+        {
+            var info_ = Handle;
+            var displayName_ = displayName?.Handle ?? throw new System.ArgumentNullException(nameof(displayName));
+            g_file_info_set_display_name(info_, displayName_);
+        }
+
+        /// <summary>
+        /// Sets the edit name for the current file.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="editName">
+        /// a string containing an edit name.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_edit_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr editName);
+
+        /// <summary>
+        /// Sets the edit name for the current file.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
+        /// </summary>
+        /// <param name="editName">
+        /// a string containing an edit name.
+        /// </param>
+        private unsafe void SetEditName(GISharp.Lib.GLib.Utf8 editName)
+        {
+            var info_ = Handle;
+            var editName_ = editName?.Handle ?? throw new System.ArgumentNullException(nameof(editName));
+            g_file_info_set_edit_name(info_, editName_);
+        }
+
+        /// <summary>
+        /// Sets the file type in a #GFileInfo to @type.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_TYPE.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="type">
+        /// a #GFileType.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_file_type(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="FileType" type="GFileType" managed-name="FileType" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.Gio.FileType type);
+
+        /// <summary>
+        /// Sets the file type in a <see cref="FileInfo"/> to <paramref name="type"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_TYPE.
+        /// </summary>
+        /// <param name="type">
+        /// a <see cref="FileType"/>.
+        /// </param>
+        private unsafe void SetFileType(GISharp.Lib.Gio.FileType type)
+        {
+            var info_ = Handle;
+            var type_ = (GISharp.Lib.Gio.FileType)type;
+            g_file_info_set_file_type(info_, type_);
+        }
+
+        /// <summary>
+        /// Sets the icon for a given #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_ICON.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="icon">
+        /// a #GIcon.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_icon(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Sets the icon for a given <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_ICON.
+        /// </summary>
+        /// <param name="icon">
+        /// a <see cref="IIcon"/>.
+        /// </param>
+        private unsafe void SetIcon(GISharp.Lib.Gio.IIcon icon)
+        {
+            var info_ = Handle;
+            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            g_file_info_set_icon(info_, icon_);
+        }
+
+        /// <summary>
+        /// Sets the "is_hidden" attribute in a #GFileInfo according to @is_hidden.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="isHidden">
+        /// a #gboolean.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_is_hidden(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:in */
+        System.Boolean isHidden);
+
+        /// <summary>
+        /// Sets the "is_hidden" attribute in a <see cref="FileInfo"/> according to <paramref name="isHidden"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_IS_HIDDEN.
+        /// </summary>
+        /// <param name="isHidden">
+        /// a #gboolean.
+        /// </param>
+        private unsafe void SetIsHidden(System.Boolean isHidden)
+        {
+            var info_ = Handle;
+            var isHidden_ = (System.Boolean)isHidden;
+            g_file_info_set_is_hidden(info_, isHidden_);
+        }
+
+        /// <summary>
+        /// Sets the "is_symlink" attribute in a #GFileInfo according to @is_symlink.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="isSymlink">
+        /// a #gboolean.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_is_symlink(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:in */
+        System.Boolean isSymlink);
+
+        /// <summary>
+        /// Sets the "is_symlink" attribute in a <see cref="FileInfo"/> according to <paramref name="isSymlink"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK.
+        /// </summary>
+        /// <param name="isSymlink">
+        /// a #gboolean.
+        /// </param>
+        private unsafe void SetIsSymlink(System.Boolean isSymlink)
+        {
+            var info_ = Handle;
+            var isSymlink_ = (System.Boolean)isSymlink;
+            g_file_info_set_is_symlink(info_, isSymlink_);
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
+        /// info to the given time value.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="mtime">
+        /// a #GTimeVal.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_modification_time(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="GLib.TimeVal" type="GTimeVal*" managed-name="GISharp.Lib.GLib.TimeVal" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.TimeVal* mtime);
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
+        /// info to the given time value.
+        /// </summary>
+        /// <param name="mtime">
+        /// a #GTimeVal.
+        /// </param>
+        public unsafe void SetModificationTime(GISharp.Lib.GLib.TimeVal mtime)
+        {
+            var info_ = Handle;
+            var mtime_ = (GISharp.Lib.GLib.TimeVal)mtime;
+            g_file_info_set_modification_time(info_, &mtime_);
+        }
+
+        /// <summary>
+        /// Sets the name attribute for the current #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_NAME.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="name">
+        /// a string containing a name.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_name(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr name);
+
+        /// <summary>
+        /// Sets the name attribute for the current <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_NAME.
+        /// </summary>
+        /// <param name="name">
+        /// a string containing a name.
+        /// </param>
+        private unsafe void SetName(GISharp.Lib.GLib.Filename name)
+        {
+            var info_ = Handle;
+            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            g_file_info_set_name(info_, name_);
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute in the file info
+        /// to the given size.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="size">
+        /// a #goffset containing the file's size.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_size(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int64 size);
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_STANDARD_SIZE attribute in the file info
+        /// to the given size.
+        /// </summary>
+        /// <param name="size">
+        /// a #goffset containing the file's size.
+        /// </param>
+        private unsafe void SetSize(System.Int64 size)
+        {
+            var info_ = Handle;
+            var size_ = (System.Int64)size;
+            g_file_info_set_size(info_, size_);
+        }
+
+        /// <summary>
+        /// Sets the sort order attribute in the file info structure. See
+        /// %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="sortOrder">
+        /// a sort order integer.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_sort_order(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 sortOrder);
+
+        /// <summary>
+        /// Sets the sort order attribute in the file info structure. See
+        /// %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
+        /// </summary>
+        /// <param name="sortOrder">
+        /// a sort order integer.
+        /// </param>
+        private unsafe void SetSortOrder(System.Int32 sortOrder)
+        {
+            var info_ = Handle;
+            var sortOrder_ = (System.Int32)sortOrder;
+            g_file_info_set_sort_order(info_, sortOrder_);
+        }
+
+        /// <summary>
+        /// Sets the symbolic icon for a given #GFileInfo.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="icon">
+        /// a #GIcon.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_symbolic_icon(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr icon);
+
+        /// <summary>
+        /// Sets the symbolic icon for a given <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_SYMBOLIC_ICON.
+        /// </summary>
+        /// <param name="icon">
+        /// a <see cref="IIcon"/>.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        private unsafe void SetSymbolicIcon(GISharp.Lib.Gio.IIcon icon)
+        {
+            var info_ = Handle;
+            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            g_file_info_set_symbolic_icon(info_, icon_);
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET attribute in the file info
+        /// to the given symlink target.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="symlinkTarget">
+        /// a static string containing a path to a symlink target.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_symlink_target(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr symlinkTarget);
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET attribute in the file info
+        /// to the given symlink target.
+        /// </summary>
+        /// <param name="symlinkTarget">
+        /// a static string containing a path to a symlink target.
+        /// </param>
+        private unsafe void SetSymlinkTarget(GISharp.Lib.GLib.Utf8 symlinkTarget)
+        {
+            var info_ = Handle;
+            var symlinkTarget_ = symlinkTarget?.Handle ?? throw new System.ArgumentNullException(nameof(symlinkTarget));
+            g_file_info_set_symlink_target(info_, symlinkTarget_);
+        }
+
+        /// <summary>
+        /// Unsets a mask set by g_file_info_set_attribute_mask(), if one
+        /// is set.
+        /// </summary>
+        /// <param name="info">
+        /// #GFileInfo.
+        /// </param>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_unset_attribute_mask(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        /// <summary>
+        /// Unsets a mask set by <see cref="SetAttributeMask"/>, if one
+        /// is set.
+        /// </summary>
+        public unsafe void UnsetAttributeMask()
+        {
+            var info_ = Handle;
+            g_file_info_unset_attribute_mask(info_);
+        }
+    }
+
+    public sealed partial class FileInfoClass : GISharp.Lib.GObject.ObjectClass
+    {
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
+        public FileInfoClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
+        {
+        }
+    }
+
+    /// <summary>
+    /// Indicates the file's on-disk type.
+    /// </summary>
+    [GISharp.Runtime.GTypeAttribute("GFileType", IsProxyForUnmanagedType = true)]
+    public enum FileType
+    {
+        /// <summary>
+        /// File's type is unknown.
+        /// </summary>
+        Unknown = 0,
+        /// <summary>
+        /// File handle represents a regular file.
+        /// </summary>
+        Regular = 1,
+        /// <summary>
+        /// File handle represents a directory.
+        /// </summary>
+        Directory = 2,
+        /// <summary>
+        /// File handle represents a symbolic link
+        ///    (Unix systems).
+        /// </summary>
+        SymbolicLink = 3,
+        /// <summary>
+        /// File is a "special" file, such as a socket, fifo,
+        ///    block device, or character device.
+        /// </summary>
+        Special = 4,
+        /// <summary>
+        /// File is a shortcut (Windows systems).
+        /// </summary>
+        Shortcut = 5,
+        /// <summary>
+        /// File is a mountable location.
+        /// </summary>
+        Mountable = 6
+    }
+
+    public partial class FileTypeExtensions
+    {
+        static readonly GISharp.Lib.GObject.GType _GType = g_file_type_get_type();
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe GISharp.Lib.GObject.GType g_file_type_get_type();
     }
 
     /// <summary>
@@ -11524,5 +14572,645 @@ System.IntPtr* error);
         public CancellableSource(GISharp.Lib.Gio.Cancellable cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
+    }
+
+    public static partial class FileAttribute
+    {
+        /// <summary>
+        /// A key in the "access" namespace for checking deletion privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to delete the file.
+        /// </summary>
+        public const System.String AccessCanDelete = "access::can-delete";
+
+        /// <summary>
+        /// A key in the "access" namespace for getting execution privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to execute the file.
+        /// </summary>
+        public const System.String AccessCanExecute = "access::can-execute";
+
+        /// <summary>
+        /// A key in the "access" namespace for getting read privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to read the file.
+        /// </summary>
+        public const System.String AccessCanRead = "access::can-read";
+
+        /// <summary>
+        /// A key in the "access" namespace for checking renaming privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to rename the file.
+        /// </summary>
+        public const System.String AccessCanRename = "access::can-rename";
+
+        /// <summary>
+        /// A key in the "access" namespace for checking trashing privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to move the file to
+        /// the trash.
+        /// </summary>
+        public const System.String AccessCanTrash = "access::can-trash";
+
+        /// <summary>
+        /// A key in the "access" namespace for getting write privileges.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// This attribute will be <c>true</c> if the user is able to write to the file.
+        /// </summary>
+        public const System.String AccessCanWrite = "access::can-write";
+
+        /// <summary>
+        /// A key in the "dos" namespace for checking if the file's archive flag
+        /// is set. This attribute is <c>true</c> if the archive flag is set. This attribute
+        /// is only available for DOS file systems. Corresponding <see cref="FileAttributeType"/>
+        /// is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String DosIsArchive = "dos::is-archive";
+
+        /// <summary>
+        /// A key in the "dos" namespace for checking if the file's backup flag
+        /// is set. This attribute is <c>true</c> if the backup flag is set. This attribute
+        /// is only available for DOS file systems. Corresponding <see cref="FileAttributeType"/>
+        /// is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String DosIsSystem = "dos::is-system";
+
+        /// <summary>
+        /// A key in the "etag" namespace for getting the value of the file's
+        /// entity tag. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String EtagValue = "etag::value";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for getting the number of bytes of free space left on the
+        /// file system. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        public const System.String FilesystemFree = "filesystem::free";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for checking if the file system
+        /// is read only. Is set to <c>true</c> if the file system is read only.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String FilesystemReadonly = "filesystem::readonly";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for checking if the file system
+        /// is remote. Is set to <c>true</c> if the file system is remote.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String FilesystemRemote = "filesystem::remote";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for getting the total size (in bytes) of the file system,
+        /// used in g_file_query_filesystem_info(). Corresponding <see cref="FileAttributeType"/>
+        /// is <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        public const System.String FilesystemSize = "filesystem::size";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for getting the file system's type.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String FilesystemType = "filesystem::type";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for getting the number of bytes of used on the
+        /// file system. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public const System.String FilesystemUsed = "filesystem::used";
+
+        /// <summary>
+        /// A key in the "filesystem" namespace for hinting a file manager
+        /// application whether it should preview (e.g. thumbnail) files on the
+        /// file system. The value for this key contain a
+        /// #GFilesystemPreviewType.
+        /// </summary>
+        public const System.String FilesystemUsePreview = "filesystem::use-preview";
+
+        /// <summary>
+        /// A key in the "gvfs" namespace that gets the name of the current
+        /// GVFS backend in use. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String GvfsBackend = "gvfs::backend";
+
+        /// <summary>
+        /// A key in the "id" namespace for getting a file identifier.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// An example use would be during listing files, to avoid recursive
+        /// directory scanning.
+        /// </summary>
+        public const System.String IdFile = "id::file";
+
+        /// <summary>
+        /// A key in the "id" namespace for getting the file system identifier.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// An example use would be during drag and drop to see if the source
+        /// and target are on the same filesystem (default to move) or not (default
+        /// to copy).
+        /// </summary>
+        public const System.String IdFilesystem = "id::filesystem";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be ejected.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String MountableCanEject = "mountable::can-eject";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) is mountable.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String MountableCanMount = "mountable::can-mount";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be polled.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableCanPoll = "mountable::can-poll";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be started.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableCanStart = "mountable::can-start";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be started
+        /// degraded.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableCanStartDegraded = "mountable::can-start-degraded";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE) can be stopped.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableCanStop = "mountable::can-stop";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE)  is unmountable.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String MountableCanUnmount = "mountable::can-unmount";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for getting the HAL UDI for the mountable
+        /// file. Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String MountableHalUdi = "mountable::hal-udi";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for checking if a file (of type G_FILE_TYPE_MOUNTABLE)
+        /// is automatically polled for media.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableIsMediaCheckAutomatic = "mountable::is-media-check-automatic";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for getting the #GDriveStartStopType.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableStartStopType = "mountable::start-stop-type";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for getting the unix device.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String MountableUnixDevice = "mountable::unix-device";
+
+        /// <summary>
+        /// A key in the "mountable" namespace for getting the unix device file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public const System.String MountableUnixDeviceFile = "mountable::unix-device-file";
+
+        /// <summary>
+        /// A key in the "owner" namespace for getting the file owner's group.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String OwnerGroup = "owner::group";
+
+        /// <summary>
+        /// A key in the "owner" namespace for getting the user name of the
+        /// file's owner. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String OwnerUser = "owner::user";
+
+        /// <summary>
+        /// A key in the "owner" namespace for getting the real name of the
+        /// user that owns the file. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String OwnerUserReal = "owner::user-real";
+
+        /// <summary>
+        /// A key in the "preview" namespace for getting a <see cref="IIcon"/> that can be
+        /// used to get preview of the file. For example, it may be a low
+        /// resolution thumbnail without metadata. Corresponding
+        /// <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.  The value
+        /// for this key should contain a <see cref="IIcon"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public const System.String PreviewIcon = "preview::icon";
+
+        /// <summary>
+        /// A key in the "recent" namespace for getting time, when the metadata for the
+        /// file in `recent:///` was last changed. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Int64"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.52")]
+        public const System.String RecentModified = "recent::modified";
+
+        /// <summary>
+        /// A key in the "selinux" namespace for getting the file's SELinux
+        /// context. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.String"/>. Note that this attribute is only
+        /// available if GLib has been built with SELinux support.
+        /// </summary>
+        public const System.String SelinuxContext = "selinux::context";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the amount of disk space
+        /// that is consumed by the file (in bytes).  This will generally be larger
+        /// than the file size (due to block size overhead) but can occasionally be
+        /// smaller (for example, for sparse files).
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public const System.String StandardAllocatedSize = "standard::allocated-size";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the content type of the file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// The value for this key should contain a valid content type.
+        /// </summary>
+        public const System.String StandardContentType = "standard::content-type";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the copy name of the file.
+        /// The copy name is an optional version of the name. If available it's always
+        /// in UTF8, and corresponds directly to the original filename (only transcoded to
+        /// UTF8). This is useful if you want to copy the file to another filesystem that
+        /// might have a different encoding. If the filename is not a valid string in the
+        /// encoding selected for the filesystem it is in then the copy name will not be set.
+        /// </summary>
+        /// <remarks>
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </remarks>
+        public const System.String StandardCopyName = "standard::copy-name";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the description of the file.
+        /// The description is a utf8 string that describes the file, generally containing
+        /// the filename, but can also contain furter information. Example descriptions
+        /// could be "filename (on hostname)" for a remote file or "filename (in trash)"
+        /// for a file in the trash. This is useful for instance as the window title
+        /// when displaying a directory or for a bookmarks menu.
+        /// </summary>
+        /// <remarks>
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </remarks>
+        public const System.String StandardDescription = "standard::description";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the display name of the file.
+        /// A display name is guaranteed to be in UTF8 and can thus be displayed in
+        /// the UI.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String StandardDisplayName = "standard::display-name";
+
+        /// <summary>
+        /// A key in the "standard" namespace for edit name of the file.
+        /// An edit name is similar to the display name, but it is meant to be
+        /// used when you want to rename the file in the UI. The display name
+        /// might contain information you don't want in the new filename (such as
+        /// "(invalid unicode)" if the filename was in an invalid encoding).
+        /// </summary>
+        /// <remarks>
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </remarks>
+        public const System.String StandardEditName = "standard::edit-name";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the fast content type.
+        /// The fast content type isn't as reliable as the regular one, as it
+        /// only uses the filename to guess it, but it is faster to calculate than the
+        /// regular content type.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String StandardFastContentType = "standard::fast-content-type";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the icon for the file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
+        /// The value for this key should contain a <see cref="IIcon"/>.
+        /// </summary>
+        public const System.String StandardIcon = "standard::icon";
+
+        /// <summary>
+        /// A key in the "standard" namespace for checking if a file is a backup file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String StandardIsBackup = "standard::is-backup";
+
+        /// <summary>
+        /// A key in the "standard" namespace for checking if a file is hidden.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String StandardIsHidden = "standard::is-hidden";
+
+        /// <summary>
+        /// A key in the "standard" namespace for checking if the file is a symlink.
+        /// Typically the actual type is something else, if we followed the symlink
+        /// to get the type.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String StandardIsSymlink = "standard::is-symlink";
+
+        /// <summary>
+        /// A key in the "standard" namespace for checking if a file is virtual.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String StandardIsVirtual = "standard::is-virtual";
+
+        /// <summary>
+        /// A key in the "standard" namespace for checking if a file is
+        /// volatile. This is meant for opaque, non-POSIX-like backends to
+        /// indicate that the URI is not persistent. Applications should look
+        /// at #G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET for the persistent URI.
+        /// </summary>
+        /// <remarks>
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.46")]
+        public const System.String StandardIsVolatile = "standard::is-volatile";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the name of the file.
+        /// The name is the on-disk filename which may not be in any known encoding,
+        /// and can thus not be generally displayed as is.
+        /// Use #G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME if you need to display the
+        /// name in a user interface.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
+        /// </summary>
+        public const System.String StandardName = "standard::name";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the file's size (in bytes).
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        public const System.String StandardSize = "standard::size";
+
+        /// <summary>
+        /// A key in the "standard" namespace for setting the sort order of a file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Int32"/>.
+        /// An example use would be in file managers, which would use this key
+        /// to set the order files are displayed. Files with smaller sort order
+        /// should be sorted first, and files without sort order as if sort order
+        /// was zero.
+        /// </summary>
+        public const System.String StandardSortOrder = "standard::sort-order";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the symbolic icon for the file.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Object"/>.
+        /// The value for this key should contain a <see cref="IIcon"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.34")]
+        public const System.String StandardSymbolicIcon = "standard::symbolic-icon";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the symlink target, if the file
+        /// is a symlink. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.ByteString"/>.
+        /// </summary>
+        public const System.String StandardSymlinkTarget = "standard::symlink-target";
+
+        /// <summary>
+        /// A key in the "standard" namespace for getting the target URI for the file, in
+        /// the case of <see cref="FileType.Shortcut"/> or <see cref="FileType.Mountable"/> files.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        public const System.String StandardTargetUri = "standard::target-uri";
+
+        /// <summary>
+        /// A key in the "standard" namespace for storing file types.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// The value for this key should contain a <see cref="FileType"/>.
+        /// </summary>
+        public const System.String StandardType = "standard::type";
+
+        /// <summary>
+        /// A key in the "thumbnail" namespace for checking if thumbnailing failed.
+        /// This attribute is <c>true</c> if thumbnailing failed. Corresponding
+        /// <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String ThumbnailingFailed = "thumbnail::failed";
+
+        /// <summary>
+        /// A key in the "thumbnail" namespace for checking whether the thumbnail is outdated.
+        /// This attribute is <c>true</c> if the thumbnail is up-to-date with the file it represents,
+        /// and <c>false</c> if the file has been modified since the thumbnail was generated.
+        /// </summary>
+        /// <remarks>
+        /// If %G_FILE_ATTRIBUTE_THUMBNAILING_FAILED is <c>true</c> and this attribute is <c>false</c>,
+        /// it indicates that thumbnailing may be attempted again and may succeed.
+        /// 
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public const System.String ThumbnailIsValid = "thumbnail::is-valid";
+
+        /// <summary>
+        /// A key in the "thumbnail" namespace for getting the path to the thumbnail
+        /// image. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.ByteString"/>.
+        /// </summary>
+        public const System.String ThumbnailPath = "thumbnail::path";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the time the file was last
+        /// accessed. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint64"/>, and contains the time since the
+        /// file was last accessed, in seconds since the UNIX epoch.
+        /// </summary>
+        public const System.String TimeAccess = "time::access";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the microseconds of the time
+        /// the file was last accessed. This should be used in conjunction with
+        /// #G_FILE_ATTRIBUTE_TIME_ACCESS. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String TimeAccessUsec = "time::access-usec";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the time the file was last
+        /// changed. Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
+        /// and contains the time since the file was last changed, in seconds since the
+        /// UNIX epoch.
+        /// </summary>
+        /// <remarks>
+        /// This corresponds to the traditional UNIX ctime.
+        /// </remarks>
+        public const System.String TimeChanged = "time::changed";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the microseconds of the time
+        /// the file was last changed. This should be used in conjunction with
+        /// #G_FILE_ATTRIBUTE_TIME_CHANGED. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String TimeChangedUsec = "time::changed-usec";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the time the file was created.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>,
+        /// and contains the time since the file was created, in seconds since the UNIX
+        /// epoch.
+        /// </summary>
+        /// <remarks>
+        /// This corresponds to the NTFS ctime.
+        /// </remarks>
+        public const System.String TimeCreated = "time::created";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the microseconds of the time
+        /// the file was created. This should be used in conjunction with
+        /// #G_FILE_ATTRIBUTE_TIME_CREATED. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String TimeCreatedUsec = "time::created-usec";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the time the file was last
+        /// modified. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint64"/>, and contains the time since the
+        /// file was modified, in seconds since the UNIX epoch.
+        /// </summary>
+        public const System.String TimeModified = "time::modified";
+
+        /// <summary>
+        /// A key in the "time" namespace for getting the microseconds of the time
+        /// the file was last modified. This should be used in conjunction with
+        /// #G_FILE_ATTRIBUTE_TIME_MODIFIED. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String TimeModifiedUsec = "time::modified-usec";
+
+        /// <summary>
+        /// A key in the "trash" namespace.  When requested against
+        /// items in `trash:///`, will return the date and time when the file
+        /// was trashed. The format of the returned string is YYYY-MM-DDThh:mm:ss.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.String"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.24")]
+        public const System.String TrashDeletionDate = "trash::deletion-date";
+
+        /// <summary>
+        /// A key in the "trash" namespace.  When requested against
+        /// `trash:///` returns the number of (toplevel) items in the trash folder.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String TrashItemCount = "trash::item-count";
+
+        /// <summary>
+        /// A key in the "trash" namespace.  When requested against
+        /// items in `trash:///`, will return the original path to the file before it
+        /// was trashed. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.ByteString"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.24")]
+        public const System.String TrashOrigPath = "trash::orig-path";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the number of blocks allocated
+        /// for the file. This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        public const System.String UnixBlocks = "unix::blocks";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the block size for the file
+        /// system. This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixBlockSize = "unix::block-size";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the device id of the device the
+        /// file is located on (see stat() documentation). This attribute is only
+        /// available for UNIX file systems. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixDevice = "unix::device";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the group ID for the file.
+        /// This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixGid = "unix::gid";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the inode of the file.
+        /// This attribute is only available for UNIX file systems. Corresponding
+        /// <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint64"/>.
+        /// </summary>
+        public const System.String UnixInode = "unix::inode";
+
+        /// <summary>
+        /// A key in the "unix" namespace for checking if the file represents a
+        /// UNIX mount point. This attribute is <c>true</c> if the file is a UNIX mount
+        /// point. This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+        /// </summary>
+        public const System.String UnixIsMountpoint = "unix::is-mountpoint";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the mode of the file
+        /// (e.g. whether the file is a regular file, symlink, etc). See lstat()
+        /// documentation. This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixMode = "unix::mode";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the number of hard links
+        /// for a file. See lstat() documentation. This attribute is only available
+        /// for UNIX file systems. Corresponding <see cref="FileAttributeType"/> is
+        /// <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixNlink = "unix::nlink";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the device ID for the file
+        /// (if it is a special file). See lstat() documentation. This attribute
+        /// is only available for UNIX file systems. Corresponding <see cref="FileAttributeType"/>
+        /// is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixRdev = "unix::rdev";
+
+        /// <summary>
+        /// A key in the "unix" namespace for getting the user ID for the file.
+        /// This attribute is only available for UNIX file systems.
+        /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Uint32"/>.
+        /// </summary>
+        public const System.String UnixUid = "unix::uid";
     }
 }
