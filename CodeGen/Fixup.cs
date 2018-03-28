@@ -763,19 +763,6 @@ namespace GISharp.CodeGen
 
             // TODO: add instance parameter and user data parameter for signals
 
-            // first parameter virtual method is instance parameter
-
-            foreach (var element in document.Descendants(gi + "virtual-method")
-                .Concat(document.Descendants(gi + "callback").Where(x => x.Parent.Name == gi + "field")))
-            {
-                if (element.Element(gi + "parameters").Element(gi + "instance-parameter") != null) {
-                    // there is already an instance parameter, so don't make another
-                    continue;
-                }
-                var instanceParam = element.Element(gi + "parameters").Elements(gi + "parameter").First();
-                instanceParam.Name = gi + "instance-parameter";
-            }
-
             // make all cancellable parameters have default value
 
             foreach (var element in document.Descendants(gi + "parameter")

@@ -21,10 +21,16 @@ namespace GISharp.CodeGen.Syntax
         {
             var returnType = callback.ReturnValue.GetManagedTypeName();
             var identifier = callback.ManagedName;
+            var parameterList = callback.ManagedParameters.GetParameterList();
+            if (callback.ParentNode is Field) {
+                // The first parameter is the instance parameter for a virtual
+                // method, so skip it
+                parameterList = ParameterList(SeparatedList(parameterList.Parameters.Skip(1)));
+            }
             return DelegateDeclaration(returnType, identifier)
                 .AddModifiers(Token(PublicKeyword))
                 .WithAttributeLists(callback.GetCommonAttributeLists())
-                .WithParameterList(callback.ManagedParameters.GetParameterList())
+                .WithParameterList(parameterList)
                 .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia());
         }
 
@@ -63,10 +69,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var tryStatement = TryStatement();
 
-            var instanceParam = callback.Parameters.InstanceParameter;
-
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out")
-                .Prepend(instanceParam))
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out"))
             {
                 var marshalStatement = arg.GetMarshalUnmanagedToManagedStatement();
                 tryStatement = tryStatement.AddBlockStatements(marshalStatement);
@@ -76,7 +79,7 @@ namespace GISharp.CodeGen.Syntax
             var getDelegate = string.Format("var {0} = ({1})methodInfo.CreateDelegate(typeof({1}), {2})",
                 invokeMethod,
                 callback.ManagedName,
-                instanceParam.ManagedName);
+                callback.ManagedParameters.First().ManagedName);
             var getDelegateStatement = ExpressionStatement(ParseExpression(getDelegate));
             tryStatement = tryStatement.AddBlockStatements(getDelegateStatement);
 
@@ -220,6 +223,11 @@ namespace GISharp.CodeGen.Syntax
         {
             var invokeExpression = InvocationExpression(IdentifierName(methodName ?? callback.ManagedName));
             var argList = callback.ManagedParameters.GetArgumentList();
+            if (callback.ParentNode is Field) {
+                // The first parameter is the instance parameter for a virtual
+                // method, so skip it
+                argList = ArgumentList(SeparatedList(argList.Arguments.Skip(1)));
+            }
             invokeExpression = invokeExpression.WithArgumentList(argList);
 
             StatementSyntax statement = ExpressionStatement(invokeExpression);
