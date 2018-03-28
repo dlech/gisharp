@@ -16,7 +16,14 @@ namespace GISharp.CodeGen.Reflection
             this.method = method ?? throw new ArgumentNullException(nameof(method));
         }
 
-        public override System.Type ReturnType => method.ReturnValue.Type.ManagedType;
+        public override System.Type ReturnType {
+            get {
+                if (method.ReturnValue.IsSkip) {
+                    return typeof(void);
+                }
+                return method.ReturnValue.Type.ManagedType;
+            }
+        }
 
         public override ICustomAttributeProvider ReturnTypeCustomAttributes => throw new NotSupportedException();
 
