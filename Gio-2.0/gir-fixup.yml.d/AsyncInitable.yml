@@ -1,0 +1,8 @@
+
+### AsyncInitable ###
+
+# drop "v" suffix from name (fixes async-finish matching)
+- !set-attribute
+  name: name
+  value: new_async
+  xpath: gi:repository/gi:namespace/gi:interface[@name='AsyncInitable']/gi:function[@name='newv_async']

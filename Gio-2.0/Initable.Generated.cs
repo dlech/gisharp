@@ -5,8 +5,8 @@ namespace GISharp.Lib.Gio
     /// <see cref="IInitable"/> is implemented by objects that can fail during
     /// initialization. If an object implements this interface then
     /// it must be initialized as the first thing after construction,
-    /// either via <see cref="Initable.Init"/> or g_async_initable_init_async()
-    /// (the latter is only available if it also implements #GAsyncInitable).
+    /// either via <see cref="Initable.Init"/> or <see cref="AsyncInitable.InitAsync"/>
+    /// (the latter is only available if it also implements <see cref="IAsyncInitable"/>).
     /// </summary>
     /// <remarks>
     /// If the object is not initialized, or initialization returns with an
@@ -41,7 +41,7 @@ namespace GISharp.Lib.Gio
         /// g_initable_new() should typically be used instead.
         /// 
         /// The object must be initialized before any real use after initial
-        /// construction, either with this function or g_async_initable_init_async().
+        /// construction, either with this function or <see cref="AsyncInitable.InitAsync"/>.
         /// 
         /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
         /// then initialization can be cancelled by triggering the cancellable object
@@ -265,7 +265,7 @@ namespace GISharp.Lib.Gio
         /// g_initable_new() should typically be used instead.
         /// 
         /// The object must be initialized before any real use after initial
-        /// construction, either with this function or g_async_initable_init_async().
+        /// construction, either with this function or <see cref="AsyncInitable.InitAsync"/>.
         /// 
         /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
         /// then initialization can be cancelled by triggering the cancellable object
