@@ -115,7 +115,7 @@ namespace GISharp.Lib.Gio
         /// A key in the "filesystem" namespace for hinting a file manager
         /// application whether it should preview (e.g. thumbnail) files on the
         /// file system. The value for this key contain a
-        /// #GFilesystemPreviewType.
+        /// <see cref="FilesystemPreviewType"/>.
         /// </summary>
         public const System.String FilesystemUsePreview = "filesystem::use-preview";
 
