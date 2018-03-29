@@ -284,6 +284,17 @@ namespace GISharp.CodeGen
                 }
             }
 
+            // flag records ending in "Private" as not introspectable
+
+            foreach (var element in document.Descendants(gi + "record")
+                .Where(x => x.Attribute("name").Value.EndsWith("Private")))
+            {
+                if (element.Attribute("introspectable") != null) {
+                    continue;
+                }
+                element.SetAttributeValue("introspectable", "0");
+            }
+
             // remove non-introspectable nodes
 
             var elementsToRemove = document.Descendants ()
