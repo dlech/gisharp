@@ -17,7 +17,7 @@ namespace GISharp.Lib.GObject {
             /// <summary>
             /// the parent class
             /// </summary>
-            public TypeClass GTypeClass;
+            public TypeClass.Struct GTypeClass;
 
             /// <summary>
             /// the smallest possible value.
