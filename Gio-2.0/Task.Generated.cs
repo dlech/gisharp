@@ -494,7 +494,7 @@ namespace GISharp.Lib.Gio
     ///   Note that wrapper methods can now use
     ///   g_async_result_legacy_propagate_error() to do old-style
     ///   #GSimpleAsyncResult error-returning behavior, and
-    ///   <see cref="IAsyncResult.IsTagged"/> to check if a result is tagged as
+    ///   <see cref="AsyncResult.IsTagged"/> to check if a result is tagged as
     ///   having come from the `_async()` wrapper
     ///   function (for "short-circuit" results, such as when passing
     ///   0 to <see cref="InputStream.ReadAsync"/>).
@@ -570,7 +570,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Gets the source object from <paramref name="task"/>. Like
-        /// <see cref="IAsyncResult.GetSourceObject"/>, but does not ref the object.
+        /// <see cref="AsyncResult.GetSourceObject"/>, but does not ref the object.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GObject.Object SourceObject { get => GetSourceObject(); }
@@ -827,7 +827,7 @@ namespace GISharp.Lib.Gio
         /// Creates a <see cref="Task"/> and then immediately calls <see cref="Task.ReturnError"/>
         /// on it. Use this in the wrapper function of an asynchronous method
         /// when you want to avoid even calling the virtual method. You can
-        /// then use <see cref="IAsyncResult.IsTagged"/> in the finish method wrapper to
+        /// then use <see cref="AsyncResult.IsTagged"/> in the finish method wrapper to
         /// check if the result there is tagged as having been created by the
         /// wrapper method, and deal with it appropriately if so.
         /// </summary>
@@ -1091,7 +1091,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Gets the source object from <paramref name="task"/>. Like
-        /// <see cref="IAsyncResult.GetSourceObject"/>, but does not ref the object.
+        /// <see cref="AsyncResult.GetSourceObject"/>, but does not ref the object.
         /// </summary>
         /// <returns>
         /// <paramref name="task"/>'s source object, or <c>null</c>
@@ -1858,7 +1858,7 @@ namespace GISharp.Lib.Gio
         /// Sets <paramref name="task"/>'s source tag. You can use this to tag a task return
         /// value with a particular pointer (usually a pointer to the function
         /// doing the tagging) and then later check it using
-        /// <see cref="Task.GetSourceTag"/> (or <see cref="IAsyncResult.IsTagged"/>) in the
+        /// <see cref="Task.GetSourceTag"/> (or <see cref="AsyncResult.IsTagged"/>) in the
         /// task's "finish" function, to figure out if the response came from a
         /// particular place.
         /// </summary>

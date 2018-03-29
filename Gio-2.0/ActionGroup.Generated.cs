@@ -11,17 +11,17 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// The main way to interact with the actions in a GActionGroup is to
-    /// activate them with <see cref="IActionGroup.ActivateAction"/>. Activating an
+    /// activate them with <see cref="ActionGroup.ActivateAction"/>. Activating an
     /// action may require a #GVariant parameter. The required type of the
-    /// parameter can be inquired with <see cref="IActionGroup.GetActionParameterType"/>.
-    /// Actions may be disabled, see <see cref="IActionGroup.GetActionEnabled"/>.
+    /// parameter can be inquired with <see cref="ActionGroup.GetActionParameterType"/>.
+    /// Actions may be disabled, see <see cref="ActionGroup.GetActionEnabled"/>.
     /// Activating a disabled action has no effect.
     /// 
     /// Actions may optionally have a state in the form of a #GVariant. The
     /// current state of an action can be inquired with
-    /// <see cref="IActionGroup.GetActionState"/>. Activating a stateful action may
+    /// <see cref="ActionGroup.GetActionState"/>. Activating a stateful action may
     /// change its state, but it is also possible to set the state by calling
-    /// <see cref="IActionGroup.ChangeActionState"/>.
+    /// <see cref="ActionGroup.ChangeActionState"/>.
     /// 
     /// As typical example, consider a text editing application which has an
     /// option to change the current font to 'bold'. A good way to represent
@@ -29,7 +29,7 @@ namespace GISharp.Lib.Gio
     /// action would toggle the state.
     /// 
     /// Each action in the group has a unique name (which is a string).  All
-    /// method calls, except <see cref="IActionGroup.ListActions"/> take the name of
+    /// method calls, except <see cref="ActionGroup.ListActions"/> take the name of
     /// an action as an argument.
     /// 
     /// The <see cref="IActionGroup"/> API is meant to be the 'public' API to the action
@@ -37,17 +37,17 @@ namespace GISharp.Lib.Gio
     /// forces' (eg: UI, incoming D-Bus messages, etc.) are supposed to have
     /// with actions.  'Internal' APIs (ie: ones meant only to be accessed by
     /// the action group implementation) are found on subclasses.  This is
-    /// why you will find - for example - <see cref="IActionGroup.GetActionEnabled"/>
+    /// why you will find - for example - <see cref="ActionGroup.GetActionEnabled"/>
     /// but not an equivalent set() call.
     /// 
     /// Signals are emitted on the action group in response to state changes
     /// on individual actions.
     /// 
     /// Implementations of <see cref="IActionGroup"/> should provide implementations for
-    /// the virtual functions <see cref="IActionGroup.ListActions"/> and
-    /// <see cref="IActionGroup.TryQueryAction"/>.  The other virtual functions should
+    /// the virtual functions <see cref="ActionGroup.ListActions"/> and
+    /// <see cref="ActionGroup.TryQueryAction"/>.  The other virtual functions should
     /// not be implemented - their "wrappers" are actually implemented with
-    /// calls to <see cref="IActionGroup.TryQueryAction"/>.
+    /// calls to <see cref="ActionGroup.TryQueryAction"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
@@ -150,7 +150,7 @@ namespace GISharp.Lib.Gio
         /// If the action is expecting a parameter, then the correct type of
         /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
         /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
-        /// <see cref="IActionGroup.GetActionParameterType"/>.
+        /// <see cref="ActionGroup.GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionName">
         /// the name of the action to activate
@@ -168,11 +168,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="IActionGroup.GetActionStateType"/>.
+        /// See <see cref="ActionGroup.GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="IActionGroup.GetActionStateHint"/>.
+        /// See <see cref="ActionGroup.GetActionStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -208,7 +208,7 @@ namespace GISharp.Lib.Gio
         /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="IActionGroup.ActivateAction"/>,
+        /// When activating the action using <see cref="ActionGroup.ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
@@ -235,7 +235,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="IActionGroup.GetActionStateType"/>.
+        /// given by <see cref="ActionGroup.GetActionStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -288,13 +288,13 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// <see cref="IActionGroup.ChangeActionState"/> must give a #GVariant of this
-        /// type and <see cref="IActionGroup.GetActionState"/> will return a #GVariant
+        /// <see cref="ActionGroup.ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="ActionGroup.GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
         /// If the action is not stateful then this function will return <c>null</c>.
-        /// In that case, <see cref="IActionGroup.GetActionState"/> will return <c>null</c>
-        /// and you must not call <see cref="IActionGroup.ChangeActionState"/>.
+        /// In that case, <see cref="ActionGroup.GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="ActionGroup.ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -636,7 +636,7 @@ namespace GISharp.Lib.Gio
         /// If the action is expecting a parameter, then the correct type of
         /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
         /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
-        /// <see cref="IActionGroup.GetActionParameterType"/>.
+        /// <see cref="ActionGroup.GetActionParameterType"/>.
         /// </remarks>
         /// <param name="actionGroup">
         /// a <see cref="IActionGroup"/>
@@ -700,11 +700,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// The action must be stateful and <paramref name="value"/> must be of the correct type.
-        /// See <see cref="IActionGroup.GetActionStateType"/>.
+        /// See <see cref="ActionGroup.GetActionStateType"/>.
         /// 
         /// This call merely requests a change.  The action may refuse to change
         /// its state or may change its state to something other than <paramref name="value"/>.
-        /// See <see cref="IActionGroup.GetActionStateHint"/>.
+        /// See <see cref="ActionGroup.GetActionStateHint"/>.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
         /// </remarks>
@@ -822,7 +822,7 @@ namespace GISharp.Lib.Gio
         /// the named action within <paramref name="actionGroup"/>.
         /// </summary>
         /// <remarks>
-        /// When activating the action using <see cref="IActionGroup.ActivateAction"/>,
+        /// When activating the action using <see cref="ActionGroup.ActivateAction"/>,
         /// the #GVariant given to that function must be of the type returned
         /// by this function.
         /// 
@@ -890,7 +890,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is not stateful then <c>null</c> will be returned.  If the
         /// action is stateful then the type of the return value is the type
-        /// given by <see cref="IActionGroup.GetActionStateType"/>.
+        /// given by <see cref="ActionGroup.GetActionStateType"/>.
         /// 
         /// The return value (if non-<c>null</c>) should be freed with
         /// g_variant_unref() when it is no longer required.
@@ -1043,13 +1043,13 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the action is stateful then this function returns the
         /// #GVariantType of the state.  All calls to
-        /// <see cref="IActionGroup.ChangeActionState"/> must give a #GVariant of this
-        /// type and <see cref="IActionGroup.GetActionState"/> will return a #GVariant
+        /// <see cref="ActionGroup.ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="ActionGroup.GetActionState"/> will return a #GVariant
         /// of the same type.
         /// 
         /// If the action is not stateful then this function will return <c>null</c>.
-        /// In that case, <see cref="IActionGroup.GetActionState"/> will return <c>null</c>
-        /// and you must not call <see cref="IActionGroup.ChangeActionState"/>.
+        /// In that case, <see cref="ActionGroup.GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="ActionGroup.ChangeActionState"/>.
         /// 
         /// The state type of a particular action will never change but it is
         /// possible for an action to be removed and for a new action to be added
@@ -1254,11 +1254,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// This function acquires the information available from
-        /// <see cref="IActionGroup.HasAction"/>, <see cref="IActionGroup.GetActionEnabled"/>,
-        /// <see cref="IActionGroup.GetActionParameterType"/>,
-        /// <see cref="IActionGroup.GetActionStateType"/>,
-        /// <see cref="IActionGroup.GetActionStateHint"/> and
-        /// <see cref="IActionGroup.GetActionState"/> with a single function call.
+        /// <see cref="ActionGroup.HasAction"/>, <see cref="ActionGroup.GetActionEnabled"/>,
+        /// <see cref="ActionGroup.GetActionParameterType"/>,
+        /// <see cref="ActionGroup.GetActionStateType"/>,
+        /// <see cref="ActionGroup.GetActionStateHint"/> and
+        /// <see cref="ActionGroup.GetActionState"/> with a single function call.
         /// 
         /// This provides two main benefits.
         /// 

@@ -11,12 +11,12 @@ namespace GISharp.Lib.Gio
     /// the file, provided the filesystem of the file supports these
     /// operations.
     /// 
-    /// To find the position of a file output stream, use <see cref="ISeekable.Tell"/>.
+    /// To find the position of a file output stream, use <see cref="Seekable.Tell"/>.
     /// To find out if a file output stream supports seeking, use
-    /// <see cref="ISeekable.CanSeek"/>.To position a file output stream, use
-    /// <see cref="ISeekable.Seek"/>. To find out if a file output stream supports
-    /// truncating, use <see cref="ISeekable.CanTruncate"/>. To truncate a file output
-    /// stream, use <see cref="ISeekable.Truncate"/>.
+    /// <see cref="Seekable.CanSeek"/>.To position a file output stream, use
+    /// <see cref="Seekable.Seek"/>. To find out if a file output stream supports
+    /// truncating, use <see cref="Seekable.CanTruncate"/>. To truncate a file output
+    /// stream, use <see cref="Seekable.Truncate"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GFileOutputStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileOutputStreamClass))]

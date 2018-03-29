@@ -11,12 +11,12 @@ namespace GISharp.Lib.Gio
     /// of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
     /// of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
     /// 
-    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="IIcon.GetHashCode"/>.
+    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="Icon.GetHashCode"/>.
     /// 
-    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="IIcon.Equals"/>.
+    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="Icon.Equals"/>.
     /// 
-    /// For serializing a <see cref="IIcon"/>, use <see cref="IIcon.Serialize"/> and
-    /// <see cref="IIcon.Deserialize"/>.
+    /// For serializing a <see cref="IIcon"/>, use <see cref="Icon.Serialize"/> and
+    /// <see cref="Icon.Deserialize"/>.
     /// 
     /// If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
     /// be prepared to handle at least the three following cases:
@@ -28,8 +28,8 @@ namespace GISharp.Lib.Gio
     /// If your application or library provides one or more <see cref="IIcon"/>
     /// implementations you need to ensure that your new implementation also
     /// implements #GLoadableIcon.  Additionally, you must provide an
-    /// implementation of <see cref="IIcon.Serialize"/> that gives a result that is
-    /// understood by <see cref="IIcon.Deserialize"/>, yielding one of the built-in icon
+    /// implementation of <see cref="Icon.Serialize"/> that gives a result that is
+    /// understood by <see cref="Icon.Deserialize"/>, yielding one of the built-in icon
     /// types.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
@@ -60,7 +60,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="IIcon.Deserialize"/> on the returned value.
+        /// back by calling <see cref="Icon.Deserialize"/> on the returned value.
         /// As serialization will avoid using raw icon data when possible, it only
         /// makes sense to transfer the #GVariant between processes on the same machine,
         /// (as opposed to over the network), and within the same file system namespace.
@@ -96,10 +96,10 @@ namespace GISharp.Lib.Gio
         System.IntPtr value);
 
         /// <summary>
-        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="IIcon.Serialize"/>.
+        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="Icon.Serialize"/>.
         /// </summary>
         /// <param name="value">
-        /// a #GVariant created with <see cref="IIcon.Serialize"/>
+        /// a #GVariant created with <see cref="Icon.Serialize"/>
         /// </param>
         /// <returns>
         /// a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
@@ -146,15 +146,15 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-        /// <paramref name="str"/> is not valid - see <see cref="IIcon.ToString"/> for discussion.
+        /// <paramref name="str"/> is not valid - see <see cref="Icon.ToString"/> for discussion.
         /// </summary>
         /// <remarks>
         /// If your application or library provides one or more <see cref="IIcon"/>
         /// implementations you need to ensure that each #GType is registered
-        /// with the type system prior to calling <see cref="IIcon.NewForString"/>.
+        /// with the type system prior to calling <see cref="Icon.NewForString"/>.
         /// </remarks>
         /// <param name="str">
-        /// A string obtained via <see cref="IIcon.ToString"/>.
+        /// A string obtained via <see cref="Icon.ToString"/>.
         /// </param>
         /// <returns>
         /// An object implementing the <see cref="IIcon"/>
@@ -288,7 +288,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="IIcon.Deserialize"/> on the returned value.
+        /// back by calling <see cref="Icon.Deserialize"/> on the returned value.
         /// As serialization will avoid using raw icon data when possible, it only
         /// makes sense to transfer the #GVariant between processes on the same machine,
         /// (as opposed to over the network), and within the same file system namespace.
@@ -346,7 +346,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Generates a textual representation of <paramref name="icon"/> that can be used for
         /// serialization such as when passing <paramref name="icon"/> to a different process or
-        /// saving it to persistent storage. Use <see cref="IIcon.NewForString"/> to
+        /// saving it to persistent storage. Use <see cref="Icon.NewForString"/> to
         /// get <paramref name="icon"/> back from the returned string.
         /// </summary>
         /// <remarks>

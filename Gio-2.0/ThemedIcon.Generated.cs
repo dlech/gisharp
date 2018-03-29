@@ -200,7 +200,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// Note that doing so invalidates the hash computed by prior calls
-        /// to <see cref="IIcon.GetHashCode"/>.
+        /// to <see cref="Icon.GetHashCode"/>.
         /// </remarks>
         /// <param name="iconname">
         /// name of icon to append to list of icons from within <paramref name="icon"/>.
@@ -275,7 +275,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         /// <remarks>
         /// Note that doing so invalidates the hash computed by prior calls
-        /// to <see cref="IIcon.GetHashCode"/>.
+        /// to <see cref="Icon.GetHashCode"/>.
         /// </remarks>
         /// <param name="iconname">
         /// name of icon to prepend to list of icons from within <paramref name="icon"/>.

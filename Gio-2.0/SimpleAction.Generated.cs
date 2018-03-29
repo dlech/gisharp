@@ -18,8 +18,8 @@ namespace GISharp.Lib.Gio
         /// If <paramref name="action"/> is currently enabled.
         /// </summary>
         /// <remarks>
-        /// If the action is disabled then calls to <see cref="IAction.Activate"/> and
-        /// <see cref="IAction.ChangeState"/> have no effect.
+        /// If the action is disabled then calls to <see cref="Action.Activate"/> and
+        /// <see cref="Action.ChangeState"/> have no effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -397,7 +397,7 @@ namespace GISharp.Lib.Gio
         /// 
         /// This should only be called by the implementor of the action.  Users
         /// of the action should not attempt to directly modify the 'state'
-        /// property.  Instead, they should call <see cref="IAction.ChangeState"/> to
+        /// property.  Instead, they should call <see cref="Action.ChangeState"/> to
         /// request the change.
         /// 
         /// If the <paramref name="value"/> GVariant is floating, it is consumed.
@@ -442,7 +442,7 @@ namespace GISharp.Lib.Gio
         /// Sets the state hint for the action.
         /// </summary>
         /// <remarks>
-        /// See <see cref="IAction.GetStateHint"/> for more information about
+        /// See <see cref="Action.GetStateHint"/> for more information about
         /// action state hints.
         /// </remarks>
         /// <param name="stateHint">

@@ -33,7 +33,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Tests if the length of the stream can be adjusted with
-        /// <see cref="ISeekable.Truncate"/>.
+        /// <see cref="Seekable.Truncate"/>.
         /// </summary>
         /// <returns>
         /// <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
@@ -180,7 +180,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Tests if the length of the stream can be adjusted with
-        /// <see cref="ISeekable.Truncate"/>.
+        /// <see cref="Seekable.Truncate"/>.
         /// </summary>
         /// <param name="seekable">
         /// a <see cref="ISeekable"/>.

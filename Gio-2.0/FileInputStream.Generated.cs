@@ -9,9 +9,9 @@ namespace GISharp.Lib.Gio
     /// GFileInputStream implements <see cref="ISeekable"/>, which allows the input
     /// stream to jump to arbitrary positions in the file, provided the
     /// filesystem of the file allows it. To find the position of a file
-    /// input stream, use <see cref="ISeekable.Tell"/>. To find out if a file input
-    /// stream supports seeking, use <see cref="ISeekable.CanSeek"/>.
-    /// To position a file input stream, use <see cref="ISeekable.Seek"/>.
+    /// input stream, use <see cref="Seekable.Tell"/>. To find out if a file input
+    /// stream supports seeking, use <see cref="Seekable.CanSeek"/>.
+    /// To position a file input stream, use <see cref="Seekable.Seek"/>.
     /// </remarks>
     [GISharp.Runtime.GTypeAttribute("GFileInputStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileInputStreamClass))]
