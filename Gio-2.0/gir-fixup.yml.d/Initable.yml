@@ -1,0 +1,8 @@
+
+### Initable ###
+
+# drop "v" suffix from name
+- !set-attribute
+  name: gs:managed-name
+  value: New
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Initable']/gi:function[@name='newv']

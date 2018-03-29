@@ -166,7 +166,7 @@ namespace GISharp.Lib.Gio
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_initable_init() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public static unsafe GISharp.Lib.GObject.Object Newv(GISharp.Lib.GObject.GType objectType, GISharp.Runtime.IArray<GISharp.Lib.GObject.Parameter> parameters, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public static unsafe GISharp.Lib.GObject.Object New(GISharp.Lib.GObject.GType objectType, GISharp.Runtime.IArray<GISharp.Lib.GObject.Parameter> parameters, GISharp.Lib.Gio.Cancellable cancellable = null)
         {
             var objectType_ = (GISharp.Lib.GObject.GType)objectType;
             var (parameters_, nParameters_) = ((System.IntPtr, System.UInt32))((parameters?.Data ?? throw new System.ArgumentNullException(nameof(parameters)), parameters?.Length ?? 0));
