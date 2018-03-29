@@ -1,0 +1,8 @@
+
+### FileIOStream ###
+
+# don't need private struct
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:record[@name='FileIOStreamPrivate']

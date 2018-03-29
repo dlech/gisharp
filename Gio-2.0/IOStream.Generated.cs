@@ -9,7 +9,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// Examples of <see cref="IOStream"/> objects are #GSocketConnection, which represents
-    /// a two-way network connection; and #GFileIOStream, which represents a
+    /// a two-way network connection; and <see cref="FileIOStream"/>, which represents a
     /// file handle opened in read-write mode.
     /// 
     /// To do the actual reading and writing you need to get the substreams
