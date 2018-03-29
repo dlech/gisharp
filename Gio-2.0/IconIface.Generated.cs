@@ -15,11 +15,11 @@ namespace GISharp.Lib.Gio
             /// The parent interface.
             /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedHash Hash;
-            public UnmanagedEqual Equal;
+            public System.IntPtr Hash;
+            public System.IntPtr Equal;
             public System.IntPtr ToTokens;
             public System.IntPtr FromTokens;
-            public UnmanagedSerialize Serialize;
+            public System.IntPtr Serialize;
 #pragma warning restore CS0649
         }
 

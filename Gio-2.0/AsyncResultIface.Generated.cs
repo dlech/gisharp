@@ -13,9 +13,9 @@ namespace GISharp.Lib.Gio
             /// The parent interface.
             /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedGetUserData GetUserData;
-            public UnmanagedGetSourceObject GetSourceObject;
-            public UnmanagedIsTagged IsTagged;
+            public System.IntPtr GetUserData;
+            public System.IntPtr GetSourceObject;
+            public System.IntPtr IsTagged;
 #pragma warning restore CS0649
         }
 

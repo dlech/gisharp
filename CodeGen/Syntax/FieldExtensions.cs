@@ -22,7 +22,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = field.Type.UnmanagedType.ToSyntax();
             if (field.Callback != null) {
-                type = ParseTypeName("Unmanaged" + field.Callback.ManagedName);
+                type = typeof(IntPtr).ToSyntax();
             }
             else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {
                 type = ParseTypeName($"{field.Type.ManagedType}.Struct");

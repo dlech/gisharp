@@ -7,12 +7,12 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.Gio.InputStreamClass.Struct ParentClass;
-            public UnmanagedTell Tell;
-            public UnmanagedCanSeek CanSeek;
-            public UnmanagedSeek Seek;
-            public UnmanagedQueryInfo QueryInfo;
-            public UnmanagedQueryInfoAsync QueryInfoAsync;
-            public UnmanagedQueryInfoFinish QueryInfoFinish;
+            public System.IntPtr Tell;
+            public System.IntPtr CanSeek;
+            public System.IntPtr Seek;
+            public System.IntPtr QueryInfo;
+            public System.IntPtr QueryInfoAsync;
+            public System.IntPtr QueryInfoFinish;
             public System.IntPtr GReserved1;
             public System.IntPtr GReserved2;
             public System.IntPtr GReserved3;

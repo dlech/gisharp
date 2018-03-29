@@ -13,11 +13,11 @@ namespace GISharp.Lib.Gio
             /// The parent interface.
             /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedTell Tell;
-            public UnmanagedCanSeek CanSeek;
-            public UnmanagedSeek Seek;
-            public UnmanagedCanTruncate CanTruncate;
-            public UnmanagedTruncateFn TruncateFn;
+            public System.IntPtr Tell;
+            public System.IntPtr CanSeek;
+            public System.IntPtr Seek;
+            public System.IntPtr CanTruncate;
+            public System.IntPtr TruncateFn;
 #pragma warning restore CS0649
         }
 

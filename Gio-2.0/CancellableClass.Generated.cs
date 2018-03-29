@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
-            public UnmanagedCancelled Cancelled;
+            public System.IntPtr Cancelled;
             public System.IntPtr GReserved1;
             public System.IntPtr GReserved2;
             public System.IntPtr GReserved3;

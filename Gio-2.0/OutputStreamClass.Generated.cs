@@ -7,18 +7,18 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
-            public UnmanagedWriteFn WriteFn;
-            public UnmanagedSplice Splice;
-            public UnmanagedFlush Flush;
-            public UnmanagedCloseFn CloseFn;
-            public UnmanagedWriteAsync WriteAsync;
-            public UnmanagedWriteFinish WriteFinish;
-            public UnmanagedSpliceAsync SpliceAsync;
-            public UnmanagedSpliceFinish SpliceFinish;
-            public UnmanagedFlushAsync FlushAsync;
-            public UnmanagedFlushFinish FlushFinish;
-            public UnmanagedCloseAsync CloseAsync;
-            public UnmanagedCloseFinish CloseFinish;
+            public System.IntPtr WriteFn;
+            public System.IntPtr Splice;
+            public System.IntPtr Flush;
+            public System.IntPtr CloseFn;
+            public System.IntPtr WriteAsync;
+            public System.IntPtr WriteFinish;
+            public System.IntPtr SpliceAsync;
+            public System.IntPtr SpliceFinish;
+            public System.IntPtr FlushAsync;
+            public System.IntPtr FlushFinish;
+            public System.IntPtr CloseAsync;
+            public System.IntPtr CloseFinish;
             public System.IntPtr GReserved1;
             public System.IntPtr GReserved2;
             public System.IntPtr GReserved3;

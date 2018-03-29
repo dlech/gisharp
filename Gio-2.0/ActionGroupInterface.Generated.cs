@@ -11,19 +11,19 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedHasAction HasAction;
-            public UnmanagedListActions ListActions;
-            public UnmanagedGetActionEnabled GetActionEnabled;
-            public UnmanagedGetActionParameterType GetActionParameterType;
-            public UnmanagedGetActionStateType GetActionStateType;
-            public UnmanagedGetActionStateHint GetActionStateHint;
-            public UnmanagedGetActionState GetActionState;
-            public UnmanagedChangeActionState ChangeActionState;
-            public UnmanagedActivateAction ActivateAction;
-            public UnmanagedActionAdded ActionAdded;
-            public UnmanagedActionRemoved ActionRemoved;
-            public UnmanagedActionEnabledChanged ActionEnabledChanged;
-            public UnmanagedActionStateChanged ActionStateChanged;
+            public System.IntPtr HasAction;
+            public System.IntPtr ListActions;
+            public System.IntPtr GetActionEnabled;
+            public System.IntPtr GetActionParameterType;
+            public System.IntPtr GetActionStateType;
+            public System.IntPtr GetActionStateHint;
+            public System.IntPtr GetActionState;
+            public System.IntPtr ChangeActionState;
+            public System.IntPtr ActivateAction;
+            public System.IntPtr ActionAdded;
+            public System.IntPtr ActionRemoved;
+            public System.IntPtr ActionEnabledChanged;
+            public System.IntPtr ActionStateChanged;
             public System.IntPtr QueryAction;
 #pragma warning restore CS0649
         }

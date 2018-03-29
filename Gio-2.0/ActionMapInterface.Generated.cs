@@ -11,9 +11,9 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedLookupAction LookupAction;
-            public UnmanagedAddAction AddAction;
-            public UnmanagedRemoveAction RemoveAction;
+            public System.IntPtr LookupAction;
+            public System.IntPtr AddAction;
+            public System.IntPtr RemoveAction;
 #pragma warning restore CS0649
         }
 

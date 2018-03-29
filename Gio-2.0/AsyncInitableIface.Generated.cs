@@ -15,8 +15,8 @@ namespace GISharp.Lib.Gio
             /// The parent interface.
             /// </summary>
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedInitAsync InitAsync;
-            public UnmanagedInitFinish InitFinish;
+            public System.IntPtr InitAsync;
+            public System.IntPtr InitFinish;
 #pragma warning restore CS0649
         }
 

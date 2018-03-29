@@ -7,15 +7,15 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
-            public UnmanagedReadFn ReadFn;
-            public UnmanagedSkip Skip;
-            public UnmanagedCloseFn CloseFn;
-            public UnmanagedReadAsync ReadAsync;
-            public UnmanagedReadFinish ReadFinish;
-            public UnmanagedSkipAsync SkipAsync;
-            public UnmanagedSkipFinish SkipFinish;
-            public UnmanagedCloseAsync CloseAsync;
-            public UnmanagedCloseFinish CloseFinish;
+            public System.IntPtr ReadFn;
+            public System.IntPtr Skip;
+            public System.IntPtr CloseFn;
+            public System.IntPtr ReadAsync;
+            public System.IntPtr ReadFinish;
+            public System.IntPtr SkipAsync;
+            public System.IntPtr SkipFinish;
+            public System.IntPtr CloseAsync;
+            public System.IntPtr CloseFinish;
             public System.IntPtr GReserved1;
             public System.IntPtr GReserved2;
             public System.IntPtr GReserved3;

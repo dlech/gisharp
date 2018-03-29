@@ -11,14 +11,14 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
-            public UnmanagedGetName GetName;
-            public UnmanagedGetParameterType GetParameterType;
-            public UnmanagedGetStateType GetStateType;
-            public UnmanagedGetStateHint GetStateHint;
-            public UnmanagedGetEnabled GetEnabled;
-            public UnmanagedGetState GetState;
-            public UnmanagedChangeState ChangeState;
-            public UnmanagedActivate Activate;
+            public System.IntPtr GetName;
+            public System.IntPtr GetParameterType;
+            public System.IntPtr GetStateType;
+            public System.IntPtr GetStateHint;
+            public System.IntPtr GetEnabled;
+            public System.IntPtr GetState;
+            public System.IntPtr ChangeState;
+            public System.IntPtr Activate;
 #pragma warning restore CS0649
         }
 

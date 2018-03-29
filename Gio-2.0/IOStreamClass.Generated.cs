@@ -7,11 +7,11 @@ namespace GISharp.Lib.Gio
         {
 #pragma warning disable CS0649
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
-            public UnmanagedGetInputStream GetInputStream;
-            public UnmanagedGetOutputStream GetOutputStream;
-            public UnmanagedCloseFn CloseFn;
-            public UnmanagedCloseAsync CloseAsync;
-            public UnmanagedCloseFinish CloseFinish;
+            public System.IntPtr GetInputStream;
+            public System.IntPtr GetOutputStream;
+            public System.IntPtr CloseFn;
+            public System.IntPtr CloseAsync;
+            public System.IntPtr CloseFinish;
             public System.IntPtr GReserved1;
             public System.IntPtr GReserved2;
             public System.IntPtr GReserved3;
