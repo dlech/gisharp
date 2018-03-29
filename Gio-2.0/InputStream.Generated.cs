@@ -10,7 +10,7 @@ namespace GISharp.Lib.Gio
     /// To copy the content of an input stream to an output stream without
     /// manually handling the reads and writes, use <see cref="OutputStream.Splice"/>.
     /// 
-    /// See the documentation for #GIOStream for details of thread safety of
+    /// See the documentation for <see cref="IOStream"/> for details of thread safety of
     /// streaming APIs.
     /// 
     /// All of these functions have async variants too.
