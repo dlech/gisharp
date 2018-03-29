@@ -1872,7 +1872,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Loads a key file from the data in <paramref name="bytes"/> into an empty <see cref="KeyFile"/> structure.
-        /// If the object cannot be created then %error is set to a <see cref="KeyFile"/>Error.
+        /// If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
         /// </summary>
         /// <param name="bytes">
         /// a #GBytes
@@ -1943,7 +1943,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
-        /// If the object cannot be created then %error is set to a <see cref="KeyFile"/>Error.
+        /// If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
         /// </summary>
         /// <param name="data">
         /// key file loaded in memory

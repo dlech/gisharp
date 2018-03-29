@@ -37,23 +37,23 @@ namespace GISharp.Lib.GLib
         public GISharp.Lib.GLib.OptionArg Arg;
 
         /// <summary>
-        /// If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <paramref name="arg"/>_data
+        /// If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <paramref name="argData"/>
         ///     must point to a <see cref="OptionArgFunc"/> callback function, which will be
-        ///     called to handle the extra argument. Otherwise, <paramref name="arg"/>_data is a
+        ///     called to handle the extra argument. Otherwise, <paramref name="argData"/> is a
         ///     pointer to a location to store the value, the required type of
         ///     the location depends on the <paramref name="arg"/> type:
         ///     - <see cref="OptionArg.None"/>: %gboolean
         ///     - <see cref="OptionArg.String"/>: %gchar*
         ///     - <see cref="OptionArg.Int"/>: %gint
         ///     - <see cref="OptionArg.Filename"/>: %gchar*
-        ///     - <see cref="OptionArg.String"/>_ARRAY: %gchar**
-        ///     - <see cref="OptionArg.Filename"/>_ARRAY: %gchar**
+        ///     - <see cref="OptionArg.StringArray"/>: %gchar**
+        ///     - <see cref="OptionArg.FilenameArray"/>: %gchar**
         ///     - <see cref="OptionArg.Double"/>: %gdouble
         ///     If <paramref name="arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
         ///     the location will contain a newly allocated string if the option
         ///     was given. That string needs to be freed by the callee using g_free().
-        ///     Likewise if <paramref name="arg"/> type is <see cref="OptionArg.String"/>_ARRAY or
-        ///     <see cref="OptionArg.Filename"/>_ARRAY, the data should be freed using g_strfreev().
+        ///     Likewise if <paramref name="arg"/> type is <see cref="OptionArg.StringArray"/> or
+        ///     <see cref="OptionArg.FilenameArray"/>, the data should be freed using g_strfreev().
         /// </summary>
         public System.IntPtr ArgData;
 

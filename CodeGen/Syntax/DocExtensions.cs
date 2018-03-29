@@ -82,7 +82,7 @@ namespace GISharp.CodeGen.Syntax
 
                 foreach (var prefix in ns.CIdentifierPrefixes) {
                     var consts = Regex.Matches(text, "%" + prefix + @"_\w+");
-                    foreach (Match c in consts) {
+                    foreach (Match c in consts.OrderByDescending(x => x.Value.Length)) {
                         var member = (GIBase)ns.FindNodeByCIdentifier(c.Value.Substring(1));
                         if (member == null) {
                             continue;
@@ -92,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
                     }
 
                     var typeRefs = Regex.Matches(text, "#" + prefix + @"\w+");
-                    foreach (Match t in typeRefs) {
+                    foreach (Match t in typeRefs.OrderByDescending(x => x.Value.Length)) {
                         var type = ns.AllTypes
                             .SingleOrDefault(x => ((x as GIRegisteredType)?.CType ?? (x as Callback)?.CType) == t.Value.Substring(1));
                         if (type == null) {
@@ -103,7 +103,7 @@ namespace GISharp.CodeGen.Syntax
                 }
 
                 var paramRefs = Regex.Matches(text, @"@\w+");
-                foreach (Match p in paramRefs) {
+                foreach (Match p in paramRefs.OrderByDescending(x => x.Value.Length)) {
                     var name = p.Value.Substring(1).ToCamelCase();
                     builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
                 }
