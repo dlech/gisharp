@@ -498,13 +498,14 @@ namespace GISharp.CodeGen
 
                 // see if the fixup file specified a finish-for method
                 var asyncMethodName = element.Attribute("name").Value;
-                var finishMethodElement = element.Parent.Elements(element.Name)
+                var finishMethodElement = element.Parent.Elements()
                     .SingleOrDefault(x => x.Attribute(gs + "finish-for").AsString() == asyncMethodName);
 
                 if (finishMethodElement == null) {
                     // try to find a matching method heuristically
                     var finishMethodName = asyncMethodName.Replace("_async", "_finish");
-                    finishMethodElement = element.Parent.Elements(element.Name)
+                    finishMethodElement = element.Parent.Elements(gi + "function")
+                        .Concat(element.Parent.Elements(gi + "method"))
                         .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
                     if (finishMethodElement == null) {
@@ -828,7 +829,8 @@ namespace GISharp.CodeGen
                 }
 
                 var asyncMethodName = element.Attribute(gs + "finish-for").Value;
-                var asyncMethodElement = element.Parent.Elements(element.Name)
+                var asyncMethodElement = element.Parent.Elements(gi + "function")
+                    .Concat(element.Parent.Elements(gi + "method"))
                     .Single(x => x.Attribute("name")?.Value == asyncMethodName);
                 var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
                 asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));

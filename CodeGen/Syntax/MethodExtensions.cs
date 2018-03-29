@@ -121,12 +121,12 @@ namespace GISharp.CodeGen.Syntax
 
         static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Method method)
         {
-            return List(method.GetFinishMethodStatements(method.FinishForMethod, method.CIdentifier));
+            return List(method.GetFinishMethodStatements(method.FinishForFunction, method.CIdentifier));
         }
 
         static FieldDeclarationSyntax GetFinishDelegateField(this Method method)
         {
-            var identifier = method.FinishForMethod.ManagedName.ToCamelCase() + "CallbackDelegate";
+            var identifier = method.FinishForFunction.ManagedName.ToCamelCase() + "CallbackDelegate";
             return method.GetFinishDelegateField(identifier);
         }
 

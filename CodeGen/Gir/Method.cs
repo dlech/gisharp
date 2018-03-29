@@ -56,10 +56,10 @@ namespace GISharp.CodeGen.Gir
         public bool IsToString { get; }
 
         /// <summary>
-        /// Gets the async method that this method finishes, if any
+        /// Gets the async function that this method finishes, if any
         /// </summary>
-        public Method FinishForMethod => _FinishForMethod.Value;
-        readonly Lazy<Method> _FinishForMethod;
+        public GIFunction FinishForFunction => _FinishForFunction.Value;
+        readonly Lazy<GIFunction> _FinishForFunction;
 
         public Method(XElement element, GirNode parent) : base(element, parent)
         {
@@ -69,11 +69,12 @@ namespace GISharp.CodeGen.Gir
             IsHash = Element.Attribute(gs + "hash").AsBool();
             IsEqual = Element.Attribute(gs + "equal").AsBool();
             IsToString = Element.Attribute(gs + "to-string").AsBool();
-            _FinishForMethod = new Lazy<Method>(LazyGetFinishForMethod);
+            _FinishForFunction = new Lazy<GIFunction>(LazyGetFinishForFunction);
         }
 
-        Method LazyGetFinishForMethod =>
-            (Method)GirNode.GetNode(Element.Parent.Elements(Element.Name)
+        GIFunction LazyGetFinishForFunction =>
+            (GIFunction)GirNode.GetNode(Element.Parent.Elements(gi + "function")
+                .Concat(Element.Parent.Elements(gi + "method"))
                 .SingleOrDefault(x => x.Attribute("name")?.Value == FinishFor));
     }
 }
