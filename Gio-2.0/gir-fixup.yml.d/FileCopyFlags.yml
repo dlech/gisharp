@@ -1,0 +1,8 @@
+
+### FileCopyFlags ###
+
+# better name
+- !set-attribute
+  name: gs:managed-name
+  value: NoFollowSymlinks
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileCopyFlags']/gi:member[@name='nofollow_symlinks']
