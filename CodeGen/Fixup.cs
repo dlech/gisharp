@@ -322,8 +322,31 @@ namespace GISharp.CodeGen
                 if (!match.Success) {
                     continue;
                 }
-                
+
                 element.SetAttributeValue("version", match.Groups[1]);
+                docElement.Value = docElement.Value.Replace(match.Value, "");
+            }
+
+            // scrape deprecated-version attribute from member doc
+
+            foreach (var element in document.Descendants(gi + "member")) {
+                if (element.Attribute("since") != null) {
+                    continue;
+                }
+
+                var docElement = element.Element(gi + "doc");
+                if (docElement == null) {
+                    continue;
+                }
+
+                var match = Regex.Match(docElement.Value, @"\n?\s*Deprecated since:?\s+(\d+\.\d+)[\.:]?",
+                    RegexOptions.Multiline);
+                if (!match.Success) {
+                    continue;
+                }
+
+                element.SetAttributeValue("deprecated", "1");
+                element.SetAttributeValue("deprecated-version", match.Groups[1]);
                 docElement.Value = docElement.Value.Replace(match.Value, "");
             }
 
