@@ -121,5 +121,30 @@ namespace GISharp.CodeGen.Syntax
 
             return AttributeList().AddAttributes(attr);
         }
+
+        /// <summary>
+        /// Gets the member declarations for the properties, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Property> properties, bool forInterface = false)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var property in properties) {
+                try {
+                    if (forInterface) {
+                        list = list.Add(property.GetInterfaceDeclaration());
+                    }
+                    else {
+                        list = list.Add(property.GetDeclaration());
+                    }
+                }
+                catch (Exception ex) {
+                    property.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

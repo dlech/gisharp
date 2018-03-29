@@ -29,5 +29,25 @@ namespace GISharp.CodeGen.Syntax
 
             return list;
         }
+
+        /// <summary>
+        /// Gets the member declarations for the implementses, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Implements> implementses)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var implements in implementses) {
+                try {
+                    list = list.AddRange(implements.GetVirtualMethodImplementations());
+                }
+                catch (Exception ex) {
+                    implements.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

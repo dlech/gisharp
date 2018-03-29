@@ -101,5 +101,25 @@ namespace GISharp.CodeGen.Syntax
                 throw new ArgumentException(message, nameof(type));
             }
         }
+
+        /// <summary>
+        /// Gets the member declarations for the constants, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Constant> constants)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var constant in constants) {
+                try {
+                    list = list.Add(constant.GetDeclaration());
+                }
+                catch (Exception ex) {
+                    constant.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

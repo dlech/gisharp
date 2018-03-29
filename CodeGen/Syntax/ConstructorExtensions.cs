@@ -66,5 +66,25 @@ namespace GISharp.CodeGen.Syntax
 
             return syntax;
         }
+
+        /// <summary>
+        /// Gets the member declarations for the constructors, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Constructor> constructors)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var constructor in constructors) {
+                try {
+                    list = list.AddRange(constructor.GetClassMembers());
+                }
+                catch (Exception ex) {
+                    constructor.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

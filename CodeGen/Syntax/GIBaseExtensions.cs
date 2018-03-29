@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
@@ -74,6 +75,11 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return list;
+        }
+
+        internal static void LogException(this GIBase member, Exception ex)
+        {
+            Log.Warning($"Problem with {member.Element.GetXPath()}: {ex.Message}");
         }
     }
 }

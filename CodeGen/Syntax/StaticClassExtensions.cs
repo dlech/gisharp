@@ -27,8 +27,8 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this StaticClass staticClass)
         {
             return List<MemberDeclarationSyntax>()
-                .AddRange(staticClass.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(staticClass.Functions.SelectMany(x => x.GetClassMembers()));
+                .AddRange(staticClass.Constants.GetMemberDeclarations())
+                .AddRange(staticClass.Functions.GetMemberDeclarations());
         }
     }
 }

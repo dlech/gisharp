@@ -71,10 +71,10 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetExtClassMembers(this GIEnum @enum)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddRange(@enum.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(@enum.ManagedProperties.Select(x => x.GetDeclaration()))
-                .AddRange(@enum.Functions.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@enum.Methods.SelectMany(x => x.GetClassMembers()));
+                .AddRange(@enum.Constants.GetMemberDeclarations())
+                .AddRange(@enum.ManagedProperties.GetMemberDeclarations())
+                .AddRange(@enum.Functions.GetMemberDeclarations())
+                .AddRange(@enum.Methods.GetMemberDeclarations());
 
             if (@enum.GTypeName != null) {
                 members = members.Insert(0, @enum.GetGTypeFieldDeclaration());

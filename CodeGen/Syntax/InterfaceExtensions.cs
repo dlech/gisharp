@@ -42,9 +42,9 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetInterfaceMembers(this Interface @interface)
         {
             return List<MemberDeclarationSyntax>()
-                .AddRange(@interface.Properties.Select(x => x.GetInterfaceDeclaration()))
-                .AddRange(@interface.Signals.Select(x => x.GetInterfaceDeclaration()))
-                .AddRange(@interface.VirtualMethods.Select(x => x.GetInterfaceDeclaration()));
+                .AddRange(@interface.Properties.GetMemberDeclarations(true))
+                .AddRange(@interface.Signals.GetMemberDeclarations(true))
+                .AddRange(@interface.VirtualMethods.GetMemberDeclarations(true));
         }
 
         /// <summary>
@@ -64,11 +64,11 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetExtClassMembers(this Interface @interface)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddRange(@interface.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(@interface.ManagedProperties.Select(x => x.GetDeclaration()))
+                .AddRange(@interface.Constants.GetMemberDeclarations())
+                .AddRange(@interface.ManagedProperties.GetMemberDeclarations())
                 .AddRange(@interface.Signals.Select(x => x.GetEventArgsClassDeclaration()))
-                .AddRange(@interface.Functions.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@interface.Methods.SelectMany(x => x.GetClassMembers()));
+                .AddRange(@interface.Functions.GetMemberDeclarations())
+                .AddRange(@interface.Methods.GetMemberDeclarations());
 
             if (@interface.GTypeName != null) {
                 members = members.Insert(0, @interface.GetGTypeFieldDeclaration());

@@ -129,5 +129,25 @@ namespace GISharp.CodeGen.Syntax
             var identifier = method.FinishForMethod.ManagedName.ToCamelCase() + "CallbackDelegate";
             return method.GetFinishDelegateField(identifier);
         }
+
+        /// <summary>
+        /// Gets the member declarations for the methods, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Method> methods)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var method in methods) {
+                try {
+                    list = list.AddRange(method.GetClassMembers());
+                }
+                catch (Exception ex) {
+                    method.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

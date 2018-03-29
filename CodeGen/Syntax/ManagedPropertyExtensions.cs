@@ -47,5 +47,25 @@ namespace GISharp.CodeGen.Syntax
 
             return syntax;
         }
+
+        /// <summary>
+        /// Gets the member declarations for the properties, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<ManagedProperty> properties)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var property in properties) {
+                try {
+                    list = list.Add(property.GetDeclaration());
+                }
+                catch (Exception ex) {
+                    property.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

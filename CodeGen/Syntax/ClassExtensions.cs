@@ -68,16 +68,16 @@ namespace GISharp.CodeGen.Syntax
             }
 
             members = members
-                .AddRange(@class.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(@class.Properties.Select(x => x.GetDeclaration()))
-                .AddRange(@class.ManagedProperties.Select(x => x.GetDeclaration()))
+                .AddRange(@class.Constants.GetMemberDeclarations())
+                .AddRange(@class.Properties.GetMemberDeclarations())
+                .AddRange(@class.ManagedProperties.GetMemberDeclarations())
                 .Add(@class.GetDefaultConstructor())
-                .AddRange(@class.Constructors.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@class.Signals.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@class.Functions.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@class.Methods.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@class.VirtualMethods.SelectMany(x => x.GetClassMembers()))
-                .AddRange(@class.Implements.SelectMany(x => x.GetVirtualMethodImplementations()));
+                .AddRange(@class.Constructors.GetMemberDeclarations())
+                .AddRange(@class.Signals.GetMemberDeclarations())
+                .AddRange(@class.Functions.GetMemberDeclarations())
+                .AddRange(@class.Methods.GetMemberDeclarations())
+                .AddRange(@class.VirtualMethods.GetMemberDeclarations())
+                .AddRange(@class.Implements.GetMemberDeclarations());
 
             if (@class.GTypeName != null) {
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());

@@ -191,5 +191,30 @@ namespace GISharp.CodeGen.Syntax
             return FieldDeclaration(idVariable)
                 .AddModifiers(Token(ReadOnlyKeyword));
         }
+
+        /// <summary>
+        /// Gets the member declarations for the signals, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Signal> signals, bool forInterface = false)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var signal in signals) {
+                try {
+                    if (forInterface) {
+                        list = list.Add(signal.GetInterfaceDeclaration());
+                    }
+                    else {
+                        list = list.AddRange(signal.GetClassMembers());
+                    }
+                }
+                catch (Exception ex) {
+                    signal.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

@@ -6,18 +6,8 @@ using GISharp.CodeGen.Reflection;
 
 namespace GISharp.CodeGen.Gir
 {
-    public sealed class Implements : GirNode
+    public sealed class Implements : GIBase
     {
-        /// <summary>
-        /// Gets the name of the implemented interface
-        /// </summary>
-        public string GirName { get; }
-
-        /// <summary>
-        /// Gets the fixed up managed name of the implemented interface
-        /// </summary>
-        public string ManagedName { get; }
-
         /// <summary>
         /// The parent node
         /// </summary>
@@ -34,8 +24,6 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "implements") {
                 throw new ArgumentException("Requrires <implements> element", nameof(element));
             }
-            GirName = element.Attribute("name").AsString();
-            ManagedName = element.Attribute(gs + "managed-name").AsString();
             _Type = new Lazy<System.Type>(LazyGetType);
         }
 

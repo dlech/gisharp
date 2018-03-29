@@ -11,6 +11,7 @@ using Buildalyzer;
 using Buildalyzer.Workspaces;
 using GISharp.CodeGen.Gir;
 using GISharp.CodeGen.Syntax;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
@@ -21,6 +22,8 @@ using Microsoft.CodeAnalysis.Workspaces;
 using Mono.Options;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+
+using Generic = System.Collections.Generic;
 
 namespace GISharp.CodeGen
 {
@@ -49,7 +52,7 @@ namespace GISharp.CodeGen
         {
             var assembly = Assembly.GetExecutingAssembly ();
             var assemblyName = assembly.GetName ();
-            Console.WriteLine ("{0} v{1}", assemblyName.Name, assemblyName.Version);
+            Log.Message("{0} v{1}", assemblyName.Name, assemblyName.Version);
             Environment.Exit (0);
         }
 
@@ -166,7 +169,7 @@ namespace GISharp.CodeGen
 
             // load the GIR XML file
 
-            Console.WriteLine($"Loading GIR XML file '{girFilePath}'...");
+            Log.Message($"Loading GIR XML file '{girFilePath}'...");
             XDocument girXml;
 
             try {
@@ -206,7 +209,7 @@ namespace GISharp.CodeGen
             // Handle the new-fixup command
 
             if (command == Command.NewFixup) {
-                Console.WriteLine ($"Generating '{fixupFilePath}'");
+                Log.Message($"Generating '{fixupFilePath}'");
                 try {
                     using (var writer = new StreamWriter(fixupFilePath)) {
                         girXml.Generate(writer);
@@ -222,9 +225,9 @@ namespace GISharp.CodeGen
 
             // Parse the fixup file
 
-            Console.WriteLine($"Loading fixup file(s)...");
-            var commands = new List<Fixup.Command>();
-            var fixupFiles = new List<string>();
+            Log.Message($"Loading fixup file(s)...");
+            var commands = new Generic.List<Fixup.Command>();
+            var fixupFiles = new Generic.List<string>();
             if (fixupFileExists) {
                 fixupFiles.Add(fixupFilePath);
             }
@@ -247,13 +250,13 @@ namespace GISharp.CodeGen
 
             // Apply the fixups to the GIR XML
 
-            Console.WriteLine("Applying fixup data...");
+            Log.Message("Applying fixup data...");
 
             girXml.ApplyFixup(commands);
             girXml.ApplyBuiltinFixup();
             girXml.Validate();
 
-            Console.WriteLine("Resolving references...");
+            Log.Message("Resolving references...");
 
             // load all references assemblies into type resolver
 
@@ -285,13 +288,13 @@ namespace GISharp.CodeGen
 
             // write the generate code file
 
-            Console.WriteLine("Generating code...");
+            Log.Message("Generating code...");
 
             var gir = new Repository(girXml);
-            var codeCompileUnits = gir.GetCompilationUnits();
+            var codeCompileUnits = gir.GetCompilationUnits().ToArray();
             var workspace = new AdhocWorkspace();
 
-            Console.WriteLine($"Writing '*.Generated.cs'...");
+            Log.Message($"Writing '*.Generated.cs'...");
             foreach (var (name, unit) in codeCompileUnits) {
                 var generatedFilePath = Path.Combine(projectDirPath, name + ".Generated.cs");
                 using (var generatedFile = new StreamWriter(generatedFilePath)) {
@@ -299,7 +302,7 @@ namespace GISharp.CodeGen
                 }
             }
 
-            Console.WriteLine("Done.");
+            Log.Message("Done.");
         }
     }
 

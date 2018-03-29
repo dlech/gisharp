@@ -285,7 +285,10 @@ namespace GISharp.CodeGen.Reflection
                 return typeof(IntPtr);
             }
 
-            var typeNode = node.Namespace.AllTypes.Single(x => x.GirName == node.GirName);
+            var typeNode = node.Namespace.AllTypes.SingleOrDefault(x => x.GirName == node.GirName);
+            if (typeNode == null) {
+                throw new TypeNotFoundException(node.GirName);
+            }
             var girType = default(System.Type);
             if (typeNode is Alias alias) {
                 girType = new GirAliasType(alias);
@@ -307,7 +310,7 @@ namespace GISharp.CodeGen.Reflection
             }
 
             if (girType == null) {
-                throw new NotSupportedException("Unknown GIR node type");
+                throw new NotSupportedException($"Unknown GIR node type: {typeNode.GetType().Name}");
             }
 
             if (node.IsPointer) {

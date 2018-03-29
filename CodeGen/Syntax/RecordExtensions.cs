@@ -32,12 +32,11 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Record record)
         {
             return List<MemberDeclarationSyntax>()
-                .AddRange(record.Constants.Select(x => x.GetDeclaration()))
+                .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.Fields.GetStructDeclaration().Members)
-                // TODO: add delegate declarations for fields that are callbacks
-                .AddRange(record.ManagedProperties.Select(x => x.GetDeclaration()))
-                .AddRange(record.Functions.SelectMany(x => x.GetClassMembers()))
-                .AddRange(record.Methods.SelectMany(x => x.GetClassMembers()));
+                .AddRange(record.ManagedProperties.GetMemberDeclarations())
+                .AddRange(record.Functions.GetMemberDeclarations())
+                .AddRange(record.Methods.GetMemberDeclarations());
         }
 
         /// <summary>
@@ -73,12 +72,12 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddRange(record.Constants.Select(x => x.GetDeclaration()))
-                .AddRange(record.ManagedProperties.Select(x => x.GetDeclaration()))
+                .AddRange(record.Constants.GetMemberDeclarations())
+                .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .Add(record.GetDefaultConstructor())
-                .AddRange(record.Constructors.SelectMany(x => x.GetClassMembers()))
-                .AddRange(record.Functions.SelectMany(x => x.GetClassMembers()))
-                .AddRange(record.Methods.SelectMany(x => x.GetClassMembers()));
+                .AddRange(record.Constructors.GetMemberDeclarations())
+                .AddRange(record.Functions.GetMemberDeclarations())
+                .AddRange(record.Methods.GetMemberDeclarations());
 
             if (record.Fields.Any()) {
                 members = members.Insert(0, record.Fields.GetStructDeclaration());
@@ -170,10 +169,15 @@ namespace GISharp.CodeGen.Syntax
             // emit the unmanaged delegate types for callback fields
  
             foreach (var f in record.Fields.Where(x => x.Callback != null)) {
-                list = list.Add(f.Callback.GetManagedDeclaration())
-                    .Add(f.Callback.GetUnmanagedDeclaration())
-                    .Add(f.Callback.GetDelegateFactoryDeclaration()
-                        .WithMembers(f.Callback.GetVirtualMethodDelegateFactoryMembers()));
+                try {
+                    list = list.Add(f.Callback.GetManagedDeclaration())
+                        .Add(f.Callback.GetUnmanagedDeclaration())
+                        .Add(f.Callback.GetDelegateFactoryDeclaration()
+                            .WithMembers(f.Callback.GetVirtualMethodDelegateFactoryMembers()));
+                }
+                catch (Exception ex) {
+                    f.LogException(ex);
+                }
             }
 
             // add the default constructor

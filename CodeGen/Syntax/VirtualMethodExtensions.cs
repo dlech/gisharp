@@ -77,5 +77,30 @@ namespace GISharp.CodeGen.Syntax
 
             return list;
         }
+
+        /// <summary>
+        /// Gets the member declarations for the virtual methods, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<VirtualMethod> methods, bool forInterface = false)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var method in methods) {
+                try {
+                    if (forInterface) {
+                        list = list.Add(method.GetInterfaceDeclaration());
+                    }
+                    else {
+                        list = list.AddRange(method.GetClassMembers());
+                    }
+                }
+                catch (Exception ex) {
+                    method.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }

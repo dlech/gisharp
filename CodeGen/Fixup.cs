@@ -136,7 +136,7 @@ namespace GISharp.CodeGen
                     var newElement = parseElement(addElement.Xml);
                     var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
                     if (addParent == null) {
-                        Console.Error.WriteLine($"Could not find element at '{addElement.Xpath}'");
+                        Log.Warning($"Could not find element at '{addElement.Xpath}'");
                         break;
                     }
                     addParent.Add(newElement);
@@ -151,7 +151,7 @@ namespace GISharp.CodeGen
                     }
                     var setAttrElements = document.XPathSelectElements(setAttr.Xpath, Manager).ToList();
                     if (setAttrElements.Count == 0) {
-                        Console.Error.WriteLine($"Could not find any elements matching '{setAttr.Xpath}'");
+                        Log.Warning($"Could not find any elements matching '{setAttr.Xpath}'");
                         break;
                     }
                     foreach (var element in setAttrElements) {
@@ -169,7 +169,7 @@ namespace GISharp.CodeGen
                     }
                     var changeAttrElements = document.XPathSelectElements(changeAttr.Xpath, Manager).ToList();
                     if (changeAttrElements.Count == 0) {
-                        Console.Error.WriteLine($"Could not find any elements matching '{changeAttr.Xpath}'");
+                        Log.Warning($"Could not find any elements matching '{changeAttr.Xpath}'");
                         break;
                     }
                     foreach (var element in changeAttrElements) {
@@ -190,7 +190,7 @@ namespace GISharp.CodeGen
                     }
                     var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
                     if (elementsToChange == null) {
-                        Console.Error.WriteLine($"Could not find elements matching '{changeElement.Xpath}'");
+                        Log.Warning($"Could not find elements matching '{changeElement.Xpath}'");
                         break;
                     }
                     foreach (var element in elementsToChange) {
@@ -200,11 +200,11 @@ namespace GISharp.CodeGen
                 case MoveElement moveElement:
                     var moveElements = document.XPathSelectElements(moveElement.Xpath, Manager).ToList();
                     if (moveElements.Count == 0) {
-                        Console.Error.WriteLine($"Could not find any elements matching '{moveElement.Xpath}'");
+                        Log.Warning($"Could not find any elements matching '{moveElement.Xpath}'");
                     }
                     var moveParent = document.XPathSelectElement(moveElement.NewParentXpath, Manager);
                     if (moveParent == null) {
-                        Console.Error.WriteLine($"Could not find element at '{moveElement.NewParentXpath}'");
+                        Log.Warning($"Could not find element at '{moveElement.NewParentXpath}'");
                         break;
                     }
                     foreach (var element in moveElements) {
@@ -955,10 +955,10 @@ namespace GISharp.CodeGen
         {
             foreach (var e in doc.Descendants ().Where (d => ElementsThatDefineAType.Contains (d.Name))) {
                 if (e.Attribute ("name") == null) {
-                    Console.WriteLine ("Missing name attribute at {0}", e.GetXPath ());
+                    Log.Warning("Missing name attribute at {0}", e.GetXPath());
                 }
                 if (e.Attribute (gs + "managed-name") == null) {
-                    Console.WriteLine ("Missing gs:managed-name attribute at {0}", e.GetXPath ());
+                    Log.Warning("Missing gs:managed-name attribute at {0}", e.GetXPath());
                 }
             }
         }
@@ -1154,7 +1154,13 @@ namespace GISharp.CodeGen
 
             var builder = new StringBuilder ();
             foreach (var e in element.AncestorsAndSelf ().Reverse ()) {
-                builder.Append ("/");
+                builder.Append('/');
+                var prefix = e.GetPrefixOfNamespace(e.Name.Namespace);
+                if (string.IsNullOrEmpty(prefix)) {
+                    prefix = "gi";
+                }
+                builder.Append(prefix);
+                builder.Append(':');
                 builder.Append (e.Name.LocalName);
                 var nameAttr = e.Attribute ("name")?.Value;
                 if (nameAttr != null) {
@@ -1163,17 +1169,6 @@ namespace GISharp.CodeGen
             }
 
             return builder.ToString ();
-        }
-
-        public static string GetNamespace (this XElement element)
-        {
-            if (element == null) {
-                throw new ArgumentNullException (nameof(element));
-            }
-            var namespaceElement = element.Ancestors (gi + "namespace").Single ();
-            var @namespace = namespaceElement.Attribute (gs + "managed-name").Value;
-
-            return @namespace;
         }
 
         static string GetManagedTypeName(string name)

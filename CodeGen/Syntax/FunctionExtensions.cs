@@ -45,5 +45,25 @@ namespace GISharp.CodeGen.Syntax
             var identifier = function.FinishForFunction.ManagedName.ToCamelCase() + "CallbackDelegate";
             return function.GetFinishDelegateField(identifier);
         }
+
+        /// <summary>
+        /// Gets the member declarations for the functions, logging a warning
+        /// for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Function> functions)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var function in functions) {
+                try {
+                    list = list.AddRange(function.GetClassMembers());
+                }
+                catch (Exception ex) {
+                    function.LogException(ex);
+                }
+            }
+
+            return list;
+        }
     }
 }
