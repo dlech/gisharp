@@ -47,7 +47,7 @@ namespace GISharp.Lib.Gio
         ///     to use the `GIT_COMMITTER_NAME` environment variable
         ///     when editing a git commit message. The environment is available
         ///     to the #GApplication::command-line signal handler, via
-        ///     g_application_command_line_getenv().
+        ///     <see cref="ApplicationCommandLine.GetEnvironmentVariable"/>.
         /// </summary>
         SendEnvironment = 16,
         /// <summary>
