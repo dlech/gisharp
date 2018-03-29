@@ -22,86 +22,94 @@ namespace GISharp.CodeGen.Syntax
             return NamespaceDeclaration(fullName);
         }
 
+        static IEnumerable<MemberDeclarationSyntax> GetDeclarations(GIBase type)
+        {
+            SyntaxList<MemberDeclarationSyntax> extensionMembers;
+
+            switch (type) {
+            case Alias alias:
+                yield return alias.GetStructDeclaration()
+                    .WithMembers(alias.GetStructMembers());
+                break;
+            case Bitfield bitfield:
+                yield return bitfield.GetEnumDeclaration()
+                    .WithMembers(bitfield.GetEnumMembers());
+                extensionMembers = bitfield.GetExtClassMembers();
+                if (extensionMembers.Any()) {
+                    yield return bitfield.GetExtClassDeclaration()
+                        .WithMembers(extensionMembers);
+                }
+                break;
+            case Callback callback:
+                yield return callback.GetUnmanagedDeclaration();
+                if (!callback.IsPInvokeOnly) {
+                    yield return callback.GetManagedDeclaration();
+                    yield return callback.GetDelegateFactoryDeclaration()
+                        .WithMembers(callback.GetCallbackDelegateFactoryMembers());
+                }
+                break;
+            case Class @class:
+                yield return @class.GetClassDeclaration()
+                    .WithMembers(@class.GetClassMembers());
+                break;
+            case Enumeration enumeration:
+                yield return enumeration.GetEnumDeclaration()
+                    .WithMembers(enumeration.GetEnumMembers());
+                extensionMembers = enumeration.GetExtClassMembers();
+                if (extensionMembers.Any()) {
+                    yield return enumeration.GetExtClassDeclaration()
+                        .WithMembers(extensionMembers);
+                }
+                break;
+            case Interface @interface:
+                yield return @interface.GetInterfaceDeclaration()
+                    .WithMembers(@interface.GetInterfaceMembers());
+                yield return @interface.GetExtClassDeclaration()
+                    .WithMembers(@interface.GetExtClassMembers());
+                break;
+            case Record record:
+                // TODO: add special handling for IsSource
+                if (record.GTypeName != null || record.IsDisguised || record.IsSource) {
+                    yield return record.GetClassDeclaration()
+                        .WithMembers(record.GetClassMembers());
+                }
+                else if (record.IsGTypeStructFor != null) {
+                    yield return record.GetGTypeStructClassDeclaration()
+                        .WithMembers(record.GetGTypeStructClassMembers());
+                }
+                else {
+                    yield return record.GetStructDeclaration()
+                        .WithMembers(record.GetStructMembers());
+                }
+                break;
+            case StaticClass staticClass:
+                yield return staticClass.GetClassDeclaration()
+                    .WithMembers(staticClass.GetClassMembers());
+                break;
+            case Union union:
+                yield return union.GetStructDeclaration()
+                    .WithMembers(union.GetStructMembers());
+                break;
+            default:
+                throw new ArgumentException("Unknown type declaration node", nameof(type));
+            }
+        }
+
         /// <summary>
         /// Gets the C# namespace member declarations for a GIR namespace
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetMembers(this Namespace @namespace)
+        public static SyntaxList<MemberDeclarationSyntax> GetAllMembers(this Namespace @namespace)
         {
-            IEnumerable<MemberDeclarationSyntax> getDeclarations(GIBase type)
-            {
-                SyntaxList<MemberDeclarationSyntax> extensionMembers;
-
-                switch (type) {
-                case Alias alias:
-                    yield return alias.GetStructDeclaration()
-                        .WithMembers(alias.GetStructMembers());
-                    break;
-                case Bitfield bitfield:
-                    yield return bitfield.GetEnumDeclaration()
-                        .WithMembers(bitfield.GetEnumMembers());
-                    extensionMembers = bitfield.GetExtClassMembers();
-                    if (extensionMembers.Any()) {
-                        yield return bitfield.GetExtClassDeclaration()
-                            .WithMembers(extensionMembers);
-                    }
-                    break;
-                case Callback callback:
-                    yield return callback.GetUnmanagedDeclaration();
-                    if (!callback.IsPInvokeOnly) {
-                        yield return callback.GetManagedDeclaration();
-                        yield return callback.GetDelegateFactoryDeclaration()
-                            .WithMembers(callback.GetCallbackDelegateFactoryMembers());
-                    }
-                    break;
-                case Class @class:
-                    yield return @class.GetClassDeclaration()
-                        .WithMembers(@class.GetClassMembers());
-                    break;
-                case Enumeration enumeration:
-                    yield return enumeration.GetEnumDeclaration()
-                        .WithMembers(enumeration.GetEnumMembers());
-                    extensionMembers = enumeration.GetExtClassMembers();
-                    if (extensionMembers.Any()) {
-                        yield return enumeration.GetExtClassDeclaration()
-                            .WithMembers(extensionMembers);
-                    }
-                    break;
-                case Interface @interface:
-                    yield return @interface.GetInterfaceDeclaration()
-                        .WithMembers(@interface.GetInterfaceMembers());
-                    yield return @interface.GetExtClassDeclaration()
-                        .WithMembers(@interface.GetExtClassMembers());
-                    break;
-                case Record record:
-                    // TODO: add special handling for IsSource
-                    if (record.GTypeName != null || record.IsDisguised || record.IsSource) {
-                        yield return record.GetClassDeclaration()
-                            .WithMembers(record.GetClassMembers());
-                    }
-                    else if (record.IsGTypeStructFor != null) {
-                        yield return record.GetGTypeStructClassDeclaration()
-                            .WithMembers(record.GetGTypeStructClassMembers());
-                    }
-                    else {
-                        yield return record.GetStructDeclaration()
-                            .WithMembers(record.GetStructMembers());
-                    }
-                    break;
-                case StaticClass staticClass:
-                    yield return staticClass.GetClassDeclaration()
-                        .WithMembers(staticClass.GetClassMembers());
-                    break;
-                case Union union:
-                    yield return union.GetStructDeclaration()
-                        .WithMembers(union.GetStructMembers());
-                    break;
-                default:
-                    throw new ArgumentException("Unknown type declaration node", nameof(type));
-                }
-            }
-
-            var declarations = @namespace.AllTypes.SelectMany(x => getDeclarations(x));
+            var declarations = @namespace.AllTypes.SelectMany(x => GetDeclarations(x));
             return List(declarations);
+        }
+
+        /// <summary>
+        /// Gets the C# namespace member declarations for a GIR type
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetMembersFor(this Namespace @namespace, GIBase type)
+        {
+            return List(GetDeclarations(type));
         }
     }
 }

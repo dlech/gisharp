@@ -183,9 +183,11 @@ namespace GISharp.CodeGen
             const string fixupFileName = "gir-fixup.yml";
             const string fixupDirName = fixupFileName + ".d";
 
-            var fixupFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupFileName);
+            var projectDirPath = Path.GetDirectoryName(projectAnalyzer.ProjectFilePath);
+
+            var fixupFilePath = Path.Combine(projectDirPath, fixupFileName);
             var fixupFileExists = File.Exists(fixupFilePath);
-            var fixupDirPath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), fixupDirName);
+            var fixupDirPath = Path.Combine(projectDirPath, fixupDirName);
             var fixupDirExists = Directory.Exists(fixupDirPath);
 
             // for most commands, we need an existing fixup file
@@ -286,13 +288,15 @@ namespace GISharp.CodeGen
             Console.WriteLine("Generating code...");
 
             var gir = new Repository(girXml);
-            var codeCompileUnit = gir.GetCompilationUnit();
+            var codeCompileUnits = gir.GetCompilationUnits();
             var workspace = new AdhocWorkspace();
 
-            var generatedFilePath = Path.Combine(Path.GetDirectoryName(projectAnalyzer.ProjectFilePath), "Generated.cs");
-            Console.WriteLine($"Writing '{generatedFilePath}'...");
-            using (var generatedFile = new StreamWriter(generatedFilePath)) {
-                Formatter.Format(codeCompileUnit, workspace).WriteTo(generatedFile);
+            Console.WriteLine($"Writing '*.Generated.cs'...");
+            foreach (var (name, unit) in codeCompileUnits) {
+                var generatedFilePath = Path.Combine(projectDirPath, name + ".Generated.cs");
+                using (var generatedFile = new StreamWriter(generatedFilePath)) {
+                    Formatter.Format(unit, workspace).WriteTo(generatedFile);
+                }
             }
 
             Console.WriteLine("Done.");
