@@ -182,7 +182,7 @@ namespace GISharp.CodeGen.Syntax
                 .Single(x => x.Type.CType == "GAsyncResult*");
             var parameterList = string.Format("({0} {1}_, {0} {2}_, {0} userData_)",
                 typeof(IntPtr),
-                instanceParameter.ManagedName,
+                instanceParameter?.ManagedName ?? "sourceObject",
                 resultParameter.ManagedName);
             return MethodDeclaration(ParseTypeName("void"), callable.ManagedName)
                 .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))

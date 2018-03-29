@@ -11,19 +11,20 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets the async function that this function finishes, if any
         /// </summary>
-        public Method FinishForFunction => _FinishForFunction.Value;
-        readonly Lazy<Method> _FinishForFunction;
+        public GIFunction FinishForFunction => _FinishForFunction.Value;
+        readonly Lazy<GIFunction> _FinishForFunction;
 
         public Function(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gi + "function") {
                 throw new ArgumentException("Requrires <function> element", nameof(element));
             }
-            _FinishForFunction = new Lazy<Method>(LazyGetFinishForFunction);
+            _FinishForFunction = new Lazy<GIFunction>(LazyGetFinishForFunction);
         }
 
-        Method LazyGetFinishForFunction =>
-            (Method)GirNode.GetNode(Element.Parent.Elements(Element.Name)
+        GIFunction LazyGetFinishForFunction =>
+            (GIFunction)GirNode.GetNode(Element.Parent.Elements(gi + "function")
+                .Concat(Element.Parent.Elements(gi + "method"))
                 .SingleOrDefault(x => x.Attribute("name")?.Value == FinishFor));
     }
 }
