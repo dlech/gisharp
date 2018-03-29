@@ -43,19 +43,19 @@ namespace GISharp.Lib.GObject
             public IntPtr ConstructProperties;
 
             /* seldom overidden */
-            public UnmanagedConstructor OnConstructor;
+            public IntPtr OnConstructor;
             /* overridable methods */
-            public UnmanagedSetProperty OnSetProperty;
-            public UnmanagedGetProperty OnGetProperty;
-            public UnmanagedDispose OnDispose;
-            public UnmanagedFinalize OnFinalize;
+            public IntPtr OnSetProperty;
+            public IntPtr OnGetProperty;
+            public IntPtr OnDispose;
+            public IntPtr OnFinalize;
             /* seldom overidden */
-            public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged;
+            public IntPtr OnDispatchPropertiesChanged;
             /* signals */
-            public UnmanagedNotify OnNotify;
+            public IntPtr OnNotify;
 
             /* called when done constructing */
-            public UnmanagedConstructed OnConstructed;
+            public IntPtr OnConstructed;
 
             public UIntPtr Flags;
             public IntPtr Dummy0;

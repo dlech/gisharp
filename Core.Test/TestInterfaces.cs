@@ -34,7 +34,7 @@ namespace GISharp.Test.Core
         {
             #pragma warning disable CS0649
             public TypeInterface.Struct GIface;
-            public UnmanagedInit Init;
+            public IntPtr Init;
             #pragma warning restore CS0649
         }
 
@@ -176,10 +176,10 @@ namespace GISharp.Test.Core
         {
             #pragma warning disable CS0649
             public TypeInterface.Struct GIface;
-            public UnmanagedNetworkChanged NetworkChanged;
-            public UnmanagedCanReach CanReach;
-            public UnmanagedCanReachAsync CanReachAsync;
-            public UnmanagedCanReachAsyncFinish CanReachAsyncFinish;
+            public IntPtr NetworkChanged;
+            public IntPtr CanReach;
+            public IntPtr CanReachAsync;
+            public IntPtr CanReachAsyncFinish;
             #pragma warning restore CS0649
         }
 
@@ -459,9 +459,9 @@ namespace GISharp.Test.Core
             #pragma warning disable CS0169
             TypeInterface.Struct gIface;
             #pragma warning restore CS0169
-            public UnmanagedGetUserData GetUserData;
-            public UnmanagedGetSourceObject GetSourceObject;
-            public UnmanagedIsTagged IsTagged;
+            public IntPtr GetUserData;
+            public IntPtr GetSourceObject;
+            public IntPtr IsTagged;
             #pragma warning restore CS0649
         }
 

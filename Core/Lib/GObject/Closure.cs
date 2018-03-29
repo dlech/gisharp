@@ -62,7 +62,7 @@ namespace GISharp.Lib.GObject
         {
     #pragma warning disable CS0649
             public uint BitFields;
-            public UnmanagedMarshal Marshal;
+            public IntPtr Marshal;
             public IntPtr Data;
             public IntPtr Notifiers;
     #pragma warning restore CS0649
