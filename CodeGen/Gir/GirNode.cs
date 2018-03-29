@@ -86,6 +86,9 @@ namespace GISharp.CodeGen.Gir
             else if (element.Name == gi + "doc") {
                 return new Doc(element, GetNode(element.Parent));
             }
+            else if (element.Name == gi + "doc-deprecated") {
+                return new DocDeprecated(element, GetNode(element.Parent));
+            }
             else if (element.Name == gi + "enumeration") {
                 return new Enumeration(element, GetNode(element.Parent));
             }
