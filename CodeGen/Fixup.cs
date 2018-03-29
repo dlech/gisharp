@@ -1,28 +1,24 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Reflection;
+using System.Text;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Linq;
-using System.IO;
-using System.Text;
 using System.Xml.XPath;
-using System.Text.RegularExpressions;
 
 using Microsoft.CodeAnalysis.CSharp;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
-
-using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using GISharp.Runtime;
-using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
-using System.Threading.Tasks;
+using GISharp.Runtime;
+
 
 namespace GISharp.CodeGen
 {
