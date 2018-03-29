@@ -11,17 +11,17 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Do not close either stream.
         /// </summary>
-        None = 0,
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// Close the source stream after
         ///     the splice.
         /// </summary>
-        CloseSource = 1,
+        CloseSource = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// Close the target stream after
         ///     the splice.
         /// </summary>
-        CloseTarget = 2
+        CloseTarget = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 
     public partial class OutputStreamSpliceFlagsExtensions

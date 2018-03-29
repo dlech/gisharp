@@ -11,15 +11,15 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// no flags set.
         /// </summary>
-        None = 0,
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// copy the attribute values when the file is copied.
         /// </summary>
-        CopyWithFile = 1,
+        CopyWithFile = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// copy the attribute values when the file is moved.
         /// </summary>
-        CopyWhenMoved = 2
+        CopyWhenMoved = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 
     public partial class FileAttributeInfoFlagsExtensions

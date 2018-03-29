@@ -10,20 +10,20 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// No flags, default behaviour
         /// </summary>
-        None = 0,
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// Use this flag if you plan to write the
         ///     (possibly modified) contents of the key file back to a file;
         ///     otherwise all comments will be lost when the key file is
         ///     written back.
         /// </summary>
-        KeepComments = 1,
+        KeepComments = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// Use this flag if you plan to write the
         ///     (possibly modified) contents of the key file back to a file;
         ///     otherwise only the translations for the current language will be
         ///     written back.
         /// </summary>
-        KeepTranslations = 2
+        KeepTranslations = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 }

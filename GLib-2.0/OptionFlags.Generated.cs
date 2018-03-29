@@ -11,35 +11,35 @@ namespace GISharp.Lib.GLib
         /// No flags.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.42")]
-        None = 0,
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// The option doesn't appear in `--help` output.
         /// </summary>
-        Hidden = 1,
+        Hidden = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// The option appears in the main section of the
         ///     `--help` output, even if it is defined in a group.
         /// </summary>
-        InMain = 2,
+        InMain = 0b0000_0000_0000_0000_0000_0000_0000_0010,
         /// <summary>
         /// For options of the <see cref="OptionArg.None"/> kind, this
         ///     flag indicates that the sense of the option is reversed.
         /// </summary>
-        Reverse = 4,
+        Reverse = 0b0000_0000_0000_0000_0000_0000_0000_0100,
         /// <summary>
         /// For options of the <see cref="OptionArg.Callback"/> kind,
         ///     this flag indicates that the callback does not take any argument
         ///     (like a <see cref="OptionArg.None"/> option).
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
-        NoArg = 8,
+        NoArg = 0b0000_0000_0000_0000_0000_0000_0000_1000,
         /// <summary>
         /// For options of the <see cref="OptionArg.Callback"/>
         ///     kind, this flag indicates that the argument should be passed to the
         ///     callback in the GLib filename encoding rather than UTF-8.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
-        Filename = 16,
+        Filename = 0b0000_0000_0000_0000_0000_0000_0001_0000,
         /// <summary>
         /// For options of the <see cref="OptionArg.Callback"/>
         ///     kind, this flag indicates that the argument supply is optional.
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GLib
         ///     set to NULL.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
-        OptionalArg = 32,
+        OptionalArg = 0b0000_0000_0000_0000_0000_0000_0010_0000,
         /// <summary>
         /// This flag turns off the automatic conflict
         ///     resolution which prefixes long option names with `groupname-` if
@@ -57,6 +57,6 @@ namespace GISharp.Lib.GLib
         ///     your direct control.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.8")]
-        NoAlias = 64
+        NoAlias = 0b0000_0000_0000_0000_0000_0000_0100_0000
     }
 }

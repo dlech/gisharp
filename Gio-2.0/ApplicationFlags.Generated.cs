@@ -12,18 +12,18 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Default
         /// </summary>
-        FlagsNone = 0,
+        FlagsNone = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// Run as a service. In this mode, registration
         ///      fails if the service is already running, and the application
         ///      will initially wait up to 10 seconds for an initial activation
         ///      message to arrive.
         /// </summary>
-        IsService = 1,
+        IsService = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// Don't try to become the primary instance.
         /// </summary>
-        IsLauncher = 2,
+        IsLauncher = 0b0000_0000_0000_0000_0000_0000_0000_0010,
         /// <summary>
         /// This application handles opening files (in
         ///     the primary instance). Note that this flag only affects the default
@@ -31,14 +31,14 @@ namespace GISharp.Lib.Gio
         ///     <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
         ///     See g_application_run() for details.
         /// </summary>
-        HandlesOpen = 4,
+        HandlesOpen = 0b0000_0000_0000_0000_0000_0000_0000_0100,
         /// <summary>
         /// This application handles command line
         ///     arguments (in the primary instance). Note that this flag only affect
         ///     the default implementation of local_command_line().
         ///     See g_application_run() for details.
         /// </summary>
-        HandlesCommandLine = 8,
+        HandlesCommandLine = 0b0000_0000_0000_0000_0000_0000_0000_1000,
         /// <summary>
         /// Send the environment of the
         ///     launching process to the primary instance. Set this flag if your
@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gio
         ///     to the #GApplication::command-line signal handler, via
         ///     <see cref="ApplicationCommandLine.GetEnvironmentVariable"/>.
         /// </summary>
-        SendEnvironment = 16,
+        SendEnvironment = 0b0000_0000_0000_0000_0000_0000_0001_0000,
         /// <summary>
         /// Make no attempts to do any of the typical
         ///     single-instance application negotiation, even if the application
@@ -58,13 +58,13 @@ namespace GISharp.Lib.Gio
         ///     owner already exists.  Everything occurs in the local process.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.30")]
-        NonUnique = 32,
+        NonUnique = 0b0000_0000_0000_0000_0000_0000_0010_0000,
         /// <summary>
         /// Allow users to override the
         ///     application ID from the command line with `--gapplication-app-id`.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.48")]
-        CanOverrideAppId = 64
+        CanOverrideAppId = 0b0000_0000_0000_0000_0000_0000_0100_0000
     }
 
     public partial class ApplicationFlagsExtensions

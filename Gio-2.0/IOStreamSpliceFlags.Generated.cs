@@ -12,22 +12,22 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Do not close either stream.
         /// </summary>
-        None = 0,
+        None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
         /// <summary>
         /// Close the first stream after
         ///     the splice.
         /// </summary>
-        CloseStream1 = 1,
+        CloseStream1 = 0b0000_0000_0000_0000_0000_0000_0000_0001,
         /// <summary>
         /// Close the second stream after
         ///     the splice.
         /// </summary>
-        CloseStream2 = 2,
+        CloseStream2 = 0b0000_0000_0000_0000_0000_0000_0000_0010,
         /// <summary>
         /// Wait for both splice operations to finish
         ///     before calling the callback.
         /// </summary>
-        WaitForBoth = 4
+        WaitForBoth = 0b0000_0000_0000_0000_0000_0000_0000_0100
     }
 
     public partial class IOStreamSpliceFlagsExtensions
