@@ -100,7 +100,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetAllMembers(this Namespace @namespace)
         {
-            var declarations = @namespace.AllTypes.SelectMany(x => GetDeclarations(x));
+            var declarations = @namespace.AllTypes.SelectMany(x => @namespace.GetMembersFor(x));
             return List(declarations);
         }
 
@@ -109,7 +109,16 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetMembersFor(this Namespace @namespace, GIBase type)
         {
-            return List(GetDeclarations(type));
+            var list = List<MemberDeclarationSyntax>();
+
+            try {
+                list = list.AddRange(GetDeclarations(type));
+            }
+            catch (Exception ex) {
+                type.LogException(ex);
+            }
+
+            return list;
         }
     }
 }
