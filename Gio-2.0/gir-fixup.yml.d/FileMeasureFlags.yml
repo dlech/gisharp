@@ -1,0 +1,8 @@
+
+### FileMeasureFlags ###
+
+# better name
+- !set-attribute
+  name: gs:managed-name
+  value: NoCrossMountPoint
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='FileMeasureFlags']/gi:member[@name='no_xdev']
