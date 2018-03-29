@@ -1,8 +1,0 @@
-
-### Task ###
-
-# handle naming conflict
-- !set-attribute
-  name: gs:managed-name
-  value: Completed_
-  xpath: gi:repository/gi:namespace/gi:class[@name='Task']/gi:property[@name='completed']

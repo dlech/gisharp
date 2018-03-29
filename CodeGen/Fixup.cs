@@ -946,6 +946,18 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "property-setter-for", name);
                 element.SetAttributeValue(gs + "access-modifiers", "private");
             }
+
+            // fix conflicting property names
+
+            foreach (var element in document.Descendants(gi + "property")) {
+                var managedName = element.Attribute(gs + "managed-name").Value;
+                var managedPropertyElement = element.Parent.Elements(gs + "managed-property")
+                    .SingleOrDefault(x => x.Attribute(gs + "managed-name").Value == managedName);
+                if (managedPropertyElement == null) {
+                    continue;
+                }
+                element.SetAttributeValue(gs + "managed-name", managedName + "_");
+            }
         }
 
         /// <summary>

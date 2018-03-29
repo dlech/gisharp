@@ -1,15 +1,7 @@
 
 ### IOStream ###
 
-# fix naming conflicts
-- !set-attribute
-  name: gs:managed-name
-  value: InputStream_
-  xpath: gi:repository/gi:namespace/gi:class[@name='IOStream']/gi:property[@name='input-stream']
-- !set-attribute
-  name: gs:managed-name
-  value: OutputStream_
-  xpath: gi:repository/gi:namespace/gi:class[@name='IOStream']/gi:property[@name='output-stream']
+# match getter method name
 - !set-attribute
   name: gs:managed-name
   value: IsClosed_
