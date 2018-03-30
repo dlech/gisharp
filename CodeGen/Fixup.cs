@@ -868,15 +868,16 @@ namespace GISharp.CodeGen
                 }
 
                 var asyncMethodName = element.Attribute(gs + "finish-for").Value;
-                var asyncMethodElement = element.Parent.Elements(gi + "function")
-                    .Concat(element.Parent.Elements(gi + "method"))
-                    .First(x => x.Attribute("name")?.Value == asyncMethodName);
-                var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
-                asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));
+                foreach (var asyncMethodElement in element.Parent.Elements(gi + "function")
+                        .Concat(element.Parent.Elements(gi + "method"))
+                        .Where(x => x.Attribute("name")?.Value == asyncMethodName)) {
+                    var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
+                    asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));
 
-                foreach (var r in returnValues) {
-                    var newElement = new XElement(r.Element(gi + "type") ?? r.Element(gi + "array"));
-                    asyncReturnValueType.Add(newElement);
+                    foreach (var r in returnValues) {
+                        var newElement = new XElement(r.Element(gi + "type") ?? r.Element(gi + "array"));
+                        asyncReturnValueType.Add(newElement);
+                    }
                 }
             }
 
