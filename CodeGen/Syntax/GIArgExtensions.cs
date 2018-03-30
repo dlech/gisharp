@@ -98,7 +98,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (type.IsValueType) {
                 // value types are used directly
-                var unmanagedType = arg.Type.UnmanagedType.ToString().TrimEnd('*');
+                var unmanagedType = arg.Type.UnmanagedType.ToString();
                 expression = ParseExpression($"{arg.ManagedName}_ = ({unmanagedType}){arg.ManagedName}");
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
@@ -149,6 +149,9 @@ namespace GISharp.CodeGen.Syntax
             }
             if (declareVariable) {
                 expression = ParseExpression("var " + expression);
+            }
+            else if (arg.Direction != "in") {
+                expression = ParseExpression("*" + expression);
             }
             return ExpressionStatement(expression);
         }
