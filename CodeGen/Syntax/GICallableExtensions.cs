@@ -109,10 +109,9 @@ namespace GISharp.CodeGen.Syntax
             // If callback scope for any parameter was "call", then we need to
             // free the unmanaged delegate
 
-            foreach (var p in callable.Parameters.Where(x => x.Scope == "call")) {
-                var destroyParam = "destroy" + p.ManagedName.ToPascalCase();
-                var userDataParam = callable.Parameters.ElementAt(p.ClosureIndex).ManagedName;
-                var expression = ParseExpression($"{destroyParam}({userDataParam})");
+            foreach (var arg in callable.Parameters.Where(x => x.Scope == "call")) {
+                var userDataArg = callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
+                var expression = ParseExpression($"destroy_({userDataArg.ManagedName}_)");
                 yield return ExpressionStatement(expression);
             }
 
