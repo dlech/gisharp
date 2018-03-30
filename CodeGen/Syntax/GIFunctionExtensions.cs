@@ -27,6 +27,10 @@ namespace GISharp.CodeGen.Syntax
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
             var returnType = function.ReturnValue.Type.UnmanagedType.ToSyntax();
+            if (function.ReturnValue.Type.IsPointer && function.ReturnValue.Type.ManagedType.IsValueType
+                    && function.ReturnValue.Type.ManagedType != typeof(IntPtr)) {
+                returnType = ParseTypeName($"{returnType}*");
+            }
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
                 // adding girTrivia here makes it appear before the method declaration
                 // but after the attribute lists
