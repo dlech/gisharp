@@ -298,6 +298,9 @@ namespace GISharp.CodeGen.Reflection
             }
             else if (typeNode is Record record) {
                 if (record.GTypeName != null || record.IsDisguised) {
+                    if (node.CType?.EndsWith("**") == true) {
+                        return typeof(IntPtr).MakePointerType();
+                    }
                     return typeof(IntPtr);
                 }
                 girType = new GirRecordType(record);
@@ -306,6 +309,9 @@ namespace GISharp.CodeGen.Reflection
                 return new GirDelegateType(callback, true);
             }
             else if (typeNode is Class || typeNode is Interface) {
+                if (node.CType?.EndsWith("**") == true) {
+                    return typeof(IntPtr).MakePointerType();
+                }
                 return typeof(IntPtr);
             }
 
