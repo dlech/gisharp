@@ -150,98 +150,64 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeName = node.GirName;
-            var basicType = default(System.Type);
             switch (typeName) {
                 // basic/fundamental types
                 case "none":
                     return typeof(void);
                 case "gboolean":
-                    basicType = typeof(bool);
-                    break;
+                    return typeof(bool);
                 case "gchar":
                 case "gint8":
-                    basicType = typeof(sbyte);
-                    break;
+                    return typeof(sbyte);
                 case "guchar":
                 case "guint8":
-                    basicType = typeof(byte);
-                    break;
+                    return typeof(byte);
                 case "gshort":
                 case "gint16":
-                    basicType = typeof(short);
-                    break;
+                    return typeof(short);
                 case "gushort":
                 case "guint16":
-                    basicType = typeof(ushort);
-                    break;
+                    return typeof(ushort);
                 case "gunichar2":
-                    basicType = typeof(char);
-                    break;
+                    return typeof(char);
                 case "gint":
                 case "gint32":
-                    basicType = typeof(int);
-                    break;
+                    return typeof(int);
                 case "guint":
                 case "guint32":
                 case "gunichar":
-                    basicType = typeof(uint);
-                    break;
+                    return typeof(uint);
                 case "glong":
-                    basicType = typeof(NativeLong);
-                    break;
+                    return typeof(NativeLong);
                 case "gulong":
-                    basicType = typeof(NativeULong);
-                    break;
+                    return typeof(NativeULong);
                 case "gint64":
                 case "goffset":
-                    basicType = typeof(long);
-                    break;
+                    return typeof(long);
                 case "guint64":
-                    basicType = typeof(ulong);
-                    break;
+                    return typeof(ulong);
                 case "gfloat":
-                    basicType = typeof(float);
-                    break;
+                    return typeof(float);
                 case "gdouble":
-                    basicType = typeof(double);
-                    break;
+                    return typeof(double);
                 case "gintptr":
                 case "gssize":
-                    basicType = typeof(IntPtr);
-                    break;
+                    return typeof(IntPtr);
                 case "guintptr":
                 case "gsize":
-                    basicType = typeof(UIntPtr);
-                    break;
+                    return typeof(UIntPtr);
                 case "GType":
-                    basicType = typeof(GType);
-                    break;
+                    return typeof(GType);
                 case "gpointer":
                 case "gconstpointer":
-                    basicType = typeof(IntPtr);
-                    if (node is Gir.Type && node.CType?.Equals("void*") == false && node.CType?.EndsWith("*") == true) {
-                        return basicType.MakePointerType();
-                    }
-                    return basicType;
                 case "filename":
                 case "utf8":
                 // we get null for C arrays
                 case null:
-                    basicType = typeof(IntPtr);
-                    if (node is Gir.Type && node.CType?.EndsWith("**") == true) {
-                        return basicType.MakePointerType();
-                    }
-                    return basicType;
+                    return typeof(IntPtr);
                 case "va_list":
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported");
-            }
-
-            if (basicType != null) {
-                if (node.IsPointer) {
-                    return basicType.MakePointerType();
-                }
-                return basicType;
             }
 
             if (!typeName.Contains('.')) {
@@ -267,16 +233,10 @@ namespace GISharp.CodeGen.Reflection
             var type = GetType(typeName);
             if (type != null) {
                 if (type.IsValueType) {
-                    if (node.IsPointer) {
-                        return type.MakePointerType();
-                    }
                     return type;
                 }
                 if (type.IsDelegate()) {
                     return type;
-                }
-                if (node.CType?.EndsWith("**") == true) {
-                    return typeof(IntPtr).MakePointerType();
                 }
                 return typeof(IntPtr);
             }
@@ -298,9 +258,6 @@ namespace GISharp.CodeGen.Reflection
             }
             else if (typeNode is Record record) {
                 if (record.GTypeName != null || record.IsDisguised) {
-                    if (node.CType?.EndsWith("**") == true) {
-                        return typeof(IntPtr).MakePointerType();
-                    }
                     return typeof(IntPtr);
                 }
                 girType = new GirRecordType(record);
@@ -309,18 +266,11 @@ namespace GISharp.CodeGen.Reflection
                 return new GirDelegateType(callback, true);
             }
             else if (typeNode is Class || typeNode is Interface) {
-                if (node.CType?.EndsWith("**") == true) {
-                    return typeof(IntPtr).MakePointerType();
-                }
                 return typeof(IntPtr);
             }
 
             if (girType == null) {
                 throw new NotSupportedException($"Unknown GIR node type: {typeNode.GetType().Name}");
-            }
-
-            if (node.IsPointer) {
-                return girType.MakePointerType();
             }
  
             return girType;

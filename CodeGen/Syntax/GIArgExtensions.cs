@@ -26,6 +26,11 @@ namespace GISharp.CodeGen.Syntax
         {
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
+            if (!managed && (arg.Direction != "in" || (arg.Type.IsPointer
+                    && arg.Type.ManagedType.IsValueType
+                    && arg.Type.ManagedType != typeof(IntPtr)))) {
+                type = type.MakePointerType();
+            }
             var identifier = ParseToken(arg.ManagedName + suffix);
 
             IEnumerable<SyntaxToken> getModifiers()
@@ -61,17 +66,19 @@ namespace GISharp.CodeGen.Syntax
             var expression = arg.ManagedName + suffix;
 
             if (arg.ParentNode is Parameters) {
-                if (arg.Type.UnmanagedType.IsPointer) {
+                if (arg.Direction != "in" || (arg.Type.IsPointer
+                        && arg.Type.ManagedType.IsValueType
+                        && arg.Type.ManagedType != typeof(IntPtr))) {
                     expression = "&" + expression;
                 }
             }
             else {
-            if (arg.Direction == "inout") {
-                expression = "ref " + expression;
-            }
-            else if (arg.Direction == "out") {
-                expression = "out var " + expression;
-            }
+                if (arg.Direction == "inout") {
+                    expression = "ref " + expression;
+                }
+                else if (arg.Direction == "out") {
+                    expression = "out var " + expression;
+                }
             }
 
             return Argument(ParseExpression(expression));

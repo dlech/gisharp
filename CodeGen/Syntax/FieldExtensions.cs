@@ -27,6 +27,10 @@ namespace GISharp.CodeGen.Syntax
             else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {
                 type = ParseTypeName($"{field.Type.ManagedType}.Struct");
             }
+            else if (field.Type.IsPointer && field.Type.ManagedType.IsValueType
+                    && field.Type.ManagedType != typeof(IntPtr)) {
+                type = ParseTypeName($"{field.Type.ManagedType}*");
+            }
             var variable = VariableDeclarator(field.ManagedName);
             var variableDeclaration = VariableDeclaration(type)
                 .AddVariables(variable);
