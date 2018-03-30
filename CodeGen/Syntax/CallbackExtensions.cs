@@ -134,15 +134,6 @@ namespace GISharp.CodeGen.Syntax
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
 
-            foreach (var arg in callback.Parameters.Where(x => x.Direction == "out")) {
-                var type = arg.Type.UnmanagedType.ToSyntax();
-                if (arg.Type.ManagedType.IsValueType) {
-                    type = arg.Type.ManagedType.ToSyntax();
-                }
-                var expression = ParseExpression($"{arg.ManagedName}_ = default({type})");
-                exceptionStatements = exceptionStatements.Add(ExpressionStatement(expression));
-            }
-
             tryStatement = tryStatement.AddCatches(CatchClause()
                 .WithDeclaration(CatchDeclaration(ParseTypeName(exception), ParseToken("ex")))
                 .WithBlock(Block(exceptionStatements)));
