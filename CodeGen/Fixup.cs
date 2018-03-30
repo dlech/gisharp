@@ -865,7 +865,7 @@ namespace GISharp.CodeGen
                 var asyncMethodName = element.Attribute(gs + "finish-for").Value;
                 var asyncMethodElement = element.Parent.Elements(gi + "function")
                     .Concat(element.Parent.Elements(gi + "method"))
-                    .Single(x => x.Attribute("name")?.Value == asyncMethodName);
+                    .First(x => x.Attribute("name")?.Value == asyncMethodName);
                 var asyncReturnValueType = asyncMethodElement.Element(gi + "return-value").Element(gi + "type");
                 asyncReturnValueType.SetAttributeValue(gs + "managed-name", typeof(Task));
 
