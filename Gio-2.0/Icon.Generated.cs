@@ -73,7 +73,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.Variant DoSerialize();
     }
 
-    public static class Icon
+    public static partial class Icon
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
 
@@ -353,10 +353,10 @@ namespace GISharp.Lib.Gio
         /// The encoding of the returned string is proprietary to <see cref="IIcon"/> except
         /// in the following two cases
         /// 
-        /// - If <paramref name="icon"/> is a #GFileIcon, the returned string is a native path
+        /// - If <paramref name="icon"/> is a <see cref="IFile"/>Icon, the returned string is a native path
         ///   (such as `/path/to/my icon.png`) without escaping
-        ///   if the #GFile for <paramref name="icon"/> is a native file.  If the file is not
-        ///   native, the returned string is the result of g_file_get_uri()
+        ///   if the <see cref="IFile"/> for <paramref name="icon"/> is a native file.  If the file is not
+        ///   native, the returned string is the result of <see cref="File.GetUri"/>
         ///   (such as `sftp://path/to/my%20icon.png`).
         /// 
         /// - If <paramref name="icon"/> is a <see cref="ThemedIcon"/> with exactly one name, the encoding is

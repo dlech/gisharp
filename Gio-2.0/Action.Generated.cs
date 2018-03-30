@@ -228,7 +228,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.VariantType DoGetStateType();
     }
 
-    public static class Action
+    public static partial class Action
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_action_get_type();
 

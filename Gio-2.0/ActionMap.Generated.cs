@@ -63,7 +63,7 @@ namespace GISharp.Lib.Gio
         void DoRemoveAction(GISharp.Lib.GLib.Utf8 actionName);
     }
 
-    public static class ActionMap
+    public static partial class ActionMap
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_action_map_get_type();
 

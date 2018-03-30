@@ -127,7 +127,7 @@ namespace GISharp.Lib.Gio
         System.Boolean DoIsTagged(System.IntPtr sourceTag);
     }
 
-    public static class AsyncResult
+    public static partial class AsyncResult
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
 

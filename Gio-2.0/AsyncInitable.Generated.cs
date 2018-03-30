@@ -178,7 +178,7 @@ namespace GISharp.Lib.Gio
         void DoInitFinish(GISharp.Lib.Gio.IAsyncResult res);
     }
 
-    public static class AsyncInitable
+    public static partial class AsyncInitable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
 

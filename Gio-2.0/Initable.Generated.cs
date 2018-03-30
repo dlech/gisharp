@@ -89,7 +89,7 @@ namespace GISharp.Lib.Gio
         void DoInit(GISharp.Lib.Gio.Cancellable cancellable = null);
     }
 
-    public static class Initable
+    public static partial class Initable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 

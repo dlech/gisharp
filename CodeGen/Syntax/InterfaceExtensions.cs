@@ -55,7 +55,7 @@ namespace GISharp.CodeGen.Syntax
             // trim "I" prefix
             var identifier = @interface.ManagedName.Substring(1);
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword));
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword));
         }
 
         /// <summary>

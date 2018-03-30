@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         void DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable cancellable = null);
     }
 
-    public static class Seekable
+    public static partial class Seekable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_seekable_get_type();
 

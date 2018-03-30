@@ -339,7 +339,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.Strv DoListActions();
     }
 
-    public static class ActionGroup
+    public static partial class ActionGroup
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
 
