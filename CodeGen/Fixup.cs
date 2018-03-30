@@ -850,6 +850,16 @@ namespace GISharp.CodeGen
                 element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
+            // add managed-parameters element
+
+            foreach (var element in document.Descendants(gi + "parameters")) {
+                var managedParametersElement = new XElement(gs + "managed-parameters");
+                foreach (var managedParameterElement in element.EnumerateManagedParameters()) {
+                    managedParametersElement.Add(new XElement(managedParameterElement));
+                }
+                element.Parent.Add(managedParametersElement);
+            }
+
             // fix up the async method return value based on the finish method
 
             foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") != null))
@@ -861,7 +871,7 @@ namespace GISharp.CodeGen
                 {
                     returnValues.Add(finishReturnValueElement);
                 }
-                foreach (var p in element.Element(gi + "parameters").Elements(gi + "parameter")
+                foreach (var p in element.Element(gs + "managed-parameters").Elements(gi + "parameter")
                     .Where(x => x.Attribute("direction").AsString("in") != "in"))
                 {
                     returnValues.Add(p);
@@ -879,17 +889,6 @@ namespace GISharp.CodeGen
                         asyncReturnValueType.Add(newElement);
                     }
                 }
-            }
-
-            // add managed-parameters element
-
-            var parameterElements = document.Descendants (gi + "parameters");
-            foreach (var element in parameterElements) {
-                var managedParametersElement = new XElement(gs + "managed-parameters");
-                foreach (var managedParameterElement in element.EnumerateManagedParameters ()) {
-                    managedParametersElement.Add(new XElement(managedParameterElement));
-                }
-                element.Parent.Add(managedParametersElement);
             }
 
             // fix the callback type names for (unmanaged) parameters

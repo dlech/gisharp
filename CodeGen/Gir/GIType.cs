@@ -17,8 +17,8 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public bool IsPointer { get; }
 
-        public IEnumerable<Type> TypeParameters => _TypeParameters.Value;
-        readonly Lazy<List<Type>> _TypeParameters;
+        public IEnumerable<GIType> TypeParameters => _TypeParameters.Value;
+        readonly Lazy<List<GIType>> _TypeParameters;
 
         /// <summary>
         /// Gets the .NET type for the unmanaged version of this GIR type
@@ -37,13 +37,14 @@ namespace GISharp.CodeGen.Gir
         {
             CType = element.Attribute(c + "type").AsString();
             IsPointer = element.Attribute(gs + "is-pointer").AsBool();
-            _TypeParameters = new Lazy<List<Type>>(() => LazyGetTypeParameters().ToList());
+            _TypeParameters = new Lazy<List<GIType>>(() => LazyGetTypeParameters().ToList());
             _UnmanagedType = new Lazy<System.Type>(LazyGetUnmanagedType);
             _ManagedType = new Lazy<System.Type>(LazyGetManagedType);
         }
 
-        IEnumerable<Type> LazyGetTypeParameters() =>
-            Element.Elements(gi + "type").Select(x => (Type)GetNode(x));
+        IEnumerable<GIType> LazyGetTypeParameters() =>
+            Element.Elements().Where(x => x.Name == gi + "type" || x.Name == gi + "array")
+                .Select(x => (GIType)GetNode(x));
 
         System.Type LazyGetUnmanagedType => Reflection.GirType.ResolveUnmanagedType(this);
 

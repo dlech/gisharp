@@ -248,7 +248,7 @@ namespace GISharp.CodeGen.Syntax
 
             var returnValues = new System.Collections.Generic.List<string>();
 
-            foreach (var arg in callable.Parameters.RegularParameters.Where(x => x.Direction != "in")) {
+            foreach (var arg in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in")) {
                 tryStatement = tryStatement.AddBlockStatements(arg.GetMarshalUnmanagedToManagedStatement());
                 returnValues.Add(arg.ManagedName);
             }
