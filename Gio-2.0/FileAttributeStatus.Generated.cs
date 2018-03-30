@@ -2,7 +2,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <summary>
-    /// Used by g_file_set_attributes_from_info() when setting file attributes.
+    /// Used by <see cref="File.SetAttributesFromInfo"/> when setting file attributes.
     /// </summary>
     [GISharp.Runtime.GTypeAttribute("GFileAttributeStatus", IsProxyForUnmanagedType = true)]
     public enum FileAttributeStatus

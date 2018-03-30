@@ -92,7 +92,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// A key in the "filesystem" namespace for getting the total size (in bytes) of the file system,
-        /// used in g_file_query_filesystem_info(). Corresponding <see cref="FileAttributeType"/>
+        /// used in <see cref="File.QueryFilesystemInfo"/>. Corresponding <see cref="FileAttributeType"/>
         /// is <see cref="FileAttributeType.Uint64"/>.
         /// </summary>
         public const System.String FilesystemSize = "filesystem::size";

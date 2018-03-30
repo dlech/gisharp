@@ -305,6 +305,61 @@ namespace GISharp.Lib.Gio
         static extern unsafe GISharp.Lib.GObject.GType g_application_command_line_get_type();
 
         /// <summary>
+        /// Creates a #GFile corresponding to a filename that was given as part
+        /// of the invocation of @cmdline.
+        /// </summary>
+        /// <remarks>
+        /// This differs from g_file_new_for_commandline_arg() in that it
+        /// resolves relative pathnames using the current working directory of
+        /// the invoking process rather than the local process.
+        /// </remarks>
+        /// <param name="cmdline">
+        /// a #GApplicationCommandLine
+        /// </param>
+        /// <param name="arg">
+        /// an argument from @cmdline
+        /// </param>
+        /// <returns>
+        /// a new #GFile
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_application_command_line_create_file_for_arg(
+        /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr cmdline,
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr arg);
+
+        /// <summary>
+        /// Creates a <see cref="IFile"/> corresponding to a filename that was given as part
+        /// of the invocation of <paramref name="cmdline"/>.
+        /// </summary>
+        /// <remarks>
+        /// This differs from <see cref="File.NewForCommandlineArg"/> in that it
+        /// resolves relative pathnames using the current working directory of
+        /// the invoking process rather than the local process.
+        /// </remarks>
+        /// <param name="arg">
+        /// an argument from <paramref name="cmdline"/>
+        /// </param>
+        /// <returns>
+        /// a new <see cref="IFile"/>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        public unsafe GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
+        {
+            var cmdline_ = Handle;
+            var arg_ = arg?.Handle ?? throw new System.ArgumentNullException(nameof(arg));
+            var ret_ = g_application_command_line_create_file_for_arg(cmdline_,arg_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
         /// Gets the list of arguments that was passed on the command line.
         /// </summary>
         /// <remarks>

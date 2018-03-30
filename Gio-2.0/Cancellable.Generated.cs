@@ -595,7 +595,7 @@ namespace GISharp.Lib.Gio
         /// This is useful when implementing cancellable operations in
         /// code that does not allow you to pass down the cancellable object.
         /// 
-        /// This is typically called automatically by e.g. #GFile operations,
+        /// This is typically called automatically by e.g. <see cref="IFile"/> operations,
         /// so you rarely have to call this yourself.
         /// </remarks>
         public unsafe void PushCurrent()

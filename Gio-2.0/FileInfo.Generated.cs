@@ -10,19 +10,19 @@ namespace GISharp.Lib.Gio
     /// See [GFileAttribute][gio-GFileAttribute] for more information on how
     /// GIO handles file attributes.
     /// 
-    /// To obtain a <see cref="FileInfo"/> for a #GFile, use g_file_query_info() (or its
+    /// To obtain a <see cref="FileInfo"/> for a <see cref="IFile"/>, use <see cref="File.QueryInfo"/> (or its
     /// async variant). To obtain a <see cref="FileInfo"/> for a file input or output
     /// stream, use <see cref="FileInputStream.QueryInfo"/> or
     /// <see cref="FileOutputStream.QueryInfo"/> (or their async variants).
     /// 
     /// To change the actual attributes of a file, you should then set the
-    /// attribute in the <see cref="FileInfo"/> and call g_file_set_attributes_from_info()
-    /// or g_file_set_attributes_async() on a GFile.
+    /// attribute in the <see cref="FileInfo"/> and call <see cref="File.SetAttributesFromInfo"/>
+    /// or <see cref="File.SetAttributesAsync"/> on a GFile.
     /// 
     /// However, not all attributes can be changed in the file. For instance,
     /// the actual size of a file cannot be changed via <see cref="FileInfo.SetSize"/>.
-    /// You may call g_file_query_settable_attributes() and
-    /// g_file_query_writable_namespaces() to discover the settable attributes
+    /// You may call <see cref="File.QuerySettableAttributes"/> and
+    /// <see cref="File.QueryWritableNamespaces"/> to discover the settable attributes
     /// of a particular file at runtime.
     /// 
     /// <see cref="FileAttributeMatcher"/> allows for searching through a <see cref="FileInfo"/> for
@@ -1895,7 +1895,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Sets the attribute status for an attribute key. This is only
-        /// needed by external code that implement g_file_set_attributes_from_info()
+        /// needed by external code that implement <see cref="File.SetAttributesFromInfo"/>
         /// or similar functions.
         /// </summary>
         /// <remarks>

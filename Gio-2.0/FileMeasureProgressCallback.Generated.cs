@@ -59,7 +59,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     /// <remarks>
     /// These calls are made on a best-effort basis and not all types of
-    /// #GFile will support them.  At the minimum, however, one call will
+    /// <see cref="IFile"/> will support them.  At the minimum, however, one call will
     /// always be made immediately.
     /// 
     /// In the case that there is no support, <paramref name="reporting"/> will be set to
