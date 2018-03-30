@@ -521,6 +521,11 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
+                if (element.Attribute(gs + "pinvoke-only").AsBool()) {
+                    // ignore these too
+                    continue;
+                }
+
                 var callbackElement = element.Element(gi + "parameters").Elements(gi + "parameter")
                     .SingleOrDefault(x => x.Element(gi + "type")?.Attribute(c + "type").AsString() == "GAsyncReadyCallback");
                 if (callbackElement == null) {
