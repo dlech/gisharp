@@ -32,5 +32,10 @@ namespace GISharp.Runtime
         /// Gets the handle to the unmanged object
         /// </summary>
         IntPtr Handle { get; }
+
+        /// <summary>
+        /// Takes ownership (or a reference) of the unmanaged object
+        /// </summary>
+        IntPtr Take();
     }
 }
