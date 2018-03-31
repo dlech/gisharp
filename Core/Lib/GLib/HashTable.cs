@@ -27,6 +27,8 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_hash_table_ref (IntPtr hashTable);
 
+        public override IntPtr Take() => g_hash_table_ref(Handle);
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_hash_table_destroy (IntPtr hashTable);
 

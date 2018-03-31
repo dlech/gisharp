@@ -47,6 +47,8 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_bytes_ref (IntPtr array);
 
+        public override IntPtr Take() => g_bytes_ref(Handle);
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_bytes_unref (IntPtr array);
 
