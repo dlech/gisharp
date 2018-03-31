@@ -74,10 +74,11 @@ namespace GISharp.CodeGen.Syntax
                 .Add(@class.GetDefaultConstructor())
                 .AddRange(@class.Constructors.GetMemberDeclarations())
                 .AddRange(@class.Signals.GetMemberDeclarations())
+                .AddRange(@class.Implements.GetSignalMemberDeclarations())
                 .AddRange(@class.Functions.GetMemberDeclarations())
                 .AddRange(@class.Methods.GetMemberDeclarations())
                 .AddRange(@class.VirtualMethods.GetMemberDeclarations())
-                .AddRange(@class.Implements.GetMemberDeclarations());
+                .AddRange(@class.Implements.GetVirtualMethodMemberDeclarations());
 
             if (@class.GTypeName != null) {
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());

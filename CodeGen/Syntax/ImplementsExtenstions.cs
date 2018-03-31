@@ -12,9 +12,47 @@ namespace GISharp.CodeGen.Syntax
     public static class ImplementsExtensions
     {
         /// <summary>
-        /// Gets the C# struct declaration for a GIR alias
+        /// Gets the C# interface event implementation declarations for a GIR
+        /// implements
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodImplementations(this Implements implements)
+        static SyntaxList<MemberDeclarationSyntax> GetSignalImplementations(this Implements implements)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var e in implements.ManagedType.GetEvents()) {
+                list = list
+                    .Add(e.GetGSignalManagerFieldDeclaration())
+                    .Add(e.GetEventDeclaration());
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets the signal member declarations for the implementses,
+        /// logging a warning for any exceptions that are thrown.
+        /// </summary>
+        internal static SyntaxList<MemberDeclarationSyntax> GetSignalMemberDeclarations(this IEnumerable<Implements> implementses)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
+            foreach (var implements in implementses) {
+                try {
+                    list = list.AddRange(implements.GetSignalImplementations());
+                }
+                catch (Exception ex) {
+                    implements.LogException(ex);
+                }
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets the C# interface method implementation declarations for a GIR
+        /// implements
+        /// </summary>
+        static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodImplementations(this Implements implements)
         {
             var list = List<MemberDeclarationSyntax>();
 
@@ -31,10 +69,10 @@ namespace GISharp.CodeGen.Syntax
         }
 
         /// <summary>
-        /// Gets the member declarations for the implementses, logging a warning
-        /// for any exceptions that are thrown.
+        /// Gets the virtual method member declarations for the implementses,
+        /// logging a warning for any exceptions that are thrown.
         /// </summary>
-        internal static SyntaxList<MemberDeclarationSyntax> GetMemberDeclarations(this IEnumerable<Implements> implementses)
+        internal static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodMemberDeclarations(this IEnumerable<Implements> implementses)
         {
             var list = List<MemberDeclarationSyntax>();
 

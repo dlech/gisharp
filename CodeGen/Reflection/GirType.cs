@@ -399,7 +399,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override EventInfo[] GetEvents (System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            return type.Signals.Select(x => new GirEventInfo(x, this)).ToArray();
         }
 
         public override FieldInfo GetField (string name, System.Reflection.BindingFlags bindingAttr)
