@@ -6,3 +6,8 @@
   name: gs:managed-name
   value: New
   xpath: gi:repository/gi:namespace/gi:interface[@name='Initable']/gi:function[@name='newv']
+# requires special handling for GObject.Parameters
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Initable']/gi:function[@name='newv']

@@ -2,7 +2,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <summary>
-    /// Flags used to define the behaviour of a #GApplication.
+    /// Flags used to define the behaviour of a <see cref="Application"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GApplicationFlags", IsProxyForUnmanagedType = true)]
@@ -29,14 +29,14 @@ namespace GISharp.Lib.Gio
         ///     the primary instance). Note that this flag only affects the default
         ///     implementation of local_command_line(), and has no effect if
         ///     <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
-        ///     See g_application_run() for details.
+        ///     See <see cref="Application.Run"/> for details.
         /// </summary>
         HandlesOpen = 0b0000_0000_0000_0000_0000_0000_0000_0100,
         /// <summary>
         /// This application handles command line
         ///     arguments (in the primary instance). Note that this flag only affect
         ///     the default implementation of local_command_line().
-        ///     See g_application_run() for details.
+        ///     See <see cref="Application.Run"/> for details.
         /// </summary>
         HandlesCommandLine = 0b0000_0000_0000_0000_0000_0000_0000_1000,
         /// <summary>
@@ -46,7 +46,7 @@ namespace GISharp.Lib.Gio
         ///     environment variables. For instance, an editor might be expected
         ///     to use the `GIT_COMMITTER_NAME` environment variable
         ///     when editing a git commit message. The environment is available
-        ///     to the #GApplication::command-line signal handler, via
+        ///     to the <see cref="Application"/>::command-line signal handler, via
         ///     <see cref="ApplicationCommandLine.GetEnvironmentVariable"/>.
         /// </summary>
         SendEnvironment = 0b0000_0000_0000_0000_0000_0000_0001_0000,

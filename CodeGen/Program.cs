@@ -134,7 +134,6 @@ namespace GISharp.CodeGen
             var analyzerOptions = new AnalyzerManagerOptions() {
                 LogWriter = Console.Error,
                 LoggerVerbosity = LoggerVerbosity.Quiet,
-                CleanBeforeCompile = false
             };
             var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
@@ -154,14 +153,7 @@ namespace GISharp.CodeGen
                 return;
             }
 
-            // hack to work around msbuild trying to use project directory as MSBuildToolsPath
-            var ext = projectAnalyzer.GlobalProperties["MSBuildExtensionsPath"];
-            Environment.SetEnvironmentVariable("MSBUILD_EXE_PATH", Path.Combine(ext, "MSBuild.dll"));
-            projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.MSBuildExtensionsPath);
-            projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.MSBuildSDKsPath);
-            // projectAnalyzer.RemoveGlobalProperty(Buildalyzer.Environment.MsBuildProperties.RoslynTargetsPath);
-
-            var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFilePath);
+            var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFile.Path);
             var girFilePath = Path.Combine(girDirectoryArg ?? "gir-1.0", repositoryName + ".gir");
             if (!Path.IsPathRooted(girFilePath)) {
                 girFilePath = Freedesktop.Xdg.BaseDirectory.FindDataFile(girFilePath) ?? girFilePath;
@@ -186,7 +178,7 @@ namespace GISharp.CodeGen
             const string fixupFileName = "gir-fixup.yml";
             const string fixupDirName = fixupFileName + ".d";
 
-            var projectDirPath = Path.GetDirectoryName(projectAnalyzer.ProjectFilePath);
+            var projectDirPath = Path.GetDirectoryName(projectAnalyzer.ProjectFile.Path);
 
             var fixupFilePath = Path.Combine(projectDirPath, fixupFileName);
             var fixupFileExists = File.Exists(fixupFilePath);
@@ -262,15 +254,9 @@ namespace GISharp.CodeGen
 
             TypeResolver.LoadAssembly(typeof(GISharp.Runtime.Opaque).Assembly);
 
-            var x = new ResolveEventHandler((s, a) => {
-                var name = a.Name.Split(',')[0];
-                var path = Path.Combine(ext, name + ".dll");
-                return Assembly.LoadFile(path);
-            });
-
-            foreach (var projRef in projectAnalyzer.GetProjectReferences().Distinct()) {
+            foreach (var projRef in projectAnalyzer.Build().GetProjectReferences().Distinct()) {
                 var proj = manager.GetProject(projRef);
-                var targetPath = proj.CompiledProject.GetProperty("TargetPath").EvaluatedValue;
+                var targetPath = proj.Build().Project.GetProperty("TargetPath").EvaluatedValue;
 
                 // build the project references to ensure they are not out of date.
                 // theoretically, we could use MSBUild programmatically

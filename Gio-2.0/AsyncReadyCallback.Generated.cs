@@ -57,13 +57,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res)
-            {
-                var userData_ = userData;
-                var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-                var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
-                callback(sourceObject_, res_, userData_);
-            }
+            unsafe void callback_(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res) { var userData_ = userData; var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero; var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res)); callback(sourceObject_, res_, userData_); }
 
             return callback_;
         }

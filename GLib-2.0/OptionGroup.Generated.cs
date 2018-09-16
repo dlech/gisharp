@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
         /// a #GOptionGroup
         /// </param>
         /// <returns>
-        /// a #GoptionGroup
+        /// a #GOptionGroup
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

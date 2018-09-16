@@ -345,11 +345,11 @@ namespace GISharp.Lib.Gio
 
         public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            public ActionAddedEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ActionAddedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -357,13 +357,13 @@ namespace GISharp.Lib.Gio
 
         public sealed class ActionEnabledChangedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            public System.Boolean Enabled => (System.Boolean)args[2].Get();
+            public System.Boolean Enabled => (System.Boolean)args[2];
 
-            public ActionEnabledChangedEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ActionEnabledChangedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -371,11 +371,11 @@ namespace GISharp.Lib.Gio
 
         public sealed class ActionRemovedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            public ActionRemovedEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ActionRemovedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -383,13 +383,13 @@ namespace GISharp.Lib.Gio
 
         public sealed class ActionStateChangedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1].Get();
+            public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[2].Get();
+            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[2];
 
-            public ActionStateChangedEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ActionStateChangedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }

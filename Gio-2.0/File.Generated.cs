@@ -532,6 +532,11 @@ namespace GISharp.Lib.Gio
         /// <see cref="File.Copy"/> if attempting to copy a file.
         /// </summary>
         /// <remarks>
+        /// <see cref="File.Dup"/> is useful when a second handle is needed to the same underlying
+        /// file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
+        /// within the same thread, use g_object_ref() to increment the existing object’s
+        /// reference count.
+        /// 
         /// This call does no blocking I/O.
         /// </remarks>
         /// <returns>
@@ -796,7 +801,7 @@ namespace GISharp.Lib.Gio
         /// Checks to see if a file is native to the platform.
         /// </summary>
         /// <remarks>
-        /// A native file s one expressed in the platform-native filename format,
+        /// A native file is one expressed in the platform-native filename format,
         /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
         /// as it might be on a locally mounted remote filesystem.
         /// 
@@ -2124,7 +2129,7 @@ namespace GISharp.Lib.Gio
         /// UTF-8 -- not the system code page.  This means that you
         /// should not use this function with string from argv as it is passed
         /// to main().  g_win32_get_command_line() will return a UTF-8 version of
-        /// the commandline.  #GApplication also uses UTF-8 but
+        /// the commandline.  <see cref="Application"/> also uses UTF-8 but
         /// <see cref="ApplicationCommandLine.CreateFileForArg"/> may be more useful
         /// for you there.  It is also always possible to use this function with
         /// #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
@@ -3803,6 +3808,11 @@ namespace GISharp.Lib.Gio
         /// g_file_copy() if attempting to copy a file.
         /// </summary>
         /// <remarks>
+        /// g_file_dup() is useful when a second handle is needed to the same underlying
+        /// file, for use in a separate thread (#GFile is not thread-safe). For use
+        /// within the same thread, use g_object_ref() to increment the existing object’s
+        /// reference count.
+        /// 
         /// This call does no blocking I/O.
         /// </remarks>
         /// <param name="file">
@@ -3826,6 +3836,11 @@ namespace GISharp.Lib.Gio
         /// <see cref="File.Copy"/> if attempting to copy a file.
         /// </summary>
         /// <remarks>
+        /// <see cref="File.Dup"/> is useful when a second handle is needed to the same underlying
+        /// file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
+        /// within the same thread, use g_object_ref() to increment the existing object’s
+        /// reference count.
+        /// 
         /// This call does no blocking I/O.
         /// </remarks>
         /// <param name="file">
@@ -4775,7 +4790,7 @@ namespace GISharp.Lib.Gio
         /// Checks to see if a file is native to the platform.
         /// </summary>
         /// <remarks>
-        /// A native file s one expressed in the platform-native filename format,
+        /// A native file is one expressed in the platform-native filename format,
         /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
         /// as it might be on a locally mounted remote filesystem.
         /// 
@@ -4803,7 +4818,7 @@ namespace GISharp.Lib.Gio
         /// Checks to see if a file is native to the platform.
         /// </summary>
         /// <remarks>
-        /// A native file s one expressed in the platform-native filename format,
+        /// A native file is one expressed in the platform-native filename format,
         /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
         /// as it might be on a locally mounted remote filesystem.
         /// 
@@ -8137,7 +8152,7 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
-        /* <array length="1" zero-terminated="0" type="char*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+        /* <array length="1" zero-terminated="0" type="const char*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -8288,7 +8303,7 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
-        /* <array length="1" zero-terminated="0" type="char*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+        /* <array length="1" zero-terminated="0" type="const char*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */

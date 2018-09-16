@@ -21,7 +21,7 @@ namespace GISharp.Lib.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 minor = 56;
+        private const System.Int32 minor = 58;
 
         /// <summary>
         /// The micro version number of the GLib library.

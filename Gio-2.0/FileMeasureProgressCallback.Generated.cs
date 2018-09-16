@@ -105,15 +105,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles)
-            {
-                var userData_ = userData;
-                var reporting_ = (System.Boolean)reporting;
-                var currentSize_ = (System.UInt64)currentSize;
-                var numDirs_ = (System.UInt64)numDirs;
-                var numFiles_ = (System.UInt64)numFiles;
-                callback(reporting_, currentSize_, numDirs_, numFiles_, userData_);
-            }
+            unsafe void callback_(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles) { var userData_ = userData; var reporting_ = (System.Boolean)reporting; var currentSize_ = (System.UInt64)currentSize; var numDirs_ = (System.UInt64)numDirs; var numFiles_ = (System.UInt64)numFiles; callback(reporting_, currentSize_, numDirs_, numFiles_, userData_); }
 
             return callback_;
         }

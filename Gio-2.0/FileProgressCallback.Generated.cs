@@ -47,13 +47,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(System.Int64 currentNumBytes, System.Int64 totalNumBytes)
-            {
-                var userData_ = userData;
-                var currentNumBytes_ = (System.Int64)currentNumBytes;
-                var totalNumBytes_ = (System.Int64)totalNumBytes;
-                callback(currentNumBytes_, totalNumBytes_, userData_);
-            }
+            unsafe void callback_(System.Int64 currentNumBytes, System.Int64 totalNumBytes) { var userData_ = userData; var currentNumBytes_ = (System.Int64)currentNumBytes; var totalNumBytes_ = (System.Int64)totalNumBytes; callback(currentNumBytes_, totalNumBytes_, userData_); }
 
             return callback_;
         }

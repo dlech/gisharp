@@ -96,8 +96,8 @@ namespace GISharp.CodeGen.Syntax
         // emits all of the members for an EventArgs declaration
         static IEnumerable<MemberDeclarationSyntax> GetEventArgsMembers(this Signal signal)
         {
-            // emit a field like: readonly Value[] args;
-            var argsType = ParseTypeName($"{typeof(Value)}[]");
+            // emit a field like: readonly object[] args;
+            var argsType = ParseTypeName($"{typeof(object)}[]");
             var argsVariable = VariableDeclarator("args");
             yield return FieldDeclaration(VariableDeclaration(argsType)
                     .AddVariables(argsVariable))
@@ -108,7 +108,7 @@ namespace GISharp.CodeGen.Syntax
                 var propertyType = arg.Type.ManagedType.ToSyntax();
                 var propertyName = arg.ManagedName.ToPascalCase();
 
-                var valueExpression = ParseExpression($"({propertyType})args[{i}].Get()");
+                var valueExpression = ParseExpression($"({propertyType})args[{i}]");
 
                 yield return PropertyDeclaration(propertyType, propertyName)
                     .AddModifiers(Token(PublicKeyword))
@@ -130,7 +130,7 @@ namespace GISharp.CodeGen.Syntax
 
             // generate a constructor
 
-            var constructorParams = ParseParameterList($"({argsType} args)");
+            var constructorParams = ParseParameterList($"(params {argsType} args)");
             var initArgs = string.Format("this.args = args ?? throw new {0}(nameof(args));",
                 typeof(ArgumentNullException));
             var initArgsStatement = ParseStatement(initArgs);

@@ -33,6 +33,8 @@ namespace GISharp.Lib.GLib
                                /// seconds. It can optionally include fractions of a second and a time
                                /// zone indicator. (In the absence of any time zone indication, the
                                /// timestamp is assumed to be in local time.)
+                               /// 
+                               /// Any leading or trailing space in @iso_date is ignored.
                                /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string
@@ -64,6 +66,8 @@ namespace GISharp.Lib.GLib
         /// seconds. It can optionally include fractions of a second and a time
         /// zone indicator. (In the absence of any time zone indication, the
         /// timestamp is assumed to be in local time.)
+        /// 
+        /// Any leading or trailing space in <paramref name="isoDate"/> is ignored.
         /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string

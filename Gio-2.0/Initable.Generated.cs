@@ -141,48 +141,6 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         System.IntPtr* error);
-
-        /// <summary>
-        /// Helper function for constructing <see cref="IInitable"/> object. This is
-        /// similar to g_object_newv() but also initializes the object
-        /// and returns <c>null</c>, setting an error on failure.
-        /// </summary>
-        /// <param name="objectType">
-        /// a #GType supporting <see cref="IInitable"/>.
-        /// </param>
-        /// <param name="parameters">
-        /// the parameters to use to construct the object
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a newly allocated
-        ///      #GObject, or <c>null</c> on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
-        [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_initable_init() instead. See #GParameter for more information.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        public static unsafe GISharp.Lib.GObject.Object New(GISharp.Lib.GObject.GType objectType, GISharp.Runtime.IArray<GISharp.Lib.GObject.Parameter> parameters, GISharp.Lib.Gio.Cancellable cancellable = null)
-        {
-            var objectType_ = (GISharp.Lib.GObject.GType)objectType;
-            var (parameters_, nParameters_) = ((System.IntPtr, System.UInt32))((parameters?.Data ?? throw new System.ArgumentNullException(nameof(parameters)), parameters?.Length ?? 0));
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_initable_newv(objectType_,nParameters_,parameters_,cancellable_,&error_);
-            if (error_ != System.IntPtr.Zero)
-            {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
-
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
-            return ret;
-        }
-
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */

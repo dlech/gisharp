@@ -2103,7 +2103,7 @@ namespace GISharp.Lib.GLib
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
-        /* <array type="gchar**" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
+        /* <array type="const gchar**" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
 *   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -2585,7 +2585,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gboolean" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+        /* <array length="3" zero-terminated="0" type="gboolean*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
 *   <type name="gboolean" type="gboolean" managed-name="System.Boolean" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -2797,7 +2797,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gdouble" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+        /* <array length="3" zero-terminated="0" type="gdouble*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
 *   <type name="gdouble" type="gdouble" managed-name="System.Double" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -2976,7 +2976,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="0" type="gint" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
+        /* <array length="3" zero-terminated="0" type="gint*" managed-name="GISharp.Runtime.IArray`1[T]" is-pointer="1">
 *   <type name="gint" type="gint" managed-name="System.Int32" />
 * </array> */
         /* transfer-ownership:none direction:in */
@@ -3154,8 +3154,8 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr locale,
-        /* <array length="4" zero-terminated="1" type="gchar*" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" type="gchar" managed-name="GISharp.Lib.GLib.Utf8" />
+        /* <array length="4" zero-terminated="1" type="const gchar* const*" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+*   <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
         /* transfer-ownership:none direction:in */
         System.IntPtr list,
@@ -3260,7 +3260,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key,
-        /* <array length="3" zero-terminated="1" type="gchar*" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+        /* <array length="3" zero-terminated="1" type="const gchar* const*" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
 *   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
         /* transfer-ownership:none direction:in */

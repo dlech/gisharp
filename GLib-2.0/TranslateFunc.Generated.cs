@@ -42,14 +42,7 @@ namespace GISharp.Lib.GLib
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe GISharp.Lib.GLib.Utf8 callback_(GISharp.Lib.GLib.Utf8 str)
-            {
-                var data_ = userData;
-                var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str));
-                var ret_ = callback(str_,data_);
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
-                return ret;
-            }
+            unsafe GISharp.Lib.GLib.Utf8 callback_(GISharp.Lib.GLib.Utf8 str) { var data_ = userData; var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str)); var ret_ = callback(str_,data_); var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None); return ret; }
 
             return callback_;
         }

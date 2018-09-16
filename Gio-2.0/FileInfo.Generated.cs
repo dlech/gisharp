@@ -1546,7 +1546,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Sets the @attribute to contain the given value, if possible. To unset the
-        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for @type.
+        /// attribute, use %G_FILE_ATTRIBUTE_TYPE_INVALID for @type.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
@@ -1579,7 +1579,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Sets the <paramref name="attribute"/> to contain the given value, if possible. To unset the
-        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for <paramref name="type"/>.
+        /// attribute, use <see cref="FileAttributeType.Invalid"/> for <paramref name="type"/>.
         /// </summary>
         /// <param name="attribute">
         /// a file attribute key.

@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
     /// where it was created (waiting until the next iteration of the main
     /// loop first, if necessary). The caller will pass the <see cref="Task"/> back to
     /// the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
-    /// can use <see cref="Task.PropagatePointer"/> or the like to extract the
+    /// use <see cref="Task.PropagatePointer"/> or the like to extract the
     /// return value.
     /// 
     /// Here is an example for using GTask as a GAsyncResult:

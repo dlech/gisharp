@@ -65,13 +65,15 @@ namespace GISharp.Lib.Gio
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See g_simple_action_new_stateful().
+        /// The created action is stateless. See g_simple_action_new_stateful() to create
+        /// an action that has state.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of parameter to the activate function
+        /// the type of parameter that will be passed to
+        ///   handlers for the #GSimpleAction::activate signal, or %NULL for no parameter
         /// </param>
         /// <returns>
         /// a new #GSimpleAction
@@ -92,13 +94,15 @@ namespace GISharp.Lib.Gio
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See <see cref="SimpleAction.NewStateful"/>.
+        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
+        /// an action that has state.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of parameter to the activate function
+        /// the type of parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
         /// </param>
         /// <returns>
         /// a new <see cref="SimpleAction"/>
@@ -116,13 +120,15 @@ namespace GISharp.Lib.Gio
         /// Creates a new action.
         /// </summary>
         /// <remarks>
-        /// The created action is stateless.  See <see cref="SimpleAction.NewStateful"/>.
+        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
+        /// an action that has state.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of parameter to the activate function
+        /// the type of parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
@@ -133,16 +139,17 @@ namespace GISharp.Lib.Gio
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
-        /// @state is the initial state of the action.  All future state values
-        /// must have the same #GVariantType as the initial state.
+        /// All future state values must have the same #GVariantType as the initial
+        /// @state.
         /// 
-        /// If the @state GVariant is floating, it is consumed.
+        /// If the @state #GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of the parameter to the activate function
+        /// the type of the parameter that will be passed to
+        ///   handlers for the #GSimpleAction::activate signal, or %NULL for no parameter
         /// </param>
         /// <param name="state">
         /// the initial state of the action
@@ -169,16 +176,17 @@ namespace GISharp.Lib.Gio
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
-        /// <paramref name="state"/> is the initial state of the action.  All future state values
-        /// must have the same #GVariantType as the initial state.
+        /// All future state values must have the same #GVariantType as the initial
+        /// <paramref name="state"/>.
         /// 
-        /// If the <paramref name="state"/> GVariant is floating, it is consumed.
+        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of the parameter to the activate function
+        /// the type of the parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
         /// </param>
         /// <param name="state">
         /// the initial state of the action
@@ -200,16 +208,17 @@ namespace GISharp.Lib.Gio
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
-        /// <paramref name="state"/> is the initial state of the action.  All future state values
-        /// must have the same #GVariantType as the initial state.
+        /// All future state values must have the same #GVariantType as the initial
+        /// <paramref name="state"/>.
         /// 
-        /// If the <paramref name="state"/> GVariant is floating, it is consumed.
+        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
         /// </remarks>
         /// <param name="name">
         /// the name of the action
         /// </param>
         /// <param name="parameterType">
-        /// the type of the parameter to the activate function
+        /// the type of the parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
         /// </param>
         /// <param name="state">
         /// the initial state of the action
@@ -221,11 +230,11 @@ namespace GISharp.Lib.Gio
 
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1].Get();
+            public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1];
 
-            public ActivatedEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ActivatedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -237,8 +246,9 @@ namespace GISharp.Lib.Gio
         /// Indicates that the action was just activated.
         /// </summary>
         /// <remarks>
-        /// <paramref name="parameter"/> will always be of the expected type.  In the event that
-        /// an incorrect type was given, no signal will be emitted.
+        /// <paramref name="parameter"/> will always be of the expected type, i.e. the parameter type
+        /// specified when the action was created. If an incorrect type is given when
+        /// activating the action, this signal is not emitted.
         /// 
         /// Since GLib 2.40, if no handler is connected to this signal then the
         /// default behaviour for boolean-stated actions with a <c>null</c> parameter
@@ -254,11 +264,11 @@ namespace GISharp.Lib.Gio
 
         public sealed class ChangedStateEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1].Get();
+            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1];
 
-            public ChangedStateEventArgs(GISharp.Lib.GObject.Value[] args)
+            public ChangedStateEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
@@ -271,8 +281,10 @@ namespace GISharp.Lib.Gio
         /// state.
         /// </summary>
         /// <remarks>
-        /// <paramref name="value"/> will always be of the correct state type.  In the event that
-        /// an incorrect type was given, no signal will be emitted.
+        /// <paramref name="value"/> will always be of the correct state type, i.e. the type of the
+        /// initial state passed to <see cref="SimpleAction.NewStateful"/>. If an incorrect
+        /// type is given when requesting to change the state, this signal is not
+        /// emitted.
         /// 
         /// If no handler is connected to this signal then the default
         /// behaviour is to call <see cref="SimpleAction.SetState"/> to set the state

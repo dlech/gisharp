@@ -49,15 +49,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe System.Boolean callback_(GISharp.Lib.GLib.Utf8 fileContents, System.Int64 fileSize)
-            {
-                var callbackData_ = userData;
-                var fileContents_ = fileContents?.Handle ?? throw new System.ArgumentNullException(nameof(fileContents));
-                var fileSize_ = (System.Int64)fileSize;
-                var ret_ = callback(fileContents_,fileSize_,callbackData_);
-                var ret = (System.Boolean)ret_;
-                return ret;
-            }
+            unsafe System.Boolean callback_(GISharp.Lib.GLib.Utf8 fileContents, System.Int64 fileSize) { var callbackData_ = userData; var fileContents_ = fileContents?.Handle ?? throw new System.ArgumentNullException(nameof(fileContents)); var fileSize_ = (System.Int64)fileSize; var ret_ = callback(fileContents_,fileSize_,callbackData_); var ret = (System.Boolean)ret_; return ret; }
 
             return callback_;
         }

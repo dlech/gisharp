@@ -39,6 +39,20 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.TimeZone Utc { get => GetUtc(); }
 
+        /// <summary>
+        /// Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="TimeZone.New"/>.
+        /// If the identifier passed at construction time was not recognised, `UTC` will
+        /// be returned. If it was <c>null</c>, the identifier of the local timezone at
+        /// construction time will be returned.
+        /// </summary>
+        /// <remarks>
+        /// The identifier will be returned in the same format as provided at
+        /// construction time: if provided as a time offset, that will be returned by
+        /// this function.
+        /// </remarks>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        public GISharp.Lib.GLib.Utf8 Identifier { get => GetIdentifier(); }
+
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public TimeZone(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -276,6 +290,67 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public TimeZone(GISharp.Lib.GLib.Utf8 identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a #GTimeZone corresponding to the given constant offset from UTC,
+        /// in seconds.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to calling g_time_zone_new() with a string in the form
+        /// `[+|-]hh[:mm[:ss]]`.
+        /// </remarks>
+        /// <param name="seconds">
+        /// offset to UTC, in seconds
+        /// </param>
+        /// <returns>
+        /// a timezone at the given offset from UTC
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_time_zone_new_offset(
+        /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 seconds);
+
+        /// <summary>
+        /// Creates a <see cref="TimeZone"/> corresponding to the given constant offset from UTC,
+        /// in seconds.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with a string in the form
+        /// `[+|-]hh[:mm[:ss]]`.
+        /// </remarks>
+        /// <param name="seconds">
+        /// offset to UTC, in seconds
+        /// </param>
+        /// <returns>
+        /// a timezone at the given offset from UTC
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        static unsafe System.IntPtr NewOffset(System.Int32 seconds)
+        {
+            var seconds_ = (System.Int32)seconds;
+            var ret_ = g_time_zone_new_offset(seconds_);
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a <see cref="TimeZone"/> corresponding to the given constant offset from UTC,
+        /// in seconds.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to calling <see cref="TimeZone.New"/> with a string in the form
+        /// `[+|-]hh[:mm[:ss]]`.
+        /// </remarks>
+        /// <param name="seconds">
+        /// offset to UTC, in seconds
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        public TimeZone(System.Int32 seconds) : this(NewOffset(seconds), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -593,6 +668,55 @@ namespace GISharp.Lib.GLib
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Get the identifier of this #GTimeZone, as passed to g_time_zone_new().
+        /// If the identifier passed at construction time was not recognised, `UTC` will
+        /// be returned. If it was %NULL, the identifier of the local timezone at
+        /// construction time will be returned.
+        /// </summary>
+        /// <remarks>
+        /// The identifier will be returned in the same format as provided at
+        /// construction time: if provided as a time offset, that will be returned by
+        /// this function.
+        /// </remarks>
+        /// <param name="tz">
+        /// a #GTimeZone
+        /// </param>
+        /// <returns>
+        /// identifier for this timezone
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_time_zone_get_identifier(
+        /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr tz);
+
+        /// <summary>
+        /// Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="TimeZone.New"/>.
+        /// If the identifier passed at construction time was not recognised, `UTC` will
+        /// be returned. If it was <c>null</c>, the identifier of the local timezone at
+        /// construction time will be returned.
+        /// </summary>
+        /// <remarks>
+        /// The identifier will be returned in the same format as provided at
+        /// construction time: if provided as a time offset, that will be returned by
+        /// this function.
+        /// </remarks>
+        /// <returns>
+        /// identifier for this timezone
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        private unsafe GISharp.Lib.GLib.Utf8 GetIdentifier()
+        {
+            var tz_ = Handle;
+            var ret_ = g_time_zone_get_identifier(tz_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }

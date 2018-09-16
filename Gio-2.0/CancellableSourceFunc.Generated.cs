@@ -44,14 +44,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe System.Boolean callback_(GISharp.Lib.Gio.Cancellable cancellable)
-            {
-                var userData_ = userData;
-                var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-                var ret_ = callback(cancellable_,userData_);
-                var ret = (System.Boolean)ret_;
-                return ret;
-            }
+            unsafe System.Boolean callback_(GISharp.Lib.Gio.Cancellable cancellable) { var userData_ = userData; var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero; var ret_ = callback(cancellable_,userData_); var ret = (System.Boolean)ret_; return ret; }
 
             return callback_;
         }

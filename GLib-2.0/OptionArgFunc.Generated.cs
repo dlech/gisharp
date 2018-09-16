@@ -48,19 +48,7 @@ namespace GISharp.Lib.GLib
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(GISharp.Lib.GLib.Utf8 optionName, GISharp.Lib.GLib.Utf8 value)
-            {
-                var data_ = userData;
-                var optionName_ = optionName?.Handle ?? throw new System.ArgumentNullException(nameof(optionName));
-                var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
-                var error_ = System.IntPtr.Zero;
-                callback(optionName_, value_, data_, &error_);
-                if (error_ != System.IntPtr.Zero)
-                {
-                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
-                }
-            }
+            unsafe void callback_(GISharp.Lib.GLib.Utf8 optionName, GISharp.Lib.GLib.Utf8 value) { var data_ = userData; var optionName_ = optionName?.Handle ?? throw new System.ArgumentNullException(nameof(optionName)); var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value)); var error_ = System.IntPtr.Zero; callback(optionName_, value_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return callback_;
         }

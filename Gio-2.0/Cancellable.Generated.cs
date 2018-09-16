@@ -95,9 +95,9 @@ namespace GISharp.Lib.Gio
 
         public sealed class CancelledEventArgs : GISharp.Runtime.GSignalEventArgs
         {
-            readonly GISharp.Lib.GObject.Value[] args;
+            readonly System.Object[] args;
 
-            public CancelledEventArgs(GISharp.Lib.GObject.Value[] args)
+            public CancelledEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }

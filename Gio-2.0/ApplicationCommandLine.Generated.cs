@@ -3,8 +3,8 @@ namespace GISharp.Lib.Gio
 {
     /// <summary>
     /// <see cref="ApplicationCommandLine"/> represents a command-line invocation of
-    /// an application.  It is created by #GApplication and emitted
-    /// in the #GApplication::command-line signal and virtual function.
+    /// an application.  It is created by <see cref="Application"/> and emitted
+    /// in the <see cref="Application"/>::command-line signal and virtual function.
     /// </summary>
     /// <remarks>
     /// The class contains the list of arguments that the program was invoked
@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
     /// dropped).
     /// 
     /// The main use for <see cref="ApplicationCommandLine"/> (and the
-    /// #GApplication::command-line signal) is 'Emacs server' like use cases:
+    /// <see cref="Application"/>::command-line signal) is 'Emacs server' like use cases:
     /// You can set the `EDITOR` environment variable to have e.g. git use
     /// your favourite editor to edit commit messages, and if you already
     /// have an instance of the editor running, the editing will happen
@@ -35,7 +35,7 @@ namespace GISharp.Lib.Gio
     /// does not return until the editing is done.
     /// 
     /// Normally, the commandline is completely handled in the
-    /// #GApplication::command-line handler. The launching instance exits
+    /// <see cref="Application"/>::command-line handler. The launching instance exits
     /// once the signal handler in the primary instance has returned, and
     /// the return value of the signal handler becomes the exit status
     /// of the launching instance.
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
     /// ]|
     /// In this example of split commandline handling, options that start
     /// with `--local-` are handled locally, all other options are passed
-    /// to the #GApplication::command-line handler which runs in the primary
+    /// to the <see cref="Application"/>::command-line handler which runs in the primary
     /// instance.
     /// 
     /// The complete example can be found here:
@@ -150,7 +150,7 @@ namespace GISharp.Lib.Gio
     /// }
     /// ]|
     /// In this example the commandline is not completely handled before
-    /// the #GApplication::command-line handler returns. Instead, we keep
+    /// the <see cref="Application"/>::command-line handler returns. Instead, we keep
     /// a reference to the <see cref="ApplicationCommandLine"/> object and handle it
     /// later (in this example, in an idle). Note that it is necessary to
     /// hold the application until you are done with the commandline.
@@ -255,7 +255,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If you did not override local_command_line() then these are the same
         /// options that were parsed according to the #GOptionEntrys added to the
-        /// application with g_application_add_main_option_entries() and possibly
+        /// application with <see cref="Application.AddMainOptionEntries"/> and possibly
         /// modified from your GApplication::handle-local-options handler.
         /// 
         /// If no options were sent then an empty dictionary is returned so that
@@ -501,7 +501,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="gchar**" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
+        /* <array type="const gchar* const*" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
 *   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" />
 * </array> */
         /* transfer-ownership:none direction:out */
@@ -642,7 +642,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If you did not override local_command_line() then these are the same
         /// options that were parsed according to the #GOptionEntrys added to the
-        /// application with g_application_add_main_option_entries() and possibly
+        /// application with <see cref="Application.AddMainOptionEntries"/> and possibly
         /// modified from your GApplication::handle-local-options handler.
         /// 
         /// If no options were sent then an empty dictionary is returned so that
@@ -874,7 +874,7 @@ namespace GISharp.Lib.Gio
         /// exits.
         /// </summary>
         /// <remarks>
-        /// The return value of the #GApplication::command-line signal is
+        /// The return value of the <see cref="Application"/>::command-line signal is
         /// passed to this function when the handler returns.  This is the usual
         /// way of setting the exit status.
         /// 

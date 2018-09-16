@@ -604,7 +604,8 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// A key in the "unix" namespace for checking if the file represents a
         /// UNIX mount point. This attribute is <c>true</c> if the file is a UNIX mount
-        /// point. This attribute is only available for UNIX file systems.
+        /// point. Since 2.58, `/` is considered to be a mount point.
+        /// This attribute is only available for UNIX file systems.
         /// Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
         /// </summary>
         public const System.String UnixIsMountpoint = "unix::is-mountpoint";

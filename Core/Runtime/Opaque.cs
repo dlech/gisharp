@@ -12,7 +12,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Base type for wrapping unmanged pointers
     /// </summary>
-    public abstract class Opaque : IDisposable
+    public abstract class Opaque : IOpaque, IDisposable
     {
         protected IntPtr handle;
 
@@ -74,12 +74,12 @@ namespace GISharp.Runtime
             handle = IntPtr.Zero;
         }
 
-        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : Opaque
+        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : IOpaque
         {
             return (T)GetInstance(typeof(T), handle, ownership);
         }
 
-        public static Opaque GetInstance(Type type, IntPtr handle, Transfer ownership)
+        public static IOpaque GetInstance(Type type, IntPtr handle, Transfer ownership)
         {
             // special case for OpaqueInt so 0 doesn't become null
             if (type == typeof(OpaqueInt)) {
@@ -116,7 +116,7 @@ namespace GISharp.Runtime
                 type = gtype.GetGTypeStruct ();
             }
 
-            return (Opaque)Activator.CreateInstance(type, handle, ownership);
+            return (IOpaque)Activator.CreateInstance(type, handle, ownership);
         }
 
         public override int GetHashCode()

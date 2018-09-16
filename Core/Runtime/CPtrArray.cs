@@ -44,13 +44,13 @@ namespace GISharp.Runtime
             return (Handle, Length);
         }
 
-        public static CPtrArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T :Opaque
+        public static CPtrArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T : IOpaque
         {
             return new CPtrArray<T>(handle, length, ownership);
         }
     }
 
-    public class CPtrArray<T> : CPtrArray, IArray<T> where T : Opaque
+    public class CPtrArray<T> : CPtrArray, IArray<T> where T : IOpaque
     {
         public CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {

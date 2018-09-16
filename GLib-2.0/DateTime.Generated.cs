@@ -92,6 +92,12 @@ namespace GISharp.Lib.GLib
         public System.Double Seconds { get => GetSeconds(); }
 
         /// <summary>
+        /// Get the time zone for this <paramref name="datetime"/>.
+        /// </summary>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        public GISharp.Lib.GLib.TimeZone Timezone { get => GetTimezone(); }
+
+        /// <summary>
         /// Determines the time zone abbreviation to be used at the time and in
         /// the time zone of <paramref name="datetime"/>.
         /// </summary>
@@ -2208,6 +2214,39 @@ namespace GISharp.Lib.GLib
             var datetime_ = Handle;
             var ret_ = g_date_time_get_seconds(datetime_);
             var ret = (System.Double)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Get the time zone for this @datetime.
+        /// </summary>
+        /// <param name="datetime">
+        /// a #GDateTime
+        /// </param>
+        /// <returns>
+        /// the time zone
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe System.IntPtr g_date_time_get_timezone(
+        /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr datetime);
+
+        /// <summary>
+        /// Get the time zone for this <paramref name="datetime"/>.
+        /// </summary>
+        /// <returns>
+        /// the time zone
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.58")]
+        private unsafe GISharp.Lib.GLib.TimeZone GetTimezone()
+        {
+            var datetime_ = Handle;
+            var ret_ = g_date_time_get_timezone(datetime_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 

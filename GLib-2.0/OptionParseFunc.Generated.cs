@@ -46,19 +46,7 @@ namespace GISharp.Lib.GLib
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
-            {
-                var data_ = userData;
-                var context_ = context?.Handle ?? throw new System.ArgumentNullException(nameof(context));
-                var group_ = group?.Handle ?? throw new System.ArgumentNullException(nameof(group));
-                var error_ = System.IntPtr.Zero;
-                callback(context_, group_, data_, &error_);
-                if (error_ != System.IntPtr.Zero)
-                {
-                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                    throw new GISharp.Runtime.GErrorException(error);
-                }
-            }
+            unsafe void callback_(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group) { var data_ = userData; var context_ = context?.Handle ?? throw new System.ArgumentNullException(nameof(context)); var group_ = group?.Handle ?? throw new System.ArgumentNullException(nameof(group)); var error_ = System.IntPtr.Zero; callback(context_, group_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return callback_;
         }
