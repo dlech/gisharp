@@ -445,7 +445,7 @@ namespace GISharp.Lib.GObject
                 <type name="Value" type="GValue" managed-name="Value" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr instanceAndParams,
+            Value* instanceAndParams,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -514,30 +514,37 @@ namespace GISharp.Lib.GObject
                 var message = $"Incorrect number of parameters, expecting {query.ParamTypes.Length}, but got {parameters.Length}";
                 throw new ArgumentException (message);
             }
-            using (var instanceAndParams = new GLib.Array<Value> (false, true, parameters.Length + 1)) {
-                instanceAndParams.Add(new Value(instance.GetGType(), instance));
-                for (var i = 0; i < parameters.Length; i++) {
-                    var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];
-                    instanceAndParams.Add(new Value(paramGType, parameters[i]));
-                }
 
+            var instanceAndParams = stackalloc Value[parameters.Length + 1];
+
+            instanceAndParams[0].Init(instance.GetGType());
+            instanceAndParams[0].Set(instance);
+
+            for (var i = 0; i < parameters.Length; i++) {
+                var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];
+                instanceAndParams[i + 1].Init(paramGType);
+                instanceAndParams[i + 1].Set(parameters[i]);
+            }
+
+            try {
                 var ret = default(object);
 
                 if (query.ReturnType == GType.None) {
-                    g_signal_emitv(instanceAndParams.Data, signalId, detail, null);
+                    g_signal_emitv(instanceAndParams, signalId, detail, null);
                 }
                 else {
                     var returnValue = new Value(GType.TypeOf(type));
-                    g_signal_emitv(instanceAndParams.Data, signalId, detail, &returnValue);
+                    g_signal_emitv(instanceAndParams, signalId, detail, &returnValue);
                     ret = returnValue.Get();
                     returnValue.Unset();
                 }
 
-                foreach (var p in instanceAndParams) {
-                    p.Unset ();
-                }
-
                 return ret;
+            }
+            finally {
+                for (int i = 0; i < parameters.Length + 1; i++) {
+                    instanceAndParams[i].Unset();
+                }
             }
         }
 

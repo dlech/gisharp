@@ -85,7 +85,7 @@ namespace GISharp.Lib.GObject
     /// mechanism takes over responsibility of actual function invocation for the
     /// signal system.
     /// </summary>
-    public delegate void SignalCMarshaller(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint invocationHint);
+    public delegate void SignalCMarshaller(Closure closure, ref object returnValue, object[] paramValues, SignalInvocationHint invocationHint);
 
     /// <summary>
     /// This is the signature of marshaller functions, required to marshall
@@ -95,13 +95,13 @@ namespace GISharp.Lib.GObject
     /// signal system.
     /// </summary>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void UnmanagedSignalCMarshaller(
+    unsafe delegate void UnmanagedSignalCMarshaller(
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
         IntPtr closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
-        IntPtr returnValue,
+        Value* returnValue,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nParamValues,
@@ -109,8 +109,7 @@ namespace GISharp.Lib.GObject
          *   <type name="Value" type="GValue" managed-name="Value" />
          * </array> */
         /* transfer-ownership:none */
-        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)]
-        Value[] paramValues,
+        Value* paramValues,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr invocationHint,

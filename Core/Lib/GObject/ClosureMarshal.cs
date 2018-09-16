@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -8,19 +9,19 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The type used for marshaller functions.
     /// </summary>
-    public delegate void ClosureMarshal(Closure closure, ref Value returnValue, Value[] paramValues, SignalInvocationHint? invocationHint);
+    public delegate void ClosureMarshal(Closure closure, ref object returnValue, object[] paramValues, SignalInvocationHint? invocationHint);
 
     /// <summary>
     /// The type used for marshaller functions.
     /// </summary>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    delegate void UnmanagedClosureMarshal(
+    unsafe delegate void UnmanagedClosureMarshal(
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
         IntPtr closure,
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
-        IntPtr returnValue,
+        Value* returnValue,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nParamValues,
@@ -28,8 +29,7 @@ namespace GISharp.Lib.GObject
             <type name="Value" type="GValue" managed-name="Value" />
             </array> */
         /* transfer-ownership:none */
-        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)]
-        Value[] paramValues,
+        Value* paramValues,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr invocationHint,
@@ -46,7 +46,7 @@ namespace GISharp.Lib.GObject
             public CallbackScope Scope;
         }
 
-        public static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create(ClosureMarshal closureMarshal, CallbackScope scope)
+        public unsafe static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create(ClosureMarshal closureMarshal, CallbackScope scope)
         {
             var userData = new UserData {
                 ClosureMarshal = closureMarshal ?? throw new ArgumentNullException(nameof(closureMarshal)),
@@ -59,13 +59,17 @@ namespace GISharp.Lib.GObject
             return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
         }
 
-        static void UnmanagedClosureMarshal(IntPtr closure_, IntPtr returnValue_, uint nParamValues_, Value[] paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
+        static unsafe void UnmanagedClosureMarshal(IntPtr closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
         {
             try {
                 var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);
-                var returnValue = default(Value);
-                if (returnValue_ != IntPtr.Zero) {
-                    returnValue = Marshal.PtrToStructure<Value>(returnValue_);
+                var returnValue = default(object);
+                if (returnValue_ != null) {
+                    returnValue = returnValue_->Get();
+                }
+                var paramValues = new object[nParamValues_];
+                for (int i = 0; i < nParamValues_; i++) {
+                    paramValues[i] = paramValues_[i].Get();
                 }
                 SignalInvocationHint? invocationHint = null;
                 if (invocationHint_ != IntPtr.Zero) {
@@ -73,9 +77,10 @@ namespace GISharp.Lib.GObject
                 }
                 var gcHandle = (GCHandle)marshalData_;
                 var marshalData = (UserData)gcHandle.Target;
-                marshalData.ClosureMarshal(closure, ref returnValue, paramValues_, invocationHint);
-                if (returnValue_ != IntPtr.Zero) {
-                    Marshal.StructureToPtr<Value>(returnValue, returnValue_, false);
+                marshalData.ClosureMarshal(closure, ref returnValue, paramValues, invocationHint);
+
+                if (returnValue_ != null) {
+                    returnValue_->Set(returnValue);
                 }
                 if (marshalData.Scope == CallbackScope.Async) {
                     UnmanagedClosureNotify(marshalData_, closure_);

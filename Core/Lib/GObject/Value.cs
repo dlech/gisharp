@@ -16,7 +16,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [GType ("GValue", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay ("{ToString ()}")]
-    public struct Value
+    public ref struct Value
     {
         GType type;
 
@@ -610,10 +610,10 @@ namespace GISharp.Lib.GObject
         static extern void g_value_copy (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value srcValue,
+            in Value srcValue,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value destValue);
+            out Value destValue);
 
         /// <summary>
         /// Copies the value of @src_value into @dest_value.
@@ -621,10 +621,10 @@ namespace GISharp.Lib.GObject
         /// <param name="destValue">
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
-        public void Copy (Value destValue)
+        public void Copy (out Value destValue)
         {
             AssertInitialized ();
-            g_value_copy (ref this, ref destValue);
+            g_value_copy (in this, out destValue);
         }
 
         /// <summary>
@@ -645,7 +645,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_dup_boxed (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_BOXED derived #GValue.  Upon getting,
@@ -659,7 +659,7 @@ namespace GISharp.Lib.GObject
         IntPtr DupBoxed ()
         {
             AssertInitialized ();
-            var ret = g_value_dup_boxed (ref this);
+            var ret = g_value_dup_boxed (in this);
             return ret;
         }
 
@@ -820,7 +820,7 @@ namespace GISharp.Lib.GObject
         static extern bool g_value_get_boolean (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_BOOLEAN #GValue.
@@ -831,7 +831,7 @@ namespace GISharp.Lib.GObject
         bool Boolean {
             get {
                 AssertType (GType.Boolean);
-                var ret = g_value_get_boolean (ref this);
+                var ret = g_value_get_boolean (in this);
                 return ret;
             }
 
@@ -856,7 +856,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_boxed (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_BOXED derived #GValue.
@@ -868,7 +868,7 @@ namespace GISharp.Lib.GObject
             get {
                 AssertType (GType.Boxed);
                 var managedType = GType.TypeOf (ValueGType);
-                var ret_ = g_value_get_boxed (ref this);
+                var ret_ = g_value_get_boxed (in this);
                 if (typeof(Boxed).IsAssignableFrom(managedType)) {
                     return Opaque.GetInstance(managedType, ret_, Transfer.None);
                 }
@@ -907,7 +907,7 @@ namespace GISharp.Lib.GObject
         static extern double g_value_get_double (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_DOUBLE #GValue.
@@ -918,7 +918,7 @@ namespace GISharp.Lib.GObject
         double Double {
             get {
                 AssertType (GType.Double);
-                var ret = g_value_get_double (ref this);
+                var ret = g_value_get_double (in this);
                 return ret;
             }
 
@@ -943,7 +943,7 @@ namespace GISharp.Lib.GObject
         static extern int g_value_get_enum (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_ENUM #GValue.
@@ -954,7 +954,7 @@ namespace GISharp.Lib.GObject
         int Enum {
             get {
                 AssertType (GType.Enum);
-                var ret = g_value_get_enum (ref this);
+                var ret = g_value_get_enum (in this);
                 return ret;
             }
 
@@ -979,7 +979,7 @@ namespace GISharp.Lib.GObject
         static extern uint g_value_get_flags (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_FLAGS #GValue.
@@ -990,7 +990,7 @@ namespace GISharp.Lib.GObject
         uint Flags {
             get {
                 AssertType (GType.Flags);
-                var ret = g_value_get_flags (ref this);
+                var ret = g_value_get_flags (in this);
                 return ret;
             }
 
@@ -1016,7 +1016,7 @@ namespace GISharp.Lib.GObject
         static extern float g_value_get_float (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_FLOAT #GValue.
@@ -1027,7 +1027,7 @@ namespace GISharp.Lib.GObject
         float Float {
             get {
                 AssertType (GType.Float);
-                var ret = g_value_get_float (ref this);
+                var ret = g_value_get_float (in this);
                 return ret;
             }
 
@@ -1053,7 +1053,7 @@ namespace GISharp.Lib.GObject
         static extern GType g_value_get_gtype (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_GTYPE #GValue.
@@ -1065,7 +1065,7 @@ namespace GISharp.Lib.GObject
         GType GType {
             get {
                 AssertType (GType.Type);
-                var ret = g_value_get_gtype (ref this);
+                var ret = g_value_get_gtype (in this);
                 return ret;
             }
 
@@ -1090,7 +1090,7 @@ namespace GISharp.Lib.GObject
         static extern int g_value_get_int (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_INT #GValue.
@@ -1101,7 +1101,7 @@ namespace GISharp.Lib.GObject
         int Int {
             get {
                 AssertType (GType.Int);
-                var ret = g_value_get_int (ref this);
+                var ret = g_value_get_int (in this);
                 return ret;
             }
 
@@ -1126,7 +1126,7 @@ namespace GISharp.Lib.GObject
         static extern long g_value_get_int64 (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_INT64 #GValue.
@@ -1137,7 +1137,7 @@ namespace GISharp.Lib.GObject
         long Int64 {
             get {
                 AssertType (GType.Int64);
-                var ret = g_value_get_int64 (ref this);
+                var ret = g_value_get_int64 (in this);
                 return ret;
             }
 
@@ -1162,7 +1162,7 @@ namespace GISharp.Lib.GObject
         static extern nlong g_value_get_long (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_LONG #GValue.
@@ -1173,7 +1173,7 @@ namespace GISharp.Lib.GObject
         nlong Long {
             get {
                 AssertType (GType.Long);
-                var ret = g_value_get_long (ref this);
+                var ret = g_value_get_long (in this);
                 return ret;
             }
 
@@ -1198,7 +1198,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_object (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_OBJECT derived #GValue.
@@ -1209,7 +1209,7 @@ namespace GISharp.Lib.GObject
         Object Object {
             get {
                 AssertType (GType.Object);
-                var ret_ = g_value_get_object (ref this);
+                var ret_ = g_value_get_object (in this);
                 var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
@@ -1236,7 +1236,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_param (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_PARAM #GValue.
@@ -1247,7 +1247,7 @@ namespace GISharp.Lib.GObject
         ParamSpec Param {
             get {
                 AssertType (GType.Param);
-                var ret_ = g_value_get_param (ref this);
+                var ret_ = g_value_get_param (in this);
                 var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
@@ -1274,7 +1274,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_pointer (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a pointer #GValue.
@@ -1285,7 +1285,7 @@ namespace GISharp.Lib.GObject
         IntPtr Pointer {
             get {
                 AssertType (GType.Pointer);
-                var ret = g_value_get_pointer (ref this);
+                var ret = g_value_get_pointer (in this);
                 return ret;
             }
 
@@ -1311,7 +1311,7 @@ namespace GISharp.Lib.GObject
         static extern sbyte g_value_get_schar (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_CHAR #GValue.
@@ -1323,7 +1323,7 @@ namespace GISharp.Lib.GObject
         sbyte Char {
             get {
                 AssertType (GType.Char);
-                var ret = g_value_get_schar (ref this);
+                var ret = g_value_get_schar (in this);
                 return ret;
             }
 
@@ -1348,7 +1348,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_string (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_STRING #GValue.
@@ -1359,7 +1359,7 @@ namespace GISharp.Lib.GObject
         Utf8 String {
             get {
                 AssertType (GType.String);
-                var ret_ = g_value_get_string (ref this);
+                var ret_ = g_value_get_string (in this);
                 var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
                 return ret;
             }
@@ -1385,7 +1385,7 @@ namespace GISharp.Lib.GObject
         static extern byte g_value_get_uchar (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_UCHAR #GValue.
@@ -1396,7 +1396,7 @@ namespace GISharp.Lib.GObject
         byte UChar {
             get {
                 AssertType (GType.UChar);
-                var ret = g_value_get_uchar (ref this);
+                var ret = g_value_get_uchar (in this);
                 return ret;
             }
 
@@ -1421,7 +1421,7 @@ namespace GISharp.Lib.GObject
         static extern uint g_value_get_uint (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_UINT #GValue.
@@ -1432,7 +1432,7 @@ namespace GISharp.Lib.GObject
         uint UInt {
             get {
                 AssertType (GType.UInt);
-                var ret = g_value_get_uint (ref this);
+                var ret = g_value_get_uint (in this);
                 return ret;
             }
 
@@ -1457,7 +1457,7 @@ namespace GISharp.Lib.GObject
         static extern ulong g_value_get_uint64 (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_UINT64 #GValue.
@@ -1468,7 +1468,7 @@ namespace GISharp.Lib.GObject
         ulong UInt64 {
             get {
                 AssertType (GType.UInt64);
-                var ret = g_value_get_uint64 (ref this);
+                var ret = g_value_get_uint64 (in this);
                 return ret;
             }
 
@@ -1493,7 +1493,7 @@ namespace GISharp.Lib.GObject
         static extern nulong g_value_get_ulong (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_ULONG #GValue.
@@ -1504,7 +1504,7 @@ namespace GISharp.Lib.GObject
         nulong ULong {
             get {
                 AssertType (GType.ULong);
-                var ret = g_value_get_ulong (ref this);
+                var ret = g_value_get_ulong (in this);
                 return ret;
             }
 
@@ -1530,7 +1530,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_get_variant (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a variant #GValue.
@@ -1542,7 +1542,7 @@ namespace GISharp.Lib.GObject
         Variant Variant {
             get {
                 AssertType (GType.Variant);
-                var ret_ = g_value_get_variant (ref this);
+                var ret_ = g_value_get_variant (in this);
                 var ret = Opaque.GetInstance<Variant> (ret_, Transfer.None);
                 return ret;
             }
@@ -1585,8 +1585,16 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        void Init (GType gType)
+        public void Init(GType gType)
         {
+            if (gType == GType.Invalid) {
+                var message = "Cannot initialize using GType.Invalid.";
+                throw new ArgumentException(message, nameof(gType));
+            }
+            if (gType.IsAbstract) {
+                var message = $"Cannot initialize using abstract GType '{gType.Name}'.";
+                throw new ArgumentException(message, nameof(gType));
+            }
             g_value_init (ref this, gType);
         }
 
@@ -2719,14 +2727,6 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public Value (GType type)
         {
-            if (type == GType.Invalid) {
-                var message = "Cannot initialize using GType.Invalid.";
-                throw new ArgumentException (message, nameof (type));
-            }
-            if (type.IsAbstract) {
-                var message = $"Cannot initialize using abstract GType '{type.Name}'.";
-                throw new ArgumentException (message, nameof (type));
-            }
             this.type = GType.Invalid;
             data0 = default (ValueDataUnion);
             data1 = default (ValueDataUnion);

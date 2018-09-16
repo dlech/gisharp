@@ -26,9 +26,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((bool)v, Is.True);
             Assert.That (v.Get (), Is.True);
 
-            var v2 = new Value (GType.Char);
-            Assert.That (() => v2.Set (true), Throws.ArgumentException);
-            Assert.That (() => (bool)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Char);
+                v2.Set(true);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Char);
+                var _ = (bool)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -43,9 +48,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((sbyte)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set ((sbyte)1), Throws.ArgumentException);
-            Assert.That (() => (sbyte)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set ((sbyte)1);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (sbyte)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -60,9 +70,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((byte)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set ((byte)1), Throws.ArgumentException);
-            Assert.That (() => (byte)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set((byte)1);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (byte)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -77,9 +92,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((int)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1), Throws.ArgumentException);
-            Assert.That (() => (int)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (int)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -94,9 +114,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((uint)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1U), Throws.ArgumentException);
-            Assert.That (() => (uint)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1U);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (uint)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -111,9 +136,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((nlong)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1L), Throws.ArgumentException);
-            Assert.That (() => (nlong)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1L);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (nlong)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -128,9 +158,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((nulong)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1UL), Throws.ArgumentException);
-            Assert.That (() => (nulong)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1UL);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (nulong)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -145,9 +180,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((long)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1L), Throws.ArgumentException);
-            Assert.That (() => (long)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1L);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (long)v2;
+             }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -162,9 +202,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((ulong)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1UL), Throws.ArgumentException);
-            Assert.That (() => (ulong)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1UL);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (ulong)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -179,9 +224,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((float)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1.0), Throws.ArgumentException);
-            Assert.That (() => (float)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1.0);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (float)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -196,9 +246,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((double)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (1F), Throws.ArgumentException);
-            Assert.That (() => (double)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(1F);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (double)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -224,8 +279,10 @@ namespace GISharp.Test.Core.GObject
             //            Assert.That ((ValueTestEnum)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (ValueTestEnum.Value), Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(ValueTestEnum.Value);
+            }, Throws.ArgumentException);
 //            Assert.That (() => (ValueTestEnum)v2, Throws.InstanceOf<InvalidCastException> ());
 
             AssertNoGLibLog();
@@ -252,8 +309,10 @@ namespace GISharp.Test.Core.GObject
             //            Assert.That ((ValueTestFlags)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (ValueTestFlags.Value), Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(ValueTestFlags.Value);
+            }, Throws.ArgumentException);
 //            Assert.That (() => (ValueTestFlags)v2, Throws.InstanceOf<InvalidCastException> ());
 
             AssertNoGLibLog();
@@ -269,9 +328,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((string)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set ("1"), Throws.ArgumentException);
-            Assert.That (() => (string)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set("1");
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (string)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
         }
 
         //[Test]
@@ -318,9 +382,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((IntPtr)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (IntPtr.Zero), Throws.ArgumentException);
-            Assert.That (() => (IntPtr)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(IntPtr.Zero);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (IntPtr)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
@@ -352,9 +421,14 @@ namespace GISharp.Test.Core.GObject
             Assert.That ((GType)v, Is.EqualTo (expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
-            var v2 = new Value (GType.Boolean);
-            Assert.That (() => v2.Set (GType.Boolean), Throws.ArgumentException);
-            Assert.That (() => (GType)v2, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(GType.Boolean);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (GType)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }

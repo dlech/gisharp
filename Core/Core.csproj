@@ -3,8 +3,12 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <RootNamespace>GISharp</RootNamespace>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Compile Remove="Runtime\NativeLong32.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="System.Memory" Version="4.5.1" />
   </ItemGroup>
 </Project>

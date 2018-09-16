@@ -110,11 +110,11 @@ namespace GISharp.Lib.GObject
 
         public sealed class NotifiedEventArgs : GSignalEventArgs
         {
-            readonly Value[] args;
+            readonly object[] args;
 
-            public ParamSpec Pspec => (ParamSpec)args[0].Get();
+            public ParamSpec Pspec => (ParamSpec)args[0];
 
-            public NotifiedEventArgs(Value[] args)
+            public NotifiedEventArgs(params object[] args)
             {
                 this.args = args ?? throw new ArgumentNullException(nameof(args));
             }
@@ -223,9 +223,8 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr parameters);
 
-
         [DeprecatedSince("2.54")]
-        static IntPtr New(GType objectType, IArray<Parameter> parameters)
+        static unsafe IntPtr New(GType objectType, int nParameters, Parameter* parameters)
         {
             if (!objectType.IsA(GType.Object)) {
                 throw new ArgumentException("Must be a GObject", nameof(objectType));
@@ -233,16 +232,17 @@ namespace GISharp.Lib.GObject
             if (!objectType.IsInstantiatable) {
                 throw new ArgumentException("Must be instantiatable", nameof(objectType));
             }
-            var nParameters = parameters?.Length ?? 0;
-            var parameters_ = parameters?.Data ?? IntPtr.Zero;
-            var ret = g_object_newv(objectType, (uint)nParameters, parameters_);
+            var ret = g_object_newv(objectType, (uint)nParameters, (IntPtr)parameters);
             return ret;
         }
 
-        protected static IntPtr New<T>(params object[] parameters) where T : Object
+        protected static unsafe IntPtr New<T>(params object[] parameters) where T : Object
         {
             var gtype = GType.TypeOf<T>();
-            using (var paramArray = new Array<Parameter>(false, false, parameters.Length / 2)) {
+            var nParameters = parameters.Length / 2;
+            var valueArray = stackalloc Value[nParameters];
+            var paramArray = stackalloc Parameter[nParameters];
+            try {
                 for (int i = 0; i < parameters.Length; i += 2) {
                     var name = parameters[i] as string;
                     if (name == null) {
@@ -255,24 +255,25 @@ namespace GISharp.Lib.GObject
                         var message = $"Could not find property '{name}'";
                         throw new ArgumentException(message, nameof(parameters));
                     }
-                    var value = new Value(paramSpec.ValueType, parameters[i + 1]);
+                    valueArray[i / 2].Init(paramSpec.ValueType);
+                    valueArray[i / 2].Set(parameters[i + 1]);
                     paramArray[i / 2] = new Parameter {
                         Name = GMarshal.StringToUtf8Ptr(name),
-                        Value = GMarshal.Alloc(Marshal.SizeOf<Value>()),
+                        Value = &valueArray[i / 2],
                     };
-                    Marshal.StructureToPtr<Value> (value, paramArray[i / 2].Value, false);
                 }
 
-                var ret = New(gtype, paramArray);
+                var ret = New(gtype, nParameters, paramArray);
 
-                foreach (var p in paramArray) {
-                    GMarshal.Free(p.Name);
-                    var value = Marshal.PtrToStructure<Value>(p.Value);
-                    value.Unset();
-                    GMarshal.Free(p.Value);
-                }
 
                 return ret;
+            }
+            finally {
+                for (int i = 0; i < nParameters; i++) {
+                    var p = paramArray[i];
+                    GMarshal.Free(p.Name);
+                    p.Value->Unset();
+                }
             }
         }
 

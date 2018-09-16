@@ -180,7 +180,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="const GValue*" managed-name="Value" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_param_spec_get_default_value (
+        static extern ref Value g_param_spec_get_default_value (
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none */
             IntPtr param);
@@ -194,8 +194,7 @@ namespace GISharp.Lib.GObject
         [Since ("2.38")]
         public Value DefaultValue {
             get {
-                var ret_ = g_param_spec_get_default_value(Handle);
-                var ret = Marshal.PtrToStructure<Value> (ret_);
+                var ret = g_param_spec_get_default_value(Handle);
                 return ret;
             }
         }
