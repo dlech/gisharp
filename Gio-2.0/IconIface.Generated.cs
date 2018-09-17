@@ -50,7 +50,7 @@ System.IntPtr icon);
         {
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.UInt32 hash(System.IntPtr icon_)
+                System.UInt32 unmanagedHash(System.IntPtr icon_)
                 {
                     try
                     {
@@ -68,7 +68,7 @@ System.IntPtr icon);
                     return default(System.UInt32);
                 }
 
-                return hash;
+                return unmanagedHash;
             }
         }
 
@@ -92,7 +92,7 @@ System.IntPtr icon2);
         {
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean equal(System.IntPtr icon1_, System.IntPtr icon2_)
+                System.Boolean unmanagedEqual(System.IntPtr icon1_, System.IntPtr icon2_)
                 {
                     try
                     {
@@ -111,7 +111,7 @@ System.IntPtr icon2);
                     return default(System.Boolean);
                 }
 
-                return equal;
+                return unmanagedEqual;
             }
         }
 
@@ -132,7 +132,7 @@ System.IntPtr icon);
         {
             public static unsafe UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr serialize(System.IntPtr icon_)
+                System.IntPtr unmanagedSerialize(System.IntPtr icon_)
                 {
                     try
                     {
@@ -150,7 +150,7 @@ System.IntPtr icon);
                     return default(System.IntPtr);
                 }
 
-                return serialize;
+                return unmanagedSerialize;
             }
         }
 

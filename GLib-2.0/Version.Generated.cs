@@ -113,13 +113,13 @@ namespace GISharp.Lib.GLib
         ///     or freed.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public static unsafe GISharp.Lib.GLib.Utf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
+        public static unsafe GISharp.Lib.GLib.UnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {
             var requiredMajor_ = (System.UInt32)requiredMajor;
             var requiredMinor_ = (System.UInt32)requiredMinor;
             var requiredMicro_ = (System.UInt32)requiredMicro;
             var ret_ = glib_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
     }

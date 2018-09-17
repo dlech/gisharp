@@ -79,9 +79,9 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the conversion was successful.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.Utf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
+        public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
-            var isoDate_ = isoDate?.Handle ?? throw new System.ArgumentNullException(nameof(isoDate));
+            var isoDate_ = isoDate.IsNull ? throw new System.ArgumentNullException(nameof(isoDate)) : isoDate.Handle;
             GISharp.Lib.GLib.TimeVal time_;
             var ret_ = g_time_val_from_iso8601(isoDate_,&time_);
             time = (GISharp.Lib.GLib.TimeVal)time_;

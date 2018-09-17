@@ -239,10 +239,10 @@ namespace GISharp.Lib.GLib
         /// the domain to use
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetTranslationDomain(GISharp.Lib.GLib.Utf8 domain)
+        public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             var group_ = Handle;
-            var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
+            var domain_ = domain.IsNull ? throw new System.ArgumentNullException(nameof(domain)) : domain.Handle;
             g_option_group_set_translation_domain(group_, domain_);
         }
 

@@ -422,7 +422,7 @@ namespace GISharp.Lib.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty(Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags = BindingFlags.Default)
+        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags = BindingFlags.Default)
         {
             var this_ = Handle;
             if (sourceProperty == null) {
@@ -529,12 +529,12 @@ namespace GISharp.Lib.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty (Utf8 sourceProperty, Object target, Utf8 targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
         {
             var this_ = Handle;
-            var sourceProperty_ = sourceProperty?.Handle ?? throw new ArgumentNullException(nameof(sourceProperty));
+            var sourceProperty_ = sourceProperty.IsNull ? throw new ArgumentNullException(nameof(sourceProperty)) : sourceProperty.Handle;
             var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
-            var targetProperty_ = targetProperty?.Handle ?? throw new ArgumentNullException(nameof(targetProperty));
+            var targetProperty_ = targetProperty.IsNull ? throw new ArgumentNullException(nameof(targetProperty)) : targetProperty.Handle;
             
             var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
             var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
@@ -707,7 +707,7 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public object GetProperty(Utf8 propertyName)
+        public object GetProperty(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
@@ -718,6 +718,22 @@ namespace GISharp.Lib.GObject
             var value = new Value(pspec.ValueType);
             g_object_get_property(this_, pspec.Name.Handle, ref value);
             var ret = value.Get();
+            value.Unset();
+
+            return ret;
+        }
+
+        public UnownedUtf8 GetUnownedUtf8Property(UnownedUtf8 propertyName)
+        {
+            var this_ = Handle;
+            var pspec = GClass.FindProperty(propertyName);
+            if (pspec == null) {
+                var message = $"No such property \"{propertyName}\"";
+                throw new ArgumentException(message, nameof(propertyName));
+            }
+            var value = new Value(pspec.ValueType);
+            g_object_get_property(this_, pspec.Name.Handle, ref value);
+            var ret = value.GetUnownedUtf8();
             value.Unset();
 
             return ret;
@@ -769,10 +785,10 @@ namespace GISharp.Lib.GObject
         /// <param name="propertyName">
         /// the name of a property installed on the class of @object.
         /// </param>
-        public void EmitNotify(Utf8 propertyName)
+        public void EmitNotify(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
-            var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
+            var propertyName_ = propertyName.IsNull ? throw new ArgumentNullException(nameof(propertyName)) : propertyName.Handle;
             g_object_notify(this_, propertyName_);
         }
 
@@ -928,7 +944,7 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public void SetProperty(Utf8 propertyName, object value)
+        public void SetProperty(UnownedUtf8 propertyName, object value)
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);

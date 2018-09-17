@@ -26,7 +26,7 @@ namespace GISharp.Lib.GLib
     /// The type of function to be passed as callback for <see cref="OptionArg.Callback"/>
     /// options.
     /// </summary>
-    public delegate void OptionArgFunc(GISharp.Lib.GLib.Utf8 optionName, GISharp.Lib.GLib.Utf8 value);
+    public delegate void OptionArgFunc(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value);
 
     /// <summary>
     /// Factory for creating <see cref="OptionArgFunc"/> methods.
@@ -48,7 +48,7 @@ namespace GISharp.Lib.GLib
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe void callback_(GISharp.Lib.GLib.Utf8 optionName, GISharp.Lib.GLib.Utf8 value) { var data_ = userData; var optionName_ = optionName?.Handle ?? throw new System.ArgumentNullException(nameof(optionName)); var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value)); var error_ = System.IntPtr.Zero; callback(optionName_, value_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
+            unsafe void callback_(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var data_ = userData; var optionName_ = optionName.IsNull ? throw new System.ArgumentNullException(nameof(optionName)) : optionName.Handle; var value_ = value.IsNull ? throw new System.ArgumentNullException(nameof(value)) : value.Handle; var error_ = System.IntPtr.Zero; callback(optionName_, value_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return callback_;
         }
@@ -88,8 +88,8 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var optionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(optionName_, GISharp.Runtime.Transfer.None);
-                var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(value_, GISharp.Runtime.Transfer.None);
+                var optionName = new GISharp.Lib.GLib.UnownedUtf8(optionName_, -1);
+                var value = new GISharp.Lib.GLib.UnownedUtf8(value_, -1);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var data = (UserData)gcHandle.Target;
                 data.ManagedDelegate(optionName, value);

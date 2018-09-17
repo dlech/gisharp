@@ -1,5 +1,6 @@
 
 using GISharp.Lib.Gio;
+using GISharp.Lib.GLib;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
@@ -30,7 +31,7 @@ namespace GISharp.Test.Gio
         public void TestLookup()
         {
             using (var list = new FileAttributeInfoList()) {
-                Assert.That(() => list.Lookup(null), Throws.ArgumentNullException);
+                Assert.That(() => list.Lookup(Utf8.Null), Throws.ArgumentNullException);
                 Assert.That(list.Lookup("test"), Is.Null);
             }
         }
@@ -39,7 +40,7 @@ namespace GISharp.Test.Gio
         public void TestAdd()
         {
             using (var list = new FileAttributeInfoList()) {
-                Assert.That(() => list.Add(null, FileAttributeType.Boolean, FileAttributeInfoFlags.None),
+                Assert.That(() => list.Add(Utf8.Null, FileAttributeType.Boolean, FileAttributeInfoFlags.None),
                     Throws.ArgumentNullException);
                 
                 list.Add("test", FileAttributeType.Boolean, FileAttributeInfoFlags.None);

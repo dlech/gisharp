@@ -12,18 +12,18 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNew()
         {
-            Assert.That(() => new SimpleAction(null, null),
+            Assert.That(() => new SimpleAction(Utf8.Null, null),
                 Throws.ArgumentNullException);
 
             using (var sa = new SimpleAction("test-action", null)) {
-                Assert.That(sa.Name, IsEqualToUtf8("test-action"));
+                Assert.That<string>(sa.Name, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.Null);
                 Assert.That(sa.State, Is.Null);
                 Assert.That(sa.StateType, Is.Null);
             }
 
             using (var sa = new SimpleAction("test-action", VariantType.Boolean)) {
-                Assert.That(sa.Name, IsEqualToUtf8("test-action"));
+                Assert.That<string>(sa.Name, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.EqualTo(VariantType.Boolean));
                 Assert.That(sa.State, Is.Null);
                 Assert.That(sa.StateType, Is.Null);
@@ -35,21 +35,21 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNewStateful()
         {
-            Assert.That(() => new SimpleAction(null, VariantType.Boolean, (Variant)0),
+            Assert.That(() => new SimpleAction(Utf8.Null, VariantType.Boolean, (Variant)0),
                 Throws.ArgumentNullException);
 
             Assert.That(() => new SimpleAction("test-action", VariantType.Boolean, null),
                 Throws.ArgumentNullException);
 
             using (var sa = new SimpleAction("test-action", null, (Variant)0)) {
-                Assert.That(sa.Name, IsEqualToUtf8("test-action"));
+                Assert.That<string>(sa.Name, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.Null);
                 Assert.That((int)sa.State, Is.Zero);
                 Assert.That(sa.StateType, Is.EqualTo(VariantType.Int32));
             }
 
             using (var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)0)) {
-                Assert.That(sa.Name, IsEqualToUtf8("test-action"));
+                Assert.That<string>(sa.Name, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.EqualTo(VariantType.Boolean));
                 Assert.That((int)sa.State, Is.Zero);
                 Assert.That(sa.StateType, Is.EqualTo(VariantType.Int32));

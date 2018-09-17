@@ -136,7 +136,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GPropertyAttribute("action-group")]
         public GISharp.Lib.Gio.IActionGroup ActionGroup { set => SetProperty("action-group", value); }
         [GISharp.Runtime.GPropertyAttribute("application-id", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
-        public GISharp.Lib.GLib.Utf8 ApplicationId_ { get => (GISharp.Lib.GLib.Utf8)GetProperty("application-id"); set => SetProperty("application-id", value); }
+        public GISharp.Lib.GLib.UnownedUtf8 ApplicationId_ { get => GetUnownedUtf8Property("application-id"); set => SetProperty("application-id", value); }
         [GISharp.Runtime.GPropertyAttribute("flags")]
         public GISharp.Lib.Gio.ApplicationFlags Flags_ { get => (GISharp.Lib.Gio.ApplicationFlags)GetProperty("flags"); set => SetProperty("flags", value); }
         [GISharp.Runtime.GPropertyAttribute("inactivity-timeout")]
@@ -154,7 +154,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote"); }
         [GISharp.Runtime.GPropertyAttribute("resource-base-path")]
-        public GISharp.Lib.GLib.Utf8 ResourceBasePath_ { get => (GISharp.Lib.GLib.Utf8)GetProperty("resource-base-path"); set => SetProperty("resource-base-path", value); }
+        public GISharp.Lib.GLib.UnownedUtf8 ResourceBasePath_ { get => GetUnownedUtf8Property("resource-base-path"); set => SetProperty("resource-base-path", value); }
 
         /// <summary>
         /// Returns the default <see cref="Application"/> instance for this process.
@@ -173,7 +173,7 @@ namespace GISharp.Lib.Gio
         /// Gets the unique identifier for <paramref name="application"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.Utf8 ApplicationId { get => GetApplicationId(); set => SetApplicationId(value); }
+        public GISharp.Lib.GLib.UnownedUtf8 ApplicationId { get => GetApplicationId(); set => SetApplicationId(value); }
 
         /// <summary>
         /// Gets the D-Bus object path being used by the application, or <c>null</c>.
@@ -193,7 +193,7 @@ namespace GISharp.Lib.Gio
         /// registered.  See <see cref="Application.GetIsRegistered"/>.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public GISharp.Lib.GLib.Utf8 DbusObjectPath { get => GetDbusObjectPath(); }
+        public GISharp.Lib.GLib.UnownedUtf8 DbusObjectPath { get => GetDbusObjectPath(); }
 
         /// <summary>
         /// Gets the flags for <paramref name="application"/>.
@@ -254,7 +254,7 @@ namespace GISharp.Lib.Gio
         /// See <see cref="Application.SetResourceBasePath"/> for more information.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.42")]
-        public GISharp.Lib.GLib.Utf8 ResourceBasePath { get => GetResourceBasePath(); set => SetResourceBasePath(value); }
+        public GISharp.Lib.GLib.UnownedUtf8 ResourceBasePath { get => GetResourceBasePath(); set => SetResourceBasePath(value); }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Application(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
@@ -291,9 +291,9 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
-            var applicationId_ = applicationId?.Handle ?? System.IntPtr.Zero;
+            var applicationId_ = applicationId.Handle;
             var flags_ = (GISharp.Lib.Gio.ApplicationFlags)flags;
             var ret_ = g_application_new(applicationId_,flags_);
             return ret_;
@@ -315,7 +315,7 @@ namespace GISharp.Lib.Gio
         /// <param name="flags">
         /// the application flags
         /// </param>
-        public Application(GISharp.Lib.GLib.Utf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
+        public Application(GISharp.Lib.GLib.UnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -659,9 +659,9 @@ namespace GISharp.Lib.Gio
         /// <returns>
         /// <c>true</c> if <paramref name="applicationId"/> is valid
         /// </returns>
-        public static unsafe System.Boolean IdIsValid(GISharp.Lib.GLib.Utf8 applicationId)
+        public static unsafe System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
         {
-            var applicationId_ = applicationId?.Handle ?? throw new System.ArgumentNullException(nameof(applicationId));
+            var applicationId_ = applicationId.IsNull ? throw new System.ArgumentNullException(nameof(applicationId)) : applicationId.Handle;
             var ret_ = g_application_id_is_valid(applicationId_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -810,15 +810,15 @@ namespace GISharp.Lib.Gio
         ///    parsed by the option in `--help` output
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.42")]
-        public unsafe void AddMainOption(GISharp.Lib.GLib.Utf8 longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, GISharp.Lib.GLib.Utf8 description, GISharp.Lib.GLib.Utf8 argDescription)
+        public unsafe void AddMainOption(GISharp.Lib.GLib.UnownedUtf8 longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.UnownedUtf8 argDescription)
         {
             var application_ = Handle;
-            var longName_ = longName?.Handle ?? throw new System.ArgumentNullException(nameof(longName));
+            var longName_ = longName.IsNull ? throw new System.ArgumentNullException(nameof(longName)) : longName.Handle;
             var shortName_ = (System.SByte)shortName;
             var flags_ = (GISharp.Lib.GLib.OptionFlags)flags;
             var arg_ = (GISharp.Lib.GLib.OptionArg)arg;
-            var description_ = description?.Handle ?? throw new System.ArgumentNullException(nameof(description));
-            var argDescription_ = argDescription?.Handle ?? System.IntPtr.Zero;
+            var description_ = description.IsNull ? throw new System.ArgumentNullException(nameof(description)) : description.Handle;
+            var argDescription_ = argDescription.Handle;
             g_application_add_main_option(application_, longName_, shortName_, flags_, arg_, description_, argDescription_);
         }
 
@@ -1103,11 +1103,11 @@ namespace GISharp.Lib.Gio
         /// the name of a boolean property of <paramref name="@object"/>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.Utf8 property)
+        public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
             var application_ = Handle;
             var @object_ = @object?.Handle ?? throw new System.ArgumentNullException(nameof(@object));
-            var property_ = property?.Handle ?? throw new System.ArgumentNullException(nameof(property));
+            var property_ = property.IsNull ? throw new System.ArgumentNullException(nameof(property)) : property.Handle;
             g_application_bind_busy_property(application_, @object_, property_);
         }
 
@@ -1136,11 +1136,11 @@ namespace GISharp.Lib.Gio
         /// the identifier for <paramref name="application"/>, owned by <paramref name="application"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetApplicationId()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetApplicationId()
         {
             var application_ = Handle;
             var ret_ = g_application_get_application_id(application_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -1197,11 +1197,11 @@ namespace GISharp.Lib.Gio
         /// the object path, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.34")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetDbusObjectPath()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
         {
             var application_ = Handle;
             var ret_ = g_application_get_dbus_object_path(application_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -1445,11 +1445,11 @@ namespace GISharp.Lib.Gio
         /// the base resource path, if one is set
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.42")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetResourceBasePath()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetResourceBasePath()
         {
             var application_ = Handle;
             var ret_ = g_application_get_resource_base_path(application_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -1608,11 +1608,11 @@ namespace GISharp.Lib.Gio
         /// a hint (or ""), but never <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void Open(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.Utf8 hint)
+        public unsafe void Open(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
             var application_ = Handle;
             var (files_, nFiles_) = ((System.IntPtr, System.Int32))((files?.Data ?? throw new System.ArgumentNullException(nameof(files)), files?.Length ?? 0));
-            var hint_ = hint?.Handle ?? throw new System.ArgumentNullException(nameof(hint));
+            var hint_ = hint.IsNull ? throw new System.ArgumentNullException(nameof(hint)) : hint.Handle;
             g_application_open(application_, files_, nFiles_, hint_);
         }
 
@@ -2101,10 +2101,10 @@ namespace GISharp.Lib.Gio
         /// the identifier for <paramref name="application"/>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe void SetApplicationId(GISharp.Lib.GLib.Utf8 applicationId)
+        private unsafe void SetApplicationId(GISharp.Lib.GLib.UnownedUtf8 applicationId)
         {
             var application_ = Handle;
-            var applicationId_ = applicationId?.Handle ?? System.IntPtr.Zero;
+            var applicationId_ = applicationId.Handle;
             g_application_set_application_id(application_, applicationId_);
         }
 
@@ -2279,10 +2279,10 @@ namespace GISharp.Lib.Gio
         ///  after the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextDescription(GISharp.Lib.GLib.Utf8 description)
+        public unsafe void SetOptionContextDescription(GISharp.Lib.GLib.UnownedUtf8 description)
         {
             var application_ = Handle;
-            var description_ = description?.Handle ?? System.IntPtr.Zero;
+            var description_ = description.Handle;
             g_application_set_option_context_description(application_, description_);
         }
 
@@ -2328,10 +2328,10 @@ namespace GISharp.Lib.Gio
         ///   in the first line of `--help` output, after the usage summary `programname [OPTION...]`.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextParameterString(GISharp.Lib.GLib.Utf8 parameterString)
+        public unsafe void SetOptionContextParameterString(GISharp.Lib.GLib.UnownedUtf8 parameterString)
         {
             var application_ = Handle;
-            var parameterString_ = parameterString?.Handle ?? System.IntPtr.Zero;
+            var parameterString_ = parameterString.Handle;
             g_application_set_option_context_parameter_string(application_, parameterString_);
         }
 
@@ -2371,10 +2371,10 @@ namespace GISharp.Lib.Gio
         ///  before the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextSummary(GISharp.Lib.GLib.Utf8 summary)
+        public unsafe void SetOptionContextSummary(GISharp.Lib.GLib.UnownedUtf8 summary)
         {
             var application_ = Handle;
-            var summary_ = summary?.Handle ?? System.IntPtr.Zero;
+            var summary_ = summary.Handle;
             g_application_set_option_context_summary(application_, summary_);
         }
 
@@ -2472,10 +2472,10 @@ namespace GISharp.Lib.Gio
         /// the resource path to use
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.42")]
-        private unsafe void SetResourceBasePath(GISharp.Lib.GLib.Utf8 resourcePath)
+        private unsafe void SetResourceBasePath(GISharp.Lib.GLib.UnownedUtf8 resourcePath)
         {
             var application_ = Handle;
-            var resourcePath_ = resourcePath?.Handle ?? System.IntPtr.Zero;
+            var resourcePath_ = resourcePath.Handle;
             g_application_set_resource_base_path(application_, resourcePath_);
         }
 
@@ -2520,11 +2520,11 @@ namespace GISharp.Lib.Gio
         /// the name of a boolean property of <paramref name="@object"/>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.Utf8 property)
+        public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
             var application_ = Handle;
             var @object_ = @object?.Handle ?? throw new System.ArgumentNullException(nameof(@object));
-            var property_ = property?.Handle ?? throw new System.ArgumentNullException(nameof(property));
+            var property_ = property.IsNull ? throw new System.ArgumentNullException(nameof(property)) : property.Handle;
             g_application_unbind_busy_property(application_, @object_, property_);
         }
 
@@ -2621,10 +2621,10 @@ namespace GISharp.Lib.Gio
         /// id of a previously sent notification
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void WithdrawNotification(GISharp.Lib.GLib.Utf8 id)
+        public unsafe void WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8 id)
         {
             var application_ = Handle;
-            var id_ = id?.Handle ?? throw new System.ArgumentNullException(nameof(id));
+            var id_ = id.IsNull ? throw new System.ArgumentNullException(nameof(id)) : id.Handle;
             g_application_withdraw_notification(application_, id_);
         }
 
@@ -2749,11 +2749,11 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedOpen))]
-        protected virtual unsafe void DoOpen(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.Utf8 hint)
+        protected virtual unsafe void DoOpen(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
             var application_ = Handle;
             var (files_, nFiles_) = ((System.IntPtr, System.Int32))((files?.Data ?? throw new System.ArgumentNullException(nameof(files)), files?.Length ?? 0));
-            var hint_ = hint?.Handle ?? throw new System.ArgumentNullException(nameof(hint));
+            var hint_ = hint.IsNull ? throw new System.ArgumentNullException(nameof(hint)) : hint.Handle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedOpen>(_GType)(application_, files_, nFiles_, hint_);
         }
 
@@ -2785,62 +2785,62 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedStartup>(_GType)(application_);
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActionAdded(GISharp.Lib.GLib.Utf8 actionName)
+        void GISharp.Lib.Gio.IActionGroup.DoActionAdded(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.Utf8 actionName, System.Boolean enabled)
+        void GISharp.Lib.Gio.IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActionRemoved(GISharp.Lib.GLib.Utf8 actionName)
+        void GISharp.Lib.Gio.IActionGroup.DoActionRemoved(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActionStateChanged(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant state)
+        void GISharp.Lib.Gio.IActionGroup.DoActionStateChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoActivateAction(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant parameter)
+        void GISharp.Lib.Gio.IActionGroup.DoActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant parameter)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionGroup.DoChangeActionState(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant value)
+        void GISharp.Lib.Gio.IActionGroup.DoChangeActionState(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value)
         {
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.Utf8 actionName)
+        System.Boolean GISharp.Lib.Gio.IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IActionGroup.DoGetActionParameterType(GISharp.Lib.GLib.Utf8 actionName)
+        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IActionGroup.DoGetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IActionGroup.DoGetActionState(GISharp.Lib.GLib.Utf8 actionName)
+        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IActionGroup.DoGetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IActionGroup.DoGetActionStateHint(GISharp.Lib.GLib.Utf8 actionName)
+        GISharp.Lib.GLib.Variant GISharp.Lib.Gio.IActionGroup.DoGetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IActionGroup.DoGetActionStateType(GISharp.Lib.GLib.Utf8 actionName)
+        GISharp.Lib.GLib.VariantType GISharp.Lib.Gio.IActionGroup.DoGetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        System.Boolean GISharp.Lib.Gio.IActionGroup.DoHasAction(GISharp.Lib.GLib.Utf8 actionName)
+        System.Boolean GISharp.Lib.Gio.IActionGroup.DoHasAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
@@ -2855,12 +2855,12 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.Gio.IAction GISharp.Lib.Gio.IActionMap.DoLookupAction(GISharp.Lib.GLib.Utf8 actionName)
+        GISharp.Lib.Gio.IAction GISharp.Lib.Gio.IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.IActionMap.DoRemoveAction(GISharp.Lib.GLib.Utf8 actionName)
+        void GISharp.Lib.Gio.IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }

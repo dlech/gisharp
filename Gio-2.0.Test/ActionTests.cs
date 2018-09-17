@@ -29,13 +29,13 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestNameProperty ()
+        public void TestNameProperty()
         {
             var expected = "test-action-name";
             using (var obj = new TestAction(expected)) {
-                Assert.That(obj.Name, IsEqualToUtf8(expected));
-                Assert.That(obj.GetName(), IsEqualToUtf8(expected));
-                Assert.That(obj.GetProperty("name"), IsEqualToUtf8(expected));
+                Assert.That<string>(obj.Name, Is.EqualTo(expected));
+                Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
+                Assert.That<string>(obj.GetUnownedUtf8Property("name"), Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -116,7 +116,7 @@ namespace GISharp.Test.Gio
             using (var obj = new TestAction(expected)) {
                 Assume.That(obj.GetNameCallbackCount, Is.EqualTo(0));
                 var actual = obj.GetName();
-                Assert.That(actual, IsEqualToUtf8(expected));
+                Assert.That<string>(actual, Is.EqualTo(expected));
                 Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
             }
             AssertNoGLibLog();
@@ -171,10 +171,10 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestNameIsValidNullArgument ()
+        public void TestNameIsValidNullArgument()
         {
-            Assert.That (() => Action.NameIsValid (null),
-                Throws.InstanceOf<ArgumentNullException> ());
+            Assert.That(() => Action.NameIsValid(Utf8.Null),
+                Throws.InstanceOf<ArgumentNullException>());
             AssertNoGLibLog();
         }
 
@@ -212,7 +212,7 @@ namespace GISharp.Test.Gio
         {
             Action.ParseDetailedName("action", out var actionName, out var target);
             try {
-                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That(target, Is.Null);
             }
             finally {
@@ -227,7 +227,7 @@ namespace GISharp.Test.Gio
         {
             Action.ParseDetailedName("action::target", out var actionName, out var target);
             try {
-                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((string)target, Is.EqualTo("target"));
             }
             finally {
@@ -242,7 +242,7 @@ namespace GISharp.Test.Gio
         {
             Action.ParseDetailedName("action(42)", out var actionName, out var target);
             try {
-                Assert.That(actionName, IsEqualToUtf8("action"));
+                Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((int)target, Is.EqualTo(42));
             }
             finally {
@@ -256,9 +256,11 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAction : Object, IAction
     {
+        readonly Utf8 name;
+
         public bool Enabled => ((IAction)this).DoGetEnabled();
 
-        public Utf8 Name { get; }
+        public UnownedUtf8 Name => name;
 
         public VariantType ParameterType => ((IAction)this).DoGetParameterType();
 
@@ -292,10 +294,10 @@ namespace GISharp.Test.Gio
 
         public int GetNameCallbackCount;
 
-        Utf8 IAction.DoGetName()
+        UnownedUtf8 IAction.DoGetName()
         {
             GetNameCallbackCount++;
-            return Name;
+            return name;
         }
 
         public int GetParameterTypeCallbackCount;
@@ -336,7 +338,7 @@ namespace GISharp.Test.Gio
 
         public TestAction(string name) : this (New<TestAction>(), Transfer.Full)
         {
-            Name = name ?? throw new ArgumentNullException(nameof(name));
+            this.name = name ?? throw new ArgumentNullException(nameof(name));
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

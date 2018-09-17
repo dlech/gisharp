@@ -710,9 +710,11 @@ namespace GISharp.Lib.GObject
                     var gcHandle = (GCHandle)marshalData_;
                     var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target;
 
-                    // FIXME: marshal parameters or copy Value structs
-                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType,
-                        new object[nParamValues_]);
+                    var paramValues = new object[nParamValues_];
+                    for (int i = 0; i < paramValues.Length; i++) {
+                        paramValues[i] = paramValues_[i].Get();
+                    }
+                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType, paramValues);
 
                     marshalData.SignalHandler(obj, args);
 

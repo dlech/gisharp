@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8 Name { set => SetProperty("name", value); }
+        public GISharp.Lib.GLib.UnownedUtf8 Name { set => SetProperty("name", value); }
 
         /// <summary>
         /// A <c>null</c>-terminated array of icon names.
@@ -77,9 +77,9 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 iconname)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
-            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
             var ret_ = g_themed_icon_new(iconname_);
             return ret_;
         }
@@ -159,9 +159,9 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.Utf8 iconname)
+        static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
-            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
             var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
             return ret_;
         }
@@ -205,10 +205,10 @@ namespace GISharp.Lib.Gio
         /// <param name="iconname">
         /// name of icon to append to list of icons from within <paramref name="icon"/>.
         /// </param>
-        public unsafe void AppendName(GISharp.Lib.GLib.Utf8 iconname)
+        public unsafe void AppendName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var icon_ = Handle;
-            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
             g_themed_icon_append_name(icon_, iconname_);
         }
 
@@ -281,10 +281,10 @@ namespace GISharp.Lib.Gio
         /// name of icon to prepend to list of icons from within <paramref name="icon"/>.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.18")]
-        public unsafe void PrependName(GISharp.Lib.GLib.Utf8 iconname)
+        public unsafe void PrependName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var icon_ = Handle;
-            var iconname_ = iconname?.Handle ?? throw new System.ArgumentNullException(nameof(iconname));
+            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
             g_themed_icon_prepend_name(icon_, iconname_);
         }
 

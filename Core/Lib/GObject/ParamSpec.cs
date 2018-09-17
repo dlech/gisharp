@@ -159,10 +159,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the short description of this instance.
         /// </returns>
-        public Utf8 Blurb {
+        public UnownedUtf8 Blurb {
             get {
                 var ret_ = g_param_spec_get_blurb(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -226,10 +226,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the name of this instance.
         /// </returns>
-        public Utf8 Name {
+        public UnownedUtf8 Name {
             get {
                 var ret_ = g_param_spec_get_name(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -289,10 +289,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the nickname of this instance.
         /// </returns>
-        public Utf8 Nick {
+        public UnownedUtf8 Nick {
             get {
                 var ret_ = g_param_spec_get_nick(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }

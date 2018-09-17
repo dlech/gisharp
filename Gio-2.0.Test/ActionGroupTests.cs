@@ -20,7 +20,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup())
             using (var list = ag.ListActions()) {
-                Assert.That(list.First(), IsEqualToUtf8("test-action-1"));
+                Assert.That<string>(list.First(), Is.EqualTo("test-action-1"));
             }
             AssertNoGLibLog();
         }
@@ -43,7 +43,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.HasAction("does-not-exist"), Is.False);
-                Assert.That(() => ag.HasAction(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.HasAction(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -53,7 +53,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionEnabled("does-not-exist"), Is.False);
-                Assert.That(() => ag.GetActionEnabled(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.GetActionEnabled(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -63,7 +63,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionParameterType("does-not-exist"), Is.EqualTo(VariantType.Int32));
-                Assert.That(() => ag.GetActionParameterType(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.GetActionParameterType(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -73,7 +73,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionStateType("does-not-exist"), Is.EqualTo(VariantType.Boolean));
-                Assert.That(() => ag.GetActionStateType(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.GetActionStateType(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -83,7 +83,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That((int)ag.GetActionStateHint("does-not-exist"), Is.EqualTo(1));
-                Assert.That(() => ag.GetActionStateHint(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.GetActionStateHint(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -93,7 +93,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 Assert.That((int)ag.GetActionState("does-not-exist"), Is.EqualTo(2));
-                Assert.That(() => ag.GetActionState(null), Throws.ArgumentNullException);
+                Assert.That(() => ag.GetActionState(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -132,7 +132,7 @@ namespace GISharp.Test.Gio
                 const string expected = "some-action";
                 ag.ActionAdded += (s, a) => actual = a.ActionName;
                 ActionGroup.ActionAdded(ag, expected);
-                Assert.That(actual, IsEqualToUtf8(expected));
+                Assert.That(actual, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -145,7 +145,7 @@ namespace GISharp.Test.Gio
                 const string expected = "some-action";
                 ag.ActionRemoved += (s, a) => actual = a.ActionName;
                 ActionGroup.ActionRemoved(ag, expected);
-                Assert.That(actual, IsEqualToUtf8(expected));
+                Assert.That(actual, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -158,7 +158,7 @@ namespace GISharp.Test.Gio
                 const string expected = "some-action";
                 ag.ActionEnabledChanged += (s, a) => actual = a.ActionName;
                 ActionGroup.ActionEnabledChanged(ag, expected, true);
-                Assert.That(actual, IsEqualToUtf8(expected));
+                Assert.That(actual, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -171,7 +171,7 @@ namespace GISharp.Test.Gio
                 const string expected = "some-action";
                 ag.ActionStateChanged += (s, a) => actual = a.ActionName;
                 ActionGroup.ActionStateChanged(ag, expected, new Variant(11));
-                Assert.That(actual, IsEqualToUtf8(expected));
+                Assert.That(actual, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -186,29 +186,29 @@ namespace GISharp.Test.Gio
         {
         }
 
-        void IActionGroup.DoActionAdded(Utf8 actionName)
+        void IActionGroup.DoActionAdded(UnownedUtf8 actionName)
         {
             // default signal handler
         }
 
-        void IActionGroup.DoActionEnabledChanged(Utf8 actionName, bool enabled)
+        void IActionGroup.DoActionEnabledChanged(UnownedUtf8 actionName, bool enabled)
         {
             // default signal handler
         }
 
-        void IActionGroup.DoActionRemoved(Utf8 actionName)
+        void IActionGroup.DoActionRemoved(UnownedUtf8 actionName)
         {
             // default signal handler
         }
 
-        void IActionGroup.DoActionStateChanged(Utf8 actionName, Variant state)
+        void IActionGroup.DoActionStateChanged(UnownedUtf8 actionName, Variant state)
         {
             // default signal handler
         }
 
         public event EventHandler<Variant> ActionActivated;
 
-        void IActionGroup.DoActivateAction(Utf8 actionName, Variant parameter) => ActionActivated?.Invoke(this, parameter);
+        void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant parameter) => ActionActivated?.Invoke(this, parameter);
 
         readonly GSignalManager<ActionGroup.ActionAddedEventArgs> actionAddedSignalManager =
             new GSignalManager<ActionGroup.ActionAddedEventArgs>("action-added", gtype);
@@ -243,19 +243,19 @@ namespace GISharp.Test.Gio
         }
 
         public event EventHandler<Variant> StateChanged;
-        void IActionGroup.DoChangeActionState(Utf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
+        void IActionGroup.DoChangeActionState(UnownedUtf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
 
-        bool IActionGroup.DoGetActionEnabled(Utf8 actionName) => false;
+        bool IActionGroup.DoGetActionEnabled(UnownedUtf8 actionName) => false;
 
-        VariantType IActionGroup.DoGetActionParameterType(Utf8 actionName) => VariantType.Int32;
+        VariantType IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) => VariantType.Int32;
 
-        Variant IActionGroup.DoGetActionState(Utf8 actionName) => new Variant(2);
+        Variant IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new Variant(2);
 
-        Variant IActionGroup.DoGetActionStateHint(Utf8 actionName) => new Variant(1);
+        Variant IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new Variant(1);
 
-        VariantType IActionGroup.DoGetActionStateType(Utf8 actionName) => VariantType.Boolean;
+        VariantType IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) => VariantType.Boolean;
 
-        bool IActionGroup.DoHasAction(Utf8 actionName) => false;
+        bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 
         Strv IActionGroup.DoListActions() => new Strv("test-action-1" );
     }

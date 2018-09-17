@@ -26,11 +26,17 @@ namespace GISharp.CodeGen.Syntax
         {
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
+
             if (!managed && (arg.Direction != "in" || (arg.Type.IsPointer
                     && arg.Type.ManagedType.IsValueType
                     && arg.Type.ManagedType != typeof(IntPtr)))) {
                 type = type.MakePointerType();
             }
+
+            if (managed && type == typeof(Utf8) && arg.TransferOwnership == "none") {
+                type = typeof(UnownedUtf8);
+            }
+
             var identifier = ParseToken(arg.ManagedName + suffix);
 
             IEnumerable<SyntaxToken> getModifiers()
@@ -102,10 +108,21 @@ namespace GISharp.CodeGen.Syntax
                 expression = ParseExpression($"{arg.ManagedName}_ = ({unmanagedType}){arg.ManagedName}");
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
-                var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
-                    $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
-                var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
-                expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? {nullValue}");
+                if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
+                    if (arg.IsNullable) {
+                        expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.Handle");
+                    }
+                    else {
+                        var throwIfNull = $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
+                        expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.IsNull ? {throwIfNull} : {arg.ManagedName}.Handle");
+                    }
+                }
+                else {
+                    var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
+                        $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
+                    var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
+                    expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? {nullValue}");
+                }
             }
             else if (arg.Type is Gir.Array array) {
                 var takeData = arg.TransferOwnership == "full";
@@ -171,9 +188,19 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
             else if (type.IsOpaque()) {
-                var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
-                var ownership = arg.GetOwnershipTransfer();
-                expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({arg.ManagedName}_, {ownership})");
+                // there are some special cases where there are Unowned versions of opaques
+                if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
+                    expression = ParseExpression($"{arg.ManagedName} = new {typeof(UnownedUtf8)}({arg.ManagedName}_, -1)");
+                }
+                else {
+                    var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
+                    var ownership = arg.GetOwnershipTransfer();
+                    var prefix = "";
+                    if (arg.Direction == "inout" && declareVariable) {
+                        prefix = "*";
+                    }
+                    expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({prefix}{arg.ManagedName}_, {ownership})");
+                }
             }
             else if (arg.Type is Gir.Array array) {
                 var elementType = array.TypeParameters.Single().ManagedType;

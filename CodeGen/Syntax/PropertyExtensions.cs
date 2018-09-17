@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -19,6 +20,11 @@ namespace GISharp.CodeGen.Syntax
         public static PropertyDeclarationSyntax GetDeclaration(this Property property)
         {
             var type = property.Type.ManagedType.ToSyntax();
+
+            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
+                type = ParseTypeName($"{typeof(UnownedUtf8)}");
+            }
+
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetCommonAccessModifiers())
                 .WithAttributeLists(property.GetAttributeLists())
@@ -59,7 +65,11 @@ namespace GISharp.CodeGen.Syntax
         static ExpressionSyntax GetGetExpression(this Property property)
         {
             var type = property.Type.ManagedType.ToSyntax();
-            var expression = $"({type})GetProperty(\"{property.GirName}\")";
+            var getter = $"({type})GetProperty";
+            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
+                getter = "GetUnownedUtf8Property";
+            }
+            var expression = $"{getter}(\"{property.GirName}\")";
             return ParseExpression(expression); 
         }
 
@@ -75,6 +85,11 @@ namespace GISharp.CodeGen.Syntax
         public static PropertyDeclarationSyntax GetInterfaceDeclaration(this Property property)
         {
             var type = property.Type.ManagedType.ToSyntax();
+
+            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
+                type = ParseTypeName($"{typeof(UnownedUtf8)}");
+            }
+
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithAttributeLists(property.GetCommonAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())

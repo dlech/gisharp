@@ -107,7 +107,7 @@ namespace GISharp.Lib.GLib
         /// time is in effect.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.Utf8 TimezoneAbbreviation { get => GetTimezoneAbbreviation(); }
+        public GISharp.Lib.GLib.UnownedUtf8 TimezoneAbbreviation { get => GetTimezoneAbbreviation(); }
 
         /// <summary>
         /// Determines the offset to UTC in effect at the time and in the time
@@ -517,9 +517,9 @@ namespace GISharp.Lib.GLib
         /// a new <see cref="DateTime"/>, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public static unsafe GISharp.Lib.GLib.DateTime FromIso8601(GISharp.Lib.GLib.Utf8 text, GISharp.Lib.GLib.TimeZone defaultTz)
+        public static unsafe GISharp.Lib.GLib.DateTime FromIso8601(GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone defaultTz)
         {
-            var text_ = text?.Handle ?? throw new System.ArgumentNullException(nameof(text));
+            var text_ = text.IsNull ? throw new System.ArgumentNullException(nameof(text)) : text.Handle;
             var defaultTz_ = defaultTz?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_date_time_new_from_iso8601(text_,defaultTz_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full);
@@ -1901,10 +1901,10 @@ namespace GISharp.Lib.GLib
         ///     should be freed with g_free().
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe GISharp.Lib.GLib.Utf8 Format(GISharp.Lib.GLib.Utf8 format)
+        public unsafe GISharp.Lib.GLib.Utf8 Format(GISharp.Lib.GLib.UnownedUtf8 format)
         {
             var datetime_ = Handle;
-            var format_ = format?.Handle ?? throw new System.ArgumentNullException(nameof(format));
+            var format_ = format.IsNull ? throw new System.ArgumentNullException(nameof(format)) : format.Handle;
             var ret_ = g_date_time_format(datetime_,format_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -2291,11 +2291,11 @@ namespace GISharp.Lib.GLib
         ///          modified or freed
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetTimezoneAbbreviation()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetTimezoneAbbreviation()
         {
             var datetime_ = Handle;
             var ret_ = g_date_time_get_timezone_abbreviation(datetime_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 

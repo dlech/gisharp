@@ -11,7 +11,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNew()
         {
-            using (var tz = new TimeZone(null)) {
+            using (var tz = new TimeZone(Utf8.Null)) {
             }
             AssertNoGLibLog();
         }
@@ -35,7 +35,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestFindInterval()
         {
-            using (var tz = new TimeZone(null)) {
+            using (var tz = new TimeZone(Utf8.Null)) {
                 Assert.That(tz.FindInterval(TimeType.Universal, 1), Is.GreaterThan(0));
             }
             AssertNoGLibLog();
@@ -44,7 +44,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestAdjustTime()
         {
-            using (var tz = new TimeZone(null)) {
+            using (var tz = new TimeZone(Utf8.Null)) {
                 Assert.That(tz.AdjustTime(TimeType.Universal, 1), Is.GreaterThan(0));
             }
             AssertNoGLibLog();
@@ -53,8 +53,8 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestGetAbbreviation()
         {
-            using (var tz = new TimeZone(null)) {
-                Assert.That(tz.GetAbbreviation(1), Is.Not.Null);
+            using (var tz = new TimeZone(Utf8.Null)) {
+                Assert.That<string>(tz.GetAbbreviation(1), Is.Not.Null);
             }
             AssertNoGLibLog();
         }

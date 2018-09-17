@@ -164,9 +164,9 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.20")]
-        public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.Utf8 str)
+        public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
-            var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str));
+            var str_ = str.IsNull ? throw new System.ArgumentNullException(nameof(str)) : str.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_icon_new_for_string(str_,&error_);
             if (error_ != System.IntPtr.Zero)

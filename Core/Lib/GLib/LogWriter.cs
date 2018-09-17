@@ -257,13 +257,13 @@ namespace GISharp.Lib.GLib
         /// string containing the formatted log message
         /// </returns>
         [Since ("2.50")]
-        public static Utf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
+        public static UnownedUtf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
         {
             if (fields == null) {
                 throw new ArgumentNullException (nameof(fields));
             }
             var ret_ = g_log_writer_format_fields (logLevel, fields, (UIntPtr)fields.Length, useColor);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+            var ret = new UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -797,9 +797,9 @@ namespace GISharp.Lib.GLib
         /// containing the key-value pairs of message data.
         /// </param>
         [Since ("2.50")]
-        public static void Log(Utf8 logDomain, LogLevelFlags logLevel, Variant fields)
+        public static void Log(UnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
         {
-            var logDomain_ = logDomain?.Handle ?? IntPtr.Zero;
+            var logDomain_ = logDomain.Handle;
             var fields_ = fields?.Handle ?? throw new ArgumentNullException(nameof(fields));
             if (fields.Type != VariantType.VariantDictionary) {
                 throw new ArgumentException("Requires VariantType.VarDict", nameof(fields));

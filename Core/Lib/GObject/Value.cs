@@ -142,7 +142,7 @@ namespace GISharp.Lib.GObject
                 return Pointer;
             }
             if (gtype == GType.String) {
-                return String;
+                return String.Copy();
             }
             if (gtype == GType.Variant) {
                 return Variant;
@@ -198,7 +198,19 @@ namespace GISharp.Lib.GObject
                     if (obj is string str) {
                         obj = new Utf8(str);
                     }
-                    String = (Utf8)obj;
+                    if (obj is Utf8 utf8) {
+                        String = new UnownedUtf8(utf8.Handle, -1);
+                    }
+                    else if (obj?.GetType() == typeof(UnownedUtf8)) {
+                        // It is not possible to cast to UnownedUtf8 since it
+                        // is a ref struct. Reflection got us into this situation,
+                        // so reflection is the only way out.
+                        var utf8_ = (IntPtr)unownedUtf8HandleProperty.GetValue(obj);
+                        g_value_set_string(ref this, utf8_);
+                    }
+                    else {
+                        throw new InvalidCastException();
+                    }
                 } else if (gtype == GType.Variant) {
                     Variant = (Variant)obj;
                 } else {
@@ -208,6 +220,14 @@ namespace GISharp.Lib.GObject
             } catch (InvalidCastException ex) {
                 throw new ArgumentException ("Wrong type", nameof (obj), ex);
             }
+        }
+
+        static readonly PropertyInfo unownedUtf8HandleProperty =
+            typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.Handle));
+
+        public UnownedUtf8 GetUnownedUtf8()
+        {
+            return String;
         }
 
         /// <summary>
@@ -1356,17 +1376,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// string content of @value
         /// </returns>
-        Utf8 String {
+        UnownedUtf8 String {
             get {
                 AssertType (GType.String);
-                var ret_ = g_value_get_string (in this);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret_ = g_value_get_string(in this);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
 
             set {
                 AssertType (GType.String);
-                g_value_set_string(ref this, value?.Handle ?? IntPtr.Zero);
+                g_value_set_string(ref this, value.Handle);
             }
         }
 

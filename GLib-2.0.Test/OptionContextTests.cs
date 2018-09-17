@@ -16,7 +16,7 @@ namespace GISharp.Test.GLib
             using (var oc = new OptionContext()) {
                 var expected = "summary";
                 oc.Summary = expected;
-                Assert.That(oc.Summary, IsEqualToUtf8(expected));
+                Assert.That<string>(oc.Summary, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -27,7 +27,7 @@ namespace GISharp.Test.GLib
             using (var oc = new OptionContext()) {
                 var expected = "description";
                 oc.Description = expected;
-                Assert.That(oc.Description, IsEqualToUtf8(expected));
+                Assert.That<string>(oc.Description, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -36,7 +36,7 @@ namespace GISharp.Test.GLib
         public void TestSetTranslateFunc()
         {
             using (var oc = new OptionContext()) {
-                var translate = new TranslateFunc(x => x.Reverse());
+                var translate = new TranslateFunc(x => x.ToString().Normalize());
                 oc.SetTranslateFunc(translate);
                 oc.SetTranslateFunc(null);
             }
@@ -48,7 +48,7 @@ namespace GISharp.Test.GLib
         {
             using (var oc = new OptionContext()) {
                 oc.SetTranslationDomain("domain");
-                Assert.That(() => oc.SetTranslationDomain(null),
+                Assert.That(() => oc.SetTranslationDomain(Utf8.Null),
                     Throws.ArgumentNullException);
             }
             AssertNoGLibLog();

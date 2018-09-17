@@ -191,10 +191,10 @@ namespace GISharp.Lib.GLib
         /// <param name="message">
         /// the message
         /// </param>
-        public static void DefaultHandler(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message)
+        public static void DefaultHandler(UnownedUtf8 logDomain, LogLevelFlags logLevel, UnownedUtf8 message)
         {
-            var logDomain_ = logDomain?.Handle ?? IntPtr.Zero;
-            var message_ = message?.Handle ?? IntPtr.Zero;
+            var logDomain_ = logDomain.Handle;
+            var message_ = message.Handle;
             g_log_default_handler(logDomain_, logLevel, message_, IntPtr.Zero);
         }
 
@@ -237,9 +237,9 @@ namespace GISharp.Lib.GLib
         /// the id of the handler, which was returned
         /// in <see cref="SetHandler"/>
         /// </param>
-        public static void RemoveHandler(Utf8 logDomain, uint handlerId)
+        public static void RemoveHandler(UnownedUtf8 logDomain, uint handlerId)
         {
-            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
+            var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
             g_log_remove_handler(logDomain_, handlerId);
         }
 
@@ -428,9 +428,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the old fatal mask for the log domain
         /// </returns>
-        public static LogLevelFlags SetFatalMask(Utf8 logDomain, LogLevelFlags fatalMask)
+        public static LogLevelFlags SetFatalMask(UnownedUtf8 logDomain, LogLevelFlags fatalMask)
         {
-            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
+            var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
             var ret = g_log_set_fatal_mask(logDomain_, fatalMask);
             return ret;
         }
@@ -534,9 +534,9 @@ namespace GISharp.Lib.GLib
         /// the id of the new handler
         /// </returns>
         [Since ("2.46")]
-        public static uint SetHandler(Utf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
+        public static uint SetHandler(UnownedUtf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
-            var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logFunc));
+            var logDomain_ = logDomain.Handle;
             var (logFunc_, destroy_, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Notified);
             var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;

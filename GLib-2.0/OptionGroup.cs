@@ -26,11 +26,11 @@ namespace GISharp.Lib.GLib
             public DestroyList DestroyCallbacks { get; } = new DestroyList();
         }
 
-        static (IntPtr, UserData) New(Utf8 name, Utf8 description, Utf8 helpDescription)
+        static (IntPtr, UserData) New(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
         {
-            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
-            var description_ = description?.Handle ?? throw new ArgumentNullException(nameof(description));
-            var helpDescription_ = helpDescription?.Handle ?? throw new ArgumentNullException(nameof(helpDescription));
+            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var description_ = description.IsNull ? throw new ArgumentNullException(nameof(description)) : description.Handle;
+            var helpDescription_ = helpDescription.IsNull ? throw new ArgumentNullException(nameof(helpDescription)) : helpDescription.Handle;
             var userData = new UserData();
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var ret = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GLib
         /// of the group
         /// </param>
         [Since("2.6")]
-        public OptionGroup(Utf8 name, Utf8 description, Utf8 helpDescription)
+        public OptionGroup(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
             : this(New(name, description, helpDescription))
         {
         }

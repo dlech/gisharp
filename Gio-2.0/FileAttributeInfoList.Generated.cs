@@ -105,10 +105,10 @@ namespace GISharp.Lib.Gio
         /// <param name="flags">
         /// <see cref="FileAttributeInfoFlags"/> for the attribute.
         /// </param>
-        public unsafe void Add(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
+        public unsafe void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             var list_ = Handle;
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var flags_ = (GISharp.Lib.Gio.FileAttributeInfoFlags)flags;
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
@@ -179,10 +179,10 @@ namespace GISharp.Lib.Gio
         /// a <see cref="FileAttributeInfo"/> for the <paramref name="name"/>, or <c>null</c> if an
         /// attribute isn't found.
         /// </returns>
-        public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.Utf8 name)
+        public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             var list_ = Handle;
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             var ret = (ret_ == null) ? default(GISharp.Lib.Gio.FileAttributeInfo?) : (GISharp.Lib.Gio.FileAttributeInfo)(*ret_);
             return ret;

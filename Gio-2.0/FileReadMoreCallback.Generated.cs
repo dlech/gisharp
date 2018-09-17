@@ -27,7 +27,7 @@ namespace GISharp.Lib.Gio
     /// A <see cref="FileReadMoreCallback"/> function facilitates this by returning <c>true</c> if more data
     /// should be read, or <c>false</c> otherwise.
     /// </summary>
-    public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.Utf8 fileContents, System.Int64 fileSize);
+    public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize);
 
     /// <summary>
     /// Factory for creating <see cref="FileReadMoreCallback"/> methods.
@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gio
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe System.Boolean callback_(GISharp.Lib.GLib.Utf8 fileContents, System.Int64 fileSize) { var callbackData_ = userData; var fileContents_ = fileContents?.Handle ?? throw new System.ArgumentNullException(nameof(fileContents)); var fileSize_ = (System.Int64)fileSize; var ret_ = callback(fileContents_,fileSize_,callbackData_); var ret = (System.Boolean)ret_; return ret; }
+            unsafe System.Boolean callback_(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var callbackData_ = userData; var fileContents_ = fileContents.IsNull ? throw new System.ArgumentNullException(nameof(fileContents)) : fileContents.Handle; var fileSize_ = (System.Int64)fileSize; var ret_ = callback(fileContents_,fileSize_,callbackData_); var ret = (System.Boolean)ret_; return ret; }
 
             return callback_;
         }
@@ -89,7 +89,7 @@ namespace GISharp.Lib.Gio
         {
             try
             {
-                var fileContents = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(fileContents_, GISharp.Runtime.Transfer.None);
+                var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_, -1);
                 var fileSize = (System.Int64)fileSize_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
                 var callbackData = (UserData)gcHandle.Target;

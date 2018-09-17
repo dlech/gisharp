@@ -28,12 +28,12 @@ namespace GISharp.Lib.GLib
         /// <paramref name="locale"/> or <paramref name="list"/> is <c>null</c>.
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public void SetLocaleStringList(Utf8 groupName, Utf8 key, Utf8 locale, Strv list)
+        public void SetLocaleStringList(UnownedUtf8 groupName, UnownedUtf8 key, UnownedUtf8 locale, Strv list)
         {
             var keyFile_ = this.Handle;
-            var groupName_ = groupName?.Handle ?? throw new ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? throw new ArgumentNullException(nameof(locale));
+            var groupName_ = groupName.IsNull ? throw new ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
+            var locale_ = locale.IsNull ? throw new ArgumentNullException(nameof(locale)) : locale.Handle;
             var list_ = list?.Handle ?? throw new ArgumentNullException(nameof(list));
             var length_ = (UIntPtr)list.Length;
             g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
@@ -59,11 +59,11 @@ namespace GISharp.Lib.GLib
         /// <paramref name="list"/> is <c>null</c>.
         /// </exception>
         [Since("2.6")]
-        public void SetStringList(Utf8 groupName, Utf8 key, Strv list)
+        public void SetStringList(UnownedUtf8 groupName, UnownedUtf8 key, Strv list)
         {
             var keyFile_ = this.Handle;
-            var groupName_ = groupName?.Handle ?? throw new ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
             var list_ = list?.Handle ?? throw new ArgumentNullException(nameof(list));
             var length_ = (UIntPtr)list.Length;
             g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);

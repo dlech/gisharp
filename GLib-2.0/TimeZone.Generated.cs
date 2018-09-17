@@ -51,7 +51,7 @@ namespace GISharp.Lib.GLib
         /// this function.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.58")]
-        public GISharp.Lib.GLib.Utf8 Identifier { get => GetIdentifier(); }
+        public GISharp.Lib.GLib.UnownedUtf8 Identifier { get => GetIdentifier(); }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public TimeZone(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
@@ -212,9 +212,9 @@ namespace GISharp.Lib.GLib
         /// the requested timezone
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 identifier)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 identifier)
         {
-            var identifier_ = identifier?.Handle ?? System.IntPtr.Zero;
+            var identifier_ = identifier.Handle;
             var ret_ = g_time_zone_new(identifier_);
             return ret_;
         }
@@ -289,7 +289,7 @@ namespace GISharp.Lib.GLib
         /// a timezone identifier
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public TimeZone(GISharp.Lib.GLib.Utf8 identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
+        public TimeZone(GISharp.Lib.GLib.UnownedUtf8 identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -663,12 +663,12 @@ namespace GISharp.Lib.GLib
         /// the time zone abbreviation, which belongs to <paramref name="tz"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetAbbreviation(System.Int32 interval)
+        public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAbbreviation(System.Int32 interval)
         {
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -713,11 +713,11 @@ namespace GISharp.Lib.GLib
         /// identifier for this timezone
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.58")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetIdentifier()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
         {
             var tz_ = Handle;
             var ret_ = g_time_zone_get_identifier(tz_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 

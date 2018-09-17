@@ -54,7 +54,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
-        GISharp.Lib.GLib.Utf8 Name { get; }
+        GISharp.Lib.GLib.UnownedUtf8 Name { get; }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetName))]
-        GISharp.Lib.GLib.Utf8 DoGetName();
+        GISharp.Lib.GLib.UnownedUtf8 DoGetName();
 
         /// <summary>
         /// Queries the type of the parameter that must be given when activating
@@ -274,9 +274,9 @@ namespace GISharp.Lib.Gio
         /// <c>true</c> if <paramref name="actionName"/> is valid
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe System.Boolean NameIsValid(GISharp.Lib.GLib.Utf8 actionName)
+        public static unsafe System.Boolean NameIsValid(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
             var ret_ = g_action_name_is_valid(actionName_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -385,9 +385,9 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe void ParseDetailedName(GISharp.Lib.GLib.Utf8 detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
+        public static unsafe void ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8 detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
         {
-            var detailedName_ = detailedName?.Handle ?? throw new System.ArgumentNullException(nameof(detailedName));
+            var detailedName_ = detailedName.IsNull ? throw new System.ArgumentNullException(nameof(detailedName)) : detailedName.Handle;
             System.IntPtr actionName_;
             System.IntPtr targetValue_;
             var error_ = System.IntPtr.Zero;
@@ -459,9 +459,9 @@ namespace GISharp.Lib.Gio
         /// a detailed format string
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(GISharp.Lib.GLib.Utf8 actionName, GISharp.Lib.GLib.Variant targetValue)
+        public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant targetValue)
         {
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
             var targetValue_ = targetValue?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
@@ -655,11 +655,11 @@ namespace GISharp.Lib.Gio
         /// the name of the action
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.Utf8 GetName(this GISharp.Lib.Gio.IAction action)
+        public unsafe static GISharp.Lib.GLib.UnownedUtf8 GetName(this GISharp.Lib.Gio.IAction action)
         {
             var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
             var ret_ = g_action_get_name(action_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 

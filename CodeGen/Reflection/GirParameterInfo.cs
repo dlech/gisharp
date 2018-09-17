@@ -1,6 +1,7 @@
 using System;
 using System.Reflection;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -15,6 +16,14 @@ namespace GISharp.CodeGen.Reflection
 
         public override string Name => arg.ManagedName;
 
-        public override System.Type ParameterType => arg.Type.ManagedType;
+        public override System.Type ParameterType {
+            get {
+                var type = arg.Type.ManagedType;
+                if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
+                    type = typeof(UnownedUtf8);
+                }
+                return type;
+            }
+        }
     }
 }

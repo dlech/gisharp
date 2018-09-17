@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
         /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GLib.Utf8 Description { get => GetDescription(); set => SetDescription(value); }
+        public GISharp.Lib.GLib.UnownedUtf8 Description { get => GetDescription(); set => SetDescription(value); }
 
         /// <summary>
         /// Returns whether automatic `--help` generation
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GLib
         /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GLib.Utf8 Summary { get => GetSummary(); set => SetSummary(value); }
+        public GISharp.Lib.GLib.UnownedUtf8 Summary { get => GetSummary(); set => SetSummary(value); }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
@@ -126,9 +126,9 @@ namespace GISharp.Lib.GLib
         ///    freed with <see cref="OptionContext.Free"/> after use.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 parameterString)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 parameterString)
         {
-            var parameterString_ = parameterString?.Handle ?? System.IntPtr.Zero;
+            var parameterString_ = parameterString.Handle;
             var ret_ = g_option_context_new(parameterString_);
             return ret_;
         }
@@ -217,11 +217,11 @@ namespace GISharp.Lib.GLib
         /// the description
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetDescription()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDescription()
         {
             var context_ = Handle;
             var ret_ = g_option_context_get_description(context_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -461,11 +461,11 @@ namespace GISharp.Lib.GLib
         /// the summary
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe GISharp.Lib.GLib.Utf8 GetSummary()
+        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetSummary()
         {
             var context_ = Handle;
             var ret_ = g_option_context_get_summary(context_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -509,10 +509,10 @@ namespace GISharp.Lib.GLib
         ///   after the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetDescription(GISharp.Lib.GLib.Utf8 description)
+        private unsafe void SetDescription(GISharp.Lib.GLib.UnownedUtf8 description)
         {
             var context_ = Handle;
-            var description_ = description?.Handle ?? System.IntPtr.Zero;
+            var description_ = description.Handle;
             g_option_context_set_description(context_, description_);
         }
 
@@ -774,10 +774,10 @@ namespace GISharp.Lib.GLib
         ///  before the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetSummary(GISharp.Lib.GLib.Utf8 summary)
+        private unsafe void SetSummary(GISharp.Lib.GLib.UnownedUtf8 summary)
         {
             var context_ = Handle;
-            var summary_ = summary?.Handle ?? System.IntPtr.Zero;
+            var summary_ = summary.Handle;
             g_option_context_set_summary(context_, summary_);
         }
 
@@ -880,10 +880,10 @@ namespace GISharp.Lib.GLib
         /// the domain to use
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe void SetTranslationDomain(GISharp.Lib.GLib.Utf8 domain)
+        public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             var context_ = Handle;
-            var domain_ = domain?.Handle ?? throw new System.ArgumentNullException(nameof(domain));
+            var domain_ = domain.IsNull ? throw new System.ArgumentNullException(nameof(domain)) : domain.Handle;
             g_option_context_set_translation_domain(context_, domain_);
         }
     }

@@ -27,7 +27,7 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(removeActionOffset, RemoveActionFactory.Create);
         }
 
-        public delegate GISharp.Lib.Gio.IAction LookupAction(GISharp.Lib.GLib.Utf8 actionName);
+        public delegate GISharp.Lib.Gio.IAction LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
@@ -47,12 +47,12 @@ System.IntPtr actionName);
         {
             public static unsafe UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr lookupAction(System.IntPtr actionMap_, System.IntPtr actionName_)
+                System.IntPtr unmanagedLookupAction(System.IntPtr actionMap_, System.IntPtr actionName_)
                 {
                     try
                     {
                         var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                        var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                        var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doLookupAction = (LookupAction)methodInfo.CreateDelegate(typeof(LookupAction), actionMap);
                         var ret = doLookupAction(actionName);
                         var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
@@ -66,7 +66,7 @@ System.IntPtr actionName);
                     return default(System.IntPtr);
                 }
 
-                return lookupAction;
+                return unmanagedLookupAction;
             }
         }
 
@@ -90,7 +90,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedAddAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void addAction(System.IntPtr actionMap_, System.IntPtr action_)
+                void unmanagedAddAction(System.IntPtr actionMap_, System.IntPtr action_)
                 {
                     try
                     {
@@ -105,11 +105,11 @@ System.IntPtr action);
                     }
                 }
 
-                return addAction;
+                return unmanagedAddAction;
             }
         }
 
-        public delegate void RemoveAction(GISharp.Lib.GLib.Utf8 actionName);
+        public delegate void RemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -129,12 +129,12 @@ System.IntPtr actionName);
         {
             public static unsafe UnmanagedRemoveAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void removeAction(System.IntPtr actionMap_, System.IntPtr actionName_)
+                void unmanagedRemoveAction(System.IntPtr actionMap_, System.IntPtr actionName_)
                 {
                     try
                     {
                         var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                        var actionName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(actionName_, GISharp.Runtime.Transfer.None);
+                        var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doRemoveAction = (RemoveAction)methodInfo.CreateDelegate(typeof(RemoveAction), actionMap);
                         doRemoveAction(actionName);
                     }
@@ -144,7 +144,7 @@ System.IntPtr actionName);
                     }
                 }
 
-                return removeAction;
+                return unmanagedRemoveAction;
             }
         }
 

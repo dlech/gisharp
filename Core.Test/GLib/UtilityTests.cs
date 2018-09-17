@@ -15,7 +15,7 @@ namespace GISharp.Test.Core
         {
             // Utility.ApplicationName is set in TestHelpers assembly during
             // one time setup
-            Assert.That(Utility.ApplicationName, Is.EqualTo("GISharp.Test"));
+            Assert.That<string>(Utility.ApplicationName, Is.EqualTo("GISharp.Test"));
         }
 
         [Test]
@@ -23,7 +23,7 @@ namespace GISharp.Test.Core
         {
             // Utility.ProgramName is set in TestHelpers assembly during
             // one time setup
-            Assert.That(Utility.ProgramName, Is.EqualTo("GISharp.Test"));
+            Assert.That<string>(Utility.ProgramName, Is.EqualTo("GISharp.Test"));
         }
     }
 }

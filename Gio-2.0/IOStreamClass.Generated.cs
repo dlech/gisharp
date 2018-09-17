@@ -56,7 +56,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedGetInputStream Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getInputStream(System.IntPtr stream_)
+                System.IntPtr unmanagedGetInputStream(System.IntPtr stream_)
                 {
                     try
                     {
@@ -74,7 +74,7 @@ System.IntPtr stream);
                     return default(System.IntPtr);
                 }
 
-                return getInputStream;
+                return unmanagedGetInputStream;
             }
         }
 
@@ -95,7 +95,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedGetOutputStream Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getOutputStream(System.IntPtr stream_)
+                System.IntPtr unmanagedGetOutputStream(System.IntPtr stream_)
                 {
                     try
                     {
@@ -113,7 +113,7 @@ System.IntPtr stream);
                     return default(System.IntPtr);
                 }
 
-                return getOutputStream;
+                return unmanagedGetOutputStream;
             }
         }
 
@@ -140,7 +140,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean closeFn(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedCloseFn(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -162,7 +162,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return closeFn;
+                return unmanagedCloseFn;
             }
         }
 
@@ -195,7 +195,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void closeAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -212,7 +212,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return closeAsync;
+                return unmanagedCloseAsync;
             }
         }
 
@@ -239,7 +239,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean closeFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedCloseFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -261,7 +261,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return closeFinish;
+                return unmanagedCloseFinish;
             }
         }
 

@@ -204,8 +204,8 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestName ()
         {
-            Assert.That (GType.Invalid.Name, Is.Null);
-            Assert.That (GType.None.Name, Is.EqualTo ("void"));
+            Assert.That<string>(GType.Invalid.Name, Is.Null);
+            Assert.That<string>(GType.None.Name, Is.EqualTo("void"));
 
             AssertNoGLibLog();
         }
@@ -248,8 +248,8 @@ namespace GISharp.Test.Core.GObject
                          Is.EqualTo (GType.Invalid));
             Assert.That (() => GType.FromName ("name has invalid characters"),
                          Throws.TypeOf<InvalidGTypeNameException> ());
-            Assert.That (() => GType.FromName (null),
-                         Throws.TypeOf<ArgumentNullException> ());
+            Assert.That(() => GType.FromName(Utf8.Null),
+                Throws.TypeOf<ArgumentNullException>());
 
             AssertNoGLibLog();
         }

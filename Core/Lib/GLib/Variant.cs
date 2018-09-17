@@ -2079,9 +2079,9 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @string is a D-Bus object path
         /// </returns>
         [Since ("2.24")]
-        public static bool IsObjectPath(Utf8 @string)
+        public static bool IsObjectPath(UnownedUtf8 @string)
         {
-            var string_ = @string?.Handle ?? throw new ArgumentNullException(nameof(@string));
+            var string_ = @string.IsNull ? throw new ArgumentNullException(nameof(@string)) : @string.Handle;
             var ret = g_variant_is_object_path(@string_);
             return ret;
         }
@@ -2126,9 +2126,9 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @string is a D-Bus type signature
         /// </returns>
         [Since ("2.24")]
-        public static bool IsSignature(Utf8 @string)
+        public static bool IsSignature(UnownedUtf8 @string)
         {
-            var string_ = @string?.Handle ?? throw new ArgumentNullException(nameof(@string));
+            var string_ = @string.IsNull ? throw new ArgumentNullException(nameof(@string)) : @string.Handle;
             var ret = g_variant_is_signature(@string_);
             return ret;
         }
@@ -2248,13 +2248,13 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a non-floating reference to a #GVariant, or %NULL
         /// </returns>
-        public static Variant Parse(VariantType type, Utf8 text)
+        public static Variant Parse(VariantType type, UnownedUtf8 text)
         {
             if (text == null) {
                 throw new ArgumentNullException (nameof (text));
             }
             var type_ = type?.Handle ?? IntPtr.Zero;
-            var text_ = text?.Handle ?? IntPtr.Zero;
+            var text_ = text.Handle;
             IntPtr error_;
             var ret = g_variant_parse (type_, text_, IntPtr.Zero, IntPtr.Zero, out error_);
             if (error_ != IntPtr.Zero) {
@@ -2389,10 +2389,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @format_string is safe to use
         /// </returns>
         [Since ("2.34")]
-        public bool CheckFormatString(Utf8 formatString, bool copyOnly)
+        public bool CheckFormatString(UnownedUtf8 formatString, bool copyOnly)
         {
             var this_ = Handle;
-            var formatString_ = formatString?.Handle ?? throw new ArgumentNullException(nameof(formatString));
+            var formatString_ = formatString.IsNull ? throw new ArgumentNullException(nameof(formatString)) : formatString.Handle;
             var ret = g_variant_check_format_string(this_, formatString_, copyOnly);
             return ret;
         }
@@ -3728,10 +3728,10 @@ namespace GISharp.Lib.GLib
         /// the type string for the type of @value
         /// </returns>
         [Since ("2.24")]
-        public Utf8 TypeString {
+        public UnownedUtf8 TypeString {
             get {
                 var ret_ = g_variant_get_type_string(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -4163,10 +4163,10 @@ namespace GISharp.Lib.GLib
         /// the value of the dictionary key, or %NULL
         /// </returns>
         [Since ("2.28")]
-        public Variant LookupValue (Utf8 key, VariantType expectedType)
+        public Variant LookupValue (UnownedUtf8 key, VariantType expectedType)
         {
             var this_ = Handle;
-            var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
+            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
             var expectedType_ = expectedType?.Handle ?? IntPtr.Zero;
             var ret_ = g_variant_lookup_value(this_, key_, expectedType_);
             var ret = GetInstance<Variant> (ret_, Transfer.Full);

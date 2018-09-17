@@ -46,7 +46,7 @@ System.IntPtr res);
         {
             public static unsafe UnmanagedGetUserData Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getUserData(System.IntPtr res_)
+                System.IntPtr unmanagedGetUserData(System.IntPtr res_)
                 {
                     try
                     {
@@ -64,7 +64,7 @@ System.IntPtr res);
                     return default(System.IntPtr);
                 }
 
-                return getUserData;
+                return unmanagedGetUserData;
             }
         }
 
@@ -85,7 +85,7 @@ System.IntPtr res);
         {
             public static unsafe UnmanagedGetSourceObject Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getSourceObject(System.IntPtr res_)
+                System.IntPtr unmanagedGetSourceObject(System.IntPtr res_)
                 {
                     try
                     {
@@ -103,7 +103,7 @@ System.IntPtr res);
                     return default(System.IntPtr);
                 }
 
-                return getSourceObject;
+                return unmanagedGetSourceObject;
             }
         }
 
@@ -127,7 +127,7 @@ System.IntPtr sourceTag);
         {
             public static unsafe UnmanagedIsTagged Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean isTagged(System.IntPtr res_, System.IntPtr sourceTag_)
+                System.Boolean unmanagedIsTagged(System.IntPtr res_, System.IntPtr sourceTag_)
                 {
                     try
                     {
@@ -146,7 +146,7 @@ System.IntPtr sourceTag);
                     return default(System.Boolean);
                 }
 
-                return isTagged;
+                return unmanagedIsTagged;
             }
         }
 

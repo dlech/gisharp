@@ -86,7 +86,7 @@ namespace GISharp.Test.GLib
                 Assert.That(dt, Is.Not.Null);
             }
             
-            Assert.That(() => DateTime.FromIso8601(null, null),
+            Assert.That(() => DateTime.FromIso8601(Utf8.Null, null),
                 Throws.ArgumentNullException);
 
             AssertNoGLibLog();

@@ -42,7 +42,7 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(activateOffset, ActivateFactory.Create);
         }
 
-        public delegate GISharp.Lib.GLib.Utf8 GetName();
+        public delegate GISharp.Lib.GLib.UnownedUtf8 GetName();
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
@@ -59,14 +59,14 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getName(System.IntPtr action_)
+                System.IntPtr unmanagedGetName(System.IntPtr action_)
                 {
                     try
                     {
                         var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
                         var doGetName = (GetName)methodInfo.CreateDelegate(typeof(GetName), action);
                         var ret = doGetName();
-                        var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.IsNull ? throw new System.ArgumentNullException(nameof(ret)) : ret.Handle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -77,7 +77,7 @@ System.IntPtr action);
                     return default(System.IntPtr);
                 }
 
-                return getName;
+                return unmanagedGetName;
             }
         }
 
@@ -98,7 +98,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getParameterType(System.IntPtr action_)
+                System.IntPtr unmanagedGetParameterType(System.IntPtr action_)
                 {
                     try
                     {
@@ -116,7 +116,7 @@ System.IntPtr action);
                     return default(System.IntPtr);
                 }
 
-                return getParameterType;
+                return unmanagedGetParameterType;
             }
         }
 
@@ -137,7 +137,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetStateType Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getStateType(System.IntPtr action_)
+                System.IntPtr unmanagedGetStateType(System.IntPtr action_)
                 {
                     try
                     {
@@ -155,7 +155,7 @@ System.IntPtr action);
                     return default(System.IntPtr);
                 }
 
-                return getStateType;
+                return unmanagedGetStateType;
             }
         }
 
@@ -176,7 +176,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getStateHint(System.IntPtr action_)
+                System.IntPtr unmanagedGetStateHint(System.IntPtr action_)
                 {
                     try
                     {
@@ -194,7 +194,7 @@ System.IntPtr action);
                     return default(System.IntPtr);
                 }
 
-                return getStateHint;
+                return unmanagedGetStateHint;
             }
         }
 
@@ -215,7 +215,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean getEnabled(System.IntPtr action_)
+                System.Boolean unmanagedGetEnabled(System.IntPtr action_)
                 {
                     try
                     {
@@ -233,7 +233,7 @@ System.IntPtr action);
                     return default(System.Boolean);
                 }
 
-                return getEnabled;
+                return unmanagedGetEnabled;
             }
         }
 
@@ -254,7 +254,7 @@ System.IntPtr action);
         {
             public static unsafe UnmanagedGetState Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getState(System.IntPtr action_)
+                System.IntPtr unmanagedGetState(System.IntPtr action_)
                 {
                     try
                     {
@@ -272,7 +272,7 @@ System.IntPtr action);
                     return default(System.IntPtr);
                 }
 
-                return getState;
+                return unmanagedGetState;
             }
         }
 
@@ -296,7 +296,7 @@ System.IntPtr value);
         {
             public static unsafe UnmanagedChangeState Create(System.Reflection.MethodInfo methodInfo)
             {
-                void changeState(System.IntPtr action_, System.IntPtr value_)
+                void unmanagedChangeState(System.IntPtr action_, System.IntPtr value_)
                 {
                     try
                     {
@@ -311,7 +311,7 @@ System.IntPtr value);
                     }
                 }
 
-                return changeState;
+                return unmanagedChangeState;
             }
         }
 
@@ -335,7 +335,7 @@ System.IntPtr parameter);
         {
             public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
-                void activate(System.IntPtr action_, System.IntPtr parameter_)
+                void unmanagedActivate(System.IntPtr action_, System.IntPtr parameter_)
                 {
                     try
                     {
@@ -350,7 +350,7 @@ System.IntPtr parameter);
                     }
                 }
 
-                return activate;
+                return unmanagedActivate;
             }
         }
 

@@ -8,6 +8,6 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the name of the attribute.
         /// </summary>
-        public Utf8 Name => Opaque.GetInstance<Utf8>(name, Transfer.None);
+        public UnownedUtf8 Name => new UnownedUtf8(name, -1);
     }
 }

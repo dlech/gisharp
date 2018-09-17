@@ -18,7 +18,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the type
         /// </summary>
-        public Utf8 TypeName => Opaque.GetInstance<Utf8>(typeName, Transfer.None);
+        public UnownedUtf8 TypeName => new UnownedUtf8(typeName, -1);
         IntPtr typeName;
 
         /// <summary>

@@ -59,10 +59,10 @@ namespace GISharp.Lib.GObject
             GType owner_type, // GType
             bool walk_ancestors); // gboolean
 
-        public ParamSpec Lookup(Utf8 paramName, GType ownerType, bool walkAncestors)
+        public ParamSpec Lookup(UnownedUtf8 paramName, GType ownerType, bool walkAncestors)
         {
             var this_ = Handle;
-            var paramName_ = paramName?.Handle ?? throw new ArgumentNullException(nameof(paramName));
+            var paramName_ = paramName.IsNull ? throw new ArgumentNullException(nameof(paramName)) : paramName.Handle;
             var ret_ = g_param_spec_pool_lookup(this_, paramName_, ownerType, walkAncestors);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;

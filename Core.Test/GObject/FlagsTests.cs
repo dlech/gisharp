@@ -60,12 +60,12 @@ namespace GISharp.Test.Core.GObject
             Assert.That (testFlags4GType.IsA (GType.Flags), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That(testFlags4GType.Name, IsEqualToUtf8("GISharp-Test-Core-GObject-FlagsTests+TestFlags4"));
+            Assert.That<string>(testFlags4GType.Name, Is.EqualTo("GISharp-Test-Core-GObject-FlagsTests+TestFlags4"));
             using (var flags4TypeClass = (FlagsClass)TypeClass.Get (testFlags4GType)) {
                 var value = Flags.GetFirstValue (flags4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));
-                Assert.That(value.Name, IsEqualToUtf8("One"));
-                Assert.That(value.Nick, IsEqualToUtf8("One"));
+                Assert.That<string>(value.Name, Is.EqualTo("One"));
+                Assert.That<string>(value.Nick, Is.EqualTo("One"));
             }
 
             AssertNoGLibLog();
@@ -77,17 +77,17 @@ namespace GISharp.Test.Core.GObject
         {
             // make sure that we can override name and nick with attributes
             var testFlags5GType = typeof(TestFlags5).GetGType ();
-            Assert.That (testFlags5GType.Name, Is.EqualTo ("TestFlags5GTypeName"));
+            Assert.That<string>(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
             using (var flags5TypeClass = (FlagsClass)TypeClass.Get (testFlags5GType)) {
                 var value1 = Flags.GetFirstValue (flags5TypeClass, 1);
                 Assert.That (value1.Value, Is.EqualTo ((int)TestFlags5.One));
-                Assert.That(value1.Name, IsEqualToUtf8("test_flags_5_value_one"));
-                Assert.That(value1.Nick, IsEqualToUtf8("One"));
+                Assert.That<string>(value1.Name, Is.EqualTo("test_flags_5_value_one"));
+                Assert.That<string>(value1.Nick, Is.EqualTo("One"));
 
                 var value2 = Flags.GetFirstValue (flags5TypeClass, 2);
                 Assert.That (value2.Value, Is.EqualTo ((int)TestFlags5.Two));
-                Assert.That(value2.Name, IsEqualToUtf8("Two"));
-                Assert.That(value2.Nick, IsEqualToUtf8("test_flags_5_value_two"));
+                Assert.That<string>(value2.Name, Is.EqualTo("Two"));
+                Assert.That<string>(value2.Nick, Is.EqualTo("test_flags_5_value_two"));
             }
 
             AssertNoGLibLog();

@@ -20,7 +20,7 @@ namespace GISharp.Lib.GLib
     /// The type of functions which are used to translate user-visible
     /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
     /// </summary>
-    public delegate GISharp.Lib.GLib.Utf8 TranslateFunc(GISharp.Lib.GLib.Utf8 str);
+    public delegate GISharp.Lib.GLib.UnownedUtf8 TranslateFunc(GISharp.Lib.GLib.UnownedUtf8 str);
 
     /// <summary>
     /// Factory for creating <see cref="TranslateFunc"/> methods.
@@ -42,7 +42,7 @@ namespace GISharp.Lib.GLib
                 throw new System.ArgumentNullException(nameof(callback));
             }
 
-            unsafe GISharp.Lib.GLib.Utf8 callback_(GISharp.Lib.GLib.Utf8 str) { var data_ = userData; var str_ = str?.Handle ?? throw new System.ArgumentNullException(nameof(str)); var ret_ = callback(str_,data_); var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None); return ret; }
+            unsafe GISharp.Lib.GLib.UnownedUtf8 callback_(GISharp.Lib.GLib.UnownedUtf8 str) { var data_ = userData; var str_ = str.IsNull ? throw new System.ArgumentNullException(nameof(str)) : str.Handle; var ret_ = callback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1); return ret; }
 
             return callback_;
         }
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var str = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(str_, GISharp.Runtime.Transfer.None);
+                var str = new GISharp.Lib.GLib.UnownedUtf8(str_, -1);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var data = (UserData)gcHandle.Target;
                 var ret = data.ManagedDelegate(str);
@@ -90,7 +90,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(data_);
                 }
-                var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
+                var ret_ = ret.IsNull ? throw new System.ArgumentNullException(nameof(ret)) : ret.Handle;
                 return ret_;
             }
             catch (System.Exception ex)

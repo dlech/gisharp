@@ -428,10 +428,10 @@ namespace GISharp.Lib.GLib
         /// a new #GVariantType
         /// </returns>
         [Since ("2.24")]
-        static IntPtr New(Utf8 typeString)
+        static IntPtr New(UnownedUtf8 typeString)
         {
             if (!StringIsValid(typeString)) {
-                throw new ArgumentException ("Invalid type string", nameof (typeString));
+                throw new ArgumentException("Invalid type string", nameof(typeString));
             }
             var ret = g_variant_type_new(typeString.Handle);
             return ret;
@@ -695,9 +695,9 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if <paramref name="typeString"/> is exactly one valid type string
         /// </returns>
         [Since ("2.24")]
-        public static bool StringIsValid(Utf8 typeString)
+        public static bool StringIsValid(UnownedUtf8 typeString)
         {
-            var typeString_ = typeString?.Handle ?? throw new ArgumentNullException(nameof(typeString));
+            var typeString_ = typeString.IsNull ? throw new ArgumentNullException(nameof(typeString)) : typeString.Handle;
             var ret = g_variant_type_string_is_valid(typeString_);
             return ret;
         }

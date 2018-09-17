@@ -228,7 +228,7 @@ namespace GISharp.Test.Core.GLib
         {
             var gtype = typeof (ByteArray).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
-            Assert.That (gtype.Name, Is.EqualTo ("GByteArray"));
+            Assert.That<string>(gtype.Name, Is.EqualTo ("GByteArray"));
 
             AssertNoGLibLog();
         }

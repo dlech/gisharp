@@ -223,10 +223,10 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if <paramref name="key"/> is in <paramref name="dict"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Contains(GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var dict_ = Handle;
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var ret_ = g_variant_dict_contains(dict_,key_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -322,10 +322,10 @@ namespace GISharp.Lib.GLib
         /// the value to insert
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void Insert(GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Variant value)
+        public unsafe void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
             var dict_ = Handle;
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
             g_variant_dict_insert_value(dict_, key_, value_);
         }
@@ -395,10 +395,10 @@ namespace GISharp.Lib.GLib
         /// the value of the dictionary key, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.VariantType expectedType = null)
+        public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType expectedType = null)
         {
             var dict_ = Handle;
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var expectedType_ = expectedType?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
@@ -462,10 +462,10 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the key was found and removed
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Remove(GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var dict_ = Handle;
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var ret_ = g_variant_dict_remove(dict_,key_);
             var ret = (System.Boolean)ret_;
             return ret;

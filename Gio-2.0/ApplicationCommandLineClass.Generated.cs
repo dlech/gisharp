@@ -29,7 +29,7 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(getStdinOffset, GetStdinFactory.Create);
         }
 
-        public delegate void PrintLiteral(GISharp.Lib.GLib.Utf8 message);
+        public delegate void PrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -49,12 +49,12 @@ System.IntPtr message);
         {
             public static unsafe UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void printLiteral(System.IntPtr cmdline_, System.IntPtr message_)
+                void unmanagedPrintLiteral(System.IntPtr cmdline_, System.IntPtr message_)
                 {
                     try
                     {
                         var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None);
-                        var message = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(message_, GISharp.Runtime.Transfer.None);
+                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
                         var doPrintLiteral = (PrintLiteral)methodInfo.CreateDelegate(typeof(PrintLiteral), cmdline);
                         doPrintLiteral(message);
                     }
@@ -64,11 +64,11 @@ System.IntPtr message);
                     }
                 }
 
-                return printLiteral;
+                return unmanagedPrintLiteral;
             }
         }
 
-        public delegate void PrinterrLiteral(GISharp.Lib.GLib.Utf8 message);
+        public delegate void PrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -88,12 +88,12 @@ System.IntPtr message);
         {
             public static unsafe UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void printerrLiteral(System.IntPtr cmdline_, System.IntPtr message_)
+                void unmanagedPrinterrLiteral(System.IntPtr cmdline_, System.IntPtr message_)
                 {
                     try
                     {
                         var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None);
-                        var message = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(message_, GISharp.Runtime.Transfer.None);
+                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
                         var doPrinterrLiteral = (PrinterrLiteral)methodInfo.CreateDelegate(typeof(PrinterrLiteral), cmdline);
                         doPrinterrLiteral(message);
                     }
@@ -103,7 +103,7 @@ System.IntPtr message);
                     }
                 }
 
-                return printerrLiteral;
+                return unmanagedPrinterrLiteral;
             }
         }
 
@@ -124,7 +124,7 @@ System.IntPtr cmdline);
         {
             public static unsafe UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getStdin(System.IntPtr cmdline_)
+                System.IntPtr unmanagedGetStdin(System.IntPtr cmdline_)
                 {
                     try
                     {
@@ -142,7 +142,7 @@ System.IntPtr cmdline);
                     return default(System.IntPtr);
                 }
 
-                return getStdin;
+                return unmanagedGetStdin;
             }
         }
 

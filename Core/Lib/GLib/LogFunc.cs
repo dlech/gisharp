@@ -46,7 +46,7 @@ namespace GISharp.Lib.GLib
     /// This is not used if structured logging is enabled; see
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
-    public delegate void LogFunc(Utf8 logDomain, LogLevelFlags logLevel, Utf8 message);
+    public delegate void LogFunc(UnownedUtf8 logDomain, LogLevelFlags logLevel, UnownedUtf8 message);
 
     public static class LogFuncFactory
     {
@@ -61,8 +61,8 @@ namespace GISharp.Lib.GLib
         public static LogFunc Create(UnmanagedLogFunc logFunc_, IntPtr userData_)
         {
             return new LogFunc((logDomain, logLevel, message) => {
-                var logDomain_ = logDomain?.Handle ?? throw new ArgumentNullException(nameof(logDomain));
-                var message_ = message?.Handle ?? throw new ArgumentNullException(nameof(message));
+                var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
+                var message_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : message.Handle;
                 logFunc_(logDomain_, logLevel, message_, userData_);
             });
         }
@@ -84,8 +84,8 @@ namespace GISharp.Lib.GLib
             try {
                 var gcHandle = (GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target;
-                var logDomain = Opaque.GetInstance<Utf8>(logDomain_, Transfer.None);
-                var message = Opaque.GetInstance<Utf8>(message_, Transfer.None);
+                var logDomain = new UnownedUtf8(logDomain_, -1);
+                var message = new UnownedUtf8(message_, -1);
                 userData.Func(logDomain, logLevel_, message);
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();

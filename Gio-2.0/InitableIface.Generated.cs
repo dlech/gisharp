@@ -48,7 +48,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedInit Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean init(System.IntPtr initable_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedInit(System.IntPtr initable_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -70,7 +70,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return init;
+                return unmanagedInit;
             }
         }
 

@@ -818,12 +818,12 @@ namespace GISharp.Lib.Gio
         /// the value of the variable, or <c>null</c> if unset or unsent
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
+        public unsafe GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
             var cmdline_ = Handle;
             var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -931,18 +931,18 @@ namespace GISharp.Lib.Gio
         }
 
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrintLiteral))]
-        protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.Utf8 message)
+        protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = Handle;
-            var message_ = message?.Handle ?? throw new System.ArgumentNullException(nameof(message));
+            var message_ = message.IsNull ? throw new System.ArgumentNullException(nameof(message)) : message.Handle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)(cmdline_, message_);
         }
 
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
-        protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.Utf8 message)
+        protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = Handle;
-            var message_ = message?.Handle ?? throw new System.ArgumentNullException(nameof(message));
+            var message_ = message.IsNull ? throw new System.ArgumentNullException(nameof(message)) : message.Handle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)(cmdline_, message_);
         }
     }

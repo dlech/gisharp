@@ -30,26 +30,26 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
-        public new Utf8 DefaultValue {
+        public new UnownedUtf8 DefaultValue {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)defaultValueOffset);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        public Utf8 CsetFirst {
+        public UnownedUtf8 CsetFirst {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)csetFirstOffset);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        public Utf8 CsetNth {
+        public UnownedUtf8 CsetNth {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)csetNthOffset);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }

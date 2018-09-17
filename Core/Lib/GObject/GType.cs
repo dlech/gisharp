@@ -607,7 +607,7 @@ namespace GISharp.Lib.GObject
 
         public override string ToString ()
         {
-            return Name ?? "invalid";
+            return (string)Name ?? "invalid";
         }
 
         /// <summary>
@@ -637,10 +637,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// type name or <c>null</c>
         /// </returns>
-        public Utf8 Name {
+        public UnownedUtf8 Name {
             get {
                 var ret_ = g_type_name (this);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -766,7 +766,7 @@ namespace GISharp.Lib.GObject
         /// This is the preferred method to find out by name whether a specific
         /// type has been registered yet.
         /// </remarks>
-        public static GType FromName(Utf8 name)
+        public static GType FromName(UnownedUtf8 name)
         {
             AssertGTypeName(name);
             var ret = g_type_from_name(name.Handle);
@@ -2224,7 +2224,7 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr gClass);
 
-        public static Utf8 NameFromClass(TypeClass gClass)
+        public static UnownedUtf8 NameFromClass(TypeClass gClass)
         {
             if (gClass == null)
             {
@@ -2232,7 +2232,7 @@ namespace GISharp.Lib.GObject
             }
             var gClass_ = gClass == null ? IntPtr.Zero : gClass.Handle;
             var ret_ = g_type_name_from_class(gClass_);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+            var ret = new UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -2244,7 +2244,7 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr instance);
 
-        public static Utf8 NameFromInstance(TypeInstance instance)
+        public static UnownedUtf8 NameFromInstance(TypeInstance instance)
         {
             if (instance == null)
             {
@@ -2252,7 +2252,7 @@ namespace GISharp.Lib.GObject
             }
             var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
             var ret_ = g_type_name_from_instance(instance_);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+            var ret = new UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -2402,9 +2402,9 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the new type identifier or #G_TYPE_INVALID if registration failed
         /// </returns>
-        public static GType RegisterDynamic(GType parentType, Utf8 typeName, TypePlugin plugin, TypeFlags flags)
+        public static GType RegisterDynamic(GType parentType, UnownedUtf8 typeName, TypePlugin plugin, TypeFlags flags)
         {
-            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
+            var typeName_ = typeName.IsNull ? throw new ArgumentNullException(nameof(typeName)) : typeName.Handle;
             var plugin_ = plugin?.Handle ?? throw new ArgumentNullException(nameof(plugin));
             var ret = g_type_register_dynamic(parentType, typeName_, plugin_, flags);
             return ret;
@@ -2484,9 +2484,9 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the predefined type identifier
         /// </returns>
-        public static GType RegisterFundamental(GType typeId, Utf8 typeName, TypeInfo info, TypeFundamentalInfo finfo, TypeFlags flags)
+        public static GType RegisterFundamental(GType typeId, UnownedUtf8 typeName, TypeInfo info, TypeFundamentalInfo finfo, TypeFlags flags)
         {
-            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
+            var typeName_ = typeName.IsNull ? throw new ArgumentNullException(nameof(typeName)) : typeName.Handle;
             var ret = g_type_register_fundamental(typeId, typeName_, info, finfo, flags);
             return ret;
         }

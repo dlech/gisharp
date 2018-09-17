@@ -24,10 +24,10 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.GroupNotFound),
                     "Trying to get a non-existant group should throw an exception");
 
-                using (var expected = (Utf8)("Test String")) {
+                using (var expected = (Utf8)"Test String") {
                     keyFile.SetString(TestGroup, TestKey1, expected);
                     var actual = keyFile.GetString(TestGroup, TestKey1);
-                    Assert.That(actual, IsEqualToUtf8(expected));
+                    Assert.That<string>(actual, Is.EqualTo(expected));
                 }
 
                 Assert.That(() => keyFile.GetString(TestGroup, TestKey2),

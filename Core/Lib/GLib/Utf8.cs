@@ -1,8 +1,10 @@
 using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.Runtime;
@@ -11,18 +13,114 @@ using nlong = GISharp.Runtime.NativeLong;
 
 namespace GISharp.Lib.GLib
 {
+    public unsafe ref struct UnownedUtf8
+    {
+        byte* handle;
+        int length;
+        string managedValue;
+        Utf8 unmanagedValue;
+
+        public IntPtr Handle => (IntPtr)handle;
+
+        public bool IsNull => handle == null;
+
+        public int Length {
+            get {
+                if (handle == null) {
+                    throw new NullReferenceException();
+                }
+                if (length < 0) {
+                    length = unmanagedValue?.Length ?? (int)strlen(handle);
+                }
+                return length;
+            }
+        }
+
+        public UnownedUtf8(IntPtr handle, int length)
+        {
+            this.handle = (byte*)handle;
+            this.length = length;
+            managedValue = null;
+            unmanagedValue = null;
+        }
+
+        public UnownedUtf8(Utf8 utf8)
+        {
+            this.handle = (byte*)utf8?.Handle;
+            this.length = utf8 == null ? 0 : -1;
+            this.managedValue = null;
+            this.unmanagedValue = utf8;
+        }
+
+        [DllImport("c")]
+        static extern UIntPtr strlen(byte* s);
+
+        public ReadOnlySpan<byte> AsReadOnlySpan()
+        {
+            if (handle == null) {
+                throw new NullReferenceException();
+            }
+            return new ReadOnlySpan<byte>(handle, Length);
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_strdup(byte* str);
+
+        public Utf8 Copy()
+        {
+            if (handle == null) {
+                throw new NullReferenceException();
+            }
+            var ret_ = g_strdup(handle);
+            var ret = new Utf8(ret_, Transfer.Full);
+            return ret;
+        }
+
+        public override string ToString()
+        {
+            if (handle == null) {
+                throw new NullReferenceException();
+            }
+            if (managedValue == null) {
+                managedValue = unmanagedValue?.ToString() ?? Encoding.UTF8.GetString(handle, Length);
+            }
+            return managedValue;
+        }
+
+        public static implicit operator string(UnownedUtf8 utf8)
+        {
+            if (utf8.handle == null) {
+                return null;
+            }
+            return utf8.ToString();
+        }
+
+        public static implicit operator UnownedUtf8(string str)
+        {
+            if (str == null) {
+                return default(UnownedUtf8);
+            }
+            return new UnownedUtf8(new Utf8(str));
+        }
+
+        public static implicit operator UnownedUtf8(Utf8 owned)
+        {
+            return new UnownedUtf8(owned);
+        }
+    }
+
     /// <summary>
     /// Unmanaged, null-terminated UTF8 string
     /// </summary>
     [DebuggerDisplay("{Value}")]
     public sealed class Utf8 : Opaque, IEnumerable<Unichar>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
     {
-        /// <summary>
-        /// Indicates that we own the pointer and it needs to be freed by us
-        /// </summary>
-        bool owned;
 
-        public bool Owned => owned;
+        /// <summary>
+        /// Convince property for <c>default(UnownedUtf8)</c> or
+        /// <c>new UnownedUtf8(null)</c>
+        /// </summary>
+        public static UnownedUtf8 Null => default(UnownedUtf8);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_utf16_to_utf8(
@@ -52,11 +150,10 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            if (ownership == Transfer.Full) {
-                owned = true;
-            }
-            else {
+            if (ownership != Transfer.Full) {
+                this.handle = IntPtr.Zero;
                 GC.SuppressFinalize(this);
+                throw new ArgumentException("Must own unmanaged memory");
             }
             _Value = new Lazy<string>(GetValue);
         }
@@ -64,10 +161,7 @@ namespace GISharp.Lib.GLib
         public override IntPtr Take()
         {
             var this_ = Handle;
-            if (!owned) {
-                throw new InvalidOperationException();
-            }
-            owned = false;
+            handle = IntPtr.Zero;
             GC.SuppressFinalize(this);
             return this_;
         }
@@ -77,8 +171,7 @@ namespace GISharp.Lib.GLib
 
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero && owned) {
-                owned = false;
+            if (handle != IntPtr.Zero) {
                 g_free(handle);
             }
             base.Dispose(disposing);

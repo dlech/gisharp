@@ -58,10 +58,10 @@ namespace GISharp.Lib.GObject
         /// <c>null</c> if no such property exists.
         /// </returns>
         [Since("2.4")]
-        public ParamSpec FindProperty(Utf8 propertyName)
+        public ParamSpec FindProperty(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
-            var propertyName_ = propertyName?.Handle ?? throw new ArgumentNullException(nameof(propertyName));
+            var propertyName_ = propertyName.IsNull ? throw new ArgumentNullException(nameof(propertyName)) : propertyName.Handle;
             var ret_ = g_object_interface_find_property(this_, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;

@@ -50,9 +50,9 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attributes);
 
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 attributes)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
-            var attributes_ = attributes?.Handle ?? throw new System.ArgumentNullException(nameof(attributes));
+            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
             var ret_ = g_file_attribute_matcher_new(attributes_);
             return ret_;
         }
@@ -82,7 +82,7 @@ namespace GISharp.Lib.Gio
         /// <param name="attributes">
         /// an attribute string to match.
         /// </param>
-        public FileAttributeMatcher(GISharp.Lib.GLib.Utf8 attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
+        public FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8 attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -137,10 +137,10 @@ namespace GISharp.Lib.Gio
         /// <c>true</c> if the matcher matches all of the entries
         /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
         /// </returns>
-        public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.Utf8 ns)
+        public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             var matcher_ = Handle;
-            var ns_ = ns?.Handle ?? throw new System.ArgumentNullException(nameof(ns));
+            var ns_ = ns.IsNull ? throw new System.ArgumentNullException(nameof(ns)) : ns.Handle;
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -171,11 +171,11 @@ namespace GISharp.Lib.Gio
         /// a string containing the next attribute or <c>null</c> if
         /// no more attribute exist.
         /// </returns>
-        public unsafe GISharp.Lib.GLib.Utf8 EnumerateNext()
+        public unsafe GISharp.Lib.GLib.UnownedUtf8 EnumerateNext()
         {
             var matcher_ = Handle;
             var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -215,10 +215,10 @@ namespace GISharp.Lib.Gio
         /// <returns>
         /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
         /// </returns>
-        public unsafe System.Boolean Matches(GISharp.Lib.GLib.Utf8 attribute)
+        public unsafe System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
-            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -258,10 +258,10 @@ namespace GISharp.Lib.Gio
         /// <returns>
         /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
         /// </returns>
-        public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.Utf8 attribute)
+        public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
-            var attribute_ = attribute?.Handle ?? throw new System.ArgumentNullException(nameof(attribute));
+            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;

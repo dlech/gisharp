@@ -395,12 +395,12 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static SignalHandler Connect<T, U>(this Object instance, Utf8 detailedSignal,
+        public static SignalHandler Connect<T, U>(this Object instance, UnownedUtf8 detailedSignal,
             System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
             T handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
             var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
-            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
+            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
             var (handler_, notify_, data_) = unmanagedCallbackFactory?.Invoke(handler) ??
                 throw new ArgumentNullException(nameof(unmanagedCallbackFactory));
             var handlerPtr = Marshal.GetFunctionPointerForDelegate(handler_);
@@ -769,10 +769,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
-        public static uint TryLookup (Utf8 name, GType itype)
+        public static uint TryLookup(UnownedUtf8 name, GType itype)
         {
-            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
-            var ret = g_signal_lookup (name_, itype);
+            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var ret = g_signal_lookup(name_, itype);
             return ret;
         }
 
@@ -811,12 +811,12 @@ namespace GISharp.Lib.GObject
         /// the signal's identifying number.
         /// </param>
         /// <returns>
-        /// the signal name, or %NULL if the signal number was invalid.
+        /// the signal name, or <see cref="Utf8.Null"/> if the signal number was invalid.
         /// </returns>
-        public static Utf8 Name(uint signalId)
+        public static UnownedUtf8 Name(uint signalId)
         {
-            var ret_ = g_signal_name (signalId);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+            var ret_ = g_signal_name(signalId);
+            var ret = new UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -907,10 +907,10 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             GType[] paramTypes);
 
-        internal static uint Newv(Utf8 signalName, GType itype, SignalFlags signalFlags, Closure classClosure,
+        internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure classClosure,
             SignalAccumulator accumulator, SignalCMarshaller cMarshaller, GType returnType, GType[]paramTypes)
         {
-            var signalName_ = signalName?.Handle ?? throw new ArgumentNullException(nameof(signalName));
+            var signalName_ = signalName.IsNull ? throw new ArgumentNullException(nameof(signalName)) : signalName.Handle;
             var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
             var accumulator_ = accumulator == null ? default(UnmanagedSignalAccumulator)
                 : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
@@ -1126,9 +1126,9 @@ namespace GISharp.Lib.GObject
         /// <paramref name="signalId"/> and <paramref name="detail"/> contain
         /// valid return values.
         /// </returns>
-        public static bool TryParseName(Utf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
+        public static bool TryParseName(UnownedUtf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
-            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
+            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
             var ret = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
             return ret;
         }
@@ -1336,10 +1336,10 @@ namespace GISharp.Lib.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        public static void StopEmissionByName(this Object instance, Utf8 detailedSignal)
+        public static void StopEmissionByName(this Object instance, UnownedUtf8 detailedSignal)
         {
             var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
-            var detailedSignal_ = detailedSignal?.Handle ?? throw new ArgumentNullException(nameof(detailedSignal));
+            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
             g_signal_stop_emission_by_name(instance_, detailedSignal_);
         }
 

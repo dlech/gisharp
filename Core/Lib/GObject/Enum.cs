@@ -205,10 +205,10 @@ namespace GISharp.Lib.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that name
         /// </returns>
-        public static EnumValue GetValueByName(EnumClass enumClass, Utf8 name)
+        public static EnumValue GetValueByName(EnumClass enumClass, UnownedUtf8 name)
         {
             var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
-            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
             var ret_ = g_enum_get_value_by_name(enumClass_, name_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -254,10 +254,10 @@ namespace GISharp.Lib.GObject
         ///          or %NULL if the enumeration doesn't have a member
         ///          with that nickname
         /// </returns>
-        public static EnumValue GetValueByNick(EnumClass enumClass, Utf8 nick)
+        public static EnumValue GetValueByNick(EnumClass enumClass, UnownedUtf8 nick)
         {
             var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
-            var nick_ = nick?.Handle ?? throw new ArgumentNullException(nameof(nick));
+            var nick_ = nick.IsNull ? throw new ArgumentNullException(nameof(nick)) : nick.Handle;
             var ret_ = g_enum_get_value_by_nick(enumClass_, nick_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -269,8 +269,8 @@ namespace GISharp.Lib.GObject
 
         public static GType RegisterStatic(Utf8 typeName, IArray<EnumValue> values)
         {
-            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
             GType.AssertGTypeName(typeName);
+            var typeName_ = typeName?.Take() ?? throw new ArgumentNullException(nameof(typeName));
             var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
 
             // verify that the array is null-terminated
@@ -304,12 +304,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the value
         /// </summary>
-        public Utf8 Name => new Utf8(valueName, Transfer.None);
+        public UnownedUtf8 Name => new UnownedUtf8(valueName, -1);
 
         /// <summary>
         /// the nickname of the value
         /// </summary>
-        public Utf8 Nick => new Utf8(valueNick, Transfer.None);
+        public UnownedUtf8 Nick => new UnownedUtf8(valueNick, -1);
 
         public EnumValue(int value, Utf8 name, Utf8 nick)
         {

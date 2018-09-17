@@ -57,7 +57,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedInitAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void initAsync(System.IntPtr initable_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedInitAsync(System.IntPtr initable_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -74,7 +74,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return initAsync;
+                return unmanagedInitAsync;
             }
         }
 
@@ -101,7 +101,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedInitFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean initFinish(System.IntPtr initable_, System.IntPtr res_, System.IntPtr* error_)
+                System.Boolean unmanagedInitFinish(System.IntPtr initable_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -123,7 +123,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return initFinish;
+                return unmanagedInitFinish;
             }
         }
 

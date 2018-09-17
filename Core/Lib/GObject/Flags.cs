@@ -144,10 +144,10 @@ namespace GISharp.Lib.GObject
         /// the #GFlagsValue with name @name,
         ///          or %NULL if there is no flag with that name
         /// </returns>
-        public static FlagsValue GetValueByName(FlagsClass flagsClass, Utf8 name)
+        public static FlagsValue GetValueByName(FlagsClass flagsClass, UnownedUtf8 name)
         {
             var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
-            var name_ = name?.Handle ?? throw new ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
             var ret_ = g_flags_get_value_by_name(flagsClass_, name_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -191,10 +191,10 @@ namespace GISharp.Lib.GObject
         /// the #GFlagsValue with nickname @nick,
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
-        public static FlagsValue GetValueByNick(FlagsClass flagsClass, Utf8 nick)
+        public static FlagsValue GetValueByNick(FlagsClass flagsClass, UnownedUtf8 nick)
         {
             var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
-            var nick_ = nick?.Handle ?? throw new ArgumentNullException(nameof(nick));
+            var nick_ = nick.IsNull ? throw new ArgumentNullException(nameof(nick)) : nick.Handle;
             var ret_ = g_flags_get_value_by_nick(flagsClass_, nick_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -206,8 +206,8 @@ namespace GISharp.Lib.GObject
 
         public static GType RegisterStatic(Utf8 typeName, IArray<FlagsValue> values)
         {
-            var typeName_ = typeName?.Handle ?? throw new ArgumentNullException(nameof(typeName));
             GType.AssertGTypeName(typeName);
+            var typeName_ = typeName?.Take() ?? throw new ArgumentNullException(nameof(typeName));
             var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
 
             // verify that the array is null-terminated
@@ -241,12 +241,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the value
         /// </summary>
-        public Utf8 Name => new Utf8(valueName, Transfer.None);
+        public UnownedUtf8 Name => new UnownedUtf8(valueName, -1);
 
         /// <summary>
         /// the nickname of the value
         /// </summary>
-        public Utf8 Nick => new Utf8(valueNick, Transfer.None);
+        public UnownedUtf8 Nick => new UnownedUtf8(valueNick, -1);
 
         public FlagsValue(uint value, Utf8 name, Utf8 nick)
         {

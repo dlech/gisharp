@@ -74,7 +74,7 @@ System.IntPtr application);
         {
             public static unsafe UnmanagedStartup Create(System.Reflection.MethodInfo methodInfo)
             {
-                void startup(System.IntPtr application_)
+                void unmanagedStartup(System.IntPtr application_)
                 {
                     try
                     {
@@ -88,7 +88,7 @@ System.IntPtr application);
                     }
                 }
 
-                return startup;
+                return unmanagedStartup;
             }
         }
 
@@ -109,7 +109,7 @@ System.IntPtr application);
         {
             public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
-                void activate(System.IntPtr application_)
+                void unmanagedActivate(System.IntPtr application_)
                 {
                     try
                     {
@@ -123,11 +123,11 @@ System.IntPtr application);
                     }
                 }
 
-                return activate;
+                return unmanagedActivate;
             }
         }
 
-        public delegate void Open(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.Utf8 hint);
+        public delegate void Open(GISharp.Runtime.IArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -155,13 +155,13 @@ System.IntPtr hint);
         {
             public static unsafe UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
-                void open(System.IntPtr application_, System.IntPtr files_, System.Int32 nFiles_, System.IntPtr hint_)
+                void unmanagedOpen(System.IntPtr application_, System.IntPtr files_, System.Int32 nFiles_, System.IntPtr hint_)
                 {
                     try
                     {
                         var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
                         var files = GISharp.Runtime.CPtrArray.GetInstance<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_, GISharp.Runtime.Transfer.None);
-                        var hint = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(hint_, GISharp.Runtime.Transfer.None);
+                        var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_, -1);
                         var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application);
                         doOpen(files, hint);
                     }
@@ -171,7 +171,7 @@ System.IntPtr hint);
                     }
                 }
 
-                return open;
+                return unmanagedOpen;
             }
         }
 
@@ -195,7 +195,7 @@ System.IntPtr commandLine);
         {
             public static unsafe UnmanagedCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int32 xcommandLine(System.IntPtr application_, System.IntPtr commandLine_)
+                System.Int32 unmanagedCommandLine(System.IntPtr application_, System.IntPtr commandLine_)
                 {
                     try
                     {
@@ -214,7 +214,7 @@ System.IntPtr commandLine);
                     return default(System.Int32);
                 }
 
-                return xcommandLine;
+                return unmanagedCommandLine;
             }
         }
 
@@ -243,7 +243,7 @@ System.Int32* exitStatus);
         {
             public static unsafe UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean tryLocalCommandLine(System.IntPtr application_, System.IntPtr* arguments_, System.Int32* exitStatus_)
+                System.Boolean unmanagedTryLocalCommandLine(System.IntPtr application_, System.IntPtr* arguments_, System.Int32* exitStatus_)
                 {
                     try
                     {
@@ -264,7 +264,7 @@ System.Int32* exitStatus);
                     return default(System.Boolean);
                 }
 
-                return tryLocalCommandLine;
+                return unmanagedTryLocalCommandLine;
             }
         }
 
@@ -288,7 +288,7 @@ System.IntPtr platformData);
         {
             public static unsafe UnmanagedBeforeEmit Create(System.Reflection.MethodInfo methodInfo)
             {
-                void beforeEmit(System.IntPtr application_, System.IntPtr platformData_)
+                void unmanagedBeforeEmit(System.IntPtr application_, System.IntPtr platformData_)
                 {
                     try
                     {
@@ -303,7 +303,7 @@ System.IntPtr platformData);
                     }
                 }
 
-                return beforeEmit;
+                return unmanagedBeforeEmit;
             }
         }
 
@@ -327,7 +327,7 @@ System.IntPtr platformData);
         {
             public static unsafe UnmanagedAfterEmit Create(System.Reflection.MethodInfo methodInfo)
             {
-                void afterEmit(System.IntPtr application_, System.IntPtr platformData_)
+                void unmanagedAfterEmit(System.IntPtr application_, System.IntPtr platformData_)
                 {
                     try
                     {
@@ -342,7 +342,7 @@ System.IntPtr platformData);
                     }
                 }
 
-                return afterEmit;
+                return unmanagedAfterEmit;
             }
         }
 
@@ -366,7 +366,7 @@ System.IntPtr builder);
         {
             public static unsafe UnmanagedAddPlatformData Create(System.Reflection.MethodInfo methodInfo)
             {
-                void addPlatformData(System.IntPtr application_, System.IntPtr builder_)
+                void unmanagedAddPlatformData(System.IntPtr application_, System.IntPtr builder_)
                 {
                     try
                     {
@@ -381,7 +381,7 @@ System.IntPtr builder);
                     }
                 }
 
-                return addPlatformData;
+                return unmanagedAddPlatformData;
             }
         }
 
@@ -402,7 +402,7 @@ System.IntPtr application);
         {
             public static unsafe UnmanagedQuitMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
-                void quitMainloop(System.IntPtr application_)
+                void unmanagedQuitMainloop(System.IntPtr application_)
                 {
                     try
                     {
@@ -416,7 +416,7 @@ System.IntPtr application);
                     }
                 }
 
-                return quitMainloop;
+                return unmanagedQuitMainloop;
             }
         }
 
@@ -437,7 +437,7 @@ System.IntPtr application);
         {
             public static unsafe UnmanagedRunMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
-                void runMainloop(System.IntPtr application_)
+                void unmanagedRunMainloop(System.IntPtr application_)
                 {
                     try
                     {
@@ -451,7 +451,7 @@ System.IntPtr application);
                     }
                 }
 
-                return runMainloop;
+                return unmanagedRunMainloop;
             }
         }
 
@@ -472,7 +472,7 @@ System.IntPtr application);
         {
             public static unsafe UnmanagedShutdown Create(System.Reflection.MethodInfo methodInfo)
             {
-                void shutdown(System.IntPtr application_)
+                void unmanagedShutdown(System.IntPtr application_)
                 {
                     try
                     {
@@ -486,7 +486,7 @@ System.IntPtr application);
                     }
                 }
 
-                return shutdown;
+                return unmanagedShutdown;
             }
         }
 
@@ -510,7 +510,7 @@ System.IntPtr options);
         {
             public static unsafe UnmanagedHandleLocalOptions Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int32 handleLocalOptions(System.IntPtr application_, System.IntPtr options_)
+                System.Int32 unmanagedHandleLocalOptions(System.IntPtr application_, System.IntPtr options_)
                 {
                     try
                     {
@@ -529,7 +529,7 @@ System.IntPtr options);
                     return default(System.Int32);
                 }
 
-                return handleLocalOptions;
+                return unmanagedHandleLocalOptions;
             }
         }
 

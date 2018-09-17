@@ -28,10 +28,10 @@ namespace GISharp.Lib.GLib
         /// or when displaying an application's name in the task list.
         /// </remarks>
         /// <value>Localized, name of the application.</value>
-        public static Utf8 ApplicationName {
+        public static UnownedUtf8 ApplicationName {
             get {
                 var ret_ = g_get_application_name ();
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
             set {
@@ -55,10 +55,10 @@ namespace GISharp.Lib.GLib
         /// by taking the last component of <c>argv [0]</c>.
         /// </remarks>
         /// <value>The name of the program.</value>
-        public static Utf8 ProgramName {
+        public static UnownedUtf8 ProgramName {
             get {
                 var ret_ = g_get_prgname ();
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
             set {

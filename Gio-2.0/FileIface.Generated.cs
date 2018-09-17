@@ -300,7 +300,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr dup(System.IntPtr file_)
+                System.IntPtr unmanagedDup(System.IntPtr file_)
                 {
                     try
                     {
@@ -318,7 +318,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return dup;
+                return unmanagedDup;
             }
         }
 
@@ -339,7 +339,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.UInt32 hash(System.IntPtr file_)
+                System.UInt32 unmanagedHash(System.IntPtr file_)
                 {
                     try
                     {
@@ -357,7 +357,7 @@ System.IntPtr file);
                     return default(System.UInt32);
                 }
 
-                return hash;
+                return unmanagedHash;
             }
         }
 
@@ -381,7 +381,7 @@ System.IntPtr file2);
         {
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean equal(System.IntPtr file1_, System.IntPtr file2_)
+                System.Boolean unmanagedEqual(System.IntPtr file1_, System.IntPtr file2_)
                 {
                     try
                     {
@@ -400,7 +400,7 @@ System.IntPtr file2);
                     return default(System.Boolean);
                 }
 
-                return equal;
+                return unmanagedEqual;
             }
         }
 
@@ -421,7 +421,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean isNative(System.IntPtr file_)
+                System.Boolean unmanagedIsNative(System.IntPtr file_)
                 {
                     try
                     {
@@ -439,11 +439,11 @@ System.IntPtr file);
                     return default(System.Boolean);
                 }
 
-                return isNative;
+                return unmanagedIsNative;
             }
         }
 
-        public delegate System.Boolean HasUriScheme(GISharp.Lib.GLib.Utf8 uriScheme);
+        public delegate System.Boolean HasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -463,12 +463,12 @@ System.IntPtr uriScheme);
         {
             public static unsafe UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean hasUriScheme(System.IntPtr file_, System.IntPtr uriScheme_)
+                System.Boolean unmanagedHasUriScheme(System.IntPtr file_, System.IntPtr uriScheme_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var uriScheme = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(uriScheme_, GISharp.Runtime.Transfer.None);
+                        var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_, -1);
                         var doHasUriScheme = (HasUriScheme)methodInfo.CreateDelegate(typeof(HasUriScheme), file);
                         var ret = doHasUriScheme(uriScheme);
                         var ret_ = (System.Boolean)ret;
@@ -482,7 +482,7 @@ System.IntPtr uriScheme);
                     return default(System.Boolean);
                 }
 
-                return hasUriScheme;
+                return unmanagedHasUriScheme;
             }
         }
 
@@ -503,7 +503,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getUriScheme(System.IntPtr file_)
+                System.IntPtr unmanagedGetUriScheme(System.IntPtr file_)
                 {
                     try
                     {
@@ -521,7 +521,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getUriScheme;
+                return unmanagedGetUriScheme;
             }
         }
 
@@ -542,7 +542,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getBasename(System.IntPtr file_)
+                System.IntPtr unmanagedGetBasename(System.IntPtr file_)
                 {
                     try
                     {
@@ -560,7 +560,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getBasename;
+                return unmanagedGetBasename;
             }
         }
 
@@ -581,7 +581,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getPath(System.IntPtr file_)
+                System.IntPtr unmanagedGetPath(System.IntPtr file_)
                 {
                     try
                     {
@@ -599,7 +599,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getPath;
+                return unmanagedGetPath;
             }
         }
 
@@ -620,7 +620,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getUri(System.IntPtr file_)
+                System.IntPtr unmanagedGetUri(System.IntPtr file_)
                 {
                     try
                     {
@@ -638,7 +638,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getUri;
+                return unmanagedGetUri;
             }
         }
 
@@ -659,7 +659,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getParseName(System.IntPtr file_)
+                System.IntPtr unmanagedGetParseName(System.IntPtr file_)
                 {
                     try
                     {
@@ -677,7 +677,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getParseName;
+                return unmanagedGetParseName;
             }
         }
 
@@ -698,7 +698,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getParent(System.IntPtr file_)
+                System.IntPtr unmanagedGetParent(System.IntPtr file_)
                 {
                     try
                     {
@@ -716,7 +716,7 @@ System.IntPtr file);
                     return default(System.IntPtr);
                 }
 
-                return getParent;
+                return unmanagedGetParent;
             }
         }
 
@@ -740,7 +740,7 @@ System.IntPtr file);
         {
             public static unsafe UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean prefixMatches(System.IntPtr prefix_, System.IntPtr file_)
+                System.Boolean unmanagedPrefixMatches(System.IntPtr prefix_, System.IntPtr file_)
                 {
                     try
                     {
@@ -759,7 +759,7 @@ System.IntPtr file);
                     return default(System.Boolean);
                 }
 
-                return prefixMatches;
+                return unmanagedPrefixMatches;
             }
         }
 
@@ -783,7 +783,7 @@ System.IntPtr descendant);
         {
             public static unsafe UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getRelativePath(System.IntPtr parent_, System.IntPtr descendant_)
+                System.IntPtr unmanagedGetRelativePath(System.IntPtr parent_, System.IntPtr descendant_)
                 {
                     try
                     {
@@ -802,7 +802,7 @@ System.IntPtr descendant);
                     return default(System.IntPtr);
                 }
 
-                return getRelativePath;
+                return unmanagedGetRelativePath;
             }
         }
 
@@ -826,7 +826,7 @@ System.IntPtr relativePath);
         {
             public static unsafe UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr resolveRelativePath(System.IntPtr file_, System.IntPtr relativePath_)
+                System.IntPtr unmanagedResolveRelativePath(System.IntPtr file_, System.IntPtr relativePath_)
                 {
                     try
                     {
@@ -845,11 +845,11 @@ System.IntPtr relativePath);
                     return default(System.IntPtr);
                 }
 
-                return resolveRelativePath;
+                return unmanagedResolveRelativePath;
             }
         }
 
-        public delegate GISharp.Lib.Gio.IFile GetChildForDisplayName(GISharp.Lib.GLib.Utf8 displayName);
+        public delegate GISharp.Lib.Gio.IFile GetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
@@ -872,12 +872,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getChildForDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr* error_)
+                System.IntPtr unmanagedGetChildForDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var displayName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(displayName_, GISharp.Runtime.Transfer.None);
+                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
                         var doGetChildForDisplayName = (GetChildForDisplayName)methodInfo.CreateDelegate(typeof(GetChildForDisplayName), file);
                         var ret = doGetChildForDisplayName(displayName);
                         var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
@@ -895,11 +895,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return getChildForDisplayName;
+                return unmanagedGetChildForDisplayName;
             }
         }
 
-        public delegate void EnumerateChildrenAsync(GISharp.Lib.GLib.Utf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void EnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -934,12 +934,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void enumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedEnumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
@@ -953,11 +953,11 @@ System.IntPtr userData);
                     }
                 }
 
-                return enumerateChildrenAsync;
+                return unmanagedEnumerateChildrenAsync;
             }
         }
 
-        public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.Utf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
@@ -986,12 +986,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryInfo(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryInfo(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfo = (QueryInfo)methodInfo.CreateDelegate(typeof(QueryInfo), file);
@@ -1011,11 +1011,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryInfo;
+                return unmanagedQueryInfo;
             }
         }
 
-        public delegate void QueryInfoAsync(GISharp.Lib.GLib.Utf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -1050,12 +1050,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void queryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedQueryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
@@ -1069,7 +1069,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return queryInfoAsync;
+                return unmanagedQueryInfoAsync;
             }
         }
 
@@ -1096,7 +1096,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryInfoFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryInfoFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1119,11 +1119,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryInfoFinish;
+                return unmanagedQueryInfoFinish;
             }
         }
 
-        public delegate GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(GISharp.Lib.GLib.Utf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
@@ -1149,12 +1149,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryFilesystemInfo(System.IntPtr file_, System.IntPtr attributes_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryFilesystemInfo(System.IntPtr file_, System.IntPtr attributes_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryFilesystemInfo = (QueryFilesystemInfo)methodInfo.CreateDelegate(typeof(QueryFilesystemInfo), file);
                         var ret = doQueryFilesystemInfo(attributes, cancellable);
@@ -1173,11 +1173,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryFilesystemInfo;
+                return unmanagedQueryFilesystemInfo;
             }
         }
 
-        public delegate void QueryFilesystemInfoAsync(GISharp.Lib.GLib.Utf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void QueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -1209,12 +1209,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void queryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedQueryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -1227,7 +1227,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return queryFilesystemInfoAsync;
+                return unmanagedQueryFilesystemInfoAsync;
             }
         }
 
@@ -1254,7 +1254,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryFilesystemInfoFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryFilesystemInfoFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1277,7 +1277,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryFilesystemInfoFinish;
+                return unmanagedQueryFilesystemInfoFinish;
             }
         }
 
@@ -1310,7 +1310,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void findEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedFindEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -1327,11 +1327,11 @@ System.IntPtr userData);
                     }
                 }
 
-                return findEnclosingMountAsync;
+                return unmanagedFindEnclosingMountAsync;
             }
         }
 
-        public delegate GISharp.Lib.Gio.IFile SetDisplayName(GISharp.Lib.GLib.Utf8 displayName, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.IFile SetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
@@ -1357,12 +1357,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr setDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedSetDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var displayName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(displayName_, GISharp.Runtime.Transfer.None);
+                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetDisplayName = (SetDisplayName)methodInfo.CreateDelegate(typeof(SetDisplayName), file);
                         var ret = doSetDisplayName(displayName, cancellable);
@@ -1381,11 +1381,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return setDisplayName;
+                return unmanagedSetDisplayName;
             }
         }
 
-        public delegate void SetDisplayNameAsync(GISharp.Lib.GLib.Utf8 displayName, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void SetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -1417,12 +1417,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void setDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedSetDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var displayName = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(displayName_, GISharp.Runtime.Transfer.None);
+                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -1435,7 +1435,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return setDisplayNameAsync;
+                return unmanagedSetDisplayNameAsync;
             }
         }
 
@@ -1462,7 +1462,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr setDisplayNameFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedSetDisplayNameFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1485,7 +1485,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return setDisplayNameFinish;
+                return unmanagedSetDisplayNameFinish;
             }
         }
 
@@ -1512,7 +1512,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr querySettableAttributes(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedQuerySettableAttributes(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1535,7 +1535,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return querySettableAttributes;
+                return unmanagedQuerySettableAttributes;
             }
         }
 
@@ -1562,7 +1562,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryWritableNamespaces(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryWritableNamespaces(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1585,11 +1585,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryWritableNamespaces;
+                return unmanagedQueryWritableNamespaces;
             }
         }
 
-        public delegate void SetAttribute(GISharp.Lib.GLib.Utf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void SetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -1624,12 +1624,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean setAttribute(System.IntPtr file_, System.IntPtr attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedSetAttribute(System.IntPtr file_, System.IntPtr attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var attribute = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attribute_, GISharp.Runtime.Transfer.None);
+                        var attribute = new GISharp.Lib.GLib.UnownedUtf8(attribute_, -1);
                         var type = (GISharp.Lib.Gio.FileAttributeType)type_;
                         var valueP = (System.IntPtr)valueP_;
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
@@ -1650,7 +1650,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return setAttribute;
+                return unmanagedSetAttribute;
             }
         }
 
@@ -1683,7 +1683,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean setAttributesFromInfo(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedSetAttributesFromInfo(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1707,7 +1707,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return setAttributesFromInfo;
+                return unmanagedSetAttributesFromInfo;
             }
         }
 
@@ -1746,7 +1746,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void setAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedSetAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -1765,7 +1765,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return setAttributesAsync;
+                return unmanagedSetAttributesAsync;
             }
         }
 
@@ -1795,7 +1795,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean setAttributesFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* info_, System.IntPtr* error_)
+                System.Boolean unmanagedSetAttributesFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* info_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1818,7 +1818,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return setAttributesFinish;
+                return unmanagedSetAttributesFinish;
             }
         }
 
@@ -1845,7 +1845,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr readFn(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedReadFn(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1868,7 +1868,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return readFn;
+                return unmanagedReadFn;
             }
         }
 
@@ -1901,7 +1901,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void readAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedReadAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -1918,7 +1918,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return readAsync;
+                return unmanagedReadAsync;
             }
         }
 
@@ -1945,7 +1945,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr readFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedReadFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -1968,7 +1968,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return readFinish;
+                return unmanagedReadFinish;
             }
         }
 
@@ -1998,7 +1998,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr appendTo(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedAppendTo(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2022,7 +2022,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return appendTo;
+                return unmanagedAppendTo;
             }
         }
 
@@ -2058,7 +2058,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void appendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedAppendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2076,7 +2076,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return appendToAsync;
+                return unmanagedAppendToAsync;
             }
         }
 
@@ -2103,7 +2103,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr appendToFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedAppendToFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2126,7 +2126,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return appendToFinish;
+                return unmanagedAppendToFinish;
             }
         }
 
@@ -2156,7 +2156,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr create(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedCreate(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2180,7 +2180,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return create;
+                return unmanagedCreate;
             }
         }
 
@@ -2216,7 +2216,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void createAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCreateAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2234,7 +2234,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return createAsync;
+                return unmanagedCreateAsync;
             }
         }
 
@@ -2261,7 +2261,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr createFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedCreateFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2284,11 +2284,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return createFinish;
+                return unmanagedCreateFinish;
             }
         }
 
-        public delegate GISharp.Lib.Gio.FileOutputStream Replace(GISharp.Lib.GLib.Utf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.FileOutputStream Replace(GISharp.Lib.GLib.UnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
@@ -2320,12 +2320,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr replace(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedReplace(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var etag = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(etag_, GISharp.Runtime.Transfer.None);
+                        var etag = new GISharp.Lib.GLib.UnownedUtf8(etag_, -1);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -2346,11 +2346,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return replace;
+                return unmanagedReplace;
             }
         }
 
-        public delegate void ReplaceAsync(GISharp.Lib.GLib.Utf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void ReplaceAsync(GISharp.Lib.GLib.UnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -2388,12 +2388,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void replaceAsync(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedReplaceAsync(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var etag = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(etag_, GISharp.Runtime.Transfer.None);
+                        var etag = new GISharp.Lib.GLib.UnownedUtf8(etag_, -1);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
@@ -2408,7 +2408,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return replaceAsync;
+                return unmanagedReplaceAsync;
             }
         }
 
@@ -2435,7 +2435,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr replaceFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedReplaceFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2458,7 +2458,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return replaceFinish;
+                return unmanagedReplaceFinish;
             }
         }
 
@@ -2485,7 +2485,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean deleteFile(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedDeleteFile(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2507,7 +2507,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return deleteFile;
+                return unmanagedDeleteFile;
             }
         }
 
@@ -2540,7 +2540,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void deleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedDeleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2557,7 +2557,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return deleteFileAsync;
+                return unmanagedDeleteFileAsync;
             }
         }
 
@@ -2584,7 +2584,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean deleteFileFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedDeleteFileFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2606,7 +2606,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return deleteFileFinish;
+                return unmanagedDeleteFileFinish;
             }
         }
 
@@ -2633,7 +2633,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean trash(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedTrash(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2655,7 +2655,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return trash;
+                return unmanagedTrash;
             }
         }
 
@@ -2688,7 +2688,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void trashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedTrashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2705,7 +2705,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return trashAsync;
+                return unmanagedTrashAsync;
             }
         }
 
@@ -2732,7 +2732,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean trashFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedTrashFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2754,7 +2754,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return trashFinish;
+                return unmanagedTrashFinish;
             }
         }
 
@@ -2781,7 +2781,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean makeDirectory(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedMakeDirectory(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2803,7 +2803,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return makeDirectory;
+                return unmanagedMakeDirectory;
             }
         }
 
@@ -2836,7 +2836,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void makeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedMakeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2853,7 +2853,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return makeDirectoryAsync;
+                return unmanagedMakeDirectoryAsync;
             }
         }
 
@@ -2880,7 +2880,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean makeDirectoryFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedMakeDirectoryFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2902,7 +2902,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return makeDirectoryFinish;
+                return unmanagedMakeDirectoryFinish;
             }
         }
 
@@ -2932,7 +2932,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean makeSymbolicLink(System.IntPtr file_, System.IntPtr symlinkValue_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedMakeSymbolicLink(System.IntPtr file_, System.IntPtr symlinkValue_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -2955,7 +2955,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return makeSymbolicLink;
+                return unmanagedMakeSymbolicLink;
             }
         }
 
@@ -2994,7 +2994,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean copy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr* error_)
+                System.Boolean unmanagedCopy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3019,7 +3019,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return copy;
+                return unmanagedCopy;
             }
         }
 
@@ -3064,7 +3064,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void copyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCopyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -3084,7 +3084,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return copyAsync;
+                return unmanagedCopyAsync;
             }
         }
 
@@ -3111,7 +3111,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean copyFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.Boolean unmanagedCopyFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3133,7 +3133,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return copyFinish;
+                return unmanagedCopyFinish;
             }
         }
 
@@ -3172,7 +3172,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean move(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr* error_)
+                System.Boolean unmanagedMove(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3197,7 +3197,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return move;
+                return unmanagedMove;
             }
         }
 
@@ -3224,7 +3224,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr mountMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.IntPtr unmanagedMountMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3247,7 +3247,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return mountMountableFinish;
+                return unmanagedMountMountableFinish;
             }
         }
 
@@ -3274,7 +3274,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean unmountMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedUnmountMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3296,7 +3296,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return unmountMountableFinish;
+                return unmanagedUnmountMountableFinish;
             }
         }
 
@@ -3323,7 +3323,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean ejectMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedEjectMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3345,7 +3345,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return ejectMountableFinish;
+                return unmanagedEjectMountableFinish;
             }
         }
 
@@ -3372,7 +3372,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean mountEnclosingVolumeFinish(System.IntPtr location_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedMountEnclosingVolumeFinish(System.IntPtr location_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3394,7 +3394,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return mountEnclosingVolumeFinish;
+                return unmanagedMountEnclosingVolumeFinish;
             }
         }
 
@@ -3421,7 +3421,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr openReadwrite(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedOpenReadwrite(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3444,7 +3444,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return openReadwrite;
+                return unmanagedOpenReadwrite;
             }
         }
 
@@ -3477,7 +3477,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void openReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedOpenReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -3494,7 +3494,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return openReadwriteAsync;
+                return unmanagedOpenReadwriteAsync;
             }
         }
 
@@ -3521,7 +3521,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr openReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedOpenReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3544,7 +3544,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return openReadwriteFinish;
+                return unmanagedOpenReadwriteFinish;
             }
         }
 
@@ -3574,7 +3574,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr createReadwrite(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedCreateReadwrite(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3598,7 +3598,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return createReadwrite;
+                return unmanagedCreateReadwrite;
             }
         }
 
@@ -3634,7 +3634,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void createReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCreateReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -3652,7 +3652,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return createReadwriteAsync;
+                return unmanagedCreateReadwriteAsync;
             }
         }
 
@@ -3679,7 +3679,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr createReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedCreateReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3702,11 +3702,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return createReadwriteFinish;
+                return unmanagedCreateReadwriteFinish;
             }
         }
 
-        public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(GISharp.Lib.GLib.Utf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(GISharp.Lib.GLib.UnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
@@ -3738,12 +3738,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr replaceReadwrite(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedReplaceReadwrite(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var etag = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(etag_, GISharp.Runtime.Transfer.None);
+                        var etag = new GISharp.Lib.GLib.UnownedUtf8(etag_, -1);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -3764,11 +3764,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return replaceReadwrite;
+                return unmanagedReplaceReadwrite;
             }
         }
 
-        public delegate void ReplaceReadwriteAsync(GISharp.Lib.GLib.Utf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void ReplaceReadwriteAsync(GISharp.Lib.GLib.UnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -3806,12 +3806,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void replaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedReplaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, System.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None);
-                        var etag = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(etag_, GISharp.Runtime.Transfer.None);
+                        var etag = new GISharp.Lib.GLib.UnownedUtf8(etag_, -1);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
@@ -3826,7 +3826,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return replaceReadwriteAsync;
+                return unmanagedReplaceReadwriteAsync;
             }
         }
 
@@ -3853,7 +3853,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr replaceReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
+                System.IntPtr unmanagedReplaceReadwriteFinish(System.IntPtr file_, System.IntPtr res_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3876,7 +3876,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return replaceReadwriteFinish;
+                return unmanagedReplaceReadwriteFinish;
             }
         }
 
@@ -3903,7 +3903,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean startMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedStartMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3925,7 +3925,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return startMountableFinish;
+                return unmanagedStartMountableFinish;
             }
         }
 
@@ -3952,7 +3952,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean stopMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedStopMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -3974,7 +3974,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return stopMountableFinish;
+                return unmanagedStopMountableFinish;
             }
         }
 
@@ -4001,7 +4001,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean unmountMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedUnmountMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -4023,7 +4023,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return unmountMountableWithOperationFinish;
+                return unmanagedUnmountMountableWithOperationFinish;
             }
         }
 
@@ -4050,7 +4050,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean ejectMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedEjectMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -4072,7 +4072,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return ejectMountableWithOperationFinish;
+                return unmanagedEjectMountableWithOperationFinish;
             }
         }
 
@@ -4102,7 +4102,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
             {
-                void pollMountable(System.IntPtr file_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedPollMountable(System.IntPtr file_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -4118,7 +4118,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return pollMountable;
+                return unmanagedPollMountable;
             }
         }
 
@@ -4145,7 +4145,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean pollMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedPollMountableFinish(System.IntPtr file_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -4167,7 +4167,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return pollMountableFinish;
+                return unmanagedPollMountableFinish;
             }
         }
 
@@ -4203,7 +4203,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean measureDiskUsageFinish(System.IntPtr file_, System.IntPtr result_, System.UInt64* diskUsage_, System.UInt64* numDirs_, System.UInt64* numFiles_, System.IntPtr* error_)
+                System.Boolean unmanagedMeasureDiskUsageFinish(System.IntPtr file_, System.IntPtr result_, System.UInt64* diskUsage_, System.UInt64* numDirs_, System.UInt64* numFiles_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -4228,7 +4228,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return measureDiskUsageFinish;
+                return unmanagedMeasureDiskUsageFinish;
             }
         }
 

@@ -47,7 +47,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
-        GISharp.Lib.Gio.IAction DoLookupAction(GISharp.Lib.GLib.Utf8 actionName);
+        GISharp.Lib.Gio.IAction DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <summary>
         /// Removes the named action from the action map.
@@ -60,7 +60,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedRemoveAction))]
-        void DoRemoveAction(GISharp.Lib.GLib.Utf8 actionName);
+        void DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
     }
 
     public static partial class ActionMap
@@ -165,10 +165,10 @@ namespace GISharp.Lib.Gio
         /// a <see cref="IAction"/>, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.Utf8 actionName)
+        public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
             var ret = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -211,10 +211,10 @@ namespace GISharp.Lib.Gio
         /// the name of the action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.Utf8 actionName)
+        public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
-            var actionName_ = actionName?.Handle ?? throw new System.ArgumentNullException(nameof(actionName));
+            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
             g_action_map_remove_action(actionMap_, actionName_);
         }
     }

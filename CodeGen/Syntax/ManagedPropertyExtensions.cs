@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -18,6 +19,10 @@ namespace GISharp.CodeGen.Syntax
         public static PropertyDeclarationSyntax GetDeclaration(this ManagedProperty property)
         {
             var type = property.Type.ManagedType.ToSyntax();
+
+            if (property.Type.ManagedType == typeof(Utf8) && property.Getter.ReturnValue.TransferOwnership == "none") {
+                type = ParseTypeName($"{typeof(UnownedUtf8)}");
+            } 
 
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetCommonAccessModifiers())

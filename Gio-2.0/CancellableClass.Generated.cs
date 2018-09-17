@@ -39,7 +39,7 @@ System.IntPtr cancellable);
         {
             public static unsafe UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {
-                void cancelled(System.IntPtr cancellable_)
+                void unmanagedCancelled(System.IntPtr cancellable_)
                 {
                     try
                     {
@@ -53,7 +53,7 @@ System.IntPtr cancellable);
                     }
                 }
 
-                return cancelled;
+                return unmanagedCancelled;
             }
         }
 

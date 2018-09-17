@@ -267,7 +267,7 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetUnmanagedDelegateCreateStatements(this Callback callback)
         {
             var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
-            var identifier = callback.ManagedName.ToCamelCase();
+            var identifier = "unmanaged" + callback.ManagedName.ToPascalCase();
             yield return LocalFunctionStatement(returnType, identifier)
                 .WithParameterList(callback.Parameters.GetParameterList())
                 .WithBody(Block(callback.GetVirtualMethodStatements()));

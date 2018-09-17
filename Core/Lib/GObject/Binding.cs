@@ -198,10 +198,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GProperty("source-property")]
         [Since ("2.26")]
-        public Utf8 SourceProperty {
+        public UnownedUtf8 SourceProperty {
             get {
                 var ret_ = g_binding_get_source_property(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -268,10 +268,10 @@ namespace GISharp.Lib.GObject
         /// </returns>
         [GProperty("target-property")]
         [Since ("2.26")]
-        public Utf8 TargetProperty {
+        public UnownedUtf8 TargetProperty {
             get {
                 var ret_ = g_binding_get_target_property(Handle);
-                var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.None);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }

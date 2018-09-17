@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public ThemedIcon(Utf8 iconName, bool useDefaultFallbacks = false)
+        public ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
             : this(useDefaultFallbacks ? NewWithDefaultFallbacks(iconName) : New(iconName), Transfer.Full)
         {
         }

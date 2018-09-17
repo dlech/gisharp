@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen.Reflection
 {
@@ -21,7 +22,11 @@ namespace GISharp.CodeGen.Reflection
                 if (method.ReturnValue.IsSkip) {
                     return typeof(void);
                 }
-                return method.ReturnValue.Type.ManagedType;
+                var type = method.ReturnValue.Type.ManagedType;
+                if (type == typeof(Utf8) && method.ReturnValue.TransferOwnership == "none") {
+                    type = typeof(UnownedUtf8);
+                }
+                return type;
             }
         }
 

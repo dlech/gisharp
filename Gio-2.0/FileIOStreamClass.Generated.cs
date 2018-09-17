@@ -63,7 +63,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int64 tell(System.IntPtr stream_)
+                System.Int64 unmanagedTell(System.IntPtr stream_)
                 {
                     try
                     {
@@ -81,7 +81,7 @@ System.IntPtr stream);
                     return default(System.Int64);
                 }
 
-                return tell;
+                return unmanagedTell;
             }
         }
 
@@ -102,7 +102,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean canSeek(System.IntPtr stream_)
+                System.Boolean unmanagedCanSeek(System.IntPtr stream_)
                 {
                     try
                     {
@@ -120,7 +120,7 @@ System.IntPtr stream);
                     return default(System.Boolean);
                 }
 
-                return canSeek;
+                return unmanagedCanSeek;
             }
         }
 
@@ -153,7 +153,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean seek(System.IntPtr stream_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedSeek(System.IntPtr stream_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -177,7 +177,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return seek;
+                return unmanagedSeek;
             }
         }
 
@@ -198,7 +198,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean canTruncate(System.IntPtr stream_)
+                System.Boolean unmanagedCanTruncate(System.IntPtr stream_)
                 {
                     try
                     {
@@ -216,7 +216,7 @@ System.IntPtr stream);
                     return default(System.Boolean);
                 }
 
-                return canTruncate;
+                return unmanagedCanTruncate;
             }
         }
 
@@ -246,7 +246,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean truncateFn(System.IntPtr stream_, System.Int64 size_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedTruncateFn(System.IntPtr stream_, System.Int64 size_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -269,11 +269,11 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return truncateFn;
+                return unmanagedTruncateFn;
             }
         }
 
-        public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.Utf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
@@ -299,12 +299,12 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryInfo(System.IntPtr stream_, System.IntPtr attributes_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryInfo(System.IntPtr stream_, System.IntPtr attributes_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfo = (QueryInfo)methodInfo.CreateDelegate(typeof(QueryInfo), stream);
                         var ret = doQueryInfo(attributes, cancellable);
@@ -323,11 +323,11 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryInfo;
+                return unmanagedQueryInfo;
             }
         }
 
-        public delegate void QueryInfoAsync(GISharp.Lib.GLib.Utf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -359,12 +359,12 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void queryInfoAsync(System.IntPtr stream_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedQueryInfoAsync(System.IntPtr stream_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None);
-                        var attributes = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(attributes_, GISharp.Runtime.Transfer.None);
+                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -377,7 +377,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return queryInfoAsync;
+                return unmanagedQueryInfoAsync;
             }
         }
 
@@ -404,7 +404,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr queryInfoFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.IntPtr unmanagedQueryInfoFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -427,7 +427,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return queryInfoFinish;
+                return unmanagedQueryInfoFinish;
             }
         }
 
@@ -448,7 +448,7 @@ System.IntPtr stream);
         {
             public static unsafe UnmanagedGetEtag Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr getEtag(System.IntPtr stream_)
+                System.IntPtr unmanagedGetEtag(System.IntPtr stream_)
                 {
                     try
                     {
@@ -466,7 +466,7 @@ System.IntPtr stream);
                     return default(System.IntPtr);
                 }
 
-                return getEtag;
+                return unmanagedGetEtag;
             }
         }
 

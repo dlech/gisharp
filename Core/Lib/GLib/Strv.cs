@@ -62,10 +62,10 @@ namespace GISharp.Lib.GLib
         static extern bool g_strv_contains(IntPtr strv, IntPtr str);
 
         [Since("2.44")]
-        public bool Contains(Utf8 str)
+        public bool Contains(UnownedUtf8 str)
         {
             var this_ = Handle;
-            var str_ = str?.Handle ?? throw new ArgumentNullException(nameof(str));
+            var str_ = str.IsNull ? throw new ArgumentNullException(nameof(str)) : str.Handle;
             var ret = g_strv_contains(this_, str_);
             return ret;
         }
@@ -83,9 +83,10 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<Utf8> GetEnumerator()
         {
-            IntPtr ptr, str;
-            for (ptr = Handle; (str = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
-                yield return Opaque.GetInstance<Utf8>(str, Transfer.None);
+            IntPtr ptr, str_;
+            for (ptr = Handle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
+                var str = new UnownedUtf8(str_, -1).Copy();
+                yield return str;
             }
         }
 

@@ -52,7 +52,7 @@ System.IntPtr seekable);
         {
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int64 tell(System.IntPtr seekable_)
+                System.Int64 unmanagedTell(System.IntPtr seekable_)
                 {
                     try
                     {
@@ -70,7 +70,7 @@ System.IntPtr seekable);
                     return default(System.Int64);
                 }
 
-                return tell;
+                return unmanagedTell;
             }
         }
 
@@ -91,7 +91,7 @@ System.IntPtr seekable);
         {
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean canSeek(System.IntPtr seekable_)
+                System.Boolean unmanagedCanSeek(System.IntPtr seekable_)
                 {
                     try
                     {
@@ -109,7 +109,7 @@ System.IntPtr seekable);
                     return default(System.Boolean);
                 }
 
-                return canSeek;
+                return unmanagedCanSeek;
             }
         }
 
@@ -142,7 +142,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean seek(System.IntPtr seekable_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedSeek(System.IntPtr seekable_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -166,7 +166,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return seek;
+                return unmanagedSeek;
             }
         }
 
@@ -187,7 +187,7 @@ System.IntPtr seekable);
         {
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean canTruncate(System.IntPtr seekable_)
+                System.Boolean unmanagedCanTruncate(System.IntPtr seekable_)
                 {
                     try
                     {
@@ -205,7 +205,7 @@ System.IntPtr seekable);
                     return default(System.Boolean);
                 }
 
-                return canTruncate;
+                return unmanagedCanTruncate;
             }
         }
 
@@ -235,7 +235,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean truncateFn(System.IntPtr seekable_, System.Int64 offset_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedTruncateFn(System.IntPtr seekable_, System.Int64 offset_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -258,7 +258,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return truncateFn;
+                return unmanagedTruncateFn;
             }
         }
 

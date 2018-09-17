@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Utf8 Name { get => (GISharp.Lib.GLib.Utf8)GetProperty("name"); set => SetProperty("name", value); }
+        public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetUnownedUtf8Property("name"); set => SetProperty("name", value); }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
@@ -108,9 +108,9 @@ namespace GISharp.Lib.Gio
         /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType parameterType)
         {
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_simple_action_new(name_,parameterType_);
             return ret_;
@@ -131,7 +131,7 @@ namespace GISharp.Lib.Gio
         ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -195,9 +195,9 @@ namespace GISharp.Lib.Gio
         /// a new <see cref="SimpleAction"/>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
+        static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state)
         {
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
             var state_ = state?.Handle ?? throw new System.ArgumentNullException(nameof(state));
             var ret_ = g_simple_action_new_stateful(name_,parameterType_,state_);
@@ -224,7 +224,7 @@ namespace GISharp.Lib.Gio
         /// the initial state of the action
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.Utf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
+        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -483,7 +483,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.GLib.Utf8 GISharp.Lib.Gio.IAction.DoGetName()
+        GISharp.Lib.GLib.UnownedUtf8 GISharp.Lib.Gio.IAction.DoGetName()
         {
             throw new System.NotImplementedException();
         }

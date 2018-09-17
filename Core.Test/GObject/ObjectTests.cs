@@ -215,9 +215,9 @@ namespace GISharp.Test.Core.GObject
             using (var baseObj = new TestObjectPropertiesBase ())
             using (var baseObjClass = (ObjectClass)TypeClass.Get (baseObj.GetGType ()))
             using (var basePspec = baseObjClass.FindProperty ("bool-value")) {
-                Assert.That (basePspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
-                Assert.That (basePspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
-                Assert.That (basePspec.Blurb, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyBlurb));
+                Assert.That<string>(basePspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
+                Assert.That<string>(basePspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
+                Assert.That<string>(basePspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
                 Assert.That (basePspec.DefaultValue.Get (),
                     Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }
@@ -228,9 +228,9 @@ namespace GISharp.Test.Core.GObject
             using (var subObj = new TestObjectPropertiesSubclass ())
             using (var subObjClass = (ObjectClass)TypeClass.Get (subObj.GetGType ()))
             using (var subPspec = subObjClass.FindProperty ("bool-value")) {
-                Assert.That (subPspec.Name, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyName));
-                Assert.That (subPspec.Nick, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyNick));
-                Assert.That (subPspec.Blurb, Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyBlurb));
+                Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
+                Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
+                Assert.That<string>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
                 Assert.That (subPspec.DefaultValue.Get (),
                     Is.EqualTo (TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }

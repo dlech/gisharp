@@ -57,31 +57,6 @@ namespace GISharp
             }
         }
 
-        sealed class Utf8EqualConstraint : EqualConstraint
-        {
-            public Utf8EqualConstraint(Utf8 expected) : base((string)expected)
-            {
-            }
-
-            public override ConstraintResult ApplyTo<TActual>(TActual actual)
-            {
-                if (actual is Utf8 utf8) {
-                    return base.ApplyTo<string>(utf8);
-                }
-                return base.ApplyTo<TActual>(actual);
-            }
-        }
-
-        /// <summary>
-        /// Use this instead of <see cref="NUnit.Framework.Is.EqualTo(object)"/>
-        /// when comparing <see cref="GISharp.Lib.GLib.Utf8"/> strings in order to
-        /// get a useful failure message.
-        /// </summary>
-        public static Constraint IsEqualToUtf8(Utf8 utf8)
-        {
-            return new Utf8EqualConstraint(utf8);
-        }
-
         /// <summary>
         /// Use this instead of <see cref="NUnit.Framework.Throws.TypeOf{GISharp.Runtime.GErrorException}"/>
         /// to save a bunch of typing.

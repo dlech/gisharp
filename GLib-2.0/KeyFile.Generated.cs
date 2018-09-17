@@ -331,11 +331,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe System.Boolean GetBoolean(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Boolean GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_boolean(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -428,11 +428,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Runtime.IArray<System.Boolean> GetBooleanList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Runtime.IArray<System.Boolean> GetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_boolean_list(keyFile_,groupName_,key_,&length_,&error_);
@@ -510,11 +510,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetComment(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Lib.GLib.Utf8 GetComment(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_comment(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -595,11 +595,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe System.Double GetDouble(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Double GetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_double(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -692,11 +692,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe GISharp.Runtime.IArray<System.Double> GetDoubleList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Runtime.IArray<System.Double> GetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_double_list(keyFile_,groupName_,key_,&length_,&error_);
@@ -820,11 +820,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe System.Int64 GetInt64(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Int64 GetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_int64(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -907,11 +907,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe System.Int32 GetInteger(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.Int32 GetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_integer(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -1006,11 +1006,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Runtime.IArray<System.Int32> GetIntegerList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Runtime.IArray<System.Int32> GetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_integer_list(keyFile_,groupName_,key_,&length_,&error_);
@@ -1088,10 +1088,10 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Strv GetKeys(GISharp.Lib.GLib.Utf8 groupName, out System.Int32 length)
+        public unsafe GISharp.Lib.GLib.Strv GetKeys(GISharp.Lib.GLib.UnownedUtf8 groupName, out System.Int32 length)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_keys(keyFile_,groupName_,&length_,&error_);
@@ -1178,12 +1178,12 @@ namespace GISharp.Lib.GLib
         ///   found or the entry in the file was was untranslated
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetLocaleForKey(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 locale)
+        public unsafe GISharp.Lib.GLib.Utf8 GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var locale_ = locale.Handle;
             var ret_ = g_key_file_get_locale_for_key(keyFile_,groupName_,key_,locale_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1276,12 +1276,12 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 locale)
+        public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var locale_ = locale.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_locale_string(keyFile_,groupName_,key_,locale_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -1395,12 +1395,12 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 locale)
+        public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? System.IntPtr.Zero;
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var locale_ = locale.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_locale_string_list(keyFile_,groupName_,key_,locale_,&length_,&error_);
@@ -1517,11 +1517,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetString(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Lib.GLib.Utf8 GetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_string(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -1610,11 +1610,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Strv GetStringList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Lib.GLib.Strv GetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             System.UIntPtr length_;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_string_list(keyFile_,groupName_,key_,&length_,&error_);
@@ -1686,11 +1686,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe System.UInt64 GetUint64(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe System.UInt64 GetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_uint64(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -1771,11 +1771,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetValue(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe GISharp.Lib.GLib.Utf8 GetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_value(keyFile_,groupName_,key_,&error_);
             if (error_ != System.IntPtr.Zero)
@@ -1824,10 +1824,10 @@ namespace GISharp.Lib.GLib
         /// otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe System.Boolean HasGroup(GISharp.Lib.GLib.Utf8 groupName)
+        public unsafe System.Boolean HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
             var ret_ = g_key_file_has_group(keyFile_,groupName_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -1958,10 +1958,10 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void LoadFromData(GISharp.Lib.GLib.Utf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
+        public unsafe void LoadFromData(GISharp.Lib.GLib.UnownedUtf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             var keyFile_ = Handle;
-            var data_ = data?.Handle ?? throw new System.ArgumentNullException(nameof(data));
+            var data_ = data.IsNull ? throw new System.ArgumentNullException(nameof(data)) : data.Handle;
             var length_ = (System.UIntPtr)length;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
@@ -2299,11 +2299,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void RemoveComment(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe void RemoveComment(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
-            var key_ = key?.Handle ?? System.IntPtr.Zero;
+            var groupName_ = groupName.Handle;
+            var key_ = key.Handle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_comment(keyFile_, groupName_, key_, &error_);
             if (error_ != System.IntPtr.Zero)
@@ -2355,10 +2355,10 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void RemoveGroup(GISharp.Lib.GLib.Utf8 groupName)
+        public unsafe void RemoveGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_group(keyFile_, groupName_, &error_);
             if (error_ != System.IntPtr.Zero)
@@ -2417,11 +2417,11 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void RemoveKey(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key)
+        public unsafe void RemoveKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_key(keyFile_, groupName_, key_, &error_);
             if (error_ != System.IntPtr.Zero)
@@ -2481,10 +2481,10 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void SaveToFile(GISharp.Lib.GLib.Utf8 filename)
+        public unsafe void SaveToFile(GISharp.Lib.GLib.UnownedUtf8 filename)
         {
             var keyFile_ = Handle;
-            var filename_ = filename?.Handle ?? throw new System.ArgumentNullException(nameof(filename));
+            var filename_ = filename.IsNull ? throw new System.ArgumentNullException(nameof(filename)) : filename.Handle;
             var error_ = System.IntPtr.Zero;
             g_key_file_save_to_file(keyFile_, filename_, &error_);
             if (error_ != System.IntPtr.Zero)
@@ -2542,11 +2542,11 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> or <c>false</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetBoolean(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.Boolean value)
+        public unsafe void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = (System.Boolean)value;
             g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
         }
@@ -2609,11 +2609,11 @@ namespace GISharp.Lib.GLib
         /// an array of boolean values
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetBooleanList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Runtime.IArray<System.Boolean> list)
+        public unsafe void SetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.IArray<System.Boolean> list)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
             g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -2692,12 +2692,12 @@ namespace GISharp.Lib.GLib
         /// On error
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetComment(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 comment)
+        public unsafe void SetComment(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 comment)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? System.IntPtr.Zero;
-            var key_ = key?.Handle ?? System.IntPtr.Zero;
-            var comment_ = comment?.Handle ?? throw new System.ArgumentNullException(nameof(comment));
+            var groupName_ = groupName.Handle;
+            var key_ = key.Handle;
+            var comment_ = comment.IsNull ? throw new System.ArgumentNullException(nameof(comment)) : comment.Handle;
             var error_ = System.IntPtr.Zero;
             g_key_file_set_comment(keyFile_, groupName_, key_, comment_, &error_);
             if (error_ != System.IntPtr.Zero)
@@ -2755,11 +2755,11 @@ namespace GISharp.Lib.GLib
         /// an double value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe void SetDouble(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.Double value)
+        public unsafe void SetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Double value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = (System.Double)value;
             g_key_file_set_double(keyFile_, groupName_, key_, value_);
         }
@@ -2820,11 +2820,11 @@ namespace GISharp.Lib.GLib
         /// an array of double values
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe void SetDoubleList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Runtime.IArray<System.Double> list)
+        public unsafe void SetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.IArray<System.Double> list)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
             g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -2877,11 +2877,11 @@ namespace GISharp.Lib.GLib
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe void SetInt64(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.Int64 value)
+        public unsafe void SetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int64 value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = (System.Int64)value;
             g_key_file_set_int64(keyFile_, groupName_, key_, value_);
         }
@@ -2934,11 +2934,11 @@ namespace GISharp.Lib.GLib
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetInteger(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.Int32 value)
+        public unsafe void SetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int32 value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = (System.Int32)value;
             g_key_file_set_integer(keyFile_, groupName_, key_, value_);
         }
@@ -2999,11 +2999,11 @@ namespace GISharp.Lib.GLib
         /// an array of integer values
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetIntegerList(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Runtime.IArray<System.Int32> list)
+        public unsafe void SetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.IArray<System.Int32> list)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var (list_, length_) = ((System.IntPtr, System.UIntPtr))((list?.Data ?? throw new System.ArgumentNullException(nameof(list)), list?.Length ?? 0));
             g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -3104,13 +3104,13 @@ namespace GISharp.Lib.GLib
         /// a string
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetLocaleString(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 locale, GISharp.Lib.GLib.Utf8 @string)
+        public unsafe void SetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var locale_ = locale?.Handle ?? throw new System.ArgumentNullException(nameof(locale));
-            var @string_ = @string?.Handle ?? throw new System.ArgumentNullException(nameof(@string));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var locale_ = locale.IsNull ? throw new System.ArgumentNullException(nameof(locale)) : locale.Handle;
+            var @string_ = @string.IsNull ? throw new System.ArgumentNullException(nameof(@string)) : @string.Handle;
             g_key_file_set_locale_string(keyFile_, groupName_, key_, locale_, @string_);
         }
 
@@ -3217,12 +3217,12 @@ namespace GISharp.Lib.GLib
         /// a string
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetString(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 @string)
+        public unsafe void SetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var @string_ = @string?.Handle ?? throw new System.ArgumentNullException(nameof(@string));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var @string_ = @string.IsNull ? throw new System.ArgumentNullException(nameof(@string)) : @string.Handle;
             g_key_file_set_string(keyFile_, groupName_, key_, @string_);
         }
 
@@ -3317,11 +3317,11 @@ namespace GISharp.Lib.GLib
         /// an integer value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe void SetUint64(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, System.UInt64 value)
+        public unsafe void SetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.UInt64 value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
             var value_ = (System.UInt64)value;
             g_key_file_set_uint64(keyFile_, groupName_, key_, value_);
         }
@@ -3384,12 +3384,12 @@ namespace GISharp.Lib.GLib
         /// a string
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetValue(GISharp.Lib.GLib.Utf8 groupName, GISharp.Lib.GLib.Utf8 key, GISharp.Lib.GLib.Utf8 value)
+        public unsafe void SetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 value)
         {
             var keyFile_ = Handle;
-            var groupName_ = groupName?.Handle ?? throw new System.ArgumentNullException(nameof(groupName));
-            var key_ = key?.Handle ?? throw new System.ArgumentNullException(nameof(key));
-            var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
+            var groupName_ = groupName.IsNull ? throw new System.ArgumentNullException(nameof(groupName)) : groupName.Handle;
+            var key_ = key.IsNull ? throw new System.ArgumentNullException(nameof(key)) : key.Handle;
+            var value_ = value.IsNull ? throw new System.ArgumentNullException(nameof(value)) : value.Handle;
             g_key_file_set_value(keyFile_, groupName_, key_, value_);
         }
 

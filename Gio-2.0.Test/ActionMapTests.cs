@@ -70,14 +70,16 @@ namespace GISharp.Test.Gio
             Actions.Add(action);
         }
 
-        IAction IActionMap.DoLookupAction(Utf8 actionName)
+        IAction IActionMap.DoLookupAction(UnownedUtf8 actionName)
         {
-            return Actions.SingleOrDefault(a => a.Name == actionName);
+            var match = actionName.ToString();
+            return Actions.SingleOrDefault(a => a.Name == match);
         }
 
-        void IActionMap.DoRemoveAction(Utf8 actionName)
+        void IActionMap.DoRemoveAction(UnownedUtf8 actionName)
         {
-            Actions.RemoveWhere(a => a.Name == actionName);
+            var match = actionName.ToString();
+            Actions.RemoveWhere(a => a.Name == match);
         }
     }
 }

@@ -89,7 +89,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedWriteFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr writeFn(System.IntPtr stream_, System.IntPtr buffer_, System.UIntPtr count_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedWriteFn(System.IntPtr stream_, System.IntPtr buffer_, System.UIntPtr count_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -113,7 +113,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return writeFn;
+                return unmanagedWriteFn;
             }
         }
 
@@ -146,7 +146,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSplice Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr splice(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.IntPtr unmanagedSplice(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -171,7 +171,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return splice;
+                return unmanagedSplice;
             }
         }
 
@@ -198,7 +198,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedFlush Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean flush(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedFlush(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -220,7 +220,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return flush;
+                return unmanagedFlush;
             }
         }
 
@@ -247,7 +247,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean closeFn(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
+                System.Boolean unmanagedCloseFn(System.IntPtr stream_, System.IntPtr cancellable_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -269,7 +269,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return closeFn;
+                return unmanagedCloseFn;
             }
         }
 
@@ -310,7 +310,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedWriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void writeAsync(System.IntPtr stream_, System.IntPtr buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedWriteAsync(System.IntPtr stream_, System.IntPtr buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -328,7 +328,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return writeAsync;
+                return unmanagedWriteAsync;
             }
         }
 
@@ -355,7 +355,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedWriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr writeFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.IntPtr unmanagedWriteFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -378,7 +378,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return writeFinish;
+                return unmanagedWriteFinish;
             }
         }
 
@@ -417,7 +417,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedSpliceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void spliceAsync(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedSpliceAsync(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -436,7 +436,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return spliceAsync;
+                return unmanagedSpliceAsync;
             }
         }
 
@@ -463,7 +463,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedSpliceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr spliceFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.IntPtr unmanagedSpliceFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -486,7 +486,7 @@ System.IntPtr* error);
                     return default(System.IntPtr);
                 }
 
-                return spliceFinish;
+                return unmanagedSpliceFinish;
             }
         }
 
@@ -519,7 +519,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedFlushAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void flushAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedFlushAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -536,7 +536,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return flushAsync;
+                return unmanagedFlushAsync;
             }
         }
 
@@ -563,7 +563,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedFlushFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean flushFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedFlushFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -585,7 +585,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return flushFinish;
+                return unmanagedFlushFinish;
             }
         }
 
@@ -618,7 +618,7 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void closeAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -635,7 +635,7 @@ System.IntPtr userData);
                     }
                 }
 
-                return closeAsync;
+                return unmanagedCloseAsync;
             }
         }
 
@@ -662,7 +662,7 @@ System.IntPtr* error);
         {
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Boolean closeFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
+                System.Boolean unmanagedCloseFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr* error_)
                 {
                     try
                     {
@@ -684,7 +684,7 @@ System.IntPtr* error);
                     return default(System.Boolean);
                 }
 
-                return closeFinish;
+                return unmanagedCloseFinish;
             }
         }
 
