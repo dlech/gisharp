@@ -16,7 +16,7 @@ namespace GISharp.Test.Core
 
         protected IListTests(Func<TList, int, TItem> getItemAt, TItem value0, TItem value1, TItem value2, TItem value3, TItem value4)
         {
-            this.getItemAt = getItemAt ?? throw new ArgumentNullException(nameof(getItemAt));
+            this.getItemAt = getItemAt;
             values[0] = value0;
             values[1] = value1;
             values[2] = value2;

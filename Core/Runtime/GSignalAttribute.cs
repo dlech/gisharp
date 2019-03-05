@@ -9,7 +9,7 @@ namespace GISharp.Runtime
     [AttributeUsage (AttributeTargets.Event, Inherited = true)]
     public sealed class GSignalAttribute : Attribute
     {
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
 
         public EmissionStage When;
 
@@ -21,7 +21,7 @@ namespace GISharp.Runtime
 
         public bool IsNoHooks;
 
-        public GSignalAttribute (string name = null)
+        public GSignalAttribute(string? name = null)
         {
             Name = name;
         }

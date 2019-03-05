@@ -59,10 +59,18 @@ namespace GISharp.Lib.GLib
     {
         class UserData
         {
-            public LogWriterFunc Func;
-            public UnmanagedLogWriterFunc UnmanagedFunc;
-            public UnmanagedDestroyNotify UnmanagedNotify;
-            public CallbackScope Scope;
+            public readonly LogWriterFunc Func;
+            public readonly UnmanagedLogWriterFunc UnmanagedFunc;
+            public readonly UnmanagedDestroyNotify UnmanagedNotify;
+            public readonly CallbackScope Scope;
+
+            public UserData(LogWriterFunc func, UnmanagedLogWriterFunc unmanagedFunc, UnmanagedDestroyNotify unmanagedNotify, CallbackScope scope)
+            {
+                Func = func;
+                UnmanagedFunc = unmanagedFunc;
+                UnmanagedNotify = unmanagedNotify;
+                Scope = scope;
+            }
         }
 
         public static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
@@ -74,12 +82,7 @@ namespace GISharp.Lib.GLib
         }
 
         public static (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope) {
-            var data = new UserData {
-                Func = func,
-                UnmanagedFunc = UnmanagedFunc,
-                UnmanagedNotify = UnmanagedNotify,
-                Scope = scope
-            };
+            var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);
             var gcHandle = GCHandle.Alloc(data);
 
             return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);

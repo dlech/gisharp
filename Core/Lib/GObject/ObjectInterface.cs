@@ -58,10 +58,10 @@ namespace GISharp.Lib.GObject
         /// <c>null</c> if no such property exists.
         /// </returns>
         [Since("2.4")]
-        public ParamSpec FindProperty(UnownedUtf8 propertyName)
+        public ParamSpec? FindProperty(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
-            var propertyName_ = propertyName.IsNull ? throw new ArgumentNullException(nameof(propertyName)) : propertyName.Handle;
+            var propertyName_ = propertyName.Handle;
             var ret_ = g_object_interface_find_property(this_, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;
@@ -127,7 +127,7 @@ namespace GISharp.Lib.GObject
         public void InstallProperty(ParamSpec pspec)
         {
             var this_ = Handle;
-            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            var pspec_ = pspec.Handle;
             g_object_interface_install_property(this_, pspec_);
         }
 

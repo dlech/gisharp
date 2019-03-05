@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify notify);
+            UnmanagedDestroyNotify? notify);
 
         /// <summary>
         /// Adds a function to be called whenever there are no higher priority
@@ -79,9 +79,6 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static uint Add (SourceFunc function, int priority = Priority.DefaultIdle)
         {
-            if (function == null) {
-                throw new ArgumentNullException (nameof(function));
-            }
             var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
             var ret = g_idle_add_full(priority, function_, data_, notify_);
             return ret;

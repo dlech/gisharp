@@ -13,10 +13,6 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestAdd ()
         {
-            // null function is not allowed
-            Assert.That (() => Timeout.Add (0, null),
-                Throws.InstanceOf<ArgumentNullException> ());
-
             // Timeout.Add() can only attach sources to the global main context,
             // so we need lock to ensure we have exclusive use.
             lock (MainContextTests.MainContextLock) {
@@ -45,11 +41,7 @@ namespace GISharp.Test.Core.GLib
 
         [Test]
         public void TestAddSeconds ()
-        {
-            // null function is not allowed
-            Assert.That (() => Timeout.AddSeconds (0, null),
-                Throws.InstanceOf<ArgumentNullException> ());
-            
+        {            
             // Timeout.AddSeconds() can only attach sources to the global main
             // context, so we need lock to ensure we have exclusive use.
             lock (MainContextTests.MainContextLock) {

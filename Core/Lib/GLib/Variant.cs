@@ -233,7 +233,7 @@ namespace GISharp.Lib.GLib
     public sealed class Variant
         : Opaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
     {
-        IndexedCollection<Variant> childValues;
+        IndexedCollection<Variant>? childValues;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Variant(IntPtr handle, Transfer ownership) : base(handle, ownership)
@@ -543,7 +543,7 @@ namespace GISharp.Lib.GLib
             return new Variant (value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs(VariantType childType, IArray<Variant> children)
+        static void AssertNewArrayArgs(VariantType? childType, IArray<Variant>? children)
         {
             if (childType == null && (children == null || children.Length == 0)) {
                 throw new ArgumentException ("Must specify child type when no children", nameof (childType));
@@ -641,7 +641,7 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewArray(VariantType childType, IArray<Variant> children)
+        static IntPtr NewArray(VariantType? childType, IArray<Variant>? children)
         {
             AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
@@ -677,7 +677,7 @@ namespace GISharp.Lib.GLib
         ///            #GVariant pointers, the children
         /// </param>
         [Since ("2.24")]
-        public Variant(VariantType childType, IArray<Variant> children)
+        public Variant(VariantType? childType, IArray<Variant>? children)
             : this(NewArray(childType, children), Transfer.None)
         {
         }
@@ -818,9 +818,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.26")]
         static IntPtr NewBytestring(byte[] @string)
         {
-            if (@string == null) {
-                throw new ArgumentNullException (nameof (@string));
-            }
             var @string_ = GMarshal.CArrayToPtr<byte> (@string, true);
             try {
                 var ret = g_variant_new_bytestring(@string_);
@@ -881,9 +878,6 @@ namespace GISharp.Lib.GLib
 
         static IntPtr NewBytestringArray (byte[][] value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var strv = GMarshal.Alloc ((value.Length + 1) * IntPtr.Size);
             try {
                 var offset = 0;
@@ -954,8 +948,8 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewDictEntry (Variant key, Variant value)
         {
-            var key_ = key?.Handle ?? throw new ArgumentNullException(nameof(key));
-            var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
+            var key_ = key.Handle;
+            var value_ = value.Handle;
             if (!key.Type.IsBasic) {
                 throw new ArgumentException ("Key must be a basic variant type.", nameof (key));
             }
@@ -1111,14 +1105,8 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new array #GVariant instance
         /// </returns>
         [Since ("2.32")]
-        static Variant NewFixedArray<T> (VariantType elementType, T[] elements) where T : struct
+        static Variant NewFixedArray<T>(VariantType elementType, T[] elements) where T : struct
         {
-            if (elementType == null) {
-                throw new ArgumentNullException (nameof (elementType));
-            }
-            if (elements == null) {
-                throw new ArgumentNullException (nameof (elements));
-            }
             var gch = GCHandle.Alloc (elements, GCHandleType.Pinned);
             try {
                 var elements_ = gch.AddrOfPinnedObject ();
@@ -1433,7 +1421,7 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new #GVariant maybe instance
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewMaybe (VariantType childType, Variant child)
+        static IntPtr NewMaybe(VariantType? childType, Variant? child)
         {
             // FIXME: check args for at least one non-null and consistent types
             var childType_ = childType?.Handle ?? IntPtr.Zero;
@@ -1462,7 +1450,7 @@ namespace GISharp.Lib.GLib
         /// the child value, or %NULL
         /// </param>
         [Since ("2.24")]
-        public Variant (VariantType childType, Variant child)
+        public Variant(VariantType? childType, Variant? child)
             : this(NewMaybe(childType, child), Transfer.None)
         {
         }
@@ -1490,9 +1478,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewDBusObjectPath (DBusObjectPath value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var valuePtr = GMarshal.StringToUtf8Ptr (value);
             try {
                 var ret = g_variant_new_object_path(valuePtr);
@@ -1544,9 +1529,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.30")]
         static IntPtr NewDBusObjectPathArray (DBusObjectPath[] value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var strv = new string[value.Length];
             for (int i = 0; i < value.Length; i++) {
                 strv[i] = value[i];
@@ -1589,9 +1571,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewDBusSignature (DBusSignature value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var valuePtr = GMarshal.StringToUtf8Ptr (value);
             try {
                 var ret = g_variant_new_signature(valuePtr);
@@ -1653,7 +1632,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewStrv(Strv strv)
         {
-            var strv_ = strv?.Handle ?? throw new ArgumentNullException(nameof(strv));
+            var strv_ = strv.Handle;
             var ret = g_variant_new_strv(strv_, -1);
             return ret;
         }
@@ -1727,9 +1706,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.38")]
         static IntPtr NewTakeString (string @string)
         {
-            if (@string == null) {
-                throw new ArgumentNullException (nameof (@string));
-            }
             var @string_ = GMarshal.StringToUtf8Ptr (@string);
             var ret = g_variant_new_take_string(@string_);
             return ret;
@@ -1811,7 +1787,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewTuple(IArray<Variant> children)
         {
-            var children_ = children?.Data ?? throw new ArgumentNullException(nameof(children));
+            var children_ = children.Data;
             if (children.Any (x => x == null)) {
                 throw new ArgumentException("Tuple cannot have null elements", nameof(children));
             }
@@ -2014,7 +1990,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         static IntPtr NewVariant (Variant value)
         {
-            var value_ = value?.Handle ?? throw new ArgumentNullException(nameof(value));
+            var value_ = value.Handle;
             var ret = g_variant_new_variant(value_);
             return ret;
         }
@@ -2081,7 +2057,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         public static bool IsObjectPath(UnownedUtf8 @string)
         {
-            var string_ = @string.IsNull ? throw new ArgumentNullException(nameof(@string)) : @string.Handle;
+            var string_ = @string.Handle;
             var ret = g_variant_is_object_path(@string_);
             return ret;
         }
@@ -2128,7 +2104,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         public static bool IsSignature(UnownedUtf8 @string)
         {
-            var string_ = @string.IsNull ? throw new ArgumentNullException(nameof(@string)) : @string.Handle;
+            var string_ = @string.Handle;
             var ret = g_variant_is_signature(@string_);
             return ret;
         }
@@ -2248,11 +2224,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a non-floating reference to a #GVariant, or %NULL
         /// </returns>
-        public static Variant Parse(VariantType type, UnownedUtf8 text)
+        public static Variant Parse(VariantType? type, UnownedUtf8 text)
         {
-            if (text == null) {
-                throw new ArgumentNullException (nameof (text));
-            }
             var type_ = type?.Handle ?? IntPtr.Zero;
             var text_ = text.Handle;
             IntPtr error_;
@@ -2392,7 +2365,7 @@ namespace GISharp.Lib.GLib
         public bool CheckFormatString(UnownedUtf8 formatString, bool copyOnly)
         {
             var this_ = Handle;
-            var formatString_ = formatString.IsNull ? throw new ArgumentNullException(nameof(formatString)) : formatString.Handle;
+            var formatString_ = formatString.Handle;
             var ret = g_variant_check_format_string(this_, formatString_, copyOnly);
             return ret;
         }
@@ -2509,7 +2482,7 @@ namespace GISharp.Lib.GLib
         public int CompareTo(Variant other)
         {
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             if (Type != other.Type) {
                 var message = $"Variant types must match but have '{Type}' and '{other.Type}'";
                 throw new InvalidOperationException (message);
@@ -2583,30 +2556,27 @@ namespace GISharp.Lib.GLib
         public bool Equals(Variant other)
         {
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             var ret = g_variant_equal(this_, other_);
             return ret;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            return Equals (obj as Variant);
+            if (obj is Variant variant) {
+                return Equals(variant);
+            }
+            return base.Equals(obj);
         }
 
-        public static bool operator == (Variant one, Variant two)
+        public static bool operator ==(Variant? one, Variant? two)
         {
-            if ((object)one == null) {
-                return (object)two == null;
-            }
-            if ((object)two == null) {
-                return false;
-            }
-            return one.Equals (two);
+            return object.Equals(one, two);
         }
 
-        public static bool operator != (Variant one, Variant two)
+        public static bool operator !=(Variant? one, Variant? two)
         {
-            return !(one == two);
+            return !object.Equals(one, two);
         }
 
         /// <summary>
@@ -2760,7 +2730,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException ();
                 }
                 var ret_ = g_variant_get_bytestring(Handle);
-                var ret = GMarshal.PtrToCArray<byte> (ret_, null);
+                var ret = GMarshal.PtrToCArray<byte>(ret_, null)!;
                 return ret;
             }
         }
@@ -2809,13 +2779,13 @@ namespace GISharp.Lib.GLib
             ulong length;
             var ptr = g_variant_get_bytestring_array(Handle, &length);
             if (ptr == IntPtr.Zero) {
-                return null;
+                return new byte[0][];
             }
             var array = new System.Collections.Generic.List<byte[]> ();
             var offset = 0;
             for (ulong i = 0; i < length; i++) {
                 var elementPtr = Marshal.ReadIntPtr (ptr, offset);
-                array.Add (GMarshal.PtrToByteString (elementPtr));
+                array.Add(GMarshal.PtrToByteString(elementPtr)!);
                 offset += IntPtr.Size;
             }
             return array.ToArray ();
@@ -3449,9 +3419,9 @@ namespace GISharp.Lib.GLib
                 ulong length;
                 var ptr = g_variant_get_objv(Handle, &length);
                 if (ptr == IntPtr.Zero) {
-                    return null;
+                    return new DBusObjectPath[0];
                 }
-                var strv = GMarshal.GStrvPtrToStringArray (ptr, freePtr: true, freeElements: false);
+                var strv = GMarshal.GStrvPtrToStringArray (ptr, freePtr: true, freeElements: false)!;
                 var objv = new DBusObjectPath[strv.Length];
                 for (int i = 0; i < strv.Length; i++) {
                     objv[i] = strv[i];
@@ -3558,24 +3528,11 @@ namespace GISharp.Lib.GLib
         /// type.  This includes the types %G_VARIANT_TYPE_STRING,
         /// %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
         /// </summary>
-        /// <remarks>
-        /// The string will always be UTF-8 encoded, and will never be %NULL.
-        ///
-        /// If @length is non-%NULL then the length of the string (in bytes) is
-        /// returned there.  For trusted values, this information is already
-        /// known.  For untrusted values, a strlen() will be performed.
-        ///
-        /// It is an error to call this function with a @value of any type
-        /// other than those three.
-        ///
-        /// The return value remains valid as long as @value exists.
-        /// </remarks>
         /// <param name="length">
-        /// a pointer to a #gsize,
-        ///          to store the length
+        /// the length
         /// </param>
         /// <returns>
-        /// the constant string, UTF-8 encoded
+        /// the string
         /// </returns>
         [Since ("2.24")]
         unsafe string getString(out int length)
@@ -3587,8 +3544,10 @@ namespace GISharp.Lib.GLib
             var ret_ = g_variant_get_string(Handle, &length_);
             var ret = GMarshal.Utf8PtrToString(ret_);
             length = (int)length_;
-            return ret;
+            return ret!;
         }
+
+        [Since ("2.24")]
         unsafe string getString()
         {
             if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
@@ -3596,7 +3555,7 @@ namespace GISharp.Lib.GLib
             }
             var ret_ = g_variant_get_string(Handle, null);
             var ret = GMarshal.Utf8PtrToString(ret_);
-            return ret;
+            return ret!;
         }
 
         /// <summary>
@@ -4073,7 +4032,7 @@ namespace GISharp.Lib.GLib
         public bool IsOfType (VariantType type)
         {
             var this_ = Handle;
-            var type_ = type?.Handle ?? throw new ArgumentNullException(nameof(type));
+            var type_ = type.Handle;
             var ret = g_variant_is_of_type(this_, type_);
             return ret;
         }
@@ -4163,10 +4122,10 @@ namespace GISharp.Lib.GLib
         /// the value of the dictionary key, or %NULL
         /// </returns>
         [Since ("2.28")]
-        public Variant LookupValue (UnownedUtf8 key, VariantType expectedType)
+        public Variant LookupValue(UnownedUtf8 key, VariantType? expectedType)
         {
             var this_ = Handle;
-            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
+            var key_ = key.Handle;
             var expectedType_ = expectedType?.Handle ?? IntPtr.Zero;
             var ret_ = g_variant_lookup_value(this_, key_, expectedType_);
             var ret = GetInstance<Variant> (ret_, Transfer.Full);

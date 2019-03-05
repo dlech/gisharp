@@ -26,9 +26,6 @@ namespace GISharp.Lib.GObject
         /// When registering a signal and looking up a signal, either separator
         /// can be used, but they cannot be mixed.
         /// </remarks>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="name"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="name"/> does not meet the criteria
         /// specified in the remarks.
@@ -103,9 +100,6 @@ namespace GISharp.Lib.GObject
         ///// </returns>
         //public static nulong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
         //{
-        //    if (hookFunc == null) {
-        //        throw new ArgumentNullException ("hookFunc");
-        //    }
         //    var hookFunc_ = SignalEmissionHookFactory.Create (hookFunc, false);
         //    var hookFuncHandle = GCHandle.Alloc (hookFunc);
         //    var dataDestroy_ = DestoryNotifyFactory.Create (hookFuncHandle);
@@ -157,12 +151,6 @@ namespace GISharp.Lib.GObject
         ///// </param>
         //public static void ChainFromOverridden (Value[] instanceAndParams, Value returnValue)
         //{
-        //    if (instanceAndParams == null) {
-        //        throw new ArgumentNullException ("instanceAndParams");
-        //    }
-        //    if (returnValue == null) {
-        //        throw new ArgumentNullException ("returnValue");
-        //    }
         //    var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
         //    var returnValue_ = returnValue == null ? IntPtr.Zero : returnValue.Handle;
         //    g_signal_chain_from_overridden (instanceAndParams_, returnValue_);
@@ -226,15 +214,6 @@ namespace GISharp.Lib.GObject
         ///// </returns>
         //public static nulong ConnectClosure (Object instance, string detailedSignal, Closure closure, bool after)
         //{
-        //    if (instance == null) {
-        //        throw new ArgumentNullException ("instance");
-        //    }
-        //    if (detailedSignal == null) {
-        //        throw new ArgumentNullException ("detailedSignal");
-        //    }
-        //    if (closure == null) {
-        //        throw new ArgumentNullException ("closure");
-        //    }
         //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
         //    var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
         //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
@@ -309,11 +288,11 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static SignalHandler Connect(this Object instance, uint signalId, Quark detail, Closure closure, bool after = false)
         {
-           var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+           var instance_ = instance.Handle;
            if (signalId == 0) {
                throw new ArgumentOutOfRangeException(nameof(signalId));
            }
-           var closure_ = closure?.Handle ?? throw new ArgumentNullException(nameof(closure));
+           var closure_ = closure.Handle;
            var ret = g_signal_connect_closure_by_id(instance_, signalId, detail, closure_, after);
            if (ret == 0) {
                // warning will be logged
@@ -368,7 +347,7 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            UnmanagedClosureNotify destroyData,
+            UnmanagedClosureNotify? destroyData,
             /* <type name="ConnectFlags" type="GConnectFlags" managed-name="ConnectFlags" /> */
             /* transfer-ownership:none */
             ConnectFlags connectFlags);
@@ -399,10 +378,9 @@ namespace GISharp.Lib.GObject
             System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
             T handler, ConnectFlags connectFlags = default(ConnectFlags))
         {
-            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
-            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
-            var (handler_, notify_, data_) = unmanagedCallbackFactory?.Invoke(handler) ??
-                throw new ArgumentNullException(nameof(unmanagedCallbackFactory));
+            var instance_ = instance.Handle;
+            var detailedSignal_ = detailedSignal.Handle;
+            var (handler_, notify_, data_) = unmanagedCallbackFactory.Invoke(handler);
             var handlerPtr = Marshal.GetFunctionPointerForDelegate(handler_);
             var ret = g_signal_connect_data(instance_, detailedSignal_, handlerPtr, data_, notify_, connectFlags);
 
@@ -477,7 +455,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static T Emit<T>(this Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
         {
-            return (T)Emit(typeof(T), instance, signalId, detail, parameters);
+            return (T)Emit(typeof(T), instance, signalId, detail, parameters)!;
         }
 
         /// <summary>
@@ -501,11 +479,8 @@ namespace GISharp.Lib.GObject
             Emit(typeof(void), instance, signalId, detail, parameters);
         }
 
-        static unsafe object Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
+        static unsafe object? Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof(instance));
-            }
             var query = Signal.Query (signalId);
             if (!instance.GetGType ().IsA (query.IType)) {
                 throw new ArgumentException ("Instance type does not match signal type");
@@ -576,9 +551,6 @@ namespace GISharp.Lib.GObject
         /// </returns>
         static SignalInvocationHint GetInvocationHint (Object instance)
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof(instance));
-            }
             var ret = g_signal_get_invocation_hint (instance.Handle);
 
             return ret;
@@ -667,9 +639,6 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool HasHandlerPending (Object instance, uint signalId, Quark detail, bool mayBeBlocked)
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof (instance));
-            }
             var ret = g_signal_has_handler_pending (instance.Handle, signalId, detail, mayBeBlocked);
             return ret;
         }
@@ -771,7 +740,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static uint TryLookup(UnownedUtf8 name, GType itype)
         {
-            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var name_ = name.Handle;
             var ret = g_signal_lookup(name_, itype);
             return ret;
         }
@@ -888,13 +857,13 @@ namespace GISharp.Lib.GObject
             IntPtr classClosure,
             /* <type name="SignalAccumulator" type="GSignalAccumulator" managed-name="SignalAccumulator" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 closure:5 */
-            UnmanagedSignalAccumulator accumulator,
+            UnmanagedSignalAccumulator? accumulator,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr accuData,
             /* <type name="SignalCMarshaller" type="GSignalCMarshaller" managed-name="SignalCMarshaller" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            UnmanagedSignalCMarshaller cMarshaller,
+            UnmanagedSignalCMarshaller? cMarshaller,
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType returnType,
@@ -907,17 +876,17 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             GType[] paramTypes);
 
-        internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure classClosure,
-            SignalAccumulator accumulator, SignalCMarshaller cMarshaller, GType returnType, GType[]paramTypes)
+        internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure? classClosure,
+            SignalAccumulator? accumulator, SignalCMarshaller? cMarshaller, GType returnType, GType[] paramTypes)
         {
-            var signalName_ = signalName.IsNull ? throw new ArgumentNullException(nameof(signalName)) : signalName.Handle;
+            var signalName_ = signalName.Handle;
             var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
             var accumulator_ = accumulator == null ? default(UnmanagedSignalAccumulator)
                 : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
             var accuData_ = IntPtr.Zero;
             var cMarshaller_ = cMarshaller == null ? default(UnmanagedSignalCMarshaller)
                 : throw new NotImplementedException("need to implement UnmangagedSignalCMarshaller factory");
-            var nParams = paramTypes?.Length ?? throw new ArgumentNullException(nameof(paramTypes));
+            var nParams = paramTypes.Length;
 
             var ret = g_signal_newv(signalName_, itype, signalFlags, classClosure_, accumulator_,
                 accuData_, cMarshaller_, returnType, (uint)nParams, paramTypes);
@@ -981,9 +950,6 @@ namespace GISharp.Lib.GObject
         ///// </param>
         //public static void OverrideClassClosure (uint signalId, GType instanceType, Closure classClosure)
         //{
-        //    if (classClosure == null) {
-        //        throw new ArgumentNullException ("classClosure");
-        //    }
         //    var classClosure_ = classClosure == null ? IntPtr.Zero : classClosure.Handle;
         //    g_signal_override_class_closure (signalId, instanceType, classClosure_);
         //}
@@ -1048,12 +1014,6 @@ namespace GISharp.Lib.GObject
         //[Since ("2.18")]
         //public static void OverrideClassHandler (string signalName, GType instanceType, Callback classHandler)
         //{
-        //    if (signalName == null) {
-        //        throw new ArgumentNullException ("signalName");
-        //    }
-        //    if (classHandler == null) {
-        //        throw new ArgumentNullException ("classHandler");
-        //    }
         //    var signalName_ = MarshalG.StringToUtf8Ptr (signalName);
         //    var classHandler_ = CallbackFactory.Create (classHandler, false);
         //    g_signal_override_class_handler (signalName_, instanceType, classHandler_);
@@ -1128,7 +1088,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool TryParseName(UnownedUtf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
-            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
+            var detailedSignal_ = detailedSignal.Handle;
             var ret = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
             return ret;
         }
@@ -1295,7 +1255,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void StopEmission(this Object instance, uint signalId, Quark detail = default(Quark))
         {
-            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
+            var instance_ = instance.Handle;
             g_signal_stop_emission(instance_, signalId, detail);
         }
 
@@ -1338,8 +1298,8 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void StopEmissionByName(this Object instance, UnownedUtf8 detailedSignal)
         {
-            var instance_ = instance?.Handle ?? throw new ArgumentNullException(nameof(instance));
-            var detailedSignal_ = detailedSignal.IsNull ? throw new ArgumentNullException(nameof(detailedSignal)) : detailedSignal.Handle;
+            var instance_ = instance.Handle;
+            var detailedSignal_ = detailedSignal.Handle;
             g_signal_stop_emission_by_name(instance_, detailedSignal_);
         }
 

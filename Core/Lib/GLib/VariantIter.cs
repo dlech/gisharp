@@ -35,16 +35,14 @@ namespace GISharp.Lib.GLib
             base.Dispose (disposing);
         }
 
-        readonly Variant value;
+        readonly Variant? value;
+        Variant? current;
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_iter_new (IntPtr value);
 
         static IntPtr New (Variant value)
         {
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             if (!value.IsContainer) {
                 throw new ArgumentException ("must be a container", nameof (value));
             }
@@ -56,9 +54,6 @@ namespace GISharp.Lib.GLib
         /// Creates a <see cref="T:VariantIter"/> for iterating over the items in <paramref name="value"/>.
         /// </summary>
         /// <param name="value">a container <see cref="T:Variant"/>.</param>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="value"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// if <paramref name="value"/> is not a container type
         /// </exception>
@@ -100,7 +95,11 @@ namespace GISharp.Lib.GLib
 
         public void Reset ()
         {
+            if (value == null) {
+                throw new InvalidOperationException("Initial value is unknown.");
+            }
             g_variant_iter_init(Handle, value.Handle);
+            current = null;
         }
 
         /// <summary>
@@ -194,13 +193,14 @@ namespace GISharp.Lib.GLib
         {
             var ret_ = g_variant_iter_next_value(Handle);
             if (ret_ == IntPtr.Zero) {
+                current = null;
                 return false;
             }
-            Current = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
+            current = Opaque.GetInstance<Variant>(ret_, Transfer.Full);
             return true;
         }
 
-        public Variant Current { get; private set; }
+        public Variant Current => current ?? throw new InvalidOperationException();
 
         object IEnumerator.Current => Current;
     }

@@ -36,15 +36,6 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New (string name, string nick, string blurb, GType paramType, ParamFlags flags)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
             if (!paramType.IsA (GType.Param)) {
                 throw new ArgumentException ("Expecting param type.", nameof (paramType));
             }

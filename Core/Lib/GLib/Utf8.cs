@@ -17,8 +17,87 @@ namespace GISharp.Lib.GLib
     {
         byte* handle;
         int length;
-        string managedValue;
-        Utf8 unmanagedValue;
+        string? managedValue;
+        Utf8? unmanagedValue;
+
+        public IntPtr Handle => (IntPtr)handle;
+
+        public int Length {
+            get {
+                if (length < 0) {
+                    length = unmanagedValue?.Length ?? (int)strlen(handle);
+                }
+                return length;
+            }
+        }
+
+        public UnownedUtf8(IntPtr handle, int length)
+        {
+            if (handle == IntPtr.Zero) {
+                throw new ArgumentException("Cannot be null pointer", nameof(handle));
+            }
+            this.handle = (byte*)handle;
+            this.length = length;
+            managedValue = null;
+            unmanagedValue = null;
+        }
+
+        public UnownedUtf8(Utf8 utf8)
+        {
+            this.handle = (byte*)utf8.Handle;
+            this.length = -1;
+            this.managedValue = null;
+            this.unmanagedValue = utf8;
+        }
+
+        [DllImport("c")]
+        static extern UIntPtr strlen(byte* s);
+
+        public ReadOnlySpan<byte> AsReadOnlySpan()
+        {
+            return new ReadOnlySpan<byte>(handle, Length);
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_strdup(byte* str);
+
+        public Utf8 Copy()
+        {
+            var ret_ = g_strdup(handle);
+            var ret = new Utf8(ret_, Transfer.Full);
+            return ret;
+        }
+
+        public override string ToString()
+        {
+            if (managedValue == null) {
+                managedValue = unmanagedValue?.ToString() ?? Encoding.UTF8.GetString(handle, Length);
+            }
+            return managedValue;
+        }
+
+        public static implicit operator string(UnownedUtf8 utf8)
+        {
+            return utf8.ToString();
+        }
+
+        public static implicit operator UnownedUtf8(string str)
+        {
+            return new UnownedUtf8(new Utf8(str));
+        }
+
+        public static implicit operator UnownedUtf8(Utf8 owned)
+        {
+            return new UnownedUtf8(owned);
+        }
+    }
+
+    public unsafe ref struct NullableUnownedUtf8
+    {
+        byte* handle;
+        int length;
+        string? managedValue;
+        Utf8? unmanagedValue;
 
         public IntPtr Handle => (IntPtr)handle;
 
@@ -36,7 +115,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        public UnownedUtf8(IntPtr handle, int length)
+        public NullableUnownedUtf8(IntPtr handle, int length)
         {
             this.handle = (byte*)handle;
             this.length = length;
@@ -44,7 +123,7 @@ namespace GISharp.Lib.GLib
             unmanagedValue = null;
         }
 
-        public UnownedUtf8(Utf8 utf8)
+        public NullableUnownedUtf8(Utf8? utf8)
         {
             this.handle = (byte*)utf8?.Handle;
             this.length = utf8 == null ? 0 : -1;
@@ -87,7 +166,7 @@ namespace GISharp.Lib.GLib
             return managedValue;
         }
 
-        public static implicit operator string(UnownedUtf8 utf8)
+        public static implicit operator string?(NullableUnownedUtf8 utf8)
         {
             if (utf8.handle == null) {
                 return null;
@@ -95,17 +174,20 @@ namespace GISharp.Lib.GLib
             return utf8.ToString();
         }
 
-        public static implicit operator UnownedUtf8(string str)
+        public static implicit operator NullableUnownedUtf8(string? str)
         {
             if (str == null) {
-                return default(UnownedUtf8);
+                return default(NullableUnownedUtf8);
             }
-            return new UnownedUtf8(new Utf8(str));
+            return new NullableUnownedUtf8(new Utf8(str));
         }
 
-        public static implicit operator UnownedUtf8(Utf8 owned)
+        public static implicit operator NullableUnownedUtf8(Utf8? owned)
         {
-            return new UnownedUtf8(owned);
+            if (owned == null) {
+                return default(NullableUnownedUtf8);
+            }
+            return new NullableUnownedUtf8(owned);
         }
     }
 
@@ -117,10 +199,10 @@ namespace GISharp.Lib.GLib
     {
 
         /// <summary>
-        /// Convince property for <c>default(UnownedUtf8)</c> or
-        /// <c>new UnownedUtf8(null)</c>
+        /// Convenience property for <c>default(NullableUnownedUtf8)</c> or
+        /// <c>new NullableUnownedUtf8(null)</c>
         /// </summary>
-        public static UnownedUtf8 Null => default(UnownedUtf8);
+        public static NullableUnownedUtf8 Null => default(NullableUnownedUtf8);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_utf16_to_utf8(
@@ -132,9 +214,6 @@ namespace GISharp.Lib.GLib
 
         static IntPtr New(string value)
         {
-            if (value == null) {
-                throw new ArgumentNullException(nameof(value));
-            }
             var ret = g_utf16_to_utf8(value, value.Length, IntPtr.Zero, IntPtr.Zero, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
@@ -299,9 +378,6 @@ namespace GISharp.Lib.GLib
         /// <param name="str">
         /// a UTF-8 encoded string
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="str"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// &lt; 0 if this string compares before <paramref name="str"/>,
         /// 0 if they compare equal, &gt; 0 if this string compares after
@@ -310,7 +386,7 @@ namespace GISharp.Lib.GLib
         public int Collate(Utf8 str)
         {
             var this_ = Handle;
-            var str_ = str?.Handle ?? throw new ArgumentNullException(nameof(str));
+            var str_ = str.Handle;
             var ret = g_utf8_collate(this_, str_);
             return ret;
         }
@@ -714,9 +790,6 @@ namespace GISharp.Lib.GLib
         // /// <param name="str">
         // /// a UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="str"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="offset">
         // /// a character offset within @str
         // /// </param>
@@ -725,10 +798,6 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public static Utf8 Utf8OffsetToPointer(Utf8 str, nlong offset)
         // {
-        //     if (str == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(str));
-        //     }
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var ret_ = g_utf8_offset_to_pointer(str_, offset);
         //     try
@@ -781,28 +850,14 @@ namespace GISharp.Lib.GLib
         // /// <param name="str">
         // /// a UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="str"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="pos">
         // /// a pointer to a position within @str
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="pos"/> is <c>null</c>.
-        // ///</exception>
         // /// <returns>
         // /// the resulting character offset
         // /// </returns>
         // public static nlong Utf8PointerToOffset(Utf8 str, Utf8 pos)
         // {
-        //     if (str == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(str));
-        //     }
-        //     if (pos == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(pos));
-        //     }
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var pos_ = GMarshal.StringToUtf8Ptr(pos);
         //     var ret = g_utf8_pointer_to_offset(str_, pos_);
@@ -852,18 +907,11 @@ namespace GISharp.Lib.GLib
         // /// <param name="p">
         // /// a pointer to a position within a UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="p"/> is <c>null</c>.
-        // ///</exception>
         // /// <returns>
         // /// a pointer to the found character
         // /// </returns>
         // public static Utf8 Utf8PrevChar(Utf8 p)
         // {
-        //     if (p == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(p));
-        //     }
         //     var p_ = GMarshal.StringToUtf8Ptr(p);
         //     var ret_ = g_utf8_prev_char(p_);
         //     try
@@ -918,9 +966,6 @@ namespace GISharp.Lib.GLib
         // /// <param name="p">
         // /// a nul-terminated UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="p"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="len">
         // /// the maximum length of @p
         // /// </param>
@@ -934,10 +979,6 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public static Utf8 Utf8Strchr(Utf8 p, IntPtr len, int c)
         // {
-        //     if (p == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(p));
-        //     }
         //     var p_ = GMarshal.StringToUtf8Ptr(p);
         //     var ret_ = g_utf8_strchr(p_, len, c);
         //     try
@@ -1075,15 +1116,9 @@ namespace GISharp.Lib.GLib
         // /// <param name="dest">
         // /// buffer to fill with characters from @src
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="dest"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="src">
         // /// UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="src"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="n">
         // /// character count
         // /// </param>
@@ -1092,14 +1127,6 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public static Utf8 Utf8Strncpy(Utf8 dest, Utf8 src, UIntPtr n)
         // {
-        //     if (dest == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(dest));
-        //     }
-        //     if (src == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(src));
-        //     }
         //     var dest_ = GMarshal.StringToUtf8Ptr(dest);
         //     var src_ = GMarshal.StringToUtf8Ptr(src);
         //     var ret_ = g_utf8_strncpy(dest_, src_, n);
@@ -1156,9 +1183,6 @@ namespace GISharp.Lib.GLib
         // /// <param name="p">
         // /// a nul-terminated UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="p"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="len">
         // /// the maximum length of @p
         // /// </param>
@@ -1172,10 +1196,6 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public static Utf8 Utf8Strrchr(Utf8 p, IntPtr len, int c)
         // {
-        //     if (p == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(p));
-        //     }
         //     var p_ = GMarshal.StringToUtf8Ptr(p);
         //     var ret_ = g_utf8_strrchr(p_, len, c);
         //     try
@@ -1408,9 +1428,6 @@ namespace GISharp.Lib.GLib
         // /// <param name="str">
         // /// a UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="str"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="len">
         // /// the maximum length of @str to use, in bytes. If @len &lt; 0,
         // ///     then the string is nul-terminated.
@@ -1437,10 +1454,6 @@ namespace GISharp.Lib.GLib
         // /// </exception>
         // public static int Utf8ToUcs4(Utf8 str, nlong len, nlong itemsRead, nlong itemsWritten)
         // {
-        //     if (str == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(str));
-        //     }
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     IntPtr error_;
         //     var ret = g_utf8_to_ucs4(handle, IntPtr.Zero, itemsRead, itemsWritten,out error_);
@@ -1506,9 +1519,6 @@ namespace GISharp.Lib.GLib
         // /// <param name="str">
         // /// a UTF-8 encoded string
         // /// </param>
-        // /// <exception name="ArgumentNullException">
-        // /// If <paramref name="str"/> is <c>null</c>.
-        // ///</exception>
         // /// <param name="len">
         // /// the maximum length of @str to use, in bytes. If @len &lt; 0,
         // ///     then the string is nul-terminated.
@@ -1523,10 +1533,6 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public static int Utf8ToUcs4Fast(Utf8 str, nlong len, nlong itemsWritten)
         // {
-        //     if (str == null)
-        //     {
-        //         throw new ArgumentNullException(nameof(str));
-        //     }
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var ret = g_utf8_to_ucs4_fast(handle, IntPtr.Zero, itemsWritten);
         //     try
@@ -1777,9 +1783,6 @@ namespace GISharp.Lib.GLib
 
         public bool Equals(Utf8 other)
         {
-            if (Object.Equals(other, null)) {
-                return false;
-            }
             var this_ = Handle;
             var other_ = other.Handle;
             var ret = g_str_equal(this_, other_);
@@ -1797,25 +1800,22 @@ namespace GISharp.Lib.GLib
 
         public static implicit operator string(Utf8 utf8)
         {
-            return utf8?.ToString();
+            return utf8.ToString();
         }
 
         public static implicit operator Utf8(string str)
         {
-            if (str == null) {
-                return null;
-            }
             return new Utf8(str);
         }
 
-        public static bool operator ==(Utf8 a, Utf8 b)
+        public static bool operator ==(Utf8? a, Utf8? b)
         {
-            return a?.Equals(b) ?? b == null;
+            return object.Equals(a, b);
         }
 
-        public static bool operator !=(Utf8 a, Utf8 b)
+        public static bool operator !=(Utf8? a, Utf8? b)
         {
-            return !a?.Equals(b) ?? b != null;
+            return !object.Equals(a, b);
         }
     }
 }

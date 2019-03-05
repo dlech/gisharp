@@ -783,8 +783,8 @@ namespace GISharp.Lib.GLib
     }
 
     public sealed class HashTable<TKey, TValue> : HashTable
-        where TKey : Opaque
-        where TValue : Opaque
+        where TKey : Opaque?
+        where TValue : Opaque?
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HashTable (IntPtr handle, Transfer ownership) : base (handle, ownership)
@@ -894,9 +894,6 @@ namespace GISharp.Lib.GLib
         public TValue Find (Predicate<KeyValuePair<TKey, TValue>> predicate)
         {
             var this_ = Handle;
-            if (predicate == null) {
-                throw new ArgumentNullException (nameof (predicate));
-            }
             UnmanagedHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
                 var predicateKey = GetInstance<TKey> (predicateKeyPtr, Transfer.None);
                 var predicateValue = GetInstance<TValue> (predicateValuePtr, Transfer.None);
@@ -927,9 +924,6 @@ namespace GISharp.Lib.GLib
         public void Foreach (Action<TKey, TValue> func)
         {
             var this_ = Handle;
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
             UnmanagedHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
@@ -959,9 +953,6 @@ namespace GISharp.Lib.GLib
         public int ForeachRemove (Predicate<KeyValuePair<TKey, TValue>> func)
         {
             var this_ = Handle;
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
             UnmanagedHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
@@ -992,9 +983,6 @@ namespace GISharp.Lib.GLib
         //public uint ForeachSteal (HRFunc<TKey,TValue> func)
         //{
         //    var this_ = Handle;
-        //    if (func == null) {
-        //        throw new ArgumentNullException ("func");
-        //    }
         //    UnmanagedHRFunc funcUnmanaged = (funcKeyPtr, funcValuePtr, funcUserData) => {
         //        var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
         //        var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
@@ -1109,7 +1097,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the key was found in the <see cref="HashTable{K,V}"/>
         /// </returns>
-        public unsafe bool Lookup(TKey lookupKey, out TKey origKey, out TValue value)
+        public unsafe bool Lookup (TKey lookupKey, out TKey origKey, out TValue value)
         {
             var this_ = Handle;
             var lookupKey_ = lookupKey?.Handle ?? IntPtr.Zero;

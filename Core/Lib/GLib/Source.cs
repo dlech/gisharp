@@ -87,7 +87,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-                var source = gcHandle.Target as Source;
+                var source = (Source)gcHandle.Target;
                 return source.OnPrepare(out *timeout);
             }
             catch (Exception ex) {
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-                var source = gcHandle.Target as Source;
+                var source = (Source)gcHandle.Target;
                 return source.OnCheck();
             }
             catch (Exception ex) {
@@ -142,7 +142,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-                var source = gcHandle.Target as Source;
+                var source = (Source)gcHandle.Target;
                 return source.OnDispatch(() => callback(userData));
             }
             catch (Exception ex) {
@@ -171,7 +171,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource> (nameof (ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr (Marshal.ReadIntPtr (sourcePtr, (int)offset));
-                var source = gcHandle.Target as Source;
+                var source = (Source)gcHandle.Target;
                 source.OnFinalize ();
                 gcHandle.Free ();
             }
@@ -371,13 +371,10 @@ namespace GISharp.Lib.GLib
         /// <param name="name">
         /// debug name for the source
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="name"/> is <c>null</c>
-        /// </exception>
         [Since ("2.26")]
         public static void SetNameById(uint tag, UnownedUtf8 name)
         {
-            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var name_ = name.Handle;
             g_source_set_name_by_id(tag, name_);
         }
 
@@ -472,14 +469,11 @@ namespace GISharp.Lib.GLib
         /// <param name="childSource">
         /// a second <see cref="T:Source"/> that this source should "poll"
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="childSource"/> is <c>null</c>
-        /// </exception>
         [Since ("2.28")]
         public void AddChildSource (Source childSource)
         {
             var this_ = Handle;
-            var childSource_ = childSource?.Handle ?? throw new ArgumentNullException(nameof(childSource));
+            var childSource_ = childSource.Handle;
             g_source_add_child_source(this_, childSource_);
         }
 
@@ -576,7 +570,7 @@ namespace GISharp.Lib.GLib
         /// the ID (greater than 0) for the source within the
         /// <see cref="MainContext"/>.
         /// </returns>
-        public uint Attach (MainContext context)
+        public uint Attach(MainContext? context)
         {
             var this_ = Handle;
             if (IsDestroyed) {
@@ -765,15 +759,14 @@ namespace GISharp.Lib.GLib
         /// the name of the source
         /// </returns>
         [Since ("2.26")]
-        public UnownedUtf8 Name {
+        public NullableUnownedUtf8 Name {
             get {
                 var ret_ = g_source_get_name(Handle);
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
             set {
                 var this_ = Handle;
-                // REVISIT: do we need to check value.IsNull here?
                 var value_ = value.Handle;
                 g_source_set_name(this_, value_);
             }
@@ -1094,7 +1087,7 @@ namespace GISharp.Lib.GLib
         public void RemoveChildSource (Source childSource)
         {
             var this_ = Handle;
-            var childSource_ = childSource?.Handle ?? throw new ArgumentNullException(nameof(childSource));
+            var childSource_ = childSource.Handle;
             g_source_remove_child_source(this_, childSource_);
         }
 
@@ -1234,7 +1227,7 @@ namespace GISharp.Lib.GLib
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify notify);
+            UnmanagedDestroyNotify? notify);
 
         /// <summary>
         /// Sets the callback function for a source. The callback for a source is

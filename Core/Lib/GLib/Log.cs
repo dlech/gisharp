@@ -191,7 +191,7 @@ namespace GISharp.Lib.GLib
         /// <param name="message">
         /// the message
         /// </param>
-        public static void DefaultHandler(UnownedUtf8 logDomain, LogLevelFlags logLevel, UnownedUtf8 message)
+        public static void DefaultHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
             var logDomain_ = logDomain.Handle;
             var message_ = message.Handle;
@@ -239,7 +239,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public static void RemoveHandler(UnownedUtf8 logDomain, uint handlerId)
         {
-            var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
+            var logDomain_ = logDomain.Handle;
             g_log_remove_handler(logDomain_, handlerId);
         }
 
@@ -358,9 +358,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.6")]
         public static void SetDefaultHandler (LogFunc logFunc)
         {
-            if (logFunc == null) {
-                throw new ArgumentNullException (nameof (logFunc));
-            }
             var oldHandler = defaultHandler;
             if (logFunc == DefaultHandler) {
                 g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
@@ -430,7 +427,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static LogLevelFlags SetFatalMask(UnownedUtf8 logDomain, LogLevelFlags fatalMask)
         {
-            var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
+            var logDomain_ = logDomain.Handle;
             var ret = g_log_set_fatal_mask(logDomain_, fatalMask);
             return ret;
         }
@@ -534,7 +531,7 @@ namespace GISharp.Lib.GLib
         /// the id of the new handler
         /// </returns>
         [Since ("2.46")]
-        public static uint SetHandler(UnownedUtf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
+        public static uint SetHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
             var logDomain_ = logDomain.Handle;
             var (logFunc_, destroy_, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Notified);

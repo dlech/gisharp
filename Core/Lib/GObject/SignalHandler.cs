@@ -14,10 +14,6 @@ namespace GISharp.Lib.GObject
 
         internal SignalHandler (Object instance, nulong handlerId)
         {
-            if (instance == null) {
-                throw new ArgumentNullException (nameof(instance));
-            }
-
             this.instance = instance;
             this.handlerId = handlerId;
         }
@@ -146,13 +142,10 @@ namespace GISharp.Lib.GObject
         ///// <returns>
         ///// A valid non-0 signal handler id for a successful match.
         ///// </returns>
-        //public static SignalHandler Find (Object instance, SignalMatchType mask, uint signalId, Quark detail, GISharp.Lib.GObject.Closure closure, IntPtr func, IntPtr data)
+        //public static SignalHandler Find(Object instance, SignalMatchType mask, uint signalId, Quark detail, Closure? closure, IntPtr func, IntPtr data)
         //{
-        //    if (instance == null) {
-        //        throw new System.ArgumentNullException ("instance");
-        //    }
-        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
-        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
+        //    var instance_ = instance.Handle;
+        //    var closure_ = closure?.Handle ?? IntPtr.Zero;
         //    var ret = g_signal_handler_find (instance_, mask, signalId, detail, closure_, func, data);
         //    return ret;
         //}

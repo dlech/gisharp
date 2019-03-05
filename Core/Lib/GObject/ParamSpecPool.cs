@@ -35,7 +35,7 @@ namespace GISharp.Lib.GObject
         public void Insert (ParamSpec pspec, GType ownerType)
         {
             var this_ = Handle;
-            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            var pspec_ = pspec.Handle;
             g_param_spec_pool_insert(this_, pspec_, ownerType);
         }
 
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GObject
         public void Remove (ParamSpec pspec)
         {
             var this_ = Handle;
-            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            var pspec_ = pspec.Handle;
             g_param_spec_pool_remove(this_, pspec_);
             GC.KeepAlive (pspec);
         }
@@ -59,10 +59,10 @@ namespace GISharp.Lib.GObject
             GType owner_type, // GType
             bool walk_ancestors); // gboolean
 
-        public ParamSpec Lookup(UnownedUtf8 paramName, GType ownerType, bool walkAncestors)
+        public ParamSpec? Lookup(UnownedUtf8 paramName, GType ownerType, bool walkAncestors)
         {
             var this_ = Handle;
-            var paramName_ = paramName.IsNull ? throw new ArgumentNullException(nameof(paramName)) : paramName.Handle;
+            var paramName_ = paramName.Handle;
             var ret_ = g_param_spec_pool_lookup(this_, paramName_, ownerType, walkAncestors);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;

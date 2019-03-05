@@ -41,10 +41,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That(array.Length, Is.EqualTo(10));
             }
 
-            // null argument is not allowed
-            Assert.That (() => new ByteArray ((byte[])null),
-                Throws.InstanceOf<ArgumentNullException> ());
-
             AssertNoGLibLog();
         }
 
@@ -73,10 +69,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (getItemAt (array, 1), Is.EqualTo (2));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (3));
 
-                // null argument is not allowed
-                Assert.That (() => array.Append (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
-
                 array.Dispose ();
                 Assert.That (() => array.Append (0),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -95,10 +87,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (getItemAt (array, 0), Is.EqualTo (2));
                 Assert.That (getItemAt (array, 1), Is.EqualTo (3));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (1));
-
-                // null argument is not allowed
-                Assert.That (() => array.Prepend (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
 
                 array.Dispose ();
                 Assert.That (() => array.Prepend (0),
@@ -169,10 +157,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (getItemAt (array, 1), Is.EqualTo (2));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (3));
 
-                // null argument is not allowed
-                Assert.That (() => array.Sort (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
-
                 array.Dispose ();
                 Assert.That (() => array.Sort ((x, y) => 0),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -228,7 +212,7 @@ namespace GISharp.Test.Core.GLib
         {
             var gtype = typeof (ByteArray).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
-            Assert.That<string>(gtype.Name, Is.EqualTo ("GByteArray"));
+            Assert.That<string?>(gtype.Name, Is.EqualTo ("GByteArray"));
 
             AssertNoGLibLog();
         }

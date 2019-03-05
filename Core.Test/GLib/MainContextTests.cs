@@ -48,8 +48,6 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestPoll ()
         {
-            Assert.That (() => MainContext.Poll (null, 0),
-                Throws.TypeOf<ArgumentNullException> ());
             var ret = MainContext.Poll (new PollFD[0], 0);
             Assert.That (ret, Is.EqualTo (0));
 

@@ -54,7 +54,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, IArray<FlagsValue> constValues)
         {
-            var constValues_ = constValues?.Data ?? throw new ArgumentNullException(nameof(constValues));
+            var constValues_ = constValues.Data;
             g_flags_complete_type_info(gFlagsType, out info, constValues_);
         }
 
@@ -97,10 +97,6 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetFirstValue (FlagsClass flagsClass, uint value)
         {
-            if (flagsClass == null) {
-                throw new ArgumentNullException (nameof (flagsClass));
-            }
-
             var ret_ = g_flags_get_first_value (flagsClass.Handle, value);
             var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
 
@@ -146,8 +142,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetValueByName(FlagsClass flagsClass, UnownedUtf8 name)
         {
-            var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
-            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var flagsClass_ = flagsClass.Handle;
+            var name_ = name.Handle;
             var ret_ = g_flags_get_value_by_name(flagsClass_, name_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -193,8 +189,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetValueByNick(FlagsClass flagsClass, UnownedUtf8 nick)
         {
-            var flagsClass_ = flagsClass?.Handle ?? throw new ArgumentNullException(nameof(flagsClass));
-            var nick_ = nick.IsNull ? throw new ArgumentNullException(nameof(nick)) : nick.Handle;
+            var flagsClass_ = flagsClass.Handle;
+            var nick_ = nick.Handle;
             var ret_ = g_flags_get_value_by_nick(flagsClass_, nick_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -207,8 +203,8 @@ namespace GISharp.Lib.GObject
         public static GType RegisterStatic(Utf8 typeName, IArray<FlagsValue> values)
         {
             GType.AssertGTypeName(typeName);
-            var typeName_ = typeName?.Take() ?? throw new ArgumentNullException(nameof(typeName));
-            var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
+            var typeName_ = typeName.Take();
+            var (values_, length) = values.TakeData();
 
             // verify that the array is null-terminated
             var offset = Marshal.SizeOf<EnumValue>() * length;
@@ -251,8 +247,8 @@ namespace GISharp.Lib.GObject
         public FlagsValue(uint value, Utf8 name, Utf8 nick)
         {
             this.value = value;
-            valueName = name?.Take() ?? throw new ArgumentNullException(nameof(name));
-            valueNick = nick?.Take() ?? throw new ArgumentNullException(nameof(nick));
+            valueName = name.Take();
+            valueNick = nick.Take();
         }
     }
 }

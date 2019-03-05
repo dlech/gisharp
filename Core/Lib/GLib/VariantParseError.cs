@@ -140,11 +140,11 @@ namespace GISharp.Lib.GLib
         [Since("2.40")]
         public static Utf8 PrintContext(this Error error, UnownedUtf8 sourceStr)
         {
-            var error_ = error?.Handle ?? throw new ArgumentNullException(nameof(error));
+            var error_ = error.Handle;
             if (error.Domain != Quark) {
                 throw new ArgumentException("Requires VariantParseError", nameof(error));
             }
-            var sourceStr_ = sourceStr.IsNull ? throw new ArgumentNullException(nameof(sourceStr)) : sourceStr.Handle;
+            var sourceStr_ = sourceStr.Handle;
             var ret_ = g_variant_parse_error_print_context(error_, sourceStr_);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;

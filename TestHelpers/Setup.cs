@@ -10,7 +10,7 @@ namespace GISharp.Test
     [SetUpFixture]
     public class Setup
     {
-        static void LogToTestContext(UnownedUtf8 logDomain, LogLevelFlags logLevel, UnownedUtf8 message)
+        static void LogToTestContext(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
             // FIXME: messages on the GC finalizer thread are lost
             TestContext.Error.WriteLine(TestContext.CurrentContext?.Test?.FullName);

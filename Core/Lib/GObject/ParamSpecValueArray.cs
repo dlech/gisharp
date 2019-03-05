@@ -28,7 +28,7 @@ namespace GISharp.Lib.GObject
         public ParamSpec ElementSpec {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)elementSpecOffset);
-                var ret = ParamSpec.GetInstance(ret_, Transfer.None);
+                var ret = ParamSpec.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
         }
@@ -52,15 +52,6 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New (string name, string nick, string blurb, ParamSpec elementSpec, ParamFlags flags)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);

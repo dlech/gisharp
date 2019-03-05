@@ -59,15 +59,6 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New (string name, string nick, string blurb, GType flagsType, int defaultValue, ParamFlags flags)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
             if (!flagsType.IsA (GType.Flags)) {
                 throw new ArgumentException ("Expecting an enum type", nameof (flagsType));
             }

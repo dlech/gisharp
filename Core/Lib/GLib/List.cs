@@ -94,9 +94,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         protected void Concat (List list2)
         {
-            if (list2 == null) {
-                throw new ArgumentNullException (nameof (list2));
-            }
             handle = g_list_concat (handle, list2.handle);
             list2.handle = IntPtr.Zero;
         }
@@ -907,9 +904,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         protected void Sort (UnmanagedCompareFunc compareFunc)
         {
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
             handle = g_list_sort (handle, compareFunc);
             GC.KeepAlive (compareFunc);
         }
@@ -937,7 +931,7 @@ namespace GISharp.Lib.GLib
             IntPtr userData);
     }
 
-    public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque
+    public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
         static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
@@ -965,7 +959,7 @@ namespace GISharp.Lib.GLib
 
         public T Current => GetInstance<T>(Marshal.ReadIntPtr(Handle, (int)dataOffset), Transfer.None);
 
-        object IEnumerator.Current => Current;
+        object? IEnumerator.Current => Current;
 
         public bool MoveNext()
         {
@@ -979,7 +973,7 @@ namespace GISharp.Lib.GLib
     }
 
     [GType ("GList", IsProxyForUnmanagedType = true)]
-    public sealed class List<T> : List, IEnumerable<T> where T : Opaque
+    public sealed class List<T> : List, IEnumerable<T> where T : Opaque?
     {
         public List () : this (IntPtr.Zero, Transfer.Container)
         {
@@ -1083,7 +1077,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        public void InsertBefore (ListEnumerator<T> sibling, T data)
+        public void InsertBefore(ListEnumerator<T>? sibling, T data)
         {
             InsertBefore (sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
         }
@@ -1108,9 +1102,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void InsertSorted (T data, Comparison<T> func)
         {
-            if (func == null) {
-                throw new ArgumentNullException (nameof(func));
-            }
             UnmanagedCompareFunc func_ = (a_, b_) => {
                 try {
                     var a = GetInstance<T> (a_, Transfer.None);
@@ -1202,9 +1193,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort (Comparison<T> compareFunc)
         {
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
             UnmanagedCompareFunc compareFunc_ = (a_, b_) => {
                 try {
                     var a = GetInstance<T> (a_, Transfer.None);

@@ -60,7 +60,7 @@ namespace GISharp.Test.Core.GObject
             Assert.That (testEnum4GType.IsA (GType.Enum), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That<string>(testEnum4GType.Name, Is.EqualTo("GISharp-Test-Core-GObject-EnumTests+TestEnum4"));
+            Assert.That<string?>(testEnum4GType.Name, Is.EqualTo("GISharp-Test-Core-GObject-EnumTests+TestEnum4"));
             using (var enum4TypeClass = (EnumClass)TypeClass.Get (testEnum4GType)) {
                 var value = GISharp.Lib.GObject.Enum.GetValue(enum4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestEnum4.One));
@@ -76,7 +76,7 @@ namespace GISharp.Test.Core.GObject
         {
             // make sure that we can override name and nick with attributes
             var testEnum5GType = typeof(TestEnum5).GetGType ();
-            Assert.That<string>(testEnum5GType.Name, Is.EqualTo("TestEnum5GTypeName"));
+            Assert.That<string?>(testEnum5GType.Name, Is.EqualTo("TestEnum5GTypeName"));
             using (var enum5TypeClass = (EnumClass)TypeClass.Get (testEnum5GType)) {
                 var value1 = GISharp.Lib.GObject.Enum.GetValue (enum5TypeClass, 1);
                 Assert.That (value1.Value, Is.EqualTo ((int)TestEnum5.One));

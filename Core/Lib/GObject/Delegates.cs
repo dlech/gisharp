@@ -85,7 +85,7 @@ namespace GISharp.Lib.GObject
     /// mechanism takes over responsibility of actual function invocation for the
     /// signal system.
     /// </summary>
-    public delegate void SignalCMarshaller(Closure closure, ref object returnValue, object[] paramValues, SignalInvocationHint invocationHint);
+    public delegate void SignalCMarshaller(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHint);
 
     /// <summary>
     /// This is the signature of marshaller functions, required to marshall

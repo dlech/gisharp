@@ -8,10 +8,10 @@ namespace GISharp.Lib.GObject
     [AttributeUsage (AttributeTargets.Field)]
     public class EnumValueAttribute : Attribute
     {
-        public string Name { get; private set; }
-        public string Nick { get; private set; }
+        public string? Name { get; private set; }
+        public string? Nick { get; private set; }
 
-        public EnumValueAttribute (string name = null, string nick = null)
+        public EnumValueAttribute (string? name = null, string? nick = null)
         {
             Name = name;
             Nick = nick;
@@ -113,7 +113,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         static void CompleteTypeInfo(GType gEnumType, out TypeInfo info, IArray<EnumValue> constValues)
         {
-            var constValues_ = constValues?.Data ?? throw new ArgumentNullException(nameof(constValues));
+            var constValues_ = constValues.Data;
             g_enum_complete_type_info(gEnumType, out info, constValues_);
         }
 
@@ -156,10 +156,6 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValue (EnumClass enumClass, int value)
         {
-            if (enumClass == null) {
-                throw new ArgumentNullException (nameof (enumClass));
-            }
-
             var ret_ = g_enum_get_value (enumClass.Handle, value);
             var ret = Marshal.PtrToStructure<EnumValue> (ret_);
 
@@ -207,8 +203,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValueByName(EnumClass enumClass, UnownedUtf8 name)
         {
-            var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
-            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
+            var enumClass_ = enumClass.Handle;
+            var name_ = name.Handle;
             var ret_ = g_enum_get_value_by_name(enumClass_, name_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -256,8 +252,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValueByNick(EnumClass enumClass, UnownedUtf8 nick)
         {
-            var enumClass_ = enumClass?.Handle ?? throw new ArgumentNullException(nameof(enumClass));
-            var nick_ = nick.IsNull ? throw new ArgumentNullException(nameof(nick)) : nick.Handle;
+            var enumClass_ = enumClass.Handle;
+            var nick_ = nick.Handle;
             var ret_ = g_enum_get_value_by_nick(enumClass_, nick_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -270,8 +266,8 @@ namespace GISharp.Lib.GObject
         public static GType RegisterStatic(Utf8 typeName, IArray<EnumValue> values)
         {
             GType.AssertGTypeName(typeName);
-            var typeName_ = typeName?.Take() ?? throw new ArgumentNullException(nameof(typeName));
-            var (values_, length) = values?.TakeData() ?? throw new ArgumentNullException(nameof(values));
+            var typeName_ = typeName.Take();
+            var (values_, length) = values.TakeData();
 
             // verify that the array is null-terminated
             var offset = Marshal.SizeOf<EnumValue>() * length;
@@ -314,8 +310,8 @@ namespace GISharp.Lib.GObject
         public EnumValue(int value, Utf8 name, Utf8 nick)
         {
             this.value = value;
-            valueName = name?.Take() ?? throw new ArgumentNullException(nameof(name));
-            valueNick = nick?.Take() ?? throw new ArgumentNullException(nameof(nick));
+            valueName = name.Take();
+            valueNick = nick.Take();
         }
     }
 }

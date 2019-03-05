@@ -14,9 +14,6 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestNew ()
         {
-            using (var b = new Bytes ((byte[])null)) {
-                Assert.That (b.Count, Is.EqualTo (0));
-            }
             using (var b = new Bytes (new byte[0])) {
                 Assert.That (b.Count, Is.EqualTo (0));
             }
@@ -34,7 +31,7 @@ namespace GISharp.Test.Core.GLib
                 using (var b2 = b1.NewFromBytes (1, 2)) {
                     // b2 takes a reference to b1 in unmanaged code.
                     // to make sure this works, we release the managed
-                    // refernece to b1.
+                    // reference to b1.
                     b1.Dispose ();
                     Assert.That (b2.Count, Is.EqualTo (2));
                     Assert.That (b2[0], Is.EqualTo (2));

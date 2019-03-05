@@ -114,9 +114,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That(trueVariant1 == falseVariant, Is.False);
                 Assert.That(trueVariant1 != falseVariant, Is.True);
 
-                Assert.That(trueVariant1, Is.Not.EqualTo((Variant)null));
-                Assert.That((Variant)null, Is.Not.EqualTo(trueVariant1));
-                Assert.That((Variant)null, Is.EqualTo((Variant)null));
                 Assert.That(trueVariant1 == null, Is.False);
                 Assert.That(trueVariant1 != null, Is.True);
                 Assert.That(null == trueVariant1, Is.False);
@@ -384,7 +381,7 @@ namespace GISharp.Test.Core.GLib
         public void TestCastTuple ()
         {
             using (var badTuple = default(PtrArray<Variant>)) {
-                Assert.That(() => (Variant)badTuple, Throws.TypeOf<ArgumentNullException>());
+                Assert.That(() => (Variant)badTuple, Throws.TypeOf<NullReferenceException>());
             }
 
             using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })
@@ -399,16 +396,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestCastDictEntry ()
         {
-            // null key is not allowed
-            var badKey = new KeyValuePair<Variant, Variant> (null, new Variant ("string"));
-            Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
-
-            // null value is not allowed
-            badKey = new KeyValuePair<Variant, Variant> (new Variant ("string"), null);
-            Assert.That (() => (Variant)badKey, Throws.TypeOf<ArgumentNullException> ());
-
             // only basic variant types are allowed as key
-            badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv("string")), new Variant("string"));
+            var badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv("string")), new Variant("string"));
             Assert.That (() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in

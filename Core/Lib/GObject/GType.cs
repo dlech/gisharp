@@ -607,7 +607,7 @@ namespace GISharp.Lib.GObject
 
         public override string ToString ()
         {
-            return (string)Name ?? "invalid";
+            return (string?)Name ?? "invalid";
         }
 
         /// <summary>
@@ -637,10 +637,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// type name or <c>null</c>
         /// </returns>
-        public UnownedUtf8 Name {
+        public NullableUnownedUtf8 Name {
             get {
                 var ret_ = g_type_name (this);
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -777,9 +777,6 @@ namespace GISharp.Lib.GObject
         /// Asserts that the name of the type is a valid GType name.
         /// </summary>
         /// <param name="name">The type name.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="name"/> is null.
-        /// </exception>
         /// <exception cref="InvalidGTypeNameException">
         /// Thrown if <paramref name="name"/> is not valid (see remarks).
         /// </exception>
@@ -791,9 +788,6 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public static void AssertGTypeName (string name)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
             if (name.Length < 3) {
                 var message = string.Format ($"The name '{name}' is too short.", nameof (name));
                 throw new InvalidGTypeNameException (message);
@@ -866,10 +860,6 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         static GType Register (Type type)
         {
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
-
             lock (mapLock) {
                 if (typeMap.ContainsKey (type)) {
                     throw new ArgumentException ("This type is already registered.", nameof (type));
@@ -1076,7 +1066,7 @@ namespace GISharp.Lib.GObject
         {
             lock (mapLock) {
                 if (g_type_get_qdata(type, managedTypeQuark) == IntPtr.Zero) {
-                    Type matchingType = null;
+                    Type? matchingType = null;
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
                         matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
                             .FirstOrDefault (t => t.GetCustomAttributes ()
@@ -1094,7 +1084,7 @@ namespace GISharp.Lib.GObject
                     Register (matchingType);
                 }
 
-                return (Type)type[managedTypeQuark];
+                return (Type)type[managedTypeQuark]!;
             }
         }
 
@@ -1266,7 +1256,7 @@ namespace GISharp.Lib.GObject
         /// <value>
         /// the data
         /// </value>
-        public object this[Quark quark]
+        public object? this[Quark quark]
         {
             get {
                 var ret_ = g_type_get_qdata(this, quark);
@@ -1336,10 +1326,6 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void AddClassCacheFunc(IntPtr cacheData, TypeClassCacheFunc cacheFunc)
         {
-            if (cacheFunc == null)
-            {
-                throw new ArgumentNullException("cacheFunc");
-            }
             var cacheFunc_ = UnmanagedTypeClassCacheFuncFactory.Create(cacheFunc, false);
             g_type_add_class_cache_func(cacheData, cacheFunc_);
         }
@@ -1470,10 +1456,6 @@ namespace GISharp.Lib.GObject
         [Since ("2.4")]
         public static void AddInterfaceCheck(IntPtr checkData, TypeInterfaceCheckFunc checkFunc)
         {
-            if (checkFunc == null)
-            {
-                throw new ArgumentNullException("checkFunc");
-            }
             var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_add_interface_check(checkData, checkFunc_);
         }
@@ -1522,10 +1504,6 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void AddInterfaceDynamic(GType instanceType, GType interfaceType, TypePlugin plugin)
         {
-            if (plugin == null)
-            {
-                throw new ArgumentNullException("plugin");
-            }
             var plugin_ = default(IntPtr);
             throw new System.NotImplementedException();
             g_type_add_interface_dynamic(instanceType, interfaceType, plugin_);
@@ -1544,11 +1522,7 @@ namespace GISharp.Lib.GObject
 
         public static TypeClass CheckClassCast(TypeClass gClass, GType isAType)
         {
-            if (gClass == null)
-            {
-                throw new ArgumentNullException("gClass");
-            }
-            var gClass_ = gClass == null ? IntPtr.Zero : gClass.Handle;
+            var gClass_ = gClass.Handle;
             var ret_ = g_type_check_class_cast(gClass_, isAType);
             var ret = GISharp.Core.Opaque.GetInstance<TypeClass>(ret_, GISharp.Core.Transfer.All);
             return ret;
@@ -1567,11 +1541,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckClassIsA(TypeClass gClass, GType isAType)
         {
-            if (gClass == null)
-            {
-                throw new ArgumentNullException("gClass");
-            }
-            var gClass_ = gClass == null ? IntPtr.Zero : gClass.Handle;
+            var gClass_ = gClass.Handle;
             var ret = g_type_check_class_is_a(gClass_, isAType);
             return ret;
         }
@@ -1606,11 +1576,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool CheckInstance(TypeInstance instance)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             var ret = g_type_check_instance(instance_);
             return ret;
         }
@@ -1628,11 +1594,7 @@ namespace GISharp.Lib.GObject
 
         public static TypeInstance CheckInstanceCast(TypeInstance instance, GType ifaceType)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             var ret_ = g_type_check_instance_cast(instance_, ifaceType);
             var ret = GISharp.Core.Opaque.GetInstance<TypeInstance>(ret_, GISharp.Core.Transfer.All);
             return ret;
@@ -1651,11 +1613,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckInstanceIsA(TypeInstance instance, GType ifaceType)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             var ret = g_type_check_instance_is_a(instance_, ifaceType);
             return ret;
         }
@@ -1673,11 +1631,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckInstanceIsFundamentallyA(TypeInstance instance, GType fundamentalType)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             var ret = g_type_check_instance_is_fundamentally_a(instance_, fundamentalType);
             return ret;
         }
@@ -1692,11 +1646,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckValue(Value value)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
-            var value_ = value == null ? IntPtr.Zero : value.Handle;
+            var value_ = value.Handle;
             var ret = g_type_check_value(value_);
             return ret;
         }
@@ -1714,11 +1664,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckValueHolds(Value value, GType type)
         {
-            if (value == null)
-            {
-                throw new ArgumentNullException("value");
-            }
-            var value_ = value == null ? IntPtr.Zero : value.Handle;
+            var value_ = value.Handle;
             var ret = g_type_check_value_holds(value_, type);
             return ret;
         }
@@ -1907,11 +1853,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void FreeInstance(TypeInstance instance)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             g_type_free_instance(instance_);
         }
 
@@ -2226,11 +2168,7 @@ namespace GISharp.Lib.GObject
 
         public static UnownedUtf8 NameFromClass(TypeClass gClass)
         {
-            if (gClass == null)
-            {
-                throw new ArgumentNullException("gClass");
-            }
-            var gClass_ = gClass == null ? IntPtr.Zero : gClass.Handle;
+            var gClass_ = gClass.Handle;
             var ret_ = g_type_name_from_class(gClass_);
             var ret = new UnownedUtf8(ret_, -1);
             return ret;
@@ -2246,11 +2184,7 @@ namespace GISharp.Lib.GObject
 
         public static UnownedUtf8 NameFromInstance(TypeInstance instance)
         {
-            if (instance == null)
-            {
-                throw new ArgumentNullException("instance");
-            }
-            var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+            var instance_ = instance.Handle;
             var ret_ = g_type_name_from_instance(instance_);
             var ret = new UnownedUtf8(ret_, -1);
             return ret;
@@ -2404,8 +2338,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static GType RegisterDynamic(GType parentType, UnownedUtf8 typeName, TypePlugin plugin, TypeFlags flags)
         {
-            var typeName_ = typeName.IsNull ? throw new ArgumentNullException(nameof(typeName)) : typeName.Handle;
-            var plugin_ = plugin?.Handle ?? throw new ArgumentNullException(nameof(plugin));
+            var typeName_ = typeName.Handle;
+            var plugin_ = plugin.Handle;
             var ret = g_type_register_dynamic(parentType, typeName_, plugin_, flags);
             return ret;
         }
@@ -2486,7 +2420,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static GType RegisterFundamental(GType typeId, UnownedUtf8 typeName, TypeInfo info, TypeFundamentalInfo finfo, TypeFlags flags)
         {
-            var typeName_ = typeName.IsNull ? throw new ArgumentNullException(nameof(typeName)) : typeName.Handle;
+            var typeName_ = typeName.Handle;
             var ret = g_type_register_fundamental(typeId, typeName_, info, finfo, flags);
             return ret;
         }
@@ -2526,10 +2460,6 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void RemoveClassCacheFunc(IntPtr cacheData, TypeClassCacheFunc cacheFunc)
         {
-            if (cacheFunc == null)
-            {
-                throw new ArgumentNullException("cacheFunc");
-            }
             var cacheFunc_ = UnmanagedTypeClassCacheFuncFactory.Create(cacheFunc, false);
             g_type_remove_class_cache_func(cacheData, cacheFunc_);
         }
@@ -2569,10 +2499,6 @@ namespace GISharp.Lib.GObject
         [Since ("2.4")]
         public static void RemoveInterfaceCheck(IntPtr checkData, TypeInterfaceCheckFunc checkFunc)
         {
-            if (checkFunc == null)
-            {
-                throw new ArgumentNullException("checkFunc");
-            }
             var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
             g_type_remove_interface_check(checkData, checkFunc_);
         }
@@ -2593,17 +2519,11 @@ namespace GISharp.Lib.GObject
         /// </summary>
         /// <returns>The name.</returns>
         /// <param name="type">Type.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="type"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
         public static string GetGTypeName (this Type type)
         {
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
             var gtypeAttr = type.GetCustomAttributes ()
                 .OfType<GTypeAttribute> ().SingleOrDefault ();
 
@@ -2619,10 +2539,6 @@ namespace GISharp.Lib.GObject
 
         public static Type GetGTypeStruct (this Type type)
         {
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
-
             Type gtypeStructType;
             var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute> (true);
             if (gtypeStructAttr == null) {
@@ -2643,7 +2559,7 @@ namespace GISharp.Lib.GObject
             }
 
             if (gtypeStructType == null) {
-                throw new ArgumentNullException ($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
+                throw new ArgumentException($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
             }
 
             return gtypeStructType;
@@ -2662,9 +2578,6 @@ namespace GISharp.Lib.GObject
         /// is not registered.
         /// </returns>
         /// <param name="type">Type.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="type"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
@@ -2681,17 +2594,11 @@ namespace GISharp.Lib.GObject
         /// is not registered.
         /// </returns>
         /// <param name="obj">Type.</param>
-        /// <exception cref="ArgumentNullException">
-        /// Thrown if <paramref name="obj"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Thrown if the Type of <paramref name="obj"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
         public static GType GetGType (this object obj)
         {
-            if (obj == null) {
-                throw new ArgumentNullException (nameof (obj));
-            }
             return GType.TypeOf (obj.GetType ());
         }
 

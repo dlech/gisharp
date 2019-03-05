@@ -56,20 +56,8 @@ namespace GISharp.Lib.GObject
             IntPtr defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
+        static IntPtr New(string name, string nick, string blurb, VariantType type, Variant? defaultValue, ParamFlags flags)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
-            if (type == null) {
-                throw new ArgumentNullException (nameof (type));
-            }
             if (defaultValue != null && !defaultValue.IsOfType (type)) {
                 throw new ArgumentException ("default value does not match type", nameof (defaultValue));
             }
@@ -96,8 +84,8 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public ParamSpecVariant (string name, string nick, string blurb, VariantType type, Variant defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, type, defaultValue, flags), Transfer.None)
+        public ParamSpecVariant(string name, string nick, string blurb, VariantType type, Variant? defaultValue, ParamFlags flags)
+            : this(New(name, nick, blurb, type, defaultValue, flags), Transfer.None)
         {
         }
     }

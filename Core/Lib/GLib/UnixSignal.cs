@@ -72,9 +72,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.30")]
         public static uint Add (int priority, int signum, SourceFunc handler)
         {
-            if (handler == null) {
-                throw new ArgumentNullException (nameof(handler));
-            }
             var (handler_, notify_, userData_) = SourceFuncFactory.Create(handler, CallbackScope.Notified);
             var ret = g_unix_signal_add_full (priority, signum, handler_, userData_, notify_);
             return ret;

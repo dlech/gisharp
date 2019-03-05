@@ -138,9 +138,9 @@ namespace GISharp.Lib.GObject
         static void UnmanagedOnNotify (IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
         {
             try {
-                var obj = GetInstance(gobjectPtr, Transfer.None);
-                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
-                var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark];
+                var obj = GetInstance(gobjectPtr, Transfer.None)!;
+                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
+                var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark]!;
                 obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
             }
             catch (Exception ex) {
@@ -148,9 +148,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        PropertyChangedEventHandler propertyChangedHandler;
-        object propertyChangedHandlerLock = new object ();
-        SignalHandler notifySignalHandler;
+        PropertyChangedEventHandler? propertyChangedHandler;
+        readonly object propertyChangedHandlerLock = new object ();
+        SignalHandler? notifySignalHandler;
 
         SignalHandler ConnectNotifySignal ()
         {
@@ -177,7 +177,7 @@ namespace GISharp.Lib.GObject
                 lock (propertyChangedHandlerLock) {
                     propertyChangedHandler -= value;
                     if (propertyChangedHandler == null) {
-                        notifySignalHandler.Disconnect ();
+                        notifySignalHandler?.Disconnect ();
                         notifySignalHandler = null;
                     }
                 }
@@ -422,39 +422,33 @@ namespace GISharp.Lib.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags = BindingFlags.Default)
+        public Binding BindProperty(string sourceProperty, Object target, string targetProperty, BindingFlags flags = BindingFlags.Default)
         {
             var this_ = Handle;
-            if (sourceProperty == null) {
-                throw new ArgumentNullException (nameof (sourceProperty));
-            }
-            var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
-            if (targetProperty == null) {
-                throw new ArgumentNullException (nameof (targetProperty));
-            }
+            var target_ = target.Handle;
 
             var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
             if (sourcePropertyInfo == null) {
                 throw new ArgumentException ("No matching property", nameof (sourceProperty));
             }
-            sourceProperty = sourcePropertyInfo.TryGetGPropertyName();
-            if (sourceProperty == null) {
-                var message = $"{sourcePropertyInfo.Name} is not a registered GType property";
-                throw new ArgumentException (message, nameof(sourceProperty));
-            }
+            sourceProperty = sourcePropertyInfo.TryGetGPropertyName() ??
+                throw new ArgumentException($"{sourcePropertyInfo.Name} is not a registered GType property",
+                    nameof(sourceProperty));
+            using var sourcePropertyUtf8 = new Utf8(sourceProperty);
+            var sourceProperty_ = sourcePropertyUtf8.Handle;
 
             var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
             if (targetPropertyInfo == null) {
                 throw new ArgumentException ("No matching property", nameof (targetProperty));
             }
-            targetProperty = targetPropertyInfo.TryGetGPropertyName();
-            if (targetProperty == null) {
-                var message = $"{targetPropertyInfo.Name} is not a registered GType property";
-                throw new ArgumentException (message, nameof(targetProperty));
-            }
+            targetProperty = targetPropertyInfo.TryGetGPropertyName() ??
+                throw new ArgumentException($"{targetPropertyInfo.Name} is not a registered GType property",
+                    nameof(targetProperty));
+            using var targetPropertyUtf8 = new Utf8(targetProperty);
+            var targetProperty_ = targetPropertyUtf8.Handle;
 
-            var ret_ = g_object_bind_property(this_, sourceProperty.Handle, target_, targetProperty.Handle, flags);
-            var ret = GetInstance<Binding> (ret_, Transfer.None);
+            var ret_ = g_object_bind_property(this_, sourceProperty_, target_, targetProperty_, flags);
+            var ret = GetInstance<Binding>(ret_, Transfer.None)!;
             return ret;
         }
 
@@ -478,10 +472,10 @@ namespace GISharp.Lib.GObject
             /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
             /* transfer-ownership:none */
             BindingFlags flags,
-            UnmanagedBindingTransformFunc transformTo,
-            UnmanagedBindingTransformFunc transformFrom,
+            UnmanagedBindingTransformFunc? transformTo,
+            UnmanagedBindingTransformFunc? transformFrom,
             IntPtr userData,
-            UnmanagedDestroyNotify notify);
+            UnmanagedDestroyNotify? notify);
 
         /// <summary>
         /// Creates a binding between <paramref name="sourceProperty"/> on 
@@ -529,17 +523,17 @@ namespace GISharp.Lib.GObject
         /// whenever the <see cref="Binding"/> reference count reaches zero.
         /// </returns>
         [Since ("2.26")]
-        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc transformTo, BindingTransformFunc transformFrom)
+        public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
         {
             var this_ = Handle;
-            var sourceProperty_ = sourceProperty.IsNull ? throw new ArgumentNullException(nameof(sourceProperty)) : sourceProperty.Handle;
-            var target_ = target?.Handle ?? throw new ArgumentNullException(nameof(target));
-            var targetProperty_ = targetProperty.IsNull ? throw new ArgumentNullException(nameof(targetProperty)) : targetProperty.Handle;
+            var sourceProperty_ = sourceProperty.Handle;
+            var target_ = target.Handle;
+            var targetProperty_ = targetProperty.Handle;
             
             var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
             var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
                                                    transformTo_, transformFrom_, userData_, notify_);
-            var ret = GetInstance<Binding> (ret_, Transfer.None);
+            var ret = GetInstance<Binding>(ret_, Transfer.None)!;
             return ret;
         }
 
@@ -547,15 +541,15 @@ namespace GISharp.Lib.GObject
         {
             class BindingTransformFuncData
             {
-                public BindingTransformFunc TransformTo;
-                public UnmanagedBindingTransformFunc UnmangedTransformTo;
-                public BindingTransformFunc TransformFrom;
-                public UnmanagedBindingTransformFunc UnmanagedTransformFrom;
-                public UnmanagedDestroyNotify UnmanagedNotify;
+                public BindingTransformFunc? TransformTo;
+                public UnmanagedBindingTransformFunc? UnmangedTransformTo;
+                public BindingTransformFunc? TransformFrom;
+                public UnmanagedBindingTransformFunc? UnmanagedTransformFrom;
+                public UnmanagedDestroyNotify? UnmanagedNotify;
             }
 
-            public static (UnmanagedBindingTransformFunc, UnmanagedBindingTransformFunc, UnmanagedDestroyNotify, IntPtr)
-                CreateNotifyDelegate (BindingTransformFunc transformTo, BindingTransformFunc transformFrom) {
+            public static (UnmanagedBindingTransformFunc?, UnmanagedBindingTransformFunc?, UnmanagedDestroyNotify, IntPtr)
+                CreateNotifyDelegate(BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom) {
                     var userData = new BindingTransformFuncData();
 
                     if (transformTo != null) {
@@ -572,16 +566,16 @@ namespace GISharp.Lib.GObject
 
                     var userData_ = GCHandle.Alloc (userData);
 
-                    return (userData.UnmangedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify, (IntPtr)userData_);
+                    return (userData.UnmangedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify!, (IntPtr)userData_);
                 }
 
             static bool TransformToFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
             {
                 try {
-                    var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                    var binding = GetInstance<Binding>(bindingPtr, Transfer.None)!;
                     var gcHandle = (GCHandle)userDataPtr;
                     var userData = (BindingTransformFuncData)gcHandle.Target;
-                    var ret = userData.TransformTo (binding, ref toValue, ref fromValue);
+                    var ret = userData.TransformTo!(binding, ref toValue, ref fromValue);
                     return ret;
                 }
                 catch (Exception ex) {
@@ -593,10 +587,10 @@ namespace GISharp.Lib.GObject
             static bool TransformFromFunc (IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
             {
                 try {
-                    var binding = GetInstance<Binding> (bindingPtr, Transfer.None);
+                    var binding = GetInstance<Binding>(bindingPtr, Transfer.None)!;
                     var gcHandle = (GCHandle)userDataPtr;
                     var userData = (BindingTransformFuncData)gcHandle.Target;
-                    var ret = userData.TransformFrom (binding, ref toValue, ref fromValue);
+                    var ret = userData.TransformFrom!(binding, ref toValue, ref fromValue);
                     return ret;
                 }
                 catch (Exception ex) {
@@ -701,9 +695,6 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the property value
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Throw when <paramref name="propertyName"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
@@ -788,7 +779,7 @@ namespace GISharp.Lib.GObject
         public void EmitNotify(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
-            var propertyName_ = propertyName.IsNull ? throw new ArgumentNullException(nameof(propertyName)) : propertyName.Handle;
+            var propertyName_ = propertyName.Handle;
             g_object_notify(this_, propertyName_);
         }
 
@@ -899,7 +890,7 @@ namespace GISharp.Lib.GObject
         public void EmitNotify(ParamSpec pspec)
         {
             var this_ = Handle;
-            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            var pspec_ = pspec.Handle;
             g_object_notify_by_pspec(this_, pspec_);
         }
 
@@ -938,9 +929,6 @@ namespace GISharp.Lib.GObject
         /// <param name="value">
         /// the value
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// Throw when <paramref name="propertyName"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
@@ -1016,7 +1004,7 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             UnmanagedDestroyNotify destroy);
 
-        public object this[string key] {
+        public object? this[string key] {
             get {
                 var this_ = Handle;
                 var key_ = GMarshal.StringToUtf8Ptr (key);
@@ -1073,7 +1061,7 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             UnmanagedDestroyNotify destroy);
 
-        public object this[Quark quark] {
+        public object? this[Quark quark] {
             get {
                 var ret_ = g_object_get_qdata(Handle, quark);
                 var ret = GCHandle.FromIntPtr(ret_).Target;
@@ -1094,7 +1082,7 @@ namespace GISharp.Lib.GObject
         internal protected virtual void OnNotify(ParamSpec pspec)
         {
             var this_ = Handle;
-            var pspec_ = pspec?.Handle ?? throw new ArgumentNullException(nameof(pspec));
+            var pspec_ = pspec.Handle;
             TypeClass.GetInstance<ObjectClass>(_GType).OnNotify?.Invoke(this_, pspec_);
         }
 
@@ -1117,7 +1105,7 @@ namespace GISharp.Lib.GObject
         /// QData). If one is found, it returns the existing managed instance,
         /// otherwise a new instance is created.
         /// </remarks>
-        public static new T GetInstance<T>(IntPtr handle, Transfer ownership) where T : Object
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : Object
         {
             if (handle == IntPtr.Zero) {
                 return null;
@@ -1158,7 +1146,7 @@ namespace GISharp.Lib.GObject
         /// Gets a managed proxy for a an unmanged GObject.
         /// </summary>
         /// <seealso cref="GetInstance{T}"/>
-        public static Object GetInstance(IntPtr handle, Transfer ownership)
+        public static Object? GetInstance(IntPtr handle, Transfer ownership)
         {
             return GetInstance<Object>(handle, ownership);
         }

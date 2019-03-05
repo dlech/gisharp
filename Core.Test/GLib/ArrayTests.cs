@@ -237,8 +237,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (array.UnsafeItemAt (1), Is.EqualTo (2));
                 Assert.That (array.UnsafeItemAt (2), Is.EqualTo (3));
 
-                Assert.That (() => array.Sort (null), Throws.ArgumentNullException);
-
                 array.Dispose ();
                 Assert.That (() => array.Sort ((x, y) => x - y),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -252,7 +250,7 @@ namespace GISharp.Test.Core.GLib
         {
             var gtype = typeof (Array<int>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
-            Assert.That<string>(gtype.Name, Is.EqualTo("GArray"));
+            Assert.That<string?>(gtype.Name, Is.EqualTo("GArray"));
 
             AssertNoGLibLog();
         }

@@ -71,49 +71,49 @@ namespace GISharp.Lib.GObject
         public delegate IntPtr UnmanagedConstructor(GType type, uint nConstructProperties, IntPtr constructProperties);
 
         public UnmanagedConstructor OnConstructor =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructor>(Handle, onConstructedOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructor>(Handle, onConstructedOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedSetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
 
         public UnmanagedSetProperty OnSetProperty =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedSetProperty>(Handle, onSetPropertyOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedSetProperty>(Handle, onSetPropertyOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedGetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
 
         public UnmanagedGetProperty OnGetProperty =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedGetProperty>(Handle, onGetPropertyOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedGetProperty>(Handle, onGetPropertyOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedDispose(IntPtr @object);
 
         public UnmanagedDispose OnDispose =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedDispose>(Handle, onDisposeOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedDispose>(Handle, onDisposeOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedFinalize(IntPtr @object);
 
         public UnmanagedFinalize OnFinalize =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedFinalize>(Handle, onFinalizeOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedFinalize>(Handle, onFinalizeOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedDispatchPropertiesChanged(IntPtr @object, uint nPspecs, IntPtr pspec);
 
         public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedDispatchPropertiesChanged>(Handle, onDispatchPropertiesChangedOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedDispatchPropertiesChanged>(Handle, onDispatchPropertiesChangedOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedNotify(IntPtr @object, IntPtr pspec);
 
         public UnmanagedNotify OnNotify =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedNotify>(Handle, onNotifyOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedNotify>(Handle, onNotifyOffset)!;
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedConstructed(IntPtr @object);
 
         public UnmanagedConstructed OnConstructed =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset);
+            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset)!;
 
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -171,7 +171,7 @@ namespace GISharp.Lib.GObject
 
                 uint propId = 1; // propId 0 is used internally, so we start with 1
                 foreach (var propInfo in type.GetProperties ()) {
-                    var gPropertyAttr = propInfo.GetCustomAttribute<GPropertyAttribute>(true);
+                    GPropertyAttribute? gPropertyAttr = propInfo.GetCustomAttribute<GPropertyAttribute>(true);
                     if (gPropertyAttr == null) {
                         // maybe the property is declared in an interface
                         gPropertyAttr = propInfo.TryGetMatchingInterfacePropertyInfo()?.GetCustomAttribute<GPropertyAttribute>(true);
@@ -192,11 +192,11 @@ namespace GISharp.Lib.GObject
                         continue;
                     }
                     // TODO: localize strings for nick and blurb
-                    var nick = propInfo.GetCustomAttribute<DisplayNameAttribute> (true)
+                    var nick = propInfo.GetCustomAttribute<DisplayNameAttribute>(true)
                         ?.DisplayName ?? name;
-                    var blurb = propInfo.GetCustomAttribute<DescriptionAttribute> (true)
+                    var blurb = propInfo.GetCustomAttribute<DescriptionAttribute>(true)
                         ?.Description ?? nick;
-                    var defaultValue = propInfo.GetCustomAttribute<DefaultValueAttribute> (true)
+                    var defaultValue = propInfo.GetCustomAttribute<DefaultValueAttribute>(true)
                         ?.Value;
 
                     // setup the flags
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GObject
                     // ExplicitNotify was not set.
                     flags |= ParamFlags.ExplicitNotify;
 
-                    if (propInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
+                    if (propInfo.GetCustomAttribute<ObsoleteAttribute>(true) != null) {
                         flags |= ParamFlags.Deprecated;
                     }
 
@@ -348,7 +348,7 @@ namespace GISharp.Lib.GObject
                         flags |= SignalFlags.IsNoHooks;
                     }
 
-                    if (eventInfo.GetCustomAttribute<ObsoleteAttribute> (true) != null) {
+                    if (eventInfo.GetCustomAttribute<ObsoleteAttribute>(true) != null) {
                         flags |= SignalFlags.Deprecated;
                     }
 
@@ -398,9 +398,9 @@ namespace GISharp.Lib.GObject
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
-                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None);
+                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
-                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark];
+                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
                 propInfo.SetValue (obj, value.Get ());
             }
             catch (Exception ex) {
@@ -412,9 +412,9 @@ namespace GISharp.Lib.GObject
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
-                var pspec = ParamSpec.GetInstance (pspecPtr, Transfer.None);
+                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
-                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark];
+                var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
                 value.Set (propInfo.GetValue (obj));
             }
             catch (Exception ex) {
@@ -425,8 +425,8 @@ namespace GISharp.Lib.GObject
         static void ManagedNotify (IntPtr object_, IntPtr pspec_)
         {
             try {
-                var obj = Object.GetInstance(object_, Transfer.None);
-                var pspec = ParamSpec.GetInstance(pspec_, Transfer.None);
+                var obj = Object.GetInstance(object_, Transfer.None)!;
+                var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
                 obj.OnNotify(pspec);
             } catch (Exception ex) {
                 ex.LogUnhandledException ();
@@ -467,12 +467,9 @@ namespace GISharp.Lib.GObject
         /// the <see cref="ParamSpec"/> for the property, or
         /// <c>null</c> if the class doesn't have a property of that name
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// Throw when <paramref name="propertyName"/> is <c>null</c>
-        /// </exception>
-        public ParamSpec FindProperty(UnownedUtf8 propertyName)
+        public ParamSpec? FindProperty(UnownedUtf8 propertyName)
         {
-            var propertyName_ = propertyName.IsNull ? throw new ArgumentNullException(nameof(propertyName)) : propertyName.Handle;
+            var propertyName_ = propertyName.Handle;
             var ret_ = g_object_class_find_property(Handle, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;
@@ -641,7 +638,7 @@ namespace GISharp.Lib.GObject
         public void InstallProperties(IArray<ParamSpec> pspecs)
         {
             var this_ = Handle;
-            var pspecs_ = pspecs?.Data ?? throw new ArgumentNullException(nameof(pspecs));
+            var pspecs_ = pspecs.Data;
             var nPspecs_ = (uint)pspecs.Length;
             g_object_class_install_properties (this_, nPspecs_, pspecs_);
             GMarshal.Free (pspecs_);
@@ -704,9 +701,6 @@ namespace GISharp.Lib.GObject
         /// </param>
         public void InstallProperty (uint propertyId, ParamSpec pspec)
         {
-            if (pspec == null) {
-                throw new ArgumentNullException (nameof (pspec));
-            }
             g_object_class_install_property (Handle, propertyId, pspec.Handle);
             GC.KeepAlive (pspec);
         }

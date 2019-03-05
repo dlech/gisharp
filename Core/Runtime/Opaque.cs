@@ -74,12 +74,12 @@ namespace GISharp.Runtime
             handle = IntPtr.Zero;
         }
 
-        public static T GetInstance<T> (IntPtr handle, Transfer ownership) where T : IOpaque
+        public static T GetInstance<T>(IntPtr handle, Transfer ownership) where T : IOpaque?
         {
-            return (T)GetInstance(typeof(T), handle, ownership);
+            return (T)GetInstance(typeof(T), handle, ownership)!;
         }
 
-        public static IOpaque GetInstance(Type type, IntPtr handle, Transfer ownership)
+        public static IOpaque? GetInstance(Type type, IntPtr handle, Transfer ownership)
         {
             // special case for OpaqueInt so 0 doesn't become null
             if (type == typeof(OpaqueInt)) {

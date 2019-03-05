@@ -18,7 +18,7 @@ namespace GISharp.Runtime
         /// </param>
         public GVirtualMethodAttribute(Type delegateType)
         {
-            DelegateType = delegateType ?? throw new ArgumentNullException(nameof(delegateType));
+            DelegateType = delegateType;
         }
     }
 }

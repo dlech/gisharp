@@ -23,7 +23,7 @@ namespace GISharp.Runtime
         /// binding an unmanged type, this must be set to match the existing
         /// GType name.
         /// </remarks>
-        public string Name { get; private set; }
+        public string? Name { get; private set; }
 
         /// <summary>
         /// Indicates if the type can be registered with the GObject type system.
@@ -35,7 +35,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public bool IsProxyForUnmanagedType { get; set; }
 
-        public GTypeAttribute (string name = null)
+        public GTypeAttribute(string? name = null)
         {
             Name = name;
         }

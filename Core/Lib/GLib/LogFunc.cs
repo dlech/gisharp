@@ -46,37 +46,40 @@ namespace GISharp.Lib.GLib
     /// This is not used if structured logging is enabled; see
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
-    public delegate void LogFunc(UnownedUtf8 logDomain, LogLevelFlags logLevel, UnownedUtf8 message);
+    public delegate void LogFunc(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message);
 
     public static class LogFuncFactory
     {
         class UserData
         {
-            public LogFunc Func;
-            public UnmanagedLogFunc UnamangedFunc;
-            public UnmanagedDestroyNotify Destroy;
-            public CallbackScope Scope;
+            public readonly LogFunc Func;
+            public readonly UnmanagedLogFunc UnmanagedFunc;
+            public readonly UnmanagedDestroyNotify Destroy;
+            public readonly CallbackScope Scope;
+
+            public UserData(LogFunc func, UnmanagedLogFunc unmanagedFunc, UnmanagedDestroyNotify destroy, CallbackScope scope)
+            {
+                Func = func;
+                UnmanagedFunc = unmanagedFunc;
+                Destroy = destroy;
+                Scope = scope;
+            }
         }
 
         public static LogFunc Create(UnmanagedLogFunc logFunc_, IntPtr userData_)
         {
             return new LogFunc((logDomain, logLevel, message) => {
-                var logDomain_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : logDomain.Handle;
-                var message_ = logDomain.IsNull ? throw new ArgumentNullException(nameof(logDomain)) : message.Handle;
+                var logDomain_ = logDomain.Handle;
+                var message_ = message.Handle;
                 logFunc_(logDomain_, logLevel, message_, userData_);
             });
         }
 
         public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) Create(LogFunc func, CallbackScope scope) {
-            var data = new UserData {
-                Func = func,
-                UnamangedFunc = UnmanagedCallback,
-                Destroy = Destroy,
-                Scope = scope
-            };
+            var data = new UserData(func, UnmanagedCallback, Destroy, scope);
             var gcHandle = GCHandle.Alloc(data);
 
-            return (data.UnamangedFunc, data.Destroy, (IntPtr)gcHandle);
+            return (data.UnmanagedFunc, data.Destroy, (IntPtr)gcHandle);
         }
 
         static void UnmanagedCallback(IntPtr logDomain_, LogLevelFlags logLevel_, IntPtr message_, IntPtr userData_)
@@ -84,8 +87,8 @@ namespace GISharp.Lib.GLib
             try {
                 var gcHandle = (GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target;
-                var logDomain = new UnownedUtf8(logDomain_, -1);
-                var message = new UnownedUtf8(message_, -1);
+                var logDomain = new NullableUnownedUtf8(logDomain_, -1);
+                var message = new NullableUnownedUtf8(message_, -1);
                 userData.Func(logDomain, logLevel_, message);
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();

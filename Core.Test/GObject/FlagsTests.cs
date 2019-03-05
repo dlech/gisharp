@@ -60,7 +60,7 @@ namespace GISharp.Test.Core.GObject
             Assert.That (testFlags4GType.IsA (GType.Flags), Is.True);
 
             // make sure that we set the typename, value name and value nick
-            Assert.That<string>(testFlags4GType.Name, Is.EqualTo("GISharp-Test-Core-GObject-FlagsTests+TestFlags4"));
+            Assert.That<string?>(testFlags4GType.Name, Is.EqualTo("GISharp-Test-Core-GObject-FlagsTests+TestFlags4"));
             using (var flags4TypeClass = (FlagsClass)TypeClass.Get (testFlags4GType)) {
                 var value = Flags.GetFirstValue (flags4TypeClass, 1);
                 Assert.That (value.Value, Is.EqualTo ((int)TestFlags4.One));
@@ -77,7 +77,7 @@ namespace GISharp.Test.Core.GObject
         {
             // make sure that we can override name and nick with attributes
             var testFlags5GType = typeof(TestFlags5).GetGType ();
-            Assert.That<string>(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
+            Assert.That<string?>(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
             using (var flags5TypeClass = (FlagsClass)TypeClass.Get (testFlags5GType)) {
                 var value1 = Flags.GetFirstValue (flags5TypeClass, 1);
                 Assert.That (value1.Value, Is.EqualTo ((int)TestFlags5.One));

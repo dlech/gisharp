@@ -59,7 +59,7 @@ namespace GISharp.Lib.GModule
 
             var emptyName = GMarshal.StringToUtf8Ptr (string.Empty);
             var path_ = g_module_build_path (IntPtr.Zero, emptyName);
-            var path = GMarshal.Utf8PtrToString (path_, true);
+            var path = GMarshal.Utf8PtrToString(path_, true)!;
             GMarshal.Free (emptyName);
 
             var parts = path.Split ('.');
@@ -137,12 +137,8 @@ namespace GISharp.Lib.GModule
         /// on macOS, where modules use the suffix "so" and shared libraries use
         /// the suffix "dylib".
         /// </remarks>
-        public static string BuildPath (string directory, string moduleName, bool isSharedLibrary = false)
+        public static string BuildPath(string? directory, string moduleName, bool isSharedLibrary = false)
         {
-            if (moduleName == null) {
-                throw new ArgumentNullException (nameof (moduleName));
-            }
-
             // BuildPath was originally a wrapper around g_module_build_path,
             // but it is easy enough to implment it in managed code and we want
             // to be able to handle both "so" and "dylib" suffixes on macOS.
@@ -218,9 +214,6 @@ namespace GISharp.Lib.GModule
         /// </exception>
         public IntPtr GetSymbol (string symbolName)
         {
-            if (symbolName == null) {
-                throw new ArgumentNullException (nameof (symbolName));
-            }
             lock (errorLock) {
                 var symbolName_ = GMarshal.StringToUtf8Ptr (symbolName);
                 try {
@@ -249,7 +242,7 @@ namespace GISharp.Lib.GModule
         public string Name {
             get {
                 var ret_ = g_module_name (Handle);
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString(ret_)!;
                 return ret;
             }
         }
@@ -276,7 +269,7 @@ namespace GISharp.Lib.GModule
         static string Error {
             get {
                 var ret_ = g_module_error ();
-                var ret = GMarshal.Utf8PtrToString (ret_);
+                var ret = GMarshal.Utf8PtrToString(ret_)!;
                 return ret;
             }
         }

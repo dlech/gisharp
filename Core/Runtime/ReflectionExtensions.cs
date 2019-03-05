@@ -15,11 +15,8 @@ namespace GISharp.Runtime
         /// does not implement an interface property.
         /// </returns>
         /// <param name="info">The PropertyInfo to check.</param>
-        public static PropertyInfo TryGetMatchingInterfacePropertyInfo (this PropertyInfo info)
+        public static PropertyInfo? TryGetMatchingInterfacePropertyInfo(this PropertyInfo info)
         {
-            if (info == null) {
-                throw new ArgumentNullException (nameof (info));
-            }
             var accessor = info.GetGetMethod () ?? info.GetSetMethod ();
             var interfaceMapping = info.DeclaringType.GetInterfaces ()
                 .Select (t => info.DeclaringType.GetInterfaceMap (t))
@@ -45,15 +42,12 @@ namespace GISharp.Runtime
         /// property is not registered with the GType system.
         /// </returns>
         /// <param name="info">The property to inspect.</param>
-        public static string TryGetGPropertyName(this PropertyInfo info)
+        public static string? TryGetGPropertyName(this PropertyInfo info)
         {
-            if (info == null) {
-                throw new ArgumentNullException (nameof (info));
-            }
-            var propAttr = info.GetCustomAttribute<GPropertyAttribute>(true);
+            var propAttr = info.GetCustomAttribute<GPropertyAttribute?>(true);
             if (propAttr == null) {
-                propAttr = info.TryGetMatchingInterfacePropertyInfo ()
-                    ?.GetCustomAttribute<GPropertyAttribute>();
+                propAttr = info.TryGetMatchingInterfacePropertyInfo()?
+                    .GetCustomAttribute<GPropertyAttribute?>();
             }
             return propAttr?.Name ?? info.Name;
         }

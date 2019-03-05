@@ -71,7 +71,7 @@ namespace GISharp.Runtime
         /// Since encoding is not specified, the string is returned as a byte array.
         /// The byte array does not include the null terminator.
         /// </remarks>
-        public static byte[] PtrToByteString (IntPtr ptr, bool freePtr = false)
+        public static byte[]? PtrToByteString(IntPtr ptr, bool freePtr = false)
         {
             if (ptr == IntPtr.Zero) {
                 return null;
@@ -100,7 +100,7 @@ namespace GISharp.Runtime
         /// The byte array should not include the null terminator. It will be
         /// added automatically.
         /// </remarks>
-        public static IntPtr ByteStringToPtr (byte[] bytes)
+        public static IntPtr ByteStringToPtr(byte[]? bytes)
         {
             if (bytes == null) {
                 return IntPtr.Zero;
@@ -117,7 +117,7 @@ namespace GISharp.Runtime
         /// <returns>The managed string string.</returns>
         /// <param name="ptr">Pointer to the GLib string.</param>
         /// <param name="freePtr">If set to <c>true</c>, free the GLib string.</param>
-        public static string Utf8PtrToString (IntPtr ptr, bool freePtr = false)
+        public static string? Utf8PtrToString(IntPtr ptr, bool freePtr = false)
         {
             if (ptr == IntPtr.Zero) {
                 return null;
@@ -133,7 +133,7 @@ namespace GISharp.Runtime
         /// <remarks>
         /// The returned pointer should be freed by calling <see cref="Free"/>.
         /// </remarks>
-        public static IntPtr StringToUtf8Ptr (string str)
+        public static IntPtr StringToUtf8Ptr(string? str)
         {
             if (str == null) {
                 return IntPtr.Zero;
@@ -141,7 +141,7 @@ namespace GISharp.Runtime
             return ByteStringToPtr (Encoding.UTF8.GetBytes (str));
         }
 
-        public static string[] GStrvPtrToStringArray (IntPtr ptr, bool freePtr = false, bool freeElements = false)
+        public static string[]? GStrvPtrToStringArray(IntPtr ptr, bool freePtr = false, bool freeElements = false)
         {
             if (ptr == IntPtr.Zero) {
                 return null;
@@ -150,7 +150,7 @@ namespace GISharp.Runtime
             IntPtr current;
             var offset = 0;
             while ((current = Marshal.ReadIntPtr (ptr, offset)) != IntPtr.Zero) {
-                strings.Add (Utf8PtrToString (current));
+                strings.Add (Utf8PtrToString(current)!);
                 if (freeElements) {
                     g_free (current);
                 }
@@ -162,7 +162,7 @@ namespace GISharp.Runtime
             return strings.ToArray ();
         }
 
-        public static IntPtr StringArrayToGStrvPtr (string[] strings)
+        public static IntPtr StringArrayToGStrvPtr(string[]? strings)
         {
             if (strings == null) {
                 return IntPtr.Zero;
@@ -210,9 +210,9 @@ namespace GISharp.Runtime
         /// <returns>The string array.</returns>
         /// <param name="ptr">Pointer to the GList</param>
         /// <param name="freePtr">If set to <c>true</c>, frees the GList.</param>
-        public static string[] GListToStringArray (IntPtr ptr, bool freePtr = false)
+        public static string?[] GListToStringArray(IntPtr ptr, bool freePtr = false)
         {
-            var ret = new System.Collections.Generic.List<string> ();
+            var ret = new System.Collections.Generic.List<string?>();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
                 var item = Marshal.PtrToStructure<GList> (itemPtr);
@@ -242,9 +242,9 @@ namespace GISharp.Runtime
         /// <returns>The string array.</returns>
         /// <param name="ptr">Pointer to the GSList</param>
         /// <param name="freePtr">If set to <c>true</c>, frees the GSList.</param>
-        public static string[] GSListToStringArray (IntPtr ptr, bool freePtr = false)
+        public static string?[] GSListToStringArray(IntPtr ptr, bool freePtr = false)
         {
-            var ret = new System.Collections.Generic.List<string> ();
+            var ret = new System.Collections.Generic.List<string?>();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
                 var item = Marshal.PtrToStructure<GSList> (itemPtr);
@@ -265,7 +265,7 @@ namespace GISharp.Runtime
         /// <param name="length">The length of the array or null if the array is null-terminated.</param>
         /// <param name="freePtr">Setting to <c>true</c> will call g_free() on <paramref name="ptr"/>.</param>
         /// <typeparam name="T">The array element type.</typeparam>
-        public static T[] PtrToCArray<T> (IntPtr ptr, int? length, bool freePtr = false) where T : struct
+        public static T[]? PtrToCArray<T>(IntPtr ptr, int? length, bool freePtr = false) where T : struct
         {
             if (ptr == IntPtr.Zero) {
                 return null;
@@ -336,9 +336,6 @@ namespace GISharp.Runtime
         /// <param name="message">error message.</param>
         public static void SetError (IntPtr error, Quark domain, int code, string message)
         {
-            if (message == null) {
-                throw new ArgumentNullException (nameof (message));
-            }
             var messagePtr = StringToUtf8Ptr (message);
             g_set_error_literal (error, domain, code, messagePtr);
             Free (messagePtr);
@@ -367,16 +364,13 @@ namespace GISharp.Runtime
         /// </summary>
         /// <param name="dest">Destination.</param>
         /// <param name="src">Source.</param>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="src"/> is null.
-        /// </exception>
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
         public static unsafe void PropagateError(ref IntPtr dest, Error src)
         {
             var dest_ = dest;
-            var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
+            var src_ = src.Take();
             g_propagate_error(&dest_, src_);
         }
 
@@ -386,15 +380,12 @@ namespace GISharp.Runtime
         /// </summary>
         /// <param name="dest">Destination.</param>
         /// <param name="src">Source.</param>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="src"/> is null.
-        /// </exception>
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
         public static unsafe void PropagateError(IntPtr* dest, Error src)
         {
-            var src_ = src?.Take() ?? throw new ArgumentNullException(nameof(src));
+            var src_ = src.Take();
             g_propagate_error(dest, src_);
         }
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -422,7 +413,7 @@ namespace GISharp.Runtime
         /// <returns>
         /// A delagate or <c>null</c>
         /// </returns>
-        public static T GetVirtualMethodDelegate<T>(IntPtr ptr, int fieldOffset)
+        public static T? GetVirtualMethodDelegate<T>(IntPtr ptr, int fieldOffset) where T : Delegate
         {
             var ret_ = Marshal.ReadIntPtr(ptr, fieldOffset);
             if (ret_ == IntPtr.Zero) {

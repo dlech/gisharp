@@ -37,13 +37,13 @@ namespace GISharp.Lib.GLib
         static extern void g_log_set_writer_func (
             /* <type name="LogWriterFunc" type="GLogWriterFunc" managed-name="LogWriterFunc" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 */
-            UnmanagedLogWriterFunc func,
+            UnmanagedLogWriterFunc? func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 closure:0 */
             IntPtr userData,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async destroy:0 */
-            UnmanagedDestroyNotify userDataFree);
+            UnmanagedDestroyNotify? userDataFree);
 
         static bool isFuncSet;
 
@@ -60,14 +60,11 @@ namespace GISharp.Lib.GLib
         /// There can only be one writer function. It is an error to set more than one.
         /// </remarks>
         /// <param name="func">
-        /// log writer function, which must not be <c>null</c>
+        /// log writer function
         /// </param>
         [Since ("2.50")]
-        public static void SetFunc (LogWriterFunc func)
+        public static void SetFunc(LogWriterFunc func)
         {
-            if (func == null) {
-                throw new ArgumentNullException (nameof (func));
-            }
             if (isFuncSet) {
                 throw new InvalidOperationException ("Log writer function can only be set once.");
             }
@@ -173,9 +170,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static LogWriterOutput Default(LogLevelFlags logLevel, IArray<LogField> fields)
         {
-            if (fields == null) {
-                throw new ArgumentNullException(nameof(fields));
-            }
             var ret = g_log_writer_default(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
@@ -259,9 +253,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static UnownedUtf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
         {
-            if (fields == null) {
-                throw new ArgumentNullException (nameof(fields));
-            }
             var ret_ = g_log_writer_format_fields (logLevel, fields, (UIntPtr)fields.Length, useColor);
             var ret = new UnownedUtf8(ret_, -1);
             return ret;
@@ -295,9 +286,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static string FormatFields (LogLevelFlags logLevel, IDictionary<string, string> fields, bool useColor = false)
         {
-            if (fields == null) {
-                throw new ArgumentNullException (nameof (fields));
-            }
             var fields_ = new LogField[fields.Count];
             var i = 0;
             foreach (var item in fields) {
@@ -307,7 +295,7 @@ namespace GISharp.Lib.GLib
                 i++;
             }
             try {
-                return FormatFields (logLevel, fields_, useColor);
+                return FormatFields(logLevel, fields_, useColor).ToString();
             } finally {
                 foreach (var item in fields_) {
                     GMarshal.Free (item.Key);
@@ -429,9 +417,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static LogWriterOutput Journald(LogLevelFlags logLevel, IArray<LogField> fields)
         {
-            if (fields == null) {
-                throw new ArgumentNullException(nameof(fields));
-            }
             var ret = g_log_writer_journald(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
@@ -517,9 +502,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static LogWriterOutput StandardStreams(LogLevelFlags logLevel, IArray<LogField> fields)
         {
-            if (fields == null) {
-                throw new ArgumentNullException(nameof(fields));
-            }
             var ret = g_log_writer_standard_streams(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
             return ret;
         }
@@ -626,9 +608,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.50")]
         public static void Log (LogLevelFlags logLevel, LogField[] fields)
         {
-            if (fields == null) {
-                throw new ArgumentNullException (nameof(fields));
-            }
             g_log_structured_array (logLevel, fields, (UIntPtr)fields.Length);
         }
 
@@ -797,10 +776,10 @@ namespace GISharp.Lib.GLib
         /// containing the key-value pairs of message data.
         /// </param>
         [Since ("2.50")]
-        public static void Log(UnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
+        public static void Log(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
         {
             var logDomain_ = logDomain.Handle;
-            var fields_ = fields?.Handle ?? throw new ArgumentNullException(nameof(fields));
+            var fields_ = fields.Handle;
             if (fields.Type != VariantType.VariantDictionary) {
                 throw new ArgumentException("Requires VariantType.VarDict", nameof(fields));
             }

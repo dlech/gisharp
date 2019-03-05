@@ -444,9 +444,6 @@ namespace GISharp.Lib.GLib
         /// <param name="typeString">
         /// a valid Variant type string
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="typeString"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// if <paramref name="typeString"/> is not a valid type string
         /// </exception>
@@ -487,15 +484,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new array <see cref="T:VariantType"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="element"/> is <c>null</c>
-        /// </exception>
         [Since ("2.24")]
         public static VariantType NewArray (VariantType element)
         {
-            if (element == null) {
-                throw new ArgumentNullException (nameof (element));
-            }
             var ret_ = g_variant_type_new_array (element.handle);
             var ret = new VariantType (ret_, Transfer.Full);
             return ret;
@@ -542,18 +533,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new dictionary entry <see cref="T:VariantType"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="key"/> or <paramref name="value"/> is <c>null</c>
-        /// </exception>
         [Since ("2.24")]
         public static VariantType CreateDictEntry (VariantType key, VariantType value)
         {
-            if (key == null) {
-                throw new ArgumentNullException (nameof (key));
-            }
-            if (value == null) {
-                throw new ArgumentNullException (nameof (value));
-            }
             var ret_ = g_variant_type_new_dict_entry (key.handle, value.handle);
             var ret = new VariantType (ret_, Transfer.Full);
             return ret;
@@ -591,15 +573,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new maybe <see cref="T:VariantType"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="element"/> is <c>null</c>
-        /// </exception>
         [Since ("2.24")]
         public static VariantType CreateMaybe (VariantType element)
         {
-            if (element == null) {
-                throw new ArgumentNullException (nameof (element));
-            }
             var ret_ = g_variant_type_new_maybe (element.handle);
             var ret = new VariantType (ret_, Transfer.Full);
             return ret;
@@ -646,19 +622,13 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new tuple <see cref="T:VariantType"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="items"/> is <c>null</c>
-        /// </exception>
         /// <exception cref="ArgumentException">
         /// if any element of <paramref name="items"/> is <c>null</c>
         /// </exception>
         [Since ("2.24")]
         public static VariantType CreateTuple(IArray<VariantType> items)
         {
-            var items_ = items?.Data ?? throw new ArgumentNullException(nameof(items));
-            if (items.Any(x => x == null)) {
-                throw new ArgumentException("cannot contain any null elements", nameof(items));
-            }
+            var items_ = items.Data;
             var ret_ = g_variant_type_new_tuple(items_, items.Length);
             var ret = new VariantType(ret_, Transfer.Full);
             return ret;
@@ -697,7 +667,7 @@ namespace GISharp.Lib.GLib
         [Since ("2.24")]
         public static bool StringIsValid(UnownedUtf8 typeString)
         {
-            var typeString_ = typeString.IsNull ? throw new ArgumentNullException(nameof(typeString)) : typeString.Handle;
+            var typeString_ = typeString.Handle;
             var ret = g_variant_type_string_is_valid(typeString_);
             return ret;
         }
@@ -766,9 +736,7 @@ namespace GISharp.Lib.GLib
             IntPtr type);
 
         /// <summary>
-        /// Returns a newly-allocated copy of the type string corresponding to
-        /// @type.  The returned string is nul-terminated.  It is appropriate to
-        /// call g_free() on the return value.
+        /// Returns the type string corresponding to this type.
         /// </summary>
         /// <returns>
         /// the corresponding type string
@@ -777,9 +745,7 @@ namespace GISharp.Lib.GLib
         public override string ToString ()
         {
             var ret_ = g_variant_type_dup_string(Handle);
-            // TODO: using g_variant_type_peek_string() here could be slightly more efficient,
-            // but it is not null-terminated and requires that we also call g_variant_type_get_string_length() to get the length
-            var ret = GMarshal.Utf8PtrToString (ret_, true);
+            var ret = GMarshal.Utf8PtrToString (ret_, true)!;
             return ret;
         }
 
@@ -878,41 +844,31 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if this type and <paramref name="other"/> are exactly equal
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="other"/> is <c>null</c>
-        /// </exception>
         [Since ("2.24")]
         public bool Equals (VariantType other)
         {
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             var ret = g_variant_type_equal(this_, other_);
             return ret;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            var type2 = obj as VariantType;
-            if (type2 == null) {
-                return this == null;
+            if (obj is VariantType type2) {
+                return Equals(type2);
             }
-            return Equals (type2);
+            return base.Equals(obj);
         }
 
-        public static bool operator == (VariantType one, VariantType two)
+        public static bool operator == (VariantType? one, VariantType? two)
         {
-            if ((object)one == null) {
-                return (object)two == null;
-            }
-            if ((object)two == null) {
-                return false;
-            }
-            return one.Equals (two);
+            return object.Equals(one, two);
         }
 
-        public static bool operator != (VariantType one, VariantType two)
+        public static bool operator !=(VariantType? one, VariantType? two)
         {
-            return !(one == two);
+            return !object.Equals(one, two);
         }
 
         /// <summary>
@@ -1364,14 +1320,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if this type is a subtype of <paramref name="supertype"/>
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// if <paramref name="supertype"/> is <c>null</c>
-        /// </exception>
         [Since ("2.24")]
         public bool IsSubtypeOf (VariantType supertype)
         {
             var this_ = Handle;
-            var supertype_ = supertype?.Handle ?? throw new ArgumentNullException(nameof(supertype));
+            var supertype_ = supertype.Handle;
             var ret = g_variant_type_is_subtype_of(this_, supertype_);
             return ret;
         }

@@ -25,7 +25,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestAppend ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 Assume.That (list.Length, Is.EqualTo (0));
                 list.Append (null);
                 Assert.That (list.Length, Is.EqualTo (1));
@@ -37,7 +37,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestPrepend ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 Assume.That (list.Length, Is.EqualTo (0));
                 list.Prepend (null);
                 Assert.That (list.Length, Is.EqualTo (1));
@@ -49,7 +49,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsert ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 Assume.That (list.Length, Is.EqualTo (0));
                 list.Insert (null, 0);
                 Assert.That (list.Length, Is.EqualTo (1));
@@ -61,7 +61,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsertBefore ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 Assume.That (list.Length, Is.EqualTo (0));
                 list.InsertBefore (null, null);
                 Assert.That (list.Length, Is.EqualTo (1));
@@ -87,10 +87,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (list[0].Value, Is.EqualTo (1));
                 Assert.That (list[1].Value, Is.EqualTo (2));
                 Assert.That (list[2].Value, Is.EqualTo (3));
-
-                // calling without a sort function is not allowed
-                Assert.That (() => list.InsertSorted (new OpaqueInt (4), null),
-                    Throws.ArgumentNullException);
             }
 
             AssertNoGLibLog();
@@ -99,7 +95,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestRemove ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 list.Append (null);
                 Assume.That (list.Length, Is.EqualTo (1));
                 list.Remove (null);
@@ -112,7 +108,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestRemoveAll ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 list.Append (null);
                 Assume.That (list.Length, Is.EqualTo (1));
                 list.RemoveAll (null);
@@ -125,7 +121,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestCopy ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt?>()) {
                 list.Append (null);
                 Assume.That (list.Length, Is.EqualTo (1));
                 var newList = list.Copy ();
@@ -139,7 +135,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestReverse ()
         {
-            using (var list = new List<OpaqueInt> ()) {
+            using (var list = new List<OpaqueInt>()) {
                 list.Prepend (new OpaqueInt (1));
                 list.Prepend (new OpaqueInt (2));
                 Assume.That (list.Length, Is.EqualTo (2));
@@ -173,9 +169,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (list.Length, Is.EqualTo (2));
                 Assume.That (list[0].Handle, Is.EqualTo ((IntPtr)1));
                 Assume.That (list[1].Handle, Is.EqualTo ((IntPtr)2));
-                // calling without a compare function is not allowed
-                Assert.That (() => list.Sort (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
             }
 
             AssertNoGLibLog();
@@ -184,8 +177,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestConcat ()
         {
-            using (var list1 = new List<OpaqueInt> ())
-            using (var list2 = new List<OpaqueInt> ()) {
+            using (var list1 = new List<OpaqueInt?>())
+            using (var list2 = new List<OpaqueInt?>()) {
                 list1.Append (null);
                 Assume.That (list1.Length, Is.EqualTo (1));
                 list2.Append (null);
@@ -194,7 +187,6 @@ namespace GISharp.Test.Core.GLib
                 list1.Concat (list2);
                 Assert.That (list1.Length, Is.EqualTo (3));
                 Assert.That (list2.Length, Is.EqualTo (0));
-                Assert.That (() => list1.Concat (null), Throws.ArgumentNullException);
             }
 
             AssertNoGLibLog();

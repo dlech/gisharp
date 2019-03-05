@@ -165,7 +165,7 @@ namespace GISharp.Lib.GObject
         public Object Source {
             get {
                 var ret_ = g_binding_get_source(Handle);
-                var ret = Object.GetInstance(ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
         }
@@ -235,7 +235,7 @@ namespace GISharp.Lib.GObject
         public Object Target {
             get {
                 var ret_ = g_binding_get_target(Handle);
-                var ret = Object.GetInstance(ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
         }

@@ -168,7 +168,7 @@ namespace GISharp.Lib.GLib
         protected void AppendVals<T> (T[] data) where T : struct
         {
             var this_ = Handle;
-            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
+            var len = data.Length;
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
             var data_ = gch.AddrOfPinnedObject();
             g_array_append_vals(this_, data_, (uint)len);
@@ -240,7 +240,7 @@ namespace GISharp.Lib.GLib
         protected void InsertVals<T> (int index, T[] data) where T : struct
         {
             var this_ = Handle;
-            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
+            var len = data.Length;
             if (index < 0 || index > Length) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
@@ -290,7 +290,7 @@ namespace GISharp.Lib.GLib
         protected void PrependVals<T> (params T[] data) where T : struct
         {
             var this_ = Handle;
-            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
+            var len = data.Length;
             var gch = GCHandle.Alloc (data, GCHandleType.Pinned);
             var data_ = gch.AddrOfPinnedObject ();
             g_array_prepend_vals(this_, data_, (uint)len);
@@ -511,9 +511,6 @@ namespace GISharp.Lib.GLib
         protected void Sort<T> (Comparison<T> compareFunc) where T : struct
         {
             var this_ = Handle;
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.PtrToStructure<T> (a);
                 var y = Marshal.PtrToStructure<T> (b);
@@ -725,9 +722,6 @@ namespace GISharp.Lib.GLib
 
         public void CopyTo (T[] array, int arrayIndex)
         {
-            if (array == null) {
-                throw new ArgumentNullException (nameof (array));
-            }
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }

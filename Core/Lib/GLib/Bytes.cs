@@ -131,9 +131,6 @@ namespace GISharp.Lib.GLib
         /// <param name="freeFunc">
         /// the function to call to release the data
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="freeFunc"/> is <c>null</c>.
-        ///</exception>
         /// <param name="userData">
         /// data to pass to @free_func
         /// </param>
@@ -197,9 +194,6 @@ namespace GISharp.Lib.GLib
         /// <param name="other">
         /// a <see cref="Bytes"/> to compare with this
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="other"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a negative value if <paramref name="other"/> is lesser, a positive
         /// value if <paramref name="other"/> is
@@ -209,7 +203,7 @@ namespace GISharp.Lib.GLib
         public int CompareTo(Bytes other)
         {
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             var ret = g_bytes_compare(this_, other_);
             return ret;
         }
@@ -274,9 +268,6 @@ namespace GISharp.Lib.GLib
         /// <param name="other">
         /// a pointer to a #GBytes to compare with @bytes1
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="other"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// <c>true</c> if the two keys match.
         /// </returns>
@@ -284,30 +275,27 @@ namespace GISharp.Lib.GLib
         public bool Equals(Bytes other)
         {
             var this_ = Handle;
-            var other_ = other?.Handle ?? throw new ArgumentNullException(nameof(other));
+            var other_ = other.Handle;
             var ret = g_bytes_equal(this_, other_);
             return ret;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            return Equals (obj as Bytes);
+            if (obj is Bytes bytes) {
+                return Equals(bytes);
+            }
+            return base.Equals(obj);
         }
 
-        public static bool operator == (Bytes one, Bytes two)
+        public static bool operator ==(Bytes? one, Bytes? two)
         {
-            if ((object)one == null) {
-                return (object)two == null;
-            }
-            if ((object)two == null) {
-                return false;
-            }
-            return one.Equals (two);
+            return object.Equals(one, two);
         }
 
-        public static bool operator != (Bytes one, Bytes two)
+        public static bool operator !=(Bytes? one, Bytes? two)
         {
-            return !(one == two);
+            return !object.Equals(one, two);
         }
 
         /// <summary>

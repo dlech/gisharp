@@ -113,9 +113,6 @@ namespace GISharp.Lib.GLib
 
         static IntPtr NewTake (byte[] data)
         {
-            if (data == null) {
-                throw new ArgumentNullException (nameof (data));
-            }
             var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
             var ret = g_byte_array_new_take (dataPtr, (ulong)data.Length);
@@ -179,7 +176,7 @@ namespace GISharp.Lib.GLib
         public void Append (params byte[] data)
         {
             var this_ = Handle;
-            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
+            var len = data.Length;
             g_byte_array_append(this_, data, (uint)len);
         }
 
@@ -255,7 +252,7 @@ namespace GISharp.Lib.GLib
         public void Prepend (params byte[] data)
         {
             var this_ = Handle;
-            var len = data?.Length ?? throw new ArgumentNullException(nameof(data));
+            var len = data.Length;
             g_byte_array_prepend(this_, data, (uint)len);
         }
 
@@ -482,10 +479,6 @@ namespace GISharp.Lib.GLib
         public void Sort (Comparison<byte> compareFunc)
         {
             var this_ = Handle;
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
-
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadByte (a);
                 var y = Marshal.ReadByte (b);
@@ -571,9 +564,6 @@ namespace GISharp.Lib.GLib
         /// <param name="arrayIndex">The starting index of <paramref name="array"/>.</param>
         public void CopyTo (byte[] array, int arrayIndex)
         {
-            if (array == null) {
-                throw new ArgumentNullException (nameof (array));
-            }
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }

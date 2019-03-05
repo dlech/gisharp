@@ -427,9 +427,6 @@ namespace GISharp.Lib.GLib
         [Since ("2.20")]
         public static int Poll (PollFD[] fds, int timeout)
         {
-            if (fds == null) {
-                throw new ArgumentNullException (nameof (fds));
-            }
             var ret = g_poll (fds, (uint)fds.Length, timeout);
             return ret;
         }
@@ -604,7 +601,7 @@ namespace GISharp.Lib.GLib
         public int Check(int maxPriority, IArray<PollFD> fds)
         {
             var this_ = Handle;
-            var fds_ = fds?.Data ?? throw new ArgumentNullException(nameof(fds));
+            var fds_ = fds.Data;
             var nFds_ = fds.Length;
             var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
             return ret;
@@ -793,7 +790,7 @@ namespace GISharp.Lib.GLib
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify notify);
+            UnmanagedDestroyNotify? notify);
 
         /// <summary>
         /// Invokes a function in such a way that this context is owned during the
@@ -1370,7 +1367,7 @@ namespace GISharp.Lib.GLib
             g_main_context_wakeup(Handle);
         }
 
-        GSynchronizationContext _SynchronizationContext;
+        GSynchronizationContext? _SynchronizationContext;
         /// <summary>
         /// Gets the .NET synchronization context for this context.
         /// </summary>
@@ -1402,9 +1399,6 @@ namespace GISharp.Lib.GLib
 
         public GSynchronizationContext(MainContext context)
         {
-            if (context == null) {
-                throw new ArgumentNullException (nameof (context));
-            }
             this.context = context;
         }
 

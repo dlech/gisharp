@@ -23,7 +23,7 @@ namespace GISharp.Test.Core.GObject
                 var handle = o1.Handle;
 
                 // getting an object that already exists should return that object
-                var o2 = Object.GetInstance(handle, Transfer.None);
+                var o2 = Object.GetInstance(handle, Transfer.None)!;
                 try {
                     Assert.That (ReferenceEquals (o1, o2), Is.True);
 
@@ -44,7 +44,7 @@ namespace GISharp.Test.Core.GObject
                     // Transfer.All means the new object takes ownership of the reference
                     // from the manual call to g_object_ref(), so we don't need to call
                     // g_object_unref() manually.
-                    o2 = Object.GetInstance(handle, Transfer.Full);
+                    o2 = Object.GetInstance(handle, Transfer.Full)!;
                     Assert.That (ReferenceEquals (o1, o2), Is.False);
                 }
                 finally {
@@ -58,14 +58,14 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestToggleRef ()
         {
-            WeakReference weakRef = null;
+            WeakReference? weakRef = null;
 
             new Action (() => weakRef = new WeakReference(new Object())).Invoke();
 
             // first make sure our testing method is sane and Object is really GC'ed
             GC.Collect ();
             GC.WaitForPendingFinalizers ();
-            Assume.That (weakRef.IsAlive, Is.False);
+            Assume.That(weakRef!.IsAlive, Is.False);
 
             // Now for the actual test.
 
@@ -81,7 +81,7 @@ namespace GISharp.Test.Core.GObject
 
             GC.Collect ();
             GC.WaitForPendingFinalizers ();
-            Assert.That (weakRef.IsAlive, Is.True);
+            Assert.That(weakRef!.IsAlive, Is.True);
 
             // Simulates unmanaged code releasing the last reference. This should
             // free the GCHandle.
@@ -89,7 +89,7 @@ namespace GISharp.Test.Core.GObject
 
             GC.Collect ();
             GC.WaitForPendingFinalizers ();
-            Assert.That (weakRef.IsAlive, Is.False);
+            Assert.That(weakRef!.IsAlive, Is.False);
 
             AssertNoGLibLog();
         }
@@ -150,8 +150,8 @@ namespace GISharp.Test.Core.GObject
 
                 using (var baseObjClass = (ObjectClass)TypeClass.Get (typeof(TestObjectPropertiesBase).GetGType ()))
                 using (var subclassObjClass = (ObjectClass)TypeClass.Get (typeof(TestObjectPropertiesSubclass).GetGType ())) {
-                    using (var baseIntValueProp = baseObjClass.FindProperty (nameof (obj.IntValue)))
-                    using (var subclassIntValueProp = subclassObjClass.FindProperty (nameof (obj.IntValue))) {
+                    using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
+                    using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
                         // ...so ParamSpecs should not be the same
                         Assert.That (baseIntValueProp.Handle, Is.Not.EqualTo (subclassIntValueProp.Handle));
                     }
@@ -164,8 +164,8 @@ namespace GISharp.Test.Core.GObject
 
                     Assert.That (((TestObjectPropertiesBase)obj).BoolValue, Is.True);
 
-                    using (var baseBoolValueProp = baseObjClass.FindProperty ("bool-value"))
-                    using (var subclassBoolValueProp = subclassObjClass.FindProperty ("bool-value")) {
+                    using (var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!)
+                    using (var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!) {
                         // ...so ParamSpecs should be the same
                         Assert.That (baseBoolValueProp.Handle, Is.EqualTo (subclassBoolValueProp.Handle));
                     }
@@ -214,7 +214,7 @@ namespace GISharp.Test.Core.GObject
             // check that ComponentModel attributes map to ParamSpec
             using (var baseObj = new TestObjectPropertiesBase ())
             using (var baseObjClass = (ObjectClass)TypeClass.Get (baseObj.GetGType ()))
-            using (var basePspec = baseObjClass.FindProperty ("bool-value")) {
+            using (var basePspec = baseObjClass.FindProperty("bool-value")!) {
                 Assert.That<string>(basePspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
                 Assert.That<string>(basePspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
                 Assert.That<string>(basePspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
@@ -227,7 +227,7 @@ namespace GISharp.Test.Core.GObject
             // be ignored as is the case with DefaultValueAttribute here.
             using (var subObj = new TestObjectPropertiesSubclass ())
             using (var subObjClass = (ObjectClass)TypeClass.Get (subObj.GetGType ()))
-            using (var subPspec = subObjClass.FindProperty ("bool-value")) {
+            using (var subPspec = subObjClass.FindProperty("bool-value")!) {
                 Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
                 Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
                 Assert.That<string>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
@@ -309,7 +309,7 @@ namespace GISharp.Test.Core.GObject
             }
 
             [GProperty]
-            public object ObjectProperty { get; set; }
+            public object? ObjectProperty { get; set; }
 
             public TestObjectPropertiesBase () : this (New<TestObjectPropertiesBase> (), Transfer.Full)
             {

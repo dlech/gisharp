@@ -141,8 +141,6 @@ namespace GISharp.Test.Core.GLib
             Assert.That (getItemAt (a, 1), Is.EqualTo (_ (2)));
             Assert.That (getItemAt (a, 2), Is.EqualTo (_ (3)));
 
-            Assert.That (() => a.Sort (null), Throws.TypeOf<ArgumentNullException> ());
-
             a.Dispose ();
             Assert.That (() => a.Sort ((x, y) => 0), Throws.TypeOf<ObjectDisposedException> ());
 
@@ -169,7 +167,7 @@ namespace GISharp.Test.Core.GLib
         {
             var gtype = typeof (PtrArray<OpaqueInt>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
-            Assert.That<string>(gtype.Name, Is.EqualTo("GPtrArray"));
+            Assert.That<string?>(gtype.Name, Is.EqualTo("GPtrArray"));
 
             AssertNoGLibLog();
         }

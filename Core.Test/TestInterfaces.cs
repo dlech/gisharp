@@ -50,7 +50,7 @@ namespace GISharp.Test.Core
                 bool init(IntPtr initable_, IntPtr cancellable_, ref IntPtr error_)
                 {
                     try {
-                        var initable = (IInitable)Object.GetInstance(initable_, Transfer.None);
+                        var initable = (IInitable)Object.GetInstance(initable_, Transfer.None)!;
                         var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
                         doInit(cancellable_);
                         return true;
@@ -93,7 +93,7 @@ namespace GISharp.Test.Core
                 var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
                 throw new GErrorException (error);
             }
-            var ret = Object.GetInstance(ret_, Transfer.Full);
+            var ret = Object.GetInstance(ret_, Transfer.Full)!;
 
             return ret;
         }
@@ -103,9 +103,6 @@ namespace GISharp.Test.Core
 
         public static bool Init (this IInitable initable)
         {
-            if (initable == null) {
-                throw new ArgumentNullException (nameof(initable));
-            }
             var instance = (Object)initable;
             var ret = g_initable_init (instance.Handle, IntPtr.Zero, out var errorPtr);
             GC.KeepAlive (instance);
@@ -195,7 +192,7 @@ namespace GISharp.Test.Core
                 void networkChanged(IntPtr monitor_, bool available)
                 {
                     try {
-                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
                         var doNetworkChanged = (NetworkChanged)methodInfo.CreateDelegate(typeof(NetworkChanged), monitor);
                         doNetworkChanged(available);
                     }
@@ -220,7 +217,7 @@ namespace GISharp.Test.Core
                 bool canReach(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, ref IntPtr error_)
                 {
                     try {
-                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
                         var doCanReach = (CanReach)methodInfo.CreateDelegate(typeof(CanReach), monitor);
                         var ret = doCanReach(connectable_, cancellable_);
                         return ret;
@@ -278,8 +275,8 @@ namespace GISharp.Test.Core
                 bool canReachAsyncFinish(IntPtr monitor_, IntPtr result_, ref IntPtr error_)
                 {
                     try {
-                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None);
-                        var result = Object.GetInstance<GTask>(result_, Transfer.None);
+                        var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
+                        var result = Object.GetInstance<GTask>(result_, Transfer.None)!;
                         return result.PropagateBoolean();
                     } catch (GErrorException ex) {
                         GMarshal.PropagateError(ref error_, ex.Error);
@@ -314,9 +311,6 @@ namespace GISharp.Test.Core
 
         public static bool GetNetworkAvailable (this INetworkMonitor monitor)
         {
-            if (monitor == null) {
-                throw new ArgumentNullException (nameof(monitor));
-            }
             var instance = (Object)monitor;
             var ret = g_network_monitor_get_network_available (instance.Handle);
             GC.KeepAlive (instance);
@@ -329,9 +323,6 @@ namespace GISharp.Test.Core
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
-            if (monitor == null) {
-                throw new ArgumentNullException (nameof(monitor));
-            }
             var instance = (Object)monitor;
             var ret = g_network_monitor_get_network_metered (instance.Handle);
             GC.KeepAlive (instance);
@@ -344,9 +335,6 @@ namespace GISharp.Test.Core
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
-            if (monitor == null) {
-                throw new ArgumentNullException (nameof(monitor));
-            }
             var instance = (Object)monitor;
             var ret = g_network_monitor_can_reach (instance.Handle, connectable, cancellable, out var errorPtr);
             GC.KeepAlive (instance);
@@ -364,7 +352,7 @@ namespace GISharp.Test.Core
         public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             var completion = new TaskCompletionSource<bool>();
-            var this_ = monitor?.Handle ?? throw new ArgumentNullException(nameof(monitor));
+            var this_ = monitor.Handle;
             var callback_ = CanReachAsyncFinishDelegate;
             var userData_ = (IntPtr)GCHandle.Alloc(completion);
             g_network_monitor_can_reach_async(this_, connectable, cancellable, callback_, userData_);
@@ -434,8 +422,8 @@ namespace GISharp.Test.Core
             {
                 try {
                     GCHandle.FromIntPtr(userData_).Free();
-                    var sourceObject = Object.GetInstance(sourceObject_, Transfer.None);
-                    var res = (IAsyncResult)Object.GetInstance(res_, Transfer.None);
+                    var sourceObject = Object.GetInstance(sourceObject_, Transfer.None)!;
+                    var res = (IAsyncResult)Object.GetInstance(res_, Transfer.None)!;
                     callback(sourceObject, res);
                 }
                 catch (Exception ex) {

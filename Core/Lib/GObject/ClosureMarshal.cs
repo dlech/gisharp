@@ -9,7 +9,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The type used for marshaller functions.
     /// </summary>
-    public delegate void ClosureMarshal(Closure closure, ref object returnValue, object[] paramValues, SignalInvocationHint? invocationHint);
+    public delegate void ClosureMarshal(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHint);
 
     /// <summary>
     /// The type used for marshaller functions.
@@ -40,20 +40,23 @@ namespace GISharp.Lib.GObject
     static class ClosureMarshalFactory
     {
         class UserData {
-            public ClosureMarshal ClosureMarshal;
-            public UnmanagedClosureMarshal UnmanagedClosureMarshal;
-            public UnmanagedClosureNotify UnmanagedClosureNotify;
-            public CallbackScope Scope;
+            public readonly ClosureMarshal ClosureMarshal;
+            public readonly UnmanagedClosureMarshal UnmanagedClosureMarshal;
+            public readonly UnmanagedClosureNotify UnmanagedClosureNotify;
+            public readonly CallbackScope Scope;
+
+            public UserData(ClosureMarshal closureMarshal, UnmanagedClosureMarshal unmanagedClosureMarshal, UnmanagedClosureNotify unmanagedClosureNotify, CallbackScope scope)
+            {
+                ClosureMarshal = closureMarshal;
+                UnmanagedClosureMarshal = unmanagedClosureMarshal;
+                UnmanagedClosureNotify = unmanagedClosureNotify;
+                Scope = scope;
+            }
         }
 
         public unsafe static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create(ClosureMarshal closureMarshal, CallbackScope scope)
         {
-            var userData = new UserData {
-                ClosureMarshal = closureMarshal ?? throw new ArgumentNullException(nameof(closureMarshal)),
-                UnmanagedClosureMarshal = UnmanagedClosureMarshal,
-                UnmanagedClosureNotify = UnmanagedClosureNotify,
-                Scope = scope
-            };
+            var userData = new UserData(closureMarshal, UnmanagedClosureMarshal, UnmanagedClosureNotify, scope);
             var userData_ = GCHandle.Alloc(userData);
 
             return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
@@ -63,7 +66,7 @@ namespace GISharp.Lib.GObject
         {
             try {
                 var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);
-                var returnValue = default(object);
+                object? returnValue = null;
                 if (returnValue_ != null) {
                     returnValue = returnValue_->Get();
                 }
@@ -80,7 +83,7 @@ namespace GISharp.Lib.GObject
                 marshalData.ClosureMarshal(closure, ref returnValue, paramValues, invocationHint);
 
                 if (returnValue_ != null) {
-                    returnValue_->Set(returnValue);
+                    returnValue_->Set(returnValue!);
                 }
                 if (marshalData.Scope == CallbackScope.Async) {
                     UnmanagedClosureNotify(marshalData_, closure_);

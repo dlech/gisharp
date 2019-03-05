@@ -134,9 +134,6 @@ namespace GISharp.Lib.GLib
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
-            if (elementFreeFunc == null) {
-                throw new ArgumentNullException(nameof(elementFreeFunc));
-            }
             var ret = g_ptr_array_new_full((uint)reservedSize, elementFreeFunc);
             return ret;
         }
@@ -645,9 +642,6 @@ namespace GISharp.Lib.GLib
         protected void Sort (Comparison<IntPtr> compareFunc)
         {
             var this_ = Handle;
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadIntPtr (a);
                 var y = Marshal.ReadIntPtr (b);
@@ -808,12 +802,9 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add
         /// </param>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="data"/> is <c>null</c>
-        /// </exception>
         public void Add (T data)
         {
-            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            var data_ = data.Handle;
             if (OwnsElements) {
                 data_ = elementCopyFunc(data_);
             }
@@ -833,16 +824,13 @@ namespace GISharp.Lib.GLib
         /// <exception cref="ArgumentOutOfRangeException">
         /// If <paramref name="index"/> is &lt; 0 or &gt; <see cref="PtrArray.Length"/>
         /// </exception>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="data"/> is <c>null</c>
-        /// </exception>
         [Since ("2.40")]
         public void Insert (int index, T data)
         {
             if (index < 0 || index > Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            var data_ = data.Handle;
             if (OwnsElements) {
                 data_ = elementCopyFunc(data_);
             }
@@ -866,12 +854,9 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
         ///     is not found in the array
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="data"/> is <c>null</c>
-        /// </exception>
         public bool Remove (T data)
         {
-            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            var data_ = data.Handle;
             return Remove(data_);
         }
 
@@ -906,12 +891,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the pointer was found in the array
         /// </returns>
-        /// <exception cref="ArgumentNullException">
-        /// If <paramref name="data"/> is <c>null</c>
-        /// </exception>
         public bool RemoveFast (T data)
         {
-            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            var data_ = data.Handle;
             return RemoveFast(data_);
         }
 
@@ -944,9 +926,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort (Comparison<T> compareFunc)
         {
-            if (compareFunc == null) {
-                throw new ArgumentNullException (nameof (compareFunc));
-            }
             Comparison<IntPtr> compareFunc_ = (a, b) => {
                 var x = GetInstance<T> (a, Transfer.None);
                 var y = GetInstance<T> (b, Transfer.None);
@@ -985,7 +964,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">Data.</param>
         public int IndexOf (T data)
         {
-            var data_ = data?.Handle ?? throw new ArgumentNullException(nameof(data));
+            var data_ = data.Handle;
             for (int i = 0; i < Length; i++) {
                 var ptr = Marshal.ReadIntPtr(Data, IntPtr.Size * i);
                 if (ptr == data_) {
@@ -1016,9 +995,6 @@ namespace GISharp.Lib.GLib
 
         public void CopyTo (T[] array, int arrayIndex)
         {
-            if (array == null) {
-                throw new ArgumentNullException (nameof (array));
-            }
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }

@@ -65,7 +65,7 @@ namespace GISharp.Lib.GLib
         public bool Contains(UnownedUtf8 str)
         {
             var this_ = Handle;
-            var str_ = str.IsNull ? throw new ArgumentNullException(nameof(str)) : str.Handle;
+            var str_ = str.Handle;
             var ret = g_strv_contains(this_, str_);
             return ret;
         }

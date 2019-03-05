@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// The signal name.
         /// </summary>
-        public string SignalName => GMarshal.Utf8PtrToString (signalName);
+        public string SignalName => GMarshal.Utf8PtrToString(signalName)!;
 
         /// <summary>
         /// The interface/instance type that this signal can be emitted for.

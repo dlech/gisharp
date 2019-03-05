@@ -18,11 +18,11 @@ namespace GISharp.Runtime
         /// <summary>
         /// The name of the property that will be registered with the GObject type system.
         /// </summary>
-        public string Name { get; }
+        public string? Name { get; }
 
         public GPropertyConstruct Construct { get; set; }
 
-        public GPropertyAttribute(string name = null)
+        public GPropertyAttribute(string? name = null)
         {
             Name = name;
         }

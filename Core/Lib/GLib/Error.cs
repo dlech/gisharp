@@ -72,14 +72,9 @@ namespace GISharp.Lib.GLib
 
         static IntPtr NewLiteral(Quark domain, int code, string message)
         {
-            if (message == null) {
-                throw new ArgumentNullException(nameof(message));
-            }
-
-            using (var utf8 = new Utf8(message)) {
-                var ret = g_error_new_literal(domain, code, utf8.Handle);
-                return ret;
-            }
+            using var utf8 = new Utf8(message);
+            var ret = g_error_new_literal(domain, code, utf8.Handle);
+            return ret;
         }
 
         /// <summary>

@@ -512,9 +512,6 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public static void RegisterTransformFunc (GType srcType, GType destType, ValueTransform transformFunc)
         {
-            if (transformFunc == null) {
-                throw new ArgumentNullException (nameof (transformFunc));
-            }
             lock (transformFuncMapLock) {
                 var key = new Tuple<GType, GType> (srcType, destType);
                 if (transformFuncMap.ContainsKey (key)) {
@@ -890,7 +887,7 @@ namespace GISharp.Lib.GObject
                 var managedType = GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (in this);
                 if (typeof(Boxed).IsAssignableFrom(managedType)) {
-                    return Opaque.GetInstance(managedType, ret_, Transfer.None);
+                    return Opaque.GetInstance(managedType, ret_, Transfer.None)!;
                 }
                 var gchandle = GCHandle.FromIntPtr (ret_);
                 return gchandle.Target;
@@ -1230,7 +1227,7 @@ namespace GISharp.Lib.GObject
             get {
                 AssertType (GType.Object);
                 var ret_ = g_value_get_object (in this);
-                var ret = Object.GetInstance(ret_, Transfer.None);
+                var ret = Object.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
 
@@ -1268,13 +1265,13 @@ namespace GISharp.Lib.GObject
             get {
                 AssertType (GType.Param);
                 var ret_ = g_value_get_param (in this);
-                var ret = ParamSpec.GetInstance(ret_, Transfer.None);
+                var ret = ParamSpec.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
 
             set {
                 AssertType (GType.Param);
-                g_value_set_param (ref this, value?.Handle ?? IntPtr.Zero);
+                g_value_set_param(ref this, value.Handle);
                 GC.KeepAlive (value);
             }
         }

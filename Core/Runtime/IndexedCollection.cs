@@ -10,12 +10,6 @@ namespace GISharp.Runtime
 
         public IndexedCollection (Func<int> getCount, Func<int, T> getInfoAtIndex)
         {
-            if (getCount == null) {
-                throw new ArgumentNullException (nameof (getCount));
-            }
-            if (getInfoAtIndex == null) {
-                throw new ArgumentNullException (nameof (getInfoAtIndex));
-            }
             this.getCount = getCount;
             this.getInfoAtIndex = getInfoAtIndex;
         }

@@ -15,9 +15,14 @@ namespace GISharp.Lib.GObject
     {
         class VirtualMethodInfo
         {
-            public int Offset;
-            public Func<MethodInfo, Delegate> Create;
+            public readonly int Offset;
+            public readonly Func<MethodInfo, Delegate> Create;
             public readonly Dictionary<IntPtr, Delegate> Overloads =  new Dictionary<IntPtr, Delegate>();
+
+            public VirtualMethodInfo(int offset, Func<MethodInfo, Delegate> create) {
+                Offset = offset;
+                Create = create;
+            }
         }
 
         /// <summary>
@@ -84,12 +89,9 @@ namespace GISharp.Lib.GObject
         /// <param name="create">
         /// The unmanged delegate factory create method
         /// </param>
-        protected static void RegisterVirtualMethod<T>(int offset, Func<MethodInfo, T> create)
+        protected static void RegisterVirtualMethod<T>(int offset, Func<MethodInfo, T> create) where T : Delegate
         {
-            var info = new VirtualMethodInfo {
-                Offset = offset,
-                Create = new Func<MethodInfo, Delegate> (m => (Delegate)(object)create(m)),
-            };
+            var info = new VirtualMethodInfo(offset, create);
             virtualMethods.Add(typeof(T), info);
         }
 
@@ -112,7 +114,7 @@ namespace GISharp.Lib.GObject
             Marshal.WriteIntPtr(class_, info.Offset, ptr);
         }
 
-        public static T GetUnmanagedVirtualMethod<T>(GType type)
+        public static T? GetUnmanagedVirtualMethod<T>(GType type) where T : Delegate
         {
             var class_ = g_type_class_ref(type);
             try {

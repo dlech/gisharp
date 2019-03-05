@@ -30,7 +30,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsert ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt?>()) {
                 Assume.That (hashTable.Size, Is.EqualTo (0));
 
                 // inserting a value returns true
@@ -60,7 +60,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestReplace ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt?>()) {
                 Assume.That (hashTable.Size, Is.EqualTo (0));
 
                 // adding a new key returns true
@@ -90,7 +90,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestAdd ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
                 Assume.That (hashTable.Size, Is.EqualTo (0));
 
                 // adding a new key returns true
@@ -116,7 +116,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestContains ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
                 // no match returns false
                 var ret = hashTable.Contains (new OpaqueInt (0));
                 Assert.That (ret, Is.False);
@@ -159,7 +159,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestLookup ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
                 // no match returns false
                 var ret = hashTable.Lookup (new OpaqueInt (0));
                 // Lookup cannot tell the difference between null and IntPtr.Zero
@@ -187,8 +187,9 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestLookupExtended ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
-                OpaqueInt key, value;
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
+                OpaqueInt? key;
+                OpaqueInt value;
                 // no match returns false
                 var ret = hashTable.Lookup (new OpaqueInt (0), out key, out value);
                 Assert.That (ret, Is.False);
@@ -225,10 +226,6 @@ namespace GISharp.Test.Core.GLib
                 hashTable.Foreach (foreachFunc);
                 Assert.That (count, Is.EqualTo (1));
 
-                // null function is not OK
-                Assert.That (() => hashTable.Foreach (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
-
                 hashTable.Dispose ();
                 Assert.That (() => hashTable.Foreach (foreachFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -255,10 +252,6 @@ namespace GISharp.Test.Core.GLib
                 ret = hashTable.Find (findFunc);
                 Assert.That (ret, Is.Not.Null);
 
-                // null function is not OK
-                Assert.That (() => hashTable.Find (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
-
                 hashTable.Dispose ();
                 Assert.That (() => hashTable.Find (findFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -270,7 +263,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestRemove ()
         {
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
+            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
                 // no match returns false
                 var ret = hashTable.Remove (new OpaqueInt (0));
                 Assert.That (ret, Is.False);
@@ -336,10 +329,6 @@ namespace GISharp.Test.Core.GLib
                 var ret = hashTable.ForeachRemove (foreachFunc);
                 Assert.That (ret, Is.EqualTo (count));
 
-                // null function is not OK
-                Assert.That (() => hashTable.ForeachRemove (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
-
                 hashTable.Dispose ();
                 Assert.That (() => hashTable.ForeachRemove (foreachFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
@@ -363,9 +352,6 @@ namespace GISharp.Test.Core.GLib
                 // function is called back
                 var ret = hashTable.ForeachSteal (foreachFunc);
                 Assert.That (ret, Is.EqualTo (count));
-                // null function is not OK
-                Assert.That (() => hashTable.ForeachSteal (null),
-                    Throws.InstanceOf<ArgumentNullException> ());
 
                 hashTable.Dispose ();
                 Assert.That (() => hashTable.ForeachSteal (foreachFunc),
@@ -452,7 +438,7 @@ namespace GISharp.Test.Core.GLib
         {
             var gtype = typeof (HashTable<OpaqueInt, OpaqueInt>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
-            Assert.That<string>(gtype.Name, Is.EqualTo("GHashTable"));
+            Assert.That<string?>(gtype.Name, Is.EqualTo("GHashTable"));
 
             AssertNoGLibLog();
         }

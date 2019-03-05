@@ -358,7 +358,7 @@ namespace GISharp.Lib.GObject
         /// paramspec should be redirected, or <c>null</c> if none.
         /// </returns>
         [Since ("2.4")]
-        public ParamSpec RedirectTarget {
+        public ParamSpec? RedirectTarget {
             get {
                 var ret_ = g_param_spec_get_redirect_target(Handle);
                 var ret = GetInstance(ret_, Transfer.None);
@@ -415,7 +415,7 @@ namespace GISharp.Lib.GObject
         /// <param name="quark">
         /// a <see cref="Quark"/>, naming the user data
         /// </param>
-        public object this[Quark quark] {
+        public object? this[Quark quark] {
             get {
                 var ret = g_param_spec_get_qdata(Handle, quark);
                 if (ret == IntPtr.Zero) {
@@ -469,7 +469,7 @@ namespace GISharp.Lib.GObject
         /// QData). If one is found, it returns the existing managed instance,
         /// otherwise a new instance is created.
         /// </remarks>
-        public static new T GetInstance<T>(IntPtr handle, Transfer ownership) where T : ParamSpec
+        public static new T? GetInstance<T>(IntPtr handle, Transfer ownership) where T : ParamSpec
         {
             if (handle == IntPtr.Zero) {
                 return null;
@@ -510,7 +510,7 @@ namespace GISharp.Lib.GObject
         /// Gets a managed proxy for a an unmanged GParamSpec.
         /// </summary>
         /// <seealso cref="GetInstance{T}"/>
-        public static ParamSpec GetInstance(IntPtr handle, Transfer ownership)
+        public static ParamSpec? GetInstance(IntPtr handle, Transfer ownership)
         {
             return GetInstance<ParamSpec>(handle, ownership);
         }

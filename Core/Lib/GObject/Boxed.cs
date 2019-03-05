@@ -86,15 +86,6 @@ namespace GISharp.Lib.GObject
 
         internal static GType Register (string name, UnmanagedBoxedCopyFunc boxedCopy, UnmanagedBoxedFreeFunc boxedFree)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (boxedCopy == null) {
-                throw new ArgumentNullException (nameof (boxedCopy));
-            }
-            if (boxedFree == null) {
-                throw new ArgumentNullException (nameof (boxedFree));
-            }
             var name_ = new Utf8(name).Take();
             return g_boxed_type_register_static (name_, boxedCopy, boxedFree);
         }

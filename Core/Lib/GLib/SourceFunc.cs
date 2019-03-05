@@ -25,10 +25,19 @@ namespace GISharp.Lib.GLib
     {
         class UserData
         {
-            public SourceFunc Func;
-            public UnmanagedSourceFunc UnmanagedFunc;
-            public UnmanagedDestroyNotify UnmanagedNotify;
-            public CallbackScope Scope;
+            public readonly SourceFunc Func;
+            public readonly UnmanagedSourceFunc UnmanagedFunc;
+            public readonly UnmanagedDestroyNotify UnmanagedNotify;
+            public readonly CallbackScope Scope;
+
+            public UserData(SourceFunc func, UnmanagedSourceFunc unmanagedFunc,
+                UnmanagedDestroyNotify unmanagedNotify, CallbackScope scope)
+            {
+                Func = func;
+                UnmanagedFunc = unmanagedFunc;
+                UnmanagedNotify = unmanagedNotify;
+                Scope = scope;
+            }
         }
 
         public static SourceFunc Create(UnmanagedSourceFunc func, IntPtr userData)
@@ -40,12 +49,7 @@ namespace GISharp.Lib.GLib
         }
 
         public static (UnmanagedSourceFunc, UnmanagedDestroyNotify, IntPtr) Create(SourceFunc func, CallbackScope scope) {
-            var data = new UserData {
-                Func = func ?? throw new ArgumentNullException(nameof(func)),
-                UnmanagedFunc = UnmanagedFunc,
-                UnmanagedNotify = UnmanagedNotify,
-                Scope = scope
-            };
+            var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);
             var gcHandle = GCHandle.Alloc(data);
 
             return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);

@@ -13,10 +13,6 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestAdd ()
         {
-            // null function is not allowed
-            Assert.That (() => Idle.Add (null),
-                Throws.InstanceOf<ArgumentNullException> ());
-
             // Idle.Add() can only attach sources to the global main context,
             // so we need to use a lock to ensure exclusive use of the main
             // context.

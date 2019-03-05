@@ -52,7 +52,7 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             bool isRunning);
 
-        static IntPtr New (MainContext context = null, bool isRunning = false)
+        static IntPtr New(MainContext? context = null, bool isRunning = false)
         {
             var ret = g_main_loop_new (context?.Handle ?? IntPtr.Zero, isRunning);
             return ret;
@@ -69,7 +69,7 @@ namespace GISharp.Lib.GLib
         /// is not very important since calling <see cref="Run"/> will set this to
         /// <c>true</c> anyway.
         /// </param>
-        public MainLoop (MainContext context = null, bool isRunning = false)
+        public MainLoop(MainContext? context = null, bool isRunning = false)
             : this (New (context, isRunning), Transfer.Full)
         {
         }

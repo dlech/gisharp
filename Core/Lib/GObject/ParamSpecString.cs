@@ -38,18 +38,18 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public UnownedUtf8 CsetFirst {
+        public NullableUnownedUtf8 CsetFirst {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)csetFirstOffset);
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        public UnownedUtf8 CsetNth {
+        public NullableUnownedUtf8 CsetNth {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)csetNthOffset);
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -89,15 +89,6 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
-            if (nick == null) {
-                throw new ArgumentNullException (nameof (nick));
-            }
-            if (blurb == null) {
-                throw new ArgumentNullException (nameof (blurb));
-            }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr (blurb);

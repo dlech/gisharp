@@ -34,20 +34,17 @@ namespace GISharp.Runtime
             value = path;
         }
 
-        public bool Equals (DBusObjectPath other)
+        public bool Equals(DBusObjectPath other)
         {
-            if ((object)other == null) {
-                return false;
-            }
             return value == other.value;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            if ((object)this == null) {
-                return obj == null;
+            if (obj is DBusObjectPath path) {
+                return Equals(path);
             }
-            return Equals (obj as DBusObjectPath);
+            return base.Equals(obj);
         }
 
         public override int GetHashCode ()
@@ -55,17 +52,14 @@ namespace GISharp.Runtime
             return value.GetHashCode ();
         }
 
-        public static bool operator == (DBusObjectPath one, DBusObjectPath two)
+        public static bool operator ==(DBusObjectPath? one, DBusObjectPath? two)
         {
-            if ((object)one == null) {
-                return (object)two == null;
-            }
-            return one.Equals (two);
+            return object.Equals(one, two);
         }
 
-        public static bool operator != (DBusObjectPath one, DBusObjectPath two)
+        public static bool operator !=(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return !(one == two);
+            return !object.Equals(one, two);
         }
 
         public static implicit operator string (DBusObjectPath path)
@@ -92,18 +86,15 @@ namespace GISharp.Runtime
         }
         public bool Equals (DBusSignature other)
         {
-            if ((object)other == null) {
-                return false;
-            }
             return value == other.value;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            if ((object)this == null) {
-                return obj == null;
+            if (obj is DBusSignature signature) {
+                Equals(signature);
             }
-            return Equals (obj as DBusSignature);
+            return base.Equals(obj);
         }
 
         public override int GetHashCode ()
@@ -111,17 +102,14 @@ namespace GISharp.Runtime
             return value.GetHashCode ();
         }
 
-        public static bool operator == (DBusSignature one, DBusSignature two)
+        public static bool operator ==(DBusSignature? one, DBusSignature? two)
         {
-            if ((object)one == null) {
-                return (object)two == null;
-            }
-            return one.Equals (two);
+            return object.Equals(one, two);
         }
 
-        public static bool operator != (DBusSignature one, DBusSignature two)
+        public static bool operator !=(DBusSignature? one, DBusSignature? two)
         {
-            return !(one == two);
+            return !object.Equals(one, two);
         }
 
         public static implicit operator string (DBusSignature signature)

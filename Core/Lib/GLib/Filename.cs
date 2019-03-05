@@ -56,16 +56,13 @@ namespace GISharp.Lib.GLib
         /// <param name="args">
         /// %NULL-terminated array of strings containing the path elements.
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="args"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// a newly-allocated string that must be freed with g_free().
         /// </returns>
         [Since("2.8")]
         static IntPtr BuildFilename(Strv args)
         {
-            var args_ = args?.Handle ?? throw new ArgumentNullException(nameof(args));
+            var args_ = args.Handle;
             var ret_ = g_build_filenamev(args_);
             return ret_;
         }
@@ -250,9 +247,6 @@ namespace GISharp.Lib.GLib
         /// <param name="uri">
         /// a uri describing a filename (escaped, encoded in ASCII).
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="uri"/> is <c>null</c>.
-        ///</exception>
         /// <param name="hostname">
         /// hostname for the URI
         /// </param>
@@ -264,7 +258,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public static unsafe Filename FromUri(Utf8 uri, out Utf8 hostname)
         {
-            var uri_ = uri?.Handle ?? throw new ArgumentNullException(nameof(uri));
+            var uri_ = uri.Handle;
             IntPtr hostname_;
             var ret_ = g_filename_from_uri(uri_, &hostname_, out var error_);
             if (error_ != IntPtr.Zero) {
@@ -283,9 +277,6 @@ namespace GISharp.Lib.GLib
         /// <param name="uri">
         /// a uri describing a filename (escaped, encoded in ASCII).
         /// </param>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="uri"/> is <c>null</c>.
-        ///</exception>
         /// <returns>
         /// the resulting filename
         /// </returns>
@@ -294,7 +285,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public static unsafe Filename FromUri(Utf8 uri)
         {
-            var uri_ = uri?.Handle ?? throw new ArgumentNullException(nameof(uri));
+            var uri_ = uri.Handle;
             var ret_ = g_filename_from_uri(uri_, null, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
@@ -372,15 +363,12 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// The converted string
         /// </returns>
-        /// <exception name="ArgumentNullException">
-        /// If <paramref name="utf8string"/> is <c>null</c>.
-        ///</exception>
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
         public static unsafe Filename FromUtf8(Utf8 utf8string)
         {
-            var utf8string_ = utf8string?.Handle ?? throw new ArgumentNullException(nameof(utf8string));
+            var utf8string_ = utf8string.Handle;
             UIntPtr bytesWritten_;
             var ret_ = g_filename_from_utf8(utf8string_, new IntPtr(-1), null, &bytesWritten_, out var error_);
             if (error_ != IntPtr.Zero) {
@@ -437,7 +425,7 @@ namespace GISharp.Lib.GLib
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
-        public Utf8 ToUri(Utf8 hostname)
+        public Utf8 ToUri(Utf8? hostname)
         {
             var filename_ = Handle;
             var hostname_ = hostname?.Handle ?? IntPtr.Zero;
