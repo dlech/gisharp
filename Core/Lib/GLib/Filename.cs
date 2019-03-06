@@ -519,5 +519,17 @@ namespace GISharp.Lib.GLib
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
+
+        public static implicit operator string(Filename filename)
+        {
+            using var utf8 = filename.ToUtf8();
+            return utf8.ToString();
+        }
+
+        public static implicit operator Filename(string str)
+        {
+            using var utf8 = new Utf8(str);
+            return Filename.FromUtf8(utf8);
+        }
     }
 }
