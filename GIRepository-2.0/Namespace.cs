@@ -32,12 +32,8 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         /// <returns>BaseInfo representing metadata about name , or <c>null</c> if no match was found.</returns>
         /// <param name="name">Name.</param>
-        /// <exception cref="ArgumentNullException">If <paramref name="name"/> is <c>null</c>.</exception>
-        public BaseInfo FindByName (string name)
+        public BaseInfo? FindByName(UnownedUtf8 name)
         {
-            if (name == null) {
-                throw new ArgumentNullException (nameof (name));
-            }
             return Repository.FindByName (@namespace, name);
         }
 

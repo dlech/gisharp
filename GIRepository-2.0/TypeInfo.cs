@@ -48,10 +48,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_type_info_get_interface (IntPtr raw);
 
-        public BaseInfo Interface {
+        public BaseInfo? Interface {
             get {
-                IntPtr raw_ret = g_type_info_get_interface (Handle);
-                BaseInfo ret = MarshalPtr<BaseInfo> (raw_ret);
+                var ret_ = g_type_info_get_interface(Handle);
+                var ret = GetInstanceOrNull<BaseInfo>(ret_);
                 return ret;
             }
         }
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GIRepository
         public TypeInfo GetParamType (int index)
         {
             IntPtr raw_ret = g_type_info_get_param_type (Handle, index);
-            TypeInfo ret = MarshalPtr<TypeInfo> (raw_ret);
+            TypeInfo ret = GetInstance<TypeInfo>(raw_ret);
             return ret;
         }
 

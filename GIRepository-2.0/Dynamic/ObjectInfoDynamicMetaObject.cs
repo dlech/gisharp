@@ -26,7 +26,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         public override DynamicMetaObject BindInvokeMember (InvokeMemberBinder binder, DynamicMetaObject[] args)
         {
             var methodInfo = default (FunctionInfo);
-            var i = Info;
+            ObjectInfo? i = Info;
             while (i != null) {
                 methodInfo = i.FindMethod (binder.Name);
                 if (methodInfo != null) {

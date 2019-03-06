@@ -50,7 +50,7 @@ namespace GISharp.Lib.GIRepository
         public TypeInfo TypeInfo {
             get {
                 IntPtr raw_ret = g_field_info_get_type (Handle);
-                return MarshalPtr<TypeInfo> (raw_ret);
+                return GetInstance<TypeInfo>(raw_ret);
             }
         }
 

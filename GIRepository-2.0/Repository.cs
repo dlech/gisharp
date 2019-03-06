@@ -64,30 +64,30 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         /// <returns>EnumInfo representing metadata about domain's enum type, or <c>null</c>.</returns>
         /// <param name="domain">A GError domain.</param>
-        public static EnumInfo FindByErrorDomain (Quark domain)
+        public static EnumInfo? FindByErrorDomain(Quark domain)
         {
-            IntPtr raw_ret = g_irepository_find_by_error_domain (IntPtr.Zero, domain);
-            EnumInfo ret = BaseInfo.MarshalPtr<EnumInfo> (raw_ret);
+            var ret_ = g_irepository_find_by_error_domain(IntPtr.Zero, domain);
+            var ret = BaseInfo.GetInstanceOrNull<EnumInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
-        internal static BaseInfo FindByName(UnownedUtf8 @namespace, UnownedUtf8 name)
+        internal static BaseInfo? FindByName(UnownedUtf8 @namespace, UnownedUtf8 name)
         {
             var ret_ = g_irepository_find_by_name(IntPtr.Zero, @namespace.Handle, name.Handle);
-            var ret = BaseInfo.MarshalPtr<BaseInfo>(ret_);
+            var ret = BaseInfo.GetInstanceOrNull<BaseInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_gtype (IntPtr raw, GType gtype);
 
-        public static BaseInfo FindByGType (GType gtype)
+        public static BaseInfo? FindByGType(GType gtype)
         {
-            var raw_ret = g_irepository_find_by_gtype (IntPtr.Zero, gtype);
-            var ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
+            var ret_ = g_irepository_find_by_gtype(IntPtr.Zero, gtype);
+            var ret = BaseInfo.GetInstanceOrNull<BaseInfo>(ret_);
 
             return ret;
         }
@@ -130,7 +130,7 @@ namespace GISharp.Lib.GIRepository
         internal static BaseInfo GetInfo(UnownedUtf8 @namespace, int index)
         {
             var ret_ = g_irepository_get_info(IntPtr.Zero, @namespace.Handle, index);
-            var ret = BaseInfo.MarshalPtr<BaseInfo>(ret_);
+            var ret = BaseInfo.GetInstance<BaseInfo>(ret_);
             return ret;
         }
 

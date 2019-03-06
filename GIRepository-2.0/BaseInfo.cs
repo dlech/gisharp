@@ -19,7 +19,15 @@ namespace GISharp.Lib.GIRepository
     {
         public IntPtr Handle { get; private set; }
 
-        internal static T MarshalPtr<T> (IntPtr raw, bool owned = true) where T : BaseInfo
+        internal static T? GetInstanceOrNull<T>(IntPtr raw, bool owned = true) where T : BaseInfo
+        {
+            if (raw == IntPtr.Zero) {
+                return null;
+            }
+            return GetInstance<T>(raw, owned);
+        }
+
+        internal static T GetInstance<T>(IntPtr raw, bool owned = true) where T : BaseInfo
         {
             if (raw == IntPtr.Zero) {
                 throw new ArgumentException("Null pointer", nameof(raw));
@@ -161,10 +169,10 @@ namespace GISharp.Lib.GIRepository
         /// parent of a <see cref="FunctionInfo"/> is an <see cref="ObjectInfo"/>
         /// or <see cref="InterfaceInfo"/>.
         /// </remarks>
-        public BaseInfo Container {
+        public BaseInfo? Container {
             get {
-                IntPtr raw_ret = g_base_info_get_container (Handle);
-                BaseInfo ret = MarshalPtr<BaseInfo> (raw_ret, false);
+                var ret_ = g_base_info_get_container(Handle);
+                var ret = GetInstanceOrNull<BaseInfo>(ret_, false);
                 return ret;
             }
         }
@@ -286,7 +294,7 @@ namespace GISharp.Lib.GIRepository
         public override string ToString ()
         {
             var builder = new StringBuilder ();
-            var current = this;
+            BaseInfo? current = this;
             while (current != null) {
                 if (!current.Name.IsNull) {
                     builder.Insert(0, current.Name.ToString());

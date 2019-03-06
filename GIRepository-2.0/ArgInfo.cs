@@ -87,7 +87,7 @@ namespace GISharp.Lib.GIRepository
         public TypeInfo TypeInfo {
             get {
                 IntPtr raw_ret = g_arg_info_get_type (Handle);
-                return MarshalPtr<TypeInfo> (raw_ret);
+                return GetInstance<TypeInfo>(raw_ret);
             }
         }
 
@@ -156,7 +156,7 @@ namespace GISharp.Lib.GIRepository
 
         public ArgInfo (IntPtr raw) : base (raw)
         {
-            var callable = (CallableInfo)Container;
+            var callable = (CallableInfo)Container!;
             _Closure = new Lazy<ArgInfo?>(() =>
                 callable.Args.ElementAtOrDefault (ClosureIndex));
             _Destroy = new Lazy<ArgInfo?>(() =>

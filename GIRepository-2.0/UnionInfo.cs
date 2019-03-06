@@ -41,7 +41,7 @@ namespace GISharp.Lib.GIRepository
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
             var ret_ = g_union_info_find_method(Handle, name.Handle);
-            var ret = MarshalPtr<FunctionInfo>(ret_);
+            var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
@@ -60,7 +60,7 @@ namespace GISharp.Lib.GIRepository
         ConstantInfo GetDiscriminator (int index)
         {
             IntPtr raw_ret = g_union_info_get_discriminator (Handle, index);
-            return MarshalPtr<ConstantInfo> (raw_ret);
+            return GetInstance<ConstantInfo>(raw_ret);
         }
 
         public InfoDictionary<ConstantInfo> Discriminators {
@@ -84,26 +84,26 @@ namespace GISharp.Lib.GIRepository
         public TypeInfo DiscriminatorType {
             get {
                 IntPtr raw_ret = g_union_info_get_discriminator_type (Handle);
-                return MarshalPtr<TypeInfo> (raw_ret);
+                return GetInstance<TypeInfo>(raw_ret);
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_field (IntPtr raw, int index);
 
-        public FieldInfo GetField (int index)
+        FieldInfo GetField(int index)
         {
             IntPtr raw_ret = g_union_info_get_field (Handle, index);
-            return MarshalPtr<FieldInfo> (raw_ret);
+            return GetInstance<FieldInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_get_method (IntPtr raw, int index);
 
-        public FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod(int index)
         {
             IntPtr raw_ret = g_union_info_get_method (Handle, index);
-            return MarshalPtr<FunctionInfo> (raw_ret);
+            return GetInstance<FunctionInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]

@@ -41,10 +41,10 @@ namespace GISharp.Lib.GIRepository
         /// <remarks>
         /// Not all virtuals will have invokers.
         /// </remarks>
-        public FunctionInfo Invoker {
+        public FunctionInfo? Invoker {
             get {
-                IntPtr raw_ret = g_vfunc_info_get_invoker (Handle);
-                FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
+                var ret_ = g_vfunc_info_get_invoker(Handle);
+                var ret = GetInstanceOrNull<FunctionInfo>(ret_);
                 return ret;
             }
         }
@@ -77,10 +77,10 @@ namespace GISharp.Lib.GIRepository
         /// <remarks>
         /// The signal comes from the object or interface to which this virtual function belongs.
         /// </remarks>
-        public SignalInfo Signal {
+        public SignalInfo? Signal {
             get {
-                IntPtr raw_ret = g_vfunc_info_get_signal (Handle);
-                SignalInfo ret = MarshalPtr<SignalInfo> (raw_ret);
+                var ret_ = g_vfunc_info_get_signal(Handle);
+                var ret = GetInstanceOrNull<SignalInfo>(ret_);
                 return ret;
             }
         }

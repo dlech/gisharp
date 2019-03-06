@@ -17,7 +17,7 @@ namespace GISharp.Lib.GIRepository
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
             var ret_ = g_interface_info_find_method(Handle, name.Handle);
-            var ret = MarshalPtr<FunctionInfo>(ret_);
+            var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
@@ -27,7 +27,7 @@ namespace GISharp.Lib.GIRepository
         public SignalInfo? FindSignal(UnownedUtf8 name)
         {
             var ret_ = g_interface_info_find_signal(Handle, name.Handle);
-            var ret = MarshalPtr<SignalInfo>(ret_);
+            var ret = GetInstanceOrNull<SignalInfo>(ret_);
             return ret;
         }
 
@@ -37,7 +37,7 @@ namespace GISharp.Lib.GIRepository
         public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
             var ret_ = g_interface_info_find_vfunc(Handle, name.Handle);
-            var ret = MarshalPtr<VFuncInfo>(ret_);
+            var ret = GetInstanceOrNull<VFuncInfo>(ret_);
             return ret;
         }
 
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GIRepository
         ConstantInfo GetConstant (int index)
         {
             IntPtr raw_ret = g_interface_info_get_constant (Handle, index);
-            return MarshalPtr<ConstantInfo> (raw_ret);
+            return GetInstance<ConstantInfo>(raw_ret);
         }
 
         public InfoDictionary<ConstantInfo> Constants {
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GIRepository
         public StructInfo IfaceStruct {
             get {
                 IntPtr raw_ret = g_interface_info_get_iface_struct (Handle);
-                return MarshalPtr<StructInfo> (raw_ret);
+                return GetInstance<StructInfo>(raw_ret);
             }
         }
 
@@ -72,7 +72,7 @@ namespace GISharp.Lib.GIRepository
         FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_interface_info_get_method (Handle, index);
-            return MarshalPtr<FunctionInfo> (raw_ret);
+            return GetInstance<FunctionInfo>(raw_ret);
         }
 
         public InfoDictionary<FunctionInfo> Methods {
@@ -141,7 +141,7 @@ namespace GISharp.Lib.GIRepository
         BaseInfo GetPrerequisite (int index)
         {
             IntPtr raw_ret = g_interface_info_get_prerequisite (Handle, index);
-            return MarshalPtr<BaseInfo> (raw_ret);
+            return GetInstance<BaseInfo>(raw_ret);
         }
 
         public InfoDictionary<BaseInfo> Prerequisites {
@@ -156,7 +156,7 @@ namespace GISharp.Lib.GIRepository
         PropertyInfo GetProperty (int index)
         {
             IntPtr raw_ret = g_interface_info_get_property (Handle, index);
-            return MarshalPtr<PropertyInfo> (raw_ret);
+            return GetInstance<PropertyInfo>(raw_ret);
         }
 
         public InfoDictionary<PropertyInfo> Properties {
@@ -171,7 +171,7 @@ namespace GISharp.Lib.GIRepository
         SignalInfo GetSignal (int index)
         {
             IntPtr raw_ret = g_interface_info_get_signal (Handle, index);
-            return MarshalPtr<SignalInfo> (raw_ret);
+            return GetInstance<SignalInfo>(raw_ret);
         }
 
         public InfoDictionary<SignalInfo> Signals {
@@ -186,7 +186,7 @@ namespace GISharp.Lib.GIRepository
         VFuncInfo GetVFunc (int index)
         {
             IntPtr raw_ret = g_interface_info_get_vfunc (Handle, index);
-            return MarshalPtr<VFuncInfo> (raw_ret);
+            return GetInstance<VFuncInfo>(raw_ret);
         }
 
         public InfoDictionary<VFuncInfo> VFuncs {

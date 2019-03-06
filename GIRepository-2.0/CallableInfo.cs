@@ -38,7 +38,7 @@ namespace GISharp.Lib.GIRepository
         protected ArgInfo GetArg (int index)
         {
             IntPtr raw_ret = g_callable_info_get_arg (Handle, index);
-            return MarshalPtr<ArgInfo> (raw_ret);
+            return GetInstance<ArgInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -84,7 +84,7 @@ namespace GISharp.Lib.GIRepository
         public TypeInfo ReturnTypeInfo {
             get {
                 IntPtr raw_ret = g_callable_info_get_return_type (Handle);
-                return MarshalPtr<TypeInfo> (raw_ret);
+                return GetInstance<TypeInfo>(raw_ret);
             }
         }
 

@@ -97,7 +97,7 @@ namespace GISharp.Lib.GIRepository
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
             var ret_ = g_object_info_find_method(Handle, name.Handle);
-            var ret = MarshalPtr<FunctionInfo>(ret_);
+            var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
@@ -107,8 +107,8 @@ namespace GISharp.Lib.GIRepository
         public FunctionInfo? FindMethodUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
         {
             var ret_ = g_object_info_find_method_using_interfaces(Handle, name.Handle, out var implementor_);
-            var ret = MarshalPtr<FunctionInfo>(ret_);
-            implementor = MarshalPtr<ObjectInfo>(implementor_);
+            var ret = GetInstanceOrNull<FunctionInfo>(ret_);
+            implementor = GetInstanceOrNull<ObjectInfo>(implementor_)!;
             return ret;
         }
 
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GIRepository
         public SignalInfo? FindSignal(UnownedUtf8 name)
         {
             var ret_ = g_object_info_find_signal(Handle, name.Handle);
-            var ret = MarshalPtr<SignalInfo>(ret_);
+            var ret = GetInstanceOrNull<SignalInfo>(ret_);
             return ret;
         }
 
@@ -128,18 +128,18 @@ namespace GISharp.Lib.GIRepository
         public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
             var ret_ = g_object_info_find_vfunc(Handle, name.Handle);
-            var ret = MarshalPtr<VFuncInfo>(ret_);
+            var ret = GetInstanceOrNull<VFuncInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_vfunc_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
-        public VFuncInfo FindVFuncUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
+        public VFuncInfo? FindVFuncUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
         {
             var ret_ = g_object_info_find_vfunc_using_interfaces (Handle, name.Handle, out var implementor_);
-            var ret = MarshalPtr<VFuncInfo>(ret_);
-            implementor = MarshalPtr<ObjectInfo>(implementor_);
+            var ret = GetInstanceOrNull<VFuncInfo>(ret_);
+            implementor = GetInstanceOrNull<ObjectInfo>(implementor_)!;
             return ret;
         }
 
@@ -160,7 +160,7 @@ namespace GISharp.Lib.GIRepository
         public StructInfo ClassStruct {
             get {
                 IntPtr raw_ret = g_object_info_get_class_struct (Handle);
-                return MarshalPtr<StructInfo> (raw_ret);
+                return GetInstance<StructInfo>(raw_ret);
             }
         }
 
@@ -170,7 +170,7 @@ namespace GISharp.Lib.GIRepository
         ConstantInfo GetConstant (int index)
         {
             IntPtr raw_ret = g_object_info_get_constant (Handle, index);
-            return MarshalPtr<ConstantInfo> (raw_ret);
+            return GetInstance<ConstantInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -179,7 +179,7 @@ namespace GISharp.Lib.GIRepository
         FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_object_info_get_field (Handle, index);
-            return MarshalPtr<FieldInfo> (raw_ret);
+            return GetInstance<FieldInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -210,7 +210,7 @@ namespace GISharp.Lib.GIRepository
         InterfaceInfo GetInterface (int index)
         {
             IntPtr raw_ret = g_object_info_get_interface (Handle, index);
-            return MarshalPtr<InterfaceInfo> (raw_ret);
+            return GetInstance<InterfaceInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -219,7 +219,7 @@ namespace GISharp.Lib.GIRepository
         FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_object_info_get_method (Handle, index);
-            return MarshalPtr<FunctionInfo> (raw_ret);
+            return GetInstance<FunctionInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -288,10 +288,11 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_parent (IntPtr raw);
 
-        public ObjectInfo Parent {
+        public ObjectInfo? Parent {
             get {
-                IntPtr raw_ret = g_object_info_get_parent (Handle);
-                return MarshalPtr<ObjectInfo> (raw_ret);
+                var ret_ = g_object_info_get_parent(Handle);
+                var ret = GetInstanceOrNull<ObjectInfo>(ret_);
+                return ret;
             }
         }
 
@@ -301,7 +302,7 @@ namespace GISharp.Lib.GIRepository
         PropertyInfo GetProperty (int index)
         {
             IntPtr raw_ret = g_object_info_get_property (Handle, index);
-            return MarshalPtr<PropertyInfo> (raw_ret);
+            return GetInstance<PropertyInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -332,7 +333,7 @@ namespace GISharp.Lib.GIRepository
         SignalInfo GetSignal (int index)
         {
             IntPtr raw_ret = g_object_info_get_signal (Handle, index);
-            return MarshalPtr<SignalInfo> (raw_ret);
+            return GetInstance<SignalInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -374,7 +375,7 @@ namespace GISharp.Lib.GIRepository
         VFuncInfo GetVFunc (int index)
         {
             IntPtr raw_ret = g_object_info_get_vfunc (Handle, index);
-            return MarshalPtr<VFuncInfo> (raw_ret);
+            return GetInstance<VFuncInfo>(raw_ret);
         }
 
         public DynamicMetaObject GetMetaObject (Expression parameter)

@@ -15,7 +15,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         static DynamicGObject ()
         {
-            var pspecInfo = (ObjectInfo)Repository.Namespaces["GObject"].FindByName ("ParamSpec");
+            var pspecInfo = (ObjectInfo)Repository.Namespaces["GObject"].FindByName("ParamSpec")!;
             pspecValueTypeOffset = pspecInfo.Fields["value_type"].Offset;
         }
 
@@ -166,13 +166,13 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
             var objectClassPtr = Marshal.ReadIntPtr (obj.Handle);
             var gtype = Marshal.PtrToStructure<GType> (objectClassPtr);
-            Info = (ObjectInfo)Repository.FindByGType (gtype);
+            Info = (ObjectInfo)Repository.FindByGType(gtype)!;
         }
 
         public override DynamicMetaObject BindInvokeMember (InvokeMemberBinder binder, DynamicMetaObject[] args)
         {
             var methodInfo = default (FunctionInfo);
-            var i = Info;
+            ObjectInfo? i = Info;
             while (i != null) {
                 methodInfo = i.FindMethod (binder.Name);
                 if (methodInfo != null) {

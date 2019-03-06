@@ -45,10 +45,10 @@ namespace GISharp.Lib.GIRepository
         /// This seems to be unreliable. It causes a crash when struct is GObject.ObjectClass
         /// and cannot find methods in GObject.Closure
         [Obsolete ("Not really obsolete, but unreliable.")]
-        public FunctionInfo FindMethod(UnownedUtf8 name)
+        public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
             var ret_ = g_struct_info_find_method (Handle, name.Handle);
-            var ret = MarshalPtr<FunctionInfo>(ret_);
+            var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GIRepository
         FieldInfo GetField (int index)
         {
             IntPtr raw_ret = g_struct_info_get_field (Handle, index);
-            return MarshalPtr<FieldInfo> (raw_ret);
+            return GetInstance<FieldInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -76,7 +76,7 @@ namespace GISharp.Lib.GIRepository
         FunctionInfo GetMethod (int index)
         {
             IntPtr raw_ret = g_struct_info_get_method (Handle, index);
-            return MarshalPtr<FunctionInfo> (raw_ret);
+            return GetInstance<FunctionInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]

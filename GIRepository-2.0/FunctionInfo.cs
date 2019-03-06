@@ -77,7 +77,7 @@ namespace GISharp.Lib.GIRepository
                     return null;
                 }
                 IntPtr raw_ret = g_function_info_get_property (Handle);
-                return MarshalPtr<PropertyInfo> (raw_ret);
+                return GetInstanceOrNull<PropertyInfo>(raw_ret);
             }
         }
 
@@ -100,7 +100,7 @@ namespace GISharp.Lib.GIRepository
                     return null;
                 }
                 IntPtr raw_ret = g_function_info_get_vfunc (Handle);
-                return MarshalPtr<VFuncInfo> (raw_ret);
+                return GetInstanceOrNull<VFuncInfo>(raw_ret);
             }
         }
 
@@ -141,7 +141,7 @@ namespace GISharp.Lib.GIRepository
             if (typeInfo.IsPointer) {
                 switch (typeInfo.Tag) {
                 case TypeTag.Interface:
-                    var iface = typeInfo.Interface;
+                    var iface = typeInfo.Interface!;
                     switch (iface.InfoType) {
                     case InfoType.Boxed:
                     case InfoType.Interface:
@@ -220,7 +220,7 @@ namespace GISharp.Lib.GIRepository
                     arg.UInt64 = (ulong)obj.Value;
                     break;
                 case TypeTag.Interface:
-                    var iface = typeInfo.Interface;
+                    var iface = typeInfo.Interface!;
                     switch (iface.InfoType) {
                     case InfoType.Enum:
                     case InfoType.Flags:
@@ -259,7 +259,7 @@ namespace GISharp.Lib.GIRepository
                     var ret = GMarshal.Utf8PtrToString (arg.Pointer, ownership != Transfer.Nothing);
                     return ret;
                 case TypeTag.Interface:
-                    switch (info.Interface.InfoType) {
+                    switch (info.Interface!.InfoType) {
                     case InfoType.Interface:
                     case InfoType.Object:
                         if (arg.Pointer == IntPtr.Zero) {

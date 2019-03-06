@@ -12,10 +12,11 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_signal_info_get_class_closure (IntPtr raw);
 
-        public VFuncInfo ClassClosure {
+        public VFuncInfo? ClassClosure {
             get {
-                IntPtr raw_ret = g_signal_info_get_class_closure (Handle);
-                return MarshalPtr<VFuncInfo> (raw_ret);
+                var ret_ = g_signal_info_get_class_closure(Handle);
+                var ret = GetInstanceOrNull<VFuncInfo>(ret_);
+                return ret;
             }
         }
 

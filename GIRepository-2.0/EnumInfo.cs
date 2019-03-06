@@ -49,10 +49,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_method (IntPtr raw, int index);
 
-        public FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod(int index)
         {
             IntPtr raw_ret = g_enum_info_get_method (Handle, index);
-            return MarshalPtr<FunctionInfo> (raw_ret);
+            return GetInstance<FunctionInfo>(raw_ret);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -85,10 +85,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_value (IntPtr raw, int index);
 
-        public ValueInfo GetValue (int index)
+        ValueInfo GetValue(int index)
         {
             IntPtr raw_ret = g_enum_info_get_value (Handle, index);
-            return MarshalPtr<ValueInfo> (raw_ret);
+            return GetInstance<ValueInfo>(raw_ret);
         }
 
         public DynamicMetaObject GetMetaObject (Expression parameter)
