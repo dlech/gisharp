@@ -104,12 +104,12 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_method_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
-        public FunctionInfo? FindMethodUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
+        public (FunctionInfo? method, ObjectInfo? implementor) FindMethodUsingInterfaces(UnownedUtf8 name)
         {
             var ret_ = g_object_info_find_method_using_interfaces(Handle, name.Handle, out var implementor_);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
-            implementor = GetInstanceOrNull<ObjectInfo>(implementor_)!;
-            return ret;
+            var implementor = GetInstanceOrNull<ObjectInfo>(implementor_);
+            return (ret, implementor);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -135,12 +135,12 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_vfunc_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
-        public VFuncInfo? FindVFuncUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
+        public (VFuncInfo? vfunc, ObjectInfo? implementor) FindVFuncUsingInterfaces(UnownedUtf8 name)
         {
             var ret_ = g_object_info_find_vfunc_using_interfaces (Handle, name.Handle, out var implementor_);
             var ret = GetInstanceOrNull<VFuncInfo>(ret_);
-            implementor = GetInstanceOrNull<ObjectInfo>(implementor_)!;
-            return ret;
+            var implementor = GetInstanceOrNull<ObjectInfo>(implementor_);
+            return (ret, implementor);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
