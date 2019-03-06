@@ -71,12 +71,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_callable_info_get_return_attribute (IntPtr raw, IntPtr name);
 
-        public string? GetReturnAttribute(string name)
+        public NullableUnownedUtf8 GetReturnAttribute(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_callable_info_get_return_attribute (Handle, native_name);
-            var ret = GMarshal.Utf8PtrToString(raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_callable_info_get_return_attribute(Handle, name.Handle);
+            var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -116,21 +114,18 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_callable_info_iterate_return_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
-        bool IterateReturnAttributes (ref AttributeIter iterator, out string name, out string value)
+        bool IterateReturnAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
-            IntPtr namePtr;
-            IntPtr valuePtr;
-            var ret = g_callable_info_iterate_return_attributes (Handle, ref iterator, out namePtr, out valuePtr);
-            name = GMarshal.Utf8PtrToString(namePtr)!;
-            value = GMarshal.Utf8PtrToString(valuePtr)!;
+            var ret = g_callable_info_iterate_return_attributes(Handle, ref iterator, out var name_, out var value_);
+            name = ret ? new UnownedUtf8(name_, -1) : default!;
+            value = ret ? new UnownedUtf8(value_, -1) : default!;
             return ret;
         }
 
         public IEnumerable<KeyValuePair<string, string>> ReturnAttributes {
             get {
-                string name, value;
                 var iter = AttributeIter.Zero;
-                while (IterateReturnAttributes (ref iter, out name, out value)) {
+                while (IterateReturnAttributes(ref iter, out var name, out var value)) {
                     yield return new KeyValuePair<string, string> (name, value);
                 }
             }

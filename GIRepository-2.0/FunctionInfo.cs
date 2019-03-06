@@ -8,6 +8,7 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GIRepository.Dynamic;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -83,10 +84,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_function_info_get_symbol (IntPtr raw);
 
-        public string Symbol {
+        public UnownedUtf8 Symbol {
             get {
-                IntPtr raw_ret = g_function_info_get_symbol (Handle);
-                return GMarshal.Utf8PtrToString(raw_ret)!;
+                var ret_ = g_function_info_get_symbol(Handle);
+                return new UnownedUtf8(ret_, -1);
             }
         }
 
@@ -320,7 +321,7 @@ namespace GISharp.Lib.GIRepository
                 }
             }
             if (matchArgs.Count != args.Length) {
-                var names = string.Join (", ", matchArgs.Select (x => x.Name));
+                var names = string.Join(", ", matchArgs.Select(x => x.Name.ToString()));
                 var message = $"Bad arg count - expecting {matchArgs.Count}: {names}";
                 throw new ArgumentException (message);
             }

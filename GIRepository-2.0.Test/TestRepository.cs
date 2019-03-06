@@ -80,7 +80,7 @@ namespace GISharp.Test.GIRepository
         public void TestGetTypelibPath ()
         {
             var path = Repository.Namespaces ["Gio"].TypelibPath;
-            Assert.That (path, Contains.Substring ("Gio-2.0.typelib"));
+            Assert.That<string?>(path, Contains.Substring("Gio-2.0.typelib"));
         }
 
         [Test]
@@ -117,7 +117,7 @@ namespace GISharp.Test.GIRepository
         public void TestGetCPrefix ()
         {
             var prefix = Repository.Namespaces ["Gio"].CPrefix;
-            Assert.That (prefix, Is.EqualTo ("G"));
+            Assert.That<string?>(prefix, Is.EqualTo("G"));
         }
 
         [Test]
@@ -132,7 +132,7 @@ namespace GISharp.Test.GIRepository
         public void TestGetVersion ()
         {
             var version = Repository.Namespaces ["Gio"].Version;
-            Assert.That (version, Is.EqualTo ("2.0"));
+            Assert.That<string>(version, Is.EqualTo("2.0"));
         }
 
         [System.Runtime.InteropServices.DllImport ("libgio-2.0")]

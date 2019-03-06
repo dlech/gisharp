@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GIRepository.Dynamic;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -93,60 +94,52 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_method (IntPtr raw, IntPtr name);
 
-        public FunctionInfo FindMethod (string name)
+        public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_object_info_find_method (Handle, native_name);
-            var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_object_info_find_method(Handle, name.Handle);
+            var ret = MarshalPtr<FunctionInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_find_method_using_interfaces (IntPtr raw, IntPtr name, IntPtr implementor);
+        static extern IntPtr g_object_info_find_method_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
-        public FunctionInfo FindMethodUsingInterfaces (string name, ObjectInfo implementor)
+        public FunctionInfo? FindMethodUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_object_info_find_method_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
-            var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_object_info_find_method_using_interfaces(Handle, name.Handle, out var implementor_);
+            var ret = MarshalPtr<FunctionInfo>(ret_);
+            implementor = MarshalPtr<ObjectInfo>(implementor_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_signal (IntPtr raw, IntPtr name);
 
-        public SignalInfo FindSignal (string name)
+        public SignalInfo? FindSignal(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_object_info_find_signal (Handle, native_name);
-            var ret = MarshalPtr<SignalInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_object_info_find_signal(Handle, name.Handle);
+            var ret = MarshalPtr<SignalInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_vfunc (IntPtr raw, IntPtr name);
 
-        public VFuncInfo? FindVFunc(string name)
+        public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_object_info_find_vfunc (Handle, native_name);
-            var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_object_info_find_vfunc(Handle, name.Handle);
+            var ret = MarshalPtr<VFuncInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_find_vfunc_using_interfaces (IntPtr raw, IntPtr name, IntPtr implementor);
+        static extern IntPtr g_object_info_find_vfunc_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
-        public VFuncInfo FindVFuncUsingInterfaces (string name, ObjectInfo implementor)
+        public VFuncInfo FindVFuncUsingInterfaces(UnownedUtf8 name, out ObjectInfo implementor)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_object_info_find_vfunc_using_interfaces (Handle, native_name, implementor == null ? IntPtr.Zero : implementor.Handle);
-            var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_object_info_find_vfunc_using_interfaces (Handle, name.Handle, out var implementor_);
+            var ret = MarshalPtr<VFuncInfo>(ret_);
+            implementor = MarshalPtr<ObjectInfo>(implementor_);
             return ret;
         }
 
@@ -203,10 +196,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_get_value_function (IntPtr raw);
 
-        public string? GetValueFunctionName {
+        public NullableUnownedUtf8 GetValueFunctionName {
             get {
-                IntPtr raw_ret = g_object_info_get_get_value_function (Handle);
-                var ret = GMarshal.Utf8PtrToString(raw_ret);
+                var ret_ = g_object_info_get_get_value_function(Handle);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -314,20 +307,22 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_ref_function (IntPtr raw);
 
-        public string? RefFunctionName {
+        public NullableUnownedUtf8 RefFunctionName {
             get {
-                IntPtr raw_ret = g_object_info_get_ref_function (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                var ret_ = g_object_info_get_ref_function(Handle);
+                var ret = new NullableUnownedUtf8(ret_, -1);
+                return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_set_value_function (IntPtr raw);
 
-        public string? SetValueFunctionName {
+        public NullableUnownedUtf8 SetValueFunctionName {
             get {
-                IntPtr raw_ret = g_object_info_get_set_value_function (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                var ret_ = g_object_info_get_set_value_function(Handle);
+                var ret = new NullableUnownedUtf8(ret_, -1);
+                return ret;
             }
         }
 
@@ -343,30 +338,33 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_type_init (IntPtr raw);
 
-        public new string TypeInit {
+        public new UnownedUtf8 TypeInit {
             get {
-                IntPtr raw_ret = g_object_info_get_type_init (Handle);
-                return GMarshal.Utf8PtrToString(raw_ret)!;
+                var ret_ = g_object_info_get_type_init(Handle);
+                var ret = new UnownedUtf8(ret_, -1);
+                return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_type_name (IntPtr raw);
 
-        public new string TypeName {
+        public new UnownedUtf8 TypeName {
             get {
-                IntPtr raw_ret = g_object_info_get_type_name (Handle);
-                return GMarshal.Utf8PtrToString(raw_ret)!;
+                var ret_ = g_object_info_get_type_name (Handle);
+                var ret = new UnownedUtf8(ret_, -1);
+                return ret;
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_unref_function (IntPtr raw);
 
-        public string? UnrefFunctionName {
+        public NullableUnownedUtf8 UnrefFunctionName {
             get {
-                IntPtr raw_ret = g_object_info_get_unref_function (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                var ret_ = g_object_info_get_unref_function(Handle);
+                var ret = new NullableUnownedUtf8(ret_, -1);
+                return ret;
             }
         }
 

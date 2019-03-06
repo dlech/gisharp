@@ -103,7 +103,7 @@ namespace GISharp.Lib.GIRepository
             for (int i = 0; i < count; i++) {
                 var info = getInfoAtIndex (i);
                 infos.Add (info);
-                nameMap.Add(info.Name!, i);
+                nameMap.Add(info.Name.ToString(), i);
             }
         }
 
@@ -155,7 +155,7 @@ namespace GISharp.Lib.GIRepository
         public int IndexOf (T info)
         {
             int index;
-            if (nameMap.TryGetValue(info.Name!, out index)) {
+            if (nameMap.TryGetValue(info.Name.ToString(), out index)) {
                 return index;
             }
             return -1;
@@ -190,13 +190,13 @@ namespace GISharp.Lib.GIRepository
             public DictionaryEntry Entry {
                 get {
                     var value = list[index];
-                    return new DictionaryEntry (value.Name, value);
+                    return new DictionaryEntry(value.Name.ToString(), value);
                 }
             }
 
             public object Key {
                 get {
-                    return list[index].Name!;
+                    return list[index].Name.ToString();
                 }
             }
 

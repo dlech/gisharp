@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -45,12 +45,10 @@ namespace GISharp.Lib.GIRepository
         /// This seems to be unreliable. It causes a crash when struct is GObject.ObjectClass
         /// and cannot find methods in GObject.Closure
         [Obsolete ("Not really obsolete, but unreliable.")]
-        public FunctionInfo FindMethod (string name)
+        public FunctionInfo FindMethod(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_struct_info_find_method (Handle, native_name);
-            var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_struct_info_find_method (Handle, name.Handle);
+            var ret = MarshalPtr<FunctionInfo>(ret_);
             return ret;
         }
 

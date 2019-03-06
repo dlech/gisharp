@@ -250,7 +250,7 @@ namespace GISharp.TypelibBrowser
             public TreeIter Iter { get; private set; }
             public int Index { get; private set; }
             public string Namespace { get { return BaseInfo.Namespace; } }
-            public string Name { get { return BaseInfo.Name ?? "<unnamed>"; } }
+            public string Name { get { return BaseInfo.Name.ToString() ?? "<unnamed>"; } }
             public string Path { get { return Parent.Path + "." + Name; } }
             public bool Deprecated { get { return BaseInfo.IsDeprecated; } }
             public bool IsGType {

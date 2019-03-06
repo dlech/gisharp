@@ -16,7 +16,7 @@ namespace GISharp.Lib.GIRepository
     {
         static NamespaceCollection? namespaces;
 
-        internal static InfoDictionary<BaseInfo> GetInfos (string @namespace)
+        internal static InfoDictionary<BaseInfo> GetInfos(Utf8 @namespace)
         {
             return new InfoDictionary<BaseInfo> (GetNInfos (@namespace), (i) => GetInfo (@namespace, i));
         }
@@ -36,12 +36,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_irepository_dump (IntPtr arg, out IntPtr error);
 
-        public static void Dump (string arg)
+        public static void Dump(UnownedUtf8 arg)
         {
-            IntPtr native_arg = GMarshal.StringToUtf8Ptr (arg);
             IntPtr error_ = IntPtr.Zero;
-            g_irepository_dump (native_arg, out error_);
-            GMarshal.Free (native_arg);
+            g_irepository_dump(arg.Handle, out error_);
             if (error_ != IntPtr.Zero) {
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
@@ -51,12 +49,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_enumerate_versions (IntPtr raw, IntPtr @namespace);
 
-        internal static string[] GetVersions (string @namespace)
+        internal static string[] GetVersions(UnownedUtf8 @namespace)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_enumerate_versions (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.GListToStringArray (raw_ret, freePtr: true);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_enumerate_versions(IntPtr.Zero, @namespace.Handle);
+            var ret = GMarshal.GListToStringArray(ret_, freePtr: true);
             return ret!;
         }
 
@@ -78,14 +74,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_find_by_name (IntPtr raw, IntPtr @namespace, IntPtr name);
 
-        internal static GISharp.Lib.GIRepository.BaseInfo FindByName (string @namespace, string name)
+        internal static BaseInfo FindByName(UnownedUtf8 @namespace, UnownedUtf8 name)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_irepository_find_by_name (IntPtr.Zero, native_namespace, native_name);
-            GISharp.Lib.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            GMarshal.Free (native_namespace);
-            GMarshal.Free (native_name);
+            var ret_ = g_irepository_find_by_name(IntPtr.Zero, @namespace.Handle, name.Handle);
+            var ret = BaseInfo.MarshalPtr<BaseInfo>(ret_);
             return ret;
         }
 
@@ -103,24 +95,20 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_c_prefix (IntPtr raw, IntPtr @namespace);
 
-        internal static string? GetCPrefix(string @namespace)
+        internal static NullableUnownedUtf8 GetCPrefix(UnownedUtf8 @namespace)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_c_prefix (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.Utf8PtrToString(raw_ret);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_c_prefix(IntPtr.Zero, @namespace.Handle);
+            var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_dependencies (IntPtr raw, IntPtr @namespace);
 
-        internal static Strv GetDependencies(string @namespace)
+        internal static Strv GetDependencies(UnownedUtf8 @namespace)
         {
-            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            var raw_ret = g_irepository_get_dependencies (IntPtr.Zero, native_namespace);
-            var ret = Opaque.GetInstance<Strv>(raw_ret, Runtime.Transfer.Full);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_dependencies(IntPtr.Zero, @namespace.Handle);
+            var ret = Opaque.GetInstance<Strv>(ret_, Runtime.Transfer.Full);
             return ret;
         }
 
@@ -129,24 +117,20 @@ namespace GISharp.Lib.GIRepository
         static extern IntPtr g_irepository_get_immediate_dependencies (IntPtr raw, IntPtr @namespace);
 
         [Since ("1.44")]
-        internal static Strv GetImmediateDependencies (string @namespace)
+        internal static Strv GetImmediateDependencies(UnownedUtf8 @namespace)
         {
-            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            var raw_ret = g_irepository_get_immediate_dependencies (IntPtr.Zero, native_namespace);
-            var ret = Opaque.GetInstance<Strv>(raw_ret, Runtime.Transfer.Full);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_immediate_dependencies(IntPtr.Zero, @namespace.Handle);
+            var ret = Opaque.GetInstance<Strv>(ret_, Runtime.Transfer.Full);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_info (IntPtr raw, IntPtr @namespace, int index);
 
-        internal static GISharp.Lib.GIRepository.BaseInfo GetInfo (string @namespace, int index)
+        internal static BaseInfo GetInfo(UnownedUtf8 @namespace, int index)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_info (IntPtr.Zero, native_namespace, index);
-            GISharp.Lib.GIRepository.BaseInfo ret = BaseInfo.MarshalPtr<BaseInfo> (raw_ret);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_info(IntPtr.Zero, @namespace.Handle, index);
+            var ret = BaseInfo.MarshalPtr<BaseInfo>(ret_);
             return ret;
         }
 
@@ -168,11 +152,9 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_irepository_get_n_infos (IntPtr raw, IntPtr @namespace);
 
-        static int GetNInfos (string @namespace)
+        static int GetNInfos(UnownedUtf8 @namespace)
         {
-            var native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            var ret = g_irepository_get_n_infos (IntPtr.Zero, native_namespace);
-            GMarshal.Free (native_namespace);
+            var ret = g_irepository_get_n_infos(IntPtr.Zero, @namespace.Handle);
             return ret;
         }
 
@@ -202,36 +184,30 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_shared_library (IntPtr raw, IntPtr @namespace);
 
-        internal static string? GetSharedLibrary(string @namespace)
+        internal static NullableUnownedUtf8 GetSharedLibrary(UnownedUtf8 @namespace)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_shared_library (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.Utf8PtrToString(raw_ret);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_shared_library(IntPtr.Zero, @namespace.Handle);
+            var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_typelib_path (IntPtr raw, IntPtr @namespace);
 
-        internal static string? GetTypelibPath(string @namespace)
+        internal static NullableUnownedUtf8 GetTypelibPath(UnownedUtf8 @namespace)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_typelib_path (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.Utf8PtrToString(raw_ret);
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_typelib_path(IntPtr.Zero, @namespace.Handle);
+            var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_get_version (IntPtr raw, IntPtr @namespace);
 
-        internal static string GetVersion (string @namespace)
+        internal static UnownedUtf8 GetVersion(UnownedUtf8 @namespace)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr raw_ret = g_irepository_get_version (IntPtr.Zero, native_namespace);
-            var ret = GMarshal.Utf8PtrToString(raw_ret)!;
-            GMarshal.Free (native_namespace);
+            var ret_ = g_irepository_get_version(IntPtr.Zero, @namespace.Handle);
+            var ret = new UnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -245,15 +221,10 @@ namespace GISharp.Lib.GIRepository
         /// <returns><c>true</c> if is registered the specified <c>namespace-version</c>
         /// was loaded; otherwise, <c>false</c>.</returns>
         /// <param name="namespace">Namespace of interest.</param>
-        /// <param name="version">Requred version or <c>null</c> for latest.</param>
-        public static bool IsRegistered(string @namespace, string? version = null)
+        /// <param name="version">Required version or <c>null</c> for latest.</param>
+        public static bool IsRegistered(UnownedUtf8 @namespace, NullableUnownedUtf8 version = default)
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
-            bool raw_ret = g_irepository_is_registered (IntPtr.Zero, native_namespace, native_version);
-            bool ret = raw_ret;
-            GMarshal.Free (native_namespace);
-            GMarshal.Free (native_version);
+            var ret = g_irepository_is_registered(IntPtr.Zero, @namespace.Handle, version.Handle);
             return ret;
         }
 
@@ -276,12 +247,9 @@ namespace GISharp.Lib.GIRepository
         /// and DT_RPATH in ELF systems). See the documentation of your dynamic
         /// linker for full details.
         /// </remarks>
-        public static void PrependLibraryPath (string directory)
+        public static void PrependLibraryPath(Filename directory)
         {
-            // TODO: Marshal as filename, not UTF8
-            IntPtr native_directory = GMarshal.StringToUtf8Ptr (directory);
-            g_irepository_prepend_library_path (native_directory);
-            GMarshal.Free (native_directory);
+            g_irepository_prepend_library_path(directory.Handle);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -292,11 +260,9 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         /// <param name="directory">Directory name to prepend to the typelib search path.</param>
         /// <seealso cref="PrependLibraryPath"/>
-        public static void PrependSearchPath (string directory)
+        public static void PrependSearchPath(Filename directory)
         {
-            IntPtr native_directory = GMarshal.StringToUtf8Ptr (directory);
-            g_irepository_prepend_search_path (native_directory);
-            GMarshal.Free (native_directory);
+            g_irepository_prepend_search_path(directory.Handle);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -316,15 +282,10 @@ namespace GISharp.Lib.GIRepository
         /// addition, a version version of namespace may be specified. If version
         /// is not specified, the latest will be used.
         /// </remarks>
-        public static void Require(string @namespace, string? version = null,
+        public static void Require(UnownedUtf8 @namespace, NullableUnownedUtf8 version = default,
             RepositoryLoadFlags flags = default(RepositoryLoadFlags))
         {
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
-            IntPtr error_;
-            g_irepository_require (IntPtr.Zero, native_namespace, native_version, (int)flags, out error_);
-            GMarshal.Free (native_namespace);
-            GMarshal.Free (native_version);
+            g_irepository_require(IntPtr.Zero, @namespace.Handle, version.Handle, (int)flags, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
@@ -349,17 +310,11 @@ namespace GISharp.Lib.GIRepository
         /// specified. If <paramref name="version"/> is not specified, the latest
         /// will be used.
         /// </remarks>
-        public static void RequirePrivate (string typelibDir, string @namespace,
-            string? version = null, RepositoryLoadFlags flags = default(RepositoryLoadFlags))
+        public static void RequirePrivate(UnownedUtf8 typelibDir, UnownedUtf8 @namespace,
+            NullableUnownedUtf8 version = default,
+            RepositoryLoadFlags flags = default(RepositoryLoadFlags))
         {
-            IntPtr native_typelib_dir = GMarshal.StringToUtf8Ptr (typelibDir);
-            IntPtr native_namespace = GMarshal.StringToUtf8Ptr (@namespace);
-            IntPtr native_version = GMarshal.StringToUtf8Ptr (version);
-            IntPtr error_;
-            g_irepository_require_private (IntPtr.Zero, native_typelib_dir, native_namespace, native_version, (int)flags, out error_);
-            GMarshal.Free (native_typelib_dir);
-            GMarshal.Free (native_namespace);
-            GMarshal.Free (native_version);
+            g_irepository_require_private(IntPtr.Zero, typelibDir.Handle, @namespace.Handle, version.Handle, (int)flags, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);

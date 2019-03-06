@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Text;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -92,8 +93,7 @@ namespace GISharp.Lib.GIRepository
         public IEnumerable<KeyValuePair<string, string>> Attributes {
             get {
                 AttributeIter iter = AttributeIter.Zero;
-                string key, value;
-                while (IterateAttributes (ref iter, out key, out value)) {
+                while (IterateAttributes(ref iter, out var key, out var value)) {
                     yield return new KeyValuePair<string, string> (key, value);
                 }
             }
@@ -140,14 +140,12 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// Retrieve an arbitrary attribute associated with this node.
         /// </summary>
-        /// <returns>The attribute or <c>null</c> if no such attribute exists.</returns>
+        /// <returns>The attribute or <see cref="Utf8.Null"/> if no such attribute exists.</returns>
         /// <param name="name">Name.</param>
-        public string? GetAttribute(string name)
+        public NullableUnownedUtf8 GetAttribute(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_base_info_get_attribute (Handle, native_name);
-            var ret = GMarshal.Utf8PtrToString(raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_base_info_get_attribute (Handle, name.Handle);
+            var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -174,27 +172,41 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_name (IntPtr raw);
 
-        Lazy<string?> _Name;
         /// <summary>
         /// Gets the name.
         /// </summary>
-        /// <value>The name or <c>null</c>.</value>
+        /// <value>The name or <see cref="Utf8.Null"/>.</value>
         /// <remarks>
         /// What the name represents depends on the <see cref="InfoType"/> of the
         /// info . For instance for <see cref="FunctionInfo"/> it is the name of
         /// the function.
         /// </remarks>
-        public string? Name => _Name.Value;
+        public NullableUnownedUtf8 Name {
+            get {
+                // calling g_base_info_get_name on a TypeInfo will cause a crash.
+                if (this is TypeInfo) {
+                    return Utf8.Null;
+                }
+                var ret_ = g_base_info_get_name(Handle);
+                var ret = new NullableUnownedUtf8(ret_, -1);
+                return ret;
+            }
+        }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_namespace (IntPtr raw);
 
-        Lazy<string> _Namespace;
         /// <summary>
         /// Gets the namespace.
         /// </summary>
         /// <value>The namespace.</value>
-        public string Namespace { get { return _Namespace.Value; } }
+        public UnownedUtf8 Namespace {
+            get {
+                var ret_ = g_base_info_get_namespace(Handle);
+                var ret = new UnownedUtf8(ret_ , -1);
+                return ret;
+            }
+        }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_base_info_get_type (IntPtr raw);
@@ -229,32 +241,17 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_base_info_iterate_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
-        bool IterateAttributes (ref AttributeIter iterator, out string name, out string value)
+        bool IterateAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
-            IntPtr native_name;
-            IntPtr native_value;
-            bool ret = g_base_info_iterate_attributes (Handle, ref iterator, out native_name, out native_value);
-            name = GMarshal.Utf8PtrToString(native_name)!;
-            value = GMarshal.Utf8PtrToString(native_value)!;
+            var ret = g_base_info_iterate_attributes(Handle, ref iterator, out var name_, out var value_);
+            name = ret ? new UnownedUtf8(name_, -1) : default!;
+            value = ret ? new UnownedUtf8(value_, -1) : default!;
             return ret;
         }
 
         protected BaseInfo (IntPtr raw)
         {
             Handle = raw;
-            _Namespace = new Lazy<string> (() => {
-                var ret = g_base_info_get_namespace (Handle);
-                return GMarshal.Utf8PtrToString(ret)!;
-            });
-            _Name = new Lazy<string?>(() => {
-                // calling g_base_info_get_name on a TypeInfo will cause a crash.
-                var typeInfo = this as TypeInfo;
-                if (typeInfo != null) {
-                    return null;
-                }
-                var ret = g_base_info_get_name (Handle);
-                return GMarshal.Utf8PtrToString (ret);
-            });
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -291,8 +288,8 @@ namespace GISharp.Lib.GIRepository
             var builder = new StringBuilder ();
             var current = this;
             while (current != null) {
-                if (current.Name != null) {
-                    builder.Insert (0, current.Name);
+                if (!current.Name.IsNull) {
+                    builder.Insert(0, current.Name.ToString());
                     builder.Insert (0, ".");
                 }
                 builder.Insert (0, current.InfoType);

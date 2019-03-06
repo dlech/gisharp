@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -14,36 +14,30 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_method (IntPtr raw, IntPtr name);
 
-        public FunctionInfo FindMethod (string name)
+        public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_interface_info_find_method (Handle, native_name);
-            var ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_interface_info_find_method(Handle, name.Handle);
+            var ret = MarshalPtr<FunctionInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_signal (IntPtr raw, IntPtr name);
 
-        public SignalInfo FindSignal (string name)
+        public SignalInfo? FindSignal(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_interface_info_find_signal (Handle, native_name);
-            var ret = MarshalPtr<SignalInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_interface_info_find_signal(Handle, name.Handle);
+            var ret = MarshalPtr<SignalInfo>(ret_);
             return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_vfunc (IntPtr raw, IntPtr name);
 
-        public VFuncInfo FindVFunc (string name)
+        public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_interface_info_find_vfunc (Handle, native_name);
-            var ret = MarshalPtr<VFuncInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_interface_info_find_vfunc(Handle, name.Handle);
+            var ret = MarshalPtr<VFuncInfo>(ret_);
             return ret;
         }
 

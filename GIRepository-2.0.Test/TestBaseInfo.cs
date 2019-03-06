@@ -23,7 +23,7 @@ namespace GISharp.Test.GIRepository
         public void TestEqual ()
         {
             var info1 = infos [0];
-            var info2 = Repository.Namespaces["GLib"].FindByName(info1.Name!);
+            var info2 = Repository.Namespaces["GLib"].FindByName(info1.Name.ToString());
             // want to make sure that we compare by value and not by reference
             Assume.That (ReferenceEquals (info1, info2), Is.False);
             Assert.That (info1, Is.EqualTo (info2));
@@ -53,13 +53,13 @@ namespace GISharp.Test.GIRepository
         [Test]
         public void TestGetNameSpace ()
         {
-            Assert.That (infos.First ().Namespace, Is.EqualTo ("GLib"));
+            Assert.That<string>(infos.First().Namespace, Is.EqualTo("GLib"));
         }
 
         [Test]
         public void TestGetName ()
         {
-            Assert.That (infos.First ().Name, Is.EqualTo ("ANALYZER_ANALYZING"));
+            Assert.That<string?>(infos.First().Name, Is.EqualTo("ANALYZER_ANALYZING"));
         }
 
         [Test]

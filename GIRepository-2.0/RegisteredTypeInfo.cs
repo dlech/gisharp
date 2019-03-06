@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
@@ -10,36 +11,39 @@ namespace GISharp.Lib.GIRepository
 {
     public abstract class RegisteredTypeInfo : BaseInfo
     {
-        readonly Lazy<string> _TypeInit;
-        public string TypeInit { get { return _TypeInit.Value; } }
-
-        readonly Lazy<string> _TypeName;
-        public string TypeName { get { return _TypeName.Value; } }
-
-        readonly Lazy<GType> _GType;
-        public GType GType { get { return _GType.Value; } }
-
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_init (IntPtr raw);
+
+        public UnownedUtf8 TypeInit {
+            get {
+                 var ret_ = g_registered_type_info_get_type_init(Handle);
+                 var ret = new UnownedUtf8(ret_, -1);
+                 return ret;
+            }
+        }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_registered_type_info_get_type_name (IntPtr raw);
 
+        public UnownedUtf8 TypeName {
+            get {
+                 var ret_ = g_registered_type_info_get_type_name(Handle);
+                 var ret = new UnownedUtf8(ret_, -1);
+                 return ret;
+            }
+        }
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_registered_type_info_get_g_type (IntPtr info);
 
+        public GType GType {
+            get {
+                 var ret = g_registered_type_info_get_g_type(Handle);
+                 return ret;
+            }
+        }
+
         protected RegisteredTypeInfo (IntPtr raw) : base (raw)
         {
-            _TypeInit = new Lazy<string> (() => {
-                IntPtr raw_ret = g_registered_type_info_get_type_init (Handle);
-                return GMarshal.Utf8PtrToString(raw_ret)!;
-            });
-            _TypeName = new Lazy<string> (() => {
-                IntPtr raw_ret = g_registered_type_info_get_type_name (Handle);
-                return GMarshal.Utf8PtrToString(raw_ret)!;
-            });
-            _GType = new Lazy<GType> (() =>
-                g_registered_type_info_get_g_type (Handle));
         }
     }
 }

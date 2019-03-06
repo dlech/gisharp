@@ -7,6 +7,7 @@ using System.Linq.Expressions;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GIRepository.Dynamic;
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -38,10 +39,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_error_domain (IntPtr raw);
 
-        public string? ErrorDomain {
+        public NullableUnownedUtf8 ErrorDomain {
             get {
-                IntPtr raw_ret = g_enum_info_get_error_domain (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                var ret_ = g_enum_info_get_error_domain(Handle);
+                return new NullableUnownedUtf8(ret_, -1);
             }
         }
 

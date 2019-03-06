@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -38,12 +38,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_find_method (IntPtr raw, IntPtr name);
 
-        public FunctionInfo? FindMethod (string name)
+        public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
-            IntPtr raw_ret = g_union_info_find_method (Handle, native_name);
-            FunctionInfo ret = MarshalPtr<FunctionInfo> (raw_ret);
-            GMarshal.Free (native_name);
+            var ret_ = g_union_info_find_method(Handle, name.Handle);
+            var ret = MarshalPtr<FunctionInfo>(ret_);
             return ret;
         }
 

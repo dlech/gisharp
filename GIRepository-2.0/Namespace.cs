@@ -15,13 +15,10 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         public const string BuiltInPath = "<builtin>";
 
-        readonly string @namespace;
+        readonly Utf8 @namespace;
 
-        internal Namespace (string @namespace)
+        internal Namespace(Utf8 @namespace)
         {
-            if (@namespace == null) {
-                throw new ArgumentNullException (nameof (@namespace));
-            }
             if (!Repository.LoadedNamespaces.Contains (@namespace)) {
                 throw new ArgumentOutOfRangeException (nameof (@namespace));
             }
@@ -53,11 +50,7 @@ namespace GISharp.Lib.GIRepository
         /// Gets the name of this Namespace.
         /// </summary>
         /// <value>The name.</value>
-        public string Name {
-            get {
-                return @namespace;
-            }
-        }
+        public Utf8 Name => @namespace;
 
         /// <summary>
         /// Gets the C prefix or the C level namespace associated with the given
@@ -67,7 +60,7 @@ namespace GISharp.Lib.GIRepository
         /// <remarks>
         /// Each C symbol starts with this prefix, as well each GType in the library.
         /// </remarks>
-        public string? CPrefix {
+        public NullableUnownedUtf8 CPrefix {
             get {
                 return Repository.GetCPrefix (@namespace);
             }
@@ -123,10 +116,10 @@ namespace GISharp.Lib.GIRepository
         public string[] SharedLibraries {
             get {
                 var library = Repository.GetSharedLibrary (@namespace);
-                if (library == null) {
+                if (library.IsNull) {
                     return new string[0];
                 }
-                return library.Split (new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
+                return library.ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);
             }
         }
 
@@ -138,7 +131,7 @@ namespace GISharp.Lib.GIRepository
         ///  If the typelib for this Namespace was included in a shared
         /// library, return the special string "<builtin>".
         /// </remarks>
-        public string? TypelibPath {
+        public NullableUnownedUtf8 TypelibPath {
             get {
                 return Repository.GetTypelibPath (@namespace);
             }
@@ -148,7 +141,7 @@ namespace GISharp.Lib.GIRepository
         /// Gets the the loaded version associated with this Namespace.
         /// </summary>
         /// <value>Loaded version.</value>
-        public string Version {
+        public UnownedUtf8 Version {
             get {
                 return Repository.GetVersion (@namespace);
             }
