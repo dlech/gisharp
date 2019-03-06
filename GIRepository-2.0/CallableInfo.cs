@@ -12,7 +12,7 @@ namespace GISharp.Lib.GIRepository
 {
     public abstract class CallableInfo : BaseInfo
     {
-        InfoDictionary<ArgInfo> args;
+        InfoDictionary<ArgInfo>? args;
 
         public InfoDictionary<ArgInfo> Args {
             get {
@@ -71,11 +71,11 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_callable_info_get_return_attribute (IntPtr raw, IntPtr name);
 
-        public string GetReturnAttribute (string name)
+        public string? GetReturnAttribute(string name)
         {
             IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_callable_info_get_return_attribute (Handle, native_name);
-            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            var ret = GMarshal.Utf8PtrToString(raw_ret);
             GMarshal.Free (native_name);
             return ret;
         }
@@ -121,8 +121,8 @@ namespace GISharp.Lib.GIRepository
             IntPtr namePtr;
             IntPtr valuePtr;
             var ret = g_callable_info_iterate_return_attributes (Handle, ref iterator, out namePtr, out valuePtr);
-            name = GMarshal.Utf8PtrToString (namePtr);
-            value = GMarshal.Utf8PtrToString (valuePtr);
+            name = GMarshal.Utf8PtrToString(namePtr)!;
+            value = GMarshal.Utf8PtrToString(valuePtr)!;
             return ret;
         }
 

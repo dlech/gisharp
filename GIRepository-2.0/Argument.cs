@@ -93,7 +93,7 @@ namespace GISharp.Lib.GIRepository
         [FieldOffset (0)]
         private IntPtr _v_string;
 
-        public string String {
+        public string? String {
             get {
                 return GMarshal.Utf8PtrToString (_v_string);
             }

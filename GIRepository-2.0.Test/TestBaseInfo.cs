@@ -8,7 +8,7 @@ namespace GISharp.Test.GIRepository
     [TestFixture]
     public class TestBaseInfo
     {
-        InfoDictionary<BaseInfo> infos;
+        InfoDictionary<BaseInfo> infos = default!;
 
         [OneTimeSetUp]
         public void TestGetDefault ()
@@ -23,7 +23,7 @@ namespace GISharp.Test.GIRepository
         public void TestEqual ()
         {
             var info1 = infos [0];
-            var info2 = Repository.Namespaces["GLib"].FindByName (info1.Name);
+            var info2 = Repository.Namespaces["GLib"].FindByName(info1.Name!);
             // want to make sure that we compare by value and not by reference
             Assume.That (ReferenceEquals (info1, info2), Is.False);
             Assert.That (info1, Is.EqualTo (info2));
@@ -40,10 +40,8 @@ namespace GISharp.Test.GIRepository
             Assert.That (null == info1, Is.False);
             Assert.That (null != info1, Is.True);
 
-            info1 = null;
-            info2 = null;
-            Assert.That (info1 == info2, Is.True);
-            Assert.That (info1 != info2, Is.False);
+            Assert.That(default(BaseInfo?) == default(BaseInfo?), Is.True);
+            Assert.That(default(BaseInfo?) != default(BaseInfo?), Is.False);
         }
 
         [Test]
@@ -85,8 +83,7 @@ namespace GISharp.Test.GIRepository
         [Test]
         public void TestGetContainer ()
         {
-            var function = infos
-                .First (i => i.InfoType == InfoType.Function && (i as FunctionInfo).Args.Count > 0) as FunctionInfo;
+            var function = infos.OfType<FunctionInfo>().First(x => x.Args.Count > 0);
             var arg = function.Args.First ();
             var container = arg.Container;
             Assert.That (container, Is.EqualTo (function));

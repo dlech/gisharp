@@ -32,11 +32,11 @@ namespace GISharp.Lib.GIRepository
         {
             _TypeInit = new Lazy<string> (() => {
                 IntPtr raw_ret = g_registered_type_info_get_type_init (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString(raw_ret)!;
             });
             _TypeName = new Lazy<string> (() => {
                 IntPtr raw_ret = g_registered_type_info_get_type_name (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString(raw_ret)!;
             });
             _GType = new Lazy<GType> (() =>
                 g_registered_type_info_get_g_type (Handle));

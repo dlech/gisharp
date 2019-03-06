@@ -13,7 +13,7 @@ namespace GISharp.Lib.GIRepository
 {
     public sealed class ObjectInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {
-        InfoDictionary<ConstantInfo> constants;
+        InfoDictionary<ConstantInfo>? constants;
 
         public InfoDictionary<ConstantInfo> Constants {
             get {
@@ -24,7 +24,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<FieldInfo> fields;
+        InfoDictionary<FieldInfo>? fields;
 
         public InfoDictionary<FieldInfo> Fields {
             get {
@@ -35,7 +35,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<InterfaceInfo> interfaces;
+        InfoDictionary<InterfaceInfo>? interfaces;
 
         public InfoDictionary<InterfaceInfo> Interfaces {
             get {
@@ -46,7 +46,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo>? methods;
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<PropertyInfo> properties;
+        InfoDictionary<PropertyInfo>? properties;
 
         public InfoDictionary<PropertyInfo> Properties {
             get {
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<SignalInfo> signals;
+        InfoDictionary<SignalInfo>? signals;
 
         public InfoDictionary<SignalInfo> Signals {
             get {
@@ -79,7 +79,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<VFuncInfo> vFuncs;
+        InfoDictionary<VFuncInfo>? vFuncs;
 
         public InfoDictionary<VFuncInfo> VFuncs {
             get {
@@ -129,7 +129,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_vfunc (IntPtr raw, IntPtr name);
 
-        public VFuncInfo FindVFunc (string name)
+        public VFuncInfo? FindVFunc(string name)
         {
             IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_object_info_find_vfunc (Handle, native_name);
@@ -203,10 +203,10 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_get_value_function (IntPtr raw);
 
-        public string GetValueFunctionName {
+        public string? GetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_get_value_function (Handle);
-                string ret = GMarshal.Utf8PtrToString (raw_ret);
+                var ret = GMarshal.Utf8PtrToString(raw_ret);
                 return ret;
             }
         }
@@ -314,7 +314,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_ref_function (IntPtr raw);
 
-        public string RefFunctionName {
+        public string? RefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_ref_function (Handle);
                 return GMarshal.Utf8PtrToString (raw_ret);
@@ -324,7 +324,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_set_value_function (IntPtr raw);
 
-        public string SetValueFunctionName {
+        public string? SetValueFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_set_value_function (Handle);
                 return GMarshal.Utf8PtrToString (raw_ret);
@@ -346,7 +346,7 @@ namespace GISharp.Lib.GIRepository
         public new string TypeInit {
             get {
                 IntPtr raw_ret = g_object_info_get_type_init (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString(raw_ret)!;
             }
         }
 
@@ -356,14 +356,14 @@ namespace GISharp.Lib.GIRepository
         public new string TypeName {
             get {
                 IntPtr raw_ret = g_object_info_get_type_name (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString(raw_ret)!;
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_get_unref_function (IntPtr raw);
 
-        public string UnrefFunctionName {
+        public string? UnrefFunctionName {
             get {
                 IntPtr raw_ret = g_object_info_get_unref_function (Handle);
                 return GMarshal.Utf8PtrToString (raw_ret);

@@ -30,8 +30,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        readonly Lazy<ArgInfo> _Closure;
-        public ArgInfo Closure { get { return _Closure.Value; } }
+        readonly Lazy<ArgInfo?> _Closure;
+        public ArgInfo? Closure => _Closure.Value;
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_arg_info_get_destroy (IntPtr raw);
@@ -48,11 +48,11 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        readonly Lazy<ArgInfo> _Destroy;
-        public ArgInfo Destroy { get { return _Destroy.Value; } }
+        readonly Lazy<ArgInfo?> _Destroy;
+        public ArgInfo? Destroy => _Destroy.Value;
 
-        readonly Lazy<ArgInfo> _ArrayLength;
-        public ArgInfo ArrayLength { get { return _ArrayLength.Value; } }
+        readonly Lazy<ArgInfo?> _ArrayLength;
+        public ArgInfo? ArrayLength => _ArrayLength.Value;
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Direction g_arg_info_get_direction (IntPtr raw);
@@ -157,11 +157,11 @@ namespace GISharp.Lib.GIRepository
         public ArgInfo (IntPtr raw) : base (raw)
         {
             var callable = (CallableInfo)Container;
-            _Closure = new Lazy<ArgInfo> (() =>
+            _Closure = new Lazy<ArgInfo?>(() =>
                 callable.Args.ElementAtOrDefault (ClosureIndex));
-            _Destroy = new Lazy<ArgInfo> (() =>
+            _Destroy = new Lazy<ArgInfo?>(() =>
                 callable.Args.ElementAtOrDefault (DestroyIndex));
-            _ArrayLength = new Lazy<ArgInfo> (() =>
+            _ArrayLength = new Lazy<ArgInfo?>(() =>
                 callable.Args.ElementAtOrDefault (TypeInfo.ArrayLengthIndex));
             _Index = new Lazy<int> (() => callable.Args.IndexOf (this));
             _InIndex = new Lazy<int> (() => callable.InArgs.IndexOf (this));

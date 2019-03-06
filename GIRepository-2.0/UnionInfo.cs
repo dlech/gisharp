@@ -13,7 +13,7 @@ namespace GISharp.Lib.GIRepository
     /// </summary>
     public sealed class UnionInfo : RegisteredTypeInfo, IMethodContainer
     {
-        InfoDictionary<FieldInfo> fields;
+        InfoDictionary<FieldInfo>? fields;
 
         public InfoDictionary<FieldInfo> Fields {
             get {
@@ -24,7 +24,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo>? methods;
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_union_info_find_method (IntPtr raw, IntPtr name);
 
-        public FunctionInfo FindMethod (string name)
+        public FunctionInfo? FindMethod (string name)
         {
             IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_union_info_find_method (Handle, native_name);

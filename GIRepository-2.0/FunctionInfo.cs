@@ -68,7 +68,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_function_info_get_property (IntPtr raw);
 
-        public PropertyInfo Property {
+        public PropertyInfo? Property {
             get {
                 // Sometimes g_function_info_get_property will incorrectly return
                 // a non-null value when there is no property, so we check first.
@@ -86,14 +86,14 @@ namespace GISharp.Lib.GIRepository
         public string Symbol {
             get {
                 IntPtr raw_ret = g_function_info_get_symbol (Handle);
-                return GMarshal.Utf8PtrToString (raw_ret);
+                return GMarshal.Utf8PtrToString(raw_ret)!;
             }
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_function_info_get_vfunc (IntPtr raw);
 
-        public VFuncInfo VFunc {
+        public VFuncInfo? VFunc {
             get {
                 if (!WrapsVfunc) {
                     return null;
@@ -133,7 +133,7 @@ namespace GISharp.Lib.GIRepository
             return new FunctionInfoDynamicMetaObject (parameter, this);
         }
 
-        static Argument MarshalInArg (TypeInfo typeInfo, DynamicMetaObject obj, ref Action free)
+        static Argument MarshalInArg(TypeInfo typeInfo, DynamicMetaObject obj, ref Action? free)
         {
             var arg = new Argument ();
 
@@ -231,7 +231,7 @@ namespace GISharp.Lib.GIRepository
             return arg;
         }
 
-        static object MarshalOutArg (Argument arg, TypeInfo info, Transfer ownership, ref Action free)
+        static object? MarshalOutArg(Argument arg, TypeInfo info, Transfer ownership, ref Action? free)
         {
             if (info.IsPointer) {
                 switch (info.Tag) {
@@ -272,34 +272,23 @@ namespace GISharp.Lib.GIRepository
                     throw new NotImplementedException ();
                 }
             } else {
-                switch (info.Tag) {
-                case TypeTag.Boolean:
-                    return arg.Boolean;
-                case TypeTag.Int8:
-                    return arg.Int8;
-                case TypeTag.UInt8:
-                    return arg.UInt8;
-                case TypeTag.Int16:
-                    return arg.Int16;
-                case TypeTag.UInt16:
-                    return arg.UInt16;
-                case TypeTag.Int32:
-                    return arg.Int32;
-                case TypeTag.UInt32:
-                    return arg.UInt32;
-                case TypeTag.Int64:
-                    return arg.Int64;
-                case TypeTag.UInt64:
-                    return arg.UInt64;
-                case TypeTag.Void:
-                    return null;
-                default:
-                    throw new NotImplementedException ();
-                }
+                return info.Tag switch {
+                    TypeTag.Boolean => arg.Boolean,
+                    TypeTag.Int8 => arg.Int8,
+                    TypeTag.UInt8 => arg.UInt8,
+                    TypeTag.Int16 => arg.Int16,
+                    TypeTag.UInt16 => arg.UInt16,
+                    TypeTag.Int32 => arg.Int32,
+                    TypeTag.UInt32 => arg.UInt32,
+                    TypeTag.Int64 => arg.Int64,
+                    TypeTag.UInt64 => arg.UInt64,
+                    TypeTag.Void => default(object?),
+                    _ => throw new NotImplementedException()
+                };
             }
         }
 
-        public object DynamicInvoke (CallInfo callInfo, dynamic instance, params DynamicMetaObject[] args)
+        public object? DynamicInvoke(CallInfo callInfo, dynamic instance, params DynamicMetaObject[] args)
         {
             var methodOffset = IsMethod ? 1 : 0;
             if (instance == null && IsMethod) {
@@ -336,8 +325,8 @@ namespace GISharp.Lib.GIRepository
                 throw new ArgumentException (message);
             }
             foreach (var name in callInfo.ArgumentNames) {
-                var arg = matchArgs.Find (x => x.Name == name);
-                if (arg != null) {
+                var arg = matchArgs.Find(x => x.Name == name);
+                if (arg != null!) {
                     matchArgs.Remove (arg);
                     matchArgs.Add (arg);
                 }
@@ -379,7 +368,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public Expression GetInvokeExpression (CallInfo callInfo, Type returnType, dynamic instance, DynamicMetaObject[] args)
+        public Expression GetInvokeExpression(CallInfo callInfo, Type returnType, dynamic? instance, DynamicMetaObject[] args)
         {
             var expression = Expression.Call (Expression.Constant (this),
                                               invokeMethodInfo,

@@ -64,7 +64,7 @@ namespace GISharp.Lib.GIRepository
                     result = value.UInt64;
                     break;
                 case TypeTag.UTF8:
-                    result = value.String;
+                    result = value.String!;
                     break;
                 default:
                     throw new Exception ($"Unexpected value type '{TypeInfo.Tag}'");

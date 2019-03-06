@@ -21,7 +21,7 @@ namespace GISharp.Lib.GIRepository
         internal static T MarshalPtr<T> (IntPtr raw, bool owned = true) where T : BaseInfo
         {
             if (raw == IntPtr.Zero) {
-                return null;
+                throw new ArgumentException("Null pointer", nameof(raw));
             }
             if (!owned) {
                 g_base_info_ref (raw);
@@ -104,22 +104,19 @@ namespace GISharp.Lib.GIRepository
 
         #region IEquatable implementation
 
-        public bool Equals (BaseInfo other)
+        public bool Equals(BaseInfo other)
         {
-            if (this == null && other == null) {
-                return true;
-            }
-            if (other != null) {
-                return g_base_info_equal (Handle, other.Handle);
-            }
-            return false;
+            return g_base_info_equal(Handle, other.Handle);
         }
 
         #endregion
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
-            return Equals (obj as BaseInfo);
+            if (obj is BaseInfo info) {
+                return Equals(info);
+            }
+            return base.Equals(obj);
         }
 
         public override int GetHashCode ()
@@ -127,20 +124,14 @@ namespace GISharp.Lib.GIRepository
             return Handle.GetHashCode ();
         }
 
-        public static bool operator == (BaseInfo info1, BaseInfo info2)
+        public static bool operator ==(BaseInfo? info1, BaseInfo? info2)
         {
-            if ((object)info1 == null) {
-                return (object)info2 == null;
-            }
-            if ((object)info2 == null) {
-                return false;
-            }
-            return info1.Equals (info2);
+            return object.Equals(info1, info2);
         }
 
-        public static bool operator != (BaseInfo info1, BaseInfo info2)
+        public static bool operator !=(BaseInfo? info1, BaseInfo? info2)
         {
-            return !(info1 == info2);
+            return !object.Equals(info1, info2);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -151,11 +142,11 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         /// <returns>The attribute or <c>null</c> if no such attribute exists.</returns>
         /// <param name="name">Name.</param>
-        public string GetAttribute (string name)
+        public string? GetAttribute(string name)
         {
             IntPtr native_name = GMarshal.StringToUtf8Ptr (name);
             IntPtr raw_ret = g_base_info_get_attribute (Handle, native_name);
-            string ret = GMarshal.Utf8PtrToString (raw_ret);
+            var ret = GMarshal.Utf8PtrToString(raw_ret);
             GMarshal.Free (native_name);
             return ret;
         }
@@ -183,7 +174,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_name (IntPtr raw);
 
-        Lazy<string> _Name;
+        Lazy<string?> _Name;
         /// <summary>
         /// Gets the name.
         /// </summary>
@@ -193,7 +184,7 @@ namespace GISharp.Lib.GIRepository
         /// info . For instance for <see cref="FunctionInfo"/> it is the name of
         /// the function.
         /// </remarks>
-        public string Name { get { return _Name.Value; } }
+        public string? Name => _Name.Value;
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_base_info_get_namespace (IntPtr raw);
@@ -243,8 +234,8 @@ namespace GISharp.Lib.GIRepository
             IntPtr native_name;
             IntPtr native_value;
             bool ret = g_base_info_iterate_attributes (Handle, ref iterator, out native_name, out native_value);
-            name = GMarshal.Utf8PtrToString (native_name);
-            value = GMarshal.Utf8PtrToString (native_value);
+            name = GMarshal.Utf8PtrToString(native_name)!;
+            value = GMarshal.Utf8PtrToString(native_value)!;
             return ret;
         }
 
@@ -253,9 +244,9 @@ namespace GISharp.Lib.GIRepository
             Handle = raw;
             _Namespace = new Lazy<string> (() => {
                 var ret = g_base_info_get_namespace (Handle);
-                return GMarshal.Utf8PtrToString (ret);
+                return GMarshal.Utf8PtrToString(ret)!;
             });
-            _Name = new Lazy<string> (() => {
+            _Name = new Lazy<string?>(() => {
                 // calling g_base_info_get_name on a TypeInfo will cause a crash.
                 var typeInfo = this as TypeInfo;
                 if (typeInfo != null) {

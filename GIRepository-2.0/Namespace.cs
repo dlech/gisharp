@@ -67,7 +67,7 @@ namespace GISharp.Lib.GIRepository
         /// <remarks>
         /// Each C symbol starts with this prefix, as well each GType in the library.
         /// </remarks>
-        public string CPrefix {
+        public string? CPrefix {
             get {
                 return Repository.GetCPrefix (@namespace);
             }
@@ -138,7 +138,7 @@ namespace GISharp.Lib.GIRepository
         ///  If the typelib for this Namespace was included in a shared
         /// library, return the special string "<builtin>".
         /// </remarks>
-        public string TypelibPath {
+        public string? TypelibPath {
             get {
                 return Repository.GetTypelibPath (@namespace);
             }

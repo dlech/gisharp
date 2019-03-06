@@ -11,7 +11,7 @@ namespace GISharp.Lib.GIRepository
     public sealed class StructInfo : RegisteredTypeInfo, IMethodContainer
     {
 
-        InfoDictionary<FieldInfo> fields;
+        InfoDictionary<FieldInfo>? fields;
 
         public InfoDictionary<FieldInfo> Fields {
             get {
@@ -22,7 +22,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo>? methods;
 
         public InfoDictionary<FunctionInfo> Methods {
             get {

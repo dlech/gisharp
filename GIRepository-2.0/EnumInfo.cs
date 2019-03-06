@@ -13,7 +13,7 @@ namespace GISharp.Lib.GIRepository
 {
     public sealed class EnumInfo : RegisteredTypeInfo, IMethodContainer, IDynamicMetaObjectProvider
     {
-        InfoDictionary<ValueInfo> values;
+        InfoDictionary<ValueInfo>? values;
 
         public InfoDictionary<ValueInfo> Values {
             get {
@@ -24,7 +24,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        InfoDictionary<FunctionInfo> methods;
+        InfoDictionary<FunctionInfo>? methods;
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GIRepository
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_enum_info_get_error_domain (IntPtr raw);
 
-        public string ErrorDomain {
+        public string? ErrorDomain {
             get {
                 IntPtr raw_ret = g_enum_info_get_error_domain (Handle);
                 return GMarshal.Utf8PtrToString (raw_ret);
