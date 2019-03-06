@@ -168,12 +168,19 @@ namespace GISharp.Lib.GIRepository
                     var elementType = typeInfo.GetParamType (0);
                     switch (typeInfo.ArrayType) {
                     case ArrayType.C:
-                        if (elementType.Tag == TypeTag.UTF8) {
+                        switch (elementType.Tag) {
+                        case TypeTag.UTF8:
                             var strvPtr = GMarshal.StringArrayToGStrvPtr ((string[])obj.Value);
                             arg.Pointer = strvPtr;
                             free += () => GMarshal.FreeGStrv (strvPtr);
-                        } else {
-                            throw new NotImplementedException ();
+                            break;
+                        case TypeTag.Filename:
+                            var filenames = new FilenameArray((string[])obj.Value);
+                            arg.Pointer = filenames.Handle;
+                            free += () => filenames.Dispose();
+                            break;
+                        default:
+                            throw new NotImplementedException($"don't know how to handle tag: {elementType.Tag}");
                         }
                         break;
                     default:

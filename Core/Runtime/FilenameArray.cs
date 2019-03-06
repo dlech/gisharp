@@ -28,6 +28,21 @@ namespace GISharp.Runtime
             }
         }
 
+        static IntPtr New(string[] filenames) {
+            var ptr = GMarshal.Alloc(IntPtr.Size * filenames.Length + 1);
+            for (int i = 0; i < filenames.Length; i++) {
+                Marshal.WriteIntPtr(ptr, IntPtr.Size * i, new Filename(filenames[i]).Take());
+            }
+            // null termination
+            Marshal.WriteIntPtr(ptr, IntPtr.Size * filenames.Length, IntPtr.Zero);
+
+            return ptr;
+        }
+
+        public FilenameArray(params string[] filenames) : this(New(filenames), Transfer.Full)
+        {
+        }
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_strfreev(IntPtr strv);
 
