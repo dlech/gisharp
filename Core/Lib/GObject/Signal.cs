@@ -6,7 +6,7 @@ using System.Text.RegularExpressions;
 using GISharp.Runtime;
 using GISharp.Lib.GLib;
 
-using nulong = GISharp.Runtime.NativeULong;
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
@@ -61,10 +61,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the hook id, for later use with g_signal_remove_emission_hook().
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern nulong g_signal_add_emission_hook (
+        static extern culong g_signal_add_emission_hook(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -98,7 +98,7 @@ namespace GISharp.Lib.GObject
         ///// <returns>
         ///// the hook id, for later use with g_signal_remove_emission_hook().
         ///// </returns>
-        //public static nulong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
+        //public static culong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
         //{
         //    var hookFunc_ = SignalEmissionHookFactory.Create (hookFunc, false);
         //    var hookFuncHandle = GCHandle.Alloc (hookFunc);
@@ -179,7 +179,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern nulong g_signal_connect_closure (
+        static extern culong g_signal_connect_closure(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -212,7 +212,7 @@ namespace GISharp.Lib.GObject
         ///// <returns>
         ///// the handler id (always greater than 0 for successful connections)
         ///// </returns>
-        //public static nulong ConnectClosure (Object instance, string detailedSignal, Closure closure, bool after)
+        //public static culong ConnectClosure(Object instance, string detailedSignal, Closure closure, bool after)
         //{
         //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
         //    var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
@@ -244,10 +244,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern nulong g_signal_connect_closure_by_id (
+        static extern culong g_signal_connect_closure_by_id(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -329,10 +329,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        internal static extern nulong g_signal_connect_data (
+        internal static extern culong g_signal_connect_data(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1175,16 +1175,16 @@ namespace GISharp.Lib.GObject
         /// the id of the emission hook, as returned by
         ///  g_signal_add_emission_hook()
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_remove_emission_hook (
+        static extern void g_signal_remove_emission_hook(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            nulong hookId);
+            culong hookId);
 
         /// <summary>
         /// Deletes an emission hook.
@@ -1196,9 +1196,9 @@ namespace GISharp.Lib.GObject
         /// the id of the emission hook, as returned by
         ///  g_signal_add_emission_hook()
         /// </param>
-        public static void RemoveEmissionHook (uint signalId, nulong hookId)
+        public static void RemoveEmissionHook(uint signalId, culong hookId)
         {
-            g_signal_remove_emission_hook (signalId, hookId);
+            g_signal_remove_emission_hook(signalId, hookId);
         }
 
         /// <summary>

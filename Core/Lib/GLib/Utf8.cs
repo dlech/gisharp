@@ -9,7 +9,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.Runtime;
 
-using nlong = GISharp.Runtime.NativeLong;
+using clong = GISharp.Runtime.CLong;
 
 namespace GISharp.Lib.GLib
 {
@@ -207,7 +207,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_utf16_to_utf8(
             [MarshalAs(UnmanagedType.LPWStr)]string str,
-            nlong len,
+            clong len,
             IntPtr itemsRead,
             IntPtr itemsWritten,
             out IntPtr error);
@@ -769,7 +769,7 @@ namespace GISharp.Lib.GLib
             IntPtr str,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong offset);
+            clong offset);
 
         // /// <summary>
         // /// Converts from an integer character offset to a pointer to a position
@@ -796,7 +796,7 @@ namespace GISharp.Lib.GLib
         // /// <returns>
         // /// the resulting pointer
         // /// </returns>
-        // public static Utf8 Utf8OffsetToPointer(Utf8 str, nlong offset)
+        // public static Utf8 Utf8OffsetToPointer(Utf8 str, clong offset)
         // {
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var ret_ = g_utf8_offset_to_pointer(str_, offset);
@@ -831,7 +831,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" managed-name="Glong" /> */
         /* transfer-ownership:none */
-        static extern nlong g_utf8_pointer_to_offset(
+        static extern clong g_utf8_pointer_to_offset(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr str,
@@ -856,7 +856,7 @@ namespace GISharp.Lib.GLib
         // /// <returns>
         // /// the resulting character offset
         // /// </returns>
-        // public static nlong Utf8PointerToOffset(Utf8 str, Utf8 pos)
+        // public static clong Utf8PointerToOffset(Utf8 str, Utf8 pos)
         // {
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var pos_ = GMarshal.StringToUtf8Ptr(pos);
@@ -1057,7 +1057,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" managed-name="Glong" /> */
         /* transfer-ownership:none */
-        static extern nlong g_utf8_strlen(
+        static extern clong g_utf8_strlen(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr p,
@@ -1341,10 +1341,10 @@ namespace GISharp.Lib.GLib
             IntPtr str,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong startPos,
+            clong startPos,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong endPos);
+            clong endPos);
 
         /// <summary>
         /// Copies a substring out of a UTF-8 encoded string.
@@ -1409,13 +1409,13 @@ namespace GISharp.Lib.GLib
             IntPtr str,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong len,
+            clong len,
             /* <type name="glong" type="glong*" managed-name="Glong" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            nlong itemsRead,
+            clong itemsRead,
             /* <type name="glong" type="glong*" managed-name="Glong" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            nlong itemsWritten,
+            clong itemsWritten,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
             out IntPtr error);
@@ -1452,7 +1452,7 @@ namespace GISharp.Lib.GLib
         // /// <exception name="GErrorException">
         // /// On error
         // /// </exception>
-        // public static int Utf8ToUcs4(Utf8 str, nlong len, nlong itemsRead, nlong itemsWritten)
+        // public static int Utf8ToUcs4(Utf8 str, clong len, clong itemsRead, clong itemsWritten)
         // {
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     IntPtr error_;
@@ -1504,10 +1504,10 @@ namespace GISharp.Lib.GLib
             IntPtr str,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong len,
+            clong len,
             /* <type name="glong" type="glong*" managed-name="Glong" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            nlong itemsWritten);
+            clong itemsWritten);
 
         // /// <summary>
         // /// Convert a string from UTF-8 to a 32-bit fixed width
@@ -1531,7 +1531,7 @@ namespace GISharp.Lib.GLib
         // /// a pointer to a newly allocated UCS-4 string.
         // ///     This value must be freed with g_free().
         // /// </returns>
-        // public static int Utf8ToUcs4Fast(Utf8 str, nlong len, nlong itemsWritten)
+        // public static int Utf8ToUcs4Fast(Utf8 str, clong len, clong itemsWritten)
         // {
         //     var str_ = GMarshal.StringToUtf8Ptr(str);
         //     var ret = g_utf8_to_ucs4_fast(handle, IntPtr.Zero, itemsWritten);
@@ -1584,7 +1584,7 @@ namespace GISharp.Lib.GLib
             IntPtr str,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong len,
+            clong len,
             /* <type name="glong" type="glong*" managed-name="Glong" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr itemsRead,

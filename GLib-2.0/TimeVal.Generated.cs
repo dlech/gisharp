@@ -17,12 +17,12 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// seconds
         /// </summary>
-        public GISharp.Runtime.NativeLong TvSec;
+        public GISharp.Runtime.CLong TvSec;
 
         /// <summary>
         /// microseconds
         /// </summary>
-        public GISharp.Runtime.NativeLong TvUsec;
+        public GISharp.Runtime.CLong TvUsec;
 
 #pragma warning restore CS0649 /// <summary>
                                /// Converts a string containing an ISO 8601 encoded date and time
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.TimeVal* time,
         /* <type name="glong" type="glong" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.NativeLong microseconds);
+        GISharp.Runtime.CLong microseconds);
 
         /// <summary>
         /// Adds the given number of microseconds to <paramref name="time"/>. <paramref name="microseconds"/> can
@@ -116,7 +116,7 @@ namespace GISharp.Lib.GLib
         public unsafe void Add(System.Int64 microseconds)
         {
             var time_ = this;
-            var microseconds_ = (GISharp.Runtime.NativeLong)microseconds;
+            var microseconds_ = (GISharp.Runtime.CLong)microseconds;
             g_time_val_add(&time_, microseconds_);
         }
 

@@ -3,16 +3,16 @@ using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
 
-using nulong = GISharp.Runtime.NativeULong;
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
     public sealed class SignalHandler
     {
         readonly Object instance;
-        readonly nulong handlerId;
+        readonly culong handlerId;
 
-        internal SignalHandler (Object instance, nulong handlerId)
+        internal SignalHandler(Object instance, culong handlerId)
         {
             this.instance = instance;
             this.handlerId = handlerId;
@@ -42,7 +42,7 @@ namespace GISharp.Lib.GObject
             IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            nulong handlerId);
+            culong handlerId);
 
         /// <summary>
         /// Disconnects a signal handler.
@@ -84,10 +84,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// A valid non-0 signal handler id for a successful match.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern nulong g_signal_handler_find (
+        static extern culong g_signal_handler_find(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -162,16 +162,16 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// whether @handler_id identifies a handler connected to @instance.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_signal_handler_is_connected (
+        static extern bool g_signal_handler_is_connected(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            nulong handlerId);
+            culong handlerId);
 
         /// <summary>
         /// Returns whether @handler_id is the id of a handler connected to @instance.
@@ -207,16 +207,16 @@ namespace GISharp.Lib.GObject
         /// <param name="handlerId">
         /// Handler id of the handler to be unblocked.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_handler_unblock (
+        static extern void g_signal_handler_unblock(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            nulong handlerId);
+            culong handlerId);
 
         /// <summary>
         /// Undoes the effect of a previous g_signal_handler_block() call.  A

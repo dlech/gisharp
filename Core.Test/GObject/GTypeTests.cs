@@ -7,8 +7,8 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 
 using static GISharp.TestHelpers;
 
@@ -74,17 +74,17 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestLong ()
+        public void TestLong()
         {
-            Assert.That (() => (Type)GType.Long, Is.EqualTo (typeof (nlong)));
+            Assert.That(() => (Type)GType.Long, Is.EqualTo(typeof(clong)));
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestULong ()
+        public void TestULong()
         {
-            Assert.That (() => (Type)GType.ULong, Is.EqualTo (typeof (nulong)));
+            Assert.That(() => (Type)GType.ULong, Is.EqualTo(typeof(culong)));
 
             AssertNoGLibLog();
         }

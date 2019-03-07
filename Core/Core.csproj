@@ -7,8 +7,13 @@
     <NullableContextOptions>enable</NullableContextOptions>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
   </PropertyGroup>
-  <ItemGroup>
-    <Compile Remove="Runtime\NativeLong32.cs" />
+  <ItemGroup Condition="$([MSBuild]::IsOSUnixLike())">
+    <Compile Remove="Runtime\CLong32.cs" />
+    <Compile Remove="Runtime\CULong32.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="!$([MSBuild]::IsOSUnixLike())">
+    <Compile Remove="Runtime\CLong64.cs" />
+    <Compile Remove="Runtime\CULong64.cs" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="System.Memory" Version="4.5.1" />

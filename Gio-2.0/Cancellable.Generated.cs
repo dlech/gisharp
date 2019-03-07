@@ -289,7 +289,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="System.UInt64" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.NativeULong g_cancellable_connect(
+        static extern unsafe GISharp.Runtime.CULong g_cancellable_connect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
@@ -336,7 +336,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="gulong" type="gulong" managed-name="System.UInt64" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Runtime.NativeULong handlerId);
+        GISharp.Runtime.CULong handlerId);
 
         /// <summary>
         /// Disconnects a handler from a cancellable instance similar to
@@ -362,7 +362,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Disconnect(System.UInt64 handlerId)
         {
             var cancellable_ = Handle;
-            var handlerId_ = (GISharp.Runtime.NativeULong)handlerId;
+            var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_cancellable_disconnect(cancellable_, handlerId_);
         }
 

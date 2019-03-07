@@ -9,8 +9,8 @@ using System.Reflection;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 using BindFlags = System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GObject
@@ -80,12 +80,12 @@ namespace GISharp.Lib.GObject
                 gtype[managedTypeQuark] = typeof(uint);
 
                 gtype = Long;
-                typeMap.Add(typeof(nlong), gtype);
-                gtype[managedTypeQuark] = typeof(nlong);
+                typeMap.Add(typeof(clong), gtype);
+                gtype[managedTypeQuark] = typeof(clong);
 
                 gtype = ULong;
-                typeMap.Add(typeof(nulong), gtype);
-                gtype[managedTypeQuark] = typeof(nulong);
+                typeMap.Add(typeof(culong), gtype);
+                gtype[managedTypeQuark] = typeof(culong);
 
                 gtype = Int64;
                 typeMap.Add(typeof(long), gtype);

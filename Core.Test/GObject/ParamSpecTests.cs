@@ -7,8 +7,8 @@ using NUnit.Framework;
 
 using static GISharp.TestHelpers;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Test.Core.GObject
 {
@@ -123,9 +123,9 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecLong ()
         {
-            nlong min = 1;
-            nlong max = 5;
-            nlong defaultValue = 3;
+            clong min = 1;
+            clong max = 5;
+            clong defaultValue = 3;
 
             var param = TestParamSpec (GType.Long, (name, nick, blurb, flags) =>
                                        new ParamSpecLong (name, nick, blurb, min, max, defaultValue, flags));
@@ -140,9 +140,9 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecULong ()
         {
-            nulong min = 1;
-            nulong max = 5;
-            nulong defaultValue = 3;
+            culong min = 1;
+            culong max = 5;
+            culong defaultValue = 3;
 
             var param = TestParamSpec (GType.ULong, (name, nick, blurb, flags) =>
                                        new ParamSpecULong (name, nick, blurb, min, max, defaultValue, flags));

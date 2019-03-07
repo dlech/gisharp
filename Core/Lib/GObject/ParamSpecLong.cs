@@ -3,7 +3,7 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
-using nlong = GISharp.Runtime.NativeLong;
+using clong = GISharp.Runtime.CLong;
 
 namespace GISharp.Lib.GObject
 {
@@ -21,17 +21,17 @@ namespace GISharp.Lib.GObject
         {
             #pragma warning disable CS0649
             public ParamSpec.Struct ParentInstance;
-            public nlong Minimum;
-            public nlong Maximum;
-            public nlong DefaultValue;
+            public clong Minimum;
+            public clong Maximum;
+            public clong DefaultValue;
             #pragma warning restore CS0649
         }
 
-        public nlong Minimum => Marshal.PtrToStructure<nlong>(Handle + (int)minimumOffset);
+        public clong Minimum => Marshal.PtrToStructure<clong>(Handle + (int)minimumOffset);
 
-        public nlong Maximum => Marshal.PtrToStructure<nlong>(Handle + (int)maximumOffset);
+        public clong Maximum => Marshal.PtrToStructure<clong>(Handle + (int)maximumOffset);
 
-        public new nlong DefaultValue => Marshal.PtrToStructure<nlong>(Handle + (int)defaultValueOffset);
+        public new clong DefaultValue => Marshal.PtrToStructure<clong>(Handle + (int)defaultValueOffset);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecLong (IntPtr handle, Transfer ownership) : base (handle, ownership)
@@ -40,17 +40,17 @@ namespace GISharp.Lib.GObject
 
         static readonly GType _GType = paramSpecTypes[5];
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_long (
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_long(
             IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            nlong min,
-            nlong max,
-            nlong defaultValue,
+            clong min,
+            clong max,
+            clong defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, nlong min, nlong max, nlong defaultValue, ParamFlags flags)
+        static IntPtr New(string name, string nick, string blurb, clong min, clong max, clong defaultValue, ParamFlags flags)
         {
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
@@ -72,8 +72,8 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public ParamSpecLong (string name, string nick, string blurb, nlong min, nlong max, nlong defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, min, max, defaultValue, flags), Transfer.None)
+        public ParamSpecLong(string name, string nick, string blurb, clong min, clong max, clong defaultValue, ParamFlags flags)
+            : this(New (name, nick, blurb, min, max, defaultValue, flags), Transfer.None)
         {
         }
     }

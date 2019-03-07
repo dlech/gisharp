@@ -178,9 +178,9 @@ namespace GISharp.CodeGen.Reflection
                 case "gunichar":
                     return typeof(uint);
                 case "glong":
-                    return typeof(NativeLong);
+                    return typeof(CLong);
                 case "gulong":
-                    return typeof(NativeULong);
+                    return typeof(CULong);
                 case "gint64":
                 case "goffset":
                     return typeof(long);

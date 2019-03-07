@@ -7,8 +7,8 @@ using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 
 using static System.Reflection.BindingFlags;
 
@@ -258,9 +258,9 @@ namespace GISharp.Lib.GObject
                     } else if (fundamentalGType == GType.UInt64) {
                         pspec = new ParamSpecUInt64 (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
                     } else if (fundamentalGType == GType.Long) {
-                        pspec = new ParamSpecLong (name, nick, blurb, nlong.MinValue, nlong.MaxValue, (nlong)(defaultValue ?? default(nlong)), flags);
+                        pspec = new ParamSpecLong(name, nick, blurb, clong.MinValue, clong.MaxValue, (clong)(defaultValue ?? default(clong)), flags);
                     } else if (fundamentalGType == GType.ULong) {
-                        pspec = new ParamSpecULong (name, nick, blurb, nulong.MinValue, nulong.MaxValue, (nulong)(defaultValue ?? default(nulong)), flags);
+                        pspec = new ParamSpecULong(name, nick, blurb, culong.MinValue, culong.MaxValue, (culong)(defaultValue ?? default(culong)), flags);
                     } else if (fundamentalGType == GType.Object) {
                         pspec = new ParamSpecObject (name, nick, blurb, propertyGType, flags);
                     }

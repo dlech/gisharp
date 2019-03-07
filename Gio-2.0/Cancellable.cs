@@ -6,14 +6,14 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-using nulong = GISharp.Runtime.NativeULong;
+using culong = GISharp.Runtime.CULong;
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Lib.Gio
 {
     partial class Cancellable
     {
-        public nulong Connect(CancelledCallback callback)
+        public culong Connect(CancelledCallback callback)
         {
             var this_ = Handle;
             var (connect_, dataDestroyFunc_, data_) = CancelledFactory.Create(callback);

@@ -3,8 +3,8 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 using System.Collections.Generic;
 using GISharp.Lib.GLib;
 using System.Reflection;
@@ -38,11 +38,11 @@ namespace GISharp.Lib.GObject
             [FieldOffset (0)]
             uint vUInt;
 
-            [FieldOffset (0)]
-            nlong vLong;
+            [FieldOffset(0)]
+            clong vLong;
 
-            [FieldOffset (0)]
-            nulong vULong;
+            [FieldOffset(0)]
+            culong vULong;
 
             [FieldOffset (0)]
             long vInt64;
@@ -181,9 +181,9 @@ namespace GISharp.Lib.GObject
                 } else if (gtype == GType.UInt64) {
                     UInt64 = (ulong)obj;
                 } else if (gtype == GType.Long) {
-                    Long = (nlong)obj;
+                    Long = (clong)obj;
                 } else if (gtype == GType.ULong) {
-                    ULong = (nulong)obj;
+                    ULong = (culong)obj;
                 } else if (gtype == GType.Object) {
                     Object = (Object?)obj;
                 } else if (gtype == GType.Param) {
@@ -343,32 +343,32 @@ namespace GISharp.Lib.GObject
             return new Value (GType.UInt64, value);
         }
 
-        public static explicit operator nlong (Value value)
+        public static explicit operator clong(Value value)
         {
             try {
                 return value.Long;
             } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to nlong", ex);
+                throw new InvalidCastException("Cannot cast to clong", ex);
             }
         }
 
-        public static explicit operator Value (nlong value)
+        public static explicit operator Value(clong value)
         {
-            return new Value (GType.Long, value);
+            return new Value(GType.Long, value);
         }
 
-        public static explicit operator nulong (Value value)
+        public static explicit operator culong(Value value)
         {
             try {
                 return value.ULong;
             } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to nulong", ex);
+                throw new InvalidCastException("Cannot cast to culong", ex);
             }
         }
 
-        public static explicit operator Value (nulong value)
+        public static explicit operator Value(culong value)
         {
-            return new Value (GType.ULong, value);
+            return new Value(GType.ULong, value);
         }
 
         public static explicit operator float (Value value)
@@ -1180,10 +1180,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// long integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="glong" type="glong" managed-name="Glong" /> */
         /* transfer-ownership:none */
-        static extern nlong g_value_get_long (
+        static extern clong g_value_get_long(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1194,16 +1194,16 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// long integer contents of @value
         /// </returns>
-        nlong Long {
+        clong Long {
             get {
-                AssertType (GType.Long);
-                var ret = g_value_get_long (in this);
+                AssertType(GType.Long);
+                var ret = g_value_get_long(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Long);
-                g_value_set_long (ref this, value);
+                AssertType(GType.Long);
+                g_value_set_long(ref this, value);
             }
         }
 
@@ -1511,10 +1511,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// unsigned long integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern nulong g_value_get_ulong (
+        static extern culong g_value_get_ulong(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1525,16 +1525,16 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// unsigned long integer contents of @value
         /// </returns>
-        nulong ULong {
+        culong ULong {
             get {
-                AssertType (GType.ULong);
-                var ret = g_value_get_ulong (in this);
+                AssertType(GType.ULong);
+                var ret = g_value_get_ulong(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.ULong);
-                g_value_set_ulong (ref this, value);
+                AssertType(GType.ULong);
+                g_value_set_ulong(ref this, value);
             }
         }
 
@@ -2013,13 +2013,13 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_long (
+        static extern void g_value_set_long(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
             /* <type name="glong" type="glong" managed-name="Glong" /> */
             /* transfer-ownership:none */
-            nlong vLong);
+            clong vLong);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_OBJECT derived #GValue to @v_object.
@@ -2381,16 +2381,16 @@ namespace GISharp.Lib.GObject
         /// <param name="vUlong">
         /// unsigned long integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_ulong (
+        static extern void g_value_set_ulong(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
             /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
             /* transfer-ownership:none */
-            nulong vUlong);
+            culong vUlong);
 
         /// <summary>
         /// Set the contents of a variant #GValue to @variant.

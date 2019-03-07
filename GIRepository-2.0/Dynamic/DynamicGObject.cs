@@ -127,7 +127,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         public void Disconnect (ulong signalId)
         {
-            g_signal_handler_disconnect (Handle, (NativeULong)signalId);
+            g_signal_handler_disconnect(Handle, (CULong)signalId);
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -143,10 +143,10 @@ namespace GISharp.Lib.GIRepository.Dynamic
         static extern void g_object_get_property (IntPtr obj, IntPtr name, out Value value);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern NativeULong g_signal_connect_closure (IntPtr obj, IntPtr detailedSignal, IntPtr closure, ConnectFlags flags);
+        static extern CULong g_signal_connect_closure(IntPtr obj, IntPtr detailedSignal, IntPtr closure, ConnectFlags flags);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_signal_handler_disconnect (IntPtr obj, NativeULong id);
+        static extern void g_signal_handler_disconnect(IntPtr obj, CULong id);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_class_find_property (IntPtr oclass, IntPtr name);

@@ -6,8 +6,8 @@ using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
 
-using nlong = GISharp.Runtime.NativeLong;
-using nulong = GISharp.Runtime.NativeULong;
+using clong = GISharp.Runtime.CLong;
+using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Test.Core.GObject
 {
@@ -131,9 +131,9 @@ namespace GISharp.Test.Core.GObject
         {
             var v = new Value (GType.Long);
             Assert.That (v.ValueGType, Is.EqualTo (GType.Long));
-            nlong expected = 1;
+            clong expected = 1;
             v.Set (expected);
-            Assert.That ((nlong)v, Is.EqualTo (expected));
+            Assert.That((clong)v, Is.EqualTo(expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
             Assert.That(() => {
@@ -142,7 +142,7 @@ namespace GISharp.Test.Core.GObject
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                var _ = (nlong)v2;
+                var _ = (clong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
@@ -153,9 +153,9 @@ namespace GISharp.Test.Core.GObject
         {
             var v = new Value (GType.ULong);
             Assert.That (v.ValueGType, Is.EqualTo (GType.ULong));
-            nulong expected = 1;
+            culong expected = 1;
             v.Set (expected);
-            Assert.That ((nulong)v, Is.EqualTo (expected));
+            Assert.That((culong)v, Is.EqualTo(expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
             Assert.That(() => {
@@ -164,7 +164,7 @@ namespace GISharp.Test.Core.GObject
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                var _ = (nulong)v2;
+                var _ = (culong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
