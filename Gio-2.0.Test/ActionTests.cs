@@ -33,9 +33,9 @@ namespace GISharp.Test.Gio
         {
             var expected = "test-action-name";
             using (var obj = new TestAction(expected)) {
-                Assert.That<string?>(obj.Name, Is.EqualTo(expected));
+                Assert.That<string>(obj.Name!, Is.EqualTo(expected));
                 Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
-                Assert.That<string?>(obj.GetUnownedUtf8Property("name"), Is.EqualTo(expected));
+                Assert.That(obj.GetProperty("name"), Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -256,11 +256,11 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAction : Object, IAction
     {
-        readonly Utf8 name = default!;
+        readonly Utf8? name;
 
         public bool Enabled => ((IAction)this).DoGetEnabled();
 
-        public NullableUnownedUtf8 Name => name;
+        public Utf8? Name => name;
 
         public VariantType? ParameterType => ((IAction)this).DoGetParameterType();
 
@@ -297,7 +297,7 @@ namespace GISharp.Test.Gio
         UnownedUtf8 IAction.DoGetName()
         {
             GetNameCallbackCount++;
-            return name;
+            return name!;
         }
 
         public int GetParameterTypeCallbackCount;

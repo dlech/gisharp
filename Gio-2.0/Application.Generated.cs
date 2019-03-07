@@ -136,7 +136,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GPropertyAttribute("action-group")]
         public GISharp.Lib.Gio.IActionGroup? ActionGroup { set => SetProperty("action-group", value); }
         [GISharp.Runtime.GPropertyAttribute("application-id", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 ApplicationId_ { get => GetUnownedUtf8Property("application-id"); set => SetProperty("application-id", value); }
+        public GISharp.Lib.GLib.Utf8? ApplicationId_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("application-id"); set => SetProperty("application-id", value); }
         [GISharp.Runtime.GPropertyAttribute("flags")]
         public GISharp.Lib.Gio.ApplicationFlags Flags_ { get => (GISharp.Lib.Gio.ApplicationFlags)GetProperty("flags"); set => SetProperty("flags", value); }
         [GISharp.Runtime.GPropertyAttribute("inactivity-timeout")]
@@ -154,7 +154,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote"); }
         [GISharp.Runtime.GPropertyAttribute("resource-base-path")]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 ResourceBasePath_ { get => GetUnownedUtf8Property("resource-base-path"); set => SetProperty("resource-base-path", value); }
+        public GISharp.Lib.GLib.Utf8? ResourceBasePath_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("resource-base-path"); set => SetProperty("resource-base-path", value); }
 
         /// <summary>
         /// Returns the default <see cref="Application"/> instance for this process.

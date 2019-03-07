@@ -714,22 +714,6 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public NullableUnownedUtf8 GetUnownedUtf8Property(UnownedUtf8 propertyName)
-        {
-            var this_ = Handle;
-            var pspec = GClass.FindProperty(propertyName);
-            if (pspec == null) {
-                var message = $"No such property \"{propertyName}\"";
-                throw new ArgumentException(message, nameof(propertyName));
-            }
-            var value = new Value(pspec.ValueType);
-            g_object_get_property(this_, pspec.Name.Handle, ref value);
-            var ret = value.GetUnownedUtf8();
-            value.Unset();
-
-            return ret;
-        }
-
         /// <summary>
         /// Emits a "notify" signal for the property @property_name on @object.
         /// </summary>

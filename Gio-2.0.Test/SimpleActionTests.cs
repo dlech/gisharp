@@ -13,14 +13,14 @@ namespace GISharp.Test.Gio
         public void TestNew()
         {
             using (var sa = new SimpleAction("test-action", null)) {
-                Assert.That<string?>(sa.Name, Is.EqualTo("test-action"));
+                Assert.That<string>(sa.Name!, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.Null);
                 Assert.That(sa.State, Is.Null);
                 Assert.That(sa.StateType, Is.Null);
             }
 
             using (var sa = new SimpleAction("test-action", VariantType.Boolean)) {
-                Assert.That<string?>(sa.Name, Is.EqualTo("test-action"));
+                Assert.That<string>(sa.Name!, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.EqualTo(VariantType.Boolean));
                 Assert.That(sa.State, Is.Null);
                 Assert.That(sa.StateType, Is.Null);
@@ -33,14 +33,14 @@ namespace GISharp.Test.Gio
         public void TestNewStateful()
         {
             using (var sa = new SimpleAction("test-action", null, (Variant)0)) {
-                Assert.That<string?>(sa.Name, Is.EqualTo("test-action"));
+                Assert.That<string>(sa.Name!, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.Null);
                 Assert.That((int)sa.State!, Is.Zero);
                 Assert.That(sa.StateType, Is.EqualTo(VariantType.Int32));
             }
 
             using (var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)0)) {
-                Assert.That<string?>(sa.Name, Is.EqualTo("test-action"));
+                Assert.That<string>(sa.Name!, Is.EqualTo("test-action"));
                 Assert.That(sa.ParameterType, Is.EqualTo(VariantType.Boolean));
                 Assert.That((int)sa.State!, Is.Zero);
                 Assert.That(sa.StateType, Is.EqualTo(VariantType.Int32));

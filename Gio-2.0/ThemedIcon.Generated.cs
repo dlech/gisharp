@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { set => SetProperty("name", value); }
+        public GISharp.Lib.GLib.Utf8? Name { set => SetProperty("name", value); }
 
         /// <summary>
         /// A <c>null</c>-terminated array of icon names.

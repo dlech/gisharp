@@ -22,10 +22,7 @@ namespace GISharp.CodeGen.Syntax
             var type = property.Type.ManagedType.ToSyntax();
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                type = ParseTypeName($"{typeof(NullableUnownedUtf8)}");
-            }
-            else if (!property.Type.ManagedType.IsValueType) {
+            if (!property.Type.ManagedType.IsValueType) {
                 type = NullableType(type);
             }
 
@@ -69,9 +66,6 @@ namespace GISharp.CodeGen.Syntax
         static ExpressionSyntax GetGetExpression(this Property property, TypeSyntax type)
         {
             var getter = $"({type})GetProperty";
-            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                getter = nameof(GISharp.Lib.GObject.Object.GetUnownedUtf8Property);
-            }
             var expression = $"{getter}(\"{property.GirName}\")";
             return ParseExpression(expression); 
         }
@@ -90,10 +84,7 @@ namespace GISharp.CodeGen.Syntax
             var type = property.Type.ManagedType.ToSyntax();
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                type = ParseTypeName($"{typeof(NullableUnownedUtf8)}");
-            }
-            else if (!property.Type.ManagedType.IsValueType) {
+            if (!property.Type.ManagedType.IsValueType) {
                 type = NullableType(type);
             }
 

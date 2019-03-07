@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetUnownedUtf8Property("name"); set => SetProperty("name", value); }
+        public GISharp.Lib.GLib.Utf8? Name { get => (GISharp.Lib.GLib.Utf8?)GetProperty("name"); set => SetProperty("name", value); }
 
         /// <summary>
         /// The type of the parameter that must be given when activating the
