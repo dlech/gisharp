@@ -791,9 +791,12 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static IntPtr New ()
+        static readonly UnmanagedHashFunc directHash = g_direct_hash;
+        static readonly UnmanagedEqualFunc directEqual = g_direct_equal;
+
+        static IntPtr New()
         {
-            var ret = g_hash_table_new (g_direct_hash, g_direct_equal);
+            var ret = g_hash_table_new(directHash, directEqual);
             return ret;
         }
 
