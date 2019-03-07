@@ -84,22 +84,10 @@ namespace GISharp.Lib.GObject
         Deprecated = 0x80000000,
 
         /// <summary>
-        /// Mask containing the bits of <see cref="ParamSpec.Flags"/> which are
-        /// reserved for GLib.
-        /// </summary>
-        Mask = 0xFF,
-
-        /// <summary>
         /// <see cref="ParamFlags"/> value alias for <c>StaticName | StaticNick
         /// | StaticBlurb</c>.
         /// </summary>
         [Since ("2.13")]
         StaticStrings = StaticName | StaticNick | StaticBlurb,
-
-        /// <summary>
-        /// Minimum shift count to be used for user defined flags, to be stored
-        /// in <see cref="ParamSpec.Flags"/>. The maximum allowed is 10.
-        /// </summary>
-        UserShift = 8
     }
 }
