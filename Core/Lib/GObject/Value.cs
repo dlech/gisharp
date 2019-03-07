@@ -29,8 +29,8 @@ namespace GISharp.Lib.GObject
         ValueDataUnion data0;
         ValueDataUnion data1;
 
-        [StructLayout (LayoutKind.Explicit)]
-        struct ValueDataUnion
+        [StructLayout(LayoutKind.Explicit)]
+        ref struct ValueDataUnion
         {
             [FieldOffset (0)]
             int vInt;
