@@ -31,10 +31,10 @@ namespace GISharp.Lib.GLib
         public void SetLocaleStringList(UnownedUtf8 groupName, UnownedUtf8 key, UnownedUtf8 locale, Strv list)
         {
             var keyFile_ = this.Handle;
-            var groupName_ = groupName.IsNull ? throw new ArgumentNullException(nameof(groupName)) : groupName.Handle;
-            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
-            var locale_ = locale.IsNull ? throw new ArgumentNullException(nameof(locale)) : locale.Handle;
-            var list_ = list?.Handle ?? throw new ArgumentNullException(nameof(list));
+            var groupName_ = groupName.Handle;
+            var key_ = key.Handle;
+            var locale_ = locale.Handle;
+            var list_ = list.Handle;
             var length_ = (UIntPtr)list.Length;
             g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
         }
@@ -62,9 +62,9 @@ namespace GISharp.Lib.GLib
         public void SetStringList(UnownedUtf8 groupName, UnownedUtf8 key, Strv list)
         {
             var keyFile_ = this.Handle;
-            var groupName_ = groupName.IsNull ? throw new ArgumentNullException(nameof(groupName)) : groupName.Handle;
-            var key_ = key.IsNull ? throw new ArgumentNullException(nameof(key)) : key.Handle;
-            var list_ = list?.Handle ?? throw new ArgumentNullException(nameof(list));
+            var groupName_ = groupName.Handle;
+            var key_ = key.Handle;
+            var list_ = list.Handle;
             var length_ = (UIntPtr)list.Length;
             g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
         }

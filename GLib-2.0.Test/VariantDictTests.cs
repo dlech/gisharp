@@ -35,8 +35,6 @@ namespace GISharp.Test.GLib
             using (var init = Variant.Parse(VariantType.VariantDictionary, "{'key': <'value'>}"))
             using (var vd = new VariantDict(init)) {
                 Assert.That(vd.Contains("key"), Is.True);
-
-                Assert.That(() => vd.Contains(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -52,9 +50,6 @@ namespace GISharp.Test.GLib
                 var expected = init.ChildValues[0].ChildValues[1].ChildValues[0];
                 Assert.That(vd.Lookup("key"), Is.EqualTo(expected));
                 Assert.That(vd.Lookup("key", VariantType.String), Is.EqualTo(expected));
-
-                Assert.That(() => vd.Lookup(Utf8.Null), Throws.ArgumentNullException);
-                Assert.That(() => vd.Lookup(Utf8.Null, VariantType.String), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -65,10 +60,6 @@ namespace GISharp.Test.GLib
             using (var vd = new VariantDict())
             using (var value = new Variant("value")) {
                 vd.Insert("key", value);
-
-                Assert.That(() => vd.Insert(Utf8.Null, null), Throws.ArgumentNullException);
-                Assert.That(() => vd.Insert(Utf8.Null, value), Throws.ArgumentNullException);
-                Assert.That(() => vd.Insert("key", null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }
@@ -79,8 +70,6 @@ namespace GISharp.Test.GLib
             using (var init = Variant.Parse(VariantType.VariantDictionary, "{'key': <'value'>}"))
             using (var vd = new VariantDict(init)) {
                 Assert.That(vd.Remove("key"), Is.True);
-
-                Assert.That(() => vd.Remove(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }

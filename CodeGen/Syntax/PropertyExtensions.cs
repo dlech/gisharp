@@ -21,8 +21,12 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = property.Type.ManagedType.ToSyntax();
 
+            // TODO: is there a way to tell if properties are not nullable?
             if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                type = ParseTypeName($"{typeof(UnownedUtf8)}");
+                type = ParseTypeName($"{typeof(NullableUnownedUtf8)}");
+            }
+            else if (!property.Type.ManagedType.IsValueType) {
+                type = NullableType(type);
             }
 
             var syntax = PropertyDeclaration(type, property.ManagedName)
@@ -33,7 +37,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (property.IsReadable) {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
-                    .WithExpressionBody(ArrowExpressionClause(property.GetGetExpression()))
+                    .WithExpressionBody(ArrowExpressionClause(property.GetGetExpression(type)))
                     .WithSemicolonToken(Token(SemicolonToken));
                 syntax = syntax.AddAccessorListAccessors(getAccessor);
             }
@@ -62,12 +66,11 @@ namespace GISharp.CodeGen.Syntax
             return list;
         }
 
-        static ExpressionSyntax GetGetExpression(this Property property)
+        static ExpressionSyntax GetGetExpression(this Property property, TypeSyntax type)
         {
-            var type = property.Type.ManagedType.ToSyntax();
             var getter = $"({type})GetProperty";
             if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                getter = "GetUnownedUtf8Property";
+                getter = nameof(GISharp.Lib.GObject.Object.GetUnownedUtf8Property);
             }
             var expression = $"{getter}(\"{property.GirName}\")";
             return ParseExpression(expression); 
@@ -86,8 +89,12 @@ namespace GISharp.CodeGen.Syntax
         {
             var type = property.Type.ManagedType.ToSyntax();
 
+            // TODO: is there a way to tell if properties are not nullable?
             if (property.Type.ManagedType == typeof(Utf8) && property.Ownership == Transfer.None) {
-                type = ParseTypeName($"{typeof(UnownedUtf8)}");
+                type = ParseTypeName($"{typeof(NullableUnownedUtf8)}");
+            }
+            else if (!property.Type.ManagedType.IsValueType) {
+                type = NullableType(type);
             }
 
             var syntax = PropertyDeclaration(type, property.ManagedName)

@@ -19,6 +19,12 @@ namespace GISharp.CodeGen.Syntax
             var syntax = Parameter(ParseToken(parameter.Name))
                 .WithType(parameter.ParameterType.ToSyntax());
 
+            const string nullableAttr = "System.Runtime.CompilerServices.NullableAttribute";
+            var isNullable = parameter.GetCustomAttributes().Any(x => x.GetType().FullName == nullableAttr);
+            if (isNullable && !parameter.ParameterType.IsValueType && !parameter.ParameterType.IsPointer) {
+                syntax = syntax.WithType(NullableType(syntax.Type));
+            }
+
             return syntax;
         }
     }

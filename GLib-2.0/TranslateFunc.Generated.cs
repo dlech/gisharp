@@ -29,20 +29,30 @@ namespace GISharp.Lib.GLib
     {
         unsafe class UserData
         {
-            public GISharp.Lib.GLib.TranslateFunc ManagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.GLib.TranslateFunc ManagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.GLib.TranslateFunc managedDelegate, GISharp.Lib.GLib.UnmanagedTranslateFunc unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.GLib.TranslateFunc Create(GISharp.Lib.GLib.UnmanagedTranslateFunc callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe GISharp.Lib.GLib.UnownedUtf8 callback_(GISharp.Lib.GLib.UnownedUtf8 str)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var data_  =  userData ;
+                var str_  =  str . Handle ;
+                var ret_  =  callback ( str_ ,  data_ ) ;
+                var ret  =  new  GISharp . Lib . GLib . UnownedUtf8 ( ret_ ,  - 1 ) ;
+                return ret;
             }
-
-            unsafe GISharp.Lib.GLib.UnownedUtf8 callback_(GISharp.Lib.GLib.UnownedUtf8 str) { var data_ = userData; var str_ = str.IsNull ? throw new System.ArgumentNullException(nameof(str)) : str.Handle; var ret_ = callback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1); return ret; }
 
             return callback_;
         }
@@ -67,13 +77,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static unsafe (GISharp.Lib.GLib.UnmanagedTranslateFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.GLib.TranslateFunc callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }
@@ -90,7 +94,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(data_);
                 }
-                var ret_ = ret.IsNull ? throw new System.ArgumentNullException(nameof(ret)) : ret.Handle;
+                var ret_ = ret.Handle;
                 return ret_;
             }
             catch (System.Exception ex)

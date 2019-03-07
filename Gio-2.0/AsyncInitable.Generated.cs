@@ -157,7 +157,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitAsync))]
-        void DoInitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        void DoInitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Finishes asynchronous initialization and returns the result.
@@ -239,7 +239,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback,
+        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -271,7 +271,7 @@ namespace GISharp.Lib.Gio
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public static unsafe System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Lib.GObject.GType objectType, System.UInt32 nParameters, GISharp.Lib.GObject.Parameter parameters, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public static unsafe System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Lib.GObject.GType objectType, System.UInt32 nParameters, GISharp.Lib.GObject.Parameter parameters, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var objectType_ = (GISharp.Lib.GObject.GType)objectType;
             var nParameters_ = (System.UInt32)nParameters;
@@ -360,7 +360,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback,
+        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -414,12 +414,12 @@ namespace GISharp.Lib.Gio
         /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public unsafe static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public unsafe static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var initable_ = initable?.Handle ?? throw new System.ArgumentNullException(nameof(initable));
+            var initable_ = initable.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Object>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
             var callback_ = initAsyncCallbackDelegate;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_async_initable_init_async(initable_, ioPriority_, cancellable_, callback_, userData_);
@@ -463,7 +463,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Object>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_async_initable_init_finish(initable_, res_, &error_);
@@ -473,7 +473,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(null);
+                completionSource.SetResult(GISharp.Runtime.Unit.Default);
             }
             catch (System.Exception ex)
             {
@@ -530,7 +530,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full)!;
                 completionSource.SetResult((ret));
             }
             catch (System.Exception ex)

@@ -85,10 +85,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromIso8601("2018-03-27T21:43:57Z", null)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            
-            Assert.That(() => DateTime.FromIso8601(Utf8.Null, null),
-                Throws.ArgumentNullException);
-
             AssertNoGLibLog();
         }
 
@@ -99,9 +95,6 @@ namespace GISharp.Test.GLib
                 Assert.That(dt, Is.Not.Null);
             }
             
-            Assert.That(() => new DateTime(null, 1, 1, 1, 0, 0, 0),
-                Throws.ArgumentNullException);
-
             Assert.That(() => new DateTime(TimeZone.Utc, 0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
 

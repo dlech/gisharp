@@ -51,11 +51,11 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
+                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doLookupAction = (LookupAction)methodInfo.CreateDelegate(typeof(LookupAction), actionMap);
                         var ret = doLookupAction(actionName);
-                        var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Handle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -94,8 +94,8 @@ System.IntPtr action);
                 {
                     try
                     {
-                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
-                        var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None);
+                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None)!;
+                        var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None)!;
                         var doAddAction = (AddAction)methodInfo.CreateDelegate(typeof(AddAction), actionMap);
                         doAddAction(action);
                     }
@@ -133,7 +133,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None);
+                        var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance(actionMap_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doRemoveAction = (RemoveAction)methodInfo.CreateDelegate(typeof(RemoveAction), actionMap);
                         doRemoveAction(actionName);

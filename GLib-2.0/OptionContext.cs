@@ -33,14 +33,14 @@ namespace GISharp.Lib.GLib
         /// the first line of `--help` output, after the usage summary
         /// `programname [OPTION...]`
         /// </param>
-        public OptionContext(UnownedUtf8 parameterString) : base(New(parameterString), Transfer.Full)
+        public OptionContext(NullableUnownedUtf8 parameterString) : base(New(parameterString), Transfer.Full)
         {
         }
 
         /// <summary>
         /// Creates a new option context.
         /// </summary>
-        public OptionContext() : this(default(UnownedUtf8))
+        public OptionContext() : this(default(NullableUnownedUtf8))
         {
         }
 

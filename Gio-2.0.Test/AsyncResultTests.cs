@@ -30,11 +30,11 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAsyncResult : Object, IAsyncResult
     {
-        readonly Object source;
+        readonly Object? source;
 
-        public TestAsyncResult(Object source) : this(New<TestAsyncResult>(), Transfer.Full)
+        public TestAsyncResult(Object? source) : this(New<TestAsyncResult>(), Transfer.Full)
         {
-            this.source = source ?? throw new ArgumentNullException(nameof(source));
+            this.source = source;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -42,7 +42,7 @@ namespace GISharp.Test.Gio
         {
         }
 
-        Object IAsyncResult.DoGetSourceObject() => source;
+        Object? IAsyncResult.DoGetSourceObject() => source;
 
         IntPtr IAsyncResult.DoGetUserData() => throw new NotImplementedException();
 

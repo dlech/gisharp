@@ -282,35 +282,70 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = List<MemberDeclarationSyntax>();
 
-            var qualifiedName = callback.GetQualifiedName();
-            var unmanagedQualifiedName = callback.GetQualifiedName(true);
-
             // emit nested private Data class
 
-            var managedDelegateField = FieldDeclaration(VariableDeclaration(qualifiedName)
-                    .AddVariables(VariableDeclarator("ManagedDelegate")))
-                .AddModifiers(Token(PublicKeyword));
-            var unmanagedDelegateField = FieldDeclaration(VariableDeclaration(unmanagedQualifiedName)
-                    .AddVariables(VariableDeclarator("UnmanagedDelegate")))
-                .AddModifiers(Token(PublicKeyword));
-            var notifyType = typeof(UnmanagedDestroyNotify).ToSyntax();
-            var notifyField = FieldDeclaration(VariableDeclaration(notifyType)
-                    .AddVariables(VariableDeclarator("DestroyDelegate")))
-                .AddModifiers(Token(PublicKeyword));
-            var scopeType = typeof(CallbackScope).ToSyntax();
-            var scopeField = FieldDeclaration(VariableDeclaration(scopeType)
-                    .AddVariables(VariableDeclarator("Scope")))
-                .AddModifiers(Token(PublicKeyword));
+            var managedDelegateFieldToken = ParseToken("ManagedDelegate");
+            var managedDelegateParamToken = ParseToken(managedDelegateFieldToken.Text.ToCamelCase());
+            var managedDelegateFieldType = callback.GetQualifiedName();
+            var managedDelegateField = FieldDeclaration(VariableDeclaration(managedDelegateFieldType)
+                    .AddVariables(VariableDeclarator(managedDelegateFieldToken)))
+                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
+            
+            var unmanagedDelegateFieldToken = ParseToken("UnmanagedDelegate");
+            var unmanagedDelegateParamToken = ParseToken(unmanagedDelegateFieldToken.Text.ToCamelCase());
+            var unmanagedDelegateFieldType = callback.GetQualifiedName(true);
+            var unmanagedDelegateField = FieldDeclaration(VariableDeclaration(unmanagedDelegateFieldType)
+                    .AddVariables(VariableDeclarator(unmanagedDelegateFieldToken)))
+                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
+            
+            var notifyFieldToken = ParseToken("DestroyDelegate");
+            var notifyParamToken = ParseToken(notifyFieldToken.Text.ToCamelCase());
+            var notifyFieldType = typeof(UnmanagedDestroyNotify).ToSyntax();
+            var notifyField = FieldDeclaration(VariableDeclaration(notifyFieldType)
+                    .AddVariables(VariableDeclarator(notifyFieldToken)))
+                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
+            
+            var scopeFieldToken = ParseToken("Scope");
+            var scopeParamToken = ParseToken(scopeFieldToken.Text.ToCamelCase());
+            var scopeFieldType = typeof(CallbackScope).ToSyntax();
+            var scopeField = FieldDeclaration(VariableDeclaration(scopeFieldType)
+                    .AddVariables(VariableDeclarator(scopeFieldToken)))
+                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
+            
+            var constructor = ConstructorDeclaration("UserData")
+                .AddModifiers(Token(PublicKeyword))
+                .AddParameterListParameters(
+                    Parameter(managedDelegateParamToken).WithType(managedDelegateField.Declaration.Type),
+                    Parameter(unmanagedDelegateParamToken).WithType(unmanagedDelegateField.Declaration.Type),
+                    Parameter(notifyParamToken).WithType(notifyField.Declaration.Type),
+                    Parameter(scopeParamToken).WithType(scopeField.Declaration.Type)
+                )
+                .WithBody(Block())
+                .AddBodyStatements(
+                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
+                        IdentifierName(managedDelegateFieldToken),
+                        IdentifierName(managedDelegateParamToken))),
+                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
+                        IdentifierName(unmanagedDelegateFieldToken),
+                        IdentifierName(unmanagedDelegateParamToken))),
+                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
+                        IdentifierName(notifyFieldToken),
+                        IdentifierName(notifyParamToken))),
+                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
+                        IdentifierName(scopeFieldToken),
+                        IdentifierName(scopeParamToken)))
+                );
+
             var dataClass = ClassDeclaration("UserData")
                 .AddModifiers(Token(UnsafeKeyword))
-                .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField);
+                .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField, constructor);
             list = list.Add(dataClass);
 
             // emit Create() method for unmanged>managed
 
             var createUserDataType = typeof(IntPtr).FullName;
-            var createMethodParams = $"({unmanagedQualifiedName} callback, {createUserDataType} userData)";
-            var createReturnType = qualifiedName;
+            var createMethodParams = $"({unmanagedDelegateFieldType} callback, {createUserDataType} userData)";
+            var createReturnType = managedDelegateFieldType;
             var createMethod = MethodDeclaration(createReturnType, "Create")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(createMethodParams))
@@ -319,9 +354,9 @@ namespace GISharp.CodeGen.Syntax
 
             // emit Create() method for managed>unmanaged
 
-            var create2MethodParams = $"({qualifiedName} callback, {scopeType} scope)";
+            var create2MethodParams = $"({managedDelegateFieldType} callback, {scopeFieldType} scope)";
             var create2ReturnType = ParseTypeName(string.Format("({0}, {1}, {2})",
-                unmanagedQualifiedName,
+                unmanagedDelegateFieldType,
                 typeof(UnmanagedDestroyNotify),
                 typeof(IntPtr)));
             var create2Method = MethodDeclaration(create2ReturnType, "Create")
@@ -369,16 +404,11 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetFactoryCreateMethodStatements(this Callback callback)
         {
-            var nullCheck = ParseStatement(string.Format(@"if (callback == null) {{
-                throw new {0}(nameof(callback));
-            }}
-            ", typeof(ArgumentNullException)));
-            yield return nullCheck;
-
             var userDataParam = callback.Parameters.Single(x => x.ClosureIndex >= 0);
             var userDataExpression = ParseExpression($"var {userDataParam.ManagedName}_ = userData");
             var body = Block(callback.GetInvokeStatements("callback")
-                .Prepend(ExpressionStatement(userDataExpression)));
+                .Prepend(ExpressionStatement(userDataExpression)))
+                .NormalizeWhitespace(); // FIXME: this messes up the whitespace, but if we omit it, the block ends up on one line
 
             var paramList = callback.ManagedParameters.GetParameterList();
 
@@ -397,15 +427,7 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetFactoryCreate2MethodStatements(this Callback callback)
         {
-            const string template = @"var userData = new UserData {{
-    ManagedDelegate = callback ?? throw new {0}(nameof(callback)),
-    UnmanagedDelegate = UnmanagedCallback,
-    DestroyDelegate = Destroy,
-    Scope = scope
-}};
-";
-            var userDataStatement = string.Format(template, typeof(ArgumentNullException).FullName);
-            yield return ParseStatement(userDataStatement);
+            yield return ParseStatement("var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);\n");
 
             var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData);\n",
                 typeof(IntPtr),

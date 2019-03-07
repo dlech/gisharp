@@ -20,7 +20,6 @@ namespace GISharp.Test.GLib
             vb.Dispose();
 
             Assert.That(() => new VariantBuilder(VariantType.Boolean), Throws.ArgumentException);
-            Assert.That(() => new VariantBuilder(null), Throws.ArgumentNullException);
 
             AssertNoGLibLog();
         }
@@ -31,8 +30,6 @@ namespace GISharp.Test.GLib
             using (var vb = new VariantBuilder(VariantType.BoxedVariant))
             using (var value = new Variant(0)) {
                 vb.Add(value);
-
-                Assert.That(() => vb.Add(null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }

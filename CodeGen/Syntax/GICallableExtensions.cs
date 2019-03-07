@@ -72,7 +72,7 @@ namespace GISharp.CodeGen.Syntax
                 var returnType = callable.ReturnValue.Type.ManagedType;
                 var completionType = returnType.IsGenericType
                     ? typeof(TaskCompletionSource<>).MakeGenericType(returnType.GenericTypeArguments)
-                    : typeof(TaskCompletionSource<object>);
+                    : typeof(TaskCompletionSource<Unit>);
                 
                 var completionVarExpression = $"var completionSource = new {completionType.ToSyntax()}()";
                 yield return ExpressionStatement(ParseExpression(completionVarExpression));
@@ -201,7 +201,7 @@ namespace GISharp.CodeGen.Syntax
             var returnType = asyncCallable.ReturnValue.Type.ManagedType;
             var completionType = returnType.IsGenericType
                     ? typeof(TaskCompletionSource<>).MakeGenericType(returnType.GenericTypeArguments)
-                    : typeof(TaskCompletionSource<object>);
+                    : typeof(TaskCompletionSource<Unit>);
             var targetExpression = $"var completionSource = ({completionType.ToSyntax()})userData.Target";
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(ParseExpression(targetExpression)));
 
@@ -258,7 +258,7 @@ namespace GISharp.CodeGen.Syntax
                 returnValues.Insert(0, "ret");
             }
 
-            var returnValue = returnValues.Any() ? $"({string.Join(", ", returnValues)})" : "null";
+            var returnValue = returnValues.Any() ? $"({string.Join(", ", returnValues)})" : $"{typeof(Unit)}.{nameof(Unit.Default)}";
             var returnExpression = ParseExpression($"completionSource.SetResult({returnValue})");
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(returnExpression));
 

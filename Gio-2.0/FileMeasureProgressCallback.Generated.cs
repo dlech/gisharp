@@ -92,20 +92,31 @@ namespace GISharp.Lib.Gio
     {
         unsafe class UserData
         {
-            public GISharp.Lib.Gio.FileMeasureProgressCallback ManagedDelegate;
-            public GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.Gio.FileMeasureProgressCallback ManagedDelegate;
+            public readonly GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.Gio.FileMeasureProgressCallback managedDelegate, GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.Gio.FileMeasureProgressCallback Create(GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe void callback_(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var userData_  =  userData ;
+                var reporting_  =  ( System . Boolean ) reporting ;
+                var currentSize_  =  ( System . UInt64 ) currentSize ;
+                var numDirs_  =  ( System . UInt64 ) numDirs ;
+                var numFiles_  =  ( System . UInt64 ) numFiles ;
+                callback(reporting_, currentSize_, numDirs_, numFiles_, userData_);
             }
-
-            unsafe void callback_(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles) { var userData_ = userData; var reporting_ = (System.Boolean)reporting; var currentSize_ = (System.UInt64)currentSize; var numDirs_ = (System.UInt64)numDirs; var numFiles_ = (System.UInt64)numFiles; callback(reporting_, currentSize_, numDirs_, numFiles_, userData_); }
 
             return callback_;
         }
@@ -130,13 +141,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static unsafe (GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.FileMeasureProgressCallback callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }

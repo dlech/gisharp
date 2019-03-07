@@ -54,7 +54,7 @@ System.IntPtr icon);
                 {
                     try
                     {
-                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None);
+                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None)!;
                         var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon);
                         var ret = doHash();
                         var ret_ = (System.UInt32)ret;
@@ -72,7 +72,7 @@ System.IntPtr icon);
             }
         }
 
-        public delegate System.Boolean Equal(GISharp.Lib.Gio.IIcon icon2);
+        public delegate System.Boolean Equal(GISharp.Lib.Gio.IIcon? icon2);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -96,8 +96,8 @@ System.IntPtr icon2);
                 {
                     try
                     {
-                        var icon1 = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon1_, GISharp.Runtime.Transfer.None);
-                        var icon2 = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon2_, GISharp.Runtime.Transfer.None);
+                        var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance(icon1_, GISharp.Runtime.Transfer.None);
+                        var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance(icon2_, GISharp.Runtime.Transfer.None);
                         var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1);
                         var ret = doEqual(icon2);
                         var ret_ = (System.Boolean)ret;
@@ -136,10 +136,10 @@ System.IntPtr icon);
                 {
                     try
                     {
-                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None);
+                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None)!;
                         var doSerialize = (Serialize)methodInfo.CreateDelegate(typeof(Serialize), icon);
                         var ret = doSerialize();
-                        var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Take();
                         return ret_;
                     }
                     catch (System.Exception ex)

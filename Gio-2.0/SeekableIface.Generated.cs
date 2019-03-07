@@ -56,7 +56,7 @@ System.IntPtr seekable);
                 {
                     try
                     {
-                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None);
+                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None)!;
                         var doTell = (Tell)methodInfo.CreateDelegate(typeof(Tell), seekable);
                         var ret = doTell();
                         var ret_ = (System.Int64)ret;
@@ -95,7 +95,7 @@ System.IntPtr seekable);
                 {
                     try
                     {
-                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None);
+                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None)!;
                         var doCanSeek = (CanSeek)methodInfo.CreateDelegate(typeof(CanSeek), seekable);
                         var ret = doCanSeek();
                         var ret_ = (System.Boolean)ret;
@@ -113,7 +113,7 @@ System.IntPtr seekable);
             }
         }
 
-        public delegate void Seek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void Seek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -146,7 +146,7 @@ System.IntPtr* error);
                 {
                     try
                     {
-                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None);
+                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None)!;
                         var offset = (System.Int64)offset_;
                         var type = (GISharp.Lib.GLib.SeekType)type_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -191,7 +191,7 @@ System.IntPtr seekable);
                 {
                     try
                     {
-                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None);
+                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None)!;
                         var doCanTruncate = (CanTruncate)methodInfo.CreateDelegate(typeof(CanTruncate), seekable);
                         var ret = doCanTruncate();
                         var ret_ = (System.Boolean)ret;
@@ -209,7 +209,7 @@ System.IntPtr seekable);
             }
         }
 
-        public delegate void TruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void TruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -239,7 +239,7 @@ System.IntPtr* error);
                 {
                     try
                     {
-                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None);
+                        var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance(seekable_, GISharp.Runtime.Transfer.None)!;
                         var offset = (System.Int64)offset_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doTruncateFn = (TruncateFn)methodInfo.CreateDelegate(typeof(TruncateFn), seekable);

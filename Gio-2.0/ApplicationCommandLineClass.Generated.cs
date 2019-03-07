@@ -53,7 +53,7 @@ System.IntPtr message);
                 {
                     try
                     {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None);
+                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
                         var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
                         var doPrintLiteral = (PrintLiteral)methodInfo.CreateDelegate(typeof(PrintLiteral), cmdline);
                         doPrintLiteral(message);
@@ -92,7 +92,7 @@ System.IntPtr message);
                 {
                     try
                     {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None);
+                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
                         var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
                         var doPrinterrLiteral = (PrinterrLiteral)methodInfo.CreateDelegate(typeof(PrinterrLiteral), cmdline);
                         doPrinterrLiteral(message);
@@ -128,10 +128,10 @@ System.IntPtr cmdline);
                 {
                     try
                     {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None);
+                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
                         var doGetStdin = (GetStdin)methodInfo.CreateDelegate(typeof(GetStdin), cmdline);
                         var ret = doGetStdin();
-                        var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Take();
                         return ret_;
                     }
                     catch (System.Exception ex)

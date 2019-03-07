@@ -76,7 +76,7 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedSeek))]
-        void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable cancellable = null);
+        void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Tells the current position within the stream.
@@ -114,7 +114,7 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedTruncateFn))]
-        void DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable cancellable = null);
+        void DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
     }
 
     public static partial class Seekable
@@ -154,7 +154,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         public unsafe static System.Boolean CanSeek(this GISharp.Lib.Gio.ISeekable seekable)
         {
-            var seekable_ = seekable?.Handle ?? throw new System.ArgumentNullException(nameof(seekable));
+            var seekable_ = seekable.Handle;
             var ret_ = g_seekable_can_seek(seekable_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -190,7 +190,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         public unsafe static System.Boolean CanTruncate(this GISharp.Lib.Gio.ISeekable seekable)
         {
-            var seekable_ = seekable?.Handle ?? throw new System.ArgumentNullException(nameof(seekable));
+            var seekable_ = seekable.Handle;
             var ret_ = g_seekable_can_truncate(seekable_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -285,9 +285,9 @@ namespace GISharp.Lib.Gio
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
-        public unsafe static void Seek(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public unsafe static void Seek(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var seekable_ = seekable?.Handle ?? throw new System.ArgumentNullException(nameof(seekable));
+            var seekable_ = seekable.Handle;
             var offset_ = (System.Int64)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -328,7 +328,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         public unsafe static System.Int64 Tell(this GISharp.Lib.Gio.ISeekable seekable)
         {
-            var seekable_ = seekable?.Handle ?? throw new System.ArgumentNullException(nameof(seekable));
+            var seekable_ = seekable.Handle;
             var ret_ = g_seekable_tell(seekable_);
             var ret = (System.Int64)ret_;
             return ret;
@@ -404,9 +404,9 @@ namespace GISharp.Lib.Gio
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
-        public unsafe static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public unsafe static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var seekable_ = seekable?.Handle ?? throw new System.ArgumentNullException(nameof(seekable));
+            var seekable_ = seekable.Handle;
             var offset_ = (System.Int64)offset;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;

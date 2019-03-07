@@ -70,7 +70,7 @@ namespace GISharp.Lib.GLib
         static unsafe System.IntPtr New(GISharp.Lib.GLib.VariantType type)
         {
             AssertNewArgs(type);
-            var type_ = type?.Handle ?? throw new System.ArgumentNullException(nameof(type));
+            var type_ = type.Handle;
             var ret_ = g_variant_builder_new(type_);
             return ret_;
         }
@@ -151,7 +151,7 @@ namespace GISharp.Lib.GLib
         public unsafe void Add(GISharp.Lib.GLib.Variant value)
         {
             var builder_ = Handle;
-            var value_ = value?.Handle ?? throw new System.ArgumentNullException(nameof(value));
+            var value_ = value.Handle;
             g_variant_builder_add_value(builder_, value_);
         }
 
@@ -255,7 +255,7 @@ namespace GISharp.Lib.GLib
         {
             var builder_ = Handle;
             var ret_ = g_variant_builder_end(builder_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -362,7 +362,7 @@ namespace GISharp.Lib.GLib
         public unsafe void Open(GISharp.Lib.GLib.VariantType type)
         {
             var builder_ = Handle;
-            var type_ = type?.Handle ?? throw new System.ArgumentNullException(nameof(type));
+            var type_ = type.Handle;
             g_variant_builder_open(builder_, type_);
         }
 

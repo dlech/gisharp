@@ -21,7 +21,7 @@ namespace GISharp.Lib.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 minor = 58;
+        private const System.Int32 minor = 56;
 
         /// <summary>
         /// The micro version number of the GLib library.
@@ -31,7 +31,7 @@ namespace GISharp.Lib.GLib
         /// application compile time, rather than from the library
         /// linked against at application run time.
         /// </remarks>
-        private const System.Int32 micro = 0;
+        private const System.Int32 micro = 1;
 
         /// <summary>
         /// Checks that the GLib library in use is compatible with the
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern unsafe System.IntPtr glib_check_version(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
@@ -113,13 +113,13 @@ namespace GISharp.Lib.GLib
         ///     or freed.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public static unsafe GISharp.Lib.GLib.UnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
+        public static unsafe GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {
             var requiredMajor_ = (System.UInt32)requiredMajor;
             var requiredMinor_ = (System.UInt32)requiredMinor;
             var requiredMicro_ = (System.UInt32)requiredMicro;
             var ret_ = glib_check_version(requiredMajor_,requiredMinor_,requiredMicro_);
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
         }
     }

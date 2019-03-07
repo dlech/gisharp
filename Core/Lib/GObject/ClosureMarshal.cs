@@ -9,7 +9,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The type used for marshaller functions.
     /// </summary>
-    public delegate void ClosureMarshal(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHint);
+    public delegate void ClosureMarshal(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHint);
 
     /// <summary>
     /// The type used for marshaller functions.
@@ -70,7 +70,7 @@ namespace GISharp.Lib.GObject
                 if (returnValue_ != null) {
                     returnValue = returnValue_->Get();
                 }
-                var paramValues = new object[nParamValues_];
+                var paramValues = new object?[nParamValues_];
                 for (int i = 0; i < nParamValues_; i++) {
                     paramValues[i] = paramValues_[i].Get();
                 }

@@ -54,7 +54,7 @@ namespace GISharp.Lib.Gio
         /// the new #GSource.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable cancellable = null)
+        static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_cancellable_source_new(cancellable_);
@@ -77,7 +77,7 @@ namespace GISharp.Lib.Gio
         /// a <see cref="Cancellable"/>, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public CancellableSource(GISharp.Lib.Gio.Cancellable cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
+        public CancellableSource(GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
     }

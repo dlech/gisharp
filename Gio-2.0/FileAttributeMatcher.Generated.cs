@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
 
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
-            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
+            var attributes_ = attributes.Handle;
             var ret_ = g_file_attribute_matcher_new(attributes_);
             return ret_;
         }
@@ -140,7 +140,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             var matcher_ = Handle;
-            var ns_ = ns.IsNull ? throw new System.ArgumentNullException(nameof(ns)) : ns.Handle;
+            var ns_ = ns.Handle;
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -218,7 +218,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -261,7 +261,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -338,9 +338,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
         {
             var matcher_ = Handle;
-            var subtract_ = subtract?.Handle ?? throw new System.ArgumentNullException(nameof(subtract));
+            var subtract_ = subtract.Handle;
             var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -381,7 +381,7 @@ namespace GISharp.Lib.Gio
         {
             var matcher_ = Handle;
             var ret_ = g_file_attribute_matcher_to_string(matcher_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 

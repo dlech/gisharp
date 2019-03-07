@@ -16,7 +16,9 @@ namespace GISharp.Lib.GLib
         static readonly UnmanagedDestroyNotify destroy_ = DestroyUserData;
         static readonly unsafe UnmanagedOptionParseFunc postParseFunc_ = OnParsed;
 
-        readonly UserData userData;
+        // FIXME: we will have problems with userData being null if an
+        // OptionGroup is marshaled from unmanaged code
+        readonly UserData userData = default!;
 
         class UserData
         {
@@ -28,9 +30,9 @@ namespace GISharp.Lib.GLib
 
         static (IntPtr, UserData) New(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
         {
-            var name_ = name.IsNull ? throw new ArgumentNullException(nameof(name)) : name.Handle;
-            var description_ = description.IsNull ? throw new ArgumentNullException(nameof(description)) : description.Handle;
-            var helpDescription_ = helpDescription.IsNull ? throw new ArgumentNullException(nameof(helpDescription)) : helpDescription.Handle;
+            var name_ = name.Handle;
+            var description_ = description.Handle;
+            var helpDescription_ = helpDescription.Handle;
             var userData = new UserData();
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var ret = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);

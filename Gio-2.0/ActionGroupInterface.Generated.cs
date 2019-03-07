@@ -82,7 +82,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doHasAction = (HasAction)methodInfo.CreateDelegate(typeof(HasAction), actionGroup);
                         var ret = doHasAction(actionName);
@@ -124,10 +124,10 @@ System.IntPtr actionGroup);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var doListActions = (ListActions)methodInfo.CreateDelegate(typeof(ListActions), actionGroup);
                         var ret = doListActions();
-                        var ret_ = ret?.Take() ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Take();
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -166,7 +166,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionEnabled = (GetActionEnabled)methodInfo.CreateDelegate(typeof(GetActionEnabled), actionGroup);
                         var ret = doGetActionEnabled(actionName);
@@ -185,7 +185,7 @@ System.IntPtr actionName);
             }
         }
 
-        public delegate GISharp.Lib.GLib.VariantType GetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.GLib.VariantType? GetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
@@ -209,7 +209,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionParameterType = (GetActionParameterType)methodInfo.CreateDelegate(typeof(GetActionParameterType), actionGroup);
                         var ret = doGetActionParameterType(actionName);
@@ -228,7 +228,7 @@ System.IntPtr actionName);
             }
         }
 
-        public delegate GISharp.Lib.GLib.VariantType GetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.GLib.VariantType? GetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
@@ -252,7 +252,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionStateType = (GetActionStateType)methodInfo.CreateDelegate(typeof(GetActionStateType), actionGroup);
                         var ret = doGetActionStateType(actionName);
@@ -271,7 +271,7 @@ System.IntPtr actionName);
             }
         }
 
-        public delegate GISharp.Lib.GLib.Variant GetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.GLib.Variant? GetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
@@ -295,7 +295,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionStateHint = (GetActionStateHint)methodInfo.CreateDelegate(typeof(GetActionStateHint), actionGroup);
                         var ret = doGetActionStateHint(actionName);
@@ -314,7 +314,7 @@ System.IntPtr actionName);
             }
         }
 
-        public delegate GISharp.Lib.GLib.Variant GetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        public delegate GISharp.Lib.GLib.Variant? GetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
@@ -338,7 +338,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionState = (GetActionState)methodInfo.CreateDelegate(typeof(GetActionState), actionGroup);
                         var ret = doGetActionState(actionName);
@@ -384,9 +384,9 @@ System.IntPtr value);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
-                        var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                        var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None)!;
                         var doChangeActionState = (ChangeActionState)methodInfo.CreateDelegate(typeof(ChangeActionState), actionGroup);
                         doChangeActionState(actionName, value);
                     }
@@ -400,7 +400,7 @@ System.IntPtr value);
             }
         }
 
-        public delegate void ActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant parameter);
+        public delegate void ActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -427,7 +427,7 @@ System.IntPtr parameter);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
                         var doActivateAction = (ActivateAction)methodInfo.CreateDelegate(typeof(ActivateAction), actionGroup);
@@ -467,7 +467,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doActionAdded = (ActionAdded)methodInfo.CreateDelegate(typeof(ActionAdded), actionGroup);
                         doActionAdded(actionName);
@@ -506,7 +506,7 @@ System.IntPtr actionName);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doActionRemoved = (ActionRemoved)methodInfo.CreateDelegate(typeof(ActionRemoved), actionGroup);
                         doActionRemoved(actionName);
@@ -548,7 +548,7 @@ System.Boolean enabled);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var enabled = (System.Boolean)enabled_;
                         var doActionEnabledChanged = (ActionEnabledChanged)methodInfo.CreateDelegate(typeof(ActionEnabledChanged), actionGroup);
@@ -591,9 +591,9 @@ System.IntPtr state);
                 {
                     try
                     {
-                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None);
+                        var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
-                        var state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.None);
+                        var state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.None)!;
                         var doActionStateChanged = (ActionStateChanged)methodInfo.CreateDelegate(typeof(ActionStateChanged), actionGroup);
                         doActionStateChanged(actionName, state);
                     }

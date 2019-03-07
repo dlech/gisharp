@@ -30,6 +30,12 @@
   replace: $1
   xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant
 
+# Fix nullable on check_version return type
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:function[@name ='check_version']/gi:return-value
+
 # Move check_version function to Version static-class
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[@name ='check_version']

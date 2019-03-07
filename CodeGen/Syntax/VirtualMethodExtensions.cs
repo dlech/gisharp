@@ -20,7 +20,7 @@ namespace GISharp.CodeGen.Syntax
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
             var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
             var getter = nameof(TypeClass.GetUnmanagedVirtualMethod);
-            var invoker = $"{typeof(TypeClass)}.{getter}<{type}>(_GType)";
+            var invoker = $"{typeof(TypeClass)}.{getter}<{type}>(_GType)!";
 
             var returnType = method.ReturnValue.GetManagedTypeName();
             

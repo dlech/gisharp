@@ -33,20 +33,35 @@ namespace GISharp.Lib.GLib
     {
         unsafe class UserData
         {
-            public GISharp.Lib.GLib.OptionParseFunc ManagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedOptionParseFunc UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.GLib.OptionParseFunc ManagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedOptionParseFunc UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.GLib.OptionParseFunc managedDelegate, GISharp.Lib.GLib.UnmanagedOptionParseFunc unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.GLib.OptionParseFunc Create(GISharp.Lib.GLib.UnmanagedOptionParseFunc callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe void callback_(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var data_  =  userData ;
+                var context_  =  context . Handle ;
+                var group_  =  group . Handle ;
+                var error_  =  System . IntPtr . Zero ;
+                callback(context_, group_, data_, &error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error  =  GISharp . Runtime . Opaque . GetInstance < GISharp . Lib . GLib . Error > ( error_ ,  GISharp . Runtime . Transfer . Full ) ;
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             }
-
-            unsafe void callback_(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group) { var data_ = userData; var context_ = context?.Handle ?? throw new System.ArgumentNullException(nameof(context)); var group_ = group?.Handle ?? throw new System.ArgumentNullException(nameof(group)); var error_ = System.IntPtr.Zero; callback(context_, group_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return callback_;
         }
@@ -71,13 +86,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static unsafe (GISharp.Lib.GLib.UnmanagedOptionParseFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.GLib.OptionParseFunc callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }
@@ -86,8 +95,8 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>(context_, GISharp.Runtime.Transfer.None);
-                var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(group_, GISharp.Runtime.Transfer.None);
+                var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>(context_, GISharp.Runtime.Transfer.None)!;
+                var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(group_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
                 var data = (UserData)gcHandle.Target;
                 data.ManagedDelegate(context, group);

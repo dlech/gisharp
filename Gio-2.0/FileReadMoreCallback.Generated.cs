@@ -36,20 +36,31 @@ namespace GISharp.Lib.Gio
     {
         unsafe class UserData
         {
-            public GISharp.Lib.Gio.FileReadMoreCallback ManagedDelegate;
-            public GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.Gio.FileReadMoreCallback ManagedDelegate;
+            public readonly GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.Gio.FileReadMoreCallback managedDelegate, GISharp.Lib.Gio.UnmanagedFileReadMoreCallback unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.Gio.FileReadMoreCallback Create(GISharp.Lib.Gio.UnmanagedFileReadMoreCallback callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe System.Boolean callback_(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var callbackData_  =  userData ;
+                var fileContents_  =  fileContents . Handle ;
+                var fileSize_  =  ( System . Int64 ) fileSize ;
+                var ret_  =  callback ( fileContents_ ,  fileSize_ ,  callbackData_ ) ;
+                var ret  =  ( System . Boolean ) ret_ ;
+                return ret;
             }
-
-            unsafe System.Boolean callback_(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var callbackData_ = userData; var fileContents_ = fileContents.IsNull ? throw new System.ArgumentNullException(nameof(fileContents)) : fileContents.Handle; var fileSize_ = (System.Int64)fileSize; var ret_ = callback(fileContents_,fileSize_,callbackData_); var ret = (System.Boolean)ret_; return ret; }
 
             return callback_;
         }
@@ -74,13 +85,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static unsafe (GISharp.Lib.Gio.UnmanagedFileReadMoreCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.FileReadMoreCallback callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }

@@ -50,7 +50,7 @@ System.IntPtr res);
                 {
                     try
                     {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                         var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res);
                         var ret = doGetUserData();
                         var ret_ = (System.IntPtr)ret;
@@ -68,7 +68,7 @@ System.IntPtr res);
             }
         }
 
-        public delegate GISharp.Lib.GObject.Object GetSourceObject();
+        public delegate GISharp.Lib.GObject.Object? GetSourceObject();
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
@@ -89,7 +89,7 @@ System.IntPtr res);
                 {
                     try
                     {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                         var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res);
                         var ret = doGetSourceObject();
                         var ret_ = ret?.Take() ?? System.IntPtr.Zero;
@@ -131,7 +131,7 @@ System.IntPtr sourceTag);
                 {
                     try
                     {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                         var sourceTag = (System.IntPtr)sourceTag_;
                         var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res);
                         var ret = doIsTagged(sourceTag);

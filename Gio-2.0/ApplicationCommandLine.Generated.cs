@@ -174,15 +174,15 @@ namespace GISharp.Lib.Gio
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("arguments", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Variant Arguments_ { set => SetProperty("arguments", value); }
+        public GISharp.Lib.GLib.Variant? Arguments_ { set => SetProperty("arguments", value); }
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote"); }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("options", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Variant Options_ { set => SetProperty("options", value); }
+        public GISharp.Lib.GLib.Variant? Options_ { set => SetProperty("options", value); }
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("platform-data", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Variant PlatformData_ { set => SetProperty("platform-data", value); }
+        public GISharp.Lib.GLib.Variant? PlatformData_ { set => SetProperty("platform-data", value); }
 
         /// <summary>
         /// Gets the list of arguments that was passed on the command line.
@@ -213,7 +213,7 @@ namespace GISharp.Lib.Gio
         /// long as <paramref name="cmdline"/> exists.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.Filename Cwd { get => GetCwd(); }
+        public GISharp.Lib.GLib.Filename? Cwd { get => GetCwd(); }
 
         /// <summary>
         /// Gets the contents of the 'environ' variable of the command line
@@ -276,7 +276,7 @@ namespace GISharp.Lib.Gio
         /// For local invocation, it will be <c>null</c>.
         /// </remarks>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public GISharp.Lib.GLib.Variant PlatformData { get => GetPlatformData(); }
+        public GISharp.Lib.GLib.Variant? PlatformData { get => GetPlatformData(); }
 
         /// <summary>
         /// Gets the stdin of the invoking process.
@@ -353,9 +353,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
         {
             var cmdline_ = Handle;
-            var arg_ = arg?.Handle ?? throw new System.ArgumentNullException(nameof(arg));
+            var arg_ = arg.Handle;
             var ret_ = g_application_command_line_create_file_for_arg(cmdline_,arg_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -466,7 +466,7 @@ namespace GISharp.Lib.Gio
         /// the current directory, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe GISharp.Lib.GLib.Filename GetCwd()
+        private unsafe GISharp.Lib.GLib.Filename? GetCwd()
         {
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_cwd(cmdline_);
@@ -501,7 +501,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <array type="const gchar* const*" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
+        /* <array type="gchar**" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
 *   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" />
 * </array> */
         /* transfer-ownership:none direction:out */
@@ -537,7 +537,7 @@ namespace GISharp.Lib.Gio
         {
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_environ(cmdline_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Runtime.FilenameArray>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Runtime.FilenameArray>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -656,7 +656,7 @@ namespace GISharp.Lib.Gio
         {
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_options_dict(cmdline_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -701,7 +701,7 @@ namespace GISharp.Lib.Gio
         /// the platform data, or <c>null</c>
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe GISharp.Lib.GLib.Variant GetPlatformData()
+        private unsafe GISharp.Lib.GLib.Variant? GetPlatformData()
         {
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_platform_data(cmdline_);
@@ -758,7 +758,7 @@ namespace GISharp.Lib.Gio
         {
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_stdin(cmdline_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -821,7 +821,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
             var cmdline_ = Handle;
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.Handle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
@@ -925,8 +925,8 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetStdin()
         {
             var cmdline_ = Handle;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedGetStdin>(_GType)(cmdline_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedGetStdin>(_GType)!(cmdline_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -934,16 +934,16 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = Handle;
-            var message_ = message.IsNull ? throw new System.ArgumentNullException(nameof(message)) : message.Handle;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)(cmdline_, message_);
+            var message_ = message.Handle;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
         }
 
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
         protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = Handle;
-            var message_ = message.IsNull ? throw new System.ArgumentNullException(nameof(message)) : message.Handle;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)(cmdline_, message_);
+            var message_ = message.Handle;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)!(cmdline_, message_);
         }
     }
 }

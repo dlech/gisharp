@@ -35,7 +35,7 @@ namespace GISharp.Lib.Gio
     /// <see cref="AsyncReadyCallback"/> must likewise call it asynchronously in a
     /// later iteration of the main context.
     /// </summary>
-    public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res);
+    public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res);
 
     /// <summary>
     /// Factory for creating <see cref="AsyncReadyCallback"/> methods.
@@ -44,20 +44,29 @@ namespace GISharp.Lib.Gio
     {
         unsafe class UserData
         {
-            public GISharp.Lib.Gio.AsyncReadyCallback ManagedDelegate;
-            public GISharp.Lib.Gio.UnmanagedAsyncReadyCallback UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.Gio.AsyncReadyCallback ManagedDelegate;
+            public readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.Gio.AsyncReadyCallback managedDelegate, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.Gio.AsyncReadyCallback Create(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe void callback_(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var userData_  =  userData ;
+                var sourceObject_  =  sourceObject ? . Handle ?? System . IntPtr . Zero ;
+                var res_  =  res . Handle ;
+                callback(sourceObject_, res_, userData_);
             }
-
-            unsafe void callback_(GISharp.Lib.GObject.Object sourceObject, GISharp.Lib.Gio.IAsyncResult res) { var userData_ = userData; var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero; var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res)); callback(sourceObject_, res_, userData_); }
 
             return callback_;
         }
@@ -82,13 +91,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static unsafe (GISharp.Lib.Gio.UnmanagedAsyncReadyCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }
@@ -98,7 +101,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(sourceObject_, GISharp.Runtime.Transfer.None);
-                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None);
+                var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target;
                 userData.ManagedDelegate(sourceObject, res);

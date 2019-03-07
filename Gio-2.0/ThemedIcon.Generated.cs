@@ -21,13 +21,13 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.UnownedUtf8 Name { set => SetProperty("name", value); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { set => SetProperty("name", value); }
 
         /// <summary>
         /// A <c>null</c>-terminated array of icon names.
         /// </summary>
         [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
-        public GISharp.Lib.GLib.Strv Names_ { get => (GISharp.Lib.GLib.Strv)GetProperty("names"); set => SetProperty("names", value); }
+        public GISharp.Lib.GLib.Strv? Names_ { get => (GISharp.Lib.GLib.Strv?)GetProperty("names"); set => SetProperty("names", value); }
 
         /// <summary>
         /// Whether to use the default fallbacks found by shortening the icon name
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
 
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
-            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
+            var iconname_ = iconname.Handle;
             var ret_ = g_themed_icon_new(iconname_);
             return ret_;
         }
@@ -112,7 +112,7 @@ namespace GISharp.Lib.Gio
 
         static unsafe System.IntPtr NewFromNames(GISharp.Runtime.IArray<GISharp.Lib.GLib.Utf8> iconnames)
         {
-            var (iconnames_, len_) = ((System.IntPtr, System.Int32))((iconnames?.Data ?? throw new System.ArgumentNullException(nameof(iconnames)), iconnames?.Length ?? 0));
+            var (iconnames_, len_) = ((System.IntPtr, System.Int32))((iconnames.Data, iconnames?.Length ?? 0));
             var ret_ = g_themed_icon_new_from_names(iconnames_,len_);
             return ret_;
         }
@@ -161,7 +161,7 @@ namespace GISharp.Lib.Gio
 
         static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
-            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
+            var iconname_ = iconname.Handle;
             var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
             return ret_;
         }
@@ -208,7 +208,7 @@ namespace GISharp.Lib.Gio
         public unsafe void AppendName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var icon_ = Handle;
-            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
+            var iconname_ = iconname.Handle;
             g_themed_icon_append_name(icon_, iconname_);
         }
 
@@ -241,7 +241,7 @@ namespace GISharp.Lib.Gio
         {
             var icon_ = Handle;
             var ret_ = g_themed_icon_get_names(icon_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -284,11 +284,11 @@ namespace GISharp.Lib.Gio
         public unsafe void PrependName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var icon_ = Handle;
-            var iconname_ = iconname.IsNull ? throw new System.ArgumentNullException(nameof(iconname)) : iconname.Handle;
+            var iconname_ = iconname.Handle;
             g_themed_icon_prepend_name(icon_, iconname_);
         }
 
-        System.Boolean GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon icon2)
+        System.Boolean GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon? icon2)
         {
             throw new System.NotImplementedException();
         }

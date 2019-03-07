@@ -204,7 +204,7 @@ namespace GISharp.Lib.Gio
         public unsafe void CopyInto(GISharp.Lib.Gio.FileInfo destInfo)
         {
             var srcInfo_ = Handle;
-            var destInfo_ = destInfo?.Handle ?? throw new System.ArgumentNullException(nameof(destInfo));
+            var destInfo_ = destInfo.Handle;
             g_file_info_copy_into(srcInfo_, destInfo_);
         }
 
@@ -235,7 +235,7 @@ namespace GISharp.Lib.Gio
         {
             var other_ = Handle;
             var ret_ = g_file_info_dup(other_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -280,9 +280,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_as_string(info_,attribute_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -323,7 +323,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_boolean(info_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -368,7 +368,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_byte_string(info_,attribute_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
@@ -440,7 +440,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8 attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             GISharp.Lib.Gio.FileAttributeType type_;
             System.IntPtr valuePp_;
             GISharp.Lib.Gio.FileAttributeStatus status_;
@@ -491,7 +491,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Int32 GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_int32(info_,attribute_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -536,7 +536,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Int64 GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_int64(info_,attribute_);
             var ret = (System.Int64)ret_;
             return ret;
@@ -581,9 +581,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GObject.Object GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_object(info_,attribute_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -624,7 +624,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_status(info_,attribute_);
             var ret = (GISharp.Lib.Gio.FileAttributeStatus)ret_;
             return ret;
@@ -669,7 +669,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_string(info_,attribute_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
@@ -718,9 +718,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_stringv(info_,attribute_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -761,7 +761,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_type(info_,attribute_);
             var ret = (GISharp.Lib.Gio.FileAttributeType)ret_;
             return ret;
@@ -806,7 +806,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.UInt32 GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_uint32(info_,attribute_);
             var ret = (System.UInt32)ret_;
             return ret;
@@ -851,7 +851,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.UInt64 GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_uint64(info_,attribute_);
             var ret = (System.UInt64)ret_;
             return ret;
@@ -921,7 +921,7 @@ namespace GISharp.Lib.Gio
         {
             var info_ = Handle;
             var ret_ = g_file_info_get_deletion_date(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -1080,7 +1080,7 @@ namespace GISharp.Lib.Gio
         {
             var info_ = Handle;
             var ret_ = g_file_info_get_icon(info_);
-            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1240,7 +1240,7 @@ namespace GISharp.Lib.Gio
         {
             var info_ = Handle;
             var ret_ = g_file_info_get_name(info_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1337,7 +1337,7 @@ namespace GISharp.Lib.Gio
         {
             var info_ = Handle;
             var ret_ = g_file_info_get_symbolic_icon(info_);
-            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -1409,7 +1409,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean HasAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var ret_ = g_file_info_has_attribute(info_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -1456,7 +1456,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean HasNamespace(GISharp.Lib.GLib.UnownedUtf8 nameSpace)
         {
             var info_ = Handle;
-            var nameSpace_ = nameSpace.IsNull ? throw new System.ArgumentNullException(nameof(nameSpace)) : nameSpace.Handle;
+            var nameSpace_ = nameSpace.Handle;
             var ret_ = g_file_info_has_namespace(info_,nameSpace_);
             var ret = (System.Boolean)ret_;
             return ret;
@@ -1502,7 +1502,7 @@ namespace GISharp.Lib.Gio
         /// null-terminated array of strings of all of the possible attribute
         /// types for the given <paramref name="nameSpace"/>, or <c>null</c> on error.
         /// </returns>
-        public unsafe GISharp.Lib.GLib.Strv ListAttributes(GISharp.Lib.GLib.UnownedUtf8 nameSpace)
+        public unsafe GISharp.Lib.GLib.Strv? ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8 nameSpace)
         {
             var info_ = Handle;
             var nameSpace_ = nameSpace.Handle;
@@ -1540,13 +1540,13 @@ namespace GISharp.Lib.Gio
         public unsafe void RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             g_file_info_remove_attribute(info_, attribute_);
         }
 
         /// <summary>
         /// Sets the @attribute to contain the given value, if possible. To unset the
-        /// attribute, use %G_FILE_ATTRIBUTE_TYPE_INVALID for @type.
+        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for @type.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
@@ -1579,7 +1579,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Sets the <paramref name="attribute"/> to contain the given value, if possible. To unset the
-        /// attribute, use <see cref="FileAttributeType.Invalid"/> for <paramref name="type"/>.
+        /// attribute, use %G_ATTRIBUTE_TYPE_INVALID for <paramref name="type"/>.
         /// </summary>
         /// <param name="attribute">
         /// a file attribute key.
@@ -1593,7 +1593,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var valueP_ = (System.IntPtr)valueP;
             g_file_info_set_attribute(info_, attribute_, type_, valueP_);
@@ -1639,7 +1639,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Boolean attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var attrValue_ = (System.Boolean)attrValue;
             g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
         }
@@ -1684,8 +1684,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
-            var attrValue_ = attrValue.IsNull ? throw new System.ArgumentNullException(nameof(attrValue)) : attrValue.Handle;
+            var attribute_ = attribute.Handle;
+            var attrValue_ = attrValue.Handle;
             g_file_info_set_attribute_byte_string(info_, attribute_, attrValue_);
         }
 
@@ -1729,7 +1729,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int32 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var attrValue_ = (System.Int32)attrValue;
             g_file_info_set_attribute_int32(info_, attribute_, attrValue_);
         }
@@ -1774,7 +1774,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int64 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var attrValue_ = (System.Int64)attrValue;
             g_file_info_set_attribute_int64(info_, attribute_, attrValue_);
         }
@@ -1808,7 +1808,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher mask)
         {
             var info_ = Handle;
-            var mask_ = mask?.Handle ?? throw new System.ArgumentNullException(nameof(mask));
+            var mask_ = mask.Handle;
             g_file_info_set_attribute_mask(info_, mask_);
         }
 
@@ -1852,8 +1852,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GObject.Object attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
-            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            var attribute_ = attribute.Handle;
+            var attrValue_ = attrValue.Handle;
             g_file_info_set_attribute_object(info_, attribute_, attrValue_);
         }
 
@@ -1915,7 +1915,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeStatus status)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var status_ = (GISharp.Lib.Gio.FileAttributeStatus)status;
             var ret_ = g_file_info_set_attribute_status(info_,attribute_,status_);
             var ret = (System.Boolean)ret_;
@@ -1962,8 +1962,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeString(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
-            var attrValue_ = attrValue.IsNull ? throw new System.ArgumentNullException(nameof(attrValue)) : attrValue.Handle;
+            var attribute_ = attribute.Handle;
+            var attrValue_ = attrValue.Handle;
             g_file_info_set_attribute_string(info_, attribute_, attrValue_);
         }
 
@@ -2015,8 +2015,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.Strv attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
-            var attrValue_ = attrValue?.Handle ?? throw new System.ArgumentNullException(nameof(attrValue));
+            var attribute_ = attribute.Handle;
+            var attrValue_ = attrValue.Handle;
             g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
         }
 
@@ -2060,7 +2060,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt32 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var attrValue_ = (System.UInt32)attrValue;
             g_file_info_set_attribute_uint32(info_, attribute_, attrValue_);
         }
@@ -2105,7 +2105,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt64 attrValue)
         {
             var info_ = Handle;
-            var attribute_ = attribute.IsNull ? throw new System.ArgumentNullException(nameof(attribute)) : attribute.Handle;
+            var attribute_ = attribute.Handle;
             var attrValue_ = (System.UInt64)attrValue;
             g_file_info_set_attribute_uint64(info_, attribute_, attrValue_);
         }
@@ -2141,7 +2141,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetContentType(GISharp.Lib.GLib.UnownedUtf8 contentType)
         {
             var info_ = Handle;
-            var contentType_ = contentType.IsNull ? throw new System.ArgumentNullException(nameof(contentType)) : contentType.Handle;
+            var contentType_ = contentType.Handle;
             g_file_info_set_content_type(info_, contentType_);
         }
 
@@ -2176,7 +2176,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName)
         {
             var info_ = Handle;
-            var displayName_ = displayName.IsNull ? throw new System.ArgumentNullException(nameof(displayName)) : displayName.Handle;
+            var displayName_ = displayName.Handle;
             g_file_info_set_display_name(info_, displayName_);
         }
 
@@ -2211,7 +2211,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetEditName(GISharp.Lib.GLib.UnownedUtf8 editName)
         {
             var info_ = Handle;
-            var editName_ = editName.IsNull ? throw new System.ArgumentNullException(nameof(editName)) : editName.Handle;
+            var editName_ = editName.Handle;
             g_file_info_set_edit_name(info_, editName_);
         }
 
@@ -2281,7 +2281,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetIcon(GISharp.Lib.Gio.IIcon icon)
         {
             var info_ = Handle;
-            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            var icon_ = icon.Handle;
             g_file_info_set_icon(info_, icon_);
         }
 
@@ -2421,7 +2421,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetName(GISharp.Lib.GLib.Filename name)
         {
             var info_ = Handle;
-            var name_ = name?.Handle ?? throw new System.ArgumentNullException(nameof(name));
+            var name_ = name.Handle;
             g_file_info_set_name(info_, name_);
         }
 
@@ -2528,7 +2528,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetSymbolicIcon(GISharp.Lib.Gio.IIcon icon)
         {
             var info_ = Handle;
-            var icon_ = icon?.Handle ?? throw new System.ArgumentNullException(nameof(icon));
+            var icon_ = icon.Handle;
             g_file_info_set_symbolic_icon(info_, icon_);
         }
 
@@ -2563,7 +2563,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetSymlinkTarget(GISharp.Lib.GLib.UnownedUtf8 symlinkTarget)
         {
             var info_ = Handle;
-            var symlinkTarget_ = symlinkTarget.IsNull ? throw new System.ArgumentNullException(nameof(symlinkTarget)) : symlinkTarget.Handle;
+            var symlinkTarget_ = symlinkTarget.Handle;
             g_file_info_set_symlink_target(info_, symlinkTarget_);
         }
 

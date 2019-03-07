@@ -72,7 +72,7 @@ namespace GISharp.Lib.Gio
 
         public override string ToString()
         {
-            return Icon.ToString(this);
+            return Icon.ToString(this)!;
         }
     }
 }

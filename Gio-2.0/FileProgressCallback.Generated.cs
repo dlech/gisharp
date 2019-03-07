@@ -34,20 +34,29 @@ namespace GISharp.Lib.Gio
     {
         unsafe class UserData
         {
-            public GISharp.Lib.Gio.FileProgressCallback ManagedDelegate;
-            public GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.Gio.FileProgressCallback ManagedDelegate;
+            public readonly GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.Gio.FileProgressCallback managedDelegate, GISharp.Lib.Gio.UnmanagedFileProgressCallback unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.Gio.FileProgressCallback Create(GISharp.Lib.Gio.UnmanagedFileProgressCallback callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe void callback_(System.Int64 currentNumBytes, System.Int64 totalNumBytes)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var userData_  =  userData ;
+                var currentNumBytes_  =  ( System . Int64 ) currentNumBytes ;
+                var totalNumBytes_  =  ( System . Int64 ) totalNumBytes ;
+                callback(currentNumBytes_, totalNumBytes_, userData_);
             }
-
-            unsafe void callback_(System.Int64 currentNumBytes, System.Int64 totalNumBytes) { var userData_ = userData; var currentNumBytes_ = (System.Int64)currentNumBytes; var totalNumBytes_ = (System.Int64)totalNumBytes; callback(currentNumBytes_, totalNumBytes_, userData_); }
 
             return callback_;
         }
@@ -72,13 +81,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static unsafe (GISharp.Lib.Gio.UnmanagedFileProgressCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.FileProgressCallback callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }

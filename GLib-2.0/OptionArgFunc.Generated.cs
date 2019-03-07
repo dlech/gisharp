@@ -35,20 +35,35 @@ namespace GISharp.Lib.GLib
     {
         unsafe class UserData
         {
-            public GISharp.Lib.GLib.OptionArgFunc ManagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedOptionArgFunc UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.GLib.OptionArgFunc ManagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedOptionArgFunc UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.GLib.OptionArgFunc managedDelegate, GISharp.Lib.GLib.UnmanagedOptionArgFunc unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.GLib.OptionArgFunc Create(GISharp.Lib.GLib.UnmanagedOptionArgFunc callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe void callback_(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var data_  =  userData ;
+                var optionName_  =  optionName . Handle ;
+                var value_  =  value . Handle ;
+                var error_  =  System . IntPtr . Zero ;
+                callback(optionName_, value_, data_, &error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error  =  GISharp . Runtime . Opaque . GetInstance < GISharp . Lib . GLib . Error > ( error_ ,  GISharp . Runtime . Transfer . Full ) ;
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             }
-
-            unsafe void callback_(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var data_ = userData; var optionName_ = optionName.IsNull ? throw new System.ArgumentNullException(nameof(optionName)) : optionName.Handle; var value_ = value.IsNull ? throw new System.ArgumentNullException(nameof(value)) : value.Handle; var error_ = System.IntPtr.Zero; callback(optionName_, value_, data_, &error_); if (error_ != System.IntPtr.Zero) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return callback_;
         }
@@ -73,13 +88,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static unsafe (GISharp.Lib.GLib.UnmanagedOptionArgFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.GLib.OptionArgFunc callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }

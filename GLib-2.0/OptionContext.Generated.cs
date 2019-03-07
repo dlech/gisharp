@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
         /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GLib.UnownedUtf8 Description { get => GetDescription(); set => SetDescription(value); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Description { get => GetDescription(); set => SetDescription(value); }
 
         /// <summary>
         /// Returns whether automatic `--help` generation
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GLib
         /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
         /// </summary>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public GISharp.Lib.GLib.UnownedUtf8 Summary { get => GetSummary(); set => SetSummary(value); }
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Summary { get => GetSummary(); set => SetSummary(value); }
 
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
@@ -126,7 +126,7 @@ namespace GISharp.Lib.GLib
         ///    freed with <see cref="OptionContext.Free"/> after use.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 parameterString)
+        static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
             var parameterString_ = parameterString.Handle;
             var ret_ = g_option_context_new(parameterString_);
@@ -168,7 +168,7 @@ namespace GISharp.Lib.GLib
         public unsafe void AddGroup(GISharp.Lib.GLib.OptionGroup group)
         {
             var context_ = Handle;
-            var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
+            var group_ = group.Take();
             g_option_context_add_group(context_, group_);
         }
 
@@ -204,7 +204,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern unsafe System.IntPtr g_option_context_get_description(
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -217,11 +217,11 @@ namespace GISharp.Lib.GLib
         /// the description
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDescription()
+        private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetDescription()
         {
             var context_ = Handle;
             var ret_ = g_option_context_get_description(context_);
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -280,13 +280,13 @@ namespace GISharp.Lib.GLib
         /// A newly allocated string containing the help text
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public unsafe GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup group)
+        public unsafe GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group)
         {
             var context_ = Handle;
             var mainHelp_ = (System.Boolean)mainHelp;
             var group_ = group?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -393,7 +393,7 @@ namespace GISharp.Lib.GLib
         {
             var context_ = Handle;
             var ret_ = g_option_context_get_main_group(context_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -448,7 +448,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         static extern unsafe System.IntPtr g_option_context_get_summary(
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -461,11 +461,11 @@ namespace GISharp.Lib.GLib
         /// the summary
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetSummary()
+        private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetSummary()
         {
             var context_ = Handle;
             var ret_ = g_option_context_get_summary(context_);
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -509,7 +509,7 @@ namespace GISharp.Lib.GLib
         ///   after the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetDescription(GISharp.Lib.GLib.UnownedUtf8 description)
+        private unsafe void SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
             var context_ = Handle;
             var description_ = description.Handle;
@@ -645,7 +645,7 @@ namespace GISharp.Lib.GLib
         private unsafe void SetMainGroup(GISharp.Lib.GLib.OptionGroup group)
         {
             var context_ = Handle;
-            var group_ = group?.Take() ?? throw new System.ArgumentNullException(nameof(group));
+            var group_ = group.Take();
             g_option_context_set_main_group(context_, group_);
         }
 
@@ -774,7 +774,7 @@ namespace GISharp.Lib.GLib
         ///  before the list of options, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetSummary(GISharp.Lib.GLib.UnownedUtf8 summary)
+        private unsafe void SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
             var context_ = Handle;
             var summary_ = summary.Handle;
@@ -817,13 +817,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr context,
         /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
-        GISharp.Lib.GLib.UnmanagedTranslateFunc func,
+        GISharp.Lib.GLib.UnmanagedTranslateFunc? func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify destroyNotify);
+        GISharp.Lib.GLib.UnmanagedDestroyNotify? destroyNotify);
 
         /// <summary>
         /// Sets the function which is used to translate the contexts
@@ -843,7 +843,7 @@ namespace GISharp.Lib.GLib
         /// the <see cref="TranslateFunc"/>, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
+        public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             var context_ = Handle;
             var (func_, destroyNotify_, data_) = func == null ? (default(GISharp.Lib.GLib.UnmanagedTranslateFunc), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
@@ -883,7 +883,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             var context_ = Handle;
-            var domain_ = domain.IsNull ? throw new System.ArgumentNullException(nameof(domain)) : domain.Handle;
+            var domain_ = domain.Handle;
             g_option_context_set_translation_domain(context_, domain_);
         }
     }

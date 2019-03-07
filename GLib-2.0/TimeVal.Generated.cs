@@ -33,8 +33,6 @@ namespace GISharp.Lib.GLib
                                /// seconds. It can optionally include fractions of a second and a time
                                /// zone indicator. (In the absence of any time zone indication, the
                                /// timestamp is assumed to be in local time.)
-                               /// 
-                               /// Any leading or trailing space in @iso_date is ignored.
                                /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string
@@ -66,8 +64,6 @@ namespace GISharp.Lib.GLib
         /// seconds. It can optionally include fractions of a second and a time
         /// zone indicator. (In the absence of any time zone indication, the
         /// timestamp is assumed to be in local time.)
-        /// 
-        /// Any leading or trailing space in <paramref name="isoDate"/> is ignored.
         /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string
@@ -81,7 +77,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
-            var isoDate_ = isoDate.IsNull ? throw new System.ArgumentNullException(nameof(isoDate)) : isoDate.Handle;
+            var isoDate_ = isoDate.Handle;
             GISharp.Lib.GLib.TimeVal time_;
             var ret_ = g_time_val_from_iso8601(isoDate_,&time_);
             time = (GISharp.Lib.GLib.TimeVal)time_;
@@ -203,7 +199,7 @@ namespace GISharp.Lib.GLib
         ///    or <c>null</c> if <paramref name="time"/> was too large
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe GISharp.Lib.GLib.Utf8 ToIso8601()
+        public unsafe GISharp.Lib.GLib.Utf8? ToIso8601()
         {
             var time_ = this;
             var ret_ = g_time_val_to_iso8601(&time_);

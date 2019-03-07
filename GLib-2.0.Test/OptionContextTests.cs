@@ -16,7 +16,9 @@ namespace GISharp.Test.GLib
             using (var oc = new OptionContext()) {
                 var expected = "summary";
                 oc.Summary = expected;
-                Assert.That<string>(oc.Summary, Is.EqualTo(expected));
+                Assert.That<string?>(oc.Summary, Is.EqualTo(expected));
+                oc.Summary = Utf8.Null;
+                Assert.That<string?>(oc.Summary, Is.EqualTo(Utf8.Null));
             }
             AssertNoGLibLog();
         }
@@ -27,7 +29,9 @@ namespace GISharp.Test.GLib
             using (var oc = new OptionContext()) {
                 var expected = "description";
                 oc.Description = expected;
-                Assert.That<string>(oc.Description, Is.EqualTo(expected));
+                Assert.That<string?>(oc.Description, Is.EqualTo(expected));
+                oc.Description = Utf8.Null;
+                Assert.That<string?>(oc.Description, Is.EqualTo(Utf8.Null));
             }
             AssertNoGLibLog();
         }
@@ -48,8 +52,6 @@ namespace GISharp.Test.GLib
         {
             using (var oc = new OptionContext()) {
                 oc.SetTranslationDomain("domain");
-                Assert.That(() => oc.SetTranslationDomain(Utf8.Null),
-                    Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }

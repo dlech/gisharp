@@ -278,21 +278,21 @@ namespace GISharp.Lib.GObject
             g_closure_add_invalidate_notifier(handle, userData_, notify_);
         }
 
-        static unsafe void ManagedClosureFuncCallback(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHintPtr)
+        static unsafe void ManagedClosureFuncCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
-            var callback = (Func<object[], object>)gcHandle.Target;
+            var callback = (Func<object?[], object>)gcHandle.Target;
             returnValue = callback(paramValues);
         }
 
-        static void ManagedClosureActionCallback(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHintPtr)
+        static void ManagedClosureActionCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
-            var callback = (Action<object[]>)gcHandle.Target;
+            var callback = (Action<object?[]>)gcHandle.Target;
             callback(paramValues);
         }
 
-        static void ManagedClosureVoidActionCallback(Closure closure, ref object? returnValue, object[] paramValues, SignalInvocationHint? invocationHintPtr)
+        static void ManagedClosureVoidActionCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
             var callback = (Action)gcHandle.Target;
@@ -505,7 +505,7 @@ namespace GISharp.Lib.GObject
         /// invoke the callback of this closure
         /// </param>
         /// <returns>The return value of the closure invocation</returns>
-        public unsafe T Invoke<T>(params object[] paramValues)
+        public unsafe T Invoke<T>(params object?[] paramValues)
         {
             var this_ = Handle;
             if (paramValues == null) {
@@ -516,7 +516,7 @@ namespace GISharp.Lib.GObject
             var paramValues_ = stackalloc Value[paramValues.Length];
             for (int i = 0; i < paramValues.Length; i++) {
                 var p = paramValues[i];
-                paramValues_[i].Init(p.GetGType());
+                paramValues_[i].Init(p?.GetGType() ?? throw new NotImplementedException());
                 paramValues_[i].Set(p);
             }
 
@@ -528,7 +528,7 @@ namespace GISharp.Lib.GObject
             var ret = returnValue.Get();
             returnValue.Unset();
 
-            return (T)ret;
+            return (T)ret!;
         }
 
         /// <summary>
@@ -710,7 +710,7 @@ namespace GISharp.Lib.GObject
                     var gcHandle = (GCHandle)marshalData_;
                     var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target;
 
-                    var paramValues = new object[nParamValues_];
+                    var paramValues = new object?[nParamValues_];
                     for (int i = 0; i < paramValues.Length; i++) {
                         paramValues[i] = paramValues_[i].Get();
                     }

@@ -698,7 +698,7 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public object GetProperty(UnownedUtf8 propertyName)
+        public object? GetProperty(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
@@ -714,7 +714,7 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public UnownedUtf8 GetUnownedUtf8Property(UnownedUtf8 propertyName)
+        public NullableUnownedUtf8 GetUnownedUtf8Property(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
@@ -932,7 +932,7 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Throw when <paramref name="propertyName"/> is not a valid property name
         /// </exception>
-        public void SetProperty(UnownedUtf8 propertyName, object value)
+        public void SetProperty(UnownedUtf8 propertyName, object? value)
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);

@@ -24,9 +24,15 @@ namespace GISharp.CodeGen.Reflection
                 }
                 var type = method.ReturnValue.Type.ManagedType;
                 if (type == typeof(Utf8) && method.ReturnValue.TransferOwnership == "none") {
-                    type = typeof(UnownedUtf8);
+                    type = method.ReturnValue.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
                 }
                 return type;
+            }
+        }
+
+        public override ParameterInfo ReturnParameter {
+            get {
+                return new GirParameterInfo(method.ReturnValue);
             }
         }
 
@@ -36,7 +42,20 @@ namespace GISharp.CodeGen.Reflection
 
         public override RuntimeMethodHandle MethodHandle => throw new NotSupportedException();
 
-        public override System.Type DeclaringType => throw new NotSupportedException();
+        public override System.Type DeclaringType {
+            get {
+                switch (method.ParentNode) {
+                case Class @class:
+                    return new GirClassType(@class);
+                case Interface @interface:
+                    return new GirInterfaceType(@interface);
+                case Record record:
+                    return new GirRecordType(record);
+                default:
+                    throw new NotSupportedException();
+                }
+            }
+        }
 
         public override string Name => method.ManagedName;
 

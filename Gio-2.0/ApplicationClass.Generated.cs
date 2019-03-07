@@ -78,7 +78,7 @@ System.IntPtr application);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doStartup = (Startup)methodInfo.CreateDelegate(typeof(Startup), application);
                         doStartup();
                     }
@@ -113,7 +113,7 @@ System.IntPtr application);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doActivate = (Activate)methodInfo.CreateDelegate(typeof(Activate), application);
                         doActivate();
                     }
@@ -159,7 +159,7 @@ System.IntPtr hint);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var files = GISharp.Runtime.CPtrArray.GetInstance<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_, GISharp.Runtime.Transfer.None);
                         var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_, -1);
                         var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application);
@@ -199,8 +199,8 @@ System.IntPtr commandLine);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(commandLine_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(commandLine_, GISharp.Runtime.Transfer.None)!;
                         var doCommandLine = (CommandLine)methodInfo.CreateDelegate(typeof(CommandLine), application);
                         var ret = doCommandLine(commandLine);
                         var ret_ = (System.Int32)ret;
@@ -247,11 +247,11 @@ System.Int32* exitStatus);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(*arguments_, GISharp.Runtime.Transfer.Full);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(*arguments_, GISharp.Runtime.Transfer.Full)!;
                         var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application);
                         var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
-                        *arguments_ = arguments?.Take() ?? throw new System.ArgumentNullException(nameof(arguments));
+                        *arguments_ = arguments.Take();
                         *exitStatus_ = (System.Int32)exitStatus;
                         var ret_ = (System.Boolean)ret;
                         return ret_;
@@ -292,8 +292,8 @@ System.IntPtr platformData);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var platformData = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(platformData_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var platformData = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(platformData_, GISharp.Runtime.Transfer.None)!;
                         var doBeforeEmit = (BeforeEmit)methodInfo.CreateDelegate(typeof(BeforeEmit), application);
                         doBeforeEmit(platformData);
                     }
@@ -331,8 +331,8 @@ System.IntPtr platformData);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var platformData = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(platformData_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var platformData = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(platformData_, GISharp.Runtime.Transfer.None)!;
                         var doAfterEmit = (AfterEmit)methodInfo.CreateDelegate(typeof(AfterEmit), application);
                         doAfterEmit(platformData);
                     }
@@ -370,8 +370,8 @@ System.IntPtr builder);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var builder = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantBuilder>(builder_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var builder = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantBuilder>(builder_, GISharp.Runtime.Transfer.None)!;
                         var doAddPlatformData = (AddPlatformData)methodInfo.CreateDelegate(typeof(AddPlatformData), application);
                         doAddPlatformData(builder);
                     }
@@ -406,7 +406,7 @@ System.IntPtr application);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doQuitMainloop = (QuitMainloop)methodInfo.CreateDelegate(typeof(QuitMainloop), application);
                         doQuitMainloop();
                     }
@@ -441,7 +441,7 @@ System.IntPtr application);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doRunMainloop = (RunMainloop)methodInfo.CreateDelegate(typeof(RunMainloop), application);
                         doRunMainloop();
                     }
@@ -476,7 +476,7 @@ System.IntPtr application);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doShutdown = (Shutdown)methodInfo.CreateDelegate(typeof(Shutdown), application);
                         doShutdown();
                     }
@@ -514,8 +514,8 @@ System.IntPtr options);
                 {
                     try
                     {
-                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None);
-                        var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>(options_, GISharp.Runtime.Transfer.None);
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>(options_, GISharp.Runtime.Transfer.None)!;
                         var doHandleLocalOptions = (HandleLocalOptions)methodInfo.CreateDelegate(typeof(HandleLocalOptions), application);
                         var ret = doHandleLocalOptions(options);
                         var ret_ = (System.Int32)ret;

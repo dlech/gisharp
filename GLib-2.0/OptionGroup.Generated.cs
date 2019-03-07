@@ -68,7 +68,7 @@ namespace GISharp.Lib.GLib
         System.IntPtr userData,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify destroy);
+        GISharp.Lib.GLib.UnmanagedDestroyNotify? destroy);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
         /// a #GOptionGroup
         /// </param>
         /// <returns>
-        /// a #GOptionGroup
+        /// a #GoptionGroup
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -145,10 +145,10 @@ namespace GISharp.Lib.GLib
         System.IntPtr group,
         /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        GISharp.Lib.GLib.UnmanagedOptionParseFunc preParseFunc,
+        GISharp.Lib.GLib.UnmanagedOptionParseFunc? preParseFunc,
         /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        GISharp.Lib.GLib.UnmanagedOptionParseFunc postParseFunc);
+        GISharp.Lib.GLib.UnmanagedOptionParseFunc? postParseFunc);
 
         /// <summary>
         /// Sets the function which is used to translate user-visible strings,
@@ -181,13 +181,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr group,
         /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
-        GISharp.Lib.GLib.UnmanagedTranslateFunc func,
+        GISharp.Lib.GLib.UnmanagedTranslateFunc? func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify destroyNotify);
+        GISharp.Lib.GLib.UnmanagedDestroyNotify? destroyNotify);
 
         /// <summary>
         /// Sets the function which is used to translate user-visible strings,
@@ -202,7 +202,7 @@ namespace GISharp.Lib.GLib
         /// the <see cref="TranslateFunc"/>, or <c>null</c>
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc func)
+        public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             var group_ = Handle;
             var (func_, destroyNotify_, data_) = func == null ? (default(GISharp.Lib.GLib.UnmanagedTranslateFunc), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
@@ -242,7 +242,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             var group_ = Handle;
-            var domain_ = domain.IsNull ? throw new System.ArgumentNullException(nameof(domain)) : domain.Handle;
+            var domain_ = domain.Handle;
             g_option_group_set_translation_domain(group_, domain_);
         }
 

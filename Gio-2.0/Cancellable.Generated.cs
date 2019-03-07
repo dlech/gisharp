@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the top cancellable from the stack.
         /// </summary>
-        public static GISharp.Lib.Gio.Cancellable Current { get => GetCurrent(); }
+        public static GISharp.Lib.Gio.Cancellable? Current { get => GetCurrent(); }
 
         /// <summary>
         /// Gets the file descriptor for a cancellable job. This can be used to
@@ -181,7 +181,7 @@ namespace GISharp.Lib.Gio
         /// a <see cref="Cancellable"/> from the top
         /// of the stack, or <c>null</c> if the stack is empty.
         /// </returns>
-        private static unsafe GISharp.Lib.Gio.Cancellable GetCurrent()
+        private static unsafe GISharp.Lib.Gio.Cancellable? GetCurrent()
         {
             var ret_ = g_cancellable_get_current();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None);
@@ -301,7 +301,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify dataDestroyFunc);
+        GISharp.Lib.GLib.UnmanagedDestroyNotify? dataDestroyFunc);
 
         /// <summary>
         /// Disconnects a handler from a cancellable instance similar to
@@ -739,7 +739,7 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe void DoCancelled()
         {
             var cancellable_ = Handle;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)(cancellable_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)!(cancellable_);
         }
     }
 }

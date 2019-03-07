@@ -33,18 +33,17 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        public void TestCheck ()
+        public void TestCheck()
         {
-            string actual;
-            actual = Version.Check (
+            var actual = Version.Check (
                 (uint)Version.CompileTime.Major,
                 (uint)Version.CompileTime.Minor,
                 (uint)Version.CompileTime.Revision);
             // null means version is OK
-            Assert.That (actual, Is.Null);
+            Assert.That<string?>(actual, Is.Null);
 
-            actual = Version.Check (0, 0, 0);
-            Assert.That (actual, Is.Not.Null);
+            actual = Version.Check(0, 0, 0);
+            Assert.That<string?>(actual, Is.Not.Null);
         }
     }
 }

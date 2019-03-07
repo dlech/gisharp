@@ -100,7 +100,7 @@ namespace GISharp.Lib.Gio
         ///    object for the <paramref name="res"/>, or <c>null</c> if there is none.
         /// </returns>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
-        GISharp.Lib.GObject.Object DoGetSourceObject();
+        GISharp.Lib.GObject.Object? DoGetSourceObject();
 
         /// <summary>
         /// Gets the user data from a <see cref="IAsyncResult"/>.
@@ -164,9 +164,9 @@ namespace GISharp.Lib.Gio
         /// a new reference to the source
         ///    object for the <paramref name="res"/>, or <c>null</c> if there is none.
         /// </returns>
-        public unsafe static GISharp.Lib.GObject.Object GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
+        public unsafe static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
-            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var res_ = res.Handle;
             var ret_ = g_async_result_get_source_object(res_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -200,7 +200,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         public unsafe static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
-            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var res_ = res.Handle;
             var ret_ = g_async_result_get_user_data(res_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -249,7 +249,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.34")]
         public unsafe static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
-            var res_ = res?.Handle ?? throw new System.ArgumentNullException(nameof(res));
+            var res_ = res.Handle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var ret_ = g_async_result_is_tagged(res_,sourceTag_);
             var ret = (System.Boolean)ret_;

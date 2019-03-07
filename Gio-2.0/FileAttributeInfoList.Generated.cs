@@ -108,7 +108,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             var list_ = Handle;
-            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
+            var name_ = name.Handle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var flags_ = (GISharp.Lib.Gio.FileAttributeInfoFlags)flags;
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
@@ -141,7 +141,7 @@ namespace GISharp.Lib.Gio
         {
             var list_ = Handle;
             var ret_ = g_file_attribute_info_list_dup(list_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -182,7 +182,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             var list_ = Handle;
-            var name_ = name.IsNull ? throw new System.ArgumentNullException(nameof(name)) : name.Handle;
+            var name_ = name.Handle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             var ret = (ret_ == null) ? default(GISharp.Lib.Gio.FileAttributeInfo?) : (GISharp.Lib.Gio.FileAttributeInfo)(*ret_);
             return ret;

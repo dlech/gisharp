@@ -55,7 +55,6 @@ namespace GISharp.Test.GLib
         {
             using (var og = new OptionGroup("test-group", "group desc", "help desc")) {
                 og.SetTranslationDomain("domain");
-                Assert.That(() => og.SetTranslationDomain(Utf8.Null), Throws.ArgumentNullException);
             }
             AssertNoGLibLog();
         }

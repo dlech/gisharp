@@ -154,22 +154,22 @@ namespace GISharp.Test.Gio
         {
         }
 
-        protected override void DoCloseFn(Cancellable cancellable = null)
+        protected override void DoCloseFn(Cancellable? cancellable = null)
         {
         }
 
-        protected override void DoFlush(Cancellable cancellable = null)
+        protected override void DoFlush(Cancellable? cancellable = null)
         {
         }
 
-        protected override int DoSplice(InputStream source, OutputStreamSpliceFlags flags, Cancellable cancellable = null)
+        protected override int DoSplice(InputStream source, OutputStreamSpliceFlags flags, Cancellable? cancellable = null)
         {
             return 0;
         }
 
-        protected override int DoWriteFn(IArray<byte> buffer, Cancellable cancellable = null)
+        protected override int DoWriteFn(IArray<byte>? buffer, Cancellable? cancellable = null)
         {
-           return buffer.Count;
+           return buffer?.Count ?? 0;
         }
     }
 }

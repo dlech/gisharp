@@ -117,8 +117,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
-            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
-            var action_ = action?.Handle ?? throw new System.ArgumentNullException(nameof(action));
+            var actionMap_ = actionMap.Handle;
+            var action_ = action.Handle;
             g_action_map_add_action(actionMap_, action_);
         }
 
@@ -167,10 +167,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
-            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
-            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
+            var actionMap_ = actionMap.Handle;
+            var actionName_ = actionName.Handle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
-            var ret = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
+            var ret = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -213,8 +213,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
-            var actionMap_ = actionMap?.Handle ?? throw new System.ArgumentNullException(nameof(actionMap));
-            var actionName_ = actionName.IsNull ? throw new System.ArgumentNullException(nameof(actionName)) : actionName.Handle;
+            var actionMap_ = actionMap.Handle;
+            var actionName_ = actionName.Handle;
             g_action_map_remove_action(actionMap_, actionName_);
         }
     }

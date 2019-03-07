@@ -33,9 +33,9 @@ namespace GISharp.Test.Gio
         {
             var expected = "test-action-name";
             using (var obj = new TestAction(expected)) {
-                Assert.That<string>(obj.Name, Is.EqualTo(expected));
+                Assert.That<string?>(obj.Name, Is.EqualTo(expected));
                 Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
-                Assert.That<string>(obj.GetUnownedUtf8Property("name"), Is.EqualTo(expected));
+                Assert.That<string?>(obj.GetUnownedUtf8Property("name"), Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
@@ -55,9 +55,9 @@ namespace GISharp.Test.Gio
         public void TestStateProperty ()
         {
             using (var obj = new TestAction()) {
-                Assert.That((int)obj.State, Is.EqualTo(2));
+                Assert.That((int)obj.State!, Is.EqualTo(2));
                 Assert.That((int)obj.GetState(), Is.EqualTo(2));
-                Assert.That((int)(Variant)obj.GetProperty("state"), Is.EqualTo(2));
+                Assert.That((int)(Variant)obj.GetProperty("state")!, Is.EqualTo(2));
             }
             AssertNoGLibLog();
         }
@@ -173,8 +173,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNameIsValidNullArgument()
         {
-            Assert.That(() => Action.NameIsValid(Utf8.Null),
-                Throws.InstanceOf<ArgumentNullException>());
+            Assert.That(Action.NameIsValid("test"), Is.True);
+            Assert.That(Action.NameIsValid(""), Is.False);
             AssertNoGLibLog();
         }
 
@@ -256,23 +256,23 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAction : Object, IAction
     {
-        readonly Utf8 name;
+        readonly Utf8 name = default!;
 
         public bool Enabled => ((IAction)this).DoGetEnabled();
 
-        public UnownedUtf8 Name => name;
+        public NullableUnownedUtf8 Name => name;
 
-        public VariantType ParameterType => ((IAction)this).DoGetParameterType();
+        public VariantType? ParameterType => ((IAction)this).DoGetParameterType();
 
-        public Variant State => ((IAction)this).DoGetState();
+        public Variant? State => ((IAction)this).DoGetState();
 
-        public VariantType StateType => ((IAction)this).DoGetStateType();
+        public VariantType? StateType => ((IAction)this).DoGetStateType();
 
         public int ActivateCallbackCount;
 
-        void IAction.DoActivate(Variant parameter)
+        void IAction.DoActivate(Variant? parameter)
         {
-            Assert.That ((int)parameter, Is.EqualTo (1));
+            Assert.That ((int)parameter!, Is.EqualTo (1));
             ActivateCallbackCount++;
         }
 
@@ -302,7 +302,7 @@ namespace GISharp.Test.Gio
 
         public int GetParameterTypeCallbackCount;
 
-        VariantType IAction.DoGetParameterType()
+        VariantType? IAction.DoGetParameterType()
         {
             GetParameterTypeCallbackCount++;
             return VariantType.Boolean;
@@ -318,7 +318,7 @@ namespace GISharp.Test.Gio
 
         public int GetStateHintCallbackCount;
 
-        Variant IAction.DoGetStateHint()
+        Variant? IAction.DoGetStateHint()
         {
             GetStateHintCallbackCount++;
             return null;
@@ -326,7 +326,7 @@ namespace GISharp.Test.Gio
 
         public int GetStateTypeCallbackCount;
 
-        VariantType IAction.DoGetStateType()
+        VariantType? IAction.DoGetStateType()
         {
             GetStateTypeCallbackCount++;
             return VariantType.Int32;
@@ -338,7 +338,7 @@ namespace GISharp.Test.Gio
 
         public TestAction(string name) : this (New<TestAction>(), Transfer.Full)
         {
-            this.name = name ?? throw new ArgumentNullException(nameof(name));
+            this.name = name;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

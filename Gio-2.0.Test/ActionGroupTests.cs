@@ -42,8 +42,7 @@ namespace GISharp.Test.Gio
         public void TestHasAction()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That(ag.HasAction("does-not-exist"), Is.False);
-                Assert.That(() => ag.HasAction(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That(ag.HasAction("does-not-exist")!, Is.False);
             }
             AssertNoGLibLog();
         }
@@ -52,8 +51,7 @@ namespace GISharp.Test.Gio
         public void TestGetActionEnabled()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionEnabled("does-not-exist"), Is.False);
-                Assert.That(() => ag.GetActionEnabled(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That(ag.GetActionEnabled("does-not-exist")!, Is.False);
             }
             AssertNoGLibLog();
         }
@@ -62,8 +60,7 @@ namespace GISharp.Test.Gio
         public void TestGetParameterType()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionParameterType("does-not-exist"), Is.EqualTo(VariantType.Int32));
-                Assert.That(() => ag.GetActionParameterType(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That(ag.GetActionParameterType("does-not-exist")!, Is.EqualTo(VariantType.Int32));
             }
             AssertNoGLibLog();
         }
@@ -72,8 +69,7 @@ namespace GISharp.Test.Gio
         public void TestGetStateType()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionStateType("does-not-exist"), Is.EqualTo(VariantType.Boolean));
-                Assert.That(() => ag.GetActionStateType(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That(ag.GetActionStateType("does-not-exist")!, Is.EqualTo(VariantType.Boolean));
             }
             AssertNoGLibLog();
         }
@@ -82,8 +78,7 @@ namespace GISharp.Test.Gio
         public void TestGetActionStateHint()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That((int)ag.GetActionStateHint("does-not-exist"), Is.EqualTo(1));
-                Assert.That(() => ag.GetActionStateHint(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That((int)ag.GetActionStateHint("does-not-exist")!, Is.EqualTo(1));
             }
             AssertNoGLibLog();
         }
@@ -92,8 +87,7 @@ namespace GISharp.Test.Gio
         public void TestGetActionState()
         {
             using (var ag = new TestActionGroup()) {
-                Assert.That((int)ag.GetActionState("does-not-exist"), Is.EqualTo(2));
-                Assert.That(() => ag.GetActionState(Utf8.Null), Throws.ArgumentNullException);
+                Assert.That((int)ag.GetActionState("does-not-exist")!, Is.EqualTo(2));
             }
             AssertNoGLibLog();
         }
@@ -206,9 +200,9 @@ namespace GISharp.Test.Gio
             // default signal handler
         }
 
-        public event EventHandler<Variant> ActionActivated;
+        public event EventHandler<Variant?> ActionActivated;
 
-        void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant parameter) => ActionActivated?.Invoke(this, parameter);
+        void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) => ActionActivated?.Invoke(this, parameter);
 
         readonly GSignalManager<ActionGroup.ActionAddedEventArgs> actionAddedSignalManager =
             new GSignalManager<ActionGroup.ActionAddedEventArgs>("action-added", gtype);
@@ -247,13 +241,13 @@ namespace GISharp.Test.Gio
 
         bool IActionGroup.DoGetActionEnabled(UnownedUtf8 actionName) => false;
 
-        VariantType IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) => VariantType.Int32;
+        VariantType? IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) => VariantType.Int32;
 
-        Variant IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new Variant(2);
+        Variant? IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new Variant(2);
 
-        Variant IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new Variant(1);
+        Variant? IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new Variant(1);
 
-        VariantType IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) => VariantType.Boolean;
+        VariantType? IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) => VariantType.Boolean;
 
         bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 

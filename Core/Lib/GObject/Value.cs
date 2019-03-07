@@ -78,7 +78,7 @@ namespace GISharp.Lib.GObject
             = new Dictionary<Tuple<GType, GType>, GCHandle> ();
         static readonly object transformFuncMapLock = new object ();
 
-        public object Get ()
+        public object? Get()
         {
             AssertInitialized ();
             var gtype = ValueGType.Fundamental;
@@ -151,7 +151,7 @@ namespace GISharp.Lib.GObject
             throw new Exception ("unhandled GType");
         }
 
-        public void Set (object obj)
+        public void Set(object? obj)
         {
             AssertInitialized ();
             var gtype = type.Fundamental;
@@ -185,9 +185,9 @@ namespace GISharp.Lib.GObject
                 } else if (gtype == GType.ULong) {
                     ULong = (nulong)obj;
                 } else if (gtype == GType.Object) {
-                    Object = (Object)obj;
+                    Object = (Object?)obj;
                 } else if (gtype == GType.Param) {
-                    Param = (ParamSpec)obj;
+                    Param = (ParamSpec?)obj;
                 } else if (ValueGType == GType.Type) {
                     // GType has fundamental type of void, so this check must
                     // be before Pointer and not check the fundamental GType
@@ -199,7 +199,7 @@ namespace GISharp.Lib.GObject
                         obj = new Utf8(str);
                     }
                     if (obj is Utf8 utf8) {
-                        String = new UnownedUtf8(utf8.Handle, -1);
+                        String = new NullableUnownedUtf8(utf8.Handle, -1);
                     }
                     else if (obj?.GetType() == typeof(UnownedUtf8)) {
                         // It is not possible to cast to UnownedUtf8 since it
@@ -212,7 +212,7 @@ namespace GISharp.Lib.GObject
                         throw new InvalidCastException();
                     }
                 } else if (gtype == GType.Variant) {
-                    Variant = (Variant)obj;
+                    Variant = (Variant?)obj;
                 } else {
                     // TODO: Need more specific exception
                     throw new Exception ("unhandled GType");
@@ -225,7 +225,7 @@ namespace GISharp.Lib.GObject
         static readonly PropertyInfo unownedUtf8HandleProperty =
             typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.Handle));
 
-        public UnownedUtf8 GetUnownedUtf8()
+        public NullableUnownedUtf8 GetUnownedUtf8()
         {
             return String;
         }
@@ -408,7 +408,7 @@ namespace GISharp.Lib.GObject
             return new Value (GType.Pointer, value);
         }
 
-        public static explicit operator Object (Value value)
+        public static explicit operator Object?(Value value)
         {
             try {
                 return value.Object;
@@ -417,12 +417,12 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public static explicit operator Value (Object value)
+        public static explicit operator Value(Object? value)
         {
             return new Value (GType.Object, value);
         }
 
-        public static explicit operator string (Value value)
+        public static explicit operator string?(Value value)
         {
             try {
                 return value.String;
@@ -431,7 +431,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public static explicit operator Value (string value)
+        public static explicit operator Value(string? value)
         {
             return new Value (GType.String, value);
         }
@@ -450,7 +450,7 @@ namespace GISharp.Lib.GObject
             return new Value (GType.Type, value);
         }
 
-        public static explicit operator Variant (Value value)
+        public static explicit operator Variant?(Value value)
         {
             try {
                 return value.Variant;
@@ -459,7 +459,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public static explicit operator Value (Variant value)
+        public static explicit operator Value(Variant? value)
         {
             return new Value (GType.Variant, value);
         }
@@ -881,13 +881,13 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        object Boxed {
+        object? Boxed {
             get {
                 AssertType (GType.Boxed);
                 var managedType = GType.TypeOf (ValueGType);
                 var ret_ = g_value_get_boxed (in this);
                 if (typeof(Boxed).IsAssignableFrom(managedType)) {
-                    return Opaque.GetInstance(managedType, ret_, Transfer.None)!;
+                    return Opaque.GetInstance(managedType, ret_, Transfer.None);
                 }
                 var gchandle = GCHandle.FromIntPtr (ret_);
                 return gchandle.Target;
@@ -895,9 +895,11 @@ namespace GISharp.Lib.GObject
 
             set {
                 AssertType (GType.Boxed);
-                var gtype = value.GetGType ();
-                if (!gtype.IsA (GType.Boxed)) {
-                    throw new ArgumentException ("Requires a boxed type.", nameof (value));
+                if (value != null) {
+                    var gtype = value.GetGType();
+                    if (!gtype.IsA(GType.Boxed)) {
+                        throw new ArgumentException ("Requires a boxed type.", nameof (value));
+                    }
                 }
                 if (value is Boxed boxed) {
                     // if this is a wrapped native type, then we pass the native handle
@@ -1223,11 +1225,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// object contents of @value
         /// </returns>
-        Object Object {
+        Object? Object {
             get {
                 AssertType (GType.Object);
                 var ret_ = g_value_get_object (in this);
-                var ret = Object.GetInstance(ret_, Transfer.None)!;
+                var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 
@@ -1261,17 +1263,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// #GParamSpec content of @value
         /// </returns>
-        ParamSpec Param {
+        ParamSpec? Param {
             get {
                 AssertType (GType.Param);
                 var ret_ = g_value_get_param (in this);
-                var ret = ParamSpec.GetInstance(ret_, Transfer.None)!;
+                var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 
             set {
                 AssertType (GType.Param);
-                g_value_set_param(ref this, value.Handle);
+                g_value_set_param(ref this, value?.Handle ?? IntPtr.Zero);
                 GC.KeepAlive (value);
             }
         }
@@ -1373,11 +1375,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// string content of @value
         /// </returns>
-        UnownedUtf8 String {
+        NullableUnownedUtf8 String {
             get {
                 AssertType (GType.String);
                 var ret_ = g_value_get_string(in this);
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
 
@@ -1556,7 +1558,7 @@ namespace GISharp.Lib.GObject
         /// variant contents of @value
         /// </returns>
         [Since ("2.26")]
-        Variant Variant {
+        Variant? Variant {
             get {
                 AssertType (GType.Variant);
                 var ret_ = g_value_get_variant (in this);
@@ -2755,12 +2757,12 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public Value (GType type, object value) : this (type)
+        public Value(GType type, object? value) : this(type)
         {
             Set (value);
         }
 
-        public Value (Type type, object value) : this (type.GetGType ())
+        public Value(Type type, object? value) : this(type.GetGType())
         {
             Set (value);
         }

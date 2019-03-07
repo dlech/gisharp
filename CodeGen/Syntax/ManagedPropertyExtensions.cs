@@ -18,11 +18,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetDeclaration(this ManagedProperty property)
         {
-            var type = property.Type.ManagedType.ToSyntax();
-
-            if (property.Type.ManagedType == typeof(Utf8) && property.Getter.ReturnValue.TransferOwnership == "none") {
-                type = ParseTypeName($"{typeof(UnownedUtf8)}");
-            } 
+            var type = property.Getter.ReturnValue.GetManagedTypeName();
 
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetCommonAccessModifiers())

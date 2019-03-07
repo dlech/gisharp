@@ -67,7 +67,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
             }
         }
 
-        public object GetProperty (string name)
+        public object? GetProperty(string name)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));

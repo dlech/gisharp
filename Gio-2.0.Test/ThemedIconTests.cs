@@ -21,7 +21,6 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNewFromNames()
         {
-            Assert.That(() => new ThemedIcon((string[])null), Throws.ArgumentNullException);
             Assert.That(() => new ThemedIcon(), Throws.ArgumentException);
             using (var icon = new ThemedIcon("name1", "name2")) {
                 Assert.That<string>(icon.Names.First(), Is.EqualTo("name1"));

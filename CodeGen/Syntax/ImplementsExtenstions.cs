@@ -57,7 +57,7 @@ namespace GISharp.CodeGen.Syntax
             var list = List<MemberDeclarationSyntax>();
 
             foreach (var m in implements.ManagedType.GetMethods()) {
-                var returnType = m.ReturnType.ToSyntax();
+                var returnType = m.ReturnParameter.ToSyntax().Type;
                 var name = $"{implements.ManagedType.ToSyntax()}.{m.Name}";
                 var method = MethodDeclaration(returnType, name)
                     .WithParameterList(m.GetParameters().ToSyntax())

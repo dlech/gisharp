@@ -80,7 +80,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var ret_ = g_file_output_stream_get_etag(stream_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -168,10 +168,10 @@ namespace GISharp.Lib.Gio
         /// <exception name="GISharp.Runtime.GErrorException">
         /// On error
         /// </exception>
-        public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
-            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
+            var attributes_ = attributes.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_file_output_stream_query_info(stream_,attributes_,cancellable_,&error_);
@@ -181,7 +181,7 @@ namespace GISharp.Lib.Gio
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -232,7 +232,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback,
+        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -255,10 +255,10 @@ namespace GISharp.Lib.Gio
         /// <param name="cancellable">
         /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
-        public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable cancellable = null)
+        public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
-            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
+            var attributes_ = attributes.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
@@ -313,7 +313,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+                var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full)!;
                 completionSource.SetResult((ret));
             }
             catch (System.Exception ex)
@@ -328,7 +328,7 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe System.Boolean DoCanSeek()
         {
             var stream_ = Handle;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanSeek>(_GType)(stream_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanSeek>(_GType)!(stream_);
             var ret = (System.Boolean)ret_;
             return ret;
         }
@@ -337,7 +337,7 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe System.Boolean DoCanTruncate()
         {
             var stream_ = Handle;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanTruncate>(_GType)(stream_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedCanTruncate>(_GType)!(stream_);
             var ret = (System.Boolean)ret_;
             return ret;
         }
@@ -354,8 +354,8 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe GISharp.Lib.GLib.Utf8 DoGetEtag()
         {
             var stream_ = Handle;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedGetEtag>(_GType)(stream_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedGetEtag>(_GType)!(stream_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -392,20 +392,20 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedQueryInfo))]
-        protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable cancellable = null)
+        protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
-            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
+            var attributes_ = attributes.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfo>(_GType)(stream_,attributes_,cancellable_,&error_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfo>(_GType)!(stream_,attributes_,cancellable_,&error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -431,14 +431,14 @@ namespace GISharp.Lib.Gio
         /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
         /// </param>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedQueryInfoAsync))]
-        protected virtual unsafe void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null)
+        protected virtual unsafe void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
-            var attributes_ = attributes.IsNull ? throw new System.ArgumentNullException(nameof(attributes)) : attributes.Handle;
+            var attributes_ = attributes.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfoAsync>(_GType)(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
         }
 
         /// <summary>
@@ -458,16 +458,16 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
             var stream_ = Handle;
-            var result_ = result?.Handle ?? throw new System.ArgumentNullException(nameof(result));
+            var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfoFinish>(_GType)(stream_,result_,&error_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfoFinish>(_GType)!(stream_,result_,&error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -475,14 +475,14 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedSeek))]
-        protected virtual unsafe void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable cancellable = null)
+        protected virtual unsafe void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
             var offset_ = (System.Int64)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedSeek>(_GType)(stream_, offset_, type_, cancellable_, &error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedSeek>(_GType)!(stream_, offset_, type_, cancellable_, &error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -494,7 +494,7 @@ namespace GISharp.Lib.Gio
         protected virtual unsafe System.Int64 DoTell()
         {
             var stream_ = Handle;
-            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTell>(_GType)(stream_);
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTell>(_GType)!(stream_);
             var ret = (System.Int64)ret_;
             return ret;
         }
@@ -503,13 +503,13 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedTruncateFn))]
-        protected virtual unsafe void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable cancellable = null)
+        protected virtual unsafe void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
             var size_ = (System.Int64)size;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTruncateFn>(_GType)(stream_, size_, cancellable_, &error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTruncateFn>(_GType)!(stream_, size_, cancellable_, &error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -527,7 +527,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.ISeekable.DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable cancellable)
+        void GISharp.Lib.Gio.ISeekable.DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable)
         {
             throw new System.NotImplementedException();
         }
@@ -537,7 +537,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.ISeekable.DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable cancellable)
+        void GISharp.Lib.Gio.ISeekable.DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable)
         {
             throw new System.NotImplementedException();
         }

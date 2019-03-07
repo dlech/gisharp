@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(initOffset, InitFactory.Create);
         }
 
-        public delegate void Init(GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void Init(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -52,7 +52,7 @@ System.IntPtr* error);
                 {
                     try
                     {
-                        var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance(initable_, GISharp.Runtime.Transfer.None);
+                        var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance(initable_, GISharp.Runtime.Transfer.None)!;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
                         doInit(cancellable);

@@ -60,10 +60,10 @@ System.IntPtr stream);
                 {
                     try
                     {
-                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None);
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doGetInputStream = (GetInputStream)methodInfo.CreateDelegate(typeof(GetInputStream), stream);
                         var ret = doGetInputStream();
-                        var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Handle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -99,10 +99,10 @@ System.IntPtr stream);
                 {
                     try
                     {
-                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None);
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doGetOutputStream = (GetOutputStream)methodInfo.CreateDelegate(typeof(GetOutputStream), stream);
                         var ret = doGetOutputStream();
-                        var ret_ = ret?.Handle ?? throw new System.ArgumentNullException(nameof(ret));
+                        var ret_ = ret.Handle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -117,7 +117,7 @@ System.IntPtr stream);
             }
         }
 
-        public delegate void CloseFn(GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void CloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -144,7 +144,7 @@ System.IntPtr* error);
                 {
                     try
                     {
-                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None);
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCloseFn = (CloseFn)methodInfo.CreateDelegate(typeof(CloseFn), stream);
                         doCloseFn(cancellable);
@@ -166,7 +166,7 @@ System.IntPtr* error);
             }
         }
 
-        public delegate void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback callback, GISharp.Lib.Gio.Cancellable cancellable = null);
+        public delegate void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -183,7 +183,7 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback,
+GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
@@ -195,13 +195,13 @@ System.IntPtr userData);
         {
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback callback_, System.IntPtr userData_)
+                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
                 {
                     try
                     {
-                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None);
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream);
                         doCloseAsync(ioPriority, callback, cancellable);
@@ -243,8 +243,8 @@ System.IntPtr* error);
                 {
                     try
                     {
-                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None);
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None);
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
+                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doCloseFinish = (CloseFinish)methodInfo.CreateDelegate(typeof(CloseFinish), stream);
                         doCloseFinish(result);
                         return true;

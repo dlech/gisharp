@@ -22,7 +22,7 @@ namespace GISharp.Lib.Gio
     /// returned by <see cref="CancellableSource.New"/>.
     /// </summary>
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable cancellable = null);
+    public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
     /// <summary>
     /// Factory for creating <see cref="CancellableSourceFunc"/> methods.
@@ -31,20 +31,30 @@ namespace GISharp.Lib.Gio
     {
         unsafe class UserData
         {
-            public GISharp.Lib.Gio.CancellableSourceFunc ManagedDelegate;
-            public GISharp.Lib.Gio.UnmanagedCancellableSourceFunc UnmanagedDelegate;
-            public GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
-            public GISharp.Runtime.CallbackScope Scope;
+            public readonly GISharp.Lib.Gio.CancellableSourceFunc ManagedDelegate;
+            public readonly GISharp.Lib.Gio.UnmanagedCancellableSourceFunc UnmanagedDelegate;
+            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
+            public readonly GISharp.Runtime.CallbackScope Scope;
+
+            public UserData(GISharp.Lib.Gio.CancellableSourceFunc managedDelegate, GISharp.Lib.Gio.UnmanagedCancellableSourceFunc unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            {
+                ManagedDelegate = managedDelegate;
+                UnmanagedDelegate = unmanagedDelegate;
+                DestroyDelegate = destroyDelegate;
+                Scope = scope;
+            }
         }
 
         public static GISharp.Lib.Gio.CancellableSourceFunc Create(GISharp.Lib.Gio.UnmanagedCancellableSourceFunc callback, System.IntPtr userData)
         {
-            if (callback == null)
+            unsafe System.Boolean callback_(GISharp.Lib.Gio.Cancellable? cancellable)
             {
-                throw new System.ArgumentNullException(nameof(callback));
+                var userData_  =  userData ;
+                var cancellable_  =  cancellable ? . Handle ?? System . IntPtr . Zero ;
+                var ret_  =  callback ( cancellable_ ,  userData_ ) ;
+                var ret  =  ( System . Boolean ) ret_ ;
+                return ret;
             }
-
-            unsafe System.Boolean callback_(GISharp.Lib.Gio.Cancellable cancellable) { var userData_ = userData; var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero; var ret_ = callback(cancellable_,userData_); var ret = (System.Boolean)ret_; return ret; }
 
             return callback_;
         }
@@ -69,13 +79,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static unsafe (GISharp.Lib.Gio.UnmanagedCancellableSourceFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.CancellableSourceFunc callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData
-            {
-                ManagedDelegate = callback ?? throw new System.ArgumentNullException(nameof(callback)),
-                UnmanagedDelegate = UnmanagedCallback,
-                DestroyDelegate = Destroy,
-                Scope = scope
-            };
+            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
             return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
         }

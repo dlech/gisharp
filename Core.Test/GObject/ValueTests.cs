@@ -325,7 +325,7 @@ namespace GISharp.Test.Core.GObject
             Assert.That (v.ValueGType, Is.EqualTo (GType.String));
             var expected = "1";
             v.Set (expected);
-            Assert.That ((string)v, Is.EqualTo (expected));
+            Assert.That((string?)v, Is.EqualTo(expected));
             Assert.That (v.Get (), Is.EqualTo (expected));
 
             Assert.That(() => {
@@ -334,7 +334,7 @@ namespace GISharp.Test.Core.GObject
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                var _ = (string)v2;
+                var _ = (string?)v2;
             }, Throws.InstanceOf<InvalidCastException>());
         }
 

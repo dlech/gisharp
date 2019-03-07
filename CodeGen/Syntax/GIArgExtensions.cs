@@ -34,7 +34,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (managed && type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                type = typeof(UnownedUtf8);
+                type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
             }
 
             var identifier = ParseToken(arg.ManagedName + suffix);
@@ -60,6 +60,11 @@ namespace GISharp.CodeGen.Syntax
                 // .WithAttributeLists(AttributeLists)
                 .WithModifiers(TokenList(getModifiers()))
                 .WithType(type.ToSyntax());
+
+            if (arg.IsNullable && !type.IsValueType && !type.IsPointer) {
+                syntax = syntax.WithType(NullableType(syntax.Type));
+            }
+
             if (arg.ParentNode is ManagedParameters && arg.DefaultValue != null) {
                 var @default = EqualsValueClause(ParseExpression(arg.DefaultValue));
                 syntax = syntax.WithDefault(@default);
@@ -109,27 +114,21 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    if (arg.IsNullable) {
-                        expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.Handle");
-                    }
-                    else {
-                        var throwIfNull = $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
-                        expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.IsNull ? {throwIfNull} : {arg.ManagedName}.Handle");
-                    }
+                    expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.Handle");
                 }
                 else {
-                    var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
-                        $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
                     var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
-                    expression = ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? {nullValue}");
+                    expression = arg.IsNullable ?
+                        ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? System.IntPtr.Zero") :
+                        ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.{getter}");
                 }
             }
             else if (arg.Type is Gir.Array array) {
                 var takeData = arg.TransferOwnership == "full";
                 var getter = takeData ? "TakeData()" : "Data";
-                var nullValue = arg.IsNullable ? "System.IntPtr.Zero" :
-                    $"throw new System.ArgumentNullException(nameof({arg.ManagedName}))";
-                getter = $"{arg.ManagedName}?.{getter} ?? {nullValue}";
+                getter = arg.IsNullable ?
+                    $"{arg.ManagedName}?.{getter} ?? System.IntPtr.Zero" :
+                    $"{arg.ManagedName}.{getter}";
                 var lengthIdentifier = "";
                 var lengthType = "int";
                 if (array.LengthIndex >= 0) {
@@ -190,7 +189,8 @@ namespace GISharp.CodeGen.Syntax
             else if (type.IsOpaque()) {
                 // there are some special cases where there are Unowned versions of opaques
                 if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    expression = ParseExpression($"{arg.ManagedName} = new {typeof(UnownedUtf8)}({arg.ManagedName}_, -1)");
+                    var utf8Type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                    expression = ParseExpression($"{arg.ManagedName} = new {utf8Type}({arg.ManagedName}_, -1)");
                 }
                 else {
                     var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
@@ -199,7 +199,8 @@ namespace GISharp.CodeGen.Syntax
                     if (arg.Direction == "inout" && declareVariable) {
                         prefix = "*";
                     }
-                    expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({prefix}{arg.ManagedName}_, {ownership})");
+                    var notNullable = arg.IsNullable ? "" : "!";
+                    expression = ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({prefix}{arg.ManagedName}_, {ownership}){notNullable}");
                 }
             }
             else if (arg.Type is Gir.Array array) {
@@ -219,13 +220,20 @@ namespace GISharp.CodeGen.Syntax
             else if (type.IsInterface) {
                 var getInstance = $"{typeof(Object)}.{nameof(Object.GetInstance)}";
                 var ownership = arg.GetOwnershipTransfer();
-                expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}){getInstance}({arg.ManagedName}_, {ownership})");
+                var nullable = arg.IsNullable ? "?" : "";
+                var notNullable = arg.IsNullable ? "" : "!";
+                expression = ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}{nullable}){getInstance}({arg.ManagedName}_, {ownership}){notNullable}");
             }
             else if (type.IsDelegate()) {
                 var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
                 var factory = $"{arg.Type.ManagedType}Factory";
                 var getter = $"{factory}.Create({arg.ManagedName}_, {userData}_)";
+                if (arg.IsNullable) {
+                    var callbackType = arg.Type.ManagedType.ToSyntax();
+                    var defaultValue = $"default({callbackType})";
+                    getter = $"{arg.ManagedName}_ == null ? {defaultValue} : {getter}";
+                }
                 expression = ParseExpression($"{arg.ManagedName} = {getter}");
             }
             else {

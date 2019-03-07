@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        public delegate void CancelledCallback(Cancellable cancellable);
+        public delegate void CancelledCallback(Cancellable? cancellable);
 
         delegate void UnmanagedCancelledCallback(IntPtr cancellable, IntPtr userData);
 
@@ -29,19 +29,21 @@ namespace GISharp.Lib.Gio
         {
             class UserData
             {
-                public CancelledCallback ManagedDelegate;
-                public UnmanagedCancelledCallback UnmanagedDelegate;
-                public UnmanagedDestroyNotify DestroyDelegate;
+                public readonly CancelledCallback ManagedDelegate;
+                public readonly UnmanagedCancelledCallback UnmanagedDelegate;
+                public readonly UnmanagedDestroyNotify DestroyDelegate;
+
+                public UserData(CancelledCallback managedDelegate, UnmanagedCancelledCallback unmanagedDelegate, UnmanagedDestroyNotify destroyDelegate)
+                {
+                    ManagedDelegate = managedDelegate;
+                    UnmanagedDelegate = unmanagedDelegate;
+                    DestroyDelegate = destroyDelegate;
+                }
             }
 
             public static (IntPtr, UnmanagedDestroyNotify, IntPtr) Create(CancelledCallback callback)
             {
-                var userData = new UserData
-                {
-                    ManagedDelegate = callback ?? throw new ArgumentNullException(nameof(callback)),
-                    UnmanagedDelegate = UnmanagedCallback,
-                    DestroyDelegate = Destroy,
-                };
+                var userData = new UserData(callback, UnmanagedCallback, Destroy);
                 var callback_ = Marshal.GetFunctionPointerForDelegate(userData.UnmanagedDelegate);
                 var userData_ = (IntPtr)GCHandle.Alloc(userData);
                 return (callback_, userData.DestroyDelegate, userData_);

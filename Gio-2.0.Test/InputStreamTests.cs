@@ -134,7 +134,7 @@ namespace GISharp.Test.Gio
         {
         }
 
-        protected override int DoReadFn(IntPtr buffer, int count, Cancellable cancellable = null)
+        protected override int DoReadFn(IntPtr buffer, int count, Cancellable? cancellable = null)
         {
            for (int i = 0; i < count; i++) {
                Marshal.WriteByte(buffer + i, (byte)i);
@@ -142,12 +142,12 @@ namespace GISharp.Test.Gio
            return count;
         }
 
-        protected override int DoSkip(int count, Cancellable cancellable = null)
+        protected override int DoSkip(int count, Cancellable? cancellable = null)
         {
             return count;
         }
 
-        protected override void DoCloseFn(Cancellable cancellable = null)
+        protected override void DoCloseFn(Cancellable? cancellable = null)
         {
         }
     }

@@ -25,7 +25,11 @@ namespace GISharp.CodeGen.Syntax
             var syntax = managedType.ToSyntax();
 
             if (managedType == typeof(Utf8) && returnValue.TransferOwnership == "none") {
-                syntax = ParseTypeName($"{typeof(UnownedUtf8)}");
+                var utf8Type = returnValue.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                syntax = ParseTypeName($"{utf8Type}");
+            }
+            else if (returnValue.IsNullable && !managedType.IsValueType && !managedType.IsPointer) {
+                syntax = NullableType(syntax);
             }
 
             // when the unmanaged function returns a value type as a pointer,

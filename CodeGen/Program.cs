@@ -133,7 +133,6 @@ namespace GISharp.CodeGen
 
             var analyzerOptions = new AnalyzerManagerOptions() {
                 LogWriter = Console.Error,
-                LoggerVerbosity = LoggerVerbosity.Quiet,
             };
             var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
@@ -254,9 +253,9 @@ namespace GISharp.CodeGen
 
             TypeResolver.LoadAssembly(typeof(GISharp.Runtime.Opaque).Assembly);
 
-            foreach (var projRef in projectAnalyzer.Build().GetProjectReferences().Distinct()) {
+            foreach (var projRef in projectAnalyzer.Build().SelectMany(x => x.ProjectReferences).Distinct()) {
                 var proj = manager.GetProject(projRef);
-                var targetPath = proj.Build().Project.GetProperty("TargetPath").EvaluatedValue;
+                var targetPath = proj.Build().Single().GetProperty("TargetPath");
 
                 // build the project references to ensure they are not out of date.
                 // theoretically, we could use MSBUild programmatically
