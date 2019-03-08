@@ -88,10 +88,20 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_invoke (IntPtr raw, IntPtr function, Argument[] inArgs, int nInArgs, Argument[] outArgs, int nOutArgs, out Argument returnValue, bool isMethod, bool throws, out IntPtr error);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern bool g_callable_info_invoke(
+            IntPtr raw,
+            IntPtr function,
+            Argument[] inArgs,
+            int nInArgs,
+            Argument[] outArgs,
+            int nOutArgs,
+            out Argument returnValue,
+            bool isMethod,
+            bool throws,
+            out IntPtr error);
 
-        public bool Invoke (IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
+        bool Invoke(IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
             IntPtr error_;
             bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);

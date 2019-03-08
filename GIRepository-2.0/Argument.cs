@@ -11,123 +11,60 @@ namespace GISharp.Lib.GIRepository
     /// <summary>
     /// Stores an argument of varying type.
     /// </summary>
-    [StructLayout (LayoutKind.Explicit)]
-    public struct Argument : IEquatable<Argument>
+    [StructLayout(LayoutKind.Explicit)]
+    public struct Argument
     {
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public bool Boolean;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public sbyte Int8;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public byte UInt8;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public short Int16;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public ushort UInt16;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public int Int32;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public uint UInt32;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public long Int64;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public ulong UInt64;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public float Float;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public double Double;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public short Short;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public int Int;
-        [FieldOffset (0)]
+        [FieldOffset(0)]
         public uint UInt;
-        [FieldOffset (0)]
-        private IntPtr v_long;
+        [FieldOffset(0)]
+        public CLong Long;
+        [FieldOffset(0)]
+        public CULong ULong;
+        [FieldOffset(0)]
+        public IntPtr SSize;
+        [FieldOffset(0)]
+        public UIntPtr Size;
 
-        public long Long {
-            get {
-                return (long)v_long;
-            }
-            set {
-                v_long = new IntPtr (value);
-            }
-        }
-
-        [FieldOffset (0)]
-        private UIntPtr v_ulong;
-
-        public ulong ULong {
-            get {
-                return (ulong)v_ulong;
-            }
-            set {
-                v_ulong = new UIntPtr (value);
-            }
-        }
-
-        [FieldOffset (0)]
-        private IntPtr v_ssize;
-
-        public long SSize {
-            get {
-                return (long)v_ssize;
-            }
-            set {
-                v_ssize = new IntPtr (value);
-            }
-        }
-
-        [FieldOffset (0)]
-        private UIntPtr v_size;
-
-        public ulong Size {
-            get {
-                return (ulong)v_size;
-            }
-            set {
-                v_size = new UIntPtr (value);
-            }
-        }
-
-        [FieldOffset (0)]
-        private IntPtr _v_string;
+        [FieldOffset(0)]
+        private IntPtr @string;
 
         public NullableUnownedUtf8 String {
-            get => new NullableUnownedUtf8(_v_string, -1);
-            set =>_v_string = value.Handle;
+            get => new NullableUnownedUtf8(@string, -1);
+            set => @string = value.Handle;
         }
 
-        [FieldOffset (0)]
-        private IntPtr _v_pointer;
+        [FieldOffset(0)]
+        private IntPtr pointer;
 
         public IntPtr Pointer {
-            get { return _v_pointer; }
-            set { _v_pointer = value; }
-        }
-
-        public static Argument Zero = new Argument ();
-
-        public static Argument New (IntPtr raw)
-        {
-            if (raw == IntPtr.Zero)
-                return Zero;
-            return (Argument)Marshal.PtrToStructure (raw, typeof(Argument));
-        }
-
-        public bool Equals (Argument other)
-        {
-            return _v_pointer.Equals (other._v_pointer);
-        }
-
-        public override bool Equals (object obj)
-        {
-            return obj is Argument && Equals ((Argument)obj);
-        }
-
-        public override int GetHashCode ()
-        {
-            return _v_pointer.GetHashCode ();
+            get => pointer;
+            set => pointer = value;
         }
     }
 }
