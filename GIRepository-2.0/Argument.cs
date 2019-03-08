@@ -59,6 +59,11 @@ namespace GISharp.Lib.GIRepository
             set => @string = value.Handle;
         }
 
+        public NullableUnownedUtf8 GetString(int size)
+        {
+            return new NullableUnownedUtf8(@string, size);
+        }
+
         [FieldOffset(0)]
         private IntPtr pointer;
 

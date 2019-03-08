@@ -4,6 +4,7 @@ using System.Dynamic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Runtime.InteropServices;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
@@ -39,6 +40,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         public void Dispose ()
         {
             Dispose (true);
+            GC.SuppressFinalize(this);
         }
 
         protected virtual void Dispose (bool disposing)
@@ -46,7 +48,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
             g_object_unref (Handle);
         }
 
-        public void SetProperty (string name, object value)
+        public void SetProperty(string name, object? value)
         {
             if (name == null) {
                 throw new ArgumentNullException (nameof (name));
@@ -59,9 +61,10 @@ namespace GISharp.Lib.GIRepository.Dynamic
                     var message = $"Could not find property named {name}";
                     throw new ArgumentException (message, nameof (name));
                 }
-                var valueType = Marshal.PtrToStructure<GType> (pspecPtr + pspecValueTypeOffset);
-                var gvalue = new Value (valueType, value);
-                g_object_set_property (Handle, namePtr, ref gvalue);
+                var valueType = Marshal.PtrToStructure<UIntPtr>(pspecPtr + pspecValueTypeOffset);
+                var gvalue = new GValue(valueType);
+                gvalue.Set(value);
+                g_object_set_property(Handle, namePtr, in gvalue);
             } finally {
                 GMarshal.Free (namePtr);
             }
@@ -73,55 +76,40 @@ namespace GISharp.Lib.GIRepository.Dynamic
                 throw new ArgumentNullException (nameof (name));
             }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
-            Value value;
-            g_object_get_property (Handle, namePtr, out value);
+            g_object_get_property (Handle, namePtr, out var value);
             GMarshal.Free (namePtr);
 
             return value.Get ();
         }
 
-        public ulong Connect(string signalSpec, Func<object[], object> callback, ConnectFlags flags = default(ConnectFlags))
+        public ulong Connect(string signalSpec, System.Func<object?[], object?> callback, ConnectFlags flags = default(ConnectFlags))
         {
-            if (callback == null) {
-                throw new ArgumentNullException (nameof (callback));
-            }
-            using (var closure = new Closure (callback)) {
-                return Connect (signalSpec, closure, flags);
-            }
+            using var closure = new GClosure(callback);
+            return Connect(signalSpec, closure, flags);
         }
 
-        public ulong Connect(string signalSpec, Action<object[]> callback, ConnectFlags flags = default(ConnectFlags))
+        public ulong Connect(string signalSpec, System.Func<object?> callback, ConnectFlags flags = default(ConnectFlags))
         {
-            if (callback == null) {
-                throw new ArgumentNullException (nameof (callback));
-            }
-            using (var closure = new Closure (callback)) {
-                return Connect (signalSpec, closure, flags);
-            }
+            using var closure = new GClosure(callback);
+            return Connect(signalSpec, closure, flags);
         }
 
-        public ulong Connect (string signalSpec, Action callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect(string signalSpec, Action<object?[]> callback, ConnectFlags flags = default(ConnectFlags))
         {
-            if (callback == null) {
-                throw new ArgumentNullException (nameof (callback));
-            }
-            using (var closure = new Closure (callback)) {
-                return Connect (signalSpec, closure, flags);
-            }
+            using var closure = new GClosure(callback);
+            return Connect(signalSpec, closure, flags);
         }
 
-        ulong Connect (string signalSpec, Closure closure, ConnectFlags flags)
+        public ulong Connect(string signalSpec, Action callback, ConnectFlags flags = default (ConnectFlags))
         {
-            if (signalSpec == null) {
-                throw new ArgumentNullException (nameof (signalSpec));
-            }
-            if (closure == null) {
-                throw new ArgumentNullException (nameof (closure));
-            }
-            var signalSpecPtr = GMarshal.StringToUtf8Ptr (signalSpec);
-            var ret = g_signal_connect_closure (Handle, signalSpecPtr, closure.Handle, flags);
-            GMarshal.Free (signalSpecPtr);
+            using var closure = new GClosure(callback);
+            return Connect(signalSpec, closure, flags);
+        }
 
+        ulong Connect(string signalSpec, GClosure closure, ConnectFlags flags)
+        {
+            using var signalSpec_ = (Utf8)signalSpec;
+            var ret = g_signal_connect_closure(Handle, signalSpec_.Handle, closure.Handle, flags);
             return ret;
         }
 
@@ -137,10 +125,10 @@ namespace GISharp.Lib.GIRepository.Dynamic
         static extern void g_object_unref (IntPtr obj);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_set_property (IntPtr obj, IntPtr name, ref Value value);
+        static extern void g_object_set_property(IntPtr obj, IntPtr name, in GValue value);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_object_get_property (IntPtr obj, IntPtr name, out Value value);
+        static extern void g_object_get_property(IntPtr obj, IntPtr name, out GValue value);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern CULong g_signal_connect_closure(IntPtr obj, IntPtr detailedSignal, IntPtr closure, ConnectFlags flags);

@@ -27,7 +27,7 @@ namespace GISharp.Lib.GIRepository
         public object Value {
             get {
                 Argument value;
-                g_constant_info_get_value(Handle, out value);
+                var size = g_constant_info_get_value(Handle, out value);
                 try {
                     return TypeInfo.Tag switch {
                         TypeTag.Boolean => value.Boolean,
@@ -41,7 +41,7 @@ namespace GISharp.Lib.GIRepository
                         TypeTag.UInt16 => value.UInt16,
                         TypeTag.UInt32 => value.UInt32,
                         TypeTag.UInt64 => value.UInt64,
-                        TypeTag.UTF8 => (object)value.String.ToString(),
+                        TypeTag.UTF8 => (object)value.GetString(size).ToString(),
                         _ => throw new Exception($"Unexpected value type '{TypeInfo.Tag}'")
                     };
                 }

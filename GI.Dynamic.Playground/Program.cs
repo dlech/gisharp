@@ -66,16 +66,10 @@ namespace GI.Dynamic.Playground
                 // on macOS, the menu is created automatically, but still uses
                 // the actions above
                 if (app.prefers_app_menu ()) {
-                    var menu1 = Gio.Menu.@new ();
-                    menu1.append ("_About", "app.about");
-
-                    var menu2 = Gio.Menu.@new ();
-                    menu2.append ("_Quit", "app.quit");
-                    app.set_accels_for_action ("app.quit", new[] { "<Control>q" });
-
                     var appMenu = Gio.Menu.@new ();
-                    appMenu.append_section (null, menu1);
-                    appMenu.append_section (null, menu2);
+                    appMenu.append ("_About", "app.about");
+                    appMenu.append ("_Quit", "app.quit");
+                    app.set_accels_for_action ("app.quit", new[] { "<Control>q" });
                     app.set_app_menu (appMenu);
                 }
             };
