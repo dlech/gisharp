@@ -742,10 +742,11 @@ namespace GISharp.Lib.GLib
         /// the corresponding type string
         /// </returns>
         [Since ("2.24")]
-        public override string ToString ()
+        public unsafe override string ToString()
         {
-            var ret_ = g_variant_type_dup_string(Handle);
-            var ret = GMarshal.Utf8PtrToString (ret_, true)!;
+            var ret_ = g_variant_type_peek_string(Handle);
+            var len = g_variant_type_get_string_length(Handle);
+            var ret = System.Text.Encoding.UTF8.GetString((byte*)ret_, (int)len);
             return ret;
         }
 
@@ -950,11 +951,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the length of the corresponding type string
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern ulong g_variant_type_get_string_length (
+        static extern UIntPtr g_variant_type_get_string_length(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr type);

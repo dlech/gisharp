@@ -408,7 +408,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusObjectPath) {
                 throw new InvalidCastException ();
             }
-            return v.getString(out var length).Substring(0, length);
+            return (string)v.getString();
         }
 
         public static explicit operator Variant (DBusObjectPath value)
@@ -421,7 +421,7 @@ namespace GISharp.Lib.GLib
             if (v.Type != VariantType.DBusSignature) {
                 throw new InvalidCastException ();
             }
-            return v.getString(out var length).Substring(0, length);
+            return (string)v.getString();
         }
 
         public static explicit operator Variant (DBusSignature value)
@@ -3511,17 +3511,17 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the constant string, UTF-8 encoded
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern unsafe IntPtr g_variant_get_string (
+        static extern unsafe IntPtr g_variant_get_string(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            ulong* length);
+            UIntPtr* length);
 
         /// <summary>
         /// Returns the string value of a #GVariant instance with a string
@@ -3534,28 +3534,16 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the string
         /// </returns>
-        [Since ("2.24")]
-        unsafe string getString(out int length)
+        [Since("2.24")]
+        unsafe UnownedUtf8 getString()
         {
             if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
                 throw new InvalidOperationException();
             }
-            ulong length_;
-            var ret_ = g_variant_get_string(Handle, &length_);
-            var ret = GMarshal.Utf8PtrToString(ret_);
-            length = (int)length_;
-            return ret!;
-        }
-
-        [Since ("2.24")]
-        unsafe string getString()
-        {
-            if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
-                throw new InvalidOperationException();
-            }
-            var ret_ = g_variant_get_string(Handle, null);
-            var ret = GMarshal.Utf8PtrToString(ret_);
-            return ret!;
+            UIntPtr length;
+            var ret_ = g_variant_get_string(Handle, &length);
+            var ret = new UnownedUtf8(ret_, (int)length);
+            return ret;
         }
 
         /// <summary>

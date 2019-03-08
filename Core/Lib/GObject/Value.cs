@@ -2793,8 +2793,8 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_strdup_value_contents (ref Value value);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_strdup_value_contents(ref Value value);
 
         /// <summary>
         /// Return a string that describes the contents of this value.
@@ -2805,12 +2805,11 @@ namespace GISharp.Lib.GObject
         /// debugging output, the way in which the contents are described may
         /// change between different GLib versions.
         /// </remarks>
-        public override string ToString ()
+        public override string ToString()
         {
-            AssertInitialized ();
-            var ret_ = g_strdup_value_contents (ref this);
-            var ret = GMarshal.Utf8PtrToString (ret_, freePtr: true);
-
+            AssertInitialized();
+            var ret_ = g_strdup_value_contents(ref this);
+            using var ret = new Utf8(ret_, Transfer.Full);
             return $"{ValueGType.Name}: {ret}";
         }
     }

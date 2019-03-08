@@ -1,5 +1,5 @@
 using System;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// The signal name.
         /// </summary>
-        public string SignalName => GMarshal.Utf8PtrToString(signalName)!;
+        public UnownedUtf8 SignalName => new UnownedUtf8(signalName, -1);
 
         /// <summary>
         /// The interface/instance type that this signal can be emitted for.

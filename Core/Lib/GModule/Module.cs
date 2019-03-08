@@ -2,7 +2,7 @@ using System;
 using System.ComponentModel;
 using System.IO;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GModule
@@ -52,17 +52,16 @@ namespace GISharp.Lib.GModule
         /// </summary>
         public static readonly string LibrarySuffix;
 
-        static Module ()
+        static Module()
         {
             // Initialize the platform-specific "constants". Suffix should end
             // up being the same as G_MODULE_SUFFIX in C code.
 
-            var emptyName = GMarshal.StringToUtf8Ptr (string.Empty);
-            var path_ = g_module_build_path (IntPtr.Zero, emptyName);
-            var path = GMarshal.Utf8PtrToString(path_, true)!;
-            GMarshal.Free (emptyName);
+            using var emptyName = (Utf8)string.Empty;
+            var path_ = g_module_build_path(IntPtr.Zero, emptyName.Handle);
+            using var path = new Utf8(path_, Transfer.Full);
 
-            var parts = path.Split ('.');
+            var parts = ((string)path).Split ('.');
             Prefix = parts[0];
             Suffix = parts[1];
 
@@ -228,9 +227,8 @@ namespace GISharp.Lib.GModule
             }
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_name (
-            IntPtr module);
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_module_name(IntPtr module);
 
         /// <summary>
         /// Gets the filename that the module was opened with.
@@ -239,10 +237,10 @@ namespace GISharp.Lib.GModule
         /// <remarks>
         /// If this module refers to the application itself, "main" is returned.
         /// </remarks>
-        public string Name {
+        public UnownedUtf8 Name {
             get {
-                var ret_ = g_module_name (Handle);
-                var ret = GMarshal.Utf8PtrToString(ret_)!;
+                var ret_ = g_module_name(Handle);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
@@ -259,17 +257,17 @@ namespace GISharp.Lib.GModule
             g_module_make_resident (Handle);
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_error ();
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_module_error();
 
         /// <summary>
         /// Gets a string describing the last module error.
         /// </summary>
         /// <value>A string describing the last module error.</value>
-        static string Error {
+        static UnownedUtf8 Error {
             get {
                 var ret_ = g_module_error ();
-                var ret = GMarshal.Utf8PtrToString(ret_)!;
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }

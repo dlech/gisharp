@@ -145,10 +145,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the string associated with the #GQuark
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_quark_to_string (
+        static extern IntPtr g_quark_to_string(
             /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
             /* transfer-ownership:none */
             Quark quark);
@@ -159,12 +159,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the string associated with the <see cref="Quark"/>
         /// </returns>
-        public override string ToString ()
+        public override string? ToString()
         {
-            var ret_ = g_quark_to_string (value);
-            var ret = GMarshal.Utf8PtrToString (ret_);
-
-            return ret!;
+            var ret_ = g_quark_to_string(value);
+            var ret = new NullableUnownedUtf8(ret_, -1);
+            return ret;
         }
     }
 }

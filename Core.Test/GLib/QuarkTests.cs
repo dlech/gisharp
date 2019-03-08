@@ -42,7 +42,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestToString ()
         {
-            string actual;
+            string? actual;
 
             // null always returns 0
             actual = default(Quark).ToString ();

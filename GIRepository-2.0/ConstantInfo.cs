@@ -21,57 +21,33 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_constant_info_get_value (IntPtr raw, out Argument value);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_constant_info_get_value(IntPtr raw, out Argument value);
 
         public object Value {
             get {
                 Argument value;
-                g_constant_info_get_value (Handle, out value);
-                object result;
-                switch (TypeInfo.Tag) {
-                case TypeTag.Boolean:
-                    result = value.Boolean;
-                    break;
-                case TypeTag.Double:
-                    result = value.Double;
-                    break;
-                case TypeTag.Float:
-                    result = value.Float;
-                    break;
-                case TypeTag.Int8:
-                    result = value.Int8;
-                    break;
-                case TypeTag.Int16:
-                    result = value.Int16;
-                    break;
-                case TypeTag.Int32:
-                    result = value.Int32;
-                    break;
-                case TypeTag.Int64:
-                    result = value.Int64;
-                    break;
-                case TypeTag.UInt8:
-                    result = value.UInt8;
-                    break;
-                case TypeTag.UInt16:
-                    result = value.UInt16;
-                    break;
-                case TypeTag.UInt32:
-                    result = value.UInt32;
-                    break;
-                case TypeTag.UInt64:
-                    result = value.UInt64;
-                    break;
-                case TypeTag.UTF8:
-                    result = value.String!;
-                    break;
-                default:
-                    throw new Exception ($"Unexpected value type '{TypeInfo.Tag}'");
+                g_constant_info_get_value(Handle, out value);
+                try {
+                    return TypeInfo.Tag switch {
+                        TypeTag.Boolean => value.Boolean,
+                        TypeTag.Double => value.Double,
+                        TypeTag.Float => value.Float,
+                        TypeTag.Int8 => value.Int8,
+                        TypeTag.Int16 => value.Int16,
+                        TypeTag.Int32 => value.Int32,
+                        TypeTag.Int64 => value.Int64,
+                        TypeTag.UInt8 => value.UInt8,
+                        TypeTag.UInt16 => value.UInt16,
+                        TypeTag.UInt32 => value.UInt32,
+                        TypeTag.UInt64 => value.UInt64,
+                        TypeTag.UTF8 => (object)value.String.ToString(),
+                        _ => throw new Exception($"Unexpected value type '{TypeInfo.Tag}'")
+                    };
                 }
-                g_constant_info_free_value (Handle, ref value);
-
-                return result;
+                finally {
+                    g_constant_info_free_value(Handle, ref value);
+                }
             }
         }
 

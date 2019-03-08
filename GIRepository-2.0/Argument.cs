@@ -3,7 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
-
+using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
@@ -93,15 +93,9 @@ namespace GISharp.Lib.GIRepository
         [FieldOffset (0)]
         private IntPtr _v_string;
 
-        public string? String {
-            get {
-                return GMarshal.Utf8PtrToString (_v_string);
-            }
-            set {
-                var oldString = _v_string;
-                _v_string = GMarshal.StringToUtf8Ptr (value);
-                GMarshal.Free (oldString);
-            }
+        public NullableUnownedUtf8 String {
+            get => new NullableUnownedUtf8(_v_string, -1);
+            set =>_v_string = value.Handle;
         }
 
         [FieldOffset (0)]

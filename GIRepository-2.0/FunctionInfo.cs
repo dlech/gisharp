@@ -256,7 +256,7 @@ namespace GISharp.Lib.GIRepository
                         throw new NotImplementedException ();
                     }
                 case TypeTag.UTF8:
-                    var ret = GMarshal.Utf8PtrToString (arg.Pointer, ownership != Transfer.Nothing);
+                    var ret = new NullableUnownedUtf8(arg.Pointer, -1).ToString();
                     return ret;
                 case TypeTag.Interface:
                     switch (info.Interface!.InfoType) {
