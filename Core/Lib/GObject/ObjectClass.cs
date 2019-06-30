@@ -246,9 +246,9 @@ namespace GISharp.Lib.GObject
                     } else if (fundamentalGType == GType.Float) {
                         pspec = new ParamSpecFloat (name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
                     } else if (fundamentalGType == GType.Enum) {
-                        pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
+                        pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
                     } else if (fundamentalGType == GType.Flags) {
-                        pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue, flags);
+                        pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
                     } else if (fundamentalGType == GType.Int) {
                         pspec = new ParamSpecInt (name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
                     } else if (fundamentalGType == GType.UInt) {
@@ -271,7 +271,7 @@ namespace GISharp.Lib.GObject
                     else if (fundamentalGType == GType.Pointer) {
                         pspec = new ParamSpecPointer (name, nick, blurb, flags);
                     } else if (fundamentalGType == GType.String) {
-                        pspec = new ParamSpecString (name, nick, blurb, (string)defaultValue, flags);
+                        pspec = new ParamSpecString (name, nick, blurb, (string?)defaultValue, flags);
                     } else if (fundamentalGType == GType.Type) {
                         pspec = new ParamSpecGType (name, nick, blurb, propertyGType, flags);
                     } else if (fundamentalGType == GType.Variant) {
@@ -368,7 +368,7 @@ namespace GISharp.Lib.GObject
 
                     var closure = new Closure((p) => {
                         var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(p[0]);
-                        return eventDelegate?.DynamicInvoke(p.Skip(1).ToArray());
+                        return eventDelegate.DynamicInvoke(p.Skip(1).ToArray());
                     });
 
                     // register the signal

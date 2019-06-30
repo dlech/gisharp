@@ -381,7 +381,7 @@ namespace GISharp.Test.Core.GLib
         public void TestCastTuple ()
         {
             using (var badTuple = default(PtrArray<Variant>)) {
-                Assert.That(() => (Variant)badTuple, Throws.TypeOf<NullReferenceException>());
+                Assert.That(() => (Variant)badTuple!, Throws.TypeOf<NullReferenceException>());
             }
 
             using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })

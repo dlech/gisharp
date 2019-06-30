@@ -157,33 +157,33 @@ namespace GISharp.Lib.GObject
             var gtype = type.Fundamental;
             try {
                 if (gtype == GType.Boolean) {
-                    Boolean = (bool)obj;
+                    Boolean = (bool)obj!;
                 } else if (gtype == GType.Boxed) {
                     Boxed = obj;
                 } else if (gtype == GType.Char) {
-                    Char = (sbyte)obj;
+                    Char = (sbyte)obj!;
                 } else if (gtype == GType.UChar) {
-                    UChar = (byte)obj;
+                    UChar = (byte)obj!;
                 } else if (gtype == GType.Double) {
-                    Double = (double)obj;
+                    Double = (double)obj!;
                 } else if (gtype == GType.Float) {
-                    Float = (float)obj;
+                    Float = (float)obj!;
                 } else if (gtype == GType.Enum) {
-                    Enum = (int)obj;
+                    Enum = (int)obj!;
                 } else if (gtype == GType.Flags) {
-                    Flags = (uint)(int)obj;
+                    Flags = (uint)(int)obj!;
                 } else if (gtype == GType.Int) {
-                    Int = (int)obj;
+                    Int = (int)obj!;
                 } else if (gtype == GType.UInt) {
-                    UInt = (uint)obj;
+                    UInt = (uint)obj!;
                 } else if (gtype == GType.Int64) {
-                    Int64 = (long)obj;
+                    Int64 = (long)obj!;
                 } else if (gtype == GType.UInt64) {
-                    UInt64 = (ulong)obj;
+                    UInt64 = (ulong)obj!;
                 } else if (gtype == GType.Long) {
-                    Long = (clong)obj;
+                    Long = (clong)obj!;
                 } else if (gtype == GType.ULong) {
-                    ULong = (culong)obj;
+                    ULong = (culong)obj!;
                 } else if (gtype == GType.Object) {
                     Object = (Object?)obj;
                 } else if (gtype == GType.Param) {
@@ -191,9 +191,9 @@ namespace GISharp.Lib.GObject
                 } else if (ValueGType == GType.Type) {
                     // GType has fundamental type of void, so this check must
                     // be before Pointer and not check the fundamental GType
-                    GType = (GType)obj;
+                    GType = (GType)obj!;
                 } else if (gtype == GType.Pointer) {
-                    Pointer = (IntPtr)obj;
+                    Pointer = (IntPtr)obj!;
                 } else if (gtype == GType.String) {
                     if (obj is string str) {
                         obj = new Utf8(str);

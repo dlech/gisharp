@@ -34,16 +34,15 @@ namespace GISharp.Lib.GLib
         public const int LogLevelUserShift = 8;
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format);
+        static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
 
-        static void Log_ (string logDomain, LogLevelFlags logLevel, string format, params object[] args)
+        static Utf8 stringFormat = "%s";
+
+        static void Log_ (NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, string format, params object[] args)
         {
-            if (args?.Length > 0) {
-                format = string.Format(format, args);
-            }
-            using (var logDomainUtf8 = new Utf8(logDomain))
+            format = string.Format(format, args);
             using (var formatUtf8 = new Utf8(format)) {
-                g_log(logDomainUtf8.Handle, logLevel, formatUtf8.Handle);
+                g_log(logDomain.Handle, logLevel, stringFormat.Handle, formatUtf8.Handle);
             }
         }
 
@@ -89,7 +88,7 @@ namespace GISharp.Lib.GLib
         {
             try {
                 var domain = ex?.TargetSite?.Module?.Name;
-                Log_(domain, LogLevelFlags.Critical, "Unhandled exception in {0}\n{1}", caller, ex);
+                Log_(domain, LogLevelFlags.Critical, "Unhandled exception in {0}\n{1}", caller!, ex!);
             } catch {
                 // This must absolutely not throw an exception
             }

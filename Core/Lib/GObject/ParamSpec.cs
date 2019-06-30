@@ -490,7 +490,7 @@ namespace GISharp.Lib.GObject
                             g_param_spec_unref(handle);
                         }
                         // return the existing managed proxy
-                        return (T)target;
+                        return (T?)target;
                     }
                 }
             }

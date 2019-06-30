@@ -87,7 +87,7 @@ namespace GISharp.Lib.GObject
             IntPtr defaultValue,
             ParamFlags flags);
 
-        static IntPtr New (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
+        static IntPtr New(string name, string nick, string blurb, string? defaultValue, ParamFlags flags)
         {
             var namePtr = GMarshal.StringToUtf8Ptr (name);
             var nickPtr = GMarshal.StringToUtf8Ptr (nick);
@@ -111,8 +111,8 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public ParamSpecString (string name, string nick, string blurb, string defaultValue, ParamFlags flags)
-            : this (New (name, nick, blurb, defaultValue, flags), Transfer.None)
+        public ParamSpecString(string name, string nick, string blurb, string? defaultValue, ParamFlags flags)
+            : this(New(name, nick, blurb, defaultValue, flags), Transfer.None)
         {
         }
     }

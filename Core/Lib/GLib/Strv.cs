@@ -72,7 +72,7 @@ namespace GISharp.Lib.GLib
 
         public static explicit operator string[](Strv strv)
         {
-            return strv?.Value;
+            return strv.Value;
         }
 
         (IntPtr, int) IArray<Utf8>.TakeData()
