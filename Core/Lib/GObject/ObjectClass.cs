@@ -136,13 +136,15 @@ namespace GISharp.Lib.GObject
             var parentTypeQuery = parentGType.Query ();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
-                ClassInit = InitManagedClass,
+                ClassInit = Marshal.GetFunctionPointerForDelegate(InitManagedClassDelegate),
                 ClassData = (IntPtr)GCHandle.Alloc(type),
                 InstanceSize = (ushort)parentTypeQuery.InstanceSize,
             };
 
             return ret;
         }
+
+        static TypeInfo.UnmanagedClassInitFunc InitManagedClassDelegate = InitManagedClass;
 
         /// <summary>
         /// ClassInit callback for managed classes.

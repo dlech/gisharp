@@ -40,7 +40,7 @@ namespace GISharp.Runtime
         }
     }
 
-    public class CArray<T> : CArray, IArray<T> where T : unmanaged
+    public class CArray<T> : CArray, IReadOnlyList<T> where T : unmanaged
     {
         static readonly int sizeOfT = Marshal.SizeOf<T>();
 
@@ -63,8 +63,6 @@ namespace GISharp.Runtime
                 return ret;
             }
         }
-
-        unsafe ReadOnlySpan<T> IArray<T>.Data => new ReadOnlySpan<T>((void*)Handle, Length);
 
         public int Count => Length;
 

@@ -803,10 +803,10 @@ namespace GISharp.Lib.GObject
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_type_register_static (
+        static unsafe extern GType g_type_register_static(
             GType parentType,
             IntPtr typeName,
-            IntPtr info,
+            TypeInfo* info,
             TypeFlags flags);
 
         /// <summary>
@@ -818,13 +818,12 @@ namespace GISharp.Lib.GObject
         /// <param name="typeName">The name of the new type.</param>
         /// <param name="info"><see cref="TypeInfo"/> structure for this type.</param>
         /// <param name="flags">Bitwise combination of <see cref="TypeFlags"/> values.</param>
-        static GType RegisterStatic (GType parentType, string typeName, TypeInfo info, TypeFlags flags)
+        static unsafe GType RegisterStatic(GType parentType, UnownedUtf8 typeName, in TypeInfo info, TypeFlags flags)
         {
             // this is static, so typeName_ is not freed
-            var typeName_ = new Utf8(typeName).Take();
-            // also, make a copy of info in unmanaged memory so that it always exists
-            var info_ = GMarshal.Alloc (Marshal.SizeOf (info));
-            Marshal.StructureToPtr (info, info_, false);
+            var typeName_ = typeName.Handle;
+            var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
+            var info_ = (TypeInfo*)handle.AddrOfPinnedObject();
             var ret = g_type_register_static (parentType, typeName_, info_, flags);
 
             return ret;
@@ -987,7 +986,7 @@ namespace GISharp.Lib.GObject
                     var flagsAttribute = type.GetCustomAttributes ()
                         .OfType<FlagsAttribute> ().SingleOrDefault ();
                     if (flagsAttribute == null) {
-                        var gtypeValues = new Array<EnumValue>(true, true, values.Length);
+                        var gtypeValues = new EnumValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField.GetCustomAttributes ()
@@ -996,7 +995,7 @@ namespace GISharp.Lib.GObject
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             var enumValue = new EnumValue(values[i], valueName, valueNick);
-                            gtypeValues.Add(enumValue);
+                            gtypeValues[i] = enumValue;
                         }
                         var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
                         if (gtype == Invalid) {
@@ -1008,7 +1007,7 @@ namespace GISharp.Lib.GObject
 
                         return gtype;
                     } else {
-                        var gtypeValues = new Array<FlagsValue>(true, false, values.Length);
+                        var gtypeValues = new FlagsValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField (names[i]);
                             var enumValueAttr = enumValueField
@@ -1018,9 +1017,9 @@ namespace GISharp.Lib.GObject
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             var flagValue = new FlagsValue((uint)values[i], valueName, valueNick);
-                            gtypeValues.Add(flagValue);
+                            gtypeValues[i] = flagValue;
                         }
-                        var gtype = GObject.Flags.RegisterStatic (gtypeName, gtypeValues);
+                        var gtype = GObject.Flags.RegisterStatic(gtypeName, gtypeValues);
                         if (gtype == Invalid) {
                             throw new InvalidOperationException ("Something bad happend while registering flags.");
                         }

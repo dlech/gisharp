@@ -567,7 +567,7 @@ namespace GISharp.Lib.GLib
     }
 
     [GType ("GArray", IsProxyForUnmanagedType = true)]
-    public sealed class Array<T> : Array, IArray<T>, IList<T> where T : unmanaged
+    public sealed class Array<T> : Array, IReadOnlyList<T>, IList<T> where T : unmanaged
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Array (IntPtr handle, Transfer ownership) : base (handle, ownership)
@@ -575,8 +575,6 @@ namespace GISharp.Lib.GLib
         }
 
         public new unsafe Span<T> Data => new Span<T>(base.Data.ToPointer(), (int)Len);
-
-        unsafe ReadOnlySpan<T> IArray<T>.Data => new ReadOnlySpan<T>(base.Data.ToPointer(), (int)Len);
 
         /// <summary>
         /// Creates a new <see cref="Array{T}"/> with <paramref name="reservedSize"/>

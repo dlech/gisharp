@@ -26,12 +26,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Location of the base initialization function (optional)
         /// </summary>
-        public UnmanagedBaseInitFunc BaseInit;
+        public IntPtr BaseInit;
 
         /// <summary>
         /// Location of the base finalization function (optional)
         /// </summary>
-        public UnmanagedBaseFinalizeFunc BaseFinalize;
+        public IntPtr BaseFinalize;
 
         /// <summary>
         /// Location of the class initialization function for
@@ -41,14 +41,14 @@ namespace GISharp.Lib.GObject
         /// and to do type-specific setup such as registering signals and object
         /// properties.
         /// </summary>
-        public UnmanagedClassInitFunc ClassInit;
+        public IntPtr ClassInit;
 
         /// <summary>
         /// Location of the class finalization function for
         /// classed and instantiatable types. Location of the default vtable
         /// finalization function for interface types. (optional)
         /// </summary>
-        public UnmanagedClassFinalizeFunc ClassFinalize;
+        public IntPtr ClassFinalize;
 
         /// <summary>
         /// User-supplied data passed to the class init/finalize functions
@@ -73,7 +73,7 @@ namespace GISharp.Lib.GObject
         /// Location of the instance initialization function (optional, for
         /// instantiatable types only)
         /// </summary>
-        public UnmanagedInstanceInitFunc InstanceInit;
+        public IntPtr InstanceInit;
 
         /// <summary>
         /// A #GTypeValueTable function table for generic handling of GValues

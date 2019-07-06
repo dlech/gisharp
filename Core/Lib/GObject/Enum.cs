@@ -111,9 +111,9 @@ namespace GISharp.Lib.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        static unsafe void CompleteTypeInfo(GType gEnumType, out TypeInfo info, IArray<EnumValue> constValues)
+        static unsafe void CompleteTypeInfo(GType gEnumType, out TypeInfo info, ReadOnlySpan<EnumValue> constValues)
         {
-            fixed (EnumValue* constValues_ = constValues.Data) {
+            fixed (EnumValue* constValues_ = constValues) {
                 g_enum_complete_type_info(gEnumType, out info, constValues_);
             }
         }
@@ -261,25 +261,30 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_enum_register_static (IntPtr typeName, IntPtr values);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern unsafe GType g_enum_register_static(IntPtr typeName, EnumValue* values);
 
-        public static GType RegisterStatic(Utf8 typeName, IArray<EnumValue> values)
+        public static unsafe GType RegisterStatic(UnownedUtf8 typeName, ReadOnlyMemory<EnumValue> values)
         {
             GType.AssertGTypeName(typeName);
-            var typeName_ = typeName.Take();
-            var (values_, length) = values.TakeData();
+            var typeName_ = typeName.Handle;
+            var handle = values.Pin();
+            try {
+                var values_ = (EnumValue*)handle.Pointer;
+                var length_ = values.Length;
 
-            // verify that the array is null-terminated
-            var offset = Marshal.SizeOf<EnumValue>() * length;
-            var terminator = Marshal.PtrToStructure<EnumValue>(values_ + offset);
-            if (!terminator.Equals(default(EnumValue))) {
-                throw new ArgumentException("Must be null-terminated", nameof(values));
+                // verify that the array is null-terminated
+                if (!values_[length_ - 1].Equals(default(EnumValue))) {
+                    throw new ArgumentException("Array must be zero-terminated", nameof(values));
+                }
+
+                var ret = g_enum_register_static(typeName_, values_);
+                // pinned memory of values is never freed for the lifetime of the program
+                return ret;
+            } catch {
+                handle.Dispose();
+                throw;
             }
-
-            var ret = g_enum_register_static(typeName_, values_);
-            // values are never freed for the lifetime of the program
-            return ret;
         }
     }
 

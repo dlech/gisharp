@@ -84,10 +84,13 @@ namespace GISharp.Lib.GObject
             UnmanagedBoxedCopyFunc boxedCopy,
             UnmanagedBoxedFreeFunc boxedFree);
 
-        internal static GType Register (string name, UnmanagedBoxedCopyFunc boxedCopy, UnmanagedBoxedFreeFunc boxedFree)
+        internal static GType Register(UnownedUtf8 name, UnmanagedBoxedCopyFunc boxedCopy, UnmanagedBoxedFreeFunc boxedFree)
         {
-            var name_ = new Utf8(name).Take();
-            return g_boxed_type_register_static (name_, boxedCopy, boxedFree);
+            var name_ = name.Handle;
+            GCHandle.Alloc(boxedCopy);
+            GCHandle.Alloc(boxedFree);
+            var ret = g_boxed_type_register_static(name_, boxedCopy, boxedFree);
+            return ret;
         }
 
         internal static readonly UnmanagedBoxedCopyFunc CopyManagedTypeDelegate = CopyManagedType;

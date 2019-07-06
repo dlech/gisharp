@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     /// Contains the public fields of a GByteArray.
     /// </summary>
     [GType ("GByteArray", IsProxyForUnmanagedType = true)]
-    public sealed class ByteArray : Boxed, IArray<byte>, IList<byte>
+    public sealed class ByteArray : Boxed, IReadOnlyList<byte>, IList<byte>
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
         static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
@@ -30,8 +30,6 @@ namespace GISharp.Lib.GLib
         uint Len => (uint)Marshal.ReadInt32(Handle + (int)lenOffset);
 
         public unsafe Span<byte> Data => new Span<byte>(Data_.ToPointer(), (int)Len);
-
-        unsafe ReadOnlySpan<byte> IArray<byte>.Data => new ReadOnlySpan<byte>(Data_.ToPointer(), (int)Len);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
