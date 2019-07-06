@@ -949,6 +949,9 @@ namespace GISharp.Lib.GLib
                 }
             }
             set {
+                if (index < 0 || index >= Count) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                }
                 // Doing some tricks to make this faster...
                 // Add the new value to the end
                 Add(value);

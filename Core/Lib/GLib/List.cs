@@ -658,11 +658,8 @@ namespace GISharp.Lib.GLib
         /// the element's data, or <c>null</c> if the position
         ///     is off the end of the <see cref="List{T}"/>
         /// </returns>
-        protected IntPtr NthData (int n) {
-            if (n < 0) {
-                throw new ArgumentOutOfRangeException (nameof (n));
-            }
-            var ret = g_list_nth_data (handle, (uint)n);
+        private protected IntPtr NthData(int n) {
+            var ret = g_list_nth_data(handle, (uint)n);
             return ret;
         }
 
@@ -1129,8 +1126,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public T this[int n] {
             get {
-                if (n < 0) {
-                    throw new ArgumentOutOfRangeException (nameof(n));
+                if (n < 0 || n >= Length) {
+                    throw new ArgumentOutOfRangeException(nameof(n));
                 }
                 var ret_ = NthData (n);
                 var ret = GetInstance<T> (ret_, Transfer.None);

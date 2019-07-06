@@ -51,6 +51,8 @@ namespace GISharp.Test.Core
             using (var l = new TList()) {
                 Assume.That(l.Count, Is.EqualTo(0));
 
+                Assert.That(() => l[-1] = values[0], Throws.TypeOf<ArgumentOutOfRangeException>());
+                Assert.That(() => l[0] = values[0], Throws.TypeOf<ArgumentOutOfRangeException>());
                 Assert.That(() => l[-1], Throws.TypeOf<ArgumentOutOfRangeException>());
                 Assert.That(() => l[0], Throws.TypeOf<ArgumentOutOfRangeException>());
 
@@ -59,6 +61,14 @@ namespace GISharp.Test.Core
 
                 l[0] = values[2];
                 Assert.That(l[0], Is.EqualTo(values[2]));
+
+                l.Add(values[3]);
+                l[0] = values[4];
+                Assert.That(l[0], Is.EqualTo(values[4]));
+                Assert.That(l[1], Is.EqualTo(values[3]));
+                l[1] = values[1];
+                Assert.That(l[0], Is.EqualTo(values[4]));
+                Assert.That(l[1], Is.EqualTo(values[1]));
 
                 l.Dispose();
                 Assert.That(() => l[0], Throws.TypeOf<ObjectDisposedException>());
