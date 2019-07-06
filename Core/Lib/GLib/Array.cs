@@ -14,33 +14,24 @@ namespace GISharp.Lib.GLib
     [GType ("GArray", IsProxyForUnmanagedType = true)]
     public abstract class Array : Boxed
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
-        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
-
-        private protected struct Struct
+        private protected unsafe struct Struct
         {
-            #pragma warning disable CS0649
-            public IntPtr Data;
+            public void* Data;
             public uint Len;
-            #pragma warning restore CS0649
         }
-
-        private protected IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
-
-        private protected uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_ref (IntPtr array);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern IntPtr g_array_ref(Struct* array);
 
-        public override IntPtr Take() => g_array_ref(Handle);
+        public override unsafe IntPtr Take() => g_array_ref((Struct*)Handle);
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_array_unref (IntPtr array);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern void g_array_unref(Struct* array);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_array_get_type ();
@@ -64,8 +55,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_new (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern Struct* g_array_new(
             bool zeroTerminated,
             bool clear,
             uint elementSize);
@@ -87,13 +78,13 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new <see cref="Array"/>
         /// </returns>
-        private protected static IntPtr New(bool zeroTerminated, bool clear, int elementSize)
+        private protected unsafe static IntPtr New(bool zeroTerminated, bool clear, int elementSize)
         {
             if (elementSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (elementSize));
             }
-            var ret = g_array_new (zeroTerminated, clear, (uint)elementSize);
-            return ret;
+            var ret_ = g_array_new(zeroTerminated, clear, (uint)elementSize);
+            return (IntPtr)ret_;
         }
 
         /// <summary>
@@ -119,14 +110,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_sized_new (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern Struct* g_array_sized_new (
             bool zeroTerminated,
             bool clear,
             uint elementSize,
             uint reservedSize);
 
-        private protected static IntPtr SizedNew(bool zeroTerminated, bool clear, int elementSize, int reservedSize)
+        private protected static unsafe IntPtr SizedNew(bool zeroTerminated, bool clear, int elementSize, int reservedSize)
         {
             if (elementSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (elementSize));
@@ -134,8 +125,8 @@ namespace GISharp.Lib.GLib
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException (nameof (reservedSize));
             }
-            var ret = g_array_sized_new (zeroTerminated, clear, (uint)elementSize, (uint)reservedSize);
-            return ret;
+            var ret_ = g_array_sized_new(zeroTerminated, clear, (uint)elementSize, (uint)reservedSize);
+            return (IntPtr)ret_;
         }
 
         /// <summary>
@@ -154,9 +145,9 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_append_vals(
-            IntPtr array,
-            in Unit data,
+        static unsafe extern Struct* g_array_append_vals(
+            Struct* array,
+            void* data,
             uint len);
 
         /// <summary>
@@ -165,12 +156,13 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to append to the end of the array
         /// </param>
-        private protected void AppendVals<T>(ReadOnlySpan<T> data) where T : unmanaged
+        private protected unsafe void AppendVals<T>(ReadOnlySpan<T> data) where T : unmanaged
         {
-            var this_ = Handle;
-            ref readonly var data_ = ref MemoryMarshal.GetReference(MemoryMarshal.Cast<T, Unit>(data));
-            var len_ = (uint)data.Length;
-            g_array_append_vals(this_, data_, len_);
+            var this_ = (Struct*)Handle;
+            fixed (void* data_ = data) {
+                var len_ = (uint)data.Length;
+                g_array_append_vals(this_, data_, len_);
+            }
         }
 
         /// <summary>
@@ -182,10 +174,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// Size of each element, in bytes
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        static extern uint g_array_get_element_size (
-            IntPtr array);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.22")]
+        static unsafe extern uint g_array_get_element_size(
+            Struct* array);
 
         /// <summary>
         /// Gets the size of the elements in this array.
@@ -194,9 +186,10 @@ namespace GISharp.Lib.GLib
         /// Size of each element, in bytes
         /// </returns>
         [Since ("2.22")]
-        public int ElementSize {
+        public unsafe int ElementSize {
             get {
-                var ret = g_array_get_element_size(Handle);
+                var this_ = (Struct*)Handle;
+                var ret = g_array_get_element_size(this_);
                 return (int)ret;
             }
         }
@@ -220,10 +213,10 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_insert_vals(
-            IntPtr array,
+        static unsafe extern Struct* g_array_insert_vals(
+            Struct* array,
             uint index,
-            in Unit data,
+            void* data,
             uint len);
 
         /// <summary>
@@ -235,16 +228,17 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to insert
         /// </param>
-        private protected void InsertVals<T>(int index, ReadOnlySpan<T> data) where T : unmanaged
+        private protected unsafe void InsertVals<T>(int index, ReadOnlySpan<T> data) where T : unmanaged
         {
-            if (index < 0 || index > Len) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+            var this_ = (Struct*)Handle;
+            if (index < 0 || index > this_->Len) {
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
-            var this_ = Handle;
             var index_ = (uint)index;
-            ref readonly var data_ = ref MemoryMarshal.GetReference(MemoryMarshal.Cast<T, Unit>(data));
-            var len_ = (uint)data.Length;
-            g_array_insert_vals(this_, index_, data_, len_);
+            fixed (void* data_ = data) {
+                var len_ = (uint)data.Length;
+                g_array_insert_vals(this_, index_, data_, len_);
+            }
         }
 
         /// <summary>
@@ -268,9 +262,9 @@ namespace GISharp.Lib.GLib
         /// the #GArray
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_prepend_vals(
-            IntPtr array,
-            in Unit data,
+        static unsafe extern Struct* g_array_prepend_vals(
+            Struct* array,
+            void* data,
             uint len);
 
         /// <summary>
@@ -284,12 +278,13 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the elements to prepend to the start of the array
         /// </param>
-        private protected void PrependVals<T>(ReadOnlySpan<T> data) where T : unmanaged
+        private protected unsafe void PrependVals<T>(ReadOnlySpan<T> data) where T : unmanaged
         {
-            var this_ = Handle;
-            ref readonly var data_ = ref MemoryMarshal.GetReference(MemoryMarshal.Cast<T, Unit>(data));
-            var len_ = (uint)data.Length;
-            g_array_prepend_vals(this_, data_, len_);
+            var this_ = (Struct*)Handle;
+            fixed (void* data_ = data) {
+                var len_ = (uint)data.Length;
+                g_array_prepend_vals(this_, data_, len_);
+            }
         }
 
         /// <summary>
@@ -305,9 +300,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_remove_index (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern Struct* g_array_remove_index(
+            Struct* array,
             uint index);
 
         /// <summary>
@@ -317,10 +312,10 @@ namespace GISharp.Lib.GLib
         /// <param name="index">
         /// the index of the element to remove
         /// </param>
-        public void RemoveAt (int index)
+        public unsafe void RemoveAt(int index)
         {
-            var this_ = Handle;
-            if (index < 0 || index >= Len) {
+            var this_ = (Struct*)Handle;
+            if (index < 0 || index >= this_->Len) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
             g_array_remove_index(this_, (uint)index);
@@ -341,9 +336,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_remove_index_fast (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern Struct* g_array_remove_index_fast(
+            Struct* array,
             uint index);
 
         /// <summary>
@@ -355,11 +350,11 @@ namespace GISharp.Lib.GLib
         /// <param name="index">
         /// the index of the element to remove
         /// </param>
-        public void RemoveAtFast (int index)
+        public unsafe void RemoveAtFast(int index)
         {
-            var this_ = Handle;
-            if (index < 0 || index >= Len) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+            var this_ = (Struct*)Handle;
+            if (index < 0 || index >= this_->Len) {
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
             g_array_remove_index_fast(this_, (uint)index);
         }
@@ -380,10 +375,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.4")]
-        static extern IntPtr g_array_remove_range (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        static unsafe extern Struct* g_array_remove_range(
+            Struct* array,
             uint index,
             uint length);
 
@@ -398,14 +393,14 @@ namespace GISharp.Lib.GLib
         /// <param name="length">
         /// the number of elements to remove
         /// </param>
-        [Since ("2.4")]
-        public void RemoveRange (int index, int length)
+        [Since("2.4")]
+        public unsafe void RemoveRange(int index, int length)
         {
-            var this_ = Handle;
-            if (index < 0 || index >= Len) {
+            var this_ = (Struct*)Handle;
+            if (index < 0 || index >= this_->Len) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            if (length < 0 || index + length > Len) {
+            if (length < 0 || index + length > this_->Len) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_array_remove_range(this_, (uint)index, (uint)length);
@@ -429,10 +424,10 @@ namespace GISharp.Lib.GLib
         /// <param name="clearFunc">
         /// a function to clear an element of this array
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.32")]
-        static extern void g_array_set_clear_func (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        static unsafe extern void g_array_set_clear_func(
+            Struct* array,
             UnmanagedDestroyNotify clearFunc);
 
         /// <summary>
@@ -448,9 +443,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_set_size (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern Struct* g_array_set_size(
+            Struct* array,
             uint length);
 
         /// <summary>
@@ -461,11 +456,11 @@ namespace GISharp.Lib.GLib
         /// <param name="length">
         /// the new size of the <see cref="Array{T}"/>
         /// </param>
-        public void SetSize (int length)
+        public unsafe void SetSize(int length)
         {
-            var this_ = Handle;
+            var this_ = (Struct*)Handle;
             if (length < 0) {
-                throw new ArgumentOutOfRangeException (nameof (length));
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_array_set_size(this_, (uint)length);
         }
@@ -485,9 +480,9 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_array_sort (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern void g_array_sort(
+            Struct* array,
             UnmanagedCompareFunc compareFunc);
 
         /// <summary>
@@ -503,9 +498,9 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        private protected void Sort<T>(Comparison<T> compareFunc) where T : unmanaged
+        private protected unsafe void Sort<T>(Comparison<T> compareFunc) where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = (Struct*)Handle;
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 try {
                     var x = Marshal.PtrToStructure<T>(a);
@@ -517,7 +512,7 @@ namespace GISharp.Lib.GLib
                 }
             };
             g_array_sort(this_, compareFunc_);
-            GC.KeepAlive (compareFunc_);
+            GC.KeepAlive(compareFunc_);
         }
 
         /// <summary>
@@ -540,29 +535,33 @@ namespace GISharp.Lib.GLib
         /// <param name="userData">
         /// data to pass to @compare_func
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_array_sort_with_data (
-            IntPtr array,
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern void g_array_sort_with_data(
+            Struct* array,
             UnmanagedCompareDataFunc compareFunc,
-            IntPtr userData);
+            void* userData);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_array_free(IntPtr array, bool freeSegment);
+        static unsafe extern void* g_array_free(
+            Struct* array,
+            bool freeSegment);
 
-        public (IntPtr, int) TakeData()
+        public unsafe (IntPtr, int) TakeData()
         {
-            var length = (int)Len;
-            var data = g_array_free(Handle, false);
+            var this_ = (Struct*)Handle;
             handle = IntPtr.Zero; // object becomes disposed
+
+            var length = (int)this_->Len;
+            var data = (IntPtr)g_array_free(this_, false);
             return (data, length);
         }
 
         /// <summary>
         /// Removes all items from the <see cref="Array"/>.
         /// </summary>
-        public void Clear ()
+        public void Clear()
         {
-            SetSize (0);
+            SetSize(0);
         }
     }
 
@@ -574,7 +573,13 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        public new unsafe Span<T> Data => new Span<T>(base.Data.ToPointer(), (int)Len);
+        public unsafe Span<T> Data {
+            get {
+                var this_ = (Struct*)Handle;
+                var ret = new Span<T>(this_->Data, (int)this_->Len);
+                return ret;
+            }
+        }
 
         /// <summary>
         /// Creates a new <see cref="Array{T}"/> with <paramref name="reservedSize"/>
@@ -734,9 +739,10 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        public bool Contains (T other)
+        public unsafe bool Contains(T other)
         {
-            for (int i = 0; i < Len; i++) {
+            var this_ = (Struct*)Handle;
+            for (int i = 0; i < this_->Len; i++) {
                 if (this[i].Equals (other)) {
                     return true;
                 }
@@ -744,22 +750,22 @@ namespace GISharp.Lib.GLib
             return false;
         }
 
-        public void CopyTo (T[] array, int arrayIndex)
+        public unsafe void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }
-            if (arrayIndex + Len > array.Length) {
+            if (arrayIndex + Count > array.Length) {
                 throw new ArgumentException ("Destination array is not long enough.");
             }
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Count; i++) {
                 array[i + arrayIndex] = this[i];
             }
         }
 
-        public int IndexOf (T data)
+        public int IndexOf(T data)
         {
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     return i;
                 }
@@ -767,9 +773,9 @@ namespace GISharp.Lib.GLib
             return -1;
         }
 
-        public bool Remove (T data)
+        public bool Remove(T data)
         {
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Count; i++) {
                 if (this[i].Equals (data)) {
                     RemoveAt (i);
                     return true;
@@ -778,13 +784,15 @@ namespace GISharp.Lib.GLib
             return false;
         }
 
-        public int Count => (int)Len;
+        public unsafe int Count => (int)((Struct*)Handle)->Len;
+
         IEnumerator<T> GetEnumerator()
         {
-            for (int i = 0; i < Len; i++) {
+            for (int i = 0; i < Count; i++) {
                 yield return this[i];
             }
         }
+
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
 

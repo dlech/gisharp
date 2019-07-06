@@ -6,6 +6,7 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 
 using static GISharp.TestHelpers;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Test.Core.GLib
 {
@@ -14,6 +15,20 @@ namespace GISharp.Test.Core.GLib
     {
         public ArrayTests() : base(ArrayTestExtensions.UnsafeItemAt, 0, 1, 2, 3, 4)
         {
+        }
+
+        [Test]
+        public void TestConstructor()
+        {
+            using (var a = new Array<int>()) {
+                Assert.That(a.UnsafeLength(), Is.Zero);
+            }
+
+            Assert.That(() => new Array<int>(false, false, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
+        
+            using (var a = new Array<int>(false, false)) {
+                Assert.That(a.UnsafeLength(), Is.Zero);
+            }
         }
 
         [Test]
@@ -214,6 +229,8 @@ namespace GISharp.Test.Core.GLib
                 array.SetSize(1);
                 Assert.That(array.UnsafeLength(), Is.EqualTo(1));
 
+                Assert.That(() => array.SetSize(-1), Throws.TypeOf<ArgumentOutOfRangeException>());
+
                 array.Dispose();
                 Assert.That(() => array.SetSize(0),
                              Throws.TypeOf<ObjectDisposedException>());
@@ -274,6 +291,25 @@ namespace GISharp.Test.Core.GLib
             }
 
             AssertNoGLibLog();
+        }
+
+        [Test]
+        public unsafe void TestSpan()
+        {
+            Span<int> s = default(Array<int>);
+            Assert.That(s.Length, Is.Zero);
+            fixed (int* p = s) {
+                Assert.That((IntPtr)p, Is.EqualTo(IntPtr.Zero));
+            }
+
+            using (var a = new Array<int> { 1 }) {
+                s = a;
+                Assert.That(s.Length, Is.EqualTo(1));
+                Assert.That(s[0], Is.EqualTo(1));
+                fixed (int* p = s) {
+                    Assert.That((IntPtr)p, Is.EqualTo(Marshal.ReadIntPtr(a.Handle)));
+                }
+            }
         }
 
         [Test]
