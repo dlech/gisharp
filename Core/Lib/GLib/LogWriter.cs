@@ -63,7 +63,7 @@ namespace GISharp.Lib.GLib
         /// log writer function
         /// </param>
         [Since ("2.50")]
-        public static void SetFunc(LogWriterFunc func)
+        public static unsafe void SetFunc(LogWriterFunc func)
         {
             if (isFuncSet) {
                 throw new InvalidOperationException ("Log writer function can only be set once.");
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern LogWriterOutput g_log_writer_default (
+        static extern unsafe LogWriterOutput g_log_writer_default(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -130,7 +130,7 @@ namespace GISharp.Lib.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr fields,
+            LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -168,10 +168,12 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput Default(LogLevelFlags logLevel, IArray<LogField> fields)
+        public static unsafe LogWriterOutput Default(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
-            var ret = g_log_writer_default(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
-            return ret;
+            fixed (LogField* fields_ = fields) {
+                var ret = g_log_writer_default(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -375,7 +377,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern LogWriterOutput g_log_writer_journald (
+        static extern unsafe LogWriterOutput g_log_writer_journald(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -383,7 +385,7 @@ namespace GISharp.Lib.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr fields,
+            LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -415,10 +417,12 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput Journald(LogLevelFlags logLevel, IArray<LogField> fields)
+        public static unsafe LogWriterOutput Journald(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
-            var ret = g_log_writer_journald(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
-            return ret;
+            fixed (LogField* fields_ = fields) {
+                var ret = g_log_writer_journald(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -457,7 +461,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern LogWriterOutput g_log_writer_standard_streams (
+        static extern unsafe LogWriterOutput g_log_writer_standard_streams(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -465,7 +469,7 @@ namespace GISharp.Lib.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr fields,
+            LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr nFields,
@@ -500,10 +504,12 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since ("2.50")]
-        public static LogWriterOutput StandardStreams(LogLevelFlags logLevel, IArray<LogField> fields)
+        public static unsafe LogWriterOutput StandardStreams(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
-            var ret = g_log_writer_standard_streams(logLevel, fields.Data, (UIntPtr)fields.Length, IntPtr.Zero);
-            return ret;
+            fixed (LogField* fields_ = fields) {
+                var ret = g_log_writer_standard_streams(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                return ret;
+            }
         }
 
         /// <summary>

@@ -401,6 +401,21 @@ namespace GISharp.CodeGen
                 element.Element (gi + "parameters").Add (errorElement);
             }
 
+            // set a value for parameters without transfer-ownership attribute
+
+            foreach (var element in document.Descendants(gi + "return-value")
+                .Where(x => x.Attribute("transfer-ownership") == null))
+            {
+                element.SetAttributeValue("transfer-ownership", "full");
+            }
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Concat(document.Descendants(gi + "instance-parameter"))
+                .Where(x => x.Attribute("transfer-ownership") == null))
+            {
+                element.SetAttributeValue("transfer-ownership", "none");
+            }
+
             // create dll-name attributes
 
             foreach (var element in document.Descendants().Where(x => x.Element(gi + "parameters") != null || x.Element(gi + "return-value") != null)) {
@@ -430,6 +445,7 @@ namespace GISharp.CodeGen
                     if (element.Attribute("zero-terminated").AsBool()) {
                         var elementType = element.Element(gi + "type").Attribute("name").AsString();
                         if (elementType == "utf8") {
+                            element.SetAttributeValue("name", "GLib.Strv");
                             element.SetAttributeValue(gs + "managed-name", typeof(Strv));
                             continue;
                         }
@@ -438,7 +454,7 @@ namespace GISharp.CodeGen
                             continue;
                         }
                     }
-                    element.SetAttributeValue(gs + "managed-name", typeof(IArray<>));
+                    element.SetAttributeValue(gs + "managed-name", typeof(CArray));
                     continue;
                 }
 
@@ -765,21 +781,6 @@ namespace GISharp.CodeGen
                 .Where(x => x.Element(gi + "parameters") == null))
             {
                 element.Add(new XElement(gi + "parameters"));
-            }
-
-            // set a value for parameters without transfer-ownership attribute
-
-            foreach (var element in document.Descendants(gi + "return-value")
-                .Where(x => x.Attribute("transfer-ownership") == null))
-            {
-                element.SetAttributeValue("transfer-ownership", "full");
-            }
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Attribute("transfer-ownership") == null))
-            {
-                element.SetAttributeValue("transfer-ownership", "none");
             }
 
             // set a value for parameters without direction attribute

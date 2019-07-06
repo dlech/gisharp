@@ -71,8 +71,8 @@ namespace GISharp.CodeGen.Syntax
 
             foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out"))
             {
-                var marshalStatement = arg.GetMarshalUnmanagedToManagedStatement();
-                tryStatement = tryStatement.AddBlockStatements(marshalStatement);
+                var marshalStatements = arg.GetMarshalUnmanagedToManagedStatements();
+                tryStatement = tryStatement.AddBlockStatements(marshalStatements);
             }
 
             var invokeMethod = $"do{callback.ManagedName}";
@@ -89,18 +89,18 @@ namespace GISharp.CodeGen.Syntax
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
             foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "in")) {
-                var statement = arg.GetMarshalManagedToUnmanagedStatement(false);
-                tryStatement = tryStatement.AddBlockStatements(statement);
+                var statements = arg.GetMarshalManagedToUnmanagedStatements(false);
+                tryStatement = tryStatement.AddBlockStatements(statements);
             }
 
             if (returnsValue) {
-                var statement = callback.ReturnValue.GetMarshalManagedToUnmanagedStatement();
-                tryStatement = tryStatement.AddBlockStatements(statement);
+                var statements = callback.ReturnValue.GetMarshalManagedToUnmanagedStatements();
+                tryStatement = tryStatement.AddBlockStatements(statements);
 
                 var returnStatement = ReturnStatement(ParseExpression("ret_"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
-            else if (callback.ReturnValue.Type.UnmanagedType == typeof(bool)) {
+            else if (callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean)) {
                 var returnStatement = ReturnStatement(ParseExpression("true"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
@@ -110,7 +110,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (callback.ThrowsGErrorException) {
                 var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
-                var propagateError = ParseStatement(string.Format("{0}.{1}({2}_, ex.{3});\n",
+                var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
                     typeof(GISharp.Runtime.GMarshal),
                     nameof(GISharp.Runtime.GMarshal.PropagateError),
                     callback.Parameters.ErrorParameter.ManagedName,
@@ -139,6 +139,16 @@ namespace GISharp.CodeGen.Syntax
                 .WithBlock(Block(exceptionStatements)));
 
             yield return tryStatement;
+
+            foreach (var p in callback.Parameters.Where(x => x.Direction == "out")) {
+                var unmanagedType = p.Type.UnmanagedType;
+                if (unmanagedType.IsPointer) {
+                    unmanagedType = unmanagedType.GetElementType();
+                }
+                var parameterType = unmanagedType.ToSyntax();
+                var expression = ParseExpression($"{p.ManagedName}_ = default({parameterType})");
+                yield return ExpressionStatement(expression);
+            }
 
             if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
@@ -169,6 +179,16 @@ namespace GISharp.CodeGen.Syntax
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
                     .WithBlock(Block(ParseStatement(catchStatement))));
             
+            foreach (var p in callback.Parameters.Where(x => x.Direction == "out")) {
+                var unmanagedType = p.Type.UnmanagedType;
+                if (unmanagedType.IsPointer) {
+                    unmanagedType = unmanagedType.GetElementType();
+                }
+                var parameterType = unmanagedType.ToSyntax();
+                var expression = ParseExpression($"{p.ManagedName}_ = default({parameterType})");
+                yield return ExpressionStatement(expression);
+            }
+
             if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
                 var expression = ParseExpression($"default({returnType})");
@@ -179,7 +199,9 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetCallbackTryStatements(this Callback callback)
         {
             foreach(var arg in callback.ManagedParameters) {
-                yield return arg.GetMarshalUnmanagedToManagedStatement();
+                foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {
+                yield return s;
+                }
             }
 
             var dataParam = callback.Parameters.RegularParameters.SingleOrDefault(x => x.ClosureIndex >= 0);
@@ -189,7 +211,7 @@ namespace GISharp.CodeGen.Syntax
             yield return ParseStatement($"var gcHandle = ({ghHandleType}){dataParamName}_;\n");
             yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target;\n");
 
-            var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.UnmanagedType == typeof(bool);
+            var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean);
 
             yield return callback.GetInvocationStatement($"{dataParamName}.ManagedDelegate", skipReturnValue);
 
@@ -205,7 +227,9 @@ namespace GISharp.CodeGen.Syntax
                 yield return ParseStatement("return true;\n");
             }
             else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
-                yield return callback.ReturnValue.GetMarshalManagedToUnmanagedStatement();
+                foreach (var s in callback.ReturnValue.GetMarshalManagedToUnmanagedStatements()) {
+                    yield return s;
+                }
                 yield return ReturnStatement(ParseExpression("ret_"));;
             }
         }

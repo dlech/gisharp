@@ -5,6 +5,7 @@ using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
+using System;
 
 namespace GISharp.Test.GLib
 {
@@ -145,7 +146,7 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.GroupNotFound),
                     "Trying to get a non-existant group should throw an exception");
 
-                using (var expected = new Strv("Item 1", "Item 2")) {
+                using (var expected = new PtrArray<Utf8> { "Item 1", "Item 2" }) {
                     keyFile.SetStringList(TestGroup, TestKey1, expected);
                     var actual = keyFile.GetStringList(TestGroup, TestKey1);
                     Assert.That(actual, Is.EqualTo(expected));
@@ -166,11 +167,10 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.GroupNotFound),
                     "Trying to get a non-existant group should throw an exception");
 
-                using (var expected = new Array<bool>{ true, false }) {
-                    keyFile.SetBooleanList(TestGroup, TestKey1, expected);
-                    var actual = keyFile.GetBooleanList(TestGroup, TestKey1);
-                    Assert.That(actual, Is.EqualTo(expected));
-                }
+                var expected = new Runtime.Boolean[] { true, false };
+                keyFile.SetBooleanList(TestGroup, TestKey1, expected);
+                var actual = keyFile.GetBooleanList(TestGroup, TestKey1);
+                Assert.That(actual, Is.EquivalentTo(expected));
 
                 Assert.That(() => keyFile.GetBooleanList(TestGroup, TestKey2),
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
@@ -187,11 +187,10 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.GroupNotFound),
                     "Trying to get a non-existant group should throw an exception");
 
-                using (var expected = new Array<int>{ 1, 2 }) {
-                    keyFile.SetIntegerList(TestGroup, TestKey1, expected);
-                    var actual = keyFile.GetIntegerList(TestGroup, TestKey1);
-                    Assert.That(actual, Is.EqualTo(expected));
-                }
+                var expected = new int[] { 1, 2 };
+                keyFile.SetIntegerList(TestGroup, TestKey1, expected);
+                var actual = keyFile.GetIntegerList(TestGroup, TestKey1);
+                Assert.That(actual, Is.EquivalentTo(expected));
 
                 Assert.That(() => keyFile.GetIntegerList(TestGroup, TestKey2),
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
@@ -208,11 +207,10 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.GroupNotFound),
                     "Trying to get a non-existant group should throw an exception");
 
-                using (var expected = new Array<double>{ 1, 2 }) {
-                    keyFile.SetDoubleList(TestGroup, TestKey1, expected);
-                    var actual = keyFile.GetDoubleList(TestGroup, TestKey1);
-                    Assert.That(actual, Is.EqualTo(expected));
-                }
+                var expected = new double[] { 1, 2 };
+                keyFile.SetDoubleList(TestGroup, TestKey1, expected);
+                var actual = keyFile.GetDoubleList(TestGroup, TestKey1);
+                Assert.That(actual, Is.EquivalentTo(expected));
 
                 Assert.That(() => keyFile.GetDoubleList(TestGroup, TestKey2),
                     ThrowsGErrorException(KeyFileError.KeyNotFound),

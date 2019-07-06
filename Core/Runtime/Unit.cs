@@ -14,9 +14,7 @@ namespace GISharp.Runtime
         public static Unit Default { get; } = default;
 
         // hack to hide the constructor
-        private Unit(int unit)
-        {
-        }
+        private Unit(int unit) => throw new NotSupportedException();
 
         /// <inheritdoc />
         public bool Equals(Unit other) => true;

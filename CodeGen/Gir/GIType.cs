@@ -46,8 +46,8 @@ namespace GISharp.CodeGen.Gir
             Element.Elements().Where(x => x.Name == gi + "type" || x.Name == gi + "array")
                 .Select(x => (GIType)GetNode(x));
 
-        System.Type LazyGetUnmanagedType => Reflection.GirType.ResolveUnmanagedType(this);
+        System.Type LazyGetUnmanagedType() => Reflection.GirType.ResolveUnmanagedType(this);
 
-        System.Type LazyGetManagedType => Reflection.GirType.ResolveManagedType(this);
+        System.Type LazyGetManagedType() => Reflection.GirType.ResolveManagedType(this);
     }
 }

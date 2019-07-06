@@ -25,9 +25,13 @@ namespace GISharp.Lib.GLib
             #pragma warning restore CS0649
         }
 
-        public IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        IntPtr Data_ => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
-        public int Length => Marshal.ReadInt32(Handle + (int)lenOffset);
+        uint Len => (uint)Marshal.ReadInt32(Handle + (int)lenOffset);
+
+        public unsafe Span<byte> Data => new Span<byte>(Data_.ToPointer(), (int)Len);
+
+        unsafe ReadOnlySpan<byte> IArray<byte>.Data => new ReadOnlySpan<byte>(Data_.ToPointer(), (int)Len);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
@@ -263,13 +267,13 @@ namespace GISharp.Lib.GLib
         /// <param name="item">Item.</param>
         public void Insert (int index, byte item)
         {
-            if (index == Length) {
+            if (index == Len) {
                 Append (item);
                 return;
             }
             AssertIndexInRange (index);
-            int i = Length;
-            for (SetSize(Length + 1); i > index; i--) {
+            int i = (int)Len;
+            for (SetSize((int)Len + 1); i > index; i--) {
                 this[i] = this[i - 1];
             }
             this[i] = item;
@@ -381,7 +385,7 @@ namespace GISharp.Lib.GLib
         {
             var this_ = Handle;
             AssertIndexInRange (index);
-            if (length < 0 || index + length > Length) {
+            if (length < 0 || index + length > Len) {
                 throw new ArgumentOutOfRangeException (nameof (length));
             }
             g_byte_array_remove_range(this_, (uint)index, (uint)length);
@@ -394,7 +398,7 @@ namespace GISharp.Lib.GLib
         /// <param name="item">The item to remove.</param>
         public bool Remove (byte item)
         {
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Len; i++) {
                 if (this[i] == item) {
                     RemoveAt (i);
                     return true;
@@ -493,7 +497,7 @@ namespace GISharp.Lib.GLib
 
         public (IntPtr, int) TakeData()
         {
-            var length = Length;
+            var length = (int)Len;
             var data = g_byte_array_free(Handle, false);
             handle = IntPtr.Zero; // object becomes disposed
             return (data, length);
@@ -503,9 +507,7 @@ namespace GISharp.Lib.GLib
         /// Gets the number of elements in the <see cref="ByteArray"/>.
         /// </summary>
         /// <value>The count.</value>
-        int ICollection<byte>.Count => Length;
-
-        int IReadOnlyCollection<byte>.Count => Length;
+        public int Count => (int)Len;
 
         /// <summary>
         /// Gets a value indicating whether this <see cref="ByteArray"/> is read only.
@@ -519,14 +521,20 @@ namespace GISharp.Lib.GLib
         /// <param name="index">Index.</param>
         public byte this[int index] {
             get {
-                var data_ = Data;
-                AssertIndexInRange (index);
-                return Marshal.ReadByte(data_, index);
+                try {
+                    return Data[index];
+                }
+                catch (IndexOutOfRangeException) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                }
             }
             set {
-                var data_ = Data;
-                AssertIndexInRange (index);
-                Marshal.WriteByte(data_, index, value);
+                try {
+                    Data[index] = value;
+                }
+                catch (IndexOutOfRangeException) {
+                    throw new ArgumentOutOfRangeException(nameof(index));
+                }
             }
         }
 
@@ -541,20 +549,11 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Indexs the of the first occurance of <paramref name="item"/>.
+        /// Gets the index of the first occurrence of <paramref name="item"/>.
         /// </summary>
         /// <returns>The index or <c>-1</c> if <paramref name="item"/> was not found.</returns>
         /// <param name="item">The item to search for.</param>
-        public int IndexOf (byte item)
-        {
-            for (int i = 0; i < Length; i++) {
-                if (this[i] == item) {
-                    return i;
-                }
-            }
-
-            return -1;
-        }
+        public int IndexOf(byte item) => Data.IndexOf(item);
 
         /// <summary>
         /// Copies elements of this array to <paramref name="array"/>, starting
@@ -567,17 +566,18 @@ namespace GISharp.Lib.GLib
             if (arrayIndex < 0) {
                 throw new ArgumentOutOfRangeException (nameof (arrayIndex));
             }
-            if (arrayIndex + Length > array.Length) {
+            if (arrayIndex + Len > array.Length) {
                 throw new ArgumentException ("Destination array is not long enough.");
             }
-            for (int i = 0; i < Length; i++) {
+            for (int i = 0; i < Len; i++) {
                 array[i + arrayIndex] = this[i];
             }
         }
 
         IEnumerator<byte> GetEnumerator()
         {
-            for (int i = 0; i < Length; i++) {
+            // TODO: protect against modified array
+            for (int i = 0; i < Len; i++) {
                 yield return this[i];
             }
         }
@@ -588,9 +588,14 @@ namespace GISharp.Lib.GLib
 
         void AssertIndexInRange (int index)
         {
-            if (index < 0 || index >= Length) {
+            if (index < 0 || index >= Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
+        }
+
+        public static implicit operator ReadOnlySpan<byte>(ByteArray array)
+        {
+            return array.Data;
         }
     }
 }

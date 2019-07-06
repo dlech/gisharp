@@ -59,13 +59,9 @@ namespace GISharp.CodeGen.Syntax
             }
 
             foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
-                yield return arg.GetMarshalManagedToUnmanagedStatement();
-            }
-
-            foreach (var arg in callable.Parameters.Where(x => x.Direction == "out")) {
-                var type = arg.Type.UnmanagedType.ToString().TrimEnd('*');
-                var expression = $"{type} {arg.ManagedName}_";
-                yield return ExpressionStatement(ParseExpression(expression));
+                foreach (var s in arg.GetMarshalManagedToUnmanagedStatements()) {
+                    yield return s;
+                }
             }
 
             if (callable.IsAsync) {
@@ -111,7 +107,8 @@ namespace GISharp.CodeGen.Syntax
 
             foreach (var arg in callable.Parameters.Where(x => x.Scope == "call")) {
                 var userDataArg = callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
-                var expression = ParseExpression($"destroy_({userDataArg.ManagedName}_)");
+                var nullCheck = arg.IsNullable ? "?.Invoke" : "";
+                var expression = ParseExpression($"destroy_{nullCheck}({userDataArg.ManagedName}_)");
                 yield return ExpressionStatement(expression);
             }
 
@@ -133,7 +130,9 @@ namespace GISharp.CodeGen.Syntax
             // marshal out args back to managed args
 
             foreach (var p in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in")) {
-                yield return p.GetMarshalUnmanagedToManagedStatement(false);
+                foreach (var s in p.GetMarshalUnmanagedToManagedStatements(false)) {
+                    yield return s;
+                }
             }
 
             // emit the return statement
@@ -147,7 +146,9 @@ namespace GISharp.CodeGen.Syntax
                 yield return ReturnStatement(ParseExpression("completionSource.Task"));
             }
             else if (callable.ReturnValue.Type.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
-                yield return callable.ReturnValue.GetMarshalUnmanagedToManagedStatement();
+                foreach (var s in callable.ReturnValue.GetMarshalUnmanagedToManagedStatements()) {
+                    yield return s;
+                }
                 yield return ReturnStatement(ParseExpression("ret"));
             }
         }
@@ -208,12 +209,6 @@ namespace GISharp.CodeGen.Syntax
             var gcHandleFreeExpression = "userData.Free()";
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(ParseExpression(gcHandleFreeExpression)));
 
-            foreach (var arg in callable.Parameters.RegularParameters.Where(x => x.Direction == "out")) {
-                var argType = arg.Type.UnmanagedType.ToString().TrimEnd('*');
-                var expression = ParseExpression($"{argType} {arg.ManagedName}_");
-                tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(expression));
-            }
-
             if (callable.ThrowsGErrorException) {
                 var errorParameter = callable.Parameters.ErrorParameter.ManagedName;
                 var errorExpression = ParseExpression($"var {errorParameter}_ = System.IntPtr.Zero");
@@ -249,12 +244,14 @@ namespace GISharp.CodeGen.Syntax
             var returnValues = new System.Collections.Generic.List<string>();
 
             foreach (var arg in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in")) {
-                tryStatement = tryStatement.AddBlockStatements(arg.GetMarshalUnmanagedToManagedStatement());
+                var statements = arg.GetMarshalUnmanagedToManagedStatements();
+                tryStatement = tryStatement.AddBlockStatements(statements);
                 returnValues.Add(arg.ManagedName);
             }
 
             if (!callable.ReturnValue.IsSkip && callable.ReturnValue.Type.GirName != "none") {
-                tryStatement = tryStatement.AddBlockStatements(callable.ReturnValue.GetMarshalUnmanagedToManagedStatement());
+                var statements = callable.ReturnValue.GetMarshalUnmanagedToManagedStatements();
+                tryStatement = tryStatement.AddBlockStatements(statements);
                 returnValues.Insert(0, "ret");
             }
 

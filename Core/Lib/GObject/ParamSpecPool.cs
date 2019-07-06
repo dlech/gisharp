@@ -74,7 +74,7 @@ namespace GISharp.Lib.GObject
             GType owner_type, // GType
             out uint n_specs_p); // guint*
 
-        public IArray<ParamSpec> List(GType ownerType)
+        public CPtrArray<ParamSpec> List(GType ownerType)
         {
             var ret_ = g_param_spec_pool_list(Handle, ownerType, out var nSpecsP);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nSpecsP, Transfer.Container);

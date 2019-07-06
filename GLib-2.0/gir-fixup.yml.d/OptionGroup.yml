@@ -21,7 +21,7 @@
 # fix the C type of the array element
 - !set-attribute
   name: c:type
-  value: 1
+  value: GOptionEntry
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:type
 
 # move the type element so that it is a child of the new array element

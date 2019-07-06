@@ -49,8 +49,17 @@ namespace GISharp.CodeGen.Reflection
                 if (typeName == typeof(FilenameArray).ToString()) {
                     return typeof(FilenameArray);
                 }
-                if (typeName == typeof(IArray<>).ToString()) {
-                    return typeof(IArray<>).MakeGenericType(ResolveManagedType(node.TypeParameters.Single()));
+                if (typeName == typeof(CArray).ToString()) {
+                    var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
+                    if (arrayElementType.IsOpaque() || arrayElementType.IsGInterface()) {
+                        return typeof(CPtrArray<>).MakeGenericType(arrayElementType);
+                    }
+                    if (arrayElementType == typeof(bool)) {
+                        // have to use unmanaged bool type because of size
+                        // difference between glib and .NET
+                        arrayElementType = typeof(Runtime.Boolean);
+                    }
+                    return typeof(CArray<>).MakeGenericType(arrayElementType);
                 }
                 if (typeName == typeof(Task).ToString()) {
                     System.Type tupleType;
@@ -150,54 +159,79 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeName = node.GirName;
+
+            if (node is Gir.Array && typeName == null) {
+                var elementType = node.TypeParameters.Single();
+                return elementType.UnmanagedType.MakePointerType();
+            }
+
+            var type = default(System.Type);
             switch (typeName) {
                 // basic/fundamental types
                 case "none":
-                    return typeof(void);
+                    type = typeof(void);
+                    break;
                 case "gboolean":
-                    return typeof(bool);
+                    type = typeof(Runtime.Boolean);
+                    break;
                 case "gchar":
                 case "gint8":
-                    return typeof(sbyte);
+                    type = typeof(sbyte);
+                    break;
                 case "guchar":
                 case "guint8":
-                    return typeof(byte);
+                    type = typeof(byte);
+                    break;
                 case "gshort":
                 case "gint16":
-                    return typeof(short);
+                    type = typeof(short);
+                    break;
                 case "gushort":
                 case "guint16":
-                    return typeof(ushort);
+                    type = typeof(ushort);
+                    break;
                 case "gunichar2":
-                    return typeof(char);
+                    type = typeof(char);
+                    break;
                 case "gint":
                 case "gint32":
-                    return typeof(int);
+                    type = typeof(int);
+                    break;
                 case "guint":
                 case "guint32":
                 case "gunichar":
-                    return typeof(uint);
+                    type = typeof(uint);
+                    break;
                 case "glong":
-                    return typeof(CLong);
+                    type = typeof(CLong);
+                    break;
                 case "gulong":
-                    return typeof(CULong);
+                    type = typeof(CULong);
+                    break;
                 case "gint64":
                 case "goffset":
-                    return typeof(long);
+                    type = typeof(long);
+                    break;
                 case "guint64":
-                    return typeof(ulong);
+                    type = typeof(ulong);
+                    break;
                 case "gfloat":
-                    return typeof(float);
+                    type = typeof(float);
+                    break;
                 case "gdouble":
-                    return typeof(double);
+                    type = typeof(double);
+                    break;
                 case "gintptr":
                 case "gssize":
-                    return typeof(IntPtr);
+                    type = typeof(IntPtr);
+                    break;
                 case "guintptr":
                 case "gsize":
-                    return typeof(UIntPtr);
+                    type = typeof(UIntPtr);
+                    break;
                 case "GType":
-                    return typeof(GType);
+                    type = typeof(GType);
+                    break;
                 case "gpointer":
                 case "gconstpointer":
                 case "filename":
@@ -208,6 +242,13 @@ namespace GISharp.CodeGen.Reflection
                 case "va_list":
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported");
+            }
+
+            if (type != null) {
+                if (node.IsPointer) {
+                    return type.MakePointerType();
+                }
+                return type;
             }
 
             if (!typeName.Contains('.')) {
@@ -230,7 +271,7 @@ namespace GISharp.CodeGen.Reflection
             }
 
             // assuming this is a value type
-            var type = GetType(typeName);
+            type = GetType(typeName);
             if (type != null) {
                 if (type.IsValueType) {
                     return type;
@@ -261,6 +302,9 @@ namespace GISharp.CodeGen.Reflection
                     return typeof(IntPtr);
                 }
                 girType = new GirRecordType(record);
+                if (node.IsPointer) {
+                    girType = girType.MakePointerType();
+                }
             }
             else if (typeNode is Callback callback) {
                 return new GirDelegateType(callback, true);

@@ -10,21 +10,31 @@ using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using GISharp.Lib.GLib;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Runtime
 {
     /// <summary>
     /// Null-terminated array of null-terminated file names
     /// </summary>
-    public sealed class FilenameArray : Opaque, IEnumerable<Filename>
+    public sealed class FilenameArray : Opaque, IReadOnlyList<Filename>
     {
-        bool Owned { get; }
+        public int Count => throw new NotImplementedException();
+
+        public Filename this[int index] => throw new NotImplementedException();
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public FilenameArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public FilenameArray(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
         {
-            if (ownership == Transfer.Full) {
-                Owned = true;
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public FilenameArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        {
+            if (ownership != Transfer.Full) {
+                this.handle = IntPtr.Zero;
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException();
             }
         }
 
@@ -39,7 +49,7 @@ namespace GISharp.Runtime
             return ptr;
         }
 
-        public FilenameArray(params string[] filenames) : this(New(filenames), Transfer.Full)
+        public FilenameArray(params string[] filenames) : this(New(filenames), filenames.Length, Transfer.Full)
         {
         }
 
@@ -52,6 +62,12 @@ namespace GISharp.Runtime
                 g_strfreev(handle);
             }
             base.Dispose(disposing);
+        }
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe ref readonly IntPtr GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<IntPtr>((void*)Handle);
         }
 
         IEnumerator<Filename> IEnumerable<Filename>.GetEnumerator()

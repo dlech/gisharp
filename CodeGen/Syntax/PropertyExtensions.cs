@@ -66,7 +66,7 @@ namespace GISharp.CodeGen.Syntax
         static ExpressionSyntax GetGetExpression(this Property property, TypeSyntax type)
         {
             var getter = $"({type})GetProperty";
-            var expression = $"{getter}(\"{property.GirName}\")";
+            var expression = $"{getter}(\"{property.GirName}\")!";
             return ParseExpression(expression); 
         }
 

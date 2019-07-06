@@ -565,7 +565,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_main_context_check (
+        static unsafe extern int g_main_context_check (
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context,
@@ -576,7 +576,7 @@ namespace GISharp.Lib.GLib
                 <type name="PollFD" type="GPollFD" managed-name="PollFD" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr fds,
+            PollFD* fds,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int nFds);
@@ -598,13 +598,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         ///<c>true</c> if some sources are ready to be dispatched.
         /// </returns>
-        public int Check(int maxPriority, IArray<PollFD> fds)
+        public unsafe int Check(int maxPriority, ReadOnlySpan<PollFD> fds)
         {
             var this_ = Handle;
-            var fds_ = fds.Data;
-            var nFds_ = fds.Length;
-            var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
-            return ret;
+            fixed (PollFD* fds_ = fds) {
+                var nFds_ = fds.Length;
+                var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
+                return ret;
+            }
         }
 
         /// <summary>
@@ -1164,7 +1165,7 @@ namespace GISharp.Lib.GLib
                 <type name="PollFD" type="GPollFD" managed-name="PollFD" />
                 </array> */
             /* direction:out caller-allocates:1 transfer-ownership:none */
-            IntPtr fds,
+            PollFD* fds,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none direction:in */
             int nFds);
@@ -1183,22 +1184,19 @@ namespace GISharp.Lib.GLib
         /// location to store timeout to be used in polling
         /// </param>
         /// <param name="fds">
-        /// location to
-        /// store <see cref="PollFD"/> records that need to be polled.
+        /// <see cref="PollFD"/> records that need to be polled.
         /// </param>
-        public unsafe void Query(int maxPriority, out int timeout, out Array<PollFD> fds)
+        public unsafe void Query(int maxPriority, out int timeout, out PollFD[] fds)
         {
             var this_ = Handle;
             int timeout_;
             // call first time to get the size
-            var ret = g_main_context_query(this_, maxPriority, &timeout_, IntPtr.Zero, 0);
+            var ret = g_main_context_query(this_, maxPriority, &timeout_, null, 0);
             // then call again with appropriate storage space
-            fds = new Array<PollFD>();
-            fds.SetSize(ret);
-            var fds_ = fds.Data;
-            var nFds_ = fds.Length;
-            g_main_context_query(this_, maxPriority, &timeout_, fds_, nFds_);
+            var fds_ = stackalloc PollFD[ret];
+            ret = g_main_context_query(this_, maxPriority, &timeout_, fds_, ret);
             timeout = timeout_;
+            fds = new Span<PollFD>(fds_, ret).ToArray();
         }
 
         /// <summary>

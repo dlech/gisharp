@@ -1,9 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GModule;
 using GISharp.Runtime;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
@@ -11,6 +9,7 @@ using NUnit.Framework.Internal;
 
 namespace GISharp
 {
+    [ExcludeFromCodeCoverage]
     public static class TestHelpers
     {
         static readonly string critical = GISharp.Lib.GLib.LogLevelFlags.Critical.ToString();

@@ -27,7 +27,7 @@ namespace GISharp.Test.Core.GLib
         {
             // just make sure it doesn't crash
             using (var array = new ByteArray ()) {
-                Assert.That(array.Length, Is.EqualTo(0));
+                Assert.That(array.Count, Is.EqualTo(0));
             }
 
             AssertNoGLibLog();
@@ -38,7 +38,7 @@ namespace GISharp.Test.Core.GLib
         {
             // just make sure it doesn't crash
             using (var array = new ByteArray (new byte[10])) {
-                Assert.That(array.Length, Is.EqualTo(10));
+                Assert.That(array.Count, Is.EqualTo(10));
             }
 
             AssertNoGLibLog();
@@ -49,7 +49,7 @@ namespace GISharp.Test.Core.GLib
         {
             // just make sure it doesn't crash
             using (var array = new ByteArray (10)) {
-                Assert.That(array.Length, Is.EqualTo(0));
+                Assert.That(array.Count, Is.EqualTo(0));
             }
 
             Assert.That (() => new ByteArray (-1),
@@ -64,7 +64,7 @@ namespace GISharp.Test.Core.GLib
             // check basic operation
             using (var array = new ByteArray (new byte[] { 1 })) {
                 array.Append (2, 3);
-                Assert.That (array.Length, Is.EqualTo(3));
+                Assert.That (array.Count, Is.EqualTo(3));
                 Assert.That (getItemAt (array, 0), Is.EqualTo (1));
                 Assert.That (getItemAt (array, 1), Is.EqualTo (2));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (3));
@@ -83,7 +83,7 @@ namespace GISharp.Test.Core.GLib
             // check basic operation
             using (var array = new ByteArray (new byte[] { 1 })) {
                 array.Prepend (2, 3);
-                Assert.That(array.Length, Is.EqualTo(3));
+                Assert.That(array.Count, Is.EqualTo(3));
                 Assert.That (getItemAt (array, 0), Is.EqualTo (2));
                 Assert.That (getItemAt (array, 1), Is.EqualTo (3));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (1));
@@ -102,7 +102,7 @@ namespace GISharp.Test.Core.GLib
             // check basic operation
             using (var array = new ByteArray (new byte[] { 1, 2, 3, 4 })) {
                 array.RemoveAtFast (1);
-                Assert.That(array.Length, Is.EqualTo(3));
+                Assert.That(array.Count, Is.EqualTo(3));
                 Assert.That (getItemAt (array, 0), Is.EqualTo (1));
                 Assert.That (getItemAt (array, 1), Is.EqualTo (4));
                 Assert.That (getItemAt (array, 2), Is.EqualTo (3));
@@ -127,7 +127,7 @@ namespace GISharp.Test.Core.GLib
             // check basic operation
             using (var array = new ByteArray (new byte[] { 1, 2, 3, 4 })) {
                 array.RemoveRange (1, 2);
-                Assert.That(array.Length, Is.EqualTo(2));
+                Assert.That(array.Count, Is.EqualTo(2));
                 Assert.That (getItemAt (array, 0), Is.EqualTo (1));
                 Assert.That (getItemAt (array, 1), Is.EqualTo (4));
 
@@ -171,8 +171,8 @@ namespace GISharp.Test.Core.GLib
             // check basic operation
             using (var array = new ByteArray (new byte[10])) {
                 array.SetSize (5);
-                Assert.That(array.Length, Is.EqualTo(5));
-                // negitive value now allowed
+                Assert.That(array.Count, Is.EqualTo(5));
+                // negative value now allowed
                 Assert.That (() => array.SetSize (-1),
                     Throws.InstanceOf<ArgumentOutOfRangeException> ());
 

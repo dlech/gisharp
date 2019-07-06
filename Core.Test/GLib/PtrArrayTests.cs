@@ -28,29 +28,29 @@ namespace GISharp.Test.Core.GLib
         public void TestRemoveFast ()
         {
             var a = new PtrArray<OpaqueInt> ();
-            Assume.That(a.Length, Is.EqualTo(0));
+            Assume.That(a.Count, Is.EqualTo(0));
 
             Assert.That (a.RemoveFast (_ (0)), Is.False);
-            Assert.That(a.Length, Is.EqualTo(0));
+            Assert.That(a.Count, Is.EqualTo(0));
 
             a.Add (_ (1));
-            Assume.That (a.Length, Is.EqualTo(1));
+            Assume.That(a.Count, Is.EqualTo(1));
 
             Assert.That (a.RemoveFast (_ (0)), Is.False);
-            Assert.That(a.Length, Is.EqualTo(1));
+            Assert.That(a.Count, Is.EqualTo(1));
             Assert.That (a.RemoveFast (_ (1)), Is.True);
-            Assert.That(a.Length, Is.EqualTo(0));
+            Assert.That(a.Count, Is.EqualTo(0));
 
             a.Add (_ (1));
             a.Add (_ (2));
             a.Add (_ (3));
             a.Add (_ (4));
-            Assume.That(a.Length, Is.EqualTo(4));
+            Assume.That(a.Count, Is.EqualTo(4));
 
             Assert.That (a.RemoveFast (_ (0)), Is.False);
-            Assert.That(a.Length, Is.EqualTo(4));
+            Assert.That(a.Count, Is.EqualTo(4));
             Assert.That (a.RemoveFast (_ (2)), Is.True);
-            Assert.That(a.Length, Is.EqualTo(3));
+            Assert.That(a.Count, Is.EqualTo(3));
             Assert.That (getItemAt (a, 0), Is.EqualTo (_ (1)));
             Assert.That (getItemAt (a, 1), Is.EqualTo (_ (4)));
             Assert.That (getItemAt (a, 2), Is.EqualTo (_ (3)));
@@ -66,19 +66,19 @@ namespace GISharp.Test.Core.GLib
         {
             var a = new PtrArray<OpaqueInt> ();
             a.Add (_ (1));
-            Assume.That(a.Length, Is.EqualTo(1));
+            Assume.That(a.Count, Is.EqualTo(1));
 
             a.RemoveAtFast (0);
-            Assert.That(a.Length, Is.EqualTo(0));
+            Assert.That(a.Count, Is.EqualTo(0));
 
             a.Add (_ (1));
             a.Add (_ (2));
             a.Add (_ (3));
             a.Add (_ (4));
-            Assume.That(a.Length, Is.EqualTo(4));
+            Assume.That(a.Count, Is.EqualTo(4));
 
             a.RemoveAtFast (1);
-            Assert.That(a.Length, Is.EqualTo(3));
+            Assert.That(a.Count, Is.EqualTo(3));
             Assert.That (getItemAt (a, 0), Is.EqualTo (_ (1)));
             Assert.That (getItemAt (a, 1), Is.EqualTo (_ (4)));
             Assert.That (getItemAt (a, 2), Is.EqualTo (_ (3)));
@@ -103,13 +103,13 @@ namespace GISharp.Test.Core.GLib
             a.Add (_ (4));
             a.Add (_ (5));
             a.Add (_ (6));
-            Assume.That(a.Length, Is.EqualTo(6));
+            Assume.That(a.Count, Is.EqualTo(6));
 
             a.RemoveRange (0, 0);
-            Assert.That(a.Length, Is.EqualTo(6));
+            Assert.That(a.Count, Is.EqualTo(6));
 
             a.RemoveRange (1, 2);
-            Assert.That(a.Length, Is.EqualTo(4));
+            Assert.That(a.Count, Is.EqualTo(4));
             Assert.That (getItemAt (a, 0), Is.EqualTo (_ (1)));
             Assert.That (getItemAt (a, 1), Is.EqualTo (_ (4)));
             Assert.That (getItemAt (a, 2), Is.EqualTo (_ (5)));
@@ -151,10 +151,10 @@ namespace GISharp.Test.Core.GLib
         public void TestSetSize ()
         {
             var a = new PtrArray<OpaqueInt> ();
-            Assume.That(a.Length, Is.EqualTo(0));
+            Assume.That(a.Count, Is.EqualTo(0));
 
             a.SetSize (5);
-            Assert.That(a.Length, Is.EqualTo(5));
+            Assert.That(a.Count, Is.EqualTo(5));
 
             a.Dispose ();
             Assert.That (() => a.SetSize (0), Throws.TypeOf<ObjectDisposedException> ());

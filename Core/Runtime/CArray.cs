@@ -7,14 +7,13 @@ namespace GISharp.Runtime
 {
     public abstract class CArray : Opaque
     {
-        public bool Owned { get; private set; }
-
-        public int Length { get; }
+        protected int Length { get; }
 
         protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
-            if (ownership != Transfer.None) {
-                Owned = true;
+            if (ownership == Transfer.None) {
+                handle = IntPtr.Zero;
+                throw new NotSupportedException();
             }
             if (length < 0) {
                 throw new ArgumentOutOfRangeException(nameof(length));
@@ -24,33 +23,32 @@ namespace GISharp.Runtime
 
         protected override void Dispose(bool disposing)
         {
-            if (Owned) {
-                GMarshal.Free(handle);
-                Owned = false;
-            }
+            GMarshal.Free(handle);
             base.Dispose(disposing);
         }
 
         public (IntPtr, int) TakeData()
         {
-            if (!Owned) {
-                throw new InvalidOperationException("Data must be owned");
-            }
-            Owned = false;
-            return (Handle, Length);
+            var ret = (Handle, Length);
+            handle = IntPtr.Zero;
+            return ret;
         }
 
-        public static CArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T :struct
+        public static CArray<T> GetInstance<T>(IntPtr handle, int length, Transfer ownership) where T : unmanaged
         {
             return new CArray<T>(handle, length, ownership);
         }
     }
 
-    public class CArray<T> : CArray, IArray<T> where T : struct
+    public class CArray<T> : CArray, IArray<T> where T : unmanaged
     {
         static readonly int sizeOfT = Marshal.SizeOf<T>();
 
         public CArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
+        {
+        }
+
+        public unsafe CArray(T* array, int length, Transfer ownership) : this((IntPtr)array, length, ownership)
         {
         }
 
@@ -66,9 +64,9 @@ namespace GISharp.Runtime
             }
         }
 
-        IntPtr IArray<T>.Data => Handle;
+        unsafe ReadOnlySpan<T> IArray<T>.Data => new ReadOnlySpan<T>((void*)Handle, Length);
 
-        int IReadOnlyCollection<T>.Count => Length;
+        public int Count => Length;
 
         IEnumerator<T> GetEnumerator()
         {
@@ -80,5 +78,10 @@ namespace GISharp.Runtime
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => GetEnumerator();
+
+        public static unsafe implicit operator ReadOnlySpan<T>(CArray<T> array)
+        {
+            return new ReadOnlySpan<T>((void*)array.Handle, array.Length);
+        }
     }
 }

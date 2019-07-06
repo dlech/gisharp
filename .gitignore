@@ -11,3 +11,5 @@ TestResult.xml
 .vscode/
 *.lock.json
 .vs/
+coverage.json
+lcov.info

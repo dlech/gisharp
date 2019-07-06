@@ -48,10 +48,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        public override Type GetElementType()
-        {
-            throw new NotSupportedException();
-        }
+        public override Type GetElementType() => type;
 
         public override EventInfo GetEvent(string name, BindingFlags bindingAttr)
         {

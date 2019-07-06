@@ -1,4 +1,4 @@
-
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26114.2
@@ -6,8 +6,6 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0", "GIRepository-2.0\GIRepository-2.0.csproj", "{26BF5EFC-10BF-46BC-A071-11F2B69C2844}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0.Test", "GIRepository-2.0.Test\GIRepository-2.0.Test.csproj", "{746D44D3-A201-4FB6-8697-7609E2C3C70E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TypelibBrowser", "TypelibBrowser\TypelibBrowser.csproj", "{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject
@@ -76,10 +74,6 @@ Global
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8B7A9832-3135-41E5-AA4C-20E9F0EF1DE1}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E23D0EC-C98A-4275-8171-07688F5EDDE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E23D0EC-C98A-4275-8171-07688F5EDDE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8E23D0EC-C98A-4275-8171-07688F5EDDE1}.Default|Any CPU.ActiveCfg = Debug|Any CPU

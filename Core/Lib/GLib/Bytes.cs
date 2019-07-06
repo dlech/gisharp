@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -78,21 +79,23 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_bytes_new (
+        static extern IntPtr g_bytes_new(
             /* <array length="1" zero-terminated="0" type="gconstpointer">
                 <type name="guint8" managed-name="Guint8" />
                 </array> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] byte[] data,
+            in byte data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr size);
 
         [Since ("2.32")]
-        static IntPtr New (byte[] data)
+        static IntPtr New(ReadOnlySpan<byte> data)
         {
-            var ret = g_bytes_new (data, (UIntPtr)(data?.Length ?? 0));
-            return ret;
+            ref readonly var data_ = ref MemoryMarshal.GetReference(data);
+            var size_ = (UIntPtr)data.Length;
+            var ret_ = g_bytes_new(data_, size_);
+            return ret_;
         }
 
         /// <summary>
@@ -105,7 +108,21 @@ namespace GISharp.Lib.GLib
         /// a new <see cref="Bytes"/>
         /// </returns>
         [Since ("2.32")]
-        public Bytes (byte[] data) : this (New (data), Transfer.Full)
+        public Bytes(ReadOnlySpan<byte> data) : this(New(data), Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
+        /// </summary>
+        /// <param name="data">
+        /// the data to be used for the bytes
+        /// </param>
+        /// <returns>
+        /// a new <see cref="Bytes"/>
+        /// </returns>
+        [Since ("2.32")]
+        public Bytes(params byte[] data) : this(data.AsSpan())
         {
         }
 
@@ -324,15 +341,21 @@ namespace GISharp.Lib.GLib
             <type name="guint8" managed-name="Guint8" />
             </array> */
         /* transfer-ownership:none nullable:1 */
-        static extern unsafe IntPtr g_bytes_get_data(
+        static unsafe extern byte* g_bytes_get_data(
             /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
             /* transfer-ownership:none */
             IntPtr bytes,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            UIntPtr* size);
+            out UIntPtr size);
 
-        public unsafe IntPtr Data => g_bytes_get_data(Handle, null);
+        public unsafe ReadOnlySpan<byte> Data  {
+            get {
+                var ret_ = g_bytes_get_data(Handle, out var size_);
+                var ret = new ReadOnlySpan<byte>(ret_, (int)size_);
+                return ret;
+            }
+        }
 
         /// <summary>
         /// Get the size of the byte data in the #GBytes.
@@ -372,7 +395,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        int IArray<byte>.Length => Size;
         int IReadOnlyCollection<byte>.Count => Size;
 
         /// <summary>
@@ -392,7 +414,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern int g_bytes_hash (
+        static extern uint g_bytes_hash(
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
             IntPtr bytes);
@@ -411,7 +433,7 @@ namespace GISharp.Lib.GLib
         public override int GetHashCode ()
         {
             var ret = g_bytes_hash (Handle);
-            return ret;
+            return (int)ret;
         }
 
         /// <summary>
@@ -482,26 +504,23 @@ namespace GISharp.Lib.GLib
 
         [Since("2.32")]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe IntPtr g_bytes_unref_to_data(IntPtr bytes, UIntPtr* size);
+        static extern IntPtr g_bytes_unref_to_data(IntPtr bytes, out UIntPtr size);
 
-        public unsafe (IntPtr, int) TakeData()
+        public (IntPtr, int) TakeData()
         {
-            UIntPtr size_;
-            var data = g_bytes_unref_to_data(Handle, &size_);
+            var data = g_bytes_unref_to_data(Handle, out var size_);
             handle = IntPtr.Zero; // object becomes disposed
             return (data, (int)size_);
         }
 
-        public unsafe byte this[int index] {
+        public byte this[int index] {
             get {
-                var this_ = Handle;
-                var size_ = UIntPtr.Zero;
-                var ret_ = g_bytes_get_data(this_, &size_);
-                if (index < 0 || index >= (int)size_) {
+                try {
+                    return Data[index];
+                }
+                catch (IndexOutOfRangeException) {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
-                var ret = Marshal.ReadByte(ret_, index);
-                return ret;
             }
         }
 

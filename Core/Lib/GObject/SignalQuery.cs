@@ -51,6 +51,6 @@ namespace GISharp.Lib.GObject
         /// ReturnType callback (IntPtr data1, [ParamTypes paramNames,] IntPtr data2);
         /// </code>
         /// </remarks>
-        public IArray<GType> ParamTypes => CArray.GetInstance<GType>(paramTypes, (int)nParams, Transfer.None);
+        public unsafe ReadOnlySpan<GType> ParamTypes => new ReadOnlySpan<GType>((void*)paramTypes, (int)nParams);
     }
 }

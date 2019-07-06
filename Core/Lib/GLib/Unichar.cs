@@ -381,7 +381,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_unichar_fully_decompose(
+        static unsafe extern UIntPtr g_unichar_fully_decompose(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar ch,
@@ -390,7 +390,7 @@ namespace GISharp.Lib.GLib
             bool compat,
             /* <type name="gunichar" type="gunichar*" managed-name="Gunichar" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr result,
+            Unichar* result,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr resultLen);
@@ -408,11 +408,11 @@ namespace GISharp.Lib.GLib
         /// the decomposed result
         /// </returns>
         [Since("2.30")]
-        public IArray<Unichar> FullyDecompose(bool compat = false)
+        public unsafe Span<Unichar> FullyDecompose(bool compat = false)
         {
-            var result = new Array<Unichar>(false, false, MaxDecompositionLength);
-            var ret = g_unichar_fully_decompose(this, compat, result.Data, (UIntPtr)result.Length);
-            result.SetSize((int)ret);
+            var result_ = stackalloc Unichar[MaxDecompositionLength];
+            var ret = g_unichar_fully_decompose(this, compat, result_, (UIntPtr)MaxDecompositionLength);
+            var result = new Span<Unichar>(result_, (int)ret);
             return result;
         }
 

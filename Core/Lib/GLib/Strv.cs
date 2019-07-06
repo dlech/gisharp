@@ -7,11 +7,12 @@ using System.Linq;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Lib.GLib
 {
     [GType("GStrv", IsProxyForUnmanagedType = true)]
-    public sealed class Strv : Boxed, IArray<Utf8>
+    public sealed class Strv : Boxed, IReadOnlyList<Utf8>
     {
         public string[] Value => _Value.Value;
         readonly Lazy<string[]> _Value;
@@ -29,6 +30,11 @@ namespace GISharp.Lib.GLib
         public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
             _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
+        }
+
+        public Strv(IntPtr handle, int length, Transfer ownership) : this(handle, ownership)
+        {
+            // TODO: cache the length
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -50,8 +56,6 @@ namespace GISharp.Lib.GLib
                 return (int)ret;
             }
         }
-
-        IntPtr IArray<Utf8>.Data => Handle;
 
         int IReadOnlyCollection<Utf8>.Count => Length;
 
@@ -75,13 +79,7 @@ namespace GISharp.Lib.GLib
             return strv.Value;
         }
 
-        (IntPtr, int) IArray<Utf8>.TakeData()
-        {
-            var length = Length;
-            return (Take(), length);
-        }
-
-        IEnumerator<Utf8> GetEnumerator()
+        IEnumerator<Utf8> GetIEnumerator()
         {
             IntPtr ptr, str_;
             for (ptr = Handle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
@@ -90,8 +88,39 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        IEnumerator<Utf8> IEnumerable<Utf8>.GetEnumerator() => GetEnumerator();
+        IEnumerator<Utf8> IEnumerable<Utf8>.GetEnumerator() => GetIEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetIEnumerator();
+
+        public class Enumerator
+        {
+            private readonly Strv instance;
+            private int offset;
+            private IntPtr ptr;
+
+            internal Enumerator(Strv instance) {
+                this.instance = instance;
+            }
+
+            public UnownedUtf8 Current {
+                get {
+                    return new UnownedUtf8(ptr, -1);
+                }
+            }
+
+            public bool MoveNext() {
+                ptr = Marshal.ReadIntPtr(instance.Handle, offset);
+                offset += IntPtr.Size;
+                return ptr != IntPtr.Zero;
+            }
+        }
+
+        public Enumerator GetEnumerator() => new Enumerator(this);
+
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe ref readonly IntPtr GetPinnableReference()
+        {
+            return ref Unsafe.AsRef<IntPtr>((void*)Handle);
+        }
     }
 }

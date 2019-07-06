@@ -7,17 +7,12 @@ namespace GISharp.Runtime
     /// <summary>
     /// Common interface for arrays of value types (structs).
     /// </summary>
-    public interface IArray<T> : IReadOnlyList<T>, IDisposable
+    public interface IArray<T> : IReadOnlyList<T>, IDisposable where T : unmanaged
     {
         /// <summary>
         /// Gets a pointer to the array in unmanaged memory.
         /// </summary>
-        IntPtr Data { get; }
-
-        /// <summary>
-        /// Gets the length of the array.
-        /// </summary>
-        int Length { get; }
+        ReadOnlySpan<T> Data { get; }
 
         /// <summary>
         /// Removes the data from the array. Used for transfering ownership

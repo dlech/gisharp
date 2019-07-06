@@ -26,7 +26,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_flags_complete_type_info (
+        static unsafe extern void g_flags_complete_type_info (
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gFlagsType,
@@ -35,7 +35,7 @@ namespace GISharp.Lib.GObject
             out TypeInfo info,
             /* <type name="FlagsValue" type="const GFlagsValue*" managed-name="FlagsValue" /> */
             /* transfer-ownership:none */
-            IntPtr constValues);
+            FlagsValue* constValues);
 
         /// <summary>
         /// This function is meant to be called from the complete_type_info()
@@ -52,10 +52,11 @@ namespace GISharp.Lib.GObject
         /// An array of #GFlagsValue structs for the possible
         ///  enumeration values.
         /// </param>
-        public static void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, IArray<FlagsValue> constValues)
+        public static unsafe void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, IArray<FlagsValue> constValues)
         {
-            var constValues_ = constValues.Data;
-            g_flags_complete_type_info(gFlagsType, out info, constValues_);
+            fixed (FlagsValue* constValues_ = constValues.Data) {
+                g_flags_complete_type_info(gFlagsType, out info, constValues_);
+            }
         }
 
         /// <summary>

@@ -14,3 +14,9 @@
   name: name
   value: get_environment_variable
   xpath: gi:repository/gi:namespace/gi:class[@name='ApplicationCommandLine']/gi:method[@name='getenv']
+
+# fix null-terminated
+- !set-attribute
+  name: null-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='ApplicationCommandLine']/gi:method[@name='get_arguments']/gi:return-value/gi:array

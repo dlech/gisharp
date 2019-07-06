@@ -66,7 +66,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_enum_complete_type_info (
+        static unsafe extern void g_enum_complete_type_info(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gEnumType,
@@ -75,7 +75,7 @@ namespace GISharp.Lib.GObject
             out TypeInfo info,
             /* <type name="EnumValue" type="const GEnumValue*" managed-name="EnumValue" /> */
             /* transfer-ownership:none */
-            IntPtr constValues);
+            EnumValue* constValues);
 
         /// <summary>
         /// This function is meant to be called from the `complete_type_info`
@@ -111,10 +111,11 @@ namespace GISharp.Lib.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        static void CompleteTypeInfo(GType gEnumType, out TypeInfo info, IArray<EnumValue> constValues)
+        static unsafe void CompleteTypeInfo(GType gEnumType, out TypeInfo info, IArray<EnumValue> constValues)
         {
-            var constValues_ = constValues.Data;
-            g_enum_complete_type_info(gEnumType, out info, constValues_);
+            fixed (EnumValue* constValues_ = constValues.Data) {
+                g_enum_complete_type_info(gEnumType, out info, constValues_);
+            }
         }
 
         /// <summary>

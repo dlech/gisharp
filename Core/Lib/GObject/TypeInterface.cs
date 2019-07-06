@@ -238,12 +238,12 @@ namespace GISharp.Lib.GObject
         /// the prerequisites of <paramref name="interfaceType"/>
         /// </returns>
         [Since ("2.2")]
-        public static unsafe IArray<GType> GetPrerequisites(GType interfaceType)
+        public static unsafe ReadOnlyMemory<GType> GetPrerequisites(GType interfaceType)
         {
             uint nPrerequisites_;
             var ret_ = g_type_interface_prerequisites(interfaceType, &nPrerequisites_);
-            var ret = CArray.GetInstance<GType>(ret_, (int)nPrerequisites_, Transfer.Full);
-            return ret;
+            var ret = new CArrayMemoryManager<GType>(ret_, (int)nPrerequisites_, Transfer.Full);
+            return ret.Memory;
         }
 
         /// <summary>

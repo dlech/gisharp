@@ -104,29 +104,26 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_function_info_invoke (
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static unsafe extern bool g_function_info_invoke(
             IntPtr raw,
-            Argument[] inArgs,
+            Argument* inArgs,
             int nInArgs,
-            Argument[] outArgs,
+            Argument* outArgs,
             int nOutArgs,
             out Argument returnValue,
             out IntPtr error);
 
-        public Argument Invoke (Argument[] inArgs, Argument[] outArgs)
+        public unsafe Argument Invoke(ReadOnlySpan<Argument> inArgs, ReadOnlySpan<Argument> outArgs)
         {
-            int inArgsLength = inArgs?.Length ?? 0;
-            int outArgsLength = outArgs?.Length ?? 0;
-            Argument ret;
-            IntPtr err_;
-
-            if (!g_function_info_invoke (Handle, inArgs, inArgsLength, outArgs, outArgsLength, out ret, out err_)) {
-                var err = new GLib.Error (err_, Runtime.Transfer.Full);
-                throw new GErrorException (err);
+            fixed (Argument* inArgs_ = inArgs)
+            fixed (Argument* outArgs_ = outArgs) {
+                if (!g_function_info_invoke(Handle, inArgs_, inArgs.Length, outArgs_, outArgs.Length, out var ret, out var err_)) {
+                    var err = new GLib.Error(err_, Runtime.Transfer.Full);
+                    throw new GErrorException(err);
+                }
+                return ret;
             }
-
-            return ret;
         }
 
         public DynamicMetaObject GetMetaObject (Expression parameter)
@@ -346,7 +343,7 @@ namespace GISharp.Lib.GIRepository
             var freeOutArgs = default (Action);
 
             if (IsMethod) {
-                inArgs[0].Pointer = instance.Handle;
+                inArgs[0].Pointer = instance!.Handle;
             }
             foreach (var arg in matchArgs) {
                 if (arg.InIndex >= 0) {

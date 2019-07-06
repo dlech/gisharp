@@ -94,12 +94,12 @@ namespace GISharp.CodeGen
                 return false;
             }
 
-            // FIXME: this doesn't work because GIrType does not implement CustomAttributes
+            // FIXME: this doesn't work because GirType does not implement CustomAttributes
             // GInterface will always have [GType] attribute
             // return type.CustomAttributes.OfType<GTypeAttribute>().Any();
 
             // for now, making the assumption that GInterface types are not generic
-            // this is probably a safe assumption and will filter out IArray<>
+            // this is probably a safe assumption
             if (type.IsGenericType) {
                 return false;
             }

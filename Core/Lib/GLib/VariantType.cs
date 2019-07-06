@@ -608,7 +608,7 @@ namespace GISharp.Lib.GLib
                 <type name="VariantType" type="GVariantType*" managed-name="VariantType" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr items,
+            in IntPtr items,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int length);
@@ -626,10 +626,11 @@ namespace GISharp.Lib.GLib
         /// if any element of <paramref name="items"/> is <c>null</c>
         /// </exception>
         [Since ("2.24")]
-        public static VariantType CreateTuple(IArray<VariantType> items)
+        public static VariantType CreateTuple(UnownedCPtrArray<VariantType> items)
         {
-            var items_ = items.Data;
-            var ret_ = g_variant_type_new_tuple(items_, items.Length);
+            ref readonly var items_ = ref MemoryMarshal.GetReference(items.Data);
+            var length_ = items.Data.Length;
+            var ret_ = g_variant_type_new_tuple(items_, length_);
             var ret = new VariantType(ret_, Transfer.Full);
             return ret;
         }

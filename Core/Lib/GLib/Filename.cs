@@ -7,20 +7,19 @@ namespace GISharp.Lib.GLib
 {
     public sealed class Filename : Opaque
     {
-        bool owned;
-
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            if (ownership != Transfer.None) {
-                owned = true;
+            if (ownership != Transfer.Full) {
+                this.handle = IntPtr.Zero;
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException();
             }
         }
 
         protected override void Dispose(bool disposing)
         {
-            if (handle != IntPtr.Zero && owned) {
-                owned = false;
+            if (handle != IntPtr.Zero) {
                 GMarshal.Free(handle);
             }
             base.Dispose(disposing);

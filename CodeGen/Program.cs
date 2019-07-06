@@ -252,6 +252,7 @@ namespace GISharp.CodeGen
             // load all references assemblies into type resolver
 
             TypeResolver.LoadAssembly(typeof(GISharp.Runtime.Opaque).Assembly);
+            TypeResolver.LoadAssembly(typeof(System.ReadOnlySpan<>).Assembly);
 
             foreach (var projRef in projectAnalyzer.Build().SelectMany(x => x.ProjectReferences).Distinct()) {
                 var proj = manager.GetProject(projRef);

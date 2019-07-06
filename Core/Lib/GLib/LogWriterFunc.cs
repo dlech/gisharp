@@ -22,7 +22,7 @@ namespace GISharp.Lib.GLib
     /// </remarks>
     [Since("2.50")]
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate LogWriterOutput UnmanagedLogWriterFunc(
+    public unsafe delegate LogWriterOutput UnmanagedLogWriterFunc(
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
         LogLevelFlags logLevel,
@@ -30,7 +30,7 @@ namespace GISharp.Lib.GLib
             <type name="LogField" type="GLogField" managed-name="LogField" />
             </array> */
         /* transfer-ownership:none */
-        IntPtr fields,
+        LogField* fields,
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         UIntPtr nFields,
@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
     /// output the log entry.
     /// </remarks>
     [Since("2.50")]
-    public delegate LogWriterOutput LogWriterFunc(LogLevelFlags logLevel, IArray<LogField> fields);
+    public delegate LogWriterOutput LogWriterFunc(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields);
 
     public static class LogWriterFuncFactory
     {
@@ -73,26 +73,28 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        public static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
+        public unsafe static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
         {
             return new LogWriterFunc((logLevel, fields) => {
-                var ret = func(logLevel, fields.Data, (UIntPtr)fields.Length, userData);
-                return ret;
+                fixed (LogField* fields_ = fields) {
+                    var ret = func(logLevel, fields_, (UIntPtr)fields.Length, userData);
+                    return ret;
+                }
             });
         }
 
-        public static (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope) {
+        public static unsafe (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope) {
             var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);
             var gcHandle = GCHandle.Alloc(data);
 
             return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
         }
 
-        static LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, IntPtr fields_, UIntPtr nFields_, IntPtr userData_)
+        static unsafe LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, LogField* fields_, UIntPtr nFields_, IntPtr userData_)
         {
             try {
                 var gcHandle = (GCHandle)userData_;
-                var fields = CArray.GetInstance<LogField>(fields_, (int)nFields_, Transfer.None);
+                var fields = new ReadOnlySpan<LogField>(fields_, (int)nFields_);
                 var userData = (UserData)gcHandle.Target;
                 var ret = userData.Func(logLevel_, fields);
                 if (userData.Scope == CallbackScope.Async) {

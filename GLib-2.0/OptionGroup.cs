@@ -91,10 +91,11 @@ namespace GISharp.Lib.GLib
             return ptr;
         }
 
-        void AddEntry(OptionEntry entry)
+        unsafe void AddEntry(OptionEntry entry)
         {
             using (var array = new Array<OptionEntry>(true, false, 1){ entry }) {
-                g_option_group_add_entries(Handle, array.Data);
+                ref readonly var entries_ = ref MemoryMarshal.GetReference(array.Data);
+                g_option_group_add_entries(Handle, entries_);
             }
         }
 
@@ -334,7 +335,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static unsafe bool OnParsed(IntPtr context_, IntPtr group_, IntPtr data_, IntPtr* error_)
+        static unsafe Runtime.Boolean OnParsed(IntPtr context_, IntPtr group_, IntPtr data_, ref IntPtr error_)
         {
             try {
                 var userData = (UserData)GCHandle.FromIntPtr(data_).Target;
@@ -344,7 +345,7 @@ namespace GISharp.Lib.GLib
                 return true;
             }
             catch (GErrorException ex) {
-                GMarshal.PropagateError(error_, ex.Error);
+                GMarshal.PropagateError(ref error_, ex.Error);
             }
             catch (Exception ex) {
                 // FIXME: marshal Exception to Error

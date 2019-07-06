@@ -439,7 +439,7 @@ namespace GISharp.Lib.GLib
             return v.ChildValues.ToPtrArray<Variant>();
         }
 
-        public static explicit operator Variant(PtrArray<Variant> value)
+        public static explicit operator Variant(UnownedCPtrArray<Variant> value)
         {
             return new Variant (value);
         }
@@ -543,15 +543,15 @@ namespace GISharp.Lib.GLib
             return new Variant (value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs(VariantType? childType, IArray<Variant>? children)
+        static void AssertNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
-            if (childType == null && (children == null || children.Length == 0)) {
+            if (childType == null && (children.Data.Length == 0)) {
                 throw new ArgumentException ("Must specify child type when no children", nameof (childType));
             }
-            if (childType == null && children == null) {
+            if (childType == null && children.Data.Length == 0) {
                 throw new ArgumentException ("childType and children cannot both be null");
             }
-            if (children != null) {
+            if (children.Data.Length != 0) {
                 var testChildType = childType ?? children[0].Type;
                 foreach (var item in children) {
                     if (item == null) {
@@ -599,7 +599,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_array (
+        static extern IntPtr g_variant_new_array(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr childType,
@@ -607,7 +607,7 @@ namespace GISharp.Lib.GLib
                 <type name="Variant" type="GVariant*" managed-name="Variant" />
                 </array> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr children,
+            in IntPtr children,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             ulong nChildren);
@@ -641,12 +641,12 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new #GVariant array
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewArray(VariantType? childType, IArray<Variant>? children)
+        static IntPtr NewArray(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
             AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
-            var children_ = children?.Data ?? IntPtr.Zero;
-            var nChildren_ = (ulong)(children?.Length ?? 0);
+            ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
+            var nChildren_ = (ulong)children.Data.Length;
             var ret = g_variant_new_array(childType_, children_, nChildren_);
             return ret;
         }
@@ -677,7 +677,7 @@ namespace GISharp.Lib.GLib
         ///            #GVariant pointers, the children
         /// </param>
         [Since ("2.24")]
-        public Variant(VariantType? childType, IArray<Variant>? children)
+        public Variant(VariantType? childType, UnownedCPtrArray<Variant> children)
             : this(NewArray(childType, children), Transfer.None)
         {
         }
@@ -1757,12 +1757,12 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_tuple (
+        static extern IntPtr g_variant_new_tuple(
             /* <array length="1" zero-terminated="0" type="GVariant**">
                 <type name="Variant" type="GVariant*" managed-name="Variant" />
                 </array> */
             /* transfer-ownership:none */
-            IntPtr children,
+            in IntPtr children,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             ulong nChildren);
@@ -1785,13 +1785,15 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since ("2.24")]
-        static IntPtr NewTuple(IArray<Variant> children)
+        static IntPtr NewTuple(UnownedCPtrArray<Variant> children)
         {
-            var children_ = children.Data;
-            if (children.Any (x => x == null)) {
-                throw new ArgumentException("Tuple cannot have null elements", nameof(children));
+            foreach (var x in children.Data) {
+                if (x == IntPtr.Zero) {
+                    throw new ArgumentException("Tuple cannot have null elements", nameof(children));
+                }
             }
-            var nChildren_ = (ulong)(children?.Length ?? 0);
+            ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
+            var nChildren_ = (ulong)children.Data.Length;
             var ret = g_variant_new_tuple(children_, nChildren_);
             return ret;
         }
@@ -1811,7 +1813,7 @@ namespace GISharp.Lib.GLib
         /// the items to make the tuple out of
         /// </param>
         [Since ("2.24")]
-        public Variant(IArray<Variant> children) : this(NewTuple(children), Transfer.None)
+        public Variant(UnownedCPtrArray<Variant> children) : this(NewTuple(children), Transfer.None)
         {
         }
 
@@ -3035,7 +3037,7 @@ namespace GISharp.Lib.GLib
             <type name="gpointer" type="gconstpointer" managed-name="Gpointer" />
             </array> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_fixed_array (
+        static unsafe extern IntPtr* g_variant_get_fixed_array(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -3079,7 +3081,7 @@ namespace GISharp.Lib.GLib
         /// a pointer to the fixed array
         /// </returns>
         [Since ("2.24")]
-        IArray<T> getFixedArray<T>() where T : struct
+        unsafe ReadOnlySpan<T> getFixedArray<T>() where T : unmanaged
         {
             var this_ = Handle;
             if (!IsOfType(VariantType.Array)) {
@@ -3087,7 +3089,7 @@ namespace GISharp.Lib.GLib
             }
             var elementSize = Marshal.SizeOf<T>();
             var ret_ = g_variant_get_fixed_array(this_, out var nElements_, (UIntPtr)elementSize);
-            var ret = CArray.GetInstance<T>(ret_, (int)nElements_, Transfer.None);
+            var ret = new ReadOnlySpan<T>(ret_, (int)nElements_);
             return ret;
         }
 

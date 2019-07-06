@@ -197,12 +197,18 @@ namespace GISharp.Lib.GLib
     [DebuggerDisplay("{Value}")]
     public sealed class Utf8 : Opaque, IEnumerable<Unichar>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
     {
-
         /// <summary>
         /// Convenience property for <c>default(NullableUnownedUtf8)</c> or
         /// <c>new NullableUnownedUtf8(null)</c>
         /// </summary>
         public static NullableUnownedUtf8 Null => default(NullableUnownedUtf8);
+
+        [PtrArrayCopyFunc]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_strdup(IntPtr str);
+
+        [PtrArrayFreeFunc]
+        static unsafe void Free(IntPtr src) => GMarshal.Free(src);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_utf16_to_utf8(
@@ -229,10 +235,8 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            if (ownership != Transfer.Full) {
-                this.handle = IntPtr.Zero;
-                GC.SuppressFinalize(this);
-                throw new ArgumentException("Must own unmanaged memory");
+            if (ownership == Transfer.None) {
+                this.handle = g_strdup(handle);
             }
             _Value = new Lazy<string>(GetValue);
         }

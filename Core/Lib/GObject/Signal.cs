@@ -681,12 +681,12 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Array of signal IDs.
         /// </returns>
-        public static IArray<uint> ListIds(GType itype)
+        public static ReadOnlyMemory<uint> ListIds(GType itype)
         {
             uint nIds_;
             var ret_ = g_signal_list_ids (itype, out nIds_);
-            var ret = CArray.GetInstance<uint>(ret_, (int)nIds_, Transfer.Full);
-            return ret;
+            var ret = new CArrayMemoryManager<uint>(ret_, (int)nIds_, Transfer.Full);
+            return ret.Memory;
         }
 
         /// <summary>

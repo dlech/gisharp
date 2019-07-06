@@ -66,7 +66,7 @@ namespace GISharp.Lib.Gio
                 var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState;
                 progressCallbackDestroy();
                 var error_ = IntPtr.Zero;
-                g_file_copy_finish(file_, res_, &error_);
+                g_file_copy_finish(file_, res_, ref error_);
                 if (error_ != IntPtr.Zero) {
                     var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
                     completionSource.SetException(new GErrorException(error));

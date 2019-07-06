@@ -553,7 +553,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_object_class_install_properties (
+        static extern void g_object_class_install_properties(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             IntPtr oclass,
@@ -564,7 +564,7 @@ namespace GISharp.Lib.GObject
                  <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
                </array> */
             /* transfer-ownership:none */
-            IntPtr pspecs);
+            in IntPtr pspecs);
 
         /// <summary>
         /// Installs new properties from an array of #GParamSpecs.
@@ -635,13 +635,12 @@ namespace GISharp.Lib.GObject
         ///   defining the new properties
         /// </param>
         [Since ("2.26")]
-        public void InstallProperties(IArray<ParamSpec> pspecs)
+        public unsafe void InstallProperties(UnownedCPtrArray<ParamSpec> pspecs)
         {
             var this_ = Handle;
-            var pspecs_ = pspecs.Data;
-            var nPspecs_ = (uint)pspecs.Length;
-            g_object_class_install_properties (this_, nPspecs_, pspecs_);
-            GMarshal.Free (pspecs_);
+            ref readonly var pspecs_ = ref MemoryMarshal.GetReference(pspecs.Data);
+            var nPspecs_ = (uint)pspecs.Data.Length;
+            g_object_class_install_properties(this_, nPspecs_, pspecs_);
         }
 
         /// <summary>
@@ -738,12 +737,12 @@ namespace GISharp.Lib.GObject
         /// an array of
         ///          #GParamSpec* which should be freed after use
         /// </returns>
-        public IArray<ParamSpec> ListProperties()
+        public CPtrArray<ParamSpec> ListProperties()
         {
             return ListProperties(Handle);
         }
 
-        internal static IArray<ParamSpec> ListProperties(IntPtr handle)
+        internal static CPtrArray<ParamSpec> ListProperties(IntPtr handle)
         {
             var ret_ = g_object_class_list_properties (handle, out var nProperties_);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);

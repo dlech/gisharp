@@ -36,11 +36,10 @@ namespace GISharp.Lib.Gio
             if (iconNames.Length == 0) {
                 throw new ArgumentException("Must have at least one name", nameof(iconNames));
             }
-            var iconnames = new Strv(iconNames);
-            var iconnames_ = iconnames.Handle;
-            var len_ = -1;
+            using var iconnames = new Strv(iconNames);
+            ref readonly var iconnames_ = ref iconnames.GetPinnableReference();
+            var len_ = iconNames.Length;
             var ret_ = g_themed_icon_new_from_names(iconnames_, len_);
-            GC.KeepAlive(iconnames);
             return ret_;
         }
 

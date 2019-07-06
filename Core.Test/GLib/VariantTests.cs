@@ -380,12 +380,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestCastTuple ()
         {
-            using (var badTuple = default(PtrArray<Variant>)) {
-                Assert.That(() => (Variant)badTuple!, Throws.TypeOf<NullReferenceException>());
-            }
-
             using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })
-            using (var variant = (Variant)expected) {
+            using (var variant = (Variant)(UnownedCPtrArray<Variant>)expected) {
                 Assert.That(variant.Type.IsTuple, Is.True);
                 var actual = (PtrArray<Variant>)variant;
                 Assert.That(actual, Is.EqualTo(expected));
@@ -430,7 +426,8 @@ namespace GISharp.Test.Core.GLib
         }
 
         static Variant getItemAt(PtrArray<Variant> array, int index) {
-            var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
+            var data_ = Marshal.ReadIntPtr(array.Handle);
+            var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
             return Opaque.GetInstance<Variant>(ptr, Transfer.None);
         }
 

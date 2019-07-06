@@ -34,7 +34,7 @@ namespace GISharp.CodeGen.Syntax
 
             // when the unmanaged function returns a value type as a pointer,
             // we need to make it nullable
-            if (returnValue.Type.IsPointer && managedType.IsValueType && managedType != typeof(IntPtr)) {
+            if (returnValue.Type.IsPointer && !(returnValue.Type is Gir.Array) && managedType.IsValueType && managedType != typeof(IntPtr)) {
                 syntax = ParseTypeName(syntax.ToString() + "?");
             }
 

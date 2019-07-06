@@ -379,7 +379,8 @@ namespace GISharp.Test.Core.GObject
 
         static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)
         {
-            var ptr = Marshal.ReadIntPtr(array.Data, IntPtr.Size * index);
+            var data_ = Marshal.ReadIntPtr(array.Handle);
+            var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
             return ParamSpec.GetInstance<ParamSpecBoolean>(ptr, Transfer.None)!;
         }
     }

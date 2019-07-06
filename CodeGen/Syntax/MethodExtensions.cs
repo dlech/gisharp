@@ -20,8 +20,9 @@ namespace GISharp.CodeGen.Syntax
             {
                 yield return method.GetExternMethodDeclaration();
                 if (!method.IsPInvokeOnly) {
-                    yield return method.GetInstanceMethodDeclaration()
+                    var declaration = method.GetInstanceMethodDeclaration()
                         .WithBody(Block(method.GetInvokeStatements(method.CIdentifier)));
+                    yield return declaration;
                 }
 
                 if (method.FinishFor != null) {

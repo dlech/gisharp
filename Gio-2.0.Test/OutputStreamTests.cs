@@ -167,9 +167,9 @@ namespace GISharp.Test.Gio
             return 0;
         }
 
-        protected override int DoWriteFn(IArray<byte>? buffer, Cancellable? cancellable = null)
+        protected override int DoWriteFn(ReadOnlySpan<byte> buffer, Cancellable? cancellable = null)
         {
-           return buffer?.Count ?? 0;
+           return buffer.Length;
         }
     }
 }

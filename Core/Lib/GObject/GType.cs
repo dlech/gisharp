@@ -713,12 +713,12 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// array of child types
         /// </returns>
-        public unsafe IArray<GType> Children {
+        public unsafe ReadOnlyMemory<GType> Children {
             get {
                 uint nChildren_;
                 var ret_ = g_type_children(this, &nChildren_);
-                var ret = CArray.GetInstance<GType>(ret_, (int)nChildren_, Transfer.Full);
-                return ret;
+                var ret = new CArrayMemoryManager<GType>(ret_, (int)nChildren_, Transfer.Full);
+                return ret.Memory;
             }
         }
 
@@ -959,7 +959,7 @@ namespace GISharp.Lib.GObject
                         }
                         var ifaceGType = ifaceType.GetGType ();
                         var prereqs = TypeInterface.GetPrerequisites(ifaceGType);
-                        foreach (var p in prereqs) {
+                        foreach (var p in prereqs.Span) {
                             if (!GType.TypeOf (p).IsAssignableFrom (type)) {
                                 var message = $"Type {type.FullName} is missing prerequisite {ifaceType.FullName} ({p})";
                                 throw new ArgumentException (message, nameof(type));
@@ -2103,12 +2103,12 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Array of interface types
         /// </returns>
-        public static unsafe IArray<GType> Interfaces(GType type)
+        public static unsafe ReadOnlyMemory<GType> Interfaces(GType type)
         {
             uint nInterfaces_;
             var ret_ = g_type_interfaces(type, &nInterfaces_);
-            var ret = CArray.GetInstance<GType>(ret_, (int)nInterfaces_, Transfer.Full);
-            return ret;
+            var ret = new ReadOnlyMemory<GType>(ret_, (int)nInterfaces_, Transfer.Full);
+            return ret.Memory;
         }
 
         /// <summary>
