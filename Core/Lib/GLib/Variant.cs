@@ -610,7 +610,7 @@ namespace GISharp.Lib.GLib
             in IntPtr children,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong nChildren);
+            UIntPtr nChildren);
 
         /// <summary>
         /// Creates a new #GVariant array from @children.
@@ -646,7 +646,7 @@ namespace GISharp.Lib.GLib
             AssertNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
             ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
-            var nChildren_ = (ulong)children.Data.Length;
+            var nChildren_ = (UIntPtr)children.Data.Length;
             var ret = g_variant_new_array(childType_, children_, nChildren_);
             return ret;
         }
@@ -874,7 +874,7 @@ namespace GISharp.Lib.GLib
             IntPtr strv,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
-            long length);
+            IntPtr length);
 
         static IntPtr NewBytestringArray (byte[][] value)
         {
@@ -887,7 +887,7 @@ namespace GISharp.Lib.GLib
                 }
                 Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
 
-                var ret = g_variant_new_bytestring_array(strv, -1);
+                var ret = g_variant_new_bytestring_array(strv, new IntPtr(-1));
                 return ret;
             }
             finally {
@@ -1073,10 +1073,10 @@ namespace GISharp.Lib.GLib
             IntPtr elements,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong nElements,
+            UIntPtr nElements,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong elementSize);
+            UIntPtr elementSize);
 
         /// <summary>
         /// Provides access to the serialised data for an array of fixed-sized
@@ -1110,9 +1110,9 @@ namespace GISharp.Lib.GLib
             var gch = GCHandle.Alloc (elements, GCHandleType.Pinned);
             try {
                 var elements_ = gch.AddrOfPinnedObject ();
-                var nElements = elements.Length;
-                var elementSize = Marshal.SizeOf<T> ();
-                var ret = g_variant_new_fixed_array (elementType.Handle, elements_, (uint)nElements, (uint)elementSize);
+                var nElements = (UIntPtr)elements.Length;
+                var elementSize = (UIntPtr)Marshal.SizeOf<T>();
+                var ret = g_variant_new_fixed_array(elementType.Handle, elements_, nElements, elementSize);
                 return new Variant(ret, Transfer.None);
             }
             finally {
@@ -1183,7 +1183,7 @@ namespace GISharp.Lib.GLib
             IntPtr data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong size,
+            UIntPtr size,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             Runtime.Boolean trusted,
@@ -1524,7 +1524,7 @@ namespace GISharp.Lib.GLib
             IntPtr strv,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
-            long length);
+            IntPtr length);
 
         [Since ("2.30")]
         static IntPtr NewDBusObjectPathArray (DBusObjectPath[] value)
@@ -1535,7 +1535,7 @@ namespace GISharp.Lib.GLib
             }
             var ptr = GMarshal.StringArrayToGStrvPtr (strv);
             try {
-                var ret = g_variant_new_objv(ptr, -1);
+                var ret = g_variant_new_objv(ptr, new IntPtr(-1));
                 return ret;
             }
             finally {
@@ -1614,7 +1614,7 @@ namespace GISharp.Lib.GLib
             IntPtr strv,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
-            long length);
+            IntPtr length);
 
         /// <summary>
         /// Constructs an array of strings #GVariant from the given array of
@@ -1633,7 +1633,7 @@ namespace GISharp.Lib.GLib
         static IntPtr NewStrv(Strv strv)
         {
             var strv_ = strv.Handle;
-            var ret = g_variant_new_strv(strv_, -1);
+            var ret = g_variant_new_strv(strv_, new IntPtr(-1));
             return ret;
         }
 
@@ -1765,7 +1765,7 @@ namespace GISharp.Lib.GLib
             in IntPtr children,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong nChildren);
+            UIntPtr nChildren);
 
         /// <summary>
         /// Creates a new tuple #GVariant out of the items in @children.  The
@@ -1793,7 +1793,7 @@ namespace GISharp.Lib.GLib
                 }
             }
             ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
-            var nChildren_ = (ulong)children.Data.Length;
+            var nChildren_ = (UIntPtr)children.Data.Length;
             var ret = g_variant_new_tuple(children_, nChildren_);
             return ret;
         }
@@ -2771,21 +2771,21 @@ namespace GISharp.Lib.GLib
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            ulong* length);
+            UIntPtr* length);
 
         unsafe byte[][] GetBytestringArray ()
         {
             if (!IsOfType (VariantType.ByteStringArray)) {
                 throw new InvalidOperationException ();
             }
-            ulong length;
+            UIntPtr length;
             var ptr = g_variant_get_bytestring_array(Handle, &length);
             if (ptr == IntPtr.Zero) {
                 return new byte[0][];
             }
             var array = new System.Collections.Generic.List<byte[]> ();
             var offset = 0;
-            for (ulong i = 0; i < length; i++) {
+            for (var i = 0; i < (int)length; i++) {
                 var elementPtr = Marshal.ReadIntPtr (ptr, offset);
                 array.Add(GMarshal.PtrToByteString(elementPtr)!);
                 offset += IntPtr.Size;
@@ -2827,7 +2827,7 @@ namespace GISharp.Lib.GLib
             IntPtr value,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            ulong index);
+            UIntPtr index);
 
         /// <summary>
         /// Reads a child item out of a container #GVariant instance.  This
@@ -2859,7 +2859,7 @@ namespace GISharp.Lib.GLib
             if (index < 0) {
                 throw new ArgumentOutOfRangeException (nameof (index));
             }
-            var ret_ = g_variant_get_child_value(Handle, (ulong)index);
+            var ret_ = g_variant_get_child_value(Handle, (UIntPtr)index);
             var ret = GetInstance<Variant> (ret_, Transfer.Full);
             return ret;
         }
@@ -3410,7 +3410,7 @@ namespace GISharp.Lib.GLib
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            ulong* length);
+            UIntPtr* length);
 
         [Since ("2.30")]
         unsafe DBusObjectPath[] Objv {
@@ -3418,7 +3418,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType (VariantType.DBusObjectPathArray)) {
                     throw new InvalidOperationException ();
                 }
-                ulong length;
+                UIntPtr length;
                 var ptr = g_variant_get_objv(Handle, &length);
                 if (ptr == IntPtr.Zero) {
                     return new DBusObjectPath[0];
@@ -3456,7 +3456,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern ulong g_variant_get_size (
+        static extern UIntPtr g_variant_get_size(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3479,7 +3479,7 @@ namespace GISharp.Lib.GLib
         /// the serialised size of @value
         /// </returns>
         [Since ("2.24")]
-        public ulong Size {
+        public UIntPtr Size {
             get {
                 var ret = g_variant_get_size(Handle);
                 return ret;
@@ -3582,7 +3582,7 @@ namespace GISharp.Lib.GLib
             IntPtr value,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            ulong* length);
+            UIntPtr* length);
 
         /// <summary>
         /// Gets the contents of an array of strings #GVariant.  This call
@@ -3606,7 +3606,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType (VariantType.StringArray)) {
                     throw new InvalidOperationException ();
                 }
-                ulong length_;
+                UIntPtr length_;
                 var ret_ = g_variant_get_strv(Handle, &length_);
                 var ret = Opaque.GetInstance<Strv>(ret_, Transfer.None);
                 GMarshal.Free(ret_);
@@ -4146,7 +4146,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern ulong g_variant_n_children (
+        static extern UIntPtr g_variant_n_children(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);

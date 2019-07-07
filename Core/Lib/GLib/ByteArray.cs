@@ -111,13 +111,13 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         static extern IntPtr g_byte_array_new_take (
             IntPtr data,
-            ulong len);
+            UIntPtr len);
 
         static IntPtr NewTake (byte[] data)
         {
             var dataPtr = GMarshal.Alloc (data.Length);
             Marshal.Copy (data, 0, dataPtr, data.Length);
-            var ret = g_byte_array_new_take (dataPtr, (ulong)data.Length);
+            var ret = g_byte_array_new_take (dataPtr, (UIntPtr)data.Length);
             return ret;
         }
 

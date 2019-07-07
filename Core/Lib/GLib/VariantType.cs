@@ -1479,7 +1479,7 @@ namespace GISharp.Lib.GLib
         [return: MarshalAs (UnmanagedType.SysUInt)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern ulong g_variant_type_n_items (
+        static extern UIntPtr g_variant_type_n_items(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr type);

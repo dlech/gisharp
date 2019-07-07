@@ -258,7 +258,7 @@ namespace GISharp.Lib.GObject
             IntPtr gClass,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UInt64 privateSize);
+            UIntPtr privateSize);
 
         /// <summary>
         /// Registers a private structure for an instantiatable type.
