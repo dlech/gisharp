@@ -11,28 +11,41 @@ namespace GISharp.Test.Core.GLib
     public class ErrorTests
     {
         [Test]
-        public void TestGType ()
+        public void TestGType()
         {
-            var gtype = typeof (Error).GetGType ();
-            Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
+            var gtype = typeof(Error).GetGType();
+            Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
             Assert.That<string?>(gtype.Name, Is.EqualTo("GError"));
+
+            AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestMatches()
+        {
+            const TestError code = TestError.Failed;
+            using (var err = new Error(code, "Format {0}", 0)) {
+                Assert.That(err.Matches(code));
+            }
+
+            var domain2 = Quark.FromString("test-error-domain-2");
+            const int code2 = 99;
+            using (var err = new Error(domain2, code2, "Format {0}", 0)) {
+                Assert.That(err.Matches(domain2, code2));
+            }
 
             AssertNoGLibLog();
         }
     }
 
-    [GErrorDomain ("gisharp-core-test-error-domain-quark")]
-    enum TestErrorDomain
+    [GErrorDomain("gisharp-core-test-error-domain-quark")]
+    enum TestError
     {
         Failed
     }
 
-    static class TestErrorDomainExtensions
+    static class TestErrorDomain
     {
-        static Quark Quark {
-            get {
-                return TestErrorDomain.Failed.GetGErrorDomain();
-            }
-        }
+        public static Quark Quark => TestError.Failed.GetGErrorDomain();
     }
 }

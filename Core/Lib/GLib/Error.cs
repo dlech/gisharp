@@ -13,20 +13,20 @@ namespace GISharp.Lib.GLib
     /// This is only intended for use in bindings. You probably want
     /// <see cref="GErrorException"/> instead.
     /// </remarks>
-    [GType ("GError", IsProxyForUnmanagedType = true)]
+    [GType("GError", IsProxyForUnmanagedType = true)]
     public sealed class Error : Boxed
     {
-        static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Domain));
-        static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Code));
-        static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Message));
+        static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Domain));
+        static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Code));
+        static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Message));
 
         struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public Quark Domain;
             public int Code;
             public IntPtr Message;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         /// <summary>
@@ -53,19 +53,19 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_error_copy (IntPtr error);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_error_copy(IntPtr error);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Error(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_error_free (IntPtr error);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_error_free(IntPtr error);
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_error_new_literal (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_error_new_literal(
             Quark domain,
             int code,
             IntPtr message);
@@ -85,7 +85,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error(Quark domain, int code, string message)
-            : this (NewLiteral (domain, code, message), Transfer.Full)
+            : this(NewLiteral(domain, code, message), Transfer.Full)
         {
         }
 
@@ -99,7 +99,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error(System.Enum code, string message)
-            : this (NewLiteral (code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
+            : this(NewLiteral(code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
         {
         }
 
@@ -111,7 +111,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="format">Message format string.</param>
         /// <param name="args">Objects to format.</param>
-        public Error (Quark domain, int code, string format, params object[] args)
+        public Error(Quark domain, int code, string format, params object[] args)
             : this(domain, code, string.Format(format, args))
         {
         }
@@ -152,7 +152,7 @@ namespace GISharp.Lib.GLib
         /// future to provide a more specific error code for a certain case, your
         /// code will still work.
         /// </remarks>
-        public bool Matches (Quark domain, int code)
+        public bool Matches(Quark domain, int code)
         {
             var ret = g_error_matches(Handle, domain, code);
             return ret;
@@ -173,14 +173,14 @@ namespace GISharp.Lib.GLib
         /// future to provide a more specific error code for a certain case, your
         /// code will still work.
         /// </remarks>
-        public bool Matches (Quark domain, System.Enum code)
+        public bool Matches(System.Enum code)
         {
-            var ret = g_error_matches(Handle, domain, (int)(object)code);
+            var ret = g_error_matches(Handle, code.GetGErrorDomain(), (int)(object)code);
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_error_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_error_get_type();
 
         static readonly GType _GType = g_error_get_type();
     }
