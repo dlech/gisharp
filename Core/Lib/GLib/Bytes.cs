@@ -36,26 +36,28 @@ namespace GISharp.Lib.GLib
     /// mutable array for a #GBytes sequence. To create an immutable <see cref="Bytes"/> from
     /// a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.ToBytes"/> function.
     /// </remarks>
-    [Since ("2.32")]
-    [GType ("GBytes", IsProxyForUnmanagedType = true)]
+    [Since("2.32")]
+    [GType("GBytes", IsProxyForUnmanagedType = true)]
     public sealed class Bytes : Boxed, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
+        private struct GBytes { }
+
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Bytes(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_bytes_ref (IntPtr array);
+        static unsafe extern GBytes* g_bytes_ref(GBytes* array);
 
-        public override IntPtr Take() => g_bytes_ref(Handle);
+        public unsafe override IntPtr Take() => (IntPtr)g_bytes_ref((GBytes*)Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_bytes_unref (IntPtr array);
+        static unsafe extern void g_bytes_unref(GBytes* array);
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
-        static extern GType g_bytes_get_type ();
+        static extern GType g_bytes_get_type();
 
         static readonly GType _GType = g_bytes_get_type();
 
@@ -75,27 +77,28 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GBytes
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_bytes_new(
+        static unsafe extern GBytes* g_bytes_new(
             /* <array length="1" zero-terminated="0" type="gconstpointer">
                 <type name="guint8" managed-name="Guint8" />
                 </array> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            in byte data,
+            void* data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr size);
 
-        [Since ("2.32")]
-        static IntPtr New(ReadOnlySpan<byte> data)
+        [Since("2.32")]
+        static unsafe IntPtr New(ReadOnlySpan<byte> data)
         {
-            ref readonly var data_ = ref MemoryMarshal.GetReference(data);
-            var size_ = (UIntPtr)data.Length;
-            var ret_ = g_bytes_new(data_, size_);
-            return ret_;
+            fixed (byte* data_ = data) {
+                var size_ = (UIntPtr)data.Length;
+                var ret_ = g_bytes_new(data_, size_);
+                return (IntPtr)ret_;
+            }
         }
 
         /// <summary>
@@ -107,7 +110,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new <see cref="Bytes"/>
         /// </returns>
-        [Since ("2.32")]
+        [Since("2.32")]
         public Bytes(ReadOnlySpan<byte> data) : this(New(data), Transfer.Full)
         {
         }
@@ -121,7 +124,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new <see cref="Bytes"/>
         /// </returns>
-        [Since ("2.32")]
+        [Since("2.32")]
         public Bytes(params byte[] data) : this(data.AsSpan())
         {
         }
@@ -154,16 +157,16 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GBytes
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_bytes_new_with_free_func (
+        static unsafe extern GBytes* g_bytes_new_with_free_func(
             /* <array length="1" zero-terminated="0" type="gconstpointer">
                 <type name="guint8" managed-name="Guint8" />
                 </array> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr data,
+            byte* data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr size,
@@ -172,7 +175,7 @@ namespace GISharp.Lib.GLib
             UnmanagedDestroyNotify freeFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr userData);
+            void* userData);
 
         /// <summary>
         /// Compares the two #GBytes values.
@@ -190,17 +193,17 @@ namespace GISharp.Lib.GLib
         /// a negative value if bytes2 is lesser, a positive value if bytes2 is
         ///          greater, and zero if bytes2 is equal to bytes1
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_bytes_compare (
+        static unsafe extern int g_bytes_compare(
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes1,
+            GBytes* bytes1,
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes2);
+            GBytes* bytes2);
 
         /// <summary>
         /// Compares the two <see cref="Bytes"/> values.
@@ -216,33 +219,33 @@ namespace GISharp.Lib.GLib
         /// value if <paramref name="other"/> is
         /// greater, and zero if <paramref name="other"/> is equal to this
         /// </returns>
-        [Since ("2.32")]
-        public int CompareTo(Bytes other)
+        [Since("2.32")]
+        public unsafe int CompareTo(Bytes other)
         {
-            var this_ = Handle;
-            var other_ = other.Handle;
+            var this_ = (GBytes*)Handle;
+            var other_ = (GBytes*)other.Handle;
             var ret = g_bytes_compare(this_, other_);
             return ret;
         }
 
-        public static bool operator >= (Bytes one, Bytes two)
+        public static bool operator >=(Bytes one, Bytes two)
         {
-            return one.CompareTo (two) >= 0;
+            return one.CompareTo(two) >= 0;
         }
 
-        public static bool operator > (Bytes one, Bytes two)
+        public static bool operator >(Bytes one, Bytes two)
         {
-            return one.CompareTo (two) > 0;
+            return one.CompareTo(two) > 0;
         }
 
-        public static bool operator < (Bytes one, Bytes two)
+        public static bool operator <(Bytes one, Bytes two)
         {
-            return one.CompareTo (two) < 0;
+            return one.CompareTo(two) < 0;
         }
 
-        public static bool operator <= (Bytes one, Bytes two)
+        public static bool operator <=(Bytes one, Bytes two)
         {
-            return one.CompareTo (two) <= 0;
+            return one.CompareTo(two) <= 0;
         }
 
         /// <summary>
@@ -262,17 +265,17 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the two keys match.
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_bytes_equal (
+        static unsafe extern Runtime.Boolean g_bytes_equal(
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes1,
+            GBytes* bytes1,
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes2);
+            GBytes* bytes2);
 
         /// <summary>
         /// Compares the two #GBytes values being pointed to and returns
@@ -288,11 +291,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the two keys match.
         /// </returns>
-        [Since ("2.32")]
-        public bool Equals(Bytes other)
+        [Since("2.32")]
+        public unsafe bool Equals(Bytes other)
         {
-            var this_ = Handle;
-            var other_ = other.Handle;
+            var this_ = (GBytes*)Handle;
+            var other_ = (GBytes*)other.Handle;
             var ret = g_bytes_equal(this_, other_);
             return ret;
         }
@@ -335,8 +338,8 @@ namespace GISharp.Lib.GLib
         ///
         ///          a pointer to the byte data, or %NULL
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gconstpointer">
             <type name="guint8" managed-name="Guint8" />
             </array> */
@@ -344,14 +347,16 @@ namespace GISharp.Lib.GLib
         static unsafe extern byte* g_bytes_get_data(
             /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes,
+            GBytes* bytes,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            out UIntPtr size);
+            UIntPtr* size);
 
-        public unsafe ReadOnlySpan<byte> Data  {
+        public unsafe ReadOnlySpan<byte> Data {
             get {
-                var ret_ = g_bytes_get_data(Handle, out var size_);
+                var this_ = (GBytes*)Handle;
+                UIntPtr size_;
+                var ret_ = g_bytes_get_data(this_, &size_);
                 var ret = new ReadOnlySpan<byte>(ret_, (int)size_);
                 return ret;
             }
@@ -369,14 +374,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the size
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_bytes_get_size (
+        static unsafe extern UIntPtr g_bytes_get_size(
             /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes);
+            GBytes* bytes);
 
         /// <summary>
         /// Get the size of the byte data in the <see cref="Bytes"/>.
@@ -387,10 +392,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the size
         /// </returns>
-        [Since ("2.32")]
-        public int Size {
+        [Since("2.32")]
+        public unsafe int Size {
             get {
-                var ret = g_bytes_get_size(Handle);
+                var this_ = (GBytes*)Handle;
+                var ret = g_bytes_get_size(this_);
                 return (int)ret;
             }
         }
@@ -410,14 +416,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_bytes_hash(
+        static unsafe extern uint g_bytes_hash(
             /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes);
+            GBytes* bytes);
 
         /// <summary>
         /// Creates an integer hash code for the byte data in the #GBytes.
@@ -429,10 +435,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a hash value corresponding to the key.
         /// </returns>
-        [Since ("2.32")]
-        public override int GetHashCode ()
+        [Since("2.32")]
+        public unsafe override int GetHashCode()
         {
-            var ret = g_bytes_hash (Handle);
+            var this_ = (GBytes*)Handle;
+            var ret = g_bytes_hash(this_);
             return (int)ret;
         }
 
@@ -456,14 +463,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GBytes
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_bytes_new_from_bytes (
+        static unsafe extern GBytes* g_bytes_new_from_bytes(
             /* <type name="Bytes" type="GBytes*" managed-name="Bytes" /> */
             /* transfer-ownership:none */
-            IntPtr bytes,
+            GBytes* bytes,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
             UIntPtr offset,
@@ -485,32 +492,35 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new <see cref="Bytes"/>
         /// </returns>
-        [Since ("2.32")]
-        public Bytes NewFromBytes (int offset, int length)
+        [Since("2.32")]
+        public unsafe Bytes NewFromBytes(int offset, int length)
         {
-            var this_ = Handle;
+            var this_ = (GBytes*)Handle;
             if (offset < 0) {
-                throw new ArgumentOutOfRangeException (nameof (offset));
+                throw new ArgumentOutOfRangeException(nameof(offset));
             }
             if (length < 0) {
-                throw new ArgumentOutOfRangeException (nameof (length));
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
             if (offset + length > Size) {
-                throw new ArgumentException ("offset + length exceeds size");
+                throw new ArgumentException("offset + length exceeds size");
             }
-            var ret = g_bytes_new_from_bytes(this_, (UIntPtr)offset, (UIntPtr)length);
-            return new Bytes (ret, Transfer.Full);
+            var ret_ = g_bytes_new_from_bytes(this_, (UIntPtr)offset, (UIntPtr)length);
+            var ret = new Bytes((IntPtr)ret_, Transfer.Full);
+            return ret;
         }
 
         [Since("2.32")]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_bytes_unref_to_data(IntPtr bytes, out UIntPtr size);
+        static unsafe extern byte* g_bytes_unref_to_data(GBytes* bytes, UIntPtr* size);
 
-        public (IntPtr, int) TakeData()
+        public unsafe (IntPtr, int) TakeData()
         {
-            var data = g_bytes_unref_to_data(Handle, out var size_);
+            var this_ = (GBytes*)Handle;
             handle = IntPtr.Zero; // object becomes disposed
-            return (data, (int)size_);
+            UIntPtr size_;
+            var data_ = g_bytes_unref_to_data(this_, &size_);
+            return ((IntPtr)data_, (int)size_);
         }
 
         public byte this[int index] {
@@ -533,6 +543,6 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<byte> IEnumerable<byte>.GetEnumerator() => GetEnumerator();
 
-        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator();
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }
