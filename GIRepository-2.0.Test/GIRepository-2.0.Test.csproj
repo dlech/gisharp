@@ -6,7 +6,19 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <IsPackable>false</IsPackable>
   </PropertyGroup>
+
+  <PropertyGroup>
+    <CoverletOutputFormat>lcov</CoverletOutputFormat>
+    <CoverletOutput>../.coverage/girepository-2.0.info</CoverletOutput>
+    <Include>[GIRepository-2.0]*</Include> 
+    <Exclude>[*]GISharp.Lib.GIRepository.Dynamic.*</Exclude> 
+  </PropertyGroup>
+
   <ItemGroup>
+    <PackageReference Include="coverlet.msbuild" Version="2.6.3">
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      <PrivateAssets>all</PrivateAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.*" />
     <PackageReference Include="NUnit" Version="3.10.*" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.*" />

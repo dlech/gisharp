@@ -1,4 +1,5 @@
 ﻿﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
 using GISharp.Lib.GLib;
 
@@ -7,6 +8,7 @@ using NUnit.Framework.Internal;
 
 namespace GISharp.Test
 {
+    [ExcludeFromCodeCoverage]
     [SetUpFixture]
     public class Setup
     {
