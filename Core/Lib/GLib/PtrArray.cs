@@ -321,8 +321,8 @@ namespace GISharp.Lib.GLib
         /// %TRUE if the pointer is removed, %FALSE if the pointer
         ///     is not found in the array
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_ptr_array_remove (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_ptr_array_remove(
             IntPtr array,
             IntPtr data);
 
@@ -369,8 +369,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the pointer was found in the array
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_ptr_array_remove_fast (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_ptr_array_remove_fast(
             IntPtr array,
             IntPtr data);
 
@@ -705,9 +705,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @needle is one of the elements of @haystack
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.54")]
-        static extern unsafe bool g_ptr_array_find( // gboolean
+        static extern unsafe Runtime.Boolean g_ptr_array_find( // gboolean
             IntPtr haystack,                        // GPtrArray*
             IntPtr needle,                          // gconstpointer
             uint* index);                           // guint* (optional) (out caller-allocates)

@@ -105,7 +105,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static unsafe extern bool g_function_info_invoke(
+        static unsafe extern Runtime.Boolean g_function_info_invoke(
             IntPtr raw,
             Argument* inArgs,
             int nInArgs,

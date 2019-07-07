@@ -461,7 +461,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_context_acquire (
+        static extern Runtime.Boolean g_main_context_acquire(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context);
@@ -827,7 +827,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_context_is_owner (
+        static extern Runtime.Boolean g_main_context_is_owner(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context);
@@ -873,16 +873,16 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if events were dispatched.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_context_iteration (
+        static extern Runtime.Boolean g_main_context_iteration(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool mayBlock);
+            Runtime.Boolean mayBlock);
 
         /// <summary>
         /// Runs a single iteration for the given main loop. This involves
@@ -920,10 +920,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if events are pending.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_context_pending (
+        static extern Runtime.Boolean g_main_context_pending(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr context);
@@ -985,10 +985,10 @@ namespace GISharp.Lib.GLib
         /// %TRUE if some source is ready to be dispatched
         ///               prior to polling.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern unsafe bool g_main_context_prepare(
+        static extern unsafe Runtime.Boolean g_main_context_prepare(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
             IntPtr context,

@@ -269,10 +269,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// For historical reasons, this function always returns %TRUE
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none skip:1 */
-        static extern bool g_source_remove (
+        static extern Runtime.Boolean g_source_remove(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint id);
@@ -619,10 +619,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// whether recursion is allowed.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_source_get_can_recurse (
+        static extern Runtime.Boolean g_source_get_can_recurse(
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source);
@@ -963,11 +963,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the source has been destroyed
         /// </returns>
-        [Since ("2.12")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.12")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_source_is_destroyed (
+        static extern Runtime.Boolean g_source_is_destroyed(
             /* <type name="Source" type="GSource*" managed-name="Source" /> */
             /* transfer-ownership:none */
             IntPtr source);
@@ -1308,7 +1308,7 @@ namespace GISharp.Lib.GLib
             IntPtr source,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool canRecurse);
+            Runtime.Boolean canRecurse);
 
         /// <summary>
         /// Sets the source functions (can be used to override

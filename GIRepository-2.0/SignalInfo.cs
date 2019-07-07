@@ -29,8 +29,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_signal_info_true_stops_emit (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_signal_info_true_stops_emit(IntPtr raw);
 
         public bool TrueStopsEmit {
             get {

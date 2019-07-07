@@ -9,8 +9,8 @@ namespace GISharp.Lib.GIRepository
     public sealed class FieldInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_field_info_get_field (IntPtr raw, IntPtr mem, out Argument value);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_field_info_get_field(IntPtr raw, IntPtr mem, out Argument value);
 
         public bool GetField (IntPtr mem, out Argument value)
         {
@@ -55,7 +55,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_field_info_set_field (IntPtr raw, IntPtr mem, ref Argument value);
+        static extern Runtime.Boolean g_field_info_set_field(IntPtr raw, IntPtr mem, ref Argument value);
 
         public bool SetField (IntPtr mem, Argument value)
         {

@@ -139,8 +139,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_union_info_is_discriminated (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_union_info_is_discriminated(IntPtr raw);
 
         public bool IsDiscriminated {
             get {

@@ -588,10 +588,10 @@ namespace GISharp.Lib.GObject
         /// %TRUE if a handler is connected to the signal, %FALSE
         ///          otherwise.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_signal_has_handler_pending (
+        static extern Runtime.Boolean g_signal_has_handler_pending(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1042,10 +1042,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Whether the signal name could successfully be parsed and @signal_id_p and @detail_p contain valid return values.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_signal_parse_name (
+        static extern Runtime.Boolean g_signal_parse_name(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr detailedSignal,

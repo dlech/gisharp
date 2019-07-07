@@ -271,7 +271,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_variant_take_ref(IntPtr value);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_variant_is_floating(IntPtr value);
+        static extern Runtime.Boolean g_variant_is_floating(IntPtr value);
 
         bool IsFloating => g_variant_is_floating(Handle);
 
@@ -691,14 +691,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new boolean #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_boolean (
+        static extern IntPtr g_variant_new_boolean(
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool value);
+            Runtime.Boolean value);
 
         /// <summary>
         /// Creates a new boolean #GVariant instance -- either %TRUE or %FALSE.
@@ -1186,7 +1186,7 @@ namespace GISharp.Lib.GLib
             ulong size,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool trusted,
+            Runtime.Boolean trusted,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
             UnmanagedDestroyNotify notify,
@@ -2030,11 +2030,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus object path
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_is_object_path (
+        static extern Runtime.Boolean g_variant_is_object_path(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr @string);
@@ -2079,11 +2079,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus type signature
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_is_signature (
+        static extern Runtime.Boolean g_variant_is_signature(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr @string);
@@ -2322,11 +2322,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @format_string is safe to use
         /// </returns>
-        [Since ("2.34")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.34")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_check_format_string (
+        static extern Runtime.Boolean g_variant_check_format_string(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -2335,7 +2335,7 @@ namespace GISharp.Lib.GLib
             IntPtr formatString,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool copyOnly);
+            Runtime.Boolean copyOnly);
 
         /// <summary>
         /// Checks if calling g_variant_get() with @format_string on @value would
@@ -2529,11 +2529,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @one and @two are equal
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_equal (
+        static extern Runtime.Boolean g_variant_equal(
             /* <type name="Variant" type="gconstpointer" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr one,
@@ -2594,11 +2594,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE or %FALSE
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_get_boolean (
+        static extern Runtime.Boolean g_variant_get_boolean(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3910,11 +3910,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @value is a container
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_is_container (
+        static extern Runtime.Boolean g_variant_is_container(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3952,11 +3952,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @value is in normal form
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_is_normal_form (
+        static extern Runtime.Boolean g_variant_is_normal_form(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3997,11 +3997,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the type of @value matches @type
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_variant_is_of_type (
+        static extern Runtime.Boolean g_variant_is_of_type(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -4194,17 +4194,17 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a newly-allocated string holding the result.
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_print (
+        static extern IntPtr g_variant_print(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool typeAnnotate);
+            Runtime.Boolean typeAnnotate);
 
         /// <summary>
         /// Pretty-prints @value in the format understood by g_variant_parse().

@@ -107,8 +107,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_base_info_equal (IntPtr raw, IntPtr info2);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_base_info_equal(IntPtr raw, IntPtr info2);
 
         #region IEquatable implementation
 
@@ -231,8 +231,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_base_info_is_deprecated (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_base_info_is_deprecated(IntPtr raw);
 
         /// <summary>
         /// Gets a value indicating whether this instance is deprecated or not.
@@ -246,8 +246,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_base_info_iterate_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_base_info_iterate_attributes(IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
         bool IterateAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {

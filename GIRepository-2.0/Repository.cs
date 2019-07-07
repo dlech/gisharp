@@ -34,7 +34,7 @@ namespace GISharp.Lib.GIRepository
         static extern IntPtr g_irepository_get_default ();
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_irepository_dump (IntPtr arg, out IntPtr error);
+        static extern Runtime.Boolean g_irepository_dump(IntPtr arg, out IntPtr error);
 
         public static void Dump(UnownedUtf8 arg)
         {
@@ -211,8 +211,8 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_irepository_is_registered (IntPtr raw, IntPtr @namespace, IntPtr version);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_irepository_is_registered(IntPtr raw, IntPtr @namespace, IntPtr version);
 
         /// <summary>
         /// Check whether a particular namespace (and optionally, a specific

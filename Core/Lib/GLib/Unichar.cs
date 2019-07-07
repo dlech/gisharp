@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern unsafe bool g_unichar_compose(
+        static extern unsafe Runtime.Boolean g_unichar_compose(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar a,
@@ -253,7 +253,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_decompose(
+        static extern Runtime.Boolean g_unichar_decompose(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar ch,
@@ -387,7 +387,7 @@ namespace GISharp.Lib.GLib
             Unichar ch,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool compat,
+            Runtime.Boolean compat,
             /* <type name="gunichar" type="gunichar*" managed-name="Gunichar" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             Unichar* result,
@@ -441,7 +441,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_get_mirror_char(
+        static extern Runtime.Boolean g_unichar_get_mirror_char(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar ch,
@@ -534,7 +534,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isalnum(
+        static extern Runtime.Boolean g_unichar_isalnum(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -568,7 +568,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isalpha(
+        static extern Runtime.Boolean g_unichar_isalpha(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -602,7 +602,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_iscntrl(
+        static extern Runtime.Boolean g_unichar_iscntrl(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -635,7 +635,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isdefined(
+        static extern Runtime.Boolean g_unichar_isdefined(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -668,7 +668,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isdigit(
+        static extern Runtime.Boolean g_unichar_isdigit(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -704,7 +704,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isgraph(
+        static extern Runtime.Boolean g_unichar_isgraph(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -740,7 +740,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_islower(
+        static extern Runtime.Boolean g_unichar_islower(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -782,7 +782,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_ismark(
+        static extern Runtime.Boolean g_unichar_ismark(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -825,7 +825,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isprint(
+        static extern Runtime.Boolean g_unichar_isprint(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -860,7 +860,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_ispunct(
+        static extern Runtime.Boolean g_unichar_ispunct(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -899,7 +899,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isspace(
+        static extern Runtime.Boolean g_unichar_isspace(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -941,7 +941,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_istitle(
+        static extern Runtime.Boolean g_unichar_istitle(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -976,7 +976,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isupper(
+        static extern Runtime.Boolean g_unichar_isupper(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -1007,7 +1007,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_iswide(
+        static extern Runtime.Boolean g_unichar_iswide(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -1049,7 +1049,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_iswide_cjk(
+        static extern Runtime.Boolean g_unichar_iswide_cjk(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -1090,7 +1090,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_isxdigit(
+        static extern Runtime.Boolean g_unichar_isxdigit(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -1130,7 +1130,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_iszerowidth(
+        static extern Runtime.Boolean g_unichar_iszerowidth(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar c);
@@ -1339,7 +1339,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_unichar_validate(
+        static extern Runtime.Boolean g_unichar_validate(
             /* <type name="gunichar" type="gunichar" managed-name="Gunichar" /> */
             /* transfer-ownership:none */
             Unichar ch);

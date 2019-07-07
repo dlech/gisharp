@@ -106,7 +106,7 @@ namespace GISharp.Lib.GLib
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool UnmanagedEqualFunc ([In] IntPtr a, [In] IntPtr b);
+    public delegate Runtime.Boolean UnmanagedEqualFunc(IntPtr a, IntPtr b);
 
     /// <summary>
     /// Specifies the type of a function used to test two values for
@@ -282,7 +282,7 @@ namespace GISharp.Lib.GLib
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool UnmanagedHRFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate Runtime.Boolean UnmanagedHRFunc(IntPtr key, IntPtr value, IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to

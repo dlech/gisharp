@@ -225,7 +225,7 @@ namespace GISharp.Lib.GLib
             UIntPtr nFields,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool useColor);
+            Runtime.Boolean useColor);
 
         /// <summary>
         /// Format a structured log message as a string suitable for outputting to the
@@ -321,7 +321,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_log_writer_is_journald (
+        static extern Runtime.Boolean g_log_writer_is_journald (
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int outputFd);
@@ -527,7 +527,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            static extern bool g_log_writer_supports_color (
+            static extern Runtime.Boolean g_log_writer_supports_color(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int outputFd);

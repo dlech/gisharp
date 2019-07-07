@@ -86,7 +86,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_remove_toggle_ref (IntPtr @object, UnmanagedToggleNotify notify, IntPtr data);
 
-        static void toggleNotifyCallback (IntPtr data, IntPtr @object, bool isLastRef)
+        static void toggleNotifyCallback(IntPtr data, IntPtr @object, Runtime.Boolean isLastRef)
         {
             try {
                 // free the existing GCHandle
@@ -299,9 +299,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        [Since ("2.10")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_object_is_floating (IntPtr @object);
+        [Since("2.10")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_object_is_floating(IntPtr @object);
 
         bool IsFloating {
             get {
@@ -1140,8 +1140,8 @@ namespace GISharp.Lib.GObject
     /// A callback function used for notification when the state
     /// of a toggle reference changes. See g_object_add_toggle_ref().
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void UnmanagedToggleNotify (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate void UnmanagedToggleNotify(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr data,
@@ -1150,5 +1150,5 @@ namespace GISharp.Lib.GObject
         IntPtr @object,
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        bool isLastRef);
+        Runtime.Boolean isLastRef);
 }

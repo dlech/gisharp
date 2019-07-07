@@ -23,8 +23,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_can_throw_gerror (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_callable_info_can_throw_gerror(IntPtr raw);
 
         public bool CanThrowGError {
             get {
@@ -89,7 +89,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_invoke(
+        static extern Runtime.Boolean g_callable_info_invoke(
             IntPtr raw,
             IntPtr function,
             Argument[] inArgs,
@@ -97,8 +97,8 @@ namespace GISharp.Lib.GIRepository
             Argument[] outArgs,
             int nOutArgs,
             out Argument returnValue,
-            bool isMethod,
-            bool throws,
+            Runtime.Boolean isMethod,
+            Runtime.Boolean throws,
             out IntPtr error);
 
         bool Invoke(IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
@@ -112,8 +112,8 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_is_method (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_callable_info_is_method(IntPtr raw);
 
         public bool IsMethod {
             get {
@@ -121,8 +121,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_iterate_return_attributes (IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_callable_info_iterate_return_attributes(IntPtr raw, ref AttributeIter iterator, out IntPtr name, out IntPtr value);
 
         bool IterateReturnAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
@@ -157,8 +157,8 @@ namespace GISharp.Lib.GIRepository
             g_callable_info_load_return_type (Handle, type == null ? IntPtr.Zero : type.Handle);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_may_return_null (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_callable_info_may_return_null(IntPtr raw);
 
         public bool MayReturnNull {
             get {
@@ -166,8 +166,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_callable_info_skip_return (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_callable_info_skip_return(IntPtr raw);
 
         public bool SkipReturn {
             get {

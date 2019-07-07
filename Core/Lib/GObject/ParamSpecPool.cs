@@ -14,8 +14,9 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern IntPtr g_param_spec_pool_new (bool type_prefixing);
+        [DllImport("gobject-2.0")]
+        static extern IntPtr g_param_spec_pool_new(
+            Runtime.Boolean type_prefixing);
 
         static IntPtr New ()
         {

@@ -491,7 +491,9 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_byte_array_free(IntPtr array, bool freeSegment);
+        static extern IntPtr g_byte_array_free(
+            IntPtr array,
+            Runtime.Boolean freeSegment);
 
         public (IntPtr, int) TakeData()
         {

@@ -144,7 +144,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_object_info_get_abstract (IntPtr raw);
+        static extern Runtime.Boolean g_object_info_get_abstract(IntPtr raw);
 
         public bool Abstract {
             get {
@@ -183,7 +183,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_object_info_get_fundamental (IntPtr raw);
+        static extern Runtime.Boolean g_object_info_get_fundamental(IntPtr raw);
 
         public bool Fundamental {
             get {

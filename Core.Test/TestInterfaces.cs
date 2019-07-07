@@ -1,17 +1,18 @@
 using System;
+using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GObject;
-using GISharp.Runtime;
 using System.Threading.Tasks;
 
 // using GNetworkMonitor for testing since it is in gio, which is likely to
 // be installed and it has methods, properties and a signal as well as having
 // GInitable as a prerequisite.
 using GISharp.Lib.GLib;
+using GISharp.Lib.GObject;
+using GISharp.Runtime;
 
 using Object = GISharp.Lib.GObject.Object;
-using System.Reflection;
-using System.ComponentModel;
+using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Test.Core
 {
@@ -98,8 +99,8 @@ namespace GISharp.Test.Core
             return ret;
         }
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_initable_init (IntPtr initable, IntPtr cancellable, out IntPtr errorPtr);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Boolean g_initable_init(IntPtr initable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool Init (this IInitable initable)
         {
@@ -307,7 +308,7 @@ namespace GISharp.Test.Core
         static readonly GType _GType = g_network_monitor_get_type();
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_available (IntPtr monitor);
+        static extern Boolean g_network_monitor_get_network_available (IntPtr monitor);
 
         public static bool GetNetworkAvailable (this INetworkMonitor monitor)
         {
@@ -319,7 +320,7 @@ namespace GISharp.Test.Core
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_get_network_metered (IntPtr monitor);
+        static extern Boolean g_network_monitor_get_network_metered (IntPtr monitor);
 
         public static bool GetNetworkMetered (this INetworkMonitor monitor)
         {
@@ -331,7 +332,7 @@ namespace GISharp.Test.Core
         }
 
         [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern Boolean g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
         public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
@@ -361,7 +362,7 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, ref IntPtr errorPtr);
+        static extern Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, ref IntPtr errorPtr);
 
         static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
         {
@@ -572,10 +573,12 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_task_return_boolean(IntPtr task, bool result);
+        internal static extern void g_task_return_boolean(
+            IntPtr task, 
+            Boolean result);
  
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_task_propagate_boolean(IntPtr task, ref IntPtr error);
+        static extern Boolean g_task_propagate_boolean(IntPtr task, ref IntPtr error);
 
         public bool PropagateBoolean()
         {

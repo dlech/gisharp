@@ -50,7 +50,7 @@ namespace GISharp.Lib.GLib
             IntPtr context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
-            bool isRunning);
+            Runtime.Boolean isRunning);
 
         static IntPtr New(MainContext? context = null, bool isRunning = false)
         {
@@ -121,10 +121,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the mainloop is currently being run.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_main_loop_is_running (
+        static extern Runtime.Boolean g_main_loop_is_running(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
             IntPtr loop);

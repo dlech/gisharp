@@ -131,8 +131,8 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_error_matches (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_error_matches(
             IntPtr err,
             Quark domain,
             int code);

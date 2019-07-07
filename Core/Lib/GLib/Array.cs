@@ -57,8 +57,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static unsafe extern Struct* g_array_new(
-            bool zeroTerminated,
-            bool clear,
+            Runtime.Boolean zeroTerminated,
+            Runtime.Boolean clear,
             uint elementSize);
 
         /// <summary>
@@ -112,8 +112,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static unsafe extern Struct* g_array_sized_new (
-            bool zeroTerminated,
-            bool clear,
+            Runtime.Boolean zeroTerminated,
+            Runtime.Boolean clear,
             uint elementSize,
             uint reservedSize);
 

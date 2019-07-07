@@ -101,7 +101,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_value_get_boolean(in GValue value);
+        static extern Runtime.Boolean g_value_get_boolean(in GValue value);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_value_get_object(in GValue value);

@@ -30,12 +30,12 @@ namespace GISharp.Lib.GObject
 
         static readonly GType _GType = paramSpecTypes[2];
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        extern static IntPtr g_param_spec_boolean (
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        extern static IntPtr g_param_spec_boolean(
             IntPtr name,
             IntPtr nick,
             IntPtr blurb,
-            bool defaultValue,
+            Runtime.Boolean defaultValue,
             ParamFlags flags);
 
         static IntPtr New (string name, string nick, string blurb, bool defaultValue, ParamFlags flags)

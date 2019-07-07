@@ -457,10 +457,10 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_test_flags (
+        static extern Runtime.Boolean g_type_test_flags(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,
@@ -500,10 +500,10 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_is_value_type (
+        static extern Runtime.Boolean g_type_check_is_value_type(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -722,8 +722,8 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_type_is_a (GType type, GType is_a_type);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_type_is_a(GType type, GType is_a_type);
 
         public bool IsA (GType type)
         {
@@ -1527,10 +1527,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_class_is_a(
+        static extern Runtime.Boolean g_type_check_class_is_a(
             /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             IntPtr gClass,
@@ -1555,10 +1555,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if @instance is valid, %FALSE otherwise
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_instance(
+        static extern Runtime.Boolean g_type_check_instance(
             /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
             /* transfer-ownership:none */
             IntPtr instance);
@@ -1599,10 +1599,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_instance_is_a(
+        static extern Runtime.Boolean g_type_check_instance_is_a(
             /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1617,10 +1617,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_instance_is_fundamentally_a(
+        static extern Runtime.Boolean g_type_check_instance_is_fundamentally_a(
             /* <type name="TypeInstance" type="GTypeInstance*" managed-name="TypeInstance" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1635,10 +1635,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_value(
+        static extern Runtime.Boolean g_type_check_value(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -1650,10 +1650,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_check_value_holds(
+        static extern Runtime.Boolean g_type_check_value_holds(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -2125,10 +2125,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if @type is a @is_a_type
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_type_is_a(
+        static extern Runtime.Boolean g_type_is_a(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,

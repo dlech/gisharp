@@ -540,10 +540,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if g_value_copy() is possible with @src_type and @dest_type.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_value_type_compatible (
+        static extern Runtime.Boolean g_value_type_compatible(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType srcType,
@@ -585,10 +585,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if the transformation is possible, %FALSE otherwise.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_value_type_transformable (
+        static extern Runtime.Boolean g_value_type_transformable(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType srcType,
@@ -804,10 +804,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if @value will fit inside a pointer value.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport "gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_value_fits_pointer (
+        static extern Runtime.Boolean g_value_fits_pointer(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value);
@@ -836,10 +836,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boolean contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_value_get_boolean (
+        static extern Runtime.Boolean g_value_get_boolean(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -2656,7 +2656,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern bool g_value_transform (
+        static extern Runtime.Boolean g_value_transform(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value srcValue,

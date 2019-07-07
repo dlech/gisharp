@@ -81,8 +81,8 @@ namespace GISharp.Lib.GModule
             }
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_module_close (IntPtr module);
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_module_close(IntPtr module);
 
         protected override void Dispose (bool disposing)
         {
@@ -93,8 +93,8 @@ namespace GISharp.Lib.GModule
             base.Dispose (disposing);
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_module_supported ();
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_module_supported();
 
         /// <summary>
         /// Checks if modules are supported on the current platform.
@@ -197,8 +197,8 @@ namespace GISharp.Lib.GModule
             }
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_module_symbol (
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_module_symbol(
             IntPtr module,
             IntPtr symbolName,
             out IntPtr symbol);

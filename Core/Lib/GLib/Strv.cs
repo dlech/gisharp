@@ -63,7 +63,7 @@ namespace GISharp.Lib.GLib
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.44")]
-        static extern bool g_strv_contains(IntPtr strv, IntPtr str);
+        static extern Runtime.Boolean g_strv_contains(IntPtr strv, IntPtr str);
 
         [Since("2.44")]
         public bool Contains(UnownedUtf8 str)

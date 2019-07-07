@@ -1632,7 +1632,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern unsafe bool g_utf8_validate(
+        static extern unsafe Runtime.Boolean g_utf8_validate(
             /* <array length="1" zero-terminated="0" type="gchar*">
              *   <type name="guint8" managed-name="Guint8" />
              * </array> */
@@ -1783,7 +1783,7 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern bool g_str_equal(IntPtr v1, IntPtr v2);
+        static extern Runtime.Boolean g_str_equal(IntPtr v1, IntPtr v2);
 
         public bool Equals(Utf8 other)
         {
