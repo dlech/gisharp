@@ -116,6 +116,24 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Adds a new attribute with <paramref name="name"/> to the <paramref name="list"/>, setting
+        /// its <paramref name="type"/> and <paramref name="flags"/>.
+        /// </summary>
+        /// <param name="name">
+        /// the name of the attribute to add.
+        /// </param>
+        /// <param name="type">
+        /// the <see cref="FileAttributeType"/> for the attribute.
+        /// </param>
+        /// <param name="flags">
+        /// <see cref="FileAttributeInfoFlags"/> for the attribute.
+        /// </param>
+        public unsafe void Add(System.String name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
+        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+            Add((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, type, flags);
+        }
+
+        /// <summary>
         /// Makes a duplicate of a file attribute info list.
         /// </summary>
         /// <param name="list">
@@ -187,6 +205,21 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             var ret = (ret_ == null) ? default(GISharp.Lib.Gio.FileAttributeInfo?) : (GISharp.Lib.Gio.FileAttributeInfo)(*ret_);
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the file attribute with the name <paramref name="name"/> from <paramref name="list"/>.
+        /// </summary>
+        /// <param name="name">
+        /// the name of the attribute to lookup.
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileAttributeInfo"/> for the <paramref name="name"/>, or <c>null</c> if an
+        /// attribute isn't found.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(System.String name)
+        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+            return Lookup((GISharp.Lib.GLib.UnownedUtf8)nameUtf8);
         }
 
         /// <summary>

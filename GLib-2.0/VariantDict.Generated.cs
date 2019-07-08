@@ -234,6 +234,21 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Checks if <paramref name="key"/> exists in <paramref name="dict"/>.
+        /// </summary>
+        /// <param name="key">
+        /// the key to lookup in the dictionary
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="key"/> is in <paramref name="dict"/>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public unsafe System.Boolean Contains(System.String key)
+        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            return Contains((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
+        }
+
+        /// <summary>
         /// Returns the current value of @dict as a #GVariant of type
         /// %G_VARIANT_TYPE_VARDICT, clearing it in the process.
         /// </summary>
@@ -332,6 +347,24 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Inserts (or replaces) a key in a <see cref="VariantDict"/>.
+        /// </summary>
+        /// <remarks>
+        /// <paramref name="value"/> is consumed if it is floating.
+        /// </remarks>
+        /// <param name="key">
+        /// the key to insert a value for
+        /// </param>
+        /// <param name="value">
+        /// the value to insert
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public unsafe void Insert(System.String key, GISharp.Lib.GLib.Variant value)
+        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            Insert((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
+        }
+
+        /// <summary>
         /// Looks up a value in a #GVariantDict.
         /// </summary>
         /// <remarks>
@@ -407,6 +440,35 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Looks up a value in a <see cref="VariantDict"/>.
+        /// </summary>
+        /// <remarks>
+        /// If <paramref name="key"/> is not found in <paramref name="dictionary"/>, <c>null</c> is returned.
+        /// 
+        /// The <paramref name="expectedType"/> string specifies what type of value is expected.
+        /// If the value associated with <paramref name="key"/> has a different type then <c>null</c> is
+        /// returned.
+        /// 
+        /// If the key is found and the value has the correct type, it is
+        /// returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
+        /// value will have this type.
+        /// </remarks>
+        /// <param name="key">
+        /// the key to lookup in the dictionary
+        /// </param>
+        /// <param name="expectedType">
+        /// a #GVariantType, or <c>null</c>
+        /// </param>
+        /// <returns>
+        /// the value of the dictionary key, or <c>null</c>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public unsafe GISharp.Lib.GLib.Variant Lookup(System.String key, GISharp.Lib.GLib.VariantType? expectedType = null)
+        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            return Lookup((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, expectedType);
+        }
+
+        /// <summary>
         /// Increases the reference count on @dict.
         /// </summary>
         /// <remarks>
@@ -470,6 +532,21 @@ namespace GISharp.Lib.GLib
             var ret_ = g_variant_dict_remove(dict_,key_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Removes a key and its associated value from a <see cref="VariantDict"/>.
+        /// </summary>
+        /// <param name="key">
+        /// the key to remove
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the key was found and removed
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public unsafe System.Boolean Remove(System.String key)
+        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            return Remove((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
         /// <summary>

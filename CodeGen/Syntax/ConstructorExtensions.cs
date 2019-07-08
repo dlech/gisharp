@@ -26,6 +26,19 @@ namespace GISharp.CodeGen.Syntax
                         .WithBody(Block(constructor.GetInvokeStatements(constructor.CIdentifier)));
                     if (!constructor.HasCustomConstructor) {
                         yield return constructor.GetConstructorDeclaration();
+
+                        // create an overload for string parameters
+                        if (constructor.Parameters.Any(x => x.IsUnownedUtf8())) {
+                            var parameterList = constructor.ManagedParameters.GetParameterList(unownedUtf8AsString: true);
+                            
+                            yield return constructor.GetStaticMethodDeclaration()
+                                .WithModifiers(TokenList(Token(StaticKeyword), Token(UnsafeKeyword))) // strip access modifiers
+                                .WithParameterList(parameterList)
+                                .WithBody(Block(constructor.GetStringToUtf8InvokeStatements()));
+                        
+                            yield return constructor.GetConstructorDeclaration()
+                                .WithParameterList(parameterList);
+                        }
                     }
                 }
             }

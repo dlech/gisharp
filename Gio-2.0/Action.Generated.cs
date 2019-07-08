@@ -284,6 +284,28 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Checks if <paramref name="actionName"/> is valid.
+        /// </summary>
+        /// <remarks>
+        /// <paramref name="actionName"/> is valid if it consists only of alphanumeric characters,
+        /// plus '-' and '.'.  The empty string is not a valid action name.
+        /// 
+        /// It is an error to call this function with a non-utf8 <paramref name="actionName"/>.
+        /// <paramref name="actionName"/> must not be <c>null</c>.
+        /// </remarks>
+        /// <param name="actionName">
+        /// an potential action name
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="actionName"/> is valid
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        public static unsafe System.Boolean NameIsValid(System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return NameIsValid((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Parses a detailed action name into its separate name and target
         /// components.
         /// </summary>
@@ -402,6 +424,54 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Parses a detailed action name into its separate name and target
+        /// components.
+        /// </summary>
+        /// <remarks>
+        /// Detailed action names can have three formats.
+        /// 
+        /// The first format is used to represent an action name with no target
+        /// value and consists of just an action name containing no whitespace
+        /// nor the characters ':', '(' or ')'.  For example: "app.action".
+        /// 
+        /// The second format is used to represent an action with a target value
+        /// that is a non-empty string consisting only of alphanumerics, plus '-'
+        /// and '.'.  In that case, the action name and target value are
+        /// separated by a double colon ("::").  For example:
+        /// "app.action::target".
+        /// 
+        /// The third format is used to represent an action with any type of
+        /// target value, including strings.  The target value follows the action
+        /// name, surrounded in parens.  For example: "app.action(42)".  The
+        /// target value is parsed using g_variant_parse().  If a tuple-typed
+        /// value is desired, it must be specified in the same way, resulting in
+        /// two sets of parens, for example: "app.action((1,2,3))".  A string
+        /// target can be specified this way as well: "app.action('target')".
+        /// For strings, this third format must be used if * target value is
+        /// empty or contains characters other than alphanumerics, '-' and '.'.
+        /// </remarks>
+        /// <param name="detailedName">
+        /// a detailed action name
+        /// </param>
+        /// <param name="actionName">
+        /// the action name
+        /// </param>
+        /// <param name="targetValue">
+        /// the target value, or <c>null</c> for no target
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if successful, else <c>false</c> with <paramref name="error"/> set
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        public static unsafe void ParseDetailedName(System.String detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
+        {using var detailedNameUtf8 = new GISharp.Lib.GLib.Utf8(detailedName);
+            ParseDetailedName((GISharp.Lib.GLib.UnownedUtf8)detailedNameUtf8,out actionName,out targetValue);
+        }
+
+        /// <summary>
         /// Formats a detailed action name from @action_name and @target_value.
         /// </summary>
         /// <remarks>
@@ -465,6 +535,34 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
+        }
+
+        /// <summary>
+        /// Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
+        /// </summary>
+        /// <remarks>
+        /// It is an error to call this function with an invalid action name.
+        /// 
+        /// This function is the opposite of <see cref="Action.ParseDetailedName"/>.
+        /// It will produce a string that can be parsed back to the <paramref name="actionName"/>
+        /// and <paramref name="targetValue"/> by that function.
+        /// 
+        /// See that function for the types of strings that will be printed by
+        /// this function.
+        /// </remarks>
+        /// <param name="actionName">
+        /// a valid action name
+        /// </param>
+        /// <param name="targetValue">
+        /// a #GVariant target value, or <c>null</c>
+        /// </param>
+        /// <returns>
+        /// a detailed format string
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(System.String actionName, GISharp.Lib.GLib.Variant? targetValue)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return PrintDetailedName((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, targetValue);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

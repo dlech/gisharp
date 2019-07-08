@@ -478,6 +478,22 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Looks up the <see cref="ParamSpec"/> for a property of a class.
+        /// </summary>
+        /// <param name="propertyName">
+        /// the name of the property to look up
+        /// </param>
+        /// <returns>
+        /// the <see cref="ParamSpec"/> for the property, or
+        /// <c>null</c> if the class doesn't have a property of that name
+        /// </returns>
+        public ParamSpec? FindProperty(string propertyName)
+        {
+            using var propertyNameUtf8 = propertyName.ToUtf8();
+            return FindProperty(propertyNameUtf8);
+        }
+
+        /// <summary>
         /// Installs new properties from an array of #GParamSpecs.
         /// </summary>
         /// <remarks>

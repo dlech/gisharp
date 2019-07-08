@@ -15,14 +15,14 @@ namespace GISharp.CodeGen.Syntax
 {
     public static class ManagedParametersExtensions
     {
-        public static ParameterListSyntax GetParameterList(this ManagedParameters parameters)
+        public static ParameterListSyntax GetParameterList(this ManagedParameters parameters, bool unownedUtf8AsString = false)
         {
-            return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter())));
+            return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter(unownedUtf8AsString: unownedUtf8AsString))));
         }
 
-        public static ArgumentListSyntax GetArgumentList(this ManagedParameters parameters, string suffix = "")
+        public static ArgumentListSyntax GetArgumentList(this ManagedParameters parameters, string suffix = "", bool declareOutVars = true)
         {
-            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix))));
+            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix, declareOutVars))));
         }
     }
 }

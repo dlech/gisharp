@@ -9,7 +9,7 @@ namespace GISharp.Lib.GLib
     /// Represents a file descriptor, which events to poll for, and which events
     /// occurred.
     /// </summary>
-    [GType ("GPollFD", IsProxyForUnmanagedType = true)]
+    [GType("GPollFD", IsProxyForUnmanagedType = true)]
     public partial struct PollFD
     {
         /// <summary>
@@ -31,10 +31,10 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public ushort Revents;
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GType g_pollfd_get_type ();
+        static extern GType g_pollfd_get_type();
 
         static readonly GType _GType = g_pollfd_get_type();
     }

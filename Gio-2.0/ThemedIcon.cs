@@ -28,6 +28,39 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static IntPtr New(string iconName)
+        {
+            using var iconNameUtf8 = new Utf8(iconName);
+            return New(iconNameUtf8);
+        }
+
+        static IntPtr NewWithDefaultFallbacks(string iconName)
+        {
+            using var iconNameUtf8 = new Utf8(iconName);
+            return NewWithDefaultFallbacks(iconNameUtf8);
+        }
+
+        /// <summary>
+        /// Creates a new themed icon for <paramref name="iconName"/>.
+        /// </summary>
+        /// <param name="iconName">
+        /// a string containing an icon name.
+        /// </param>
+        /// <param name="useDefaultFallbacks">
+        /// When <c>true</c>, creates a new themed icon for <paramref name="iconName"/>
+        /// and all the names that can be created by shortening <paramref name="iconName"/>
+        /// at <c>-</c> characters.
+        /// </param>
+        /// <returns>
+        /// a new <see cref="ThemedIcon"/>.
+        /// </returns>
+        /// <remarks>
+        /// </remarks>
+        public ThemedIcon(string iconName, bool useDefaultFallbacks = false)
+            : this(useDefaultFallbacks ? NewWithDefaultFallbacks(iconName) : New(iconName), Transfer.Full)
+        {
+        }
+
         static System.IntPtr NewFromNames(string[] iconNames)
         {
             if (iconNames == null) {

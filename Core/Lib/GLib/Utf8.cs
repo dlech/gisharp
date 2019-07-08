@@ -81,11 +81,6 @@ namespace GISharp.Lib.GLib
             return utf8.ToString();
         }
 
-        public static implicit operator UnownedUtf8(string str)
-        {
-            return new UnownedUtf8(new Utf8(str));
-        }
-
         public static implicit operator UnownedUtf8(Utf8 owned)
         {
             return new UnownedUtf8(owned);
@@ -172,14 +167,6 @@ namespace GISharp.Lib.GLib
                 return null;
             }
             return utf8.ToString();
-        }
-
-        public static implicit operator NullableUnownedUtf8(string? str)
-        {
-            if (str == null) {
-                return default(NullableUnownedUtf8);
-            }
-            return new NullableUnownedUtf8(new Utf8(str));
         }
 
         public static implicit operator NullableUnownedUtf8(Utf8? owned)
@@ -1812,6 +1799,18 @@ namespace GISharp.Lib.GLib
             return new Utf8(str);
         }
 
+        public static implicit operator Utf8(UnownedUtf8 unowned)
+        {
+            return unowned.Copy();
+        }
+
+        public static implicit operator Utf8?(NullableUnownedUtf8 unowned)
+        {
+            if (unowned.IsNull) {
+                return null;
+            }
+            return unowned.Copy();
+        }
         public static bool operator ==(Utf8? a, Utf8? b)
         {
             return object.Equals(a, b);
@@ -1820,6 +1819,14 @@ namespace GISharp.Lib.GLib
         public static bool operator !=(Utf8? a, Utf8? b)
         {
             return !object.Equals(a, b);
+        }
+    }
+
+    public static class Utf8Extensions
+    {
+        public static Utf8 ToUtf8(this string str)
+        {
+            return new Utf8(str);
         }
     }
 }

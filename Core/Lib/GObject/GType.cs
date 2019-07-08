@@ -774,6 +774,27 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Lookup the type ID from a given type name, returning
+        /// <see cref="Invalid"/> if no type
+        /// has been registered under this name.
+        /// </summary>
+        /// <param name="name">
+        /// type name to lookup
+        /// </param>
+        /// <returns>
+        /// corresponding type ID or 0
+        /// </returns>
+        /// <remarks>
+        /// This is the preferred method to find out by name whether a specific
+        /// type has been registered yet.
+        /// </remarks>
+        public static GType FromName(string name)
+        {
+            using var nameUtf8 = name.ToUtf8();
+            return FromName(nameUtf8);
+        }
+
+        /// <summary>
         /// Asserts that the name of the type is a valid GType name.
         /// </summary>
         /// <param name="name">The type name.</param>
@@ -818,10 +839,10 @@ namespace GISharp.Lib.GObject
         /// <param name="typeName">The name of the new type.</param>
         /// <param name="info"><see cref="TypeInfo"/> structure for this type.</param>
         /// <param name="flags">Bitwise combination of <see cref="TypeFlags"/> values.</param>
-        static unsafe GType RegisterStatic(GType parentType, UnownedUtf8 typeName, in TypeInfo info, TypeFlags flags)
+        static unsafe GType RegisterStatic(GType parentType, string typeName, in TypeInfo info, TypeFlags flags)
         {
-            // this is static, so typeName_ is not freed
-            var typeName_ = typeName.Handle;
+            using var typeNameUtf8 = typeName.ToUtf8();
+            var typeName_ = typeNameUtf8.Handle;
             var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
             var info_ = (TypeInfo*)handle.AddrOfPinnedObject();
             var ret = g_type_register_static (parentType, typeName_, info_, flags);

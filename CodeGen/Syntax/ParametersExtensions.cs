@@ -20,9 +20,9 @@ namespace GISharp.CodeGen.Syntax
             return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter(suffix))));
         }
 
-        public static ArgumentListSyntax GetArgumentList(this Parameters parameters, string suffix = "")
+        public static ArgumentListSyntax GetArgumentList(this Parameters parameters, string suffix = "", bool declareOutVars = true)
         {
-            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix))));
+            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix, declareOutVars))));
         }
     }
 }

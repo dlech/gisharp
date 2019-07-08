@@ -248,6 +248,19 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.6")]
+        public unsafe void SetTranslationDomain(System.String domain)
+        {using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
+            SetTranslationDomain((GISharp.Lib.GLib.UnownedUtf8)domainUtf8);
+        }
+
+        /// <summary>
         /// Decrements the reference count of @group by one.
         /// If the reference count drops to 0, the @group will be freed.
         /// and all memory allocated by the @group is released.

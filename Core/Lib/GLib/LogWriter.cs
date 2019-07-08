@@ -253,10 +253,10 @@ namespace GISharp.Lib.GLib
         /// string containing the formatted log message
         /// </returns>
         [Since ("2.50")]
-        public static UnownedUtf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
+        public static Utf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
         {
             var ret_ = g_log_writer_format_fields (logLevel, fields, (UIntPtr)fields.Length, useColor);
-            var ret = new UnownedUtf8(ret_, -1);
+            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
 

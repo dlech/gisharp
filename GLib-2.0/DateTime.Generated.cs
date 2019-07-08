@@ -528,6 +528,60 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Creates a <see cref="DateTime"/> corresponding to the given
+        /// [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
+        /// <paramref name="text"/>. ISO 8601 strings of the form &lt;date&gt;&lt;sep&gt;&lt;time&gt;&lt;tz&gt; are supported.
+        /// </summary>
+        /// <remarks>
+        /// &lt;sep&gt; is the separator and can be either 'T', 't' or ' '.
+        /// 
+        /// &lt;date&gt; is in the form:
+        /// 
+        /// - `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
+        /// - `YYYYMMDD` - Same as above without dividers.
+        /// - `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
+        /// - `YYYYDDD` - Same as above without dividers.
+        /// - `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
+        ///   e.g. 2016-W34-3.
+        /// - `YYYYWwwD` - Same as above without dividers.
+        /// 
+        /// &lt;time&gt; is in the form:
+        /// 
+        /// - `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
+        /// - `hhmmss(.sss)` - Same as above without dividers.
+        /// 
+        /// &lt;tz&gt; is an optional timezone suffix of the form:
+        /// 
+        /// - `Z` - UTC.
+        /// - `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
+        /// - `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
+        /// 
+        /// If the timezone is not provided in <paramref name="text"/> it must be provided in <paramref name="defaultTz"/>
+        /// (this field is otherwise ignored).
+        /// 
+        /// This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
+        /// formatted string.
+        /// 
+        /// You should release the return value by calling <see cref="DateTime.Unref"/>
+        /// when you are done with it.
+        /// </remarks>
+        /// <param name="text">
+        /// an ISO 8601 formatted time string.
+        /// </param>
+        /// <param name="defaultTz">
+        /// a <see cref="TimeZone"/> to use if the text doesn't contain a
+        ///                          timezone, or <c>null</c>.
+        /// </param>
+        /// <returns>
+        /// a new <see cref="DateTime"/>, or <c>null</c>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        public static unsafe GISharp.Lib.GLib.DateTime? FromIso8601(System.String text, GISharp.Lib.GLib.TimeZone? defaultTz)
+        {using var textUtf8 = new GISharp.Lib.GLib.Utf8(text);
+            return FromIso8601((GISharp.Lib.GLib.UnownedUtf8)textUtf8, defaultTz);
+        }
+
+        /// <summary>
         /// Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
         /// local time zone.
         /// </summary>
@@ -1907,6 +1961,119 @@ namespace GISharp.Lib.GLib
             var ret_ = g_date_time_format(datetime_,format_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
+        }
+
+        /// <summary>
+        /// Creates a newly allocated string representing the requested <paramref name="format"/>.
+        /// </summary>
+        /// <remarks>
+        /// The format strings understood by this function are a subset of the
+        /// strftime() format language as specified by C99.  The \%D, \%U and \%W
+        /// conversions are not supported, nor is the 'E' modifier.  The GNU
+        /// extensions \%k, \%l, \%s and \%P are supported, however, as are the
+        /// '0', '_' and '-' modifiers.
+        /// 
+        /// In contrast to strftime(), this function always produces a UTF-8
+        /// string, regardless of the current locale.  Note that the rendering of
+        /// many formats is locale-dependent and may not match the strftime()
+        /// output exactly.
+        /// 
+        /// The following format specifiers are supported:
+        /// 
+        /// - \%a: the abbreviated weekday name according to the current locale
+        /// - \%A: the full weekday name according to the current locale
+        /// - \%b: the abbreviated month name according to the current locale
+        /// - \%B: the full month name according to the current locale
+        /// - \%c: the preferred date and time representation for the current locale
+        /// - \%C: the century number (year/100) as a 2-digit integer (00-99)
+        /// - \%d: the day of the month as a decimal number (range 01 to 31)
+        /// - \%e: the day of the month as a decimal number (range  1 to 31)
+        /// - \%F: equivalent to `%Y-%m-%d` (the ISO 8601 date format)
+        /// - \%g: the last two digits of the ISO 8601 week-based year as a
+        ///   decimal number (00-99). This works well with \%V and \%u.
+        /// - \%G: the ISO 8601 week-based year as a decimal number. This works
+        ///   well with \%V and \%u.
+        /// - \%h: equivalent to \%b
+        /// - \%H: the hour as a decimal number using a 24-hour clock (range 00 to 23)
+        /// - \%I: the hour as a decimal number using a 12-hour clock (range 01 to 12)
+        /// - \%j: the day of the year as a decimal number (range 001 to 366)
+        /// - \%k: the hour (24-hour clock) as a decimal number (range 0 to 23);
+        ///   single digits are preceded by a blank
+        /// - \%l: the hour (12-hour clock) as a decimal number (range 1 to 12);
+        ///   single digits are preceded by a blank
+        /// - \%m: the month as a decimal number (range 01 to 12)
+        /// - \%M: the minute as a decimal number (range 00 to 59)
+        /// - \%p: either "AM" or "PM" according to the given time value, or the
+        ///   corresponding  strings for the current locale.  Noon is treated as
+        ///   "PM" and midnight as "AM".
+        /// - \%P: like \%p but lowercase: "am" or "pm" or a corresponding string for
+        ///   the current locale
+        /// - \%r: the time in a.m. or p.m. notation
+        /// - \%R: the time in 24-hour notation (\%H:\%M)
+        /// - \%s: the number of seconds since the Epoch, that is, since 1970-01-01
+        ///   00:00:00 UTC
+        /// - \%S: the second as a decimal number (range 00 to 60)
+        /// - \%t: a tab character
+        /// - \%T: the time in 24-hour notation with seconds (\%H:\%M:\%S)
+        /// - \%u: the ISO 8601 standard day of the week as a decimal, range 1 to 7,
+        ///    Monday being 1. This works well with \%G and \%V.
+        /// - \%V: the ISO 8601 standard week number of the current year as a decimal
+        ///   number, range 01 to 53, where week 1 is the first week that has at
+        ///   least 4 days in the new year. See <see cref="DateTime.GetWeekOfYear"/>.
+        ///   This works well with \%G and \%u.
+        /// - \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
+        ///   This is not the ISO 8601 standard format -- use \%u instead.
+        /// - \%x: the preferred date representation for the current locale without
+        ///   the time
+        /// - \%X: the preferred time representation for the current locale without
+        ///   the date
+        /// - \%y: the year as a decimal number without the century
+        /// - \%Y: the year as a decimal number including the century
+        /// - \%z: the time zone as an offset from UTC (+hhmm)
+        /// - \%:z: the time zone as an offset from UTC (+hh:mm).
+        ///   This is a gnulib strftime() extension. Since: 2.38
+        /// - \%::z: the time zone as an offset from UTC (+hh:mm:ss). This is a
+        ///   gnulib strftime() extension. Since: 2.38
+        /// - \%:::z: the time zone as an offset from UTC, with : to necessary
+        ///   precision (e.g., -04, +05:30). This is a gnulib strftime() extension. Since: 2.38
+        /// - \%Z: the time zone or name or abbreviation
+        /// - \%\%: a literal \% character
+        /// 
+        /// Some conversion specifications can be modified by preceding the
+        /// conversion specifier by one or more modifier characters. The
+        /// following modifiers are supported for many of the numeric
+        /// conversions:
+        /// 
+        /// - O: Use alternative numeric symbols, if the current locale supports those.
+        /// - _: Pad a numeric result with spaces. This overrides the default padding
+        ///   for the specifier.
+        /// - -: Do not pad a numeric result. This overrides the default padding
+        ///   for the specifier.
+        /// - 0: Pad a numeric result with zeros. This overrides the default padding
+        ///   for the specifier.
+        /// 
+        /// Additionally, when O is used with B, b, or h, it produces the alternative
+        /// form of a month name. The alternative form should be used when the month
+        /// name is used without a day number (e.g., standalone). It is required in
+        /// some languages (Baltic, Slavic, Greek, and more) due to their grammatical
+        /// rules. For other languages there is no difference. \%OB is a GNU and BSD
+        /// strftime() extension expected to be added to the future POSIX specification,
+        /// \%Ob and \%Oh are GNU strftime() extensions. Since: 2.56
+        /// </remarks>
+        /// <param name="format">
+        /// a valid UTF-8 string, containing the format for the
+        ///          <see cref="DateTime"/>
+        /// </param>
+        /// <returns>
+        /// a newly allocated string formatted to the requested format
+        ///     or <c>null</c> in the case that there was an error (such as a format specifier
+        ///     not being supported in the current locale). The string
+        ///     should be freed with g_free().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.26")]
+        public unsafe GISharp.Lib.GLib.Utf8 Format(System.String format)
+        {using var formatUtf8 = new GISharp.Lib.GLib.Utf8(format);
+            return Format((GISharp.Lib.GLib.UnownedUtf8)formatUtf8);
         }
 
         /// <summary>

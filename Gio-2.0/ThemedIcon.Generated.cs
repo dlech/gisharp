@@ -214,6 +214,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Append a name to the list of icons from within <paramref name="icon"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to <see cref="Icon.GetHashCode"/>.
+        /// </remarks>
+        /// <param name="iconname">
+        /// name of icon to append to list of icons from within <paramref name="icon"/>.
+        /// </param>
+        public unsafe void AppendName(System.String iconname)
+        {using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
+            AppendName((GISharp.Lib.GLib.UnownedUtf8)iconnameUtf8);
+        }
+
+        /// <summary>
         /// Gets the names of icons from within @icon.
         /// </summary>
         /// <param name="icon">
@@ -287,6 +302,22 @@ namespace GISharp.Lib.Gio
             var icon_ = Handle;
             var iconname_ = iconname.Handle;
             g_themed_icon_prepend_name(icon_, iconname_);
+        }
+
+        /// <summary>
+        /// Prepend a name to the list of icons from within <paramref name="icon"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that doing so invalidates the hash computed by prior calls
+        /// to <see cref="Icon.GetHashCode"/>.
+        /// </remarks>
+        /// <param name="iconname">
+        /// name of icon to prepend to list of icons from within <paramref name="icon"/>.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.18")]
+        public unsafe void PrependName(System.String iconname)
+        {using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
+            PrependName((GISharp.Lib.GLib.UnownedUtf8)iconnameUtf8);
         }
 
         System.Boolean GISharp.Lib.Gio.IIcon.DoEqual(GISharp.Lib.Gio.IIcon? icon2)

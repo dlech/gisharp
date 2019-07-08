@@ -745,6 +745,31 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
+        /// <summary>
+        /// Given the name of the signal and the type of object it connects to, gets
+        /// the signal's identifying integer. Emitting the signal by number is
+        /// somewhat faster than using the name each time.
+        /// </summary>
+        /// <remarks>
+        /// Also tries the ancestors of the given type.
+        ///
+        /// See <see cref="ValidateName"/> for details on allowed signal names.
+        /// </remarks>
+        /// <param name="name">
+        /// the signal's name.
+        /// </param>
+        /// <param name="itype">
+        /// the type that the signal operates on.
+        /// </param>
+        /// <returns>
+        /// the signal's identifying number, or 0 if no signal was found.
+        /// </returns>
+        public static uint TryLookup(string name, GType itype)
+        {
+            using var nameUtf8 = name.ToUtf8();
+            return TryLookup(nameUtf8, itype);
+        }
+
         public static uint TryLookup<T> (string name)
         {
             return TryLookup (name, typeof(T).GetGType ());
@@ -876,10 +901,11 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             GType[] paramTypes);
 
-        internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure? classClosure,
+        internal static uint Newv(string signalName, GType itype, SignalFlags signalFlags, Closure? classClosure,
             SignalAccumulator? accumulator, SignalCMarshaller? cMarshaller, GType returnType, GType[] paramTypes)
         {
-            var signalName_ = signalName.Handle;
+            using var signalNameUtf8 = signalName.ToUtf8();
+            var signalName_ = signalNameUtf8.Handle;
             var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
             var accumulator_ = accumulator == null ? default(UnmanagedSignalAccumulator)
                 : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
@@ -1094,6 +1120,36 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
+        /// Internal function to parse a signal name into its <paramref name="signalId"/>
+        /// and <paramref name="detail"/> quark.
+        /// </summary>
+        /// <param name="detailedSignal">
+        /// a string of the form "signal-name::detail".
+        /// </param>
+        /// <param name="itype">
+        /// The interface/instance type that introduced "signal-name".
+        /// </param>
+        /// <param name="signalId">
+        /// Location to store the signal id.
+        /// </param>
+        /// <param name="detail">
+        /// Location to store the detail quark.
+        /// </param>
+        /// <param name="forceDetailQuark">
+        /// <c>true</c> forces creation of a <see cref="Quark"/> for the detail.
+        /// </param>
+        /// <returns>
+        /// Whether the signal name could successfully be parsed and
+        /// <paramref name="signalId"/> and <paramref name="detail"/> contain
+        /// valid return values.
+        /// </returns>
+        public static bool TryParseName(string detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
+        {
+            using var detailedSignalUtf8 = detailedSignal.ToUtf8();
+            return TryParseName(detailedSignalUtf8, itype, out signalId, out detail, forceDetailQuark);
+        }
+
+        /// <summary>
         /// Internal function to parse a signal name into its signal id
         /// and detail quark.
         /// </summary>
@@ -1301,6 +1357,25 @@ namespace GISharp.Lib.GObject
             var instance_ = instance.Handle;
             var detailedSignal_ = detailedSignal.Handle;
             g_signal_stop_emission_by_name(instance_, detailedSignal_);
+        }
+
+        /// <summary>
+        /// Stops a signal's current emission.
+        /// </summary>
+        /// <remarks>
+        /// This is just like <see cref="StopEmission"/> except it will look up
+        /// the signal id for you.
+        /// </remarks>
+        /// <param name="instance">
+        /// the object whose signal handlers you wish to stop.
+        /// </param>
+        /// <param name="detailedSignal">
+        /// a string of the form "signal-name::detail".
+        /// </param>
+        public static void StopEmissionByName(this Object instance, string detailedSignal)
+        {
+            using var detailedSignalUtf8 = detailedSignal.ToUtf8();
+            StopEmissionByName(instance, detailedSignalUtf8);
         }
 
         /// <summary>

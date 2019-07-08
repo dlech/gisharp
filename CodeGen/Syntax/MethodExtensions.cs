@@ -23,6 +23,13 @@ namespace GISharp.CodeGen.Syntax
                     var declaration = method.GetInstanceMethodDeclaration()
                         .WithBody(Block(method.GetInvokeStatements(method.CIdentifier)));
                     yield return declaration;
+
+                    // create an overload for string parameters
+                    if (method.Parameters.Any(x => x.IsUnownedUtf8())) {
+                        yield return method.GetInstanceMethodDeclaration()
+                            .WithParameterList(method.ManagedParameters.GetParameterList(unownedUtf8AsString: true))
+                            .WithBody(Block(method.GetStringToUtf8InvokeStatements()));
+                    }
                 }
 
                 if (method.FinishFor != null) {

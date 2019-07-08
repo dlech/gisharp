@@ -59,7 +59,6 @@ namespace GISharp.Test.Core.GLib
             AssertNoGLibLog();
         }
 
-
         [Test]
         public void TestTryString ()
         {
@@ -80,6 +79,15 @@ namespace GISharp.Test.Core.GLib
             Assert.That (actual, Is.EqualTo (quark));
 
             AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestExplicitOperator()
+        {
+            const string str = "test-explicit-operator-quark";
+            Assert.That(() => (Quark)str, Throws.TypeOf<InvalidCastException>());
+
+            Assert.That((Quark)null, Is.EqualTo(Quark.Zero));
         }
     }
 }

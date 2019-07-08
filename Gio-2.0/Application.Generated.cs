@@ -320,6 +320,31 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static unsafe System.IntPtr New(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
+        {using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
+            return New((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8, flags);
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Application"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// If non-<c>null</c>, the application id must be valid.  See
+        /// <see cref="Application.IdIsValid"/>.
+        /// 
+        /// If no application ID is given then some features of <see cref="Application"/>
+        /// (most notably application uniqueness) will be disabled.
+        /// </remarks>
+        /// <param name="applicationId">
+        /// the application id
+        /// </param>
+        /// <param name="flags">
+        /// the application flags
+        /// </param>
+        public Application(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
@@ -668,6 +693,65 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
+        /// <summary>
+        /// Checks if <paramref name="applicationId"/> is a valid application identifier.
+        /// </summary>
+        /// <remarks>
+        /// A valid ID is required for calls to <see cref="Application.New"/> and
+        /// <see cref="Application.SetApplicationId"/>.
+        /// 
+        /// Application identifiers follow the same format as
+        /// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
+        /// For convenience, the restrictions on application identifiers are
+        /// reproduced here:
+        /// 
+        /// - Application identifiers are composed of 1 or more elements separated by a
+        ///   period (`.`) character. All elements must contain at least one character.
+        /// 
+        /// - Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
+        ///   with `-` discouraged in new application identifiers. Each element must not
+        ///   begin with a digit.
+        /// 
+        /// - Application identifiers must contain at least one `.` (period) character
+        ///   (and thus at least two elements).
+        /// 
+        /// - Application identifiers must not begin with a `.` (period) character.
+        /// 
+        /// - Application identifiers must not exceed 255 characters.
+        /// 
+        /// Note that the hyphen (`-`) character is allowed in application identifiers,
+        /// but is problematic or not allowed in various specifications and APIs that
+        /// refer to D-Bus, such as
+        /// [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
+        /// the
+        /// [`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
+        /// and the convention that an application's "main" interface and object path
+        /// resemble its application identifier and bus name. To avoid situations that
+        /// require special-case handling, it is recommended that new application
+        /// identifiers consistently replace hyphens with underscores.
+        /// 
+        /// Like D-Bus interface names, application identifiers should start with the
+        /// reversed DNS domain name of the author of the interface (in lower-case), and
+        /// it is conventional for the rest of the application identifier to consist of
+        /// words run together, with initial capital letters.
+        /// 
+        /// As with D-Bus interface names, if the author's DNS domain name contains
+        /// hyphen/minus characters they should be replaced by underscores, and if it
+        /// contains leading digits they should be escaped by prepending an underscore.
+        /// For example, if the owner of 7-zip.org used an application identifier for an
+        /// archiving application, it might be named `org._7_zip.Archiver`.
+        /// </remarks>
+        /// <param name="applicationId">
+        /// a potential application identifier
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="applicationId"/> is valid
+        /// </returns>
+        public static unsafe System.Boolean IdIsValid(System.String applicationId)
+        {using var applicationIdUtf8 = new GISharp.Lib.GLib.Utf8(applicationId);
+            return IdIsValid((GISharp.Lib.GLib.UnownedUtf8)applicationIdUtf8);
+        }
+
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -821,6 +905,47 @@ namespace GISharp.Lib.Gio
             var description_ = description.Handle;
             var argDescription_ = argDescription.Handle;
             g_application_add_main_option(application_, longName_, shortName_, flags_, arg_, description_, argDescription_);
+        }
+
+        /// <summary>
+        /// Add an option to be handled by <paramref name="application"/>.
+        /// </summary>
+        /// <remarks>
+        /// Calling this function is the equivalent of calling
+        /// <see cref="Application.AddMainOptionEntries"/> with a single #GOptionEntry
+        /// that has its arg_data member set to <c>null</c>.
+        /// 
+        /// The parsed arguments will be packed into a #GVariantDict which
+        /// is passed to <see cref="Application"/>::handle-local-options. If
+        /// <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
+        /// be sent to the primary instance. See
+        /// <see cref="Application.AddMainOptionEntries"/> for more details.
+        /// 
+        /// See #GOptionEntry for more documentation of the arguments.
+        /// </remarks>
+        /// <param name="longName">
+        /// the long name of an option used to specify it in a commandline
+        /// </param>
+        /// <param name="shortName">
+        /// the short name of an option
+        /// </param>
+        /// <param name="flags">
+        /// flags from #GOptionFlags
+        /// </param>
+        /// <param name="arg">
+        /// the type of the option, as a #GOptionArg
+        /// </param>
+        /// <param name="description">
+        /// the description for the option in `--help` output
+        /// </param>
+        /// <param name="argDescription">
+        /// the placeholder to use for the extra argument
+        ///    parsed by the option in `--help` output
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.42")]
+        public unsafe void AddMainOption(System.String longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, System.String description, System.String? argDescription)
+        {using var longNameUtf8 = new GISharp.Lib.GLib.Utf8(longName);using var descriptionUtf8 = new GISharp.Lib.GLib.Utf8(description);using var argDescriptionUtf8 = argDescription == null ? null : new GISharp.Lib.GLib.Utf8(argDescription);
+            AddMainOption((GISharp.Lib.GLib.UnownedUtf8)longNameUtf8, shortName, flags, arg, (GISharp.Lib.GLib.UnownedUtf8)descriptionUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)argDescriptionUtf8);
         }
 
         /// <summary>
@@ -1109,6 +1234,27 @@ namespace GISharp.Lib.Gio
             var @object_ = @object.Handle;
             var property_ = property.Handle;
             g_application_bind_busy_property(application_, @object_, property_);
+        }
+
+        /// <summary>
+        /// Marks <paramref name="application"/> as busy (see <see cref="Application.MarkBusy"/>) while
+        /// <paramref name="property"/> on <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is <c>true</c>.
+        /// </summary>
+        /// <remarks>
+        /// The binding holds a reference to <paramref name="application"/> while it is active, but
+        /// not to <paramref name="<paramref name="<paramref name="@object"/>"/>"/>. Instead, the binding is destroyed when <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is
+        /// finalized.
+        /// </remarks>
+        /// <param name="object">
+        /// a #GObject
+        /// </param>
+        /// <param name="property">
+        /// the name of a boolean property of <paramref name="@object"/>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
+        {using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
+            BindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
         /// <summary>
@@ -1617,6 +1763,35 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Opens the given files.
+        /// </summary>
+        /// <remarks>
+        /// In essence, this results in the <see cref="Application"/>::open signal being emitted
+        /// in the primary instance.
+        /// 
+        /// <paramref name="nFiles"/> must be greater than zero.
+        /// 
+        /// <paramref name="hint"/> is simply passed through to the ::open signal.  It is
+        /// intended to be used by applications that have multiple modes for
+        /// opening files (eg: "view" vs "edit", etc).  Unless you have a need
+        /// for this functionality, you should use "".
+        /// 
+        /// The application must be registered before calling this function
+        /// and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
+        /// </remarks>
+        /// <param name="files">
+        /// an array of #GFiles to open
+        /// </param>
+        /// <param name="hint">
+        /// a hint (or ""), but never <c>null</c>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, System.String hint)
+        {using var hintUtf8 = new GISharp.Lib.GLib.Utf8(hint);
+            Open(files, (GISharp.Lib.GLib.UnownedUtf8)hintUtf8);
+        }
+
+        /// <summary>
         /// Immediately quits the application.
         /// </summary>
         /// <remarks>
@@ -2109,6 +2284,25 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the unique identifier for <paramref name="application"/>.
+        /// </summary>
+        /// <remarks>
+        /// The application id can only be modified if <paramref name="application"/> has not yet
+        /// been registered.
+        /// 
+        /// If non-<c>null</c>, the application id must be valid.  See
+        /// <see cref="Application.IdIsValid"/>.
+        /// </remarks>
+        /// <param name="applicationId">
+        /// the identifier for <paramref name="application"/>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        private unsafe void SetApplicationId(System.String? applicationId)
+        {using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
+            SetApplicationId((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8);
+        }
+
+        /// <summary>
         /// Sets or unsets the default application for the process, as returned
         /// by g_application_get_default().
         /// </summary>
@@ -2287,6 +2481,22 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Adds a description to the <paramref name="application"/> option context.
+        /// </summary>
+        /// <remarks>
+        /// See g_option_context_set_description() for more information.
+        /// </remarks>
+        /// <param name="description">
+        /// a string to be shown in `--help` output
+        ///  after the list of options, or <c>null</c>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        public unsafe void SetOptionContextDescription(System.String? description)
+        {using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
+            SetOptionContextDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
+        }
+
+        /// <summary>
         /// Sets the parameter string to be used by the commandline handling of @application.
         /// </summary>
         /// <remarks>
@@ -2336,6 +2546,25 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the parameter string to be used by the commandline handling of <paramref name="application"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function registers the argument to be passed to g_option_context_new()
+        /// when the internal #GOptionContext of <paramref name="application"/> is created.
+        /// 
+        /// See g_option_context_new() for more information about <paramref name="parameterString"/>.
+        /// </remarks>
+        /// <param name="parameterString">
+        /// a string which is displayed
+        ///   in the first line of `--help` output, after the usage summary `programname [OPTION...]`.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        public unsafe void SetOptionContextParameterString(System.String? parameterString)
+        {using var parameterStringUtf8 = parameterString == null ? null : new GISharp.Lib.GLib.Utf8(parameterString);
+            SetOptionContextParameterString((GISharp.Lib.GLib.NullableUnownedUtf8)parameterStringUtf8);
+        }
+
+        /// <summary>
         /// Adds a summary to the @application option context.
         /// </summary>
         /// <remarks>
@@ -2376,6 +2605,22 @@ namespace GISharp.Lib.Gio
             var application_ = Handle;
             var summary_ = summary.Handle;
             g_application_set_option_context_summary(application_, summary_);
+        }
+
+        /// <summary>
+        /// Adds a summary to the <paramref name="application"/> option context.
+        /// </summary>
+        /// <remarks>
+        /// See g_option_context_set_summary() for more information.
+        /// </remarks>
+        /// <param name="summary">
+        /// a string to be shown in `--help` output
+        ///  before the list of options, or <c>null</c>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.56")]
+        public unsafe void SetOptionContextSummary(System.String? summary)
+        {using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
+            SetOptionContextSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
         }
 
         /// <summary>
@@ -2480,6 +2725,51 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets (or unsets) the base resource path of <paramref name="application"/>.
+        /// </summary>
+        /// <remarks>
+        /// The path is used to automatically load various [application
+        /// resources][gresource] such as menu layouts and action descriptions.
+        /// The various types of resources will be found at fixed names relative
+        /// to the given base path.
+        /// 
+        /// By default, the resource base path is determined from the application
+        /// ID by prefixing '/' and replacing each '.' with '/'.  This is done at
+        /// the time that the <see cref="Application"/> object is constructed.  Changes to
+        /// the application ID after that point will not have an impact on the
+        /// resource base path.
+        /// 
+        /// As an example, if the application has an ID of "org.example.app" then
+        /// the default resource base path will be "/org/example/app".  If this
+        /// is a #GtkApplication (and you have not manually changed the path)
+        /// then Gtk will then search for the menus of the application at
+        /// "/org/example/app/gtk/menus.ui".
+        /// 
+        /// See #GResource for more information about adding resources to your
+        /// application.
+        /// 
+        /// You can disable automatic resource loading functionality by setting
+        /// the path to <c>null</c>.
+        /// 
+        /// Changing the resource base path once the application is running is
+        /// not recommended.  The point at which the resource path is consulted
+        /// for forming paths for various purposes is unspecified.  When writing
+        /// a sub-class of <see cref="Application"/> you should either set the
+        /// <see cref="Application"/>:resource-base-path property at construction time, or call
+        /// this function during the instance initialization. Alternatively, you
+        /// can call this function in the <see cref="ApplicationClass"/>.startup virtual function,
+        /// before chaining up to the parent implementation.
+        /// </remarks>
+        /// <param name="resourcePath">
+        /// the resource path to use
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.42")]
+        private unsafe void SetResourceBasePath(System.String? resourcePath)
+        {using var resourcePathUtf8 = resourcePath == null ? null : new GISharp.Lib.GLib.Utf8(resourcePath);
+            SetResourceBasePath((GISharp.Lib.GLib.NullableUnownedUtf8)resourcePathUtf8);
+        }
+
+        /// <summary>
         /// Destroys a binding between @property and the busy state of
         /// @application that was previously created with
         /// g_application_bind_busy_property().
@@ -2526,6 +2816,23 @@ namespace GISharp.Lib.Gio
             var @object_ = @object.Handle;
             var property_ = property.Handle;
             g_application_unbind_busy_property(application_, @object_, property_);
+        }
+
+        /// <summary>
+        /// Destroys a binding between <paramref name="property"/> and the busy state of
+        /// <paramref name="application"/> that was previously created with
+        /// <see cref="Application.BindBusyProperty"/>.
+        /// </summary>
+        /// <param name="object">
+        /// a #GObject
+        /// </param>
+        /// <param name="property">
+        /// the name of a boolean property of <paramref name="@object"/>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.44")]
+        public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
+        {using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
+            UnbindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
         /// <summary>
@@ -2626,6 +2933,31 @@ namespace GISharp.Lib.Gio
             var application_ = Handle;
             var id_ = id.Handle;
             g_application_withdraw_notification(application_, id_);
+        }
+
+        /// <summary>
+        /// Withdraws a notification that was sent with
+        /// g_application_send_notification().
+        /// </summary>
+        /// <remarks>
+        /// This call does nothing if a notification with <paramref name="id"/> doesn't exist or
+        /// the notification was never sent.
+        /// 
+        /// This function works even for notifications sent in previous
+        /// executions of this application, as long <paramref name="id"/> is the same as it was for
+        /// the sent notification.
+        /// 
+        /// Note that notifications are dismissed when the user clicks on one
+        /// of the buttons in a notification or triggers its default action, so
+        /// there is no need to explicitly withdraw the notification in that case.
+        /// </remarks>
+        /// <param name="id">
+        /// id of a previously sent notification
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.40")]
+        public unsafe void WithdrawNotification(System.String id)
+        {using var idUtf8 = new GISharp.Lib.GLib.Utf8(id);
+            WithdrawNotification((GISharp.Lib.GLib.UnownedUtf8)idUtf8);
         }
 
         /// <summary>

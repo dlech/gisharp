@@ -176,6 +176,27 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
+        /// </summary>
+        /// <remarks>
+        /// If no such action exists, returns <c>null</c>.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a <see cref="IActionMap"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action
+        /// </param>
+        /// <returns>
+        /// a <see cref="IAction"/>, or <c>null</c>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return LookupAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Removes the named action from the action map.
         /// </summary>
         /// <remarks>
@@ -217,6 +238,24 @@ namespace GISharp.Lib.Gio
             var actionMap_ = actionMap.Handle;
             var actionName_ = actionName.Handle;
             g_action_map_remove_action(actionMap_, actionName_);
+        }
+
+        /// <summary>
+        /// Removes the named action from the action map.
+        /// </summary>
+        /// <remarks>
+        /// If no action of this name is in the map then nothing happens.
+        /// </remarks>
+        /// <param name="actionMap">
+        /// a <see cref="IActionMap"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            RemoveAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
     }
 }

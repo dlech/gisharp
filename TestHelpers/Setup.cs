@@ -26,8 +26,8 @@ namespace GISharp.Test
         [OneTimeSetUp]
         public void SetUpGLibLogging()
         {
-            Utility.ApplicationName = "GISharp.Test";
-            Utility.ProgramName = "GISharp.Test";
+            Utility.ApplicationName = "GISharp.Test".ToUtf8();
+            Utility.ProgramName = "GISharp.Test".ToUtf8();
             Log.SetDefaultHandler(LogToTestContext);
         }
 

@@ -180,6 +180,31 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
+        /// <summary>
+        /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
+        /// <paramref name="str"/> is not valid - see <see cref="Icon.ToString"/> for discussion.
+        /// </summary>
+        /// <remarks>
+        /// If your application or library provides one or more <see cref="IIcon"/>
+        /// implementations you need to ensure that each #GType is registered
+        /// with the type system prior to calling <see cref="Icon.NewForString"/>.
+        /// </remarks>
+        /// <param name="str">
+        /// A string obtained via <see cref="Icon.ToString"/>.
+        /// </param>
+        /// <returns>
+        /// An object implementing the <see cref="IIcon"/>
+        ///          interface or <c>null</c> if <paramref name="error"/> is set.
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        [GISharp.Runtime.SinceAttribute("2.20")]
+        public static unsafe GISharp.Lib.Gio.IIcon NewForString(System.String str)
+        {using var strUtf8 = new GISharp.Lib.GLib.Utf8(str);
+            return NewForString((GISharp.Lib.GLib.UnownedUtf8)strUtf8);
+        }
+
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */

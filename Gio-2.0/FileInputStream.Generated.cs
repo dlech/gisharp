@@ -114,6 +114,30 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Queries a file input stream the given <paramref name="attributes"/>. This function blocks
+        /// while querying the stream. For the asynchronous (non-blocking) version
+        /// of this function, see <see cref="FileInputStream.QueryInfoAsync"/>. While the
+        /// stream is blocked, the stream will set the pending flag internally, and
+        /// any other operations on the stream will fail with <see cref="IOErrorEnum.Pending"/>.
+        /// </summary>
+        /// <param name="attributes">
+        /// a file attribute query string.
+        /// </param>
+        /// <param name="cancellable">
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileInfo"/>, or <c>null</c> on error.
+        /// </returns>
+        /// <exception name="GISharp.Runtime.GErrorException">
+        /// On error
+        /// </exception>
+        public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+            return QueryInfo((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, cancellable);
+        }
+
+        /// <summary>
         /// Queries the stream information asynchronously.
         /// When the operation is finished @callback will be called.
         /// You can then call g_file_input_stream_query_info_finish()
@@ -204,6 +228,34 @@ namespace GISharp.Lib.Gio
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_input_stream_query_info_async(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Queries the stream information asynchronously.
+        /// When the operation is finished <paramref name="callback"/> will be called.
+        /// You can then call <see cref="FileInputStream.QueryInfoFinish"/>
+        /// to get the result of the operation.
+        /// </summary>
+        /// <remarks>
+        /// For the synchronous version of this function,
+        /// see <see cref="FileInputStream.QueryInfo"/>.
+        /// 
+        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
+        /// triggering the cancellable object from another thread. If the operation
+        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
+        /// </remarks>
+        /// <param name="attributes">
+        /// a file attribute query string.
+        /// </param>
+        /// <param name="ioPriority">
+        /// the [I/O priority][io-priority] of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+        /// </param>
+        public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(System.String attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+            return QueryInfoAsync((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, ioPriority, cancellable);
         }
 
         /// <summary>

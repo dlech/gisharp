@@ -37,13 +37,19 @@ namespace GISharp.Lib.GLib
         static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
 
         static Utf8 stringFormat = "%s";
+        static IntPtr stringFormat_ = stringFormat.Handle;
 
-        static void Log_ (NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, string format, params object[] args)
+        static void Log_(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
+            g_log(logDomain.Handle, logLevel, stringFormat_, message.Handle);
+        }
+
+        static void Log_(string? logDomain, LogLevelFlags logLevel, string format, params object[] args)
+        {
+            using var logDomainUtf8 = logDomain?.ToUtf8();
             format = string.Format(format, args);
-            using (var formatUtf8 = new Utf8(format)) {
-                g_log(logDomain.Handle, logLevel, stringFormat.Handle, formatUtf8.Handle);
-            }
+            using var formatUtf8 = new Utf8(format);
+            Log_(logDomainUtf8, logLevel, formatUtf8);
         }
 
         public static void Message (string format, params object[] args)

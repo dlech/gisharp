@@ -15,7 +15,7 @@ namespace GISharp.Test.GLib
         {
             using (var oc = new OptionContext()) {
                 var expected = "summary";
-                oc.Summary = expected;
+                oc.Summary = expected.ToUtf8();
                 Assert.That<string?>(oc.Summary, Is.EqualTo(expected));
                 oc.Summary = Utf8.Null;
                 Assert.That<string?>(oc.Summary, Is.EqualTo(Utf8.Null));
@@ -28,7 +28,7 @@ namespace GISharp.Test.GLib
         {
             using (var oc = new OptionContext()) {
                 var expected = "description";
-                oc.Description = expected;
+                oc.Description = expected.ToUtf8();
                 Assert.That<string?>(oc.Description, Is.EqualTo(expected));
                 oc.Description = Utf8.Null;
                 Assert.That<string?>(oc.Description, Is.EqualTo(Utf8.Null));
@@ -40,7 +40,7 @@ namespace GISharp.Test.GLib
         public void TestSetTranslateFunc()
         {
             using (var oc = new OptionContext()) {
-                var translate = new TranslateFunc(x => x.ToString().Normalize());
+                var translate = new TranslateFunc(x => x.ToString().Normalize().ToUtf8());
                 oc.SetTranslateFunc(translate);
                 oc.SetTranslateFunc(null);
             }

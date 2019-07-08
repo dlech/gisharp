@@ -87,6 +87,40 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static unsafe System.IntPtr New(System.String attributes)
+        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+            return New((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8);
+        }
+
+        /// <summary>
+        /// Creates a new file attribute matcher, which matches attributes
+        /// against a given string. <see cref="FileAttributeMatcher"/>s are reference
+        /// counted structures, and are created with a reference count of 1. If
+        /// the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
+        /// automatically destroyed.
+        /// </summary>
+        /// <remarks>
+        /// The <paramref name="attribute"/> string should be formatted with specific keys separated
+        /// from namespaces with a double colon. Several "namespace::key" strings may be
+        /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+        /// The wildcard "*" may be used to match all keys and namespaces, or
+        /// "namespace::*" will match all keys in a given namespace.
+        /// 
+        /// ## Examples of file attribute matcher strings and results
+        /// 
+        /// - `"*"`: matches all attributes.
+        /// - `"standard::is-hidden"`: matches only the key is-hidden in the
+        ///   standard namespace.
+        /// - `"standard::type,unix::*"`: matches the type key in the standard
+        ///   namespace and all keys in the unix namespace.
+        /// </remarks>
+        /// <param name="attributes">
+        /// an attribute string to match.
+        /// </param>
+        public FileAttributeMatcher(System.String attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -145,6 +179,27 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Checks if the matcher will match all of the keys in a given namespace.
+        /// This will always return <c>true</c> if a wildcard character is in use (e.g. if
+        /// matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
+        /// using "*" and namespace is anything.)
+        /// </summary>
+        /// <remarks>
+        /// TODO: this is awkwardly worded.
+        /// </remarks>
+        /// <param name="ns">
+        /// a string containing a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the matcher matches all of the entries
+        /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean EnumerateNamespace(System.String ns)
+        {using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
+            return EnumerateNamespace((GISharp.Lib.GLib.UnownedUtf8)nsUtf8);
         }
 
         /// <summary>
@@ -226,6 +281,22 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Checks if an attribute will be matched by an attribute matcher. If
+        /// the matcher was created with the "*" matching string, this function
+        /// will always return <c>true</c>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean Matches(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return Matches((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Checks if a attribute matcher only matches a given attribute. Always
         /// returns %FALSE if "*" was used when creating the matcher.
         /// </summary>
@@ -266,6 +337,21 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Checks if a attribute matcher only matches a given attribute. Always
+        /// returns <c>false</c> if "*" was used when creating the matcher.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean MatchesOnly(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return MatchesOnly((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>

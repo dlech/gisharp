@@ -206,10 +206,11 @@ namespace GISharp.Lib.GObject
             IntPtr typeName, 
             FlagsValue* values);
 
-        public static unsafe GType RegisterStatic(UnownedUtf8 typeName, ReadOnlyMemory<FlagsValue> values)
+        public static unsafe GType RegisterStatic(string typeName, ReadOnlyMemory<FlagsValue> values)
         {
             GType.AssertGTypeName(typeName);
-            var typeName_ = typeName.Handle;
+            using var typeNameUtf8 = typeName.ToUtf8();
+            var typeName_ = typeNameUtf8.Handle;
             var handle = values.Pin();
             try {
                 var values_ = (FlagsValue*)handle.Pointer;

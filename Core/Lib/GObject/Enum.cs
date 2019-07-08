@@ -264,10 +264,11 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern unsafe GType g_enum_register_static(IntPtr typeName, EnumValue* values);
 
-        public static unsafe GType RegisterStatic(UnownedUtf8 typeName, ReadOnlyMemory<EnumValue> values)
+        public static unsafe GType RegisterStatic(string typeName, ReadOnlyMemory<EnumValue> values)
         {
             GType.AssertGTypeName(typeName);
-            var typeName_ = typeName.Handle;
+            using var typeNameUtf8 = typeName.ToUtf8();
+            var typeName_ = typeNameUtf8.Handle;
             var handle = values.Pin();
             try {
                 var values_ = (EnumValue*)handle.Pointer;

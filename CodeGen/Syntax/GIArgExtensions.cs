@@ -23,7 +23,7 @@ namespace GISharp.CodeGen.Syntax
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace gs = GISharp.CodeGen.Globals.GISharpNamespace;
 
-        public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "")
+        public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "", bool unownedUtf8AsString = false)
         {
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
@@ -38,8 +38,13 @@ namespace GISharp.CodeGen.Syntax
 
             if (managed && arg.TransferOwnership == "none") {
                 if (type == typeof(Utf8)) {
-                    type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                } 
+                    if (unownedUtf8AsString) {
+                        type = typeof(string);
+                    }
+                    else {
+                        type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                    }
+                }
                 else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
                     type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
                 }
@@ -59,9 +64,11 @@ namespace GISharp.CodeGen.Syntax
                 if (arg.ParentNode is Parameters) {
                     if (arg.Direction == "inout") {
                         yield return Token(RefKeyword);
-                    } else if (arg.Direction == "out") {
+                    }
+                    else if (arg.Direction == "out") {
                         yield return Token(OutKeyword);
-                    } else if (byRef) {
+                    }
+                    else if (byRef) {
                         yield return Token(InKeyword);
                     }
                     yield break;
@@ -69,13 +76,17 @@ namespace GISharp.CodeGen.Syntax
 
                 if (arg.Direction == "inout") {
                     yield return Token(RefKeyword);
-                } else if (arg.Direction == "out") {
+                }
+                else if (arg.Direction == "out") {
                     yield return Token(OutKeyword);
-                } else if (arg.IsParams) {
+                }
+                else if (arg.IsParams) {
                     yield return Token(ParamsKeyword);
-                } else if (arg is InstanceParameter) {
+                }
+                else if (arg is InstanceParameter) {
                     yield return Token(ThisKeyword);
-                } else if (byRef && !(arg.Type is Gir.Array)) {
+                }
+                else if (byRef && !(arg.Type is Gir.Array)) {
                     yield return Token(InKeyword);
                 }
             }
@@ -96,7 +107,7 @@ namespace GISharp.CodeGen.Syntax
             return syntax;
         }
 
-        public static ArgumentSyntax GetArgument(this GIArg arg, string suffix = "")
+        public static ArgumentSyntax GetArgument(this GIArg arg, string suffix = "", bool declareOutVars = true)
         {
             var expression = arg.ManagedName + suffix;
 
@@ -104,7 +115,8 @@ namespace GISharp.CodeGen.Syntax
                 expression = "ref " + expression;
             }
             else if (arg.Direction == "out") {
-                expression = "out var " + expression;
+                var var_ = declareOutVars ? "var " : "";
+                expression = $"out {var_}" + expression;
             }
 
             return Argument(ParseExpression(expression));
@@ -190,7 +202,8 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (declareVariable) {
-                static string ref_(ExpressionSyntax e) {
+                static string ref_(ExpressionSyntax e)
+                {
                     return e.ToString().Contains(" = ref ") ? "ref readonly " : "";
                 }
                 expressions = expressions.Select(x => ParseExpression($"{ref_(x)}var {x}")).ToList();
@@ -285,7 +298,8 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (declareVariable) {
-                static string ref_(ExpressionSyntax e) {
+                static string ref_(ExpressionSyntax e)
+                {
                     return e.ToString().StartsWith("ref ") ? "ref " : "";
                 }
                 expressions = expressions.Select(x => ParseExpression($"{ref_(x)}var {x}")).ToList();
@@ -323,7 +337,12 @@ namespace GISharp.CodeGen.Syntax
                 builder.AppendFormat("{0}:{1} ", attr.Name.LocalName, attr.Value);
             }
             builder.Append("*/");
-            return Comment(builder.ToString ());
+            return Comment(builder.ToString());
+        }
+
+        public static bool IsUnownedUtf8(this GIArg arg)
+        {
+            return arg.Type.GirName == "utf8" && arg.TransferOwnership == "none";
         }
     }
 }

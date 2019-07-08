@@ -42,7 +42,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestSetTranslateFunc()
         {
-            var translate = new TranslateFunc(s => s.ToString().Normalize());
+            var translate = new TranslateFunc(s => s.ToString().Normalize().ToUtf8());
             using (var og = new OptionGroup("test-group", "group desc", "help desc")) {
                 og.SetTranslateFunc(translate);
                 og.SetTranslateFunc(null);

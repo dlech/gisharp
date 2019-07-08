@@ -153,6 +153,37 @@ namespace GISharp.CodeGen.Syntax
             }
         }
 
+        internal static IEnumerable<StatementSyntax> GetStringToUtf8InvokeStatements(this GICallable callable)
+        {
+            // get the arg list for the invocation expression now so that we can replace
+            // the argument names at the same time we are creating the new variables
+            var argList = callable.ManagedParameters.GetArgumentList(declareOutVars: false);
+
+            foreach (var p in callable.ManagedParameters.Where(x => x.IsUnownedUtf8())) {
+                var n = p.IsNullable ? $"{p.ManagedName} == null ? null : " : "";
+                var utf8Identifier = ParseToken($"{p.ManagedName}Utf8");
+                var newUtf8 = $"new {typeof(Utf8)}";
+                var usingExpression = ParseExpression($"using var {utf8Identifier} = {n}{newUtf8}({p.ManagedName})");
+                yield return ExpressionStatement(usingExpression);
+
+                var identifier = argList.DescendantNodes().Single(x => x is IdentifierNameSyntax i && i.Identifier.Text == p.ManagedName);
+                var type = p.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                var cast = ParseExpression($"({type}){utf8Identifier}");
+                argList = argList.ReplaceNode(identifier, cast);
+            }
+            
+            var expression = InvocationExpression(IdentifierName(callable.ManagedName))
+                .WithArgumentList(argList);
+
+            bool isVoid = callable.ReturnValue.Type.UnmanagedType == typeof(void);
+            if (callable is Constructor || callable.IsAsync || !callable.ReturnValue.IsSkip && !isVoid) {
+                yield return ReturnStatement(expression);
+            }
+            else {
+                yield return ExpressionStatement(expression);
+            }
+        }
+
         /// <summary>
         /// Gets XML doc comment for thowing a GErrorException or default trivia
         /// if the callable does not throw.

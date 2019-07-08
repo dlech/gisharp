@@ -137,6 +137,48 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Creates a new action.
+        /// </summary>
+        /// <remarks>
+        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
+        /// an action that has state.
+        /// </remarks>
+        /// <param name="name">
+        /// the name of the action
+        /// </param>
+        /// <param name="parameterType">
+        /// the type of parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
+        /// </param>
+        /// <returns>
+        /// a new <see cref="SimpleAction"/>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        static unsafe System.IntPtr New(System.String name, GISharp.Lib.GLib.VariantType? parameterType)
+        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+            return New((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType);
+        }
+
+        /// <summary>
+        /// Creates a new action.
+        /// </summary>
+        /// <remarks>
+        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
+        /// an action that has state.
+        /// </remarks>
+        /// <param name="name">
+        /// the name of the action
+        /// </param>
+        /// <param name="parameterType">
+        /// the type of parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        /// <summary>
         /// Creates a new stateful action.
         /// </summary>
         /// <remarks>
@@ -226,6 +268,58 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new stateful action.
+        /// </summary>
+        /// <remarks>
+        /// All future state values must have the same #GVariantType as the initial
+        /// <paramref name="state"/>.
+        /// 
+        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="name">
+        /// the name of the action
+        /// </param>
+        /// <param name="parameterType">
+        /// the type of the parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
+        /// </param>
+        /// <param name="state">
+        /// the initial state of the action
+        /// </param>
+        /// <returns>
+        /// a new <see cref="SimpleAction"/>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        static unsafe System.IntPtr NewStateful(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
+        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+            return NewStateful((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType, state);
+        }
+
+        /// <summary>
+        /// Creates a new stateful action.
+        /// </summary>
+        /// <remarks>
+        /// All future state values must have the same #GVariantType as the initial
+        /// <paramref name="state"/>.
+        /// 
+        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="name">
+        /// the name of the action
+        /// </param>
+        /// <param name="parameterType">
+        /// the type of the parameter that will be passed to
+        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
+        /// </param>
+        /// <param name="state">
+        /// the initial state of the action
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 

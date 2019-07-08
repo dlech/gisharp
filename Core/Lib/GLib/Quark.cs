@@ -21,7 +21,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        Quark (uint value)
+        Quark(uint value)
         {
             this.value = value;
         }
@@ -29,15 +29,15 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Convert <see cref="uint"/> to <see cref="Quark"/>
         /// </summary>
-        public static implicit operator Quark (uint value)
+        public static implicit operator Quark(uint value)
         {
-            return new Quark (value);
+            return new Quark(value);
         }
 
         /// <summary>
         /// Convert <see cref="Quark"/> to <see cref="uint"/>.
         /// </summary>
-        public static implicit operator uint (Quark value)
+        public static implicit operator uint(Quark value)
         {
             return value.value;
         }
@@ -45,8 +45,11 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Convert <see cref="string"/> to <see cref="Quark"/>.
         /// </summary>
-        public static explicit operator Quark(string value)
+        public static explicit operator Quark(string? value)
         {
+            if (value == null) {
+                return Quark.Zero;
+            }
             var ret = Quark.TryString(value);
             if (ret == 0) {
                 var msg = $"Quark does not exist for \"{value}\"";
@@ -66,10 +69,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GQuark identifying the string, or 0 if @string is %NULL
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
-        static extern Quark g_quark_from_string (
+        static extern Quark g_quark_from_string(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr @string);
@@ -92,6 +95,22 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Gets the <see cref="Quark"/> identifying the given string. If the string does
+        /// not currently have an associated <see cref="Quark"/>, a new <see cref="Quark"/> is created.
+        /// </summary>
+        /// <param name="string">
+        /// A string
+        /// </param>
+        /// <returns>
+        /// The <see cref="Quark"/> identifying the string, or <see cref="Zero"/> if <paramref name="string"/> is <c>null</c>.
+        /// </returns>
+        public static Quark FromString(string? @string)
+        {
+            using var utf8 = @string?.ToUtf8();
+            return FromString(utf8);
+        }
+
+        /// <summary>
         /// Gets the #GQuark associated with the given string, or 0 if string is
         /// %NULL or it has no associated #GQuark.
         /// </summary>
@@ -106,10 +125,10 @@ namespace GISharp.Lib.GLib
         /// the #GQuark associated with the string, or 0 if @string is
         ///     %NULL or there is no #GQuark associated with it
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none */
-        static extern Quark g_quark_try_string (
+        static extern Quark g_quark_try_string(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr @string);
@@ -134,6 +153,27 @@ namespace GISharp.Lib.GLib
             var string_ = @string.Handle;
             var ret = g_quark_try_string(string_);
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the <see cref="Quark"/> associated with the given string, or <see cref="Zero"/> if string is
+        /// <c>null</c> or it has no associated <see cref="Quark"/>.
+        /// </summary>
+        /// <remarks>
+        /// If you want the <see cref="Quark"/> to be created if it doesn't already exist,
+        /// use <see cref="FromString"/>.
+        /// </remarks>
+        /// <param name="string">
+        /// a string
+        /// </param>
+        /// <returns>
+        /// the <see cref="Quark"/> associated with the string, or <see cref="Zero"/> if <paramref name="string"/> is
+        /// <c>null</c> or there is no <see cref="Quark"/> associated with it
+        /// </returns>
+        public static Quark TryString(string? @string)
+        {
+            using var utf8 = @string?.ToUtf8();
+            return TryString(utf8);
         }
 
         /// <summary>

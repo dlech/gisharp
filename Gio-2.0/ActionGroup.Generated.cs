@@ -446,6 +446,24 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Emits the <see cref="IActionGroup"/>::action-added signal on <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ActionAdded(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ActionAdded(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Emits the #GActionGroup::action-enabled-changed signal on @action_group.
         /// </summary>
         /// <remarks>
@@ -500,6 +518,27 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="enabled">
+        /// whether or not the action is now enabled
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName, System.Boolean enabled)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ActionEnabledChanged(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, enabled);
+        }
+
+        /// <summary>
         /// Emits the #GActionGroup::action-removed signal on @action_group.
         /// </summary>
         /// <remarks>
@@ -541,6 +580,24 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = actionGroup.Handle;
             var actionName_ = actionName.Handle;
             g_action_group_action_removed(actionGroup_, actionName_);
+        }
+
+        /// <summary>
+        /// Emits the <see cref="IActionGroup"/>::action-removed signal on <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ActionRemoved(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ActionRemoved(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
         /// <summary>
@@ -595,6 +652,27 @@ namespace GISharp.Lib.Gio
             var actionName_ = actionName.Handle;
             var state_ = state.Handle;
             g_action_group_action_state_changed(actionGroup_, actionName_, state_);
+        }
+
+        /// <summary>
+        /// Emits the <see cref="IActionGroup"/>::action-state-changed signal on <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function should only be called by <see cref="IActionGroup"/> implementations.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="state">
+        /// the new state of the named action
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ActionStateChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName, GISharp.Lib.GLib.Variant state)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ActionStateChanged(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, state);
         }
 
         /// <summary>
@@ -655,6 +733,30 @@ namespace GISharp.Lib.Gio
             var actionName_ = actionName.Handle;
             var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
             g_action_group_activate_action(actionGroup_, actionName_, parameter_);
+        }
+
+        /// <summary>
+        /// Activate the named action within <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// If the action is expecting a parameter, then the correct type of
+        /// parameter must be given as <paramref name="parameter"/>.  If the action is expecting no
+        /// parameters then <paramref name="parameter"/> must be <c>null</c>.  See
+        /// <see cref="ActionGroup.GetActionParameterType"/>.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to activate
+        /// </param>
+        /// <param name="parameter">
+        /// parameters to the activation
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ActivateAction(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName, GISharp.Lib.GLib.Variant? parameter)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ActivateAction(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, parameter);
         }
 
         /// <summary>
@@ -728,6 +830,35 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Request for the state of the named action within <paramref name="actionGroup"/> to be
+        /// changed to <paramref name="value"/>.
+        /// </summary>
+        /// <remarks>
+        /// The action must be stateful and <paramref name="value"/> must be of the correct type.
+        /// See <see cref="ActionGroup.GetActionStateType"/>.
+        /// 
+        /// This call merely requests a change.  The action may refuse to change
+        /// its state or may change its state to something other than <paramref name="value"/>.
+        /// See <see cref="ActionGroup.GetActionStateHint"/>.
+        /// 
+        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to request the change on
+        /// </param>
+        /// <param name="value">
+        /// the new state
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static void ChangeActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName, GISharp.Lib.GLib.Variant value)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            ChangeActionState(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, value);
+        }
+
+        /// <summary>
         /// Checks if the named action within @action_group is currently enabled.
         /// </summary>
         /// <remarks>
@@ -779,6 +910,28 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_group_get_action_enabled(actionGroup_,actionName_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Checks if the named action within <paramref name="actionGroup"/> is currently enabled.
+        /// </summary>
+        /// <remarks>
+        /// An action must be enabled in order to be activated or in order to
+        /// have its state changed from outside callers.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// whether or not the action is currently enabled
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return GetActionEnabled(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
         /// <summary>
@@ -854,6 +1007,37 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Queries the type of the parameter that must be given when activating
+        /// the named action within <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// When activating the action using <see cref="ActionGroup.ActivateAction"/>,
+        /// the #GVariant given to that function must be of the type returned
+        /// by this function.
+        /// 
+        /// In the case that this function returns <c>null</c>, you must not give any
+        /// #GVariant, but <c>null</c> instead.
+        /// 
+        /// The parameter type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different parameter type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the parameter type
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static GISharp.Lib.GLib.VariantType? GetActionParameterType(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return GetActionParameterType(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Queries the current state of the named action within @action_group.
         /// </summary>
         /// <remarks>
@@ -913,6 +1097,32 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_group_get_action_state(actionGroup_,actionName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
+        }
+
+        /// <summary>
+        /// Queries the current state of the named action within <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// If the action is not stateful then <c>null</c> will be returned.  If the
+        /// action is stateful then the type of the return value is the type
+        /// given by <see cref="ActionGroup.GetActionStateType"/>.
+        /// 
+        /// The return value (if non-<c>null</c>) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the current state of the action
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static GISharp.Lib.GLib.Variant? GetActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return GetActionState(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
         /// <summary>
@@ -998,6 +1208,42 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Requests a hint about the valid range of values for the state of the
+        /// named action within <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// If <c>null</c> is returned it either means that the action is not stateful
+        /// or that there is no hint about the valid range of values for the
+        /// state of the action.
+        /// 
+        /// If a #GVariant array is returned then each item in the array is a
+        /// possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+        /// returned then the tuple specifies the inclusive lower and upper bound
+        /// of valid values for the state.
+        /// 
+        /// In any case, the information is merely a hint.  It may be possible to
+        /// have a state value outside of the hinted range and setting a value
+        /// within the range may fail.
+        /// 
+        /// The return value (if non-<c>null</c>) should be freed with
+        /// g_variant_unref() when it is no longer required.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the state range hint
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static GISharp.Lib.GLib.Variant? GetActionStateHint(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return GetActionStateHint(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Queries the type of the state of the named action within
         /// @action_group.
         /// </summary>
@@ -1076,6 +1322,40 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Queries the type of the state of the named action within
+        /// <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// If the action is stateful then this function returns the
+        /// #GVariantType of the state.  All calls to
+        /// <see cref="ActionGroup.ChangeActionState"/> must give a #GVariant of this
+        /// type and <see cref="ActionGroup.GetActionState"/> will return a #GVariant
+        /// of the same type.
+        /// 
+        /// If the action is not stateful then this function will return <c>null</c>.
+        /// In that case, <see cref="ActionGroup.GetActionState"/> will return <c>null</c>
+        /// and you must not call <see cref="ActionGroup.ChangeActionState"/>.
+        /// 
+        /// The state type of a particular action will never change but it is
+        /// possible for an action to be removed and for a new action to be added
+        /// with the same name but a different state type.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to query
+        /// </param>
+        /// <returns>
+        /// the state type, if the action is stateful
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static GISharp.Lib.GLib.VariantType? GetActionStateType(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return GetActionStateType(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
+        }
+
+        /// <summary>
         /// Checks if the named action exists within @action_group.
         /// </summary>
         /// <param name="actionGroup">
@@ -1119,6 +1399,24 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_group_has_action(actionGroup_,actionName_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Checks if the named action exists within <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of the action to check for
+        /// </param>
+        /// <returns>
+        /// whether the named action exists
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.28")]
+        public unsafe static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return HasAction(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
         /// <summary>
@@ -1317,6 +1615,66 @@ namespace GISharp.Lib.Gio
             state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.Full)!;
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Queries all aspects of the named action within an <paramref name="actionGroup"/>.
+        /// </summary>
+        /// <remarks>
+        /// This function acquires the information available from
+        /// <see cref="ActionGroup.HasAction"/>, <see cref="ActionGroup.GetActionEnabled"/>,
+        /// <see cref="ActionGroup.GetActionParameterType"/>,
+        /// <see cref="ActionGroup.GetActionStateType"/>,
+        /// <see cref="ActionGroup.GetActionStateHint"/> and
+        /// <see cref="ActionGroup.GetActionState"/> with a single function call.
+        /// 
+        /// This provides two main benefits.
+        /// 
+        /// The first is the improvement in efficiency that comes with not having
+        /// to perform repeated lookups of the action in order to discover
+        /// different things about it.  The second is that implementing
+        /// <see cref="IActionGroup"/> can now be done by only overriding this one virtual
+        /// function.
+        /// 
+        /// The interface provides a default implementation of this function that
+        /// calls the individual functions, as required, to fetch the
+        /// information.  The interface also provides default implementations of
+        /// those functions that call this function.  All implementations,
+        /// therefore, must override either this function or all of the others.
+        /// 
+        /// If the action exists, <c>true</c> is returned and any of the requested
+        /// fields (as indicated by having a non-<c>null</c> reference passed in) are
+        /// filled.  If the action doesn't exist, <c>false</c> is returned and the
+        /// fields may or may not have been modified.
+        /// </remarks>
+        /// <param name="actionGroup">
+        /// a <see cref="IActionGroup"/>
+        /// </param>
+        /// <param name="actionName">
+        /// the name of an action in the group
+        /// </param>
+        /// <param name="enabled">
+        /// if the action is presently enabled
+        /// </param>
+        /// <param name="parameterType">
+        /// the parameter type, or <c>null</c> if none needed
+        /// </param>
+        /// <param name="stateType">
+        /// the state type, or <c>null</c> if stateless
+        /// </param>
+        /// <param name="stateHint">
+        /// the state hint, or <c>null</c> if none
+        /// </param>
+        /// <param name="state">
+        /// the current state, or <c>null</c> if stateless
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the action exists, else <c>false</c>
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public unsafe static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, System.String actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
+        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+            return TryQueryAction(actionGroup, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8,out enabled,out parameterType,out stateType,out stateHint,out state);
         }
     }
 }

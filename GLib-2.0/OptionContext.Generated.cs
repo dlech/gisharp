@@ -518,6 +518,24 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Adds a string to be displayed in `--help` output after the list
+        /// of options. This text often includes a bug reporting address.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// <see cref="OptionContext.SetTranslateFunc"/>).
+        /// </remarks>
+        /// <param name="description">
+        /// a string to be shown in `--help` output
+        ///   after the list of options, or <c>null</c>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        private unsafe void SetDescription(System.String? description)
+        {using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
+            SetDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
+        }
+
+        /// <summary>
         /// Enables or disables automatic generation of `--help` output.
         /// By default, g_option_context_parse() recognizes `--help`, `-h`,
         /// `-?`, `--help-all` and `--help-groupname` and creates suitable
@@ -783,6 +801,25 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Adds a string to be displayed in `--help` output before the list
+        /// of options. This is typically a summary of the program functionality.
+        /// </summary>
+        /// <remarks>
+        /// Note that the summary is translated (see
+        /// <see cref="OptionContext.SetTranslateFunc"/> and
+        /// <see cref="OptionContext.SetTranslationDomain"/>).
+        /// </remarks>
+        /// <param name="summary">
+        /// a string to be shown in `--help` output
+        ///  before the list of options, or <c>null</c>
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        private unsafe void SetSummary(System.String? summary)
+        {using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
+            SetSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
+        }
+
+        /// <summary>
         /// Sets the function which is used to translate the contexts
         /// user-visible strings, for `--help` output. If @func is %NULL,
         /// strings are not translated.
@@ -886,6 +923,19 @@ namespace GISharp.Lib.GLib
             var context_ = Handle;
             var domain_ = domain.Handle;
             g_option_context_set_translation_domain(context_, domain_);
+        }
+
+        /// <summary>
+        /// A convenience function to use gettext() for translating
+        /// user-visible strings.
+        /// </summary>
+        /// <param name="domain">
+        /// the domain to use
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.12")]
+        public unsafe void SetTranslationDomain(System.String domain)
+        {using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
+            SetTranslationDomain((GISharp.Lib.GLib.UnownedUtf8)domainUtf8);
         }
     }
 }

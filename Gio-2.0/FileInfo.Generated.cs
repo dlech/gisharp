@@ -288,6 +288,23 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the value of a attribute, formated as a string.
+        /// This escapes things as needed to make the string valid
+        /// utf8.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a UTF-8 string associated with the given <paramref name="attribute"/>.
+        ///    When you're done with the string it must be freed with g_free().
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeAsString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Gets the value of a boolean attribute. If the attribute does not
         /// contain a boolean value, %FALSE will be returned.
         /// </summary>
@@ -328,6 +345,21 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_boolean(info_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a boolean attribute. If the attribute does not
+        /// contain a boolean value, <c>false</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the boolean value contained within the attribute.
+        /// </returns>
+        public unsafe System.Boolean GetAttributeBoolean(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeBoolean((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -373,6 +405,22 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_byte_string(info_,attribute_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a byte string attribute. If the attribute does
+        /// not contain a byte string, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a byte string, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeByteString(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeByteString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -451,6 +499,31 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the attribute type, value and status for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="type">
+        /// return location for the attribute type, or <c>null</c>
+        /// </param>
+        /// <param name="valuePp">
+        /// return location for the
+        ///    attribute value, or <c>null</c>; the attribute value will not be <c>null</c>
+        /// </param>
+        /// <param name="status">
+        /// return location for the attribute status, or <c>null</c>
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="info"/> has an attribute named <paramref name="attribute"/>,
+        ///      <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean TryGetAttributeData(System.String attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return TryGetAttributeData((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8,out type,out valuePp,out status);
+        }
+
+        /// <summary>
         /// Gets a signed 32-bit integer contained within the attribute. If the
         /// attribute does not contain a signed 32-bit integer, or is invalid,
         /// 0 will be returned.
@@ -493,6 +566,22 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_int32(info_,attribute_);
             var ret = (System.Int32)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Gets a signed 32-bit integer contained within the attribute. If the
+        /// attribute does not contain a signed 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 32-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.Int32 GetAttributeInt32(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeInt32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -541,6 +630,22 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets a signed 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an signed 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a signed 64-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.Int64 GetAttributeInt64(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeInt64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Gets the value of a #GObject attribute. If the attribute does
         /// not contain a #GObject, %NULL will be returned.
         /// </summary>
@@ -583,6 +688,22 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_object(info_,attribute_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a #GObject attribute. If the attribute does
+        /// not contain a #GObject, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a #GObject associated with the given <paramref name="attribute"/>, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GObject.Object GetAttributeObject(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeObject((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -629,6 +750,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the attribute status for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileAttributeStatus"/> for the given <paramref name="attribute"/>, or
+        ///    <see cref="FileAttributeStatus.Unset"/> if the key is invalid.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeStatus((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Gets the value of a string attribute. If the attribute does
         /// not contain a string, %NULL will be returned.
         /// </summary>
@@ -671,6 +807,22 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_string(info_,attribute_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the value of a string attribute. If the attribute does
+        /// not contain a string, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a UTF-8 string, or
+        /// <c>null</c> otherwise.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeString(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -723,6 +875,23 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the value of a stringv attribute. If the attribute does
+        /// not contain a stringv, <c>null</c> will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// the contents of the <paramref name="attribute"/> value as a stringv, or
+        /// <c>null</c> otherwise. Do not free. These returned strings are UTF-8.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeStringv((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Gets the attribute type for an attribute key.
         /// </summary>
         /// <param name="info">
@@ -763,6 +932,21 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_type(info_,attribute_);
             var ret = (GISharp.Lib.Gio.FileAttributeType)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Gets the attribute type for an attribute key.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a <see cref="FileAttributeType"/> for the given <paramref name="attribute"/>, or
+        /// <see cref="FileAttributeType.Invalid"/> if the key is not set.
+        /// </returns>
+        public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeType((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -811,6 +995,22 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets an unsigned 32-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 32-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// an unsigned 32-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.UInt32 GetAttributeUint32(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeUint32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Gets a unsigned 64-bit integer contained within the attribute. If the
         /// attribute does not contain an unsigned 64-bit integer, or is invalid,
         /// 0 will be returned.
@@ -853,6 +1053,22 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_get_attribute_uint64(info_,attribute_);
             var ret = (System.UInt64)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Gets a unsigned 64-bit integer contained within the attribute. If the
+        /// attribute does not contain an unsigned 64-bit integer, or is invalid,
+        /// 0 will be returned.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// a unsigned 64-bit integer from the attribute.
+        /// </returns>
+        public unsafe System.UInt64 GetAttributeUint64(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return GetAttributeUint64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -1413,6 +1629,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Checks if a file info structure has an attribute named <paramref name="attribute"/>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="ginfo"/> has an attribute named <paramref name="attribute"/>,
+        ///     <c>false</c> otherwise.
+        /// </returns>
+        public unsafe System.Boolean HasAttribute(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return HasAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
+        }
+
+        /// <summary>
         /// Checks if a file info structure has an attribute in the
         /// specified @name_space.
         /// </summary>
@@ -1457,6 +1688,23 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_info_has_namespace(info_,nameSpace_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <summary>
+        /// Checks if a file info structure has an attribute in the
+        /// specified <paramref name="nameSpace"/>.
+        /// </summary>
+        /// <param name="nameSpace">
+        /// a file attribute namespace.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if <paramref name="ginfo"/> has an attribute in <paramref name="nameSpace"/>,
+        ///     <c>false</c> otherwise.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe System.Boolean HasNamespace(System.String nameSpace)
+        {using var nameSpaceUtf8 = new GISharp.Lib.GLib.Utf8(nameSpace);
+            return HasNamespace((GISharp.Lib.GLib.UnownedUtf8)nameSpaceUtf8);
         }
 
         /// <summary>
@@ -1509,6 +1757,23 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Lists the file info structure's attributes.
+        /// </summary>
+        /// <param name="nameSpace">
+        /// a file attribute key's namespace, or <c>null</c> to list
+        ///   all attributes.
+        /// </param>
+        /// <returns>
+        /// a
+        /// null-terminated array of strings of all of the possible attribute
+        /// types for the given <paramref name="nameSpace"/>, or <c>null</c> on error.
+        /// </returns>
+        public unsafe GISharp.Lib.GLib.Strv? ListAttributes(System.String? nameSpace)
+        {using var nameSpaceUtf8 = nameSpace == null ? null : new GISharp.Lib.GLib.Utf8(nameSpace);
+            return ListAttributes((GISharp.Lib.GLib.NullableUnownedUtf8)nameSpaceUtf8);
+        }
+
+        /// <summary>
         /// Removes all cases of @attribute from @info if it exists.
         /// </summary>
         /// <param name="info">
@@ -1539,6 +1804,17 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var attribute_ = attribute.Handle;
             g_file_info_remove_attribute(info_, attribute_);
+        }
+
+        /// <summary>
+        /// Removes all cases of <paramref name="attribute"/> from <paramref name="info"/> if it exists.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        public unsafe void RemoveAttribute(System.String attribute)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            RemoveAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>
@@ -1597,6 +1873,24 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given value, if possible. To unset the
+        /// attribute, use <see cref="FileAttributeType.Invalid"/> for <paramref name="type"/>.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="type">
+        /// a <see cref="FileAttributeType"/>
+        /// </param>
+        /// <param name="valueP">
+        /// pointer to the value
+        /// </param>
+        public unsafe void SetAttribute(System.String attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, type, valueP);
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given @attr_value,
         /// if possible.
         /// </summary>
@@ -1639,6 +1933,21 @@ namespace GISharp.Lib.Gio
             var attribute_ = attribute.Handle;
             var attrValue_ = (GISharp.Runtime.Boolean)attrValue;
             g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a boolean value.
+        /// </param>
+        public unsafe void SetAttributeBoolean(System.String attribute, System.Boolean attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeBoolean((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
         /// <summary>
@@ -1687,6 +1996,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a byte string.
+        /// </param>
+        public unsafe void SetAttributeByteString(System.String attribute, System.String attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
+            SetAttributeByteString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)attrValueUtf8);
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given @attr_value,
         /// if possible.
         /// </summary>
@@ -1732,6 +2056,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a signed 32-bit integer
+        /// </param>
+        public unsafe void SetAttributeInt32(System.String attribute, System.Int32 attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeInt32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given @attr_value,
         /// if possible.
         /// </summary>
@@ -1774,6 +2113,21 @@ namespace GISharp.Lib.Gio
             var attribute_ = attribute.Handle;
             var attrValue_ = (System.Int64)attrValue;
             g_file_info_set_attribute_int64(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// attribute name to set.
+        /// </param>
+        /// <param name="attrValue">
+        /// int64 value to set attribute to.
+        /// </param>
+        public unsafe void SetAttributeInt64(System.String attribute, System.Int64 attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeInt64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
         /// <summary>
@@ -1855,6 +2209,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a #GObject.
+        /// </param>
+        public unsafe void SetAttributeObject(System.String attribute, GISharp.Lib.GObject.Object attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeObject((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
+        }
+
+        /// <summary>
         /// Sets the attribute status for an attribute key. This is only
         /// needed by external code that implement g_file_set_attributes_from_info()
         /// or similar functions.
@@ -1920,6 +2289,30 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the attribute status for an attribute key. This is only
+        /// needed by external code that implement <see cref="File.SetAttributesFromInfo"/>
+        /// or similar functions.
+        /// </summary>
+        /// <remarks>
+        /// The attribute must exist in <paramref name="info"/> for this to work. Otherwise <c>false</c>
+        /// is returned and <paramref name="info"/> is unchanged.
+        /// </remarks>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="status">
+        /// a <see cref="FileAttributeStatus"/>
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the status was changed, <c>false</c> if the key was not set.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe System.Boolean SetAttributeStatus(System.String attribute, GISharp.Lib.Gio.FileAttributeStatus status)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            return SetAttributeStatus((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, status);
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given @attr_value,
         /// if possible.
         /// </summary>
@@ -1962,6 +2355,21 @@ namespace GISharp.Lib.Gio
             var attribute_ = attribute.Handle;
             var attrValue_ = attrValue.Handle;
             g_file_info_set_attribute_string(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// a UTF-8 string.
+        /// </param>
+        public unsafe void SetAttributeString(System.String attribute, System.String attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
+            SetAttributeString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)attrValueUtf8);
         }
 
         /// <summary>
@@ -2018,6 +2426,24 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <remarks>
+        /// Sinze: 2.22
+        /// </remarks>
+        /// <param name="attribute">
+        /// a file attribute key
+        /// </param>
+        /// <param name="attrValue">
+        /// a <c>null</c> terminated array of UTF-8 strings.
+        /// </param>
+        public unsafe void SetAttributeStringv(System.String attribute, GISharp.Lib.GLib.Strv attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeStringv((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
+        }
+
+        /// <summary>
         /// Sets the @attribute to contain the given @attr_value,
         /// if possible.
         /// </summary>
@@ -2060,6 +2486,21 @@ namespace GISharp.Lib.Gio
             var attribute_ = attribute.Handle;
             var attrValue_ = (System.UInt32)attrValue;
             g_file_info_set_attribute_uint32(info_, attribute_, attrValue_);
+        }
+
+        /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 32-bit integer.
+        /// </param>
+        public unsafe void SetAttributeUint32(System.String attribute, System.UInt32 attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeUint32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
         /// <summary>
@@ -2108,6 +2549,21 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
+        /// if possible.
+        /// </summary>
+        /// <param name="attribute">
+        /// a file attribute key.
+        /// </param>
+        /// <param name="attrValue">
+        /// an unsigned 64-bit integer.
+        /// </param>
+        public unsafe void SetAttributeUint64(System.String attribute, System.UInt64 attrValue)
+        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            SetAttributeUint64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
+        }
+
+        /// <summary>
         /// Sets the content type attribute for a given #GFileInfo.
         /// See %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
         /// </summary>
@@ -2140,6 +2596,18 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var contentType_ = contentType.Handle;
             g_file_info_set_content_type(info_, contentType_);
+        }
+
+        /// <summary>
+        /// Sets the content type attribute for a given <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_CONTENT_TYPE.
+        /// </summary>
+        /// <param name="contentType">
+        /// a content type. See [GContentType][gio-GContentType]
+        /// </param>
+        private unsafe void SetContentType(System.String contentType)
+        {using var contentTypeUtf8 = new GISharp.Lib.GLib.Utf8(contentType);
+            SetContentType((GISharp.Lib.GLib.UnownedUtf8)contentTypeUtf8);
         }
 
         /// <summary>
@@ -2178,6 +2646,18 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Sets the display name for the current <see cref="FileInfo"/>.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME.
+        /// </summary>
+        /// <param name="displayName">
+        /// a string containing a display name.
+        /// </param>
+        private unsafe void SetDisplayName(System.String displayName)
+        {using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
+            SetDisplayName((GISharp.Lib.GLib.UnownedUtf8)displayNameUtf8);
+        }
+
+        /// <summary>
         /// Sets the edit name for the current file.
         /// See %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
         /// </summary>
@@ -2210,6 +2690,18 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var editName_ = editName.Handle;
             g_file_info_set_edit_name(info_, editName_);
+        }
+
+        /// <summary>
+        /// Sets the edit name for the current file.
+        /// See %G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME.
+        /// </summary>
+        /// <param name="editName">
+        /// a string containing an edit name.
+        /// </param>
+        private unsafe void SetEditName(System.String editName)
+        {using var editNameUtf8 = new GISharp.Lib.GLib.Utf8(editName);
+            SetEditName((GISharp.Lib.GLib.UnownedUtf8)editNameUtf8);
         }
 
         /// <summary>
@@ -2562,6 +3054,18 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var symlinkTarget_ = symlinkTarget.Handle;
             g_file_info_set_symlink_target(info_, symlinkTarget_);
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET attribute in the file info
+        /// to the given symlink target.
+        /// </summary>
+        /// <param name="symlinkTarget">
+        /// a static string containing a path to a symlink target.
+        /// </param>
+        private unsafe void SetSymlinkTarget(System.String symlinkTarget)
+        {using var symlinkTargetUtf8 = new GISharp.Lib.GLib.Utf8(symlinkTarget);
+            SetSymlinkTarget((GISharp.Lib.GLib.UnownedUtf8)symlinkTargetUtf8);
         }
 
         /// <summary>
