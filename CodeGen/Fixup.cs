@@ -350,6 +350,22 @@ namespace GISharp.CodeGen
                 docElement.Value = docElement.Value.Replace(match.Value, "");
             }
 
+            // Fix up error quark functions
+
+            var errorDomains = document.Descendants(gi + "function")
+                .Where(x => x.Attribute("name").AsString() == "error_quark");
+            foreach (var element in errorDomains) {
+                var errorDomain = element.Parent.Attribute("name").AsString() + "Error";
+                var errorDomainElement = document.Descendants(gi + "enumeration")
+                    .SingleOrDefault(x => x.Attribute("name").AsString() == errorDomain);
+                if (errorDomainElement == null) {
+                    continue;
+                }
+                element.Remove();
+                element.SetAttributeValue("name", "get_quark");
+                errorDomainElement.Add(element);
+            }
+
             // add functions for GType getters
 
             var elementsWithGTypeGetter = document.Descendants ()

@@ -5,6 +5,10 @@
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[@name='option_error_quark']
   new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']
+- !set-attribute
+  name: name
+  value: get_quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='OptionError']/gi:function[@name='option_error_quark']
 
 
 ### OptionErrorFunc ###
