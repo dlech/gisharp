@@ -16,7 +16,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNew()
         {
-            var vb = new VariantBuilder(VariantType.BoxedVariant);
+            var vb = new VariantBuilder(VariantType.Variant);
             vb.Dispose();
 
             Assert.That(() => new VariantBuilder(VariantType.Boolean), Throws.ArgumentException);
@@ -27,7 +27,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestAddValue()
         {
-            using (var vb = new VariantBuilder(VariantType.BoxedVariant))
+            using (var vb = new VariantBuilder(VariantType.Variant))
             using (var value = new Variant(0)) {
                 vb.Add(value);
             }
@@ -37,13 +37,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestEnd()
         {
-            using (var vb = new VariantBuilder(VariantType.BoxedVariant))
+            using (var vb = new VariantBuilder(VariantType.Variant))
             using (var value = new Variant(0)) {
                 // it is an error to call End() with an improperly constructed variant
                 // so whe have to add a value first
                 vb.Add(value);
 
-                Assert.That(vb.End().Type, Is.EqualTo(VariantType.BoxedVariant));
+                Assert.That(vb.End().Type, Is.EqualTo(VariantType.Variant));
             }
             AssertNoGLibLog();
         }

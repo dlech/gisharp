@@ -102,11 +102,11 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestEquals ()
+        public void TestEquals()
         {
-            using (var trueVariant1 = new Variant (true))
-            using (var trueVariant2 = new Variant (true))
-            using (var falseVariant = new Variant (false)) {
+            using (var trueVariant1 = new Variant(true))
+            using (var trueVariant2 = new Variant(true))
+            using (var falseVariant = new Variant(false)) {
                 Assert.That(trueVariant1, Is.EqualTo(trueVariant2));
                 Assert.That(trueVariant1, Is.Not.EqualTo(falseVariant));
                 Assert.That(trueVariant1 == trueVariant2, Is.True);
@@ -123,11 +123,11 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCompareTo ()
+        public void TestCompareTo()
         {
-            using (var one = new Variant (1))
-            using (var two = new Variant (2))
-            using (var otherOne = new Variant ((short)1)) {
+            using (var one = new Variant(1))
+            using (var two = new Variant(2))
+            using (var otherOne = new Variant((short)1)) {
                 Assert.That(one, Is.Not.LessThan(one));
                 Assert.That(one, Is.LessThan(two));
                 Assert.That(one, Is.LessThanOrEqualTo(one));
@@ -143,14 +143,14 @@ namespace GISharp.Test.Core.GLib
                 Assert.That(one >= two, Is.False);
 
                 // types must match
-                Assert.That (() => one.CompareTo(otherOne),
+                Assert.That(() => one.CompareTo(otherOne),
                     Throws.InvalidOperationException);
             }
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestCastBoolean ()
+        public void TestCastBoolean()
         {
             var expected = true;
             using (var variant = (Variant)expected) {
@@ -162,7 +162,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastByte ()
+        public void TestCastByte()
         {
             var expected = byte.MaxValue;
             using (var variant = (Variant)expected) {
@@ -174,7 +174,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastInt16 ()
+        public void TestCastInt16()
         {
             var expected = short.MaxValue;
             using (var variant = (Variant)expected) {
@@ -186,7 +186,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastUInt16 ()
+        public void TestCastUInt16()
         {
             var expected = ushort.MaxValue;
             using (var variant = (Variant)expected) {
@@ -198,7 +198,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastInt32 ()
+        public void TestCastInt32()
         {
             var expected = int.MaxValue;
             using (var variant = (Variant)expected) {
@@ -210,7 +210,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastUInt32 ()
+        public void TestCastUInt32()
         {
             var expected = uint.MaxValue;
             using (var variant = (Variant)expected) {
@@ -222,7 +222,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastInt64 ()
+        public void TestCastInt64()
         {
             var expected = long.MaxValue;
             using (var variant = (Variant)expected) {
@@ -234,7 +234,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastUInt64 ()
+        public void TestCastUInt64()
         {
             var expected = ulong.MaxValue;
             using (var variant = (Variant)expected) {
@@ -246,9 +246,9 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastHandle ()
+        public void TestCastHandle()
         {
-            var expected = new DBusHandle (int.MaxValue);
+            var expected = new DBusHandle(int.MaxValue);
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.DBusHandle));
                 var actual = (DBusHandle)variant;
@@ -258,7 +258,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastDouble ()
+        public void TestCastDouble()
         {
             var expected = double.MaxValue;
             using (var variant = (Variant)expected) {
@@ -270,7 +270,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastString ()
+        public void TestCastString()
         {
             var expected = "string";
             using (var variant = (Variant)expected) {
@@ -282,21 +282,21 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastStringArray ()
+        public void TestCastStringArray()
         {
             var expected = new[] { "string" };
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.StringArray));
-                var actual = (string[])variant;
+                var actual = (string[]?)variant;
                 Assert.That(actual, Is.EqualTo(expected));
             }
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestCastObjectPath ()
+        public void TestCastObjectPath()
         {
-            var expected = new DBusObjectPath ("/");
+            var expected = new DBusObjectPath("/");
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPath));
                 var actual = (DBusObjectPath)variant;
@@ -306,9 +306,9 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastObjectPathArray ()
+        public void TestCastObjectPathArray()
         {
-            var expected = new[] { new DBusObjectPath ("/") };
+            var expected = new[] { new DBusObjectPath("/") };
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPathArray));
                 var actual = (DBusObjectPath[])variant;
@@ -318,9 +318,9 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastSignature ()
+        public void TestCastSignature()
         {
-            var expected = new DBusSignature ("i");
+            var expected = new DBusSignature("i");
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.DBusSignature));
                 var actual = (DBusSignature)variant;
@@ -330,9 +330,9 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastBytestring ()
+        public void TestCastBytestring()
         {
-            var expected = Encoding.ASCII.GetBytes ("bytestring");
+            var expected = Encoding.ASCII.GetBytes("bytestring");
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.ByteString));
                 var actual = (byte[])variant;
@@ -342,9 +342,9 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastBytestringArray ()
+        public void TestCastBytestringArray()
         {
-            var expected = new[] { Encoding.ASCII.GetBytes ("bytestring") };
+            var expected = new[] { Encoding.ASCII.GetBytes("bytestring") };
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
                 var actual = (byte[][])variant;
@@ -354,7 +354,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastArray ()
+        public void TestCastArray()
         {
             using (var badArray = new PtrArray<Variant> { new Variant(false), new Variant(0) }) {
                 Assert.That(() => new Variant(null, badArray), Throws.ArgumentException);
@@ -378,7 +378,7 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastTuple ()
+        public void TestCastTuple()
         {
             using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })
             using (var variant = (Variant)(UnownedCPtrArray<Variant>)expected) {
@@ -390,14 +390,14 @@ namespace GISharp.Test.Core.GLib
         }
 
         [Test]
-        public void TestCastDictEntry ()
+        public void TestCastDictEntry()
         {
             // only basic variant types are allowed as key
             var badKey = new KeyValuePair<Variant, Variant>(new Variant(new Strv("string")), new Variant("string"));
-            Assert.That (() => (Variant)badKey, Throws.ArgumentException);
+            Assert.That(() => (Variant)badKey, Throws.ArgumentException);
 
             // make sure we get back what we put in
-            var expected = new KeyValuePair<Variant, Variant> (new Variant ("key"), new Variant ("value"));
+            var expected = new KeyValuePair<Variant, Variant>(new Variant("key"), new Variant("value"));
             using (var variant = (Variant)expected) {
                 Assert.That(variant.Type.IsDictionaryEntry, Is.True);
                 var actual = (KeyValuePair<Variant, Variant>)variant;
@@ -425,7 +425,18 @@ namespace GISharp.Test.Core.GLib
             }
         }
 
-        static Variant getItemAt(PtrArray<Variant> array, int index) {
+        [Test]
+        public void TestStore()
+        {
+            using var v = new Variant("test");
+            Span<byte> data = stackalloc byte[v.Size];
+            v.Store(data);
+            Assert.That(data.ToArray(), Is.EqualTo(new byte[] { 116, 101, 115, 116, 0 }));
+            Assert.That(() => v.Store(Span<byte>.Empty), Throws.ArgumentException);
+        }
+
+        static Variant getItemAt(PtrArray<Variant> array, int index)
+        {
             var data_ = Marshal.ReadIntPtr(array.Handle);
             var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
             return Opaque.GetInstance<Variant>(ptr, Transfer.None);

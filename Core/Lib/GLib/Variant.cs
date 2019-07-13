@@ -228,8 +228,8 @@ namespace GISharp.Lib.GLib
     /// management for those dictionaries, but the type information would
     /// be shared.
     /// </remarks>
-    [Since ("2.24")]
-    [GType ("GVariant", IsProxyForUnmanagedType = true)]
+    [Since("2.24")]
+    [GType("GVariant", IsProxyForUnmanagedType = true)]
     public sealed class Variant
         : Opaque, IEquatable<Variant>, IComparable<Variant>, IEnumerable<Variant>
     {
@@ -246,23 +246,23 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        protected override void Dispose (bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
-                g_variant_unref (handle);
+                g_variant_unref(handle);
             }
-            base.Dispose (disposing);
+            base.Dispose(disposing);
         }
 
         [PtrArrayCopyFunc]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_ref (IntPtr value);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_ref(IntPtr value);
 
         public override IntPtr Take() => g_variant_ref(Handle);
 
         [PtrArrayFreeFunc]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_variant_unref (IntPtr value);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_variant_unref(IntPtr value);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_ref_sink(IntPtr value);
@@ -278,7 +278,7 @@ namespace GISharp.Lib.GLib
         public IndexedCollection<Variant> ChildValues {
             get {
                 if (childValues == null) {
-                    childValues = new IndexedCollection<Variant> (nChildren, getChildValue);
+                    childValues = new IndexedCollection<Variant>(nChildren, getChildValue);
                 }
                 return childValues;
             }
@@ -286,147 +286,147 @@ namespace GISharp.Lib.GLib
 
         // explicit cast operators
 
-        public static explicit operator bool (Variant value)
+        public static explicit operator bool(Variant value)
         {
             if (value.Type != VariantType.Boolean) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return value.Boolean;
         }
 
-        public static explicit operator Variant (bool value)
+        public static explicit operator Variant(bool value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator byte (Variant v)
+        public static explicit operator byte(Variant v)
         {
             if (v.Type != VariantType.Byte) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Byte;
         }
 
-        public static explicit operator Variant (byte value)
+        public static explicit operator Variant(byte value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator byte[] (Variant v)
+        public static explicit operator byte[](Variant v)
         {
             if (v.Type != VariantType.ByteString) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Bytestring;
         }
 
-        public static explicit operator Variant (byte[] value)
+        public static explicit operator Variant(byte[] value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator byte[][] (Variant v)
+        public static explicit operator byte[][](Variant v)
         {
             if (v.Type != VariantType.ByteStringArray) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
-            return v.GetBytestringArray ();
+            return v.GetBytestringArray();
         }
 
-        public static explicit operator Variant (byte[][] value)
+        public static explicit operator Variant(byte[][] value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator double (Variant v)
+        public static explicit operator double(Variant v)
         {
             if (v.Type != VariantType.Double) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Double;
         }
 
-        public static explicit operator Variant (double value)
+        public static explicit operator Variant(double value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator DBusHandle (Variant v)
+        public static explicit operator DBusHandle(Variant v)
         {
             if (v.Type != VariantType.DBusHandle) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.DBusHandle;
         }
 
-        public static explicit operator Variant (DBusHandle value)
+        public static explicit operator Variant(DBusHandle value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator short (Variant v)
+        public static explicit operator short(Variant v)
         {
             if (v.Type != VariantType.Int16) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Int16;
         }
 
-        public static explicit operator Variant (short value)
+        public static explicit operator Variant(short value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator int (Variant v)
+        public static explicit operator int(Variant v)
         {
             if (v.Type != VariantType.Int32) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Int32;
         }
 
-        public static explicit operator Variant (int value)
+        public static explicit operator Variant(int value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator long (Variant v)
+        public static explicit operator long(Variant v)
         {
             if (v.Type != VariantType.Int64) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Int64;
         }
 
-        public static explicit operator Variant (long value)
+        public static explicit operator Variant(long value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator DBusObjectPath (Variant v)
+        public static explicit operator DBusObjectPath(Variant v)
         {
             if (v.Type != VariantType.DBusObjectPath) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return (string)v.getString();
         }
 
-        public static explicit operator Variant (DBusObjectPath value)
+        public static explicit operator Variant(DBusObjectPath value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator DBusSignature (Variant v)
+        public static explicit operator DBusSignature(Variant v)
         {
             if (v.Type != VariantType.DBusSignature) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return (string)v.getString();
         }
 
-        public static explicit operator Variant (DBusSignature value)
+        public static explicit operator Variant(DBusSignature value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
         // TODO cast Maybe to nullable types
@@ -434,43 +434,43 @@ namespace GISharp.Lib.GLib
         public static explicit operator PtrArray<Variant>(Variant v)
         {
             if (!v.Type.IsContainer) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.ChildValues.ToPtrArray<Variant>();
         }
 
         public static explicit operator Variant(UnownedCPtrArray<Variant> value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator DBusObjectPath[] (Variant v)
+        public static explicit operator DBusObjectPath[](Variant v)
         {
             if (v.Type != VariantType.DBusObjectPathArray) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Objv;
         }
 
-        public static explicit operator Variant (DBusObjectPath[] value)
+        public static explicit operator Variant(DBusObjectPath[] value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator string (Variant v)
+        public static explicit operator string(Variant v)
         {
             if (v.Type != VariantType.String) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.getString();
         }
 
-        public static explicit operator Variant (string value)
+        public static explicit operator Variant(string value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator Strv(Variant v)
+        public static explicit operator Strv?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
                 throw new InvalidCastException();
@@ -478,87 +478,87 @@ namespace GISharp.Lib.GLib
             return v.Strv;
         }
 
-        public static explicit operator string[] (Variant v)
+        public static explicit operator string[]?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
-            return v.Strv.Value;
+            return v.Strv?.Value;
         }
 
-        public static explicit operator Variant (string[] value)
+        public static explicit operator Variant(string[] value)
         {
             return new Variant(new Strv(value));
         }
 
-        public static explicit operator ushort (Variant v)
+        public static explicit operator ushort(Variant v)
         {
             if (v.Type != VariantType.UInt16) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Uint16;
         }
 
-        public static explicit operator Variant (ushort value)
+        public static explicit operator Variant(ushort value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator uint (Variant v)
+        public static explicit operator uint(Variant v)
         {
             if (v.Type != VariantType.UInt32) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Uint32;
         }
 
-        public static explicit operator Variant (uint value)
+        public static explicit operator Variant(uint value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
-        public static explicit operator ulong (Variant v)
+        public static explicit operator ulong(Variant v)
         {
             if (v.Type != VariantType.UInt64) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
             return v.Uint64;
         }
 
-        public static explicit operator Variant (ulong value)
+        public static explicit operator Variant(ulong value)
         {
-            return new Variant (value);
+            return new Variant(value);
         }
 
         public static explicit operator KeyValuePair<Variant, Variant>(Variant v)
         {
             if (!v.Type.IsDictionaryEntry) {
-                throw new InvalidCastException ();
+                throw new InvalidCastException();
             }
-            return new KeyValuePair<Variant, Variant> (v.ChildValues[0], v.ChildValues[1]);
+            return new KeyValuePair<Variant, Variant>(v.ChildValues[0], v.ChildValues[1]);
         }
 
-        public static explicit operator Variant (KeyValuePair<Variant, Variant> value)
+        public static explicit operator Variant(KeyValuePair<Variant, Variant> value)
         {
-            return new Variant (value.Key, value.Value);
+            return new Variant(value.Key, value.Value);
         }
 
         static void AssertNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
             if (childType == null && (children.Data.Length == 0)) {
-                throw new ArgumentException ("Must specify child type when no children", nameof (childType));
+                throw new ArgumentException("Must specify child type when no children", nameof(childType));
             }
             if (childType == null && children.Data.Length == 0) {
-                throw new ArgumentException ("childType and children cannot both be null");
+                throw new ArgumentException("childType and children cannot both be null");
             }
             if (children.Data.Length != 0) {
                 var testChildType = childType ?? children[0].Type;
                 foreach (var item in children) {
                     if (item == null) {
-                        throw new ArgumentException ("Array cannot have null elements", nameof (children));
+                        throw new ArgumentException("Array cannot have null elements", nameof(children));
                     }
                     if (item.Type != testChildType) {
-                        throw new ArgumentException ("All children must have the same variant type.", nameof (children));
+                        throw new ArgumentException("All children must have the same variant type.", nameof(children));
                     }
                 }
             }
@@ -595,8 +595,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant array
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_array(
@@ -640,7 +640,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant array
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         static IntPtr NewArray(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
             AssertNewArrayArgs(childType, children);
@@ -676,10 +676,41 @@ namespace GISharp.Lib.GLib
         /// an array of
         ///            #GVariant pointers, the children
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(VariantType? childType, UnownedCPtrArray<Variant> children)
             : this(NewArray(childType, children), Transfer.None)
         {
+        }
+
+        /// <summary>
+        /// Creates a new #GVariant array from @children.
+        /// </summary>
+        /// <remarks>
+        /// @child_type must be non-%NULL if @n_children is zero.  Otherwise, the
+        /// child type is determined by inspecting the first element of the
+        /// @children array.  If @child_type is non-%NULL then it must be a
+        /// definite type.
+        ///
+        /// The items of the array are taken from the @children array.  No entry
+        /// in the @children array may be %NULL.
+        ///
+        /// All items in the array must have the same type, which must be the
+        /// same as @child_type, if given.
+        ///
+        /// If the @children are floating references (see g_variant_ref_sink()), the
+        /// new instance takes ownership of them as if via g_variant_ref_sink().
+        /// </remarks>
+        /// <param name="childType">
+        /// the element type of the new array
+        /// </param>
+        /// <param name="children">
+        /// an array of
+        ///            #GVariant pointers, the children
+        /// </param>
+        [Since("2.24")]
+        public static Variant CreateArray(VariantType? childType, params Variant[] children)
+        {
+            return new Variant(childType, children.AsUnownedCPtrArray());
         }
 
         /// <summary>
@@ -709,8 +740,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new boolean #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewBoolean (bool value)
+        [Since("2.24")]
+        static IntPtr NewBoolean(bool value)
         {
             var ret = g_variant_new_boolean(value);
             return ret;
@@ -722,8 +753,8 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #gboolean value
         /// </param>
-        [Since ("2.24")]
-        public Variant(bool value) : this (NewBoolean(value), Transfer.None)
+        [Since("2.24")]
+        public Variant(bool value) : this(NewBoolean(value), Transfer.None)
         {
         }
 
@@ -736,11 +767,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new byte #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_byte (
+        static extern IntPtr g_variant_new_byte(
             /* <type name="guint8" type="guchar" managed-name="Guint8" /> */
             /* transfer-ownership:none */
             byte value);
@@ -754,8 +785,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new byte #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewByte (byte value)
+        [Since("2.24")]
+        static IntPtr NewByte(byte value)
         {
             var ret = g_variant_new_byte(value);
             return ret;
@@ -767,7 +798,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #guint8 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(byte value) : this(NewByte(value), Transfer.None)
         {
         }
@@ -788,11 +819,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new bytestring #GVariant instance
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_bytestring (
+        static extern IntPtr g_variant_new_bytestring(
             /* <array type="gchar*" zero-terminated="1">
                 <type name="guint8" managed-name="Guint8" />
                 </array> */
@@ -815,16 +846,16 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new bytestring #GVariant instance
         /// </returns>
-        [Since ("2.26")]
+        [Since("2.26")]
         static IntPtr NewBytestring(byte[] @string)
         {
-            var @string_ = GMarshal.CArrayToPtr<byte> (@string, true);
+            var @string_ = GMarshal.CArrayToPtr<byte>(@string, true);
             try {
                 var ret = g_variant_new_bytestring(@string_);
                 return ret;
             }
             finally {
-                GMarshal.Free (@string_);
+                GMarshal.Free(@string_);
             }
         }
 
@@ -841,7 +872,7 @@ namespace GISharp.Lib.GLib
         /// a normal
         ///          nul-terminated string in no particular encoding
         /// </param>
-        [Since ("2.26")]
+        [Since("2.26")]
         public Variant(byte[] @string) : this(NewBytestring(@string), Transfer.None)
         {
         }
@@ -862,11 +893,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new floating #GVariant instance
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_bytestring_array (
+        static extern IntPtr g_variant_new_bytestring_array(
             /* <array length="1" zero-terminated="0" type="gchar**">
                 <type name="utf8" type="gchar*" managed-name="Utf8" />
                 </array> */
@@ -876,22 +907,22 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr length);
 
-        static IntPtr NewBytestringArray (byte[][] value)
+        static IntPtr NewBytestringArray(byte[][] value)
         {
-            var strv = GMarshal.Alloc ((value.Length + 1) * IntPtr.Size);
+            var strv = GMarshal.Alloc((value.Length + 1) * IntPtr.Size);
             try {
                 var offset = 0;
                 foreach (var bytestring in value) {
-                    Marshal.WriteIntPtr (strv, offset, GMarshal.ByteStringToPtr (bytestring));
+                    Marshal.WriteIntPtr(strv, offset, GMarshal.ByteStringToPtr(bytestring));
                     offset += IntPtr.Size;
                 }
-                Marshal.WriteIntPtr (strv, offset, IntPtr.Zero);
+                Marshal.WriteIntPtr(strv, offset, IntPtr.Zero);
 
                 var ret = g_variant_new_bytestring_array(strv, new IntPtr(-1));
                 return ret;
             }
             finally {
-                GMarshal.FreeGStrv (strv);
+                GMarshal.FreeGStrv(strv);
             }
         }
 
@@ -916,11 +947,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new dictionary entry #GVariant
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_dict_entry (
+        static extern IntPtr g_variant_new_dict_entry(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr key,
@@ -945,13 +976,13 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new dictionary entry #GVariant
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewDictEntry (Variant key, Variant value)
+        [Since("2.24")]
+        static IntPtr NewDictEntry(Variant key, Variant value)
         {
             var key_ = key.Handle;
             var value_ = value.Handle;
             if (!key.Type.IsBasic) {
-                throw new ArgumentException ("Key must be a basic variant type.", nameof (key));
+                throw new ArgumentException("Key must be a basic variant type.", nameof(key));
             }
             var ret = g_variant_new_dict_entry(key_, value_);
             return ret;
@@ -971,15 +1002,15 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #GVariant, the value
         /// </param>
-        [Since ("2.24")]
-        public Variant (Variant key, Variant value)
+        [Since("2.24")]
+        public Variant(Variant key, Variant value)
             : this(NewDictEntry(key, value), Transfer.None)
         {
         }
 
-        [Since ("2.24")]
-        public Variant (KeyValuePair<Variant, Variant> value)
-            : this (value.Key, value.Value)
+        [Since("2.24")]
+        public Variant(KeyValuePair<Variant, Variant> value)
+            : this(value.Key, value.Value)
         {
         }
 
@@ -992,11 +1023,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new double #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_double (
+        static extern IntPtr g_variant_new_double(
             /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
             /* transfer-ownership:none */
             double value);
@@ -1010,8 +1041,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new double #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewDouble (double value)
+        [Since("2.24")]
+        static IntPtr NewDouble(double value)
         {
             var ret = g_variant_new_double(value);
             return ret;
@@ -1023,7 +1054,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #gdouble floating point value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(double value) : this(NewDouble(value), Transfer.None)
         {
         }
@@ -1060,11 +1091,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new array #GVariant instance
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_fixed_array (
+        static extern IntPtr g_variant_new_fixed_array(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr elementType,
@@ -1104,19 +1135,19 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new array #GVariant instance
         /// </returns>
-        [Since ("2.32")]
+        [Since("2.32")]
         static Variant NewFixedArray<T>(VariantType elementType, T[] elements) where T : struct
         {
-            var gch = GCHandle.Alloc (elements, GCHandleType.Pinned);
+            var gch = GCHandle.Alloc(elements, GCHandleType.Pinned);
             try {
-                var elements_ = gch.AddrOfPinnedObject ();
+                var elements_ = gch.AddrOfPinnedObject();
                 var nElements = (UIntPtr)elements.Length;
                 var elementSize = (UIntPtr)Marshal.SizeOf<T>();
                 var ret = g_variant_new_fixed_array(elementType.Handle, elements_, nElements, elementSize);
                 return new Variant(ret, Transfer.None);
             }
             finally {
-                gch.Free ();
+                gch.Free();
             }
         }
 
@@ -1168,11 +1199,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new floating #GVariant of type @type
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_from_data (
+        static extern IntPtr g_variant_new_from_data(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr type,
@@ -1208,23 +1239,23 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new handle #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_handle (
+        static extern IntPtr g_variant_new_handle(
             /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
             /* transfer-ownership:none */
             int value);
 
-        [Since ("2.24")]
-        static IntPtr NewDBusHandle (DBusHandle value) // new_handle
+        [Since("2.24")]
+        static IntPtr NewDBusHandle(DBusHandle value) // new_handle
         {
             var ret = g_variant_new_handle(value);
             return ret;
         }
 
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(DBusHandle value) : this(NewDBusHandle(value), Transfer.None)
         {
         }
@@ -1238,11 +1269,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int16 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_int16 (
+        static extern IntPtr g_variant_new_int16(
             /* <type name="gint16" type="gint16" managed-name="Gint16" /> */
             /* transfer-ownership:none */
             short value);
@@ -1256,8 +1287,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int16 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewInt16 (short value)
+        [Since("2.24")]
+        static IntPtr NewInt16(short value)
         {
             var ret = g_variant_new_int16(value);
             return ret;
@@ -1269,7 +1300,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #gint16 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(short value) : this(NewInt16(value), Transfer.None)
         {
         }
@@ -1283,11 +1314,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int32 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_int32 (
+        static extern IntPtr g_variant_new_int32(
             /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
             /* transfer-ownership:none */
             int value);
@@ -1301,8 +1332,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int32 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewInt32 (int value)
+        [Since("2.24")]
+        static IntPtr NewInt32(int value)
         {
             var ret = g_variant_new_int32(value);
             return ret;
@@ -1314,7 +1345,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #gint32 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(int value) : this(NewInt32(value), Transfer.None)
         {
         }
@@ -1328,11 +1359,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int64 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_int64 (
+        static extern IntPtr g_variant_new_int64(
             /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
             /* transfer-ownership:none */
             long value);
@@ -1346,8 +1377,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new int64 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewInt64 (long value)
+        [Since("2.24")]
+        static IntPtr NewInt64(long value)
         {
             var ret = g_variant_new_int64(value);
             return ret;
@@ -1359,7 +1390,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #gint64 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(long value) : this(NewInt64(value), Transfer.None)
         {
         }
@@ -1386,11 +1417,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant maybe instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_maybe (
+        static extern IntPtr g_variant_new_maybe(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr childType,
@@ -1420,7 +1451,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant maybe instance
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         static IntPtr NewMaybe(VariantType? childType, Variant? child)
         {
             // FIXME: check args for at least one non-null and consistent types
@@ -1449,7 +1480,7 @@ namespace GISharp.Lib.GLib
         /// <param name="child">
         /// the child value, or %NULL
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(VariantType? childType, Variant? child)
             : this(NewMaybe(childType, child), Transfer.None)
         {
@@ -1466,29 +1497,29 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new object path #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_object_path (
+        static extern IntPtr g_variant_new_object_path(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr objectPath);
 
-        [Since ("2.24")]
-        static IntPtr NewDBusObjectPath (DBusObjectPath value)
+        [Since("2.24")]
+        static IntPtr NewDBusObjectPath(DBusObjectPath value)
         {
-            var valuePtr = GMarshal.StringToUtf8Ptr (value);
+            var valuePtr = GMarshal.StringToUtf8Ptr(value);
             try {
                 var ret = g_variant_new_object_path(valuePtr);
                 return ret;
             }
             finally {
-                GMarshal.Free (valuePtr);
+                GMarshal.Free(valuePtr);
             }
         }
 
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(DBusObjectPath value) : this(NewDBusObjectPath(value), Transfer.None)
         {
         }
@@ -1512,11 +1543,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new floating #GVariant instance
         /// </returns>
-        [Since ("2.30")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.30")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_objv (
+        static extern IntPtr g_variant_new_objv(
             /* <array length="1" zero-terminated="0" type="gchar**">
                 <type name="utf8" managed-name="Utf8" />
                 </array> */
@@ -1526,24 +1557,24 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr length);
 
-        [Since ("2.30")]
-        static IntPtr NewDBusObjectPathArray (DBusObjectPath[] value)
+        [Since("2.30")]
+        static IntPtr NewDBusObjectPathArray(DBusObjectPath[] value)
         {
             var strv = new string[value.Length];
             for (int i = 0; i < value.Length; i++) {
                 strv[i] = value[i];
             }
-            var ptr = GMarshal.StringArrayToGStrvPtr (strv);
+            var ptr = GMarshal.StringArrayToGStrvPtr(strv);
             try {
                 var ret = g_variant_new_objv(ptr, new IntPtr(-1));
                 return ret;
             }
             finally {
-                GMarshal.FreeGStrv (ptr);
+                GMarshal.FreeGStrv(ptr);
             }
         }
 
-        [Since ("2.30")]
+        [Since("2.30")]
         public Variant(DBusObjectPath[] value) : this(NewDBusObjectPathArray(value), Transfer.None)
         {
         }
@@ -1559,29 +1590,29 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new signature #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_signature (
+        static extern IntPtr g_variant_new_signature(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signature);
 
-        [Since ("2.24")]
-        static IntPtr NewDBusSignature (DBusSignature value)
+        [Since("2.24")]
+        static IntPtr NewDBusSignature(DBusSignature value)
         {
-            var valuePtr = GMarshal.StringToUtf8Ptr (value);
+            var valuePtr = GMarshal.StringToUtf8Ptr(value);
             try {
                 var ret = g_variant_new_signature(valuePtr);
                 return ret;
             }
             finally {
-                GMarshal.Free (valuePtr);
+                GMarshal.Free(valuePtr);
             }
         }
 
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(DBusSignature value) : this(NewDBusSignature(value), Transfer.None)
         {
         }
@@ -1602,11 +1633,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new floating #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_strv (
+        static extern IntPtr g_variant_new_strv(
             /* <array length="1" zero-terminated="0" type="gchar**">
                 <type name="utf8" managed-name="Utf8" />
                 </array> */
@@ -1629,7 +1660,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new floating #GVariant instance
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         static IntPtr NewStrv(Strv strv)
         {
             var strv_ = strv.Handle;
@@ -1647,7 +1678,7 @@ namespace GISharp.Lib.GLib
         /// <param name="strv">
         /// an array of strings
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(Strv strv) : this(NewStrv(strv), Transfer.None)
         {
         }
@@ -1673,11 +1704,11 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new string
         ///   #GVariant instance
         /// </returns>
-        [Since ("2.38")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.38")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_take_string (
+        static extern IntPtr g_variant_new_take_string(
             /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:full */
             IntPtr @string);
@@ -1703,10 +1734,10 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new string
         ///   #GVariant instance
         /// </returns>
-        [Since ("2.38")]
-        static IntPtr NewTakeString (string @string)
+        [Since("2.38")]
+        static IntPtr NewTakeString(string @string)
         {
-            var @string_ = GMarshal.StringToUtf8Ptr (@string);
+            var @string_ = GMarshal.StringToUtf8Ptr(@string);
             var ret = g_variant_new_take_string(@string_);
             return ret;
         }
@@ -1728,7 +1759,7 @@ namespace GISharp.Lib.GLib
         /// <param name="string">
         /// a normal UTF-8 nul-terminated string
         /// </param>
-        [Since ("2.38")]
+        [Since("2.38")]
         public Variant(string @string) : this(NewTakeString(@string), Transfer.None)
         {
         }
@@ -1753,8 +1784,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant tuple
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_variant_new_tuple(
@@ -1784,7 +1815,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new #GVariant tuple
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         static IntPtr NewTuple(UnownedCPtrArray<Variant> children)
         {
             foreach (var x in children.Data) {
@@ -1812,7 +1843,7 @@ namespace GISharp.Lib.GLib
         /// <param name="children">
         /// the items to make the tuple out of
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(UnownedCPtrArray<Variant> children) : this(NewTuple(children), Transfer.None)
         {
         }
@@ -1826,11 +1857,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint16 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_uint16 (
+        static extern IntPtr g_variant_new_uint16(
             /* <type name="guint16" type="guint16" managed-name="Guint16" /> */
             /* transfer-ownership:none */
             ushort value);
@@ -1844,8 +1875,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint16 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewUint16 (ushort value)
+        [Since("2.24")]
+        static IntPtr NewUint16(ushort value)
         {
             var ret = g_variant_new_uint16(value);
             return ret;
@@ -1857,7 +1888,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #guint16 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(ushort value) : this(NewUint16(value), Transfer.None)
         {
         }
@@ -1871,11 +1902,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint32 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_uint32 (
+        static extern IntPtr g_variant_new_uint32(
             /* <type name="guint32" type="guint32" managed-name="Guint32" /> */
             /* transfer-ownership:none */
             uint value);
@@ -1889,8 +1920,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint32 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewUint32 (uint value)
+        [Since("2.24")]
+        static IntPtr NewUint32(uint value)
         {
             var ret = g_variant_new_uint32(value);
             return ret;
@@ -1902,7 +1933,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #guint32 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(uint value) : this(NewUint32(value), Transfer.None)
         {
         }
@@ -1916,11 +1947,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint64 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_uint64 (
+        static extern IntPtr g_variant_new_uint64(
             /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
             /* transfer-ownership:none */
             ulong value);
@@ -1934,8 +1965,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new uint64 #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewUint64 (ulong value)
+        [Since("2.24")]
+        static IntPtr NewUint64(ulong value)
         {
             var ret = g_variant_new_uint64(value);
             return ret;
@@ -1947,7 +1978,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #guint64 value
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(ulong value) : this(NewUint64(value), Transfer.None)
         {
         }
@@ -1966,11 +1997,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new variant #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_new_variant (
+        static extern IntPtr g_variant_new_variant(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -1989,8 +2020,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a floating reference to a new variant #GVariant instance
         /// </returns>
-        [Since ("2.24")]
-        static IntPtr NewVariant (Variant value)
+        [Since("2.24")]
+        static IntPtr NewVariant(Variant value)
         {
             var value_ = value.Handle;
             var ret = g_variant_new_variant(value_);
@@ -2008,7 +2039,7 @@ namespace GISharp.Lib.GLib
         /// <param name="value">
         /// a #GVariant instance
         /// </param>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Variant(Variant value) : this(NewVariant(value), Transfer.None)
         {
         }
@@ -2056,7 +2087,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus object path
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public static bool IsObjectPath(UnownedUtf8 @string)
         {
             var string_ = @string.Handle;
@@ -2081,7 +2112,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus object path
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public static bool IsObjectPath(string @string)
         {
             using var stringUtf8 = @string.ToUtf8();
@@ -2127,7 +2158,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus type signature
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public static bool IsSignature(UnownedUtf8 @string)
         {
             var string_ = @string.Handle;
@@ -2150,7 +2181,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @string is a D-Bus type signature
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public static bool IsSignature(string @string)
         {
             using var stringUtf8 = @string.ToUtf8();
@@ -2209,10 +2240,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a non-floating reference to a #GVariant, or %NULL
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_parse (
+        static extern IntPtr g_variant_parse(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr type,
@@ -2277,12 +2308,12 @@ namespace GISharp.Lib.GLib
             var type_ = type?.Handle ?? IntPtr.Zero;
             var text_ = text.Handle;
             IntPtr error_;
-            var ret = g_variant_parse (type_, text_, IntPtr.Zero, IntPtr.Zero, out error_);
+            var ret = g_variant_parse(type_, text_, IntPtr.Zero, IntPtr.Zero, out error_);
             if (error_ != IntPtr.Zero) {
-                var error = new Error (error_, Transfer.Full);
-                throw new GErrorException (error);
+                var error = new Error(error_, Transfer.Full);
+                throw new GErrorException(error);
             }
-            return new Variant (ret, Transfer.Full);
+            return new Variant(ret, Transfer.Full);
         }
 
         /// <summary>
@@ -2354,11 +2385,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the byteswapped form of @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_byteswap (
+        static extern IntPtr g_variant_byteswap(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -2380,11 +2411,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the byteswapped form of @value
         /// </returns>
-        [Since ("2.24")]
-        public Variant Byteswap ()
+        [Since("2.24")]
+        public Variant Byteswap()
         {
             var ret_ = g_variant_byteswap(Handle);
-            var ret = Opaque.GetInstance<Variant> (ret_, Transfer.Full);
+            var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
         }
 
@@ -2458,7 +2489,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @format_string is safe to use
         /// </returns>
-        [Since ("2.34")]
+        [Since("2.34")]
         public bool CheckFormatString(UnownedUtf8 formatString, bool copyOnly)
         {
             var this_ = Handle;
@@ -2476,11 +2507,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GVariantClass of @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantClass" type="GVariantClass" managed-name="VariantClass" /> */
         /* transfer-ownership:none */
-        static extern VariantClass g_variant_classify (
+        static extern VariantClass g_variant_classify(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -2491,8 +2522,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GVariantClass of @value
         /// </returns>
-        [Since ("2.24")]
-        public VariantClass Classify ()
+        [Since("2.24")]
+        public VariantClass Classify()
         {
             var ret = g_variant_classify(Handle);
             return ret;
@@ -2531,11 +2562,11 @@ namespace GISharp.Lib.GLib
         ///          zero if a = b;
         ///          positive value if a &gt; b.
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_variant_compare (
+        static extern int g_variant_compare(
             /* <type name="Variant" type="gconstpointer" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr one,
@@ -2575,37 +2606,37 @@ namespace GISharp.Lib.GLib
         ///          zero if a = b;
         ///          positive value if a &gt; b.
         /// </returns>
-        [Since ("2.26")]
+        [Since("2.26")]
         public int CompareTo(Variant other)
         {
             var this_ = Handle;
             var other_ = other.Handle;
             if (Type != other.Type) {
                 var message = $"Variant types must match but have '{Type}' and '{other.Type}'";
-                throw new InvalidOperationException (message);
+                throw new InvalidOperationException(message);
             }
             var ret = g_variant_compare(this_, other_);
             return ret;
         }
 
-        public static bool operator >= (Variant one, Variant two)
+        public static bool operator >=(Variant one, Variant two)
         {
-            return one.CompareTo (two) >= 0;
+            return one.CompareTo(two) >= 0;
         }
 
-        public static bool operator > (Variant one, Variant two)
+        public static bool operator >(Variant one, Variant two)
         {
-            return one.CompareTo (two) > 0;
+            return one.CompareTo(two) > 0;
         }
 
-        public static bool operator < (Variant one, Variant two)
+        public static bool operator <(Variant one, Variant two)
         {
-            return one.CompareTo (two) < 0;
+            return one.CompareTo(two) < 0;
         }
 
-        public static bool operator <= (Variant one, Variant two)
+        public static bool operator <=(Variant one, Variant two)
         {
-            return one.CompareTo (two) <= 0;
+            return one.CompareTo(two) <= 0;
         }
 
         /// <summary>
@@ -2649,7 +2680,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @one and @two are equal
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public bool Equals(Variant other)
         {
             var this_ = Handle;
@@ -2708,11 +2739,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE or %FALSE
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         bool Boolean {
             get {
-                if (!IsOfType (VariantType.Boolean)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Boolean)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_boolean(Handle);
                 return ret;
@@ -2732,11 +2763,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guchar
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint8" type="guchar" managed-name="Guint8" /> */
         /* transfer-ownership:none */
-        static extern byte g_variant_get_byte (
+        static extern byte g_variant_get_byte(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -2751,11 +2782,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guchar
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         byte Byte {
             get {
-                if (!IsOfType (VariantType.Byte)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Byte)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_byte(Handle);
                 return ret;
@@ -2787,13 +2818,13 @@ namespace GISharp.Lib.GLib
         ///
         ///          the constant string
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array type="gchar*" zero-terminated="1">
             <type name="guint8" managed-name="Guint8" />
             </array> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_bytestring (
+        static extern IntPtr g_variant_get_bytestring(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -2820,11 +2851,11 @@ namespace GISharp.Lib.GLib
         ///
         ///          the constant string
         /// </returns>
-        [Since ("2.26")]
+        [Since("2.26")]
         byte[] Bytestring {
             get {
-                if (!IsOfType (VariantType.ByteString)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.ByteString)) {
+                    throw new InvalidOperationException();
                 }
                 var ret_ = g_variant_get_bytestring(Handle);
                 var ret = GMarshal.PtrToCArray<byte>(ret_, null)!;
@@ -2854,8 +2885,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// an array of constant strings
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -2868,24 +2899,24 @@ namespace GISharp.Lib.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             UIntPtr* length);
 
-        unsafe byte[][] GetBytestringArray ()
+        unsafe byte[][] GetBytestringArray()
         {
-            if (!IsOfType (VariantType.ByteStringArray)) {
-                throw new InvalidOperationException ();
+            if (!IsOfType(VariantType.ByteStringArray)) {
+                throw new InvalidOperationException();
             }
             UIntPtr length;
             var ptr = g_variant_get_bytestring_array(Handle, &length);
             if (ptr == IntPtr.Zero) {
                 return new byte[0][];
             }
-            var array = new System.Collections.Generic.List<byte[]> ();
+            var array = new System.Collections.Generic.List<byte[]>();
             var offset = 0;
             for (var i = 0; i < (int)length; i++) {
-                var elementPtr = Marshal.ReadIntPtr (ptr, offset);
+                var elementPtr = Marshal.ReadIntPtr(ptr, offset);
                 array.Add(GMarshal.PtrToByteString(elementPtr)!);
                 offset += IntPtr.Size;
             }
-            return array.ToArray ();
+            return array.ToArray();
         }
 
         /// <summary>
@@ -2912,11 +2943,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the child at the specified index
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_get_child_value (
+        static extern IntPtr g_variant_get_child_value(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
@@ -2945,17 +2976,17 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the child at the specified index
         /// </returns>
-        [Since ("2.24")]
-        Variant getChildValue (int index)
+        [Since("2.24")]
+        Variant getChildValue(int index)
         {
             if (!IsContainer) {
-                throw new InvalidOperationException ();
+                throw new InvalidOperationException();
             }
             if (index < 0) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
             var ret_ = g_variant_get_child_value(Handle, (UIntPtr)index);
-            var ret = GetInstance<Variant> (ret_, Transfer.Full);
+            var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
         }
 
@@ -2993,11 +3024,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the serialised form of @value, or %NULL
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_data (
+        static extern IntPtr g_variant_get_data(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3033,7 +3064,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the serialised form of @value, or %NULL
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public IntPtr Data {
             get {
                 var ret = g_variant_get_data(Handle);
@@ -3054,11 +3085,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gdouble
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
         /* transfer-ownership:none */
-        static extern double g_variant_get_double (
+        static extern double g_variant_get_double(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3073,11 +3104,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gdouble
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         double Double {
             get {
-                if (!IsOfType (VariantType.Double)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Double)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_double(Handle);
                 return ret;
@@ -3126,8 +3157,8 @@ namespace GISharp.Lib.GLib
         /// a pointer to
         ///     the fixed array
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gconstpointer">
             <type name="gpointer" type="gconstpointer" managed-name="Gpointer" />
             </array> */
@@ -3175,7 +3206,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a pointer to the fixed array
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         unsafe ReadOnlySpan<T> getFixedArray<T>() where T : unmanaged
         {
             var this_ = Handle;
@@ -3205,11 +3236,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint32
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
         /* transfer-ownership:none */
-        static extern int g_variant_get_handle (
+        static extern int g_variant_get_handle(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3228,11 +3259,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint32
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         int DBusHandle {
             get {
-                if (!IsOfType (VariantType.DBusHandle)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.DBusHandle)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_handle(Handle);
                 return ret;
@@ -3252,11 +3283,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint16
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint16" type="gint16" managed-name="Gint16" /> */
         /* transfer-ownership:none */
-        static extern short g_variant_get_int16 (
+        static extern short g_variant_get_int16(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3271,11 +3302,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint16
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         short Int16 {
             get {
-                if (!IsOfType (VariantType.Int16)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Int16)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_int16(Handle);
                 return ret;
@@ -3295,11 +3326,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint32
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint32" type="gint32" managed-name="Gint32" /> */
         /* transfer-ownership:none */
-        static extern int g_variant_get_int32 (
+        static extern int g_variant_get_int32(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3314,11 +3345,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint32
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         int Int32 {
             get {
-                if (!IsOfType (VariantType.Int32)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Int32)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_int32(Handle);
                 return ret;
@@ -3338,11 +3369,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint64
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
-        static extern long g_variant_get_int64 (
+        static extern long g_variant_get_int64(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3357,11 +3388,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #gint64
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         long Int64 {
             get {
-                if (!IsOfType (VariantType.Int64)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Int64)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_int64(Handle);
                 return ret;
@@ -3378,11 +3409,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the contents of @value, or %NULL
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_get_maybe (
+        static extern IntPtr g_variant_get_maybe(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3394,14 +3425,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the contents of @value, or %NULL
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         Variant Maybe {
             get {
-                if (!IsOfType (VariantType.Maybe)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Maybe)) {
+                    throw new InvalidOperationException();
                 }
                 var ret_ = g_variant_get_maybe(Handle);
-                var ret = GetInstance<Variant> (ret_, Transfer.Full);
+                var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -3431,11 +3462,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a trusted #GVariant
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_get_normal_form (
+        static extern IntPtr g_variant_get_normal_form(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3462,11 +3493,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a trusted #GVariant
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         Variant NormalForm {
             get {
                 var ret_ = g_variant_get_normal_form(Handle);
-                var ret = GetInstance<Variant> (ret_, Transfer.Full);
+                var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -3493,8 +3524,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// an array of constant strings
         /// </returns>
-        [Since ("2.30")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.30")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="1" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -3507,18 +3538,18 @@ namespace GISharp.Lib.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             UIntPtr* length);
 
-        [Since ("2.30")]
+        [Since("2.30")]
         unsafe DBusObjectPath[] Objv {
             get {
-                if (!IsOfType (VariantType.DBusObjectPathArray)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.DBusObjectPathArray)) {
+                    throw new InvalidOperationException();
                 }
                 UIntPtr length;
                 var ptr = g_variant_get_objv(Handle, &length);
                 if (ptr == IntPtr.Zero) {
                     return new DBusObjectPath[0];
                 }
-                var strv = GMarshal.GStrvPtrToStringArray (ptr, freePtr: true, freeElements: false)!;
+                var strv = GMarshal.GStrvPtrToStringArray(ptr, freePtr: true, freeElements: false)!;
                 var objv = new DBusObjectPath[strv.Length];
                 for (int i = 0; i < strv.Length; i++) {
                     objv[i] = strv[i];
@@ -3547,8 +3578,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the serialised size of @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern UIntPtr g_variant_get_size(
@@ -3557,27 +3588,27 @@ namespace GISharp.Lib.GLib
             IntPtr value);
 
         /// <summary>
-        /// Determines the number of bytes that would be required to store @value
-        /// with g_variant_store().
+        /// Determines the number of bytes that would be required to store this value
+        /// with <see cref="Store" />.
         /// </summary>
         /// <remarks>
-        /// If @value has a fixed-sized type then this function always returned
+        /// If this value has a fixed-sized type then this function always returned
         /// that fixed size.
         ///
-        /// In the case that @value is already in serialised form or the size has
+        /// In the case that this value is already in serialised form or the size has
         /// already been calculated (ie: this function has been called before)
         /// then this function is O(1).  Otherwise, the size is calculated, an
         /// operation which is approximately O(n) in the number of values
         /// involved.
         /// </remarks>
         /// <returns>
-        /// the serialised size of @value
+        /// the serialised size of this value
         /// </returns>
-        [Since ("2.24")]
-        public UIntPtr Size {
+        [Since("2.24")]
+        public int Size {
             get {
                 var ret = g_variant_get_size(Handle);
-                return ret;
+                return (int)ret;
             }
         }
 
@@ -3637,9 +3668,9 @@ namespace GISharp.Lib.GLib
             if (!IsOfType(VariantType.String) && !IsOfType(VariantType.DBusObjectPath) && !IsOfType(VariantType.DBusSignature)) {
                 throw new InvalidOperationException();
             }
-            UIntPtr length;
-            var ret_ = g_variant_get_string(Handle, &length);
-            var ret = new UnownedUtf8(ret_, (int)length);
+            UIntPtr length_;
+            var ret_ = g_variant_get_string(Handle, &length_);
+            var ret = new UnownedUtf8(ret_, (int)length_);
             return ret;
         }
 
@@ -3665,8 +3696,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// an array of constant strings
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="1" type="gchar**">
             <type name="utf8" managed-name="Utf8" />
             </array> */
@@ -3684,26 +3715,19 @@ namespace GISharp.Lib.GLib
         /// makes a shallow copy; the return result should be released with
         /// g_free(), but the individual strings must not be modified.
         /// </summary>
-        /// <remarks>
-        /// If @length is non-%NULL then the number of elements in the result
-        /// is stored there.  In any case, the resulting array will be
-        /// %NULL-terminated.
-        ///
-        /// For an empty array, @length will be set to 0 and a pointer to a
-        /// %NULL pointer will be returned.
-        /// </remarks>
         /// <returns>
-        /// an array of constant strings
+        /// an array of constant strings or <c>null</c> for an empty array
         /// </returns>
-        [Since ("2.24")]
-        unsafe Strv Strv {
+        [Since("2.24")]
+        unsafe Strv? Strv {
             get {
-                if (!IsOfType (VariantType.StringArray)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.StringArray)) {
+                    throw new InvalidOperationException();
                 }
                 UIntPtr length_;
                 var ret_ = g_variant_get_strv(Handle, &length_);
-                var ret = Opaque.GetInstance<Strv>(ret_, Transfer.None);
+                // using Transfer.None to force deep copy - really Transfer.Container
+                var ret = GetInstance<Strv>(ret_, Transfer.None);
                 GMarshal.Free(ret_);
                 return ret;
             }
@@ -3722,11 +3746,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #GVariantType
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_type (
+        static extern IntPtr g_variant_get_type(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3734,11 +3758,11 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines the type of this value.
         /// </summary>
-        [Since ("2.24")]
+        [Since("2.24")]
         public VariantType Type {
             get {
                 var ret_ = g_variant_get_type(Handle);
-                var ret = GetInstance<VariantType> (ret_, Transfer.None);
+                var ret = GetInstance<VariantType>(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -3754,11 +3778,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the type string for the type of @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_variant_get_type_string (
+        static extern IntPtr g_variant_get_type_string(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3771,7 +3795,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the type string for the type of @value
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public UnownedUtf8 TypeString {
             get {
                 var ret_ = g_variant_get_type_string(Handle);
@@ -3793,11 +3817,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint16
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint16" type="guint16" managed-name="Guint16" /> */
         /* transfer-ownership:none */
-        static extern ushort g_variant_get_uint16 (
+        static extern ushort g_variant_get_uint16(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3812,11 +3836,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint16
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         ushort Uint16 {
             get {
-                if (!IsOfType (VariantType.UInt16)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.UInt16)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_uint16(Handle);
                 return ret;
@@ -3836,11 +3860,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint32
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint32" type="guint32" managed-name="Guint32" /> */
         /* transfer-ownership:none */
-        static extern uint g_variant_get_uint32 (
+        static extern uint g_variant_get_uint32(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3855,11 +3879,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint32
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         uint Uint32 {
             get {
-                if (!IsOfType (VariantType.UInt32)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.UInt32)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_uint32(Handle);
                 return ret;
@@ -3879,11 +3903,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint64
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
         /* transfer-ownership:none */
-        static extern ulong g_variant_get_uint64 (
+        static extern ulong g_variant_get_uint64(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3898,11 +3922,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #guint64
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         ulong Uint64 {
             get {
-                if (!IsOfType (VariantType.UInt64)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.UInt64)) {
+                    throw new InvalidOperationException();
                 }
                 var ret = g_variant_get_uint64(Handle);
                 return ret;
@@ -3919,11 +3943,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the item contained in the variant
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_get_variant (
+        static extern IntPtr g_variant_get_variant(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3935,14 +3959,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the item contained in the variant
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         Variant BoxedVariant {
             get {
-                if (!IsOfType (VariantType.BoxedVariant)) {
-                    throw new InvalidOperationException ();
+                if (!IsOfType(VariantType.Variant)) {
+                    throw new InvalidOperationException();
                 }
                 var ret_ = g_variant_get_variant(Handle);
-                var ret = GetInstance<Variant> (ret_, Transfer.Full);
+                var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -3965,11 +3989,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a hash value corresponding to @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern int g_variant_hash (
+        static extern int g_variant_hash(
             /* <type name="Variant" type="gconstpointer" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value);
@@ -3989,8 +4013,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a hash value corresponding to @value
         /// </returns>
-        [Since ("2.24")]
-        public override int GetHashCode ()
+        [Since("2.24")]
+        public override int GetHashCode()
         {
             var ret = g_variant_hash(Handle);
             return ret;
@@ -4020,7 +4044,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @value is a container
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public bool IsContainer {
             get {
                 var ret = g_variant_is_container(Handle);
@@ -4072,7 +4096,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @value is in normal form
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public bool IsNormalForm {
             get {
                 var ret = g_variant_is_normal_form(Handle);
@@ -4113,8 +4137,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if the type of @value matches @type
         /// </returns>
-        [Since ("2.24")]
-        public bool IsOfType (VariantType type)
+        [Since("2.24")]
+        public bool IsOfType(VariantType type)
         {
             var this_ = Handle;
             var type_ = type.Handle;
@@ -4158,11 +4182,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the value of the dictionary key, or %NULL
         /// </returns>
-        [Since ("2.28")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.28")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_lookup_value (
+        static extern IntPtr g_variant_lookup_value(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr dictionary,
@@ -4206,14 +4230,14 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the value of the dictionary key, or %NULL
         /// </returns>
-        [Since ("2.28")]
+        [Since("2.28")]
         public Variant LookupValue(UnownedUtf8 key, VariantType? expectedType)
         {
             var this_ = Handle;
             var key_ = key.Handle;
             var expectedType_ = expectedType?.Handle ?? IntPtr.Zero;
             var ret_ = g_variant_lookup_value(this_, key_, expectedType_);
-            var ret = GetInstance<Variant> (ret_, Transfer.Full);
+            var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
         }
 
@@ -4237,8 +4261,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of children in the container
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern UIntPtr g_variant_n_children(
@@ -4263,8 +4287,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of children in the container
         /// </returns>
-        [Since ("2.24")]
-        int nChildren ()
+        [Since("2.24")]
+        int nChildren()
         {
             var ret = g_variant_n_children(Handle);
             return (int)ret;
@@ -4317,11 +4341,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a newly-allocated string holding the result.
         /// </returns>
-        [Since ("2.24")]
+        [Since("2.24")]
         public Utf8 Print(bool typeAnnotate)
         {
             var ret_ = g_variant_print(Handle, typeAnnotate);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
+            var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
 
@@ -4346,43 +4370,49 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the location to store the serialised data at
         /// </param>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_variant_store (
+        static unsafe extern void g_variant_store(
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
             IntPtr value,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
-            IntPtr data);
+            void* data);
 
         /// <summary>
-        /// Stores the serialised form of @value at @data.  @data should be
-        /// large enough.  See g_variant_get_size().
+        /// Stores the serialised form of this value value in <paramref name="data" />.
+        /// <paramref name="data" /> should be large enough. See <see cref="Size" />.
         /// </summary>
         /// <remarks>
         /// The stored data is in machine native byte order but may not be in
         /// fully-normalised form if read from an untrusted source.  See
-        /// g_variant_get_normal_form() for a solution.
+        /// <see cref="NormalForm" /> for a solution.
         ///
-        /// As with g_variant_get_data(), to be able to deserialise the
+        /// As with <see cref="Data" />, to be able to deserialise the
         /// serialised variant successfully, its type and (if the destination
         /// machine might be different) its endianness must also be available.
         ///
-        /// This function is approximately O(n) in the size of @data.
+        /// This function is approximately O(n) in the size of <paramref name="data" />.
         /// </remarks>
         /// <param name="data">
         /// the location to store the serialised data at
         /// </param>
-        [Since ("2.24")]
-        public void Store (IntPtr data)
+        [Since("2.24")]
+        public unsafe void Store(Span<byte> data)
         {
-            g_variant_store(Handle, data);
+            var this_ = Handle;
+            if (data.Length < (int)g_variant_get_size(this_)) {
+                throw new ArgumentException("Not large enough", nameof(data));
+            }
+            fixed (void* data_ = data) {
+                g_variant_store(this_, data_);
+            }
         }
 
-        public IEnumerator<Variant> GetEnumerator () => new VariantIter (this);
-        IEnumerator IEnumerable.GetEnumerator () => GetEnumerator ();
+        public IEnumerator<Variant> GetEnumerator() => new VariantIter(this);
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

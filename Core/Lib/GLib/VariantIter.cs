@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -13,40 +14,40 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public sealed class VariantIter : Opaque, IEnumerator<Variant>
     {
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_iter_copy (IntPtr iter);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_iter_copy(IntPtr iter);
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
-                this.handle = g_variant_iter_copy (handle);
+                this.handle = g_variant_iter_copy(handle);
             }
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_variant_iter_free (IntPtr iter);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_variant_iter_free(IntPtr iter);
 
-        protected override void Dispose (bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
-                g_variant_iter_free (handle);
+                g_variant_iter_free(handle);
             }
-            base.Dispose (disposing);
+            base.Dispose(disposing);
         }
 
         readonly Variant? value;
         Variant? current;
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_iter_new (IntPtr value);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_variant_iter_new(IntPtr value);
 
-        static IntPtr New (Variant value)
+        static IntPtr New(Variant value)
         {
             if (!value.IsContainer) {
-                throw new ArgumentException ("must be a container", nameof (value));
+                throw new ArgumentException("must be a container", nameof(value));
             }
-            var ret = g_variant_iter_new (value.Handle);
+            var ret = g_variant_iter_new(value.Handle);
             return ret;
         }
 
@@ -80,9 +81,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of items in @value
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [return: MarshalAs (UnmanagedType.SysUInt)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [return: MarshalAs(UnmanagedType.SysUInt)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern UIntPtr g_variant_iter_init(
@@ -93,7 +94,8 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr value);
 
-        public void Reset ()
+        [ExcludeFromCodeCoverage]
+        void IEnumerator.Reset()
         {
             if (value == null) {
                 throw new InvalidOperationException("Initial value is unknown.");
@@ -116,8 +118,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the number of children in the container
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
         static extern UIntPtr g_variant_iter_n_children(
@@ -136,7 +138,7 @@ namespace GISharp.Lib.GLib
         /// <value>
         /// the number of children in the container
         /// </value>
-        [Since ("2.24")]
+        [Since("2.24")]
         public int Count {
             get {
                 var ret = g_variant_iter_n_children(Handle);
@@ -180,23 +182,23 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a #GVariant, or %NULL
         /// </returns>
-        [Since ("2.24")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_iter_next_value (
+        static extern IntPtr g_variant_iter_next_value(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
             IntPtr iter);
 
-        public bool MoveNext ()
+        public bool MoveNext()
         {
             var ret_ = g_variant_iter_next_value(Handle);
             if (ret_ == IntPtr.Zero) {
                 current = null;
                 return false;
             }
-            current = Opaque.GetInstance<Variant>(ret_, Transfer.Full);
+            current = GetInstance<Variant>(ret_, Transfer.Full);
             return true;
         }
 

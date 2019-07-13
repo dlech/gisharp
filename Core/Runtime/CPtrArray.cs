@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
@@ -80,7 +81,7 @@ namespace GISharp.Runtime
         public static implicit operator UnownedCPtrArray<T>(CPtrArray<T>? array)
         {
             if (array == null) {
-                return default(UnownedCPtrArray<T>);
+                return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
         }
@@ -88,8 +89,11 @@ namespace GISharp.Runtime
 
     public ref struct UnownedCPtrArray<T> where T : IOpaque?
     {
+        public static UnownedCPtrArray<T> Empty => default;
+
         public ReadOnlySpan<IntPtr> Data { get; }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe UnownedCPtrArray(IntPtr handle, int length, Transfer ownership)
         {
             if (ownership != Transfer.None) {
@@ -102,6 +106,7 @@ namespace GISharp.Runtime
             Data = new ReadOnlySpan<IntPtr>((void*)handle, length);
         }
 
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedCPtrArray(ReadOnlySpan<IntPtr> data)
         {
             Data = data;
@@ -144,5 +149,16 @@ namespace GISharp.Runtime
         }
 
         public Enumerator GetEnumerator() => new Enumerator(this);
+    }
+
+    public static class UnownedCPtrArrayExtensions
+    {
+        public static UnownedCPtrArray<T> AsUnownedCPtrArray<T>(this T[] array) where T : IOpaque
+        {
+            if (array == null) {
+                return UnownedCPtrArray<T>.Empty;
+            }
+            return new UnownedCPtrArray<T>(array.Select(x => x.Handle).ToArray());
+        }
     }
 }
