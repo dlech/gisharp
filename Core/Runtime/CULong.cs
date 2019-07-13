@@ -7,7 +7,7 @@ namespace GISharp.Runtime
     /// A C-compiler-sized long value. On Windows, this is always 32-bits. On
     /// Other platforms, it is pointer-sized (32-bit or 64-bit).
     /// </summary>
-    public partial struct CULong : IEquatable<CULong>, IEquatable<uint>, IEquatable<ulong>
+    public readonly partial struct CULong : IEquatable<CULong>, IEquatable<uint>, IEquatable<ulong>
     {
         /// <summary>
         /// Gets the maximum value.
