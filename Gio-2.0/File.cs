@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gio
                 progressCallbackDestroy = () => destroy(progressCallbackData_);
             }
 
-            var completionSource = new TaskCompletionSource<Unit>(progressCallbackDestroy);
+            var completionSource = new TaskCompletionSource<Runtime.Void>(progressCallbackDestroy);
             var callback_ = copyAsyncCallback_;
             var userData_ = (IntPtr)GCHandle.Alloc(completionSource);
             g_file_copy_async(source_, destination_, flags_, ioPriority_, cancellable_, progressCallback_, progressCallbackData_, callback_, userData_);
@@ -68,7 +68,7 @@ namespace GISharp.Lib.Gio
         {
             try {
                 var userData = (GCHandle)userData_;
-                var completionSource = (TaskCompletionSource<Unit>)userData.Target;
+                var completionSource = (TaskCompletionSource<Runtime.Void>)userData.Target;
                 userData.Free();
                 var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState;
                 progressCallbackDestroy?.Invoke();
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(Unit.Default);
+                completionSource.SetResult(Runtime.Void.Default);
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();

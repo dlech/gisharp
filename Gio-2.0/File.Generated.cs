@@ -3781,7 +3781,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = deleteAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_delete_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -3823,7 +3823,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_file_delete_finish(file_, result_,ref error_);
@@ -3833,7 +3833,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Unit.Default);
+                completionSource.SetResult(GISharp.Runtime.Void.Default);
             }
             catch (System.Exception ex)
             {
@@ -5695,7 +5695,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = makeDirectoryAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_make_directory_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -5738,7 +5738,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_file_make_directory_finish(file_, result_,ref error_);
@@ -5748,7 +5748,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Unit.Default);
+                completionSource.SetResult(GISharp.Runtime.Void.Default);
             }
             catch (System.Exception ex)
             {
@@ -11421,7 +11421,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = trashAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_trash_async(file_, ioPriority_, cancellable_, callback_, userData_);
@@ -11464,7 +11464,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_file_trash_finish(file_, result_,ref error_);
@@ -11474,7 +11474,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Unit.Default);
+                completionSource.SetResult(GISharp.Runtime.Void.Default);
             }
             catch (System.Exception ex)
             {

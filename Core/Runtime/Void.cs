@@ -1,28 +1,30 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 
 namespace GISharp.Runtime
 {
     /// <summary>
-    /// The <see cref="Unit" /> type is a substitute for <see cref="System.Void" />
+    /// The <see cref="Void" /> type is a substitute for <see cref="System.Void" />
     /// for use with generics since <see cref="System.Void" /> cannot be used.
     /// </summary>
-    public struct Unit : IEquatable<Unit>
+    public struct Void : IEquatable<Void>
     {
         /// <summary>
         /// Gets the single value for this type.
         /// </summary>
-        public static Unit Default { get; } = default;
+        public static Void Default { get; } = default;
 
         // hack to hide the constructor
-        private Unit(int unit) => throw new NotSupportedException();
+        [ExcludeFromCodeCoverage]
+        private Void(int _) => throw new NotSupportedException();
 
         /// <inheritdoc />
-        public bool Equals(Unit other) => true;
+        public bool Equals(Void other) => true;
 
         /// <inheritdoc />
         public override bool Equals(object obj)
         {
-            if (obj is Unit) {
+            if (obj is Void) {
                 return true;
             }
             return base.Equals(obj);
@@ -31,8 +33,8 @@ namespace GISharp.Runtime
         /// <inheritdoc />
         public override int GetHashCode() => 0;
 
-        public static bool operator ==(Unit a, Unit b) => true;
+        public static bool operator ==(Void a, Void b) => true;
 
-        public static bool operator !=(Unit a, Unit b) => false;
+        public static bool operator !=(Void a, Void b) => false;
     }
 }

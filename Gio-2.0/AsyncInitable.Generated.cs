@@ -420,7 +420,7 @@ namespace GISharp.Lib.Gio
             var initable_ = initable.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = initAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_async_initable_init_async(initable_, ioPriority_, cancellable_, callback_, userData_);
@@ -464,7 +464,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_async_initable_init_finish(initable_, res_,ref error_);
@@ -474,7 +474,7 @@ namespace GISharp.Lib.Gio
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
                     return;
                 }
-                completionSource.SetResult(GISharp.Runtime.Unit.Default);
+                completionSource.SetResult(GISharp.Runtime.Void.Default);
             }
             catch (System.Exception ex)
             {
